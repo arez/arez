@@ -1,4 +1,4 @@
-package arez.processor;
+package arez.processor.support;
 
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -7,8 +7,6 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,17 +25,16 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
-@SuppressWarnings( "WeakerAccess" )
-final class ProcessorUtil
+public final class ElementsUtil
 {
-  private ProcessorUtil()
+  private ElementsUtil()
   {
   }
 
   @SuppressWarnings( "unchecked" )
-  static boolean isWarningSuppressed( @Nonnull final Element element,
-                                      @Nonnull final String warning,
-                                      @Nullable final String alternativeSuppressWarnings )
+  public static boolean isWarningSuppressed( @Nonnull final Element element,
+                                             @Nonnull final String warning,
+                                             @Nullable final String alternativeSuppressWarnings )
   {
     if ( null != alternativeSuppressWarnings )
     {
@@ -75,7 +72,7 @@ final class ProcessorUtil
   }
 
   @Nonnull
-  static List<TypeElement> getSuperTypes( @Nonnull final TypeElement element )
+  public static List<TypeElement> getSuperTypes( @Nonnull final TypeElement element )
   {
     final List<TypeElement> superTypes = new ArrayList<>();
     enumerateSuperTypes( element, superTypes );
@@ -100,7 +97,7 @@ final class ProcessorUtil
   }
 
   @Nonnull
-  static List<TypeElement> getInterfaces( @Nonnull final TypeElement element )
+  public static List<TypeElement> getInterfaces( @Nonnull final TypeElement element )
   {
     final List<TypeElement> superTypes = new ArrayList<>();
     enumerateInterfaces( element, superTypes );
@@ -125,20 +122,20 @@ final class ProcessorUtil
   }
 
   @Nonnull
-  static List<VariableElement> getFieldElements( @Nonnull final TypeElement element )
+  public static List<VariableElement> getFields( @Nonnull final TypeElement element )
   {
     final Map<String, VariableElement> methodMap = new LinkedHashMap<>();
-    enumerateFieldElements( element, methodMap );
+    enumerateFields( element, methodMap );
     return new ArrayList<>( methodMap.values() );
   }
 
-  private static void enumerateFieldElements( @Nonnull final TypeElement element,
-                                              @Nonnull final Map<String, VariableElement> fields )
+  private static void enumerateFields( @Nonnull final TypeElement element,
+                                       @Nonnull final Map<String, VariableElement> fields )
   {
     final TypeMirror superclass = element.getSuperclass();
     if ( TypeKind.NONE != superclass.getKind() )
     {
-      enumerateFieldElements( (TypeElement) ( (DeclaredType) superclass ).asElement(), fields );
+      enumerateFields( (TypeElement) ( (DeclaredType) superclass ).asElement(), fields );
     }
     for ( final Element member : element.getEnclosedElements() )
     {
@@ -150,9 +147,9 @@ final class ProcessorUtil
   }
 
   @Nonnull
-  static List<ExecutableElement> getMethods( @Nonnull final TypeElement element,
-                                             @Nonnull final Elements elementUtils,
-                                             @Nonnull final Types typeUtils )
+  public static List<ExecutableElement> getMethods( @Nonnull final TypeElement element,
+                                                    @Nonnull final Elements elementUtils,
+                                                    @Nonnull final Types typeUtils )
   {
     final Map<String, ArrayList<ExecutableElement>> methodMap = new LinkedHashMap<>();
     enumerateMethods( element, elementUtils, typeUtils, element, methodMap );
@@ -229,7 +226,7 @@ final class ProcessorUtil
     }
   }
 
-  private static boolean isAbstractInterfaceMethod( final @Nonnull ExecutableElement method )
+  private static boolean isAbstractInterfaceMethod( @Nonnull final ExecutableElement method )
   {
     return method.getModifiers().contains( Modifier.ABSTRACT ) &&
            ElementKind.INTERFACE == method.getEnclosingElement().getKind();
@@ -248,7 +245,7 @@ final class ProcessorUtil
   }
 
   @Nonnull
-  static List<ExecutableElement> getConstructors( @Nonnull final TypeElement element )
+  public static List<ExecutableElement> getConstructors( @Nonnull final TypeElement element )
   {
     return element.getEnclosedElements().stream().
       filter( m -> m.getKind() == ElementKind.CONSTRUCTOR ).
@@ -256,63 +253,9 @@ final class ProcessorUtil
       collect( Collectors.toList() );
   }
 
-  @Nullable
-  static String deriveName( @Nonnull final ExecutableElement method,
-                            @Nonnull final Pattern pattern,
-                            @Nonnull final String name )
-    throws ProcessorException
-  {
-    if ( Constants.SENTINEL.equals( name ) )
-    {
-      final String methodName = method.getSimpleName().toString();
-      final Matcher matcher = pattern.matcher( methodName );
-      if ( matcher.find() )
-      {
-        final String candidate = matcher.group( 1 );
-        return firstCharacterToLowerCase( candidate );
-      }
-      else
-      {
-        return null;
-      }
-    }
-    else
-    {
-      return name;
-    }
-  }
-
-  @Nonnull
-  static String firstCharacterToLowerCase( @Nonnull final String name )
-  {
-    return Character.toLowerCase( name.charAt( 0 ) ) + name.substring( 1 );
-  }
-
-  static boolean hasNonnullAnnotation( @Nonnull final Element element )
-  {
-    return AnnotationsUtil.hasAnnotationOfType( element, GeneratorUtil.NONNULL_ANNOTATION_CLASSNAME );
-  }
-
-  static boolean isDisposableTrackableRequired( @Nonnull final Element element )
-  {
-    final VariableElement variableElement = (VariableElement)
-      AnnotationsUtil.getAnnotationValue( element,
-                                          Constants.COMPONENT_ANNOTATION_CLASSNAME,
-                                          "disposeNotifier" ).getValue();
-    switch ( variableElement.getSimpleName().toString() )
-    {
-      case "ENABLE":
-        return true;
-      case "DISABLE":
-        return false;
-      default:
-        return !AnnotationsUtil.hasAnnotationOfType( element, Constants.SINGLETON_ANNOTATION_CLASSNAME );
-    }
-  }
-
-  static boolean doesMethodOverrideInterfaceMethod( @Nonnull final Types typeUtils,
-                                                    @Nonnull final TypeElement typeElement,
-                                                    @Nonnull final ExecutableElement method )
+  public static boolean doesMethodOverrideInterfaceMethod( @Nonnull final Types typeUtils,
+                                                           @Nonnull final TypeElement typeElement,
+                                                           @Nonnull final ExecutableElement method )
   {
     return getInterfaces( typeElement ).stream()
       .flatMap( i -> i.getEnclosedElements().stream() )
@@ -327,7 +270,7 @@ final class ProcessorUtil
   }
 
   @Nonnull
-  static TypeName toRawType( @Nonnull final TypeMirror type )
+  public static TypeName toRawType( @Nonnull final TypeMirror type )
   {
     final TypeName typeName = TypeName.get( type );
     if ( typeName instanceof ParameterizedTypeName )
@@ -338,10 +281,5 @@ final class ProcessorUtil
     {
       return typeName;
     }
-  }
-
-  static boolean anyParametersNamed( @Nonnull final ExecutableElement element, @Nonnull final String name )
-  {
-    return element.getParameters().stream().anyMatch( p -> p.getSimpleName().toString().equals( name ) );
   }
 }

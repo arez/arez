@@ -1,5 +1,8 @@
 package arez.processor;
 
+import arez.processor.support.AnnotationsUtil;
+import arez.processor.support.GeneratorUtil;
+import arez.processor.support.ProcessorException;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
 import java.util.Objects;
@@ -177,7 +180,7 @@ final class ReferenceDescriptor
   boolean isNullable()
   {
     return !getIdMethod().getReturnType().getKind().isPrimitive() &&
-           !ProcessorUtil.hasNonnullAnnotation( getIdMethod() );
+           !AnnotationsUtil.hasNonnullAnnotation( getIdMethod() );
   }
 
   @Nonnull

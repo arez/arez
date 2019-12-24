@@ -1,4 +1,4 @@
-package arez.processor;
+package arez.processor.support;
 
 import com.google.auto.common.MoreElements;
 import com.squareup.javapoet.AnnotationSpec;
@@ -40,12 +40,12 @@ import javax.lang.model.type.TypeVariable;
                      "WeakerAccess",
                      "RedundantSuppression",
                      "BooleanMethodIsAlwaysInverted" } )
-final class GeneratorUtil
+public final class GeneratorUtil
 {
-  static final ClassName NONNULL_CLASSNAME = ClassName.get( "javax.annotation", "Nonnull" );
-  static final ClassName NULLABLE_CLASSNAME = ClassName.get( "javax.annotation", "Nullable" );
-  static final String NULLABLE_ANNOTATION_CLASSNAME = "javax.annotation.Nullable";
-  static final String NONNULL_ANNOTATION_CLASSNAME = "javax.annotation.Nonnull";
+  public static final ClassName NONNULL_CLASSNAME = ClassName.get( "javax.annotation", "Nonnull" );
+  public static final ClassName NULLABLE_CLASSNAME = ClassName.get( "javax.annotation", "Nullable" );
+  public static final String NULLABLE_ANNOTATION_CLASSNAME = "javax.annotation.Nullable";
+  public static final String NONNULL_ANNOTATION_CLASSNAME = "javax.annotation.Nonnull";
   @Nonnull
   private static final List<String> ANNOTATION_WHITELIST =
     Arrays.asList( NONNULL_ANNOTATION_CLASSNAME,
@@ -57,17 +57,17 @@ final class GeneratorUtil
   }
 
   @Nonnull
-  static ClassName getGeneratedClassName( @Nonnull final ClassName className,
-                                          @Nonnull final String prefix,
-                                          @Nonnull final String postfix )
+  public static ClassName getGeneratedClassName( @Nonnull final ClassName className,
+                                                 @Nonnull final String prefix,
+                                                 @Nonnull final String postfix )
   {
     return ClassName.get( className.packageName(), getGeneratedSimpleClassName( className, prefix, postfix ) );
   }
 
   @Nonnull
-  static String getGeneratedSimpleClassName( @Nonnull final ClassName className,
-                                             @Nonnull final String prefix,
-                                             @Nonnull final String postfix )
+  public static String getGeneratedSimpleClassName( @Nonnull final ClassName className,
+                                                    @Nonnull final String prefix,
+                                                    @Nonnull final String postfix )
   {
     return getNestedClassPrefix( className ) + prefix + className.simpleName() + postfix;
   }
@@ -89,23 +89,23 @@ final class GeneratorUtil
   }
 
   @Nonnull
-  static ClassName getGeneratedClassName( @Nonnull final TypeElement element,
-                                          @Nonnull final String prefix,
-                                          @Nonnull final String postfix )
+  public static ClassName getGeneratedClassName( @Nonnull final TypeElement element,
+                                                 @Nonnull final String prefix,
+                                                 @Nonnull final String postfix )
   {
     return ClassName.get( getQualifiedPackageName( element ), getGeneratedSimpleClassName( element, prefix, postfix ) );
   }
 
   @Nonnull
-  static String getQualifiedPackageName( @Nonnull final TypeElement element )
+  public static String getQualifiedPackageName( @Nonnull final TypeElement element )
   {
     return getPackageElement( element ).getQualifiedName().toString();
   }
 
   @Nonnull
-  static String getGeneratedSimpleClassName( @Nonnull final TypeElement element,
-                                             @Nonnull final String prefix,
-                                             @Nonnull final String postfix )
+  public static String getGeneratedSimpleClassName( @Nonnull final TypeElement element,
+                                                    @Nonnull final String prefix,
+                                                    @Nonnull final String postfix )
   {
     return getNestedClassPrefix( element ) + prefix + element.getSimpleName() + postfix;
   }
@@ -125,14 +125,14 @@ final class GeneratorUtil
 
   @SuppressWarnings( "UnstableApiUsage" )
   @Nonnull
-  static PackageElement getPackageElement( @Nonnull final TypeElement element )
+  public static PackageElement getPackageElement( @Nonnull final TypeElement element )
   {
     return MoreElements.getPackage( element );
   }
 
-  static void emitJavaType( @Nonnull final String packageName,
-                            @Nonnull final TypeSpec typeSpec,
-                            @Nonnull final Filer filer )
+  public static void emitJavaType( @Nonnull final String packageName,
+                                   @Nonnull final TypeSpec typeSpec,
+                                   @Nonnull final Filer filer )
     throws IOException
   {
     JavaFile.builder( packageName, typeSpec ).
@@ -142,7 +142,7 @@ final class GeneratorUtil
   }
 
   @Nonnull
-  static List<TypeVariableName> getTypeArgumentsAsNames( @Nonnull final DeclaredType declaredType )
+  public static List<TypeVariableName> getTypeArgumentsAsNames( @Nonnull final DeclaredType declaredType )
   {
     final List<TypeVariableName> variables = new ArrayList<>();
     for ( final TypeMirror argument : declaredType.getTypeArguments() )
@@ -152,7 +152,7 @@ final class GeneratorUtil
     return variables;
   }
 
-  static void copyAccessModifiers( @Nonnull final TypeElement element, @Nonnull final TypeSpec.Builder builder )
+  public static void copyAccessModifiers( @Nonnull final TypeElement element, @Nonnull final TypeSpec.Builder builder )
   {
     if ( element.getModifiers().contains( Modifier.PUBLIC ) )
     {
@@ -160,7 +160,8 @@ final class GeneratorUtil
     }
   }
 
-  static void copyAccessModifiers( @Nonnull final TypeElement element, @Nonnull final MethodSpec.Builder builder )
+  public static void copyAccessModifiers( @Nonnull final TypeElement element,
+                                          @Nonnull final MethodSpec.Builder builder )
   {
     if ( element.getModifiers().contains( Modifier.PUBLIC ) )
     {
@@ -168,7 +169,8 @@ final class GeneratorUtil
     }
   }
 
-  static void copyAccessModifiers( @Nonnull final ExecutableElement element, @Nonnull final MethodSpec.Builder builder )
+  public static void copyAccessModifiers( @Nonnull final ExecutableElement element,
+                                          @Nonnull final MethodSpec.Builder builder )
   {
     if ( element.getModifiers().contains( Modifier.PUBLIC ) )
     {
@@ -180,7 +182,7 @@ final class GeneratorUtil
     }
   }
 
-  static void copyExceptions( @Nonnull final ExecutableType method, @Nonnull final MethodSpec.Builder builder )
+  public static void copyExceptions( @Nonnull final ExecutableType method, @Nonnull final MethodSpec.Builder builder )
   {
     for ( final TypeMirror thrownType : method.getThrownTypes() )
     {
@@ -188,7 +190,8 @@ final class GeneratorUtil
     }
   }
 
-  static void copyTypeParameters( @Nonnull final ExecutableType action, @Nonnull final MethodSpec.Builder builder )
+  public static void copyTypeParameters( @Nonnull final ExecutableType action,
+                                         @Nonnull final MethodSpec.Builder builder )
   {
     for ( final TypeVariable typeParameter : action.getTypeVariables() )
     {
@@ -196,7 +199,7 @@ final class GeneratorUtil
     }
   }
 
-  static void copyTypeParameters( @Nonnull final TypeElement element, @Nonnull final MethodSpec.Builder builder )
+  public static void copyTypeParameters( @Nonnull final TypeElement element, @Nonnull final MethodSpec.Builder builder )
   {
     for ( final TypeParameterElement typeParameter : element.getTypeParameters() )
     {
@@ -204,7 +207,7 @@ final class GeneratorUtil
     }
   }
 
-  static void copyTypeParameters( @Nonnull final TypeElement element, @Nonnull final TypeSpec.Builder builder )
+  public static void copyTypeParameters( @Nonnull final TypeElement element, @Nonnull final TypeSpec.Builder builder )
   {
     for ( final TypeParameterElement typeParameter : element.getTypeParameters() )
     {
@@ -212,15 +215,15 @@ final class GeneratorUtil
     }
   }
 
-  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
-                                          @Nonnull final TypeSpec.Builder builder )
+  public static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                                 @Nonnull final TypeSpec.Builder builder )
   {
     copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
   }
 
-  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
-                                          @Nonnull final TypeSpec.Builder builder,
-                                          @Nonnull final List<String> whitelist )
+  public static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                                 @Nonnull final TypeSpec.Builder builder,
+                                                 @Nonnull final List<String> whitelist )
   {
     for ( final AnnotationMirror annotation : element.getAnnotationMirrors() )
     {
@@ -231,15 +234,15 @@ final class GeneratorUtil
     }
   }
 
-  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
-                                          @Nonnull final MethodSpec.Builder builder )
+  public static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                                 @Nonnull final MethodSpec.Builder builder )
   {
     copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
   }
 
-  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
-                                          @Nonnull final MethodSpec.Builder builder,
-                                          @Nonnull final List<String> whitelist )
+  public static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                                 @Nonnull final MethodSpec.Builder builder,
+                                                 @Nonnull final List<String> whitelist )
   {
     for ( final AnnotationMirror annotation : element.getAnnotationMirrors() )
     {
@@ -250,15 +253,15 @@ final class GeneratorUtil
     }
   }
 
-  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
-                                          @Nonnull final ParameterSpec.Builder builder )
+  public static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                                 @Nonnull final ParameterSpec.Builder builder )
   {
     copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
   }
 
-  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
-                                          @Nonnull final ParameterSpec.Builder builder,
-                                          @Nonnull final List<String> whitelist )
+  public static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                                 @Nonnull final ParameterSpec.Builder builder,
+                                                 @Nonnull final List<String> whitelist )
   {
     for ( final AnnotationMirror annotation : element.getAnnotationMirrors() )
     {
@@ -269,15 +272,15 @@ final class GeneratorUtil
     }
   }
 
-  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
-                                          @Nonnull final FieldSpec.Builder builder )
+  public static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                                 @Nonnull final FieldSpec.Builder builder )
   {
     copyWhitelistedAnnotations( element, builder, ANNOTATION_WHITELIST );
   }
 
-  static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
-                                          @Nonnull final FieldSpec.Builder builder,
-                                          @Nonnull final List<String> whitelist )
+  public static void copyWhitelistedAnnotations( @Nonnull final AnnotatedConstruct element,
+                                                 @Nonnull final FieldSpec.Builder builder,
+                                                 @Nonnull final List<String> whitelist )
   {
     for ( final AnnotationMirror annotation : element.getAnnotationMirrors() )
     {
@@ -288,15 +291,15 @@ final class GeneratorUtil
     }
   }
 
-  static void addOriginatingTypes( @Nonnull final TypeElement element, @Nonnull final TypeSpec.Builder builder )
+  public static void addOriginatingTypes( @Nonnull final TypeElement element, @Nonnull final TypeSpec.Builder builder )
   {
     builder.addOriginatingElement( element );
-    ProcessorUtil.getSuperTypes( element ).forEach( builder::addOriginatingElement );
+    ElementsUtil.getSuperTypes( element ).forEach( builder::addOriginatingElement );
   }
 
-  static void addGeneratedAnnotation( @Nonnull final ProcessingEnvironment processingEnv,
-                                      @Nonnull final TypeSpec.Builder builder,
-                                      @Nonnull final String classname )
+  public static void addGeneratedAnnotation( @Nonnull final ProcessingEnvironment processingEnv,
+                                             @Nonnull final TypeSpec.Builder builder,
+                                             @Nonnull final String classname )
   {
     final SourceVersion sourceVersion = processingEnv.getSourceVersion();
     final String annotationName =
@@ -316,19 +319,19 @@ final class GeneratorUtil
   }
 
   @Nonnull
-  static MethodSpec.Builder overrideMethod( @Nonnull final ProcessingEnvironment processingEnv,
-                                            @Nonnull final TypeElement typeElement,
-                                            @Nonnull final ExecutableElement executableElement )
+  public static MethodSpec.Builder overrideMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                                   @Nonnull final TypeElement typeElement,
+                                                   @Nonnull final ExecutableElement executableElement )
   {
     return overrideMethod( processingEnv, typeElement, executableElement, Collections.emptyList(), true );
   }
 
   @Nonnull
-  static MethodSpec.Builder overrideMethod( @Nonnull final ProcessingEnvironment processingEnv,
-                                            @Nonnull final TypeElement typeElement,
-                                            @Nonnull final ExecutableElement executableElement,
-                                            @Nonnull final Collection<String> additionalSuppressions,
-                                            final boolean copyNullabilityAnnotations )
+  public static MethodSpec.Builder overrideMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                                   @Nonnull final TypeElement typeElement,
+                                                   @Nonnull final ExecutableElement executableElement,
+                                                   @Nonnull final Collection<String> additionalSuppressions,
+                                                   final boolean copyNullabilityAnnotations )
   {
     final DeclaredType declaredType = (DeclaredType) typeElement.asType();
     final ExecutableType executableType =
@@ -364,9 +367,9 @@ final class GeneratorUtil
     return method;
   }
 
-  static void copyParameters( @Nonnull final ExecutableElement executableElement,
-                              @Nonnull final ExecutableType executableType,
-                              @Nonnull final MethodSpec.Builder method )
+  public static void copyParameters( @Nonnull final ExecutableElement executableElement,
+                                     @Nonnull final ExecutableType executableType,
+                                     @Nonnull final MethodSpec.Builder method )
   {
     int paramIndex = 0;
     for ( final TypeMirror parameterType : executableType.getParameterTypes() )
@@ -382,9 +385,9 @@ final class GeneratorUtil
   }
 
   @Nonnull
-  static MethodSpec.Builder refMethod( @Nonnull final ProcessingEnvironment processingEnv,
-                                       @Nonnull final TypeElement typeElement,
-                                       @Nonnull final ExecutableElement executableElement )
+  public static MethodSpec.Builder refMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                              @Nonnull final TypeElement typeElement,
+                                              @Nonnull final ExecutableElement executableElement )
   {
     final MethodSpec.Builder method =
       overrideMethod( processingEnv, typeElement, executableElement, Collections.emptyList(), false );
@@ -395,14 +398,14 @@ final class GeneratorUtil
     return method;
   }
 
-  static boolean areTypesInDifferentPackage( @Nonnull final TypeElement typeElement1,
-                                             @Nonnull final TypeElement typeElement2 )
+  public static boolean areTypesInDifferentPackage( @Nonnull final TypeElement typeElement1,
+                                                    @Nonnull final TypeElement typeElement2 )
   {
     return !areTypesInSamePackage( typeElement1, typeElement2 );
   }
 
-  static boolean areTypesInSamePackage( @Nonnull final TypeElement typeElement1,
-                                        @Nonnull final TypeElement typeElement2 )
+  public static boolean areTypesInSamePackage( @Nonnull final TypeElement typeElement1,
+                                               @Nonnull final TypeElement typeElement2 )
   {
     final PackageElement packageElement1 = getPackageElement( typeElement1 );
     final PackageElement packageElement2 = getPackageElement( typeElement2 );

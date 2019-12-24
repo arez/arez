@@ -1,5 +1,6 @@
 package arez.processor;
 
+import arez.processor.support.GeneratorUtil;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;

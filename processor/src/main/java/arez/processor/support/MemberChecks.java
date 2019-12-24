@@ -1,4 +1,4 @@
-package arez.processor;
+package arez.processor.support;
 
 import java.util.Collection;
 import java.util.Map;
@@ -16,7 +16,7 @@ import javax.lang.model.type.TypeMirror;
 import javax.tools.Diagnostic;
 
 @SuppressWarnings( { "SameParameterValue", "WeakerAccess", "unused" } )
-final class MemberChecks
+public final class MemberChecks
 {
   private MemberChecks()
   {
@@ -26,10 +26,10 @@ final class MemberChecks
    * Verifies that the method is not final, static, abstract or private.
    * The intent is to verify that it can be overridden and wrapped in a sub-class in the same package.
    */
-  static void mustBeWrappable( @Nonnull final TypeElement targetType,
-                               @Nonnull final String scopeAnnotationName,
-                               @Nonnull final String annotationName,
-                               @Nonnull final Element element )
+  public static void mustBeWrappable( @Nonnull final TypeElement targetType,
+                                      @Nonnull final String scopeAnnotationName,
+                                      @Nonnull final String annotationName,
+                                      @Nonnull final Element element )
     throws ProcessorException
   {
     mustBeOverridable( targetType, scopeAnnotationName, annotationName, element );
@@ -40,10 +40,10 @@ final class MemberChecks
    * Verifies that the method is not final, static or abstract.
    * The intent is to verify that it can be overridden in sub-class in the same package.
    */
-  static void mustBeOverridable( @Nonnull final TypeElement targetType,
-                                 @Nonnull final String scopeAnnotationName,
-                                 @Nonnull final String annotationName,
-                                 @Nonnull final Element element )
+  public static void mustBeOverridable( @Nonnull final TypeElement targetType,
+                                        @Nonnull final String scopeAnnotationName,
+                                        @Nonnull final String annotationName,
+                                        @Nonnull final Element element )
     throws ProcessorException
   {
     mustNotBeFinal( annotationName, element );
@@ -54,10 +54,10 @@ final class MemberChecks
    * Verifies that the method is not static, abstract or private.
    * The intent is to verify that it can be instance called by sub-class in the same package as the targetType.
    */
-  static void mustBeSubclassCallable( @Nonnull final TypeElement targetType,
-                                      @Nonnull final String scopeAnnotationName,
-                                      @Nonnull final String annotationName,
-                                      @Nonnull final Element element )
+  public static void mustBeSubclassCallable( @Nonnull final TypeElement targetType,
+                                             @Nonnull final String scopeAnnotationName,
+                                             @Nonnull final String annotationName,
+                                             @Nonnull final Element element )
     throws ProcessorException
   {
     mustNotBeStatic( annotationName, element );
@@ -65,10 +65,10 @@ final class MemberChecks
     mustNotBePackageAccessInDifferentPackage( targetType, scopeAnnotationName, annotationName, element );
   }
 
-  static void mustBeStaticallySubclassCallable( @Nonnull final TypeElement targetType,
-                                                @Nonnull final String scopeAnnotationName,
-                                                @Nonnull final String annotationName,
-                                                @Nonnull final Element method )
+  public static void mustBeStaticallySubclassCallable( @Nonnull final TypeElement targetType,
+                                                       @Nonnull final String scopeAnnotationName,
+                                                       @Nonnull final String annotationName,
+                                                       @Nonnull final Element method )
     throws ProcessorException
   {
     mustBeStatic( annotationName, method );
@@ -82,10 +82,10 @@ final class MemberChecks
    * package at a lifecycle stage. It should not raise errors, return values or accept
    * parameters.
    */
-  static void mustBeLifecycleHook( @Nonnull final TypeElement targetType,
-                                   @Nonnull final String scopeAnnotationName,
-                                   @Nonnull final String annotationName,
-                                   @Nonnull final ExecutableElement method )
+  public static void mustBeLifecycleHook( @Nonnull final TypeElement targetType,
+                                          @Nonnull final String scopeAnnotationName,
+                                          @Nonnull final String annotationName,
+                                          @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
     mustNotBeAbstract( annotationName, method );
@@ -95,7 +95,7 @@ final class MemberChecks
     mustNotThrowAnyExceptions( annotationName, method );
   }
 
-  static void mustBeStatic( @Nonnull final String annotationName, @Nonnull final Element element )
+  public static void mustBeStatic( @Nonnull final String annotationName, @Nonnull final Element element )
     throws ProcessorException
   {
     if ( !element.getModifiers().contains( Modifier.STATIC ) )
@@ -104,7 +104,7 @@ final class MemberChecks
     }
   }
 
-  static void mustNotBeStatic( @Nonnull final String annotationName, @Nonnull final Element element )
+  public static void mustNotBeStatic( @Nonnull final String annotationName, @Nonnull final Element element )
     throws ProcessorException
   {
     if ( element.getModifiers().contains( Modifier.STATIC ) )
@@ -113,7 +113,7 @@ final class MemberChecks
     }
   }
 
-  static void mustBeAbstract( @Nonnull final String annotationName, @Nonnull final Element element )
+  public static void mustBeAbstract( @Nonnull final String annotationName, @Nonnull final Element element )
     throws ProcessorException
   {
     if ( !element.getModifiers().contains( Modifier.ABSTRACT ) )
@@ -122,7 +122,7 @@ final class MemberChecks
     }
   }
 
-  static void mustNotBeAbstract( @Nonnull final String annotationName, @Nonnull final Element element )
+  public static void mustNotBeAbstract( @Nonnull final String annotationName, @Nonnull final Element element )
     throws ProcessorException
   {
     if ( element.getModifiers().contains( Modifier.ABSTRACT ) )
@@ -131,7 +131,7 @@ final class MemberChecks
     }
   }
 
-  static void mustBeFinal( @Nonnull final String annotationName, @Nonnull final Element element )
+  public static void mustBeFinal( @Nonnull final String annotationName, @Nonnull final Element element )
     throws ProcessorException
   {
     if ( !element.getModifiers().contains( Modifier.FINAL ) )
@@ -140,7 +140,7 @@ final class MemberChecks
     }
   }
 
-  static void mustNotBeFinal( @Nonnull final String annotationName, @Nonnull final Element element )
+  public static void mustNotBeFinal( @Nonnull final String annotationName, @Nonnull final Element element )
     throws ProcessorException
   {
     if ( element.getModifiers().contains( Modifier.FINAL ) )
@@ -149,7 +149,7 @@ final class MemberChecks
     }
   }
 
-  static void mustBePublic( @Nonnull final String annotationName, @Nonnull final Element element )
+  public static void mustBePublic( @Nonnull final String annotationName, @Nonnull final Element element )
     throws ProcessorException
   {
     if ( !element.getModifiers().contains( Modifier.PUBLIC ) )
@@ -158,7 +158,7 @@ final class MemberChecks
     }
   }
 
-  static void mustNotBePublic( @Nonnull final String annotationName, @Nonnull final Element element )
+  public static void mustNotBePublic( @Nonnull final String annotationName, @Nonnull final Element element )
     throws ProcessorException
   {
     if ( element.getModifiers().contains( Modifier.PUBLIC ) )
@@ -167,7 +167,7 @@ final class MemberChecks
     }
   }
 
-  static void mustBePrivate( @Nonnull final String annotationName, @Nonnull final Element element )
+  public static void mustBePrivate( @Nonnull final String annotationName, @Nonnull final Element element )
     throws ProcessorException
   {
     if ( !element.getModifiers().contains( Modifier.PRIVATE ) )
@@ -176,7 +176,7 @@ final class MemberChecks
     }
   }
 
-  static void mustNotBePrivate( @Nonnull final String annotationName, @Nonnull final Element element )
+  public static void mustNotBePrivate( @Nonnull final String annotationName, @Nonnull final Element element )
     throws ProcessorException
   {
     if ( element.getModifiers().contains( Modifier.PRIVATE ) )
@@ -185,10 +185,10 @@ final class MemberChecks
     }
   }
 
-  static void mustNotBePackageAccessInDifferentPackage( @Nonnull final TypeElement element,
-                                                        @Nonnull final String scopeAnnotationName,
-                                                        @Nonnull final String annotationName,
-                                                        @Nonnull final Element other )
+  public static void mustNotBePackageAccessInDifferentPackage( @Nonnull final TypeElement element,
+                                                               @Nonnull final String scopeAnnotationName,
+                                                               @Nonnull final String annotationName,
+                                                               @Nonnull final Element other )
     throws ProcessorException
   {
     final Set<Modifier> modifiers = other.getModifiers();
@@ -211,7 +211,8 @@ final class MemberChecks
     }
   }
 
-  static void mustNotHaveAnyParameters( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
+  public static void mustNotHaveAnyParameters( @Nonnull final String annotationName,
+                                               @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
     if ( !method.getParameters().isEmpty() )
@@ -220,7 +221,8 @@ final class MemberChecks
     }
   }
 
-  static void mustNotReturnAnyValue( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
+  public static void mustNotReturnAnyValue( @Nonnull final String annotationName,
+                                            @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
     if ( TypeKind.VOID != method.getReturnType().getKind() )
@@ -229,7 +231,7 @@ final class MemberChecks
     }
   }
 
-  static void mustReturnAValue( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
+  public static void mustReturnAValue( @Nonnull final String annotationName, @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
     if ( TypeKind.VOID == method.getReturnType().getKind() )
@@ -238,8 +240,8 @@ final class MemberChecks
     }
   }
 
-  static void mustNotThrowAnyExceptions( @Nonnull final String annotationName,
-                                         @Nonnull final ExecutableElement method )
+  public static void mustNotThrowAnyExceptions( @Nonnull final String annotationName,
+                                                @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
     if ( !method.getThrownTypes().isEmpty() )
@@ -256,9 +258,9 @@ final class MemberChecks
    * @param annotations the set of annotation names that must not overlap.
    * @param exceptions  the annotations names that are allowed to overlap.
    */
-  static void verifyNoOverlappingAnnotations( @Nonnull final Element element,
-                                              @Nonnull final Collection<String> annotations,
-                                              @Nonnull final Map<String, Collection<String>> exceptions )
+  public static void verifyNoOverlappingAnnotations( @Nonnull final Element element,
+                                                     @Nonnull final Collection<String> annotations,
+                                                     @Nonnull final Map<String, Collection<String>> exceptions )
     throws ProcessorException
   {
     final String[] annotationTypes = annotations.toArray( new String[ 0 ] );
@@ -296,26 +298,26 @@ final class MemberChecks
   }
 
   @Nonnull
-  static String must( @Nonnull final String annotationName, @Nonnull final String message )
+  public static String must( @Nonnull final String annotationName, @Nonnull final String message )
   {
     return toSimpleName( annotationName ) + " target must " + message;
   }
 
   @Nonnull
-  static String mustNot( @Nonnull final String annotationName, @Nonnull final String message )
+  public static String mustNot( @Nonnull final String annotationName, @Nonnull final String message )
   {
     return must( annotationName, "not " + message );
   }
 
   @Nonnull
-  static String toSimpleName( @Nonnull final String annotationName )
+  public static String toSimpleName( @Nonnull final String annotationName )
   {
     return "@" + annotationName.replaceAll( ".*\\.", "" );
   }
 
   @Nonnull
-  static String suppressedBy( @Nonnull final String warning,
-                              @Nullable final String alternativeSuppressWarnings )
+  public static String suppressedBy( @Nonnull final String warning,
+                                     @Nullable final String alternativeSuppressWarnings )
   {
     return "This warning can be suppressed by annotating the element with " +
            "@SuppressWarnings( \"" + warning + "\" )" +
@@ -325,14 +327,14 @@ final class MemberChecks
 
   }
 
-  static void shouldNotBePublic( @Nonnull final ProcessingEnvironment processingEnv,
-                                 @Nonnull final ExecutableElement method,
-                                 @Nonnull final String annotationName,
-                                 @Nonnull final String warning,
-                                 @Nullable final String alternativeSuppressWarnings )
+  public static void shouldNotBePublic( @Nonnull final ProcessingEnvironment processingEnv,
+                                        @Nonnull final ExecutableElement method,
+                                        @Nonnull final String annotationName,
+                                        @Nonnull final String warning,
+                                        @Nullable final String alternativeSuppressWarnings )
   {
     if ( method.getModifiers().contains( Modifier.PUBLIC ) &&
-         !ProcessorUtil.isWarningSuppressed( method, warning, alternativeSuppressWarnings ) )
+         !ElementsUtil.isWarningSuppressed( method, warning, alternativeSuppressWarnings ) )
     {
       final String message =
         toSimpleName( annotationName ) + " target should not be public. " +
@@ -341,14 +343,14 @@ final class MemberChecks
     }
   }
 
-  static void shouldNotBeProtected( @Nonnull final ProcessingEnvironment processingEnv,
-                                    @Nonnull final ExecutableElement method,
-                                    @Nonnull final String annotationName,
-                                    @Nonnull final String warning,
-                                    @Nullable final String alternativeSuppressWarnings )
+  public static void shouldNotBeProtected( @Nonnull final ProcessingEnvironment processingEnv,
+                                           @Nonnull final ExecutableElement method,
+                                           @Nonnull final String annotationName,
+                                           @Nonnull final String warning,
+                                           @Nullable final String alternativeSuppressWarnings )
   {
     if ( method.getModifiers().contains( Modifier.PROTECTED ) &&
-         !ProcessorUtil.isWarningSuppressed( method, warning, alternativeSuppressWarnings ) )
+         !ElementsUtil.isWarningSuppressed( method, warning, alternativeSuppressWarnings ) )
     {
       final String message =
         toSimpleName( annotationName ) + " target should not be protected. " +
@@ -357,10 +359,10 @@ final class MemberChecks
     }
   }
 
-  static void mustReturnAnInstanceOf( @Nonnull final ProcessingEnvironment processingEnv,
-                                      @Nonnull final ExecutableElement method,
-                                      @Nonnull final String annotationClassname,
-                                      @Nonnull final String expectedTypename )
+  public static void mustReturnAnInstanceOf( @Nonnull final ProcessingEnvironment processingEnv,
+                                             @Nonnull final ExecutableElement method,
+                                             @Nonnull final String annotationClassname,
+                                             @Nonnull final String expectedTypename )
   {
     final TypeElement typeElement = processingEnv.getElementUtils().getTypeElement( expectedTypename );
     assert null != typeElement;
@@ -374,13 +376,13 @@ final class MemberChecks
     }
   }
 
-  static void shouldBeInternalMethod( @Nonnull final ProcessingEnvironment processingEnv,
-                                      @Nonnull final TypeElement typeElement,
-                                      @Nonnull final ExecutableElement method,
-                                      @Nonnull final String annotationClassname,
-                                      @Nonnull final String publicWarning,
-                                      @Nonnull final String protectedWarning,
-                                      @Nullable final String alternativeSuppressWarnings )
+  public static void shouldBeInternalMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                             @Nonnull final TypeElement typeElement,
+                                             @Nonnull final ExecutableElement method,
+                                             @Nonnull final String annotationClassname,
+                                             @Nonnull final String publicWarning,
+                                             @Nonnull final String protectedWarning,
+                                             @Nullable final String alternativeSuppressWarnings )
   {
     if ( doesMethodNotOverrideInterfaceMethod( processingEnv, typeElement, method ) )
     {
@@ -404,6 +406,6 @@ final class MemberChecks
                                                                @Nonnull final TypeElement typeElement,
                                                                @Nonnull final ExecutableElement method )
   {
-    return !ProcessorUtil.doesMethodOverrideInterfaceMethod( processingEnv.getTypeUtils(), typeElement, method );
+    return !ElementsUtil.doesMethodOverrideInterfaceMethod( processingEnv.getTypeUtils(), typeElement, method );
   }
 }

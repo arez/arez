@@ -1,4 +1,4 @@
-package arez.processor;
+package arez.processor.support;
 
 import com.google.auto.common.AnnotationMirrors;
 import com.google.common.collect.ImmutableMap;
@@ -13,13 +13,14 @@ import javax.lang.model.AnnotatedConstruct;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
+import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 
 @SuppressWarnings( { "SameParameterValue", "WeakerAccess", "unused", "RedundantSuppression" } )
-final class AnnotationsUtil
+public final class AnnotationsUtil
 {
   private AnnotationsUtil()
   {
@@ -27,9 +28,9 @@ final class AnnotationsUtil
 
   @SuppressWarnings( "unchecked" )
   @Nonnull
-  static List<TypeMirror> getTypeMirrorsAnnotationParameter( @Nonnull final AnnotatedConstruct annotated,
-                                                             @Nonnull final String annotationClassName,
-                                                             @Nonnull final String parameterName )
+  public static List<TypeMirror> getTypeMirrorsAnnotationParameter( @Nonnull final AnnotatedConstruct annotated,
+                                                                    @Nonnull final String annotationClassName,
+                                                                    @Nonnull final String parameterName )
   {
     final AnnotationValue annotationValue =
       getAnnotationValue( annotated, annotationClassName, parameterName );
@@ -39,10 +40,10 @@ final class AnnotationsUtil
   }
 
   @Nonnull
-  static List<TypeElement> getTypeElementsAnnotationParameter( @Nonnull final ProcessingEnvironment processingEnv,
-                                                               @Nonnull final AnnotatedConstruct annotated,
-                                                               @Nonnull final String annotationClassName,
-                                                               @Nonnull final String parameterName )
+  public static List<TypeElement> getTypeElementsAnnotationParameter( @Nonnull final ProcessingEnvironment processingEnv,
+                                                                      @Nonnull final AnnotatedConstruct annotated,
+                                                                      @Nonnull final String annotationClassName,
+                                                                      @Nonnull final String parameterName )
   {
     return AnnotationsUtil.getTypeMirrorsAnnotationParameter( annotated,
                                                               annotationClassName,
@@ -52,9 +53,9 @@ final class AnnotationsUtil
   }
 
   @Nonnull
-  static String getEnumAnnotationParameter( @Nonnull final AnnotatedConstruct annotated,
-                                            @Nonnull final String annotationClassname,
-                                            @Nonnull final String parameterName )
+  public static String getEnumAnnotationParameter( @Nonnull final AnnotatedConstruct annotated,
+                                                   @Nonnull final String annotationClassname,
+                                                   @Nonnull final String parameterName )
   {
     final VariableElement parameter = (VariableElement)
       getAnnotationValue( annotated, annotationClassname, parameterName ).getValue();
@@ -62,9 +63,9 @@ final class AnnotationsUtil
   }
 
   @Nonnull
-  static AnnotationValue getAnnotationValue( @Nonnull final AnnotatedConstruct annotated,
-                                             @Nonnull final String annotationClassName,
-                                             @Nonnull final String parameterName )
+  public static AnnotationValue getAnnotationValue( @Nonnull final AnnotatedConstruct annotated,
+                                                    @Nonnull final String annotationClassName,
+                                                    @Nonnull final String parameterName )
   {
     final AnnotationValue value = findAnnotationValue( annotated, annotationClassName, parameterName );
     assert null != value;
@@ -72,9 +73,9 @@ final class AnnotationsUtil
   }
 
   @Nullable
-  static AnnotationValue findAnnotationValue( @Nonnull final AnnotatedConstruct annotated,
-                                              @Nonnull final String annotationClassName,
-                                              @Nonnull final String parameterName )
+  public static AnnotationValue findAnnotationValue( @Nonnull final AnnotatedConstruct annotated,
+                                                     @Nonnull final String annotationClassName,
+                                                     @Nonnull final String parameterName )
   {
     final AnnotationMirror mirror = findAnnotationByType( annotated, annotationClassName );
     return null == mirror ? null : findAnnotationValue( mirror, parameterName );
@@ -92,8 +93,8 @@ final class AnnotationsUtil
   }
 
   @Nullable
-  static AnnotationValue findAnnotationValueNoDefaults( @Nonnull final AnnotationMirror annotation,
-                                                        @Nonnull final String parameterName )
+  public static AnnotationValue findAnnotationValueNoDefaults( @Nonnull final AnnotationMirror annotation,
+                                                               @Nonnull final String parameterName )
   {
     final Map<? extends ExecutableElement, ? extends AnnotationValue> values = annotation.getElementValues();
     final ExecutableElement annotationKey = values.keySet().stream().
@@ -103,7 +104,8 @@ final class AnnotationsUtil
 
   @SuppressWarnings( "unchecked" )
   @Nonnull
-  static <T> T getAnnotationValue( @Nonnull final AnnotationMirror annotation, @Nonnull final String parameterName )
+  public static <T> T getAnnotationValue( @Nonnull final AnnotationMirror annotation,
+                                          @Nonnull final String parameterName )
   {
     final AnnotationValue value = findAnnotationValue( annotation, parameterName );
     assert null != value;
@@ -111,8 +113,8 @@ final class AnnotationsUtil
   }
 
   @Nonnull
-  static AnnotationMirror getAnnotationByType( @Nonnull final AnnotatedConstruct annotated,
-                                               @Nonnull final String annotationClassName )
+  public static AnnotationMirror getAnnotationByType( @Nonnull final AnnotatedConstruct annotated,
+                                                      @Nonnull final String annotationClassName )
   {
     AnnotationMirror mirror = findAnnotationByType( annotated, annotationClassName );
     assert null != mirror;
@@ -120,8 +122,8 @@ final class AnnotationsUtil
   }
 
   @Nullable
-  static AnnotationMirror findAnnotationByType( @Nonnull final AnnotatedConstruct annotated,
-                                                @Nonnull final String annotationClassName )
+  public static AnnotationMirror findAnnotationByType( @Nonnull final AnnotatedConstruct annotated,
+                                                       @Nonnull final String annotationClassName )
   {
     return
       annotated.getAnnotationMirrors().stream()
@@ -130,18 +132,18 @@ final class AnnotationsUtil
         .orElse( null );
   }
 
-  static boolean hasAnnotationOfType( @Nonnull final AnnotatedConstruct annotated,
-                                      @Nonnull final String annotationClassName )
+  public static boolean hasAnnotationOfType( @Nonnull final AnnotatedConstruct annotated,
+                                             @Nonnull final String annotationClassName )
   {
     return null != findAnnotationByType( annotated, annotationClassName );
   }
 
   @Nonnull
-  static String extractName( @Nonnull final ExecutableElement method,
-                             @Nonnull final Function<ExecutableElement, String> defaultExtractor,
-                             @Nonnull final String annotationClassname,
-                             @Nonnull final String parameterName,
-                             @Nonnull final String sentinelValue )
+  public static String extractName( @Nonnull final ExecutableElement method,
+                                    @Nonnull final Function<ExecutableElement, String> defaultExtractor,
+                                    @Nonnull final String annotationClassname,
+                                    @Nonnull final String parameterName,
+                                    @Nonnull final String sentinelValue )
   {
     final String declaredName =
       (String) getAnnotationValue( method, annotationClassname, parameterName ).getValue();
@@ -172,5 +174,10 @@ final class AnnotationsUtil
       }
       return declaredName;
     }
+  }
+
+  public static boolean hasNonnullAnnotation( @Nonnull final Element element )
+  {
+    return hasAnnotationOfType( element, GeneratorUtil.NONNULL_ANNOTATION_CLASSNAME );
   }
 }

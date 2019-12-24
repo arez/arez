@@ -1,5 +1,7 @@
 package arez.processor;
 
+import arez.processor.support.MemberChecks;
+import arez.processor.support.ProcessorException;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.WildcardTypeName;

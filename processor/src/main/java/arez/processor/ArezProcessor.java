@@ -1,5 +1,10 @@
 package arez.processor;
 
+import arez.processor.support.AnnotationsUtil;
+import arez.processor.support.ElementsUtil;
+import arez.processor.support.GeneratorUtil;
+import arez.processor.support.MemberChecks;
+import arez.processor.support.ProcessorException;
 import com.google.auto.common.SuperficialValidation;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -20,6 +25,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.processing.ProcessingEnvironment;
+import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedOptions;
 import javax.annotation.processing.SupportedSourceVersion;
@@ -38,7 +44,6 @@ import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Types;
-import static arez.processor.ProcessorUtil.*;
 import static javax.tools.Diagnostic.Kind.*;
 
 /**
@@ -102,7 +107,7 @@ public final class ArezProcessor
         throw new ProcessorException( "@Observable target should be a setter or getter", method );
       }
 
-      name = ProcessorUtil.deriveName( method, SETTER_PATTERN, declaredName );
+      name = ArezUtils.deriveName( method, SETTER_PATTERN, declaredName );
       if ( null == name )
       {
         name = methodName;
@@ -218,7 +223,7 @@ public final class ArezProcessor
 
     final TypeMirror returnType = methodType.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
-         !toRawType( returnType ).toString().equals( "arez.ObservableValue" ) )
+         !ElementsUtil.toRawType( returnType ).toString().equals( "arez.ObservableValue" ) )
     {
       throw new ProcessorException( "Method annotated with @ObservableValueRef must return an instance of " +
                                     "arez.ObservableValue", method );
@@ -228,7 +233,7 @@ public final class ArezProcessor
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
-      name = ProcessorUtil.deriveName( method, OBSERVABLE_REF_PATTERN, declaredName );
+      name = ArezUtils.deriveName( method, OBSERVABLE_REF_PATTERN, declaredName );
       if ( null == name )
       {
         throw new ProcessorException( "Method annotated with @ObservableValueRef should specify name or be " +
@@ -267,7 +272,7 @@ public final class ArezProcessor
 
     final TypeMirror returnType = methodType.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
-         !toRawType( returnType ).toString().equals( "arez.ComputableValue" ) )
+         !ElementsUtil.toRawType( returnType ).toString().equals( "arez.ComputableValue" ) )
     {
       throw new ProcessorException( "Method annotated with @ComputableValueRef must return an instance of " +
                                     "arez.ComputableValue", method );
@@ -277,7 +282,7 @@ public final class ArezProcessor
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
-      name = ProcessorUtil.deriveName( method, COMPUTABLE_VALUE_REF_PATTERN, declaredName );
+      name = ArezUtils.deriveName( method, COMPUTABLE_VALUE_REF_PATTERN, declaredName );
       if ( null == name )
       {
         throw new ProcessorException( "Method annotated with @ComputableValueRef should specify name or be " +
@@ -353,7 +358,8 @@ public final class ArezProcessor
       !(
         parameters.isEmpty() ||
         ( 1 == parameters.size() &&
-          Constants.COMPUTABLE_VALUE_CLASSNAME.equals( toRawType( parameters.get( 0 ).asType() ).toString() ) )
+          Constants.COMPUTABLE_VALUE_CLASSNAME.equals( ElementsUtil.toRawType( parameters.get( 0 ).asType() )
+                                                         .toString() ) )
       )
     )
     {
@@ -400,7 +406,7 @@ public final class ArezProcessor
                                  @Nonnull final String name )
     throws ProcessorException
   {
-    final String value = ProcessorUtil.deriveName( method, pattern, name );
+    final String value = ArezUtils.deriveName( method, pattern, name );
     if ( null == value )
     {
       throw new ProcessorException( "Unable to derive name for @On" + type + " as does not match " +
@@ -767,14 +773,14 @@ public final class ArezProcessor
   private String getPropertyAccessorName( @Nonnull final ExecutableElement method, @Nonnull final String specifiedName )
     throws ProcessorException
   {
-    String name = ProcessorUtil.deriveName( method, GETTER_PATTERN, specifiedName );
+    String name = ArezUtils.deriveName( method, GETTER_PATTERN, specifiedName );
     if ( null != name )
     {
       return name;
     }
     if ( method.getReturnType().getKind() == TypeKind.BOOLEAN )
     {
-      name = ProcessorUtil.deriveName( method, ISSER_PATTERN, specifiedName );
+      name = ArezUtils.deriveName( method, ISSER_PATTERN, specifiedName );
       if ( null != name )
       {
         return name;
@@ -864,7 +870,7 @@ public final class ArezProcessor
     }
     if ( InjectMode.NONE != component.getInjectMode() )
     {
-      for ( final ExecutableElement constructor : ProcessorUtil.getConstructors( component.getElement() ) )
+      for ( final ExecutableElement constructor : ElementsUtil.getConstructors( component.getElement() ) )
       {
         // The annotation processor engine can not distinguish between a "default constructor"
         // synthesized by the compiler and one written by a user that has the same signature.
@@ -913,7 +919,7 @@ public final class ArezProcessor
 
   private void processCascadeDisposeFields( @Nonnull final ComponentDescriptor component )
   {
-    ProcessorUtil.getFieldElements( component.getElement() )
+    ElementsUtil.getFields( component.getElement() )
       .stream()
       .filter( f -> AnnotationsUtil.hasAnnotationOfType( f, Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME ) )
       .forEach( field -> processCascadeDisposeField( component, field ) );
@@ -985,9 +991,9 @@ public final class ArezProcessor
 
   private boolean isWarningNotSuppressed( @Nonnull final Element element, @Nonnull final String warning )
   {
-    return !ProcessorUtil.isWarningSuppressed( element,
-                                               warning,
-                                               Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
+    return !ElementsUtil.isWarningSuppressed( element,
+                                              warning,
+                                              Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
   }
 
   @SuppressWarnings( "SameParameterValue" )
@@ -1012,7 +1018,7 @@ public final class ArezProcessor
         null != typeElement ?
         AnnotationsUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) :
         null;
-      if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( typeElement ) )
+      if ( null == value || !ArezUtils.isDisposableTrackableRequired( typeElement ) )
       {
         //The type of the field must implement {@link arez.Disposable} or must be annotated by {@link ArezComponent}
         throw new ProcessorException( "@CascadeDispose target must be assignable to " +
@@ -1049,7 +1055,7 @@ public final class ArezProcessor
         null != typeElement ?
         AnnotationsUtil.findAnnotationByType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) :
         null;
-      if ( null == value || !ProcessorUtil.isDisposableTrackableRequired( typeElement ) )
+      if ( null == value || !ArezUtils.isDisposableTrackableRequired( typeElement ) )
       {
         //The type of the field must implement {@link arez.Disposable} or must be annotated by {@link ArezComponent}
         throw new ProcessorException( "@CascadeDispose target must return a type assignable to " +
@@ -1205,7 +1211,7 @@ public final class ArezProcessor
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
-      name = ProcessorUtil.deriveName( method, OBSERVER_REF_PATTERN, declaredName );
+      name = ArezUtils.deriveName( method, OBSERVER_REF_PATTERN, declaredName );
       if ( null == name )
       {
         throw new ProcessorException( "Method annotated with @ObserverRef should specify name or be " +
@@ -1349,7 +1355,7 @@ public final class ArezProcessor
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
-      name = ProcessorUtil.firstCharacterToLowerCase( component.getElement().getSimpleName().toString() );
+      name = ArezUtils.firstCharacterToLowerCase( component.getElement().getSimpleName().toString() );
     }
     else
     {
@@ -1472,7 +1478,7 @@ public final class ArezProcessor
              (
                // Getter
                element.getReturnType().getKind() != TypeKind.VOID &&
-               ProcessorUtil.hasNonnullAnnotation( element ) &&
+               AnnotationsUtil.hasNonnullAnnotation( element ) &&
                !AnnotationsUtil.hasAnnotationOfType( element, Constants.INVERSE_ANNOTATION_CLASSNAME )
              ) ||
              (
@@ -1550,7 +1556,7 @@ public final class ArezProcessor
 
   private void processComponentDependencyFields( @Nonnull final ComponentDescriptor component )
   {
-    ProcessorUtil.getFieldElements( component.getElement() )
+    ElementsUtil.getFields( component.getElement() )
       .stream()
       .filter( f -> AnnotationsUtil.hasAnnotationOfType( f, Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME ) )
       .forEach( field -> processComponentDependencyField( component, field ) );
@@ -1628,7 +1634,7 @@ public final class ArezProcessor
                                                               @Nonnull final InverseDescriptor descriptor )
   {
     final Multiplicity multiplicity =
-      ProcessorUtil
+      ElementsUtil
         .getMethods( descriptor.getTargetType(),
                      processingEnv.getElementUtils(),
                      processingEnv.getTypeUtils() )
@@ -1693,7 +1699,7 @@ public final class ArezProcessor
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
-      final String candidate = ProcessorUtil.deriveName( method, GETTER_PATTERN, declaredName );
+      final String candidate = ArezUtils.deriveName( method, GETTER_PATTERN, declaredName );
       if ( null == candidate )
       {
         name = method.getSimpleName().toString();
@@ -1746,7 +1752,7 @@ public final class ArezProcessor
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
       final String baseName = component.getElement().getSimpleName().toString();
-      return ProcessorUtil.firstCharacterToLowerCase( baseName ) + ( Multiplicity.MANY == multiplicity ? "s" : "" );
+      return ArezUtils.firstCharacterToLowerCase( baseName ) + ( Multiplicity.MANY == multiplicity ? "s" : "" );
     }
     else
     {
@@ -1785,9 +1791,9 @@ public final class ArezProcessor
     final String defaultInverseName =
       descriptor.hasInverse() ?
       null :
-      ProcessorUtil.firstCharacterToLowerCase( component.getElement().getSimpleName().toString() ) + "s";
+      ArezUtils.firstCharacterToLowerCase( component.getElement().getSimpleName().toString() ) + "s";
     final Multiplicity multiplicity =
-      ProcessorUtil
+      ElementsUtil
         .getMethods( element, processingEnv.getElementUtils(), processingEnv.getTypeUtils() )
         .stream()
         .map( m -> {
@@ -1815,7 +1821,7 @@ public final class ArezProcessor
             else
             {
               ensureTargetTypeAligns( component, descriptor, m.getReturnType() );
-              return ProcessorUtil.hasNonnullAnnotation( m ) ? Multiplicity.ONE : Multiplicity.ZERO_OR_ONE;
+              return AnnotationsUtil.hasNonnullAnnotation( m ) ? Multiplicity.ONE : Multiplicity.ZERO_OR_ONE;
             }
           }
           else
@@ -1963,14 +1969,17 @@ public final class ArezProcessor
   private boolean isDisposeTrackableComponent( @Nonnull final TypeElement typeElement )
   {
     return AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) &&
-           ProcessorUtil.isDisposableTrackableRequired( typeElement );
+           ArezUtils.isDisposableTrackableRequired( typeElement );
   }
 
+  @SuppressWarnings( "unchecked" )
   @Nonnull
   @Override
-  protected String getRootAnnotationClassname()
+  protected Set<TypeElement> getTypeElementsToProcess( @Nonnull final RoundEnvironment env )
   {
-    return Constants.COMPONENT_ANNOTATION_CLASSNAME;
+    final TypeElement annotation =
+      processingEnv.getElementUtils().getTypeElement( Constants.COMPONENT_ANNOTATION_CLASSNAME );
+    return (Set<TypeElement>) env.getElementsAnnotatedWith( annotation );
   }
 
   @Override
@@ -2020,12 +2029,12 @@ public final class ArezProcessor
     final String declaredType = getAnnotationParameter( arezComponent, "name" );
     final boolean disposeOnDeactivate = getAnnotationParameter( arezComponent, "disposeOnDeactivate" );
     final boolean observableFlag = isComponentObservableRequired( arezComponent, typeElement, disposeOnDeactivate );
-    final boolean disposeNotifierFlag = ProcessorUtil.isDisposableTrackableRequired( typeElement );
+    final boolean disposeNotifierFlag = ArezUtils.isDisposableTrackableRequired( typeElement );
     final boolean allowEmpty = getAnnotationParameter( arezComponent, "allowEmpty" );
     final List<AnnotationMirror> scopeAnnotations =
       typeElement.getAnnotationMirrors().stream().filter( this::isScopeAnnotation ).collect( Collectors.toList() );
     final AnnotationMirror scopeAnnotation = scopeAnnotations.isEmpty() ? null : scopeAnnotations.get( 0 );
-    final List<VariableElement> fields = ProcessorUtil.getFieldElements( typeElement );
+    final List<VariableElement> fields = ElementsUtil.getFields( typeElement );
     ensureNoFieldInjections( fields );
     ensureNoMethodInjections( typeElement );
     final VariableElement daggerParameter = getAnnotationParameter( arezComponent, "dagger" );
@@ -2067,7 +2076,7 @@ public final class ArezProcessor
                                     "type must not be a java keyword.", typeElement );
     }
 
-    final List<ExecutableElement> constructors = getConstructors( typeElement );
+    final List<ExecutableElement> constructors = ElementsUtil.getConstructors( typeElement );
     if ( !scopeAnnotations.isEmpty() && constructors.size() > 1 )
     {
       throw new ProcessorException( "@ArezComponent target has specified a scope annotation but has more than " +
@@ -2132,7 +2141,7 @@ public final class ArezProcessor
     }
 
     final List<ExecutableElement> methods =
-      ProcessorUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() );
+      ElementsUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() );
     final boolean generateToString = methods.stream().
       noneMatch( m -> m.getSimpleName().toString().equals( "toString" ) &&
                       m.getParameters().size() == 0 &&
@@ -2302,7 +2311,7 @@ public final class ArezProcessor
   private void ensureNoMethodInjections( @Nonnull final TypeElement typeElement )
   {
     final List<ExecutableElement> methods =
-      ProcessorUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() );
+      ElementsUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() );
     for ( final ExecutableElement method : methods )
     {
       if ( hasInjectAnnotation( method ) )
@@ -2361,26 +2370,26 @@ public final class ArezProcessor
 
         if ( !method.getModifiers().contains( Modifier.FINAL ) )
         {
-          name = ProcessorUtil.deriveName( method, SETTER_PATTERN, Constants.SENTINEL );
+          name = ArezUtils.deriveName( method, SETTER_PATTERN, Constants.SENTINEL );
           if ( voidReturn && 1 == parameterCount && null != name )
           {
             setters.put( name, candidateMethod );
             continue;
           }
-          name = ProcessorUtil.deriveName( method, ISSER_PATTERN, Constants.SENTINEL );
+          name = ArezUtils.deriveName( method, ISSER_PATTERN, Constants.SENTINEL );
           if ( !voidReturn && 0 == parameterCount && null != name )
           {
             getters.put( name, candidateMethod );
             continue;
           }
-          name = ProcessorUtil.deriveName( method, GETTER_PATTERN, Constants.SENTINEL );
+          name = ArezUtils.deriveName( method, GETTER_PATTERN, Constants.SENTINEL );
           if ( !voidReturn && 0 == parameterCount && null != name )
           {
             getters.put( name, candidateMethod );
             continue;
           }
         }
-        name = ProcessorUtil.deriveName( method, ON_DEPS_CHANGE_PATTERN, Constants.SENTINEL );
+        name = ArezUtils.deriveName( method, ON_DEPS_CHANGE_PATTERN, Constants.SENTINEL );
         if ( voidReturn && null != name )
         {
           if ( 0 == parameterCount ||
@@ -2724,10 +2733,10 @@ public final class ArezProcessor
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
-      final String candidate = ProcessorUtil.deriveName( method, ID_GETTER_PATTERN, declaredName );
+      final String candidate = ArezUtils.deriveName( method, ID_GETTER_PATTERN, declaredName );
       if ( null == candidate )
       {
-        final String candidate2 = ProcessorUtil.deriveName( method, RAW_ID_GETTER_PATTERN, declaredName );
+        final String candidate2 = ArezUtils.deriveName( method, RAW_ID_GETTER_PATTERN, declaredName );
         if ( null == candidate2 )
         {
           throw new ProcessorException( "@ReferenceId target has not specified a name and does not follow " +
@@ -2766,7 +2775,6 @@ public final class ArezProcessor
     throws ProcessorException
   {
     ArezUtils.mustBeHookHook( component.getElement(),
-                              Constants.COMPONENT_ANNOTATION_CLASSNAME,
                               Constants.PRE_INVERSE_REMOVE_ANNOTATION_CLASSNAME,
                               method );
     ArezUtils.shouldBeInternalHookMethod( processingEnv,
@@ -2790,7 +2798,7 @@ public final class ArezProcessor
     final String name = AnnotationsUtil.getAnnotationValue( annotation, "name" );
     if ( Constants.SENTINEL.equals( name ) )
     {
-      final String candidate = ProcessorUtil.deriveName( method, PRE_INVERSE_REMOVE_PATTERN, name );
+      final String candidate = ArezUtils.deriveName( method, PRE_INVERSE_REMOVE_PATTERN, name );
       if ( null == candidate )
       {
         throw new ProcessorException( "@PreInverseRemove target has not specified a name and does not follow " +
@@ -2823,7 +2831,6 @@ public final class ArezProcessor
     throws ProcessorException
   {
     ArezUtils.mustBeHookHook( component.getElement(),
-                              Constants.COMPONENT_ANNOTATION_CLASSNAME,
                               Constants.POST_INVERSE_ADD_ANNOTATION_CLASSNAME,
                               method );
     ArezUtils.shouldBeInternalHookMethod( processingEnv,
@@ -2846,7 +2853,7 @@ public final class ArezProcessor
     final String name = AnnotationsUtil.getAnnotationValue( annotation, "name" );
     if ( Constants.SENTINEL.equals( name ) )
     {
-      final String candidate = ProcessorUtil.deriveName( method, POST_INVERSE_ADD_PATTERN, name );
+      final String candidate = ArezUtils.deriveName( method, POST_INVERSE_ADD_PATTERN, name );
       if ( null == candidate )
       {
         throw new ProcessorException( "@PostInverseAdd target has not specified a name and does not follow " +
@@ -2936,7 +2943,7 @@ public final class ArezProcessor
                                         Constants.COMPONENT_ANNOTATION_CLASSNAME, method );
         }
         targetType = (TypeElement) ( (DeclaredType) type ).asElement();
-        if ( ProcessorUtil.hasNonnullAnnotation( method ) )
+        if ( AnnotationsUtil.hasNonnullAnnotation( method ) )
         {
           multiplicity = Multiplicity.ONE;
         }
@@ -2974,7 +2981,7 @@ public final class ArezProcessor
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
-      final String candidate = ProcessorUtil.deriveName( method, GETTER_PATTERN, declaredName );
+      final String candidate = ArezUtils.deriveName( method, GETTER_PATTERN, declaredName );
       name = null == candidate ? method.getSimpleName().toString() : candidate;
     }
     else
@@ -3103,15 +3110,15 @@ public final class ArezProcessor
       case "DISABLE":
         return false;
       default:
-        return ProcessorUtil.isDisposableTrackableRequired( element );
+        return ArezUtils.isDisposableTrackableRequired( element );
     }
   }
 
   private boolean isUnmanagedComponentReferenceNotSuppressed( @Nonnull final Element element )
   {
-    return !ProcessorUtil.isWarningSuppressed( element,
-                                               Constants.WARNING_UNMANAGED_COMPONENT_REFERENCE,
-                                               Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
+    return !ElementsUtil.isWarningSuppressed( element,
+                                              Constants.WARNING_UNMANAGED_COMPONENT_REFERENCE,
+                                              Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
   }
 
   private boolean isTypeAnnotatedByActAsComponentAnnotation( @Nonnull final VariableElement field )
@@ -3203,7 +3210,7 @@ public final class ArezProcessor
       case "DISABLE":
         return false;
       default:
-        return ProcessorUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() ).
+        return ElementsUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() ).
           stream().anyMatch( this::hasReferenceAnnotations );
     }
   }

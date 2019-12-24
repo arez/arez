@@ -1,4 +1,4 @@
-package arez.processor;
+package arez.processor.support;
 
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
@@ -22,20 +22,20 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.type.TypeVariable;
 
 @SuppressWarnings( "unused" )
-final class SuppressWarningsUtil
+public final class SuppressWarningsUtil
 {
   private SuppressWarningsUtil()
   {
   }
 
   @Nonnull
-  static AnnotationSpec suppressWarningsAnnotation( @Nonnull final String... warnings )
+  public static AnnotationSpec suppressWarningsAnnotation( @Nonnull final String... warnings )
   {
     return Objects.requireNonNull( maybeSuppressWarningsAnnotation( warnings ) );
   }
 
   @Nullable
-  static AnnotationSpec maybeSuppressWarningsAnnotation( @Nonnull final String... warnings )
+  public static AnnotationSpec maybeSuppressWarningsAnnotation( @Nonnull final String... warnings )
   {
     final List<String> actualWarnings =
       Arrays.stream( warnings ).filter( Objects::nonNull ).sorted().collect( Collectors.toList() );
@@ -51,24 +51,24 @@ final class SuppressWarningsUtil
     }
   }
 
-  static void addSuppressWarningsIfRequired( @Nonnull final ProcessingEnvironment processingEnv,
-                                             @Nonnull final TypeSpec.Builder method,
-                                             @Nonnull final TypeMirror type )
+  public static void addSuppressWarningsIfRequired( @Nonnull final ProcessingEnvironment processingEnv,
+                                                    @Nonnull final TypeSpec.Builder method,
+                                                    @Nonnull final TypeMirror type )
   {
     addSuppressWarningsIfRequired( processingEnv, method, Collections.singleton( type ) );
   }
 
-  static void addSuppressWarningsIfRequired( @Nonnull final ProcessingEnvironment processingEnv,
-                                             @Nonnull final TypeSpec.Builder method,
-                                             @Nonnull final Collection<TypeMirror> types )
+  public static void addSuppressWarningsIfRequired( @Nonnull final ProcessingEnvironment processingEnv,
+                                                    @Nonnull final TypeSpec.Builder method,
+                                                    @Nonnull final Collection<TypeMirror> types )
   {
     addSuppressWarningsIfRequired( processingEnv, method, Collections.emptyList(), types );
   }
 
-  static void addSuppressWarningsIfRequired( @Nonnull final ProcessingEnvironment processingEnv,
-                                             @Nonnull final TypeSpec.Builder method,
-                                             @Nonnull final Collection<String> additionalSuppressions,
-                                             @Nonnull final Collection<TypeMirror> types )
+  public static void addSuppressWarningsIfRequired( @Nonnull final ProcessingEnvironment processingEnv,
+                                                    @Nonnull final TypeSpec.Builder method,
+                                                    @Nonnull final Collection<String> additionalSuppressions,
+                                                    @Nonnull final Collection<TypeMirror> types )
   {
     final AnnotationSpec suppress =
       maybeSuppressWarningsAnnotation( processingEnv, additionalSuppressions, types );
@@ -78,24 +78,24 @@ final class SuppressWarningsUtil
     }
   }
 
-  static void addSuppressWarningsIfRequired( @Nonnull final ProcessingEnvironment processingEnv,
-                                             @Nonnull final MethodSpec.Builder method,
-                                             @Nonnull final TypeMirror type )
+  public static void addSuppressWarningsIfRequired( @Nonnull final ProcessingEnvironment processingEnv,
+                                                    @Nonnull final MethodSpec.Builder method,
+                                                    @Nonnull final TypeMirror type )
   {
     addSuppressWarningsIfRequired( processingEnv, method, Collections.singleton( type ) );
   }
 
-  static void addSuppressWarningsIfRequired( @Nonnull final ProcessingEnvironment processingEnv,
-                                             @Nonnull final MethodSpec.Builder method,
-                                             @Nonnull final Collection<TypeMirror> types )
+  public static void addSuppressWarningsIfRequired( @Nonnull final ProcessingEnvironment processingEnv,
+                                                    @Nonnull final MethodSpec.Builder method,
+                                                    @Nonnull final Collection<TypeMirror> types )
   {
     addSuppressWarningsIfRequired( processingEnv, method, Collections.emptyList(), types );
   }
 
-  static void addSuppressWarningsIfRequired( @Nonnull final ProcessingEnvironment processingEnv,
-                                             @Nonnull final MethodSpec.Builder method,
-                                             @Nonnull final Collection<String> additionalSuppressions,
-                                             @Nonnull final Collection<TypeMirror> types )
+  public static void addSuppressWarningsIfRequired( @Nonnull final ProcessingEnvironment processingEnv,
+                                                    @Nonnull final MethodSpec.Builder method,
+                                                    @Nonnull final Collection<String> additionalSuppressions,
+                                                    @Nonnull final Collection<TypeMirror> types )
   {
     final AnnotationSpec suppress =
       maybeSuppressWarningsAnnotation( processingEnv, additionalSuppressions, types );
@@ -105,16 +105,16 @@ final class SuppressWarningsUtil
     }
   }
 
-  static void addSuppressWarningsIfRequired( @Nonnull final ProcessingEnvironment processingEnv,
-                                             @Nonnull final FieldSpec.Builder method,
-                                             @Nonnull final TypeMirror type )
+  public static void addSuppressWarningsIfRequired( @Nonnull final ProcessingEnvironment processingEnv,
+                                                    @Nonnull final FieldSpec.Builder method,
+                                                    @Nonnull final TypeMirror type )
   {
     addSuppressWarningsIfRequired( processingEnv, method, Collections.singleton( type ) );
   }
 
-  static void addSuppressWarningsIfRequired( @Nonnull final ProcessingEnvironment processingEnv,
-                                             @Nonnull final FieldSpec.Builder method,
-                                             @Nonnull final Collection<TypeMirror> types )
+  public static void addSuppressWarningsIfRequired( @Nonnull final ProcessingEnvironment processingEnv,
+                                                    @Nonnull final FieldSpec.Builder method,
+                                                    @Nonnull final Collection<TypeMirror> types )
   {
     final AnnotationSpec suppress = maybeSuppressWarningsAnnotation( processingEnv, types );
     if ( null != suppress )
@@ -130,8 +130,8 @@ final class SuppressWarningsUtil
    * @return a suppress annotation if required.
    */
   @Nullable
-  static AnnotationSpec maybeSuppressWarningsAnnotation( @Nonnull final ProcessingEnvironment processingEnv,
-                                                         @Nonnull final Collection<TypeMirror> types )
+  public static AnnotationSpec maybeSuppressWarningsAnnotation( @Nonnull final ProcessingEnvironment processingEnv,
+                                                                @Nonnull final Collection<TypeMirror> types )
   {
     return maybeSuppressWarningsAnnotation( processingEnv, Collections.emptyList(), types );
   }
@@ -145,9 +145,9 @@ final class SuppressWarningsUtil
    * @return a suppress annotation if required.
    */
   @Nullable
-  static AnnotationSpec maybeSuppressWarningsAnnotation( @Nonnull final ProcessingEnvironment processingEnv,
-                                                         @Nonnull final Collection<String> additionalSuppressions,
-                                                         @Nonnull final Collection<TypeMirror> types )
+  public static AnnotationSpec maybeSuppressWarningsAnnotation( @Nonnull final ProcessingEnvironment processingEnv,
+                                                                @Nonnull final Collection<String> additionalSuppressions,
+                                                                @Nonnull final Collection<TypeMirror> types )
   {
     final boolean hasRawTypes = types.stream().anyMatch( t -> hasRawTypes( processingEnv, t ) );
     final boolean hasDeprecatedTypes =
@@ -242,7 +242,7 @@ final class SuppressWarningsUtil
       final DeclaredType declaredType = (DeclaredType) type;
       final int typeArgumentCount = declaredType.getTypeArguments().size();
       final TypeElement typeElement = (TypeElement) processingEnv.getTypeUtils().asElement( type );
-      if( typeArgumentCount != typeElement.getTypeParameters().size() )
+      if ( typeArgumentCount != typeElement.getTypeParameters().size() )
       {
         return true;
       }

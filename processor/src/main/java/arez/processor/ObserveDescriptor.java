@@ -1,5 +1,7 @@
 package arez.processor;
 
+import arez.processor.support.MemberChecks;
+import arez.processor.support.ProcessorException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

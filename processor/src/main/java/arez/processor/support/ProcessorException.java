@@ -1,4 +1,4 @@
-package arez.processor;
+package arez.processor.support;
 
 import java.util.Objects;
 import javax.annotation.Nonnull;

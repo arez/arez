@@ -1,5 +1,10 @@
 package arez.processor;
 
+import arez.processor.support.AnnotationsUtil;
+import arez.processor.support.ElementsUtil;
+import arez.processor.support.GeneratorUtil;
+import arez.processor.support.ProcessorException;
+import arez.processor.support.SuppressWarningsUtil;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
@@ -730,7 +735,7 @@ final class ComponentGenerator
     {
       assert dependency.shouldCascadeDispose();
       final String fieldName = dependency.getField().getSimpleName().toString();
-      if ( ProcessorUtil.hasNonnullAnnotation( dependency.getField() ) )
+      if ( AnnotationsUtil.hasNonnullAnnotation( dependency.getField() ) )
       {
         builder.addStatement( "$T.asDisposeNotifier( this.$N ).addOnDisposeListener( this, this::dispose )",
                               DISPOSE_TRACKABLE_CLASSNAME,
@@ -755,7 +760,7 @@ final class ComponentGenerator
       if ( abstractObservables )
       {
         final ObservableDescriptor observable = dependency.getObservable();
-        if ( ProcessorUtil.hasNonnullAnnotation( method ) )
+        if ( AnnotationsUtil.hasNonnullAnnotation( method ) )
         {
           assert dependency.shouldCascadeDispose();
           builder.addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
@@ -792,7 +797,7 @@ final class ComponentGenerator
       }
       else
       {
-        if ( ProcessorUtil.hasNonnullAnnotation( method ) )
+        if ( AnnotationsUtil.hasNonnullAnnotation( method ) )
         {
           assert dependency.shouldCascadeDispose();
           if ( dependency.getComponent().isClassType() )
@@ -882,7 +887,7 @@ final class ComponentGenerator
     final TypeSpec.Builder factory = TypeSpec.classBuilder( "Factory" )
       .addModifiers( Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL );
 
-    final ExecutableElement constructor = ProcessorUtil.getConstructors( component.getElement() ).get( 0 );
+    final ExecutableElement constructor = ElementsUtil.getConstructors( component.getElement() ).get( 0 );
     assert null != constructor;
 
     final List<? extends VariableElement> injectedParameters = constructor
@@ -914,7 +919,7 @@ final class ComponentGenerator
         ParameterSpec.builder( TypeName.get( parameter.asType() ), name, Modifier.FINAL );
       GeneratorUtil.copyWhitelistedAnnotations( parameter, param );
       ctor.addParameter( param.build() );
-      if ( ProcessorUtil.hasNonnullAnnotation( parameter ) )
+      if ( AnnotationsUtil.hasNonnullAnnotation( parameter ) )
       {
         ctor.addStatement( "this.$N = $T.requireNonNull( $N )", name, Objects.class, name );
       }
@@ -963,7 +968,7 @@ final class ComponentGenerator
           sb.append( ", " );
         }
         firstParam = false;
-        if ( perInstance && ProcessorUtil.hasNonnullAnnotation( parameter ) )
+        if ( perInstance && AnnotationsUtil.hasNonnullAnnotation( parameter ) )
         {
           sb.append( "$T.requireNonNull( $N )" );
           params.add( Objects.class );
@@ -1437,7 +1442,7 @@ final class ComponentGenerator
         {
           final ExecutableElement method = dependency.getMethod();
           final String methodName = method.getSimpleName().toString();
-          if ( ProcessorUtil.hasNonnullAnnotation( element ) )
+          if ( AnnotationsUtil.hasNonnullAnnotation( element ) )
           {
             builder.addStatement( "$T.asDisposeNotifier( $N() ).removeOnDisposeListener( this )",
                                   DISPOSE_TRACKABLE_CLASSNAME,
@@ -1482,7 +1487,7 @@ final class ComponentGenerator
         {
           final VariableElement field = dependency.getField();
           final String fieldName = field.getSimpleName().toString();
-          if ( ProcessorUtil.hasNonnullAnnotation( element ) )
+          if ( AnnotationsUtil.hasNonnullAnnotation( element ) )
           {
             builder.addStatement( "$T.asDisposeNotifier( this.$N ).removeOnDisposeListener( this )",
                                   DISPOSE_TRACKABLE_CLASSNAME,
@@ -1796,7 +1801,7 @@ final class ComponentGenerator
                                          @Nonnull final ComponentDescriptor component,
                                          @Nonnull final TypeSpec.Builder builder )
   {
-    for ( final ExecutableElement constructor : ProcessorUtil.getConstructors( component.getElement() ) )
+    for ( final ExecutableElement constructor : ElementsUtil.getConstructors( component.getElement() ) )
     {
       final ExecutableType methodType =
         (ExecutableType) processingEnv.getTypeUtils()
@@ -1904,7 +1909,7 @@ final class ComponentGenerator
     {
       final String candidateName = observable.getName();
       final String name =
-        null != constructor && ProcessorUtil.anyParametersNamed( constructor, candidateName ) ?
+        null != constructor && ArezUtils.anyParametersNamed( constructor, candidateName ) ?
         INITIALIZER_PREFIX + candidateName :
         candidateName;
       final ParameterSpec.Builder param =
@@ -2412,7 +2417,7 @@ final class ComponentGenerator
 
     if ( isCollectionType( memoize.getMethod() ) )
     {
-      if ( ProcessorUtil.hasNonnullAnnotation( memoize.getMethod() ) )
+      if ( AnnotationsUtil.hasNonnullAnnotation( memoize.getMethod() ) )
       {
         final CodeBlock.Builder block = CodeBlock.builder();
         block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );

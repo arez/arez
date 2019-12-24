@@ -1,5 +1,6 @@
 package arez.processor;
 
+import arez.processor.support.ProcessorException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -105,7 +106,7 @@ final class InverseDescriptor
     _multiplicity = Objects.requireNonNull( multiplicity );
     _targetType = Objects.requireNonNull( targetType );
     _observable.setInverseDescriptor( this );
-    _otherName = ProcessorUtil.firstCharacterToLowerCase( _targetType.getSimpleName().toString() );
+    _otherName = ArezUtils.firstCharacterToLowerCase( _targetType.getSimpleName().toString() );
   }
 
   void addPostInverseAddHook( @Nonnull final ExecutableElement method )

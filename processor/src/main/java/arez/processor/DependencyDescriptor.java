@@ -1,5 +1,9 @@
 package arez.processor;
 
+import arez.processor.support.AnnotationsUtil;
+import arez.processor.support.GeneratorUtil;
+import arez.processor.support.MemberChecks;
+import arez.processor.support.ProcessorException;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

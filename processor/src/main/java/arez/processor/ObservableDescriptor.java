@@ -1,5 +1,7 @@
 package arez.processor;
 
+import arez.processor.support.AnnotationsUtil;
+import arez.processor.support.ProcessorException;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.WildcardTypeName;
@@ -287,12 +289,12 @@ final class ObservableDescriptor
 
   boolean isGetterNonnull()
   {
-    return ProcessorUtil.hasNonnullAnnotation( getGetter() );
+    return AnnotationsUtil.hasNonnullAnnotation( getGetter() );
   }
 
   boolean isSetterNonnull()
   {
-    return hasSetter() && ProcessorUtil.hasNonnullAnnotation( getSetter().getParameters().get( 0 ) );
+    return hasSetter() && AnnotationsUtil.hasNonnullAnnotation( getSetter().getParameters().get( 0 ) );
   }
 
   void validate()

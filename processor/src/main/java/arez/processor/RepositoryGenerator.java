@@ -1,5 +1,9 @@
 package arez.processor;
 
+import arez.processor.support.ElementsUtil;
+import arez.processor.support.GeneratorUtil;
+import arez.processor.support.ProcessorException;
+import arez.processor.support.SuppressWarningsUtil;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
@@ -118,7 +122,7 @@ final class RepositoryGenerator
 
     if ( repository.shouldRepositoryDefineCreate() )
     {
-      for ( final ExecutableElement constructor : ProcessorUtil.getConstructors( element ) )
+      for ( final ExecutableElement constructor : ElementsUtil.getConstructors( element ) )
       {
         builder.addMethod( buildRepositoryCreate( processingEnv, repository, constructor ) );
       }
@@ -315,7 +319,7 @@ final class RepositoryGenerator
     for ( final ObservableDescriptor observable : component.getInitializers() )
     {
       final String candidateName = observable.getName();
-      final String name = ProcessorUtil.anyParametersNamed( constructor, candidateName ) ?
+      final String name = ArezUtils.anyParametersNamed( constructor, candidateName ) ?
                           ComponentGenerator.INITIALIZER_PREFIX + candidateName :
                           candidateName;
       final ParameterSpec.Builder param =
@@ -341,7 +345,8 @@ final class RepositoryGenerator
   }
 
   @Nonnull
-  private static MethodSpec buildFactoryMethod( @Nonnull final ProcessingEnvironment processingEnv,@Nonnull final RepositoryDescriptor repository )
+  private static MethodSpec buildFactoryMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                                @Nonnull final RepositoryDescriptor repository )
   {
     final ComponentDescriptor component = repository.getComponent();
     final ClassName rawRepositoryClassName = getRepositoryClassName( repository );
@@ -377,7 +382,7 @@ final class RepositoryGenerator
   {
     final ExecutableElement componentId = component.getComponentId();
     assert null != componentId;
-    final String name = ProcessorUtil.deriveName( componentId, ArezProcessor.GETTER_PATTERN, Constants.SENTINEL );
+    final String name = ArezUtils.deriveName( componentId, ArezProcessor.GETTER_PATTERN, Constants.SENTINEL );
     if ( null != name )
     {
       return Character.toUpperCase( name.charAt( 0 ) ) + ( name.length() > 1 ? name.substring( 1 ) : "" );

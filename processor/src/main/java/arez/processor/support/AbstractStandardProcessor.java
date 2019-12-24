@@ -1,4 +1,4 @@
-package arez.processor;
+package arez.processor.support;
 
 import com.google.auto.common.SuperficialValidation;
 import java.io.IOException;
@@ -32,9 +32,7 @@ public abstract class AbstractStandardProcessor
   @Override
   public boolean process( @Nonnull final Set<? extends TypeElement> annotations, @Nonnull final RoundEnvironment env )
   {
-    final TypeElement annotation = processingEnv.getElementUtils().getTypeElement( getRootAnnotationClassname() );
-    @SuppressWarnings( "unchecked" )
-    final Set<TypeElement> elements = (Set<TypeElement>) env.getElementsAnnotatedWith( annotation );
+    final Collection<TypeElement> elements = getTypeElementsToProcess( env );
 
     final Map<String, String> options = processingEnv.getOptions();
     final String deferUnresolvedValue = options.get( getOptionPrefix() + ".defer.unresolved" );
@@ -42,7 +40,7 @@ public abstract class AbstractStandardProcessor
 
     if ( deferUnresolved )
     {
-      final Collection<TypeElement> elementsToProcess = getElementsToProcess( elements );
+      final Collection<TypeElement> elementsToProcess = deriveElementsToProcess( elements );
       processElements( env, elementsToProcess );
       if ( env.getRootElements().isEmpty() && !_deferred.isEmpty() )
       {
@@ -69,7 +67,7 @@ public abstract class AbstractStandardProcessor
   }
 
   @Nonnull
-  protected abstract String getRootAnnotationClassname();
+  protected abstract Collection<TypeElement> getTypeElementsToProcess( @Nonnull RoundEnvironment env );
 
   @Nonnull
   protected abstract String getIssueTrackerURL();
@@ -175,7 +173,7 @@ public abstract class AbstractStandardProcessor
   }
 
   @Nonnull
-  private Collection<TypeElement> getElementsToProcess( @Nonnull final Collection<TypeElement> elements )
+  private Collection<TypeElement> deriveElementsToProcess( @Nonnull final Collection<TypeElement> elements )
   {
     final List<TypeElement> deferred = _deferred
       .stream()

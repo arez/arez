@@ -1,5 +1,6 @@
 package arez.processor;
 
+import arez.processor.support.AbstractStandardProcessor;
 import javax.annotation.Nonnull;
 
 /**
