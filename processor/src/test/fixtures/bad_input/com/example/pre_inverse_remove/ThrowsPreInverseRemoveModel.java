@@ -17,6 +17,7 @@ abstract class ThrowsPreInverseRemoveModel
   void preElementsRemove( @Nonnull final Element element )
     throws IOException
   {
+    throw new IOException();
   }
 
   @Inverse( referenceName = "other" )

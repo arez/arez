@@ -17,6 +17,7 @@ abstract class ThrowsPostInverseAddModel
   void postElementsAdd( @Nonnull final Element element )
     throws IOException
   {
+    throw new IOException();
   }
 
   @Inverse( referenceName = "other" )
