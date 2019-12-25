@@ -115,13 +115,14 @@ define 'arez' do
     pom.dependency_filter = Proc.new { |_| false }
 
     compile.with :javax_annotation,
-                 :proton_processor_pack,
+                 :proton_core,
                  :autocommon,
                  :javapoet,
                  :guava
 
     test.with :compile_testing,
               Java.tools_jar,
+              :proton_qa,
               :truth,
               :junit,
               :hamcrest_core,
@@ -137,7 +138,7 @@ define 'arez' do
       jar.merge(artifact(:javapoet))
       jar.merge(artifact(:guava))
       jar.merge(artifact(:autocommon))
-      jar.merge(artifact(:proton_processor_pack))
+      jar.merge(artifact(:proton_core))
       jar.enhance do |f|
         shaded_jar = (f.to_s + '-shaded')
         Buildr.ant 'shade_jar' do |ant|
