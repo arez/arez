@@ -1004,46 +1004,6 @@ public final class ArezProcessorTest
   }
 
   @Test
-  public void allowEmptyOnNonEmptyComponent()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component.AllowEmptyOnNonEmptyComponent" );
-    final String messageFragment =
-      "@ArezComponent target has specified allowEmpty = true but has methods annotated with @Action, @CascadeDispose, @Memoize, @Observable, @Inverse, @Reference, @ComponentDependency or @Observe";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void protectedCtorModel()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component.ProtectedCtorModel" );
-    final String messageFragment =
-      "@ArezComponent target has a protected constructor. The constructor should be public or package access. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedConstructor\" ) or @SuppressArezWarnings( \"Arez:ProtectedConstructor\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void protectedAccessComponentRef()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component_ref.ProtectedAccessComponentRefModel" );
-    final String messageFragment =
-      "@ComponentRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void publicAccessComponentRef()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component_ref.PublicAccessComponentRefModel" );
-    final String messageFragment =
-      "@ComponentRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
   public void validProtectedAccessComponentRef()
     throws Exception
   {
@@ -1070,26 +1030,6 @@ public final class ArezProcessorTest
       toFilename( "expected", "com.example.component_ref.Arez_PublicAccessViaInterfaceComponentRefModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
-  }
-
-  @Test
-  public void protectedAccessComponentNameRef()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component_name_ref.ProtectedAccessComponentNameRefModel" );
-    final String messageFragment =
-      "@ComponentNameRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void publicAccessComponentNameRef()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component_name_ref.PublicAccessComponentNameRefModel" );
-    final String messageFragment =
-      "@ComponentNameRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1122,26 +1062,6 @@ public final class ArezProcessorTest
   }
 
   @Test
-  public void protectedAccessComponentStateRef()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component_state_ref.ProtectedAccessComponentStateRefModel" );
-    final String messageFragment =
-      "@ComponentStateRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void publicAccessComponentStateRef()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component_state_ref.PublicAccessComponentStateRefModel" );
-    final String messageFragment =
-      "@ComponentStateRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
   public void validProtectedAccessComponentStateRef()
     throws Exception
   {
@@ -1168,26 +1088,6 @@ public final class ArezProcessorTest
       toFilename( "expected", "com.example.component_state_ref.Arez_PublicAccessViaInterfaceComponentStateRefModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
-  }
-
-  @Test
-  public void protectedAccessComponentTypeNameRef()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component_type_name_ref.ProtectedAccessComponentTypeNameRefModel" );
-    final String messageFragment =
-      "@ComponentTypeNameRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void publicAccessComponentTypeNameRef()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component_type_name_ref.PublicAccessComponentTypeNameRefModel" );
-    final String messageFragment =
-      "@ComponentTypeNameRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1221,26 +1121,6 @@ public final class ArezProcessorTest
   }
 
   @Test
-  public void protectedAccessComputableValueRef()
-  {
-    final String filename =
-      toFilename( "input", "com.example.computable_value_ref.ProtectedAccessComputableValueRefModel" );
-    final String messageFragment =
-      "@ComputableValueRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void publicAccessComputableValueRef()
-  {
-    final String filename =
-      toFilename( "input", "com.example.computable_value_ref.PublicAccessComputableValueRefModel" );
-    final String messageFragment =
-      "@ComputableValueRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
   public void validProtectedAccessComputableValueRef()
     throws Exception
   {
@@ -1267,25 +1147,6 @@ public final class ArezProcessorTest
       toFilename( "expected", "com.example.computable_value_ref.Arez_PublicAccessViaInterfaceComputableValueRefModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
-  }
-
-  @Test
-  public void protectedAccessContextRef()
-  {
-    final String filename =
-      toFilename( "input", "com.example.context_ref.ProtectedAccessContextRefModel" );
-    final String messageFragment =
-      "@ContextRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void publicAccessContextRef()
-  {
-    final String filename = toFilename( "input", "com.example.context_ref.PublicAccessContextRefModel" );
-    final String messageFragment =
-      "@ContextRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1318,26 +1179,6 @@ public final class ArezProcessorTest
   }
 
   @Test
-  public void protectedAccessObservableValueRef()
-  {
-    final String filename =
-      toFilename( "input", "com.example.observable_value_ref.ProtectedAccessObservableValueRefModel" );
-    final String messageFragment =
-      "@ObservableValueRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void publicAccessObservableValueRef()
-  {
-    final String filename =
-      toFilename( "input", "com.example.observable_value_ref.PublicAccessObservableValueRefModel" );
-    final String messageFragment =
-      "@ObservableValueRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
   public void validProtectedAccessObservableValueRef()
     throws Exception
   {
@@ -1364,26 +1205,6 @@ public final class ArezProcessorTest
       toFilename( "expected", "com.example.observable_value_ref.Arez_PublicAccessViaInterfaceObservableValueRefModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
-  }
-
-  @Test
-  public void protectedAccessObserverRef()
-  {
-    final String filename =
-      toFilename( "input", "com.example.observer_ref.ProtectedAccessObserverRefModel" );
-    final String messageFragment =
-      "@ObserverRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void publicAccessObserverRef()
-  {
-    final String filename =
-      toFilename( "input", "com.example.observer_ref.PublicAccessObserverRefModel" );
-    final String messageFragment =
-      "@ObserverRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1416,26 +1237,6 @@ public final class ArezProcessorTest
   }
 
   @Test
-  public void protectedAccessOnActivate()
-  {
-    final String filename =
-      toFilename( "input", "com.example.on_activate.ProtectedAccessOnActivateModel" );
-    final String messageFragment =
-      "@OnActivate target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedHookMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedHookMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void publicAccessOnActivate()
-  {
-    final String filename =
-      toFilename( "input", "com.example.on_activate.PublicAccessOnActivateModel" );
-    final String messageFragment =
-      "@OnActivate target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings( \"Arez:PublicHookMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
   public void validProtectedAccessOnActivate()
     throws Exception
   {
@@ -1462,26 +1263,6 @@ public final class ArezProcessorTest
       toFilename( "expected", "com.example.on_activate.Arez_PublicAccessViaInterfaceOnActivateModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
-  }
-
-  @Test
-  public void protectedAccessOnDeactivate()
-  {
-    final String filename =
-      toFilename( "input", "com.example.on_deactivate.ProtectedAccessOnDeactivateModel" );
-    final String messageFragment =
-      "@OnDeactivate target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedHookMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedHookMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void publicAccessOnDeactivate()
-  {
-    final String filename =
-      toFilename( "input", "com.example.on_deactivate.PublicAccessOnDeactivateModel" );
-    final String messageFragment =
-      "@OnDeactivate target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings( \"Arez:PublicHookMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1514,26 +1295,6 @@ public final class ArezProcessorTest
   }
 
   @Test
-  public void protectedAccessOnDepsChange()
-  {
-    final String filename =
-      toFilename( "input", "com.example.on_deps_change.ProtectedAccessOnDepsChangeModel" );
-    final String messageFragment =
-      "@OnDepsChange target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedHookMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedHookMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void publicAccessOnDepsChange()
-  {
-    final String filename =
-      toFilename( "input", "com.example.on_deps_change.PublicAccessOnDepsChangeModel" );
-    final String messageFragment =
-      "@OnDepsChange target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings( \"Arez:PublicHookMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
   public void validProtectedAccessOnDepsChange()
     throws Exception
   {
@@ -1560,26 +1321,6 @@ public final class ArezProcessorTest
       toFilename( "expected", "com.example.on_deps_change.Arez_PublicAccessViaInterfaceOnDepsChangeModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
-  }
-
-  @Test
-  public void protectedAccessPostConstruct()
-  {
-    final String filename =
-      toFilename( "input", "com.example.post_construct.ProtectedAccessPostConstructModel" );
-    final String messageFragment =
-      "@PostConstruct target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedLifecycleMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void publicAccessPostConstruct()
-  {
-    final String filename =
-      toFilename( "input", "com.example.post_construct.PublicAccessPostConstructModel" );
-    final String messageFragment =
-      "@PostConstruct target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:PublicLifecycleMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1634,26 +1375,6 @@ public final class ArezProcessorTest
   }
 
   @Test
-  public void protectedAccessPostDispose()
-  {
-    final String filename =
-      toFilename( "input", "com.example.post_dispose.ProtectedAccessPostDisposeModel" );
-    final String messageFragment =
-      "@PostDispose target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedLifecycleMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void publicAccessPostDispose()
-  {
-    final String filename =
-      toFilename( "input", "com.example.post_dispose.PublicAccessPostDisposeModel" );
-    final String messageFragment =
-      "@PostDispose target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:PublicLifecycleMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
   public void validProtectedAccessPostDispose()
     throws Exception
   {
@@ -1705,26 +1426,6 @@ public final class ArezProcessorTest
   }
 
   @Test
-  public void protectedAccessPostInverseAdd()
-  {
-    final String filename =
-      toFilename( "input", "com.example.post_inverse_add.ProtectedAccessPostInverseAddModel" );
-    final String messageFragment =
-      "@PostInverseAdd target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedHookMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedHookMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void publicAccessPostInverseAdd()
-  {
-    final String filename =
-      toFilename( "input", "com.example.post_inverse_add.PublicAccessPostInverseAddModel" );
-    final String messageFragment =
-      "@PostInverseAdd target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings( \"Arez:PublicHookMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
   public void validProtectedAccessPostInverseAdd()
     throws Exception
   {
@@ -1751,26 +1452,6 @@ public final class ArezProcessorTest
       toFilename( "expected", "com.example.post_inverse_add.Arez_PublicAccessViaInterfacePostInverseAddModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
-  }
-
-  @Test
-  public void protectedAccessPreDispose()
-  {
-    final String filename =
-      toFilename( "input", "com.example.pre_dispose.ProtectedAccessPreDisposeModel" );
-    final String messageFragment =
-      "@PreDispose target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedLifecycleMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void publicAccessPreDispose()
-  {
-    final String filename =
-      toFilename( "input", "com.example.pre_dispose.PublicAccessPreDisposeModel" );
-    final String messageFragment =
-      "@PreDispose target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:PublicLifecycleMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1822,26 +1503,6 @@ public final class ArezProcessorTest
                                             fixture( input5 ),
                                             fixture( input6 ) ),
                              Collections.singletonList( output ) );
-  }
-
-  @Test
-  public void protectedAccessPreInverseRemove()
-  {
-    final String filename =
-      toFilename( "input", "com.example.pre_inverse_remove.ProtectedAccessPreInverseRemoveModel" );
-    final String messageFragment =
-      "@PreInverseRemove target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedHookMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedHookMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void publicAccessPreInverseRemove()
-  {
-    final String filename =
-      toFilename( "input", "com.example.pre_inverse_remove.PublicAccessPreInverseRemoveModel" );
-    final String messageFragment =
-      "@PreInverseRemove target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings( \"Arez:PublicHookMethod\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -2872,208 +2533,154 @@ public final class ArezProcessorTest
   }
 
   @Test( dataProvider = "failedCompiles" )
-  public void processFailedCompile( @Nonnull final String classname, @Nonnull final String errorMessageFragment )
+  public void processFailedCompile( @Nonnull final String classname, @Nonnull final String messageFragment )
   {
-    assertFailedCompile( classname, errorMessageFragment );
+    assertFailedCompile( classname, messageFragment );
   }
 
-  @Test
-  public void unmanagedDisposeNotifierReference()
+  @DataProvider( name = "compileWithWarnings" )
+  public Object[][] compileWithWarnings()
   {
-    final String filename =
-      toFilename( "input", "com.example.component.UnmanagedDisposeNotifierReference" );
-    final String messageFragment =
-      "Field named 'time' has a type that is an implementation of DisposeNotifier but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
+    return new Object[][]
+      {
+        new Object[]{ "com.example.component.AllowEmptyOnNonEmptyComponent",
+                      "@ArezComponent target has specified allowEmpty = true but has methods annotated with @Action, @CascadeDispose, @Memoize, @Observable, @Inverse, @Reference, @ComponentDependency or @Observe" },
+        new Object[]{ "com.example.component.UnmanagedActAsComponentReference",
+                      "Field named '_myComponent' has a type that is annotated with @ActAsComponent but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
+        new Object[]{ "com.example.component.UnmanagedComponentReference",
+                      "Field named '_myComponent' has a type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
+        new Object[]{ "com.example.component.UnmanagedComponentReferenceViaInheritance",
+                      "Field named '_component' has a type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
+        new Object[]{ "com.example.component.UnmanagedDisposeNotifierReference",
+                      "Field named 'time' has a type that is an implementation of DisposeNotifier but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
+        new Object[]{ "com.example.component.UnmanagedObservableComponentReference",
+                      "Method named 'getMyComponent' has a return type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
+        new Object[]{ "com.example.component.UnmanagedObservableActAsComponentReference",
+                      "Method named 'getMyComponent' has a return type that is annotated with @ActAsComponent but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
+        new Object[]{ "com.example.component.UnmanagedObservableDisposeNotifierReference",
+                      "Method named 'getMyComponent' has a return type that is an implementation of DisposeNotifier but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
+        new Object[]{ "com.example.component.UnmanagedObservableComponentReferenceViaInheritance",
+                      "Method named 'getMyComponent' has a return type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
+        new Object[]{ "com.example.component.UnnecessaryDefaultPriorityPresentComponent",
+                      "@ArezComponent target should not specify the defaultPriority parameter unless it contains methods annotated with either the @Memoize annotation or the @Observe annotation. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:UnnecessaryDefaultPriority\" ) or @SuppressArezWarnings( \"Arez:UnnecessaryDefaultPriority\" )" },
+        new Object[]{ "com.example.component.UnnecessaryDefaultReadOutsideTransactionComponentModel",
+                      "@ArezComponent target has specified a value for the defaultReadOutsideTransaction parameter but does not contain any methods annotated with either @Memoize or @Observable. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:UnnecessaryAllowEmpty\" ) or @SuppressArezWarnings( \"Arez:UnnecessaryAllowEmpty\" )" },
+        new Object[]{ "com.example.component.UnnecessaryDefaultWriteOutsideTransactionComponentModel",
+                      "@ArezComponent target has specified a value for the defaultWriteOutsideTransaction parameter but does not contain any methods annotated with @Observable. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:UnnecessaryAllowEmpty\" ) or @SuppressArezWarnings( \"Arez:UnnecessaryAllowEmpty\" )" },
+        new Object[]{ "com.example.component.ProtectedCtorModel",
+                      "@ArezComponent target has a protected constructor. The constructor should be public or package access. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedConstructor\" ) or @SuppressArezWarnings( \"Arez:ProtectedConstructor\" )" },
+
+        new Object[]{ "com.example.component_ref.ProtectedAccessComponentRefModel",
+                      "@ComponentRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )" },
+        new Object[]{ "com.example.component_ref.PublicAccessComponentRefModel",
+                      "@ComponentRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )" },
+
+        new Object[]{ "com.example.component_name_ref.ProtectedAccessComponentNameRefModel",
+                      "@ComponentNameRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )" },
+        new Object[]{ "com.example.component_name_ref.PublicAccessComponentNameRefModel",
+                      "@ComponentNameRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )" },
+
+        new Object[]{ "com.example.component_state_ref.ProtectedAccessComponentStateRefModel",
+                      "@ComponentStateRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )" },
+        new Object[]{ "com.example.component_state_ref.PublicAccessComponentStateRefModel",
+                      "@ComponentStateRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )" },
+
+        new Object[]{ "com.example.component_type_name_ref.ProtectedAccessComponentTypeNameRefModel",
+                      "@ComponentTypeNameRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )" },
+        new Object[]{ "com.example.component_type_name_ref.PublicAccessComponentTypeNameRefModel",
+                      "@ComponentTypeNameRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )" },
+
+        new Object[]{ "com.example.computable_value_ref.ProtectedAccessComputableValueRefModel",
+                      "@ComputableValueRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )" },
+        new Object[]{ "com.example.computable_value_ref.PublicAccessComputableValueRefModel",
+                      "@ComputableValueRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )" },
+
+        new Object[]{ "com.example.context_ref.ProtectedAccessContextRefModel",
+                      "@ContextRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )" },
+        new Object[]{ "com.example.context_ref.PublicAccessContextRefModel",
+                      "@ContextRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )" },
+
+        new Object[]{ "com.example.observable_value_ref.ProtectedAccessObservableValueRefModel",
+                      "@ObservableValueRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )" },
+        new Object[]{ "com.example.observable_value_ref.PublicAccessObservableValueRefModel",
+                      "@ObservableValueRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )" },
+
+        new Object[]{ "com.example.observer_ref.ProtectedAccessObserverRefModel",
+                      "@ObserverRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )" },
+        new Object[]{ "com.example.observer_ref.PublicAccessObserverRefModel",
+                      "@ObserverRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )" },
+
+        new Object[]{ "com.example.on_activate.ProtectedAccessOnActivateModel",
+                      "@OnActivate target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedHookMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedHookMethod\" )" },
+        new Object[]{ "com.example.on_activate.PublicAccessOnActivateModel",
+                      "@OnActivate target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings( \"Arez:PublicHookMethod\" )" },
+
+        new Object[]{ "com.example.on_deactivate.ProtectedAccessOnDeactivateModel",
+                      "@OnDeactivate target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedHookMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedHookMethod\" )" },
+        new Object[]{ "com.example.on_deactivate.PublicAccessOnDeactivateModel",
+                      "@OnDeactivate target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings( \"Arez:PublicHookMethod\" )" },
+
+        new Object[]{ "com.example.on_deps_change.ProtectedAccessOnDepsChangeModel",
+                      "@OnDepsChange target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedHookMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedHookMethod\" )" },
+        new Object[]{ "com.example.on_deps_change.PublicAccessOnDepsChangeModel",
+                      "@OnDepsChange target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings( \"Arez:PublicHookMethod\" )" },
+
+        new Object[]{ "com.example.post_construct.ProtectedAccessPostConstructModel",
+                      "@PostConstruct target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedLifecycleMethod\" )" },
+        new Object[]{ "com.example.post_construct.PublicAccessPostConstructModel",
+                      "@PostConstruct target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:PublicLifecycleMethod\" )" },
+
+        new Object[]{ "com.example.post_dispose.ProtectedAccessPostDisposeModel",
+                      "@PostDispose target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedLifecycleMethod\" )" },
+        new Object[]{ "com.example.post_dispose.PublicAccessPostDisposeModel",
+                      "@PostDispose target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:PublicLifecycleMethod\" )" },
+
+        new Object[]{ "com.example.post_inverse_add.ProtectedAccessPostInverseAddModel",
+                      "@PostInverseAdd target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedHookMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedHookMethod\" )" },
+        new Object[]{ "com.example.post_inverse_add.PublicAccessPostInverseAddModel",
+                      "@PostInverseAdd target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings( \"Arez:PublicHookMethod\" )" },
+
+        new Object[]{ "com.example.pre_dispose.ProtectedAccessPreDisposeModel",
+                      "@PreDispose target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedLifecycleMethod\" )" },
+        new Object[]{ "com.example.pre_dispose.PublicAccessPreDisposeModel",
+                      "@PreDispose target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:PublicLifecycleMethod\" )" },
+
+        new Object[]{ "com.example.pre_inverse_remove.ProtectedAccessPreInverseRemoveModel",
+                      "@PreInverseRemove target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedHookMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedHookMethod\" )" },
+        new Object[]{ "com.example.pre_inverse_remove.PublicAccessPreInverseRemoveModel",
+                      "@PreInverseRemove target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings( \"Arez:PublicHookMethod\" )" }
+      };
   }
 
-  @Test
-  public void unmanagedActAsComponentReference()
+  @Test( dataProvider = "compileWithWarnings" )
+  public void processCompileWithWarnings( @Nonnull final String classname, @Nonnull final String messageFragment )
   {
-    final String filename =
-      toFilename( "input", "com.example.component.UnmanagedActAsComponentReference" );
-    final String messageFragment =
-      "Field named '_myComponent' has a type that is annotated with @ActAsComponent but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
+    assertCompilesWithSingleWarning( classname, messageFragment );
   }
 
-  @Test
-  public void unmanagedComponentReference()
+  @DataProvider( name = "compileWithoutWarnings" )
+  public Object[][] compileWithoutWarnings()
   {
-    final String filename =
-      toFilename( "input", "com.example.component.UnmanagedComponentReference" );
-    final String messageFragment =
-      "Field named '_myComponent' has a type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
+    return new Object[][]
+      {
+        new Object[]{ "com.example.component.UnmanagedComponentReferenceSuppressed" },
+        new Object[]{ "com.example.component.UnmanagedComponentReferenceSuppressedAtClass" },
+        new Object[]{ "com.example.component.UnmanagedComponentReferenceToNonDisposeNotifier" },
+        new Object[]{ "com.example.component.UnmanagedComponentReferenceToNonVerify" },
+        new Object[]{ "com.example.component.UnmanagedComponentReferenceToSingleton" },
+        new Object[]{ "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressed" },
+        new Object[]{ "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressedOnClass" },
+        new Object[]{ "com.example.component.UnmanagedObservableComponentReferenceViaInheritanceSuppressed" },
+        new Object[]{ "com.example.component.UnmanagedObservableComponentReferenceViaInheritanceSuppressedOnBaseClass" },
+        new Object[]{ "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressedOnSetter" },
+        new Object[]{ "com.example.component.UnmanagedObservableComponentReferenceToNonVerify" }
+      };
   }
 
-  @Test
-  public void unmanagedComponentReferenceViaInheritance()
+  @Test( dataProvider = "compileWithoutWarnings" )
+  public void processCompileWithWarnings( @Nonnull final String classname )
   {
-    final String filename =
-      toFilename( "input", "com.example.component.UnmanagedComponentReferenceViaInheritance" );
-    final String messageFragment =
-      "Field named '_component' has a type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void unmanagedComponentReferenceSuppressed()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component.UnmanagedComponentReferenceSuppressed" );
-    assertCompilesWithoutWarnings( filename );
-  }
-
-  @Test
-  public void unmanagedComponentReferenceSuppressedAtClass()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component.UnmanagedComponentReferenceSuppressedAtClass" );
-    assertCompilesWithoutWarnings( filename );
-  }
-
-  @Test
-  public void unmanagedComponentReferenceToNonDisposeNotifier()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component.UnmanagedComponentReferenceToNonDisposeNotifier" );
-    assertCompilesWithoutWarnings( filename );
-  }
-
-  @Test
-  public void unmanagedComponentReferenceToNonVerify()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component.UnmanagedComponentReferenceToNonVerify" );
-    assertCompilesWithoutWarnings( filename );
-  }
-
-  @Test
-  public void unmanagedComponentReferenceToSingleton()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component.UnmanagedComponentReferenceToSingleton" );
-    assertCompilesWithoutWarnings( filename );
-  }
-
-  @Test
-  public void unmanagedObservableComponentReference()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component.UnmanagedObservableComponentReference" );
-    final String messageFragment =
-      "Method named 'getMyComponent' has a return type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void unmanagedObservableActAsComponentReference()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component.UnmanagedObservableActAsComponentReference" );
-    final String messageFragment =
-      "Method named 'getMyComponent' has a return type that is annotated with @ActAsComponent but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void unmanagedObservableDisposeNotifierReference()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component.UnmanagedObservableDisposeNotifierReference" );
-    final String messageFragment =
-      "Method named 'getMyComponent' has a return type that is an implementation of DisposeNotifier but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void unmanagedObservableComponentReferenceViaInheritance()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component.UnmanagedObservableComponentReferenceViaInheritance" );
-    final String messageFragment =
-      "Method named 'getMyComponent' has a return type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void unmanagedObservableActAsComponentReferenceSuppressed()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressed" );
-    assertCompilesWithoutWarnings( filename );
-  }
-
-  @Test
-  public void unmanagedObservableActAsComponentReferenceSuppressedOnClass()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressedOnClass" );
-    assertCompilesWithoutWarnings( filename );
-  }
-
-  @Test
-  public void unmanagedObservableComponentReferenceViaInheritanceSuppressed()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component.UnmanagedObservableComponentReferenceViaInheritanceSuppressed" );
-    assertCompilesWithoutWarnings( filename );
-  }
-
-  @Test
-  public void unmanagedObservableComponentReferenceViaInheritanceSuppressedOnBaseClass()
-  {
-    final String filename =
-      toFilename( "input",
-                  "com.example.component.UnmanagedObservableComponentReferenceViaInheritanceSuppressedOnBaseClass" );
-    assertCompilesWithoutWarnings( filename );
-  }
-
-  @Test
-  public void unmanagedObservableActAsComponentReferenceSuppressedOnSetter()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressedOnSetter" );
-    assertCompilesWithoutWarnings( filename );
-  }
-
-  @Test
-  public void unmanagedObservableComponentReferenceToNonVerify()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component.UnmanagedObservableComponentReferenceToNonVerify" );
-    assertCompilesWithoutWarnings( filename );
-  }
-
-  @Test
-  public void unnecessaryDefaultPriorityPresent()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component.UnnecessaryDefaultPriorityPresentComponent" );
-    final String messageFragment =
-      "@ArezComponent target should not specify the defaultPriority parameter unless it contains methods annotated with either the @Memoize annotation or the @Observe annotation. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:UnnecessaryDefaultPriority\" ) or @SuppressArezWarnings( \"Arez:UnnecessaryDefaultPriority\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void unnecessaryDefaultReadOutsideTransactionComponentModel()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component.UnnecessaryDefaultReadOutsideTransactionComponentModel" );
-    final String messageFragment =
-      "@ArezComponent target has specified a value for the defaultReadOutsideTransaction parameter but does not contain any methods annotated with either @Memoize or @Observable. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:UnnecessaryAllowEmpty\" ) or @SuppressArezWarnings( \"Arez:UnnecessaryAllowEmpty\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
-  }
-
-  @Test
-  public void unnecessaryDefaultWriteOutsideTransactionComponentModel()
-  {
-    final String filename =
-      toFilename( "input", "com.example.component.UnnecessaryDefaultWriteOutsideTransactionComponentModel" );
-    final String messageFragment =
-      "@ArezComponent target has specified a value for the defaultWriteOutsideTransaction parameter but does not contain any methods annotated with @Observable. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:UnnecessaryAllowEmpty\" ) or @SuppressArezWarnings( \"Arez:UnnecessaryAllowEmpty\" )";
-    assertCompilesWithSingleWarning( filename, messageFragment );
+    assertCompilesWithoutWarnings( classname );
   }
 
   @DataProvider( name = "packageAccessElementInDifferentPackage" )
@@ -3141,10 +2748,8 @@ public final class ArezProcessorTest
   @Test
   public void processFailedCompileInheritedPackageAccessInDifferentPackageWhenInRoot()
   {
-    final JavaFileObject source1 =
-      fixture( "bad_input/com/example/package_access/other/BaseActionModel.java" );
-    final JavaFileObject source2 =
-      fixture( "bad_input/PackageAccessActionModel.java" );
+    final JavaFileObject source1 = fixture( "bad_input/com/example/package_access/other/BaseActionModel.java" );
+    final JavaFileObject source2 = fixture( "bad_input/PackageAccessActionModel.java" );
     assertFailedCompileResource( Arrays.asList( source1, source2 ),
                                  "@Action target must not be package access if " +
                                  "the method is in a different package from the type annotated with the " +
@@ -3154,10 +2759,8 @@ public final class ArezProcessorTest
   @Test
   public void processFailedCompileInheritedPackageAccessInDifferentPackageObservable_Setter()
   {
-    final JavaFileObject source1 =
-      fixture( "bad_input/com/example/package_access/other/BaseObservable2Model.java" );
-    final JavaFileObject source2 =
-      fixture( "bad_input/com/example/package_access/Observable2Model.java" );
+    final JavaFileObject source1 = fixture( "bad_input/com/example/package_access/other/BaseObservable2Model.java" );
+    final JavaFileObject source2 = fixture( "bad_input/com/example/package_access/Observable2Model.java" );
     assertFailedCompileResource( Arrays.asList( source1, source2 ),
                                  "@Observable target must not be package access if " +
                                  "the method is in a different package from the type annotated with the " +
@@ -3167,10 +2770,8 @@ public final class ArezProcessorTest
   @Test
   public void processFailedCompileInheritedPackageAccessInDifferentPackageObservable_Getter()
   {
-    final JavaFileObject source1 =
-      fixture( "bad_input/com/example/package_access/other/BaseObservable3Model.java" );
-    final JavaFileObject source2 =
-      fixture( "bad_input/com/example/package_access/Observable3Model.java" );
+    final JavaFileObject source1 = fixture( "bad_input/com/example/package_access/other/BaseObservable3Model.java" );
+    final JavaFileObject source2 = fixture( "bad_input/com/example/package_access/Observable3Model.java" );
     assertFailedCompileResource( Arrays.asList( source1, source2 ),
                                  "@Observable target must not be package access if " +
                                  "the method is in a different package from the type annotated with the " +
@@ -3357,15 +2958,15 @@ public final class ArezProcessorTest
 
   @SuppressWarnings( "UnusedReturnValue" )
   @Nonnull
-  private CompileTester.CleanCompilationClause assertCompilesWithoutWarnings( @Nonnull final String filename )
+  private CompileTester.CleanCompilationClause assertCompilesWithoutWarnings( @Nonnull final String classname )
   {
-    return assertCompilesWithoutWarnings( Collections.singletonList( fixture( filename ) ) );
+    return assertCompilesWithoutWarnings( Collections.singletonList( fixture( toFilename( "input", classname ) ) ) );
   }
 
   @Nonnull
-  private CompileTester.SuccessfulCompilationClause assertCompilesWithoutErrors( @Nonnull final String filename )
+  private CompileTester.SuccessfulCompilationClause assertCompilesWithoutErrors( @Nonnull final String classname )
   {
-    return assertCompilesWithoutErrors( Collections.singletonList( fixture( filename ) ) );
+    return assertCompilesWithoutErrors( Collections.singletonList( fixture( toFilename( "input", classname ) ) ) );
   }
 
   @Nonnull
@@ -3374,9 +2975,9 @@ public final class ArezProcessorTest
     return assertCompiles( inputs ).compilesWithoutWarnings();
   }
 
-  private void assertCompilesWithSingleWarning( @Nonnull final String filename, @Nonnull final String messageFragment )
+  private void assertCompilesWithSingleWarning( @Nonnull final String classname, @Nonnull final String messageFragment )
   {
-    assertCompilesWithoutErrors( filename ).
+    assertCompilesWithoutErrors( classname ).
       withWarningCount( 1 ).
       withWarningContaining( messageFragment );
   }
