@@ -3,6 +3,7 @@
 ### Unreleased
 
 * Upgrade the `org.realityforge.proton` artifact to version `0.07`.
+* Decouple the `processor` artifact from the `com.google.auto:auto-common` dependency and thus the `com.google.guava:guava` dependency. This significantly reduces the build time for the processor and the size of the processor artifact.
 
 ### [v0.161](https://github.com/arez/arez/tree/v0.161) (2019-12-25) · [Full Changelog](https://github.com/arez/arez/compare/v0.160...v0.161)
 
