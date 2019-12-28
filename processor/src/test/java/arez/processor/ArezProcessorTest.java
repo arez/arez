@@ -2471,7 +2471,7 @@ public final class ArezProcessorTest
   }
 
   @Test( dataProvider = "compileWithoutWarnings" )
-  public void processCompileWithWarnings( @Nonnull final String classname )
+  public void processCompileWithoutWarnings( @Nonnull final String classname )
   {
     assertCompilesWithoutWarnings( classname );
   }
