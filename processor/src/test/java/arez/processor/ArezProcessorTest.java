@@ -2571,6 +2571,24 @@ public final class ArezProcessorTest
                                  "@ArezComponent annotation" );
   }
 
+  @Test
+  public void unresolvedComponent()
+  {
+    final JavaFileObject source1 = fixture( "unresolved/com/example/component/UnresolvedComponent.java" );
+    final List<JavaFileObject> inputs = Collections.singletonList( source1 );
+    assertFailedCompileResource( inputs,
+                                 "ArezProcessor unable to process com.example.component.UnresolvedComponent because not all of its dependencies could be resolved. Check for compilation errors or a circular dependency with generated code." );
+
+    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( inputs ).
+      withCompilerOptions( "-Xlint:all,-processing",
+                           "-implicit:none",
+                           "-A" + getOptionPrefix() + ".defer.errors=false",
+                           "-A" + getOptionPrefix() + ".defer.unresolved=false" ).
+      processedWith( processor(), additionalProcessors() ).
+      compilesWithoutWarnings();
+  }
+
   void assertSuccessfulCompile( @Nonnull final String classname,
                                 final boolean daggerModuleExpected,
                                 final boolean daggerComponentExtensionExpected,
