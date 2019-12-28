@@ -1,9 +1,11 @@
 package arez.processor;
 
+import com.google.testing.compile.CompileTester;
 import com.google.testing.compile.JavaSourcesSubjectFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import javax.annotation.Nonnull;
 import javax.tools.JavaFileObject;
 import org.realityforge.proton.qa.AbstractProcessorTest;
@@ -1008,13 +1010,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.component.AllowEmptyOnNonEmptyComponent" );
     final String messageFragment =
       "@ArezComponent target has specified allowEmpty = true but has methods annotated with @Action, @CascadeDispose, @Memoize, @Observable, @Inverse, @Reference, @ComponentDependency or @Observe";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1024,13 +1020,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.component.ProtectedCtorModel" );
     final String messageFragment =
       "@ArezComponent target has a protected constructor. The constructor should be public or package access. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedConstructor\" ) or @SuppressArezWarnings( \"Arez:ProtectedConstructor\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1040,13 +1030,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.component_ref.ProtectedAccessComponentRefModel" );
     final String messageFragment =
       "@ComponentRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1056,13 +1040,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.component_ref.PublicAccessComponentRefModel" );
     final String messageFragment =
       "@ComponentRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1101,13 +1079,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.component_name_ref.ProtectedAccessComponentNameRefModel" );
     final String messageFragment =
       "@ComponentNameRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1117,13 +1089,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.component_name_ref.PublicAccessComponentNameRefModel" );
     final String messageFragment =
       "@ComponentNameRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1162,13 +1128,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.component_state_ref.ProtectedAccessComponentStateRefModel" );
     final String messageFragment =
       "@ComponentStateRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1178,13 +1138,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.component_state_ref.PublicAccessComponentStateRefModel" );
     final String messageFragment =
       "@ComponentStateRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1223,13 +1177,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.component_type_name_ref.ProtectedAccessComponentTypeNameRefModel" );
     final String messageFragment =
       "@ComponentTypeNameRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1239,13 +1187,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.component_type_name_ref.PublicAccessComponentTypeNameRefModel" );
     final String messageFragment =
       "@ComponentTypeNameRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1285,13 +1227,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.computable_value_ref.ProtectedAccessComputableValueRefModel" );
     final String messageFragment =
       "@ComputableValueRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1301,13 +1237,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.computable_value_ref.PublicAccessComputableValueRefModel" );
     final String messageFragment =
       "@ComputableValueRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1346,13 +1276,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.context_ref.ProtectedAccessContextRefModel" );
     final String messageFragment =
       "@ContextRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1361,13 +1285,7 @@ public final class ArezProcessorTest
     final String filename = toFilename( "input", "com.example.context_ref.PublicAccessContextRefModel" );
     final String messageFragment =
       "@ContextRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1406,13 +1324,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.observable_value_ref.ProtectedAccessObservableValueRefModel" );
     final String messageFragment =
       "@ObservableValueRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1422,13 +1334,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.observable_value_ref.PublicAccessObservableValueRefModel" );
     final String messageFragment =
       "@ObservableValueRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1467,13 +1373,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.observer_ref.ProtectedAccessObserverRefModel" );
     final String messageFragment =
       "@ObserverRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1483,13 +1383,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.observer_ref.PublicAccessObserverRefModel" );
     final String messageFragment =
       "@ObserverRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1528,13 +1422,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.on_activate.ProtectedAccessOnActivateModel" );
     final String messageFragment =
       "@OnActivate target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedHookMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedHookMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1544,13 +1432,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.on_activate.PublicAccessOnActivateModel" );
     final String messageFragment =
       "@OnActivate target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings( \"Arez:PublicHookMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1589,13 +1471,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.on_deactivate.ProtectedAccessOnDeactivateModel" );
     final String messageFragment =
       "@OnDeactivate target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedHookMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedHookMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1605,13 +1481,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.on_deactivate.PublicAccessOnDeactivateModel" );
     final String messageFragment =
       "@OnDeactivate target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings( \"Arez:PublicHookMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1650,13 +1520,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.on_deps_change.ProtectedAccessOnDepsChangeModel" );
     final String messageFragment =
       "@OnDepsChange target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedHookMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedHookMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1666,13 +1530,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.on_deps_change.PublicAccessOnDepsChangeModel" );
     final String messageFragment =
       "@OnDepsChange target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings( \"Arez:PublicHookMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1711,13 +1569,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.post_construct.ProtectedAccessPostConstructModel" );
     final String messageFragment =
       "@PostConstruct target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedLifecycleMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1727,13 +1579,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.post_construct.PublicAccessPostConstructModel" );
     final String messageFragment =
       "@PostConstruct target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:PublicLifecycleMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1794,13 +1640,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.post_dispose.ProtectedAccessPostDisposeModel" );
     final String messageFragment =
       "@PostDispose target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedLifecycleMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1810,13 +1650,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.post_dispose.PublicAccessPostDisposeModel" );
     final String messageFragment =
       "@PostDispose target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:PublicLifecycleMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1877,13 +1711,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.post_inverse_add.ProtectedAccessPostInverseAddModel" );
     final String messageFragment =
       "@PostInverseAdd target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedHookMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedHookMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1893,13 +1721,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.post_inverse_add.PublicAccessPostInverseAddModel" );
     final String messageFragment =
       "@PostInverseAdd target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings( \"Arez:PublicHookMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1938,13 +1760,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.pre_dispose.ProtectedAccessPreDisposeModel" );
     final String messageFragment =
       "@PreDispose target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedLifecycleMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -1954,13 +1770,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.pre_dispose.PublicAccessPreDisposeModel" );
     final String messageFragment =
       "@PreDispose target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicLifecycleMethod\" ) or @SuppressArezWarnings( \"Arez:PublicLifecycleMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -2021,13 +1831,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.pre_inverse_remove.ProtectedAccessPreInverseRemoveModel" );
     final String messageFragment =
       "@PreInverseRemove target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedHookMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedHookMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -2037,13 +1841,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.pre_inverse_remove.PublicAccessPreInverseRemoveModel" );
     final String messageFragment =
       "@PreInverseRemove target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings( \"Arez:PublicHookMethod\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:all,-processing", "-implicit:none", "-Aarez.defer.errors=false" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -3086,13 +2884,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.component.UnmanagedDisposeNotifierReference" );
     final String messageFragment =
       "Field named 'time' has a type that is an implementation of DisposeNotifier but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -3102,13 +2894,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.component.UnmanagedActAsComponentReference" );
     final String messageFragment =
       "Field named '_myComponent' has a type that is annotated with @ActAsComponent but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -3118,13 +2904,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.component.UnmanagedComponentReference" );
     final String messageFragment =
       "Field named '_myComponent' has a type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -3134,13 +2914,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.component.UnmanagedComponentReferenceViaInheritance" );
     final String messageFragment =
       "Field named '_component' has a type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -3148,11 +2922,7 @@ public final class ArezProcessorTest
   {
     final String filename =
       toFilename( "input", "com.example.component.UnmanagedComponentReferenceSuppressed" );
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutWarnings();
+    assertCompilesWithoutWarnings( filename );
   }
 
   @Test
@@ -3160,11 +2930,7 @@ public final class ArezProcessorTest
   {
     final String filename =
       toFilename( "input", "com.example.component.UnmanagedComponentReferenceSuppressedAtClass" );
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutWarnings();
+    assertCompilesWithoutWarnings( filename );
   }
 
   @Test
@@ -3172,11 +2938,7 @@ public final class ArezProcessorTest
   {
     final String filename =
       toFilename( "input", "com.example.component.UnmanagedComponentReferenceToNonDisposeNotifier" );
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutWarnings();
+    assertCompilesWithoutWarnings( filename );
   }
 
   @Test
@@ -3184,11 +2946,7 @@ public final class ArezProcessorTest
   {
     final String filename =
       toFilename( "input", "com.example.component.UnmanagedComponentReferenceToNonVerify" );
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutWarnings();
+    assertCompilesWithoutWarnings( filename );
   }
 
   @Test
@@ -3196,11 +2954,7 @@ public final class ArezProcessorTest
   {
     final String filename =
       toFilename( "input", "com.example.component.UnmanagedComponentReferenceToSingleton" );
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutWarnings();
+    assertCompilesWithoutWarnings( filename );
   }
 
   @Test
@@ -3210,13 +2964,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.component.UnmanagedObservableComponentReference" );
     final String messageFragment =
       "Method named 'getMyComponent' has a return type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -3226,13 +2974,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.component.UnmanagedObservableActAsComponentReference" );
     final String messageFragment =
       "Method named 'getMyComponent' has a return type that is annotated with @ActAsComponent but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -3242,13 +2984,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.component.UnmanagedObservableDisposeNotifierReference" );
     final String messageFragment =
       "Method named 'getMyComponent' has a return type that is an implementation of DisposeNotifier but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -3258,13 +2994,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.component.UnmanagedObservableComponentReferenceViaInheritance" );
     final String messageFragment =
       "Method named 'getMyComponent' has a return type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -3272,11 +3002,7 @@ public final class ArezProcessorTest
   {
     final String filename =
       toFilename( "input", "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressed" );
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutWarnings();
+    assertCompilesWithoutWarnings( filename );
   }
 
   @Test
@@ -3284,11 +3010,7 @@ public final class ArezProcessorTest
   {
     final String filename =
       toFilename( "input", "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressedOnClass" );
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutWarnings();
+    assertCompilesWithoutWarnings( filename );
   }
 
   @Test
@@ -3296,11 +3018,7 @@ public final class ArezProcessorTest
   {
     final String filename =
       toFilename( "input", "com.example.component.UnmanagedObservableComponentReferenceViaInheritanceSuppressed" );
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutWarnings();
+    assertCompilesWithoutWarnings( filename );
   }
 
   @Test
@@ -3309,11 +3027,7 @@ public final class ArezProcessorTest
     final String filename =
       toFilename( "input",
                   "com.example.component.UnmanagedObservableComponentReferenceViaInheritanceSuppressedOnBaseClass" );
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutWarnings();
+    assertCompilesWithoutWarnings( filename );
   }
 
   @Test
@@ -3321,11 +3035,7 @@ public final class ArezProcessorTest
   {
     final String filename =
       toFilename( "input", "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressedOnSetter" );
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutWarnings();
+    assertCompilesWithoutWarnings( filename );
   }
 
   @Test
@@ -3333,11 +3043,7 @@ public final class ArezProcessorTest
   {
     final String filename =
       toFilename( "input", "com.example.component.UnmanagedObservableComponentReferenceToNonVerify" );
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutWarnings();
+    assertCompilesWithoutWarnings( filename );
   }
 
   @Test
@@ -3347,13 +3053,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.component.UnnecessaryDefaultPriorityPresentComponent" );
     final String messageFragment =
       "@ArezComponent target should not specify the defaultPriority parameter unless it contains methods annotated with either the @Memoize annotation or the @Observe annotation. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:UnnecessaryDefaultPriority\" ) or @SuppressArezWarnings( \"Arez:UnnecessaryDefaultPriority\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -3363,13 +3063,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.component.UnnecessaryDefaultReadOutsideTransactionComponentModel" );
     final String messageFragment =
       "@ArezComponent target has specified a value for the defaultReadOutsideTransaction parameter but does not contain any methods annotated with either @Memoize or @Observable. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:UnnecessaryAllowEmpty\" ) or @SuppressArezWarnings( \"Arez:UnnecessaryAllowEmpty\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @Test
@@ -3379,13 +3073,7 @@ public final class ArezProcessorTest
       toFilename( "input", "com.example.component.UnnecessaryDefaultWriteOutsideTransactionComponentModel" );
     final String messageFragment =
       "@ArezComponent target has specified a value for the defaultWriteOutsideTransaction parameter but does not contain any methods annotated with @Observable. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:UnnecessaryAllowEmpty\" ) or @SuppressArezWarnings( \"Arez:UnnecessaryAllowEmpty\" )";
-    assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( Collections.singletonList( fixture( filename ) ) ).
-      withCompilerOptions( "-Xlint:-processing", "-implicit:class" ).
-      processedWith( new ArezProcessor() ).
-      compilesWithoutError().
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
+    assertCompilesWithSingleWarning( filename, messageFragment );
   }
 
   @DataProvider( name = "packageAccessElementInDifferentPackage" )
@@ -3650,5 +3338,46 @@ public final class ArezProcessorTest
   protected ArezProcessor processor()
   {
     return new ArezProcessor();
+  }
+
+  @Nonnull
+  private CompileTester assertCompiles( @Nonnull final List<JavaFileObject> inputs )
+  {
+    return assert_().about( JavaSourcesSubjectFactory.javaSources() ).
+      that( inputs ).
+      withCompilerOptions( getOptions() ).
+      processedWith( processor(), additionalProcessors() );
+  }
+
+  @Nonnull
+  private CompileTester.SuccessfulCompilationClause assertCompilesWithoutErrors( @Nonnull final List<JavaFileObject> inputs )
+  {
+    return assertCompiles( inputs ).compilesWithoutError();
+  }
+
+  @SuppressWarnings( "UnusedReturnValue" )
+  @Nonnull
+  private CompileTester.CleanCompilationClause assertCompilesWithoutWarnings( @Nonnull final String filename )
+  {
+    return assertCompilesWithoutWarnings( Collections.singletonList( fixture( filename ) ) );
+  }
+
+  @Nonnull
+  private CompileTester.SuccessfulCompilationClause assertCompilesWithoutErrors( @Nonnull final String filename )
+  {
+    return assertCompilesWithoutErrors( Collections.singletonList( fixture( filename ) ) );
+  }
+
+  @Nonnull
+  private CompileTester.CleanCompilationClause assertCompilesWithoutWarnings( @Nonnull final List<JavaFileObject> inputs )
+  {
+    return assertCompiles( inputs ).compilesWithoutWarnings();
+  }
+
+  private void assertCompilesWithSingleWarning( @Nonnull final String filename, @Nonnull final String messageFragment )
+  {
+    assertCompilesWithoutErrors( filename ).
+      withWarningCount( 1 ).
+      withWarningContaining( messageFragment );
   }
 }
