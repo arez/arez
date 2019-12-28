@@ -21,6 +21,8 @@ See https://github.com/arez/arez/issues/91
 
 ## Enhancements
 
+* Move some of the data driven tests in annotation processor so data in properties files.
+
 * Merge all `validPublicAccessViaInterface*` processor tests into a single test.
 
 * Merge all `validProtectedAccess*` processor tests into a single test.
