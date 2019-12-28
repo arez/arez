@@ -1,6 +1,5 @@
 package arez.processor;
 
-import com.google.testing.compile.CompileTester;
 import com.google.testing.compile.JavaSourcesSubjectFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1400,7 +1399,7 @@ public final class ArezProcessorTest
   public void processSuccessfulNestedCompileWithRepositories()
     throws Exception
   {
-    assertSuccessfulCompile( "input/com/example/repository/NestedModel.java",
+    assertSuccessfulCompile( "com.example.repository.NestedModel",
                              "expected/com/example/repository/NestedModel_Arez_BasicActionModel.java",
                              "expected/com/example/repository/NestedModel_BasicActionModelRepositoryDaggerModule.java",
                              "expected/com/example/repository/NestedModel_BasicActionModelRepository.java",
@@ -1434,15 +1433,14 @@ public final class ArezProcessorTest
   public void processSuccessfulNestedCompile()
     throws Exception
   {
-    assertSuccessfulCompile( "input/NestedModel.java", "expected/NestedModel_Arez_BasicActionModel.java" );
+    assertSuccessfulCompile( "NestedModel", "expected/NestedModel_Arez_BasicActionModel.java" );
   }
 
   @Test
   public void processSuccessfulNestedNestedCompile()
     throws Exception
   {
-    assertSuccessfulCompile( "input/NestedNestedModel.java",
-                             "expected/NestedNestedModel_Something_Arez_BasicActionModel.java" );
+    assertSuccessfulCompile( "NestedNestedModel", "expected/NestedNestedModel_Something_Arez_BasicActionModel.java" );
   }
 
   @Test
@@ -2602,7 +2600,7 @@ public final class ArezProcessorTest
                              daggerComponentExtensionExpected,
                              repositoryEnabled,
                              repositoryDaggerEnabled );
-    assertSuccessfulCompile( toFilename( "input", classname ), expectedOutputResources );
+    assertSuccessfulCompile( classname, expectedOutputResources );
   }
 
   @Nonnull
@@ -2750,46 +2748,5 @@ public final class ArezProcessorTest
   protected ArezProcessor processor()
   {
     return new ArezProcessor();
-  }
-
-  @Nonnull
-  private CompileTester assertCompiles( @Nonnull final List<JavaFileObject> inputs )
-  {
-    return assert_().about( JavaSourcesSubjectFactory.javaSources() ).
-      that( inputs ).
-      withCompilerOptions( getOptions() ).
-      processedWith( processor(), additionalProcessors() );
-  }
-
-  @Nonnull
-  private CompileTester.SuccessfulCompilationClause assertCompilesWithoutErrors( @Nonnull final List<JavaFileObject> inputs )
-  {
-    return assertCompiles( inputs ).compilesWithoutError();
-  }
-
-  @SuppressWarnings( "UnusedReturnValue" )
-  @Nonnull
-  private CompileTester.CleanCompilationClause assertCompilesWithoutWarnings( @Nonnull final String classname )
-  {
-    return assertCompilesWithoutWarnings( Collections.singletonList( fixture( toFilename( "input", classname ) ) ) );
-  }
-
-  @Nonnull
-  private CompileTester.SuccessfulCompilationClause assertCompilesWithoutErrors( @Nonnull final String classname )
-  {
-    return assertCompilesWithoutErrors( Collections.singletonList( fixture( toFilename( "input", classname ) ) ) );
-  }
-
-  @Nonnull
-  private CompileTester.CleanCompilationClause assertCompilesWithoutWarnings( @Nonnull final List<JavaFileObject> inputs )
-  {
-    return assertCompiles( inputs ).compilesWithoutWarnings();
-  }
-
-  private void assertCompilesWithSingleWarning( @Nonnull final String classname, @Nonnull final String messageFragment )
-  {
-    assertCompilesWithoutErrors( classname ).
-      withWarningCount( 1 ).
-      withWarningContaining( messageFragment );
   }
 }

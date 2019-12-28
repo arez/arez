@@ -20,6 +20,8 @@ DAGGER_DEPS =
     :dagger_producers,
     :dagger_spi,
     :dagger_compiler,
+    :autocommon,
+    :guava,
     :guava_failureaccess,
     :kotlinx_metadata_jvm,
     :kotlin_stdlib,
@@ -116,9 +118,7 @@ define 'arez' do
 
     compile.with :javax_annotation,
                  :proton_core,
-                 :autocommon,
-                 :javapoet,
-                 :guava
+                 :javapoet
 
     test.with :compile_testing,
               Java.tools_jar,
@@ -136,8 +136,6 @@ define 'arez' do
 
     package(:jar).enhance do |jar|
       jar.merge(artifact(:javapoet))
-      jar.merge(artifact(:guava))
-      jar.merge(artifact(:autocommon))
       jar.merge(artifact(:proton_core))
       jar.enhance do |f|
         shaded_jar = (f.to_s + '-shaded')
@@ -147,7 +145,6 @@ define 'arez' do
           ant.taskdef :name => 'shade', :classname => 'org.realityforge.ant.shade.Shade', :classpath => artifact.to_s
           ant.shade :jar => f.to_s, :uberJar => shaded_jar do
             ant.relocation :pattern => 'com.squareup.javapoet', :shadedPattern => 'arez.processor.vendor.javapoet'
-            ant.relocation :pattern => 'com.google', :shadedPattern => 'arez.processor.vendor.google'
             ant.relocation :pattern => 'org.realityforge.proton', :shadedPattern => 'arez.processor.vendor.proton'
           end
         end

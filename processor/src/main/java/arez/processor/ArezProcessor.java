@@ -1,9 +1,7 @@
 package arez.processor;
 
-import com.google.auto.common.SuperficialValidation;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeSpec;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,6 +42,7 @@ import org.realityforge.proton.ElementsUtil;
 import org.realityforge.proton.GeneratorUtil;
 import org.realityforge.proton.MemberChecks;
 import org.realityforge.proton.ProcessorException;
+import org.realityforge.proton.SuperficialValidation;
 import static javax.tools.Diagnostic.Kind.*;
 
 /**
@@ -3010,7 +3009,7 @@ public final class ArezProcessor
 
     for ( final VariableElement field : fields )
     {
-      if ( !field.getModifiers().contains( Modifier.STATIC ) && SuperficialValidation.validateElement( field ) )
+      if ( !field.getModifiers().contains( Modifier.STATIC ) && SuperficialValidation.validateElement( processingEnv, field ) )
       {
         final boolean isDisposeNotifier =
           processingEnv.getTypeUtils().isAssignable( field.asType(), disposeNotifier.asType() );
@@ -3049,7 +3048,7 @@ public final class ArezProcessor
       if ( observable.isAbstract() )
       {
         final ExecutableElement getter = observable.getGetter();
-        if ( SuperficialValidation.validateElement( getter ) )
+        if ( SuperficialValidation.validateElement( processingEnv, getter ) )
         {
           final TypeMirror returnType = getter.getReturnType();
           final Element returnElement = processingEnv.getTypeUtils().asElement( returnType );
@@ -3097,7 +3096,7 @@ public final class ArezProcessor
 
   private boolean verifyReferencesToComponent( @Nonnull final Element element )
   {
-    assert SuperficialValidation.validateElement( element );
+    assert SuperficialValidation.validateElement( processingEnv, element );
 
     final VariableElement verifyReferencesToComponent = (VariableElement)
       AnnotationsUtil.getAnnotationValue( element,
@@ -3136,7 +3135,7 @@ public final class ArezProcessor
   private boolean isElementAnnotatedBy( @Nullable final Element element, @Nonnull final String annotation )
   {
     return null != element &&
-           SuperficialValidation.validateElement( element ) &&
+           SuperficialValidation.validateElement( processingEnv, element ) &&
            AnnotationsUtil.hasAnnotationOfType( element, annotation );
   }
 
@@ -3287,11 +3286,5 @@ public final class ArezProcessor
                                         @Nonnull final String parameterName )
   {
     return AnnotationsUtil.getAnnotationValue( annotation, parameterName );
-  }
-
-  private void emitTypeSpec( @Nonnull final String packageName, @Nonnull final TypeSpec typeSpec )
-    throws IOException
-  {
-    GeneratorUtil.emitJavaType( packageName, typeSpec, processingEnv.getFiler() );
   }
 }
