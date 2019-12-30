@@ -78,8 +78,8 @@ public final class ArezProcessor
   {
     final TypeElement annotation =
       processingEnv.getElementUtils().getTypeElement( Constants.COMPONENT_ANNOTATION_CLASSNAME );
-    final Set<TypeElement> elementsToProcess = (Set<TypeElement>) env.getElementsAnnotatedWith( annotation );
-    processTypeElements( env, elementsToProcess, this::process );
+    final Collection<TypeElement> elementsTo = (Collection<TypeElement>) env.getElementsAnnotatedWith( annotation );
+    processTypeElements( env, elementsTo, this::process );
     errorIfProcessingOverAndInvalidTypesDetected( env );
     return true;
   }
