@@ -3010,7 +3010,8 @@ public final class ArezProcessor
 
     for ( final VariableElement field : fields )
     {
-      if ( !field.getModifiers().contains( Modifier.STATIC ) && SuperficialValidation.validateElement( processingEnv, field ) )
+      if ( !field.getModifiers().contains( Modifier.STATIC ) &&
+           SuperficialValidation.validateElement( processingEnv, field ) )
       {
         final boolean isDisposeNotifier =
           processingEnv.getTypeUtils().isAssignable( field.asType(), disposeNotifier.asType() );
