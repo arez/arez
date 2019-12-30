@@ -73,17 +73,18 @@ public final class ArezProcessor
   private static final Pattern POST_INVERSE_ADD_PATTERN = Pattern.compile( "^post([A-Z].*)Add" );
 
   @SuppressWarnings( "unchecked" )
-  @Nonnull
   @Override
-  protected Set<TypeElement> getTypeElementsToProcess( @Nonnull final RoundEnvironment env )
+  public boolean process( @Nonnull final Set<? extends TypeElement> annotations, @Nonnull final RoundEnvironment env )
   {
     final TypeElement annotation =
       processingEnv.getElementUtils().getTypeElement( Constants.COMPONENT_ANNOTATION_CLASSNAME );
-    return (Set<TypeElement>) env.getElementsAnnotatedWith( annotation );
+    final Set<TypeElement> elementsToProcess = (Set<TypeElement>) env.getElementsAnnotatedWith( annotation );
+    processTypeElements( env, elementsToProcess, this::process );
+    errorIfProcessingOverAndInvalidTypesDetected( env );
+    return true;
   }
 
-  @Override
-  protected void process( @Nonnull final TypeElement element )
+  private void process( @Nonnull final TypeElement element )
     throws IOException, ProcessorException
   {
     final ComponentDescriptor descriptor = parse( element );
