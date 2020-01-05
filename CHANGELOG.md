@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.163](https://github.com/arez/arez/tree/v0.163) (2020-01-06) · [Full Changelog](https://github.com/arez/arez/compare/v0.162...v0.163)
+
+Changes in this release:
 
 * Upgrade the `org.realityforge.proton` artifact to version `0.11`.
 
