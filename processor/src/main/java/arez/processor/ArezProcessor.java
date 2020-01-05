@@ -29,7 +29,6 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
-import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
@@ -2019,8 +2018,7 @@ public final class ArezProcessor
     {
       throw new ProcessorException( "@ArezComponent target must not be final", typeElement );
     }
-    else if ( NestingKind.TOP_LEVEL != typeElement.getNestingKind() &&
-              !typeElement.getModifiers().contains( Modifier.STATIC ) )
+    else if ( ElementsUtil.isNonStaticNestedClass( typeElement ) )
     {
       throw new ProcessorException( "@ArezComponent target must not be a non-static nested class", typeElement );
     }
