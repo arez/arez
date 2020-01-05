@@ -18,7 +18,7 @@ The simplest way to use component;
 <dependency>
    <groupId>org.realityforge.arez.dom</groupId>
    <artifactId>arez-dom</artifactId>
-   <version>0.46</version>
+   <version>0.47</version>
 </dependency>
 ```
 
