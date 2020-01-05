@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Remove the generated `inject(...)` method from the dagger `Subcomponent` created for components with dagger enabled as it is unused and can negatively impact code-size.
+
 ### [v0.163](https://github.com/arez/arez/tree/v0.163) (2020-01-06) · [Full Changelog](https://github.com/arez/arez/compare/v0.162...v0.163)
 
 Changes in this release:

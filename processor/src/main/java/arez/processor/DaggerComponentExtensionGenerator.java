@@ -3,7 +3,6 @@ package arez.processor;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeSpec;
 import javax.annotation.Nonnull;
 import javax.annotation.processing.ProcessingEnvironment;
@@ -50,15 +49,6 @@ final class DaggerComponentExtensionGenerator
                          .methodBuilder( "createFactory" )
                          .addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC )
                          .returns( descriptor.getEnhancedClassName().nestedClass( "Factory" ) )
-                         .build() );
-
-    builder.addMethod( MethodSpec
-                         .methodBuilder( "inject" )
-                         .addModifiers( Modifier.ABSTRACT, Modifier.PUBLIC )
-                         .addParameter( ParameterSpec
-                                          .builder( descriptor.getEnhancedClassName(), "component" )
-                                          .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
-                                          .build() )
                          .build() );
 
     return builder.build();
