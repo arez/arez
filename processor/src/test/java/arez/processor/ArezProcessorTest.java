@@ -2610,128 +2610,24 @@ public final class ArezProcessorTest
                                   final boolean repositoryEnabled,
                                   final boolean repositoryDaggerEnabled )
   {
-    final String[] elements = classname.contains( "." ) ? classname.split( "\\." ) : new String[]{ classname };
-    final StringBuilder arezComponent = new StringBuilder();
-    final StringBuilder repository = repositoryEnabled ? new StringBuilder() : null;
-    final StringBuilder arezRepository = repositoryEnabled ? new StringBuilder() : null;
-    final StringBuilder componentDaggerModule = daggerModuleExpected ? new StringBuilder() : null;
-    final StringBuilder componentExtension = daggerComponentExtensionExpected ? new StringBuilder() : null;
-    final StringBuilder repositoryExtension = repositoryEnabled ? new StringBuilder() : null;
-    final StringBuilder repositoryDaggerModule = repositoryDaggerEnabled ? new StringBuilder() : null;
-    arezComponent.append( "expected" );
+    final List<String> expectedOutputs = new ArrayList<>();
+    expectedOutputs.add( toFilename( "expected", classname, "Arez_", ".java" ) );
     if ( daggerModuleExpected )
     {
-      componentDaggerModule.append( "expected" );
+      expectedOutputs.add( toFilename( "expected", classname, "", "DaggerModule.java" ) );
     }
     if ( daggerComponentExtensionExpected )
     {
-      componentExtension.append( "expected" );
+      expectedOutputs.add( toFilename( "expected", classname, "", "DaggerComponentExtension.java" ) );
     }
     if ( repositoryEnabled )
     {
-      repository.append( "expected" );
-      arezRepository.append( "expected" );
-      repositoryExtension.append( "expected" );
+      expectedOutputs.add( toFilename( "expected", classname, "", "Repository.java" ) );
+      expectedOutputs.add( toFilename( "expected", classname, "Arez_", "Repository.java" ) );
     }
     if ( repositoryDaggerEnabled )
     {
-      repositoryDaggerModule.append( "expected" );
-    }
-    for ( int i = 0; i < elements.length; i++ )
-    {
-      arezComponent.append( '/' );
-      if ( daggerModuleExpected )
-      {
-        componentDaggerModule.append( '/' );
-      }
-      if ( daggerComponentExtensionExpected )
-      {
-        componentExtension.append( '/' );
-      }
-      if ( repositoryEnabled )
-      {
-        repository.append( '/' );
-        arezRepository.append( '/' );
-        repositoryExtension.append( '/' );
-      }
-      if ( repositoryDaggerEnabled )
-      {
-        repositoryDaggerModule.append( '/' );
-      }
-      final boolean isLastElement = i == elements.length - 1;
-      if ( isLastElement )
-      {
-        arezComponent.append( "Arez_" );
-        if ( repositoryEnabled )
-        {
-          arezRepository.append( "Arez_" );
-        }
-      }
-      arezComponent.append( elements[ i ] );
-      if ( daggerModuleExpected )
-      {
-        componentDaggerModule.append( elements[ i ] );
-        if ( isLastElement )
-        {
-          componentDaggerModule.append( "DaggerModule" );
-        }
-      }
-      if ( daggerComponentExtensionExpected )
-      {
-        componentExtension.append( elements[ i ] );
-        if ( isLastElement )
-        {
-          componentExtension.append( "DaggerComponentExtension" );
-        }
-      }
-
-      if ( repositoryEnabled )
-      {
-        repository.append( elements[ i ] );
-        arezRepository.append( elements[ i ] );
-        repositoryExtension.append( elements[ i ] );
-        if ( isLastElement )
-        {
-          repository.append( "Repository" );
-          arezRepository.append( "Repository" );
-          repositoryExtension.append( "Repository" );
-        }
-      }
-      if ( repositoryDaggerEnabled )
-      {
-        repositoryDaggerModule.append( elements[ i ] );
-        if ( isLastElement )
-        {
-          repositoryDaggerModule.append( "RepositoryDaggerModule" );
-        }
-      }
-    }
-    arezComponent.append( ".java" );
-    final ArrayList<String> expectedOutputs = new ArrayList<>();
-    expectedOutputs.add( arezComponent.toString() );
-    if ( daggerModuleExpected )
-    {
-      componentDaggerModule.append( ".java" );
-      expectedOutputs.add( componentDaggerModule.toString() );
-    }
-    if ( daggerComponentExtensionExpected )
-    {
-      componentExtension.append( ".java" );
-      expectedOutputs.add( componentExtension.toString() );
-    }
-    if ( repositoryEnabled )
-    {
-      repository.append( ".java" );
-      arezRepository.append( ".java" );
-      repositoryExtension.append( ".java" );
-      expectedOutputs.add( repository.toString() );
-      expectedOutputs.add( arezRepository.toString() );
-      expectedOutputs.add( repositoryExtension.toString() );
-    }
-    if ( repositoryDaggerEnabled )
-    {
-      repositoryDaggerModule.append( ".java" );
-      expectedOutputs.add( repositoryDaggerModule.toString() );
+      expectedOutputs.add( toFilename( "expected", classname, "", "RepositoryDaggerModule.java" ) );
     }
     return expectedOutputs.toArray( new String[ 0 ] );
   }
