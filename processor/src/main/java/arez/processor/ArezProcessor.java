@@ -936,7 +936,7 @@ public final class ArezProcessor
       final String message =
         "@ArezComponent target has specified a value for the defaultReadOutsideTransaction parameter but does not " +
         "contain any methods annotated with either @Memoize or @Observable. " +
-        suppressedBy( Constants.WARNING_UNNECESSARY_ALLOW_EMPTY );
+        suppressedBy( Constants.WARNING_UNNECESSARY_DEFAULT );
       processingEnv.getMessager().printMessage( WARNING, message, component.getElement() );
     }
     if ( null != component.getDeclaredDefaultWriteOutsideTransaction() &&
@@ -946,7 +946,7 @@ public final class ArezProcessor
       final String message =
         "@ArezComponent target has specified a value for the defaultWriteOutsideTransaction parameter but does not " +
         "contain any methods annotated with @Observable. " +
-        suppressedBy( Constants.WARNING_UNNECESSARY_ALLOW_EMPTY );
+        suppressedBy( Constants.WARNING_UNNECESSARY_DEFAULT );
       processingEnv.getMessager().printMessage( WARNING, message, component.getElement() );
     }
   }
