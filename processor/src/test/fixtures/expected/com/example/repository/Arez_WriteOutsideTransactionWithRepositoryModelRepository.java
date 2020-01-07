@@ -38,6 +38,15 @@ final class Arez_WriteOutsideTransactionWithRepositoryModelRepository extends Wr
     this.$$arezi$$_kernel.componentReady();
   }
 
+  @Override
+  @Nonnull
+  ArezContext context() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'context' invoked on uninitialized component of type 'WriteOutsideTransactionWithRepositoryModelRepository'" );
+    }
+    return this.$$arezi$$_kernel.getContext();
+  }
+
   private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
   }
@@ -88,15 +97,6 @@ final class Arez_WriteOutsideTransactionWithRepositoryModelRepository extends Wr
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'destroy' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".destroy" : null, () -> super.destroy( entity ), ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED, null );
-  }
-
-  @Override
-  @Nonnull
-  public WriteOutsideTransactionWithRepositoryModel create(@Nonnull final String name) {
-    if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'create' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
-    }
-    return this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".create" : null, () -> super.create( name ), ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { name } : null );
   }
 
   @Override

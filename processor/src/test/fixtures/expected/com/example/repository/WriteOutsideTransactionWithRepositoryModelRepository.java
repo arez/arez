@@ -1,7 +1,9 @@
 package com.example.repository;
 
+import arez.ArezContext;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
+import arez.annotations.ContextRef;
 import arez.annotations.Feature;
 import arez.component.internal.AbstractRepository;
 import javax.annotation.Generated;
@@ -22,9 +24,6 @@ public abstract class WriteOutsideTransactionWithRepositoryModelRepository exten
     return new Arez_WriteOutsideTransactionWithRepositoryModelRepository();
   }
 
-  @Action(
-      name = "create"
-  )
   @Nonnull
   public WriteOutsideTransactionWithRepositoryModel create(@Nonnull final String name) {
     final Arez_WriteOutsideTransactionWithRepositoryModel entity = new Arez_WriteOutsideTransactionWithRepositoryModel(name);
@@ -38,5 +37,13 @@ public abstract class WriteOutsideTransactionWithRepositoryModelRepository exten
   )
   public void destroy(@Nonnull final WriteOutsideTransactionWithRepositoryModel entity) {
     super.destroy( entity );
+  }
+
+  @ContextRef
+  abstract ArezContext context();
+
+  @Override
+  protected final boolean reportWrite() {
+    return context().isTrackingTransactionActive();
   }
 }

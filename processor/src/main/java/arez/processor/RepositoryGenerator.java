@@ -30,6 +30,8 @@ final class RepositoryGenerator
   private static final ClassName ABSTRACT_REPOSITORY_CLASSNAME =
     ClassName.get( "arez.component.internal", "AbstractRepository" );
   private static final ClassName ACTION_CLASSNAME = ClassName.get( "arez.annotations", "Action" );
+  private static final ClassName AREZ_CONTEXT_CLASSNAME = ClassName.get( "arez", "ArezContext" );
+  private static final ClassName CONTEXT_REF_CLASSNAME = ClassName.get( "arez.annotations", "ContextRef" );
 
   private RepositoryGenerator()
   {
@@ -70,7 +72,7 @@ final class RepositoryGenerator
     {
       arezComponent.addMember( "dagger", "$T.$N", ClassName.get( "arez.annotations", "Feature" ), daggerConfig );
     }
-    final String readOutsideTransaction = repository.getComponent().getDeclaredDefaultReadOutsideTransaction();
+    final String readOutsideTransaction = component.getDeclaredDefaultReadOutsideTransaction();
     if ( null != readOutsideTransaction )
     {
       arezComponent.addMember( "defaultReadOutsideTransaction",
@@ -78,7 +80,7 @@ final class RepositoryGenerator
                                ClassName.get( "arez.annotations", "Feature" ),
                                readOutsideTransaction );
     }
-    final String writeOutsideTransaction = repository.getComponent().getDeclaredDefaultWriteOutsideTransaction();
+    final String writeOutsideTransaction = component.getDeclaredDefaultWriteOutsideTransaction();
     if ( null != writeOutsideTransaction )
     {
       arezComponent.addMember( "defaultWriteOutsideTransaction",
@@ -161,6 +163,32 @@ final class RepositoryGenerator
     if ( repository.shouldRepositoryDefineDetach() )
     {
       builder.addMethod( buildRepositoryDetach( repository ) );
+    }
+    if ( component.defaultReadOutsideTransaction() || component.defaultWriteOutsideTransaction() )
+    {
+      builder.addMethod( MethodSpec.methodBuilder( "context" )
+                           .addModifiers( Modifier.ABSTRACT )
+                           .addAnnotation( CONTEXT_REF_CLASSNAME )
+                           .returns( AREZ_CONTEXT_CLASSNAME )
+                           .build() );
+    }
+    if ( component.defaultReadOutsideTransaction() )
+    {
+      builder.addMethod( MethodSpec.methodBuilder( "reportRead" )
+                           .addModifiers( Modifier.PROTECTED, Modifier.FINAL )
+                           .addAnnotation( Override.class )
+                           .returns( TypeName.BOOLEAN )
+                           .addStatement( "return context().isTrackingTransactionActive()" )
+                           .build() );
+    }
+    if ( component.defaultWriteOutsideTransaction() )
+    {
+      builder.addMethod( MethodSpec.methodBuilder( "reportWrite" )
+                           .addModifiers( Modifier.PROTECTED, Modifier.FINAL )
+                           .addAnnotation( Override.class )
+                           .returns( TypeName.BOOLEAN )
+                           .addStatement( "return context().isTrackingTransactionActive()" )
+                           .build() );
     }
     return builder.build();
   }
@@ -278,14 +306,15 @@ final class RepositoryGenerator
     final String suffix = constructor.getParameters().stream().
       map( p -> p.getSimpleName().toString() ).collect( Collectors.joining( "_" ) );
     final String actionName = "create" + ( suffix.isEmpty() ? "" : "_" + suffix );
-    final AnnotationSpec annotationSpec =
-      AnnotationSpec.builder( ClassName.bestGuess( Constants.ACTION_ANNOTATION_CLASSNAME ) ).
-        addMember( "name", "$S", actionName ).build();
-    final MethodSpec.Builder builder =
-      MethodSpec.methodBuilder( "create" ).
-        addAnnotation( annotationSpec ).
-        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
-        returns( TypeName.get( component.asDeclaredType() ) );
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( "create" );
+
+    if ( !repository.getComponent().defaultWriteOutsideTransaction() )
+    {
+      builder.addAnnotation( AnnotationSpec.builder( ClassName.bestGuess( Constants.ACTION_ANNOTATION_CLASSNAME ) ).
+        addMember( "name", "$S", actionName ).build() );
+    }
+
+    builder.addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).returns( TypeName.get( component.asDeclaredType() ) );
 
     GeneratorUtil.copyAccessModifiers( component.getElement(), builder );
     GeneratorUtil.copyExceptions( methodType, builder );

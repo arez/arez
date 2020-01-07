@@ -38,6 +38,15 @@ final class Arez_ReadOutsideTransactionWithRepositoryModelRepository extends Rea
     this.$$arezi$$_kernel.componentReady();
   }
 
+  @Override
+  @Nonnull
+  ArezContext context() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'context' invoked on uninitialized component of type 'ReadOutsideTransactionWithRepositoryModelRepository'" );
+    }
+    return this.$$arezi$$_kernel.getContext();
+  }
+
   private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
   }

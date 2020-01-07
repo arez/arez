@@ -64,7 +64,8 @@ See https://github.com/arez/arez/issues/91
 
 * Consider removing `@Repository` annotation and instead forcing the user to specify interface for repository.
   This would eliminate the unresolved types during processing of `@ArezComponent` and allow us to change
-  annotation processor to non-api in bazel.
+  annotation processor to non-api in bazel. It also makes it possible to remove a lot of the magic around
+  repositories such as copying of `readOutsideTransaction` and `writeOutsideTransaction`
 
 * Auto-generate Locator factory. Will need an annotation processor that defers generation to the last round.
   Collects a type annotated with a specific annotation that extends or implements a `LocatorFactory` interface.

@@ -1,7 +1,9 @@
 package com.example.repository;
 
+import arez.ArezContext;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
+import arez.annotations.ContextRef;
 import arez.annotations.Feature;
 import arez.component.internal.AbstractRepository;
 import javax.annotation.Generated;
@@ -38,5 +40,13 @@ public abstract class ReadOutsideTransactionWithRepositoryModelRepository extend
   )
   public void destroy(@Nonnull final ReadOutsideTransactionWithRepositoryModel entity) {
     super.destroy( entity );
+  }
+
+  @ContextRef
+  abstract ArezContext context();
+
+  @Override
+  protected final boolean reportRead() {
+    return context().isTrackingTransactionActive();
   }
 }

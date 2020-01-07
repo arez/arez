@@ -53,10 +53,16 @@ public abstract class AbstractContainer<K, T>
                     () -> "Arez-0136: Called attach() passing an entity that is already attached " +
                           "to the container. Entity: " + entity );
     }
-    getEntitiesObservableValue().preReportChanged();
+    if ( reportWrite() )
+    {
+      getEntitiesObservableValue().preReportChanged();
+    }
     attachEntity( entity );
     _entities.put( Identifiable.getArezId( entity ), entity );
-    getEntitiesObservableValue().reportChanged();
+    if ( reportWrite() )
+    {
+      getEntitiesObservableValue().reportChanged();
+    }
   }
 
   /**
@@ -84,7 +90,10 @@ public abstract class AbstractContainer<K, T>
    */
   protected boolean contains( @Nonnull final T entity )
   {
-    getEntitiesObservableValue().reportObserved();
+    if ( reportRead() )
+    {
+      getEntitiesObservableValue().reportObserved();
+    }
     return _entities.containsKey( Identifiable.<K>getArezId( entity ) );
   }
 
@@ -122,9 +131,15 @@ public abstract class AbstractContainer<K, T>
     final T removed = _entities.remove( Identifiable.<K>getArezId( entity ) );
     if ( null != removed )
     {
-      getEntitiesObservableValue().preReportChanged();
+      if ( reportWrite() )
+      {
+        getEntitiesObservableValue().preReportChanged();
+      }
       detachEntity( entity, disposeEntity );
-      getEntitiesObservableValue().reportChanged();
+      if ( reportWrite() )
+      {
+        getEntitiesObservableValue().reportChanged();
+      }
     }
     else
     {
@@ -145,11 +160,27 @@ public abstract class AbstractContainer<K, T>
     final T entity = _entities.get( arezId );
     if ( null != entity )
     {
-      ComponentObservable.observe( entity );
+      if ( reportRead() )
+      {
+        ComponentObservable.observe( entity );
+      }
       return entity;
     }
-    getEntitiesObservableValue().reportObserved();
+    if ( reportRead() )
+    {
+      getEntitiesObservableValue().reportObserved();
+    }
     return null;
+  }
+
+  protected boolean reportRead()
+  {
+    return false;
+  }
+
+  protected boolean reportWrite()
+  {
+    return false;
   }
 
   /**
@@ -199,9 +230,15 @@ public abstract class AbstractContainer<K, T>
     DisposeNotifier
       .asDisposeNotifier( entity )
       .addOnDisposeListener( this, () -> {
-        getEntitiesObservableValue().preReportChanged();
+        if ( reportWrite() )
+        {
+          getEntitiesObservableValue().preReportChanged();
+        }
         detach( entity, false );
-        getEntitiesObservableValue().reportChanged();
+        if ( reportWrite() )
+        {
+          getEntitiesObservableValue().reportChanged();
+        }
       } );
   }
 
