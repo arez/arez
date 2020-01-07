@@ -70,6 +70,22 @@ final class RepositoryGenerator
     {
       arezComponent.addMember( "dagger", "$T.$N", ClassName.get( "arez.annotations", "Feature" ), daggerConfig );
     }
+    final String readOutsideTransaction = repository.getComponent().getDeclaredDefaultReadOutsideTransaction();
+    if ( null != readOutsideTransaction )
+    {
+      arezComponent.addMember( "defaultReadOutsideTransaction",
+                               "$T.$N",
+                               ClassName.get( "arez.annotations", "Feature" ),
+                               readOutsideTransaction );
+    }
+    final String writeOutsideTransaction = repository.getComponent().getDeclaredDefaultWriteOutsideTransaction();
+    if ( null != writeOutsideTransaction )
+    {
+      arezComponent.addMember( "defaultWriteOutsideTransaction",
+                               "$T.$N",
+                               ClassName.get( "arez.annotations", "Feature" ),
+                               writeOutsideTransaction );
+    }
     builder.addAnnotation( arezComponent.build() );
     if ( addSingletonAnnotation )
     {
