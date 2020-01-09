@@ -74,6 +74,16 @@ See https://github.com/arez/arez/issues/91
   repositories in the constructor.
   - implementation will assert that references config is enabled? Probably not. Could use locators for other reasons.
 
+* Consider scanning usage of all Arez annotations by annotation processor. If an Arez annotation appears in an
+  unexpected place (i.e. outside of an `@ArezComponent` annotated class ) then generate an exception. This would
+  avoid the scenario where `@Action` annotated methods outside of an `@ArezComponent` annotated class would be
+  ignored even if developers expect them to be used. To make this safe we may need to develop another set of
+  annotations to control where arez annotations are allowed. i.e. Add `@ArezComponentDefiner` that can be applied
+  to annotations and any annotation that has that annotation would be considered ok to contain arez annotations.
+  Thus `@ActAsComponent` and `@ReactComponent` would add this annotation. It is likely we would also need to
+  introduce an interface such as `@ArezComponentFragment` that could be applied to the types such as `*Extension`
+  classes in Rose and friends.
+
 * Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.
 
 * https://www.jetbrains.com/help/idea/template-variables.html#predefined_functions document and define them
