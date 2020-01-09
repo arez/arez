@@ -244,16 +244,11 @@ public abstract class AbstractContainer<K, T>
 
   private void detachEntity( @Nonnull final T entity, final boolean disposeOnDetach )
   {
-    detachEntity( entity );
+    DisposeNotifier.asDisposeNotifier( entity ).removeOnDisposeListener( this );
     if ( disposeOnDetach )
     {
       Disposable.dispose( entity );
     }
-  }
-
-  private void detachEntity( @Nonnull final T entity )
-  {
-    DisposeNotifier.asDisposeNotifier( entity ).removeOnDisposeListener( this );
   }
 
   @Nonnull
