@@ -84,6 +84,9 @@ See https://github.com/arez/arez/issues/91
   introduce an interface such as `@ArezComponentFragment` that could be applied to the types such as `*Extension`
   classes in Rose and friends.
 
+* Verify that `javax.xml.ws.Action` is never applied to any arez component. This seems to be a common mistake and
+  verifying it would make life much easier for downstream users.
+
 * Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.
 
 * https://www.jetbrains.com/help/idea/template-variables.html#predefined_functions document and define them
