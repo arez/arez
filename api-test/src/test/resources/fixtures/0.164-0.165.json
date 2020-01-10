@@ -15,6 +15,60 @@
     }
   },
   {
+    "code": "java.method.noLongerFinal",
+    "description": "Method is no longer final.",
+    "element": "method <T> T arez.component.TypeBasedLocator::findById(java.lang.Class<T>, java.lang.Object)",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.TypeBasedLocator",
+      "classSimpleName": "TypeBasedLocator",
+      "elementKind": "method",
+      "methodName": "findById",
+      "newModifiers": "public",
+      "oldModifiers": "public final",
+      "package": "arez.component"
+    }
+  },
+  {
+    "code": "java.method.noLongerFinal",
+    "description": "Method is no longer final.",
+    "element": "method <T> void arez.component.TypeBasedLocator::registerLookup(java.lang.Class<T>, java.util.function.Function<java.lang.Object, T>)",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.TypeBasedLocator",
+      "classSimpleName": "TypeBasedLocator",
+      "elementKind": "method",
+      "methodName": "registerLookup",
+      "newModifiers": "public",
+      "oldModifiers": "public final",
+      "package": "arez.component"
+    }
+  },
+  {
+    "code": "java.method.noLongerFinal",
+    "description": "Method is no longer final.",
+    "element": "method arez.Component arez.component.internal.ComponentKernel::getComponent()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.ComponentKernel",
+      "classSimpleName": "ComponentKernel",
+      "elementKind": "method",
+      "methodName": "getComponent",
+      "newModifiers": "public",
+      "oldModifiers": "public final",
+      "package": "arez.component.internal"
+    }
+  },
+  {
     "code": "java.method.added",
     "description": "Method was added.",
     "newElement": "method boolean arez.component.internal.AbstractContainer<K, T>::reportRead()",
@@ -45,6 +99,43 @@
       "methodName": "reportWrite",
       "package": "arez.component.internal"
     }
+  },
+  {
+    "code": "java.method.noLongerFinal",
+    "description": "Method is no longer final.",
+    "element": "method java.lang.String arez.Component::toString()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Component",
+      "classSimpleName": "Component",
+      "elementKind": "method",
+      "methodName": "toString",
+      "newModifiers": "public",
+      "oldModifiers": "public final",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.method.noLongerFinal",
+    "description": "Method is no longer final.",
+    "element": "method java.lang.String arez.component.internal.ComponentKernel::toString()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.ComponentKernel",
+      "classSimpleName": "ComponentKernel",
+      "elementKind": "method",
+      "methodName": "toString",
+      "newModifiers": "public",
+      "oldModifiers": "public final",
+      "package": "arez.component.internal"
+    }
+  },
   {
     "code": "java.class.removed",
     "description": "Class was removed.",
