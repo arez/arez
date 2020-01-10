@@ -132,7 +132,10 @@ public class RepositoryTest
     entity.dispose();
 
     final Set<Integer> ids =
-      context.safeAction( () -> repository.findAll().stream().map( MyEntity::getArezId ).collect( Collectors.toSet() ) );
+      context.safeAction( () -> repository.findAll()
+        .stream()
+        .map( MyEntity::getArezId )
+        .collect( Collectors.toSet() ) );
     assertEquals( ids.size(), 3 );
     assertTrue( ids.contains( 302 ) );
     assertTrue( ids.contains( 303 ) );
