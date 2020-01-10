@@ -31,8 +31,7 @@ public final class TypeBasedLocator
    * @param type             the type of the entity.
    * @param findByIdFunction the function that looks up the entity by id.
    */
-  public final <T> void registerLookup( @Nonnull final Class<T> type,
-                                        @Nonnull final Function<Object, T> findByIdFunction )
+  public <T> void registerLookup( @Nonnull final Class<T> type, @Nonnull final Function<Object, T> findByIdFunction )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
@@ -46,7 +45,7 @@ public final class TypeBasedLocator
   @Nullable
   @Override
   @SuppressWarnings( "unchecked" )
-  public final <T> T findById( @Nonnull final Class<T> type, @Nonnull final Object id )
+  public <T> T findById( @Nonnull final Class<T> type, @Nonnull final Object id )
   {
     final Function<Object, ?> function = _findByIdFunctions.get( type );
     if ( null != function )

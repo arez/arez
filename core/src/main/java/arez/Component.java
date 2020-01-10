@@ -186,7 +186,7 @@ public final class Component
 
   @Nonnull
   @Override
-  public final String toString()
+  public String toString()
   {
     if ( Arez.areNamesEnabled() )
     {

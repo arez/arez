@@ -58,7 +58,7 @@ public final class SpyEventRecorder
   }
 
   @Override
-  public final void onSpyEvent( @Nonnull final Object event )
+  public void onSpyEvent( @Nonnull final Object event )
   {
     if ( event instanceof SerializableEvent )
     {

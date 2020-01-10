@@ -634,7 +634,7 @@ public final class ComponentKernel
    */
   @OmitSymbol( unless = "arez.enable_native_components" )
   @Nonnull
-  public final Component getComponent()
+  public Component getComponent()
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
@@ -711,7 +711,7 @@ public final class ComponentKernel
 
   @Nonnull
   @Override
-  public final String toString()
+  public String toString()
   {
     if ( Arez.areNamesEnabled() )
     {

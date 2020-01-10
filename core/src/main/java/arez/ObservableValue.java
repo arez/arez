@@ -491,7 +491,7 @@ public final class ObservableValue<T>
     _leastStaleObserverState = leastStaleObserverState;
   }
 
-  final int getLeastStaleObserverState()
+  int getLeastStaleObserverState()
   {
     return _leastStaleObserverState;
   }

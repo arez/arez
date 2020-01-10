@@ -45,7 +45,7 @@ final class AggregateLocator
 
   @Nullable
   @Override
-  public final <T> T findById( @Nonnull final Class<T> type, @Nonnull final Object id )
+  public <T> T findById( @Nonnull final Class<T> type, @Nonnull final Object id )
   {
     for ( final Locator locator : _locators )
     {
