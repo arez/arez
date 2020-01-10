@@ -1,4 +1,4 @@
-package arez.component;
+package arez.component.internal;
 
 import arez.Arez;
 import grim.annotations.OmitType;

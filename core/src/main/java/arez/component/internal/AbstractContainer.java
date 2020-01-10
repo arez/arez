@@ -6,7 +6,6 @@ import arez.ObservableValue;
 import arez.annotations.Observable;
 import arez.annotations.ObservableValueRef;
 import arez.annotations.PreDispose;
-import arez.component.CollectionsUtil;
 import arez.component.ComponentObservable;
 import arez.component.DisposeNotifier;
 import arez.component.Identifiable;

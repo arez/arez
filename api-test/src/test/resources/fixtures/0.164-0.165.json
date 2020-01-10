@@ -1,5 +1,20 @@
 [
   {
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "class arez.component.internal.CollectionsUtil",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.CollectionsUtil",
+      "classSimpleName": "CollectionsUtil",
+      "elementKind": "class",
+      "package": "arez.component.internal"
+    }
+  },
+  {
     "code": "java.method.added",
     "description": "Method was added.",
     "newElement": "method boolean arez.component.internal.AbstractContainer<K, T>::reportRead()",
@@ -29,6 +44,20 @@
       "elementKind": "method",
       "methodName": "reportWrite",
       "package": "arez.component.internal"
+    }
+  {
+    "code": "java.class.removed",
+    "description": "Class was removed.",
+    "oldElement": "class arez.component.CollectionsUtil",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.CollectionsUtil",
+      "classSimpleName": "CollectionsUtil",
+      "elementKind": "class",
+      "package": "arez.component"
     }
   }
 ]
