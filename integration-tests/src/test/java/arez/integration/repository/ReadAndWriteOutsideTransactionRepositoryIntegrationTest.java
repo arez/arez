@@ -60,16 +60,16 @@ public class ReadAndWriteOutsideTransactionRepositoryIntegrationTest
     assertEquals( repository.findById( 3 ), component3 );
     assertEquals( repository.getById( 4 ), component4 );
     assertEquals( repository.getById( 3 ), component3 );
-    assertEquals( repository.findById( 2 ), null );
+    assertNull( repository.findById( 2 ) );
     assertEquals( repository.findByQuery( c -> c.getId() == 3 ), component3 );
     assertEquals( repository.getByQuery( c -> c.getId() == 3 ), component3 );
     assertEquals( repository.findAllByQuery( c -> c.getId() == 3 ).size(), 1 );
     assertEquals( repository.findAllByQuery( c -> c.getId() >= 3 ).size(), 2 );
     assertEquals( repository.findAll().size(), 2 );
-    assertEquals( repository.contains( component1 ), false );
-    assertEquals( repository.contains( component2 ), false );
-    assertEquals( repository.contains( component3 ), true );
-    assertEquals( repository.contains( component4 ), true );
+    assertFalse( repository.contains( component1 ) );
+    assertFalse( repository.contains( component2 ) );
+    assertTrue( repository.contains( component3 ) );
+    assertTrue( repository.contains( component4 ) );
 
     // getByQuery should throw an exception if there is no entity that matches query
     assertThrows( NoResultException.class, () -> repository.getByQuery( c -> false ) );

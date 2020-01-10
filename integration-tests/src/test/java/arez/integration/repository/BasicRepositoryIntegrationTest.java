@@ -106,7 +106,7 @@ public class BasicRepositoryIntegrationTest
     context.action( executable11, ActionFlags.READ_ONLY );
     final Procedure executable10 = () -> assertEquals( repository.getById( 3 ), component3 );
     context.action( executable10, ActionFlags.READ_ONLY );
-    final Procedure executable9 = () -> assertEquals( repository.findById( 2 ), null );
+    final Procedure executable9 = () -> assertNull( repository.findById( 2 ) );
     context.action( executable9, ActionFlags.READ_ONLY );
     final Procedure executable8 = () -> assertEquals( repository.findByQuery( c -> c.getId() == 3 ), component3 );
     context.action( executable8, ActionFlags.READ_ONLY );
@@ -118,13 +118,13 @@ public class BasicRepositoryIntegrationTest
     context.action( executable5, ActionFlags.READ_ONLY );
     final Procedure executable4 = () -> assertEquals( repository.findAll().size(), 2 );
     context.action( executable4, ActionFlags.READ_ONLY );
-    final Procedure executable3 = () -> assertEquals( repository.contains( component1 ), false );
+    final Procedure executable3 = () -> assertFalse( repository.contains( component1 ) );
     context.action( executable3, ActionFlags.READ_ONLY );
-    final Procedure executable2 = () -> assertEquals( repository.contains( component2 ), false );
+    final Procedure executable2 = () -> assertFalse( repository.contains( component2 ) );
     context.action( executable2, ActionFlags.READ_ONLY );
-    final Procedure executable1 = () -> assertEquals( repository.contains( component3 ), true );
+    final Procedure executable1 = () -> assertTrue( repository.contains( component3 ) );
     context.action( executable1, ActionFlags.READ_ONLY );
-    final Procedure executable = () -> assertEquals( repository.contains( component4 ), true );
+    final Procedure executable = () -> assertTrue( repository.contains( component4 ) );
     context.action( executable, ActionFlags.READ_ONLY );
 
     // getByQuery should throw an exception if there is no entity that matches query
@@ -158,11 +158,11 @@ public class BasicRepositoryIntegrationTest
 
     final Procedure executable7 = () -> assertEquals( repository.findById( 1 ), component1 );
     context.action( executable7, ActionFlags.READ_ONLY );
-    final Procedure executable6 = () -> assertEquals( repository.findById( 0 ), null );
+    final Procedure executable6 = () -> assertNull( repository.findById( 0 ) );
     context.action( executable6, ActionFlags.READ_ONLY );
     final Procedure executable5 = () -> assertEquals( repository.findByQuery( c -> c.getId() == 1 ), component1 );
     context.action( executable5, ActionFlags.READ_ONLY );
-    final Procedure executable4 = () -> assertEquals( repository.findByQuery( c -> false ), null );
+    final Procedure executable4 = () -> assertNull( repository.findByQuery( c -> false ) );
     context.action( executable4, ActionFlags.READ_ONLY );
     final Procedure executable3 = () ->
       assertEquals( repository.findAllByQuery( c -> true,
@@ -173,7 +173,7 @@ public class BasicRepositoryIntegrationTest
     context.action( executable2, ActionFlags.READ_ONLY );
     final Procedure executable1 = () -> assertEquals( repository.findAll().size(), 2 );
     context.action( executable1, ActionFlags.READ_ONLY );
-    final Procedure executable = () -> assertEquals( repository.contains( component1 ), true );
+    final Procedure executable = () -> assertTrue( repository.contains( component1 ) );
     context.action( executable, ActionFlags.READ_ONLY );
   }
 
