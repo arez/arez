@@ -1,14 +1,25 @@
 package arez.component.internal;
 
 import arez.Arez;
+import arez.Disposable;
+import arez.ObservableValue;
+import arez.annotations.Observable;
+import arez.annotations.ObservableValueRef;
+import arez.annotations.PreDispose;
+import arez.component.ComponentObservable;
+import arez.component.DisposeNotifier;
+import arez.component.Identifiable;
 import arez.component.NoResultException;
 import arez.component.NoSuchEntityException;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import static org.realityforge.braincheck.Guards.*;
 
 /**
  * Abstract base class for repositories that contain Arez components.
@@ -22,18 +33,25 @@ import javax.annotation.Nullable;
  * in production mode for maximum performance.</p>
  */
 public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T, R>>
-  extends AbstractContainer<K, T>
 {
-  @Override
+  /**
+   * A map of all the entities ArezId to entity.
+   */
+  @Nonnull
+  private final Map<K, T> _entities = new HashMap<>();
+
   protected final boolean shouldDisposeEntryOnDispose()
   {
     return true;
   }
 
-  @Override
   public boolean contains( @Nonnull final T entity )
   {
-    return super.contains( entity );
+    if ( reportRead() )
+    {
+      getEntitiesObservableValue().reportObserved();
+    }
+    return _entities.containsKey( Identifiable.<K>getArezId( entity ) );
   }
 
   /**
@@ -115,19 +133,35 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
     return entity;
   }
 
-  @Override
   @Nullable
   public final T findByArezId( @Nonnull final K arezId )
   {
-    return super.findByArezId( arezId );
+    final T entity = _entities.get( arezId );
+    if ( null != entity )
+    {
+      if ( reportRead() )
+      {
+        ComponentObservable.observe( entity );
+      }
+      return entity;
+    }
+    if ( reportRead() )
+    {
+      getEntitiesObservableValue().reportObserved();
+    }
+    return null;
   }
 
-  @Override
   @Nonnull
   public final T getByArezId( @Nonnull final K arezId )
     throws NoSuchEntityException
   {
-    return super.getByArezId( arezId );
+    final T entity = findByArezId( arezId );
+    if ( null == entity )
+    {
+      throw new NoSuchEntityException( arezId );
+    }
+    return entity;
   }
 
   /**
@@ -140,5 +174,154 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   public final R self()
   {
     return (R) this;
+  }
+
+  /**
+   * Attach specified entity to the set of entities managed by the container.
+   * This should not be invoked if the entity is already attached to the repository.
+   *
+   * @param entity the entity to register.
+   */
+  @SuppressWarnings( "SuspiciousMethodCalls" )
+  protected void attach( @Nonnull final T entity )
+  {
+    if ( Arez.shouldCheckApiInvariants() )
+    {
+      apiInvariant( () -> Disposable.isNotDisposed( entity ),
+                    () -> "Arez-0168: Called attach() passing an entity that is disposed. Entity: " + entity );
+      apiInvariant( () -> !_entities.containsKey( Identifiable.getArezId( entity ) ),
+                    () -> "Arez-0136: Called attach() passing an entity that is already attached " +
+                          "to the container. Entity: " + entity );
+    }
+    if ( reportWrite() )
+    {
+      getEntitiesObservableValue().preReportChanged();
+    }
+    attachEntity( entity );
+    _entities.put( Identifiable.getArezId( entity ), entity );
+    if ( reportWrite() )
+    {
+      getEntitiesObservableValue().reportChanged();
+    }
+  }
+
+  /**
+   * Dispose or detach all the entities associated with the container.
+   */
+  @PreDispose
+  protected void preDispose()
+  {
+    _entities.values().forEach( entry -> detachEntity( entry, shouldDisposeEntryOnDispose() ) );
+    _entities.clear();
+  }
+
+  /**
+   * Detach the entity from the container and dispose the entity.
+   * The entity must be attached to the container.
+   *
+   * @param entity the entity to destroy.
+   */
+  protected void destroy( @Nonnull final T entity )
+  {
+    detach( entity, true );
+  }
+
+  /**
+   * Detach entity from container without disposing entity.
+   * The entity must be attached to the container.
+   *
+   * @param entity the entity to detach.
+   */
+  protected void detach( @Nonnull final T entity )
+  {
+    detach( entity, false );
+  }
+
+  /**
+   * Detach entity from container without disposing entity.
+   * The entity must be attached to the container.
+   *
+   * @param entity the entity to detach.
+   */
+  private void detach( @Nonnull final T entity, final boolean disposeEntity )
+  {
+    // This method has been extracted to try and avoid GWT inlining into invoker
+    final T removed = _entities.remove( Identifiable.<K>getArezId( entity ) );
+    if ( null != removed )
+    {
+      if ( reportWrite() )
+      {
+        getEntitiesObservableValue().preReportChanged();
+      }
+      detachEntity( entity, disposeEntity );
+      if ( reportWrite() )
+      {
+        getEntitiesObservableValue().reportChanged();
+      }
+    }
+    else
+    {
+      fail( () -> "Arez-0157: Called detach() passing an entity that was not attached to the container. Entity: " +
+                  entity );
+    }
+  }
+
+  protected boolean reportRead()
+  {
+    return true;
+  }
+
+  protected boolean reportWrite()
+  {
+    return true;
+  }
+
+  /**
+   * Return the observable associated with entities.
+   * This template method is implemented by the Arez annotation processor and is used internally
+   * to container. It should not be invoked by extensions.
+   *
+   * @return the Arez observable associated with entities observable property.
+   */
+  @ObservableValueRef
+  @Nonnull
+  protected abstract ObservableValue<Stream<T>> getEntitiesObservableValue();
+
+  /**
+   * Return a stream of all entities in the container.
+   *
+   * @return the underlying entities.
+   */
+  @Observable( expectSetter = false )
+  @Nonnull
+  public Stream<T> entities()
+  {
+    return _entities.values().stream();
+  }
+
+  private void attachEntity( @Nonnull final T entity )
+  {
+    DisposeNotifier
+      .asDisposeNotifier( entity )
+      .addOnDisposeListener( this, () -> {
+        if ( reportWrite() )
+        {
+          getEntitiesObservableValue().preReportChanged();
+        }
+        detach( entity, false );
+        if ( reportWrite() )
+        {
+          getEntitiesObservableValue().reportChanged();
+        }
+      } );
+  }
+
+  private void detachEntity( @Nonnull final T entity, final boolean disposeOnDetach )
+  {
+    DisposeNotifier.asDisposeNotifier( entity ).removeOnDisposeListener( this );
+    if ( disposeOnDetach )
+    {
+      Disposable.dispose( entity );
+    }
   }
 }

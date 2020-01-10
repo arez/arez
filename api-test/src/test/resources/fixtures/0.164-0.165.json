@@ -1,5 +1,21 @@
 [
   {
+    "code": "java.class.noLongerInheritsFromClass",
+    "description": "Class no longer inherits from 'arez.component.internal.AbstractContainer<K extends java.lang.Object, T extends java.lang.Object>'.",
+    "element": "class arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.AbstractRepository",
+      "classSimpleName": "AbstractRepository",
+      "elementKind": "class",
+      "package": "arez.component.internal",
+      "superClass": "arez.component.internal.AbstractContainer<K extends java.lang.Object, T extends java.lang.Object>"
+    }
+  },
+  {
     "code": "java.class.added",
     "description": "Class was added.",
     "newElement": "class arez.component.internal.CollectionsUtil",
@@ -69,16 +85,35 @@
     }
   },
   {
+    "code": "java.method.inheritedMovedToClass",
+    "description": "The method was previously declared in superclass 'arez.component.internal.AbstractContainer<K extends java.lang.Object, T extends java.lang.Object>' but is now declared in class 'arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>'.",
+    "newElement": "method arez.ObservableValue<java.util.stream.Stream<T>> arez.component.internal.AbstractRepository<K, T, R extends arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>>::getEntitiesObservableValue()",
+    "oldElement": "method arez.ObservableValue<java.util.stream.Stream<T>> arez.component.internal.AbstractContainer<K, T>::getEntitiesObservableValue() @ arez.component.internal.AbstractRepository<K, T, R extends arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>>",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.AbstractRepository",
+      "classSimpleName": "AbstractRepository",
+      "elementKind": "method",
+      "methodName": "getEntitiesObservableValue",
+      "newClass": "arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>",
+      "oldClass": "arez.component.internal.AbstractContainer<K extends java.lang.Object, T extends java.lang.Object>",
+      "package": "arez.component.internal"
+    }
+  },
+  {
     "code": "java.method.added",
     "description": "Method was added.",
-    "newElement": "method boolean arez.component.internal.AbstractContainer<K, T>::reportRead()",
+    "newElement": "method boolean arez.component.internal.AbstractRepository<K, T, R extends arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>>::reportRead()",
     "classification": {
       "SOURCE": "NON_BREAKING",
       "BINARY": "NON_BREAKING"
     },
     "attachments": {
-      "classQualifiedName": "arez.component.internal.AbstractContainer",
-      "classSimpleName": "AbstractContainer",
+      "classQualifiedName": "arez.component.internal.AbstractRepository",
+      "classSimpleName": "AbstractRepository",
       "elementKind": "method",
       "methodName": "reportRead",
       "package": "arez.component.internal"
@@ -87,14 +122,14 @@
   {
     "code": "java.method.added",
     "description": "Method was added.",
-    "newElement": "method boolean arez.component.internal.AbstractContainer<K, T>::reportWrite()",
+    "newElement": "method boolean arez.component.internal.AbstractRepository<K, T, R extends arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>>::reportWrite()",
     "classification": {
       "SOURCE": "NON_BREAKING",
       "BINARY": "NON_BREAKING"
     },
     "attachments": {
-      "classQualifiedName": "arez.component.internal.AbstractContainer",
-      "classSimpleName": "AbstractContainer",
+      "classQualifiedName": "arez.component.internal.AbstractRepository",
+      "classSimpleName": "AbstractRepository",
       "elementKind": "method",
       "methodName": "reportWrite",
       "package": "arez.component.internal"
@@ -137,6 +172,101 @@
     }
   },
   {
+    "code": "java.method.inheritedMovedToClass",
+    "description": "The method was previously declared in superclass 'arez.component.internal.AbstractContainer<K extends java.lang.Object, T extends java.lang.Object>' but is now declared in class 'arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>'.",
+    "newElement": "method java.util.stream.Stream<T> arez.component.internal.AbstractRepository<K, T, R extends arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>>::entities()",
+    "oldElement": "method java.util.stream.Stream<T> arez.component.internal.AbstractContainer<K, T>::entities() @ arez.component.internal.AbstractRepository<K, T, R extends arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>>",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.AbstractRepository",
+      "classSimpleName": "AbstractRepository",
+      "elementKind": "method",
+      "methodName": "entities",
+      "newClass": "arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>",
+      "oldClass": "arez.component.internal.AbstractContainer<K extends java.lang.Object, T extends java.lang.Object>",
+      "package": "arez.component.internal"
+    }
+  },
+  {
+    "code": "java.method.inheritedMovedToClass",
+    "description": "The method was previously declared in superclass 'arez.component.internal.AbstractContainer<K extends java.lang.Object, T extends java.lang.Object>' but is now declared in class 'arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>'.",
+    "newElement": "method void arez.component.internal.AbstractRepository<K, T, R extends arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>>::attach(T)",
+    "oldElement": "method void arez.component.internal.AbstractContainer<K, T>::attach(T) @ arez.component.internal.AbstractRepository<K, T, R extends arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>>",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.AbstractRepository",
+      "classSimpleName": "AbstractRepository",
+      "elementKind": "method",
+      "methodName": "attach",
+      "newClass": "arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>",
+      "oldClass": "arez.component.internal.AbstractContainer<K extends java.lang.Object, T extends java.lang.Object>",
+      "package": "arez.component.internal"
+    }
+  },
+  {
+    "code": "java.method.inheritedMovedToClass",
+    "description": "The method was previously declared in superclass 'arez.component.internal.AbstractContainer<K extends java.lang.Object, T extends java.lang.Object>' but is now declared in class 'arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>'.",
+    "newElement": "method void arez.component.internal.AbstractRepository<K, T, R extends arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>>::destroy(T)",
+    "oldElement": "method void arez.component.internal.AbstractContainer<K, T>::destroy(T) @ arez.component.internal.AbstractRepository<K, T, R extends arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>>",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.AbstractRepository",
+      "classSimpleName": "AbstractRepository",
+      "elementKind": "method",
+      "methodName": "destroy",
+      "newClass": "arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>",
+      "oldClass": "arez.component.internal.AbstractContainer<K extends java.lang.Object, T extends java.lang.Object>",
+      "package": "arez.component.internal"
+    }
+  },
+  {
+    "code": "java.method.inheritedMovedToClass",
+    "description": "The method was previously declared in superclass 'arez.component.internal.AbstractContainer<K extends java.lang.Object, T extends java.lang.Object>' but is now declared in class 'arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>'.",
+    "newElement": "method void arez.component.internal.AbstractRepository<K, T, R extends arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>>::detach(T)",
+    "oldElement": "method void arez.component.internal.AbstractContainer<K, T>::detach(T) @ arez.component.internal.AbstractRepository<K, T, R extends arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>>",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.AbstractRepository",
+      "classSimpleName": "AbstractRepository",
+      "elementKind": "method",
+      "methodName": "detach",
+      "newClass": "arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>",
+      "oldClass": "arez.component.internal.AbstractContainer<K extends java.lang.Object, T extends java.lang.Object>",
+      "package": "arez.component.internal"
+    }
+  },
+  {
+    "code": "java.method.inheritedMovedToClass",
+    "description": "The method was previously declared in superclass 'arez.component.internal.AbstractContainer<K extends java.lang.Object, T extends java.lang.Object>' but is now declared in class 'arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>'.",
+    "newElement": "method void arez.component.internal.AbstractRepository<K, T, R extends arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>>::preDispose()",
+    "oldElement": "method void arez.component.internal.AbstractContainer<K, T>::preDispose() @ arez.component.internal.AbstractRepository<K, T, R extends arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>>",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.AbstractRepository",
+      "classSimpleName": "AbstractRepository",
+      "elementKind": "method",
+      "methodName": "preDispose",
+      "newClass": "arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>",
+      "oldClass": "arez.component.internal.AbstractContainer<K extends java.lang.Object, T extends java.lang.Object>",
+      "package": "arez.component.internal"
+    }
+  },
+  {
     "code": "java.class.removed",
     "description": "Class was removed.",
     "oldElement": "class arez.component.CollectionsUtil",
@@ -149,6 +279,21 @@
       "classSimpleName": "CollectionsUtil",
       "elementKind": "class",
       "package": "arez.component"
+    }
+  },
+  {
+    "code": "java.class.removed",
+    "description": "Class was removed.",
+    "oldElement": "class arez.component.internal.AbstractContainer<K extends java.lang.Object, T extends java.lang.Object>",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.AbstractContainer",
+      "classSimpleName": "AbstractContainer",
+      "elementKind": "class",
+      "package": "arez.component.internal"
     }
   }
 ]
