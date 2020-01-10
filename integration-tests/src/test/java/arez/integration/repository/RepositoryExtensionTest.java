@@ -3,7 +3,6 @@ package arez.integration.repository;
 import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
-import arez.Procedure;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.Repository;
@@ -67,25 +66,15 @@ public class RepositoryExtensionTest
     final TestComponent component2 = repository.create( "CDEFGH" );
     final TestComponent component3 = repository.create( "EFGHIJ" );
 
-    final Procedure executable9 = () -> assertEquals( repository.count(), 3 );
-    context.action( executable9, ActionFlags.READ_ONLY );
-    final Procedure executable8 = () -> assertEquals( repository.findAllLike( "AB" ).size(), 1 );
-    context.action( executable8, ActionFlags.READ_ONLY );
-    final Procedure executable7 = () -> assertTrue( repository.findAllLike( "AB" ).contains( component1 ) );
-    context.action( executable7, ActionFlags.READ_ONLY );
-    final Procedure executable6 = () -> assertEquals( repository.findAllLike( "CD" ).size(), 2 );
-    context.action( executable6, ActionFlags.READ_ONLY );
-    final Procedure executable5 = () -> assertTrue( repository.findAllLike( "CD" ).contains( component1 ) );
-    context.action( executable5, ActionFlags.READ_ONLY );
-    final Procedure executable4 = () -> assertTrue( repository.findAllLike( "CD" ).contains( component2 ) );
-    context.action( executable4, ActionFlags.READ_ONLY );
-    final Procedure executable3 = () -> assertEquals( repository.findAllLike( "EF" ).size(), 3 );
-    context.action( executable3, ActionFlags.READ_ONLY );
-    final Procedure executable2 = () -> assertTrue( repository.findAllLike( "EF" ).contains( component1 ) );
-    context.action( executable2, ActionFlags.READ_ONLY );
-    final Procedure executable1 = () -> assertTrue( repository.findAllLike( "EF" ).contains( component2 ) );
-    context.action( executable1, ActionFlags.READ_ONLY );
-    final Procedure executable = () -> assertTrue( repository.findAllLike( "EF" ).contains( component3 ) );
-    context.action( executable, ActionFlags.READ_ONLY );
+    context.action( () -> assertEquals( repository.count(), 3 ), ActionFlags.READ_ONLY );
+    context.action( () -> assertEquals( repository.findAllLike( "AB" ).size(), 1 ), ActionFlags.READ_ONLY );
+    context.action( () -> assertTrue( repository.findAllLike( "AB" ).contains( component1 ) ), ActionFlags.READ_ONLY );
+    context.action( () -> assertEquals( repository.findAllLike( "CD" ).size(), 2 ), ActionFlags.READ_ONLY );
+    context.action( () -> assertTrue( repository.findAllLike( "CD" ).contains( component1 ) ), ActionFlags.READ_ONLY );
+    context.action( () -> assertTrue( repository.findAllLike( "CD" ).contains( component2 ) ), ActionFlags.READ_ONLY );
+    context.action( () -> assertEquals( repository.findAllLike( "EF" ).size(), 3 ), ActionFlags.READ_ONLY );
+    context.action( () -> assertTrue( repository.findAllLike( "EF" ).contains( component1 ) ), ActionFlags.READ_ONLY );
+    context.action( () -> assertTrue( repository.findAllLike( "EF" ).contains( component2 ) ), ActionFlags.READ_ONLY );
+    context.action( () -> assertTrue( repository.findAllLike( "EF" ).contains( component3 ) ), ActionFlags.READ_ONLY );
   }
 }
