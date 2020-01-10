@@ -410,6 +410,18 @@ public class RepositoryTest
       return new MyRepository();
     }
 
+    @Override
+    protected boolean reportRead()
+    {
+      return true;
+    }
+
+    @Override
+    protected boolean reportWrite()
+    {
+      return true;
+    }
+
     @Nonnull
     @Override
     protected ObservableValue<Stream<MyEntity>> getEntitiesObservableValue()

@@ -393,6 +393,18 @@ public class ContainerTest
     }
 
     @Override
+    protected boolean reportRead()
+    {
+      return true;
+    }
+
+    @Override
+    protected boolean reportWrite()
+    {
+      return true;
+    }
+
+    @Override
     protected final boolean shouldDisposeEntryOnDispose()
     {
       return true;
