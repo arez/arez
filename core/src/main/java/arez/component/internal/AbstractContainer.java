@@ -175,12 +175,12 @@ public abstract class AbstractContainer<K, T>
 
   protected boolean reportRead()
   {
-    return false;
+    return true;
   }
 
   protected boolean reportWrite()
   {
-    return false;
+    return true;
   }
 
   /**
