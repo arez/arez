@@ -1,6 +1,10 @@
 # Change Log
 
-### Unreleased
+### [v0.165](https://github.com/arez/arez/tree/v0.165) (2020-01-10) · [Full Changelog](https://github.com/arez/arez/compare/v0.164...v0.165) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.164&new=0.165)
+
+The release includes 8 non breaking API changes and 3 breaking API changes.
+
+Changes in this release:
 
 * Fix the warning message emitted from the annotation processor when the `defaultReadOutsideTransaction` or `defaultWriteOutsideTransaction` parameter is specified on the `@ArezComponent` annotation but there are no `@Observable` or `@Memoize` methods present so that it indicates the correct suppression key to suppress the warning message.
 * Upgrade the `org.realityforge.proton` artifacts to version `0.12`.
