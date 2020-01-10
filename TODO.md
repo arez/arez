@@ -73,6 +73,7 @@ See https://github.com/arez/arez/issues/91
   enabled, then it will expect to receive the repositories via injection, otherwise it will create the
   repositories in the constructor.
   - implementation will assert that references config is enabled? Probably not. Could use locators for other reasons.
+  - Move `TypeBasedLocator` into internal package after this is completed.
 
 * Consider scanning usage of all Arez annotations by annotation processor. If an Arez annotation appears in an
   unexpected place (i.e. outside of an `@ArezComponent` annotated class ) then generate an exception. This would
