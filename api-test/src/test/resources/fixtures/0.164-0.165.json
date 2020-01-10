@@ -1,0 +1,34 @@
+[
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method boolean arez.component.internal.AbstractContainer<K, T>::reportRead()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.AbstractContainer",
+      "classSimpleName": "AbstractContainer",
+      "elementKind": "method",
+      "methodName": "reportRead",
+      "package": "arez.component.internal"
+    }
+  },
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method boolean arez.component.internal.AbstractContainer<K, T>::reportWrite()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.AbstractContainer",
+      "classSimpleName": "AbstractContainer",
+      "elementKind": "method",
+      "methodName": "reportWrite",
+      "package": "arez.component.internal"
+    }
+  }
+]
