@@ -1650,7 +1650,7 @@ public final class ArezContext
 
   <T> T rawCompute( @Nonnull final ComputableValue<T> computableValue, @Nonnull final SafeFunction<T> action )
   {
-    return _safeAction( computableValue.getName() + ".wrapper",
+    return _safeAction( Arez.areNamesEnabled() ? computableValue.getName() + ".wrapper" : null,
                         action,
                         ActionFlags.REQUIRE_NEW_TRANSACTION |
                         ActionFlags.NO_VERIFY_ACTION_REQUIRED |
