@@ -2,7 +2,7 @@
 
 ### Unreleased
 
-* Upgrade the `org.realityforge.proton` artifacts to version `0.15`.
+* Upgrade the `org.realityforge.proton` artifacts to version `0.16`.
 
 ### [v0.165](https://github.com/arez/arez/tree/v0.165) (2020-01-10) · [Full Changelog](https://github.com/arez/arez/compare/v0.164...v0.165) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.164&new=0.165)
 
