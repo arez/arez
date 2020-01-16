@@ -65,6 +65,9 @@ See https://github.com/arez/arez/issues/91
   generate the constant file, the `ArezConfig`, `ArezTestUtil`, parts of `Arez.gwt.xml` and part of the `arez.js`
   from a single descriptor somewhere. Update `BuildOutputTest` to use constants.
 
+* Before a `1.0` release move `arez.*` to `arez.core.*` and `arez.annotations.*` to `arez.*`. Users are much more
+  likely to use the annotations to interact with Arez and thus the shorter package names have a significant advantage.
+
 * Consider removing `@Repository` annotation and instead forcing the user to specify interface for repository.
   This would eliminate the unresolved types during processing of `@ArezComponent` and allow us to change
   annotation processor to non-api in bazel. It also makes it possible to remove a lot of the magic around
