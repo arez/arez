@@ -1721,10 +1721,10 @@
     "messagePattern": "Called attach() passing an entity that is already attached to the container. Entity: %s",
     "callers": [
       {
-        "class": "arez.component.internal.AbstractContainer",
+        "class": "arez.component.internal.AbstractRepository",
         "method": "attach",
-        "file": "AbstractContainer.java",
-        "lineNumber": 52
+        "file": "AbstractRepository.java",
+        "lineNumber": 192
       }
     ]
   },
@@ -1989,19 +1989,6 @@
     ]
   },
   {
-    "code": 157,
-    "type": "FAIL",
-    "messagePattern": "Called detach() passing an entity that was not attached to the container. Entity: %s",
-    "callers": [
-      {
-        "class": "arez.component.internal.AbstractContainer",
-        "method": "detach",
-        "file": "AbstractContainer.java",
-        "lineNumber": 146
-      }
-    ]
-  },
-  {
     "code": 158,
     "type": "API_INVARIANT",
     "messagePattern": "Object passed to asIdentifiable does not implement Identifiable. Object: %s",
@@ -2137,10 +2124,10 @@
     "messagePattern": "Called attach() passing an entity that is disposed. Entity: %s",
     "callers": [
       {
-        "class": "arez.component.internal.AbstractContainer",
+        "class": "arez.component.internal.AbstractRepository",
         "method": "attach",
-        "file": "AbstractContainer.java",
-        "lineNumber": 50
+        "file": "AbstractRepository.java",
+        "lineNumber": 190
       }
     ]
   },
@@ -2387,7 +2374,7 @@
         "class": "arez.component.TypeBasedLocator",
         "method": "registerLookup",
         "file": "TypeBasedLocator.java",
-        "lineNumber": 39
+        "lineNumber": 38
       }
     ]
   },
