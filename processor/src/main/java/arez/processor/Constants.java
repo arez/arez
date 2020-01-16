@@ -39,6 +39,7 @@ final class Constants
   static final String DISPOSABLE_CLASSNAME = "arez.Disposable";
   static final String DISPOSE_NOTIFIER_CLASSNAME = "arez.component.DisposeNotifier";
   static final String EJB_POST_CONSTRUCT_ANNOTATION_CLASSNAME = "javax.annotation.PostConstruct";
+  static final String JAX_WS_ACTION_CLASSNAME = "javax.xml.ws.Action";
   static final String INJECT_ANNOTATION_CLASSNAME = "javax.inject.Inject";
   static final String SINGLETON_ANNOTATION_CLASSNAME = "javax.inject.Singleton";
   static final String SCOPE_ANNOTATION_CLASSNAME = "javax.inject.Scope";

@@ -6,6 +6,7 @@
 * Upgrade the `org.realityforge.proton` artifacts to version `0.16`.
 * Fix an invariant failure where a `arez.ComputableValue` instance is created with the `readOutsideTransaction` set to `true` and it is invoked when the build setting `arez.enable_names` is set to `false`.
 * Change the annotation processor so that the method annotated with `@PostConstruct` can also be annotated with `@Action`.
+* Update the annotation processor to generate an error if the annotation `javax.xml.ws.Action` is ever applied to a class annotated with `@ArezComponent`. This can occur when auto-import in IDEs select this annotation rather than `arez.annotations.Action` which can cause confusion for downstream users.
 
 ### [v0.165](https://github.com/arez/arez/tree/v0.165) (2020-01-10) · [Full Changelog](https://github.com/arez/arez/compare/v0.164...v0.165) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.164&new=0.165)
 

@@ -1546,6 +1546,8 @@ public final class ArezProcessorTest
                       "@Action target specified an invalid value 'ace-' for the parameter name. The value must be a valid java identifier" },
         new Object[]{ "com.example.action.DuplicateActionModel",
                       "Method annotated with @Action specified name ace that duplicates @Action defined by method setField" },
+        new Object[]{ "com.example.action.JaxWsActionModel",
+                      "@javax.xml.ws.Action annotation not supported in components annotated with @ArezComponent, use the @arez.annotations.Action annotation instead." },
         new Object[]{ "com.example.action.PrivateActionModel", "@Action target must not be private" },
         new Object[]{ "com.example.action.StaticActionModel", "@Action target must not be static" },
 

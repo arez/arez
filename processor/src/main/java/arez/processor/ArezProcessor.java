@@ -2471,6 +2471,8 @@ public final class ArezProcessor
 
     final AnnotationMirror action =
       AnnotationsUtil.findAnnotationByType( method, Constants.ACTION_ANNOTATION_CLASSNAME );
+    final AnnotationMirror jaxWsAction =
+      AnnotationsUtil.findAnnotationByType( method, Constants.JAX_WS_ACTION_CLASSNAME );
     final AnnotationMirror observed =
       AnnotationsUtil.findAnnotationByType( method, Constants.OBSERVE_ANNOTATION_CLASSNAME );
     final AnnotationMirror observable =
@@ -2632,6 +2634,13 @@ public final class ArezProcessor
     {
       setComponentTypeNameRef( descriptor, method );
       return true;
+    }
+    else if ( null != jaxWsAction )
+    {
+      throw new ProcessorException( "@" + Constants.JAX_WS_ACTION_CLASSNAME + " annotation " +
+                                    "not supported in components annotated with @ArezComponent, use the @" +
+                                    Constants.ACTION_ANNOTATION_CLASSNAME + " annotation instead.",
+                                    method );
     }
     else if ( null != ejbPostConstruct )
     {
