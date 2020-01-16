@@ -61,7 +61,8 @@ final class ComponentGenerator
   private static final ClassName COMPONENT_OBSERVABLE_CLASSNAME =
     ClassName.get( "arez.component", "ComponentObservable" );
   private static final ClassName DISPOSE_TRACKABLE_CLASSNAME = ClassName.get( "arez.component", "DisposeNotifier" );
-  private static final ClassName COLLECTIONS_UTIL_CLASSNAME = ClassName.get( "arez.component.internal", "CollectionsUtil" );
+  private static final ClassName COLLECTIONS_UTIL_CLASSNAME =
+    ClassName.get( "arez.component.internal", "CollectionsUtil" );
   private static final ClassName LOCATOR_CLASSNAME = ClassName.get( "arez", "Locator" );
   private static final ClassName LINKABLE_CLASSNAME = ClassName.get( "arez.component", "Linkable" );
   private static final ClassName VERIFIABLE_CLASSNAME = ClassName.get( "arez.component", "Verifiable" );
