@@ -9,7 +9,7 @@ repositories:
 artifacts:
   idea_codestyle: au.com.stocksoftware.idea.codestyle:idea-codestyle:xml:1.14
 
-  guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.102
+  guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.106
 
   javax_annotation: org.realityforge.javax.annotation:javax.annotation:jar:1.0.1
 
