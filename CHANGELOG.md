@@ -1,5 +1,7 @@
 # Change Log
 
+### Unreleased
+
 ### [v0.166](https://github.com/arez/arez/tree/v0.166) (2020-01-16) · [Full Changelog](https://github.com/arez/arez/compare/v0.165...v0.166)
 
 Changes in this release:
