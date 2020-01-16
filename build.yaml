@@ -13,7 +13,7 @@ artifacts:
 
   grim_annotations: org.realityforge.grim:grim-annotations:jar:0.03
 
-  guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.102
+  guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.106
 
   javax_annotation: org.realityforge.javax.annotation:javax.annotation:jar:1.0.1
   jetbrains_annotations: org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:jar:1.2.0
