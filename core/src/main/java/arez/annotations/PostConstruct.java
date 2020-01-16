@@ -17,7 +17,7 @@ import java.lang.annotation.Target;
  *
  * <p>The method that is annotated with this annotation must comply with the additional constraints:</p>
  * <ul>
- * <li>Must not be annotated with any other arez annotation</li>
+ * <li>Must not be annotated with any other arez annotation except {@link Action}</li>
  * <li>Must have 0 parameters</li>
  * <li>Must not return a value</li>
  * <li>Must not be private</li>

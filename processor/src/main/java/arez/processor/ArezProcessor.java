@@ -790,6 +790,8 @@ public final class ArezProcessor
                                    Constants.REFERENCE_ID_ANNOTATION_CLASSNAME ) );
     exceptions.put( Constants.REFERENCE_ANNOTATION_CLASSNAME,
                     Collections.singletonList( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME ) );
+    exceptions.put( Constants.POST_CONSTRUCT_ANNOTATION_CLASSNAME,
+                    Collections.singletonList( Constants.ACTION_ANNOTATION_CLASSNAME ) );
 
     MemberChecks.verifyNoOverlappingAnnotations( method, annotations, exceptions );
   }
@@ -2549,6 +2551,10 @@ public final class ArezProcessor
     }
     else if ( null != action )
     {
+      if ( null != postConstruct )
+      {
+        addPostConstruct( descriptor, method );
+      }
       addAction( descriptor, action, method, methodType );
       return true;
     }

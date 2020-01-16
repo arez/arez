@@ -1961,7 +1961,14 @@ final class ComponentGenerator
       {
         if ( component.isClassType() )
         {
-          builder.addStatement( "super.$N()", postConstruct.getSimpleName().toString() );
+          if ( AnnotationsUtil.hasAnnotationOfType( postConstruct, Constants.ACTION_ANNOTATION_CLASSNAME ) )
+          {
+            builder.addStatement( "this.$N()", postConstruct.getSimpleName().toString() );
+          }
+          else
+          {
+            builder.addStatement( "super.$N()", postConstruct.getSimpleName().toString() );
+          }
         }
         else
         {

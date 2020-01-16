@@ -572,6 +572,7 @@ public final class ArezProcessorTest
 
         new Object[]{ "com.example.overloaded_names.OverloadedActions", false, false, false, false },
 
+        new Object[]{ "com.example.post_construct.ActionPostConstructModel", false, false, false, false },
         new Object[]{ "com.example.post_construct.BasicPostConstructModel", false, false, false, false },
         new Object[]{ "com.example.post_construct.MultiPostConstructModel", false, false, false, false },
         new Object[]{ "com.example.post_construct.NonStandardNamePostConstructModel", false, false, false, false },

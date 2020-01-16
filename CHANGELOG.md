@@ -5,6 +5,7 @@
 * Upgrade the `com.squareup` artifact to version `1.12.0`.
 * Upgrade the `org.realityforge.proton` artifacts to version `0.16`.
 * Fix an invariant failure where a `arez.ComputableValue` instance is created with the `readOutsideTransaction` set to `true` and it is invoked when the build setting `arez.enable_names` is set to `false`.
+* Change the annotation processor so that the method annotated with `@PostConstruct` can also be annotated with `@Action`.
 
 ### [v0.165](https://github.com/arez/arez/tree/v0.165) (2020-01-10) · [Full Changelog](https://github.com/arez/arez/compare/v0.164...v0.165) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.164&new=0.165)
 
