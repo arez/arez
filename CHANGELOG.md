@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.guiceyloops` artifact to version `0.106`.
+
 ### [v0.166](https://github.com/arez/arez/tree/v0.166) (2020-01-16) · [Full Changelog](https://github.com/arez/arez/compare/v0.165...v0.166)
 
 Changes in this release:
