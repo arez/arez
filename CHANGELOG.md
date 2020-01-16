@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.166](https://github.com/arez/arez/tree/v0.166) (2020-01-16) · [Full Changelog](https://github.com/arez/arez/compare/v0.165...v0.166)
+
+Changes in this release:
 
 * Upgrade the `com.squareup` artifact to version `1.12.0`.
 * Upgrade the `org.realityforge.proton` artifacts to version `0.16`.
