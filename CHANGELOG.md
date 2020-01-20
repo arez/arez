@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.grim` artifacts to version `0.04`.
+
 ### [v0.91](https://github.com/arez/arez-promise/tree/v0.91) (2020-01-16) · [Full Changelog](https://github.com/arez/arez-promise/compare/v0.90...v0.91)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.166'
