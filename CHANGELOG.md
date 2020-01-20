@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.grim` artifacts to version `0.04`.
 * Upgrade the `org.realityforge.guiceyloops` artifact to version `0.106`.
 
 ### [v0.93](https://github.com/arez/arez-spytools/tree/v0.93) (2020-01-16) · [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.92...v0.93)
