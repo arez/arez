@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.json.JSONException;
@@ -23,7 +24,8 @@ import static org.testng.Assert.*;
 @SuppressWarnings( { "SameParameterValue" } )
 public abstract class AbstractArezIntegrationTest
 {
-  private final ArrayList<String> _observerErrors = new ArrayList<>();
+  @Nonnull
+  private final List<String> _observerErrors = new ArrayList<>();
   private boolean _captureObserverErrors;
   private String _currentMethod;
 
@@ -79,7 +81,7 @@ public abstract class AbstractArezIntegrationTest
   }
 
   @Nonnull
-  protected final ArrayList<String> getObserverErrors()
+  protected final List<String> getObserverErrors()
   {
     assert _captureObserverErrors;
     return _observerErrors;
