@@ -81,7 +81,7 @@ define 'arez' do
     test.compile.with TEST_DEPS, :jdepend, :javax_json
   end
 
-  desc 'Test Arez API'
+  desc 'API Test'
   define 'api-test' do
     test.compile.with :javax_annotation,
                       :javax_json,
