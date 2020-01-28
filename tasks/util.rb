@@ -22,7 +22,7 @@ end
 
 def derive_versions
   changelog = IO.read('CHANGELOG.md')
-  ENV['PREVIOUS_PRODUCT_VERSION'] ||= changelog[/^### \[v(\d+\.\d+)\]/, 1]
+  ENV['PREVIOUS_PRODUCT_VERSION'] ||= changelog[/^### \[v(\d+\.\d+)\]/, 1] || '0.00'
 
   next_version = ENV['PRODUCT_VERSION']
   unless next_version
