@@ -88,7 +88,7 @@ define 'arez' do
                       :gir
 
     test.options[:properties] =
-      AREZ_TEST_OPTIONS.merge(
+      {
         'arez.api_test.store_api_diff' => ENV['STORE_API_DIFF'] == 'true',
         'arez.prev.version' => ENV['PREVIOUS_PRODUCT_VERSION'],
         'arez.prev.jar' => artifact("org.realityforge.arez:arez-core:jar:#{ENV['PREVIOUS_PRODUCT_VERSION'] || project.version}").to_s,
@@ -96,7 +96,7 @@ define 'arez' do
         'arez.next.jar' => project('core').package(:jar).to_s,
         'arez.api_test.fixture_dir' => _('src/test/resources/fixtures').to_s,
         'arez.revapi.jar' => artifact(:revapi_diff).to_s
-      )
+      }
     test.options[:java_args] = ['-ea']
     test.using :testng
 
