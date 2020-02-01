@@ -3,7 +3,6 @@ repositories:
    - https://repo.maven.apache.org/maven2
    - https://stocksoftware.jfrog.io/stocksoftware/maven2
    - https://stocksoftware.jfrog.io/stocksoftware/staging
-   - https://stocksoftware.jfrog.io/stocksoftware/thirdparty-local
 
 artifacts:
   idea_codestyle: au.com.stocksoftware.idea.codestyle:idea-codestyle:xml:1.14
