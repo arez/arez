@@ -3,7 +3,7 @@
 ### Unreleased
 
 * Upgrade the `org.realityforge.grim` artifacts to version `0.04`.
-* Upgrade the `com.google.truth` artifact to version `0.44`.
+* Upgrade the `com.google.truth` artifact to version `0.45`.
 * Upgrade the `com.google.testing.compile` artifact to version `0.18-rf`.
 * Upgrade the `org.realityforge.proton` artifacts to version `0.30`.
 * Upgrade the `org.realityforge.guiceyloops` artifact to version `0.106`.
