@@ -136,13 +136,13 @@ public abstract class GeoPosition
   }
 
   @ComputableValueRef
-  abstract ComputableValue getPositionComputableValue();
+  abstract ComputableValue<?> getPositionComputableValue();
 
   @ComputableValueRef
-  abstract ComputableValue getStatusComputableValue();
+  abstract ComputableValue<?> getStatusComputableValue();
 
   @ComputableValueRef
-  abstract ComputableValue getErrorMessageComputableValue();
+  abstract ComputableValue<?> getErrorMessageComputableValue();
 
   @OnActivate
   final void onPositionActivate()

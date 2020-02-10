@@ -92,7 +92,7 @@ public abstract class NetworkStatus
   abstract void setLastChangedAt( @Nonnull Date lastChangedAt );
 
   @ComputableValueRef
-  abstract ComputableValue<Boolean> getOnLineComputableValue();
+  abstract ComputableValue<?> getOnLineComputableValue();
 
   @OnActivate
   final void onOnLineActivate()
@@ -109,7 +109,7 @@ public abstract class NetworkStatus
   }
 
   @Action
-  void updateOnlineStatus( @Nonnull final ComputableValue<Boolean> computableValue )
+  void updateOnlineStatus( @Nonnull final ComputableValue<?> computableValue )
   {
     computableValue.reportPossiblyChanged();
     setLastChangedAt( new Date() );

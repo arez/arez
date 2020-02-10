@@ -139,7 +139,7 @@ public abstract class MediaQuery
   }
 
   @ComputableValueRef
-  abstract ComputableValue getMatchesComputableValue();
+  abstract ComputableValue<?> getMatchesComputableValue();
 
   @OnActivate
   final void onMatchesActivate()
