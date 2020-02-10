@@ -1,6 +1,6 @@
 # Change Log
 
-### Unreleased
+### [v0.52](https://github.com/arez/arez-dom/tree/v0.52) (2020-02-11) · [Full Changelog](https://github.com/arez/arez-dom/compare/v0.51...v0.52)
 
 * Add `DocumentVisibility.isVisible()` and `DocumentVisibility.isHidden()` helper methods.
 
