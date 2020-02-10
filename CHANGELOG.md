@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.org.jetbrains.annotations` artifact to version `1.3.0`.
+
 ### [v0.51](https://github.com/arez/arez-dom/tree/v0.51) (2020-02-10) · [Full Changelog](https://github.com/arez/arez-dom/compare/v0.50...v0.51)
 
 * Avoid `rawtypes` warning by using wildcard type parameters rather than raw `ComputableValue` instances.
