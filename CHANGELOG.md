@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.167](https://github.com/arez/arez/tree/v0.167) (2020-02-10) · [Full Changelog](https://github.com/arez/arez/compare/v0.166...v0.167)
+
+Changes in this release:
 
 * Upgrade the `org.realityforge.grim` artifacts to version `0.04`.
 * Upgrade the `com.google.truth` artifact to version `0.45`.
