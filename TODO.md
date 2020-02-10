@@ -21,6 +21,11 @@ See https://github.com/arez/arez/issues/91
 
 ## Enhancements
 
+* Add an annotation on static methods that will be invoked from factory when there is `@PerInstance` annotations
+  present. This will meant that we can eliminate a significant source of errors (namely the requirement for `bindX()`
+  in `react4j` style projects). Alternatively we drop `@PerInstance` altogether and have React4j generate an
+  appropriate factory
+
 * Add to build process so that every published packaged is attempted to be built using bazel to
   ensure it's dependencies align. Should also include  something like [jvm-classpath-validator](https://github.com/or-shachar/jvm-classpath-validator)
 
