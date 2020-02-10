@@ -43,7 +43,8 @@ import javax.annotation.Nonnull;
 @ArezComponent
 public abstract class MediaQuery
 {
-  private final MediaQueryListListener _listener;
+  @Nonnull
+  private final MediaQueryListListener _listener = e -> notifyOnMatchChange();
   @Nonnull
   private final Window _window;
   @Nonnull
@@ -79,7 +80,6 @@ public abstract class MediaQuery
   {
     _window = Objects.requireNonNull( window );
     _mediaQueryList = _window.matchMedia( Objects.requireNonNull( query ) );
-    _listener = e -> notifyOnMatchChange();
   }
 
   /**
