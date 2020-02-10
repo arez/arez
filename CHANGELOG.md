@@ -1,5 +1,7 @@
 # Change Log
 
+### Unreleased
+
 ### [v0.53](https://github.com/arez/arez-dom/tree/v0.53) (2020-02-11) · [Full Changelog](https://github.com/arez/arez-dom/compare/v0.52...v0.53)
 
 * Ensure `DocumentVisibility` implements `arez.Disposable`
