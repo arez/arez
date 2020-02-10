@@ -50,6 +50,7 @@ import javax.annotation.Nonnull;
 @ArezComponent
 public abstract class NetworkStatus
 {
+  @Nonnull
   private final EventListener _listener = e -> updateOnlineStatus( getOnLineComputableValue() );
 
   /**
