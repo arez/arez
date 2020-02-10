@@ -57,11 +57,13 @@ import javax.annotation.Nonnull;
 public abstract class IdleStatus
 {
   private static final long DEFAULT_TIMEOUT = 2000L;
+  @Nonnull
   private final EventListener _listener = e -> resetLastActivityTime();
+  @Nonnull
   private Set<String> _events =
     new HashSet<>( Arrays.asList( "keydown", "touchstart", "scroll", "mousemove", "mouseup", "mousedown", "wheel" ) );
+  @Nonnull
   private final DomGlobal.SetTimeoutCallbackFn _timeoutCallback = e -> onTimeout();
-
   /**
    * The time at which the last event was received.
    */
@@ -88,6 +90,7 @@ public abstract class IdleStatus
    *
    * @return an instance of IdleStatus.
    */
+  @Nonnull
   public static IdleStatus create()
   {
     return new Arez_IdleStatus();
@@ -190,6 +193,7 @@ public abstract class IdleStatus
    *
    * @return the set of events.
    */
+  @Nonnull
   @Observable
   public Set<String> getEvents()
   {

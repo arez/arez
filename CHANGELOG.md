@@ -4,6 +4,7 @@
 
 * Upgrade the `org.realityforge.grim` artifacts to version `0.04`.
 * Upgrade the `org.realityforge.guiceyloops` artifact to version `0.106`.
+* Add some nullability annotations to `IdleStatus`.
 
 ### [v0.49](https://github.com/arez/arez-dom/tree/v0.49) (2020-01-16) · [Full Changelog](https://github.com/arez/arez-dom/compare/v0.48...v0.49)
 
