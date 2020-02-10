@@ -1,5 +1,6 @@
 package arez.dom;
 
+import arez.Disposable;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDocument;
 import java.util.Objects;
@@ -27,6 +28,7 @@ import javax.annotation.Nonnull;
  * }</pre>
  */
 public final class DocumentVisibility
+  implements Disposable
 {
   /**
    * The visibility state of the document.
@@ -141,6 +143,18 @@ public final class DocumentVisibility
   public boolean isHidden()
   {
     return "hidden".equals( getVisibilityState() );
+  }
+
+  @Override
+  public void dispose()
+  {
+    Disposable.dispose( _value );
+  }
+
+  @Override
+  public boolean isDisposed()
+  {
+    return Disposable.isDisposed( _value );
   }
 
   /**
