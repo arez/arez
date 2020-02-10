@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.167'
 * Upgrade the `org.realityforge.grim` artifacts to version `0.04`.
 * Upgrade the `org.realityforge.guiceyloops` artifact to version `0.106`.
 
