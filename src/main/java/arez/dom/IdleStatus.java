@@ -58,12 +58,12 @@ public abstract class IdleStatus
 {
   private static final long DEFAULT_TIMEOUT = 2000L;
   @Nonnull
+  private final DomGlobal.SetTimeoutCallbackFn _timeoutCallback = e -> onTimeout();
+  @Nonnull
   private final EventListener _listener = e -> resetLastActivityTime();
   @Nonnull
   private Set<String> _events =
     new HashSet<>( Arrays.asList( "keydown", "touchstart", "scroll", "mousemove", "mouseup", "mousedown", "wheel" ) );
-  @Nonnull
-  private final DomGlobal.SetTimeoutCallbackFn _timeoutCallback = e -> onTimeout();
   /**
    * The time at which the last event was received.
    */
