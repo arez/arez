@@ -262,11 +262,14 @@ final class MemoizeDescriptor
       {
         final ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
         final TypeName expectedType = parameterizedTypeName.typeArguments.get( 0 );
-        final TypeName actual = TypeName.get( _method.getReturnType() );
-        if ( !actual.box().toString().equals( expectedType.toString() ) )
+        if ( !( expectedType instanceof WildcardTypeName ) )
         {
-          throw new ProcessorException( "@ComputableValueRef target has a type parameter of " + expectedType +
-                                        " but @Memoize method returns type of " + actual, refMethod.getMethod() );
+          final TypeName actual = TypeName.get( _method.getReturnType() );
+          if ( !actual.box().toString().equals( expectedType.toString() ) )
+          {
+            throw new ProcessorException( "@ComputableValueRef target has a type parameter of " + expectedType +
+                                          " but @Memoize method returns type of " + actual, refMethod.getMethod() );
+          }
         }
       }
 

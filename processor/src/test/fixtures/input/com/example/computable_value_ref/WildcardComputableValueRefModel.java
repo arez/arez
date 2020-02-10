@@ -4,10 +4,9 @@ import arez.ComputableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComputableValueRef;
 import arez.annotations.Memoize;
-import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class BadReturnType2Model
+abstract class WildcardComputableValueRefModel
 {
   @Memoize
   public long getTime()
@@ -15,7 +14,6 @@ public abstract class BadReturnType2Model
     return 0;
   }
 
-  @Nonnull
   @ComputableValueRef
-  public abstract ComputableValue<?> getTimeComputableValue();
+  abstract ComputableValue<?> getTimeComputableValue();
 }

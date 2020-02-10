@@ -228,6 +228,7 @@ public final class ArezProcessorTest
                       false,
                       false,
                       false },
+        new Object[]{ "com.example.computable_value_ref.WildcardComputableValueRefModel", false, false, false, false },
 
         new Object[]{ "com.example.context_ref.BasicContextRefModel", false, false, false, false },
         new Object[]{ "com.example.context_ref.MultiContextRefModel", false, false, false, false },
@@ -1906,8 +1907,6 @@ public final class ArezProcessorTest
                       "@ComputableValueRef target specified an invalid name 'private'. The name must not be a java keyword." },
         new Object[]{ "com.example.computable_value_ref.BadReturnTypeModel",
                       "Method annotated with @ComputableValueRef must return an instance of arez.ComputableValue" },
-        new Object[]{ "com.example.computable_value_ref.BadReturnType2Model",
-                      "@ComputableValueRef target has a type parameter of ? but @Memoize method returns type of long" },
         new Object[]{ "com.example.computable_value_ref.BadReturnType3Model",
                       "@ComputableValueRef target has a type parameter of java.lang.String but @Memoize method returns type of long" },
         new Object[]{ "com.example.computable_value_ref.FinalModel", "@ComputableValueRef target must be abstract" },
