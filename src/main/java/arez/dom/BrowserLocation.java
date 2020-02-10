@@ -154,7 +154,7 @@ public abstract class BrowserLocation
   }
 
   @ComputableValueRef
-  abstract ComputableValue getBrowserLocationComputableValue();
+  abstract ComputableValue<?> getBrowserLocationComputableValue();
 
   @Action
   void updateBrowserLocation()
