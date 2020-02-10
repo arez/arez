@@ -32,6 +32,7 @@ import javax.annotation.Nonnull;
 @ArezComponent
 public abstract class BrowserLocation
 {
+  @Nonnull
   private final EventListener _listener = this::onHashChangeEvent;
   /**
    * The location according to the application.
@@ -53,7 +54,7 @@ public abstract class BrowserLocation
    *
    * @return the BrowserLocation instance.
    */
-  public static BrowserLocation create()
+  @Nonnull  public static BrowserLocation create()
   {
     return new Arez_BrowserLocation();
   }
