@@ -124,6 +124,26 @@ public final class DocumentVisibility
   }
 
   /**
+   * Return true if visibility state is "visible".
+   *
+   * @return true if visibility state is "visible".
+   */
+  public boolean isVisible()
+  {
+    return "visible".equals( getVisibilityState() );
+  }
+
+  /**
+   * Return true if visibility state is "hidden".
+   *
+   * @return true if visibility state is "hidden".
+   */
+  public boolean isHidden()
+  {
+    return "hidden".equals( getVisibilityState() );
+  }
+
+  /**
    * Convert the visibility state as an enum.
    *
    * @param state the state.
