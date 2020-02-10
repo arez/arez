@@ -144,7 +144,7 @@ public abstract class EventDrivenValue<SourceType extends EventTarget, ValueType
   }
 
   @ComputableValueRef
-  abstract ComputableValue getValueComputableValue();
+  abstract ComputableValue<ValueType> getValueComputableValue();
 
   /**
    * Hook invoked when the value moves from unobserved to observed.
