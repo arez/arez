@@ -66,10 +66,6 @@ public abstract class IdleStatus
   private Set<String> _events =
     new HashSet<>( Arrays.asList( "keydown", "touchstart", "scroll", "mousemove", "mouseup", "mousedown", "wheel" ) );
   /**
-   * The time at which the last event was received.
-   */
-  private long _lastActivityAt;
-  /**
    * True if an Observer is watching idle state.
    */
   private boolean _active;
@@ -240,15 +236,9 @@ public abstract class IdleStatus
    * @return the time at which the last event was received.
    */
   @Observable
-  public long getLastActivityAt()
-  {
-    return _lastActivityAt;
-  }
+  public abstract long getLastActivityAt();
 
-  void setLastActivityAt( final long lastActivityAt )
-  {
-    _lastActivityAt = lastActivityAt;
-  }
+  abstract void setLastActivityAt( long lastActivityAt );
 
   private long getIdleTimeout()
   {

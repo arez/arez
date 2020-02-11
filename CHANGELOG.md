@@ -3,6 +3,7 @@
 ### Unreleased
 
 * Convert `IdleStatus.timeout` into an abstract observable property.
+* Convert `IdleStatus.lastActivityAt` into an abstract observable property.
 * Add `IdleStatus.create(long timeout)` factory method for creating entity with specific timeout.
 
 ### [v0.53](https://github.com/arez/arez-dom/tree/v0.53) (2020-02-11) · [Full Changelog](https://github.com/arez/arez-dom/compare/v0.52...v0.53)
