@@ -70,10 +70,6 @@ public abstract class IdleStatus
    */
   private boolean _active;
   /**
-   * Short cut observable field checked after idle state is confirmed.
-   */
-  private boolean _rawIdle;
-  /**
    * The id of timeout scheduled action, 0 if none set.
    */
   private double _timeoutId;
@@ -161,16 +157,13 @@ public abstract class IdleStatus
     _events.forEach( e -> DomGlobal.window.removeEventListener( e, _listener ) );
   }
 
+  /**
+   * Short cut observable field checked after idle state is confirmed.
+   */
   @Observable
-  void setRawIdle( final boolean rawIdle )
-  {
-    _rawIdle = rawIdle;
-  }
+  abstract void setRawIdle( boolean rawIdle );
 
-  boolean isRawIdle()
-  {
-    return _rawIdle;
-  }
+  abstract boolean isRawIdle();
 
   /**
    * Return the duration for which no events should be received for the idle condition to be triggered.
