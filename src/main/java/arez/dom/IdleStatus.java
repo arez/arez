@@ -90,7 +90,19 @@ public abstract class IdleStatus
   @Nonnull
   public static IdleStatus create()
   {
-    return new Arez_IdleStatus();
+    return create( DEFAULT_TIMEOUT );
+  }
+
+  /**
+   * Create an instance of this model.
+   *
+   * @param timeout the duration to after activity before becoming idle.
+   * @return an instance of IdleStatus.
+   */
+  @Nonnull
+  public static IdleStatus create( final long timeout )
+  {
+    return new Arez_IdleStatus( timeout );
   }
 
   IdleStatus()
