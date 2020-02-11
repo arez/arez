@@ -240,14 +240,9 @@ public abstract class IdleStatus
 
   abstract void setLastActivityAt( long lastActivityAt );
 
-  private long getIdleTimeout()
-  {
-    return getLastActivityAt() + getTimeout();
-  }
-
   private long getTimeToWait()
   {
-    return getIdleTimeout() - System.currentTimeMillis();
+    return getLastActivityAt() + getTimeout() - System.currentTimeMillis();
   }
 
   private void cancelTimeout()
