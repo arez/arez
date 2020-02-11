@@ -2,6 +2,7 @@ package arez.dom;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
+import arez.annotations.Feature;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
@@ -68,10 +69,6 @@ public abstract class IdleStatus
    * The time at which the last event was received.
    */
   private long _lastActivityAt;
-  /**
-   * The duration for which no events should be received for the idle condition to be triggered.
-   */
-  private long _timeout = DEFAULT_TIMEOUT;
   /**
    * True if an Observer is watching idle state.
    */
@@ -168,25 +165,19 @@ public abstract class IdleStatus
   }
 
   /**
-   * Return the timeout.
+   * Return the duration for which no events should be received for the idle condition to be triggered.
    *
-   * @return the timeout
+   * @return the timeout.
    */
-  @Observable
-  public long getTimeout()
-  {
-    return _timeout;
-  }
+  @Observable( initializer = Feature.ENABLE )
+  public abstract long getTimeout();
 
   /**
    * Set the timeout.
    *
    * @param timeout the timeout.
    */
-  public void setTimeout( final long timeout )
-  {
-    _timeout = timeout;
-  }
+  public abstract void setTimeout( long timeout );
 
   /**
    * Return the set of events to listen to.
