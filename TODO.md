@@ -21,7 +21,14 @@ See https://github.com/arez/arez/issues/91
 
 ## Enhancements
 
+* `final EventDrivenValue<HTMLDocument, Object> _documentVisibility` can not have `@CascadeDispose` annotation.
+  Because type parameter confuses annotation processor?
+
 * Remove `@PerInstance` as no longer after next `react4j` release.
+
+* Remove `InjectMode.CONSUME` as no longer really needed.
+
+* Add Sting support
 
 * Add to build process so that every published packaged is attempted to be built using bazel to
   ensure it's dependencies align. Should also include  something like [jvm-classpath-validator](https://github.com/or-shachar/jvm-classpath-validator)
