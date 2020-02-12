@@ -19,6 +19,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
+import org.realityforge.proton.ElementsUtil;
 import org.realityforge.proton.GeneratorUtil;
 
 /**
@@ -255,7 +256,7 @@ final class ComponentDescriptor
       .anyMatch( reference -> {
         final TypeElement typeElement =
           (TypeElement) processingEnv.getTypeUtils().asElement( reference.getMethod().getReturnType() );
-        return GeneratorUtil.areTypesInDifferentPackage( typeElement, getElement() );
+        return ElementsUtil.areTypesInDifferentPackage( typeElement, getElement() );
       } );
   }
 
@@ -264,7 +265,7 @@ final class ComponentDescriptor
     return getInverses()
       .values()
       .stream()
-      .anyMatch( inverse -> GeneratorUtil.areTypesInDifferentPackage( inverse.getTargetType(), getElement() ) );
+      .anyMatch( inverse -> ElementsUtil.areTypesInDifferentPackage( inverse.getTargetType(), getElement() ) );
   }
 
   @Nonnull

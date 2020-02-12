@@ -37,8 +37,8 @@ import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Types;
 import org.realityforge.proton.AnnotationsUtil;
+import org.realityforge.proton.DeferredElementSet;
 import org.realityforge.proton.ElementsUtil;
-import org.realityforge.proton.GeneratorUtil;
 import org.realityforge.proton.MemberChecks;
 import org.realityforge.proton.ProcessorException;
 import org.realityforge.proton.SuperficialValidation;
@@ -70,6 +70,8 @@ public final class ArezProcessor
   private static final Pattern ON_DEPS_CHANGE_PATTERN = Pattern.compile( "^on([A-Z].*)DepsChange" );
   private static final Pattern PRE_INVERSE_REMOVE_PATTERN = Pattern.compile( "^pre([A-Z].*)Remove" );
   private static final Pattern POST_INVERSE_ADD_PATTERN = Pattern.compile( "^post([A-Z].*)Add" );
+  @Nonnull
+  private final DeferredElementSet _deferredTypes = new DeferredElementSet();
 
   @SuppressWarnings( "unchecked" )
   @Override
@@ -78,8 +80,9 @@ public final class ArezProcessor
     final TypeElement annotation =
       processingEnv.getElementUtils().getTypeElement( Constants.COMPONENT_ANNOTATION_CLASSNAME );
     final Collection<TypeElement> elementsTo = (Collection<TypeElement>) env.getElementsAnnotatedWith( annotation );
-    processTypeElements( env, elementsTo, this::process );
+    processTypeElements( env, _deferredTypes, elementsTo, this::process );
     errorIfProcessingOverAndInvalidTypesDetected( env );
+    errorIfProcessingOverAndDeferredTypesUnprocessed( env, _deferredTypes );
     return true;
   }
 
@@ -119,13 +122,13 @@ public final class ArezProcessor
                                     Constants.OBSERVABLE_ANNOTATION_CLASSNAME,
                                     method );
 
-    final String declaredName = AnnotationsUtil.getAnnotationValue( annotation, "name" );
-    final boolean expectSetter = AnnotationsUtil.getAnnotationValue( annotation, "expectSetter" );
+    final String declaredName = AnnotationsUtil.getAnnotationValueValue( annotation, "name" );
+    final boolean expectSetter = AnnotationsUtil.getAnnotationValueValue( annotation, "expectSetter" );
     final VariableElement readOutsideTransaction =
-      AnnotationsUtil.getAnnotationValue( annotation, "readOutsideTransaction" );
+      AnnotationsUtil.getAnnotationValueValue( annotation, "readOutsideTransaction" );
     final VariableElement writeOutsideTransaction =
-      AnnotationsUtil.getAnnotationValue( annotation, "writeOutsideTransaction" );
-    final boolean setterAlwaysMutates = AnnotationsUtil.getAnnotationValue( annotation, "setterAlwaysMutates" );
+      AnnotationsUtil.getAnnotationValueValue( annotation, "writeOutsideTransaction" );
+    final boolean setterAlwaysMutates = AnnotationsUtil.getAnnotationValueValue( annotation, "setterAlwaysMutates" );
     final Boolean requireInitializer = isInitializerRequired( method );
 
     final TypeMirror returnType = method.getReturnType();
@@ -263,7 +266,7 @@ public final class ArezProcessor
                                     "arez.ObservableValue", method );
     }
 
-    final String declaredName = AnnotationsUtil.getAnnotationValue( annotation, "name" );
+    final String declaredName = AnnotationsUtil.getAnnotationValueValue( annotation, "name" );
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
@@ -312,7 +315,7 @@ public final class ArezProcessor
                                     "arez.ComputableValue", method );
     }
 
-    final String declaredName = AnnotationsUtil.getAnnotationValue( annotation, "name" );
+    final String declaredName = AnnotationsUtil.getAnnotationValueValue( annotation, "name" );
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
@@ -351,7 +354,7 @@ public final class ArezProcessor
                                     @Nonnull final AnnotationMirror annotation )
     throws ProcessorException
   {
-    final String name = AnnotationsUtil.getAnnotationValue( annotation, "name" );
+    final String name = AnnotationsUtil.getAnnotationValueValue( annotation, "name" );
     if ( Constants.SENTINEL.equals( name ) )
     {
       return getPropertyAccessorName( method, name );
@@ -380,7 +383,7 @@ public final class ArezProcessor
     final String name = deriveHookName( component, method,
                                         ON_ACTIVATE_PATTERN,
                                         "Activate",
-                                        AnnotationsUtil.getAnnotationValue( annotation, "name" ) );
+                                        AnnotationsUtil.getAnnotationValueValue( annotation, "name" ) );
     MemberChecks.mustNotBeAbstract( Constants.ON_ACTIVATE_ANNOTATION_CLASSNAME, method );
     MemberChecks.mustBeSubclassCallable( component.getElement(),
                                          Constants.COMPONENT_ANNOTATION_CLASSNAME,
@@ -420,7 +423,7 @@ public final class ArezProcessor
       deriveHookName( component, method,
                       ON_DEACTIVATE_PATTERN,
                       "Deactivate",
-                      AnnotationsUtil.getAnnotationValue( annotation, "name" ) );
+                      AnnotationsUtil.getAnnotationValueValue( annotation, "name" ) );
     MemberChecks.mustBeLifecycleHook( component.getElement(),
                                       Constants.COMPONENT_ANNOTATION_CLASSNAME,
                                       Constants.ON_DEACTIVATE_ANNOTATION_CLASSNAME,
@@ -477,7 +480,7 @@ public final class ArezProcessor
     {
       throw new ProcessorException( "@ComponentStateRef target must return a boolean", method );
     }
-    final VariableElement variableElement = AnnotationsUtil.getAnnotationValue( annotation, "value" );
+    final VariableElement variableElement = AnnotationsUtil.getAnnotationValueValue( annotation, "value" );
     final ComponentStateRefDescriptor.State state =
       ComponentStateRefDescriptor.State.valueOf( variableElement.getSimpleName().toString() );
 
@@ -1139,11 +1142,12 @@ public final class ArezProcessor
     final String name =
       extractName( method, m -> m.getSimpleName().toString(), Constants.ACTION_ANNOTATION_CLASSNAME );
     checkNameUnique( component, name, method, Constants.ACTION_ANNOTATION_CLASSNAME );
-    final boolean mutation = AnnotationsUtil.getAnnotationValue( annotation, "mutation" );
-    final boolean requireNewTransaction = AnnotationsUtil.getAnnotationValue( annotation, "requireNewTransaction" );
-    final boolean reportParameters = AnnotationsUtil.getAnnotationValue( annotation, "reportParameters" );
-    final boolean reportResult = AnnotationsUtil.getAnnotationValue( annotation, "reportResult" );
-    final boolean verifyRequired = AnnotationsUtil.getAnnotationValue( annotation, "verifyRequired" );
+    final boolean mutation = AnnotationsUtil.getAnnotationValueValue( annotation, "mutation" );
+    final boolean requireNewTransaction =
+      AnnotationsUtil.getAnnotationValueValue( annotation, "requireNewTransaction" );
+    final boolean reportParameters = AnnotationsUtil.getAnnotationValueValue( annotation, "reportParameters" );
+    final boolean reportResult = AnnotationsUtil.getAnnotationValueValue( annotation, "reportResult" );
+    final boolean verifyRequired = AnnotationsUtil.getAnnotationValueValue( annotation, "verifyRequired" );
     final ActionDescriptor action =
       new ActionDescriptor( component,
                             name,
@@ -1165,15 +1169,15 @@ public final class ArezProcessor
   {
     final String name = deriveObserveName( method, annotation );
     checkNameUnique( component, name, method, Constants.OBSERVE_ANNOTATION_CLASSNAME );
-    final boolean mutation = AnnotationsUtil.getAnnotationValue( annotation, "mutation" );
+    final boolean mutation = AnnotationsUtil.getAnnotationValueValue( annotation, "mutation" );
     final boolean observeLowerPriorityDependencies =
-      AnnotationsUtil.getAnnotationValue( annotation, "observeLowerPriorityDependencies" );
-    final boolean nestedActionsAllowed = AnnotationsUtil.getAnnotationValue( annotation, "nestedActionsAllowed" );
-    final VariableElement priority = AnnotationsUtil.getAnnotationValue( annotation, "priority" );
-    final boolean reportParameters = AnnotationsUtil.getAnnotationValue( annotation, "reportParameters" );
-    final boolean reportResult = AnnotationsUtil.getAnnotationValue( annotation, "reportResult" );
-    final VariableElement executor = AnnotationsUtil.getAnnotationValue( annotation, "executor" );
-    final VariableElement depType = AnnotationsUtil.getAnnotationValue( annotation, "depType" );
+      AnnotationsUtil.getAnnotationValueValue( annotation, "observeLowerPriorityDependencies" );
+    final boolean nestedActionsAllowed = AnnotationsUtil.getAnnotationValueValue( annotation, "nestedActionsAllowed" );
+    final VariableElement priority = AnnotationsUtil.getAnnotationValueValue( annotation, "priority" );
+    final boolean reportParameters = AnnotationsUtil.getAnnotationValueValue( annotation, "reportParameters" );
+    final boolean reportResult = AnnotationsUtil.getAnnotationValueValue( annotation, "reportResult" );
+    final VariableElement executor = AnnotationsUtil.getAnnotationValueValue( annotation, "executor" );
+    final VariableElement depType = AnnotationsUtil.getAnnotationValueValue( annotation, "depType" );
 
     component
       .findOrCreateObserve( name )
@@ -1194,7 +1198,7 @@ public final class ArezProcessor
                                     @Nonnull final AnnotationMirror annotation )
     throws ProcessorException
   {
-    final String name = AnnotationsUtil.getAnnotationValue( annotation, "name" );
+    final String name = AnnotationsUtil.getAnnotationValueValue( annotation, "name" );
     if ( Constants.SENTINEL.equals( name ) )
     {
       return method.getSimpleName().toString();
@@ -1224,7 +1228,7 @@ public final class ArezProcessor
       deriveHookName( component, method,
                       ON_DEPS_CHANGE_PATTERN,
                       "DepsChange",
-                      AnnotationsUtil.getAnnotationValue( annotation, "name" ) );
+                      AnnotationsUtil.getAnnotationValueValue( annotation, "name" ) );
     setOnDepsChange( component, component.findOrCreateObserve( name ), method );
   }
 
@@ -1243,7 +1247,7 @@ public final class ArezProcessor
                                          Constants.OBSERVER_REF_ANNOTATION_CLASSNAME,
                                          Constants.OBSERVER_CLASSNAME );
 
-    final String declaredName = AnnotationsUtil.getAnnotationValue( annotation, "name" );
+    final String declaredName = AnnotationsUtil.getAnnotationValueValue( annotation, "name" );
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
@@ -1280,14 +1284,14 @@ public final class ArezProcessor
   {
     final String name = deriveMemoizeName( method, annotation );
     checkNameUnique( component, name, method, Constants.MEMOIZE_ANNOTATION_CLASSNAME );
-    final boolean keepAlive = AnnotationsUtil.getAnnotationValue( annotation, "keepAlive" );
-    final boolean reportResult = AnnotationsUtil.getAnnotationValue( annotation, "reportResult" );
+    final boolean keepAlive = AnnotationsUtil.getAnnotationValueValue( annotation, "keepAlive" );
+    final boolean reportResult = AnnotationsUtil.getAnnotationValueValue( annotation, "reportResult" );
     final boolean observeLowerPriorityDependencies =
-      AnnotationsUtil.getAnnotationValue( annotation, "observeLowerPriorityDependencies" );
+      AnnotationsUtil.getAnnotationValueValue( annotation, "observeLowerPriorityDependencies" );
     final VariableElement readOutsideTransaction =
-      AnnotationsUtil.getAnnotationValue( annotation, "readOutsideTransaction" );
-    final VariableElement priority = AnnotationsUtil.getAnnotationValue( annotation, "priority" );
-    final VariableElement depType = AnnotationsUtil.getAnnotationValue( annotation, "depType" );
+      AnnotationsUtil.getAnnotationValueValue( annotation, "readOutsideTransaction" );
+    final VariableElement priority = AnnotationsUtil.getAnnotationValueValue( annotation, "priority" );
+    final VariableElement depType = AnnotationsUtil.getAnnotationValueValue( annotation, "depType" );
     final String depTypeAsString = depType.getSimpleName().toString();
     component.findOrCreateMemoize( name ).setMemoize( method,
                                                       methodType,
@@ -1520,8 +1524,7 @@ public final class ArezProcessor
              (
                // Setter
                1 == element.getParameters().size() &&
-               AnnotationsUtil.hasAnnotationOfType( element.getParameters().get( 0 ),
-                                                    GeneratorUtil.NONNULL_ANNOTATION_CLASSNAME )
+               AnnotationsUtil.hasNonnullAnnotation( element.getParameters().get( 0 ) )
              )
            );
   }
@@ -1653,7 +1656,7 @@ public final class ArezProcessor
 
   private boolean hasInverse( @Nonnull final AnnotationMirror annotation )
   {
-    final VariableElement variableElement = AnnotationsUtil.getAnnotationValue( annotation, "inverse" );
+    final VariableElement variableElement = AnnotationsUtil.getAnnotationValueValue( annotation, "inverse" );
     switch ( variableElement.getSimpleName().toString() )
     {
       case "ENABLE":
@@ -1720,18 +1723,14 @@ public final class ArezProcessor
   @Nonnull
   private String getLinkType( @Nonnull final ExecutableElement method )
   {
-    final VariableElement injectParameter = (VariableElement)
-      AnnotationsUtil.getAnnotationValue( method,
-                                          Constants.REFERENCE_ANNOTATION_CLASSNAME,
-                                          "load" ).getValue();
-    return injectParameter.getSimpleName().toString();
+    return AnnotationsUtil.getEnumAnnotationParameter( method, Constants.REFERENCE_ANNOTATION_CLASSNAME, "load" );
   }
 
   @Nonnull
   private String getReferenceName( @Nonnull final AnnotationMirror annotation,
                                    @Nonnull final ExecutableElement method )
   {
-    final String declaredName = AnnotationsUtil.getAnnotationValue( annotation, "name" );
+    final String declaredName = AnnotationsUtil.getAnnotationValueValue( annotation, "name" );
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
@@ -1765,7 +1764,8 @@ public final class ArezProcessor
   @Nonnull
   private Multiplicity getReferenceInverseMultiplicity( @Nonnull final AnnotationMirror annotation )
   {
-    final VariableElement variableElement = AnnotationsUtil.getAnnotationValue( annotation, "inverseMultiplicity" );
+    final VariableElement variableElement =
+      AnnotationsUtil.getAnnotationValueValue( annotation, "inverseMultiplicity" );
     switch ( variableElement.getSimpleName().toString() )
     {
       case "MANY":
@@ -1783,7 +1783,7 @@ public final class ArezProcessor
                                           @Nonnull final ExecutableElement method,
                                           @Nonnull final Multiplicity multiplicity )
   {
-    final String declaredName = AnnotationsUtil.getAnnotationValue( annotation, "inverseName" );
+    final String declaredName = AnnotationsUtil.getAnnotationValueValue( annotation, "inverseName" );
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
@@ -1981,11 +1981,11 @@ public final class ArezProcessor
 
   private boolean isActionCascade( @Nonnull final Element method )
   {
-    final VariableElement parameter = (VariableElement)
-      AnnotationsUtil.getAnnotationValue( method,
-                                          Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
-                                          "action" ).getValue();
-    switch ( parameter.getSimpleName().toString() )
+    final String value =
+      AnnotationsUtil.getEnumAnnotationParameter( method,
+                                                  Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME,
+                                                  "action" );
+    switch ( value )
     {
       case "CASCADE":
         return true;
@@ -2742,7 +2742,7 @@ public final class ArezProcessor
   private String getReferenceIdName( @Nonnull final AnnotationMirror annotation,
                                      @Nonnull final ExecutableElement method )
   {
-    final String declaredName = AnnotationsUtil.getAnnotationValue( annotation, "name" );
+    final String declaredName = AnnotationsUtil.getAnnotationValueValue( annotation, "name" );
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
@@ -2808,7 +2808,7 @@ public final class ArezProcessor
   private String getPreInverseRemoveName( @Nonnull final AnnotationMirror annotation,
                                           @Nonnull final ExecutableElement method )
   {
-    final String name = AnnotationsUtil.getAnnotationValue( annotation, "name" );
+    final String name = AnnotationsUtil.getAnnotationValueValue( annotation, "name" );
     if ( Constants.SENTINEL.equals( name ) )
     {
       final String candidate = ArezUtils.deriveName( method, PRE_INVERSE_REMOVE_PATTERN, name );
@@ -2863,7 +2863,7 @@ public final class ArezProcessor
   private String getPostInverseAddName( @Nonnull final AnnotationMirror annotation,
                                         @Nonnull final ExecutableElement method )
   {
-    final String name = AnnotationsUtil.getAnnotationValue( annotation, "name" );
+    final String name = AnnotationsUtil.getAnnotationValueValue( annotation, "name" );
     if ( Constants.SENTINEL.equals( name ) )
     {
       final String candidate = ArezUtils.deriveName( method, POST_INVERSE_ADD_PATTERN, name );
@@ -2960,15 +2960,15 @@ public final class ArezProcessor
         {
           multiplicity = Multiplicity.ONE;
         }
-        else if ( AnnotationsUtil.hasAnnotationOfType( method, GeneratorUtil.NULLABLE_ANNOTATION_CLASSNAME ) )
+        else if ( AnnotationsUtil.hasNullableAnnotation( method ) )
         {
           multiplicity = Multiplicity.ZERO_OR_ONE;
         }
         else
         {
           throw new ProcessorException( "@Inverse target expected to be annotated with either " +
-                                        GeneratorUtil.NULLABLE_ANNOTATION_CLASSNAME + " or " +
-                                        GeneratorUtil.NONNULL_ANNOTATION_CLASSNAME, method );
+                                        AnnotationsUtil.NULLABLE_CLASSNAME + " or " +
+                                        AnnotationsUtil.NONNULL_CLASSNAME, method );
         }
       }
       final String referenceName = getInverseReferenceNameParameter( descriptor, method );
@@ -2990,7 +2990,7 @@ public final class ArezProcessor
   private String getInverseName( @Nonnull final AnnotationMirror annotation,
                                  @Nonnull final ExecutableElement method )
   {
-    final String declaredName = AnnotationsUtil.getAnnotationValue( annotation, "name" );
+    final String declaredName = AnnotationsUtil.getAnnotationValueValue( annotation, "name" );
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
@@ -3113,11 +3113,11 @@ public final class ArezProcessor
   {
     assert SuperficialValidation.validateElement( processingEnv, element );
 
-    final VariableElement verifyReferencesToComponent = (VariableElement)
-      AnnotationsUtil.getAnnotationValue( element,
-                                          Constants.COMPONENT_ANNOTATION_CLASSNAME,
-                                          "verifyReferencesToComponent" ).getValue();
-    switch ( verifyReferencesToComponent.getSimpleName().toString() )
+    final String verifyReferencesToComponent =
+      AnnotationsUtil.getEnumAnnotationParameter( element,
+                                                  Constants.COMPONENT_ANNOTATION_CLASSNAME,
+                                                  "verifyReferencesToComponent" );
+    switch ( verifyReferencesToComponent )
     {
       case "ENABLE":
         return true;
@@ -3300,6 +3300,6 @@ public final class ArezProcessor
   private <T> T getAnnotationParameter( @Nonnull final AnnotationMirror annotation,
                                         @Nonnull final String parameterName )
   {
-    return AnnotationsUtil.getAnnotationValue( annotation, parameterName );
+    return AnnotationsUtil.getAnnotationValueValue( annotation, parameterName );
   }
 }

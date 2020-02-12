@@ -3662,7 +3662,7 @@ final class ComponentGenerator
     final ObservableDescriptor observable = inverse.getObservable();
     final String methodName = getInverseAddMethodName( observable.getName() );
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    if ( GeneratorUtil.areTypesInDifferentPackage( inverse.getTargetType(), inverse.getComponent().getElement() ) )
+    if ( ElementsUtil.areTypesInDifferentPackage( inverse.getTargetType(), inverse.getComponent().getElement() ) )
     {
       builder.addModifiers( Modifier.PUBLIC );
     }
@@ -3714,7 +3714,7 @@ final class ComponentGenerator
     final ObservableDescriptor observable = inverse.getObservable();
     final String methodName = getInverseRemoveMethodName( observable.getName() );
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    if ( GeneratorUtil.areTypesInDifferentPackage( inverse.getTargetType(), inverse.getComponent().getElement() ) )
+    if ( ElementsUtil.areTypesInDifferentPackage( inverse.getTargetType(), inverse.getComponent().getElement() ) )
     {
       builder.addModifiers( Modifier.PUBLIC );
     }
@@ -3769,7 +3769,7 @@ final class ComponentGenerator
       getInverseSetMethodName( observable.getName() ) :
       getInverseZSetMethodName( observable.getName() );
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    if ( GeneratorUtil.areTypesInDifferentPackage( inverse.getTargetType(), inverse.getComponent().getElement() ) )
+    if ( ElementsUtil.areTypesInDifferentPackage( inverse.getTargetType(), inverse.getComponent().getElement() ) )
     {
       builder.addModifiers( Modifier.PUBLIC );
     }
@@ -3809,7 +3809,7 @@ final class ComponentGenerator
       getInverseUnsetMethodName( observable.getName() ) :
       getInverseZUnsetMethodName( observable.getName() );
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    if ( GeneratorUtil.areTypesInDifferentPackage( inverse.getTargetType(), inverse.getComponent().getElement() ) )
+    if ( ElementsUtil.areTypesInDifferentPackage( inverse.getTargetType(), inverse.getComponent().getElement() ) )
     {
       builder.addModifiers( Modifier.PUBLIC );
     }
@@ -4191,7 +4191,7 @@ final class ComponentGenerator
 
     final TypeElement typeElement =
       (TypeElement) processingEnv.getTypeUtils().asElement( reference.getMethod().getReturnType() );
-    if ( GeneratorUtil.areTypesInDifferentPackage( typeElement, reference.getComponent().getElement() ) )
+    if ( ElementsUtil.areTypesInDifferentPackage( typeElement, reference.getComponent().getElement() ) )
     {
       builder.addModifiers( Modifier.PUBLIC );
     }

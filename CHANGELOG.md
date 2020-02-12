@@ -3,7 +3,7 @@
 ### Unreleased
 
 * Upgrade the `org.realityforge.org.jetbrains.annotations` artifact to version `1.3.0`.
-* Upgrade the `org.realityforge.proton` artifacts to version `0.35`.
+* Upgrade the `org.realityforge.proton` artifacts to version `0.37`.
 
 ### [v0.167](https://github.com/arez/arez/tree/v0.167) (2020-02-10) · [Full Changelog](https://github.com/arez/arez/compare/v0.166...v0.167)
 

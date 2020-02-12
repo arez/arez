@@ -7,7 +7,6 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 import org.realityforge.proton.AnnotationsUtil;
-import org.realityforge.proton.GeneratorUtil;
 import org.realityforge.proton.MemberChecks;
 import org.realityforge.proton.ProcessorException;
 
@@ -120,8 +119,7 @@ final class DependencyDescriptor
                                       "dependency is an observable with no setter defined so the annotation " +
                                       "processor does not know how to set the value to null.", getMethod() );
       }
-      else if ( AnnotationsUtil.hasAnnotationOfType( getObservable().getSetter().getParameters().get( 0 ),
-                                                     GeneratorUtil.NONNULL_ANNOTATION_CLASSNAME ) )
+      else if ( AnnotationsUtil.hasNonnullAnnotation( getObservable().getSetter().getParameters().get( 0 ) ) )
       {
         throw new ProcessorException( "@ComponentDependency target defined an action of 'SET_NULL' but the " +
                                       "setter is annotated with @javax.annotation.Nonnull.", getMethod() );
