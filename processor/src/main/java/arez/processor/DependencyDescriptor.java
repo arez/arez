@@ -86,9 +86,9 @@ final class DependencyDescriptor
     _observable.setDependencyDescriptor( this );
   }
 
-  private boolean hasObservable()
+  private boolean hasNoObservable()
   {
-    return null != _observable;
+    return null == _observable;
   }
 
   @Nonnull
@@ -100,14 +100,14 @@ final class DependencyDescriptor
 
   void validate()
   {
-    assert !hasObservable() || isMethodDependency();
-    if ( !hasObservable() && isMethodDependency() )
+    assert hasNoObservable() || isMethodDependency();
+    if ( hasNoObservable() && isMethodDependency() )
     {
       MemberChecks.mustBeFinal( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, getMethod() );
     }
     if ( !shouldCascadeDispose() && isMethodDependency() )
     {
-      if ( !hasObservable() )
+      if ( hasNoObservable() )
       {
         throw new ProcessorException( "@ComponentDependency target defined an action of 'SET_NULL' but the " +
                                       "dependency is not an observable so the annotation processor does not " +
