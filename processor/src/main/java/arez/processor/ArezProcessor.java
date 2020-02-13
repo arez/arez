@@ -36,6 +36,7 @@ import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Types;
+import org.realityforge.proton.AbstractStandardProcessor;
 import org.realityforge.proton.AnnotationsUtil;
 import org.realityforge.proton.DeferredElementSet;
 import org.realityforge.proton.ElementsUtil;
@@ -51,7 +52,7 @@ import static javax.tools.Diagnostic.Kind.*;
 @SupportedSourceVersion( SourceVersion.RELEASE_8 )
 @SupportedOptions( { "arez.defer.unresolved", "arez.defer.errors", "arez.debug" } )
 public final class ArezProcessor
-  extends AbstractArezProcessor
+  extends AbstractStandardProcessor
 {
   static final Pattern GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)$" );
   private static final Pattern ON_ACTIVATE_PATTERN = Pattern.compile( "^on([A-Z].*)Activate$" );
@@ -72,6 +73,20 @@ public final class ArezProcessor
   private static final Pattern POST_INVERSE_ADD_PATTERN = Pattern.compile( "^post([A-Z].*)Add" );
   @Nonnull
   private final DeferredElementSet _deferredTypes = new DeferredElementSet();
+
+  @Override
+  @Nonnull
+  protected String getIssueTrackerURL()
+  {
+    return "https://github.com/arez/arez/issues";
+  }
+
+  @Nonnull
+  @Override
+  protected String getOptionPrefix()
+  {
+    return "arez";
+  }
 
   @SuppressWarnings( "unchecked" )
   @Override
