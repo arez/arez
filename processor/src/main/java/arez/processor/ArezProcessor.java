@@ -88,7 +88,6 @@ public final class ArezProcessor
     return "arez";
   }
 
-  @SuppressWarnings( "unchecked" )
   @Override
   public boolean process( @Nonnull final Set<? extends TypeElement> annotations, @Nonnull final RoundEnvironment env )
   {
