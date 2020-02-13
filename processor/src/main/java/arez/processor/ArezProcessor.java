@@ -49,7 +49,7 @@ import static javax.tools.Diagnostic.Kind.*;
  */
 @SupportedAnnotationTypes( Constants.COMPONENT_ANNOTATION_CLASSNAME )
 @SupportedSourceVersion( SourceVersion.RELEASE_8 )
-@SupportedOptions( { "arez.defer.unresolved", "arez.defer.errors" } )
+@SupportedOptions( { "arez.defer.unresolved", "arez.defer.errors", "arez.debug" } )
 public final class ArezProcessor
   extends AbstractArezProcessor
 {
