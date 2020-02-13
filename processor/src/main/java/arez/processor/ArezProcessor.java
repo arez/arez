@@ -82,7 +82,6 @@ public final class ArezProcessor
     final Collection<TypeElement> elementsTo = (Collection<TypeElement>) env.getElementsAnnotatedWith( annotation );
     processTypeElements( env, _deferredTypes, elementsTo, this::process );
     errorIfProcessingOverAndInvalidTypesDetected( env );
-    errorIfProcessingOverAndDeferredTypesUnprocessed( env, _deferredTypes );
     return true;
   }
 
