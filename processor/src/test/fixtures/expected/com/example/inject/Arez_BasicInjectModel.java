@@ -11,7 +11,6 @@ import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
@@ -20,7 +19,6 @@ final class Arez_BasicInjectModel extends BasicInjectModel implements Disposable
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Inject
   Arez_BasicInjectModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();

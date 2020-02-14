@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.realityforge.braincheck.Guards;
 
@@ -26,7 +25,6 @@ final class Arez_DeprecatedUsageModelRepository extends DeprecatedUsageModelRepo
   @Nonnull
   private final ObservableValue<Stream<DeprecatedUsageModel>> $$arez$$_entities;
 
-  @Inject
   Arez_DeprecatedUsageModelRepository() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();

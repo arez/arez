@@ -43,7 +43,6 @@ import org.realityforge.proton.SuppressWarningsUtil;
 
 final class ComponentGenerator
 {
-  private static final ClassName INJECT_CLASSNAME = ClassName.get( "javax.inject", "Inject" );
   private static final ClassName GUARDS_CLASSNAME = ClassName.get( "org.realityforge.braincheck", "Guards" );
   private static final ClassName AREZ_CLASSNAME = ClassName.get( "arez", "Arez" );
   private static final ClassName ACTION_FLAGS_CLASSNAME = ClassName.get( "arez", "ActionFlags" );
@@ -1736,11 +1735,6 @@ final class ComponentGenerator
       types.addAll( memoize.getMethodType().getParameterTypes() );
     }
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, additionalSuppressions, types );
-
-    if ( component.needsInjection() )
-    {
-      builder.addAnnotation( INJECT_CLASSNAME );
-    }
 
     final StringBuilder superCall = new StringBuilder();
     superCall.append( "super(" );

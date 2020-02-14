@@ -13,7 +13,6 @@ import java.util.concurrent.Callable;
 import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.realityforge.braincheck.Guards;
 
@@ -27,7 +26,6 @@ final class Arez_RawTypesUsageModelRepository extends RawTypesUsageModelReposito
   @Nonnull
   private final ObservableValue<Stream<RawTypesUsageModel>> $$arez$$_entities;
 
-  @Inject
   Arez_RawTypesUsageModelRepository() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();

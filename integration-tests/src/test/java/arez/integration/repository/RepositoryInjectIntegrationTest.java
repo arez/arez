@@ -48,9 +48,9 @@ public class RepositoryInjectIntegrationTest
     @Nonnull
     @Singleton
     @Provides
-    static RepositoryInjectIntegrationTest_TestComponentRepository repository( final Arez_RepositoryInjectIntegrationTest_TestComponentRepository repository )
+    static RepositoryInjectIntegrationTest_TestComponentRepository repository()
     {
-      return repository;
+      return new Arez_RepositoryInjectIntegrationTest_TestComponentRepository();
     }
   }
 

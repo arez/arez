@@ -1,14 +1,17 @@
 package com.example.inject;
 
-import dagger.Binds;
 import dagger.Module;
+import dagger.Provides;
 import javax.annotation.Generated;
+import javax.annotation.Nonnull;
 import javax.inject.Singleton;
 
 @Generated("arez.processor.ArezProcessor")
 @Module
 public interface CtorInjectWithPostConstructModelDaggerModule {
-  @Binds
+  @Provides
   @Singleton
-  CtorInjectWithPostConstructModel bindComponent(Arez_CtorInjectWithPostConstructModel component);
+  static CtorInjectWithPostConstructModel create(@Nonnull final Runnable action) {
+    return new Arez_CtorInjectWithPostConstructModel(action);
+  }
 }

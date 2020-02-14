@@ -1,15 +1,16 @@
 package com.example.repository;
 
-import dagger.Binds;
 import dagger.Module;
+import dagger.Provides;
 import javax.annotation.Generated;
 import javax.inject.Singleton;
 
 @Generated("arez.processor.ArezProcessor")
 @Module
 public interface WriteOutsideTransactionWithRepositoryModelRepositoryDaggerModule {
-  @Binds
+  @Provides
   @Singleton
-  WriteOutsideTransactionWithRepositoryModelRepository bindComponent(
-      Arez_WriteOutsideTransactionWithRepositoryModelRepository component);
+  static WriteOutsideTransactionWithRepositoryModelRepository create() {
+    return new Arez_WriteOutsideTransactionWithRepositoryModelRepository();
+  }
 }

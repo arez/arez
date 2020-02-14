@@ -1,12 +1,14 @@
 package com.example.inject;
 
-import dagger.Binds;
 import dagger.Module;
+import dagger.Provides;
 import javax.annotation.Generated;
 
 @Generated("arez.processor.ArezProcessor")
 @Module
 public interface DefaultCtorModelDaggerModule {
-  @Binds
-  DefaultCtorModel bindComponent(Arez_DefaultCtorModel component);
+  @Provides
+  static DefaultCtorModel create() {
+    return new Arez_DefaultCtorModel();
+  }
 }

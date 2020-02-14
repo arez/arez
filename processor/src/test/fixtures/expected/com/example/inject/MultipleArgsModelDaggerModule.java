@@ -1,12 +1,14 @@
 package com.example.inject;
 
-import dagger.Binds;
 import dagger.Module;
+import dagger.Provides;
 import javax.annotation.Generated;
 
 @Generated("arez.processor.ArezProcessor")
 @Module
 public interface MultipleArgsModelDaggerModule {
-  @Binds
-  MultipleArgsModel bindComponent(Arez_MultipleArgsModel component);
+  @Provides
+  static MultipleArgsModel create(final int i, final String foo) {
+    return new Arez_MultipleArgsModel(i, foo);
+  }
 }

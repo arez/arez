@@ -10,7 +10,6 @@ import arez.component.internal.ComponentKernel;
 import java.util.concurrent.Callable;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.realityforge.braincheck.Guards;
 
@@ -22,7 +21,6 @@ final class Arez_CtorInjectSuppressRawTypeAtParamModel extends CtorInjectSuppres
   private final ComponentKernel $$arezi$$_kernel;
 
   @SuppressWarnings("rawtypes")
-  @Inject
   Arez_CtorInjectSuppressRawTypeAtParamModel(@Nonnull final Callable action) {
     super(action);
     final ArezContext $$arezv$$_context = Arez.context();

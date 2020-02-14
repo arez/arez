@@ -11,7 +11,6 @@ import arez.component.internal.ComponentKernel;
 import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.realityforge.braincheck.Guards;
 
@@ -25,7 +24,6 @@ final class Arez_ReadOutsideTransactionWithRepositoryModelRepository extends Rea
   @Nonnull
   private final ObservableValue<Stream<ReadOutsideTransactionWithRepositoryModel>> $$arez$$_entities;
 
-  @Inject
   Arez_ReadOutsideTransactionWithRepositoryModelRepository() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();

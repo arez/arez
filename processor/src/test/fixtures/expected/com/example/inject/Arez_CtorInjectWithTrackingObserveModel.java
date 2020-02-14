@@ -9,7 +9,6 @@ import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.realityforge.braincheck.Guards;
 
@@ -23,7 +22,6 @@ final class Arez_CtorInjectWithTrackingObserveModel extends CtorInjectWithTracki
   @Nonnull
   private final Observer $$arez$$_autorun;
 
-  @Inject
   Arez_CtorInjectWithTrackingObserveModel(@Nonnull final Runnable action) {
     super(action);
     final ArezContext $$arezv$$_context = Arez.context();
