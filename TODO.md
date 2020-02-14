@@ -28,6 +28,9 @@ See https://github.com/arez/arez/issues/91
 
 * Remove `InjectMode.CONSUME` as no longer really needed.
 
+* If arez always needs to create a `DaggerModule` for dagger, then we can perform the `new` in the module and
+  make `Arez_*` classes package access  (unless we need public access for inverse references).
+
 * Add Sting support
 
 * Add to build process so that every published packaged is attempted to be built using bazel to
