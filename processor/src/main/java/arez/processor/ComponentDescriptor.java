@@ -415,10 +415,7 @@ final class ComponentDescriptor
 
   boolean shouldGeneratedClassBePublic( @Nonnull final ProcessingEnvironment processingEnv )
   {
-    //Ahh dagger.... due the way we actually inject components that have to create a dagger component
-    // extension, this class needs to be public
-    return hasReferenceWithInverseOutsidePackage( processingEnv ) ||
-           hasInverseReferencedOutsidePackage();
+    return hasReferenceWithInverseOutsidePackage( processingEnv ) || hasInverseReferencedOutsidePackage();
   }
 
   boolean hasRepository()
