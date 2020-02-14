@@ -2,7 +2,7 @@
 
 ### Unreleased
 
-* Upgrade the `org.realityforge.org.jetbrains.annotations` artifact to version `1.3.0`.
+* Upgrade the `org.realityforge.org.jetbrains.annotations` artifact to version `1.4.0`.
 * Upgrade the `org.realityforge.proton` artifacts to version `0.39`.
 * Add the `arez.debug` annotation option to help debug annotation processing.
 
