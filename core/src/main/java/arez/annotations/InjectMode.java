@@ -34,8 +34,6 @@ public enum InjectMode
 {
   /**
    * InjectMode is disabled. The component can not be created by the injection framework.
-   * It is an error if the injections is disabled and the component has <code>javax.inject.Inject</code>
-   * annotations present.
    */
   NONE,
   /**
