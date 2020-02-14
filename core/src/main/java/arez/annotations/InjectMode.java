@@ -2,11 +2,6 @@ package arez.annotations;
 
 /**
  * Enum that controls how the component interacts with the injection framework if at all.
- * Arez currently assumes that <a href="https://google.github.io/dagger/">Dagger2</a> is used
- * as the injection framework. The artifacts that are generated when injections is enable
- * vary based on the configuration of the component and whether the component has a method annotated
- * with {@link PostConstruct}. This is an extremely rough part of the toolkit which requires excessive
- * work by the user. It is likely that in the future all of this will be automated away.
  *
  * <ul>
  * <li>
