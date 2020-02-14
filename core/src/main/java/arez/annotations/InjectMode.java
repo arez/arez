@@ -18,9 +18,8 @@ package arez.annotations;
  * <li>
  * A component configured with {@link #PROVIDE} and either has no {@link PostConstruct} annotated method
  * and no {@link Observe} annotated methods and no {@link Memoize} with keep alive set to <code>true</code>
- * or only uses constructor injection will have the <code>javax.inject.Inject</code> annotation added to
- * the constructor and a Dagger2 module created named <code>[MyComponent]DaggerModule</code> which must be
- * added to the desired component.
+ * will have the <code>javax.inject.Inject</code> annotation added to the constructor and a Dagger2 module
+ * created named <code>[MyComponent]DaggerModule</code> which must be added to the desired component.
  * </li>
  * <li>
  * A component configured with {@link #CONSUME} and a {@link PostConstruct} annotated method and has
