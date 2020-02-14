@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
 import javax.inject.Singleton;
 
 @Singleton
-@ArezComponent( inject = InjectMode.CONSUME )
+@ArezComponent( inject = InjectMode.PROVIDE )
 public abstract class CtorInjectWithObserveModel
 {
   CtorInjectWithObserveModel( @Nonnull final Runnable action )

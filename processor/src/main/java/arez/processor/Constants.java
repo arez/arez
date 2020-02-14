@@ -9,7 +9,6 @@ final class Constants
   static final String OBSERVE_ANNOTATION_CLASSNAME = "arez.annotations.Observe";
   static final String CASCADE_DISPOSE_ANNOTATION_CLASSNAME = "arez.annotations.CascadeDispose";
   static final String COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME = "arez.annotations.ComponentDependency";
-  static final String PER_INSTANCE_ANNOTATION_CLASSNAME = "arez.annotations.PerInstance";
   static final String REFERENCE_ANNOTATION_CLASSNAME = "arez.annotations.Reference";
   static final String INVERSE_ANNOTATION_CLASSNAME = "arez.annotations.Inverse";
   static final String REFERENCE_ID_ANNOTATION_CLASSNAME = "arez.annotations.ReferenceId";

@@ -1,0 +1,72 @@
+[
+  {
+    "code": "java.field.enumConstantOrderChanged",
+    "description": "The enum constant was defined on position 3 but is now on 2. The user code can break if it relies on the return value of the \"ordinal()\" method.",
+    "element": "field arez.annotations.InjectMode.AUTODETECT",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.InjectMode",
+      "classSimpleName": "InjectMode",
+      "elementKind": "enumConstant",
+      "fieldName": "AUTODETECT",
+      "newOrdinal": "2",
+      "oldOrdinal": "3",
+      "package": "arez.annotations"
+    }
+  },
+  {
+    "code": "java.field.enumConstantOrderChanged",
+    "description": "The enum constant was defined on position 2 but is now on 1. The user code can break if it relies on the return value of the \"ordinal()\" method.",
+    "element": "field arez.annotations.InjectMode.PROVIDE",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.InjectMode",
+      "classSimpleName": "InjectMode",
+      "elementKind": "enumConstant",
+      "fieldName": "PROVIDE",
+      "newOrdinal": "1",
+      "oldOrdinal": "2",
+      "package": "arez.annotations"
+    }
+  },
+  {
+    "code": "java.annotation.noLongerPresent",
+    "description": "Old API referenced the annotation type but the new API version no longer does.",
+    "oldElement": "@interface arez.annotations.PerInstance",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "NON_BREAKING",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.PerInstance",
+      "classSimpleName": "PerInstance",
+      "elementKind": "@interface",
+      "package": "arez.annotations"
+    }
+  },
+  {
+    "code": "java.field.removed",
+    "description": "Field removed from class.",
+    "oldElement": "field arez.annotations.InjectMode.CONSUME",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.InjectMode",
+      "classSimpleName": "InjectMode",
+      "elementKind": "enumConstant",
+      "fieldName": "CONSUME",
+      "package": "arez.annotations"
+    }
+  }
+]

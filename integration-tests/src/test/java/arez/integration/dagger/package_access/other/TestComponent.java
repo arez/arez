@@ -7,8 +7,8 @@ import arez.annotations.InjectMode;
 import arez.annotations.Observable;
 import arez.annotations.PostConstruct;
 
-@ArezComponent( dagger = Feature.ENABLE, inject = InjectMode.CONSUME )
-abstract class TestComponent
+@ArezComponent( dagger = Feature.ENABLE, inject = InjectMode.PROVIDE )
+public abstract class TestComponent
 {
   TestComponent( final MyDependency myDependency )
   {

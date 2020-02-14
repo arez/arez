@@ -22,7 +22,7 @@ final class DaggerModuleGenerator
                              @Nonnull final ComponentDescriptor component )
     throws ProcessorException
   {
-    assert component.needsDaggerIntegration();
+    assert component.isDaggerIntegrationEnabled();
 
     final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( component.getComponentDaggerModuleName() ).
       addTypeVariables( GeneratorUtil.getTypeArgumentsAsNames( component.asDeclaredType() ) );

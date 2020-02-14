@@ -56,7 +56,6 @@ final class RepositoryGenerator
 
     final String injectMode = repository.getInjectMode();
     final boolean addSingletonAnnotation =
-      "CONSUME".equals( injectMode ) ||
       "PROVIDE".equals( injectMode ) ||
       ( "AUTODETECT".equals( injectMode ) &&
         null != processingEnv.getElementUtils().getTypeElement( Constants.INJECT_ANNOTATION_CLASSNAME ) );
@@ -123,9 +122,7 @@ final class RepositoryGenerator
      * but the type is not public, we still need to generate a public repository due to
      * constraints imposed by dagger.
      */
-    if ( addSingletonAnnotation &&
-         !"CONSUME".equals( injectMode ) &&
-         !element.getModifiers().contains( Modifier.PUBLIC ) )
+    if ( addSingletonAnnotation && !element.getModifiers().contains( Modifier.PUBLIC ) )
     {
       builder.addModifiers( Modifier.PUBLIC );
     }

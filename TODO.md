@@ -24,12 +24,10 @@ See https://github.com/arez/arez/issues/91
 * `final EventDrivenValue<HTMLDocument, Object> _documentVisibility` can not have `@CascadeDispose` annotation.
   Because type parameter confuses annotation processor?
 
-* Remove `@PerInstance` as no longer after next `react4j` release.
-
-* Remove `InjectMode.CONSUME` as no longer really needed.
-
 * If arez always needs to create a `DaggerModule` for dagger, then we can perform the `new` in the module and
   make `Arez_*` classes package access  (unless we need public access for inverse references).
+
+* Replace `InjectMode` with `Feature`.
 
 * Add Sting support
 

@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 import javax.inject.Singleton;
 
 @Singleton
-@ArezComponent( inject = InjectMode.CONSUME )
+@ArezComponent( inject = InjectMode.PROVIDE )
 public abstract class CtorInjectSuppressRawTypeAtParamModel
 {
   CtorInjectSuppressRawTypeAtParamModel( @SuppressWarnings( "rawtypes" ) @Nonnull final Callable action )

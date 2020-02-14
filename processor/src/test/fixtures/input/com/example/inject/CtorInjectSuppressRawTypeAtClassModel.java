@@ -9,7 +9,7 @@ import javax.inject.Singleton;
 
 @SuppressWarnings( "rawtypes" )
 @Singleton
-@ArezComponent( inject = InjectMode.CONSUME )
+@ArezComponent( inject = InjectMode.PROVIDE )
 public abstract class CtorInjectSuppressRawTypeAtClassModel
 {
   CtorInjectSuppressRawTypeAtClassModel( @Nonnull final Callable action )

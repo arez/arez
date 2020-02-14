@@ -24,6 +24,7 @@ import java.util.stream.IntStream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
@@ -156,9 +157,10 @@ final class ComponentGenerator
     {
       builder.addModifiers( Modifier.PUBLIC );
     }
-    if ( null != component.getScopeAnnotation() && !component.shouldGenerateFactory() )
+    final AnnotationMirror scopeAnnotation = component.getScopeAnnotation();
+    if ( null != scopeAnnotation )
     {
-      final DeclaredType annotationType = component.getScopeAnnotation().getAnnotationType();
+      final DeclaredType annotationType = scopeAnnotation.getAnnotationType();
       final TypeElement typeElement = (TypeElement) annotationType.asElement();
       builder.addAnnotation( ClassName.get( typeElement ) );
     }
@@ -182,11 +184,6 @@ final class ComponentGenerator
     if ( component.needsExplicitLink() )
     {
       builder.addSuperinterface( LINKABLE_CLASSNAME );
-    }
-
-    if ( component.shouldGenerateFactory() )
-    {
-      builder.addType( buildFactoryClass( processingEnv, component ).build() );
     }
 
     buildFields( processingEnv, component, builder );
@@ -878,119 +875,6 @@ final class ComponentGenerator
         }
       }
     }
-  }
-
-  @Nonnull
-  private static TypeSpec.Builder buildFactoryClass( @Nonnull final ProcessingEnvironment processingEnv,
-                                                     @Nonnull final ComponentDescriptor component )
-  {
-    final TypeSpec.Builder factory = TypeSpec.classBuilder( "Factory" )
-      .addModifiers( Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL );
-
-    final ExecutableElement constructor = ElementsUtil.getConstructors( component.getElement() ).get( 0 );
-    assert null != constructor;
-
-    final List<? extends VariableElement> injectedParameters = constructor
-      .getParameters()
-      .stream()
-      .filter( f -> !AnnotationsUtil.hasAnnotationOfType( f, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME ) )
-      .collect( Collectors.toList() );
-    for ( final VariableElement parameter : injectedParameters )
-    {
-      final FieldSpec.Builder field = FieldSpec
-        .builder( TypeName.get( parameter.asType() ),
-                  parameter.getSimpleName().toString(),
-                  Modifier.PRIVATE,
-                  Modifier.FINAL );
-      SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, field, constructor.asType() );
-      GeneratorUtil.copyWhitelistedAnnotations( parameter, field );
-      factory.addField( field.build() );
-    }
-
-    final MethodSpec.Builder ctor = MethodSpec.constructorBuilder();
-    ctor.addAnnotation( INJECT_CLASSNAME );
-    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, ctor, constructor.asType() );
-    GeneratorUtil.copyWhitelistedAnnotations( constructor, ctor );
-
-    for ( final VariableElement parameter : injectedParameters )
-    {
-      final String name = parameter.getSimpleName().toString();
-      final ParameterSpec.Builder param =
-        ParameterSpec.builder( TypeName.get( parameter.asType() ), name, Modifier.FINAL );
-      GeneratorUtil.copyWhitelistedAnnotations( parameter, param );
-      ctor.addParameter( param.build() );
-      if ( AnnotationsUtil.hasNonnullAnnotation( parameter ) )
-      {
-        ctor.addStatement( "this.$N = $T.requireNonNull( $N )", name, Objects.class, name );
-      }
-      else
-      {
-        ctor.addStatement( "this.$N = $N", name, name );
-      }
-    }
-
-    factory.addMethod( ctor.build() );
-
-    {
-      final MethodSpec.Builder creator = MethodSpec.methodBuilder( "create" );
-      creator.addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
-      creator.addModifiers( Modifier.PUBLIC );
-      creator.returns( component.getEnhancedClassName() );
-
-      final StringBuilder sb = new StringBuilder();
-      final List<Object> params = new ArrayList<>();
-      sb.append( "return new $T(" );
-      params.add( component.getEnhancedClassName() );
-
-      boolean firstParam = true;
-
-      for ( final VariableElement parameter : constructor.getParameters() )
-      {
-        final boolean perInstance =
-          AnnotationsUtil.hasAnnotationOfType( parameter, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME );
-
-        final String name = parameter.getSimpleName().toString();
-
-        if ( perInstance )
-        {
-          final ParameterSpec.Builder param =
-            ParameterSpec.builder( TypeName.get( parameter.asType() ), name, Modifier.FINAL );
-          GeneratorUtil.copyWhitelistedAnnotations( parameter, param );
-          creator.addParameter( param.build() );
-        }
-
-        if ( firstParam )
-        {
-          sb.append( " " );
-        }
-        else
-        {
-          sb.append( ", " );
-        }
-        firstParam = false;
-        if ( perInstance && AnnotationsUtil.hasNonnullAnnotation( parameter ) )
-        {
-          sb.append( "$T.requireNonNull( $N )" );
-          params.add( Objects.class );
-        }
-        else
-        {
-          sb.append( "$N" );
-        }
-        params.add( name );
-      }
-
-      if ( !firstParam )
-      {
-        sb.append( " " );
-      }
-
-      sb.append( ")" );
-      creator.addStatement( sb.toString(), params.toArray() );
-      factory.addMethod( creator.build() );
-    }
-
-    return factory;
   }
 
   @Nonnull
@@ -1820,12 +1704,7 @@ final class ComponentGenerator
                                               @Nullable final ExecutableType constructorType )
   {
     final MethodSpec.Builder builder = MethodSpec.constructorBuilder();
-    if ( component.shouldGenerateFactory() )
-    {
-      // The constructor is as the factory is responsible for creating component.
-      builder.addModifiers( Modifier.PRIVATE );
-    }
-    else if ( component.shouldGeneratedClassBePublic( processingEnv ) )
+    if ( component.shouldGeneratedClassBePublic( processingEnv ) )
     {
       builder.addModifiers( Modifier.PUBLIC );
     }
@@ -1858,7 +1737,7 @@ final class ComponentGenerator
     }
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, additionalSuppressions, types );
 
-    if ( InjectMode.NONE != component.getInjectMode() && !component.shouldGenerateFactory() )
+    if ( component.needsInjection() )
     {
       builder.addAnnotation( INJECT_CLASSNAME );
     }

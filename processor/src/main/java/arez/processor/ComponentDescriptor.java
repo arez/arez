@@ -34,10 +34,8 @@ final class ComponentDescriptor
   private final boolean _observable;
   private final boolean _disposeNotifier;
   private final boolean _disposeOnDeactivate;
-  @Nonnull
-  private final InjectMode _injectMode;
+  private final boolean _inject;
   private final boolean _dagger;
-  private final boolean _generateFactory;
   private final boolean _requireEquals;
   /**
    * Flag indicating whether generated component should implement arez.component.Verifiable.
@@ -105,7 +103,6 @@ final class ComponentDescriptor
                        final boolean disposeOnDeactivate,
                        @Nonnull final String injectMode,
                        final boolean dagger,
-                       final boolean generateFactory,
                        final boolean requireEquals,
                        final boolean verify,
                        @Nullable final AnnotationMirror scopeAnnotation,
@@ -120,9 +117,8 @@ final class ComponentDescriptor
     _observable = observable;
     _disposeNotifier = disposeNotifier;
     _disposeOnDeactivate = disposeOnDeactivate;
-    _injectMode = InjectMode.valueOf( injectMode );
+    _inject = !"NONE".equals( injectMode );
     _dagger = dagger;
-    _generateFactory = generateFactory;
     _requireEquals = requireEquals;
     _verify = verify;
     _scopeAnnotation = scopeAnnotation;
@@ -402,38 +398,26 @@ final class ComponentDescriptor
       .collect( Collectors.toList() );
   }
 
-  boolean needsDaggerIntegration()
+  boolean isDaggerIntegrationEnabled()
   {
-    return isDagger();
+    return _dagger;
   }
 
-  boolean shouldGenerateFactory()
+  boolean needsInjection()
   {
-    return _generateFactory;
-  }
-
-  @Nonnull
-  InjectMode getInjectMode()
-  {
-    return _injectMode;
+    return _inject;
   }
 
   boolean needsDaggerModule()
   {
-    return needsDaggerIntegration() && InjectMode.PROVIDE == getInjectMode() && !needsDaggerComponentExtension();
-  }
-
-  boolean needsDaggerComponentExtension()
-  {
-    return needsDaggerIntegration() && shouldGenerateFactory();
+    return isDaggerIntegrationEnabled() && needsInjection();
   }
 
   boolean shouldGeneratedClassBePublic( @Nonnull final ProcessingEnvironment processingEnv )
   {
     //Ahh dagger.... due the way we actually inject components that have to create a dagger component
     // extension, this class needs to be public
-    return needsDaggerComponentExtension() ||
-           hasReferenceWithInverseOutsidePackage( processingEnv ) ||
+    return hasReferenceWithInverseOutsidePackage( processingEnv ) ||
            hasInverseReferencedOutsidePackage();
   }
 
@@ -477,12 +461,6 @@ final class ComponentDescriptor
   String getComponentDaggerModuleName()
   {
     return GeneratorUtil.getGeneratedSimpleClassName( getElement(), "", "DaggerModule" );
-  }
-
-  @Nonnull
-  ClassName getDaggerComponentExtensionClassName()
-  {
-    return GeneratorUtil.getGeneratedClassName( getElement(), "", "DaggerComponentExtension" );
   }
 
   @Nonnull
@@ -596,11 +574,6 @@ final class ComponentDescriptor
   public void setComponentIdMethodType( @Nullable ExecutableType componentIdMethodType )
   {
     _componentIdMethodType = componentIdMethodType;
-  }
-
-  boolean isDagger()
-  {
-    return _dagger;
   }
 
   /**

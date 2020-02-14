@@ -102,14 +102,9 @@ public final class ArezProcessor
     final ComponentDescriptor descriptor = parse( element );
     final String packageName = descriptor.getPackageName();
     emitTypeSpec( packageName, ComponentGenerator.buildType( processingEnv, descriptor ) );
-    if ( descriptor.needsDaggerIntegration() )
+    if ( descriptor.isDaggerIntegrationEnabled() )
     {
-      if ( descriptor.needsDaggerComponentExtension() )
-      {
-        assert InjectMode.CONSUME == descriptor.getInjectMode();
-        emitTypeSpec( packageName, DaggerComponentExtensionGenerator.buildType( processingEnv, descriptor ) );
-      }
-      else if ( descriptor.needsDaggerModule() )
+      if ( descriptor.needsDaggerModule() )
       {
         emitTypeSpec( packageName, DaggerModuleGenerator.buildType( processingEnv, descriptor ) );
       }
@@ -917,7 +912,7 @@ public final class ArezProcessor
                                       "type int.", component.getElement() );
       }
     }
-    if ( InjectMode.NONE != component.getInjectMode() )
+    if ( component.needsInjection() )
     {
       for ( final ExecutableElement constructor : ElementsUtil.getConstructors( component.getElement() ) )
       {
@@ -933,8 +928,8 @@ public final class ArezProcessor
                                         constructor );
         }
       }
-      if ( InjectMode.PROVIDE == component.getInjectMode() &&
-           component.isDagger() &&
+      if ( component.needsInjection() &&
+           component.isDaggerIntegrationEnabled() &&
            !component.getElement().getModifiers().contains( Modifier.PUBLIC ) )
       {
         throw new ProcessorException( "@ArezComponent target is not public but is configured as inject = PROVIDE " +
@@ -2126,30 +2121,6 @@ public final class ArezProcessor
                                     "disposeOnDeactivate = true which is not a valid combination", typeElement );
     }
 
-    boolean generateFactory = false;
-    if ( dagger )
-    {
-      final ExecutableElement ctor = constructors.get( 0 );
-      assert null != ctor;
-      final List<? extends VariableElement> perInstanceParameters = ctor.getParameters()
-        .stream()
-        .filter( f -> AnnotationsUtil.hasAnnotationOfType( f, Constants.PER_INSTANCE_ANNOTATION_CLASSNAME ) )
-        .collect( Collectors.toList() );
-      if ( !perInstanceParameters.isEmpty() )
-      {
-        if ( "PROVIDE".equals( injectMode ) )
-        {
-          throw new ProcessorException( "@ArezComponent target has specified at least one @PerInstance " +
-                                        "parameter on the constructor but has set inject parameter to PROVIDE. " +
-                                        "The component cannot be provided to other components if the invoker " +
-                                        "must supply per-instance parameters so either change the inject " +
-                                        "parameter to CONSUME or remove the @PerInstance parameter.",
-                                        ctor );
-        }
-        generateFactory = true;
-      }
-    }
-
     final List<ExecutableElement> methods =
       ElementsUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() );
     final boolean generateToString = methods.stream().
@@ -2180,7 +2151,6 @@ public final class ArezProcessor
                                disposeOnDeactivate,
                                injectMode,
                                dagger,
-                               generateFactory,
                                requireEquals,
                                requireVerify,
                                scopeAnnotation,

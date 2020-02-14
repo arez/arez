@@ -5,22 +5,10 @@ package arez.annotations;
  *
  * <ul>
  * <li>
- * A component configured with {@link #CONSUME} and either has no {@link PostConstruct} annotated method
- * and no {@link Observe} annotated methods and no {@link Memoize} with keep alive set to <code>true</code>
- * or only uses constructor injection will have the <code>javax.inject.Inject</code> annotation added to
- * the constructor.
- * </li>
- * <li>
  * A component configured with {@link #PROVIDE} and either has no {@link PostConstruct} annotated method
  * and no {@link Observe} annotated methods and no {@link Memoize} with keep alive set to <code>true</code>
  * will have the <code>javax.inject.Inject</code> annotation added to the constructor and a Dagger2 module
  * created named <code>[MyComponent]DaggerModule</code> which must be added to the desired component.
- * </li>
- * <li>
- * A component configured with {@link #CONSUME} and a {@link PostConstruct} annotated method and has
- * non-constructor based injection will have an interface named <code>[MyComponent]DaggerComponentExtension</code>
- * created that the desired component must extend. The extension has a method named <code>bind[MyComponent]()</code>
- * that must be invoked before any instances of the arez component can be created.
  * </li>
  * </ul>
  */
@@ -32,12 +20,8 @@ public enum InjectMode
   NONE,
   /**
    * The component must be created and injected by the injection framework. The component MUST have a single
-   * constructor otherwise the injection framework will not know how to create the component.
-   */
-  CONSUME,
-  /**
-   * This enum has the same characteristics as {@link #CONSUME} and may also be injected
-   * into other components managed by the injection framework.
+   * constructor otherwise the injection framework will not know how to create the component. The component
+   * may be injected into other components managed by the injection framework.
    */
   PROVIDE,
   /**
