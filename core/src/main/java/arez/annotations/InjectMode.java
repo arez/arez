@@ -28,14 +28,6 @@ package arez.annotations;
  * created that the desired component must extend. The extension has a method named <code>bind[MyComponent]()</code>
  * that must be invoked before any instances of the arez component can be created.
  * </li>
- * <li>
- * A component configured with {@link #PROVIDE} and a {@link PostConstruct} annotated method and has
- * non-constructor based injection will have an interface named <code>[MyComponent]DaggerComponentExtension</code>
- * created that the desired component must extend. The extension has a method named <code>bind[MyComponent]()</code>
- * that must be invoked before any instances of the arez component can be created. The extension also contains a dagger
- * module named <code>[MyComponent]DaggerComponentExtension.DaggerModule</code> that MUST be added to the
- * component manually.
- * </li>
  * </ul>
  */
 public enum InjectMode
