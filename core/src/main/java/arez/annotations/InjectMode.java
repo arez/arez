@@ -26,8 +26,7 @@ public enum InjectMode
   PROVIDE,
   /**
    * Allow the annotation processor to determine whether injection should be enabled.
-   * If any fields or methods in the component or any parent type has an <code>javax.inject.Inject</code>
-   * annotation OR the class has an annotation that is itself annotated with the <code>javax.inject.Scope</code>
+   * If the class has an annotation that is itself annotated with the <code>javax.inject.Scope</code>
    * annotation then the component will be assumed to be {@link #PROVIDE} otherwise the value {@link #NONE}
    * is assumed.
    */
