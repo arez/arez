@@ -24,9 +24,6 @@ See https://github.com/arez/arez/issues/91
 * `final EventDrivenValue<HTMLDocument, Object> _documentVisibility` can not have `@CascadeDispose` annotation.
   Because type parameter confuses annotation processor?
 
-* If arez always needs to create a `DaggerModule` for dagger, then we can perform the `new` in the module and
-  make `Arez_*` classes package access  (unless we need public access for inverse references).
-
 * Replace `InjectMode` with `Feature`.
 
 * Add support for `sting` and `dagger` features on `@ArezComponent`.
