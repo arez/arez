@@ -103,7 +103,7 @@ final class DependencyDescriptor
     assert hasNoObservable() || isMethodDependency();
     if ( hasNoObservable() && isMethodDependency() )
     {
-      MemberChecks.mustBeFinal( Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME, getMethod() );
+      MemberChecks.mustBeFinal( Constants.COMPONENT_DEPENDENCY_CLASSNAME, getMethod() );
     }
     if ( !shouldCascadeDispose() && isMethodDependency() )
     {

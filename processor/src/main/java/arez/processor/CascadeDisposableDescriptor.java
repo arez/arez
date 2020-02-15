@@ -75,7 +75,7 @@ final class CascadeDisposableDescriptor
         }
         if ( ElementKind.CLASS == getMethod().getEnclosingElement().getKind() )
         {
-          MemberChecks.mustBeFinal( Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME, getMethod() );
+          MemberChecks.mustBeFinal( Constants.CASCADE_DISPOSE_CLASSNAME, getMethod() );
         }
       }
       else

@@ -58,10 +58,10 @@ final class RepositoryGenerator
     final boolean addSingletonAnnotation =
       "PROVIDE".equals( injectMode ) ||
       ( "AUTODETECT".equals( injectMode ) &&
-        null != processingEnv.getElementUtils().getTypeElement( Constants.INJECT_ANNOTATION_CLASSNAME ) );
+        null != processingEnv.getElementUtils().getTypeElement( Constants.INJECT_CLASSNAME ) );
 
     final AnnotationSpec.Builder arezComponent =
-      AnnotationSpec.builder( ClassName.bestGuess( Constants.COMPONENT_ANNOTATION_CLASSNAME ) );
+      AnnotationSpec.builder( ClassName.bestGuess( Constants.COMPONENT_CLASSNAME ) );
     if ( !"AUTODETECT".equals( injectMode ) )
     {
       arezComponent.addMember( "inject", "$T.$N", ClassName.get( "arez.annotations", "InjectMode" ), injectMode );
@@ -307,7 +307,7 @@ final class RepositoryGenerator
 
     if ( !repository.getComponent().defaultWriteOutsideTransaction() )
     {
-      builder.addAnnotation( AnnotationSpec.builder( ClassName.bestGuess( Constants.ACTION_ANNOTATION_CLASSNAME ) ).
+      builder.addAnnotation( AnnotationSpec.builder( ClassName.bestGuess( Constants.ACTION_CLASSNAME ) ).
         addMember( "name", "$S", actionName ).build() );
     }
 

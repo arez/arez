@@ -114,11 +114,11 @@ final class MemoizeDescriptor
     //The caller already verified that no duplicate computable have been defined
     assert null == _method;
     MemberChecks.mustBeWrappable( _component.getElement(),
-                                  Constants.COMPONENT_ANNOTATION_CLASSNAME,
-                                  Constants.MEMOIZE_ANNOTATION_CLASSNAME,
+                                  Constants.COMPONENT_CLASSNAME,
+                                  Constants.MEMOIZE_CLASSNAME,
                                   method );
-    MemberChecks.mustReturnAValue( Constants.MEMOIZE_ANNOTATION_CLASSNAME, method );
-    MemberChecks.mustNotThrowAnyExceptions( Constants.MEMOIZE_ANNOTATION_CLASSNAME, method );
+    MemberChecks.mustReturnAValue( Constants.MEMOIZE_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.MEMOIZE_CLASSNAME, method );
 
     _method = Objects.requireNonNull( method );
     _methodType = Objects.requireNonNull( methodType );

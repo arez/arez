@@ -98,8 +98,8 @@ final class ObserveDescriptor
                          @Nonnull final ExecutableType trackedMethodType )
   {
     MemberChecks.mustBeWrappable( _component.getElement(),
-                                  Constants.COMPONENT_ANNOTATION_CLASSNAME,
-                                  Constants.OBSERVE_ANNOTATION_CLASSNAME,
+                                  Constants.COMPONENT_CLASSNAME,
+                                  Constants.OBSERVE_CLASSNAME,
                                   method );
 
     if ( internalExecutor )

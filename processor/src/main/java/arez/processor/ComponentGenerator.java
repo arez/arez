@@ -1835,7 +1835,7 @@ final class ComponentGenerator
       {
         if ( component.isClassType() )
         {
-          if ( AnnotationsUtil.hasAnnotationOfType( postConstruct, Constants.ACTION_ANNOTATION_CLASSNAME ) )
+          if ( AnnotationsUtil.hasAnnotationOfType( postConstruct, Constants.ACTION_CLASSNAME ) )
           {
             builder.addStatement( "this.$N()", postConstruct.getSimpleName().toString() );
           }

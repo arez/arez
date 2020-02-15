@@ -36,7 +36,7 @@ final class ArezUtils
     MemberChecks.mustBeAbstract( annotationClassname, method );
     final TypeElement typeElement = descriptor.getElement();
     MemberChecks.mustNotBePackageAccessInDifferentPackage( typeElement,
-                                                           Constants.COMPONENT_ANNOTATION_CLASSNAME,
+                                                           Constants.COMPONENT_CLASSNAME,
                                                            annotationClassname,
                                                            method );
     MemberChecks.mustReturnAValue( annotationClassname, method );
@@ -49,7 +49,7 @@ final class ArezUtils
     throws ProcessorException
   {
     MemberChecks.mustNotBeAbstract( annotationName, method );
-    MemberChecks.mustBeSubclassCallable( targetType, Constants.COMPONENT_ANNOTATION_CLASSNAME, annotationName, method );
+    MemberChecks.mustBeSubclassCallable( targetType, Constants.COMPONENT_CLASSNAME, annotationName, method );
     MemberChecks.mustNotReturnAnyValue( annotationName, method );
     MemberChecks.mustNotThrowAnyExceptions( annotationName, method );
   }
@@ -65,7 +65,7 @@ final class ArezUtils
                                          annotationClassname,
                                          Constants.WARNING_PUBLIC_REF_METHOD,
                                          Constants.WARNING_PROTECTED_REF_METHOD,
-                                         Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
+                                         Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME );
   }
 
   static void shouldBeInternalLifecycleMethod( @Nonnull final ProcessingEnvironment processingEnv,
@@ -79,7 +79,7 @@ final class ArezUtils
                                          annotationClassname,
                                          Constants.WARNING_PUBLIC_LIFECYCLE_METHOD,
                                          Constants.WARNING_PROTECTED_LIFECYCLE_METHOD,
-                                         Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
+                                         Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME );
   }
 
   static void shouldBeInternalHookMethod( @Nonnull final ProcessingEnvironment processingEnv,
@@ -93,7 +93,7 @@ final class ArezUtils
                                          annotationClassname,
                                          Constants.WARNING_PUBLIC_HOOK_METHOD,
                                          Constants.WARNING_PROTECTED_HOOK_METHOD,
-                                         Constants.SUPPRESS_AREZ_WARNINGS_ANNOTATION_CLASSNAME );
+                                         Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME );
   }
 
   @Nullable
@@ -132,7 +132,7 @@ final class ArezUtils
   {
     final VariableElement variableElement = (VariableElement)
       AnnotationsUtil.getAnnotationValue( element,
-                                          Constants.COMPONENT_ANNOTATION_CLASSNAME,
+                                          Constants.COMPONENT_CLASSNAME,
                                           "disposeNotifier" ).getValue();
     switch ( variableElement.getSimpleName().toString() )
     {
@@ -141,7 +141,7 @@ final class ArezUtils
       case "DISABLE":
         return false;
       default:
-        return !AnnotationsUtil.hasAnnotationOfType( element, Constants.SINGLETON_ANNOTATION_CLASSNAME );
+        return !AnnotationsUtil.hasAnnotationOfType( element, Constants.SINGLETON_CLASSNAME );
     }
   }
 
