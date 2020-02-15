@@ -6,9 +6,9 @@ import javax.annotation.Generated;
 
 @Generated("arez.processor.ArezProcessor")
 @Module
-public interface MultipleArgsModelDaggerModule {
+public interface BasicDaggerModelDaggerModule {
   @Provides
-  static MultipleArgsModel create(final int i, final String foo) {
-    return new Arez_MultipleArgsModel(i, foo);
+  static BasicDaggerModel create() {
+    return new Arez_BasicDaggerModel();
   }
 }

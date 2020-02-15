@@ -2,10 +2,10 @@ package com.example.inject;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.InjectMode;
+import arez.annotations.Feature;
 
-@ArezComponent( inject = InjectMode.PROVIDE )
-public abstract class BasicInjectModel
+@ArezComponent( dagger = Feature.ENABLE )
+public abstract class BasicDaggerModel
 {
   BasicInjectModel()
   {
