@@ -32,6 +32,8 @@ See https://github.com/arez/arez/issues/91
 
 * Add tests to verify stings `@Typed` is copied to implementing class
 
+* Add tests to verify stings `@Eager` is copied to implementing class
+
 * Add Sting support
 
 * Update injection documentation
