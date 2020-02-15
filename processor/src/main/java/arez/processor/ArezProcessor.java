@@ -2077,9 +2077,10 @@ public final class ArezProcessor
                                     typeElement );
     }
 
-    if ( !"NONE".equals( injectMode ) && constructors.size() > 1 )
+    if ( dagger && constructors.size() > 1 )
     {
-      throw new ProcessorException( "@ArezComponent specified inject parameter but has more than one constructor",
+      throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
+                                                          "have multiple constructors and have dagger integration enabled" ),
                                     typeElement );
     }
 
