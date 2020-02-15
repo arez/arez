@@ -17,7 +17,6 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedOptions;
@@ -1351,8 +1350,7 @@ public final class ArezProcessor
   }
 
   @Nullable
-  private TypeElement getInverseManyTypeTarget( @Nonnull final ProcessingEnvironment processingEnv,
-                                                @Nonnull final ExecutableElement method )
+  private TypeElement getInverseManyTypeTarget( @Nonnull final ExecutableElement method )
   {
     final TypeName typeName = TypeName.get( method.getReturnType() );
     if ( typeName instanceof ParameterizedTypeName )
@@ -1846,7 +1844,7 @@ public final class ArezProcessor
           }
           if ( descriptor.hasInverse() && inverseName.equals( descriptor.getInverseName() ) )
           {
-            final TypeElement target = getInverseManyTypeTarget( processingEnv, m );
+            final TypeElement target = getInverseManyTypeTarget( m );
             if ( null != target )
             {
               ensureTargetTypeAligns( component, descriptor, target.asType() );
@@ -2910,7 +2908,7 @@ public final class ArezProcessor
       final TypeMirror type = method.getReturnType();
 
       final Multiplicity multiplicity;
-      TypeElement targetType = getInverseManyTypeTarget( processingEnv, method );
+      TypeElement targetType = getInverseManyTypeTarget( method );
       if ( null != targetType )
       {
         multiplicity = Multiplicity.MANY;
