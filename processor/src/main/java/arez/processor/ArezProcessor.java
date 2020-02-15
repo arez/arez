@@ -2019,7 +2019,7 @@ public final class ArezProcessor
     }
     final AnnotationMirror arezComponent =
       AnnotationsUtil.getAnnotationByType( typeElement, Constants.COMPONENT_CLASSNAME );
-    final String declaredType = getAnnotationParameter( arezComponent, "name" );
+    final String declaredName = getAnnotationParameter( arezComponent, "name" );
     final boolean disposeOnDeactivate = getAnnotationParameter( arezComponent, "disposeOnDeactivate" );
     final boolean observableFlag = isComponentObservableRequired( arezComponent, typeElement, disposeOnDeactivate );
     final boolean disposeNotifierFlag = ArezUtils.isDisposableTrackableRequired( typeElement );
@@ -2056,7 +2056,7 @@ public final class ArezProcessor
     }
 
     final String type =
-      Constants.SENTINEL.equals( declaredType ) ? typeElement.getSimpleName().toString() : declaredType;
+      Constants.SENTINEL.equals( declaredName ) ? typeElement.getSimpleName().toString() : declaredName;
 
     if ( !SourceVersion.isIdentifier( type ) )
     {
