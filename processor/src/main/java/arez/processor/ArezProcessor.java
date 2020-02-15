@@ -2055,18 +2055,18 @@ public final class ArezProcessor
       throw new ProcessorException( "@ArezComponent target must be abstract", typeElement );
     }
 
-    final String type =
+    final String name =
       Constants.SENTINEL.equals( declaredName ) ? typeElement.getSimpleName().toString() : declaredName;
 
-    if ( !SourceVersion.isIdentifier( type ) )
+    if ( !SourceVersion.isIdentifier( name ) )
     {
-      throw new ProcessorException( "@ArezComponent target specified an invalid type '" + type + "'. The " +
-                                    "type must be a valid java identifier.", typeElement );
+      throw new ProcessorException( "@ArezComponent target specified an invalid name '" + name + "'. The " +
+                                    "name must be a valid java identifier.", typeElement );
     }
-    else if ( SourceVersion.isKeyword( type ) )
+    else if ( SourceVersion.isKeyword( name ) )
     {
-      throw new ProcessorException( "@ArezComponent target specified an invalid type '" + type + "'. The " +
-                                    "type must not be a java keyword.", typeElement );
+      throw new ProcessorException( "@ArezComponent target specified an invalid name '" + name + "'. The " +
+                                    "name must not be a java keyword.", typeElement );
     }
 
     final List<ExecutableElement> constructors = ElementsUtil.getConstructors( typeElement );
@@ -2132,7 +2132,7 @@ public final class ArezProcessor
       ( (VariableElement) defaultWriteOutsideTransaction.getValue() ).getSimpleName().toString();
 
     final ComponentDescriptor descriptor =
-      new ComponentDescriptor( type,
+      new ComponentDescriptor( name,
                                defaultPriority,
                                observableFlag,
                                disposeNotifierFlag,
