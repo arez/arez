@@ -236,7 +236,7 @@ final class ComponentGenerator
       builder.addMethod( GeneratorUtil.refMethod( processingEnv,
                                                   component.getElement(),
                                                   componentTypeNameRef )
-                           .addStatement( "return $S", component.getType() )
+                           .addStatement( "return $S", component.getName() )
                            .build() );
     }
 
@@ -359,7 +359,7 @@ final class ComponentGenerator
                         KERNEL_FIELD_NAME,
                         KERNEL_FIELD_NAME,
                         methodName,
-                        descriptor.getType() );
+                        descriptor.getName() );
     block.endControlFlow();
 
     builder.addCode( block.build() );
@@ -1574,7 +1574,7 @@ final class ComponentGenerator
     builder.addStatement( "final String $N = $T.areNamesEnabled() ? $S + $N : null",
                           NAME_VAR_NAME,
                           AREZ_CLASSNAME,
-                          component.getType() + ".",
+                          component.getName() + ".",
                           ID_VAR_NAME );
   }
 
@@ -1621,7 +1621,7 @@ final class ComponentGenerator
     params.add( COMPONENT_VAR_NAME );
     params.add( AREZ_CLASSNAME );
     params.add( CONTEXT_VAR_NAME );
-    params.add( component.getType() );
+    params.add( component.getName() );
     params.add( ID_VAR_NAME );
     params.add( NAME_VAR_NAME );
     if ( component.isDisposeNotifier() ||
@@ -1771,7 +1771,7 @@ final class ComponentGenerator
                           "returns false. References need to be enabled to use this component\" )",
                           GUARDS_CLASSNAME,
                           AREZ_CLASSNAME,
-                          component.getType() );
+                          component.getName() );
       block.endControlFlow();
       builder.addCode( block.build() );
     }

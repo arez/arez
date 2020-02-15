@@ -28,7 +28,7 @@ import org.realityforge.proton.GeneratorUtil;
 final class ComponentDescriptor
 {
   @Nonnull
-  private final String _type;
+  private final String _name;
   @Nullable
   private final Priority _defaultPriority;
   private final boolean _observable;
@@ -96,7 +96,7 @@ final class ComponentDescriptor
   @Nullable
   private final String _defaultWriteOutsideTransaction;
 
-  ComponentDescriptor( @Nonnull final String type,
+  ComponentDescriptor( @Nonnull final String name,
                        @Nullable final Priority defaultPriority,
                        final boolean observable,
                        final boolean disposeNotifier,
@@ -112,7 +112,7 @@ final class ComponentDescriptor
                        @Nullable final String defaultReadOutsideTransaction,
                        @Nullable final String defaultWriteOutsideTransaction )
   {
-    _type = Objects.requireNonNull( type );
+    _name = Objects.requireNonNull( name );
     _defaultPriority = defaultPriority;
     _observable = observable;
     _disposeNotifier = disposeNotifier;
@@ -232,9 +232,9 @@ final class ComponentDescriptor
   }
 
   @Nonnull
-  String getType()
+  String getName()
   {
-    return _type;
+    return _name;
   }
 
   @Nonnull
