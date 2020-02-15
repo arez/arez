@@ -1051,11 +1051,8 @@ public final class ArezProcessor
 
   private void mustBeCascadeDisposeTypeCompatible( @Nonnull final VariableElement field )
   {
-    final TypeElement disposable =
-      processingEnv.getElementUtils().getTypeElement( Constants.DISPOSABLE_CLASSNAME );
-    assert null != disposable;
     final TypeMirror typeMirror = field.asType();
-    if ( !processingEnv.getTypeUtils().isAssignable( typeMirror, disposable.asType() ) )
+    if ( !isAssignable( typeMirror, getDisposableTypeElement() ) )
     {
       final TypeElement typeElement = (TypeElement) processingEnv.getTypeUtils().asElement( typeMirror );
       final AnnotationMirror value =
@@ -1088,11 +1085,8 @@ public final class ArezProcessor
 
   private void mustBeCascadeDisposeTypeCompatible( @Nonnull final ExecutableElement method )
   {
-    final TypeElement disposable =
-      processingEnv.getElementUtils().getTypeElement( Constants.DISPOSABLE_CLASSNAME );
-    assert null != disposable;
     final TypeMirror typeMirror = method.getReturnType();
-    if ( !processingEnv.getTypeUtils().isAssignable( typeMirror, disposable.asType() ) )
+    if ( !isAssignable( typeMirror, getDisposableTypeElement() ) )
     {
       final TypeElement typeElement = (TypeElement) processingEnv.getTypeUtils().asElement( typeMirror );
       final AnnotationMirror value =
@@ -1366,8 +1360,7 @@ public final class ArezProcessor
       final ParameterizedTypeName type = (ParameterizedTypeName) typeName;
       if ( isSupportedInverseCollectionType( type.rawType.toString() ) && !type.typeArguments.isEmpty() )
       {
-        final TypeElement typeElement =
-          processingEnv.getElementUtils().getTypeElement( type.typeArguments.get( 0 ).toString() );
+        final TypeElement typeElement = getTypeElement( type.typeArguments.get( 0 ).toString() );
         if ( AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.COMPONENT_ANNOTATION_CLASSNAME ) )
         {
           return typeElement;
@@ -1918,9 +1911,7 @@ public final class ArezProcessor
     }
     if ( !validateTypeAtRuntime )
     {
-      final TypeElement disposeNotifier =
-        processingEnv.getElementUtils().getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
-      assert null != disposeNotifier;
+      final TypeElement disposeNotifier = getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
       if ( !processingEnv.getTypeUtils().isAssignable( type, disposeNotifier.asType() ) )
       {
         final TypeElement typeElement = (TypeElement) processingEnv.getTypeUtils().asElement( type );
@@ -1959,9 +1950,7 @@ public final class ArezProcessor
     }
     if ( !validateTypeAtRuntime )
     {
-      final TypeElement disposeNotifier =
-        processingEnv.getElementUtils().getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
-      assert null != disposeNotifier;
+      final TypeElement disposeNotifier = getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
       if ( !processingEnv.getTypeUtils().isAssignable( type, disposeNotifier.asType() ) )
       {
         final TypeElement typeElement = (TypeElement) processingEnv.getTypeUtils().asElement( type );
@@ -2055,7 +2044,7 @@ public final class ArezProcessor
       (
         "AUTODETECT".equals( daggerMode ) &&
         !"NONE".equals( injectMode ) &&
-        null != processingEnv.getElementUtils().getTypeElement( Constants.DAGGER_MODULE_CLASSNAME )
+        null != findTypeElement( Constants.DAGGER_MODULE_CLASSNAME )
       );
 
     final boolean requireEquals = isEqualsRequired( arezComponent, typeElement );
@@ -2997,17 +2986,14 @@ public final class ArezProcessor
   private void warnOnUnmanagedComponentReferences( @Nonnull final ComponentDescriptor descriptor,
                                                    @Nonnull final List<VariableElement> fields )
   {
-    final TypeElement disposeNotifier =
-      processingEnv.getElementUtils().getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
-    assert null != disposeNotifier;
+    final TypeElement disposeNotifier = getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
 
     for ( final VariableElement field : fields )
     {
       if ( !field.getModifiers().contains( Modifier.STATIC ) &&
            SuperficialValidation.validateElement( processingEnv, field ) )
       {
-        final boolean isDisposeNotifier =
-          processingEnv.getTypeUtils().isAssignable( field.asType(), disposeNotifier.asType() );
+        final boolean isDisposeNotifier = isAssignable( field.asType(), disposeNotifier );
         final boolean isTypeAnnotatedByComponentAnnotation =
           !isDisposeNotifier && isTypeAnnotatedByComponentAnnotation( field );
         final boolean isTypeAnnotatedActAsComponent =
@@ -3047,8 +3033,7 @@ public final class ArezProcessor
         {
           final TypeMirror returnType = getter.getReturnType();
           final Element returnElement = processingEnv.getTypeUtils().asElement( returnType );
-          final boolean isDisposeNotifier =
-            processingEnv.getTypeUtils().isAssignable( returnType, disposeNotifier.asType() );
+          final boolean isDisposeNotifier = isAssignable( returnType, disposeNotifier );
           final boolean isTypeAnnotatedByComponentAnnotation =
             !isDisposeNotifier && isElementAnnotatedBy( returnElement, Constants.COMPONENT_ANNOTATION_CLASSNAME );
           final boolean isTypeAnnotatedActAsComponent =
@@ -3281,5 +3266,30 @@ public final class ArezProcessor
                                         @Nonnull final String parameterName )
   {
     return AnnotationsUtil.getAnnotationValueValue( annotation, parameterName );
+  }
+
+  @Nonnull
+  private TypeElement getDisposableTypeElement()
+  {
+    return getTypeElement( Constants.DISPOSABLE_CLASSNAME );
+  }
+
+  @Nonnull
+  private TypeElement getTypeElement( @Nonnull final String classname )
+  {
+    final TypeElement typeElement = findTypeElement( classname );
+    assert null != typeElement;
+    return typeElement;
+  }
+
+  @Nullable
+  private TypeElement findTypeElement( @Nonnull final String classname )
+  {
+    return processingEnv.getElementUtils().getTypeElement( classname );
+  }
+
+  private boolean isAssignable( @Nonnull final TypeMirror type, @Nonnull final TypeElement typeElement )
+  {
+    return processingEnv.getTypeUtils().isAssignable( type, typeElement.asType() );
   }
 }
