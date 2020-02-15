@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -2986,6 +2987,26 @@ public final class ArezProcessor
   {
     final TypeElement disposeNotifier = getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
 
+    final Set<String> injectedTypes = new HashSet<>();
+    for ( final ExecutableElement constructor : ElementsUtil.getConstructors( descriptor.getElement() ) )
+    {
+      final List<? extends VariableElement> parameters = constructor.getParameters();
+      for ( final VariableElement parameter : parameters )
+      {
+        final boolean isDisposeNotifier = isAssignable( parameter.asType(), disposeNotifier );
+        final boolean isTypeAnnotatedByComponentAnnotation =
+          !isDisposeNotifier && isTypeAnnotatedByComponentAnnotation( parameter );
+        final boolean isTypeAnnotatedActAsComponent =
+          !isDisposeNotifier &&
+          !isTypeAnnotatedByComponentAnnotation &&
+          isTypeAnnotatedByActAsComponentAnnotation( parameter );
+        if ( isDisposeNotifier || isTypeAnnotatedByComponentAnnotation || isTypeAnnotatedActAsComponent )
+        {
+          injectedTypes.add( parameter.asType().toString() );
+        }
+      }
+    }
+
     for ( final VariableElement field : fields )
     {
       if ( !field.getModifiers().contains( Modifier.STATIC ) &&
@@ -3003,7 +3024,8 @@ public final class ArezProcessor
           if ( !descriptor.isDependencyDefined( field ) &&
                !descriptor.isCascadeDisposeDefined( field ) &&
                ( isDisposeNotifier || isTypeAnnotatedActAsComponent || verifyReferencesToComponent( field ) ) &&
-               isUnmanagedComponentReferenceNotSuppressed( field ) )
+               isUnmanagedComponentReferenceNotSuppressed( field ) &&
+               !injectedTypes.contains( field.asType().toString() ) )
           {
             final String label =
               isDisposeNotifier ? "an implementation of DisposeNotifier" :
@@ -3012,7 +3034,8 @@ public final class ArezProcessor
             final String message =
               "Field named '" + field.getSimpleName().toString() + "' has a type that is " + label +
               " but is not annotated with @" + Constants.CASCADE_DISPOSE_ANNOTATION_CLASSNAME + " or " +
-              "@" + Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME + ". This scenario can cause Please " +
+              "@" + Constants.COMPONENT_DEPENDENCY_ANNOTATION_CLASSNAME + " and was not passed in via the " +
+              "constructor. This scenario can cause Please " +
               "annotate the field as appropriate or suppress the warning by annotating the field with " +
               "@SuppressWarnings( \"" + Constants.WARNING_UNMANAGED_COMPONENT_REFERENCE + "\" ) or " +
               "@SuppressArezWarnings( \"" + Constants.WARNING_UNMANAGED_COMPONENT_REFERENCE + "\" )";

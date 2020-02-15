@@ -8,6 +8,7 @@
 * Remove the `@PerInstance` annotation as it was only used to help generate factories in `react4j` which now uses an alternative strategy for injecting react4j components.
 * Remove the `InjectMode.CONSUME` enumeration value as it did not really offer enough value relative to the complexity that was incurred supporting the use case. It is also no longer used in any downstream consumers. As a result,  `[MyComponent]DaggerComponentExtension` classes are no longer generated.
 * Refactor the injection support so that the `Arez_*` classes are not annotated with `@Inject` and instead the `DaggerModule` creates the instance in a `@Provides` annotated method. This meant that there was no longer a need for the constructor to be public access.
+* Avoid generating "unmanaged reference" warnings when fields are not annotated with `@CascadeDispose` nor `@ComponentDependency` but a parameter with the same type has been passed into a constructor. In this circumstances the unmanaged reference is usually managed by the party responsible for creating the arez component and thus it is not appropriate to generate a warning.
 
 ### [v0.167](https://github.com/arez/arez/tree/v0.167) (2020-02-10) · [Full Changelog](https://github.com/arez/arez/compare/v0.166...v0.167)
 
