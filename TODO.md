@@ -37,7 +37,7 @@ See https://github.com/arez/arez/issues/91
 * Update injection documentation
 
 * Add to build process so that every published packaged is attempted to be built using bazel to
-  ensure it's dependencies align. Should also include  something like [jvm-classpath-validator](https://github.com/or-shachar/jvm-classpath-validator)
+  ensure it's dependencies align. Should also include something like [jvm-classpath-validator](https://github.com/or-shachar/jvm-classpath-validator)
 
 * Move some of the data driven tests in annotation processor so data in properties files.
 
