@@ -10,8 +10,8 @@ import static java.lang.annotation.RetentionPolicy.*;
 
 @Singleton
 @ArezComponent
-@MultipleScopesModel.MyScope
-public abstract class MultipleScopesModel
+@MultipleJsr330ScopesModel.MyScope
+public abstract class MultipleJsr330ScopesModel
 {
   @Scope
   @Documented
