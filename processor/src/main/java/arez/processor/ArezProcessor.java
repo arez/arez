@@ -2304,6 +2304,12 @@ public final class ArezProcessor
                                                             " annotation" ),
                                       parameter );
       }
+      else if ( TypeKind.DECLARED == type.getKind() && !( (DeclaredType) type ).getTypeArguments().isEmpty() )
+      {
+        throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
+                                                            "enable dagger integration and contain a constructor with a parameter that contains a parameterized type" ),
+                                      parameter );
+      }
     }
   }
 

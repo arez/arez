@@ -1584,6 +1584,8 @@ public final class ArezProcessorTest
                       "@ArezComponent target must be public if dagger integration is enabled due to constraints within the dagger framework" },
         new Object[]{ "com.example.inject.InjectArrayTypeDaggerModel",
                       "@ArezComponent target must not enable dagger integration and contain a constructor with a parameter that contains an array type" },
+        new Object[]{ "com.example.inject.InjectParameterizedTypeDaggerModel",
+                      "@ArezComponent target must not enable dagger integration and contain a constructor with a parameter that contains a parameterized type" },
         new Object[]{ "com.example.inject.InjectRawTypeDaggerModel",
                       "@ArezComponent target must not enable dagger integration and contain a constructor with a parameter that contains a raw type" },
         new Object[]{ "com.example.inject.InjectWildcardTypeDaggerModel",

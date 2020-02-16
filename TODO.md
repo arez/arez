@@ -24,8 +24,6 @@ See https://github.com/arez/arez/issues/91
 * `final EventDrivenValue<HTMLDocument, Object> _documentVisibility` can not have `@CascadeDispose` annotation.
   Because type parameter confuses annotation processor?
 
-* Generate an error if injected type has type parameters
-
 * Add support for `sting` feature on `@ArezComponent`.
 
 * Add tests verifying that `@Named` in both dagger and sting is copied through.
