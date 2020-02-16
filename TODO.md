@@ -26,6 +26,8 @@ See https://github.com/arez/arez/issues/91
 
 * Replace `InjectMode` with `Feature`.
 
+* Generate an error if injected type has type parameters
+
 * Add support for `sting` and `dagger` features on `@ArezComponent`.
 
 * Add tests verifying that `@Named` in both dagger and sting is copied through.
