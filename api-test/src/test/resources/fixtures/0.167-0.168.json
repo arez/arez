@@ -38,6 +38,22 @@
     }
   },
   {
+    "code": "java.method.attributeWithDefaultAddedToAnnotationType",
+    "description": "The annotation has a new attribute with a default value.",
+    "newElement": "method arez.annotations.Feature arez.annotations.ArezComponent::service()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.ArezComponent",
+      "classSimpleName": "ArezComponent",
+      "elementKind": "method",
+      "methodName": "service",
+      "package": "arez.annotations"
+    }
+  },
+  {
     "code": "java.annotation.noLongerPresent",
     "description": "Old API referenced the annotation type but the new API version no longer does.",
     "oldElement": "@interface arez.annotations.PerInstance",
