@@ -2,7 +2,6 @@ package arez.integration.dagger.inherit;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
-import arez.annotations.InjectMode;
 import arez.integration.AbstractArezIntegrationTest;
 import dagger.Component;
 import javax.inject.Inject;
@@ -21,7 +20,7 @@ public class SimpleProvideIntegrationTest
     }
   }
 
-  @ArezComponent( dagger = Feature.ENABLE, allowEmpty = true, inject = InjectMode.PROVIDE )
+  @ArezComponent( dagger = Feature.ENABLE, allowEmpty = true )
   public static abstract class MyComponent
   {
     private final MyDependency _myDependency;

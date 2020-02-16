@@ -1,0 +1,33 @@
+[
+  {
+    "code": "java.class.removed",
+    "description": "Class was removed.",
+    "oldElement": "enum arez.annotations.InjectMode",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.InjectMode",
+      "classSimpleName": "InjectMode",
+      "elementKind": "enum",
+      "package": "arez.annotations"
+    }
+  },
+  {
+    "code": "java.method.attributeRemovedFromAnnotationType",
+    "description": "The annotation no longer has an attribute.",
+    "oldElement": "method arez.annotations.InjectMode arez.annotations.ArezComponent::inject()",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.ArezComponent",
+      "classSimpleName": "ArezComponent",
+      "elementKind": "method",
+      "methodName": "inject",
+      "package": "arez.annotations"
+    }
+  }
+]

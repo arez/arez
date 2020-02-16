@@ -112,14 +112,6 @@ public @interface ArezComponent
   boolean disposeOnDeactivate() default false;
 
   /**
-   * Specify how the component is integrated into the injection framework.
-   *
-   * @return enum controlling the integration into the injection framework.
-   * @see InjectMode
-   */
-  InjectMode inject() default InjectMode.AUTODETECT;
-
-  /**
    * Indicate whether dagger artifacts should be generated to support injection.
    * {@link Feature#ENABLE} will force the generation of the artifacts, {@link Feature#DISABLE}
    * will result in no dagger artifacts and {@link Feature#AUTODETECT} will add a dagger
