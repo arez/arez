@@ -37,6 +37,7 @@ See https://github.com/arez/arez/issues/91
 * Add Sting support
 
 * Warn if `@ArezComponent.service=ENABLE` and `disposeOnDeactivate`, `disposeNotifier`, `requireEquals`, `requireId` or `verify` is `ENABLED`
+  or warn if a `@Reference` is used.
 
 * Update injection documentation
 
