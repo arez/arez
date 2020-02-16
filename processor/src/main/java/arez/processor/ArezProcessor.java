@@ -2249,7 +2249,7 @@ public final class ArezProcessor
     return descriptor;
   }
 
-  private void verifyConstructorParameters( final ExecutableElement constructor, final boolean dagger )
+  private void verifyConstructorParameters( @Nonnull final ExecutableElement constructor, final boolean dagger )
   {
     for ( final VariableElement parameter : constructor.getParameters() )
     {
