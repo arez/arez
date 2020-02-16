@@ -36,10 +36,6 @@ See https://github.com/arez/arez/issues/91
 
 * Add tests to verify stings `@Eager` is copied to implementing class
 
-* Add a "service" feature to arez components. Services are long lived components typically managed by
-  an injection framework. If a component is annotated with stings `@Named`, `@Typed` or `@Eager` or a
-  `@javax.inject.Scope` annotation then mark it as a service.
-
 * Consider `@ArezComponent.service` defaulting to `ENABLED`.
 
 * Add Sting support
