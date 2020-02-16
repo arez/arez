@@ -2090,8 +2090,9 @@ public final class ArezProcessor
            isWarningNotSuppressed( constructor, Constants.WARNING_PROTECTED_CONSTRUCTOR ) )
       {
         final String message =
-          "@ArezComponent target has a protected constructor. The constructor should be public or package access. " +
-          suppressedBy( Constants.WARNING_PROTECTED_CONSTRUCTOR );
+          MemberChecks.should( Constants.COMPONENT_CLASSNAME,
+                                  "have a " + ( dagger ? "" : "public or " ) + "package access " +
+                                  "constructor. " + suppressedBy( Constants.WARNING_PROTECTED_CONSTRUCTOR ) );
         processingEnv.getMessager().printMessage( WARNING, message, constructor );
       }
     }

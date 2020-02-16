@@ -2092,7 +2092,9 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.component.UnnecessaryDefaultWriteOutsideTransactionComponentModel",
                       "@ArezComponent target has specified a value for the defaultWriteOutsideTransaction parameter but does not contain any methods annotated with @Observable. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:UnnecessaryDefault\" ) or @SuppressArezWarnings( \"Arez:UnnecessaryDefault\" )" },
         new Object[]{ "com.example.component.ProtectedCtorModel",
-                      "@ArezComponent target has a protected constructor. The constructor should be public or package access. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedConstructor\" ) or @SuppressArezWarnings( \"Arez:ProtectedConstructor\" )" },
+                      "@ArezComponent target should have a public or package access constructor. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedConstructor\" ) or @SuppressArezWarnings( \"Arez:ProtectedConstructor\" )" },
+        new Object[]{ "com.example.component.ProtectedDaggerCtorModel",
+                      "@ArezComponent target should have a package access constructor. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedConstructor\" ) or @SuppressArezWarnings( \"Arez:ProtectedConstructor\" )" },
 
         new Object[]{ "com.example.component_ref.ProtectedAccessComponentRefModel",
                       "@ComponentRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )" },
