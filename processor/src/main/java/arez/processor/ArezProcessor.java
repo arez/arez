@@ -2014,7 +2014,7 @@ public final class ArezProcessor
     final String declaredName = getAnnotationParameter( arezComponent, "name" );
     final boolean disposeOnDeactivate = getAnnotationParameter( arezComponent, "disposeOnDeactivate" );
     final boolean observableFlag = isComponentObservableRequired( arezComponent, typeElement, disposeOnDeactivate );
-    final boolean service = isService( arezComponent, typeElement );
+    final boolean service = isService( typeElement );
     final boolean disposeNotifierFlag = ArezUtils.isDisposableTrackableRequired( typeElement );
     final boolean allowEmpty = getAnnotationParameter( arezComponent, "allowEmpty" );
     final List<AnnotationMirror> scopeAnnotations =
@@ -3184,11 +3184,9 @@ public final class ArezProcessor
     return AnnotationsUtil.hasAnnotationOfType( element, Constants.SCOPE_CLASSNAME );
   }
 
-  private boolean isService( @Nonnull final AnnotationMirror arezComponent,
-                             @Nonnull final TypeElement typeElement )
+  private boolean isService( @Nonnull final TypeElement typeElement )
   {
-    final VariableElement variableElement = AnnotationsUtil.getAnnotationValueValue( arezComponent, "service" );
-    switch ( variableElement.getSimpleName().toString() )
+    switch ( AnnotationsUtil.getEnumAnnotationParameter( typeElement, Constants.COMPONENT_CLASSNAME, "service" ) )
     {
       case "ENABLE":
         return true;
