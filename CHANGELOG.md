@@ -16,6 +16,7 @@
 * Generate an error if a component has dagger integration enabled and injects a raw type, an array type or a wildcard type. Injecting these types is either poorly supported in dagger or a frequent source of confusion and there is rarely a use-case where there is not a better alternative. To eliminate these problems when integrating with Arez these scenarios have been disallowed.
 * Generated an error if dagger integration is disabled but a constructor parameter is annotated with the `@javax.inject.Named` annotation.
 * Generated an error if dagger integration is disabled but the component is annotated with an annotation that is annotated with the `@javax.inject.scope` annotation.
+* Remove the `@Repository.inject` parameter as there is no project where it has ever been used.
 
 ### [v0.167](https://github.com/arez/arez/tree/v0.167) (2020-02-10) · [Full Changelog](https://github.com/arez/arez/compare/v0.166...v0.167)
 

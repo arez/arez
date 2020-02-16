@@ -62,10 +62,6 @@ final class RepositoryGenerator
 
     final AnnotationSpec.Builder arezComponent =
       AnnotationSpec.builder( ClassName.bestGuess( Constants.COMPONENT_CLASSNAME ) );
-    if ( !"AUTODETECT".equals( injectMode ) )
-    {
-      arezComponent.addMember( "inject", "$T.$N", ClassName.get( "arez.annotations", "InjectMode" ), injectMode );
-    }
     final String daggerConfig = repository.getDaggerConfig();
     if ( !"AUTODETECT".equals( daggerConfig ) )
     {

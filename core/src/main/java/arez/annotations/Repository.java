@@ -67,14 +67,6 @@ public @interface Repository
   Feature dagger() default Feature.AUTODETECT;
 
   /**
-   * Specify how the repository is integrated into the injection framework.
-   *
-   * @return enum controlling the integration of the repository into the injection framework.
-   * @see InjectMode
-   */
-  InjectMode inject() default InjectMode.AUTODETECT;
-
-  /**
    * Indicate the strategy for attaching entities to the repository.
    *
    * @return the strategy for attaching entities to the repository.

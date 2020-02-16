@@ -16,11 +16,6 @@ final class RepositoryDescriptor
   private final boolean _shouldRepositoryDefineDestroy;
   private final boolean _shouldRepositoryDefineDetach;
   /**
-   * Flag controlling whether Inject annotation is added to repository constructor.
-   */
-  @Nonnull
-  private final String _injectMode;
-  /**
    * Flag controlling whether dagger module is created for repository.
    */
   @Nonnull
@@ -32,7 +27,6 @@ final class RepositoryDescriptor
                         final boolean shouldRepositoryDefineAttach,
                         final boolean shouldRepositoryDefineDestroy,
                         final boolean shouldRepositoryDefineDetach,
-                        @Nonnull final String injectMode,
                         @Nonnull final String daggerConfig )
   {
     _component = Objects.requireNonNull( component );
@@ -41,7 +35,6 @@ final class RepositoryDescriptor
     _shouldRepositoryDefineAttach = shouldRepositoryDefineAttach;
     _shouldRepositoryDefineDestroy = shouldRepositoryDefineDestroy;
     _shouldRepositoryDefineDetach = shouldRepositoryDefineDetach;
-    _injectMode = Objects.requireNonNull( injectMode );
     _daggerConfig = Objects.requireNonNull( daggerConfig );
   }
 
@@ -55,12 +48,6 @@ final class RepositoryDescriptor
   List<TypeElement> getExtensions()
   {
     return _extensions;
-  }
-
-  @Nonnull
-  String getInjectMode()
-  {
-    return _injectMode;
   }
 
   @Nonnull

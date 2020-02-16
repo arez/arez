@@ -4,7 +4,7 @@ import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
 import arez.annotations.ArezComponent;
-import arez.annotations.InjectMode;
+import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.annotations.Repository;
 import arez.integration.AbstractArezIntegrationTest;
@@ -20,7 +20,7 @@ public class RepositoryInjectIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
-  @Repository( inject = InjectMode.PROVIDE )
+  @Repository( dagger = Feature.ENABLE )
   static abstract class TestComponent
   {
     private String _value;
