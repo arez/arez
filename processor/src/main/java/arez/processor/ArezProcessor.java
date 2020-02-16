@@ -3148,7 +3148,8 @@ public final class ArezProcessor
       case "DISABLE":
         return false;
       default:
-        return typeElement.getAnnotationMirrors().stream().anyMatch( this::isScopeAnnotation );
+        return AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.JSR_330_NAMED_CLASSNAME ) ||
+               typeElement.getAnnotationMirrors().stream().anyMatch( this::isScopeAnnotation );
     }
   }
 

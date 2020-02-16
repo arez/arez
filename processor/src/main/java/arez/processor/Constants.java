@@ -42,6 +42,7 @@ final class Constants
   static final String INJECT_CLASSNAME = "javax.inject.Inject";
   static final String SINGLETON_CLASSNAME = "javax.inject.Singleton";
   static final String SCOPE_CLASSNAME = "javax.inject.Scope";
+  static final String JSR_330_NAMED_CLASSNAME = "javax.inject.Named";
   static final String DAGGER_MODULE_CLASSNAME = "dagger.Module";
   static final String SENTINEL = "<default>";
   static final String WARNING_PUBLIC_LIFECYCLE_METHOD = "Arez:PublicLifecycleMethod";

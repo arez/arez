@@ -233,6 +233,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.inject.CtorInjectSuppressRawTypeAtClassModel", true, false, false },
         new Object[]{ "com.example.inject.CtorInjectSuppressRawTypeAtCtorModel", true, false, false },
         new Object[]{ "com.example.inject.CtorInjectSuppressRawTypeAtParamModel", true, false, false },
+        new Object[]{ "com.example.inject.Jsr330NamedModel", true, false, false },
         new Object[]{ "com.example.inject.MultipleArgsModel", true, false, false },
         new Object[]{ "com.example.inject.NoInjectModel", false, false, false },
         new Object[]{ "com.example.inject.ScopedButNoDaggerModel", false, false, false },
