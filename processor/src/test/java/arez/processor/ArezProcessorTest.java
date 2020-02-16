@@ -435,8 +435,6 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.reference.ObservableReferenceModel", false, false, false },
         new Object[]{ "com.example.repository.DaggerDisabledRepository", false, true, false },
         new Object[]{ "com.example.repository.DaggerEnabledRepository", false, true, true },
-        new Object[]{ "com.example.repository.InjectEnabledRepository", false, true, true },
-        new Object[]{ "com.example.repository.InjectDisabledRepository", false, false, false },
         new Object[]{ "com.example.repository.ReadOutsideTransactionWithRepositoryModel", false, false, false },
         new Object[]{ "com.example.repository.RepositoryWithAttachOnly", false, true, true },
         new Object[]{ "com.example.repository.RepositoryWithCreateOnly", false, true, true },
