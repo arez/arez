@@ -1582,7 +1582,7 @@ public final class ArezProcessorTest
                       "@ArezComponent target has specified the idRequired = DISABLE annotation parameter but is also annotated with @Repository that requires idRequired = ENABLE." },
 
         new Object[]{ "com.example.inject.MultipleConstructorsModel",
-                      "@ArezComponent target must not have multiple constructors and have dagger integration enabled" },
+                      "@ArezComponent target must not enable dagger integration and have multiple constructors" },
         new Object[]{ "com.example.inject.DaggerEnableNonPublicModel",
                       "@ArezComponent target must be public if dagger integration is enabled due to constraints within the dagger framework" },
         new Object[]{ "com.example.inject.FieldInjectionModel",

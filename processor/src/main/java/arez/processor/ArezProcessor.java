@@ -2062,7 +2062,7 @@ public final class ArezProcessor
     if ( dagger && constructors.size() > 1 )
     {
       throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
-                                                          "have multiple constructors and have dagger integration enabled" ),
+                                                          "enable dagger integration and have multiple constructors" ),
                                     typeElement );
     }
 
