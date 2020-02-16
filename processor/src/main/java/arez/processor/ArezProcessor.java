@@ -925,8 +925,8 @@ public final class ArezProcessor
       }
       if ( component.isDaggerEnabled() && !element.getModifiers().contains( Modifier.PUBLIC ) )
       {
-        throw new ProcessorException( "@ArezComponent target must be public if dagger integration is enabled due " +
-                                      "to constraints within the dagger framework",
+        throw new ProcessorException( MemberChecks.must( Constants.COMPONENT_CLASSNAME,
+                                                         "be public if dagger integration is enabled due to constraints within the dagger framework" ),
                                       element );
       }
     }
