@@ -911,7 +911,7 @@ public final class ArezProcessor
                                       "type int.", element );
       }
     }
-    if ( component.needsInjection() )
+    if ( component.isDaggerEnabled() )
     {
       for ( final ExecutableElement constructor : ElementsUtil.getConstructors( element ) )
       {
@@ -923,7 +923,7 @@ public final class ArezProcessor
                                         constructor );
         }
       }
-      if ( component.isDaggerEnabled() && !element.getModifiers().contains( Modifier.PUBLIC ) )
+      if ( !element.getModifiers().contains( Modifier.PUBLIC ) )
       {
         throw new ProcessorException( MemberChecks.must( Constants.COMPONENT_CLASSNAME,
                                                          "be public if dagger integration is enabled due to constraints within the dagger framework" ),
