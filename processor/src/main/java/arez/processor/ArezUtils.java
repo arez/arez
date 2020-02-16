@@ -128,23 +128,6 @@ final class ArezUtils
     return Character.toLowerCase( name.charAt( 0 ) ) + name.substring( 1 );
   }
 
-  public static boolean isDisposableTrackableRequired( @Nonnull final Element element )
-  {
-    final VariableElement variableElement = (VariableElement)
-      AnnotationsUtil.getAnnotationValue( element,
-                                          Constants.COMPONENT_CLASSNAME,
-                                          "disposeNotifier" ).getValue();
-    switch ( variableElement.getSimpleName().toString() )
-    {
-      case "ENABLE":
-        return true;
-      case "DISABLE":
-        return false;
-      default:
-        return !AnnotationsUtil.hasAnnotationOfType( element, Constants.SINGLETON_CLASSNAME );
-    }
-  }
-
   public static boolean anyParametersNamed( @Nonnull final ExecutableElement element, @Nonnull final String name )
   {
     return element.getParameters().stream().anyMatch( p -> p.getSimpleName().toString().equals( name ) );

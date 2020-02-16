@@ -95,9 +95,8 @@ public @interface ArezComponent
    * This will result in the component invoking dispose listener callbacks during dispose operation
    * within the scope of the disposing transaction.
    *
-   * <p>If the value of this parameter is {@link Feature#AUTODETECT} then the component will implement the
-   * interface {@link DisposeNotifier} interface unless the component is annotated with
-   * <tt>javax.inject.Singleton</tt>.</p>
+   * <p>If the value of this parameter is {@link Feature#AUTODETECT} then the {@link DisposeNotifier} interface
+   * is not implemented if the {@link #service()} resolves to {@link Feature#ENABLE}.</p>
    *
    * @return Return enum to control whether the component should implement DisposeNotifier.
    */

@@ -1051,7 +1051,7 @@ public final class ArezProcessor
         null != typeElement ?
         AnnotationsUtil.findAnnotationByType( typeElement, Constants.COMPONENT_CLASSNAME ) :
         null;
-      if ( null == value || !ArezUtils.isDisposableTrackableRequired( typeElement ) )
+      if ( null == value || !isDisposableTrackableRequired( typeElement ) )
       {
         //The type of the field must implement {@link arez.Disposable} or must be annotated by {@link ArezComponent}
         throw new ProcessorException( "@CascadeDispose target must be assignable to " +
@@ -1085,7 +1085,7 @@ public final class ArezProcessor
         null != typeElement ?
         AnnotationsUtil.findAnnotationByType( typeElement, Constants.COMPONENT_CLASSNAME ) :
         null;
-      if ( null == value || !ArezUtils.isDisposableTrackableRequired( typeElement ) )
+      if ( null == value || !isDisposableTrackableRequired( typeElement ) )
       {
         //The type of the field must implement {@link arez.Disposable} or must be annotated by {@link ArezComponent}
         throw new ProcessorException( "@CascadeDispose target must return a type assignable to " +
@@ -1990,7 +1990,7 @@ public final class ArezProcessor
   private boolean isDisposeTrackableComponent( @Nonnull final TypeElement typeElement )
   {
     return AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.COMPONENT_CLASSNAME ) &&
-           ArezUtils.isDisposableTrackableRequired( typeElement );
+           isDisposableTrackableRequired( typeElement );
   }
 
   @Nonnull
@@ -2015,7 +2015,7 @@ public final class ArezProcessor
     final boolean disposeOnDeactivate = getAnnotationParameter( arezComponent, "disposeOnDeactivate" );
     final boolean observableFlag = isComponentObservableRequired( arezComponent, typeElement, disposeOnDeactivate );
     final boolean service = isService( typeElement );
-    final boolean disposeNotifierFlag = ArezUtils.isDisposableTrackableRequired( typeElement );
+    final boolean disposeNotifierFlag = isDisposableTrackableRequired( typeElement );
     final boolean allowEmpty = getAnnotationParameter( arezComponent, "allowEmpty" );
     final List<AnnotationMirror> scopeAnnotations =
       typeElement.getAnnotationMirrors().stream().filter( this::isScopeAnnotation ).collect( Collectors.toList() );
@@ -3105,7 +3105,7 @@ public final class ArezProcessor
                  !descriptor.isCascadeDisposeDefined( getter ) &&
                  ( isDisposeNotifier ||
                    isTypeAnnotatedActAsComponent ||
-                   verifyReferencesToComponent( returnElement ) ) &&
+                   verifyReferencesToComponent( (TypeElement) returnElement ) ) &&
                  isUnmanagedComponentReferenceNotSuppressed( getter ) &&
                  ( observable.hasSetter() && isUnmanagedComponentReferenceNotSuppressed( observable.getSetter() ) ) )
             {
@@ -3130,10 +3130,10 @@ public final class ArezProcessor
 
   private boolean verifyReferencesToComponent( @Nonnull final VariableElement field )
   {
-    return verifyReferencesToComponent( processingEnv.getTypeUtils().asElement( field.asType() ) );
+    return verifyReferencesToComponent( (TypeElement) processingEnv.getTypeUtils().asElement( field.asType() ) );
   }
 
-  private boolean verifyReferencesToComponent( @Nonnull final Element element )
+  private boolean verifyReferencesToComponent( @Nonnull final TypeElement element )
   {
     assert SuperficialValidation.validateElement( processingEnv, element );
 
@@ -3148,7 +3148,7 @@ public final class ArezProcessor
       case "DISABLE":
         return false;
       default:
-        return ArezUtils.isDisposableTrackableRequired( element );
+        return isDisposableTrackableRequired( element );
     }
   }
 
@@ -3302,6 +3302,20 @@ public final class ArezProcessor
   private TypeElement getDisposableTypeElement()
   {
     return getTypeElement( Constants.DISPOSABLE_CLASSNAME );
+  }
+
+  private boolean isDisposableTrackableRequired( @Nonnull final TypeElement element )
+  {
+    switch ( AnnotationsUtil.getEnumAnnotationParameter( element, Constants.COMPONENT_CLASSNAME, "disposeNotifier" ) )
+    {
+      case "ENABLE":
+        return true;
+      case "DISABLE":
+        return false;
+      default:
+        return null == AnnotationsUtil.findAnnotationByType( element, Constants.COMPONENT_CLASSNAME ) ||
+               !isService( element );
+    }
   }
 
   @Nonnull
