@@ -404,7 +404,7 @@ final class ComponentDescriptor
       .collect( Collectors.toList() );
   }
 
-  boolean isDaggerIntegrationEnabled()
+  boolean isDaggerEnabled()
   {
     return _dagger;
   }

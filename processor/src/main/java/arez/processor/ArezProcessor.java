@@ -102,12 +102,9 @@ public final class ArezProcessor
     final ComponentDescriptor descriptor = parse( element );
     final String packageName = descriptor.getPackageName();
     emitTypeSpec( packageName, ComponentGenerator.buildType( processingEnv, descriptor ) );
-    if ( descriptor.isDaggerIntegrationEnabled() )
+    if ( descriptor.isDaggerEnabled() )
     {
-      if ( descriptor.needsDaggerModule() )
-      {
-        emitTypeSpec( packageName, DaggerModuleGenerator.buildType( processingEnv, descriptor ) );
-      }
+      emitTypeSpec( packageName, DaggerModuleGenerator.buildType( processingEnv, descriptor ) );
     }
     if ( descriptor.hasRepository() )
     {
@@ -928,9 +925,7 @@ public final class ArezProcessor
                                         constructor );
         }
       }
-      if ( component.needsInjection() &&
-           component.isDaggerIntegrationEnabled() &&
-           !component.getElement().getModifiers().contains( Modifier.PUBLIC ) )
+      if ( component.isDaggerEnabled() && !element.getModifiers().contains( Modifier.PUBLIC ) )
       {
         throw new ProcessorException( "@ArezComponent target is not public but is configured as inject = PROVIDE " +
                                       "using the dagger injection framework. Due to constraints within the " +
