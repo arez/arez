@@ -1600,6 +1600,8 @@ public final class ArezProcessorTest
                       "@ArezComponent target must not disable dagger integration and be annotated with scope annotations: [javax.inject.Singleton]" },
         new Object[]{ "com.example.inject.MultipleJsr330ScopesModel",
                       "@ArezComponent target has specified multiple scope annotations: [javax.inject.Singleton, com.example.inject.MultipleJsr330ScopesModel.MyScope]" },
+        new Object[]{ "com.example.inject.ParameterizedTypeDaggerModel",
+                      "@ArezComponent target must not enable dagger integration and be a parameterized type" },
 
         new Object[]{ "com.example.inverse.BadCollectionTypeInverseModel",
                       "@Inverse target expected to return a type annotated with arez.annotations.ArezComponent" },

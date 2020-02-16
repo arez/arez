@@ -2083,6 +2083,13 @@ public final class ArezProcessor
                                     typeElement );
     }
 
+    if ( dagger && !( (DeclaredType) typeElement.asType() ).getTypeArguments().isEmpty() )
+    {
+      throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
+                                                          "enable dagger integration and be a parameterized type" ),
+                                    typeElement );
+    }
+
     if ( !observableFlag && disposeOnDeactivate )
     {
       throw new ProcessorException( "@ArezComponent target has specified observable = DISABLE and " +
