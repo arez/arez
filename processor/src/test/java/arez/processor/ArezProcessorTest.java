@@ -230,7 +230,6 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.id.RequireIdDisable", false, false, false },
         new Object[]{ "com.example.id.RequireIdEnable", false, false, false },
         new Object[]{ "com.example.inject.BasicDaggerModel", true, false, false },
-        new Object[]{ "com.example.inject.CtorInjectModel", true, false, false },
         new Object[]{ "com.example.inject.CtorInjectSuppressRawTypeAtClassModel", true, false, false },
         new Object[]{ "com.example.inject.CtorInjectSuppressRawTypeAtCtorModel", true, false, false },
         new Object[]{ "com.example.inject.CtorInjectSuppressRawTypeAtParamModel", true, false, false },
