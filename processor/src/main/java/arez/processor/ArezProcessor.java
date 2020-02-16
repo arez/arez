@@ -855,7 +855,7 @@ public final class ArezProcessor
     if ( null != component.getDefaultPriority() &&
          component.getMemoizes().isEmpty() &&
          component.getObserves().isEmpty() &&
-         isWarningNotSuppressed( component.getElement(), Constants.WARNING_UNNECESSARY_DEFAULT_PRIORITY ) )
+         isWarningNotSuppressed( element, Constants.WARNING_UNNECESSARY_DEFAULT_PRIORITY ) )
     {
       final String message =
         MemberChecks.toSimpleName( Constants.COMPONENT_CLASSNAME ) + " target should not specify " +
@@ -863,31 +863,31 @@ public final class ArezProcessor
         MemberChecks.toSimpleName( Constants.MEMOIZE_CLASSNAME ) + " annotation or the " +
         MemberChecks.toSimpleName( Constants.OBSERVE_CLASSNAME ) + " annotation. " +
         suppressedBy( Constants.WARNING_UNNECESSARY_DEFAULT_PRIORITY );
-      processingEnv.getMessager().printMessage( WARNING, message, component.getElement() );
+      processingEnv.getMessager().printMessage( WARNING, message, element );
     }
     if ( !allowEmpty && hasReactiveElements )
     {
       throw new ProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
                                     "@CascadeDispose, @Memoize, @Observable, @Inverse, " +
-                                    "@Reference, @ComponentDependency or @Observe", component.getElement() );
+                                    "@Reference, @ComponentDependency or @Observe", element );
     }
     else if ( allowEmpty &&
               !hasReactiveElements &&
-              isWarningNotSuppressed( component.getElement(), Constants.WARNING_UNNECESSARY_ALLOW_EMPTY ) )
+              isWarningNotSuppressed( element, Constants.WARNING_UNNECESSARY_ALLOW_EMPTY ) )
     {
       final String message =
         "@ArezComponent target has specified allowEmpty = true but has methods " +
         "annotated with @Action, @CascadeDispose, @Memoize, @Observable, @Inverse, " +
         "@Reference, @ComponentDependency or @Observe. " +
         suppressedBy( Constants.WARNING_UNNECESSARY_ALLOW_EMPTY );
-      processingEnv.getMessager().printMessage( WARNING, message, component.getElement() );
+      processingEnv.getMessager().printMessage( WARNING, message, element );
     }
 
     if ( component.isDeferSchedule() && !component.requiresSchedule() )
     {
       throw new ProcessorException( "@ArezComponent target has specified the deferSchedule = true " +
                                     "annotation parameter but has no methods annotated with @Observe, " +
-                                    "@ComponentDependency or @Memoize(keepAlive=true)", component.getElement() );
+                                    "@ComponentDependency or @Memoize(keepAlive=true)", element );
     }
     for ( final ExecutableElement componentIdRef : component.getComponentIdRefs() )
     {
@@ -898,7 +898,7 @@ public final class ArezProcessor
         throw new ProcessorException( "@ComponentIdRef target has a return type " + componentIdRef.getReturnType() +
                                       " and a @ComponentId annotated method with a return type " +
                                       componentIdRef.getReturnType() + ". The types must match.",
-                                      component.getElement() );
+                                      element );
       }
       else if ( null == component.getComponentId() &&
                 !processingEnv.getTypeUtils()
@@ -907,7 +907,7 @@ public final class ArezProcessor
       {
         throw new ProcessorException( "@ComponentIdRef target has a return type " + componentIdRef.getReturnType() +
                                       " but no @ComponentId annotated method. The type is expected to be of " +
-                                      "type int.", component.getElement() );
+                                      "type int.", element );
       }
     }
     if ( component.needsInjection() )
@@ -932,23 +932,23 @@ public final class ArezProcessor
     if ( null != component.getDeclaredDefaultReadOutsideTransaction() &&
          component.getObservables().isEmpty() &&
          component.getMemoizes().isEmpty() &&
-         isWarningNotSuppressed( component.getElement(), Constants.WARNING_UNNECESSARY_DEFAULT ) )
+         isWarningNotSuppressed( element, Constants.WARNING_UNNECESSARY_DEFAULT ) )
     {
       final String message =
         "@ArezComponent target has specified a value for the defaultReadOutsideTransaction parameter but does not " +
         "contain any methods annotated with either @Memoize or @Observable. " +
         suppressedBy( Constants.WARNING_UNNECESSARY_DEFAULT );
-      processingEnv.getMessager().printMessage( WARNING, message, component.getElement() );
+      processingEnv.getMessager().printMessage( WARNING, message, element );
     }
     if ( null != component.getDeclaredDefaultWriteOutsideTransaction() &&
          component.getObservables().isEmpty() &&
-         isWarningNotSuppressed( component.getElement(), Constants.WARNING_UNNECESSARY_DEFAULT ) )
+         isWarningNotSuppressed( element, Constants.WARNING_UNNECESSARY_DEFAULT ) )
     {
       final String message =
         "@ArezComponent target has specified a value for the defaultWriteOutsideTransaction parameter but does not " +
         "contain any methods annotated with @Observable. " +
         suppressedBy( Constants.WARNING_UNNECESSARY_DEFAULT );
-      processingEnv.getMessager().printMessage( WARNING, message, component.getElement() );
+      processingEnv.getMessager().printMessage( WARNING, message, element );
     }
   }
 
