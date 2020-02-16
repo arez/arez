@@ -2073,17 +2073,14 @@ public final class ArezProcessor
                                     typeElement );
     }
 
-    if ( !dagger )
+    if ( !dagger && !scopeAnnotations.isEmpty() )
     {
-      if ( !scopeAnnotations.isEmpty() )
-      {
-        throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
-                                                            "disable dagger integration and be annotated with scope annotations: " +
-                                                            scopeAnnotations.stream()
-                                                              .map( a -> a.getAnnotationType().toString() )
-                                                              .collect( Collectors.toList() ) ),
-                                      typeElement );
-      }
+      throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
+                                                          "disable dagger integration and be annotated with scope annotations: " +
+                                                          scopeAnnotations.stream()
+                                                            .map( a -> a.getAnnotationType().toString() )
+                                                            .collect( Collectors.toList() ) ),
+                                    typeElement );
     }
 
     if ( !observableFlag && disposeOnDeactivate )
