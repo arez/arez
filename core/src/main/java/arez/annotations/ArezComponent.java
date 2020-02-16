@@ -60,6 +60,24 @@ public @interface ArezComponent
   boolean allowEmpty() default false;
 
   /**
+   * An enum controlling whether the component is treated like a service or an entity.
+   * A service is expected to be a long running component that exists based on the functionality of
+   * the application while an entity represents data within the application and may come and go based
+   * on changes in the application data. Within arez, the only practical effect is to change the default
+   * behaviour of other features. See the documentation for other parameters for further details.
+   *
+   * <p>If set as {@link Feature#AUTODETECT} or left as the default value, then Arez will assumes that if
+   * the component is injected using dependency injection, then the component is a service. Arez detects whether
+   * the type is annotated by the <a href="https://sting-ioc.github.io/">sting</a> annotations {@code sting.Named},
+   * {@code sting.Typed} and {@code sting.Eager} or the jsr330 annotation {@code javax.inject.Named} or any
+   * annotation that is annotated with {@code javax.inject.Scope} annotation. If such an annotation is found then
+   * the component defaults to being treated like a service.</p>
+   *
+   * @return an enum controlling whether the component is treated like a service or an entity.
+   */
+  Feature service() default Feature.AUTODETECT;
+
+  /**
    * Return the enum to control whether the component should support being "observed" by
    * {@link arez.component.ComponentObservable#observe(Object)}.
    * {@link Feature#ENABLE} will force the implementation of the ComponentObservable interface,
@@ -106,10 +124,10 @@ public @interface ArezComponent
    * Indicate whether dagger artifacts should be generated to support injection.
    * {@link Feature#ENABLE} will force the generation of the artifacts, {@link Feature#DISABLE}
    * will result in no dagger artifacts and {@link Feature#AUTODETECT} will add a dagger
-   * artifacts if the <code>dagger.Module</code> class is present on the classpath AND {@link #inject()}
-   * does not resolve to {@link InjectMode#NONE}.
+   * module if the <code>dagger.Module</code> class is present on the classpath and the {@link #service()}
+   * parameter resolves to {@link Feature#ENABLE}.
    *
-   * @return enum controlling whether a dagger module should be generated for repository.
+   * @return an enum controlling whether a dagger module should be generated.
    */
   Feature dagger() default Feature.AUTODETECT;
 

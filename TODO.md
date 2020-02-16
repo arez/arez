@@ -38,6 +38,8 @@ See https://github.com/arez/arez/issues/91
   an injection framework. If a component is annotated with stings `@Named`, `@Typed` or `@Eager` or a
   `@javax.inject.Scope` annotation then mark it as a service.
 
+* Consider `@ArezComponent.service` defaulting to `ENABLED`.
+
 * Add Sting support
 
 * Update injection documentation

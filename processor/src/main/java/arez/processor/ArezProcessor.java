@@ -2022,6 +2022,7 @@ public final class ArezProcessor
     final String declaredName = getAnnotationParameter( arezComponent, "name" );
     final boolean disposeOnDeactivate = getAnnotationParameter( arezComponent, "disposeOnDeactivate" );
     final boolean observableFlag = isComponentObservableRequired( arezComponent, typeElement, disposeOnDeactivate );
+    final boolean service = isService( arezComponent, typeElement );
     final boolean disposeNotifierFlag = ArezUtils.isDisposableTrackableRequired( typeElement );
     final boolean allowEmpty = getAnnotationParameter( arezComponent, "allowEmpty" );
     final List<AnnotationMirror> scopeAnnotations =
@@ -2040,11 +2041,7 @@ public final class ArezProcessor
     final String injectMode = getInjectMode( arezComponent, typeElement, scopeAnnotation, daggerMode );
     final boolean dagger =
       "ENABLE".equals( daggerMode ) ||
-      (
-        "AUTODETECT".equals( daggerMode ) &&
-        !"NONE".equals( injectMode ) &&
-        null != findTypeElement( Constants.DAGGER_MODULE_CLASSNAME )
-      );
+      ( "AUTODETECT".equals( daggerMode ) && service && null != findTypeElement( Constants.DAGGER_MODULE_CLASSNAME ) );
 
     final boolean requireEquals = isEqualsRequired( arezComponent, typeElement );
     final boolean requireVerify = isVerifyRequired( arezComponent, typeElement );
@@ -2135,6 +2132,7 @@ public final class ArezProcessor
 
     final ComponentDescriptor descriptor =
       new ComponentDescriptor( name,
+                               service,
                                defaultPriority,
                                observableFlag,
                                disposeNotifierFlag,
@@ -3146,6 +3144,21 @@ public final class ArezProcessor
   {
     final Element element = processingEnv.getTypeUtils().asElement( a.getAnnotationType() );
     return AnnotationsUtil.hasAnnotationOfType( element, Constants.SCOPE_CLASSNAME );
+  }
+
+  private boolean isService( @Nonnull final AnnotationMirror arezComponent,
+                             @Nonnull final TypeElement typeElement )
+  {
+    final VariableElement variableElement = AnnotationsUtil.getAnnotationValueValue( arezComponent, "service" );
+    switch ( variableElement.getSimpleName().toString() )
+    {
+      case "ENABLE":
+        return true;
+      case "DISABLE":
+        return false;
+      default:
+        return typeElement.getAnnotationMirrors().stream().anyMatch( this::isScopeAnnotation );
+    }
   }
 
   private boolean isComponentObservableRequired( @Nonnull final AnnotationMirror arezComponent,
