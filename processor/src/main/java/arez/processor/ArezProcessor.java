@@ -2059,13 +2059,6 @@ public final class ArezProcessor
     }
 
     final List<ExecutableElement> constructors = ElementsUtil.getConstructors( typeElement );
-    if ( !scopeAnnotations.isEmpty() && constructors.size() > 1 )
-    {
-      throw new ProcessorException( "@ArezComponent target has specified a scope annotation but has more than " +
-                                    "one constructor and thus is not a candidate for injection",
-                                    typeElement );
-    }
-
     if ( dagger && constructors.size() > 1 )
     {
       throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,

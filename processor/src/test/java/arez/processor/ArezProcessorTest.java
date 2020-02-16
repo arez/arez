@@ -1595,8 +1595,6 @@ public final class ArezProcessorTest
                       "@ArezComponent target must not enable dagger integration and contain a constructor with a parameter that contains a wildcard type" },
         new Object[]{ "com.example.inject.MethodInjectionModel",
                       "@Inject is not supported on methods in an Arez component. Use constructor injection instead." },
-        new Object[]{ "com.example.inject.MultipleConstructorsScopedModel",
-                      "@ArezComponent target has specified a scope annotation but has more than one constructor and thus is not a candidate for injection" },
         new Object[]{ "com.example.inject.MultipleScopesModel",
                       "@ArezComponent target has specified multiple scope annotations: [javax.inject.Singleton, com.example.inject.MultipleScopesModel.MyScope]" },
         new Object[]{ "com.example.inject.PublicCtorModel",
