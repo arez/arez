@@ -234,7 +234,6 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.inject.Jsr330ScopedModel", true, false, false },
         new Object[]{ "com.example.inject.MultipleArgsModel", true, false, false },
         new Object[]{ "com.example.inject.NoInjectModel", false, false, false },
-        new Object[]{ "com.example.inject.ScopedButNoDaggerModel", false, false, false },
         new Object[]{ "com.example.inverse.CustomNamesInverseModel", false, false, false },
         new Object[]{ "com.example.inverse.DefaultMultiplicityInverseModel", false, false, false },
         new Object[]{ "com.example.inverse.DisableInverseModel", false, false, false },
