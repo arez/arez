@@ -2068,6 +2068,20 @@ public final class ArezProcessor
       throw new ProcessorException( "@ArezComponent target has specified multiple scope annotations: " + scopes,
                                     typeElement );
     }
+
+    if ( !dagger )
+    {
+      if ( !scopeAnnotations.isEmpty() )
+      {
+        throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
+                                                            "disable dagger integration and be annotated with scope annotations: " +
+                                                            scopeAnnotations.stream()
+                                                              .map( a -> a.getAnnotationType().toString() )
+                                                              .collect( Collectors.toList() ) ),
+                                      typeElement );
+      }
+    }
+
     if ( !observableFlag && disposeOnDeactivate )
     {
       throw new ProcessorException( "@ArezComponent target has specified observable = DISABLE and " +
