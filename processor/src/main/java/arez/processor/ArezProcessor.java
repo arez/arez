@@ -2128,7 +2128,6 @@ public final class ArezProcessor
                                observableFlag,
                                disposeNotifierFlag,
                                disposeOnDeactivate,
-                               injectMode,
                                dagger,
                                requireEquals,
                                requireVerify,

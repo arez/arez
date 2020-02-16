@@ -34,7 +34,6 @@ final class ComponentDescriptor
   private final boolean _observable;
   private final boolean _disposeNotifier;
   private final boolean _disposeOnDeactivate;
-  private final boolean _inject;
   private final boolean _dagger;
   private final boolean _requireEquals;
   /**
@@ -106,7 +105,6 @@ final class ComponentDescriptor
                        final boolean observable,
                        final boolean disposeNotifier,
                        final boolean disposeOnDeactivate,
-                       @Nonnull final String injectMode,
                        final boolean dagger,
                        final boolean requireEquals,
                        final boolean verify,
@@ -123,7 +121,6 @@ final class ComponentDescriptor
     _observable = observable;
     _disposeNotifier = disposeNotifier;
     _disposeOnDeactivate = disposeOnDeactivate;
-    _inject = !"NONE".equals( injectMode );
     _dagger = dagger;
     _requireEquals = requireEquals;
     _verify = verify;
@@ -411,12 +408,7 @@ final class ComponentDescriptor
 
   boolean needsInjection()
   {
-    return _inject;
-  }
-
-  boolean needsDaggerModule()
-  {
-    return isDaggerIntegrationEnabled() && needsInjection();
+    return isDaggerEnabled();
   }
 
   boolean shouldGeneratedClassBePublic( @Nonnull final ProcessingEnvironment processingEnv )
