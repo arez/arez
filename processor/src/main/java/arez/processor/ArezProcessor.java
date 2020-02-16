@@ -2251,29 +2251,34 @@ public final class ArezProcessor
 
   private void verifyConstructorParameters( final ExecutableElement constructor, final boolean dagger )
   {
-    if ( dagger )
+    for ( final VariableElement parameter : constructor.getParameters() )
     {
-      for ( final VariableElement parameter : constructor.getParameters() )
+      final TypeMirror type = parameter.asType();
+      if ( dagger && TypesUtil.containsArrayType( type ) )
       {
-        final TypeMirror type = parameter.asType();
-        if ( TypesUtil.containsArrayType( type ) )
-        {
-          throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
-                                                              "enable dagger integration and contain a constructor with a parameter that contains an array type" ),
-                                        parameter );
-        }
-        else if ( TypesUtil.containsWildcard( type ) )
-        {
-          throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
-                                                              "enable dagger integration and contain a constructor with a parameter that contains a wildcard type parameter" ),
-                                        parameter );
-        }
-        else if ( TypesUtil.containsRawType( type ) )
-        {
-          throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
-                                                              "enable dagger integration and contain a constructor with a parameter that contains a raw type" ),
-                                        parameter );
-        }
+        throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
+                                                            "enable dagger integration and contain a constructor with a parameter that contains an array type" ),
+                                      parameter );
+      }
+      else if ( dagger && TypesUtil.containsWildcard( type ) )
+      {
+        throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
+                                                            "enable dagger integration and contain a constructor with a parameter that contains a wildcard type parameter" ),
+                                      parameter );
+      }
+      else if ( dagger && TypesUtil.containsRawType( type ) )
+      {
+        throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
+                                                            "enable dagger integration and contain a constructor with a parameter that contains a raw type" ),
+                                      parameter );
+      }
+      else if ( !dagger && AnnotationsUtil.hasAnnotationOfType( parameter, Constants.JSR_330_NAMED_CLASSNAME ) )
+      {
+        throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
+                                                            "disable dagger integration and contain a constructor with a parameter that is annotated with the " +
+                                                            Constants.JSR_330_NAMED_CLASSNAME +
+                                                            " annotation" ),
+                                      parameter );
       }
     }
   }

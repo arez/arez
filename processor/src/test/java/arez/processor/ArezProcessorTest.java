@@ -1593,6 +1593,8 @@ public final class ArezProcessorTest
                       "@ArezComponent target must not enable dagger integration and contain a constructor with a parameter that contains a raw type" },
         new Object[]{ "com.example.inject.InjectWildcardTypeDaggerModel",
                       "@ArezComponent target must not enable dagger integration and contain a constructor with a parameter that contains a wildcard type" },
+        new Object[]{ "com.example.inject.Jsr330NamedConstructorParameterNonDaggerModel",
+                      "@ArezComponent target must not disable dagger integration and contain a constructor with a parameter that is annotated with the javax.inject.Named annotation" },
         new Object[]{ "com.example.inject.MethodInjectionModel",
                       "@Inject is not supported on methods in an Arez component. Use constructor injection instead." },
         new Object[]{ "com.example.inject.MultipleScopesModel",
