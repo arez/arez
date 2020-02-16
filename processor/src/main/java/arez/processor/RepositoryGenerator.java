@@ -32,6 +32,7 @@ final class RepositoryGenerator
   private static final ClassName ACTION_CLASSNAME = ClassName.get( "arez.annotations", "Action" );
   private static final ClassName AREZ_CONTEXT_CLASSNAME = ClassName.get( "arez", "ArezContext" );
   private static final ClassName CONTEXT_REF_CLASSNAME = ClassName.get( "arez.annotations", "ContextRef" );
+  private static final ClassName FEATURE_CLASSNAME = ClassName.get( "arez.annotations", "Feature" );
 
   private RepositoryGenerator()
   {
@@ -70,18 +71,12 @@ final class RepositoryGenerator
     final String readOutsideTransaction = component.getDeclaredDefaultReadOutsideTransaction();
     if ( null != readOutsideTransaction )
     {
-      arezComponent.addMember( "defaultReadOutsideTransaction",
-                               "$T.$N",
-                               ClassName.get( "arez.annotations", "Feature" ),
-                               readOutsideTransaction );
+      arezComponent.addMember( "defaultReadOutsideTransaction", "$T.$N", FEATURE_CLASSNAME, readOutsideTransaction );
     }
     final String writeOutsideTransaction = component.getDeclaredDefaultWriteOutsideTransaction();
     if ( null != writeOutsideTransaction )
     {
-      arezComponent.addMember( "defaultWriteOutsideTransaction",
-                               "$T.$N",
-                               ClassName.get( "arez.annotations", "Feature" ),
-                               writeOutsideTransaction );
+      arezComponent.addMember( "defaultWriteOutsideTransaction", "$T.$N", FEATURE_CLASSNAME, writeOutsideTransaction );
     }
     builder.addAnnotation( arezComponent.build() );
     if ( addSingletonAnnotation )
