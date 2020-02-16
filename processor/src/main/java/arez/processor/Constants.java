@@ -56,6 +56,7 @@ final class Constants
   static final String WARNING_UNNECESSARY_ALLOW_EMPTY = "Arez:UnnecessaryAllowEmpty";
   static final String WARNING_UNNECESSARY_DEFAULT = "Arez:UnnecessaryDefault";
   static final String WARNING_PROTECTED_CONSTRUCTOR = "Arez:ProtectedConstructor";
+  static final String WARNING_PUBLIC_CONSTRUCTOR = "Arez:PublicConstructor";
 
   private Constants()
   {

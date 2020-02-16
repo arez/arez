@@ -4,6 +4,7 @@
 
 * Remove `arez.annotations.InjectMode` and related infrastructure as it is unused.
 * Improve the error messages when the annotation processor detects that the presence of `javax.inject.Inject` on fields and/or methods. 
+* Generate a suppressable warning when a public constructor exists in an injectable type rather than a hard failure.
 
 ### [v0.168](https://github.com/arez/arez/tree/v0.168) (2020-02-16) · [Full Changelog](https://github.com/arez/arez/compare/v0.167...v0.168) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.167&new=0.168)
 

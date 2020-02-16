@@ -1598,8 +1598,6 @@ public final class ArezProcessorTest
                       "@ArezComponent target must not disable dagger integration and be annotated with scope annotations: [javax.inject.Singleton]" },
         new Object[]{ "com.example.inject.MultipleJsr330ScopesModel",
                       "@ArezComponent target has specified multiple scope annotations: [javax.inject.Singleton, com.example.inject.MultipleJsr330ScopesModel.MyScope]" },
-        new Object[]{ "com.example.inject.PublicCtorDaggerModel",
-                      "@ArezComponent target has a public constructor but the inject parameter does not resolve to NONE. Public constructors are not necessary when the instantiation of the component is managed by the injection framework." },
 
         new Object[]{ "com.example.inverse.BadCollectionTypeInverseModel",
                       "@Inverse target expected to return a type annotated with arez.annotations.ArezComponent" },
@@ -2123,6 +2121,9 @@ public final class ArezProcessorTest
                       "@ContextRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )" },
         new Object[]{ "com.example.context_ref.PublicAccessContextRefModel",
                       "@ContextRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )" },
+
+        new Object[]{ "com.example.inject.PublicCtorDaggerModel",
+                      "@ArezComponent target should not have a public constructor. The type is instantiated by the dagger injection framework and should have a package-access constructor. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicConstructor\" ) or @SuppressArezWarnings( \"Arez:PublicConstructor\" )" },
 
         new Object[]{ "com.example.observable_value_ref.ProtectedAccessObservableValueRefModel",
                       "@ObservableValueRef target should not be protected. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedRefMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedRefMethod\" )" },

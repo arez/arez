@@ -36,6 +36,7 @@ import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Types;
+import javax.tools.Diagnostic;
 import org.realityforge.proton.AbstractStandardProcessor;
 import org.realityforge.proton.AnnotationsUtil;
 import org.realityforge.proton.DeferredElementSet;
@@ -915,12 +916,16 @@ public final class ArezProcessor
     {
       for ( final ExecutableElement constructor : ElementsUtil.getConstructors( element ) )
       {
-        if ( constructor.getModifiers().contains( Modifier.PUBLIC ) && ElementsUtil.isNotSynthetic( constructor ) )
+        if ( ElementsUtil.isNotSynthetic( constructor ) &&
+             constructor.getModifiers().contains( Modifier.PUBLIC ) &&
+             ElementsUtil.isWarningNotSuppressed( constructor, Constants.WARNING_PUBLIC_CONSTRUCTOR ) )
         {
-          throw new ProcessorException( "@ArezComponent target has a public constructor but the inject parameter " +
-                                        "does not resolve to NONE. Public constructors are not necessary when " +
-                                        "the instantiation of the component is managed by the injection framework.",
-                                        constructor );
+          final String message =
+            MemberChecks.shouldNot( Constants.COMPONENT_CLASSNAME,
+                                    "have a public constructor. The type is instantiated by the dagger injection framework and should have a package-access constructor. " +
+                                    MemberChecks.suppressedBy( Constants.WARNING_PUBLIC_CONSTRUCTOR,
+                                                               Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) );
+          processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message, constructor );
         }
       }
       if ( !element.getModifiers().contains( Modifier.PUBLIC ) )
