@@ -6,9 +6,9 @@ import javax.inject.Singleton;
 
 @Singleton
 @ArezComponent
-public abstract class PublicCtorModel
+public abstract class PublicCtorDaggerModel
 {
-  public PublicCtorModel( int i )
+  public PublicCtorDaggerModel( int i )
   {
 
   }
