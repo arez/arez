@@ -6,13 +6,11 @@ import arez.annotations.Feature;
 import arez.component.internal.AbstractRepository;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
-import javax.inject.Singleton;
 
 @Generated("arez.processor.ArezProcessor")
 @ArezComponent(
     dagger = Feature.DISABLE
 )
-@Singleton
 public abstract class DaggerDisabledRepositoryRepository extends AbstractRepository<Integer, DaggerDisabledRepository, DaggerDisabledRepositoryRepository> {
   DaggerDisabledRepositoryRepository() {
   }

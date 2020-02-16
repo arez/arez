@@ -429,8 +429,7 @@ final class ComponentDescriptor
   }
 
   void configureRepository( @Nonnull final List<TypeElement> extensions,
-                            @Nonnull final String injectMode,
-                            @Nonnull final String daggerMode,
+                            final boolean dagger,
                             final boolean shouldRepositoryDefineCreate,
                             final boolean shouldRepositoryDefineAttach,
                             final boolean shouldRepositoryDefineDestroy,
@@ -442,8 +441,7 @@ final class ComponentDescriptor
                                             shouldRepositoryDefineAttach,
                                             shouldRepositoryDefineDestroy,
                                             shouldRepositoryDefineDetach,
-                                            injectMode,
-                                            daggerMode );
+                                            dagger );
   }
 
   @Nonnull

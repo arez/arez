@@ -55,19 +55,11 @@ final class RepositoryGenerator
     GeneratorUtil.addGeneratedAnnotation( processingEnv, builder, ArezProcessor.class.getName() );
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, component.asDeclaredType() );
 
-    final String injectMode = repository.getInjectMode();
-    final boolean addSingletonAnnotation =
-      "PROVIDE".equals( injectMode ) ||
-      ( "AUTODETECT".equals( injectMode ) &&
-        null != processingEnv.getElementUtils().getTypeElement( Constants.INJECT_CLASSNAME ) );
+    final boolean daggerEnabled = repository.isDaggerEnabled();
 
     final AnnotationSpec.Builder arezComponent =
       AnnotationSpec.builder( ClassName.bestGuess( Constants.COMPONENT_CLASSNAME ) );
-    final String daggerConfig = repository.getDaggerConfig();
-    if ( !"AUTODETECT".equals( daggerConfig ) )
-    {
-      arezComponent.addMember( "dagger", "$T.$N", ClassName.get( "arez.annotations", "Feature" ), daggerConfig );
-    }
+    arezComponent.addMember( "dagger", "$T.$N", FEATURE_CLASSNAME, daggerEnabled ? "ENABLE" : "DISABLE" );
     final String readOutsideTransaction = component.getDeclaredDefaultReadOutsideTransaction();
     if ( null != readOutsideTransaction )
     {
@@ -79,7 +71,7 @@ final class RepositoryGenerator
       arezComponent.addMember( "defaultWriteOutsideTransaction", "$T.$N", FEATURE_CLASSNAME, writeOutsideTransaction );
     }
     builder.addAnnotation( arezComponent.build() );
-    if ( addSingletonAnnotation )
+    if ( daggerEnabled )
     {
       builder.addAnnotation( ClassName.get( "javax.inject", "Singleton" ) );
     }
@@ -113,7 +105,7 @@ final class RepositoryGenerator
      * but the type is not public, we still need to generate a public repository due to
      * constraints imposed by dagger.
      */
-    if ( addSingletonAnnotation && !element.getModifiers().contains( Modifier.PUBLIC ) )
+    if ( daggerEnabled && !element.getModifiers().contains( Modifier.PUBLIC ) )
     {
       builder.addModifiers( Modifier.PUBLIC );
     }

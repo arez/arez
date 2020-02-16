@@ -2,7 +2,7 @@ package com.example.deprecated;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.InjectMode;
+import arez.annotations.Feature;
 import arez.component.internal.AbstractRepository;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("deprecation")
 @ArezComponent(
-    inject = InjectMode.NONE
+    dagger = Feature.DISABLE
 )
 public abstract class DeprecatedTypeParameterModelRepository<T extends MyDeprecatedEntity> extends AbstractRepository<Integer, DeprecatedTypeParameterModel<T>, DeprecatedTypeParameterModelRepository<T>> {
   DeprecatedTypeParameterModelRepository() {

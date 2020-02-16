@@ -2,13 +2,16 @@ package com.example.repository;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
+import arez.annotations.Feature;
 import arez.component.internal.AbstractRepository;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.inject.Singleton;
 
 @Generated("arez.processor.ArezProcessor")
-@ArezComponent
+@ArezComponent(
+    dagger = Feature.ENABLE
+)
 @Singleton
 public abstract class RepositoryPreDisposeHookRepository extends AbstractRepository<Integer, RepositoryPreDisposeHook, RepositoryPreDisposeHookRepository> {
   RepositoryPreDisposeHookRepository() {

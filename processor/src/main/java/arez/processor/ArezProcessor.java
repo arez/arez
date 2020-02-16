@@ -2155,8 +2155,10 @@ public final class ArezProcessor
                                                             typeElement,
                                                             Constants.REPOSITORY_CLASSNAME,
                                                             "extensions" );
-      final String repositoryInjectConfig = getRepositoryInjectMode( repository );
-      final String repositoryDaggerConfig = getRepositoryDaggerConfig( repository );
+      final String repositoryDaggerMode = getRepositoryDaggerConfig( repository );
+      final boolean repositoryDagger =
+        "ENABLE".equals( repositoryDaggerMode ) ||
+        ( "AUTODETECT".equals( repositoryDaggerMode ) && null != findTypeElement( Constants.DAGGER_MODULE_CLASSNAME ) );
       final boolean shouldRepositoryDefineCreate = shouldRepositoryDefineCreate( descriptor );
       final boolean shouldRepositoryDefineAttach = shouldRepositoryDefineAttach( descriptor );
       final boolean shouldRepositoryDefineDestroy = shouldRepositoryDefineDestroy( descriptor );
@@ -2186,8 +2188,7 @@ public final class ArezProcessor
         }
       }
       descriptor.configureRepository( extensions,
-                                      repositoryInjectConfig,
-                                      repositoryDaggerConfig,
+                                      repositoryDagger,
                                       shouldRepositoryDefineCreate,
                                       shouldRepositoryDefineAttach,
                                       shouldRepositoryDefineDestroy,
@@ -3315,13 +3316,6 @@ public final class ArezProcessor
                !descriptor.getComponentIdRefs().isEmpty() ||
                descriptor.hasInverses();
     }
-  }
-
-  @Nonnull
-  private String getRepositoryInjectMode( @Nonnull final AnnotationMirror repository )
-  {
-    final VariableElement injectParameter = getAnnotationParameter( repository, "inject" );
-    return injectParameter.getSimpleName().toString();
   }
 
   @Nonnull

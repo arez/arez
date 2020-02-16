@@ -15,11 +15,7 @@ final class RepositoryDescriptor
   private final boolean _shouldRepositoryDefineAttach;
   private final boolean _shouldRepositoryDefineDestroy;
   private final boolean _shouldRepositoryDefineDetach;
-  /**
-   * Flag controlling whether dagger module is created for repository.
-   */
-  @Nonnull
-  private final String _daggerConfig;
+  private final boolean _dagger;
 
   RepositoryDescriptor( @Nonnull final ComponentDescriptor component,
                         @Nonnull final List<TypeElement> extensions,
@@ -27,7 +23,7 @@ final class RepositoryDescriptor
                         final boolean shouldRepositoryDefineAttach,
                         final boolean shouldRepositoryDefineDestroy,
                         final boolean shouldRepositoryDefineDetach,
-                        @Nonnull final String daggerConfig )
+                        final boolean dagger )
   {
     _component = Objects.requireNonNull( component );
     _extensions = Objects.requireNonNull( extensions );
@@ -35,7 +31,7 @@ final class RepositoryDescriptor
     _shouldRepositoryDefineAttach = shouldRepositoryDefineAttach;
     _shouldRepositoryDefineDestroy = shouldRepositoryDefineDestroy;
     _shouldRepositoryDefineDetach = shouldRepositoryDefineDetach;
-    _daggerConfig = Objects.requireNonNull( daggerConfig );
+    _dagger = dagger;
   }
 
   @Nonnull
@@ -50,10 +46,9 @@ final class RepositoryDescriptor
     return _extensions;
   }
 
-  @Nonnull
-  String getDaggerConfig()
+  boolean isDaggerEnabled()
   {
-    return _daggerConfig;
+    return _dagger;
   }
 
   boolean shouldRepositoryDefineCreate()

@@ -2,6 +2,7 @@ package com.example.raw_types;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
+import arez.annotations.Feature;
 import arez.component.internal.AbstractRepository;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -10,7 +11,9 @@ import javax.annotation.Nonnull;
 import javax.inject.Singleton;
 
 @Generated("arez.processor.ArezProcessor")
-@ArezComponent
+@ArezComponent(
+    dagger = Feature.ENABLE
+)
 @Singleton
 public abstract class RawTypesUsageModelRepository extends AbstractRepository<Integer, RawTypesUsageModel, RawTypesUsageModelRepository> {
   RawTypesUsageModelRepository() {
