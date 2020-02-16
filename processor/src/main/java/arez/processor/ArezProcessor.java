@@ -2088,8 +2088,8 @@ public final class ArezProcessor
       {
         final String message =
           MemberChecks.should( Constants.COMPONENT_CLASSNAME,
-                                  "have a " + ( dagger ? "" : "public or " ) + "package access " +
-                                  "constructor. " + suppressedBy( Constants.WARNING_PROTECTED_CONSTRUCTOR ) );
+                               "have a " + ( dagger ? "" : "public or " ) + "package access " +
+                               "constructor. " + suppressedBy( Constants.WARNING_PROTECTED_CONSTRUCTOR ) );
         processingEnv.getMessager().printMessage( WARNING, message, constructor );
       }
     }
