@@ -5,12 +5,10 @@ import arez.annotations.ArezComponent;
 import javax.inject.Inject;
 
 @ArezComponent
-public abstract class MethodInjectionModel
+public abstract class Jsr330InjectFieldDaggerModel
 {
   @Inject
-  void setService( Runnable myService )
-  {
-  }
+  Runnable _myService;
 
   @Action
   void myAction()

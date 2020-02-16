@@ -2308,8 +2308,11 @@ public final class ArezProcessor
     {
       if ( hasInjectAnnotation( field ) )
       {
-        throw new ProcessorException( "@Inject is not supported on fields in an Arez component. " +
-                                      "Use constructor injection instead.", field );
+        throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
+                                                            "contain fields annotated by the " +
+                                                            Constants.INJECT_CLASSNAME +
+                                                            " annotation. Use constructor injection instead" ),
+                                      field );
       }
     }
   }
@@ -2322,8 +2325,11 @@ public final class ArezProcessor
     {
       if ( hasInjectAnnotation( method ) )
       {
-        throw new ProcessorException( "@Inject is not supported on methods in an Arez component. " +
-                                      "Use constructor injection instead.", method );
+        throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
+                                                            "contain methods annotated by the " +
+                                                            Constants.INJECT_CLASSNAME +
+                                                            " annotation. Use constructor injection instead" ),
+                                      method );
       }
     }
   }
