@@ -2058,27 +2058,7 @@ public final class ArezProcessor
                                     "name must not be a java keyword.", typeElement );
     }
 
-    final List<ExecutableElement> constructors = ElementsUtil.getConstructors( typeElement );
-    if ( dagger && constructors.size() > 1 )
-    {
-      throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
-                                                          "enable dagger integration and have multiple constructors" ),
-                                    typeElement );
-    }
-
-    for ( final ExecutableElement constructor : constructors )
-    {
-      if ( constructor.getModifiers().contains( Modifier.PROTECTED ) &&
-           isWarningNotSuppressed( constructor, Constants.WARNING_PROTECTED_CONSTRUCTOR ) )
-      {
-        final String message =
-          MemberChecks.should( Constants.COMPONENT_CLASSNAME,
-                               "have a " + ( dagger ? "" : "public or " ) + "package access " +
-                               "constructor. " + suppressedBy( Constants.WARNING_PROTECTED_CONSTRUCTOR ) );
-        processingEnv.getMessager().printMessage( WARNING, message, constructor );
-      }
-      verifyConstructorParameters( constructor, dagger );
-    }
+    verifyConstructors( typeElement, dagger );
 
     if ( scopeAnnotations.size() > 1 )
     {
@@ -2247,6 +2227,31 @@ public final class ArezProcessor
     warnOnUnmanagedComponentReferences( descriptor, fields );
 
     return descriptor;
+  }
+
+  private void verifyConstructors( @Nonnull final TypeElement typeElement, final boolean dagger )
+  {
+    final List<ExecutableElement> constructors = ElementsUtil.getConstructors( typeElement );
+    if ( dagger && constructors.size() > 1 )
+    {
+      throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
+                                                          "enable dagger integration and have multiple constructors" ),
+                                    typeElement );
+    }
+
+    for ( final ExecutableElement constructor : constructors )
+    {
+      if ( constructor.getModifiers().contains( Modifier.PROTECTED ) &&
+           isWarningNotSuppressed( constructor, Constants.WARNING_PROTECTED_CONSTRUCTOR ) )
+      {
+        final String message =
+          MemberChecks.should( Constants.COMPONENT_CLASSNAME,
+                               "have a " + ( dagger ? "" : "public or " ) + "package access " +
+                               "constructor. " + suppressedBy( Constants.WARNING_PROTECTED_CONSTRUCTOR ) );
+        processingEnv.getMessager().printMessage( WARNING, message, constructor );
+      }
+      verifyConstructorParameters( constructor, dagger );
+    }
   }
 
   private void verifyConstructorParameters( @Nonnull final ExecutableElement constructor, final boolean dagger )
