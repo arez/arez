@@ -7,10 +7,6 @@ import arez.annotations.InjectMode;
 @ArezComponent( inject = InjectMode.NONE )
 public abstract class NoInjectModel
 {
-  NoInjectModel()
-  {
-  }
-
   @Action
   public void myActionStuff()
   {

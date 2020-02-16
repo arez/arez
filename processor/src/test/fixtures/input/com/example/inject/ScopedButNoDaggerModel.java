@@ -9,10 +9,6 @@ import javax.inject.Singleton;
 @ArezComponent( dagger = Feature.DISABLE )
 public abstract class ScopedButNoDaggerModel
 {
-  ScopedButNoDaggerModel()
-  {
-  }
-
   @Action
   public void myActionStuff()
   {

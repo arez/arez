@@ -7,10 +7,6 @@ import arez.annotations.Feature;
 @ArezComponent( dagger = Feature.ENABLE )
 public abstract class BasicDaggerModel
 {
-  BasicDaggerModel()
-  {
-  }
-
   @Action
   public void myActionStuff()
   {

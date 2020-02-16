@@ -851,6 +851,7 @@ public final class ArezProcessor
       component.getInverses().isEmpty() &&
       component.getObserves().isEmpty();
 
+    final TypeElement element = component.getElement();
     if ( null != component.getDefaultPriority() &&
          component.getMemoizes().isEmpty() &&
          component.getObserves().isEmpty() &&
@@ -911,13 +912,9 @@ public final class ArezProcessor
     }
     if ( component.needsInjection() )
     {
-      for ( final ExecutableElement constructor : ElementsUtil.getConstructors( component.getElement() ) )
+      for ( final ExecutableElement constructor : ElementsUtil.getConstructors( element ) )
       {
-        // The annotation processor engine can not distinguish between a "default constructor"
-        // synthesized by the compiler and one written by a user that has the same signature.
-        // So our check just skips scenarios where the constructor could be synthetic.
-        if ( constructor.getModifiers().contains( Modifier.PUBLIC ) &&
-             !( constructor.getParameters().isEmpty() && constructor.getThrownTypes().isEmpty() ) )
+        if ( constructor.getModifiers().contains( Modifier.PUBLIC ) && ElementsUtil.isNotSynthetic( constructor ) )
         {
           throw new ProcessorException( "@ArezComponent target has a public constructor but the inject parameter " +
                                         "does not resolve to NONE. Public constructors are not necessary when " +
