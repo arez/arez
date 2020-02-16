@@ -2030,7 +2030,6 @@ public final class ArezProcessor
     final AnnotationValue defaultWriteOutsideTransaction =
       AnnotationsUtil.findAnnotationValueNoDefaults( arezComponent, "defaultWriteOutsideTransaction" );
 
-    final String injectMode = getInjectMode( arezComponent, typeElement, scopeAnnotation, daggerMode );
     final boolean dagger =
       "ENABLE".equals( daggerMode ) ||
       ( "AUTODETECT".equals( daggerMode ) && service && null != findTypeElement( Constants.DAGGER_MODULE_CLASSNAME ) );
@@ -3215,42 +3214,6 @@ public final class ArezProcessor
       default:
         return disposeOnDeactivate ||
                AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.REPOSITORY_CLASSNAME );
-    }
-  }
-
-  @Nonnull
-  private String getInjectMode( @Nonnull final AnnotationMirror arezComponent,
-                                @Nonnull final TypeElement typeElement,
-                                @Nullable final AnnotationMirror scopeAnnotation,
-                                final String daggerMode )
-  {
-    final VariableElement injectParameter = getAnnotationParameter( arezComponent, "inject" );
-    final String mode = injectParameter.getSimpleName().toString();
-    if ( "AUTODETECT".equals( mode ) )
-    {
-      final boolean shouldInject = daggerMode.equals( "ENABLE" ) || null != scopeAnnotation;
-      return shouldInject ? "PROVIDE" : "NONE";
-    }
-    else if ( "NONE".equals( mode ) )
-    {
-      if ( daggerMode.equals( "ENABLE" ) )
-      {
-        throw new ProcessorException( "@ArezComponent target has a dagger parameter that resolved to ENABLE " +
-                                      "but the inject parameter is set to NONE and this is not a valid " +
-                                      "combination of parameters.", typeElement );
-      }
-      if ( null != scopeAnnotation )
-      {
-        throw new ProcessorException( "@ArezComponent target is annotated with scope annotation " +
-                                      scopeAnnotation + " but the inject parameter is set to NONE and this " +
-                                      "is not a valid scenario. Remove the scope annotation or change the " +
-                                      "inject parameter to a value other than NONE.", typeElement );
-      }
-      return mode;
-    }
-    else
-    {
-      return mode;
     }
   }
 
