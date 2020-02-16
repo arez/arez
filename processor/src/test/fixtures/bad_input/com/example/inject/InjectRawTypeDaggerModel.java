@@ -2,17 +2,15 @@ package com.example.inject;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.InjectMode;
+import arez.annotations.Feature;
 import java.util.concurrent.Callable;
 import javax.annotation.Nonnull;
-import javax.inject.Singleton;
 
-@Singleton
-@ArezComponent( inject = InjectMode.PROVIDE )
-public abstract class CtorInjectSuppressRawTypeAtCtorModel
+@ArezComponent( dagger = Feature.ENABLE )
+public abstract class InjectRawTypeDaggerModel
 {
   @SuppressWarnings( "rawtypes" )
-  CtorInjectSuppressRawTypeAtCtorModel( @Nonnull final Callable action )
+  InjectRawTypeDaggerModel( @Nonnull final Callable action )
   {
   }
 

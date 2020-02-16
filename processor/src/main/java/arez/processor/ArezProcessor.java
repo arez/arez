@@ -43,6 +43,7 @@ import org.realityforge.proton.ElementsUtil;
 import org.realityforge.proton.MemberChecks;
 import org.realityforge.proton.ProcessorException;
 import org.realityforge.proton.SuperficialValidation;
+import org.realityforge.proton.TypesUtil;
 import static javax.tools.Diagnostic.Kind.*;
 
 /**
@@ -2083,6 +2084,7 @@ public final class ArezProcessor
                                "constructor. " + suppressedBy( Constants.WARNING_PROTECTED_CONSTRUCTOR ) );
         processingEnv.getMessager().printMessage( WARNING, message, constructor );
       }
+      verifyConstructorParameters( constructor, dagger );
     }
 
     if ( scopeAnnotations.size() > 1 )
@@ -2252,6 +2254,35 @@ public final class ArezProcessor
     warnOnUnmanagedComponentReferences( descriptor, fields );
 
     return descriptor;
+  }
+
+  private void verifyConstructorParameters( final ExecutableElement constructor, final boolean dagger )
+  {
+    if ( dagger )
+    {
+      for ( final VariableElement parameter : constructor.getParameters() )
+      {
+        final TypeMirror type = parameter.asType();
+        if ( TypesUtil.containsArrayType( type ) )
+        {
+          throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
+                                                              "enable dagger integration and contain a constructor with a parameter that contains an array type" ),
+                                        parameter );
+        }
+        else if ( TypesUtil.containsWildcard( type ) )
+        {
+          throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
+                                                              "enable dagger integration and contain a constructor with a parameter that contains a wildcard type parameter" ),
+                                        parameter );
+        }
+        else if ( TypesUtil.containsRawType( type ) )
+        {
+          throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
+                                                              "enable dagger integration and contain a constructor with a parameter that contains a raw type" ),
+                                        parameter );
+        }
+      }
+    }
   }
 
   private void ensureNoFieldInjections( @Nonnull final List<VariableElement> fields )
