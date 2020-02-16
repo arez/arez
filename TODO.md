@@ -40,6 +40,8 @@ See https://github.com/arez/arez/issues/91
 
 * Add Sting support
 
+* Warn if `@ArezComponent.service=ENABLE` and `disposeOnDeactivate`, `disposeNotifier`, `requireEquals`, `requireId` or `verify` is `ENABLED`
+
 * Update injection documentation
 
 * Add to build process so that every published packaged is attempted to be built using bazel to
