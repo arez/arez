@@ -3,7 +3,7 @@
 ### Unreleased
 
 * Upgrade the `org.realityforge.org.jetbrains.annotations` artifact to version `1.4.0`.
-* Upgrade the `org.realityforge.proton` artifacts to version `0.39`.
+* Upgrade the `org.realityforge.proton` artifacts to version `0.40`.
 * Add the `arez.debug` annotation option to help debug annotation processing.
 * Remove the `@PerInstance` annotation as it was only used to help generate factories in `react4j` which now uses an alternative strategy for injecting react4j components.
 * Remove the `InjectMode.CONSUME` enumeration value as it did not really offer enough value relative to the complexity that was incurred supporting the use case. It is also no longer used in any downstream consumers. As a result,  `[MyComponent]DaggerComponentExtension` classes are no longer generated.
