@@ -927,10 +927,9 @@ public final class ArezProcessor
       }
       if ( component.isDaggerEnabled() && !element.getModifiers().contains( Modifier.PUBLIC ) )
       {
-        throw new ProcessorException( "@ArezComponent target is not public but is configured as inject = PROVIDE " +
-                                      "using the dagger injection framework. Due to constraints within the " +
-                                      "dagger framework the type needs to made public.",
-                                      component.getElement() );
+        throw new ProcessorException( "@ArezComponent target must be public if dagger integration is enabled due " +
+                                      "to constraints within the dagger framework",
+                                      element );
       }
     }
     if ( null != component.getDeclaredDefaultReadOutsideTransaction() &&

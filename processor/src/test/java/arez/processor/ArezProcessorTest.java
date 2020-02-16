@@ -1586,7 +1586,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.inject.MultipleConstructorsModel",
                       "@ArezComponent target must not have multiple constructors and have dagger integration enabled" },
         new Object[]{ "com.example.inject.DaggerEnableNonPublicModel",
-                      "@ArezComponent target is not public but is configured as inject = PROVIDE using the dagger injection framework. Due to constraints within the dagger framework the type needs to made public." },
+                      "@ArezComponent target must be public if dagger integration is enabled due to constraints within the dagger framework" },
         new Object[]{ "com.example.inject.DaggerEnableInjectDisabledModel",
                       "@ArezComponent target has a dagger parameter that resolved to ENABLE but the inject parameter is set to NONE and this is not a valid combination of parameters." },
         new Object[]{ "com.example.inject.FieldInjectionModel",
