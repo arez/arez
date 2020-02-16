@@ -7,10 +7,10 @@ import javax.inject.Singleton;
 
 @Generated("arez.processor.ArezProcessor")
 @Module
-public interface ScopedInjectModelDaggerModule {
+public interface Jsr330ScopedModelDaggerModule {
   @Provides
   @Singleton
-  static ScopedInjectModel create() {
-    return new Arez_ScopedInjectModel();
+  static Jsr330ScopedModel create() {
+    return new Arez_Jsr330ScopedModel();
   }
 }

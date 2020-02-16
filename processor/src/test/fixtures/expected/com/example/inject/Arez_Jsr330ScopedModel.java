@@ -14,17 +14,17 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @Singleton
-final class Arez_ScopedInjectModel extends ScopedInjectModel implements Disposable, Identifiable<Integer> {
+final class Arez_Jsr330ScopedModel extends Jsr330ScopedModel implements Disposable, Identifiable<Integer> {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  Arez_ScopedInjectModel() {
+  Arez_Jsr330ScopedModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "ScopedInjectModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ScopedInjectModel", $$arezv$$_id, $$arezv$$_name ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "Jsr330ScopedModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "Jsr330ScopedModel", $$arezv$$_id, $$arezv$$_name ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, false, false, false );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
@@ -70,8 +70,8 @@ final class Arez_ScopedInjectModel extends ScopedInjectModel implements Disposab
   @Override
   public boolean equals(final Object o) {
     if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_ScopedInjectModel ) {
-        final Arez_ScopedInjectModel that = (Arez_ScopedInjectModel) o;
+      if ( o instanceof Arez_Jsr330ScopedModel ) {
+        final Arez_Jsr330ScopedModel that = (Arez_Jsr330ScopedModel) o;
         return $$arezi$$_id() == that.$$arezi$$_id();
       } else {
         return false;
