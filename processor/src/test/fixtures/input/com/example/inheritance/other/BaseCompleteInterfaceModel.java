@@ -27,6 +27,8 @@ import arez.annotations.PostDispose;
 import arez.annotations.PreDispose;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nonnull;
 
@@ -94,6 +96,18 @@ public interface BaseCompleteInterfaceModel
   {
   }
 
+  @Memoize
+  default Collection<Long> getCollectionTime()
+  {
+    return Collections.emptyList();
+  }
+
+  @Memoize
+  default Collection<Long> calcCollectionStuff( int i )
+  {
+    return Collections.emptyList();
+  }
+
   @ContextRef
   ArezContext getContext();
 
@@ -105,6 +119,47 @@ public interface BaseCompleteInterfaceModel
   @Nonnull
   @ObservableValueRef
   ObservableValue<String> getMyValueObservableValue();
+
+  @Observable
+  default List<String> getMyCollectionValue()
+  {
+    return null;
+  }
+
+  default void setMyCollectionValue( List<String> value )
+  {
+  }
+
+  @Observable
+  @Nonnull
+  default List<String> getMyNonnullCollectionValue()
+  {
+    return null;
+  }
+
+  default void setMyNonnullCollectionValue( @Nonnull List<String> value )
+  {
+  }
+
+  @Observable( setterAlwaysMutates = false )
+  default int getMyPrimitiveValue()
+  {
+    return 0;
+  }
+
+  default void setMyPrimitiveValue( int value )
+  {
+  }
+
+  @Observable( setterAlwaysMutates = false )
+  default String getMyStringValue()
+  {
+    return null;
+  }
+
+  default void setMyStringValue( String value )
+  {
+  }
 
   @Observe( executor = Executor.EXTERNAL )
   default void render( final long time, float someOtherParameter )
@@ -133,6 +188,16 @@ public interface BaseCompleteInterfaceModel
 
   @OnDepsChange
   default void onRender3DepsChange( @Nonnull final Observer observer )
+  {
+  }
+
+  @Observe( executor = Executor.EXTERNAL )
+  default void render4()
+  {
+  }
+
+  @OnDepsChange
+  default void onRender4DepsChange()
   {
   }
 

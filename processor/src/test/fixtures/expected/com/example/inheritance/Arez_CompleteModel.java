@@ -20,6 +20,7 @@ import com.example.inheritance.other.Arez_Element;
 import com.example.inheritance.other.BaseCompleteModel;
 import com.example.inheritance.other.Element;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import javax.annotation.Generated;
@@ -38,6 +39,12 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   private String $$arezd$$_myValue;
 
   @Nonnull
+  private final ObservableValue<Integer> $$arez$$_myPrimitiveValue;
+
+  @Nonnull
+  private final ObservableValue<String> $$arez$$_myStringValue;
+
+  @Nonnull
   private final ObservableValue<List<Element>> $$arez$$_elements;
 
   private List<Element> $$arezd$$_elements;
@@ -54,6 +61,16 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
 
   @Nonnull
   private final MemoizeCache<Long> $$arez$$_calcStuff;
+
+  @Nonnull
+  private final ComputableValue<Collection<Long>> $$arez$$_collectionTime;
+
+  private Collection<Long> $$arezd$$_$$cache$$_collectionTime;
+
+  private boolean $$arezd$$_$$cache_active$$_collectionTime;
+
+  @Nonnull
+  private final MemoizeCache<Collection<Long>> $$arez$$_calcCollectionStuff;
 
   @Nonnull
   private final Observer $$arez$$_myWatcher;
@@ -75,10 +92,14 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "CompleteModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose(),  () -> super.postDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, 0, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, Arez.areNativeComponentsEnabled() ? null : () -> super.postDispose(), true, false, false );
     this.$$arez$$_myValue = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myValue" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_myValue : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myValue = v : null );
+    this.$$arez$$_myPrimitiveValue = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myPrimitiveValue" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getMyPrimitiveValue() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setMyPrimitiveValue( v ) : null );
+    this.$$arez$$_myStringValue = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myStringValue" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getMyStringValue() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setMyStringValue( v ) : null );
     this.$$arez$$_elements = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".elements" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_elements : null, null );
     this.$$arez$$_parentGeneralisation = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".parentGeneralisation" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_parentGeneralisation : null, null );
     this.$$arez$$_time = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, () -> super.getTime(), this::onTimeActivate, this::onTimeDeactivate, null, ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
     this.$$arez$$_calcStuff = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".calcStuff" : null, args -> super.calcStuff((int) args[ 0 ]), 1, ComputableValue.Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_collectionTime = Arez.areCollectionsPropertiesUnmodifiable() ? $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".collectionTime" : null, () -> super.getCollectionTime(), this::$$arezi$$_onActivate_collectionTime, this::$$arezi$$_onDeactivate_collectionTime, this::$$arezi$$_onStale_collectionTime, ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER ) : $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".collectionTime" : null, () -> super.getCollectionTime(), ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
+    this.$$arez$$_calcCollectionStuff = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".calcCollectionStuff" : null, args -> super.calcCollectionStuff((int) args[ 0 ]), 1, ComputableValue.Flags.AREZ_DEPENDENCIES );
     this.$$arez$$_myWatcher = $$arezv$$_context.observer( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myWatcher" : null, () -> super.myWatcher(), Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
     this.$$arez$$_render = $$arezv$$_context.tracker( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".render" : null, () -> super.onRenderDepsChange(), Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
     this.$$arezd$$_elements = new ArrayList<>();
@@ -183,7 +204,11 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     this.$$arez$$_render.dispose();
     this.$$arez$$_time.dispose();
     this.$$arez$$_calcStuff.dispose();
+    this.$$arez$$_collectionTime.dispose();
+    this.$$arez$$_calcCollectionStuff.dispose();
     this.$$arez$$_myValue.dispose();
+    this.$$arez$$_myPrimitiveValue.dispose();
+    this.$$arez$$_myStringValue.dispose();
     this.$$arez$$_elements.dispose();
     this.$$arez$$_parentGeneralisation.dispose();
   }
@@ -238,6 +263,54 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValueObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     return $$arez$$_myValue;
+  }
+
+  @Override
+  protected int getMyPrimitiveValue() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyPrimitiveValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
+    }
+    this.$$arez$$_myPrimitiveValue.reportObserved();
+    return super.getMyPrimitiveValue();
+  }
+
+  @Override
+  protected void setMyPrimitiveValue(final int value) {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyPrimitiveValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
+    }
+    this.$$arez$$_myPrimitiveValue.preReportChanged();
+    final int $$arezv$$_currentValue = super.getMyPrimitiveValue();
+    if ( value != $$arezv$$_currentValue ) {
+      super.setMyPrimitiveValue( value );
+      if ( $$arezv$$_currentValue != super.getMyPrimitiveValue() ) {
+        this.$$arez$$_myPrimitiveValue.reportChanged();
+      }
+    }
+  }
+
+  @Override
+  protected String getMyStringValue() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyStringValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
+    }
+    this.$$arez$$_myStringValue.reportObserved();
+    return super.getMyStringValue();
+  }
+
+  @Override
+  protected void setMyStringValue(final String value) {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyStringValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
+    }
+    this.$$arez$$_myStringValue.preReportChanged();
+    final String $$arezv$$_currentValue = super.getMyStringValue();
+    if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
+      super.setMyStringValue( value );
+      if ( !Objects.equals( $$arezv$$_currentValue, super.getMyStringValue() ) ) {
+        this.$$arez$$_myStringValue.reportChanged();
+      }
+    }
   }
 
   @Override
@@ -323,6 +396,50 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'calcStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     return this.$$arez$$_calcStuff.get( i );
+  }
+
+  @Override
+  protected Collection<Long> getCollectionTime() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getCollectionTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
+    }
+    if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
+      final Collection<Long> $$ar$$_result = this.$$arez$$_collectionTime.get();
+      if ( null == this.$$arezd$$_$$cache$$_collectionTime && null != $$ar$$_result ) {
+        this.$$arezd$$_$$cache$$_collectionTime = CollectionsUtil.wrap( $$ar$$_result );
+      }
+      return $$arezd$$_$$cache$$_collectionTime;
+    } else {
+      return this.$$arez$$_collectionTime.get();
+    }
+  }
+
+  private void $$arezi$$_onActivate_collectionTime() {
+    if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
+      this.$$arezd$$_$$cache_active$$_collectionTime = true;
+      this.$$arezd$$_$$cache$$_collectionTime = null;
+    }
+  }
+
+  private void $$arezi$$_onDeactivate_collectionTime() {
+    if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
+      this.$$arezd$$_$$cache_active$$_collectionTime = false;
+      this.$$arezd$$_$$cache$$_collectionTime = null;
+    }
+  }
+
+  private void $$arezi$$_onStale_collectionTime() {
+    if ( Arez.areCollectionsPropertiesUnmodifiable() && this.$$arezd$$_$$cache_active$$_collectionTime ) {
+      this.$$arezd$$_$$cache$$_collectionTime = null;
+    }
+  }
+
+  @Override
+  protected Collection<Long> calcCollectionStuff(final int i) {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'calcCollectionStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
+    }
+    return this.$$arez$$_calcCollectionStuff.get( i );
   }
 
   @Override

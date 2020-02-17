@@ -28,6 +28,8 @@ import arez.annotations.PostDispose;
 import arez.annotations.PreDispose;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nonnull;
 
@@ -98,6 +100,18 @@ public abstract class BaseCompleteModel
   {
   }
 
+  @Memoize
+  protected Collection<Long> getCollectionTime()
+  {
+    return Collections.emptyList();
+  }
+
+  @Memoize
+  protected Collection<Long> calcCollectionStuff( int i )
+  {
+    return Collections.emptyList();
+  }
+
   @ContextRef
   protected abstract ArezContext getContext();
 
@@ -109,6 +123,26 @@ public abstract class BaseCompleteModel
   @Nonnull
   @ObservableValueRef
   protected abstract ObservableValue<String> getMyValueObservableValue();
+
+  @Observable( setterAlwaysMutates = false )
+  protected int getMyPrimitiveValue()
+  {
+    return 0;
+  }
+
+  protected void setMyPrimitiveValue( int value )
+  {
+  }
+
+  @Observable( setterAlwaysMutates = false )
+  protected String getMyStringValue()
+  {
+    return null;
+  }
+
+  protected void setMyStringValue( String value )
+  {
+  }
 
   @Observe( executor = Executor.EXTERNAL )
   public void render( final long time, float someOtherParameter )
