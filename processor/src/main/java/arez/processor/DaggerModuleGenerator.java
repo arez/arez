@@ -33,8 +33,7 @@ final class DaggerModuleGenerator
   {
     assert component.isDaggerEnabled();
 
-    final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( component.getComponentDaggerModuleName() ).
-      addTypeVariables( GeneratorUtil.getTypeArgumentsAsNames( component.asDeclaredType() ) );
+    final TypeSpec.Builder builder = TypeSpec.interfaceBuilder( component.getComponentDaggerModuleName() );
     GeneratorUtil.copyWhitelistedAnnotations( component.getElement(), builder );
     GeneratorUtil.addOriginatingTypes( component.getElement(), builder );
 
