@@ -65,7 +65,6 @@ final class DaggerModuleGenerator
     args.add( component.getEnhancedClassName() );
 
     final List<String> whitelistedAnnotations = new ArrayList<>( GeneratorUtil.ANNOTATION_WHITELIST );
-    whitelistedAnnotations.add( "sting.Named" );
     whitelistedAnnotations.add( "javax.inject.Named" );
 
     boolean firstParam = true;
