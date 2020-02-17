@@ -112,13 +112,12 @@ public @interface ArezComponent
   boolean disposeOnDeactivate() default false;
 
   /**
-   * Indicate whether dagger artifacts should be generated to support injection.
-   * {@link Feature#ENABLE} will force the generation of the artifacts, {@link Feature#DISABLE}
-   * will result in no dagger artifacts and {@link Feature#AUTODETECT} will add a dagger
-   * module if the <code>dagger.Module</code> class is present on the classpath and the {@link #service()}
-   * parameter resolves to {@link Feature#ENABLE}.
+   * Enum controlling whether dagger integration is enabled. If enabled, the annotation processor will
+   * generate a dagger module named "[MyComponent]DaggerModule". If the value of this parameter is
+   * {@link Feature#AUTODETECT} then dagger integration will be enabled if the {@link #service()} resolves
+   * to {@link Feature#ENABLE} and the {@code dagger.Module} class is present on the classpath.
    *
-   * @return an enum controlling whether a dagger module should be generated.
+   * @return an enum controlling whether a dagger integration is enabled.
    */
   Feature dagger() default Feature.AUTODETECT;
 
