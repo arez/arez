@@ -3245,8 +3245,8 @@ public final class ArezProcessor
   private boolean isVerifyRequired( @Nonnull final AnnotationMirror arezComponent,
                                     @Nonnull final TypeElement typeElement )
   {
-    final VariableElement daggerParameter = getAnnotationParameter( arezComponent, "verify" );
-    switch ( daggerParameter.getSimpleName().toString() )
+    final VariableElement parameter = getAnnotationParameter( arezComponent, "verify" );
+    switch ( parameter.getSimpleName().toString() )
     {
       case "ENABLE":
         return true;
@@ -3309,8 +3309,8 @@ public final class ArezProcessor
   @Nonnull
   private String getRepositoryDaggerConfig( @Nonnull final AnnotationMirror repository )
   {
-    final VariableElement daggerParameter = getAnnotationParameter( repository, "dagger" );
-    return daggerParameter.getSimpleName().toString();
+    final VariableElement parameter = getAnnotationParameter( repository, "dagger" );
+    return parameter.getSimpleName().toString();
   }
 
   private boolean hasInjectAnnotation( @Nonnull final Element method )
