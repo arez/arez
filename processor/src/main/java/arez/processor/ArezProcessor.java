@@ -2028,16 +2028,12 @@ public final class ArezProcessor
     final List<VariableElement> fields = ElementsUtil.getFields( typeElement );
     ensureNoFieldInjections( fields );
     ensureNoMethodInjections( typeElement );
-    final VariableElement daggerParameter = getAnnotationParameter( arezComponent, "dagger" );
-    final String daggerMode = daggerParameter.getSimpleName().toString();
+    final boolean dagger = isDaggerIntegrationEnabled( arezComponent, service );
+
     final AnnotationValue defaultReadOutsideTransaction =
       AnnotationsUtil.findAnnotationValueNoDefaults( arezComponent, "defaultReadOutsideTransaction" );
     final AnnotationValue defaultWriteOutsideTransaction =
       AnnotationsUtil.findAnnotationValueNoDefaults( arezComponent, "defaultWriteOutsideTransaction" );
-
-    final boolean dagger =
-      "ENABLE".equals( daggerMode ) ||
-      ( "AUTODETECT".equals( daggerMode ) && service && null != findTypeElement( Constants.DAGGER_MODULE_CLASSNAME ) );
 
     final boolean requireEquals = isEqualsRequired( arezComponent, typeElement );
     final boolean requireVerify = isVerifyRequired( arezComponent, typeElement );
@@ -2250,6 +2246,14 @@ public final class ArezProcessor
     warnOnUnmanagedComponentReferences( descriptor, fields );
 
     return descriptor;
+  }
+
+  private boolean isDaggerIntegrationEnabled( final AnnotationMirror arezComponent, final boolean service )
+  {
+    final VariableElement daggerParameter = getAnnotationParameter( arezComponent, "dagger" );
+    final String daggerMode = daggerParameter.getSimpleName().toString();
+    return "ENABLE".equals( daggerMode ) ||
+    ( "AUTODETECT".equals( daggerMode ) && service && null != findTypeElement( Constants.DAGGER_MODULE_CLASSNAME ) );
   }
 
   private void verifyConstructors( @Nonnull final TypeElement typeElement, final boolean dagger )
