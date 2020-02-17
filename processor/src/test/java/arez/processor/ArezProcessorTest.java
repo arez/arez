@@ -234,6 +234,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.dagger.Jsr330NamedDaggerModel", true, false, false },
         new Object[]{ "com.example.dagger.Jsr330ScopedDaggerModel", true, false, false },
         new Object[]{ "com.example.dagger.MultipleArgsDaggerModel", true, false, false },
+        new Object[]{ "com.example.inject.DualNamedArgInjectModel", true, true, false },
         new Object[]{ "com.example.inject.NoInjectModel", false, false, false },
         new Object[]{ "com.example.inverse.CustomNamesInverseModel", false, false, false },
         new Object[]{ "com.example.inverse.DefaultMultiplicityInverseModel", false, false, false },

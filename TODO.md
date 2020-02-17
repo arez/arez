@@ -24,8 +24,6 @@ See https://github.com/arez/arez/issues/91
 * `final EventDrivenValue<HTMLDocument, Object> _documentVisibility` can not have `@CascadeDispose` annotation.
   Because type parameter confuses annotation processor?
 
-* Add tests to cover sting `@Named` and dagger `@Named` on same constructor parameters
-
 * Consider `@ArezComponent.service` defaulting to `ENABLED`.
 
 * remove most of the downstream builds in `react4j-todomvc` to speed up builds. Perhaps just a single `sting` variant for maven and raw and sting variants for j2cl? Also update react4j project
