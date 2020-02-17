@@ -26,7 +26,7 @@ See https://github.com/arez/arez/issues/91
 
 * Consider `@ArezComponent.service` defaulting to `ENABLED`.
 
-* remove most of the downstream builds in `react4j-todomvc` to speed up builds. Perhaps just a single `sting` variant for maven and raw and sting variants for j2cl? Also update react4j project
+* Move to a single maven and single maven_j2cl builds using sting variant. Update the react4j project with the same pattern.
 
 * Warn if `@ArezComponent.service=ENABLE` and `disposeOnDeactivate`, `disposeNotifier`, `requireEquals`, `requireId` or `verify` is `ENABLED`
   or warn if a `@Reference` is used.
