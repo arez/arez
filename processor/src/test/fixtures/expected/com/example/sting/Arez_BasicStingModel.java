@@ -12,12 +12,8 @@ import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
-import sting.Injectable;
-import sting.Typed;
 
 @Generated("arez.processor.ArezProcessor")
-@Injectable
-@Typed(BasicStingModel.class)
 final class Arez_BasicStingModel extends BasicStingModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 

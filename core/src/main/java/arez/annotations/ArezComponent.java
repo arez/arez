@@ -39,7 +39,7 @@ import javax.annotation.Nonnull;
  */
 @Documented
 @Target( ElementType.TYPE )
-@StingProvider( "[FlatEnclosingName]Arez_[SimpleName]" )
+@StingProvider( "[FlatEnclosingName][SimpleName]Fragment" )
 public @interface ArezComponent
 {
   /**

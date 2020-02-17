@@ -1,6 +1,5 @@
 package arez.processor;
 
-import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
@@ -128,17 +127,7 @@ final class ComponentGenerator
       addModifiers( Modifier.FINAL );
     GeneratorUtil.addOriginatingTypes( component.getElement(), builder );
 
-    final boolean stingEnabled = component.isStingEnabled();
-
-    final List<String> whitelist = new ArrayList<>( GeneratorUtil.ANNOTATION_WHITELIST );
-    if ( stingEnabled )
-    {
-      whitelist.add( Constants.STING_NAMED );
-      whitelist.add( Constants.STING_TYPED );
-      whitelist.add( Constants.STING_EAGER );
-    }
-
-    GeneratorUtil.copyWhitelistedAnnotations( component.getElement(), builder, whitelist );
+    GeneratorUtil.copyWhitelistedAnnotations( component.getElement(), builder );
 
     if ( component.isClassType() )
     {
@@ -150,17 +139,6 @@ final class ComponentGenerator
     }
 
     GeneratorUtil.addGeneratedAnnotation( processingEnv, builder, ArezProcessor.class.getName() );
-    if ( stingEnabled )
-    {
-      builder.addAnnotation( ClassName.get( "sting", "Injectable" ) );
-      if ( !AnnotationsUtil.hasAnnotationOfType( component.getElement(), Constants.STING_TYPED ) )
-      {
-        builder.addAnnotation( AnnotationSpec
-                                 .builder( ClassName.get( "sting", "Typed" ) )
-                                 .addMember( "value", "$T.class", component.getClassName() )
-                                 .build() );
-      }
-    }
     final List<String> additionalSuppressions =
       component.getMemoizes().isEmpty() ? Collections.emptyList() : Collections.singletonList( "unchecked" );
     final List<TypeMirror> types = new ArrayList<>();
