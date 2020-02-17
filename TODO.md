@@ -28,6 +28,9 @@ See https://github.com/arez/arez/issues/91
 
 * Add tests verifying that `@Named` in dagger is copied through.
 
+* Consider always generating a sting fragment for components so that the factory can be added to the injector even
+  when the component is package access.
+
 * Consider `@ArezComponent.service` defaulting to `ENABLED`.
 
 * Warn if `@ArezComponent.service=ENABLE` and `disposeOnDeactivate`, `disposeNotifier`, `requireEquals`, `requireId` or `verify` is `ENABLED`
