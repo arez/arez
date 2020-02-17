@@ -1,4 +1,4 @@
-package com.example.inject;
+package com.example.dagger;
 
 import dagger.Module;
 import dagger.Provides;
@@ -7,10 +7,10 @@ import javax.annotation.Nonnull;
 
 @Generated("arez.processor.ArezProcessor")
 @Module
-public interface Jsr330NamedModelDaggerModule {
+public interface BasicDaggerModelDaggerModule {
   @Provides
   @Nonnull
-  static Jsr330NamedModel create() {
-    return new Arez_Jsr330NamedModel();
+  static BasicDaggerModel create() {
+    return new Arez_BasicDaggerModel();
   }
 }

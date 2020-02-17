@@ -229,10 +229,10 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.id.RepositoryExample", false, false, true },
         new Object[]{ "com.example.id.RequireIdDisable", false, false, false },
         new Object[]{ "com.example.id.RequireIdEnable", false, false, false },
-        new Object[]{ "com.example.inject.BasicDaggerModel", true, false, false },
-        new Object[]{ "com.example.inject.Jsr330NamedModel", true, false, false },
-        new Object[]{ "com.example.inject.Jsr330ScopedModel", true, false, false },
-        new Object[]{ "com.example.inject.MultipleArgsModel", true, false, false },
+        new Object[]{ "com.example.dagger.BasicDaggerModel", true, false, false },
+        new Object[]{ "com.example.dagger.Jsr330NamedDaggerModel", true, false, false },
+        new Object[]{ "com.example.dagger.Jsr330ScopedDaggerModel", true, false, false },
+        new Object[]{ "com.example.dagger.MultipleArgsDaggerModel", true, false, false },
         new Object[]{ "com.example.inject.NoInjectModel", false, false, false },
         new Object[]{ "com.example.inverse.CustomNamesInverseModel", false, false, false },
         new Object[]{ "com.example.inverse.DefaultMultiplicityInverseModel", false, false, false },
@@ -2135,7 +2135,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.context_ref.PublicAccessContextRefModel",
                       "@ContextRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )" },
 
-        new Object[]{ "com.example.inject.PublicCtorDaggerModel",
+        new Object[]{ "com.example.dagger.PublicCtorDaggerModel",
                       "@ArezComponent target should not have a public constructor. The type is instantiated by the dagger injection framework and should have a package-access constructor. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicConstructor\" ) or @SuppressArezWarnings( \"Arez:PublicConstructor\" )" },
 
         new Object[]{ "com.example.observable_value_ref.ProtectedAccessObservableValueRefModel",
