@@ -57,12 +57,12 @@ public @interface Repository
   Class<?>[] extensions() default {};
 
   /**
-   * Control whether a dagger integration is enabled for the repository.
-   * {@link Feature#ENABLE} to enable dagger integration, {@link Feature#DISABLE}
-   * to disable dagger integration and {@link Feature#AUTODETECT} enable dagger
-   * integration if the <code>dagger.Module</code> class is present on the classpath.
+   * Enum controlling whether dagger integration is enabled. If enabled, the annotation processor will
+   * generate a dagger module named "[MyComponent]DaggerModule". If the value of this parameter is
+   * {@link Feature#AUTODETECT} then dagger integration will be enabled if the {@code dagger.Module}
+   * class is present on the classpath.
    *
-   * @return enum controlling whether a dagger module should be generated for repository.
+   * @return an enum controlling whether a dagger integration is enabled.
    */
   Feature dagger() default Feature.AUTODETECT;
 
