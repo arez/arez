@@ -33,8 +33,7 @@ public final class CollectBuildStats
     throws Exception
   {
     Gir.go( () -> {
-      final List<String> baseBranches =
-        Arrays.asList( "raw", "arez", "dagger", "sting", "spritz", "raw_maven", "arez_maven", "dagger_maven" );
+      final List<String> baseBranches = Arrays.asList( "raw", "arez", "dagger", "sting", "spritz", "dagger_maven" );
 
       final ArrayList<String> branches = new ArrayList<>( baseBranches );
       if ( WorkspaceUtil.buildJ2clBuilds() )
