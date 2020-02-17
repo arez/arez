@@ -928,12 +928,12 @@ public final class ArezProcessor
           processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message, constructor );
         }
       }
-      if ( !element.getModifiers().contains( Modifier.PUBLIC ) )
-      {
-        throw new ProcessorException( MemberChecks.must( Constants.COMPONENT_CLASSNAME,
-                                                         "be public if dagger integration is enabled due to constraints within the dagger framework" ),
-                                      element );
-      }
+    }
+    if ( component.isDaggerEnabled() && !element.getModifiers().contains( Modifier.PUBLIC ) )
+    {
+      throw new ProcessorException( MemberChecks.must( Constants.COMPONENT_CLASSNAME,
+                                                       "be public if dagger integration is enabled due to constraints within the dagger framework" ),
+                                    element );
     }
     if ( null != component.getDeclaredDefaultReadOutsideTransaction() &&
          component.getObservables().isEmpty() &&
