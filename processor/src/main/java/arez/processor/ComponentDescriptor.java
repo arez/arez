@@ -406,11 +406,6 @@ final class ComponentDescriptor
     return _dagger;
   }
 
-  boolean needsInjection()
-  {
-    return isDaggerEnabled();
-  }
-
   boolean shouldGeneratedClassBePublic( @Nonnull final ProcessingEnvironment processingEnv )
   {
     return hasReferenceWithInverseOutsidePackage( processingEnv ) || hasInverseReferencedOutsidePackage();
