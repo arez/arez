@@ -2915,9 +2915,15 @@ final class ComponentGenerator
       sb.append( "this.$N" );
       parameters.add( observable.getDataFieldName() );
     }
-    else
+    else if ( observable.getComponent().isClassType() )
     {
       sb.append( "super.$N()" );
+      parameters.add( observable.getGetter().getSimpleName() );
+    }
+    else
+    {
+      sb.append( "$T.super.$N()" );
+      parameters.add( observable.getComponent().getClassName() );
       parameters.add( observable.getGetter().getSimpleName() );
     }
     sb.append( " : null" );
@@ -2932,9 +2938,15 @@ final class ComponentGenerator
         sb.append( "this.$N = v" );
         parameters.add( observable.getDataFieldName() );
       }
-      else
+      else if ( observable.getComponent().isClassType() )
       {
         sb.append( "super.$N( v )" );
+        parameters.add( observable.getSetter().getSimpleName() );
+      }
+      else
+      {
+        sb.append( "$T.super.$N( v )" );
+        parameters.add( observable.getComponent().getClassName() );
         parameters.add( observable.getSetter().getSimpleName() );
       }
       sb.append( " : null" );
@@ -3207,7 +3219,14 @@ final class ComponentGenerator
           codeBlock.add( listenerBlock.build() );
         }
       }
-      codeBlock.addStatement( "super.$N( $N )", setter.getSimpleName(), paramName );
+      if ( component.isClassType() )
+      {
+        codeBlock.addStatement( "super.$N( $N )", setter.getSimpleName(), paramName );
+      }
+      else
+      {
+        codeBlock.addStatement( "$T.super.$N( $N )", component.getClassName(), setter.getSimpleName(), paramName );
+      }
       if ( null != observable.getDependencyDescriptor() )
       {
         if ( observable.getDependencyDescriptor().shouldCascadeDispose() )
