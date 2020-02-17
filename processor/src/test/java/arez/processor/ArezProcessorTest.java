@@ -20,625 +20,468 @@ public final class ArezProcessorTest
   {
     return new Object[][]
       {
-        new Object[]{ "com.example.SubpackageModel", false, false, false, false },
-        new Object[]{ "com.example.action.ActionTypeParametersModel", false, false, false, false },
-        new Object[]{ "com.example.action.NewTypeParametersModel", false, false, false, false },
-        new Object[]{ "com.example.action.NoReportParametersModel", false, false, false, false },
-        new Object[]{ "com.example.action.FunctionActionThrowsRuntimeExceptionModel", false, false, false, false },
-        new Object[]{ "com.example.action.FunctionActionThrowsThrowableModel", false, false, false, false },
-        new Object[]{ "com.example.action.MultiThrowAction", false, false, false, false },
-        new Object[]{ "com.example.action.NonStandardNameActionModel", false, false, false, false },
-        new Object[]{ "com.example.action.UnsafeSpecificFunctionActionModel", false, false, false, false },
-        new Object[]{ "com.example.action.UnsafeSpecificProcedureActionModel", false, false, false, false },
-        new Object[]{ "com.example.action.UnsafeFunctionActionModel", false, false, false, false },
-        new Object[]{ "com.example.action.UnsafeProcedureActionModel", false, false, false, false },
-        new Object[]{ "com.example.action.NoReportResultActionModel", false, false, false, false },
-        new Object[]{ "com.example.action.NoVerifyActionModel", false, false, false, false },
-        new Object[]{ "com.example.action.ReadOnlyActionModel", false, false, false, false },
-        new Object[]{ "com.example.action.RequiresNewTxTypeActionModel", false, false, false, false },
-        new Object[]{ "com.example.action.RequiresTxTypeActionModel", false, false, false, false },
-        new Object[]{ "com.example.action.BasicFunctionActionModel", false, false, false, false },
-        new Object[]{ "com.example.action.BasicActionModel", false, false, false, false },
-        new Object[]{ "com.example.cascade_dispose.ComponentCascadeDisposeModel", false, false, false, false },
-        new Object[]{ "com.example.cascade_dispose.ComponentCascadeDisposeMethodModel", false, false, false, false },
-        new Object[]{ "com.example.cascade_dispose.DisposableCascadeDisposeModel", false, false, false, false },
-        new Object[]{ "com.example.cascade_dispose.DisposableCascadeDisposeMethodModel", false, false, false, false },
-        new Object[]{ "com.example.cascade_dispose.NonStandardNameCascadeDisposeMethodModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.cascade_dispose.NonStandardNameDisposableCascadeDisposeModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.cascade_dispose.ObservableCascadeDisposeModel", false, false, false, false },
-        new Object[]{ "com.example.component.DeprecatedModel", false, false, false, false },
-        new Object[]{ "com.example.component.DisposeOnDeactivateModel", false, false, false, false },
-        new Object[]{ "com.example.component.NoRequireEqualsModel", false, false, false, false },
-        new Object[]{ "com.example.component.NotObservableModel", false, false, false, false },
-        new Object[]{ "com.example.component.ObservableModel", false, false, false, false },
-        new Object[]{ "com.example.component.PublicCtorNonPublicModel", false, false, false, false },
-        new Object[]{ "com.example.collections.AbstractCollectionObservableModel", false, false, false, false },
-        new Object[]{ "com.example.collections.AbstractListObservableModel", false, false, false, false },
-        new Object[]{ "com.example.collections.AbstractMapObservableModel", false, false, false, false },
-        new Object[]{ "com.example.collections.AbstractNonnullCollectionObservableModel", false, false, false, false },
-        new Object[]{ "com.example.collections.AbstractNonnullListObservableModel", false, false, false, false },
-        new Object[]{ "com.example.collections.AbstractNonnullMapObservableModel", false, false, false, false },
-        new Object[]{ "com.example.collections.AbstractNonnullSetObservableModel", false, false, false, false },
-        new Object[]{ "com.example.collections.AbstractSetObservableModel", false, false, false, false },
-        new Object[]{ "com.example.collections.MemoizeCollectionModel", false, false, false, false },
-        new Object[]{ "com.example.collections.MemoizeCollectionWithHooksModel", false, false, false, false },
-        new Object[]{ "com.example.collections.MemoizeKeepAliveListModel", false, false, false, false },
-        new Object[]{ "com.example.collections.MemoizeListModel", false, false, false, false },
-        new Object[]{ "com.example.collections.MemoizeMapModel", false, false, false, false },
-        new Object[]{ "com.example.collections.MemoizeNonnullCollectionModel", false, false, false, false },
-        new Object[]{ "com.example.collections.MemoizeNonnullListModel", false, false, false, false },
-        new Object[]{ "com.example.collections.MemoizeNonnullMapModel", false, false, false, false },
-        new Object[]{ "com.example.collections.MemoizeNonnullSetModel", false, false, false, false },
-        new Object[]{ "com.example.collections.MemoizeSetModel", false, false, false, false },
-        new Object[]{ "com.example.collections.ObservableCollectionModel", false, false, false, false },
-        new Object[]{ "com.example.collections.ObservableListModel", false, false, false, false },
-        new Object[]{ "com.example.collections.ObservableMapModel", false, false, false, false },
-        new Object[]{ "com.example.collections.ObservableNonnullCollectionModel", false, false, false, false },
-        new Object[]{ "com.example.collections.ObservableNonnullListModel", false, false, false, false },
-        new Object[]{ "com.example.collections.ObservableNonnullMapModel", false, false, false, false },
-        new Object[]{ "com.example.collections.ObservableNonnullSetModel", false, false, false, false },
-        new Object[]{ "com.example.collections.ObservableNoSettersModel", false, false, false, false },
-        new Object[]{ "com.example.collections.ObservableSetModel", false, false, false, false },
-        new Object[]{ "com.example.component_id.BooleanComponentId", false, false, false, false },
-        new Object[]{ "com.example.component_id.BooleanComponentIdRequireEquals", false, false, false, false },
-        new Object[]{ "com.example.component_id.ByteComponentId", false, false, false, false },
-        new Object[]{ "com.example.component_id.ByteComponentIdRequireEquals", false, false, false, false },
-        new Object[]{ "com.example.component_id.CharComponentId", false, false, false, false },
-        new Object[]{ "com.example.component_id.CharComponentIdRequireEquals", false, false, false, false },
-        new Object[]{ "com.example.component_id.ComponentIdOnModel", false, false, false, false },
-        new Object[]{ "com.example.component_id.DoubleComponentId", false, false, false, false },
-        new Object[]{ "com.example.component_id.DoubleComponentIdRequireEquals", false, false, false, false },
-        new Object[]{ "com.example.component_id.FloatComponentId", false, false, false, false },
-        new Object[]{ "com.example.component_id.FloatComponentIdRequireEquals", false, false, false, false },
-        new Object[]{ "com.example.component_id.IntComponentId", false, false, false, false },
-        new Object[]{ "com.example.component_id.IntComponentIdRequireEquals", false, false, false, false },
-        new Object[]{ "com.example.component_id.LongComponentId", false, false, false, false },
-        new Object[]{ "com.example.component_id.LongComponentIdRequireEquals", false, false, false, false },
-        new Object[]{ "com.example.component_id.NonStandardNameComponentId", false, false, false, false },
-        new Object[]{ "com.example.component_id.ObjectComponentId", false, false, false, false },
-        new Object[]{ "com.example.component_id.ObjectComponentIdRequireEquals", false, false, false, false },
-        new Object[]{ "com.example.component_id.ShortComponentId", false, false, false, false },
-        new Object[]{ "com.example.component_id.ShortComponentIdRequireEquals", false, false, false, false },
+        new Object[]{ "com.example.SubpackageModel", false, false, false },
+        new Object[]{ "com.example.action.ActionTypeParametersModel", false, false, false },
+        new Object[]{ "com.example.action.NewTypeParametersModel", false, false, false },
+        new Object[]{ "com.example.action.NoReportParametersModel", false, false, false },
+        new Object[]{ "com.example.action.FunctionActionThrowsRuntimeExceptionModel", false, false, false },
+        new Object[]{ "com.example.action.FunctionActionThrowsThrowableModel", false, false, false },
+        new Object[]{ "com.example.action.MultiThrowAction", false, false, false },
+        new Object[]{ "com.example.action.NonStandardNameActionModel", false, false, false },
+        new Object[]{ "com.example.action.UnsafeSpecificFunctionActionModel", false, false, false },
+        new Object[]{ "com.example.action.UnsafeSpecificProcedureActionModel", false, false, false },
+        new Object[]{ "com.example.action.UnsafeFunctionActionModel", false, false, false },
+        new Object[]{ "com.example.action.UnsafeProcedureActionModel", false, false, false },
+        new Object[]{ "com.example.action.NoReportResultActionModel", false, false, false },
+        new Object[]{ "com.example.action.NoVerifyActionModel", false, false, false },
+        new Object[]{ "com.example.action.ReadOnlyActionModel", false, false, false },
+        new Object[]{ "com.example.action.RequiresNewTxTypeActionModel", false, false, false },
+        new Object[]{ "com.example.action.RequiresTxTypeActionModel", false, false, false },
+        new Object[]{ "com.example.action.BasicFunctionActionModel", false, false, false },
+        new Object[]{ "com.example.action.BasicActionModel", false, false, false },
+        new Object[]{ "com.example.cascade_dispose.ComponentCascadeDisposeModel", false, false, false },
+        new Object[]{ "com.example.cascade_dispose.ComponentCascadeDisposeMethodModel", false, false, false },
+        new Object[]{ "com.example.cascade_dispose.DisposableCascadeDisposeModel", false, false, false },
+        new Object[]{ "com.example.cascade_dispose.DisposableCascadeDisposeMethodModel", false, false, false },
+        new Object[]{ "com.example.cascade_dispose.NonStandardNameCascadeDisposeMethodModel", false, false, false },
+        new Object[]{ "com.example.cascade_dispose.NonStandardNameDisposableCascadeDisposeModel", false, false, false },
+        new Object[]{ "com.example.cascade_dispose.ObservableCascadeDisposeModel", false, false, false },
+        new Object[]{ "com.example.component.DeprecatedModel", false, false, false },
+        new Object[]{ "com.example.component.DisposeOnDeactivateModel", false, false, false },
+        new Object[]{ "com.example.component.NoRequireEqualsModel", false, false, false },
+        new Object[]{ "com.example.component.NotObservableModel", false, false, false },
+        new Object[]{ "com.example.component.ObservableModel", false, false, false },
+        new Object[]{ "com.example.component.PublicCtorNonPublicModel", false, false, false },
+        new Object[]{ "com.example.collections.AbstractCollectionObservableModel", false, false, false },
+        new Object[]{ "com.example.collections.AbstractListObservableModel", false, false, false },
+        new Object[]{ "com.example.collections.AbstractMapObservableModel", false, false, false },
+        new Object[]{ "com.example.collections.AbstractNonnullCollectionObservableModel", false, false, false },
+        new Object[]{ "com.example.collections.AbstractNonnullListObservableModel", false, false, false },
+        new Object[]{ "com.example.collections.AbstractNonnullMapObservableModel", false, false, false },
+        new Object[]{ "com.example.collections.AbstractNonnullSetObservableModel", false, false, false },
+        new Object[]{ "com.example.collections.AbstractSetObservableModel", false, false, false },
+        new Object[]{ "com.example.collections.MemoizeCollectionModel", false, false, false },
+        new Object[]{ "com.example.collections.MemoizeCollectionWithHooksModel", false, false, false },
+        new Object[]{ "com.example.collections.MemoizeKeepAliveListModel", false, false, false },
+        new Object[]{ "com.example.collections.MemoizeListModel", false, false, false },
+        new Object[]{ "com.example.collections.MemoizeMapModel", false, false, false },
+        new Object[]{ "com.example.collections.MemoizeNonnullCollectionModel", false, false, false },
+        new Object[]{ "com.example.collections.MemoizeNonnullListModel", false, false, false },
+        new Object[]{ "com.example.collections.MemoizeNonnullMapModel", false, false, false },
+        new Object[]{ "com.example.collections.MemoizeNonnullSetModel", false, false, false },
+        new Object[]{ "com.example.collections.MemoizeSetModel", false, false, false },
+        new Object[]{ "com.example.collections.ObservableCollectionModel", false, false, false },
+        new Object[]{ "com.example.collections.ObservableListModel", false, false, false },
+        new Object[]{ "com.example.collections.ObservableMapModel", false, false, false },
+        new Object[]{ "com.example.collections.ObservableNonnullCollectionModel", false, false, false },
+        new Object[]{ "com.example.collections.ObservableNonnullListModel", false, false, false },
+        new Object[]{ "com.example.collections.ObservableNonnullMapModel", false, false, false },
+        new Object[]{ "com.example.collections.ObservableNonnullSetModel", false, false, false },
+        new Object[]{ "com.example.collections.ObservableNoSettersModel", false, false, false },
+        new Object[]{ "com.example.collections.ObservableSetModel", false, false, false },
+        new Object[]{ "com.example.component_id.BooleanComponentId", false, false, false },
+        new Object[]{ "com.example.component_id.BooleanComponentIdRequireEquals", false, false, false },
+        new Object[]{ "com.example.component_id.ByteComponentId", false, false, false },
+        new Object[]{ "com.example.component_id.ByteComponentIdRequireEquals", false, false, false },
+        new Object[]{ "com.example.component_id.CharComponentId", false, false, false },
+        new Object[]{ "com.example.component_id.CharComponentIdRequireEquals", false, false, false },
+        new Object[]{ "com.example.component_id.ComponentIdOnModel", false, false, false },
+        new Object[]{ "com.example.component_id.DoubleComponentId", false, false, false },
+        new Object[]{ "com.example.component_id.DoubleComponentIdRequireEquals", false, false, false },
+        new Object[]{ "com.example.component_id.FloatComponentId", false, false, false },
+        new Object[]{ "com.example.component_id.FloatComponentIdRequireEquals", false, false, false },
+        new Object[]{ "com.example.component_id.IntComponentId", false, false, false },
+        new Object[]{ "com.example.component_id.IntComponentIdRequireEquals", false, false, false },
+        new Object[]{ "com.example.component_id.LongComponentId", false, false, false },
+        new Object[]{ "com.example.component_id.LongComponentIdRequireEquals", false, false, false },
+        new Object[]{ "com.example.component_id.NonStandardNameComponentId", false, false, false },
+        new Object[]{ "com.example.component_id.ObjectComponentId", false, false, false },
+        new Object[]{ "com.example.component_id.ObjectComponentIdRequireEquals", false, false, false },
+        new Object[]{ "com.example.component_id.ShortComponentId", false, false, false },
+        new Object[]{ "com.example.component_id.ShortComponentIdRequireEquals", false, false, false },
 
-        new Object[]{ "com.example.component_id_ref.BasicComponentIdRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_id_ref.ComponentIdPresentComponentIdRefModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.component_id_ref.MultiComponentIdRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_id_ref.NonIntTypeComponentIdRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_id_ref.NonStandardNameComponentIdRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_id_ref.PackageAccessComponentIdRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_id_ref.ProtectedAccessComponentIdRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_id_ref.PublicAccessComponentIdRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_id_ref.RawTypeComponentIdRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_id_ref.BasicComponentIdRefModel", false, false, false },
+        new Object[]{ "com.example.component_id_ref.ComponentIdPresentComponentIdRefModel", false, false, false },
+        new Object[]{ "com.example.component_id_ref.MultiComponentIdRefModel", false, false, false },
+        new Object[]{ "com.example.component_id_ref.NonIntTypeComponentIdRefModel", false, false, false },
+        new Object[]{ "com.example.component_id_ref.NonStandardNameComponentIdRefModel", false, false, false },
+        new Object[]{ "com.example.component_id_ref.PackageAccessComponentIdRefModel", false, false, false },
+        new Object[]{ "com.example.component_id_ref.ProtectedAccessComponentIdRefModel", false, false, false },
+        new Object[]{ "com.example.component_id_ref.PublicAccessComponentIdRefModel", false, false, false },
+        new Object[]{ "com.example.component_id_ref.RawTypeComponentIdRefModel", false, false, false },
 
-        new Object[]{ "com.example.component_name_ref.BasicComponentNameRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_name_ref.MultiComponentNameRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_name_ref.BasicComponentNameRefModel", false, false, false },
+        new Object[]{ "com.example.component_name_ref.MultiComponentNameRefModel", false, false, false },
         new Object[]{ "com.example.component_name_ref.NonStandardMethodNameComponentNameRefModel",
                       false,
                       false,
-                      false,
                       false },
-        new Object[]{ "com.example.component_name_ref.PackageAccessComponentNameRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_name_ref.PackageAccessComponentNameRefModel", false, false, false },
 
-        new Object[]{ "com.example.component_ref.BasicComponentRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_ref.MultiComponentRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_ref.NonStandardNameComponentRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_ref.PackageAccessComponentRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_ref.BasicComponentRefModel", false, false, false },
+        new Object[]{ "com.example.component_ref.MultiComponentRefModel", false, false, false },
+        new Object[]{ "com.example.component_ref.NonStandardNameComponentRefModel", false, false, false },
+        new Object[]{ "com.example.component_ref.PackageAccessComponentRefModel", false, false, false },
 
-        new Object[]{ "com.example.component_state_ref.CompleteComponentStateRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_state_ref.ConstructedComponentStateRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_state_ref.DefaultComponentStateRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_state_ref.DisposingComponentStateRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_state_ref.MultipleComponentStateRefModel", false, false, false, false },
-        new Object[]{ "com.example.component_state_ref.PackageAccessComponentStateRefModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.component_state_ref.ReadyComponentStateRefModel", false, false, false, false },
+        new Object[]{ "com.example.component_state_ref.CompleteComponentStateRefModel", false, false, false },
+        new Object[]{ "com.example.component_state_ref.ConstructedComponentStateRefModel", false, false, false },
+        new Object[]{ "com.example.component_state_ref.DefaultComponentStateRefModel", false, false, false },
+        new Object[]{ "com.example.component_state_ref.DisposingComponentStateRefModel", false, false, false },
+        new Object[]{ "com.example.component_state_ref.MultipleComponentStateRefModel", false, false, false },
+        new Object[]{ "com.example.component_state_ref.PackageAccessComponentStateRefModel", false, false, false },
+        new Object[]{ "com.example.component_state_ref.ReadyComponentStateRefModel", false, false, false },
 
-        new Object[]{ "com.example.component_type_name_ref.BasicComponentTypeNameRefModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.component_type_name_ref.MultiComponentTypeNameRefModel",
-                      false,
-                      false,
-                      false,
-                      false },
+        new Object[]{ "com.example.component_type_name_ref.BasicComponentTypeNameRefModel", false, false, false },
+        new Object[]{ "com.example.component_type_name_ref.MultiComponentTypeNameRefModel", false, false, false },
         new Object[]{ "com.example.component_type_name_ref.NonStandardMethodNameComponentTypeNameRefModel",
-                      false,
                       false,
                       false,
                       false },
         new Object[]{ "com.example.component_type_name_ref.PackageAccessComponentTypeNameRefModel",
                       false,
                       false,
-                      false,
                       false },
 
-        new Object[]{ "com.example.memoize.ArezOrNoneDependenciesModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.NameVariationsModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.HighestPriorityModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.HighPriorityModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.NormalPriorityModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.LowestPriorityModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.LowPriorityModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.NonArezDependenciesModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.NoReportResultModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.WithHooksModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.KeepAliveModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.ObserveLowerPriorityModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.ReadOutsideTransactionDisableMemoizeModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.ReadOutsideTransactionEnabledMemoizeModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.ReadOutsideTransactionFromDefaultDefaultMemoizeModel",
-                      false,
-                      false,
-                      false,
-                      false },
+        new Object[]{ "com.example.memoize.ArezOrNoneDependenciesModel", false, false, false },
+        new Object[]{ "com.example.memoize.NameVariationsModel", false, false, false },
+        new Object[]{ "com.example.memoize.HighestPriorityModel", false, false, false },
+        new Object[]{ "com.example.memoize.HighPriorityModel", false, false, false },
+        new Object[]{ "com.example.memoize.NormalPriorityModel", false, false, false },
+        new Object[]{ "com.example.memoize.LowestPriorityModel", false, false, false },
+        new Object[]{ "com.example.memoize.LowPriorityModel", false, false, false },
+        new Object[]{ "com.example.memoize.NonArezDependenciesModel", false, false, false },
+        new Object[]{ "com.example.memoize.NoReportResultModel", false, false, false },
+        new Object[]{ "com.example.memoize.WithHooksModel", false, false, false },
+        new Object[]{ "com.example.memoize.KeepAliveModel", false, false, false },
+        new Object[]{ "com.example.memoize.ObserveLowerPriorityModel", false, false, false },
+        new Object[]{ "com.example.memoize.ReadOutsideTransactionDisableMemoizeModel", false, false, false },
+        new Object[]{ "com.example.memoize.ReadOutsideTransactionEnabledMemoizeModel", false, false, false },
+        new Object[]{ "com.example.memoize.ReadOutsideTransactionFromDefaultDefaultMemoizeModel", false, false, false },
         new Object[]{ "com.example.memoize.ReadOutsideTransactionFromDisabledDefaultMemoizeModel",
                       false,
                       false,
-                      false,
                       false },
-        new Object[]{ "com.example.memoize.ReadOutsideTransactionFromEnabledDefaultMemoizeModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.memoize.ScheduleDeferredKeepAliveModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.TypeParametersModel", false, false, false, false },
-        new Object[]{ "com.example.computable_value_ref.BasicComputableValueRefModel", false, false, false, false },
-        new Object[]{ "com.example.computable_value_ref.MultiComputableValueRefModel", false, false, false, false },
-        new Object[]{ "com.example.computable_value_ref.NonStandardName1ComputableValueRefModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.computable_value_ref.NonStandardName2ComputableValueRefModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.computable_value_ref.PackageAccessComputableValueRefModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.computable_value_ref.ParametersComputableValueRefModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.computable_value_ref.RawComputableValueRefModel", false, false, false, false },
-        new Object[]{ "com.example.computable_value_ref.RawWithParamsComputableValueRefModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.computable_value_ref.WildcardComputableValueRefModel", false, false, false, false },
+        new Object[]{ "com.example.memoize.ReadOutsideTransactionFromEnabledDefaultMemoizeModel", false, false, false },
+        new Object[]{ "com.example.memoize.ScheduleDeferredKeepAliveModel", false, false, false },
+        new Object[]{ "com.example.memoize.TypeParametersModel", false, false, false },
+        new Object[]{ "com.example.computable_value_ref.BasicComputableValueRefModel", false, false, false },
+        new Object[]{ "com.example.computable_value_ref.MultiComputableValueRefModel", false, false, false },
+        new Object[]{ "com.example.computable_value_ref.NonStandardName1ComputableValueRefModel", false, false, false },
+        new Object[]{ "com.example.computable_value_ref.NonStandardName2ComputableValueRefModel", false, false, false },
+        new Object[]{ "com.example.computable_value_ref.PackageAccessComputableValueRefModel", false, false, false },
+        new Object[]{ "com.example.computable_value_ref.ParametersComputableValueRefModel", false, false, false },
+        new Object[]{ "com.example.computable_value_ref.RawComputableValueRefModel", false, false, false },
+        new Object[]{ "com.example.computable_value_ref.RawWithParamsComputableValueRefModel", false, false, false },
+        new Object[]{ "com.example.computable_value_ref.WildcardComputableValueRefModel", false, false, false },
 
-        new Object[]{ "com.example.context_ref.BasicContextRefModel", false, false, false, false },
-        new Object[]{ "com.example.context_ref.MultiContextRefModel", false, false, false, false },
-        new Object[]{ "com.example.context_ref.NonStandardMethodNameContextRefModel", false, false, false, false },
+        new Object[]{ "com.example.context_ref.BasicContextRefModel", false, false, false },
+        new Object[]{ "com.example.context_ref.MultiContextRefModel", false, false, false },
+        new Object[]{ "com.example.context_ref.NonStandardMethodNameContextRefModel", false, false, false },
 
-        new Object[]{ "com.example.component_dependency.AbstractObservableDependency", false, false, false, false },
-        new Object[]{ "com.example.component_dependency.ActAsComponentFieldDependencyModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.component_dependency.ActAsComponentMethodDependencyModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.component_dependency.BasicDependencyModel", false, false, false, false },
-        new Object[]{ "com.example.component_dependency.BasicFieldDependencyModel", false, false, false, false },
-        new Object[]{ "com.example.component_dependency.CascadeDependencyModel", false, false, false, false },
-        new Object[]{ "com.example.component_dependency.CascadeFieldDependencyModel", false, false, false, false },
-        new Object[]{ "com.example.component_dependency.ComplexDependencyModel", false, false, false, false },
+        new Object[]{ "com.example.component_dependency.AbstractObservableDependency", false, false, false },
+        new Object[]{ "com.example.component_dependency.ActAsComponentFieldDependencyModel", false, false, false },
+        new Object[]{ "com.example.component_dependency.ActAsComponentMethodDependencyModel", false, false, false },
+        new Object[]{ "com.example.component_dependency.BasicDependencyModel", false, false, false },
+        new Object[]{ "com.example.component_dependency.BasicFieldDependencyModel", false, false, false },
+        new Object[]{ "com.example.component_dependency.CascadeDependencyModel", false, false, false },
+        new Object[]{ "com.example.component_dependency.CascadeFieldDependencyModel", false, false, false },
+        new Object[]{ "com.example.component_dependency.ComplexDependencyModel", false, false, false },
         new Object[]{ "com.example.component_dependency.ComplexDependencyWithCustomNameMethodModel",
                       false,
                       false,
-                      false,
                       false },
-        new Object[]{ "com.example.component_dependency.ComponentDependencyModel", false, false, false, false },
-        new Object[]{ "com.example.component_dependency.ComponentFieldDependencyModel", false, false, false, false },
+        new Object[]{ "com.example.component_dependency.ComponentDependencyModel", false, false, false },
+        new Object[]{ "com.example.component_dependency.ComponentFieldDependencyModel", false, false, false },
         new Object[]{ "com.example.component_dependency.ConcreteObservablePairWithInitializerDependency",
                       false,
                       false,
-                      false,
                       false },
-        new Object[]{ "com.example.component_dependency.NonCascadeObservableDependency", false, false, false, false },
-        new Object[]{ "com.example.component_dependency.NonnullAbstractObservableDependency",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.component_dependency.NonnullFieldDependencyModel", false, false, false, false },
-        new Object[]{ "com.example.component_dependency.NonnullObservableDependency", false, false, false, false },
-        new Object[]{ "com.example.component_dependency.NonStandardNameDependencyModel", false, false, false, false },
-        new Object[]{ "com.example.component_dependency.NonStandardNameFieldDependencyModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.component_dependency.ObservableDependency", false, false, false, false },
-        new Object[]{ "com.example.component_dependency.ObservablePairWithInitializerDependency",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.component_dependency.ObservablePairAnnotatedDependency",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.component_dependency.RuntimeTypeValidateDependency", false, false, false, false },
-        new Object[]{ "com.example.component_dependency.RuntimeTypeValidateFieldDependency",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.component_dependency.ScheduleDeferredDependencyModel", false, false, false, false },
-        new Object[]{ "com.example.component_dependency.SetNullObservableDependency", false, false, false, false },
-        new Object[]{ "com.example.deprecated.DeprecatedActionModel", false, false, false, false },
-        new Object[]{ "com.example.deprecated.DeprecatedObserveModel", false, false, false, false },
-        new Object[]{ "com.example.deprecated.DeprecatedMemoizeModel1", false, false, false, false },
-        new Object[]{ "com.example.deprecated.DeprecatedMemoizeModel2", false, false, false, false },
-        new Object[]{ "com.example.deprecated.DeprecatedMemoizeModel3", false, false, false, false },
-        new Object[]{ "com.example.deprecated.DeprecatedMemoize5Model", false, false, false, false },
-        new Object[]{ "com.example.deprecated.DeprecatedObservableModel1", false, false, false, false },
-        new Object[]{ "com.example.deprecated.DeprecatedObservableModel2", false, false, false, false },
-        new Object[]{ "com.example.deprecated.DeprecatedPostConstructModel", false, false, false, false },
-        new Object[]{ "com.example.deprecated.DeprecatedObserveModel1", false, false, false, false },
-        new Object[]{ "com.example.deprecated.DeprecatedObserveModel2", false, false, false, false },
-        new Object[]{ "com.example.deprecated.DeprecatedObserveModel3", false, false, false, false },
-        new Object[]{ "com.example.deprecated.DeprecatedObserveModel4", false, false, false, false },
-        new Object[]{ "com.example.dispose_notifier.DisposeNotifierModel", false, false, false, false },
-        new Object[]{ "com.example.dispose_notifier.NoDisposeNotifierModel", false, false, false, false },
-        new Object[]{ "com.example.id.ComponentIdExample", false, false, false, false },
-        new Object[]{ "com.example.id.NonStandardNameModel", false, false, false, false },
-        new Object[]{ "com.example.id.RepositoryExample", false, false, true, true },
-        new Object[]{ "com.example.id.RequireIdDisable", false, false, false, false },
-        new Object[]{ "com.example.id.RequireIdEnable", false, false, false, false },
-        new Object[]{ "com.example.inject.BasicDaggerModel", true, false, false, false },
-        new Object[]{ "com.example.inject.Jsr330NamedModel", true, false, false, false },
-        new Object[]{ "com.example.inject.Jsr330ScopedModel", true, false, false, false },
-        new Object[]{ "com.example.inject.MultipleArgsModel", true, false, false, false },
-        new Object[]{ "com.example.inject.NoInjectModel", false, false, false, false },
-        new Object[]{ "com.example.inverse.CustomNamesInverseModel", false, false, false, false },
-        new Object[]{ "com.example.inverse.DefaultMultiplicityInverseModel", false, false, false, false },
-        new Object[]{ "com.example.inverse.DisableInverseModel", false, false, false, false },
-        new Object[]{ "com.example.inverse.NonGetterInverseModel", false, false, false, false },
-        new Object[]{ "com.example.inverse.NonObservableCollectionInverseModel", false, false, false, false },
-        new Object[]{ "com.example.inverse.NonObservableNullableManyReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.inverse.NonObservableNullableOneReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.inverse.NonObservableNullableZeroOrOneReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.inverse.NonStandardNameModel", false, false, false, false },
-        new Object[]{ "com.example.inverse.ObservableCollectionInverseModel", false, false, false, false },
-        new Object[]{ "com.example.inverse.ObservableListInverseModel", false, false, false, false },
-        new Object[]{ "com.example.inverse.ObservableManyReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.inverse.ObservableOneReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.inverse.ObservableReferenceInverseModel", false, false, false, false },
-        new Object[]{ "com.example.inverse.ObservableSetInverseModel", false, false, false, false },
-        new Object[]{ "com.example.inverse.ObservableZeroOrOneReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.inverse.OneMultiplicityInverseModel", false, false, false, false },
-        new Object[]{ "com.example.inverse.ZeroOrOneMultiplicityInverseModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.BasicModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.CustomDepTypeModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.CustomPriorityModel", false, false, false, false },
+        new Object[]{ "com.example.component_dependency.NonCascadeObservableDependency", false, false, false },
+        new Object[]{ "com.example.component_dependency.NonnullAbstractObservableDependency", false, false, false },
+        new Object[]{ "com.example.component_dependency.NonnullFieldDependencyModel", false, false, false },
+        new Object[]{ "com.example.component_dependency.NonnullObservableDependency", false, false, false },
+        new Object[]{ "com.example.component_dependency.NonStandardNameDependencyModel", false, false, false },
+        new Object[]{ "com.example.component_dependency.NonStandardNameFieldDependencyModel", false, false, false },
+        new Object[]{ "com.example.component_dependency.ObservableDependency", false, false, false },
+        new Object[]{ "com.example.component_dependency.ObservablePairWithInitializerDependency", false, false, false },
+        new Object[]{ "com.example.component_dependency.ObservablePairAnnotatedDependency", false, false, false },
+        new Object[]{ "com.example.component_dependency.RuntimeTypeValidateDependency", false, false, false },
+        new Object[]{ "com.example.component_dependency.RuntimeTypeValidateFieldDependency", false, false, false },
+        new Object[]{ "com.example.component_dependency.ScheduleDeferredDependencyModel", false, false, false },
+        new Object[]{ "com.example.component_dependency.SetNullObservableDependency", false, false, false },
+        new Object[]{ "com.example.deprecated.DeprecatedActionModel", false, false, false },
+        new Object[]{ "com.example.deprecated.DeprecatedObserveModel", false, false, false },
+        new Object[]{ "com.example.deprecated.DeprecatedMemoizeModel1", false, false, false },
+        new Object[]{ "com.example.deprecated.DeprecatedMemoizeModel2", false, false, false },
+        new Object[]{ "com.example.deprecated.DeprecatedMemoizeModel3", false, false, false },
+        new Object[]{ "com.example.deprecated.DeprecatedMemoize5Model", false, false, false },
+        new Object[]{ "com.example.deprecated.DeprecatedObservableModel1", false, false, false },
+        new Object[]{ "com.example.deprecated.DeprecatedObservableModel2", false, false, false },
+        new Object[]{ "com.example.deprecated.DeprecatedPostConstructModel", false, false, false },
+        new Object[]{ "com.example.deprecated.DeprecatedObserveModel1", false, false, false },
+        new Object[]{ "com.example.deprecated.DeprecatedObserveModel2", false, false, false },
+        new Object[]{ "com.example.deprecated.DeprecatedObserveModel3", false, false, false },
+        new Object[]{ "com.example.deprecated.DeprecatedObserveModel4", false, false, false },
+        new Object[]{ "com.example.dispose_notifier.DisposeNotifierModel", false, false, false },
+        new Object[]{ "com.example.dispose_notifier.NoDisposeNotifierModel", false, false, false },
+        new Object[]{ "com.example.id.ComponentIdExample", false, false, false },
+        new Object[]{ "com.example.id.NonStandardNameModel", false, false, false },
+        new Object[]{ "com.example.id.RepositoryExample", false, false, true },
+        new Object[]{ "com.example.id.RequireIdDisable", false, false, false },
+        new Object[]{ "com.example.id.RequireIdEnable", false, false, false },
+        new Object[]{ "com.example.inject.BasicDaggerModel", true, false, false },
+        new Object[]{ "com.example.inject.Jsr330NamedModel", true, false, false },
+        new Object[]{ "com.example.inject.Jsr330ScopedModel", true, false, false },
+        new Object[]{ "com.example.inject.MultipleArgsModel", true, false, false },
+        new Object[]{ "com.example.inject.NoInjectModel", false, false, false },
+        new Object[]{ "com.example.inverse.CustomNamesInverseModel", false, false, false },
+        new Object[]{ "com.example.inverse.DefaultMultiplicityInverseModel", false, false, false },
+        new Object[]{ "com.example.inverse.DisableInverseModel", false, false, false },
+        new Object[]{ "com.example.inverse.NonGetterInverseModel", false, false, false },
+        new Object[]{ "com.example.inverse.NonObservableCollectionInverseModel", false, false, false },
+        new Object[]{ "com.example.inverse.NonObservableNullableManyReferenceModel", false, false, false },
+        new Object[]{ "com.example.inverse.NonObservableNullableOneReferenceModel", false, false, false },
+        new Object[]{ "com.example.inverse.NonObservableNullableZeroOrOneReferenceModel", false, false, false },
+        new Object[]{ "com.example.inverse.NonStandardNameModel", false, false, false },
+        new Object[]{ "com.example.inverse.ObservableCollectionInverseModel", false, false, false },
+        new Object[]{ "com.example.inverse.ObservableListInverseModel", false, false, false },
+        new Object[]{ "com.example.inverse.ObservableManyReferenceModel", false, false, false },
+        new Object[]{ "com.example.inverse.ObservableOneReferenceModel", false, false, false },
+        new Object[]{ "com.example.inverse.ObservableReferenceInverseModel", false, false, false },
+        new Object[]{ "com.example.inverse.ObservableSetInverseModel", false, false, false },
+        new Object[]{ "com.example.inverse.ObservableZeroOrOneReferenceModel", false, false, false },
+        new Object[]{ "com.example.inverse.OneMultiplicityInverseModel", false, false, false },
+        new Object[]{ "com.example.inverse.ZeroOrOneMultiplicityInverseModel", false, false, false },
+        new Object[]{ "com.example.memoize.BasicModel", false, false, false },
+        new Object[]{ "com.example.memoize.CustomDepTypeModel", false, false, false },
+        new Object[]{ "com.example.memoize.CustomPriorityModel", false, false, false },
         new Object[]{ "com.example.memoize.DefaultDefaultPriorityUnspecifiedLocalPriorityMemoizeModel",
                       false,
                       false,
-                      false,
                       false },
-        new Object[]{ "com.example.memoize.DefaultPriorityDefaultLocalPriorityMemoizeModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.memoize.DefaultPrioritySpecifiedLocalPriorityMemoizeModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.memoize.DefaultPriorityUnspecifiedLocalPriorityMemoizeModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.memoize.LocalTypeParamModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.NonStandardNameModel", false, false, false, false },
-        new Object[]{ "com.example.memoize.TypeParamModel", false, false, false, false },
-        new Object[]{ "com.example.observable.AbstractNonPrimitiveObservablesModel", false, false, false, false },
-        new Object[]{ "com.example.observable.AbstractObservablesModel", false, false, false, false },
-        new Object[]{ "com.example.observable.GenericObservableModel", false, false, false, false },
-        new Object[]{ "com.example.observable.InitializerAndConstructorParamNameCollisionModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.observable.NonStandardNameModel", false, false, false, false },
-        new Object[]{ "com.example.observable.NullableInitializerModel", false, false, false, false },
-        new Object[]{ "com.example.observable.ObservableWithNoSetter", false, false, false, false },
-        new Object[]{ "com.example.observable.ReadOutsideTransactionDisabledObservableModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.observable.ReadOutsideTransactionEnabledObservableModel",
-                      false,
-                      false,
-                      false,
-                      false },
+        new Object[]{ "com.example.memoize.DefaultPriorityDefaultLocalPriorityMemoizeModel", false, false, false },
+        new Object[]{ "com.example.memoize.DefaultPrioritySpecifiedLocalPriorityMemoizeModel", false, false, false },
+        new Object[]{ "com.example.memoize.DefaultPriorityUnspecifiedLocalPriorityMemoizeModel", false, false, false },
+        new Object[]{ "com.example.memoize.LocalTypeParamModel", false, false, false },
+        new Object[]{ "com.example.memoize.NonStandardNameModel", false, false, false },
+        new Object[]{ "com.example.memoize.TypeParamModel", false, false, false },
+        new Object[]{ "com.example.observable.AbstractNonPrimitiveObservablesModel", false, false, false },
+        new Object[]{ "com.example.observable.AbstractObservablesModel", false, false, false },
+        new Object[]{ "com.example.observable.GenericObservableModel", false, false, false },
+        new Object[]{ "com.example.observable.InitializerAndConstructorParamNameCollisionModel", false, false, false },
+        new Object[]{ "com.example.observable.NonStandardNameModel", false, false, false },
+        new Object[]{ "com.example.observable.NullableInitializerModel", false, false, false },
+        new Object[]{ "com.example.observable.ObservableWithNoSetter", false, false, false },
+        new Object[]{ "com.example.observable.ReadOutsideTransactionDisabledObservableModel", false, false, false },
+        new Object[]{ "com.example.observable.ReadOutsideTransactionEnabledObservableModel", false, false, false },
         new Object[]{ "com.example.observable.ReadOutsideTransactionFromDefaultDefaultObservableModel",
-                      false,
                       false,
                       false,
                       false },
         new Object[]{ "com.example.observable.ReadOutsideTransactionFromDisabledDefaultObservableModel",
                       false,
                       false,
-                      false,
                       false },
         new Object[]{ "com.example.observable.ReadOutsideTransactionFromEnabledDefaultObservableModel",
                       false,
                       false,
-                      false,
                       false },
-        new Object[]{ "com.example.observable.SetterAlwaysMutatesFalseObjectValue", false, false, false, false },
-        new Object[]{ "com.example.observable.SetterAlwaysMutatesFalsePrimitiveValue", false, false, false, false },
-        new Object[]{ "com.example.observable.UnannotatedObservableModel", false, false, false, false },
-        new Object[]{ "com.example.observable.WildcardGenericObservableModel", false, false, false, false },
-        new Object[]{ "com.example.observable.WriteOutsideTransactionDisabledObservableModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.observable.WriteOutsideTransactionEnabledObservableModel",
-                      false,
-                      false,
-                      false,
-                      false },
+        new Object[]{ "com.example.observable.SetterAlwaysMutatesFalseObjectValue", false, false, false },
+        new Object[]{ "com.example.observable.SetterAlwaysMutatesFalsePrimitiveValue", false, false, false },
+        new Object[]{ "com.example.observable.UnannotatedObservableModel", false, false, false },
+        new Object[]{ "com.example.observable.WildcardGenericObservableModel", false, false, false },
+        new Object[]{ "com.example.observable.WriteOutsideTransactionDisabledObservableModel", false, false, false },
+        new Object[]{ "com.example.observable.WriteOutsideTransactionEnabledObservableModel", false, false, false },
         new Object[]{ "com.example.observable.WriteOutsideTransactionFromDefaultDefaultObservableModel",
-                      false,
                       false,
                       false,
                       false },
         new Object[]{ "com.example.observable.WriteOutsideTransactionFromDisabledDefaultObservableModel",
                       false,
                       false,
-                      false,
                       false },
         new Object[]{ "com.example.observable.WriteOutsideTransactionFromEnabledDefaultObservableModel",
                       false,
                       false,
-                      false,
                       false },
-        new Object[]{ "com.example.observable.WriteOutsideTransactionThrowingObservablesModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.observable.AbstractNonPrimitiveNonnullObservablesModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.observable.AbstractPrimitiveObservablesWithInitializerModel",
-                      false,
-                      false,
-                      false,
-                      false },
+        new Object[]{ "com.example.observable.WriteOutsideTransactionThrowingObservablesModel", false, false, false },
+        new Object[]{ "com.example.observable.AbstractNonPrimitiveNonnullObservablesModel", false, false, false },
+        new Object[]{ "com.example.observable.AbstractPrimitiveObservablesWithInitializerModel", false, false, false },
 
-        new Object[]{ "com.example.observable_value_ref.BasicObservableValueRefModel", false, false, false, false },
-        new Object[]{ "com.example.observable_value_ref.MultiObservableValueRefModel", false, false, false, false },
-        new Object[]{ "com.example.observable_value_ref.GenericObservableValueRefModel", false, false, false, false },
+        new Object[]{ "com.example.observable_value_ref.BasicObservableValueRefModel", false, false, false },
+        new Object[]{ "com.example.observable_value_ref.MultiObservableValueRefModel", false, false, false },
+        new Object[]{ "com.example.observable_value_ref.GenericObservableValueRefModel", false, false, false },
         new Object[]{ "com.example.observable_value_ref.NonStandardMethodName1ObservableValueRefModel",
-                      false,
                       false,
                       false,
                       false },
         new Object[]{ "com.example.observable_value_ref.NonStandardMethodName2ObservableValueRefModel",
                       false,
                       false,
-                      false,
                       false },
-        new Object[]{ "com.example.observable_value_ref.PackageAccessObservableValueRefModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.observable_value_ref.RawObservableValueRefModel", false, false, false, false },
+        new Object[]{ "com.example.observable_value_ref.PackageAccessObservableValueRefModel", false, false, false },
+        new Object[]{ "com.example.observable_value_ref.RawObservableValueRefModel", false, false, false },
 
-        new Object[]{ "com.example.observable_value_ref.WildcardObservableValueRefModel", false, false, false, false },
+        new Object[]{ "com.example.observable_value_ref.WildcardObservableValueRefModel", false, false, false },
 
-        new Object[]{ "com.example.observe.BasicObserveModel", false, false, false, false },
-        new Object[]{ "com.example.observe.NestedActionsAllowedObserveModel", false, false, false, false },
-        new Object[]{ "com.example.observe.HighestPriorityObserveModel", false, false, false, false },
-        new Object[]{ "com.example.observe.HighPriorityObserveModel", false, false, false, false },
-        new Object[]{ "com.example.observe.LowestPriorityObserveModel", false, false, false, false },
-        new Object[]{ "com.example.observe.LowPriorityObserveModel", false, false, false, false },
-        new Object[]{ "com.example.observe.NormalPriorityObserveModel", false, false, false, false },
-        new Object[]{ "com.example.observe.ObserveLowerPriorityObserveModel", false, false, false, false },
-        new Object[]{ "com.example.observe.ReadWriteObserveModel", false, false, false, false },
-        new Object[]{ "com.example.observe.ScheduleAfterConstructedModel", false, false, false, false },
-        new Object[]{ "com.example.observe.ScheduleDeferredModel", false, false, false, false },
-        new Object[]{ "com.example.observe.ArezOrNoneDependenciesModel", false, false, false, false },
-        new Object[]{ "com.example.observe.BasicTrackedModel", false, false, false, false },
-        new Object[]{ "com.example.observe.BasicTrackedWithExceptionsModel", false, false, false, false },
+        new Object[]{ "com.example.observe.BasicObserveModel", false, false, false },
+        new Object[]{ "com.example.observe.NestedActionsAllowedObserveModel", false, false, false },
+        new Object[]{ "com.example.observe.HighestPriorityObserveModel", false, false, false },
+        new Object[]{ "com.example.observe.HighPriorityObserveModel", false, false, false },
+        new Object[]{ "com.example.observe.LowestPriorityObserveModel", false, false, false },
+        new Object[]{ "com.example.observe.LowPriorityObserveModel", false, false, false },
+        new Object[]{ "com.example.observe.NormalPriorityObserveModel", false, false, false },
+        new Object[]{ "com.example.observe.ObserveLowerPriorityObserveModel", false, false, false },
+        new Object[]{ "com.example.observe.ReadWriteObserveModel", false, false, false },
+        new Object[]{ "com.example.observe.ScheduleAfterConstructedModel", false, false, false },
+        new Object[]{ "com.example.observe.ScheduleDeferredModel", false, false, false },
+        new Object[]{ "com.example.observe.ArezOrNoneDependenciesModel", false, false, false },
+        new Object[]{ "com.example.observe.BasicTrackedModel", false, false, false },
+        new Object[]{ "com.example.observe.BasicTrackedWithExceptionsModel", false, false, false },
         new Object[]{ "com.example.observe.DefaultDefaultPriorityUnspecifiedLocalPriorityObserveModel",
                       false,
                       false,
+                      false },
+        new Object[]{ "com.example.observe.DefaultPriorityDefaultLocalPriorityObserveModel", false, false, false },
+        new Object[]{ "com.example.observe.DefaultPrioritySpecifiedLocalPriorityObserveModel", false, false, false },
+        new Object[]{ "com.example.observe.DefaultPriorityUnspecifiedLocalPriorityObserveModel", false, false, false },
+        new Object[]{ "com.example.observe.NestedActionsAllowedTrackedModel", false, false, false },
+        new Object[]{ "com.example.observe.NonArezDependenciesModel", false, false, false },
+        new Object[]{ "com.example.observe.NonStandardNameTrackedModel", false, false, false },
+        new Object[]{ "com.example.observe.DeriveTrackedModel", false, false, false },
+        new Object[]{ "com.example.observe.HighestPriorityTrackedModel", false, false, false },
+        new Object[]{ "com.example.observe.HighPriorityTrackedModel", false, false, false },
+        new Object[]{ "com.example.observe.NormalPriorityTrackedModel", false, false, false },
+        new Object[]{ "com.example.observe.LowestPriorityTrackedModel", false, false, false },
+        new Object[]{ "com.example.observe.LowPriorityTrackedModel", false, false, false },
+        new Object[]{ "com.example.observe.NoReportParametersModel", false, false, false },
+        new Object[]{ "com.example.observe.NoReportResultModel", false, false, false },
+        new Object[]{ "com.example.observe.ObserveLowerPriorityTrackedModel", false, false, false },
+        new Object[]{ "com.example.observe.ProtectedAccessTrackedModel", false, false, false },
+        new Object[]{ "com.example.observe.TrackedAllTypesModel", false, false, false },
+        new Object[]{ "com.example.observe.TrackedAndSchedulableModel", false, false, false },
+        new Object[]{ "com.example.observe.TrackedImplicitOnDepsChangeAcceptsObserverModel", false, false, false },
+        new Object[]{ "com.example.observe.TrackedNoOtherSchedulableModel", false, false, false },
+        new Object[]{ "com.example.observe.TrackedOnDepsChangeAcceptsObserverModel", false, false, false },
+
+        new Object[]{ "com.example.observer_ref.BasicObserverRefModel", false, false, false },
+        new Object[]{ "com.example.observer_ref.MultiObserverRefModel", false, false, false },
+        new Object[]{ "com.example.observer_ref.CustomNameObserverRefModel", false, false, false },
+        new Object[]{ "com.example.observer_ref.ExternalObserveObserverRefModel", false, false, false },
+        new Object[]{ "com.example.observer_ref.NonStandardMethodNameObserverRefModel", false, false, false },
+        new Object[]{ "com.example.observer_ref.PackageAccessObserverRefModel", false, false, false },
+
+        new Object[]{ "com.example.on_activate.BasicOnActivateModel", false, false, false },
+        new Object[]{ "com.example.on_activate.ComputableValueParamOnActivateModel", false, false, false },
+        new Object[]{ "com.example.on_activate.PackageAccessOnActivateModel", false, false, false },
+        new Object[]{ "com.example.on_activate.RawComputableValueParamOnActivateModel", false, false, false },
+        new Object[]{ "com.example.on_activate.WildcardComputableValueParamOnActivateModel", false, false, false },
+
+        new Object[]{ "com.example.on_deactivate.BasicOnDeactivateModel", false, false, false },
+        new Object[]{ "com.example.on_deactivate.PackageAccessOnDeactivateModel", false, false, false },
+
+        new Object[]{ "com.example.on_deps_change.BasicOnDepsChangeModel", false, false, false },
+        new Object[]{ "com.example.on_deps_change.DeriveFinalOnDepsChangeModel", false, false, false },
+        new Object[]{ "com.example.on_deps_change.DeriveOnDepsChangeModel", false, false, false },
+        new Object[]{ "com.example.on_deps_change.PackageAccessOnDepsChangeModel", false, false, false },
+
+        new Object[]{ "com.example.overloaded_names.OverloadedActions", false, false, false },
+
+        new Object[]{ "com.example.post_construct.ActionPostConstructModel", false, false, false },
+        new Object[]{ "com.example.post_construct.BasicPostConstructModel", false, false, false },
+        new Object[]{ "com.example.post_construct.MultiPostConstructModel", false, false, false },
+        new Object[]{ "com.example.post_construct.NonStandardNamePostConstructModel", false, false, false },
+        new Object[]{ "com.example.post_construct.PackageAccessPostConstructModel", false, false, false },
+
+        new Object[]{ "com.example.post_dispose.BasicPostDisposeModel", false, false, false },
+        new Object[]{ "com.example.post_dispose.MultiPostDisposeModel", false, false, false },
+        new Object[]{ "com.example.post_dispose.PackageAccessPostDisposeModel", false, false, false },
+        new Object[]{ "com.example.post_dispose.PostDisposeWithDisabledDisposeNotifierModel", false, false, false },
+
+        new Object[]{ "com.example.post_inverse_add.BasicPostInverseAddModel", false, false, false },
+        new Object[]{ "com.example.post_inverse_add.MultiPostInverseAddModel", false, false, false },
+        new Object[]{ "com.example.post_inverse_add.PackageAccessPostInverseAddModel", false, false, false },
+        new Object[]{ "com.example.post_inverse_add.SingularInversePostInverseAddModel", false, false, false },
+
+        new Object[]{ "com.example.pre_dispose.BasicPreDisposeModel", false, false, false },
+        new Object[]{ "com.example.pre_dispose.MultiPreDisposeModel", false, false, false },
+        new Object[]{ "com.example.pre_dispose.PackageAccessPreDisposeModel", false, false, false },
+
+        new Object[]{ "com.example.pre_inverse_remove.BasicPreInverseRemoveModel", false, false, false },
+        new Object[]{ "com.example.pre_inverse_remove.MultiPreInverseRemoveModel", false, false, false },
+        new Object[]{ "com.example.pre_inverse_remove.PackageAccessPreInverseRemoveModel", false, false, false },
+        new Object[]{ "com.example.pre_inverse_remove.SingularInversePreInverseRemoveModel", false, false, false },
+
+        new Object[]{ "com.example.reference.CascadeDisposeReferenceModel", false, false, false },
+        new Object[]{ "com.example.reference.CustomNameReferenceModel2", false, false, false },
+        new Object[]{ "com.example.reference.CustomNameReferenceModel", false, false, false },
+        new Object[]{ "com.example.reference.EagerLoadNulableObservableReferenceModel", false, false, false },
+        new Object[]{ "com.example.reference.EagerLoadObservableReferenceModel", false, false, false },
+        new Object[]{ "com.example.reference.EagerLoadReferenceModel", false, false, false },
+        new Object[]{ "com.example.reference.EagerObservableReadOutsideTransactionReferenceModel",
+                      false,
                       false,
                       false },
-        new Object[]{ "com.example.observe.DefaultPriorityDefaultLocalPriorityObserveModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.observe.DefaultPrioritySpecifiedLocalPriorityObserveModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.observe.DefaultPriorityUnspecifiedLocalPriorityObserveModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.observe.NestedActionsAllowedTrackedModel", false, false, false, false },
-        new Object[]{ "com.example.observe.NonArezDependenciesModel", false, false, false, false },
-        new Object[]{ "com.example.observe.NonStandardNameTrackedModel", false, false, false, false },
-        new Object[]{ "com.example.observe.DeriveTrackedModel", false, false, false, false },
-        new Object[]{ "com.example.observe.HighestPriorityTrackedModel", false, false, false, false },
-        new Object[]{ "com.example.observe.HighPriorityTrackedModel", false, false, false, false },
-        new Object[]{ "com.example.observe.NormalPriorityTrackedModel", false, false, false, false },
-        new Object[]{ "com.example.observe.LowestPriorityTrackedModel", false, false, false, false },
-        new Object[]{ "com.example.observe.LowPriorityTrackedModel", false, false, false, false },
-        new Object[]{ "com.example.observe.NoReportParametersModel", false, false, false, false },
-        new Object[]{ "com.example.observe.NoReportResultModel", false, false, false, false },
-        new Object[]{ "com.example.observe.ObserveLowerPriorityTrackedModel", false, false, false, false },
-        new Object[]{ "com.example.observe.ProtectedAccessTrackedModel", false, false, false, false },
-        new Object[]{ "com.example.observe.TrackedAllTypesModel", false, false, false, false },
-        new Object[]{ "com.example.observe.TrackedAndSchedulableModel", false, false, false, false },
-        new Object[]{ "com.example.observe.TrackedImplicitOnDepsChangeAcceptsObserverModel",
-                      false,
-                      false,
-                      false,
-                      false },
-        new Object[]{ "com.example.observe.TrackedNoOtherSchedulableModel", false, false, false, false },
-        new Object[]{ "com.example.observe.TrackedOnDepsChangeAcceptsObserverModel", false, false, false, false },
-
-        new Object[]{ "com.example.observer_ref.BasicObserverRefModel", false, false, false, false },
-        new Object[]{ "com.example.observer_ref.MultiObserverRefModel", false, false, false, false },
-        new Object[]{ "com.example.observer_ref.CustomNameObserverRefModel", false, false, false, false },
-        new Object[]{ "com.example.observer_ref.ExternalObserveObserverRefModel", false, false, false, false },
-        new Object[]{ "com.example.observer_ref.NonStandardMethodNameObserverRefModel", false, false, false, false },
-        new Object[]{ "com.example.observer_ref.PackageAccessObserverRefModel", false, false, false, false },
-
-        new Object[]{ "com.example.on_activate.BasicOnActivateModel", false, false, false, false },
-        new Object[]{ "com.example.on_activate.ComputableValueParamOnActivateModel", false, false, false, false },
-        new Object[]{ "com.example.on_activate.PackageAccessOnActivateModel", false, false, false, false },
-        new Object[]{ "com.example.on_activate.RawComputableValueParamOnActivateModel", false, false, false, false },
-        new Object[]{ "com.example.on_activate.WildcardComputableValueParamOnActivateModel", false, false, false, false },
-
-        new Object[]{ "com.example.on_deactivate.BasicOnDeactivateModel", false, false, false, false },
-        new Object[]{ "com.example.on_deactivate.PackageAccessOnDeactivateModel", false, false, false, false },
-
-        new Object[]{ "com.example.on_deps_change.BasicOnDepsChangeModel", false, false, false, false },
-        new Object[]{ "com.example.on_deps_change.DeriveFinalOnDepsChangeModel", false, false, false, false },
-        new Object[]{ "com.example.on_deps_change.DeriveOnDepsChangeModel", false, false, false, false },
-        new Object[]{ "com.example.on_deps_change.PackageAccessOnDepsChangeModel", false, false, false, false },
-
-        new Object[]{ "com.example.overloaded_names.OverloadedActions", false, false, false, false },
-
-        new Object[]{ "com.example.post_construct.ActionPostConstructModel", false, false, false, false },
-        new Object[]{ "com.example.post_construct.BasicPostConstructModel", false, false, false, false },
-        new Object[]{ "com.example.post_construct.MultiPostConstructModel", false, false, false, false },
-        new Object[]{ "com.example.post_construct.NonStandardNamePostConstructModel", false, false, false, false },
-        new Object[]{ "com.example.post_construct.PackageAccessPostConstructModel", false, false, false, false },
-
-        new Object[]{ "com.example.post_dispose.BasicPostDisposeModel", false, false, false, false },
-        new Object[]{ "com.example.post_dispose.MultiPostDisposeModel", false, false, false, false },
-        new Object[]{ "com.example.post_dispose.PackageAccessPostDisposeModel", false, false, false, false },
-        new Object[]{ "com.example.post_dispose.PostDisposeWithDisabledDisposeNotifierModel", false, false, false, false },
-
-        new Object[]{ "com.example.post_inverse_add.BasicPostInverseAddModel", false, false, false, false },
-        new Object[]{ "com.example.post_inverse_add.MultiPostInverseAddModel", false, false, false, false },
-        new Object[]{ "com.example.post_inverse_add.PackageAccessPostInverseAddModel", false, false, false, false },
-        new Object[]{ "com.example.post_inverse_add.SingularInversePostInverseAddModel", false, false, false, false },
-
-        new Object[]{ "com.example.pre_dispose.BasicPreDisposeModel", false, false, false, false },
-        new Object[]{ "com.example.pre_dispose.MultiPreDisposeModel", false, false, false, false },
-        new Object[]{ "com.example.pre_dispose.PackageAccessPreDisposeModel", false, false, false, false },
-
-        new Object[]{ "com.example.pre_inverse_remove.BasicPreInverseRemoveModel", false, false, false, false },
-        new Object[]{ "com.example.pre_inverse_remove.MultiPreInverseRemoveModel", false, false, false, false },
-        new Object[]{ "com.example.pre_inverse_remove.PackageAccessPreInverseRemoveModel", false, false, false, false },
-        new Object[]{ "com.example.pre_inverse_remove.SingularInversePreInverseRemoveModel", false, false, false, false },
-
-        new Object[]{ "com.example.reference.CascadeDisposeReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.reference.CustomNameReferenceModel2", false, false, false, false },
-        new Object[]{ "com.example.reference.CustomNameReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.reference.EagerLoadNulableObservableReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.reference.EagerLoadObservableReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.reference.EagerLoadReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.reference.EagerObservableReadOutsideTransactionReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.reference.ExplicitLoadObservableReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.reference.ExplicitLoadReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.reference.LazyLoadObservableReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.reference.LazyLoadReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.reference.LazyObservableReadOutsideTransactionReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.reference.NonJavabeanNameReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.reference.NonnullLazyLoadReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.reference.NonObservableReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.reference.NullableLazyLoadReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.reference.ObservableReferenceModel", false, false, false, false },
-        new Object[]{ "com.example.repository.DaggerDisabledRepository", false, false, true, false },
-        new Object[]{ "com.example.repository.DaggerEnabledRepository", false, false, true, true },
-        new Object[]{ "com.example.repository.ReadOutsideTransactionWithRepositoryModel", false, false, false, false },
-        new Object[]{ "com.example.repository.RepositoryWithAttachOnly", false, false, true, true },
-        new Object[]{ "com.example.repository.RepositoryWithCreateOnly", false, false, true, true },
-        new Object[]{ "com.example.repository.RepositoryWithCreateOrAttach", false, false, true, true },
-        new Object[]{ "com.example.repository.RepositoryPreDisposeHook", false, false, true, true },
-        new Object[]{ "com.example.repository.RepositoryWithDestroyAndDetach", false, false, true, true },
-        new Object[]{ "com.example.repository.RepositoryWithDetachNone", false, false, true, true },
-        new Object[]{ "com.example.repository.RepositoryWithDetachOnly", false, false, true, true },
-        new Object[]{ "com.example.repository.RepositoryWithExplicitId", false, false, true, true },
-        new Object[]{ "com.example.repository.RepositoryWithExplicitNonStandardId", false, false, true, true },
-        new Object[]{ "com.example.repository.RepositoryWithImplicitId", false, false, true, true },
-        new Object[]{ "com.example.repository.RepositoryWithInitializerModel", false, false, true, true },
-        new Object[]{ "com.example.repository.RepositoryWithInitializerNameCollisionModel", false, false, true, true },
-        new Object[]{ "com.example.repository.RepositoryWithMultipleCtors", false, false, true, true },
-        new Object[]{ "com.example.repository.RepositoryWithMultipleInitializersModel", false, false, true, true },
-        new Object[]{ "com.example.repository.RepositoryWithRawType", false, false, true, true },
-        new Object[]{ "com.example.repository.WriteOutsideTransactionWithRepositoryModel", false, false, true, true },
-        new Object[]{ "com.example.reserved_names.NonReservedNameModel", false, false, false, false },
-        new Object[]{ "com.example.sting.BasicStingModel", false, true, false, false },
-        new Object[]{ "com.example.sting.EagerStingModel", false, true, false, false },
-        new Object[]{ "com.example.sting.MultipleArgsStingModel", false, true, false, false },
-        new Object[]{ "com.example.sting.NamedArgStingModel", false, true, false, false },
-        new Object[]{ "com.example.sting.NamedStingModel", false, true, false, false },
-        new Object[]{ "com.example.sting.ServiceViaEagerStingModel", false, true, false, false },
-        new Object[]{ "com.example.sting.ServiceViaNamedStingModel", false, true, false, false },
-        new Object[]{ "com.example.sting.ServiceViaTypedStingModel", false, true, false, false },
-        new Object[]{ "com.example.sting.TypedStingModel", false, true, false, false },
-        new Object[]{ "com.example.to_string.NoToStringPresent", false, false, false, false },
-        new Object[]{ "com.example.to_string.ToStringPresent", false, false, false, false },
-        new Object[]{ "com.example.type_access_levels.ReduceAccessLevelModel", false, false, false, false },
-        new Object[]{ "com.example.verifiable.DisableVerifyModel", false, false, false, false },
-        new Object[]{ "com.example.verifiable.EnableVerifyModel", false, false, false, false },
-        new Object[]{ "DisposingModel", false, false, false, false },
-        new Object[]{ "ObservableTypeParametersModel", false, false, false, false },
-        new Object[]{ "TypeParametersOnModel", false, false, false, false },
-        new Object[]{ "ObservableGuessingModel", false, false, false, false },
-        new Object[]{ "AnnotationsOnModel", false, false, false, false },
-        new Object[]{ "ObservableWithAnnotatedCtorModel", false, false, false, false },
-        new Object[]{ "ObservableModelWithUnconventionalNames", false, false, false, false },
-        new Object[]{ "DifferentObservableTypesModel", false, false, false, false },
-        new Object[]{ "ObservableWithExceptingCtorModel", false, false, false, false },
-        new Object[]{ "OverrideNamesInModel", false, false, false, false },
-        new Object[]{ "EmptyModel", false, false, false, false },
-        new Object[]{ "BasicModelWithDifferentAccessLevels", false, false, false, false },
-        new Object[]{ "ObservableWithCtorModel", false, false, false, false },
-        new Object[]{ "ObservableWithSpecificExceptionModel", false, false, false, false },
-        new Object[]{ "ObservableWithExceptionModel", false, false, false, false },
-        new Object[]{ "BasicObservableModel", false, false, false, false }
+        new Object[]{ "com.example.reference.ExplicitLoadObservableReferenceModel", false, false, false },
+        new Object[]{ "com.example.reference.ExplicitLoadReferenceModel", false, false, false },
+        new Object[]{ "com.example.reference.LazyLoadObservableReferenceModel", false, false, false },
+        new Object[]{ "com.example.reference.LazyLoadReferenceModel", false, false, false },
+        new Object[]{ "com.example.reference.LazyObservableReadOutsideTransactionReferenceModel", false, false, false },
+        new Object[]{ "com.example.reference.NonJavabeanNameReferenceModel", false, false, false },
+        new Object[]{ "com.example.reference.NonnullLazyLoadReferenceModel", false, false, false },
+        new Object[]{ "com.example.reference.NonObservableReferenceModel", false, false, false },
+        new Object[]{ "com.example.reference.NullableLazyLoadReferenceModel", false, false, false },
+        new Object[]{ "com.example.reference.ObservableReferenceModel", false, false, false },
+        new Object[]{ "com.example.repository.DaggerDisabledRepository", false, false, true },
+        new Object[]{ "com.example.repository.DaggerEnabledRepository", false, false, true },
+        new Object[]{ "com.example.repository.ReadOutsideTransactionWithRepositoryModel", false, false, false },
+        new Object[]{ "com.example.repository.RepositoryWithAttachOnly", false, false, true },
+        new Object[]{ "com.example.repository.RepositoryWithCreateOnly", false, false, true },
+        new Object[]{ "com.example.repository.RepositoryWithCreateOrAttach", false, false, true },
+        new Object[]{ "com.example.repository.RepositoryPreDisposeHook", false, false, true },
+        new Object[]{ "com.example.repository.RepositoryWithDestroyAndDetach", false, false, true },
+        new Object[]{ "com.example.repository.RepositoryWithDetachNone", false, false, true },
+        new Object[]{ "com.example.repository.RepositoryWithDetachOnly", false, false, true },
+        new Object[]{ "com.example.repository.RepositoryWithExplicitId", false, false, true },
+        new Object[]{ "com.example.repository.RepositoryWithExplicitNonStandardId", false, false, true },
+        new Object[]{ "com.example.repository.RepositoryWithImplicitId", false, false, true },
+        new Object[]{ "com.example.repository.RepositoryWithInitializerModel", false, false, true },
+        new Object[]{ "com.example.repository.RepositoryWithInitializerNameCollisionModel", false, false, true },
+        new Object[]{ "com.example.repository.RepositoryWithMultipleCtors", false, false, true },
+        new Object[]{ "com.example.repository.RepositoryWithMultipleInitializersModel", false, false, true },
+        new Object[]{ "com.example.repository.RepositoryWithRawType", false, false, true },
+        new Object[]{ "com.example.repository.WriteOutsideTransactionWithRepositoryModel", false, false, true },
+        new Object[]{ "com.example.reserved_names.NonReservedNameModel", false, false, false },
+        new Object[]{ "com.example.sting.BasicStingModel", false, true, false },
+        new Object[]{ "com.example.sting.EagerStingModel", false, true, false },
+        new Object[]{ "com.example.sting.MultipleArgsStingModel", false, true, false },
+        new Object[]{ "com.example.sting.NamedArgStingModel", false, true, false },
+        new Object[]{ "com.example.sting.NamedStingModel", false, true, false },
+        new Object[]{ "com.example.sting.ServiceViaEagerStingModel", false, true, false },
+        new Object[]{ "com.example.sting.ServiceViaNamedStingModel", false, true, false },
+        new Object[]{ "com.example.sting.ServiceViaTypedStingModel", false, true, false },
+        new Object[]{ "com.example.sting.TypedStingModel", false, true, false },
+        new Object[]{ "com.example.to_string.NoToStringPresent", false, false, false },
+        new Object[]{ "com.example.to_string.ToStringPresent", false, false, false },
+        new Object[]{ "com.example.type_access_levels.ReduceAccessLevelModel", false, false, false },
+        new Object[]{ "com.example.verifiable.DisableVerifyModel", false, false, false },
+        new Object[]{ "com.example.verifiable.EnableVerifyModel", false, false, false },
+        new Object[]{ "DisposingModel", false, false, false },
+        new Object[]{ "ObservableTypeParametersModel", false, false, false },
+        new Object[]{ "TypeParametersOnModel", false, false, false },
+        new Object[]{ "ObservableGuessingModel", false, false, false },
+        new Object[]{ "AnnotationsOnModel", false, false, false },
+        new Object[]{ "ObservableWithAnnotatedCtorModel", false, false, false },
+        new Object[]{ "ObservableModelWithUnconventionalNames", false, false, false },
+        new Object[]{ "DifferentObservableTypesModel", false, false, false },
+        new Object[]{ "ObservableWithExceptingCtorModel", false, false, false },
+        new Object[]{ "OverrideNamesInModel", false, false, false },
+        new Object[]{ "EmptyModel", false, false, false },
+        new Object[]{ "BasicModelWithDifferentAccessLevels", false, false, false },
+        new Object[]{ "ObservableWithCtorModel", false, false, false },
+        new Object[]{ "ObservableWithSpecificExceptionModel", false, false, false },
+        new Object[]{ "ObservableWithExceptionModel", false, false, false },
+        new Object[]{ "BasicObservableModel", false, false, false }
       };
   }
 
@@ -646,11 +489,10 @@ public final class ArezProcessorTest
   public void processSuccessfulCompile( @Nonnull final String classname,
                                         final boolean dagger,
                                         final boolean sting,
-                                        final boolean repository,
-                                        final boolean repositoryDaggerEnabled )
+                                        final boolean repository )
     throws Exception
   {
-    assertSuccessfulCompile( classname, dagger, sting, repository, repositoryDaggerEnabled );
+    assertSuccessfulCompile( classname, dagger, sting, repository );
   }
 
   @Test
@@ -659,8 +501,7 @@ public final class ArezProcessorTest
   {
     // Use deprecated types but arez should suppress the warnings and generate code that has no warnings...
     final String classname = "com.example.deprecated.DeprecatedUsageModel";
-    final String[] expectedOutputResources =
-      deriveExpectedOutputs( classname, false, false, true, true );
+    final String[] expectedOutputResources = deriveExpectedOutputs( classname, false, false, true );
     final JavaFileObject input1 = fixture( toFilename( "input", classname ) );
     final JavaFileObject input2 = fixture( toFilename( "input", "com.example.deprecated.MyDeprecatedEntity" ) );
     assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
@@ -672,8 +513,7 @@ public final class ArezProcessorTest
   {
     // Use deprecated types but arez should suppress the warnings and generate code that has no warnings...
     final String classname = "com.example.deprecated.DeprecatedTypeParameterModel";
-    final String[] expectedOutputResources =
-      deriveExpectedOutputs( classname, false, false, true, false );
+    final String[] expectedOutputResources = deriveExpectedOutputs( classname, false, false, true );
     final JavaFileObject input1 = fixture( toFilename( "input", classname ) );
     final JavaFileObject input2 = fixture( toFilename( "input", "com.example.deprecated.MyDeprecatedEntity" ) );
     assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
@@ -685,8 +525,7 @@ public final class ArezProcessorTest
   {
     // Use deprecated types but arez should suppress the warnings and generate code that has no warnings...
     final String classname = "com.example.raw_types.RawTypesUsageModel";
-    final String[] expectedOutputResources =
-      deriveExpectedOutputs( classname, false, false, true, true );
+    final String[] expectedOutputResources = deriveExpectedOutputs( classname, false, false, true );
     final JavaFileObject input1 = fixture( toFilename( "input", classname ) );
     assertSuccessfulCompile( Collections.singletonList( input1 ), Arrays.asList( expectedOutputResources ) );
   }
@@ -700,8 +539,7 @@ public final class ArezProcessorTest
     final String input2 =
       toFilename( "input", "com.example.component_ref.other.BaseProtectedAccessComponentRefModel" );
     final String output =
-      toFilename( "expected",
-                  "com.example.component_ref.Arez_ProtectedAccessFromBaseComponentRefModel" );
+      toFilename( "expected", "com.example.component_ref.Arez_ProtectedAccessFromBaseComponentRefModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
@@ -729,8 +567,7 @@ public final class ArezProcessorTest
     final String input2 =
       toFilename( "input", "com.example.component_name_ref.other.BaseProtectedAccessComponentNameRefModel" );
     final String output =
-      toFilename( "expected",
-                  "com.example.component_name_ref.Arez_ProtectedAccessFromBaseComponentNameRefModel" );
+      toFilename( "expected", "com.example.component_name_ref.Arez_ProtectedAccessFromBaseComponentNameRefModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
@@ -758,8 +595,7 @@ public final class ArezProcessorTest
     final String input2 =
       toFilename( "input", "com.example.component_state_ref.other.BaseProtectedAccessComponentStateRefModel" );
     final String output =
-      toFilename( "expected",
-                  "com.example.component_state_ref.Arez_ProtectedAccessFromBaseComponentStateRefModel" );
+      toFilename( "expected", "com.example.component_state_ref.Arez_ProtectedAccessFromBaseComponentStateRefModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
@@ -817,8 +653,7 @@ public final class ArezProcessorTest
     final String input2 =
       toFilename( "input", "com.example.computable_value_ref.other.BaseProtectedAccessComputableValueRefModel" );
     final String output =
-      toFilename( "expected",
-                  "com.example.computable_value_ref.Arez_ProtectedAccessFromBaseComputableValueRefModel" );
+      toFilename( "expected", "com.example.computable_value_ref.Arez_ProtectedAccessFromBaseComputableValueRefModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
@@ -846,8 +681,7 @@ public final class ArezProcessorTest
     final String input2 =
       toFilename( "input", "com.example.context_ref.other.BaseProtectedAccessContextRefModel" );
     final String output =
-      toFilename( "expected",
-                  "com.example.context_ref.Arez_ProtectedAccessFromBaseContextRefModel" );
+      toFilename( "expected", "com.example.context_ref.Arez_ProtectedAccessFromBaseContextRefModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
@@ -875,8 +709,7 @@ public final class ArezProcessorTest
     final String input2 =
       toFilename( "input", "com.example.observable_value_ref.other.BaseProtectedAccessObservableValueRefModel" );
     final String output =
-      toFilename( "expected",
-                  "com.example.observable_value_ref.Arez_ProtectedAccessFromBaseObservableValueRefModel" );
+      toFilename( "expected", "com.example.observable_value_ref.Arez_ProtectedAccessFromBaseObservableValueRefModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
@@ -904,8 +737,7 @@ public final class ArezProcessorTest
     final String input2 =
       toFilename( "input", "com.example.observer_ref.other.BaseProtectedAccessObserverRefModel" );
     final String output =
-      toFilename( "expected",
-                  "com.example.observer_ref.Arez_ProtectedAccessFromBaseObserverRefModel" );
+      toFilename( "expected", "com.example.observer_ref.Arez_ProtectedAccessFromBaseObserverRefModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
@@ -933,8 +765,7 @@ public final class ArezProcessorTest
     final String input2 =
       toFilename( "input", "com.example.on_activate.other.BaseProtectedAccessOnActivateModel" );
     final String output =
-      toFilename( "expected",
-                  "com.example.on_activate.Arez_ProtectedAccessFromBaseOnActivateModel" );
+      toFilename( "expected", "com.example.on_activate.Arez_ProtectedAccessFromBaseOnActivateModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
@@ -962,8 +793,7 @@ public final class ArezProcessorTest
     final String input2 =
       toFilename( "input", "com.example.on_deactivate.other.BaseProtectedAccessOnDeactivateModel" );
     final String output =
-      toFilename( "expected",
-                  "com.example.on_deactivate.Arez_ProtectedAccessFromBaseOnDeactivateModel" );
+      toFilename( "expected", "com.example.on_deactivate.Arez_ProtectedAccessFromBaseOnDeactivateModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
@@ -991,8 +821,7 @@ public final class ArezProcessorTest
     final String input2 =
       toFilename( "input", "com.example.on_deps_change.other.BaseProtectedAccessOnDepsChangeModel" );
     final String output =
-      toFilename( "expected",
-                  "com.example.on_deps_change.Arez_ProtectedAccessFromBaseOnDepsChangeModel" );
+      toFilename( "expected", "com.example.on_deps_change.Arez_ProtectedAccessFromBaseOnDepsChangeModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
@@ -1020,8 +849,7 @@ public final class ArezProcessorTest
     final String input2 =
       toFilename( "input", "com.example.post_construct.other.BaseProtectedAccessPostConstructModel" );
     final String output =
-      toFilename( "expected",
-                  "com.example.post_construct.Arez_ProtectedAccessFromBasePostConstructModel" );
+      toFilename( "expected", "com.example.post_construct.Arez_ProtectedAccessFromBasePostConstructModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
@@ -1071,8 +899,7 @@ public final class ArezProcessorTest
     final String input2 =
       toFilename( "input", "com.example.post_dispose.other.BaseProtectedAccessPostDisposeModel" );
     final String output =
-      toFilename( "expected",
-                  "com.example.post_dispose.Arez_ProtectedAccessFromBasePostDisposeModel" );
+      toFilename( "expected", "com.example.post_dispose.Arez_ProtectedAccessFromBasePostDisposeModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
@@ -1122,8 +949,7 @@ public final class ArezProcessorTest
     final String input2 =
       toFilename( "input", "com.example.post_inverse_add.other.BaseProtectedAccessPostInverseAddModel" );
     final String output =
-      toFilename( "expected",
-                  "com.example.post_inverse_add.Arez_ProtectedAccessFromBasePostInverseAddModel" );
+      toFilename( "expected", "com.example.post_inverse_add.Arez_ProtectedAccessFromBasePostInverseAddModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
@@ -1151,8 +977,7 @@ public final class ArezProcessorTest
     final String input2 =
       toFilename( "input", "com.example.pre_dispose.other.BaseProtectedAccessPreDisposeModel" );
     final String output =
-      toFilename( "expected",
-                  "com.example.pre_dispose.Arez_ProtectedAccessFromBasePreDisposeModel" );
+      toFilename( "expected", "com.example.pre_dispose.Arez_ProtectedAccessFromBasePreDisposeModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
@@ -1202,8 +1027,7 @@ public final class ArezProcessorTest
     final String input2 =
       toFilename( "input", "com.example.pre_inverse_remove.other.BaseProtectedAccessPreInverseRemoveModel" );
     final String output =
-      toFilename( "expected",
-                  "com.example.pre_inverse_remove.Arez_ProtectedAccessFromBasePreInverseRemoveModel" );
+      toFilename( "expected", "com.example.pre_inverse_remove.Arez_ProtectedAccessFromBasePreInverseRemoveModel" );
     assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
@@ -1244,8 +1068,7 @@ public final class ArezProcessorTest
     final String output1 = "expected/com/example/repository/Arez_CompleteRepositoryExample.java";
     final String output2 = "expected/com/example/repository/Arez_CompleteRepositoryExampleRepository.java";
     final String output3 = "expected/com/example/repository/CompleteRepositoryExampleRepository.java";
-    final String output4 = "expected/com/example/repository/CompleteRepositoryExampleRepositoryDaggerModule.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Arrays.asList( output1, output2, output3, output4 ) );
+    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Arrays.asList( output1, output2, output3 ) );
   }
 
   @Test
@@ -1258,9 +1081,8 @@ public final class ArezProcessorTest
     final String output1 = "expected/com/example/repository/Arez_MultiExtensionRepositoryExample.java";
     final String output2 = "expected/com/example/repository/Arez_MultiExtensionRepositoryExampleRepository.java";
     final String output3 = "expected/com/example/repository/MultiExtensionRepositoryExampleRepository.java";
-    final String output4 = "expected/com/example/repository/MultiExtensionRepositoryExampleRepositoryDaggerModule.java";
     assertSuccessfulCompile( Arrays.asList( source1, source2, source3 ),
-                             Arrays.asList( output1, output2, output3, output4 ) );
+                             Arrays.asList( output1, output2, output3 ) );
   }
 
   @Test
@@ -1273,8 +1095,7 @@ public final class ArezProcessorTest
     final String output1 = "expected/com/example/repository/Arez_PackageAccessRepositoryExample.java";
     final String output2 = "expected/com/example/repository/Arez_PackageAccessRepositoryExampleRepository.java";
     final String output3 = "expected/com/example/repository/PackageAccessRepositoryExampleRepository.java";
-    final String output4 = "expected/com/example/repository/PackageAccessRepositoryExampleRepositoryDaggerModule.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Arrays.asList( output1, output2, output3, output4 ) );
+    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Arrays.asList( output1, output2, output3 ) );
   }
 
   @Test
@@ -1366,7 +1187,6 @@ public final class ArezProcessorTest
   {
     assertSuccessfulCompile( "com.example.repository.NestedModel",
                              "expected/com/example/repository/NestedModel_Arez_BasicActionModel.java",
-                             "expected/com/example/repository/NestedModel_BasicActionModelRepositoryDaggerModule.java",
                              "expected/com/example/repository/NestedModel_BasicActionModelRepository.java",
                              "expected/com/example/repository/Arez_NestedModel_BasicActionModelRepository.java" );
   }
@@ -1651,8 +1471,7 @@ public final class ArezProcessorTest
                       "@Memoize target specified an invalid name '-ace'. The name must be a valid java identifier." },
         new Object[]{ "com.example.memoize.BadStreamTypeModel",
                       "@Memoize target must not return a value of type java.util.stream.Stream as the type is single use and thus does not make sense to cache as a computable value" },
-        new Object[]{ "com.example.memoize.ThrowsExceptionModel",
-                      "@Memoize target must not throw any exceptions" },
+        new Object[]{ "com.example.memoize.ThrowsExceptionModel", "@Memoize target must not throw any exceptions" },
         new Object[]{ "com.example.memoize.DuplicateModel",
                       "Method annotated with @Memoize specified name ace that duplicates @Memoize defined by method getX" },
         new Object[]{ "com.example.memoize.FinalModel", "@Memoize target must not be final" },
@@ -1875,8 +1694,7 @@ public final class ArezProcessorTest
                       "@ObservableValueRef target unable to be associated with an Observable property" },
         new Object[]{ "com.example.observable_value_ref.ParametersModel",
                       "@ObservableValueRef target must not have any parameters" },
-        new Object[]{ "com.example.observable_value_ref.PrivateModel",
-                      "@ObservableValueRef target must be abstract" },
+        new Object[]{ "com.example.observable_value_ref.PrivateModel", "@ObservableValueRef target must be abstract" },
         new Object[]{ "com.example.observable_value_ref.StaticModel", "@ObservableValueRef target must be abstract" },
         new Object[]{ "com.example.observable_value_ref.ThrowsExceptionModel",
                       "@ObservableValueRef target must not throw any exceptions" },
@@ -2591,21 +2409,17 @@ public final class ArezProcessorTest
   void assertSuccessfulCompile( @Nonnull final String classname,
                                 final boolean dagger,
                                 final boolean sting,
-                                final boolean repository,
-                                final boolean repositoryDaggerEnabled )
+                                final boolean repository )
     throws Exception
   {
-    final String[] expectedOutputResources =
-      deriveExpectedOutputs( classname, dagger, sting, repository, repositoryDaggerEnabled );
-    assertSuccessfulCompile( classname, expectedOutputResources );
+    assertSuccessfulCompile( classname, deriveExpectedOutputs( classname, dagger, sting, repository ) );
   }
 
   @Nonnull
   String[] deriveExpectedOutputs( @Nonnull final String classname,
                                   final boolean dagger,
                                   final boolean sting,
-                                  final boolean repository,
-                                  final boolean repositoryDaggerEnabled )
+                                  final boolean repository )
   {
     final List<String> expectedOutputs = new ArrayList<>();
     expectedOutputs.add( toFilename( "expected", classname, "Arez_", ".java" ) );
@@ -2622,10 +2436,6 @@ public final class ArezProcessorTest
       expectedOutputs.add( toFilename( "expected", classname, "", "Repository.java" ) );
       expectedOutputs.add( toFilename( "expected", classname, "Arez_", "Repository.java" ) );
     }
-    if ( repositoryDaggerEnabled )
-    {
-      expectedOutputs.add( toFilename( "expected", classname, "", "RepositoryDaggerModule.java" ) );
-    }
     return expectedOutputs.toArray( new String[ 0 ] );
   }
 
@@ -2641,5 +2451,13 @@ public final class ArezProcessorTest
   protected ArezProcessor processor()
   {
     return new ArezProcessor();
+  }
+
+  @Override
+  protected boolean emitGeneratedFile( @Nonnull final JavaFileObject target )
+  {
+    return super.emitGeneratedFile( target ) &&
+           !target.getName().endsWith( "RepositoryFragment.java" ) &&
+           !target.getName().endsWith( "RepositoryDaggerModule.java" );
   }
 }
