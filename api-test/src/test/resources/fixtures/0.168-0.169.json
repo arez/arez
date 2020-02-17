@@ -9,7 +9,7 @@
       "SEMANTIC": "POTENTIALLY_BREAKING"
     },
     "attachments": {
-      "annotation": "@arez.annotations.StingProvider(\"[FlatEnclosingName]Arez_[SimpleName]\")",
+      "annotation": "@arez.annotations.StingProvider(\"[FlatEnclosingName][SimpleName]Fragment\")",
       "annotationType": "arez.annotations.StingProvider",
       "classQualifiedName": "arez.annotations.ArezComponent",
       "classSimpleName": "ArezComponent",
