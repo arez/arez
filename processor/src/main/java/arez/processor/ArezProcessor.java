@@ -2248,12 +2248,14 @@ public final class ArezProcessor
     return descriptor;
   }
 
-  private boolean isDaggerIntegrationEnabled( final AnnotationMirror arezComponent, final boolean service )
+  private boolean isDaggerIntegrationEnabled( @Nonnull final AnnotationMirror arezComponent, final boolean service )
   {
-    final VariableElement daggerParameter = getAnnotationParameter( arezComponent, "dagger" );
-    final String daggerMode = daggerParameter.getSimpleName().toString();
-    return "ENABLE".equals( daggerMode ) ||
-    ( "AUTODETECT".equals( daggerMode ) && service && null != findTypeElement( Constants.DAGGER_MODULE_CLASSNAME ) );
+    final VariableElement parameter = getAnnotationParameter( arezComponent, "dagger" );
+    final String value = parameter.getSimpleName().toString();
+    return "ENABLE".equals( value ) ||
+           ( "AUTODETECT".equals( value ) &&
+             service &&
+             null != findTypeElement( Constants.DAGGER_MODULE_CLASSNAME ) );
   }
 
   private void verifyConstructors( @Nonnull final TypeElement typeElement, final boolean dagger )
