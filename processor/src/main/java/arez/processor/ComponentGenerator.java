@@ -2329,18 +2329,7 @@ final class ComponentGenerator
         block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
 
         final String result = "$$ar$$_result";
-        if ( returnType.isPrimitive() )
-        {
-          block.addStatement( "final $T $N = ($T) this.$N.get()",
-                              returnType,
-                              result,
-                              returnType.box(),
-                              getMemoizeFieldName( memoize ) );
-        }
-        else
-        {
-          block.addStatement( "final $T $N = this.$N.get()", returnType, result, getMemoizeFieldName( memoize ) );
-        }
+        block.addStatement( "final $T $N = this.$N.get()", returnType, result, getMemoizeFieldName( memoize ) );
         final CodeBlock.Builder guard = CodeBlock.builder();
         guard.beginControlFlow( "if ( null == this.$N && null != $N )",
                                 getMemoizeCollectionCacheDataFieldName( memoize ),
