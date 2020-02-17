@@ -39,6 +39,7 @@ import javax.annotation.Nonnull;
  */
 @Documented
 @Target( ElementType.TYPE )
+@StingProvider( "[FlatEnclosingName]Arez_[SimpleName]" )
 public @interface ArezComponent
 {
   /**
@@ -120,6 +121,16 @@ public @interface ArezComponent
    * @return an enum controlling whether a dagger integration is enabled.
    */
   Feature dagger() default Feature.AUTODETECT;
+
+  /**
+   * Enum controlling whether sting integration is enabled. If enabled, the annotation processor will
+   * generate a sting module named "[MyComponent]Fragment". If the value of this parameter is
+   * {@link Feature#AUTODETECT} then sting integration will be enabled if the {@link #service()} resolves
+   * to {@link Feature#ENABLE} and the {@code sting.Injector} class is present on the classpath.
+   *
+   * @return an enum controlling whether a sting integration is enabled.
+   */
+  Feature sting() default Feature.AUTODETECT;
 
   /**
    * Return true if an the generated component should NOT trigger scheduler at the end of the constructor.

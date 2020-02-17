@@ -1,4 +1,4 @@
-package com.example.inject;
+package com.example.sting;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
@@ -6,10 +6,10 @@ import arez.annotations.Feature;
 import java.util.concurrent.Callable;
 import javax.annotation.Nonnull;
 
-@ArezComponent( dagger = Feature.ENABLE )
-public abstract class InjectArrayTypeDaggerModel
+@ArezComponent( sting = Feature.ENABLE, dagger = Feature.DISABLE )
+public abstract class InjectArrayTypeStingModel
 {
-  InjectArrayTypeDaggerModel( @Nonnull final Callable<int[]> action )
+  InjectArrayTypeStingModel( @Nonnull final Callable<int[]> action )
   {
   }
 

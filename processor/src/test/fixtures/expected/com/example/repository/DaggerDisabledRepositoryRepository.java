@@ -9,7 +9,9 @@ import javax.annotation.Nonnull;
 
 @Generated("arez.processor.ArezProcessor")
 @ArezComponent(
-    dagger = Feature.DISABLE
+    service = Feature.ENABLE,
+    dagger = Feature.DISABLE,
+    sting = Feature.ENABLE
 )
 public abstract class DaggerDisabledRepositoryRepository extends AbstractRepository<Integer, DaggerDisabledRepository, DaggerDisabledRepositoryRepository> {
   DaggerDisabledRepositoryRepository() {

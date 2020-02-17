@@ -56,10 +56,13 @@ final class RepositoryGenerator
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, component.asDeclaredType() );
 
     final boolean daggerEnabled = repository.isDaggerEnabled();
+    final boolean stingEnabled = repository.isStingEnabled();
 
     final AnnotationSpec.Builder arezComponent =
       AnnotationSpec.builder( ClassName.bestGuess( Constants.COMPONENT_CLASSNAME ) );
+    arezComponent.addMember( "service", "$T.$N", FEATURE_CLASSNAME, "ENABLE" );
     arezComponent.addMember( "dagger", "$T.$N", FEATURE_CLASSNAME, daggerEnabled ? "ENABLE" : "DISABLE" );
+    arezComponent.addMember( "sting", "$T.$N", FEATURE_CLASSNAME, stingEnabled ? "ENABLE" : "DISABLE" );
     final String readOutsideTransaction = component.getDeclaredDefaultReadOutsideTransaction();
     if ( null != readOutsideTransaction )
     {

@@ -10,7 +10,9 @@ import javax.inject.Singleton;
 
 @Generated("arez.processor.ArezProcessor")
 @ArezComponent(
-    dagger = Feature.ENABLE
+    service = Feature.ENABLE,
+    dagger = Feature.ENABLE,
+    sting = Feature.ENABLE
 )
 @Singleton
 public abstract class RepositoryWithMultipleCtorsRepository extends AbstractRepository<Integer, RepositoryWithMultipleCtors, RepositoryWithMultipleCtorsRepository> {

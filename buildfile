@@ -127,6 +127,8 @@ define 'arez' do
               :junit,
               :hamcrest_core,
               DAGGER_DEPS,
+              :sting_core,
+              :sting_processor,
               project('core').package(:jar),
               project('core').compile.dependencies
 
@@ -169,6 +171,8 @@ define 'arez' do
     test.using :testng
     test.compile.with TEST_DEPS,
                       DAGGER_DEPS,
+                      :sting_core,
+                      :sting_processor,
                       GWT_DEPS,
                       :javax_json,
                       :jsonassert,
@@ -272,6 +276,8 @@ define 'arez' do
                  project('core').compile.dependencies,
                  :gwt_user,
                  DAGGER_DEPS,
+                 :sting_core,
+                 :sting_processor,
                  GWT_DEPS
 
     test.options[:properties] = AREZ_TEST_OPTIONS

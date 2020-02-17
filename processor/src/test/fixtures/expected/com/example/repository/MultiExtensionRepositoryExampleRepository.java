@@ -10,7 +10,9 @@ import javax.inject.Singleton;
 
 @Generated("arez.processor.ArezProcessor")
 @ArezComponent(
-    dagger = Feature.ENABLE
+    service = Feature.ENABLE,
+    dagger = Feature.ENABLE,
+    sting = Feature.ENABLE
 )
 @Singleton
 public abstract class MultiExtensionRepositoryExampleRepository extends AbstractRepository<Integer, MultiExtensionRepositoryExample, MultiExtensionRepositoryExampleRepository> implements Extension1, Extension2 {

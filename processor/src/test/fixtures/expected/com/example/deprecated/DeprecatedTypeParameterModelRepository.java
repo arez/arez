@@ -10,7 +10,9 @@ import javax.annotation.Nonnull;
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("deprecation")
 @ArezComponent(
-    dagger = Feature.DISABLE
+    service = Feature.ENABLE,
+    dagger = Feature.DISABLE,
+    sting = Feature.DISABLE
 )
 public abstract class DeprecatedTypeParameterModelRepository<T extends MyDeprecatedEntity> extends AbstractRepository<Integer, DeprecatedTypeParameterModel<T>, DeprecatedTypeParameterModelRepository<T>> {
   DeprecatedTypeParameterModelRepository() {

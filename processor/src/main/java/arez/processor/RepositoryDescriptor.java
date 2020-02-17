@@ -16,6 +16,7 @@ final class RepositoryDescriptor
   private final boolean _shouldRepositoryDefineDestroy;
   private final boolean _shouldRepositoryDefineDetach;
   private final boolean _dagger;
+  private final boolean _sting;
 
   RepositoryDescriptor( @Nonnull final ComponentDescriptor component,
                         @Nonnull final List<TypeElement> extensions,
@@ -23,7 +24,8 @@ final class RepositoryDescriptor
                         final boolean shouldRepositoryDefineAttach,
                         final boolean shouldRepositoryDefineDestroy,
                         final boolean shouldRepositoryDefineDetach,
-                        final boolean dagger )
+                        final boolean dagger,
+                        final boolean sting )
   {
     _component = Objects.requireNonNull( component );
     _extensions = Objects.requireNonNull( extensions );
@@ -32,6 +34,7 @@ final class RepositoryDescriptor
     _shouldRepositoryDefineDestroy = shouldRepositoryDefineDestroy;
     _shouldRepositoryDefineDetach = shouldRepositoryDefineDetach;
     _dagger = dagger;
+    _sting = sting;
   }
 
   @Nonnull
@@ -49,6 +52,11 @@ final class RepositoryDescriptor
   boolean isDaggerEnabled()
   {
     return _dagger;
+  }
+
+  boolean isStingEnabled()
+  {
+    return _sting;
   }
 
   boolean shouldRepositoryDefineCreate()

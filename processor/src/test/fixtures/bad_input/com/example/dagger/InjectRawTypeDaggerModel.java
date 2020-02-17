@@ -1,4 +1,4 @@
-package com.example.inject;
+package com.example.dagger;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
@@ -6,10 +6,11 @@ import arez.annotations.Feature;
 import java.util.concurrent.Callable;
 import javax.annotation.Nonnull;
 
-@ArezComponent( dagger = Feature.ENABLE )
-public abstract class InjectWildcardTypeDaggerModel
+@ArezComponent( dagger = Feature.ENABLE, sting = Feature.DISABLE )
+public abstract class InjectRawTypeDaggerModel
 {
-  InjectWildcardTypeDaggerModel( @Nonnull final Callable<?> action )
+  @SuppressWarnings( "rawtypes" )
+  InjectRawTypeDaggerModel( @Nonnull final Callable action )
   {
   }
 

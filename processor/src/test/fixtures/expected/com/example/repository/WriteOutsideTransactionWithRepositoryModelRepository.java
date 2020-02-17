@@ -12,7 +12,9 @@ import javax.inject.Singleton;
 
 @Generated("arez.processor.ArezProcessor")
 @ArezComponent(
+    service = Feature.ENABLE,
     dagger = Feature.ENABLE,
+    sting = Feature.ENABLE,
     defaultWriteOutsideTransaction = Feature.ENABLE
 )
 @Singleton

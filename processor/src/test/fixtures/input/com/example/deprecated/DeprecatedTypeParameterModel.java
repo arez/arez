@@ -6,7 +6,7 @@ import arez.annotations.Repository;
 
 // Example of usage of deprecated type through different
 // arez annotated methods should cause problems
-@Repository( dagger = Feature.DISABLE )
+@Repository( dagger = Feature.DISABLE, sting = Feature.DISABLE )
 @ArezComponent( allowEmpty = true )
 @SuppressWarnings( "deprecation" )
 public abstract class DeprecatedTypeParameterModel<T extends MyDeprecatedEntity>

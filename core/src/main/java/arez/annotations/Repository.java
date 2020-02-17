@@ -67,6 +67,16 @@ public @interface Repository
   Feature dagger() default Feature.AUTODETECT;
 
   /**
+   * Enum controlling whether sting integration is enabled. If enabled, the annotation processor will
+   * generate a sting module named "[MyComponent]Fragment". If the value of this parameter is
+   * {@link Feature#AUTODETECT} then sting integration will be enabled if the {@code sting.Injector}
+   * class is present on the classpath.
+   *
+   * @return an enum controlling whether a sting integration is enabled.
+   */
+  Feature sting() default Feature.AUTODETECT;
+
+  /**
    * Indicate the strategy for attaching entities to the repository.
    *
    * @return the strategy for attaching entities to the repository.

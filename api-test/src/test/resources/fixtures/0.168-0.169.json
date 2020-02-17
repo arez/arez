@@ -1,5 +1,21 @@
 [
   {
+    "code": "java.method.attributeWithDefaultAddedToAnnotationType",
+    "description": "The annotation has a new attribute with a default value.",
+    "newElement": "method arez.annotations.Feature arez.annotations.ArezComponent::sting()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.ArezComponent",
+      "classSimpleName": "ArezComponent",
+      "elementKind": "method",
+      "methodName": "sting",
+      "package": "arez.annotations"
+    }
+  },
+  {
     "code": "java.class.removed",
     "description": "Class was removed.",
     "oldElement": "enum arez.annotations.InjectMode",

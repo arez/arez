@@ -35,6 +35,7 @@ final class ComponentDescriptor
   private final boolean _disposeNotifier;
   private final boolean _disposeOnDeactivate;
   private final boolean _dagger;
+  private final boolean _sting;
   private final boolean _requireEquals;
   /**
    * Flag indicating whether generated component should implement arez.component.Verifiable.
@@ -106,6 +107,7 @@ final class ComponentDescriptor
                        final boolean disposeNotifier,
                        final boolean disposeOnDeactivate,
                        final boolean dagger,
+                       final boolean sting,
                        final boolean requireEquals,
                        final boolean verify,
                        @Nullable final AnnotationMirror scopeAnnotation,
@@ -122,6 +124,7 @@ final class ComponentDescriptor
     _disposeNotifier = disposeNotifier;
     _disposeOnDeactivate = disposeOnDeactivate;
     _dagger = dagger;
+    _sting = sting;
     _requireEquals = requireEquals;
     _verify = verify;
     _scopeAnnotation = scopeAnnotation;
@@ -406,6 +409,11 @@ final class ComponentDescriptor
     return _dagger;
   }
 
+  boolean isStingEnabled()
+  {
+    return _sting;
+  }
+
   boolean shouldGeneratedClassBePublic( @Nonnull final ProcessingEnvironment processingEnv )
   {
     return hasReferenceWithInverseOutsidePackage( processingEnv ) || hasInverseReferencedOutsidePackage();
@@ -425,6 +433,7 @@ final class ComponentDescriptor
 
   void configureRepository( @Nonnull final List<TypeElement> extensions,
                             final boolean dagger,
+                            final boolean sting,
                             final boolean shouldRepositoryDefineCreate,
                             final boolean shouldRepositoryDefineAttach,
                             final boolean shouldRepositoryDefineDestroy,
@@ -436,7 +445,8 @@ final class ComponentDescriptor
                                             shouldRepositoryDefineAttach,
                                             shouldRepositoryDefineDestroy,
                                             shouldRepositoryDefineDetach,
-                                            dagger );
+                                            dagger,
+                                            sting );
   }
 
   @Nonnull
