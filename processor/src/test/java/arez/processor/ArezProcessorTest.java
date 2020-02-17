@@ -230,6 +230,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.id.RequireIdDisable", false, false, false },
         new Object[]{ "com.example.id.RequireIdEnable", false, false, false },
         new Object[]{ "com.example.dagger.BasicDaggerModel", true, false, false },
+        new Object[]{ "com.example.dagger.Jsr330NamedArgDaggerModel", true, false, false },
         new Object[]{ "com.example.dagger.Jsr330NamedDaggerModel", true, false, false },
         new Object[]{ "com.example.dagger.Jsr330ScopedDaggerModel", true, false, false },
         new Object[]{ "com.example.dagger.MultipleArgsDaggerModel", true, false, false },
