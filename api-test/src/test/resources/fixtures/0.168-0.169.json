@@ -1,5 +1,23 @@
 [
   {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'arez.annotations.StingProvider'.",
+    "element": "@interface arez.annotations.ArezComponent",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@arez.annotations.StingProvider(\"[FlatEnclosingName]Arez_[SimpleName]\")",
+      "annotationType": "arez.annotations.StingProvider",
+      "classQualifiedName": "arez.annotations.ArezComponent",
+      "classSimpleName": "ArezComponent",
+      "elementKind": "@interface",
+      "package": "arez.annotations"
+    }
+  },
+  {
     "code": "java.method.attributeWithDefaultAddedToAnnotationType",
     "description": "The annotation has a new attribute with a default value.",
     "newElement": "method arez.annotations.Feature arez.annotations.ArezComponent::sting()",
@@ -10,6 +28,22 @@
     "attachments": {
       "classQualifiedName": "arez.annotations.ArezComponent",
       "classSimpleName": "ArezComponent",
+      "elementKind": "method",
+      "methodName": "sting",
+      "package": "arez.annotations"
+    }
+  },
+  {
+    "code": "java.method.attributeWithDefaultAddedToAnnotationType",
+    "description": "The annotation has a new attribute with a default value.",
+    "newElement": "method arez.annotations.Feature arez.annotations.Repository::sting()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.Repository",
+      "classSimpleName": "Repository",
       "elementKind": "method",
       "methodName": "sting",
       "package": "arez.annotations"
