@@ -44,6 +44,7 @@ final class DaggerModuleGenerator
     final MethodSpec.Builder method = MethodSpec.methodBuilder( "create" ).
       addAnnotation( ClassName.get( "dagger", "Provides" ) ).
       addModifiers( Modifier.STATIC, Modifier.PUBLIC ).
+      addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       returns( ClassName.get( component.getElement() ) );
     if ( null != component.getScopeAnnotation() )
     {
