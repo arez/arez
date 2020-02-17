@@ -13,7 +13,7 @@ learning to think in a new way. It suggested that you follow these steps to get 
     framework.
 3.  Look at the source code for the TodoMVC application. This demonstrates what a "real world"
     application looks like. It takes advantage of [React4j](https://react4j.github.io/) to provide
-    the web framework and Arez to provide state management. See the [source code](https://github.com/react4j/react4j-todomvc/tree/arez_maven/src/main/java/react4j/todomvc).
+    the web framework and Arez to provide state management. See the [source code](https://github.com/react4j/react4j-todomvc/tree/dagger_maven/src/main/java/react4j/todomvc).
 4.  At this stage you should be ready to [set up](project_setup.md) your own project and start
     experimenting.
 5.  After you have experimented with the framework it is useful to return and read the reference
