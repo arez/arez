@@ -36,8 +36,6 @@ See https://github.com/arez/arez/issues/91
 
 * Move some of the data driven tests in annotation processor so data in properties files.
 
-* Enhance the `CompleteInterfaceModel` processor test and the the `CompleteModel` processor test so that it includes all modern annotations including duplicates where possible.
-
 * Remove the need for enhanced component classes to ever be public by generating a sidecar public class for
   inverse references and potentially by generating a `@Provide` method and module for dagger.
 
