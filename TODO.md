@@ -37,7 +37,7 @@ See https://github.com/arez/arez/issues/91
 * Move some of the data driven tests in annotation processor so data in properties files.
 
 * Remove the need for enhanced component classes to ever be public by generating a sidecar public class for
-  inverse references and potentially by generating a `@Provide` method and module for dagger.
+  inverse references.
 
 * `AnnotationsUtil.extractName()` wherever possible
 
