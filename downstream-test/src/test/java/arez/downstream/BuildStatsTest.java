@@ -44,7 +44,7 @@ public class BuildStatsTest
   {
     if ( WorkspaceUtil.buildJ2clBuilds() )
     {
-      compareSizesForBranch( "dagger_maven_j2cl", true );
+      compareSizesForBranch( "sting_maven_j2cl", true );
     }
   }
 
