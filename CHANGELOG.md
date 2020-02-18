@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.org.jetbrains.annotations` artifact to version `1.5.0`.
+
 ### [v0.169](https://github.com/arez/arez/tree/v0.169) (2020-02-18) · [Full Changelog](https://github.com/arez/arez/compare/v0.168...v0.169) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.168&new=0.169)
 
 The release includes 2 non breaking API changes and 2 breaking API changes.
