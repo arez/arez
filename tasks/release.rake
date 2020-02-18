@@ -236,7 +236,7 @@ HEADER
       end
     end
 
-    stage('PushDownstreamChanges', 'Push downstream changes to git repository') do
+    stage('PushDownstreamChanges', 'Push downstream changes') do
       # Push the changes that have been made locally in downstream projects.
       # Artifacts have been pushed to staging repository by this time so they should build
       # even if it has not made it through the Maven release process
