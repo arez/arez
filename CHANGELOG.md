@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.sting` artifacts to version `0.04`.
 * Upgrade the `org.realityforge.org.jetbrains.annotations` artifact to version `1.5.0`.
 
 ### [v0.169](https://github.com/arez/arez/tree/v0.169) (2020-02-18) · [Full Changelog](https://github.com/arez/arez/compare/v0.168...v0.169) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.168&new=0.169)
