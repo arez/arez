@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.sting` artifacts to version `0.04`.
 * Upgrade the `org.realityforge.org.jetbrains.annotations` artifact to version `1.5.0`.
 * Fix the bug where nullablity annotations are not being copied when overriding the `@Memoize` methods when the `@Memoize` method has multiple parameters.
 
