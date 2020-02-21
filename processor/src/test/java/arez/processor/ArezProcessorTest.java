@@ -254,6 +254,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.inverse.ObservableZeroOrOneReferenceModel", false, false, false },
         new Object[]{ "com.example.inverse.OneMultiplicityInverseModel", false, false, false },
         new Object[]{ "com.example.inverse.ZeroOrOneMultiplicityInverseModel", false, false, false },
+        new Object[]{ "com.example.memoize.AnnotatedModel", false, false, false },
         new Object[]{ "com.example.memoize.BasicModel", false, false, false },
         new Object[]{ "com.example.memoize.CustomDepTypeModel", false, false, false },
         new Object[]{ "com.example.memoize.CustomPriorityModel", false, false, false },

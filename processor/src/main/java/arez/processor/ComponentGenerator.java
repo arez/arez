@@ -2408,7 +2408,7 @@ final class ComponentGenerator
                                     memoize.getComponent().getElement(),
                                     executableElement,
                                     additionalSuppressions,
-                                    false );
+                                    true );
 
     generateNotDisposedInvariant( builder, executableElement.getSimpleName().toString() );
 
