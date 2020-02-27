@@ -5,8 +5,7 @@ title: Project Setup
 An Arez project can be setup using any build system that supports configuration of annotation
 processors. The authors prefer [Apache Buildr](https://buildr.apache.org) but this is a relatively
 fringe build system so the project setup will be detailed using [Apache Maven](https://maven.apache.org)
-as that tool is relatively well known within the Java ecosystem. However it is far more common to
-develop Arez applications using an IDE and this is the recommended approach.
+as that tool is relatively well known within the Java ecosystem.
 
 ## Configure Maven
 
