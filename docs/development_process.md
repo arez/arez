@@ -7,8 +7,6 @@ title: Development Process
 
 - [Publishing](#publishing)
   * [Publishing the Website](#publishing-the-website)
-  * [Publishing to Maven Central](#publishing-to-maven-central)
-  * [Publishing to Downstream Projects](#publishing-to-downstream-projects)
   * [Publishing Coverage Reports to codecov](#publishing-coverage-reports-to-codecov)
   * [Encrypting Files for TravisCI](#encrypting-files-for-travisci)
 
@@ -43,47 +41,6 @@ decoded add the following.
 Finally you add the public part of the deploy key to the repository at
 [https://github.com/arez/arez.github.io/settings/keys](https://github.com/arez/arez.github.io/settings/keys) and
 make sure you give the key write access.
-
-### Publishing to Maven Central
-
-Arez releases are published to Maven Central. To simplify this process we have automated the release
-process so that the last step of the TravisCI build is to run the task `publish_if_tagged`. If the
-current git version is a tag, the artifacts produced by the build will be published to Maven Central.
-
-To enable this we needed to provide encrypted credentials to TravisCI. The easiest way to do this is
-to run the commands below and add the output under `env.global` key in the travis configuration.
-This encrypts the password but makes it available when building on TravisCI.
-
-    travis encrypt MAVEN_CENTRAL_PASSWORD=MyPassword --add
-    travis encrypt GPG_USER=MyGpgUsername --add
-    travis encrypt GPG_PASS=MyGpgPassword --add
-
-You also need to provide a gpg key that can be used to sign the releases. To do this export a GPG that
-can be used to sign releases to a file such as `../release.asc`. This should contain the private key and
-should NOT be checked into source code repository. Instead an encrypted version of the file is checked.
-See the "Encrypting Files for TravisCI" section below for how to do this.
-
-Then update the travis configuration file in the `before_install` section and after the encrypted file has been
-decoded add the following.
-
-```yaml
-  - chmod 600 ../release.asc
-  - gpg --import ../release.asc
-```
-
-### Publishing to Downstream Projects
-
-Arez updates several downstream projects during it's release process process. The goal of this process
-is to ensure these downstream projects are always up to date with the latest version of Arez. However
-there is a delay between publishing to Maven Central and the artifacts being available in Maven Central.
-To combat this we deploy the required artifacts to a separate staging repository.
-
-To enable this we needed to provide encrypted credentials to TravisCI. The easiest way to do this is
-to run the commands below and add the output under `env.global` key in the travis configuration.
-This encrypts the password but makes it available when building on TravisCI.
-
-    travis encrypt STAGING_USERNAME=MyStagingUsername --add
-    travis encrypt STAGING_PASSWORD=MyStagingPassword --add
 
 ### Publishing Coverage Reports to codecov
 
