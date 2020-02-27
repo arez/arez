@@ -5,8 +5,6 @@ title: Development Process
 
 <!-- toc -->
 
-- [Documentation](#documentation)
-  * [Documenting changes in CHANGELOG.md](#documenting-changes-in-changelogmd)
 - [Publishing](#publishing)
   * [Publishing the Website](#publishing-the-website)
   * [Publishing to Maven Central](#publishing-to-maven-central)
@@ -17,25 +15,6 @@ title: Development Process
 <!-- tocstop -->
 
 </nav>
-
-## Documentation
-
-### Documenting changes in CHANGELOG.md
-
-The Changelog is where users go to see what has changed between versions so it is essential we keep it
-up to date. A poor changelog should be considered a bug to be fixed.
-
-The basic structure of the changelog is sourced from the [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
-site but the format should be obvious from reviewing the file. The valid sections in each version and their
-meanings are as follows:
-
-  - ✨ **Added** for new features.
-  - **Changed** for changes in existing functionality.
-  - 💥 **Changed** for breaking changes in existing functionality.
-  - **Deprecated** for soon-to-be removed features.
-  - **Removed** for now removed features.
-  - **Fixed** for any bug fixes.
-  - **Security** in case of vulnerabilities.
 
 ## Publishing
 
