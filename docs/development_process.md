@@ -60,11 +60,10 @@ after_success:
 
 ### Encrypting Files for TravisCI
 
-TravisCI can only decrypt a single file in a build. As soon as you start requiring multiple secret files you need
-to package them into an archive and encrypt the archive. As we need multiple keys to publish to Maven Central
-and publish to GitHub we have been forced to use this strategy.
+TravisCI can only decrypt a single file in a build. So we package secret files into an archive and
+encrypt the archive.
 
-    $ (cd .. && tar cvf secrets.tar release.asc deploy)
+    $ (cd .. && tar cvf secrets.tar deploy)
     $ mkdir etc
     $ travis encrypt-file ../secrets.tar etc/secrets --add
     $ git add etc/secrets
