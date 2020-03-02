@@ -3,6 +3,7 @@
 ### Unreleased
 
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.26.0`.
+* Add integration tests to verify sting integration behaves as expected.
 
 ### [v0.170](https://github.com/arez/arez/tree/v0.170) (2020-02-21) · [Full Changelog](https://github.com/arez/arez/compare/v0.169...v0.170)
 
