@@ -8,6 +8,8 @@ import arez.annotations.PostConstruct;
 import arez.integration.AbstractArezIntegrationTest;
 import dagger.Component;
 import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.testng.annotations.Test;
@@ -16,7 +18,8 @@ import static org.testng.Assert.*;
 public class CtorInjectSchedulesPostConstructTest
   extends AbstractArezIntegrationTest
 {
-  private static final ArrayList<String> _events = new ArrayList<>();
+  @Nonnull
+  private static final List<String> _events = new ArrayList<>();
 
   static class MyDependency
   {
