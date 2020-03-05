@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.sting` artifacts to version `0.06`.
 * Upgrade the `org.realityforge.proton` artifacts to version `0.41`.
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.26.0`.
 * Add integration tests to verify sting integration behaves as expected.
