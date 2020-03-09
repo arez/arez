@@ -70,6 +70,7 @@ public final class ArezTestUtil
     enableReferences();
     purgeTasksWhenRunawayDetected();
     disableZones();
+    resetState();
   }
 
   /**
