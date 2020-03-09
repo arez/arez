@@ -7,7 +7,7 @@ This library provides utilities to make writing TestNG tests for Arez-based appl
 
 ## Quick Start
 
-The simplest way to use component;
+The simplest way to use the library;
 
 * add the following dependencies into the build system. i.e.
 
