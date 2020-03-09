@@ -450,6 +450,8 @@ public final class ComponentKernel
     assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
     switch ( state )
     {
+      case ComponentKernel.COMPONENT_CREATED:
+        return "created";
       case ComponentKernel.COMPONENT_INITIALIZED:
         return "initialized";
       case ComponentKernel.COMPONENT_CONSTRUCTED:

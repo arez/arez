@@ -8,6 +8,7 @@
 * Add integration tests to verify sting integration behaves as expected.
 * Add the `arez-testng` project to the set of related projects and the set of downstream projects that are tested as part of the release process.
 * Ensure that invoking `ArezTestUtil.enableSpies()` and `ArezTestUtil.disableSpies()` resets arez state. If this is not done it can leave Arez in an inconsistent state during testing. i.e. A spy object not present when it is expected to be present.
+* Fixed bug where `ComponentKernel.describeState()` would generate an assertion error if an error occurs during construction of the kernel.
 
 ### [v0.170](https://github.com/arez/arez/tree/v0.170) (2020-02-21) · [Full Changelog](https://github.com/arez/arez/compare/v0.169...v0.170)
 
