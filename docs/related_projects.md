@@ -25,6 +25,9 @@ to this page.
 * [arez-spytools](https://github.com/arez/arez-spytools) This library provides additional utilities and
   introspection tools based on the core Arez spy infrastructure.
   <span style="font-size: smaller">**[API Docs](https://arez.github.io/spytools) · [GitHub Project](https://github.com/arez/arez-spytools)**</span>
+* [arez-testng](https://github.com/arez/arez-testng) This library provides utilities to simplify testing
+  Arez applications using the [TestNG](https://testng.org/doc/) testing framework.
+  <span style="font-size: smaller">**[API Docs](https://arez.github.io/testng) · [GitHub Project](https://github.com/arez/arez-testng)**</span>
 * [react4j](https://github.com/react4j/react4j) React4j is *'...an opinionated react java binding'* that allows
   you to write a web frontend using the react component model but writing the components in Java. The project
   has comprehensive support for Arez based react components. The Arez react4j components track which are properties

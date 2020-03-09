@@ -4,6 +4,7 @@
 
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.26.0`.
 * Add integration tests to verify sting integration behaves as expected.
+* Add the `arez-testng` project to the set of related projects and the set of downstream projects that are tested as part of the release process.
 
 ### [v0.170](https://github.com/arez/arez/tree/v0.170) (2020-02-21) · [Full Changelog](https://github.com/arez/arez/compare/v0.169...v0.170)
 
