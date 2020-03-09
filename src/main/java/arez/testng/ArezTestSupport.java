@@ -21,7 +21,7 @@ public interface ArezTestSupport
   extends IHookable
 {
   @BeforeMethod
-  default void beforeMethod()
+  default void preTest()
     throws Exception
   {
     BrainCheckTestUtil.resetConfig( false );
@@ -29,7 +29,7 @@ public interface ArezTestSupport
   }
 
   @AfterMethod
-  default void afterMethod()
+  default void postTest()
   {
     ArezTestUtil.resetConfig( true );
     BrainCheckTestUtil.resetConfig( true );

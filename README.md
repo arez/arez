@@ -34,18 +34,18 @@ public abstract class AbstractTest
   implements ArezTestSupport
 {
   @BeforeMethod
-  public void beforeMethod()
+  public void preTest()
     throws Exception
   {
-    ArezTestSupport.super.beforeMethod();
+    ArezTestSupport.super.preTest();
     // ... insert more set up code here ...
   }
 
   @AfterMethod
-  public void afterMethod()
+  public void postTest()
   {
     // ... insert more tear down code here ...
-    ArezTestSupport.super.afterMethod();
+    ArezTestSupport.super.postTest();
   }
 
   @Override
