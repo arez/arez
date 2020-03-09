@@ -23,8 +23,6 @@ define 'arez-testng' do
                :braincheck,
                :arez_core
 
-  gwt_enhance(project)
-
   package(:jar)
   package(:sources)
   package(:javadoc)
