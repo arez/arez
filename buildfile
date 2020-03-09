@@ -27,11 +27,6 @@ define 'arez-testng' do
   package(:sources)
   package(:javadoc)
 
-  test.options[:properties] = { 'braincheck.environment' => 'development', 'arez.environment' => 'development' }
-  test.options[:java_args] = ['-ea']
-
-  test.using :testng
-
   doc.
     using(:javadoc,
           :windowtitle => 'Arez TestNG API Documentation',
@@ -42,6 +37,5 @@ define 'arez-testng' do
 
   iml.excluded_directories << project._('tmp')
 
-  ipr.add_default_testng_configuration(:jvm_args => '-ea -Darez.environment=development')
   ipr.add_component_from_artifact(:idea_codestyle)
 end
