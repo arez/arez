@@ -280,12 +280,6 @@ define 'arez' do
                  :sting_processor,
                  GWT_DEPS
 
-    test.options[:properties] = AREZ_TEST_OPTIONS
-    test.options[:java_args] = ['-ea']
-
-    test.using :testng
-    test.compile.with TEST_DEPS
-
     project.jacoco.enabled = false
   end
 
