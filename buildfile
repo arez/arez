@@ -16,10 +16,13 @@ define 'arez-testng' do
   pom.add_developer('realityforge', 'Peter Donald')
 
   core_artifact = artifact(:arez_core)
+  testng_artifact = artifact(:testng)
   pom.include_transitive_dependencies << core_artifact
-  pom.dependency_filter = Proc.new {|dep| core_artifact == dep[:artifact]}
+  pom.include_transitive_dependencies << testng_artifact
+  pom.dependency_filter = Proc.new {|dep| core_artifact == dep[:artifact] || core_artifact == dep[:testng_artifact]}
 
   compile.with :javax_annotation,
+               :testng,
                :braincheck,
                :arez_core
 
