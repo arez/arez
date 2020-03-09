@@ -268,6 +268,7 @@ public final class ArezTestUtil
   public static void enableSpies()
   {
     setEnableSpies( true );
+    resetState();
   }
 
   /**
@@ -276,6 +277,7 @@ public final class ArezTestUtil
   public static void disableSpies()
   {
     setEnableSpies( false );
+    resetState();
   }
 
   /**
