@@ -104,8 +104,6 @@ See https://github.com/arez/arez/issues/91
   - http://blog.daniel-kurka.de/2014/01/profiling-gwt-applications-with-v8-and.html
   - https://v8.dev/docs/profile
 
-* Add ErrorProne to build
-
 * Why do zones not have a name? Why are Zones not part of serialized forms of events? - they should at least have a unique id
 
 * Can inverse references be maps. The key would be the component id.
