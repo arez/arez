@@ -21,6 +21,10 @@ See https://github.com/arez/arez/issues/91
 
 ## Enhancements
 
+* Consider removing generation of `@Fragment` annotated types for sting integration. Instead consider
+  promoting the `Arez_*` type to public access or using string includes in sting or perhaps only
+  generating a Fragment if the type is not public?
+
 * `final EventDrivenValue<HTMLDocument, Object> _documentVisibility` can not have `@CascadeDispose` annotation.
   Because type parameter confuses annotation processor?
 
