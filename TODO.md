@@ -97,8 +97,6 @@ See https://github.com/arez/arez/issues/91
   introduce an interface such as `@ArezComponentFragment` that could be applied to the types such as `*Extension`
   classes in Rose and friends.
 
-* Move to Junit5. It is significantly improved over previous versions and so much more popular than TestNG.
-
 * https://www.jetbrains.com/help/idea/template-variables.html#predefined_functions document and define them
 
 * Profile with D8
