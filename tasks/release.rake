@@ -110,18 +110,10 @@ CONTENT
     end
 
     stage('PatchWebsite', 'Update the website with a post announcing release') do
-      changelog = IO.read('CHANGELOG.md')
-
-      # Find the double new line after the product version banner
-      start_index = changelog.index("\n\n", changelog.index("## [v#{ENV['PRODUCT_VERSION']}]")) + 2
-
-      end_index = changelog.index("### [v#{ENV['PREVIOUS_PRODUCT_VERSION']}]", start_index)
-
       setup_filename = 'docs/project_setup.md'
       IO.write(setup_filename, IO.read(setup_filename).
         gsub("<version>#{ENV['PREVIOUS_PRODUCT_VERSION']}</version>", "<version>#{ENV['PRODUCT_VERSION']}</version>"))
       sh 'git reset 2>&1 1> /dev/null'
-      sh "git add #{filename}"
       sh "git add #{setup_filename}"
       # Zapwhite only runs against files added to git so we have to do this dance after adding files
       `bundle exec zapwhite`
