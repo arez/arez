@@ -176,7 +176,6 @@ const siteConfig = {
   headerLinks: [
     { doc: 'overview', label: 'Docs' },
     { href: '/api', label: 'API' },
-    { blog: true, label: 'Blog' },
     { href: 'https://github.com/arez/arez/releases', label: 'Releases', external: true },
     { href: 'https://github.com/arez/arez', label: 'GitHub', external: true },
     { search: true }
@@ -196,7 +195,7 @@ const siteConfig = {
     primaryColor: '#4481D6',
     secondaryColor: '#4464AD'
   },
-  // This copyright info is used in /core/Footer.js and blog rss/atom feeds.
+  // This copyright info is used in /core/Footer.js
   copyright: 'Copyright © ' + new Date().getFullYear() + ' the Arez Project',
   organizationName: 'arez',
   highlight: {
