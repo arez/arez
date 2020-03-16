@@ -30,7 +30,9 @@ task 'site:apidiff' do
   source_dir = "#{WORKSPACE_DIR}/api-test/src/test/resources/fixtures"
   target_dir = "#{SITE_DIR}/api-diff/data/arez"
   mkdir_p target_dir
-  cp_r Dir["#{source_dir}/*.json"], target_dir
+  if File.exist?(source_dir)
+    cp_r Dir["#{source_dir}/*.json"], target_dir
+  end
 end
 
 desc 'Build the website'
