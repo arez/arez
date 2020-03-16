@@ -14,7 +14,7 @@ The Arez runtime schedules a task when dependency changes are detected or when a
 explicitly invokes {@link: arez.Observer#schedule()}.
 
 Arez uses [transactions](transactions.md) to batch changes to Arez state and will only attempt to
-exeucte a task when the outer most transaction is completed. This makes sure intermediate or incomplete
+execute a task when the outer most transaction is completed. This makes sure intermediate or incomplete
 values produced during a transaction are not visible to the rest of the application until the transaction has
 completed.
 
