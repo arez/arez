@@ -65,7 +65,6 @@ const javaLink = function(code) {
     elements.slice(1).join(' ') :
     (localNameParts + (member.length > 0 ? '.' + member : ''));
 
-
   const url =
     '/api/' +
     nameParts.slice(0, indexOfClassNameStart).join('/') + '/' + localNameParts + '.html' +
