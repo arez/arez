@@ -155,6 +155,7 @@ const fileContent = function(params, options) {
   }
   const newContent = newSelectedLines.join('\n');
 
+  //noinspection CheckTagEmptyBody
   return '<pre><code>' + options.highlight(newContent, language) + '</code></pre>';
 };
 
