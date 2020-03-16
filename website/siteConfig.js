@@ -62,7 +62,7 @@ function parseParams(params) {
   return args;
 }
 
-const PARAM_EXTRACTOR = /(([^\s"'][^\s\}]*)|"([^\"]*)"|'([^']*)')\s*/;
+const PARAM_EXTRACTOR = /(([^\s"'][^\s}]*)|"([^"]*)"|'([^']*)')\s*/;
 
 function calculateFirstLine(lines, pattern, includeLine) {
   if (!pattern) {
