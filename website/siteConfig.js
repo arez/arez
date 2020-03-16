@@ -159,7 +159,7 @@ const fileContent = function(params, options) {
 };
 
 const embed = new RemarkableEmbed.Plugin();
-embed.reg = /{@(\w+)\s*:\s*((([^\s"'][^\s\}]*|"[^\"]*"|'[^']*')\s*)+?)}/;
+embed.reg = /{@(\w+)\s*:\s*((([^\s"'][^\s}]*|"[^"]*"|'[^']*')\s*)+?)}/;
 embed.register({
   youtube: RemarkableEmbed.extensions.youtube,
   file_content: fileContent,
