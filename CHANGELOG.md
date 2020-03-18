@@ -3,7 +3,7 @@
 ### Unreleased
 
 * Upgrade the `org.realityforge.sting` artifacts to version `0.06`.
-* Upgrade the `org.realityforge.proton` artifacts to version `0.42`.
+* Upgrade the `org.realityforge.proton` artifacts to version `0.43`.
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.26.0`.
 * Add integration tests to verify sting integration behaves as expected.
 * Add the `arez-testng` project to the set of related projects and the set of downstream projects that are tested as part of the release process.
