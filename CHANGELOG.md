@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.171'
+
 ### [v0.02](https://github.com/arez/arez-testng/tree/v0.02) (2020-03-09) · [Full Changelog](https://github.com/arez/arez-testng/compare/v0.01...v0.02)
 
 * Revert the `ArezTestSupport` methods `beforeMethod()` and `afterMethod()` back to `preTest()` and `postTest()` as there is just too much existing code that uses the old convention.
