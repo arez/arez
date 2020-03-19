@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.171'
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.26.0`.
 
 ### [v0.57](https://github.com/arez/arez-dom/tree/v0.57) (2020-02-21) · [Full Changelog](https://github.com/arez/arez-dom/compare/v0.56...v0.57)
