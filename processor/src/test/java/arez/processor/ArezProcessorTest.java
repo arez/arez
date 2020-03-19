@@ -463,6 +463,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.sting.ServiceViaEagerStingModel", false, true, false },
         new Object[]{ "com.example.sting.ServiceViaNamedStingModel", false, true, false },
         new Object[]{ "com.example.sting.ServiceViaTypedStingModel", false, true, false },
+        new Object[]{ "com.example.sting.EmptyTypedStingModel", false, true, false },
         new Object[]{ "com.example.sting.TypedStingModel", false, true, false },
         new Object[]{ "com.example.to_string.NoToStringPresent", false, false, false },
         new Object[]{ "com.example.to_string.ToStringPresent", false, false, false },

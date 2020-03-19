@@ -11,6 +11,8 @@ import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.VariableElement;
@@ -46,6 +48,7 @@ final class StingFragmentGenerator
     return builder.build();
   }
 
+  @SuppressWarnings( "unchecked" )
   @Nonnull
   private static MethodSpec buildCreateMethod( @Nonnull final ProcessingEnvironment processingEnv,
                                                @Nonnull final ComponentDescriptor component )
@@ -57,16 +60,31 @@ final class StingFragmentGenerator
 
     final List<String> whitelist = new ArrayList<>( GeneratorUtil.ANNOTATION_WHITELIST );
     whitelist.add( Constants.STING_NAMED );
-    whitelist.add( Constants.STING_TYPED );
     whitelist.add( Constants.STING_EAGER );
 
     GeneratorUtil.copyWhitelistedAnnotations( component.getElement(), method, whitelist );
-    if ( !AnnotationsUtil.hasAnnotationOfType( component.getElement(), Constants.STING_TYPED ) )
+
+    final AnnotationMirror typed =
+      AnnotationsUtil.findAnnotationByType( component.getElement(), Constants.STING_TYPED );
+    if ( null == typed )
     {
       method.addAnnotation( AnnotationSpec
-                               .builder( ClassName.get( "sting", "Typed" ) )
-                               .addMember( "value", "$T.class", component.getClassName() )
-                               .build() );
+                              .builder( ClassName.get( "sting", "Typed" ) )
+                              .addMember( "value", "$T.class", component.getClassName() )
+                              .build() );
+    }
+    else if ( ( (List<AnnotationValue>) AnnotationsUtil.getAnnotationValue( typed, "value" ).getValue() ).isEmpty() )
+    {
+      // This is only needed because javapoet has a bug and does not correctly the scenario
+      // where the attribute is an array, and it is empty and there is no default value
+      method.addAnnotation( AnnotationSpec
+                              .builder( ClassName.get( "sting", "Typed" ) )
+                              .addMember( "value", "{}" )
+                              .build() );
+    }
+    else
+    {
+      method.addAnnotation( AnnotationSpec.get( typed ) );
     }
 
     final ExecutableElement constructor = ElementsUtil.getConstructors( component.getElement() ).get( 0 );
