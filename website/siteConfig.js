@@ -30,7 +30,7 @@ const apiUrl = function(code) {
     elements.length >
     1 ?
     elements[0] :
-    ((elements[0].match(/^annotations\./) ? '@' : '') + elements[0].replace(/^.+\./, '') );
+    ((elements[0].match(/^annotations\./) ? '@' : '') + elements[0].replace(/^.+\./, ''));
   const classname = elements.length > 1 ? elements[1] : elements[0];
   const url = '/api/arez/' +
               classname.replace('.', '/').replace(/\/Flags$/, '.Flags') + '.html' +
@@ -52,8 +52,7 @@ const javaLink = function(code) {
   var indexOfClassNameStart;
   for (indexOfClassNameStart = 0; indexOfClassNameStart < nameParts.length; indexOfClassNameStart++) {
     var ch = nameParts[indexOfClassNameStart].charAt(0);
-    if(ch === ch.toUpperCase() )
-    {
+    if (ch === ch.toUpperCase()) {
       break;
     }
   }
@@ -88,8 +87,7 @@ function parseParams(params) {
       const key = param.slice(0, eqIndex);
       args[key] = param.slice(eqIndex + 1);
       paramsLeft = paramsLeft.slice(result[0].length);
-    }
-    else {
+    } else {
       break;
     }
   }
@@ -170,11 +168,9 @@ const fileContent = function(params, options) {
     if (!inElission && elideStartRegex.test(line)) {
       inElission = true;
       newSelectedLines.push(Array(lastWhitespaceAtStart + 1).join(' ') + elideReplacement);
-    }
-    else if (inElission && elideEndRegex.test(line)) {
+    } else if (inElission && elideEndRegex.test(line)) {
       inElission = false;
-    }
-    else if (!inElission) {
+    } else if (!inElission) {
       if (0 !== line.length) {
         lastWhitespaceAtStart = line.search(/\S|$/);
         whitespaceAtStart = Math.min(whitespaceAtStart, lastWhitespaceAtStart);
