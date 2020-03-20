@@ -49,7 +49,7 @@ const javaLink = function(code) {
 
   const nameParts = classname.split('.');
 
-  var indexOfClassNameStart = 0;
+  var indexOfClassNameStart;
   for (indexOfClassNameStart = 0; indexOfClassNameStart < nameParts.length; indexOfClassNameStart++) {
     var ch = nameParts[indexOfClassNameStart].charAt(0);
     if(ch === ch.toUpperCase() )
