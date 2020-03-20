@@ -5,9 +5,9 @@ title: @ComponentDependency
 The {@link: arez.annotations.ComponentDependency @ComponentDependency} annotation can be used to declare relationships
 between Arez components. A component can declare that if a particular dependency is disposed then either the the component
 should be disposed (if the {@link: arez.annotations.ComponentDependency#action() @ComponentDependency.action}
-parameter is {@link: arez.annotations.ComponentDependency.Type#CASCADE CASCADE}) or the reference to the disposed
+parameter is {@link: arez.annotations.ComponentDependency.Action#CASCADE CASCADE}) or the reference to the disposed
 component should be changed to null (if the {@link: arez.annotations.ComponentDependency#action() @ComponentDependency.action}
-parameter is {@link: arez.annotations.ComponentDependency.Type#SET_NULL SET_NULL}). This feature is particularly
+parameter is {@link: arez.annotations.ComponentDependency.Action#SET_NULL SET_NULL}). This feature is particularly
 useful if an Arez component is derived from one or more other Arez components such as when a view model in a web
 application is derived from entities that are propagated from a server.
 
