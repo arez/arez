@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.172'
+
 ### [v0.98](https://github.com/arez/arez-spytools/tree/v0.98) (2020-03-19) · [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.97...v0.98)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.171'
