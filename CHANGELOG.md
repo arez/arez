@@ -3,6 +3,7 @@
 ### Unreleased
 
 * Upgrade the `org.realityforge.proton` artifacts to version `0.44`.
+* Remove the `deferSchedule` parameter from the `@ArezComponent` annotation. This was primarily used to pause the scheduler during initialization of the application so observers would not attempt to access uninitialized data. However it proved to be insufficient as creating another arez component or invoking another action would trigger the scheduler. Downstream applications have moved to wrapping the initialization sequence in a scheduler lock which is a much better long term solution.
 
 ### [v0.171](https://github.com/arez/arez/tree/v0.171) (2020-03-19) · [Full Changelog](https://github.com/arez/arez/compare/v0.170...v0.171)
 

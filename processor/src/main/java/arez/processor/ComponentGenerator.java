@@ -1851,7 +1851,7 @@ final class ComponentGenerator
       }
     }
 
-    if ( !component.isDeferSchedule() && component.requiresSchedule() )
+    if ( component.requiresSchedule() )
     {
       builder.addStatement( "this.$N.componentComplete()", KERNEL_FIELD_NAME );
     }

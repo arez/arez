@@ -42,7 +42,6 @@ final class ComponentDescriptor
    */
   private final boolean _verify;
   private final AnnotationMirror _scopeAnnotation;
-  private final boolean _deferSchedule;
   private final boolean _generateToString;
   /**
    * Is the service use defaults associated with a "service" component rather than an "entity" component
@@ -111,7 +110,6 @@ final class ComponentDescriptor
                        final boolean requireEquals,
                        final boolean verify,
                        @Nullable final AnnotationMirror scopeAnnotation,
-                       final boolean deferSchedule,
                        final boolean generateToString,
                        @Nonnull final TypeElement element,
                        @Nullable final String defaultReadOutsideTransaction,
@@ -128,7 +126,6 @@ final class ComponentDescriptor
     _requireEquals = requireEquals;
     _verify = verify;
     _scopeAnnotation = scopeAnnotation;
-    _deferSchedule = deferSchedule;
     _generateToString = generateToString;
     _element = Objects.requireNonNull( element );
     _defaultReadOutsideTransaction = defaultReadOutsideTransaction;
@@ -594,11 +591,6 @@ final class ComponentDescriptor
   AnnotationMirror getScopeAnnotation()
   {
     return _scopeAnnotation;
-  }
-
-  boolean isDeferSchedule()
-  {
-    return _deferSchedule;
   }
 
   boolean isGenerateToString()

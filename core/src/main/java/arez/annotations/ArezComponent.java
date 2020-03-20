@@ -133,15 +133,6 @@ public @interface ArezComponent
   Feature sting() default Feature.AUTODETECT;
 
   /**
-   * Return true if an the generated component should NOT trigger scheduler at the end of the constructor.
-   * This is useful if the component creator will trigger schedules manually at a later time.
-   * This MUST be false if there is no observed methods annotated on the component.
-   *
-   * @return return true if an the generated component should NOT trigger scheduler at the end of the constructor.
-   */
-  boolean deferSchedule() default false;
-
-  /**
    * Indicate whether a component requires that the {@link Object#hashCode()} and {@link Object#equals(Object)}
    * methods are implemented. These methods MUST be implemented if the {@link Repository} annotation is present
    * but may be implemented in other scenarios. {@link Feature#ENABLE} will force the generation of the methods,

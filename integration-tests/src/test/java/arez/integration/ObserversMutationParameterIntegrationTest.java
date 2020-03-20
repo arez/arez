@@ -1,6 +1,7 @@
 package arez.integration;
 
 import arez.Arez;
+import arez.SchedulerLock;
 import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
 import arez.annotations.Observable;
@@ -17,11 +18,12 @@ public class ObserversMutationParameterIntegrationTest
   {
     captureObserverErrors();
 
+    final SchedulerLock lock = Arez.context().pauseScheduler();
     final Model1 model = Model1.create();
 
     assertEquals( getObserverErrors().size(), 0 );
 
-    Arez.context().triggerScheduler();
+    lock.dispose();
 
     assertEquals( getObserverErrors().size(), 1 );
     assertEquals( model._name, "Initial" );
@@ -33,11 +35,12 @@ public class ObserversMutationParameterIntegrationTest
   {
     captureObserverErrors();
 
+    final SchedulerLock lock = Arez.context().pauseScheduler();
     final Model2 model = Model2.create();
 
     assertEquals( getObserverErrors().size(), 0 );
 
-    Arez.context().triggerScheduler();
+    lock.dispose();
 
     assertEquals( getObserverErrors().size(), 0 );
     assertEquals( model._name, "Initial" );
@@ -49,11 +52,12 @@ public class ObserversMutationParameterIntegrationTest
   {
     captureObserverErrors();
 
+    final SchedulerLock lock = Arez.context().pauseScheduler();
     final Model3 model = Model3.create();
 
     assertEquals( getObserverErrors().size(), 0 );
 
-    Arez.context().triggerScheduler();
+    lock.dispose();
 
     assertEquals( getObserverErrors().size(), 0 );
     assertEquals( model._name, "Changed" );
@@ -108,7 +112,7 @@ public class ObserversMutationParameterIntegrationTest
     assertEquals( model._observerRunCount, 1 );
   }
 
-  @ArezComponent( deferSchedule = true )
+  @ArezComponent
   static abstract class Model1
   {
     String _name = "Initial";
@@ -140,7 +144,7 @@ public class ObserversMutationParameterIntegrationTest
     }
   }
 
-  @ArezComponent( deferSchedule = true )
+  @ArezComponent
   static abstract class Model2
   {
     String _name = "Initial";
@@ -172,7 +176,7 @@ public class ObserversMutationParameterIntegrationTest
     }
   }
 
-  @ArezComponent( deferSchedule = true )
+  @ArezComponent
   static abstract class Model3
   {
     String _name = "Initial";

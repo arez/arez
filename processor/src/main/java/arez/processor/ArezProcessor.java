@@ -889,12 +889,6 @@ public final class ArezProcessor
       processingEnv.getMessager().printMessage( WARNING, message, element );
     }
 
-    if ( component.isDeferSchedule() && !component.requiresSchedule() )
-    {
-      throw new ProcessorException( "@ArezComponent target has specified the deferSchedule = true " +
-                                    "annotation parameter but has no methods annotated with @Observe, " +
-                                    "@ComponentDependency or @Memoize(keepAlive=true)", element );
-    }
     for ( final ExecutableElement componentIdRef : component.getComponentIdRefs() )
     {
       if ( null != component.getComponentId() &&
@@ -2044,7 +2038,6 @@ public final class ArezProcessor
 
     final boolean requireEquals = isEqualsRequired( arezComponent, typeElement );
     final boolean requireVerify = isVerifyRequired( arezComponent, typeElement );
-    final boolean deferSchedule = getAnnotationParameter( arezComponent, "deferSchedule" );
 
     if ( !typeElement.getModifiers().contains( Modifier.ABSTRACT ) )
     {
@@ -2160,7 +2153,6 @@ public final class ArezProcessor
                                requireEquals,
                                requireVerify,
                                scopeAnnotation,
-                               deferSchedule,
                                generateToString,
                                typeElement,
                                defaultReadOutsideTransactionValue,

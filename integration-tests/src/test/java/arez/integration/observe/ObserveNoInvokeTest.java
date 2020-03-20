@@ -24,7 +24,7 @@ public class ObserveNoInvokeTest
   }
 
   @Test
-  public void deferScheduleWillDelayObserver()
+  public void scenario()
   {
     final TestComponent component = new ObserveNoInvokeTest_Arez_TestComponent();
 
