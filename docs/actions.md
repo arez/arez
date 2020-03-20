@@ -10,7 +10,7 @@ Arez actions can use read-only transactions and query the state of an Arez to pe
 based on the state. However this is a relatively rare use-case and it is more common to use an observer to
 react to changes and produce side-effects.
 
-The {@api_url: ArezContext.action(*)::ArezContext::action(arez.Procedure,java.lang.Object...)}
+The {@link: arez.ArezContext#action(arez.Procedure) ArezContext.action(*)}
 methods are low-level primitives not designed to be directly used by Arez users and instead it is expected users
 will use constructs like the [@Action](at_action.md) annotation from the [component](components.md) framework.
 
