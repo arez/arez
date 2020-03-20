@@ -25,7 +25,7 @@ Sometimes it is useful to decouple the execution of the {@link: arez.annotations
 rescheduling of the method when a dependency change is detected. In Arez, this is possible when you pair
 the {@link: arez.annotations.Observe @Observe} method with an {@link: arez.annotations.OnDepsChange @OnDepsChange} method. The
 {@link: arez.annotations.OnDepsChange @OnDepsChange} is invoked by the Arez runtime when it detects a change has occurred.
-It is up to application to invoke {@link: arez.Observer.schedule()} to schedule an
+It is up to application to invoke {@link: arez.Observer#schedule()} to schedule an
 update.
 
 One scenario where this is commonly used is to limit the rate at which an observer reacts. For example
