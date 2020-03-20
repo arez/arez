@@ -23,22 +23,6 @@ const markdownInclude = function(code) {
   return fs.readFileSync(filename, 'utf8');
 };
 
-const apiUrl = function(code) {
-  const elements = code.split('::');
-
-  const label =
-    elements.length >
-    1 ?
-    elements[0] :
-    ((elements[0].match(/^annotations\./) ? '@' : '') + elements[0].replace(/^.+\./, ''));
-  const classname = elements.length > 1 ? elements[1] : elements[0];
-  const url = '/api/arez/' +
-              classname.replace('.', '/').replace(/\/Flags$/, '.Flags') + '.html' +
-              (elements.length > 2 ? '#' + elements[2].replace('(', '-').replace(',', '-').replace(')', '-') : '');
-
-  return `<a href="${url}"><code>${label}</code></a>`;
-};
-
 const javaLink = function(code) {
   const elements = code.trim().split(/ +/);
 
@@ -196,7 +180,6 @@ embed.reg = /{@(\w+)\s*:\s*((([^\s"'][^\s}]*|"[^"]*"|'[^']*')\s*)+?)}/;
 embed.register({
   youtube: RemarkableEmbed.extensions.youtube,
   file_content: fileContent,
-  api_url: apiUrl,
   link: javaLink,
   include: markdownInclude
 });
