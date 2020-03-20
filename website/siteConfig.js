@@ -64,10 +64,12 @@ const javaLink = function(code) {
     elements.slice(1).join(' ') :
     (localNameParts + (member.length > 0 ? '.' + member : ''));
 
-  const url =
-    '/api/' +
-    nameParts.slice(0, indexOfClassNameStart).join('/') + '/' + localNameParts + '.html' +
-    (member.length > 0 ? '#' + member.replace('(', '-').replace(',', '-').replace(')', '-') : '');
+  const anchor =
+    member.length > 0 ?
+    '#' + member.replace(/\(/g, '-').replace(/,/g, '-').replace(/\)/g, '-').replace(/\.\.\./g, ':A') :
+    '';
+
+  const url = '/api/' + nameParts.slice(0, indexOfClassNameStart).join('/') + '/' + localNameParts + '.html' + anchor;
 
   return `<a href="${url}"><code>${label}</code></a>`;
 };
