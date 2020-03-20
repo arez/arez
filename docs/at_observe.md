@@ -44,7 +44,7 @@ frameworks that already contain their own scheduler.
 This is modelled with a pair of methods; one annotated with {@link: arez.annotations.Observe @Observe} and one
 annotated with {@link: arez.annotations.OnDepsChange @OnDepsChange}. In addition it is necessary that the
 {@link: arez.annotations.Observe#executor() @Observe.executor} parameter on the {@link: arez.annotations.Observe @Observe}
-annotation is set to {@link: arez.annotations.Executor.APPLICATION}.
+annotation is set to {@link: arez.annotations.Executor#APPLICATION}.
 
 This approach is used in libraries such as [React4j](https://react4j.github.io) that integrate Arez into
 external schedulers. An example that demonstrates something similar is:
