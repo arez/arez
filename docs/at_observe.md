@@ -2,30 +2,30 @@
 title: @Observe
 ---
 
-The {@api_url: annotations.Observe} annotation is used to define an observe method for an
+The {@link: arez.annotations.Observe @Observe} annotation is used to define an observe method for an
 [observer](observers.md). Observers are typically used for querying arez state and reflecting
 that state as side-effects. As such the observe method defaults to being run in a read-only
 [transaction](transactions.md) but this can be modified by setting the
-{@api_url: mutation::annotations.Observe::mutation()} parameter to `true` which will change the
+{@link: arez.annotations.Observe#mutation() @Observe.mutation} parameter to `true` which will change the
 transaction mode to read-write.
 
-An example where an {@api_url: annotations.Observe} method can be used is to automatically update
+An example where an {@link: arez.annotations.Observe @Observe} method can be used is to automatically update
 a view when data changes. For example, imagine you wanted to display the value of 1 Bitcoin in
 Australian dollars as the value changes over time. Assuming the currency is observable, the
-{@api_url: annotations.Observe} method may look something like:
+{@link: arez.annotations.Observe @Observe} method may look something like:
 
 {@file_content: file=arez/doc/examples/at_observe/CurrencyView.java start_line=@ArezComponent "end_line=^}"}
 
-This is enough to create a basic web application just using the Arez {@api_url: annotations.Observe}
+This is enough to create a basic web application just using the Arez {@link: arez.annotations.Observe @Observe}
 primitive.
 
 ## Decoupling the execution and scheduling of the Observer
 
-Sometimes it is useful to decouple the execution of the {@api_url: annotations.Observe} method and the
+Sometimes it is useful to decouple the execution of the {@link: arez.annotations.Observe @Observe} method and the
 rescheduling of the method when a dependency change is detected. In Arez, this is possible when you pair
-the {@api_url: annotations.Observe} method with an {@api_url: annotations.OnDepsChange} method. The
-{@api_url: annotations.OnDepsChange} is invoked by the Arez runtime when it detects a change has occurred.
-It is up to application to invoke {@api_url: Observer.schedule()::Observer::schedule()} to schedule an
+the {@link: arez.annotations.Observe @Observe} method with an {@link: arez.annotations.OnDepsChange @OnDepsChange} method. The
+{@link: arez.annotations.OnDepsChange @OnDepsChange} is invoked by the Arez runtime when it detects a change has occurred.
+It is up to application to invoke {@link: arez.Observer.schedule()} to schedule an
 update.
 
 One scenario where this is commonly used is to limit the rate at which an observer reacts. For example
@@ -41,10 +41,10 @@ The [observers](observers.md) documentation describes "tracker" observers as tho
 is responsible for executing the observe method. This is useful when you need to integrate with other
 frameworks that already contain their own scheduler.
 
-This is modelled with a pair of methods; one annotated with {@api_url: annotations.Observe} and one
-annotated with {@api_url: annotations.OnDepsChange}. In addition it is necessary that the
-{@api_url: executor::annotations.Observe::executor()} parameter on the {@api_url: annotations.Observe}
-annotation is set to {@api_url: Executor.APPLICATION::annotations.Executor::APPLICATION}.
+This is modelled with a pair of methods; one annotated with {@link: arez.annotations.Observe @Observe} and one
+annotated with {@link: arez.annotations.OnDepsChange @OnDepsChange}. In addition it is necessary that the
+{@link: arez.annotations.Observe#executor() @Observe.executor} parameter on the {@link: arez.annotations.Observe @Observe}
+annotation is set to {@link: arez.annotations.Executor.APPLICATION}.
 
 This approach is used in libraries such as [React4j](https://react4j.github.io) that integrate Arez into
 external schedulers. An example that demonstrates something similar is:

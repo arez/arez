@@ -23,14 +23,14 @@ The automatic suspension of computable values is very convenient. If a computabl
 (i.e the UI in which it was used no longer exists), then Arez will no longer recalculate the value. This differs
 from observers that will continue to react to changes in the dependencies until the observer is disposed.
 
-Within the Arez system, a computable value is represented by an instance of the {@api_url: ComputableValue}
-class. The {@api_url: ComputableValue} class contains a cache of the value that is computed and a reference to the
-function that computes the value. It provides a method {@api_url: ComputableValue.get()::ComputableValue::get()} to
-access the cached value or recalculate the value if it is stale. The {@api_url: ComputableValue} contains the necessary
-logic required to determine staleness and notify dependencies. Internally it uses instances of {@api_url: ObservableValue}
-and {@api_url: Observer} to achieve this goal.
+Within the Arez system, a computable value is represented by an instance of the {@link: arez.ComputableValue}
+class. The {@link: arez.ComputableValue} class contains a cache of the value that is computed and a reference to the
+function that computes the value. It provides a method {@link: arez.ComputableValue#get()} to
+access the cached value or recalculate the value if it is stale. The {@link: arez.ComputableValue} contains the necessary
+logic required to determine staleness and notify dependencies. Internally it uses instances of {@link: arez.ObservableValue}
+and {@link: arez.Observer} to achieve this goal.
 
-The {@api_url: ComputableValue} class is a relatively low-level primitive and users typically use higher level
+The {@link: arez.ComputableValue} class is a relatively low-level primitive and users typically use higher level
 constructs such as the [@Memoize](at_memoize.md) annotation.
 
 ## Callbacks
@@ -65,14 +65,14 @@ transaction attempts to access the computable value.
 
 ## Non-Arez Dependencies
 
-In some cases a {@api_url: ComputableValue} can be derived from non-arez dependencies. In these scenarios it is
+In some cases a {@link: arez.ComputableValue} can be derived from non-arez dependencies. In these scenarios it is
 expected that the developer will need to explicitly track the non-arez dependency and notify the
-{@api_url: ComputableValue} when the dependency has changed by invoking the method
-{@api_url: ComputableValue.reportPossiblyChanged()::ComputableValue::reportPossiblyChanged()}. The
-{@api_url: ComputableValue} will then be marked as possibly changed and will recalculate the value either on next
+{@link: arez.ComputableValue} when the dependency has changed by invoking the method
+{@link: arez.ComputableValue#reportPossiblyChanged()}. The
+{@link: arez.ComputableValue} will then be marked as possibly changed and will recalculate the value either on next
 access or when the Arez scheduler is next invoked. This approach is particularly useful if you are attempting to
 integrate with event based systems or event-driven reactive frameworks such as [RxJava](https://github.com/ReactiveX/RxJava).
 
-It should be noted that the {@api_url: ComputableValue.reportPossiblyChanged()::ComputableValue::reportPossiblyChanged()}
-can only be invoked if the {@api_url: ComputableValue} was created with the flag
-{@api_url: ComputableValue.Flags.NON_AREZ_DEPENDENCIES::ComputableValue.Flags::NON_AREZ_DEPENDENCIES}.
+It should be noted that the {@link: arez.ComputableValue#reportPossiblyChanged()}
+can only be invoked if the {@link: arez.ComputableValue} was created with the flag
+{@link: arez.ComputableValue.Flags#AREZ_OR_EXTERNAL_DEPENDENCIES}.

@@ -2,10 +2,10 @@
 title: @ComponentId
 ---
 
-The {@api_url: annotations.ComponentId} annotation can be applied to a single method in the component. The
+The {@link: arez.annotations.ComponentId @ComponentId} annotation can be applied to a single method in the component. The
 method must return a unique, non-null identifier for the component instance. This value will be converted
-to a string to create the names of the underlying {@api_url: ObservableValue}, {@api_url: Observer} and
-{@api_url: ComputableValue} primitives. If the [`@Repository`](repositories.md) annotation is present on the
+to a string to create the names of the underlying {@link: arez.ObservableValue}, {@link: arez.Observer} and
+{@link: arez.ComputableValue} primitives. If the [`@Repository`](repositories.md) annotation is present on the
 component, the method will also return the key that is used to store the component in a map.
 
 The user typically makes use of this method to align the identifier of the Arez component with the underlying
@@ -17,4 +17,4 @@ For example:
 {@file_content: file=arez/doc/examples/component_id/Person.java start_line=@ArezComponent "end_line=^}"}
 
 It should be noted that even if the method annotated method is not publicly accessible, the value of the
-id can always be accessed using the {@api_url: Identifiable.getArezId(component)::component.Identifiable::getArezId(java.lang.Object)} method.
+id can always be accessed using the {@link: arez.component.Identifiable#getArezId(java.lang.Object) Identifiable.getArezId(component)} method.

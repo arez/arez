@@ -2,7 +2,7 @@
 title: @Observable
 ---
 
-The {@api_url: annotations.Observable} annotation simplifies writing [observable](observable_values.md) properties.
+The {@link: arez.annotations.Observable @Observable} annotation simplifies writing [observable](observable_values.md) properties.
 The simplest use-case involves annotating one of a standard getter/setter pair with the annotation.
 
 For example:
@@ -16,7 +16,7 @@ For example:
 {@file_content: file=arez/doc/examples/at_observable2/MyModel.java start_line=@ArezComponent "end_line=^}"}
 
 There are additional constraints that are apply when defining observable. i.e. The type of the getter and setter
-must match. These constraints are detailed in the {@api_url: annotations.Observable} API documentation.
+must match. These constraints are detailed in the {@link: arez.annotations.Observable @Observable} API documentation.
 
 ## Customizing names
 
@@ -39,11 +39,11 @@ the component another value for `props`. The react framework is wholly responsib
 component that `props` has changed. Making this `props` property observable within Arez involved the following
 changes.
 
-* Disabling the `@Observable` setter via the {@api_url: ObservableValue.expectSetter()::annotations.Observable::expectSetter()}
+* Disabling the `@Observable` setter via the {@link: arez.ObservableValue#expectSetter() @Observable.expectSetter}
   parameter on the getter.
-* Accessing the underlying {@api_url: ObservableValue} primitive using the {@api_url: annotations.ObservableValueRef} annotation.
+* Accessing the underlying {@link: arez.ObservableValue} primitive using the {@link: arez.annotations.ObservableValueRef @ObservableValueRef} annotation.
   See [accessing primitives](accessing_primitives.md) documentation on details on how this is achieved.
-* Manually invoking {@api_url: ObservableValue.reportChanged()::ObservableValue::reportChanged()} in the callback.
+* Manually invoking {@link: arez.ObservableValue#reportChanged()} in the callback.
 
 For example:
 
