@@ -35,7 +35,7 @@ on the `@ArezComponent` is set to `ENABLE`. If the `inject` parameter is `AUTODE
 annotated with a "scope" annotation then Arez will annotate the enhanced subclass with the same scope annotation
 and add an `@Inject` annotation to the constructor.
 
-The {@api_url: annotations.Repository} annotation has a similar `inject` parameter and the base repository will
+The {@link: arez.annotations.Repository @Repository} annotation has a similar `inject` parameter and the base repository will
 be automatically annotated with the `@javax.inject.Singleton` scope annotation if the `javax.inject.Inject` class
 is present.
 
@@ -51,7 +51,7 @@ processors and statically checks the object graph at compilation time. The root 
 a component which is an interface annotated by the `@dagger.Component` annotation. The injection rules are customized
 via `@dagger.Module` annotated classes.
 
-The {@api_url: annotations.ArezComponent} and {@api_url: annotations.Repository} annotations have a `dagger`
+The {@link: arez.annotations.ArezComponent @ArezComponent} and {@link: arez.annotations.Repository @Repository} annotations have a `dagger`
 parameter that controls whether the Arez annotation processor generates dagger modules. If the value of the
 `dagger` parameter is `ENABLE` or `AUTODETECT` and the `dagger.Component` class is on the classpath then a
 module will be generated for each base component and base repository that looks like:
