@@ -2871,9 +2871,8 @@ final class ComponentGenerator
     builder.addField( field.build() );
     if ( observable.isAbstract() )
     {
-      final TypeName type = TypeName.get( getterType.getReturnType() );
       final FieldSpec.Builder dataField =
-        FieldSpec.builder( type,
+        FieldSpec.builder( TypeName.get( getterType.getReturnType() ),
                            observable.getDataFieldName(),
                            Modifier.PRIVATE );
       SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, dataField, getterType.getReturnType() );
@@ -2881,9 +2880,8 @@ final class ComponentGenerator
     }
     if ( observable.shouldGenerateUnmodifiableCollectionVariant() )
     {
-      final TypeName type = TypeName.get( getterType.getReturnType() );
       final FieldSpec.Builder dataField =
-        FieldSpec.builder( type,
+        FieldSpec.builder( TypeName.get( getterType.getReturnType() ),
                            observable.getCollectionCacheDataFieldName(),
                            Modifier.PRIVATE );
       SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, dataField, getterType.getReturnType() );
