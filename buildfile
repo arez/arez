@@ -44,6 +44,7 @@ define 'arez' do
   compile.options.source = '1.8'
   compile.options.target = '1.8'
   compile.options.lint = 'all,-processing,-serial'
+  project.compile.options.warnings = true
 
   project.version = ENV['PRODUCT_VERSION'] if ENV['PRODUCT_VERSION']
 
