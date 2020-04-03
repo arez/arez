@@ -66,6 +66,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   @Nonnull
   private final ObservableValue<OtherElement> $$arez$$_parentGeneralisation;
 
+  @Nullable
   private OtherElement $$arezd$$_parentGeneralisation;
 
   @Nonnull

@@ -26,6 +26,7 @@ final class Arez_RepositoryWithRawType extends RepositoryWithRawType implements 
   @SuppressWarnings("rawtypes")
   private final ObservableValue<Callable> $$arez$$_action;
 
+  @Nonnull
   @SuppressWarnings("rawtypes")
   private Callable $$arezd$$_action;
 

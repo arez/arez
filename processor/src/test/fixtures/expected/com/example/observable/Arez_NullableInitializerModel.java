@@ -25,6 +25,7 @@ final class Arez_NullableInitializerModel extends NullableInitializerModel imple
   @Nonnull
   private final ObservableValue<Date> $$arez$$_time;
 
+  @Nullable
   private Date $$arezd$$_time;
 
   Arez_NullableInitializerModel(@Nullable final Date time) {

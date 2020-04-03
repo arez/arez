@@ -23,6 +23,7 @@ final class Arez_NonnullAbstractObservableDependency extends NonnullAbstractObse
   @Nonnull
   private final ObservableValue<DisposeNotifier> $$arez$$_value;
 
+  @Nonnull
   private DisposeNotifier $$arezd$$_value;
 
   Arez_NonnullAbstractObservableDependency(@Nonnull final DisposeNotifier value) {

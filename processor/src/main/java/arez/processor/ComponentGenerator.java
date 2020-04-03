@@ -2875,6 +2875,14 @@ final class ComponentGenerator
         FieldSpec.builder( TypeName.get( getterType.getReturnType() ),
                            observable.getDataFieldName(),
                            Modifier.PRIVATE );
+      if ( observable.isGetterNonnull() && observable.isSetterNonnull() && observable.requireInitializer() )
+      {
+        dataField.addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
+      }
+      else if ( AnnotationsUtil.hasNullableAnnotation( observable.getGetter() ) )
+      {
+        dataField.addAnnotation( GeneratorUtil.NULLABLE_CLASSNAME );
+      }
       SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, dataField, getterType.getReturnType() );
       builder.addField( dataField.build() );
     }

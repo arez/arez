@@ -24,6 +24,7 @@ final class Arez_MultiExtensionRepositoryExample extends MultiExtensionRepositor
   @Nonnull
   private final ObservableValue<String> $$arez$$_name;
 
+  @Nonnull
   private String $$arezd$$_name;
 
   Arez_MultiExtensionRepositoryExample(@Nonnull final String name) {

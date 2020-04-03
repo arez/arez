@@ -25,6 +25,7 @@ final class Arez_ObservableZeroOrOneReferenceModel extends ObservableZeroOrOneRe
   @Nonnull
   private final ObservableValue<ObservableZeroOrOneReferenceModel.Element> $$arez$$_element;
 
+  @Nullable
   private ObservableZeroOrOneReferenceModel.Element $$arezd$$_element;
 
   Arez_ObservableZeroOrOneReferenceModel() {

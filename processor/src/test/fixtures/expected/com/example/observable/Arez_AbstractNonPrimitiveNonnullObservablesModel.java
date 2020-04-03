@@ -24,6 +24,7 @@ final class Arez_AbstractNonPrimitiveNonnullObservablesModel extends AbstractNon
   @Nonnull
   private final ObservableValue<Date> $$arez$$_time;
 
+  @Nonnull
   private Date $$arezd$$_time;
 
   Arez_AbstractNonPrimitiveNonnullObservablesModel(@Nonnull final Date time) {

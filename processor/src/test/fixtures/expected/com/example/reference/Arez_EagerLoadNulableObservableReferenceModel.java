@@ -26,6 +26,7 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
   @Nonnull
   private final ObservableValue<String> $$arez$$_myEntityId;
 
+  @Nullable
   private String $$arezd$$_myEntityId;
 
   @Nullable

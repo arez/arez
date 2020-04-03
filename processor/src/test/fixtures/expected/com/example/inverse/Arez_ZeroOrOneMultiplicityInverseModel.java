@@ -25,6 +25,7 @@ final class Arez_ZeroOrOneMultiplicityInverseModel extends ZeroOrOneMultiplicity
   @Nonnull
   private final ObservableValue<ZeroOrOneMultiplicityInverseModel.Element> $$arez$$_element;
 
+  @Nullable
   private ZeroOrOneMultiplicityInverseModel.Element $$arezd$$_element;
 
   Arez_ZeroOrOneMultiplicityInverseModel() {

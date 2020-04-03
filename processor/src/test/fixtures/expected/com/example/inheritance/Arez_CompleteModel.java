@@ -54,6 +54,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   @Nonnull
   private final ObservableValue<Element> $$arez$$_parentGeneralisation;
 
+  @Nullable
   private Element $$arezd$$_parentGeneralisation;
 
   @Nonnull

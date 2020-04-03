@@ -35,6 +35,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType extends Mul
   @Nonnull
   private final ObservableValue<MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation> $$arez$$_parentGeneralisation;
 
+  @Nullable
   private MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation $$arezd$$_parentGeneralisation;
 
   MultipleReferenceWithInverseWithSameTarget_Arez_RoleType() {

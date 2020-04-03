@@ -24,6 +24,7 @@ final class Arez_WriteOutsideTransactionWithRepositoryModel extends WriteOutside
   @Nonnull
   private final ObservableValue<String> $$arez$$_name;
 
+  @Nonnull
   private String $$arezd$$_name;
 
   Arez_WriteOutsideTransactionWithRepositoryModel(@Nonnull final String name) {

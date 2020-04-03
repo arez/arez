@@ -24,6 +24,7 @@ final class Arez_ReadOutsideTransactionWithRepositoryModel extends ReadOutsideTr
   @Nonnull
   private final ObservableValue<String> $$arez$$_name;
 
+  @Nonnull
   private String $$arezd$$_name;
 
   Arez_ReadOutsideTransactionWithRepositoryModel(@Nonnull final String name) {
