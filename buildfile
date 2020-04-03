@@ -27,7 +27,8 @@ DAGGER_DEPS =
     :kotlin_stdlib,
     :kotlin_stdlib_common,
     :googlejavaformat,
-    :errorprone
+    :errorprone,
+    :error_prone_annotations
   ]
 
 # JDK options passed to test environment. Essentially turns assertions on.
