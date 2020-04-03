@@ -43,7 +43,7 @@ define 'arez' do
   project.group = 'org.realityforge.arez'
   compile.options.source = '1.8'
   compile.options.target = '1.8'
-  compile.options.lint = 'all'
+  compile.options.lint = 'all,-processing,-serial'
 
   project.version = ENV['PRODUCT_VERSION'] if ENV['PRODUCT_VERSION']
 
