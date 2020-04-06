@@ -5,6 +5,7 @@ import arez.Disposable;
 import arez.Observer;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
+import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
@@ -114,7 +115,7 @@ public class NonnullObservableEagerReferenceIntegrationTest
     }
   }
 
-  @Repository
+  @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )
   @ArezComponent
   static abstract class Model2
   {

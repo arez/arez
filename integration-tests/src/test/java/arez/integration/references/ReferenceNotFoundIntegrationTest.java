@@ -3,6 +3,7 @@ package arez.integration.references;
 import arez.Arez;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
+import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
@@ -66,7 +67,7 @@ public class ReferenceNotFoundIntegrationTest
     }
   }
 
-  @Repository
+  @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )
   @ArezComponent
   static abstract class Model2
   {

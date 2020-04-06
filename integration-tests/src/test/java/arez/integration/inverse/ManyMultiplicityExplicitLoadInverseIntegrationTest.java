@@ -140,7 +140,7 @@ public class ManyMultiplicityExplicitLoadInverseIntegrationTest
     abstract void setCarId( int carId );
   }
 
-  @Repository
+  @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )
   @ArezComponent
   static abstract class Car
   {

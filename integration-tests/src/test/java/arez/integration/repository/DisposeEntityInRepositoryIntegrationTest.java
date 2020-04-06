@@ -3,6 +3,7 @@ package arez.integration.repository;
 import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
+import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.annotations.Repository;
 import arez.integration.AbstractArezIntegrationTest;
@@ -14,7 +15,7 @@ public class DisposeEntityInRepositoryIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
-  @Repository
+  @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )
   static abstract class TestComponent
   {
     private final int _id;

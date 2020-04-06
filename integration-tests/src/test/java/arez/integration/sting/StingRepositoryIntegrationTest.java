@@ -17,7 +17,7 @@ public class StingRepositoryIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
-  @Repository( sting = Feature.ENABLE )
+  @Repository( sting = Feature.ENABLE, dagger = Feature.DISABLE)
   static abstract class TestComponent
   {
     @Observable

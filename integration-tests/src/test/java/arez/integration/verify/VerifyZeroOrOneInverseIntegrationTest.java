@@ -4,6 +4,7 @@ import arez.ActionFlags;
 import arez.Arez;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
+import arez.annotations.Feature;
 import arez.annotations.Inverse;
 import arez.annotations.Multiplicity;
 import arez.annotations.Observable;
@@ -159,7 +160,7 @@ public class VerifyZeroOrOneInverseIntegrationTest
     }
   }
 
-  @Repository
+  @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )
   @ArezComponent
   static abstract class Model2
   {

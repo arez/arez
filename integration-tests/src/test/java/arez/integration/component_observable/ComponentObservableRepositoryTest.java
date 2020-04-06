@@ -6,6 +6,7 @@ import arez.Disposable;
 import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
+import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.annotations.Repository;
 import arez.integration.AbstractArezIntegrationTest;
@@ -17,7 +18,7 @@ import static org.testng.Assert.*;
 public class ComponentObservableRepositoryTest
   extends AbstractArezIntegrationTest
 {
-  @Repository
+  @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )
   @ArezComponent
   static abstract class TestComponent
   {

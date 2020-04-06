@@ -122,7 +122,7 @@ public class InverseHooksIntegrationTest
     abstract void setCarId( int carId );
   }
 
-  @Repository
+  @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )
   @ArezComponent( defaultReadOutsideTransaction = Feature.ENABLE )
   static abstract class Car
   {

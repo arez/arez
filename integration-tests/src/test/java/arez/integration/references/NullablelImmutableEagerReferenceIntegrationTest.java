@@ -4,6 +4,7 @@ import arez.Arez;
 import arez.Disposable;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
+import arez.annotations.Feature;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import arez.annotations.Repository;
@@ -90,7 +91,7 @@ public class NullablelImmutableEagerReferenceIntegrationTest
     }
   }
 
-  @Repository
+  @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )
   @ArezComponent
   static abstract class Model2
   {

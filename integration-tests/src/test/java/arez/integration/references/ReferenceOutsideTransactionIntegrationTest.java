@@ -105,7 +105,7 @@ public class ReferenceOutsideTransactionIntegrationTest
     }
   }
 
-  @Repository
+  @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )
   @ArezComponent
   static abstract class Model2
   {

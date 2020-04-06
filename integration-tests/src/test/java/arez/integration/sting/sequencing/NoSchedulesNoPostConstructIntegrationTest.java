@@ -42,7 +42,7 @@ public class NoSchedulesNoPostConstructIntegrationTest
     }
   }
 
-  @Injector( includes = NoSchedulesNoPostConstructIntegrationTest_MyComponentFragment.class )
+  @Injector( includes = MyComponent.class )
   interface MyInjector
   {
     MyComponent component1();

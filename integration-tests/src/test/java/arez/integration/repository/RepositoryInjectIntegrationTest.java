@@ -20,7 +20,7 @@ public class RepositoryInjectIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
-  @Repository( dagger = Feature.ENABLE )
+  @Repository( dagger = Feature.ENABLE, sting = Feature.DISABLE )
   static abstract class TestComponent
   {
     private String _value;

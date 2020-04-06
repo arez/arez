@@ -133,7 +133,7 @@ public class DisposeZeroOrOneInverseIntegrationTest
     abstract void setCarId( int carId );
   }
 
-  @Repository
+  @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )
   @ArezComponent
   static abstract class Car
   {

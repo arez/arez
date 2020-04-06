@@ -15,7 +15,7 @@ public class ReadAndWriteOutsideTransactionRepositoryIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent( defaultReadOutsideTransaction = Feature.ENABLE, defaultWriteOutsideTransaction = Feature.ENABLE )
-  @Repository
+  @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )
   static abstract class TestComponent
   {
     private final int _id;

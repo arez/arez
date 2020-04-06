@@ -123,7 +123,7 @@ public class ZeroOrOneMultiplicityInverseIntegrationTest
     abstract void setPersonId( int personId );
   }
 
-  @Repository
+  @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )
   @ArezComponent
   static abstract class Person
   {

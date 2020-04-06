@@ -2,7 +2,6 @@ package arez.integration.sting.package_access;
 
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.sting.package_access.other.TestComponent2;
-import arez.integration.sting.package_access.other.TestComponent2Fragment;
 import org.testng.annotations.Test;
 import sting.Injector;
 import static org.testng.Assert.*;
@@ -10,7 +9,7 @@ import static org.testng.Assert.*;
 public class ComponentInDifferentPackageIntegrationTest
   extends AbstractArezIntegrationTest
 {
-  @Injector( includes = TestComponent2Fragment.class )
+  @Injector( includes = TestComponent2.class )
   interface MyInjector
   {
     TestComponent2 getTestComponent2();

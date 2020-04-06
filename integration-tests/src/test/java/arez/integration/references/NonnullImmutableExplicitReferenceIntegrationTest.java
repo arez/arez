@@ -4,6 +4,7 @@ import arez.Arez;
 import arez.Disposable;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
+import arez.annotations.Feature;
 import arez.annotations.LinkType;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
@@ -88,7 +89,7 @@ public class NonnullImmutableExplicitReferenceIntegrationTest
     }
   }
 
-  @Repository
+  @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )
   @ArezComponent
   static abstract class Model2
   {

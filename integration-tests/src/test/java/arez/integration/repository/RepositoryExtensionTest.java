@@ -4,6 +4,7 @@ import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
 import arez.annotations.ArezComponent;
+import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.annotations.Repository;
 import arez.integration.AbstractArezIntegrationTest;
@@ -32,7 +33,7 @@ public class RepositoryExtensionTest
   }
 
   @ArezComponent
-  @Repository( extensions = TestComponentRepositoryExtension.class )
+  @Repository( extensions = TestComponentRepositoryExtension.class, sting = Feature.DISABLE, dagger = Feature.DISABLE )
   static abstract class TestComponent
   {
     private String _value;
