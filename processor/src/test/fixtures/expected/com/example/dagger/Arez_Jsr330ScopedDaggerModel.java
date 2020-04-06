@@ -8,10 +8,8 @@ import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
-import javax.inject.Singleton;
 
 @Generated("arez.processor.ArezProcessor")
-@Singleton
 final class Arez_Jsr330ScopedDaggerModel extends Jsr330ScopedDaggerModel implements Disposable, Identifiable<Integer> {
   private static volatile int $$arezi$$_nextId;
 

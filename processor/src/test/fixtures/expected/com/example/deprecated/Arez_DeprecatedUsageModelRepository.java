@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
-import javax.inject.Singleton;
 import org.realityforge.braincheck.Guards;
 import sting.Injectable;
 import sting.Typed;
@@ -20,7 +19,6 @@ import sting.Typed;
 @Injectable
 @Typed(DeprecatedUsageModelRepository.class)
 @Generated("arez.processor.ArezProcessor")
-@Singleton
 final class Arez_DeprecatedUsageModelRepository extends DeprecatedUsageModelRepository implements Disposable, Identifiable<Integer> {
   private static volatile int $$arezi$$_nextId;
 

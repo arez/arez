@@ -11,7 +11,6 @@ import arez.component.internal.ComponentKernel;
 import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
-import javax.inject.Singleton;
 import org.realityforge.braincheck.Guards;
 import sting.Injectable;
 import sting.Typed;
@@ -19,7 +18,6 @@ import sting.Typed;
 @Injectable
 @Typed(RepositoryWithAttachOnlyRepository.class)
 @Generated("arez.processor.ArezProcessor")
-@Singleton
 final class Arez_RepositoryWithAttachOnlyRepository extends RepositoryWithAttachOnlyRepository implements Disposable, Identifiable<Integer> {
   private static volatile int $$arezi$$_nextId;
 

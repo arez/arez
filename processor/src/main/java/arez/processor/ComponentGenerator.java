@@ -198,13 +198,6 @@ final class ComponentGenerator
     {
       builder.addModifiers( Modifier.PUBLIC );
     }
-    final AnnotationMirror scopeAnnotation = component.getScopeAnnotation();
-    if ( null != scopeAnnotation )
-    {
-      final DeclaredType annotationType = scopeAnnotation.getAnnotationType();
-      final TypeElement typeElement = (TypeElement) annotationType.asElement();
-      builder.addAnnotation( ClassName.get( typeElement ) );
-    }
 
     builder.addSuperinterface( DISPOSABLE_CLASSNAME );
     // when/if IDENTIFIABLE becomes optional then change suppressions above so null != componentId will
