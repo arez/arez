@@ -3,6 +3,7 @@
 ### Unreleased
 
 * Generate nullability annotations on synthetic fields storing data for abstract observable properties.
+* Upgrade the `org.realityforge.sting` artifacts to version `0.14`.
 
 ### [v0.172](https://github.com/arez/arez/tree/v0.172) (2020-03-20) · [Full Changelog](https://github.com/arez/arez/compare/v0.171...v0.172) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.171&new=0.172)
 
