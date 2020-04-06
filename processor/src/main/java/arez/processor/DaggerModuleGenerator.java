@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
@@ -46,9 +47,10 @@ final class DaggerModuleGenerator
       addModifiers( Modifier.STATIC, Modifier.PUBLIC ).
       addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       returns( ClassName.get( component.getElement() ) );
-    if ( null != component.getScopeAnnotation() )
+    final AnnotationMirror scopeAnnotation = component.getScopeAnnotation();
+    if ( null != scopeAnnotation )
     {
-      final DeclaredType annotationType = component.getScopeAnnotation().getAnnotationType();
+      final DeclaredType annotationType = scopeAnnotation.getAnnotationType();
       final TypeElement typeElement = (TypeElement) annotationType.asElement();
       method.addAnnotation( ClassName.get( typeElement ) );
     }
