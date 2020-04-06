@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ObservableWriteOutsideTransactionTest
+public final class ObservableWriteOutsideTransactionTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent

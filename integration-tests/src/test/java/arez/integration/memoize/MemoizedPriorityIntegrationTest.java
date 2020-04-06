@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class MemoizedPriorityIntegrationTest
+public final class MemoizedPriorityIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

@@ -6,7 +6,7 @@ import arez.annotations.ContextRef;
 import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
 
-public class ContextRefReferencedInCtorTest
+public final class ContextRefReferencedInCtorTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent( allowEmpty = true )

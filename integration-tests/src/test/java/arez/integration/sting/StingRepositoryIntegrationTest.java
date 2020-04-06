@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 import sting.Injector;
 import static org.testng.Assert.*;
 
-public class StingRepositoryIntegrationTest
+public final class StingRepositoryIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent

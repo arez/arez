@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class InverseHooksIntegrationTest
+public final class InverseHooksIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

@@ -11,7 +11,7 @@ import sting.Injectable;
 import sting.Injector;
 import static org.testng.Assert.*;
 
-public class NoSchedulesNoPostConstructIntegrationTest
+public final class NoSchedulesNoPostConstructIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Nonnull

@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 @SuppressWarnings( "Arez:UnmanagedComponentReference" )
-public class DualDisposedDependenciesIntegrationTest
+public final class DualDisposedDependenciesIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

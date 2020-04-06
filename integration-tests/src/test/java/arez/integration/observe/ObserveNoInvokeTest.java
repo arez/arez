@@ -6,7 +6,7 @@ import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ObserveNoInvokeTest
+public final class ObserveNoInvokeTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent

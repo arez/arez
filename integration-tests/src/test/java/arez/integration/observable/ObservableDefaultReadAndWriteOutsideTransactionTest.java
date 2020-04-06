@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ObservableDefaultReadAndWriteOutsideTransactionTest
+public final class ObservableDefaultReadAndWriteOutsideTransactionTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent( defaultReadOutsideTransaction = Feature.ENABLE, defaultWriteOutsideTransaction = Feature.ENABLE )

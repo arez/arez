@@ -10,7 +10,7 @@ import arez.integration.util.SpyEventRecorder;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 
-public class MemoizeNoParamIntegrationTest
+public final class MemoizeNoParamIntegrationTest
   extends AbstractArezIntegrationTest
 {
   /**

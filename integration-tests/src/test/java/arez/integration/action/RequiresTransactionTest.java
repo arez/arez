@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 @SuppressWarnings( { "UnusedReturnValue", "unused", "SameParameterValue" } )
-public class RequiresTransactionTest
+public final class RequiresTransactionTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent

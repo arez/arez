@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 @SuppressWarnings( "ResultOfMethodCallIgnored" )
-public class ObserveRequireActionTest
+public final class ObserveRequireActionTest
   extends AbstractArezIntegrationTest
 {
   @Test

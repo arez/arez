@@ -12,7 +12,7 @@ import arez.spy.ComponentInfo;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class NativeComponentsIntegrationTest
+public final class NativeComponentsIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

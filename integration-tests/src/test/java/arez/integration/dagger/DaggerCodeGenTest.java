@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class DaggerCodeGenTest
+public final class DaggerCodeGenTest
   extends AbstractArezIntegrationTest
 {
   protected final void assertClassNotPresent( @Nonnull final String className )

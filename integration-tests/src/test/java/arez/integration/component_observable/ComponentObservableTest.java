@@ -12,7 +12,7 @@ import java.util.List;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ComponentObservableTest
+public final class ComponentObservableTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent( allowEmpty = true, observable = Feature.ENABLE )

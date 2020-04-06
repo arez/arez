@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class NestedComputableValueIntegrationTest
+public final class NestedComputableValueIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

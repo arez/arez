@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ManyMultiplicityInverseIntegrationTest
+public final class ManyMultiplicityInverseIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

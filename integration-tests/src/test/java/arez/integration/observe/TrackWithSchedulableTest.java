@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class TrackWithSchedulableTest
+public final class TrackWithSchedulableTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent

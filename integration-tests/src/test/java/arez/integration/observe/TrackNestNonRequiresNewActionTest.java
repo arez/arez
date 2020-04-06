@@ -11,7 +11,7 @@ import arez.integration.util.SpyEventRecorder;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class TrackNestNonRequiresNewActionTest
+public final class TrackNestNonRequiresNewActionTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent

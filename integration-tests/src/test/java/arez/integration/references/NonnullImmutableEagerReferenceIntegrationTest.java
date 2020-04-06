@@ -18,7 +18,7 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class NonnullImmutableEagerReferenceIntegrationTest
+public final class NonnullImmutableEagerReferenceIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

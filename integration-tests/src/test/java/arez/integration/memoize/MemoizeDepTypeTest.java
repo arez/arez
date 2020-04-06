@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
-public class MemoizeDepTypeTest
+public final class MemoizeDepTypeTest
   extends AbstractArezIntegrationTest
 {
   @SuppressWarnings( { "SameParameterValue", "unused" } )

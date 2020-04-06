@@ -9,7 +9,7 @@ import arez.annotations.Memoize;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ComputableValueRefTest
+public final class ComputableValueRefTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent

@@ -15,7 +15,7 @@ import java.util.HashMap;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class VerifyIntegrationTest
+public final class VerifyIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

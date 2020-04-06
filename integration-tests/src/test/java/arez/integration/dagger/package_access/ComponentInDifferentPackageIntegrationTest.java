@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ComponentInDifferentPackageIntegrationTest
+public final class ComponentInDifferentPackageIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Singleton

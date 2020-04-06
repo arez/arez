@@ -10,7 +10,7 @@ import arez.integration.util.SpyEventRecorder;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 
-public class ObservableInitializerIntegrationTest
+public final class ObservableInitializerIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

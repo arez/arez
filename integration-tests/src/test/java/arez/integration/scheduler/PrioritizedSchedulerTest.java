@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class PrioritizedSchedulerTest
+public final class PrioritizedSchedulerTest
   extends AbstractArezIntegrationTest
 {
   @SuppressWarnings( "SameParameterValue" )

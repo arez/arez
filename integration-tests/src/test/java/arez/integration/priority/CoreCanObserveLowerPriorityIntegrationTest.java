@@ -9,7 +9,7 @@ import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import org.testng.annotations.Test;
 
-public class CoreCanObserveLowerPriorityIntegrationTest
+public final class CoreCanObserveLowerPriorityIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

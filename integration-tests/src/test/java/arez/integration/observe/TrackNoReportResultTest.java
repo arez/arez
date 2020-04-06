@@ -16,7 +16,7 @@ import arez.spy.TransactionStartEvent;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class TrackNoReportResultTest
+public final class TrackNoReportResultTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent

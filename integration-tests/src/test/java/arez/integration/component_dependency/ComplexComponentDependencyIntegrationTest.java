@@ -9,7 +9,7 @@ import arez.integration.util.SpyEventRecorder;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ComplexComponentDependencyIntegrationTest
+public final class ComplexComponentDependencyIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

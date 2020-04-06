@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ZeroOrOneMultiplicityInverseIntegrationTest
+public final class ZeroOrOneMultiplicityInverseIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

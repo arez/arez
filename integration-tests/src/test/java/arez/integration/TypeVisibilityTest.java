@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class TypeVisibilityTest
+public final class TypeVisibilityTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent( dagger = Feature.ENABLE )

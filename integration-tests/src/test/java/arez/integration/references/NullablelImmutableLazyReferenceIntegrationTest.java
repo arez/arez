@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class NullablelImmutableLazyReferenceIntegrationTest
+public final class NullablelImmutableLazyReferenceIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

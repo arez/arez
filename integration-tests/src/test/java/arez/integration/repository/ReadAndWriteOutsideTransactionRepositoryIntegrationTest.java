@@ -11,7 +11,7 @@ import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ReadAndWriteOutsideTransactionRepositoryIntegrationTest
+public final class ReadAndWriteOutsideTransactionRepositoryIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent( defaultReadOutsideTransaction = Feature.ENABLE, defaultWriteOutsideTransaction = Feature.ENABLE )

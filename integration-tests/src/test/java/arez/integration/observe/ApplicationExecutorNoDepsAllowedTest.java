@@ -13,7 +13,7 @@ import arez.spy.ObserverInfo;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ApplicationExecutorNoDepsAllowedTest
+public final class ApplicationExecutorNoDepsAllowedTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent

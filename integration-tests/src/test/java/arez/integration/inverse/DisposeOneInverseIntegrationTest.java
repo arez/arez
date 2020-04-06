@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class DisposeOneInverseIntegrationTest
+public final class DisposeOneInverseIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

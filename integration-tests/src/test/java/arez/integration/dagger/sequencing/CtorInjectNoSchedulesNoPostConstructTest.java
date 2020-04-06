@@ -12,7 +12,7 @@ import javax.inject.Singleton;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class CtorInjectNoSchedulesNoPostConstructTest
+public final class CtorInjectNoSchedulesNoPostConstructTest
   extends AbstractArezIntegrationTest
 {
   @Nonnull

@@ -7,7 +7,7 @@ import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ConstructBeforeScheduledTest
+public final class ConstructBeforeScheduledTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent

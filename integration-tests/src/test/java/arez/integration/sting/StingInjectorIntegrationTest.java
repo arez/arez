@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 import sting.Injector;
 import static org.testng.Assert.*;
 
-public class StingInjectorIntegrationTest
+public final class StingInjectorIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent( sting = Feature.ENABLE )

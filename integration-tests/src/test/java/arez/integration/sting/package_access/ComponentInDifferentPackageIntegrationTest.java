@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import sting.Injector;
 import static org.testng.Assert.*;
 
-public class ComponentInDifferentPackageIntegrationTest
+public final class ComponentInDifferentPackageIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Injector( includes = TestComponent2.class )

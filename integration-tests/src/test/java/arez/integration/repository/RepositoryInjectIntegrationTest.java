@@ -16,7 +16,7 @@ import javax.inject.Singleton;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class RepositoryInjectIntegrationTest
+public final class RepositoryInjectIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent

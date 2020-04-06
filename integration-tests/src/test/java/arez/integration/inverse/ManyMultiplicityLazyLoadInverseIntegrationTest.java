@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ManyMultiplicityLazyLoadInverseIntegrationTest
+public final class ManyMultiplicityLazyLoadInverseIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

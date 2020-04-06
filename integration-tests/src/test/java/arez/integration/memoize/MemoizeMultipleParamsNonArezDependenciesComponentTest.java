@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class MemoizeMultipleParamsNonArezDependenciesComponentTest
+public final class MemoizeMultipleParamsNonArezDependenciesComponentTest
   extends AbstractArezIntegrationTest
 {
   @Test

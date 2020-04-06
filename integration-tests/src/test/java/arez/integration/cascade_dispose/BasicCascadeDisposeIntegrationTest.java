@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class BasicCascadeDisposeIntegrationTest
+public final class BasicCascadeDisposeIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

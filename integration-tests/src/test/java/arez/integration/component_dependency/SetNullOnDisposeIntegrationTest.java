@@ -9,7 +9,7 @@ import arez.integration.util.SpyEventRecorder;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class SetNullOnDisposeIntegrationTest
+public final class SetNullOnDisposeIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

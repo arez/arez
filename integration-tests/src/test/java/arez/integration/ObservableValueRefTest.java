@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ObservableValueRefTest
+public final class ObservableValueRefTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent

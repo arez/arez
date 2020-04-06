@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class MultipleDeactivationsDisposeOnDeactivateIntegrationTest
+public final class MultipleDeactivationsDisposeOnDeactivateIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

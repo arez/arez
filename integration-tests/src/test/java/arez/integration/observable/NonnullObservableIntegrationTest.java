@@ -8,7 +8,7 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class NonnullObservableIntegrationTest
+public final class NonnullObservableIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @SuppressWarnings( "ConstantConditions" )

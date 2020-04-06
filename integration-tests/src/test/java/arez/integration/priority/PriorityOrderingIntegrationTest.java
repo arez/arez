@@ -12,7 +12,7 @@ import java.util.Arrays;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class PriorityOrderingIntegrationTest
+public final class PriorityOrderingIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

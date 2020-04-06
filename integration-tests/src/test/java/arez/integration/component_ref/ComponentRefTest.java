@@ -7,7 +7,7 @@ import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ComponentRefTest
+public final class ComponentRefTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent( allowEmpty = true )

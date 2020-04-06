@@ -9,7 +9,7 @@ import javax.annotation.Nullable;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class NullableInitializerIntegrationTest
+public final class NullableInitializerIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

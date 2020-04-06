@@ -15,7 +15,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 
-public class ReferenceNotFoundIntegrationTest
+public final class ReferenceNotFoundIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

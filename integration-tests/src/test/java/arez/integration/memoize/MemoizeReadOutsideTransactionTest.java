@@ -16,7 +16,7 @@ import arez.spy.TransactionStartEvent;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 
-public class MemoizeReadOutsideTransactionTest
+public final class MemoizeReadOutsideTransactionTest
   extends AbstractArezIntegrationTest
 {
   @Test

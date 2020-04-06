@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class BasicRepositoryIntegrationTest
+public final class BasicRepositoryIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent

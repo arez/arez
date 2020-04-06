@@ -15,7 +15,7 @@ import java.util.List;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ComponentObservableRepositoryTest
+public final class ComponentObservableRepositoryTest
   extends AbstractArezIntegrationTest
 {
   @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )

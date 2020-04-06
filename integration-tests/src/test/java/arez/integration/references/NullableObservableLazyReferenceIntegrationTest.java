@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class NullableObservableLazyReferenceIntegrationTest
+public final class NullableObservableLazyReferenceIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

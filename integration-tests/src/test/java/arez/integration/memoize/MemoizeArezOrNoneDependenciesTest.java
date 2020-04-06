@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class MemoizeArezOrNoneDependenciesTest
+public final class MemoizeArezOrNoneDependenciesTest
   extends AbstractArezIntegrationTest
 {
   @Test

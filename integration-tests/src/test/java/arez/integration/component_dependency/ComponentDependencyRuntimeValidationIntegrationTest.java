@@ -7,7 +7,7 @@ import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ComponentDependencyRuntimeValidationIntegrationTest
+public final class ComponentDependencyRuntimeValidationIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

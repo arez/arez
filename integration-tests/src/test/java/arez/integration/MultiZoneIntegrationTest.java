@@ -13,7 +13,7 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class MultiZoneIntegrationTest
+public final class MultiZoneIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

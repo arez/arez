@@ -9,7 +9,7 @@ import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ObserveManualScheduleDisallowedTest
+public final class ObserveManualScheduleDisallowedTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent

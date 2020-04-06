@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ObserversMutationParameterIntegrationTest
+public final class ObserversMutationParameterIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

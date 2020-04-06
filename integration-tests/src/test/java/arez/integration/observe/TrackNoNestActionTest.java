@@ -10,7 +10,7 @@ import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class TrackNoNestActionTest
+public final class TrackNoNestActionTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent

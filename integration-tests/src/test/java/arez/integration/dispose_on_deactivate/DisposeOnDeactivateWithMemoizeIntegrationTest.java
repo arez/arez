@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 @SuppressWarnings( "Arez:UnmanagedComponentReference" )
-public class DisposeOnDeactivateWithMemoizeIntegrationTest
+public final class DisposeOnDeactivateWithMemoizeIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

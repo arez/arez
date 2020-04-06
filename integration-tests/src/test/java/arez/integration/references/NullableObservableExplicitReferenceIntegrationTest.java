@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class NullableObservableExplicitReferenceIntegrationTest
+public final class NullableObservableExplicitReferenceIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.testng.annotations.Test;
 
-public class DisposeIntegrationTest
+public final class DisposeIntegrationTest
   extends AbstractArezIntegrationTest
 {
   /**

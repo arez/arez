@@ -9,7 +9,7 @@ import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ObserveArezDependenciesOnlyTest
+public final class ObserveArezDependenciesOnlyTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent

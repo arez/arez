@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class UnannotatedObservablesIntegrationTest
+public final class UnannotatedObservablesIntegrationTest
   extends AbstractArezIntegrationTest
 {
   @Test

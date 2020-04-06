@@ -8,7 +8,7 @@ import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ActionAndPostConstructTest
+public final class ActionAndPostConstructTest
   extends AbstractArezIntegrationTest
 {
   @ArezComponent
