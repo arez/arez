@@ -13,7 +13,11 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.inject.Singleton;
 import org.realityforge.braincheck.Guards;
+import sting.Injectable;
+import sting.Typed;
 
+@Injectable
+@Typed(RepositoryWithExplicitIdRepository.class)
 @Generated("arez.processor.ArezProcessor")
 @Singleton
 final class Arez_RepositoryWithExplicitIdRepository extends RepositoryWithExplicitIdRepository implements Disposable, Identifiable<Integer> {

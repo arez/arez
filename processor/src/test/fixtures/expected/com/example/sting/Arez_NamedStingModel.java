@@ -8,7 +8,13 @@ import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
+import sting.Injectable;
+import sting.Named;
+import sting.Typed;
 
+@Injectable
+@Named("")
+@Typed(NamedStingModel.class)
 @Generated("arez.processor.ArezProcessor")
 final class Arez_NamedStingModel extends NamedStingModel implements Disposable, Identifiable<Integer> {
   private static volatile int $$arezi$$_nextId;

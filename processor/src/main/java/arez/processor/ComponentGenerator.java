@@ -1,5 +1,6 @@
 package arez.processor;
 
+import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
@@ -25,6 +26,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
@@ -66,6 +68,7 @@ final class ComponentGenerator
   private static final ClassName LOCATOR_CLASSNAME = ClassName.get( "arez", "Locator" );
   private static final ClassName LINKABLE_CLASSNAME = ClassName.get( "arez.component", "Linkable" );
   private static final ClassName VERIFIABLE_CLASSNAME = ClassName.get( "arez.component", "Verifiable" );
+  private static final ClassName STING_INJECTABLE = ClassName.get( "sting", "Injectable" );
   /**
    * Prefix for fields that are used to generate Arez elements.
    */
@@ -117,6 +120,7 @@ final class ComponentGenerator
   /**
    * Build the enhanced class for the component.
    */
+  @SuppressWarnings( "unchecked" )
   @Nonnull
   static TypeSpec buildType( @Nonnull final ProcessingEnvironment processingEnv,
                              @Nonnull final ComponentDescriptor component )
@@ -126,8 +130,46 @@ final class ComponentGenerator
       addTypeVariables( GeneratorUtil.getTypeArgumentsAsNames( component.asDeclaredType() ) ).
       addModifiers( Modifier.FINAL );
     GeneratorUtil.addOriginatingTypes( component.getElement(), builder );
+    if ( component.isStingEnabled() )
+    {
+      builder.addAnnotation( STING_INJECTABLE );
+    }
 
-    GeneratorUtil.copyWhitelistedAnnotations( component.getElement(), builder );
+    final List<String> whitelist = new ArrayList<>( GeneratorUtil.ANNOTATION_WHITELIST );
+
+    if ( component.isStingEnabled() )
+    {
+      whitelist.add( Constants.STING_NAMED );
+      whitelist.add( Constants.STING_EAGER );
+    }
+
+    GeneratorUtil.copyWhitelistedAnnotations( component.getElement(), builder, whitelist );
+
+    if ( component.isStingEnabled() )
+    {
+      final AnnotationMirror typed =
+        AnnotationsUtil.findAnnotationByType( component.getElement(), Constants.STING_TYPED );
+      if ( null == typed )
+      {
+        builder.addAnnotation( AnnotationSpec
+                                 .builder( ClassName.get( "sting", "Typed" ) )
+                                 .addMember( "value", "$T.class", component.getClassName() )
+                                 .build() );
+      }
+      else if ( ( (List<AnnotationValue>) AnnotationsUtil.getAnnotationValue( typed, "value" ).getValue() ).isEmpty() )
+      {
+        // This is only needed because javapoet has a bug and does not correctly the scenario
+        // where the attribute is an array, and it is empty and there is no default value
+        builder.addAnnotation( AnnotationSpec
+                                 .builder( ClassName.get( "sting", "Typed" ) )
+                                 .addMember( "value", "{}" )
+                                 .build() );
+      }
+      else
+      {
+        builder.addAnnotation( AnnotationSpec.get( typed ) );
+      }
+    }
 
     if ( component.isClassType() )
     {
@@ -1747,7 +1789,9 @@ final class ComponentGenerator
       {
         final ParameterSpec.Builder param =
           ParameterSpec.builder( TypeName.get( element.asType() ), element.getSimpleName().toString(), Modifier.FINAL );
-        GeneratorUtil.copyWhitelistedAnnotations( element, param );
+        final ArrayList<String> whitelist = new ArrayList<>( GeneratorUtil.ANNOTATION_WHITELIST );
+        whitelist.add( Constants.STING_NAMED );
+        GeneratorUtil.copyWhitelistedAnnotations( element, param, whitelist );
         builder.addParameter( param.build() );
         parameterNames.add( element.getSimpleName().toString() );
         if ( !firstParam )

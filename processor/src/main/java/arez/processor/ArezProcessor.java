@@ -108,10 +108,6 @@ public final class ArezProcessor
     {
       emitTypeSpec( packageName, DaggerModuleGenerator.buildType( processingEnv, descriptor ) );
     }
-    if ( descriptor.isStingEnabled() )
-    {
-      emitTypeSpec( packageName, StingFragmentGenerator.buildType( processingEnv, descriptor ) );
-    }
     if ( descriptor.hasRepository() )
     {
       emitTypeSpec( packageName, RepositoryGenerator.buildType( processingEnv, descriptor.getRepository() ) );

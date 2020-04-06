@@ -1,0 +1,23 @@
+[
+  {
+    "code": "java.annotation.attributeValueChanged",
+    "description": "Attribute 'value' of annotation 'arez.annotations.StingProvider' changed value from '\"[FlatEnclosingName][SimpleName]Fragment\"' to '\"[FlatEnclosingName]Arez_[SimpleName]\"'.",
+    "element": "@interface arez.annotations.ArezComponent",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@arez.annotations.StingProvider(\"[FlatEnclosingName]Arez_[SimpleName]\")",
+      "annotationType": "arez.annotations.StingProvider",
+      "attribute": "value",
+      "classQualifiedName": "arez.annotations.ArezComponent",
+      "classSimpleName": "ArezComponent",
+      "elementKind": "@interface",
+      "newValue": "\"[FlatEnclosingName]Arez_[SimpleName]\"",
+      "oldValue": "\"[FlatEnclosingName][SimpleName]Fragment\"",
+      "package": "arez.annotations"
+    }
+  }
+]

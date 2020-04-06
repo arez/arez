@@ -12,7 +12,11 @@ import java.util.stream.Stream;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
+import sting.Injectable;
+import sting.Typed;
 
+@Injectable
+@Typed(DaggerDisabledRepositoryRepository.class)
 @Generated("arez.processor.ArezProcessor")
 final class Arez_DaggerDisabledRepositoryRepository extends DaggerDisabledRepositoryRepository implements Disposable, Identifiable<Integer> {
   private static volatile int $$arezi$$_nextId;

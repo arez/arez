@@ -2426,10 +2426,6 @@ public final class ArezProcessorTest
     {
       expectedOutputs.add( toFilename( "expected", classname, "", "DaggerModule.java" ) );
     }
-    if ( sting )
-    {
-      expectedOutputs.add( toFilename( "expected", classname, "", "Fragment.java" ) );
-    }
     if ( repository )
     {
       expectedOutputs.add( toFilename( "expected", classname, "", "Repository.java" ) );
@@ -2455,8 +2451,6 @@ public final class ArezProcessorTest
   @Override
   protected boolean emitGeneratedFile( @Nonnull final JavaFileObject target )
   {
-    return super.emitGeneratedFile( target ) &&
-           !target.getName().endsWith( "RepositoryFragment.java" ) &&
-           !target.getName().endsWith( "RepositoryDaggerModule.java" );
+    return super.emitGeneratedFile( target ) && !target.getName().endsWith( "RepositoryDaggerModule.java" );
   }
 }

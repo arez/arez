@@ -10,14 +10,19 @@ import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
+import sting.Injectable;
+import sting.Named;
+import sting.Typed;
 
+@Injectable
+@Typed(NamedArgStingModel.class)
 @Generated("arez.processor.ArezProcessor")
 final class Arez_NamedArgStingModel extends NamedArgStingModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
 
-  Arez_NamedArgStingModel(final int port) {
+  Arez_NamedArgStingModel(@Named("port") final int port) {
     super(port);
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;

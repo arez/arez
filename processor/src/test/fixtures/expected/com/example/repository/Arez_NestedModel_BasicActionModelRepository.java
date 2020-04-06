@@ -13,7 +13,11 @@ import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.inject.Singleton;
 import org.realityforge.braincheck.Guards;
+import sting.Injectable;
+import sting.Typed;
 
+@Injectable
+@Typed(NestedModel_BasicActionModelRepository.class)
 @Generated("arez.processor.ArezProcessor")
 @Singleton
 final class Arez_NestedModel_BasicActionModelRepository extends NestedModel_BasicActionModelRepository implements Disposable, Identifiable<Integer> {
