@@ -4,21 +4,6 @@ This document is essentially a list of shorthand notes describing work yet to be
 Unfortunately it is not complete enough for other people to pick work off the list and
 complete as there is too much un-said.
 
-## Next Release
-
-See https://github.com/arez/arez/issues/91
-
-* Enhance `@OnActivate` so that it can optionally return a `SafeProcedure` that will be used in place of an
-  `@OnDeactivate` method. Perhaps at this point `@OnActivate` could be renamed and `@OnDeactivate` removed.
-
-* Further enhance `@OnActivate` so it takes a small utility such as `ComputableValueElement` that has
-  `getComputableValue()` method as well as a `set(value)`. This would dramatically simplify writing
-  `ComputableValue` instances that were driven by external elements.
-
-* Support `@OnActivate` and `@OnDeactivate` for `@Memoize` methods with parameters. In this scenario the parameters
-  associated with the `@Memoize` method are passed in as is an optional `ComputableValue` instance. One this
-  is implemented a significant simplification is possible in `RoseApp` and `RoseDaggerComponent`
-
 ## Enhancements
 
 * `final EventDrivenValue<HTMLDocument, Object> _documentVisibility` can not have `@CascadeDispose` annotation.
