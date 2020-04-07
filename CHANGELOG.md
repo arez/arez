@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.proton` artifacts to version `0.45`.
 * Generate nullability annotations on synthetic fields storing data for abstract observable properties.
 * Upgrade the `org.realityforge.sting` artifacts to version `0.14`.
 * Change the way sting is integrated with an arez component. Instead of generating a `@Fragment` annotated type to provide the component, make the component in an `@Injectable` annotated type.
