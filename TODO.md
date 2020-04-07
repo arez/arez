@@ -161,25 +161,6 @@ See https://github.com/arez/arez/issues/91
   `LazyObservablePromise` that accepts a factory method that creates a promise. The factory is invoked
   on activation to create promise and then nulled when deactivated.
 
-## Spritz integration
-
-* Use [Spritz](https://github.com/spritz/spritz.git), a reactive streaming library, to stream changes
-  into `ComputableValue` instances. The stream would manually trigger `ComputableValue.reportPossiblyChanged()`
-  when a new value arrives. This would ultimately allow us to add mechanisms to control when reaction tasks
-  occur. Some obvious candidates include:
-  - `minimumDelay`: Must wait a minimum time before re-executing
-  - `debounceTime`: Changes are ignored for a time after executing to avoid frequent changes
-  - `throttleTime`: Track when executed and reschedule when at least `throttleTime` has passed. This is
-    similar to `minimumDelay`, except that the initial run of the function happens immediately.
-
-  The component model may need built in support for this. Perhaps a `@StreamingValue` could be made up of a
-  stream producing method and a value returning method.
-
-* One useful addition may be the ability to push changes from `ObservableValue` instance and `ComputableValue`
-  instances into streams. These changes could either be pushed inline within the `READ_WRITE` transaction or could
-  be pushed as a task passed to scheduler. This would support several alternative approaches when architecting
-  applications.
-
 ## J2CL Integration
 
 * Arez works well under GWT2.x but would work MUCH better under J2CL but the build infrastructure is not quite
