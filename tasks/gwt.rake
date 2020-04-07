@@ -21,7 +21,7 @@ def gwt_enhance(project, options = {})
 
   dependencies = project.compile.dependencies + extra_deps + [Buildr.artifact(:gwt_user)]
 
-  gwt_modules = []
+  gwt_modules = options[:gwt_modules] || []
   source_paths = project.compile.sources + project.iml.main_generated_resource_directories.flatten.compact + project.iml.main_generated_source_directories.flatten.compact
   source_paths.each do |base_dir|
     Dir["#{base_dir}/**/*.gwt.xml"].each do |filename|
