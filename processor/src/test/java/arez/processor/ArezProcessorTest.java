@@ -1,11 +1,14 @@
 package arez.processor;
 
+import com.google.testing.compile.Compilation;
+import com.google.testing.compile.Compiler;
 import com.google.testing.compile.JavaSourcesSubjectFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nonnull;
+import javax.annotation.processing.Processor;
 import javax.tools.JavaFileObject;
 import org.realityforge.proton.qa.AbstractProcessorTest;
 import org.testng.annotations.DataProvider;
@@ -1216,6 +1219,36 @@ public final class ArezProcessorTest
   }
 
   @Test
+  public void processSuccessfulServiceViaContributeToStingModel()
+    throws Exception
+  {
+    final String pkg = "com.example.sting.autofragment";
+
+    final List<JavaFileObject> inputs =
+      inputs( pkg + ".ServiceViaContributeToStingModel",
+              pkg + ".MyAutoFragment",
+
+              // The following input exists so that the synthesizing processor has types to "process"
+              pkg + ".MyFramework",
+              pkg + ".MyFrameworkModel" );
+    outputFilesIfEnabled( inputs, this::emitGeneratedFile );
+
+    // This one is just used to keep synthesizer running
+    final Processor synthesizingProcessor1 =
+      newSynthesizingProcessor( "input", pkg + ".MyFrameworkModelImpl", 1 );
+    // this synthesizer produces java file that we are using in test
+    final Processor synthesizingProcessor2 =
+      newSynthesizingProcessor( "input", pkg + ".OtherModel", 2 );
+
+    final Compilation compilation =
+      Compiler.javac()
+        .withProcessors( Arrays.asList( synthesizingProcessor1, synthesizingProcessor2, processor() ) )
+        .withOptions( getOptions() )
+        .compile( inputs );
+    assertCompilationSuccessful( compilation );
+  }
+
+  @Test
   public void processSuccessfulNestedCompile()
     throws Exception
   {
@@ -2053,6 +2086,8 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.repository.SingletonAndRepository",
                       "@ArezComponent target is annotated with both the @arez.annotations.Repository annotation and the javax.inject.Singleton annotation which is an invalid combination." },
 
+        new Object[]{ "com.example.sting.ContributeToButNoStingModel",
+                      "@ArezComponent target must not disable sting integration and be annotated with sting.ContributeTo" },
         new Object[]{ "com.example.sting.EagerButNoStingModel",
                       "@ArezComponent target must not disable sting integration and be annotated with sting.Eager" },
         new Object[]{ "com.example.sting.NamedArgButNoStingModel",

@@ -8,6 +8,7 @@
 * Change the way sting is integrated with an arez component. Instead of generating a `@Fragment` annotated type to provide the component, make the component in an `@Injectable` annotated type.
 * Rework the compile process and code generation process to ensure that compile errors are eliminated from generated code. Any compile error will now generate a fatal compile error thus forcing that the toolkit immediately addresses any lint errors.
 * Stop copying daggers scope annotation (if present) to the generated component class as it is not used by dagger and it causes a compile error when Sting is present. (Dagger uses the scope annotation by copying it from the component definition class to the generated dagger module).
+* Enhance sting integration by copying the `sting.ContributeTo` annotation from the component class to the generated component sub-class.
 
 ### [v0.172](https://github.com/arez/arez/tree/v0.172) (2020-03-20) · [Full Changelog](https://github.com/arez/arez/compare/v0.171...v0.172) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.171&new=0.172)
 

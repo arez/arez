@@ -43,6 +43,7 @@ final class Constants
   static final String SINGLETON_CLASSNAME = "javax.inject.Singleton";
   static final String SCOPE_CLASSNAME = "javax.inject.Scope";
   static final String STING_INJECTOR = "sting.Injector";
+  static final String STING_CONTRIBUTE_TO = "sting.ContributeTo";
   static final String STING_NAMED = "sting.Named";
   static final String STING_EAGER = "sting.Eager";
   static final String STING_TYPED = "sting.Typed";

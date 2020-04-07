@@ -141,6 +141,7 @@ final class ComponentGenerator
     {
       whitelist.add( Constants.STING_NAMED );
       whitelist.add( Constants.STING_EAGER );
+      whitelist.add( Constants.STING_CONTRIBUTE_TO );
     }
 
     GeneratorUtil.copyWhitelistedAnnotations( component.getElement(), builder, whitelist );
