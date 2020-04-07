@@ -168,6 +168,8 @@ define 'arez' do
 
   desc 'Arez Integration Tests'
   define 'integration-tests' do
+    project.enable_annotation_processor = true
+
     test.options[:properties] = AREZ_TEST_OPTIONS.merge('arez.integration_fixture_dir' => _('src/test/resources'))
     test.options[:java_args] = ['-ea']
 
