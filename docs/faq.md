@@ -224,7 +224,7 @@ changed via a stabilize call. This is in contrast with Arez that automatically c
 {@link: arez.ObservableValue} change unless the develoepr has specifically paused the scheduler. Incremental also
 assumes a directed acyclic graph where Arez assumes an arbitrary graph that will eventually stabilize.
 
-Incremental is based upon the [Self-Adjusting Computation](http://www.umut-acar.org/self-adjusting-computation)
+Incremental is based upon the [Self-Adjusting Computation](http://www.umut-acar.org/publications-by-topic#TOC-Self-Adjusting-Computation)
 academic literature which should be considered a significant advantage. Arez (and Mobx before it) has stumbled
 on the same techniques as outlined in the research literature (i.e. Dynamic dependence graphs and memoized dynamic
 dependence graphs as a way of implementing change propagation) but both lack the rigour that is present in the
