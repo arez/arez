@@ -5,17 +5,15 @@ import javax.inject.Inject;
 public class ExampleConsumer
 {
   private final MyService _myService;
-  private final MyEntityRepository _repository;
 
   @Inject
-  public ExampleConsumer( final MyService myService, final MyEntityRepository repository )
+  public ExampleConsumer( final MyService myService )
   {
     _myService = myService;
-    _repository = repository;
   }
 
-  public void performSomeAction()
+  public void performSomeAction( int value )
   {
-    _repository.findAll().forEach( e -> _myService.performAction( e.getValue() ) );
+    _myService.performAction( value );
   }
 }

@@ -4,7 +4,7 @@ import dagger.Component;
 import javax.inject.Singleton;
 
 @Singleton
-@Component( modules = { MyServiceDaggerModule.class, MyEntityRepositoryDaggerModule.class } )
+@Component( modules = MyServiceDaggerModule.class )
 public interface ExampleDaggerComponent
 {
   ExampleConsumer getExampleConsumer();

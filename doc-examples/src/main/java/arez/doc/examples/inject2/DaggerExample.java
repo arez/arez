@@ -5,6 +5,6 @@ public class DaggerExample
   public static void main( String[] args )
   {
     final ExampleDaggerComponent component = DaggerExampleDaggerComponent.create();
-    component.getExampleConsumer().performSomeAction();
+    component.getExampleConsumer().performSomeAction( 42 );
   }
 }
