@@ -61,13 +61,6 @@ complete as there is too much un-said.
 
 * Refactor `AbstractRepository` so that rather than being a base class, it implements a `Repository` class that
   is composed in downstream repositories.
-* Auto-generate Locator factory. Will need an annotation processor that defers generation to the last round.
-  Collects a type annotated with a specific annotation that extends or implements a `LocatorFactory` interface.
-  It can either collect all types or only types that participate in reference relationships. If injection is
-  enabled, then it will expect to receive the repositories via injection, otherwise it will create the
-  repositories in the constructor.
-  - implementation will assert that references config is enabled? Probably not. Could use locators for other reasons.
-  - Move `TypeBasedLocator` into internal package after this is completed.
 
 * Consider scanning usage of all Arez annotations by annotation processor. If an Arez annotation appears in an
   unexpected place (i.e. outside of an `@ArezComponent` annotated class ) then generate an exception. This would
