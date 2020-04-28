@@ -6,6 +6,12 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Generate a warning if any arez component declares protected method (unless it overrides protected method in different package)
+
+* Generate a warning if any arez component declares final method
+
+* Split successful compile tests into dagger variant and non-dagger variant
+
 * `final EventDrivenValue<HTMLDocument, Object> _documentVisibility` can not have `@CascadeDispose` annotation.
   Because type parameter confuses annotation processor?
 
