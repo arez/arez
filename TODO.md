@@ -185,16 +185,3 @@ When we get to a stable release candidate we need to action the following items:
 * Change the documentation for the peer projects so that the `README.md` is converted into a package summary
   page in javadocs. Thus the README == the project documentation. We would need to link from README to the specific
   deployed page. Could do this by using qualified url in README and gsubing when converting to html.
-
-## Mobx State Tree
-
-* We could incorporate a mechanism like Mobx State Tree to serialize observable data of components as
-  immutable json-like data. This may involve
-  - adding additional lifecycle methods on the components (i.e. the equivalent of `onSnapshot()`)
-  - working out mechanisms to determine how components in components are serialized (i.e references could
-    be serialize component field or serialize id reference to field). Is the relationship a reference or
-    containership.
-  - deserialization strategies to various mediums (i.e. json etc) and how dow we resolve references. How
-    do we do it late? Is this extracting a part of replicant into core Arez?
-  - Interesting way to update and transmit changes via json patches
-    https://medium.com/@mweststrate/distributing-state-changes-using-snapshots-patches-and-actions-part-1-2811a2fcd65f
