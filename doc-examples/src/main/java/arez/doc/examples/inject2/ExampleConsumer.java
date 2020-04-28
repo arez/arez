@@ -7,7 +7,7 @@ public class ExampleConsumer
   private final MyService _myService;
 
   @Inject
-  public ExampleConsumer( final MyService myService )
+  ExampleConsumer( final MyService myService )
   {
     _myService = myService;
   }
