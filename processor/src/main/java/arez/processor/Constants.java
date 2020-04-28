@@ -32,7 +32,6 @@ final class Constants
   static final String PRE_DISPOSE_CLASSNAME = "arez.annotations.PreDispose";
   static final String POST_INVERSE_ADD_CLASSNAME = "arez.annotations.PostInverseAdd";
   static final String PRE_INVERSE_REMOVE_CLASSNAME = "arez.annotations.PreInverseRemove";
-  static final String REPOSITORY_CLASSNAME = "arez.annotations.Repository";
   static final String COMPUTABLE_VALUE_CLASSNAME = "arez.ComputableValue";
   static final String OBSERVER_CLASSNAME = "arez.Observer";
   static final String DISPOSABLE_CLASSNAME = "arez.Disposable";

@@ -108,10 +108,6 @@ public final class ArezProcessor
     {
       emitTypeSpec( packageName, DaggerModuleGenerator.buildType( processingEnv, descriptor ) );
     }
-    if ( descriptor.hasRepository() )
-    {
-      emitTypeSpec( packageName, RepositoryGenerator.buildType( processingEnv, descriptor.getRepository() ) );
-    }
   }
 
   @Nonnull
@@ -974,52 +970,6 @@ public final class ArezProcessor
     component.addCascadeDispose( new CascadeDisposableDescriptor( field ) );
   }
 
-  private boolean shouldRepositoryDefineCreate( @Nonnull final ComponentDescriptor component )
-  {
-    final String value = AnnotationsUtil.getEnumAnnotationParameter( component.getElement(),
-                                                                     Constants.REPOSITORY_CLASSNAME,
-                                                                     "attach" );
-    switch ( value )
-    {
-      case "CREATE_ONLY":
-      case "CREATE_OR_ATTACH":
-        return true;
-      default:
-        return false;
-    }
-  }
-
-  private boolean shouldRepositoryDefineDestroy( @Nonnull final ComponentDescriptor component )
-  {
-    final String value = AnnotationsUtil.getEnumAnnotationParameter( component.getElement(),
-                                                                     Constants.REPOSITORY_CLASSNAME,
-                                                                     "detach" );
-    switch ( value )
-    {
-      case "DESTROY_ONLY":
-      case "DESTROY_OR_DETACH":
-        return true;
-      default:
-        return false;
-    }
-  }
-
-  private boolean shouldRepositoryDefineDetach( @Nonnull final ComponentDescriptor component )
-  {
-    final String value =
-      AnnotationsUtil.getEnumAnnotationParameter( component.getElement(),
-                                                  Constants.REPOSITORY_CLASSNAME,
-                                                  "detach" );
-    switch ( value )
-    {
-      case "DETACH_ONLY":
-      case "DESTROY_OR_DETACH":
-        return true;
-      default:
-        return false;
-    }
-  }
-
   @Nonnull
   private String suppressedBy( @Nonnull final String warning )
   {
@@ -1103,21 +1053,6 @@ public final class ArezProcessor
     final DependencyDescriptor dependencyDescriptor =
       component.getDependencies().computeIfAbsent( method, m -> createMethodDependencyDescriptor( component, method ) );
     dependencyDescriptor.setObservable( observable );
-  }
-
-  private boolean shouldRepositoryDefineAttach( @Nonnull final ComponentDescriptor component )
-  {
-    final String value = AnnotationsUtil.getEnumAnnotationParameter( component.getElement(),
-                                                                     Constants.REPOSITORY_CLASSNAME,
-                                                                     "attach" );
-    switch ( value )
-    {
-      case "ATTACH_ONLY":
-      case "CREATE_OR_ATTACH":
-        return true;
-      default:
-        return false;
-    }
   }
 
   private void addAction( @Nonnull final ComponentDescriptor component,
@@ -2014,7 +1949,7 @@ public final class ArezProcessor
       AnnotationsUtil.getAnnotationByType( typeElement, Constants.COMPONENT_CLASSNAME );
     final String declaredName = getAnnotationParameter( arezComponent, "name" );
     final boolean disposeOnDeactivate = getAnnotationParameter( arezComponent, "disposeOnDeactivate" );
-    final boolean observableFlag = isComponentObservableRequired( arezComponent, typeElement, disposeOnDeactivate );
+    final boolean observableFlag = isComponentObservableRequired( arezComponent, disposeOnDeactivate );
     final boolean service = isService( typeElement );
     final boolean disposeNotifierFlag = isDisposableTrackableRequired( typeElement );
     final boolean allowEmpty = getAnnotationParameter( arezComponent, "allowEmpty" );
@@ -2032,7 +1967,7 @@ public final class ArezProcessor
     final AnnotationValue defaultWriteOutsideTransaction =
       AnnotationsUtil.findAnnotationValueNoDefaults( arezComponent, "defaultWriteOutsideTransaction" );
 
-    final boolean requireEquals = isEqualsRequired( arezComponent, typeElement );
+    final boolean requireEquals = isEqualsRequired( arezComponent );
     final boolean requireVerify = isVerifyRequired( arezComponent, typeElement );
 
     if ( !typeElement.getModifiers().contains( Modifier.ABSTRACT ) )
@@ -2180,92 +2115,10 @@ public final class ArezProcessor
       }
     }
 
-    final AnnotationMirror repository =
-      AnnotationsUtil.findAnnotationByType( typeElement, Constants.REPOSITORY_CLASSNAME );
-    if ( null != repository )
-    {
-      final List<TypeElement> extensions =
-        AnnotationsUtil.getTypeElementsAnnotationParameter( processingEnv,
-                                                            typeElement,
-                                                            Constants.REPOSITORY_CLASSNAME,
-                                                            "extensions" );
-      final String repositoryDaggerMode = getRepositoryDaggerConfig( repository );
-      final boolean repositoryDagger =
-        "ENABLE".equals( repositoryDaggerMode ) ||
-        ( "AUTODETECT".equals( repositoryDaggerMode ) && null != findTypeElement( Constants.DAGGER_MODULE_CLASSNAME ) );
-
-      final String repositoryStingMode = getRepositoryStingConfig( repository );
-      final boolean repositorySting =
-        "ENABLE".equals( repositoryStingMode ) ||
-        ( "AUTODETECT".equals( repositoryStingMode ) && null != findTypeElement( Constants.STING_INJECTOR ) );
-
-      final boolean shouldRepositoryDefineCreate = shouldRepositoryDefineCreate( descriptor );
-      final boolean shouldRepositoryDefineAttach = shouldRepositoryDefineAttach( descriptor );
-      final boolean shouldRepositoryDefineDestroy = shouldRepositoryDefineDestroy( descriptor );
-      final boolean shouldRepositoryDefineDetach = shouldRepositoryDefineDetach( descriptor );
-      for ( final TypeElement extension : extensions )
-      {
-        if ( ElementKind.INTERFACE != extension.getKind() )
-        {
-          throw new ProcessorException( "Class annotated with @Repository defined an extension that is " +
-                                        "not an interface. Extension: " + extension.getQualifiedName(),
-                                        descriptor.getElement() );
-        }
-
-        for ( final Element enclosedElement : extension.getEnclosedElements() )
-        {
-          if ( ElementKind.METHOD == enclosedElement.getKind() )
-          {
-            final ExecutableElement method = (ExecutableElement) enclosedElement;
-            if ( !method.isDefault() &&
-                 !( method.getSimpleName().toString().equals( "self" ) && 0 == method.getParameters().size() ) )
-            {
-              throw new ProcessorException( "Class annotated with @Repository defined an extension that has " +
-                                            "a non default method. Extension: " + extension.getQualifiedName() +
-                                            " Method: " + method, descriptor.getElement() );
-            }
-          }
-        }
-      }
-      descriptor.configureRepository( extensions,
-                                      repositoryDagger,
-                                      repositorySting,
-                                      shouldRepositoryDefineCreate,
-                                      shouldRepositoryDefineAttach,
-                                      shouldRepositoryDefineDestroy,
-                                      shouldRepositoryDefineDetach );
-    }
-    if ( !observableFlag && descriptor.hasRepository() )
-    {
-      throw new ProcessorException( "@ArezComponent target has specified observable = DISABLE and " +
-                                    "but is also annotated with the @Repository annotation which requires " +
-                                    "that the observable != DISABLE.", typeElement );
-    }
-    if ( descriptor.hasRepository() &&
-         AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.SINGLETON_CLASSNAME ) )
-    {
-      throw new ProcessorException( "@ArezComponent target is annotated with both the " +
-                                    "@arez.annotations.Repository annotation and the " +
-                                    "javax.inject.Singleton annotation which is an invalid " +
-                                    "combination.", typeElement );
-    }
-    if ( !descriptor.isDisposeNotifier() && descriptor.hasRepository() )
-    {
-      throw new ProcessorException( "@ArezComponent target has specified the disposeNotifier = DISABLE " +
-                                    "annotation parameter but is also annotated with @Repository that " +
-                                    "requires disposeNotifier = ENABLE.", typeElement );
-    }
-
     final boolean idRequired = isIdRequired( descriptor, arezComponent );
     descriptor.setIdRequired( idRequired );
     if ( !idRequired )
     {
-      if ( descriptor.hasRepository() )
-      {
-        throw new ProcessorException( "@ArezComponent target has specified the idRequired = DISABLE " +
-                                      "annotation parameter but is also annotated with @Repository that " +
-                                      "requires idRequired = ENABLE.", typeElement );
-      }
       if ( descriptor.hasComponentIdMethod() )
       {
         throw new ProcessorException( "@ArezComponent target has specified the idRequired = DISABLE " +
@@ -3319,7 +3172,6 @@ public final class ArezProcessor
   }
 
   private boolean isComponentObservableRequired( @Nonnull final AnnotationMirror arezComponent,
-                                                 @Nonnull final TypeElement typeElement,
                                                  final boolean disposeOnDeactivate )
   {
     final VariableElement variableElement = getAnnotationParameter( arezComponent, "observable" );
@@ -3330,8 +3182,7 @@ public final class ArezProcessor
       case "DISABLE":
         return false;
       default:
-        return disposeOnDeactivate ||
-               AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.REPOSITORY_CLASSNAME );
+        return disposeOnDeactivate;
     }
   }
 
@@ -3358,19 +3209,10 @@ public final class ArezProcessor
            AnnotationsUtil.hasAnnotationOfType( method, Constants.INVERSE_CLASSNAME );
   }
 
-  private boolean isEqualsRequired( @Nonnull final AnnotationMirror arezComponent,
-                                    @Nonnull final TypeElement typeElement )
+  private boolean isEqualsRequired( @Nonnull final AnnotationMirror arezComponent )
   {
     final VariableElement injectParameter = getAnnotationParameter( arezComponent, "requireEquals" );
-    switch ( injectParameter.getSimpleName().toString() )
-    {
-      case "ENABLE":
-        return true;
-      case "DISABLE":
-        return false;
-      default:
-        return AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.REPOSITORY_CLASSNAME );
-    }
+    return "ENABLE".equals( injectParameter.getSimpleName().toString() );
   }
 
   @Nullable
@@ -3392,25 +3234,10 @@ public final class ArezProcessor
       case "DISABLE":
         return false;
       default:
-        return descriptor.hasRepository() ||
-               descriptor.hasComponentIdMethod() ||
+        return descriptor.hasComponentIdMethod() ||
                !descriptor.getComponentIdRefs().isEmpty() ||
                descriptor.hasInverses();
     }
-  }
-
-  @Nonnull
-  private String getRepositoryDaggerConfig( @Nonnull final AnnotationMirror repository )
-  {
-    final VariableElement parameter = getAnnotationParameter( repository, "dagger" );
-    return parameter.getSimpleName().toString();
-  }
-
-  @Nonnull
-  private String getRepositoryStingConfig( @Nonnull final AnnotationMirror repository )
-  {
-    final VariableElement parameter = getAnnotationParameter( repository, "sting" );
-    return parameter.getSimpleName().toString();
   }
 
   private boolean hasInjectAnnotation( @Nonnull final Element method )

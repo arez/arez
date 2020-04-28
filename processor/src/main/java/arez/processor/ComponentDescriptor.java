@@ -48,8 +48,6 @@ final class ComponentDescriptor
    */
   private final boolean _service;
   private boolean _idRequired;
-  @Nullable
-  private RepositoryDescriptor _repository;
   @Nonnull
   private final TypeElement _element;
   @Nonnull
@@ -414,36 +412,6 @@ final class ComponentDescriptor
   boolean shouldGeneratedClassBePublic( @Nonnull final ProcessingEnvironment processingEnv )
   {
     return hasReferenceWithInverseOutsidePackage( processingEnv ) || hasInverseReferencedOutsidePackage();
-  }
-
-  boolean hasRepository()
-  {
-    return null != _repository;
-  }
-
-  @Nonnull
-  RepositoryDescriptor getRepository()
-  {
-    assert null != _repository;
-    return _repository;
-  }
-
-  void configureRepository( @Nonnull final List<TypeElement> extensions,
-                            final boolean dagger,
-                            final boolean sting,
-                            final boolean shouldRepositoryDefineCreate,
-                            final boolean shouldRepositoryDefineAttach,
-                            final boolean shouldRepositoryDefineDestroy,
-                            final boolean shouldRepositoryDefineDetach )
-  {
-    _repository = new RepositoryDescriptor( this,
-                                            extensions,
-                                            shouldRepositoryDefineCreate,
-                                            shouldRepositoryDefineAttach,
-                                            shouldRepositoryDefineDestroy,
-                                            shouldRepositoryDefineDetach,
-                                            dagger,
-                                            sting );
   }
 
   @Nonnull
