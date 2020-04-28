@@ -39,7 +39,6 @@ final class Constants
   static final String EJB_POST_CONSTRUCT_CLASSNAME = "javax.annotation.PostConstruct";
   static final String JAX_WS_ACTION_CLASSNAME = "javax.xml.ws.Action";
   static final String INJECT_CLASSNAME = "javax.inject.Inject";
-  static final String SINGLETON_CLASSNAME = "javax.inject.Singleton";
   static final String SCOPE_CLASSNAME = "javax.inject.Scope";
   static final String STING_INJECTOR = "sting.Injector";
   static final String STING_CONTRIBUTE_TO = "sting.ContributeTo";
