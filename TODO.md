@@ -14,8 +14,6 @@ complete as there is too much un-said.
 * Warn if `@ArezComponent.service=ENABLE` and `disposeOnDeactivate`, `disposeNotifier`, `requireEquals`, `requireId` or `verify` is `ENABLED`
   or warn if a `@Reference` is used.
 
-* Update injection documentation
-
 * Add to build process so that every published packaged is attempted to be built using bazel to
   ensure it's dependencies align. Should also include something like [jvm-classpath-validator](https://github.com/or-shachar/jvm-classpath-validator)
 

@@ -1,4 +1,4 @@
-package arez.doc.examples.inject2;
+package arez.doc.examples.dagger;
 
 public class DaggerExample
 {

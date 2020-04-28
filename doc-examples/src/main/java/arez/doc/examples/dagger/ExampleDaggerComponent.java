@@ -1,4 +1,4 @@
-package arez.doc.examples.inject2;
+package arez.doc.examples.dagger;
 
 import dagger.Component;
 import javax.inject.Singleton;
