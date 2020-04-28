@@ -115,7 +115,7 @@ public final class ZeroOrOneMultiplicityInverseIntegrationTest
     abstract void setPersonId( int personId );
   }
 
-  @ArezComponent
+  @ArezComponent( observable = Feature.ENABLE )
   static abstract class Person
   {
     @Inverse
