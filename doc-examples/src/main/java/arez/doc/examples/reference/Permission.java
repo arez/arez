@@ -5,12 +5,10 @@ import arez.annotations.ComponentId;
 import arez.annotations.Observable;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
-import arez.annotations.Repository;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-@Repository
 public abstract class Permission
 {
   //DOC ELIDE START

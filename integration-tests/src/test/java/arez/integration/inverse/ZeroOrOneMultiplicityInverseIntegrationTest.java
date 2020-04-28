@@ -3,6 +3,7 @@ package arez.integration.inverse;
 import arez.Arez;
 import arez.Disposable;
 import arez.Observer;
+import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import arez.annotations.Inverse;
@@ -10,9 +11,9 @@ import arez.annotations.Multiplicity;
 import arez.annotations.Observable;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
-import arez.annotations.Repository;
 import arez.component.Identifiable;
 import arez.component.TypeBasedLocator;
+import arez.component.internal.AbstractRepository;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -30,8 +31,15 @@ public final class ZeroOrOneMultiplicityInverseIntegrationTest
     final AtomicInteger locatorLookupCallCount = new AtomicInteger();
 
     final TypeBasedLocator locator = new TypeBasedLocator();
-    final ZeroOrOneMultiplicityInverseIntegrationTest_PersonRepository repository =
-      createPersonRepository( locator, locatorLookupCallCount );
+    final PersonRepository repository =
+      PersonRepository.newRepository();
+
+    Arez.context().registerLocator( locator );
+
+    locator.registerLookup( Person.class, id -> {
+      locatorLookupCallCount.incrementAndGet();
+      return repository.findByArezId( (Integer) id );
+    } );
 
     final Person person = repository.create();
     final Person person2 = repository.create();
@@ -88,22 +96,6 @@ public final class ZeroOrOneMultiplicityInverseIntegrationTest
     assertEquals( locatorLookupCallCount.get(), 2 );
   }
 
-  @Nonnull
-  private ZeroOrOneMultiplicityInverseIntegrationTest_PersonRepository createPersonRepository( @Nonnull final TypeBasedLocator locator,
-                                                                                               @Nonnull final AtomicInteger lookupCallCount )
-  {
-    final ZeroOrOneMultiplicityInverseIntegrationTest_PersonRepository repository =
-      ZeroOrOneMultiplicityInverseIntegrationTest_PersonRepository.newRepository();
-
-    Arez.context().registerLocator( locator );
-
-    locator.registerLookup( Person.class, id -> {
-      lookupCallCount.incrementAndGet();
-      return repository.findByArezId( (Integer) id );
-    } );
-    return repository;
-  }
-
   @ArezComponent
   static abstract class Certificate
   {
@@ -123,12 +115,36 @@ public final class ZeroOrOneMultiplicityInverseIntegrationTest
     abstract void setPersonId( int personId );
   }
 
-  @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )
   @ArezComponent
   static abstract class Person
   {
     @Inverse
     @Nullable
     abstract Certificate getCertificate();
+  }
+
+  @ArezComponent( service = Feature.ENABLE, dagger = Feature.DISABLE, sting = Feature.DISABLE )
+  static abstract class PersonRepository
+    extends AbstractRepository<Integer, Person, PersonRepository>
+  {
+    static PersonRepository newRepository()
+    {
+      return new ZeroOrOneMultiplicityInverseIntegrationTest_Arez_PersonRepository();
+    }
+
+    @Action
+    Person create()
+    {
+      final ZeroOrOneMultiplicityInverseIntegrationTest_Arez_Person entity =
+        new ZeroOrOneMultiplicityInverseIntegrationTest_Arez_Person();
+      attach( entity );
+      return entity;
+    }
+
+    @Action
+    protected void destroy( @Nonnull final Person entity )
+    {
+      super.destroy( entity );
+    }
   }
 }

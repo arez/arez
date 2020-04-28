@@ -8,14 +8,12 @@ import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.Observe;
 import arez.annotations.OnDepsChange;
-import arez.annotations.Repository;
 import java.util.List;
 import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 
 // Example of usage of deprecated type through different
 // arez annotated methods should cause problems
-@Repository
 @ArezComponent
 @SuppressWarnings( "deprecation" )
 public abstract class DeprecatedUsageModel

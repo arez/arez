@@ -5,8 +5,7 @@ title: @ComponentId
 The {@link: arez.annotations.ComponentId @ComponentId} annotation can be applied to a single method in the component. The
 method must return a unique, non-null identifier for the component instance. This value will be converted
 to a string to create the names of the underlying {@link: arez.ObservableValue}, {@link: arez.Observer} and
-{@link: arez.ComputableValue} primitives. If the [`@Repository`](repositories.md) annotation is present on the
-component, the method will also return the key that is used to store the component in a map.
+{@link: arez.ComputableValue} primitives.
 
 The user typically makes use of this method to align the identifier of the Arez component with the underlying
 business identifier or the identifier in the system from which it was sourced. i.e. The Arez component will

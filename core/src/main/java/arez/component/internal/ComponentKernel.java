@@ -86,7 +86,6 @@ public final class ComponentKernel
    * determined that no id is required. The id must be supplied with a non-zero value if:
    *
    * <ul>
-   * <li>the component type is annotated with the {@link arez.annotations.Repository} annotation.</li>
    * <li>the component declared it requires an id (i.e. {@link ArezComponent#requireId()} is <code>true</code>) but
    * no method annotated with {@link arez.annotations.ComponentId} is present on the components type.</li>
    * <li>The runtime requires an id as part of debugging infrastructure. (i.e. @link Arez#areNamesEnabled(), {@link Arez#areRegistriesEnabled()}

@@ -22,10 +22,10 @@ The arez runtime looks up the referenced object using a {@link: arez.Locator} in
 {@link: arez.Locator} instance can be used to lookup any arbitrary object and this makes it possible for arez objects
 to lookup non-arez objects using a {@link: arez.annotations.Reference @Reference} annotated method.
 
-The most common scenario involves the application application developer creating a
-{@link: arez.component.TypeBasedLocator}, registering repositories created by the arez runtime when the
-[`@Repository`](repositories.md) annotation is present and then registering the {@link: arez.component.TypeBasedLocator}
-instance in the {@link: arez.ArezContext}. This would allow `@Reference` annotated methods to refer to any of the arez
+The most common scenario involves the application developer creating a {@link: arez.component.TypeBasedLocator},
+registering repositories in the {@link: arez.component.TypeBasedLocator} and registering the
+{@link: arez.component.TypeBasedLocator} instance in the {@link: arez.ArezContext}. This would allow
+{@link: arez.annotations.Reference @Reference} annotated methods to refer to any of the arez
 components that are present in the registered repositories.
 
 Consider the scenario where the application is modelling users, their memberships in groups and the permissions
@@ -33,6 +33,10 @@ associated with a group. The reference between a `Permission` and the containing
 reference such as:
 
 {@file_content: file=arez/doc/examples/reference/Permission.java "start_line=@ArezComponent"}
+
+The repository for the `Permission` looks like:
+
+{@file_content: file=arez/doc/examples/reference/PermissionRepository.java "start_line=@ArezComponent"}
 
 And the code to setup the locator to support this scenario:
 

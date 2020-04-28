@@ -79,13 +79,11 @@ public @interface ArezComponent
   Feature service() default Feature.AUTODETECT;
 
   /**
-   * Return the enum to control whether the component should support being "observed" by
-   * {@link arez.component.ComponentObservable#observe(Object)}.
-   * {@link Feature#ENABLE} will force the implementation of the ComponentObservable interface,
-   * {@link Feature#DISABLE} will result in not implementing the ComponentObservable interface and
-   * {@link Feature#AUTODETECT} will cause the component to implement the interface if the component
-   * is also annotated with the {@link Repository} annotation or if the {@link #disposeOnDeactivate()}
-   * parameter is true.
+   * The enum to control whether the component should support being "observed" by implementing the
+   * {@link arez.component.ComponentObservable} interface and allowing invocation of the
+   * {@link arez.component.ComponentObservable#observe(Object)} method. If unset or explicitly set
+   * to {@link Feature#AUTODETECT} then the component will implement the interface if the
+   * {@link #disposeOnDeactivate()} parameter is {@code true}.
    *
    * @return enum to control whether the component should support being "observed".
    */
@@ -133,13 +131,10 @@ public @interface ArezComponent
   Feature sting() default Feature.AUTODETECT;
 
   /**
-   * Indicate whether a component requires that the {@link Object#hashCode()} and {@link Object#equals(Object)}
-   * methods are implemented. These methods MUST be implemented if the {@link Repository} annotation is present
-   * but may be implemented in other scenarios. {@link Feature#ENABLE} will force the generation of the methods,
-   * {@link Feature#DISABLE} will not generate these methods and {@link Feature#AUTODETECT} will generated these
-   * methods if the {@link Repository} annotation is present.
+   * Indicate whether the {@link Object#hashCode()} and {@link Object#equals(Object)} methods need to be implemented.
+   * If set to {@link Feature#AUTODETECT} then the methods will not be generated.
    *
-   * @return enum controlling whether the {@link Object#hashCode()} and {@link Object#equals(Object)} methods are implemented.
+   * @return an enum whether the {@link Object#hashCode()} and {@link Object#equals(Object)} methods need to be implemented.
    */
   Feature requireEquals() default Feature.AUTODETECT;
 
@@ -149,7 +144,6 @@ public @interface ArezComponent
    * in the following scenarios:
    *
    * <ul>
-   * <li>the {@link Repository} annotation is present on the same type.</li>
    * <li>a method annotated with the {@link Inverse} annotation is present.</li>
    * <li>a method annotated with the {@link ComponentId} annotation is present.</li>
    * <li>a method annotated with the {@link ComponentIdRef} annotation is present.</li>

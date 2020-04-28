@@ -2,16 +2,18 @@ package arez.integration.verify;
 
 import arez.Arez;
 import arez.Disposable;
+import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
 import arez.annotations.Feature;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
-import arez.annotations.Repository;
 import arez.component.TypeBasedLocator;
 import arez.component.Verifiable;
+import arez.component.internal.AbstractRepository;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.HashMap;
+import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -21,7 +23,7 @@ public final class VerifyIntegrationTest
   @Test
   public void verifyOnDisposeCausesException()
   {
-    final VerifyIntegrationTest_Model2Repository repository = VerifyIntegrationTest_Model2Repository.newRepository();
+    final Model2Repository repository = Model2Repository.newRepository();
 
     final TypeBasedLocator locator = new TypeBasedLocator();
     Arez.context().registerLocator( locator );
@@ -45,7 +47,7 @@ public final class VerifyIntegrationTest
   public void verifySuccess()
     throws Throwable
   {
-    final VerifyIntegrationTest_Model2Repository repository = VerifyIntegrationTest_Model2Repository.newRepository();
+    final Model2Repository repository = Model2Repository.newRepository();
 
     final TypeBasedLocator locator = new TypeBasedLocator();
     Arez.context().registerLocator( locator );
@@ -70,7 +72,7 @@ public final class VerifyIntegrationTest
   @Test
   public void unableToLocateOther()
   {
-    final VerifyIntegrationTest_Model2Repository repository = VerifyIntegrationTest_Model2Repository.newRepository();
+    final Model2Repository repository = Model2Repository.newRepository();
 
     final TypeBasedLocator locator = new TypeBasedLocator();
     Arez.context().registerLocator( locator );
@@ -95,7 +97,7 @@ public final class VerifyIntegrationTest
   @Test
   public void unableToLocateSelf()
   {
-    final VerifyIntegrationTest_Model2Repository repository = VerifyIntegrationTest_Model2Repository.newRepository();
+    final Model2Repository repository = Model2Repository.newRepository();
 
     final TypeBasedLocator locator = new TypeBasedLocator();
     Arez.context().registerLocator( locator );
@@ -114,7 +116,7 @@ public final class VerifyIntegrationTest
   public void modelWithoutVerify()
     throws Throwable
   {
-    final VerifyIntegrationTest_Model2Repository repository = VerifyIntegrationTest_Model2Repository.newRepository();
+    final Model2Repository repository = Model2Repository.newRepository();
     Verifiable.verify( repository.create( 0 ) );
   }
 
@@ -151,7 +153,6 @@ public final class VerifyIntegrationTest
     }
   }
 
-  @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )
   @ArezComponent( allowEmpty = true )
   static abstract class Model2
   {
@@ -166,6 +167,31 @@ public final class VerifyIntegrationTest
     final int getId()
     {
       return _id;
+    }
+  }
+
+  @ArezComponent( service = Feature.ENABLE, dagger = Feature.DISABLE, sting = Feature.DISABLE )
+  static abstract class Model2Repository
+    extends AbstractRepository<Integer, Model2, Model2Repository>
+  {
+    @Nonnull
+    static Model2Repository newRepository()
+    {
+      return new VerifyIntegrationTest_Arez_Model2Repository();
+    }
+
+    @Action
+    Model2 create( final int id )
+    {
+      final VerifyIntegrationTest_Arez_Model2 entity = new VerifyIntegrationTest_Arez_Model2( id );
+      attach( entity );
+      return entity;
+    }
+
+    @Action
+    protected void destroy( @Nonnull final Model2 entity )
+    {
+      super.destroy( entity );
     }
   }
 }

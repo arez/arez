@@ -4,6 +4,7 @@
 
 * Upgrade the `org.realityforge.proton` artifacts to version `0.46`.
 * Improve the dependency injection framework documentation by removing obsolete sections and by adding a minimal Sting example.
+* Remove the `@Repository` annotation. Downstream projects are expected to explicitly define the repository when they are needed. This eliminates a log of the magic where some parameters were copied from `@ArezComponent`, some were derived from `@Repository` and some were assumed to be fixed values. This will also allow us to change the Arez annotation processor to being a non-api annotation processor in Bazel.
 
 ### [v0.173](https://github.com/arez/arez/tree/v0.173) (2020-04-07) · [Full Changelog](https://github.com/arez/arez/compare/v0.172...v0.173) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.172&new=0.173)
 

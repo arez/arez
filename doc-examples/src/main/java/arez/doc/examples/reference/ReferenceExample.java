@@ -8,9 +8,9 @@ public class ReferenceExample
   public static void main( String[] args )
   {
     //EXAMPLE START
-    final GroupRepository groupRepository = GroupRepository.newRepository();
-    final PermissionRepository permissionRepository = PermissionRepository.newRepository();
-    final UserRepository userRepository = UserRepository.newRepository();
+    final GroupRepository groupRepository = new Arez_GroupRepository();
+    final PermissionRepository permissionRepository = new Arez_PermissionRepository();
+    final UserRepository userRepository = new Arez_UserRepository();
 
     final TypeBasedLocator locator = new TypeBasedLocator();
     locator.registerLookup( Group.class, id -> groupRepository.findById( (Integer) id ) );

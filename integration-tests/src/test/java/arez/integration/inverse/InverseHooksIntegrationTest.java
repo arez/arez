@@ -2,6 +2,7 @@ package arez.integration.inverse;
 
 import arez.Arez;
 import arez.Disposable;
+import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import arez.annotations.Inverse;
@@ -10,9 +11,9 @@ import arez.annotations.PostInverseAdd;
 import arez.annotations.PreInverseRemove;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
-import arez.annotations.Repository;
 import arez.component.Identifiable;
 import arez.component.TypeBasedLocator;
+import arez.component.internal.AbstractRepository;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,8 +33,14 @@ public final class InverseHooksIntegrationTest
     final AtomicInteger locatorLookupCallCount = new AtomicInteger();
 
     final TypeBasedLocator locator = new TypeBasedLocator();
-    final InverseHooksIntegrationTest_CarRepository repository =
-      createCarRepository( locator, locatorLookupCallCount );
+    final CarRepository repository = CarRepository.newRepository();
+
+    Arez.context().registerLocator( locator );
+
+    locator.registerLookup( Car.class, id -> {
+      locatorLookupCallCount.incrementAndGet();
+      return repository.findByArezId( (Integer) id );
+    } );
     final List<String> trace = new ArrayList<>();
     final Car car = repository.create( "P", trace );
     final Car car2 = repository.create( "Q", trace );
@@ -73,22 +80,6 @@ public final class InverseHooksIntegrationTest
     assertEquals( String.join( "|", trace ), "P+A|P+B|P+C|P-A|Q+A|Q-A" );
   }
 
-  @Nonnull
-  private InverseHooksIntegrationTest_CarRepository createCarRepository( @Nonnull final TypeBasedLocator locator,
-                                                                         @Nonnull final AtomicInteger lookupCallCount )
-  {
-    final InverseHooksIntegrationTest_CarRepository repository =
-      InverseHooksIntegrationTest_CarRepository.newRepository();
-
-    Arez.context().registerLocator( locator );
-
-    locator.registerLookup( Car.class, id -> {
-      lookupCallCount.incrementAndGet();
-      return repository.findByArezId( (Integer) id );
-    } );
-    return repository;
-  }
-
   @ArezComponent( defaultReadOutsideTransaction = Feature.ENABLE )
   static abstract class Wheel
   {
@@ -122,8 +113,7 @@ public final class InverseHooksIntegrationTest
     abstract void setCarId( int carId );
   }
 
-  @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )
-  @ArezComponent( defaultReadOutsideTransaction = Feature.ENABLE )
+  @ArezComponent( defaultReadOutsideTransaction = Feature.ENABLE, observable = Feature.ENABLE )
   static abstract class Car
   {
     @Nonnull
@@ -151,5 +141,30 @@ public final class InverseHooksIntegrationTest
 
     @Inverse
     abstract Collection<Wheel> getWheels();
+  }
+
+  @ArezComponent( service = Feature.ENABLE, dagger = Feature.DISABLE, sting = Feature.DISABLE )
+  static abstract class CarRepository
+    extends AbstractRepository<Integer, Car, CarRepository>
+  {
+    static CarRepository newRepository()
+    {
+      return new InverseHooksIntegrationTest_Arez_CarRepository();
+    }
+
+    @Action
+    Car create( @Nonnull final String name, @Nonnull final List<String> trace )
+    {
+      final InverseHooksIntegrationTest_Arez_Car entity =
+        new InverseHooksIntegrationTest_Arez_Car( name, trace );
+      attach( entity );
+      return entity;
+    }
+
+    @Action
+    protected void destroy( @Nonnull final Car entity )
+    {
+      super.destroy( entity );
+    }
   }
 }

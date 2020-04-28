@@ -2,6 +2,7 @@ package arez.integration.verify;
 
 import arez.ActionFlags;
 import arez.Arez;
+import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
 import arez.annotations.Feature;
@@ -10,9 +11,9 @@ import arez.annotations.Multiplicity;
 import arez.annotations.Observable;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
-import arez.annotations.Repository;
 import arez.component.TypeBasedLocator;
 import arez.component.Verifiable;
+import arez.component.internal.AbstractRepository;
 import arez.component.internal.ComponentKernel;
 import arez.integration.AbstractArezIntegrationTest;
 import java.lang.reflect.Field;
@@ -29,8 +30,7 @@ public final class VerifyZeroOrOneInverseIntegrationTest
   public void verifySuccess()
     throws Throwable
   {
-    final VerifyZeroOrOneInverseIntegrationTest_Model2Repository repository =
-      VerifyZeroOrOneInverseIntegrationTest_Model2Repository.newRepository();
+    final Model2Repository repository = Model2Repository.newRepository();
 
     final TypeBasedLocator locator = new TypeBasedLocator();
     Arez.context().registerLocator( locator );
@@ -76,8 +76,7 @@ public final class VerifyZeroOrOneInverseIntegrationTest
   public void unableToLocateOther()
     throws Throwable
   {
-    final VerifyZeroOrOneInverseIntegrationTest_Model2Repository repository =
-      VerifyZeroOrOneInverseIntegrationTest_Model2Repository.newRepository();
+    final Model2Repository repository = Model2Repository.newRepository();
 
     final TypeBasedLocator locator = new TypeBasedLocator();
     Arez.context().registerLocator( locator );
@@ -160,7 +159,6 @@ public final class VerifyZeroOrOneInverseIntegrationTest
     }
   }
 
-  @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )
   @ArezComponent
   static abstract class Model2
   {
@@ -180,5 +178,30 @@ public final class VerifyZeroOrOneInverseIntegrationTest
     @Inverse
     @Nullable
     abstract Model1 getModel1();
+  }
+
+  @ArezComponent( service = Feature.ENABLE, dagger = Feature.DISABLE, sting = Feature.DISABLE )
+  static abstract class Model2Repository
+    extends AbstractRepository<Integer, Model2, Model2Repository>
+  {
+    @Nonnull
+    static Model2Repository newRepository()
+    {
+      return new VerifyZeroOrOneInverseIntegrationTest_Arez_Model2Repository();
+    }
+
+    @Action
+    Model2 create( final int id )
+    {
+      final VerifyZeroOrOneInverseIntegrationTest_Arez_Model2 entity = new VerifyZeroOrOneInverseIntegrationTest_Arez_Model2( id );
+      attach( entity );
+      return entity;
+    }
+
+    @Action
+    protected void destroy( @Nonnull final Model2 entity )
+    {
+      super.destroy( entity );
+    }
   }
 }

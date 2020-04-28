@@ -9,7 +9,6 @@ import arez.Disposable;
 import arez.ObservableValue;
 import arez.Observer;
 import arez.SafeProcedure;
-import arez.component.ComponentObservable;
 import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.CollectionsUtil;
@@ -24,7 +23,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeNotifier {
+final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -68,10 +67,10 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Di
       final List<MyDeprecatedEntity> myEntityList) {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "DeprecatedUsageModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "DeprecatedUsageModel", $$arezv$$_id, $$arezv$$_name, () -> $$arezi$$_nativeComponentPreDispose() ) : null;
-    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, true, false );
+    this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arezd$$_myEntity = myEntity;
     this.$$arezd$$_myEntityList = myEntityList;
     this.$$arez$$_myEntity = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myEntity" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_myEntity : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myEntity = v : null );
@@ -93,11 +92,6 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Di
   @Nonnull
   public Integer getArezId() {
     return $$arezi$$_id();
-  }
-
-  @Override
-  public boolean observe() {
-    return this.$$arezi$$_kernel.observe();
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
@@ -264,16 +258,24 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Di
 
   @Override
   public int hashCode() {
-    return Integer.hashCode( $$arezi$$_id() );
+    if ( Arez.areNativeComponentsEnabled() ) {
+      return Integer.hashCode( $$arezi$$_id() );
+    } else {
+      return super.hashCode();
+    }
   }
 
   @Override
   public boolean equals(final Object o) {
-    if ( o instanceof Arez_DeprecatedUsageModel ) {
-      final Arez_DeprecatedUsageModel that = (Arez_DeprecatedUsageModel) o;
-      return $$arezi$$_id() == that.$$arezi$$_id();
+    if ( Arez.areNativeComponentsEnabled() ) {
+      if ( o instanceof Arez_DeprecatedUsageModel ) {
+        final Arez_DeprecatedUsageModel that = (Arez_DeprecatedUsageModel) o;
+        return $$arezi$$_id() == that.$$arezi$$_id();
+      } else {
+        return false;
+      }
     } else {
-      return false;
+      return super.equals( o );
     }
   }
 

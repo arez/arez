@@ -3,6 +3,7 @@ package arez.integration.inverse;
 import arez.Arez;
 import arez.Disposable;
 import arez.Observer;
+import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import arez.annotations.Inverse;
@@ -10,10 +11,10 @@ import arez.annotations.LinkType;
 import arez.annotations.Observable;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
-import arez.annotations.Repository;
 import arez.component.Identifiable;
 import arez.component.Linkable;
 import arez.component.TypeBasedLocator;
+import arez.component.internal.AbstractRepository;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.Collection;
 import java.util.Objects;
@@ -31,8 +32,14 @@ public final class ManyMultiplicityExplicitLoadInverseIntegrationTest
     final AtomicInteger locatorLookupCallCount = new AtomicInteger();
 
     final TypeBasedLocator locator = new TypeBasedLocator();
-    final ManyMultiplicityExplicitLoadInverseIntegrationTest_CarRepository repository =
-      createCarRepository( locator, locatorLookupCallCount );
+    final CarRepository repository = CarRepository.newRepository();
+
+    Arez.context().registerLocator( locator );
+
+    locator.registerLookup( Car.class, id -> {
+      locatorLookupCallCount.incrementAndGet();
+      return repository.findByArezId( (Integer) id );
+    } );
 
     final Car car = repository.create();
     final Car car2 = repository.create();
@@ -105,22 +112,6 @@ public final class ManyMultiplicityExplicitLoadInverseIntegrationTest
     assertEquals( locatorLookupCallCount.get(), 2 );
   }
 
-  @Nonnull
-  private ManyMultiplicityExplicitLoadInverseIntegrationTest_CarRepository createCarRepository( @Nonnull final TypeBasedLocator locator,
-                                                                                                @Nonnull final AtomicInteger lookupCallCount )
-  {
-    final ManyMultiplicityExplicitLoadInverseIntegrationTest_CarRepository repository =
-      ManyMultiplicityExplicitLoadInverseIntegrationTest_CarRepository.newRepository();
-
-    Arez.context().registerLocator( locator );
-
-    locator.registerLookup( Car.class, id -> {
-      lookupCallCount.incrementAndGet();
-      return repository.findByArezId( (Integer) id );
-    } );
-    return repository;
-  }
-
   @ArezComponent
   static abstract class Wheel
   {
@@ -140,11 +131,35 @@ public final class ManyMultiplicityExplicitLoadInverseIntegrationTest
     abstract void setCarId( int carId );
   }
 
-  @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )
-  @ArezComponent
+  @ArezComponent( observable = Feature.ENABLE )
   static abstract class Car
   {
     @Inverse
     abstract Collection<Wheel> getWheels();
+  }
+
+  @ArezComponent( service = Feature.ENABLE, dagger = Feature.DISABLE, sting = Feature.DISABLE )
+  static abstract class CarRepository
+    extends AbstractRepository<Integer, Car, CarRepository>
+  {
+    static CarRepository newRepository()
+    {
+      return new ManyMultiplicityExplicitLoadInverseIntegrationTest_Arez_CarRepository();
+    }
+
+    @Action
+    Car create()
+    {
+      final ManyMultiplicityExplicitLoadInverseIntegrationTest_Arez_Car entity =
+        new ManyMultiplicityExplicitLoadInverseIntegrationTest_Arez_Car();
+      attach( entity );
+      return entity;
+    }
+
+    @Action
+    protected void destroy( @Nonnull final Car entity )
+    {
+      super.destroy( entity );
+    }
   }
 }

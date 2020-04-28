@@ -3,12 +3,10 @@ package arez.doc.examples.reference2;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
 import arez.annotations.Observable;
-import arez.annotations.Repository;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-@Repository
 public abstract class User
 {
   private final int _id;

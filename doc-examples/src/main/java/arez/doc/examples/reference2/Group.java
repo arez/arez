@@ -4,13 +4,11 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
 import arez.annotations.Inverse;
 import arez.annotations.Observable;
-import arez.annotations.Repository;
 import java.util.Collection;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-@Repository
 public abstract class Group
 {
   //DOC ELIDE START

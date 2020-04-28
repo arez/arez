@@ -3,15 +3,16 @@ package arez.integration.inverse;
 import arez.Arez;
 import arez.Disposable;
 import arez.Observer;
+import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import arez.annotations.Inverse;
 import arez.annotations.Observable;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
-import arez.annotations.Repository;
 import arez.component.Identifiable;
 import arez.component.TypeBasedLocator;
+import arez.component.internal.AbstractRepository;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.Collection;
 import java.util.Objects;
@@ -29,8 +30,14 @@ public final class DisposeManyInverseIntegrationTest
     final AtomicInteger locatorLookupCallCount = new AtomicInteger();
 
     final TypeBasedLocator locator = new TypeBasedLocator();
-    final DisposeManyInverseIntegrationTest_CarRepository repository =
-      createCarRepository( locator, locatorLookupCallCount );
+    final CarRepository repository = CarRepository.newRepository();
+
+    Arez.context().registerLocator( locator );
+
+    locator.registerLookup( Car.class, id -> {
+      locatorLookupCallCount.incrementAndGet();
+      return repository.findByArezId( (Integer) id );
+    } );
 
     final Car car = repository.create();
     final Integer carId = Objects.requireNonNull( Identifiable.getArezId( car ) );
@@ -81,22 +88,6 @@ public final class DisposeManyInverseIntegrationTest
     assertTrue( Disposable.isDisposed( wheel1 ) );
   }
 
-  @Nonnull
-  private DisposeManyInverseIntegrationTest_CarRepository createCarRepository( @Nonnull final TypeBasedLocator locator,
-                                                                               @Nonnull final AtomicInteger lookupCallCount )
-  {
-    final DisposeManyInverseIntegrationTest_CarRepository repository =
-      DisposeManyInverseIntegrationTest_CarRepository.newRepository();
-
-    Arez.context().registerLocator( locator );
-
-    locator.registerLookup( Car.class, id -> {
-      lookupCallCount.incrementAndGet();
-      return repository.findByArezId( (Integer) id );
-    } );
-    return repository;
-  }
-
   @ArezComponent
   static abstract class Wheel
   {
@@ -116,11 +107,34 @@ public final class DisposeManyInverseIntegrationTest
     abstract void setCarId( int carId );
   }
 
-  @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )
-  @ArezComponent
+  @ArezComponent( observable = Feature.ENABLE )
   static abstract class Car
   {
     @Inverse
     abstract Collection<Wheel> getWheels();
+  }
+
+  @ArezComponent( service = Feature.ENABLE, dagger = Feature.DISABLE, sting = Feature.DISABLE )
+  static abstract class CarRepository
+    extends AbstractRepository<Integer, Car, CarRepository>
+  {
+    static CarRepository newRepository()
+    {
+      return new DisposeManyInverseIntegrationTest_Arez_CarRepository();
+    }
+
+    @Action
+    Car create()
+    {
+      final DisposeManyInverseIntegrationTest_Arez_Car entity = new DisposeManyInverseIntegrationTest_Arez_Car();
+      attach( entity );
+      return entity;
+    }
+
+    @Action
+    protected void destroy( @Nonnull final Car entity )
+    {
+      super.destroy( entity );
+    }
   }
 }

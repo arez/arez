@@ -59,11 +59,8 @@ complete as there is too much un-said.
 * Before a `1.0` release move `arez.*` to `arez.core.*` and `arez.annotations.*` to `arez.*`. Users are much more
   likely to use the annotations to interact with Arez and thus the shorter package names have a significant advantage.
 
-* Consider removing `@Repository` annotation and instead forcing the user to specify interface for repository.
-  This would eliminate the unresolved types during processing of `@ArezComponent` and allow us to change
-  annotation processor to non-api in bazel. It also makes it possible to remove a lot of the magic around
-  repositories such as copying of `readOutsideTransaction` and `writeOutsideTransaction`
-
+* Refactor `AbstractRepository` so that rather than being a base class, it implements a `Repository` class that
+  is composed in downstream repositories.
 * Auto-generate Locator factory. Will need an annotation processor that defers generation to the last round.
   Collects a type annotated with a specific annotation that extends or implements a `LocatorFactory` interface.
   It can either collect all types or only types that participate in reference relationships. If injection is

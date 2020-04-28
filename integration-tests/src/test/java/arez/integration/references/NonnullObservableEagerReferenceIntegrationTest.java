@@ -9,9 +9,9 @@ import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
-import arez.annotations.Repository;
 import arez.component.Identifiable;
 import arez.component.TypeBasedLocator;
+import arez.component.internal.AbstractRepository;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.HashMap;
 import java.util.Objects;
@@ -26,8 +26,7 @@ public final class NonnullObservableEagerReferenceIntegrationTest
   @Test
   public void scenario()
   {
-    final NonnullObservableEagerReferenceIntegrationTest_Model2Repository repository =
-      NonnullObservableEagerReferenceIntegrationTest_Model2Repository.newRepository();
+    final Model2Repository repository = Model2Repository.newRepository();
 
     final TypeBasedLocator locator = new TypeBasedLocator();
     Arez.context().registerLocator( locator );
@@ -115,13 +114,37 @@ public final class NonnullObservableEagerReferenceIntegrationTest
     }
   }
 
-  @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )
   @ArezComponent
   static abstract class Model2
   {
     @Action
     void doStuff()
     {
+    }
+  }
+
+  @ArezComponent( service = Feature.ENABLE, dagger = Feature.DISABLE, sting = Feature.DISABLE )
+  static abstract class Model2Repository
+    extends AbstractRepository<Integer, Model2, Model2Repository>
+  {
+    static Model2Repository newRepository()
+    {
+      return new NonnullObservableEagerReferenceIntegrationTest_Arez_Model2Repository();
+    }
+
+    @Action
+    Model2 create()
+    {
+      final NonnullObservableEagerReferenceIntegrationTest_Arez_Model2 entity =
+        new NonnullObservableEagerReferenceIntegrationTest_Arez_Model2();
+      attach( entity );
+      return entity;
+    }
+
+    @Action
+    protected void destroy( @Nonnull final Model2 entity )
+    {
+      super.destroy( entity );
     }
   }
 }

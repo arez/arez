@@ -8,14 +8,15 @@ import arez.annotations.Feature;
 import arez.annotations.LinkType;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
-import arez.annotations.Repository;
 import arez.component.Identifiable;
 import arez.component.Linkable;
 import arez.component.TypeBasedLocator;
+import arez.component.internal.AbstractRepository;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -26,8 +27,7 @@ public final class NullablelImmutableExplicitReferenceIntegrationTest
   @Test
   public void scenario()
   {
-    final NullablelImmutableExplicitReferenceIntegrationTest_Model2Repository repository =
-      NullablelImmutableExplicitReferenceIntegrationTest_Model2Repository.newRepository();
+    final Model2Repository repository = Model2Repository.newRepository();
 
     final TypeBasedLocator locator = new TypeBasedLocator();
     Arez.context().registerLocator( locator );
@@ -100,13 +100,37 @@ public final class NullablelImmutableExplicitReferenceIntegrationTest
     }
   }
 
-  @Repository( sting = Feature.DISABLE, dagger = Feature.DISABLE )
   @ArezComponent
   static abstract class Model2
   {
     @Action
     void doStuff()
     {
+    }
+  }
+
+  @ArezComponent( service = Feature.ENABLE, dagger = Feature.DISABLE, sting = Feature.DISABLE )
+  static abstract class Model2Repository
+    extends AbstractRepository<Integer, Model2, Model2Repository>
+  {
+    static Model2Repository newRepository()
+    {
+      return new NullablelImmutableExplicitReferenceIntegrationTest_Arez_Model2Repository();
+    }
+
+    @Action
+    Model2 create()
+    {
+      final NullablelImmutableExplicitReferenceIntegrationTest_Arez_Model2 entity =
+        new NullablelImmutableExplicitReferenceIntegrationTest_Arez_Model2();
+      attach( entity );
+      return entity;
+    }
+
+    @Action
+    protected void destroy( @Nonnull final Model2 entity )
+    {
+      super.destroy( entity );
     }
   }
 }
