@@ -72,11 +72,6 @@ complete as there is too much un-said.
 
 * https://www.jetbrains.com/help/idea/template-variables.html#predefined_functions document and define them
 
-* Profile with D8
-  - https://github.com/intendia-oss/rxjava-gwt#profiling-with-d8
-  - http://blog.daniel-kurka.de/2014/01/profiling-gwt-applications-with-v8-and.html
-  - https://v8.dev/docs/profile
-
 * Why do zones not have a name? Why are Zones not part of serialized forms of events? - they should at least have a unique id
 
 * Can inverse references be maps. The key would be the component id.
