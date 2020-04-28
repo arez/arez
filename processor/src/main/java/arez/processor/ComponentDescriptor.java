@@ -421,12 +421,6 @@ final class ComponentDescriptor
   }
 
   @Nonnull
-  String getStingFragmentName()
-  {
-    return GeneratorUtil.getGeneratedSimpleClassName( getElement(), "", "Fragment" );
-  }
-
-  @Nonnull
   String getComponentDaggerModuleName()
   {
     return GeneratorUtil.getGeneratedSimpleClassName( getElement(), "", "DaggerModule" );
