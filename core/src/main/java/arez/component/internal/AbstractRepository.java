@@ -295,6 +295,11 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   @Observable( expectSetter = false )
   @Nonnull
   public Stream<T> entities()
+    return entityStream();
+  }
+
+  @Nonnull
+  private Stream<T> entityStream()
   {
     return _entities.values().stream();
   }
