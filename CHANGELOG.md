@@ -1,6 +1,10 @@
 # Change Log
 
-### Unreleased
+### [v0.175](https://github.com/arez/arez/tree/v0.175) (2020-04-29) · [Full Changelog](https://github.com/arez/arez/compare/v0.174...v0.175) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.174&new=0.175)
+
+The release includes 1 non breaking API change and 1 breaking API change.
+
+Changes in this release:
 
 * Change the type parameter of the `AbstractRepository.getEntitiesObservableValue()` method a wildcard. This simplifies usage in some downstream libraries.
 * Change the `AbstractRepository.entities()` method implementation so that it checks `reportRead()` method before reporting read to transaction.
