@@ -292,9 +292,25 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
    *
    * @return the underlying entities.
    */
-  @Observable( expectSetter = false )
   @Nonnull
   public Stream<T> entities()
+  {
+    if ( reportRead() )
+    {
+      getEntitiesObservableValue().reportObserved();
+    }
+    return entityStream();
+  }
+
+  /**
+   * Return a stream of all entities in the container.
+   *
+   * @return the underlying entities.
+   */
+  @Observable( name = "entities", expectSetter = false )
+  @Nonnull
+  protected Stream<T> entitiesValue()
+  {
     return entityStream();
   }
 
