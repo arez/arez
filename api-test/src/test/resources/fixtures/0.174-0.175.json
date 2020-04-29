@@ -1,0 +1,56 @@
+[
+  {
+    "code": "java.method.returnTypeTypeParametersChanged",
+    "description": "The return type changed from 'arez.ObservableValue<java.util.stream.Stream<T extends java.lang.Object>>' to 'arez.ObservableValue<?>'.",
+    "newElement": "method arez.ObservableValue<?> arez.component.internal.AbstractRepository<K, T, R extends arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>>::getEntitiesObservableValue()",
+    "oldElement": "method arez.ObservableValue<java.util.stream.Stream<T>> arez.component.internal.AbstractRepository<K, T, R extends arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>>::getEntitiesObservableValue()",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.AbstractRepository",
+      "classSimpleName": "AbstractRepository",
+      "elementKind": "method",
+      "methodName": "getEntitiesObservableValue",
+      "newType": "arez.ObservableValue<?>",
+      "oldType": "arez.ObservableValue<java.util.stream.Stream<T extends java.lang.Object>>",
+      "package": "arez.component.internal"
+    }
+  },
+  {
+    "code": "java.annotation.removed",
+    "description": "Element no longer annotated with 'arez.annotations.Observable'.",
+    "element": "method java.util.stream.Stream<T> arez.component.internal.AbstractRepository<K, T, R extends arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>>::entities()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@arez.annotations.Observable(expectSetter = false)",
+      "annotationType": "arez.annotations.Observable",
+      "classQualifiedName": "arez.component.internal.AbstractRepository",
+      "classSimpleName": "AbstractRepository",
+      "elementKind": "method",
+      "methodName": "entities",
+      "package": "arez.component.internal"
+    }
+  },
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method java.util.stream.Stream<T> arez.component.internal.AbstractRepository<K, T, R extends arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>>::entitiesValue()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.AbstractRepository",
+      "classSimpleName": "AbstractRepository",
+      "elementKind": "method",
+      "methodName": "entitiesValue",
+      "package": "arez.component.internal"
+    }
+  }
+]
