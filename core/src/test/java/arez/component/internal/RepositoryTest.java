@@ -415,7 +415,7 @@ public class RepositoryTest
 
     @Nonnull
     @Override
-    protected ObservableValue<Stream<MyEntity>> getEntitiesObservableValue()
+    protected ObservableValue<?> getEntitiesObservableValue()
     {
       return _observableValue;
     }

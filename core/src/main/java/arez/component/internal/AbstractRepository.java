@@ -285,7 +285,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
    */
   @ObservableValueRef
   @Nonnull
-  protected abstract ObservableValue<Stream<T>> getEntitiesObservableValue();
+  protected abstract ObservableValue<?> getEntitiesObservableValue();
 
   /**
    * Return a stream of all entities in the container.
