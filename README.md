@@ -17,7 +17,7 @@ The simplest way to use the library;
 <dependency>
    <groupId>org.realityforge.arez.testng</groupId>
    <artifactId>arez-testng</artifactId>
-   <version>0.06</version>
+   <version>0.07</version>
 </dependency>
 ```
 
