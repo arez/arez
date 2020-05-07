@@ -6,6 +6,7 @@ import javax.annotation.Nonnull;
 /**
  * Location of all compile time configuration settings for framework.
  */
+@SuppressWarnings( "FieldMayBeFinal" )
 @OmitType
 final class ArezConfig
 {
