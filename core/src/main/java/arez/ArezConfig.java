@@ -9,6 +9,7 @@ import javax.annotation.Nonnull;
 @OmitType
 final class ArezConfig
 {
+  @Nonnull
   private static final ConfigProvider PROVIDER = new ConfigProvider();
   private static final boolean PRODUCTION_MODE = PROVIDER.isProductionMode();
   private static boolean ENABLE_NAMES = PROVIDER.areNamesEnabled();
