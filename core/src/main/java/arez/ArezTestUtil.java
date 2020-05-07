@@ -107,7 +107,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.enable_names` setting to true.
+   * Set the `arez.enable_names` setting to true.
    */
   public static void enableNames()
   {
@@ -115,7 +115,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.enable_names` setting to false.
+   * Set the `arez.enable_names` setting to false.
    */
   public static void disableNames()
   {
@@ -133,7 +133,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.enable_references` setting to true.
+   * Set the `arez.enable_references` setting to true.
    */
   public static void enableReferences()
   {
@@ -141,7 +141,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.enable_references` setting to false.
+   * Set the `arez.enable_references` setting to false.
    */
   public static void disableReferences()
   {
@@ -159,7 +159,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.enable_verify` setting to true.
+   * Set the `arez.enable_verify` setting to true.
    */
   public static void enableVerify()
   {
@@ -167,7 +167,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.enable_verify` setting to false.
+   * Set the `arez.enable_verify` setting to false.
    */
   public static void disableVerify()
   {
@@ -185,7 +185,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.enable_property_introspection` setting to true.
+   * Set the `arez.enable_property_introspection` setting to true.
    */
   public static void enablePropertyIntrospectors()
   {
@@ -193,7 +193,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.enable_property_introspection` setting to false.
+   * Set the `arez.enable_property_introspection` setting to false.
    */
   public static void disablePropertyIntrospectors()
   {
@@ -211,7 +211,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.purge_tasks_when_runaway_detected` setting to true.
+   * Set the `arez.purge_tasks_when_runaway_detected` setting to true.
    */
   public static void purgeTasksWhenRunawayDetected()
   {
@@ -219,7 +219,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.purge_tasks_when_runaway_detected` setting to false.
+   * Set the `arez.purge_tasks_when_runaway_detected` setting to false.
    */
   public static void noPurgeTasksWhenRunawayDetected()
   {
@@ -237,7 +237,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.enforce_transaction_type` setting to true.
+   * Set the `arez.enforce_transaction_type` setting to true.
    */
   public static void enforceTransactionType()
   {
@@ -245,7 +245,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.enforce_transaction_type` setting to false.
+   * Set the `arez.enforce_transaction_type` setting to false.
    */
   public static void noEnforceTransactionType()
   {
@@ -263,7 +263,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.enable_spies` setting to true.
+   * Set the `arez.enable_spies` setting to true.
    */
   public static void enableSpies()
   {
@@ -272,7 +272,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.enable_spies` setting to false.
+   * Set the `arez.enable_spies` setting to false.
    */
   public static void disableSpies()
   {
@@ -291,7 +291,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.enable_zones` setting to true.
+   * Set the `arez.enable_zones` setting to true.
    * This will result in the Arez state being reset to align with this setting. The
    * normal practice is to invoke this at the start of a test.
    */
@@ -302,7 +302,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.enable_zones` setting to false.
+   * Set the `arez.enable_zones` setting to false.
    * This will result in the Arez state being reset to align with this setting. The
    * normal practice is to invoke this at the start of a test.
    */
@@ -323,7 +323,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.collections_properties_unmodifiable` setting to true.
+   * Set the `arez.collections_properties_unmodifiable` setting to true.
    */
   public static void makeCollectionPropertiesModifiable()
   {
@@ -331,7 +331,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.collections_properties_unmodifiable` setting to false.
+   * Set the `arez.collections_properties_unmodifiable` setting to false.
    */
   public static void makeCollectionPropertiesUnmodifiable()
   {
@@ -349,7 +349,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.enable_native_components` setting to true.
+   * Set the `arez.enable_native_components` setting to true.
    * This will result in the Arez state being reset to align with this setting. The
    * normal practice is to invoke this at the start of a test.
    */
@@ -360,7 +360,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.enable_native_components` setting to false.
+   * Set the `arez.enable_native_components` setting to false.
    * This will result in the Arez state being reset to align with this setting. The
    * normal practice is to invoke this at the start of a test.
    */
@@ -381,7 +381,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.enable_registries` setting to true.
+   * Set the `arez.enable_registries` setting to true.
    * This will result in the Arez state being reset to align with this setting. The
    * normal practice is to invoke this at the start of a test.
    */
@@ -392,7 +392,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.enable_registries` setting to false.
+   * Set the `arez.enable_registries` setting to false.
    * This will result in the Arez state being reset to align with this setting. The
    * normal practice is to invoke this at the start of a test.
    */
@@ -413,7 +413,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.enable_observer_error_handlers` setting to true.
+   * Set the `arez.enable_observer_error_handlers` setting to true.
    */
   public static void enableObserverErrorHandlers()
   {
@@ -421,7 +421,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.enable_observer_error_handlers` setting to false.
+   * Set the `arez.enable_observer_error_handlers` setting to false.
    */
   public static void disableObserverErrorHandlers()
   {
@@ -439,7 +439,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.check_invariants` setting to true.
+   * Set the `arez.check_invariants` setting to true.
    */
   public static void checkInvariants()
   {
@@ -465,7 +465,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Set `arez.check_api_invariants` setting to true.
+   * Set the `arez.check_api_invariants` setting to true.
    */
   public static void checkApiInvariants()
   {
