@@ -1,7 +1,7 @@
 package arez;
 
 import arez.spy.SpyEventHandler;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
@@ -143,7 +143,7 @@ public class SpyEventHandlerSupportTest
     assertEquals( callCount1.get(), 1 );
     assertEquals( callCount3.get(), 1 );
 
-    final ArrayList<TestLogger.LogEntry> entries = getTestLogger().getEntries();
+    final List<TestLogger.LogEntry> entries = getTestLogger().getEntries();
     assertEquals( entries.size(), 1 );
     final TestLogger.LogEntry entry1 = entries.get( 0 );
     assertEquals( entry1.getMessage(),

@@ -1,6 +1,8 @@
 package arez;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -34,7 +36,7 @@ final class TestLogger
   }
 
   @Nonnull
-  private final ArrayList<LogEntry> _entries = new ArrayList<>();
+  private final List<LogEntry> _entries = new ArrayList<>();
 
   @Override
   public void log( @Nonnull final String message, @Nullable final Throwable throwable )
@@ -43,7 +45,7 @@ final class TestLogger
   }
 
   @Nonnull
-  ArrayList<LogEntry> getEntries()
+  List<LogEntry> getEntries()
   {
     return _entries;
   }
