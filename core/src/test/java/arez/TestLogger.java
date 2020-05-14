@@ -16,7 +16,7 @@ final class TestLogger
 
     LogEntry( @Nonnull final String message, @Nullable final Throwable throwable )
     {
-      _message = message;
+      _message = Objects.requireNonNull( message );
       _throwable = throwable;
     }
 
@@ -33,6 +33,7 @@ final class TestLogger
     }
   }
 
+  @Nonnull
   private final ArrayList<LogEntry> _entries = new ArrayList<>();
 
   @Override
