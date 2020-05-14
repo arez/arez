@@ -30,13 +30,13 @@ public final class ArezTestUtil
    */
   public static void resetConfig( final boolean productionMode )
   {
-    if ( ArezConfig.isProductionMode() )
+    if ( ArezConfig.isProductionEnvironment() )
     {
       /*
        * This should really never happen but if it does add assertion (so code stops in debugger) or
        * failing that throw an exception.
        */
-      assert ArezConfig.isDevelopmentMode();
+      assert ArezConfig.isDevelopmentEnvironment();
       throw new IllegalStateException( "Unable to reset config as Arez is in production mode" );
     }
 
@@ -92,13 +92,13 @@ public final class ArezTestUtil
    */
   public static void setLogger( @Nullable final Logger logger )
   {
-    if ( ArezConfig.isProductionMode() )
+    if ( ArezConfig.isProductionEnvironment() )
     {
       /*
        * This should really never happen but if it does add assertion (so code stops in debugger) or
        * failing that throw an exception.
        */
-      assert ArezConfig.isDevelopmentMode();
+      assert ArezConfig.isDevelopmentEnvironment();
       throw new IllegalStateException( "Unable to call ArezTestUtil.setLogger() as Arez is in production mode" );
     }
 
@@ -496,13 +496,13 @@ public final class ArezTestUtil
   @SuppressWarnings( "NonJREEmulationClassesInClientCode" )
   private static void setConstant( @Nonnull final String fieldName, final boolean value )
   {
-    if ( ArezConfig.isProductionMode() )
+    if ( ArezConfig.isProductionEnvironment() )
     {
       /*
        * This should really never happen but if it does add assertion (so code stops in debugger) or
        * failing that throw an exception.
        */
-      assert ArezConfig.isDevelopmentMode();
+      assert ArezConfig.isDevelopmentEnvironment();
       throw new IllegalStateException( "Unable to change constant " + fieldName + " as Arez is in production mode" );
     }
     else

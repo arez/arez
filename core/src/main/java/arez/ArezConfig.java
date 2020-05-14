@@ -12,7 +12,7 @@ final class ArezConfig
 {
   @Nonnull
   private static final ConfigProvider PROVIDER = new ConfigProvider();
-  private static final boolean PRODUCTION_MODE = PROVIDER.isProductionMode();
+  private static final boolean PRODUCTION_ENVIRONMENT = PROVIDER.isProductionEnvironment();
   private static boolean ENABLE_NAMES = PROVIDER.areNamesEnabled();
   private static boolean ENABLE_VERIFY = PROVIDER.isVerifyEnabled();
   private static boolean ENABLE_PROPERTY_INTROSPECTION = PROVIDER.arePropertyIntrospectorsEnabled();
@@ -34,14 +34,14 @@ final class ArezConfig
   {
   }
 
-  static boolean isDevelopmentMode()
+  static boolean isDevelopmentEnvironment()
   {
-    return !isProductionMode();
+    return !isProductionEnvironment();
   }
 
-  static boolean isProductionMode()
+  static boolean isProductionEnvironment()
   {
-    return PRODUCTION_MODE;
+    return PRODUCTION_ENVIRONMENT;
   }
 
   static boolean areNamesEnabled()
@@ -125,7 +125,7 @@ final class ArezConfig
   {
     @GwtIncompatible
     @Override
-    boolean isProductionMode()
+    boolean isProductionEnvironment()
     {
       return "production".equals( System.getProperty( "arez.environment", "production" ) );
     }
@@ -134,7 +134,7 @@ final class ArezConfig
     @Override
     boolean areNamesEnabled()
     {
-      return "true".equals( System.getProperty( "arez.enable_names", isProductionMode() ? "false" : "true" ) );
+      return "true".equals( System.getProperty( "arez.enable_names", isProductionEnvironment() ? "false" : "true" ) );
     }
 
     @GwtIncompatible
@@ -142,21 +142,23 @@ final class ArezConfig
     boolean arePropertyIntrospectorsEnabled()
     {
       return "true".equals( System.getProperty( "arez.enable_property_introspection",
-                                                PRODUCTION_MODE ? "false" : "true" ) );
+                                                isProductionEnvironment() ? "false" : "true" ) );
     }
 
     @GwtIncompatible
     @Override
     boolean areRegistriesEnabled()
     {
-      return "true".equals( System.getProperty( "arez.enable_registries", PRODUCTION_MODE ? "false" : "true" ) );
+      return "true".equals( System.getProperty( "arez.enable_registries",
+                                                isProductionEnvironment() ? "false" : "true" ) );
     }
 
     @GwtIncompatible
     @Override
     boolean enforceTransactionType()
     {
-      return "true".equals( System.getProperty( "arez.enforce_transaction_type", PRODUCTION_MODE ? "false" : "true" ) );
+      return "true".equals( System.getProperty( "arez.enforce_transaction_type",
+                                                isProductionEnvironment() ? "false" : "true" ) );
     }
 
     @GwtIncompatible
@@ -177,7 +179,7 @@ final class ArezConfig
     @Override
     boolean areSpiesEnabled()
     {
-      return "true".equals( System.getProperty( "arez.enable_spies", PRODUCTION_MODE ? "false" : "true" ) );
+      return "true".equals( System.getProperty( "arez.enable_spies", isProductionEnvironment() ? "false" : "true" ) );
     }
 
     @GwtIncompatible
@@ -199,14 +201,15 @@ final class ArezConfig
     boolean areCollectionsPropertiesUnmodifiable()
     {
       return "true".equals( System.getProperty( "arez.collections_properties_unmodifiable",
-                                                PRODUCTION_MODE ? "false" : "true" ) );
+                                                isProductionEnvironment() ? "false" : "true" ) );
     }
 
     @GwtIncompatible
     @Override
     boolean areNativeComponentsEnabled()
     {
-      return "true".equals( System.getProperty( "arez.enable_native_components", PRODUCTION_MODE ? "false" : "true" ) );
+      return "true".equals( System.getProperty( "arez.enable_native_components",
+                                                isProductionEnvironment() ? "false" : "true" ) );
     }
 
     @GwtIncompatible
@@ -220,14 +223,16 @@ final class ArezConfig
     @Override
     boolean checkInvariants()
     {
-      return "true".equals( System.getProperty( "arez.check_invariants", PRODUCTION_MODE ? "false" : "true" ) );
+      return "true".equals( System.getProperty( "arez.check_invariants",
+                                                isProductionEnvironment() ? "false" : "true" ) );
     }
 
     @GwtIncompatible
     @Override
     boolean checkApiInvariants()
     {
-      return "true".equals( System.getProperty( "arez.check_api_invariants", PRODUCTION_MODE ? "false" : "true" ) );
+      return "true".equals( System.getProperty( "arez.check_api_invariants",
+                                                isProductionEnvironment() ? "false" : "true" ) );
     }
 
     @GwtIncompatible
@@ -235,14 +240,14 @@ final class ArezConfig
     @Nonnull
     String loggerType()
     {
-      return System.getProperty( "arez.logger", PRODUCTION_MODE ? "basic" : "proxy" );
+      return System.getProperty( "arez.logger", isProductionEnvironment() ? "basic" : "proxy" );
     }
   }
 
   @SuppressWarnings( { "unused", "StringEquality" } )
   private static abstract class AbstractConfigProvider
   {
-    boolean isProductionMode()
+    boolean isProductionEnvironment()
     {
       return "production" == System.getProperty( "arez.environment" );
     }
