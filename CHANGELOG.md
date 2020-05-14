@@ -3,6 +3,7 @@
 ### Unreleased
 
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.28.0`.
+* Upgrade the jsinterop library to use the `com.google.jsinterop:jsinterop-annotations:jar:2.0.0` artifact.
 
 ### [v0.176](https://github.com/arez/arez/tree/v0.176) (2020-05-15) · [Full Changelog](https://github.com/arez/arez/compare/v0.175...v0.176)
 
