@@ -35,7 +35,7 @@ define 'arez-testng' do
           :windowtitle => 'Arez TestNG API Documentation',
           :linksource => true,
           :timestamp => false,
-          :link => %w(https://arez.github.io/api https://docs.oracle.com/javase/8/docs/api)
+          :link => %w(https://arez.github.io/api https://docs.oracle.com/javase/8/docs/api https://arez.github.io/api)
     )
 
   iml.excluded_directories << project._('tmp')
