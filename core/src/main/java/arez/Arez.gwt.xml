@@ -1,8 +1,4 @@
 <module>
-  <inherits name='jsinterop.annotations.Annotations'/>
-  <inherits name='org.intellij.lang.annotations.Annotations'/>
-  <inherits name='org.jetbrains.annotations.Annotations'/>
-  <inherits name='grim.annotations.Annotations'/>
   <inherits name='org.realityforge.braincheck.BrainCheck'/>
 
   <source path='' includes='*.java'/>

@@ -2,6 +2,12 @@
 
 ### Unreleased
 
+* Remove the inherits for the following modules that arez only uses annotations from. If no classes are used from these packages, GWT2.x does not need inherits for them.
+  - `jsinterop.annotations.Annotations`
+  - `org.intellij.lang.annotations.Annotations`
+  - `org.jetbrains.annotations.Annotations`
+  - `grim.annotations.Annotations`
+
 ### [v0.175](https://github.com/arez/arez/tree/v0.175) (2020-04-29) · [Full Changelog](https://github.com/arez/arez/compare/v0.174...v0.175) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.174&new=0.175)
 
 The release includes 1 non breaking API change and 1 breaking API change.
