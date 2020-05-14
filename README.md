@@ -1,6 +1,6 @@
 # Arez-DOM
 
-[![Build Status](https://secure.travis-ci.org/arez/arez-dom.svg?branch=master)](http://travis-ci.org/arez/arez-dom)
+[![Build Status](https://api.travis-ci.com/arez/arez-dom.svg?branch=master)](http://travis-ci.org/arez/arez-dom)
 [<img src="https://img.shields.io/maven-central/v/org.realityforge.arez.dom/arez-dom.svg?label=latest%20release"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.realityforge.arez.dom%22)
 
 This library provides a collection of Arez browser components that expose various aspects of the browser object
