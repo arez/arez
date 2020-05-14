@@ -1,6 +1,6 @@
 # Arez-Promise
 
-[![Build Status](https://api.travis-ci.com/arez/arez-promise.svg?branch=master)](http://travis-ci.org/arez/arez-promise)
+[![Build Status](https://api.travis-ci.com/arez/arez-promise.svg?branch=master)](http://travis-ci.com/arez/arez-promise)
 [<img src="https://img.shields.io/maven-central/v/org.realityforge.arez.promise/arez-promise.svg?label=latest%20release"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.realityforge.arez.promise%22)
 
 This library provides an Arez browser component that wraps a Promise and exposes observable
