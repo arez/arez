@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.177](https://github.com/arez/arez/tree/v0.177) (2020-05-15) · [Full Changelog](https://github.com/arez/arez/compare/v0.176...v0.177)
+
+Changes in this release:
 
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.28.0`.
 * Upgrade the jsinterop library to use the `com.google.jsinterop:jsinterop-annotations:jar:2.0.0` artifact.
