@@ -8,7 +8,7 @@ import org.realityforge.gwt.symbolmap.SymbolEntryIndexDiff;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class BuildStatsTest
+public final class BuildStatsTest
 {
   @Test
   public void raw()

@@ -14,7 +14,7 @@ import org.realityforge.gwt.symbolmap.SymbolEntryIndex;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class BuildOutputTest
+public final class BuildOutputTest
 {
   @Test
   public void arezProduction()
