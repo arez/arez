@@ -6,6 +6,7 @@
 * Fix code generation error that occurs when a component specifies the `disposeNotifier=DISABLE` parameter but has multiple `@PreDispose` annotated methods or has an `@Inverse` annotated method, a `@Reference` with an inverse or `@CascadeDispose` elements.
 * Remove the requirement that methods annotated with `@ComponentId`, `@CascadeDispoe` and `@ComponentDependency` be marked as final.
 * Generate a suppressable warning if final methods are declared in the class annotated with `@ArezComponent`. These methods will not be overridden by the arez annotation processor which should be the only subclass of an Arez component.
+* Use method references in generated code to simplify code generation process and potentially enable better optimizations in a future version of GWT and/or J2CL.
 
 ### [v0.177](https://github.com/arez/arez/tree/v0.177) (2020-05-15) · [Full Changelog](https://github.com/arez/arez/compare/v0.176...v0.177)
 

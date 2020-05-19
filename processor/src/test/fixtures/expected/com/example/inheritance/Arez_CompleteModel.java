@@ -85,7 +85,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   public Arez_CompleteModel() {
     super();
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> Arez.areReferencesEnabled(), () -> "Attempted to create instance of component of type 'CompleteModel' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component" );
+      Guards.apiInvariant( Arez::areReferencesEnabled, () -> "Attempted to create instance of component of type 'CompleteModel' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component" );
     }
     final ArezContext $$arezv$$_context = Arez.context();
     final byte $$arezv$$_id = getId();
