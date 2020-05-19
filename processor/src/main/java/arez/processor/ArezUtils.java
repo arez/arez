@@ -137,6 +137,8 @@ final class ArezUtils
   {
     return element.getParameters().stream().anyMatch( p -> p.getSimpleName().toString().equals( name ) );
   }
+
+  //TODO: Move to proton
   @Nullable
   static ExecutableElement getOverriddenMethod( @Nonnull final ProcessingEnvironment processingEnv,
                                                 @Nonnull final TypeElement typeElement,
