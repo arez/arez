@@ -838,7 +838,7 @@ public final class ArezProcessor
     component.getReferences().values().forEach( ReferenceDescriptor::validate );
     component.getInverses().values().forEach( e -> e.validate( processingEnv ) );
 
-    final boolean hasReactiveElements =
+    final boolean hasZeroReactiveElements =
       component.getObservables().isEmpty() &&
       component.getActions().isEmpty() &&
       component.getMemoizes().isEmpty() &&
@@ -862,14 +862,14 @@ public final class ArezProcessor
         suppressedBy( Constants.WARNING_UNNECESSARY_DEFAULT_PRIORITY );
       processingEnv.getMessager().printMessage( WARNING, message, element );
     }
-    if ( !allowEmpty && hasReactiveElements )
+    if ( !allowEmpty && hasZeroReactiveElements )
     {
       throw new ProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
                                     "@CascadeDispose, @Memoize, @Observable, @Inverse, " +
                                     "@Reference, @ComponentDependency or @Observe", element );
     }
     else if ( allowEmpty &&
-              !hasReactiveElements &&
+              !hasZeroReactiveElements &&
               isWarningNotSuppressed( element, Constants.WARNING_UNNECESSARY_ALLOW_EMPTY ) )
     {
       final String message =
