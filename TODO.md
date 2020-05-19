@@ -32,7 +32,7 @@ complete as there is too much un-said.
 
 * Support multiple instances of `@OnDepsChange`
 
-* `@ComponentDependency`/`@CascadeDispsoe` fields/methods should not be public or protected and in same class
+* `@ComponentDependency`/`@CascadeDispsoe` fields should not be public or protected and in same class
 
 * Add separate `ArezIdentifiable` interface that is for internal use of Arez and is not expected to be
   used outside of the framework. This will be the infrastructure that is used when `Arez.areNamesEnabled()`
