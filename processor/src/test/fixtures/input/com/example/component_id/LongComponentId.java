@@ -7,7 +7,7 @@ import arez.annotations.ComponentId;
 abstract class LongComponentId
 {
   @ComponentId
-  public final long getId()
+  public long getId()
   {
     return 0;
   }

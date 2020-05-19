@@ -1,5 +1,7 @@
 package arez.processor;
 
+import javax.annotation.Nonnull;
+
 final class Constants
 {
   static final String SUPPRESS_AREZ_WARNINGS_CLASSNAME = "arez.annotations.SuppressArezWarnings";
@@ -58,6 +60,8 @@ final class Constants
   static final String WARNING_UNNECESSARY_DEFAULT = "Arez:UnnecessaryDefault";
   static final String WARNING_PROTECTED_CONSTRUCTOR = "Arez:ProtectedConstructor";
   static final String WARNING_PUBLIC_CONSTRUCTOR = "Arez:PublicConstructor";
+  @Nonnull
+  static final String WARNING_FINAL_METHOD = "Arez:FinalMethod";
 
   private Constants()
   {

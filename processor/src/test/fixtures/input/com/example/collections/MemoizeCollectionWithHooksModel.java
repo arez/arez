@@ -17,12 +17,12 @@ abstract class MemoizeCollectionWithHooksModel
   }
 
   @OnActivate
-  final void onTimeActivate()
+  void onTimeActivate()
   {
   }
 
   @OnDeactivate
-  final void onTimeDeactivate()
+  void onTimeDeactivate()
   {
   }
 }

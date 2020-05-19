@@ -9,7 +9,7 @@ import arez.component.DisposeNotifier;
 abstract class ComplexDependencyModel
 {
   @ComponentDependency
-  final DisposeNotifier getValue1()
+  DisposeNotifier getValue1()
   {
     return null;
   }

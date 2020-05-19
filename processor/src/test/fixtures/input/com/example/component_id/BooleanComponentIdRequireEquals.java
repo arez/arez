@@ -8,7 +8,7 @@ import arez.annotations.Feature;
 abstract class BooleanComponentIdRequireEquals
 {
   @ComponentId
-  public final boolean getId()
+  public boolean getId()
   {
     return false;
   }

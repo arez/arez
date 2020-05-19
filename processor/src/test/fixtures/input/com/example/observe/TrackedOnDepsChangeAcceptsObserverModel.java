@@ -16,7 +16,7 @@ abstract class TrackedOnDepsChangeAcceptsObserverModel
   }
 
   @OnDepsChange
-  final void onRenderDepsChange( @Nonnull final Observer observer )
+  void onRenderDepsChange( @Nonnull final Observer observer )
   {
   }
 }

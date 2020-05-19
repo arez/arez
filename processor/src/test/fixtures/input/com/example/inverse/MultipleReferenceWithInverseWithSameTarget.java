@@ -29,7 +29,7 @@ public class MultipleReferenceWithInverseWithSameTarget
     abstract RoleType getParent();
 
     @ReferenceId
-    final int getParentId()
+    int getParentId()
     {
       return _parentId;
     }
@@ -39,7 +39,7 @@ public class MultipleReferenceWithInverseWithSameTarget
     abstract RoleType getChild();
 
     @ReferenceId
-    final int getChildId()
+    int getChildId()
     {
       return _childId;
     }

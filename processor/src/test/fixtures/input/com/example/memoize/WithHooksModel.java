@@ -15,12 +15,12 @@ abstract class WithHooksModel
   }
 
   @OnActivate
-  final void onTimeActivate()
+  void onTimeActivate()
   {
   }
 
   @OnDeactivate
-  final void onTimeDeactivate()
+  void onTimeDeactivate()
   {
   }
 }

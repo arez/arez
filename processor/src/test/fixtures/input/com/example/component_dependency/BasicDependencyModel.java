@@ -8,7 +8,7 @@ import arez.component.DisposeNotifier;
 abstract class BasicDependencyModel
 {
   @ComponentDependency
-  public final DisposeNotifier getTime()
+  public DisposeNotifier getTime()
   {
     return null;
   }

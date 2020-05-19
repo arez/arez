@@ -25,7 +25,7 @@ public final class TrackWithSchedulableTest
     }
 
     @OnDepsChange
-    final void onRenderDepsChange()
+    void onRenderDepsChange()
     {
     }
 

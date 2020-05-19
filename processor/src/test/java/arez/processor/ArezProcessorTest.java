@@ -327,7 +327,6 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.on_deactivate.PackageAccessOnDeactivateModel" },
 
         new Object[]{ "com.example.on_deps_change.BasicOnDepsChangeModel" },
-        new Object[]{ "com.example.on_deps_change.DeriveFinalOnDepsChangeModel" },
         new Object[]{ "com.example.on_deps_change.DeriveOnDepsChangeModel" },
         new Object[]{ "com.example.on_deps_change.PackageAccessOnDepsChangeModel" },
 
@@ -1301,7 +1300,6 @@ public final class ArezProcessorTest
                       "@CascadeDispose target must return a type assignable to arez.Disposable or a type annotated with @ArezComponent" },
         new Object[]{ "com.example.cascade_dispose.ConcreteObservableMethodComponent",
                       "@CascadeDispose target must be abstract if the method is also annotated with the @Observable or @Reference annotation." },
-        new Object[]{ "com.example.cascade_dispose.NonFinalMethodComponent", "@CascadeDispose target must be final" },
         new Object[]{ "com.example.cascade_dispose.ParametersMethodComponent",
                       "@CascadeDispose target must not have any parameters" },
         new Object[]{ "com.example.cascade_dispose.PrivateComponent", "@CascadeDispose target must not be private" },
@@ -1339,7 +1337,6 @@ public final class ArezProcessorTest
                       "@ComponentId target must not be abstract" },
         new Object[]{ "com.example.component_id.ComponentIdMustReturnValueModel",
                       "@ComponentId target must return a value" },
-        new Object[]{ "com.example.component_id.ComponentIdNotFinalModel", "@ComponentId target must be final" },
         new Object[]{ "com.example.component_id.ComponentIdNotPrivateModel",
                       "@ComponentId target must not be private" },
         new Object[]{ "com.example.component_id.ComponentIdNotStaticModel", "@ComponentId target must not be static" },
@@ -1447,8 +1444,6 @@ public final class ArezProcessorTest
                       "Method can not be annotated with both @ComponentDependency and @CascadeDispose" },
         new Object[]{ "com.example.component_dependency.MemoizeDependency",
                       "Method can not be annotated with both @Memoize and @ComponentDependency" },
-        new Object[]{ "com.example.component_dependency.NonFinalDependency",
-                      "@ComponentDependency target must be final" },
         new Object[]{ "com.example.component_dependency.NonFinalFieldDependency",
                       "@ComponentDependency target must be final" },
         new Object[]{ "com.example.component_dependency.ParametersDependency",

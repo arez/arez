@@ -8,7 +8,7 @@ import arez.annotations.ComponentDependency;
 abstract class ActAsComponentMethodDependencyModel
 {
   @ComponentDependency
-  public final MyType getTime()
+  public MyType getTime()
   {
     return null;
   }

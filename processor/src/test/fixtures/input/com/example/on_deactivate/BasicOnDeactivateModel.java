@@ -14,7 +14,7 @@ abstract class BasicOnDeactivateModel
   }
 
   @OnDeactivate
-  final void onTimeDeactivate()
+  void onTimeDeactivate()
   {
   }
 }

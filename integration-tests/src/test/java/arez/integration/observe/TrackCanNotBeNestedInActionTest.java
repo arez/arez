@@ -24,7 +24,7 @@ public final class TrackCanNotBeNestedInActionTest
     }
 
     @OnDepsChange
-    final void onRenderDepsChange()
+    void onRenderDepsChange()
     {
     }
   }

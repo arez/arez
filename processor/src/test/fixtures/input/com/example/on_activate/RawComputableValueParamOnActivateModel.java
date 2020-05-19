@@ -17,7 +17,7 @@ abstract class RawComputableValueParamOnActivateModel
 
   @SuppressWarnings( "rawtypes" )
   @OnActivate
-  final void onTimeActivate( @Nonnull final ComputableValue computableValue )
+  void onTimeActivate( @Nonnull final ComputableValue computableValue )
   {
   }
 }

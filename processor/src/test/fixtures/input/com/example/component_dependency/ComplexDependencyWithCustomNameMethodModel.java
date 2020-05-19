@@ -15,7 +15,7 @@ abstract class ComplexDependencyWithCustomNameMethodModel
   abstract String getComponentName();
 
   @ComponentDependency
-  final DisposeNotifier getValue1()
+  DisposeNotifier getValue1()
   {
     return null;
   }

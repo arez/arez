@@ -7,7 +7,7 @@ import arez.annotations.ComponentId;
 abstract class DoubleComponentId
 {
   @ComponentId
-  public final double getId()
+  public double getId()
   {
     return 0;
   }

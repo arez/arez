@@ -30,7 +30,7 @@ public final class TrackCanNestActionTest
     }
 
     @OnDepsChange
-    final void onRenderDepsChange()
+    void onRenderDepsChange()
     {
       _depsChangedCallCount++;
     }

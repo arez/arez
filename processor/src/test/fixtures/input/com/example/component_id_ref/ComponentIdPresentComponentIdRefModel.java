@@ -8,7 +8,7 @@ import arez.annotations.ComponentIdRef;
 abstract class ComponentIdPresentComponentIdRefModel
 {
   @ComponentId
-  final int id()
+  int id()
   {
     return 0;
   }

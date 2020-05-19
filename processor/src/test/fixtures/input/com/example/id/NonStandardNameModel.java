@@ -7,7 +7,7 @@ import arez.annotations.ComponentId;
 abstract class NonStandardNameModel
 {
   @ComponentId
-  final int getId()
+  int $Id$$()
   {
     return 0;
   }

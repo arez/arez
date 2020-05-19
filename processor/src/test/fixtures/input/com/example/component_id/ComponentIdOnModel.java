@@ -8,7 +8,7 @@ import arez.annotations.Observable;
 abstract class ComponentIdOnModel
 {
   @ComponentId
-  public final int getId()
+  public int getId()
   {
     return 0;
   }

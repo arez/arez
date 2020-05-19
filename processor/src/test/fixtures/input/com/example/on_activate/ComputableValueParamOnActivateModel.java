@@ -16,7 +16,7 @@ abstract class ComputableValueParamOnActivateModel
   }
 
   @OnActivate
-  final void onTimeActivate( @Nonnull final ComputableValue<Long> computableValue )
+  void onTimeActivate( @Nonnull final ComputableValue<Long> computableValue )
   {
   }
 }

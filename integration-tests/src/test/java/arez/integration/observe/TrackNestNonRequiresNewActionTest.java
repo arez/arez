@@ -30,7 +30,7 @@ public final class TrackNestNonRequiresNewActionTest
     }
 
     @OnDepsChange
-    final void onRenderDepsChange()
+    void onRenderDepsChange()
     {
       _depsChangedCallCount++;
     }

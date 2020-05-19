@@ -8,7 +8,7 @@ abstract class LeafModel
   extends MiddleModel
 {
   @Override
-  protected final void myAbstractMethod( @Nonnull final String value )
+  protected void myAbstractMethod( @Nonnull final String value )
   {
   }
 }

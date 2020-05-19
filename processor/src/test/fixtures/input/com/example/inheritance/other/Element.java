@@ -25,7 +25,7 @@ public abstract class Element
   abstract CompleteModel getChild();
 
   @ReferenceId
-  final int getChildId()
+  int getChildId()
   {
     return 0;
   }

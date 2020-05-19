@@ -7,7 +7,7 @@ import arez.annotations.ComponentDependency;
 abstract class RuntimeTypeValidateDependency
 {
   @ComponentDependency( validateTypeAtRuntime = true )
-  public final Object getValue()
+  public Object getValue()
   {
     return null;
   }

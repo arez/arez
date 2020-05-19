@@ -8,7 +8,7 @@ import arez.annotations.ComponentIdRef;
 abstract class NonIntTypeComponentIdRefModel
 {
   @ComponentId
-  final String id()
+  String id()
   {
     return null;
   }

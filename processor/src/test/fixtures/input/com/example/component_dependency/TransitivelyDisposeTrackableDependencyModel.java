@@ -7,7 +7,7 @@ import arez.annotations.ComponentDependency;
 abstract class TransitivelyDisposeTrackableDependencyModel
 {
   @ComponentDependency
-  final MyDependentValue getTime()
+  MyDependentValue getTime()
   {
     return null;
   }

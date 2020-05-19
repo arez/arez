@@ -25,7 +25,7 @@ public abstract class OtherElement
   abstract CompleteInterfaceModel getChild();
 
   @ReferenceId
-  final int getChildId()
+  int getChildId()
   {
     return 0;
   }

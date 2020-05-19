@@ -7,7 +7,7 @@ import arez.annotations.CascadeDispose;
 abstract class ComponentCascadeDisposeMethodModel
 {
   @CascadeDispose
-  final MyComponent myElement()
+  MyComponent myElement()
   {
     return null;
   }

@@ -13,7 +13,7 @@ abstract class RawTypeComponentIdRefModel
   }
 
   @ComponentId
-  final MyId id()
+  MyId id()
   {
     return null;
   }

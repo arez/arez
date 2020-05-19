@@ -25,7 +25,7 @@ public final class TrackButNoSchedulableTest
     }
 
     @OnDepsChange
-    final void onRenderDepsChange()
+    void onRenderDepsChange()
     {
     }
   }

@@ -7,7 +7,7 @@ import arez.annotations.ComponentId;
 abstract class ByteComponentId
 {
   @ComponentId
-  public final byte getId()
+  public byte getId()
   {
     return 0;
   }

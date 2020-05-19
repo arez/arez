@@ -8,7 +8,7 @@ import arez.annotations.Feature;
 abstract class CharComponentIdRequireEquals
 {
   @ComponentId
-  public final char getId()
+  public char getId()
   {
     return 'A';
   }

@@ -533,7 +533,6 @@ public final class ArezProcessor
                                          Constants.COMPONENT_CLASSNAME,
                                          Constants.COMPONENT_ID_CLASSNAME,
                                          componentId );
-    MemberChecks.mustBeFinal( Constants.COMPONENT_ID_CLASSNAME, componentId );
     MemberChecks.mustNotHaveAnyParameters( Constants.COMPONENT_ID_CLASSNAME, componentId );
     MemberChecks.mustReturnAValue( Constants.COMPONENT_ID_CLASSNAME, componentId );
     MemberChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_ID_CLASSNAME, componentId );
@@ -2443,6 +2442,7 @@ public final class ArezProcessor
     throws ProcessorException
   {
     emitWarningForUnnecessaryProtectedMethod( descriptor, method );
+    emitWarningForUnnecessaryFinalMethod( descriptor, method );
     verifyNoDuplicateAnnotations( method );
 
     final AnnotationMirror action =
@@ -2695,6 +2695,24 @@ public final class ArezProcessor
         MemberChecks.shouldNot( Constants.COMPONENT_CLASSNAME,
                                 "declare a protected method. " +
                                 MemberChecks.suppressedBy( Constants.WARNING_PROTECTED_METHOD,
+                                                           Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) );
+      processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message, method );
+    }
+  }
+
+  private void emitWarningForUnnecessaryFinalMethod( @Nonnull final ComponentDescriptor descriptor,
+                                                     @Nonnull final ExecutableElement method )
+  {
+    if ( method.getModifiers().contains( Modifier.FINAL ) &&
+         Objects.equals( method.getEnclosingElement(), descriptor.getElement() ) &&
+         ElementsUtil.isWarningNotSuppressed( method,
+                                              Constants.WARNING_FINAL_METHOD,
+                                              Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) )
+    {
+      final String message =
+        MemberChecks.shouldNot( Constants.COMPONENT_CLASSNAME,
+                                "declare a final method. " +
+                                MemberChecks.suppressedBy( Constants.WARNING_FINAL_METHOD,
                                                            Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) );
       processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message, method );
     }

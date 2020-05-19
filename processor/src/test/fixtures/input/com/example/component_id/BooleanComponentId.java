@@ -7,7 +7,7 @@ import arez.annotations.ComponentId;
 abstract class BooleanComponentId
 {
   @ComponentId
-  public final boolean getId()
+  public boolean getId()
   {
     return false;
   }

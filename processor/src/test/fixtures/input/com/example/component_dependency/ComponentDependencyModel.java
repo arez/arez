@@ -12,7 +12,7 @@ abstract class ComponentDependencyModel
   }
 
   @ComponentDependency
-  final Foo getFoo()
+  Foo getFoo()
   {
     return null;
   }

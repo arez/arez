@@ -29,7 +29,7 @@ public final class ObserveManualScheduleTest
     }
 
     @OnDepsChange
-    final void onRenderDepsChange()
+    void onRenderDepsChange()
     {
       _depsChangedCallCount++;
     }

@@ -8,7 +8,7 @@ import arez.component.DisposeNotifier;
 abstract class CascadeDependencyModel
 {
   @ComponentDependency( action = ComponentDependency.Action.CASCADE )
-  public final DisposeNotifier getTime()
+  public DisposeNotifier getTime()
   {
     return null;
   }

@@ -24,7 +24,7 @@ public final class ApplicationExecutorNoDepsDisallowedTest
     }
 
     @OnDepsChange
-    final void onRenderDepsChange()
+    void onRenderDepsChange()
     {
     }
   }

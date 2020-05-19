@@ -16,7 +16,7 @@ abstract class BadTypeParamComputableValueParamModel
   }
 
   @OnActivate
-  final void onTimeActivate( @Nonnull final ComputableValue<String> computableValue )
+  void onTimeActivate( @Nonnull final ComputableValue<String> computableValue )
   {
   }
 }

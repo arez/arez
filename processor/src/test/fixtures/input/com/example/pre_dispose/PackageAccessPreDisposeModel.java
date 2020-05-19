@@ -7,7 +7,7 @@ import arez.annotations.PreDispose;
 abstract class PackageAccessPreDisposeModel
 {
   @PreDispose
-  final void preDispose()
+  void preDispose()
   {
   }
 }

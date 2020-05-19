@@ -16,12 +16,12 @@ abstract class DeprecatedMemoizeModel2
 
   @Deprecated
   @OnActivate
-  final void onTimeActivate()
+  void onTimeActivate()
   {
   }
 
   @OnDeactivate
-  final void onTimeDeactivate()
+  void onTimeDeactivate()
   {
   }
 }

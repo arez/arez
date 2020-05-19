@@ -14,7 +14,7 @@ abstract class BasicOnActivateModel
   }
 
   @OnActivate
-  final void onTimeActivate()
+  void onTimeActivate()
   {
   }
 }

@@ -4,11 +4,9 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.VariableElement;
-import org.realityforge.proton.MemberChecks;
 import org.realityforge.proton.ProcessorException;
 
 /**
@@ -72,10 +70,6 @@ final class CascadeDisposableDescriptor
           throw new ProcessorException( "@CascadeDispose target must not be abstract unless the method is " +
                                         "also annotated with the @Observable or @Reference annotation.",
                                         getMethod() );
-        }
-        if ( ElementKind.CLASS == getMethod().getEnclosingElement().getKind() )
-        {
-          MemberChecks.mustBeFinal( Constants.CASCADE_DISPOSE_CLASSNAME, getMethod() );
         }
       }
       else

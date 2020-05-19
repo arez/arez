@@ -30,7 +30,7 @@ public final class TrackNoReportResultTest
     }
 
     @OnDepsChange
-    final void onRenderDepsChange()
+    void onRenderDepsChange()
     {
     }
 

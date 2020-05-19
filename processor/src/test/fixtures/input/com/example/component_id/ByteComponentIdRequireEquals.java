@@ -8,7 +8,7 @@ import arez.annotations.Feature;
 abstract class ByteComponentIdRequireEquals
 {
   @ComponentId
-  public final byte getId()
+  public byte getId()
   {
     return 0;
   }

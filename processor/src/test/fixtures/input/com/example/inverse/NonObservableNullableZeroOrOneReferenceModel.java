@@ -23,7 +23,7 @@ abstract class NonObservableNullableZeroOrOneReferenceModel
 
     @ReferenceId
     @Nullable
-    final Integer getNonObservableNullableZeroOrOneReferenceModelId()
+    Integer getNonObservableNullableZeroOrOneReferenceModelId()
     {
       return null;
     }
