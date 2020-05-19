@@ -446,12 +446,11 @@ final class ComponentGenerator
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
     block.addStatement( "$T.apiInvariant( () -> null != this.$N && this.$N.isActive(), " +
                         "() -> \"Method named '$N' invoked on \" + this.$N.describeState() + \" component " +
-                        "named '\" + ( null == this.$N ? \"?\" : this.$N.getName() ) + \"'\" )",
+                        "named '\" + this.$N.getName() + \"'\" )",
                         GUARDS_CLASSNAME,
                         KERNEL_FIELD_NAME,
                         KERNEL_FIELD_NAME,
                         methodName,
-                        KERNEL_FIELD_NAME,
                         KERNEL_FIELD_NAME,
                         KERNEL_FIELD_NAME );
     block.endControlFlow();
