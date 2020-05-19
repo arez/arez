@@ -1093,7 +1093,7 @@ final class ComponentGenerator
 
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckInvariants() )", AREZ_CLASSNAME );
-    block.addStatement( "$T.invariant( () -> $T.areNativeComponentsEnabled(), () -> \"Invoked @ComponentRef " +
+    block.addStatement( "$T.invariant( $T::areNativeComponentsEnabled, () -> \"Invoked @ComponentRef " +
                         "method '$N' but Arez.areNativeComponentsEnabled() returned false.\" )",
                         GUARDS_CLASSNAME,
                         AREZ_CLASSNAME,
