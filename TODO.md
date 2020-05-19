@@ -15,6 +15,10 @@ complete as there is too much un-said.
 
 * Consider `@ArezComponent.service` defaulting to `ENABLED`.
 
+* Change `@ActAsComponent` to `@PartialArezComponent` (or `@ArezPartialComponent`) and generate an error if any arez annotation appears on a type that is not annotated with either this annotation of `@ArezComponent`
+
+* Introduce `@ActAsArezComponent` annotation as a annotation targeted annotation that indicates that the annotation indicates an arez component. See `@ActAsStingComponent` for example of intended usage.
+
 * Warn if `@ArezComponent.service=ENABLE` and `disposeOnDeactivate`, `disposeNotifier`, `requireEquals`, `requireId` or `verify` is `ENABLED`
   or warn if a `@Reference` is used.
 
