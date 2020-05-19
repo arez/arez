@@ -19,7 +19,7 @@ public abstract class BasicModelWithDifferentAccessLevels
   }
 
   @Observable
-  protected long getTime()
+  long getTime()
   {
     return _time;
   }
@@ -47,6 +47,7 @@ public abstract class BasicModelWithDifferentAccessLevels
   {
   }
 
+  @SuppressWarnings( "Arez:ProtectedMethod" )
   @Action
   protected void doAction2()
   {

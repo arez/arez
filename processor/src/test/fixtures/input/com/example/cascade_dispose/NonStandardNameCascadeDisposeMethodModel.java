@@ -8,7 +8,7 @@ import arez.annotations.CascadeDispose;
 abstract class NonStandardNameCascadeDisposeMethodModel
 {
   @CascadeDispose
-  protected final Disposable $$myElement$$_$()
+  final Disposable $$myElement$$_$()
   {
     return null;
   }

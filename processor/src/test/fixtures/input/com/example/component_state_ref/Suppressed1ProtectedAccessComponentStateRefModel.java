@@ -7,7 +7,7 @@ import arez.annotations.ComponentStateRef;
 abstract class Suppressed1ProtectedAccessComponentStateRefModel
 {
   // This uses the SOURCE retention suppression
-  @SuppressWarnings( "Arez:ProtectedRefMethod" )
+  @SuppressWarnings( "Arez:ProtectedMethod" )
   @ComponentStateRef
   protected abstract boolean isReady();
 }

@@ -2442,6 +2442,7 @@ public final class ArezProcessor
                                  @Nonnull final ExecutableType methodType )
     throws ProcessorException
   {
+    emitWarningForUnnecessaryProtectedMethod( descriptor, method );
     verifyNoDuplicateAnnotations( method );
 
     final AnnotationMirror action =
@@ -2677,6 +2678,25 @@ public final class ArezProcessor
     else
     {
       return false;
+    }
+  }
+
+  private void emitWarningForUnnecessaryProtectedMethod( @Nonnull final ComponentDescriptor descriptor,
+                                                         @Nonnull final ExecutableElement method )
+  {
+    if ( method.getModifiers().contains( Modifier.PROTECTED ) &&
+         Objects.equals( method.getEnclosingElement(), descriptor.getElement() ) &&
+         ElementsUtil.isWarningNotSuppressed( method,
+                                              Constants.WARNING_PROTECTED_METHOD,
+                                              Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) &&
+         !isMethodAProtectedOverride( descriptor.getElement(), method ) )
+    {
+      final String message =
+        MemberChecks.shouldNot( Constants.COMPONENT_CLASSNAME,
+                                "declare a protected method. " +
+                                MemberChecks.suppressedBy( Constants.WARNING_PROTECTED_METHOD,
+                                                           Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) );
+      processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message, method );
     }
   }
 
@@ -3289,5 +3309,12 @@ public final class ArezProcessor
   private boolean isAssignable( @Nonnull final TypeMirror type, @Nonnull final TypeElement typeElement )
   {
     return processingEnv.getTypeUtils().isAssignable( type, typeElement.asType() );
+  }
+
+  private boolean isMethodAProtectedOverride( @Nonnull final TypeElement typeElement,
+                                              @Nonnull final ExecutableElement method )
+  {
+    final ExecutableElement overriddenMethod = ArezUtils.getOverriddenMethod( processingEnv, typeElement, method );
+    return null != overriddenMethod && overriddenMethod.getModifiers().contains( Modifier.PROTECTED );
   }
 }

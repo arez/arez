@@ -111,7 +111,7 @@ final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel implements Di
   }
 
   @Override
-  protected int render3() {
+  int render3() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render3' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

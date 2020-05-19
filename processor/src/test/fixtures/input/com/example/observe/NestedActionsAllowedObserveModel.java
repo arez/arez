@@ -7,7 +7,7 @@ import arez.annotations.Observe;
 abstract class NestedActionsAllowedObserveModel
 {
   @Observe( nestedActionsAllowed = true )
-  protected void doStuff()
+  void doStuff()
   {
   }
 }

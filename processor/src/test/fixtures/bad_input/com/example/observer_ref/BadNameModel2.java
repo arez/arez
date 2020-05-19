@@ -9,7 +9,7 @@ import arez.annotations.ObserverRef;
 public abstract class BadNameModel2
 {
   @Observe
-  protected void doStuff()
+  void doStuff()
   {
   }
 

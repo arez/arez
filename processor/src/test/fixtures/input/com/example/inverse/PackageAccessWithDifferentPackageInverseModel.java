@@ -19,5 +19,5 @@ public abstract class PackageAccessWithDifferentPackageInverseModel
 
   @Observable
   @Inverse
-  protected abstract List<Element> getElements();
+  abstract List<Element> getElements();
 }

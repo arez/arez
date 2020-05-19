@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 abstract class Suppressed2ProtectedAccessPreInverseRemoveModel
 {
   // This uses the CLASS retention suppression
-  @SuppressArezWarnings( "Arez:ProtectedHookMethod" )
+  @SuppressArezWarnings( "Arez:ProtectedMethod" )
   @PreInverseRemove
   protected void preElementsRemove( @Nonnull final Element element )
   {

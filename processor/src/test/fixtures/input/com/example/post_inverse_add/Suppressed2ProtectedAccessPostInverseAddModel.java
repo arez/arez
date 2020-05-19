@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 abstract class Suppressed2ProtectedAccessPostInverseAddModel
 {
   // This uses the CLASS retention suppression
-  @SuppressArezWarnings( "Arez:ProtectedHookMethod" )
+  @SuppressArezWarnings( "Arez:ProtectedMethod" )
   @PostInverseAdd
   protected void postElementsAdd( @Nonnull final Element element )
   {

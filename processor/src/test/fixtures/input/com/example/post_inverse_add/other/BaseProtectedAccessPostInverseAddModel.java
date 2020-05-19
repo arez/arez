@@ -24,10 +24,10 @@ public abstract class BaseProtectedAccessPostInverseAddModel
   public abstract static class Element
   {
     @Reference( inverse = Feature.ENABLE )
-    protected abstract ProtectedAccessFromBasePostInverseAddModel getOther();
+    abstract ProtectedAccessFromBasePostInverseAddModel getOther();
 
     @ReferenceId
-    protected int OtherId()
+    int OtherId()
     {
       return 0;
     }

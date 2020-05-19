@@ -9,7 +9,7 @@ import arez.annotations.ObserverRef;
 public abstract class NoNameModel
 {
   @Observe
-  protected void doStuff()
+  void doStuff()
   {
   }
 

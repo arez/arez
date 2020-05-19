@@ -8,7 +8,7 @@ import arez.annotations.SuppressArezWarnings;
 abstract class Suppressed2ProtectedAccessPostDisposeModel
 {
   // This uses the CLASS retention suppression
-  @SuppressArezWarnings( "Arez:ProtectedLifecycleMethod" )
+  @SuppressArezWarnings( "Arez:ProtectedMethod" )
   @PostDispose
   protected void postDispose()
   {

@@ -24,10 +24,10 @@ public abstract class BaseProtectedAccessPreInverseRemoveModel
   public abstract static class Element
   {
     @Reference( inverse = Feature.ENABLE )
-    protected abstract ProtectedAccessFromBasePreInverseRemoveModel getOther();
+    abstract ProtectedAccessFromBasePreInverseRemoveModel getOther();
 
     @ReferenceId
-    protected int getOtherId()
+    int getOtherId()
     {
       return 0;
     }

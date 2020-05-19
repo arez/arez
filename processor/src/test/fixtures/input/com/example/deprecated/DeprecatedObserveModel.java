@@ -8,7 +8,7 @@ abstract class DeprecatedObserveModel
 {
   @Deprecated
   @Observe
-  protected void doStuff()
+  void doStuff()
   {
   }
 }

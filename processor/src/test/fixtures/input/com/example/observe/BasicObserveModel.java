@@ -7,7 +7,7 @@ import arez.annotations.Observe;
 abstract class BasicObserveModel
 {
   @Observe
-  protected void doStuff()
+  void doStuff()
   {
   }
 }

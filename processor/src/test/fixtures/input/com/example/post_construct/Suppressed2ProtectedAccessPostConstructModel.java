@@ -9,7 +9,7 @@ import arez.annotations.SuppressArezWarnings;
 abstract class Suppressed2ProtectedAccessPostConstructModel
 {
   // This uses the CLASS retention suppression
-  @SuppressArezWarnings( "Arez:ProtectedLifecycleMethod" )
+  @SuppressArezWarnings( "Arez:ProtectedMethod" )
   @PostConstruct
   protected void postConstruct()
   {

@@ -8,7 +8,7 @@ import arez.annotations.Priority;
 abstract class HighPriorityObserveModel
 {
   @Observe( priority = Priority.HIGH )
-  protected void doStuff()
+  void doStuff()
   {
   }
 }

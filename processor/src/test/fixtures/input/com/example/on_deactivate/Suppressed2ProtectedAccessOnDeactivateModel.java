@@ -15,7 +15,7 @@ abstract class Suppressed2ProtectedAccessOnDeactivateModel
   }
 
   // This uses the CLASS retention suppression
-  @SuppressArezWarnings( "Arez:ProtectedHookMethod" )
+  @SuppressArezWarnings( "Arez:ProtectedMethod" )
   @OnDeactivate
   protected void onTimeDeactivate()
   {

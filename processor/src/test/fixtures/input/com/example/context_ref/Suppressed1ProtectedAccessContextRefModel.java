@@ -8,7 +8,7 @@ import arez.annotations.ContextRef;
 abstract class Suppressed1ProtectedAccessContextRefModel
 {
   // This uses the SOURCE retention suppression
-  @SuppressWarnings( "Arez:ProtectedRefMethod" )
+  @SuppressWarnings( "Arez:ProtectedMethod" )
   @ContextRef
   protected abstract ArezContext getContext();
 }

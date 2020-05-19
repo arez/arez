@@ -16,7 +16,7 @@ abstract class Suppressed1ProtectedAccessComputableValueRefModel
   }
 
   // This uses the SOURCE retention suppression
-  @SuppressWarnings( "Arez:ProtectedRefMethod" )
+  @SuppressWarnings( "Arez:ProtectedMethod" )
   @Nonnull
   @ComputableValueRef
   protected abstract ComputableValue<Long> getTimeComputableValue();

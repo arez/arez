@@ -14,7 +14,7 @@ abstract class Suppressed1ProtectedAccessOnDepsChangeModel
   }
 
   // This uses the SOURCE retention suppression
-  @SuppressWarnings( "Arez:ProtectedHookMethod" )
+  @SuppressWarnings( "Arez:ProtectedMethod" )
   @OnDepsChange
   protected void onRenderDepsChange()
   {

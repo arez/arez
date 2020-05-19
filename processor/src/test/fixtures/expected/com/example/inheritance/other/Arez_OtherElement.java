@@ -118,7 +118,7 @@ public final class Arez_OtherElement extends OtherElement implements Disposable,
   }
 
   @Override
-  protected CompleteInterfaceModel getCompleteInterfaceModel() {
+  CompleteInterfaceModel getCompleteInterfaceModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getCompleteInterfaceModel' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

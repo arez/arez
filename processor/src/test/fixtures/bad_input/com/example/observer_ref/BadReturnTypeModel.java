@@ -8,7 +8,7 @@ import arez.annotations.ObserverRef;
 public abstract class BadReturnTypeModel
 {
   @Observe
-  protected void doStuff()
+  void doStuff()
   {
   }
 

@@ -8,7 +8,7 @@ import arez.annotations.ObserverRef;
 public abstract class VoidReturnModel
 {
   @Observe
-  protected void doStuff()
+  void doStuff()
   {
   }
 

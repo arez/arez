@@ -10,7 +10,7 @@ import arez.annotations.SuppressArezWarnings;
 abstract class Suppressed2PublicAccessObserverRefModel
 {
   @Observe
-  protected void doStuff()
+  void doStuff()
   {
   }
 

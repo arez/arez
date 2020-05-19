@@ -7,7 +7,7 @@ import arez.annotations.Observe;
 abstract class ObserveLowerPriorityObserveModel
 {
   @Observe( observeLowerPriorityDependencies = true )
-  protected void doStuff()
+  void doStuff()
   {
   }
 }

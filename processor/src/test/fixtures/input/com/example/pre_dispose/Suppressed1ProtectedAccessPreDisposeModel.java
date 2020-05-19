@@ -7,7 +7,7 @@ import arez.annotations.PreDispose;
 abstract class Suppressed1ProtectedAccessPreDisposeModel
 {
   // This uses the SOURCE retention suppression
-  @SuppressWarnings( "Arez:ProtectedLifecycleMethod" )
+  @SuppressWarnings( "Arez:ProtectedMethod" )
   @PreDispose
   protected void preDispose()
   {

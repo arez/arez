@@ -102,7 +102,7 @@ public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element extends
   }
 
   @Override
-  protected ProtectedAccessFromBasePreInverseRemoveModel getOther() {
+  ProtectedAccessFromBasePreInverseRemoveModel getOther() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getOther' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

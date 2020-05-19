@@ -9,7 +9,7 @@ import arez.annotations.SuppressArezWarnings;
 abstract class Suppressed2ProtectedAccessContextRefModel
 {
   // This uses the CLASS retention suppression
-  @SuppressArezWarnings( "Arez:ProtectedRefMethod" )
+  @SuppressArezWarnings( "Arez:ProtectedMethod" )
   @ContextRef
   protected abstract ArezContext getContext();
 }

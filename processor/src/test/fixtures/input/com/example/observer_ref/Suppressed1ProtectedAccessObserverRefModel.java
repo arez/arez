@@ -9,12 +9,12 @@ import arez.annotations.ObserverRef;
 abstract class Suppressed1ProtectedAccessObserverRefModel
 {
   @Observe
-  protected void doStuff()
+  void doStuff()
   {
   }
 
   // This uses the SOURCE retention suppression
-  @SuppressWarnings( "Arez:ProtectedRefMethod" )
+  @SuppressWarnings( "Arez:ProtectedMethod" )
   @ObserverRef
   protected abstract Observer getDoStuffObserver();
 }

@@ -1,7 +1,7 @@
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
-import arez.annotations.Memoize;
 import arez.annotations.Executor;
+import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.Observe;
 import arez.annotations.OnDepsChange;
@@ -27,7 +27,7 @@ public abstract class OverrideNamesInModel
   }
 
   @Observe( name = "zzzzzz" )
-  protected void zapZap()
+  void zapZap()
   {
   }
 
@@ -37,7 +37,7 @@ public abstract class OverrideNamesInModel
     return 0;
   }
 
-  @Observe( executor = Executor.EXTERNAL,name = "XX" )
+  @Observe( executor = Executor.EXTERNAL, name = "XX" )
   public void render()
     throws ParseException
   {

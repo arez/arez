@@ -12,10 +12,10 @@ import javax.annotation.Nonnull;
 public abstract class OtherElement
 {
   @Reference( inverseMultiplicity = Multiplicity.MANY )
-  protected abstract CompleteInterfaceModel getCompleteInterfaceModel();
+  abstract CompleteInterfaceModel getCompleteInterfaceModel();
 
   @ReferenceId
-  protected int getCompleteInterfaceModelId()
+  int getCompleteInterfaceModelId()
   {
     return 0;
   }

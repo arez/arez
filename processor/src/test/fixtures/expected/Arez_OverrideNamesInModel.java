@@ -113,7 +113,7 @@ final class Arez_OverrideNamesInModel extends OverrideNamesInModel implements Di
   }
 
   @Override
-  protected void zapZap() {
+  void zapZap() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.fail( () -> "Observe method named 'zapZap' invoked but @Observe(executor=INTERNAL) annotated methods should only be invoked by the runtime." );
     }

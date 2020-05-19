@@ -16,10 +16,10 @@ public abstract class Element
   }
 
   @Reference( inverseMultiplicity = Multiplicity.MANY )
-  protected abstract PackageAccessWithDifferentPackageInverseModel getPackageAccessWithDifferentPackageInverseModel();
+  abstract PackageAccessWithDifferentPackageInverseModel getPackageAccessWithDifferentPackageInverseModel();
 
   @ReferenceId
-  protected int getPackageAccessWithDifferentPackageInverseModelId()
+  int getPackageAccessWithDifferentPackageInverseModelId()
   {
     return 0;
   }

@@ -16,7 +16,7 @@ abstract class Suppressed2ProtectedAccessObservableValueRefModel
   public abstract void setTime( long time );
 
   // This uses the CLASS retention suppression
-  @SuppressArezWarnings( "Arez:ProtectedRefMethod" )
+  @SuppressArezWarnings( "Arez:ProtectedMethod" )
   @Nonnull
   @ObservableValueRef
   protected abstract ObservableValue<Long> getTimeObservableValue();

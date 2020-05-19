@@ -14,7 +14,7 @@ abstract class Suppressed1ProtectedAccessOnDeactivateModel
   }
 
   // This uses the SOURCE retention suppression
-  @SuppressWarnings( "Arez:ProtectedHookMethod" )
+  @SuppressWarnings( "Arez:ProtectedMethod" )
   @OnDeactivate
   protected void onTimeDeactivate()
   {

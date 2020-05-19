@@ -8,7 +8,7 @@ import arez.annotations.CascadeDispose;
 abstract class DisposableCascadeDisposeMethodModel
 {
   @CascadeDispose
-  protected final Disposable myElement()
+  final Disposable myElement()
   {
     return null;
   }

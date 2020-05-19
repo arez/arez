@@ -21,7 +21,7 @@ abstract class TrackedAllTypesModel
   }
 
   @Observe( executor = Executor.EXTERNAL )
-  protected int render3()
+  int render3()
   {
     return 0;
   }

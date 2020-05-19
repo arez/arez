@@ -13,7 +13,7 @@ import javax.annotation.Nonnull;
 abstract class Suppressed1ProtectedAccessPostInverseAddModel
 {
   // This uses the SOURCE retention suppression
-  @SuppressWarnings( "Arez:ProtectedHookMethod" )
+  @SuppressWarnings( "Arez:ProtectedMethod" )
   @PostInverseAdd
   protected void postElementsAdd( @Nonnull final Element element )
   {

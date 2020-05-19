@@ -12,10 +12,10 @@ import javax.annotation.Nonnull;
 public abstract class Element
 {
   @Reference( inverseMultiplicity = Multiplicity.MANY )
-  protected abstract CompleteModel getCompleteModel();
+  abstract CompleteModel getCompleteModel();
 
   @ReferenceId
-  protected int getCompleteModelId()
+  int getCompleteModelId()
   {
     return 0;
   }

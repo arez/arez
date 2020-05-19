@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
  * <li>
  *   Should not be protected if in the class annotated with the {@link ArezComponent} annotation as the method is not
  *   expected to be invoked outside the component. A warning will be generated but can be suppressed by the
- *   {@link SuppressWarnings} or {@link SuppressArezWarnings} annotations with a key "Arez:ProtectedRefMethod".
+ *   {@link SuppressWarnings} or {@link SuppressArezWarnings} annotations with a key "Arez:ProtectedMethod".
  * </li>
  * </ul>
  *

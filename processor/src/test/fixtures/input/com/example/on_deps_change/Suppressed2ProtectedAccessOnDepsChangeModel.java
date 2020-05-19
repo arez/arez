@@ -15,7 +15,7 @@ abstract class Suppressed2ProtectedAccessOnDepsChangeModel
   }
 
   // This uses the CLASS retention suppression
-  @SuppressArezWarnings( "Arez:ProtectedHookMethod" )
+  @SuppressArezWarnings( "Arez:ProtectedMethod" )
   @OnDepsChange
   protected void onRenderDepsChange()
   {

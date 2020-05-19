@@ -7,7 +7,7 @@ import arez.annotations.Observe;
 abstract class ReadWriteObserveModel
 {
   @Observe( mutation = true )
-  protected void doStuff()
+  void doStuff()
   {
   }
 }

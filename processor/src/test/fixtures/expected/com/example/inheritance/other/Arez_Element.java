@@ -118,7 +118,7 @@ public final class Arez_Element extends Element implements Disposable, Identifia
   }
 
   @Override
-  protected CompleteModel getCompleteModel() {
+  CompleteModel getCompleteModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getCompleteModel' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }

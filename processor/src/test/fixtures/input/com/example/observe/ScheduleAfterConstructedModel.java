@@ -13,7 +13,7 @@ abstract class ScheduleAfterConstructedModel
   }
 
   @Observe
-  protected void doStuff()
+  void doStuff()
   {
   }
 }

@@ -8,7 +8,7 @@ import arez.annotations.PostConstruct;
 abstract class Suppressed1ProtectedAccessPostConstructModel
 {
   // This uses the SOURCE retention suppression
-  @SuppressWarnings( "Arez:ProtectedLifecycleMethod" )
+  @SuppressWarnings( "Arez:ProtectedMethod" )
   @PostConstruct
   protected void postConstruct()
   {

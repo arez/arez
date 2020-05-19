@@ -7,7 +7,7 @@ import arez.annotations.ComponentTypeNameRef;
 abstract class Suppressed1ProtectedAccessComponentTypeNameRefModel
 {
   // This uses the SOURCE retention suppression
-  @SuppressWarnings( "Arez:ProtectedRefMethod" )
+  @SuppressWarnings( "Arez:ProtectedMethod" )
   @ComponentTypeNameRef
   protected abstract String getTypeName();
 }

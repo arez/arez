@@ -13,7 +13,7 @@ import javax.annotation.Nonnull;
 abstract class Suppressed1ProtectedAccessPreInverseRemoveModel
 {
   // This uses the SOURCE retention suppression
-  @SuppressWarnings( "Arez:ProtectedHookMethod" )
+  @SuppressWarnings( "Arez:ProtectedMethod" )
   @PreInverseRemove
   protected void preElementsRemove( @Nonnull final Element element )
   {
