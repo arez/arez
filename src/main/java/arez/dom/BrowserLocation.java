@@ -54,7 +54,8 @@ public abstract class BrowserLocation
    *
    * @return the BrowserLocation instance.
    */
-  @Nonnull  public static BrowserLocation create()
+  @Nonnull
+  public static BrowserLocation create()
   {
     return new Arez_BrowserLocation();
   }
@@ -142,13 +143,13 @@ public abstract class BrowserLocation
   }
 
   @OnActivate
-  final void onBrowserLocationActivate()
+  void onBrowserLocationActivate()
   {
     DomGlobal.window.addEventListener( "hashchange", _listener, false );
   }
 
   @OnDeactivate
-  final void onBrowserLocationDeactivate()
+  void onBrowserLocationDeactivate()
   {
     DomGlobal.window.removeEventListener( "hashchange", _listener, false );
   }

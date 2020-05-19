@@ -145,37 +145,37 @@ public abstract class GeoPosition
   abstract ComputableValue<?> getErrorMessageComputableValue();
 
   @OnActivate
-  final void onPositionActivate()
+  void onPositionActivate()
   {
     activate();
   }
 
   @OnDeactivate
-  final void onPositionDeactivate()
+  void onPositionDeactivate()
   {
     deactivate();
   }
 
   @OnActivate
-  final void onStatusActivate()
+  void onStatusActivate()
   {
     activate();
   }
 
   @OnDeactivate
-  final void onStatusDeactivate()
+  void onStatusDeactivate()
   {
     deactivate();
   }
 
   @OnActivate
-  final void onErrorMessageActivate()
+  void onErrorMessageActivate()
   {
     activate();
   }
 
   @OnDeactivate
-  final void onErrorMessageDeactivate()
+  void onErrorMessageDeactivate()
   {
     deactivate();
   }
@@ -206,9 +206,9 @@ public abstract class GeoPosition
   @Action
   void onFailure( @Nonnull final GeolocationPositionError e )
   {
-    final int status = Js.asInt( e.getCode() );
+    int status = Js.asInt( e.getCode() );
     setStatus( status );
-    final String errorMessage = e.getMessage();
+    String errorMessage = e.getMessage();
     if ( !Objects.equals( errorMessage, _errorMessage ) )
     {
       _errorMessage = errorMessage;

@@ -151,7 +151,7 @@ public abstract class EventDrivenValue<SourceType extends EventTarget, ValueType
    * Adds underlying listener.
    */
   @OnActivate
-  final void onValueActivate()
+  void onValueActivate()
   {
     _active = true;
     bindListener();
@@ -162,7 +162,7 @@ public abstract class EventDrivenValue<SourceType extends EventTarget, ValueType
    * Removes underlying listener.
    */
   @OnDeactivate
-  final void onValueDeactivate()
+  void onValueDeactivate()
   {
     _active = false;
     unbindListener();

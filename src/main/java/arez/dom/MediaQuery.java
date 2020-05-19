@@ -88,7 +88,7 @@ public abstract class MediaQuery
    * @return the window to test.
    */
   @Nonnull
-  public final Window getWindow()
+  public Window getWindow()
   {
     return _window;
   }
@@ -142,14 +142,14 @@ public abstract class MediaQuery
   abstract ComputableValue<?> getMatchesComputableValue();
 
   @OnActivate
-  final void onMatchesActivate()
+  void onMatchesActivate()
   {
     _active = true;
     bindListener();
   }
 
   @OnDeactivate
-  final void onMatchesDeactivate()
+  void onMatchesDeactivate()
   {
     _active = false;
     unbindListener();

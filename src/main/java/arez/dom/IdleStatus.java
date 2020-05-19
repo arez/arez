@@ -102,13 +102,13 @@ public abstract class IdleStatus
   }
 
   @PostConstruct
-  final void postConstruct()
+  void postConstruct()
   {
     resetLastActivityTime();
   }
 
   @PreDispose
-  final void preDispose()
+  void preDispose()
   {
     cancelTimeout();
   }
@@ -144,14 +144,14 @@ public abstract class IdleStatus
   }
 
   @OnActivate
-  final void onIdleActivate()
+  void onIdleActivate()
   {
     _active = true;
     _events.forEach( e -> DomGlobal.window.addEventListener( e, _listener ) );
   }
 
   @OnDeactivate
-  final void onIdleDeactivate()
+  void onIdleDeactivate()
   {
     _active = false;
     _events.forEach( e -> DomGlobal.window.removeEventListener( e, _listener ) );
