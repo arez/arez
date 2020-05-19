@@ -69,7 +69,7 @@ final class Arez_NonStandardNameActionModel extends NonStandardNameActionModel i
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$my$Funky$Action$$_' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
-    this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".$$my$Funky$Action$$_" : null, () -> super.$$my$Funky$Action$$_( $$time, someOtherParameter$$ ), ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { $$time, someOtherParameter$$ } : null );
+    this.$$arezi$$_kernel.getContext().safeAction( Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".$$my$Funky$Action$$_" : null, () -> super.$$my$Funky$Action$$_( $$time, someOtherParameter$$ ), ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { $$time, someOtherParameter$$ } : null );
   }
 
   @Override

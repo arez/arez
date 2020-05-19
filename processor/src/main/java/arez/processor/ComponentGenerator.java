@@ -604,7 +604,7 @@ final class ComponentGenerator
       statement.append( "action" );
     }
 
-    statement.append( "(" );
+    statement.append( "( " );
 
     statement.append( "$T.areNamesEnabled() ? this.$N.getName() + $S : null" );
     params.add( AREZ_CLASSNAME );

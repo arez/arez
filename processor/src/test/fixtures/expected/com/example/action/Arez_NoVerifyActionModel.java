@@ -69,7 +69,7 @@ final class Arez_NoVerifyActionModel extends NoVerifyActionModel implements Disp
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff1' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
-    this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff1" : null, () -> super.doStuff1(), ActionFlags.READ_WRITE | ActionFlags.NO_VERIFY_ACTION_REQUIRED, null );
+    this.$$arezi$$_kernel.getContext().safeAction( Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff1" : null, () -> super.doStuff1(), ActionFlags.READ_WRITE | ActionFlags.NO_VERIFY_ACTION_REQUIRED, null );
   }
 
   @Override
@@ -78,7 +78,7 @@ final class Arez_NoVerifyActionModel extends NoVerifyActionModel implements Disp
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff2' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     try {
-      this.$$arezi$$_kernel.getContext().action(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff2" : null, () -> super.doStuff2(), ActionFlags.READ_WRITE | ActionFlags.NO_VERIFY_ACTION_REQUIRED, null );
+      this.$$arezi$$_kernel.getContext().action( Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff2" : null, () -> super.doStuff2(), ActionFlags.READ_WRITE | ActionFlags.NO_VERIFY_ACTION_REQUIRED, null );
     } catch( final Throwable $$arez_exception$$ ) {
       throw $$arez_exception$$;
     }
@@ -89,7 +89,7 @@ final class Arez_NoVerifyActionModel extends NoVerifyActionModel implements Disp
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff3' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
-    return this.$$arezi$$_kernel.getContext().safeAction(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff3" : null, () -> super.doStuff3(), ActionFlags.READ_WRITE | ActionFlags.NO_VERIFY_ACTION_REQUIRED, null );
+    return this.$$arezi$$_kernel.getContext().safeAction( Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff3" : null, () -> super.doStuff3(), ActionFlags.READ_WRITE | ActionFlags.NO_VERIFY_ACTION_REQUIRED, null );
   }
 
   @Override
@@ -98,7 +98,7 @@ final class Arez_NoVerifyActionModel extends NoVerifyActionModel implements Disp
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff4' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     try {
-      return this.$$arezi$$_kernel.getContext().action(Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff4" : null, () -> super.doStuff4(), ActionFlags.READ_WRITE | ActionFlags.NO_VERIFY_ACTION_REQUIRED, null );
+      return this.$$arezi$$_kernel.getContext().action( Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff4" : null, () -> super.doStuff4(), ActionFlags.READ_WRITE | ActionFlags.NO_VERIFY_ACTION_REQUIRED, null );
     } catch( final Throwable $$arez_exception$$ ) {
       throw $$arez_exception$$;
     }
