@@ -3,7 +3,7 @@
 ### Unreleased
 
 * Generate a suppressable warning if an arez component declares a protected method in the class annotated with `@ArezComponent`. Previously warnings would be generated if lifecycle methods, ref methods or hook methods were public and each would use a separate suppression key. The warning on protected methods has been expanded to all methods declared on the type and the suppression of the warning is controlled by a single key `Arez:ProtectedMethod`.
-* Fix code generation error that occurs when a component specifies the `disposeNotifier=DISABLE` parameter but has multiple `@PreDispose` annotated methods or has an `@Inverse` annotated method, a `@Reference` with an inverse or `@CascadeDispose` elements. 
+* Fix code generation error that occurs when a component specifies the `disposeNotifier=DISABLE` parameter but has multiple `@PreDispose` annotated methods or has an `@Inverse` annotated method, a `@Reference` with an inverse or `@CascadeDispose` elements.
 
 ### [v0.177](https://github.com/arez/arez/tree/v0.177) (2020-05-15) · [Full Changelog](https://github.com/arez/arez/compare/v0.176...v0.177)
 
