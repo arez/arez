@@ -11,6 +11,8 @@ complete as there is too much un-said.
 * `final EventDrivenValue<HTMLDocument, Object> _documentVisibility` can not have `@CascadeDispose` annotation.
   Because type parameter confuses annotation processor?
 
+* Rename `CascadeDisposableDescriptor` to `CascadeDisposeDescriptor`
+
 * Consider `@ArezComponent.service` defaulting to `ENABLED`.
 
 * Change `@ActAsComponent` to `@PartialArezComponent` (or `@ArezPartialComponent`) and generate an error if any arez annotation appears on a type that is not annotated with either this annotation of `@ArezComponent`
