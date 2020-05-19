@@ -1666,12 +1666,12 @@ final class ComponentGenerator
       sb.append( ", " );
       if ( component.isDisposeNotifier() )
       {
-        sb.append( "() -> $N()" );
+        sb.append( "this::$N" );
         params.add( INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME );
       }
       else if ( hasInternalPreDispose( component ) )
       {
-        sb.append( "() -> $N()" );
+        sb.append( "this::$N" );
         params.add( INTERNAL_PRE_DISPOSE_METHOD_NAME );
       }
       else if ( 1 == component.getPreDisposes().size() )
