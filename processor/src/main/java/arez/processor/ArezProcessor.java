@@ -830,7 +830,7 @@ public final class ArezProcessor
   private void validate( final boolean allowEmpty, @Nonnull final ComponentDescriptor component )
     throws ProcessorException
   {
-    component.getCascadeDisposes().values().forEach( CascadeDisposableDescriptor::validate );
+    component.getCascadeDisposes().values().forEach( CascadeDisposeDescriptor::validate );
     component.getObservables().values().forEach( ObservableDescriptor::validate );
     component.getMemoizes().values().forEach( e -> e.validate( processingEnv ) );
     component.getObserves().values().forEach( ObserveDescriptor::validate );
@@ -966,7 +966,7 @@ public final class ArezProcessor
                                          Constants.CASCADE_DISPOSE_CLASSNAME,
                                          field );
     mustBeCascadeDisposeTypeCompatible( field );
-    component.addCascadeDispose( new CascadeDisposableDescriptor( field ) );
+    component.addCascadeDispose( new CascadeDisposeDescriptor( field ) );
   }
 
   @Nonnull
@@ -1022,7 +1022,7 @@ public final class ArezProcessor
                                          Constants.CASCADE_DISPOSE_CLASSNAME,
                                          method );
     mustBeCascadeDisposeTypeCompatible( method );
-    component.addCascadeDispose( new CascadeDisposableDescriptor( method, observable ) );
+    component.addCascadeDispose( new CascadeDisposeDescriptor( method, observable ) );
   }
 
   private void mustBeCascadeDisposeTypeCompatible( @Nonnull final ExecutableElement method )
@@ -1367,12 +1367,12 @@ public final class ArezProcessor
   {
     for ( final ObservableDescriptor observable : component.getObservables().values() )
     {
-      final CascadeDisposableDescriptor cascadeDisposableDescriptor = observable.getCascadeDisposableDescriptor();
-      if ( null == cascadeDisposableDescriptor )
+      final CascadeDisposeDescriptor cascadeDisposeDescriptor = observable.getCascadeDisposeDescriptor();
+      if ( null == cascadeDisposeDescriptor )
       {
         //@CascadeDisposable can only occur on getter so if we don't have it then we look in
         // cascadeDisposableDescriptor list to see if we can match getter
-        final CascadeDisposableDescriptor descriptor = component.getCascadeDisposes().get( observable.getGetter() );
+        final CascadeDisposeDescriptor descriptor = component.getCascadeDisposes().get( observable.getGetter() );
         if ( null != descriptor )
         {
           descriptor.setObservable( observable );
@@ -1385,10 +1385,10 @@ public final class ArezProcessor
   {
     for ( final ReferenceDescriptor reference : component.getReferences().values() )
     {
-      final CascadeDisposableDescriptor cascadeDisposableDescriptor = reference.getCascadeDisposableDescriptor();
-      if ( null == cascadeDisposableDescriptor && reference.hasMethod() )
+      final CascadeDisposeDescriptor cascadeDisposeDescriptor = reference.getCascadeDisposeDescriptor();
+      if ( null == cascadeDisposeDescriptor && reference.hasMethod() )
       {
-        final CascadeDisposableDescriptor descriptor = component.getCascadeDisposes().get( reference.getMethod() );
+        final CascadeDisposeDescriptor descriptor = component.getCascadeDisposes().get( reference.getMethod() );
         if ( null != descriptor )
         {
           descriptor.setReference( reference );

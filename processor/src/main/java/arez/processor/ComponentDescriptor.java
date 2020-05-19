@@ -85,7 +85,7 @@ final class ComponentDescriptor
   @Nonnull
   private final Map<Element, DependencyDescriptor> _dependencies = new LinkedHashMap<>();
   @Nonnull
-  private final Map<Element, CascadeDisposableDescriptor> _cascadeDisposes = new LinkedHashMap<>();
+  private final Map<Element, CascadeDisposeDescriptor> _cascadeDisposes = new LinkedHashMap<>();
   @Nonnull
   private final Map<String, ReferenceDescriptor> _references = new LinkedHashMap<>();
   @Nonnull
@@ -319,13 +319,13 @@ final class ComponentDescriptor
            getMemoizes().values().stream().anyMatch( MemoizeDescriptor::isKeepAlive );
   }
 
-  void addCascadeDispose( @Nonnull final CascadeDisposableDescriptor descriptor )
+  void addCascadeDispose( @Nonnull final CascadeDisposeDescriptor descriptor )
   {
     getCascadeDisposes().put( descriptor.getElement(), descriptor );
   }
 
   @Nonnull
-  Map<Element, CascadeDisposableDescriptor> getCascadeDisposes()
+  Map<Element, CascadeDisposeDescriptor> getCascadeDisposes()
   {
     return _cascadeDisposes;
   }

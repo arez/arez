@@ -12,7 +12,7 @@ import org.realityforge.proton.ProcessorException;
 /**
  * Declaration of a method or field that must be cascade disposed.
  */
-final class CascadeDisposableDescriptor
+final class CascadeDisposeDescriptor
 {
   @Nullable
   private final ExecutableElement _method;
@@ -23,14 +23,13 @@ final class CascadeDisposableDescriptor
   @Nullable
   private ReferenceDescriptor _reference;
 
-  CascadeDisposableDescriptor( @Nonnull final VariableElement field )
+  CascadeDisposeDescriptor( @Nonnull final VariableElement field )
   {
     _method = null;
     _field = Objects.requireNonNull( field );
   }
 
-  CascadeDisposableDescriptor( @Nonnull final ExecutableElement method,
-                               @Nullable final ObservableDescriptor observable )
+  CascadeDisposeDescriptor( @Nonnull final ExecutableElement method, @Nullable final ObservableDescriptor observable )
   {
     _method = Objects.requireNonNull( method );
     _field = null;
@@ -50,13 +49,13 @@ final class CascadeDisposableDescriptor
   void setObservable( @Nonnull final ObservableDescriptor observable )
   {
     _observable = Objects.requireNonNull( observable );
-    observable.setCascadeDisposableDescriptor( this );
+    observable.setCascadeDisposeDescriptor( this );
   }
 
   void setReference( @Nullable final ReferenceDescriptor reference )
   {
     _reference = Objects.requireNonNull( reference );
-    reference.setCascadeDisposableDescriptor( this );
+    reference.setCascadeDisposeDescriptor( this );
   }
 
   void validate()

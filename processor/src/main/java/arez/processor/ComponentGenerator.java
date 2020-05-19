@@ -727,7 +727,7 @@ final class ComponentGenerator
     }
   }
 
-  private static void buildCascadeDisposeDisposer( @Nonnull final CascadeDisposableDescriptor cascadeDisposable,
+  private static void buildCascadeDisposeDisposer( @Nonnull final CascadeDisposeDescriptor cascadeDisposable,
                                                    @Nonnull final MethodSpec.Builder builder )
   {
     if ( null != cascadeDisposable.getField() )

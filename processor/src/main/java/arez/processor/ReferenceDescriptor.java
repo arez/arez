@@ -35,7 +35,7 @@ final class ReferenceDescriptor
   @Nullable
   private Multiplicity _inverseMultiplicity;
   @Nullable
-  private CascadeDisposableDescriptor _cascadeDisposableDescriptor;
+  private CascadeDisposeDescriptor _cascadeDisposeDescriptor;
 
   ReferenceDescriptor( @Nonnull final ComponentDescriptor component, @Nonnull final String name )
   {
@@ -85,14 +85,14 @@ final class ReferenceDescriptor
   }
 
   @Nullable
-  CascadeDisposableDescriptor getCascadeDisposableDescriptor()
+  CascadeDisposeDescriptor getCascadeDisposeDescriptor()
   {
-    return _cascadeDisposableDescriptor;
+    return _cascadeDisposeDescriptor;
   }
 
-  void setCascadeDisposableDescriptor( @Nonnull final CascadeDisposableDescriptor cascadeDisposableDescriptor )
+  void setCascadeDisposeDescriptor( @Nonnull final CascadeDisposeDescriptor cascadeDisposeDescriptor )
   {
-    _cascadeDisposableDescriptor = Objects.requireNonNull( cascadeDisposableDescriptor );
+    _cascadeDisposeDescriptor = Objects.requireNonNull( cascadeDisposeDescriptor );
   }
 
   @Nonnull

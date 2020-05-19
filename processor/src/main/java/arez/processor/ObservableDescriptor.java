@@ -52,7 +52,7 @@ final class ObservableDescriptor
   @Nullable
   private InverseDescriptor _inverseDescriptor;
   @Nullable
-  private CascadeDisposableDescriptor _cascadeDisposableDescriptor;
+  private CascadeDisposeDescriptor _cascadeDisposeDescriptor;
 
   ObservableDescriptor( @Nonnull final ComponentDescriptor component, @Nonnull final String name )
   {
@@ -224,14 +224,14 @@ final class ObservableDescriptor
   }
 
   @Nullable
-  CascadeDisposableDescriptor getCascadeDisposableDescriptor()
+  CascadeDisposeDescriptor getCascadeDisposeDescriptor()
   {
-    return _cascadeDisposableDescriptor;
+    return _cascadeDisposeDescriptor;
   }
 
-  void setCascadeDisposableDescriptor( @Nonnull final CascadeDisposableDescriptor cascadeDisposableDescriptor )
+  void setCascadeDisposeDescriptor( @Nonnull final CascadeDisposeDescriptor cascadeDisposeDescriptor )
   {
-    _cascadeDisposableDescriptor = Objects.requireNonNull( cascadeDisposableDescriptor );
+    _cascadeDisposeDescriptor = Objects.requireNonNull( cascadeDisposeDescriptor );
   }
 
   @Nonnull
