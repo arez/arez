@@ -22,14 +22,14 @@ public abstract class NetworkStatus
   }
 
   @OnActivate
-  final void onOnLineActivate()
+  void onOnLineActivate()
   {
     DomGlobal.window.addEventListener( "online", _listener );
     DomGlobal.window.addEventListener( "offline", _listener );
   }
 
   @OnDeactivate
-  final void onOnLineDeactivate()
+  void onOnLineDeactivate()
   {
     DomGlobal.window.removeEventListener( "online", _listener );
     DomGlobal.window.removeEventListener( "offline", _listener );

@@ -12,7 +12,7 @@ public abstract class GroupRepository
   //DOC ELIDE START
   //DOC ELIDE END
   @Nullable
-  public final Group findById( final int id )
+  public Group findById( final int id )
   {
     return findByArezId( id );
   }

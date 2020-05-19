@@ -153,13 +153,13 @@ public final class DualDisposedDependenciesIntegrationTest
     }
 
     @ComponentDependency
-    final Model1 getReference()
+    Model1 getReference()
     {
       return _reference;
     }
 
     @ComponentDependency
-    final Model0 getLeaf()
+    Model0 getLeaf()
     {
       return _leaf;
     }

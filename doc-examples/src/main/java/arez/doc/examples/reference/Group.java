@@ -20,7 +20,7 @@ public abstract class Group
   }
 
   @ComponentId
-  public final int getId()
+  public int getId()
   {
     return _id;
   }

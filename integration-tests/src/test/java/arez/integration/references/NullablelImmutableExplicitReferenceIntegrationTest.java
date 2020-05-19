@@ -94,7 +94,7 @@ public final class NullablelImmutableExplicitReferenceIntegrationTest
 
     @ReferenceId
     @Nullable
-    final Object getModel2Id()
+    Object getModel2Id()
     {
       return _model2Id;
     }

@@ -46,7 +46,7 @@ public final class IdentifiableIntegrationTest
     }
 
     @ComponentId
-    final int getId()
+    int getId()
     {
       return id;
     }

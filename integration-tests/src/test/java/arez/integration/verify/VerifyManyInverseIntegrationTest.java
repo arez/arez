@@ -110,7 +110,7 @@ public final class VerifyManyInverseIntegrationTest
     }
 
     @ComponentId
-    final int getId()
+    int getId()
     {
       return _id;
     }
@@ -119,7 +119,7 @@ public final class VerifyManyInverseIntegrationTest
     abstract Model2 getModel2();
 
     @ReferenceId
-    final int getModel2Id()
+    int getModel2Id()
     {
       return _model2Id;
     }
@@ -136,7 +136,7 @@ public final class VerifyManyInverseIntegrationTest
     }
 
     @ComponentId
-    final int getId()
+    int getId()
     {
       return _id;
     }
@@ -158,7 +158,8 @@ public final class VerifyManyInverseIntegrationTest
     @Action
     Model2 create( final int id )
     {
-      final VerifyManyInverseIntegrationTest_Arez_Model2 entity = new VerifyManyInverseIntegrationTest_Arez_Model2( id );
+      final VerifyManyInverseIntegrationTest_Arez_Model2 entity =
+        new VerifyManyInverseIntegrationTest_Arez_Model2( id );
       attach( entity );
       return entity;
     }

@@ -17,7 +17,7 @@ public abstract class BrowserLocation
   //DOC ELIDE END
 
   @PostConstruct
-  final void postConstruct()
+  void postConstruct()
   {
     DomGlobal.window.addEventListener( "hashchange", _listener, false );
     //DOC ELIDE START
@@ -25,7 +25,7 @@ public abstract class BrowserLocation
   }
 
   @PreDispose
-  final void preDispose()
+  void preDispose()
   {
     DomGlobal.window.removeEventListener( "hashchange", _listener, false );
   }

@@ -128,13 +128,13 @@ public final class InverseHooksIntegrationTest
     }
 
     @PreInverseRemove
-    final void preWheelsRemove( @Nonnull final Wheel wheel )
+    void preWheelsRemove( @Nonnull final Wheel wheel )
     {
       _trace.add( _name + "-" + wheel.getName() );
     }
 
     @PostInverseAdd
-    final void postWheelsAdd( @Nonnull final Wheel wheel )
+    void postWheelsAdd( @Nonnull final Wheel wheel )
     {
       _trace.add( _name + "+" + wheel.getName() );
     }

@@ -137,7 +137,7 @@ public final class VerifyZeroOrOneInverseIntegrationTest
     }
 
     @ComponentId
-    final int getId()
+    int getId()
     {
       return _id;
     }
@@ -170,7 +170,7 @@ public final class VerifyZeroOrOneInverseIntegrationTest
     }
 
     @ComponentId
-    final int getId()
+    int getId()
     {
       return _id;
     }

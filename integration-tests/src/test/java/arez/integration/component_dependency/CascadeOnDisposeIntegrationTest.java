@@ -99,7 +99,7 @@ public final class CascadeOnDisposeIntegrationTest
     }
 
     @ComponentDependency( action = ComponentDependency.Action.CASCADE )
-    final Model1 getReference()
+    Model1 getReference()
     {
       return _reference;
     }

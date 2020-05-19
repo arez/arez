@@ -59,7 +59,7 @@ public final class AllowWriteInDisposeIntegrationTest
   {
     @SuppressWarnings( "Arez:UnmanagedComponentReference" )
     @Nonnull
-    private Model1 _other;
+    private final Model1 _other;
 
     @Nonnull
     static Model2 create( @Nonnull final Model1 other )
@@ -73,7 +73,7 @@ public final class AllowWriteInDisposeIntegrationTest
     }
 
     @PreDispose
-    final void preDispose()
+    void preDispose()
     {
       _other.setName( "X" );
     }

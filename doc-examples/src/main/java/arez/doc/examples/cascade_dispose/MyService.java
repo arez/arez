@@ -13,7 +13,7 @@ public abstract class MyService
   final MySubService _subService = MySubService.create();
 
   @PreDispose
-  final void preDispose()
+  void preDispose()
   {
     Disposable.dispose( _subService );
   }

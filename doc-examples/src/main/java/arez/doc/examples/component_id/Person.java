@@ -15,7 +15,7 @@ public abstract class Person
   }
 
   @ComponentId
-  public final int getId()
+  public int getId()
   {
     return _id;
   }

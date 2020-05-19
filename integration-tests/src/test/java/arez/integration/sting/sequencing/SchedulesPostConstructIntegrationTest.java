@@ -48,7 +48,7 @@ public final class SchedulesPostConstructIntegrationTest
     }
 
     @PostConstruct
-    final void postConstruct()
+    void postConstruct()
     {
       _events.add( "MyComponent.postConstruct()" );
       _events.add( "MyComponent._dependency = " + _dependency );

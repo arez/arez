@@ -138,7 +138,7 @@ public final class VerifyIntegrationTest
     }
 
     @ComponentId
-    final int getId()
+    int getId()
     {
       return _id;
     }
@@ -147,7 +147,7 @@ public final class VerifyIntegrationTest
     abstract Model2 getModel2();
 
     @ReferenceId
-    final int getModel2Id()
+    int getModel2Id()
     {
       return _model2Id;
     }
@@ -164,7 +164,7 @@ public final class VerifyIntegrationTest
     }
 
     @ComponentId
-    final int getId()
+    int getId()
     {
       return _id;
     }

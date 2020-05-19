@@ -46,7 +46,7 @@ public final class DaggerCodeGenTest
     }
 
     @ComponentDependency
-    final DisposeNotifier myDependency()
+    DisposeNotifier myDependency()
     {
       return null;
     }

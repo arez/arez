@@ -68,7 +68,7 @@ public final class DisposedNotEqualIntegrationTest
     }
 
     @ComponentId
-    final String getId()
+    String getId()
     {
       return _id;
     }

@@ -14,7 +14,7 @@ public abstract class TestComponent
   }
 
   @PostConstruct
-  final void postConstruct()
+  void postConstruct()
   {
   }
 

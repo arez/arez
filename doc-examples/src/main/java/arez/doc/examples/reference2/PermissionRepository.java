@@ -12,7 +12,7 @@ public abstract class PermissionRepository
   //DOC ELIDE START
   //DOC ELIDE END
   @Nullable
-  public final Permission findById( final int id )
+  public Permission findById( final int id )
   {
     return findByArezId( id );
   }

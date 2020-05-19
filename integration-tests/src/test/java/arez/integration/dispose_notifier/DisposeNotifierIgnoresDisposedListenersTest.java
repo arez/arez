@@ -64,7 +64,7 @@ public final class DisposeNotifierIgnoresDisposedListenersTest
     }
 
     @PreDispose
-    final void preDispose()
+    void preDispose()
     {
       final Model1 other = _other;
       if ( null != other )

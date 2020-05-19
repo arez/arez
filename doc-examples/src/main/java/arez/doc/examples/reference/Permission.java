@@ -25,7 +25,7 @@ public abstract class Permission
   }
 
   @ComponentId
-  public final int getId()
+  public int getId()
   {
     return _id;
   }
@@ -47,7 +47,7 @@ public abstract class Permission
   public abstract Group getGroup();
 
   @ReferenceId
-  public final int getGroupId()
+  public int getGroupId()
   {
     return _groupId;
   }

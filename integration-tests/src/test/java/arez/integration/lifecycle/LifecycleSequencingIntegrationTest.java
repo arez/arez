@@ -53,19 +53,19 @@ public final class LifecycleSequencingIntegrationTest
     }
 
     @PostConstruct
-    final void postConstruct()
+    void postConstruct()
     {
       _steps.add( "PostConstruct" );
     }
 
     @PreDispose
-    final void preDispose()
+    void preDispose()
     {
       _steps.add( "PreDispose" );
     }
 
     @PostDispose
-    final void postDispose()
+    void postDispose()
     {
       _steps.add( "PostDispose" );
     }
@@ -88,19 +88,19 @@ public final class LifecycleSequencingIntegrationTest
     }
 
     @PostConstruct
-    final void postConstruct()
+    void postConstruct()
     {
       _steps.add( "PostConstruct" );
     }
 
     @PreDispose
-    final void preDispose()
+    void preDispose()
     {
       _steps.add( "PreDispose" );
     }
 
     @PostDispose
-    final void postDispose()
+    void postDispose()
     {
       _steps.add( "PostDispose" );
     }

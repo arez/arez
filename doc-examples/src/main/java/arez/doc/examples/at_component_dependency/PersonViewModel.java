@@ -30,7 +30,7 @@ public abstract class PersonViewModel
   // accessing underlying entities
 
   @Nonnull
-  public final Person getPerson()
+  public Person getPerson()
   {
     return _person;
   }

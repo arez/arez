@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 public abstract class ReactComponent
 {
   @Observable( expectSetter = false )
-  protected Props props()
+  Props props()
   {
     //Return the native props object here.
     //DOC ELIDE START
@@ -26,13 +26,13 @@ public abstract class ReactComponent
   // This method is wrapped in an Action to ensure change is propagated
   // correctly in arez system.
   @Action
-  protected void reportPropsChanged()
+  void reportPropsChanged()
   {
     getPropsObservableValue().reportChanged();
   }
 
   // This method is invoked by the React runtime
-  protected void componentWillReceiveProps( @Nonnull final Props nextProps )
+  void componentWillReceiveProps( @Nonnull final Props nextProps )
   {
     reportPropsChanged();
     //DOC ELIDE START

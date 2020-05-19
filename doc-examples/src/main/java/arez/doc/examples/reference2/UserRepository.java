@@ -12,7 +12,7 @@ public abstract class UserRepository
   //DOC ELIDE START
   //DOC ELIDE END
   @Nullable
-  public final User findById( final int id )
+  public User findById( final int id )
   {
     return findByArezId( id );
   }

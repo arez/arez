@@ -13,7 +13,7 @@ public abstract class TestComponent2
   }
 
   @PostConstruct
-  final void postConstruct()
+  void postConstruct()
   {
   }
 }
