@@ -1,17 +1,12 @@
 package arez.processor;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.TypeKind;
-import javax.lang.model.type.TypeMirror;
 import org.realityforge.proton.MemberChecks;
 import org.realityforge.proton.ProcessorException;
 
@@ -136,32 +131,5 @@ final class ArezUtils
   public static boolean anyParametersNamed( @Nonnull final ExecutableElement element, @Nonnull final String name )
   {
     return element.getParameters().stream().anyMatch( p -> p.getSimpleName().toString().equals( name ) );
-  }
-
-  //TODO: Move to proton
-  @Nullable
-  static ExecutableElement getOverriddenMethod( @Nonnull final ProcessingEnvironment processingEnv,
-                                                @Nonnull final TypeElement typeElement,
-                                                @Nonnull final ExecutableElement method )
-  {
-    final TypeMirror superclass = typeElement.getSuperclass();
-    if ( TypeKind.NONE == superclass.getKind() )
-    {
-      return null;
-    }
-    else
-    {
-      final TypeElement parent = (TypeElement) processingEnv.getTypeUtils().asElement( superclass );
-      final List<? extends Element> enclosedElements = parent.getEnclosedElements();
-      for ( final Element enclosedElement : enclosedElements )
-      {
-        if ( ElementKind.METHOD == enclosedElement.getKind() &&
-             processingEnv.getElementUtils().overrides( method, (ExecutableElement) enclosedElement, typeElement ) )
-        {
-          return (ExecutableElement) enclosedElement;
-        }
-      }
-      return getOverriddenMethod( processingEnv, parent, method );
-    }
   }
 }

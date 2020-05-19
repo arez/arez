@@ -7,7 +7,7 @@
 * Remove the requirement that methods annotated with `@ComponentId`, `@CascadeDispoe` and `@ComponentDependency` be marked as final.
 * Generate a suppressable warning if final methods are declared in the class annotated with `@ArezComponent`. These methods will not be overridden by the arez annotation processor which should be the only subclass of an Arez component.
 * Use method references in generated code to simplify code generation process and potentially enable better optimizations in a future version of GWT and/or J2CL.
-* Upgrade the `org.realityforge.proton` artifacts to version `0.47`.
+* Upgrade the `org.realityforge.proton` artifacts to version `0.48`.
 
 ### [v0.177](https://github.com/arez/arez/tree/v0.177) (2020-05-15) · [Full Changelog](https://github.com/arez/arez/compare/v0.176...v0.177)
 

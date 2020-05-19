@@ -3332,7 +3332,7 @@ public final class ArezProcessor
   private boolean isMethodAProtectedOverride( @Nonnull final TypeElement typeElement,
                                               @Nonnull final ExecutableElement method )
   {
-    final ExecutableElement overriddenMethod = ArezUtils.getOverriddenMethod( processingEnv, typeElement, method );
+    final ExecutableElement overriddenMethod = ElementsUtil.getOverriddenMethod( processingEnv, typeElement, method );
     return null != overriddenMethod && overriddenMethod.getModifiers().contains( Modifier.PROTECTED );
   }
 }
