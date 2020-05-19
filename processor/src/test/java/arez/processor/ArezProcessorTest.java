@@ -351,6 +351,7 @@ public final class ArezProcessorTest
 
         new Object[]{ "com.example.pre_dispose.BasicPreDisposeModel" },
         new Object[]{ "com.example.pre_dispose.MultiPreDisposeModel" },
+        new Object[]{ "com.example.pre_dispose.MultiPreDisposeNotDisposeNotifierModel" },
         new Object[]{ "com.example.pre_dispose.PackageAccessPreDisposeModel" },
 
         new Object[]{ "com.example.pre_inverse_remove.BasicPreInverseRemoveModel" },

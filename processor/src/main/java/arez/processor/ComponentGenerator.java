@@ -1665,10 +1665,15 @@ final class ComponentGenerator
          !component.getPostDisposes().isEmpty() )
     {
       sb.append( ", " );
-      if ( component.isDisposeNotifier() || component.getPreDisposes().size() > 1 )
+      if ( component.isDisposeNotifier() )
       {
         sb.append( "() -> $N()" );
         params.add( INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME );
+      }
+      else if ( hasInternalPreDispose( component ) )
+      {
+        sb.append( "() -> $N()" );
+        params.add( INTERNAL_PRE_DISPOSE_METHOD_NAME );
       }
       else if ( 1 == component.getPreDisposes().size() )
       {
