@@ -1824,7 +1824,7 @@ final class ComponentGenerator
     {
       final String candidateName = observable.getName();
       final String name =
-        null != constructor && ArezUtils.anyParametersNamed( constructor, candidateName ) ?
+        null != constructor && anyParametersNamed( constructor, candidateName ) ?
         INITIALIZER_PREFIX + candidateName :
         candidateName;
       final ParameterSpec.Builder param =
@@ -4420,5 +4420,10 @@ final class ComponentGenerator
     }
 
     return method.build();
+  }
+
+  private static boolean anyParametersNamed( @Nonnull final ExecutableElement element, @Nonnull final String name )
+  {
+    return element.getParameters().stream().anyMatch( p -> p.getSimpleName().toString().equals( name ) );
   }
 }
