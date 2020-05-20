@@ -14,10 +14,12 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedOptions;
@@ -144,7 +146,7 @@ public final class ArezProcessor
         throw new ProcessorException( "@Observable target should be a setter or getter", method );
       }
 
-      name = ArezUtils.deriveName( method, SETTER_PATTERN, declaredName );
+      name = deriveName( method, SETTER_PATTERN, declaredName );
       if ( null == name )
       {
         name = methodName;
@@ -253,10 +255,10 @@ public final class ArezProcessor
                                       @Nonnull final ExecutableType methodType )
     throws ProcessorException
   {
-    ArezUtils.mustBeStandardRefMethod( processingEnv,
-                                       component,
-                                       method,
-                                       Constants.OBSERVABLE_VALUE_REF_CLASSNAME );
+    mustBeStandardRefMethod( processingEnv,
+                             component,
+                             method,
+                             Constants.OBSERVABLE_VALUE_REF_CLASSNAME );
 
     final TypeMirror returnType = methodType.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
@@ -270,7 +272,7 @@ public final class ArezProcessor
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
-      name = ArezUtils.deriveName( method, OBSERVABLE_REF_PATTERN, declaredName );
+      name = deriveName( method, OBSERVABLE_REF_PATTERN, declaredName );
       if ( null == name )
       {
         throw new ProcessorException( "Method annotated with @ObservableValueRef should specify name or be " +
@@ -301,11 +303,11 @@ public final class ArezProcessor
                                       @Nonnull final ExecutableType methodType )
     throws ProcessorException
   {
-    ArezUtils.mustBeRefMethod( component, method, Constants.COMPUTABLE_VALUE_REF_CLASSNAME );
-    ArezUtils.shouldBeInternalRefMethod( processingEnv,
-                                         component,
-                                         method,
-                                         Constants.COMPUTABLE_VALUE_REF_CLASSNAME );
+    mustBeRefMethod( component, method, Constants.COMPUTABLE_VALUE_REF_CLASSNAME );
+    shouldBeInternalRefMethod( processingEnv,
+                               component,
+                               method,
+                               Constants.COMPUTABLE_VALUE_REF_CLASSNAME );
 
     final TypeMirror returnType = methodType.getReturnType();
     if ( TypeKind.DECLARED != returnType.getKind() ||
@@ -319,7 +321,7 @@ public final class ArezProcessor
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
-      name = ArezUtils.deriveName( method, COMPUTABLE_VALUE_REF_PATTERN, declaredName );
+      name = deriveName( method, COMPUTABLE_VALUE_REF_PATTERN, declaredName );
       if ( null == name )
       {
         throw new ProcessorException( "Method annotated with @ComputableValueRef should specify name or be " +
@@ -406,10 +408,10 @@ public final class ArezProcessor
 
     MemberChecks.mustNotReturnAnyValue( Constants.ON_ACTIVATE_CLASSNAME, method );
     MemberChecks.mustNotThrowAnyExceptions( Constants.ON_ACTIVATE_CLASSNAME, method );
-    ArezUtils.shouldBeInternalHookMethod( processingEnv,
-                                          component,
-                                          method,
-                                          Constants.ON_ACTIVATE_CLASSNAME );
+    shouldBeInternalHookMethod( processingEnv,
+                                component,
+                                method,
+                                Constants.ON_ACTIVATE_CLASSNAME );
 
     component.findOrCreateMemoize( name ).setOnActivate( method );
   }
@@ -428,10 +430,10 @@ public final class ArezProcessor
                                       Constants.COMPONENT_CLASSNAME,
                                       Constants.ON_DEACTIVATE_CLASSNAME,
                                       method );
-    ArezUtils.shouldBeInternalHookMethod( processingEnv,
-                                          component,
-                                          method,
-                                          Constants.ON_DEACTIVATE_CLASSNAME );
+    shouldBeInternalHookMethod( processingEnv,
+                                component,
+                                method,
+                                Constants.ON_DEACTIVATE_CLASSNAME );
     component.findOrCreateMemoize( name ).setOnDeactivate( method );
   }
 
@@ -443,7 +445,7 @@ public final class ArezProcessor
                                  @Nonnull final String name )
     throws ProcessorException
   {
-    final String value = ArezUtils.deriveName( method, pattern, name );
+    final String value = deriveName( method, pattern, name );
     if ( null == value )
     {
       throw new ProcessorException( "Unable to derive name for @On" + type + " as does not match " +
@@ -470,10 +472,10 @@ public final class ArezProcessor
                                      @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
-    ArezUtils.mustBeStandardRefMethod( processingEnv,
-                                       component,
-                                       method,
-                                       Constants.COMPONENT_STATE_REF_CLASSNAME );
+    mustBeStandardRefMethod( processingEnv,
+                             component,
+                             method,
+                             Constants.COMPONENT_STATE_REF_CLASSNAME );
 
     final TypeMirror returnType = method.getReturnType();
     if ( TypeKind.BOOLEAN != returnType.getKind() )
@@ -490,10 +492,10 @@ public final class ArezProcessor
   private void addContextRef( @Nonnull final ComponentDescriptor component, @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
-    ArezUtils.mustBeStandardRefMethod( processingEnv,
-                                       component,
-                                       method,
-                                       Constants.CONTEXT_REF_CLASSNAME );
+    mustBeStandardRefMethod( processingEnv,
+                             component,
+                             method,
+                             Constants.CONTEXT_REF_CLASSNAME );
     MemberChecks.mustReturnAnInstanceOf( processingEnv,
                                          method,
                                          Constants.OBSERVER_REF_CLASSNAME,
@@ -504,7 +506,7 @@ public final class ArezProcessor
   private void addComponentIdRef( @Nonnull final ComponentDescriptor component,
                                   @Nonnull final ExecutableElement method )
   {
-    ArezUtils.mustBeRefMethod( component, method, Constants.COMPONENT_ID_REF_CLASSNAME );
+    mustBeRefMethod( component, method, Constants.COMPONENT_ID_REF_CLASSNAME );
     MemberChecks.mustNotHaveAnyParameters( Constants.COMPONENT_ID_REF_CLASSNAME, method );
     component.getComponentIdRefs().add( method );
   }
@@ -512,10 +514,10 @@ public final class ArezProcessor
   private void addComponentRef( @Nonnull final ComponentDescriptor component, @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
-    ArezUtils.mustBeStandardRefMethod( processingEnv,
-                                       component,
-                                       method,
-                                       Constants.COMPONENT_REF_CLASSNAME );
+    mustBeStandardRefMethod( processingEnv,
+                             component,
+                             method,
+                             Constants.COMPONENT_REF_CLASSNAME );
     MemberChecks.mustReturnAnInstanceOf( processingEnv,
                                          method,
                                          Constants.COMPONENT_REF_CLASSNAME,
@@ -553,10 +555,10 @@ public final class ArezProcessor
                                         @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
-    ArezUtils.mustBeStandardRefMethod( processingEnv,
-                                       component,
-                                       method,
-                                       Constants.COMPONENT_TYPE_NAME_REF_CLASSNAME );
+    mustBeStandardRefMethod( processingEnv,
+                             component,
+                             method,
+                             Constants.COMPONENT_TYPE_NAME_REF_CLASSNAME );
     MemberChecks.mustReturnAnInstanceOf( processingEnv,
                                          method,
                                          Constants.COMPONENT_TYPE_NAME_REF_CLASSNAME,
@@ -568,10 +570,10 @@ public final class ArezProcessor
                                     @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
-    ArezUtils.mustBeStandardRefMethod( processingEnv,
-                                       component,
-                                       method,
-                                       Constants.COMPONENT_NAME_REF_CLASSNAME );
+    mustBeStandardRefMethod( processingEnv,
+                             component,
+                             method,
+                             Constants.COMPONENT_NAME_REF_CLASSNAME );
     MemberChecks.mustReturnAnInstanceOf( processingEnv,
                                          method,
                                          Constants.COMPONENT_NAME_REF_CLASSNAME,
@@ -586,10 +588,10 @@ public final class ArezProcessor
                                       Constants.COMPONENT_CLASSNAME,
                                       Constants.POST_CONSTRUCT_CLASSNAME,
                                       method );
-    ArezUtils.shouldBeInternalLifecycleMethod( processingEnv,
-                                               component,
-                                               method,
-                                               Constants.POST_CONSTRUCT_CLASSNAME );
+    shouldBeInternalLifecycleMethod( processingEnv,
+                                     component,
+                                     method,
+                                     Constants.POST_CONSTRUCT_CLASSNAME );
     component.getPostConstructs().add( method );
   }
 
@@ -600,10 +602,10 @@ public final class ArezProcessor
                                       Constants.COMPONENT_CLASSNAME,
                                       Constants.PRE_DISPOSE_CLASSNAME,
                                       method );
-    ArezUtils.shouldBeInternalLifecycleMethod( processingEnv,
-                                               component,
-                                               method,
-                                               Constants.PRE_DISPOSE_CLASSNAME );
+    shouldBeInternalLifecycleMethod( processingEnv,
+                                     component,
+                                     method,
+                                     Constants.PRE_DISPOSE_CLASSNAME );
     component.getPreDisposes().add( method );
   }
 
@@ -614,10 +616,10 @@ public final class ArezProcessor
                                       Constants.COMPONENT_CLASSNAME,
                                       Constants.POST_DISPOSE_CLASSNAME,
                                       method );
-    ArezUtils.shouldBeInternalLifecycleMethod( processingEnv,
-                                               component,
-                                               method,
-                                               Constants.POST_DISPOSE_CLASSNAME );
+    shouldBeInternalLifecycleMethod( processingEnv,
+                                     component,
+                                     method,
+                                     Constants.POST_DISPOSE_CLASSNAME );
     component.getPostDisposes().add( method );
   }
 
@@ -752,10 +754,10 @@ public final class ArezProcessor
 
     MemberChecks.mustNotReturnAnyValue( Constants.ON_DEPS_CHANGE_CLASSNAME, method );
     MemberChecks.mustNotThrowAnyExceptions( Constants.ON_DEPS_CHANGE_CLASSNAME, method );
-    ArezUtils.shouldBeInternalHookMethod( processingEnv,
-                                          component,
-                                          method,
-                                          Constants.ON_DEPS_CHANGE_CLASSNAME );
+    shouldBeInternalHookMethod( processingEnv,
+                                component,
+                                method,
+                                Constants.ON_DEPS_CHANGE_CLASSNAME );
     observe.setOnDepsChange( method );
   }
 
@@ -811,14 +813,14 @@ public final class ArezProcessor
   private String getPropertyAccessorName( @Nonnull final ExecutableElement method, @Nonnull final String specifiedName )
     throws ProcessorException
   {
-    String name = ArezUtils.deriveName( method, GETTER_PATTERN, specifiedName );
+    String name = deriveName( method, GETTER_PATTERN, specifiedName );
     if ( null != name )
     {
       return name;
     }
     if ( method.getReturnType().getKind() == TypeKind.BOOLEAN )
     {
-      name = ArezUtils.deriveName( method, ISSER_PATTERN, specifiedName );
+      name = deriveName( method, ISSER_PATTERN, specifiedName );
       if ( null != name )
       {
         return name;
@@ -1164,10 +1166,10 @@ public final class ArezProcessor
                                @Nonnull final ExecutableType methodType )
     throws ProcessorException
   {
-    ArezUtils.mustBeStandardRefMethod( processingEnv,
-                                       component,
-                                       method,
-                                       Constants.OBSERVER_REF_CLASSNAME );
+    mustBeStandardRefMethod( processingEnv,
+                             component,
+                             method,
+                             Constants.OBSERVER_REF_CLASSNAME );
     MemberChecks.mustReturnAnInstanceOf( processingEnv,
                                          method,
                                          Constants.OBSERVER_REF_CLASSNAME,
@@ -1177,7 +1179,7 @@ public final class ArezProcessor
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
-      name = ArezUtils.deriveName( method, OBSERVER_REF_PATTERN, declaredName );
+      name = deriveName( method, OBSERVER_REF_PATTERN, declaredName );
       if ( null == name )
       {
         throw new ProcessorException( "Method annotated with @ObserverRef should specify name or be " +
@@ -1319,7 +1321,7 @@ public final class ArezProcessor
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
-      name = ArezUtils.firstCharacterToLowerCase( component.getElement().getSimpleName().toString() );
+      name = firstCharacterToLowerCase( component.getElement().getSimpleName().toString() );
     }
     else
     {
@@ -1658,7 +1660,7 @@ public final class ArezProcessor
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
-      final String candidate = ArezUtils.deriveName( method, GETTER_PATTERN, declaredName );
+      final String candidate = deriveName( method, GETTER_PATTERN, declaredName );
       if ( null == candidate )
       {
         name = method.getSimpleName().toString();
@@ -1712,7 +1714,7 @@ public final class ArezProcessor
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
       final String baseName = component.getElement().getSimpleName().toString();
-      return ArezUtils.firstCharacterToLowerCase( baseName ) + ( Multiplicity.MANY == multiplicity ? "s" : "" );
+      return firstCharacterToLowerCase( baseName ) + ( Multiplicity.MANY == multiplicity ? "s" : "" );
     }
     else
     {
@@ -1751,7 +1753,7 @@ public final class ArezProcessor
     final String defaultInverseName =
       descriptor.hasInverse() ?
       null :
-      ArezUtils.firstCharacterToLowerCase( component.getElement().getSimpleName().toString() ) + "s";
+      firstCharacterToLowerCase( component.getElement().getSimpleName().toString() ) + "s";
     final Multiplicity multiplicity =
       ElementsUtil
         .getMethods( element, processingEnv.getElementUtils(), processingEnv.getTypeUtils() )
@@ -2344,26 +2346,26 @@ public final class ArezProcessor
 
         if ( !method.getModifiers().contains( Modifier.FINAL ) )
         {
-          name = ArezUtils.deriveName( method, SETTER_PATTERN, Constants.SENTINEL );
+          name = deriveName( method, SETTER_PATTERN, Constants.SENTINEL );
           if ( voidReturn && 1 == parameterCount && null != name )
           {
             setters.put( name, candidateMethod );
             continue;
           }
-          name = ArezUtils.deriveName( method, ISSER_PATTERN, Constants.SENTINEL );
+          name = deriveName( method, ISSER_PATTERN, Constants.SENTINEL );
           if ( !voidReturn && 0 == parameterCount && null != name )
           {
             getters.put( name, candidateMethod );
             continue;
           }
-          name = ArezUtils.deriveName( method, GETTER_PATTERN, Constants.SENTINEL );
+          name = deriveName( method, GETTER_PATTERN, Constants.SENTINEL );
           if ( !voidReturn && 0 == parameterCount && null != name )
           {
             getters.put( name, candidateMethod );
             continue;
           }
         }
-        name = ArezUtils.deriveName( method, ON_DEPS_CHANGE_PATTERN, Constants.SENTINEL );
+        name = deriveName( method, ON_DEPS_CHANGE_PATTERN, Constants.SENTINEL );
         if ( voidReturn && null != name )
         {
           if ( 0 == parameterCount ||
@@ -2759,10 +2761,10 @@ public final class ArezProcessor
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
-      final String candidate = ArezUtils.deriveName( method, ID_GETTER_PATTERN, declaredName );
+      final String candidate = deriveName( method, ID_GETTER_PATTERN, declaredName );
       if ( null == candidate )
       {
-        final String candidate2 = ArezUtils.deriveName( method, RAW_ID_GETTER_PATTERN, declaredName );
+        final String candidate2 = deriveName( method, RAW_ID_GETTER_PATTERN, declaredName );
         if ( null == candidate2 )
         {
           throw new ProcessorException( "@ReferenceId target has not specified a name and does not follow " +
@@ -2800,13 +2802,13 @@ public final class ArezProcessor
                                     @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
-    ArezUtils.mustBeHookHook( component.getElement(),
-                              Constants.PRE_INVERSE_REMOVE_CLASSNAME,
-                              method );
-    ArezUtils.shouldBeInternalHookMethod( processingEnv,
-                                          component,
-                                          method,
-                                          Constants.PRE_INVERSE_REMOVE_CLASSNAME );
+    mustBeHookHook( component.getElement(),
+                    Constants.PRE_INVERSE_REMOVE_CLASSNAME,
+                    method );
+    shouldBeInternalHookMethod( processingEnv,
+                                component,
+                                method,
+                                Constants.PRE_INVERSE_REMOVE_CLASSNAME );
     if ( 1 != method.getParameters().size() )
     {
       throw new ProcessorException( MemberChecks.must( Constants.PRE_INVERSE_REMOVE_CLASSNAME,
@@ -2824,7 +2826,7 @@ public final class ArezProcessor
     final String name = AnnotationsUtil.getAnnotationValueValue( annotation, "name" );
     if ( Constants.SENTINEL.equals( name ) )
     {
-      final String candidate = ArezUtils.deriveName( method, PRE_INVERSE_REMOVE_PATTERN, name );
+      final String candidate = deriveName( method, PRE_INVERSE_REMOVE_PATTERN, name );
       if ( null == candidate )
       {
         throw new ProcessorException( "@PreInverseRemove target has not specified a name and does not follow " +
@@ -2856,13 +2858,13 @@ public final class ArezProcessor
                                   @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
-    ArezUtils.mustBeHookHook( component.getElement(),
-                              Constants.POST_INVERSE_ADD_CLASSNAME,
-                              method );
-    ArezUtils.shouldBeInternalHookMethod( processingEnv,
-                                          component,
-                                          method,
-                                          Constants.POST_INVERSE_ADD_CLASSNAME );
+    mustBeHookHook( component.getElement(),
+                    Constants.POST_INVERSE_ADD_CLASSNAME,
+                    method );
+    shouldBeInternalHookMethod( processingEnv,
+                                component,
+                                method,
+                                Constants.POST_INVERSE_ADD_CLASSNAME );
     if ( 1 != method.getParameters().size() )
     {
       throw new ProcessorException( MemberChecks.must( Constants.POST_INVERSE_ADD_CLASSNAME,
@@ -2879,7 +2881,7 @@ public final class ArezProcessor
     final String name = AnnotationsUtil.getAnnotationValueValue( annotation, "name" );
     if ( Constants.SENTINEL.equals( name ) )
     {
-      final String candidate = ArezUtils.deriveName( method, POST_INVERSE_ADD_PATTERN, name );
+      final String candidate = deriveName( method, POST_INVERSE_ADD_PATTERN, name );
       if ( null == candidate )
       {
         throw new ProcessorException( "@PostInverseAdd target has not specified a name and does not follow " +
@@ -2987,7 +2989,8 @@ public final class ArezProcessor
       final String referenceName = getInverseReferenceNameParameter( descriptor, method );
 
       final InverseDescriptor inverse = findOrCreateInverseDescriptor( descriptor, name );
-      inverse.setInverse( observable, referenceName, multiplicity, targetType );
+      final String otherName = firstCharacterToLowerCase( targetType.getSimpleName().toString() );
+      inverse.setInverse( observable, referenceName, multiplicity, targetType, otherName );
       verifyMultiplicityOfAssociatedReferenceMethod( descriptor, inverse );
     }
   }
@@ -3007,7 +3010,7 @@ public final class ArezProcessor
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
-      final String candidate = ArezUtils.deriveName( method, GETTER_PATTERN, declaredName );
+      final String candidate = deriveName( method, GETTER_PATTERN, declaredName );
       name = null == candidate ? method.getSimpleName().toString() : candidate;
     }
     else
@@ -3334,5 +3337,117 @@ public final class ArezProcessor
   {
     final ExecutableElement overriddenMethod = ElementsUtil.getOverriddenMethod( processingEnv, typeElement, method );
     return null != overriddenMethod && overriddenMethod.getModifiers().contains( Modifier.PROTECTED );
+  }
+
+  private void mustBeStandardRefMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                        @Nonnull final ComponentDescriptor descriptor,
+                                        @Nonnull final ExecutableElement method,
+                                        @Nonnull final String annotationClassname )
+  {
+    mustBeRefMethod( descriptor, method, annotationClassname );
+    MemberChecks.mustNotHaveAnyParameters( annotationClassname, method );
+    shouldBeInternalRefMethod( processingEnv, descriptor, method, annotationClassname );
+  }
+
+  private void mustBeRefMethod( @Nonnull final ComponentDescriptor descriptor,
+                                @Nonnull final ExecutableElement method,
+                                @Nonnull final String annotationClassname )
+  {
+    MemberChecks.mustBeAbstract( annotationClassname, method );
+    final TypeElement typeElement = descriptor.getElement();
+    MemberChecks.mustNotBePackageAccessInDifferentPackage( typeElement,
+                                                           Constants.COMPONENT_CLASSNAME,
+                                                           annotationClassname,
+                                                           method );
+    MemberChecks.mustReturnAValue( annotationClassname, method );
+    MemberChecks.mustNotThrowAnyExceptions( annotationClassname, method );
+  }
+
+  private void mustBeHookHook( @Nonnull final TypeElement targetType,
+                               @Nonnull final String annotationName,
+                               @Nonnull final ExecutableElement method )
+    throws ProcessorException
+  {
+    MemberChecks.mustNotBeAbstract( annotationName, method );
+    MemberChecks.mustBeSubclassCallable( targetType, Constants.COMPONENT_CLASSNAME, annotationName, method );
+    MemberChecks.mustNotReturnAnyValue( annotationName, method );
+    MemberChecks.mustNotThrowAnyExceptions( annotationName, method );
+  }
+
+  private void shouldBeInternalRefMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                          @Nonnull final ComponentDescriptor descriptor,
+                                          @Nonnull final ExecutableElement method,
+                                          @Nonnull final String annotationClassname )
+  {
+    if ( MemberChecks.doesMethodNotOverrideInterfaceMethod( processingEnv, descriptor.getElement(), method ) )
+    {
+      MemberChecks.shouldNotBePublic( processingEnv,
+                                      method,
+                                      annotationClassname,
+                                      Constants.WARNING_PUBLIC_REF_METHOD,
+                                      Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME );
+    }
+  }
+
+  private void shouldBeInternalLifecycleMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                                @Nonnull final ComponentDescriptor descriptor,
+                                                @Nonnull final ExecutableElement method,
+                                                @Nonnull final String annotationClassname )
+  {
+    if ( MemberChecks.doesMethodNotOverrideInterfaceMethod( processingEnv, descriptor.getElement(), method ) )
+    {
+      MemberChecks.shouldNotBePublic( processingEnv,
+                                      method,
+                                      annotationClassname,
+                                      Constants.WARNING_PUBLIC_LIFECYCLE_METHOD,
+                                      Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME );
+    }
+  }
+
+  private void shouldBeInternalHookMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                           @Nonnull final ComponentDescriptor descriptor,
+                                           @Nonnull final ExecutableElement method,
+                                           @Nonnull final String annotationClassname )
+  {
+    if ( MemberChecks.doesMethodNotOverrideInterfaceMethod( processingEnv, descriptor.getElement(), method ) )
+    {
+      MemberChecks.shouldNotBePublic( processingEnv,
+                                      method,
+                                      annotationClassname,
+                                      Constants.WARNING_PUBLIC_HOOK_METHOD,
+                                      Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME );
+    }
+  }
+
+  @Nullable
+  private String deriveName( @Nonnull final ExecutableElement method,
+                             @Nonnull final Pattern pattern,
+                             @Nonnull final String name )
+    throws ProcessorException
+  {
+    if ( Constants.SENTINEL.equals( name ) )
+    {
+      final String methodName = method.getSimpleName().toString();
+      final Matcher matcher = pattern.matcher( methodName );
+      if ( matcher.find() )
+      {
+        final String candidate = matcher.group( 1 );
+        return firstCharacterToLowerCase( candidate );
+      }
+      else
+      {
+        return null;
+      }
+    }
+    else
+    {
+      return name;
+    }
+  }
+
+  @Nonnull
+  private String firstCharacterToLowerCase( @Nonnull final String name )
+  {
+    return Character.toLowerCase( name.charAt( 0 ) ) + name.substring( 1 );
   }
 }

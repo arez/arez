@@ -97,7 +97,8 @@ final class InverseDescriptor
   void setInverse( @Nonnull final ObservableDescriptor observable,
                    @Nonnull final String referenceName,
                    @Nonnull final Multiplicity multiplicity,
-                   @Nonnull final TypeElement targetType )
+                   @Nonnull final TypeElement targetType,
+                   @Nonnull final String otherName )
   {
     assert null == _observable;
     _observable = Objects.requireNonNull( observable );
@@ -105,7 +106,7 @@ final class InverseDescriptor
     _multiplicity = Objects.requireNonNull( multiplicity );
     _targetType = Objects.requireNonNull( targetType );
     _observable.setInverseDescriptor( this );
-    _otherName = ArezUtils.firstCharacterToLowerCase( _targetType.getSimpleName().toString() );
+    _otherName = Objects.requireNonNull( otherName );
   }
 
   void addPostInverseAddHook( @Nonnull final ExecutableElement method )
