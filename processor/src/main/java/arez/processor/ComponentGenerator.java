@@ -42,6 +42,7 @@ import org.realityforge.proton.ElementsUtil;
 import org.realityforge.proton.GeneratorUtil;
 import org.realityforge.proton.ProcessorException;
 import org.realityforge.proton.SuppressWarningsUtil;
+import org.realityforge.proton.TypesUtil;
 
 final class ComponentGenerator
 {
@@ -3385,7 +3386,13 @@ final class ComponentGenerator
   {
     final ComponentDescriptor component = observable.getComponent();
     final ExecutableElement getter = observable.getGetter();
-    final MethodSpec.Builder method = GeneratorUtil.overrideMethod( processingEnv, component.getElement(), getter );
+    final List<String> additionalSuppressions = new ArrayList<>();
+    if ( TypesUtil.hasRawTypes( processingEnv, observable.getGetterType().getReturnType() ) && isCollectionType( getter ) )
+    {
+      additionalSuppressions.add( "unchecked" );
+    }
+    final MethodSpec.Builder method =
+      GeneratorUtil.overrideMethod( processingEnv, component.getElement(), getter, additionalSuppressions, true );
 
     generateNotDisposedInvariant( method, getter.getSimpleName().toString() );
 

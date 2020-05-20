@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Fix a javac compiler warning in generated code when an `@Observable` annotated method contains a raw collection.
+
 ### [v0.178](https://github.com/arez/arez/tree/v0.178) (2020-05-19) · [Full Changelog](https://github.com/arez/arez/compare/v0.177...v0.178)
 
 Changes in this release:

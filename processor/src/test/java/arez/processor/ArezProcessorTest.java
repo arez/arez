@@ -247,6 +247,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.observable.NonStandardNameModel" },
         new Object[]{ "com.example.observable.NullableInitializerModel" },
         new Object[]{ "com.example.observable.ObservableWithNoSetter" },
+        new Object[]{ "com.example.observable.RawCollectionObservableModel" },
         new Object[]{ "com.example.observable.RawObservableModel" },
         new Object[]{ "com.example.observable.ReadOutsideTransactionDisabledObservableModel" },
         new Object[]{ "com.example.observable.ReadOutsideTransactionEnabledObservableModel" },
