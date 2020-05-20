@@ -177,7 +177,10 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements Dispos
   }
 
   @Override
-  @SuppressWarnings("rawtypes")
+  @SuppressWarnings( {
+    "rawtypes",
+    "unchecked"
+  } )
   List<Callable> getMyCallableList() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyCallableList' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
