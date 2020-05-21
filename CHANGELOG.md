@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.179](https://github.com/arez/arez/tree/v0.179) (2020-05-21) · [Full Changelog](https://github.com/arez/arez/compare/v0.178...v0.179)
+
+Changes in this release:
 
 * Fix a javac compiler warning in generated code when an `@Observable` annotated method contains a raw collection.
 * Upgrade the `org.realityforge.proton` artifacts to version `0.50`.
