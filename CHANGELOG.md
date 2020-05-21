@@ -1,6 +1,6 @@
 # Change Log
 
-### Unreleased
+### [v0.106](https://github.com/arez/arez-spytools/tree/v0.106) (2020-05-21) · [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.105...v0.106)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.179'
 
