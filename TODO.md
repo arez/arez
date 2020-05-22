@@ -11,10 +11,6 @@ complete as there is too much un-said.
 
 * Consider `@ArezComponent.service` defaulting to `ENABLED`.
 
-* Change `@ActAsComponent` to `@PartialArezComponent` (or `@ArezPartialComponent`) and generate an error if any arez annotation appears on a type that is not annotated with either this annotation of `@ArezComponent`
-
-* Introduce `@ActAsArezComponent` annotation as a annotation targeted annotation that indicates that the annotation indicates an arez component. See `@ActAsStingComponent` for example of intended usage.
-
 * Warn if `@ArezComponent.service=ENABLE` and `disposeOnDeactivate`, `disposeNotifier`, `requireEquals`, `requireId` or `verify` is `ENABLED`
   or warn if a `@Reference` is used.
 
@@ -59,16 +55,6 @@ complete as there is too much un-said.
 
 * Refactor `AbstractRepository` so that rather than being a base class, it implements a `Repository` class that
   is composed in downstream repositories.
-
-* Consider scanning usage of all Arez annotations by annotation processor. If an Arez annotation appears in an
-  unexpected place (i.e. outside of an `@ArezComponent` annotated class ) then generate an exception. This would
-  avoid the scenario where `@Action` annotated methods outside of an `@ArezComponent` annotated class would be
-  ignored even if developers expect them to be used. To make this safe we may need to develop another set of
-  annotations to control where arez annotations are allowed. i.e. Add `@ArezComponentDefiner` that can be applied
-  to annotations and any annotation that has that annotation would be considered ok to contain arez annotations.
-  Thus `@ActAsComponent` and `@ReactComponent` would add this annotation. It is likely we would also need to
-  introduce an interface such as `@ArezComponentFragment` that could be applied to the types such as `*Extension`
-  classes in Rose and friends.
 
 * https://www.jetbrains.com/help/idea/template-variables.html#predefined_functions document and define them
 
