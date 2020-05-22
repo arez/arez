@@ -22,10 +22,6 @@ complete as there is too much un-said.
 * Remove the need for enhanced component classes to ever be public by generating a sidecar public class for
   inverse references.
 
-* `AnnotationsUtil.extractName()` wherever possible
-
-* Remove `_methodType` cached values inside processor and resolve at use.
-
 * Support multiple instances of `@OnDepsChange`
 
 * `@ComponentDependency`/`@CascadeDispsoe` fields should not be public or protected and in same class
