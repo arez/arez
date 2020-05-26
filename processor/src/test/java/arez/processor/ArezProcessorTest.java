@@ -867,21 +867,15 @@ public final class ArezProcessorTest
   public void multiViaInheritancePostDispose()
     throws Exception
   {
-    final String input1 =
-      toFilename( "input", "com.example.post_dispose.MultiViaInheritanceChainPostDisposeModel" );
-    final String input2 = toFilename( "input", "com.example.post_dispose.other.AbstractMultiModel" );
-    final String input3 = toFilename( "input", "com.example.post_dispose.other.MiddleMultiModel" );
-    final String input4 = toFilename( "input", "com.example.post_dispose.other.MultiModelInterface1" );
-    final String input5 = toFilename( "input", "com.example.post_dispose.other.MultiModelInterface2" );
-    final String input6 = toFilename( "input", "com.example.post_dispose.other.MultiModelInterface3" );
+    final String pkg = "com.example.post_dispose";
     final String output =
-      toFilename( "expected", "com.example.post_dispose.Arez_MultiViaInheritanceChainPostDisposeModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ),
-                                            fixture( input2 ),
-                                            fixture( input3 ),
-                                            fixture( input4 ),
-                                            fixture( input5 ),
-                                            fixture( input6 ) ),
+      toFilename( "expected", pkg + ".Arez_MultiViaInheritanceChainPostDisposeModel" );
+    assertSuccessfulCompile( inputs( pkg + ".MultiViaInheritanceChainPostDisposeModel",
+                                     pkg + ".other.AbstractMultiModel",
+                                     pkg + ".other.MiddleMultiModel",
+                                     pkg + ".other.MultiModelInterface1",
+                                     pkg + ".other.MultiModelInterface2",
+                                     pkg + ".other.MultiModelInterface3" ),
                              Collections.singletonList( output ) );
   }
 
