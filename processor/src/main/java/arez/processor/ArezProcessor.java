@@ -1871,8 +1871,8 @@ public final class ArezProcessor
                                                     Constants.COMPONENT_DEPENDENCY_CLASSNAME,
                                                     "validateTypeAtRuntime" ).getValue();
 
-    final TypeMirror type = field.asType();
-    if ( TypeKind.DECLARED != type.getKind() )
+    final TypeMirror type = processingEnv.getTypeUtils().asMemberOf( descriptor.asDeclaredType(), field );
+    if ( TypeKind.DECLARED != type.getKind()  )
     {
       throw new ProcessorException( "@ComponentDependency target must be a non-primitive value", field );
     }

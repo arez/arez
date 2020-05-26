@@ -1023,6 +1023,17 @@ public final class ArezProcessorTest
   }
 
   @Test
+  public void processSuccessfulDependencyThatIsParameterizedInParentClass()
+    throws Exception
+  {
+    final String pkg = "com.example.component_dependency";
+    final String output = toFilename( "expected", pkg + ".Arez_ParameterizedFieldDependencyInParentModel" );
+    assertSuccessfulCompile( inputs( pkg + ".BaseParameterizedFieldDependencyInParentModel",
+                                     pkg + ".ParameterizedFieldDependencyInParentModel" ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
   public void processSuccessfulBaseInterfaceInDifferentPackage()
     throws Exception
   {
