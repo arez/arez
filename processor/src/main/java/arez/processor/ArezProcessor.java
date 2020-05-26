@@ -1872,7 +1872,7 @@ public final class ArezProcessor
                                                     "validateTypeAtRuntime" ).getValue();
 
     final TypeMirror type = processingEnv.getTypeUtils().asMemberOf( descriptor.asDeclaredType(), field );
-    if ( TypeKind.DECLARED != type.getKind()  )
+    if ( TypeKind.TYPEVAR != type.getKind() && TypeKind.DECLARED != type.getKind() )
     {
       throw new ProcessorException( "@ComponentDependency target must be a non-primitive value", field );
     }
@@ -1881,8 +1881,10 @@ public final class ArezProcessor
       final TypeElement disposeNotifier = getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
       if ( !processingEnv.getTypeUtils().isAssignable( type, disposeNotifier.asType() ) )
       {
-        final TypeElement typeElement = (TypeElement) processingEnv.getTypeUtils().asElement( type );
-        if ( !isActAsComponentAnnotated( typeElement ) && !isDisposeTrackableComponent( typeElement ) )
+        final Element element = processingEnv.getTypeUtils().asElement( type );
+        if ( !( element instanceof TypeElement ) ||
+             !isActAsComponentAnnotated( (TypeElement) element ) &&
+             !isDisposeTrackableComponent( (TypeElement) element ) )
         {
           throw new ProcessorException( "@ComponentDependency target must be an instance compatible with " +
                                         Constants.DISPOSE_NOTIFIER_CLASSNAME + " or a type annotated " +

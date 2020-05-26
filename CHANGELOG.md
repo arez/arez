@@ -2,7 +2,7 @@
 
 ### Unreleased
 
-* Allow the type of a field annotated by `@ComponentDependency` to be parameterized in a base class and resolved in the arez component.
+* Allow a `@ComponentDependency` annotated field to be parameterized.
 
 ### [v0.179](https://github.com/arez/arez/tree/v0.179) (2020-05-21) · [Full Changelog](https://github.com/arez/arez/compare/v0.178...v0.179)
 
