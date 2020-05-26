@@ -9,4 +9,3 @@ abstract class ParameterizedFieldDependencyModel<T>
   @ComponentDependency( validateTypeAtRuntime = true )
   final T value = null;
 }
-

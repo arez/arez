@@ -8,4 +8,3 @@ abstract class ParameterizedFieldDependencyInParentModel
   extends BaseParameterizedFieldDependencyInParentModel<DisposeNotifier>
 {
 }
-

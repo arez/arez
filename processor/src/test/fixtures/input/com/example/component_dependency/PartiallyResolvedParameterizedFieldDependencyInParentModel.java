@@ -8,4 +8,3 @@ abstract class PartiallyResolvedParameterizedFieldDependencyInParentModel<T exte
   extends BaseParameterizedFieldDependencyInParentModel<T>
 {
 }
-
