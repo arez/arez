@@ -28,7 +28,7 @@ public interface Identifiable<K>
   K getArezId();
 
   /**
-   * Dispose the supplied object if it is Disposable, else do nothing.
+   * Return the unique id of the object if it is Identifiable, else return null.
    *
    * @param <K>    the type of the id.
    * @param object the object to dispose.
