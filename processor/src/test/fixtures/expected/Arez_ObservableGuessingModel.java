@@ -141,29 +141,6 @@ final class Arez_ObservableGuessingModel extends ObservableGuessingModel impleme
   }
 
   @Override
-  public int hashCode() {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      return Integer.hashCode( $$arezi$$_id() );
-    } else {
-      return super.hashCode();
-    }
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_ObservableGuessingModel ) {
-        final Arez_ObservableGuessingModel that = (Arez_ObservableGuessingModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
-      } else {
-        return false;
-      }
-    } else {
-      return super.equals( o );
-    }
-  }
-
-  @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";

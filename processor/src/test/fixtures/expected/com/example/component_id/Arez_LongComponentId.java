@@ -57,29 +57,6 @@ final class Arez_LongComponentId extends LongComponentId implements Disposable, 
   }
 
   @Override
-  public int hashCode() {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      return Long.hashCode( getId() );
-    } else {
-      return super.hashCode();
-    }
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_LongComponentId ) {
-        final Arez_LongComponentId that = (Arez_LongComponentId) o;
-        return isDisposed() == that.isDisposed() && getId() == that.getId();
-      } else {
-        return false;
-      }
-    } else {
-      return super.equals( o );
-    }
-  }
-
-  @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";

@@ -57,29 +57,6 @@ final class Arez_ObjectComponentId extends ObjectComponentId implements Disposab
   }
 
   @Override
-  public int hashCode() {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      return null != getId() ? getId().hashCode() : System.identityHashCode( this );
-    } else {
-      return super.hashCode();
-    }
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_ObjectComponentId ) {
-        final Arez_ObjectComponentId that = (Arez_ObjectComponentId) o;
-        return isDisposed() == that.isDisposed() && null != getId() && getId().equals( that.getId() );
-      } else {
-        return false;
-      }
-    } else {
-      return super.equals( o );
-    }
-  }
-
-  @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";

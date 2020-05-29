@@ -76,29 +76,6 @@ final class Arez_DeprecatedMemoizeModel3 extends DeprecatedMemoizeModel3 impleme
   }
 
   @Override
-  public int hashCode() {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      return Integer.hashCode( $$arezi$$_id() );
-    } else {
-      return super.hashCode();
-    }
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_DeprecatedMemoizeModel3 ) {
-        final Arez_DeprecatedMemoizeModel3 that = (Arez_DeprecatedMemoizeModel3) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
-      } else {
-        return false;
-      }
-    } else {
-      return super.equals( o );
-    }
-  }
-
-  @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";

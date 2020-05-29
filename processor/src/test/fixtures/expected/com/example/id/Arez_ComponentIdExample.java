@@ -57,29 +57,6 @@ final class Arez_ComponentIdExample extends ComponentIdExample implements Dispos
   }
 
   @Override
-  public int hashCode() {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      return Integer.hashCode( getId() );
-    } else {
-      return super.hashCode();
-    }
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_ComponentIdExample ) {
-        final Arez_ComponentIdExample that = (Arez_ComponentIdExample) o;
-        return isDisposed() == that.isDisposed() && getId() == that.getId();
-      } else {
-        return false;
-      }
-    } else {
-      return super.equals( o );
-    }
-  }
-
-  @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";

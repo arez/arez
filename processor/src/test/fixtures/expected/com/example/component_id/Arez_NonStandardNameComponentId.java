@@ -57,29 +57,6 @@ final class Arez_NonStandardNameComponentId extends NonStandardNameComponentId i
   }
 
   @Override
-  public int hashCode() {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      return Integer.hashCode( $$id$$() );
-    } else {
-      return super.hashCode();
-    }
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_NonStandardNameComponentId ) {
-        final Arez_NonStandardNameComponentId that = (Arez_NonStandardNameComponentId) o;
-        return isDisposed() == that.isDisposed() && $$id$$() == that.$$id$$();
-      } else {
-        return false;
-      }
-    } else {
-      return super.equals( o );
-    }
-  }
-
-  @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";

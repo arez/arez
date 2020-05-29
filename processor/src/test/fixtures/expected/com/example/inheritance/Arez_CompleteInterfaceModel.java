@@ -660,29 +660,6 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   }
 
   @Override
-  public int hashCode() {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      return Integer.hashCode( $$arezi$$_id() );
-    } else {
-      return CompleteInterfaceModel.super.hashCode();
-    }
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_CompleteInterfaceModel ) {
-        final Arez_CompleteInterfaceModel that = (Arez_CompleteInterfaceModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
-      } else {
-        return false;
-      }
-    } else {
-      return CompleteInterfaceModel.super.equals( o );
-    }
-  }
-
-  @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";

@@ -75,29 +75,6 @@ final class Arez_BasicOnActivateModel extends BasicOnActivateModel implements Di
   }
 
   @Override
-  public int hashCode() {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      return Integer.hashCode( $$arezi$$_id() );
-    } else {
-      return super.hashCode();
-    }
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_BasicOnActivateModel ) {
-        final Arez_BasicOnActivateModel that = (Arez_BasicOnActivateModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
-      } else {
-        return false;
-      }
-    } else {
-      return super.equals( o );
-    }
-  }
-
-  @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";

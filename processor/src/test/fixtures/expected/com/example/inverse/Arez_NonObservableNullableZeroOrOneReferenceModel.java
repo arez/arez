@@ -139,29 +139,6 @@ final class Arez_NonObservableNullableZeroOrOneReferenceModel extends NonObserva
   }
 
   @Override
-  public int hashCode() {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      return Integer.hashCode( $$arezi$$_id() );
-    } else {
-      return super.hashCode();
-    }
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_NonObservableNullableZeroOrOneReferenceModel ) {
-        final Arez_NonObservableNullableZeroOrOneReferenceModel that = (Arez_NonObservableNullableZeroOrOneReferenceModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
-      } else {
-        return false;
-      }
-    } else {
-      return super.equals( o );
-    }
-  }
-
-  @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";

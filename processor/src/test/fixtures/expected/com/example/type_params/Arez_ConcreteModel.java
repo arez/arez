@@ -150,30 +150,6 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W> implem
   }
 
   @Override
-  public int hashCode() {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      return null != getComponentId() ? getComponentId().hashCode() : System.identityHashCode( this );
-    } else {
-      return super.hashCode();
-    }
-  }
-
-  @Override
-  @SuppressWarnings("unchecked")
-  public boolean equals(final Object o) {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_ConcreteModel ) {
-        final Arez_ConcreteModel<W> that = (Arez_ConcreteModel<W>) o;
-        return isDisposed() == that.isDisposed() && null != getComponentId() && getComponentId().equals( that.getComponentId() );
-      } else {
-        return false;
-      }
-    } else {
-      return super.equals( o );
-    }
-  }
-
-  @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";

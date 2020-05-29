@@ -57,29 +57,6 @@ final class Arez_CharComponentId extends CharComponentId implements Disposable, 
   }
 
   @Override
-  public int hashCode() {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      return Character.hashCode( getId() );
-    } else {
-      return super.hashCode();
-    }
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_CharComponentId ) {
-        final Arez_CharComponentId that = (Arez_CharComponentId) o;
-        return isDisposed() == that.isDisposed() && getId() == that.getId();
-      } else {
-        return false;
-      }
-    } else {
-      return super.equals( o );
-    }
-  }
-
-  @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";

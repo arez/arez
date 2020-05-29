@@ -137,29 +137,6 @@ final class Arez_ZeroOrOneMultiplicityInverseModel extends ZeroOrOneMultiplicity
   }
 
   @Override
-  public int hashCode() {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      return Integer.hashCode( $$arezi$$_id() );
-    } else {
-      return super.hashCode();
-    }
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_ZeroOrOneMultiplicityInverseModel ) {
-        final Arez_ZeroOrOneMultiplicityInverseModel that = (Arez_ZeroOrOneMultiplicityInverseModel) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
-      } else {
-        return false;
-      }
-    } else {
-      return super.equals( o );
-    }
-  }
-
-  @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";

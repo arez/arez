@@ -67,29 +67,6 @@ final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel i
   }
 
   @Override
-  public int hashCode() {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      return null != id() ? id().hashCode() : System.identityHashCode( this );
-    } else {
-      return super.hashCode();
-    }
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_RawTypeComponentIdRefModel ) {
-        final Arez_RawTypeComponentIdRefModel that = (Arez_RawTypeComponentIdRefModel) o;
-        return isDisposed() == that.isDisposed() && null != id() && id().equals( that.id() );
-      } else {
-        return false;
-      }
-    } else {
-      return super.equals( o );
-    }
-  }
-
-  @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";

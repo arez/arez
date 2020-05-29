@@ -54,27 +54,4 @@ final class Arez_ToStringPresent extends ToStringPresent implements Disposable, 
   public void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
-
-  @Override
-  public int hashCode() {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      return Integer.hashCode( $$arezi$$_id() );
-    } else {
-      return super.hashCode();
-    }
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_ToStringPresent ) {
-        final Arez_ToStringPresent that = (Arez_ToStringPresent) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
-      } else {
-        return false;
-      }
-    } else {
-      return super.equals( o );
-    }
-  }
 }

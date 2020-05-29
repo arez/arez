@@ -54,27 +54,4 @@ final class Arez_ToStringPresentInParent extends ToStringPresentInParent impleme
   public void dispose() {
     this.$$arezi$$_kernel.dispose();
   }
-
-  @Override
-  public int hashCode() {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      return Integer.hashCode( $$arezi$$_id() );
-    } else {
-      return super.hashCode();
-    }
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_ToStringPresentInParent ) {
-        final Arez_ToStringPresentInParent that = (Arez_ToStringPresentInParent) o;
-        return $$arezi$$_id() == that.$$arezi$$_id();
-      } else {
-        return false;
-      }
-    } else {
-      return super.equals( o );
-    }
-  }
 }

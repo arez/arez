@@ -57,29 +57,6 @@ final class Arez_NonStandardNameModel extends NonStandardNameModel implements Di
   }
 
   @Override
-  public int hashCode() {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      return Integer.hashCode( $Id$$() );
-    } else {
-      return super.hashCode();
-    }
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-    if ( Arez.areNativeComponentsEnabled() ) {
-      if ( o instanceof Arez_NonStandardNameModel ) {
-        final Arez_NonStandardNameModel that = (Arez_NonStandardNameModel) o;
-        return isDisposed() == that.isDisposed() && $Id$$() == that.$Id$$();
-      } else {
-        return false;
-      }
-    } else {
-      return super.equals( o );
-    }
-  }
-
-  @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
       return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
