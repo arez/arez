@@ -77,10 +77,6 @@ complete as there is too much un-said.
 * Consider adding per-task error handler and a global task error handler. Observer error handlers should
   be merged into this code to reduce code size and conceptual overhead.
 
-* Setup testing with browser. Headless Chrome via selenium? GWT test case?
-  - https://thefriendlytester.co.uk/2017/04/new-headless-chrome-with-selenium.html
-  - Perhaps by the latest kid in town - https://www.cypress.io/
-
 * Complete the `arez-devtools` project.
   - Consider something like https://github.com/GoogleChromeLabs/comlink for comms
   - Embers DevTools is truly magical -  https://egghead.io/lessons/javascript-debug-ember-applications-using-ember-inspector
