@@ -8,7 +8,7 @@ import java.util.HashMap;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ComponentDisposeStartEventTest
+public final class ComponentDisposeStartEventTest
   extends AbstractTest
 {
   @Test

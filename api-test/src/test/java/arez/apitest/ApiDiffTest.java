@@ -12,7 +12,7 @@ import javax.json.JsonArray;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ApiDiffTest
+public final class ApiDiffTest
 {
   @Test
   public void compareApi()

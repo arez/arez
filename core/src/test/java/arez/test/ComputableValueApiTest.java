@@ -26,7 +26,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ComputableValueApiTest
+public final class ComputableValueApiTest
   extends AbstractTest
 {
   @Test

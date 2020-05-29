@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 @SuppressWarnings( "SuspiciousMethodCalls" )
-public class AggregateLocatorTest
+public final class AggregateLocatorTest
   extends AbstractTest
 {
   @Test

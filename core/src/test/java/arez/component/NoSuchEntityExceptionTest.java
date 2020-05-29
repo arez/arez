@@ -5,7 +5,7 @@ import arez.ArezTestUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class NoSuchEntityExceptionTest
+public final class NoSuchEntityExceptionTest
   extends AbstractTest
 {
   @Test

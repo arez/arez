@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 @SuppressWarnings( "unchecked" )
-public class MemoizeCacheTest
+public final class MemoizeCacheTest
   extends AbstractTest
 {
   @BeforeMethod

@@ -5,7 +5,7 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ArezLoggerTest
+public final class ArezLoggerTest
   extends AbstractTest
 {
   @Test

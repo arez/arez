@@ -5,7 +5,7 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class TransactionInfoImplTest
+public final class TransactionInfoImplTest
   extends AbstractTest
 {
   @Test

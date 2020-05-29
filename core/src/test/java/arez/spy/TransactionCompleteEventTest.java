@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 @SuppressWarnings( "ConstantConditions" )
-public class TransactionCompleteEventTest
+public final class TransactionCompleteEventTest
   extends AbstractTest
 {
   @Test

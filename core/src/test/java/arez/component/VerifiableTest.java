@@ -6,7 +6,7 @@ import java.io.IOException;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class VerifiableTest
+public final class VerifiableTest
   extends AbstractTest
 {
   static class TestElement

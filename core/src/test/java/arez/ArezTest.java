@@ -3,7 +3,7 @@ package arez;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ArezTest
+public final class ArezTest
   extends AbstractTest
 {
   @Test

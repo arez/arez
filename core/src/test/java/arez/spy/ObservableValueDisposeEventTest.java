@@ -8,7 +8,7 @@ import java.util.HashMap;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ObservableValueDisposeEventTest
+public final class ObservableValueDisposeEventTest
   extends AbstractTest
 {
   @Test

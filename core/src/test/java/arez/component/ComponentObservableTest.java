@@ -4,7 +4,7 @@ import arez.AbstractTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ComponentObservableTest
+public final class ComponentObservableTest
   extends AbstractTest
 {
   static class TestElement

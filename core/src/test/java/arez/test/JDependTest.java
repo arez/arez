@@ -12,7 +12,7 @@ import jdepend.framework.PackageFilter;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class JDependTest
+public final class JDependTest
 {
   @Test
   public void dependencyAnalysis()

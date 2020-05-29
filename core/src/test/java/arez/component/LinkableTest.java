@@ -4,7 +4,7 @@ import arez.AbstractTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class LinkableTest
+public final class LinkableTest
   extends AbstractTest
 {
   static class TestElement

@@ -25,7 +25,7 @@ import static org.testng.Assert.*;
  * This class tests all the public API of Arez and identifies all
  * the elements that should be visible outside package.
  */
-public class ExternalApiTest
+public final class ExternalApiTest
   extends AbstractTest
 {
   @Test

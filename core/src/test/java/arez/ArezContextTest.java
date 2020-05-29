@@ -34,7 +34,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 @SuppressWarnings( "ConstantConditions" )
-public class ArezContextTest
+public final class ArezContextTest
   extends AbstractTest
 {
   @Test

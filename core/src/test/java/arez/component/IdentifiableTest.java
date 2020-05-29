@@ -5,7 +5,7 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class IdentifiableTest
+public final class IdentifiableTest
   extends AbstractTest
 {
   static class TestElement

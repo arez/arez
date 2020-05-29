@@ -14,7 +14,7 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class SpyImplTest
+public final class SpyImplTest
   extends AbstractTest
 {
   @Test

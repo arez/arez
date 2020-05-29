@@ -3,7 +3,7 @@ package arez;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class SchedulerLockTest
+public final class SchedulerLockTest
   extends AbstractTest
 {
   @Test

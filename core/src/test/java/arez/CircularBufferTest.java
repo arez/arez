@@ -3,7 +3,7 @@ package arez;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class CircularBufferTest
+public final class CircularBufferTest
   extends AbstractTest
 {
   @Test

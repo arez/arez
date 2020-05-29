@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class FlagsTest
+public final class FlagsTest
   extends AbstractTest
 {
   @Test

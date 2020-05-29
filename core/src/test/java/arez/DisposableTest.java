@@ -3,7 +3,7 @@ package arez;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class DisposableTest
+public final class DisposableTest
   extends AbstractTest
 {
   static class TestDisposable

@@ -24,7 +24,7 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class ObserverTest
+public final class ObserverTest
   extends AbstractTest
 {
   @Test

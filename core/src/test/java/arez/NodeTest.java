@@ -5,7 +5,7 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class NodeTest
+public final class NodeTest
   extends AbstractTest
 {
   static class TestNode
