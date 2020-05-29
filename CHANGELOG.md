@@ -6,6 +6,8 @@
 * Fix some incorrect javadocs on the `arez.component.Identifiable` interface.
 * Change the annotation processor so the component implementations only implement `arez.component.Identifiable` if the `@ArezComponent.requireId` parameter resolves to `ENABLE`. The unconditional implementation of `Identifiable` led to application code that would work in development mode (where `Arez.areNamesEnabled()` returns `true`) and fail in production mode when the component did not have an id.
 * Change the annotation processor to stop unconditionally implementing `equals()` and `hashCode()` and only implement the methods if the `@ArezComponent.requireEquals` parameter resolves to `ENABLE`. This has historically led to code working in development that failed in production mode as the methods were stripped out in production.
+* Generate a error if `@ArezComponent(idRequired = DISABLE)` annotated type contains a method annotated with `@Inverse`. This was the documented behaviour but the actual code did not perform this validation.
+* Change the interpretation of the `AUTODETECT` value for the `@ArezComponent.requireId` parameter so that it is resolves to `ENABLE`. This eliminates a common cause of code churn in downstream applications.
 
 ### [v0.180](https://github.com/arez/arez/tree/v0.180) (2020-05-26) · [Full Changelog](https://github.com/arez/arez/compare/v0.179...v0.180)
 

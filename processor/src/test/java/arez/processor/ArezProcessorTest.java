@@ -1504,6 +1504,8 @@ public final class ArezProcessorTest
                       "@ArezComponent target has specified the idRequired = DISABLE annotation parameter but also has annotated a method with @ComponentId that requires idRequired = ENABLE." },
         new Object[]{ "com.example.id.DisableIdAndComponentIdRef",
                       "@ArezComponent target has specified the idRequired = DISABLE annotation parameter but also has annotated a method with @ComponentIdRef that requires idRequired = ENABLE." },
+        new Object[]{ "com.example.id.DisableIdAndInverseModel",
+                      "@ArezComponent target has specified the idRequired = DISABLE annotation parameter but also has annotated a method with @Inverse that requires idRequired = ENABLE." },
 
         new Object[]{ "com.example.dagger.MultipleConstructorsModel",
                       "@ArezComponent target must not enable dagger integration and have multiple constructors" },

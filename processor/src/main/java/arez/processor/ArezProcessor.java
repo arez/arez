@@ -2118,7 +2118,7 @@ public final class ArezProcessor
       }
     }
 
-    final boolean idRequired = isIdRequired( descriptor, arezComponent );
+    final boolean idRequired = isIdRequired( arezComponent );
     descriptor.setIdRequired( idRequired );
     if ( !idRequired )
     {
@@ -2132,6 +2132,12 @@ public final class ArezProcessor
       {
         throw new ProcessorException( "@ArezComponent target has specified the idRequired = DISABLE " +
                                       "annotation parameter but also has annotated a method with @ComponentIdRef " +
+                                      "that requires idRequired = ENABLE.", typeElement );
+      }
+      if ( !descriptor.getInverses().isEmpty() )
+      {
+        throw new ProcessorException( "@ArezComponent target has specified the idRequired = DISABLE " +
+                                      "annotation parameter but also has annotated a method with @Inverse " +
                                       "that requires idRequired = ENABLE.", typeElement );
       }
     }
@@ -3266,21 +3272,10 @@ public final class ArezProcessor
     return null == value ? null : ( (VariableElement) value.getValue() ).getSimpleName().toString();
   }
 
-  private boolean isIdRequired( @Nonnull final ComponentDescriptor descriptor,
-                                @Nonnull final AnnotationMirror arezComponent )
+  private boolean isIdRequired( @Nonnull final AnnotationMirror arezComponent )
   {
     final VariableElement injectParameter = getAnnotationParameter( arezComponent, "requireId" );
-    switch ( injectParameter.getSimpleName().toString() )
-    {
-      case "ENABLE":
-        return true;
-      case "DISABLE":
-        return false;
-      default:
-        return descriptor.hasComponentIdMethod() ||
-               !descriptor.getComponentIdRefs().isEmpty() ||
-               descriptor.hasInverses();
-    }
+    return !"DISABLE".equals( injectParameter.getSimpleName().toString() );
   }
 
   private boolean hasInjectAnnotation( @Nonnull final Element method )

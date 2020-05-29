@@ -8,6 +8,7 @@ import arez.Locator;
 import arez.ObservableValue;
 import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
+import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
@@ -15,7 +16,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_DisableVerifyModel extends DisableVerifyModel implements Disposable, DisposeNotifier {
+final class Arez_DisableVerifyModel extends DisableVerifyModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -34,7 +35,7 @@ final class Arez_DisableVerifyModel extends DisableVerifyModel implements Dispos
       Guards.apiInvariant( Arez::areReferencesEnabled, () -> "Attempted to create instance of component of type 'DisableVerifyModel' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component" );
     }
     final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
+    final int $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "DisableVerifyModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "DisableVerifyModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
@@ -54,6 +55,12 @@ final class Arez_DisableVerifyModel extends DisableVerifyModel implements Dispos
 
   private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
+  }
+
+  @Override
+  @Nonnull
+  public Integer getArezId() {
+    return $$arezi$$_id();
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {

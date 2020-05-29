@@ -140,8 +140,8 @@ public @interface ArezComponent
 
   /**
    * Indicates whether the component should support access of the id via {@link arez.component.Identifiable#getArezId(Object)}.
-   * This feature must be enabled and will be enabled when the value of the parameter is {@link Feature#AUTODETECT}
-   * in the following scenarios:
+   * The {@link Feature#AUTODETECT} will be treated as {@link Feature#ENABLE}. This feature must be enabled in
+   * the following scenarios:
    *
    * <ul>
    * <li>a method annotated with the {@link Inverse} annotation is present.</li>

@@ -4,8 +4,10 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
+import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
+import javax.annotation.Nonnull;
 import sting.Eager;
 import sting.Injectable;
 import sting.Typed;
@@ -14,7 +16,7 @@ import sting.Typed;
 @Eager
 @Typed({})
 @Generated("arez.processor.ArezProcessor")
-final class Arez_EmptyTypedStingModel extends EmptyTypedStingModel implements Disposable {
+final class Arez_EmptyTypedStingModel extends EmptyTypedStingModel implements Disposable, Identifiable<Integer> {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -22,7 +24,7 @@ final class Arez_EmptyTypedStingModel extends EmptyTypedStingModel implements Di
   Arez_EmptyTypedStingModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
+    final int $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "EmptyTypedStingModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "EmptyTypedStingModel", $$arezv$$_id, $$arezv$$_name ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, false, false, false );
@@ -32,6 +34,12 @@ final class Arez_EmptyTypedStingModel extends EmptyTypedStingModel implements Di
 
   private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
+  }
+
+  @Override
+  @Nonnull
+  public Integer getArezId() {
+    return $$arezi$$_id();
   }
 
   @Override

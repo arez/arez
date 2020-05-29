@@ -6,6 +6,7 @@ import arez.Component;
 import arez.Disposable;
 import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
+import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
@@ -13,7 +14,7 @@ import javax.annotation.Nonnull;
 @Deprecated
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("deprecation")
-final class Arez_DeprecatedModel extends DeprecatedModel implements Disposable, DisposeNotifier {
+final class Arez_DeprecatedModel extends DeprecatedModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -21,7 +22,7 @@ final class Arez_DeprecatedModel extends DeprecatedModel implements Disposable, 
   Arez_DeprecatedModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
+    final int $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "DeprecatedModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "DeprecatedModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );
@@ -31,6 +32,12 @@ final class Arez_DeprecatedModel extends DeprecatedModel implements Disposable, 
 
   private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
+  }
+
+  @Override
+  @Nonnull
+  public Integer getArezId() {
+    return $$arezi$$_id();
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {

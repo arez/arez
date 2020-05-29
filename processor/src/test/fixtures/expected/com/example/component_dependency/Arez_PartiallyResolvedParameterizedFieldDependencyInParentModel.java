@@ -6,12 +6,13 @@ import arez.Component;
 import arez.Disposable;
 import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
+import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_PartiallyResolvedParameterizedFieldDependencyInParentModel<T extends DisposeNotifier> extends PartiallyResolvedParameterizedFieldDependencyInParentModel<T> implements Disposable, DisposeNotifier {
+final class Arez_PartiallyResolvedParameterizedFieldDependencyInParentModel<T extends DisposeNotifier> extends PartiallyResolvedParameterizedFieldDependencyInParentModel<T> implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -19,7 +20,7 @@ final class Arez_PartiallyResolvedParameterizedFieldDependencyInParentModel<T ex
   Arez_PartiallyResolvedParameterizedFieldDependencyInParentModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
+    final int $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "PartiallyResolvedParameterizedFieldDependencyInParentModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "PartiallyResolvedParameterizedFieldDependencyInParentModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, null, null, true, false, false );
@@ -32,6 +33,12 @@ final class Arez_PartiallyResolvedParameterizedFieldDependencyInParentModel<T ex
 
   private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
+  }
+
+  @Override
+  @Nonnull
+  public Integer getArezId() {
+    return $$arezi$$_id();
   }
 
   private void $$arezi$$_preDispose() {
