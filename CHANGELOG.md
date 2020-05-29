@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.proton` artifacts to version `0.51`.
 * Fix some incorrect javadocs on the `arez.component.Identifiable` interface.
 * Change the annotation processor so the component implementations only implement `arez.component.Identifiable` if the `@ArezComponent.requireId` parameter resolves to `ENABLE`. The unconditional implementation of `Identifiable` led to application code that would work in development mode (where `Arez.areNamesEnabled()` returns `true`) and fail in production mode when the component did not have an id.
 * Change the annotation processor to stop unconditionally implementing `equals()` and `hashCode()` and only implement the methods if the `@ArezComponent.requireEquals` parameter resolves to `ENABLE`. This has historically led to code working in development that failed in production mode as the methods were stripped out in production.
