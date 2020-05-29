@@ -35,7 +35,7 @@ public final class Component
   @Nonnull
   private final String _type;
   /**
-   * The if of the component. This should be null for singletons and non-null for non-singletons.
+   * The id of the component. This should be null for singletons and non-null for non-singletons.
    */
   @Nonnull
   private final Object _id;
