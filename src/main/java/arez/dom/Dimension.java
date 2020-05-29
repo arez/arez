@@ -1,5 +1,7 @@
 package arez.dom;
 
+import java.util.Objects;
+
 /**
  * A class containing width and height dimensions.
  */
@@ -52,5 +54,11 @@ public final class Dimension
     {
       return false;
     }
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return Objects.hash( _width, _height );
   }
 }
