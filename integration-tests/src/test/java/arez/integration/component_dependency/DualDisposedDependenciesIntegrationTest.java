@@ -3,6 +3,7 @@ package arez.integration.component_dependency;
 import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
+import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
@@ -91,7 +92,8 @@ public final class DualDisposedDependenciesIntegrationTest
     }
   }
 
-  @ArezComponent
+  // Explicitly requireEquals so there is a stable ordering when disposing by dispose notifier
+  @ArezComponent( requireEquals = Feature.ENABLE )
   static abstract class Model1
   {
     private String _name;

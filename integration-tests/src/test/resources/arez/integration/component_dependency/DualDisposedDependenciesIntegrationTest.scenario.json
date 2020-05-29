@@ -296,6 +296,17 @@
         "type": "TransactionStart"
     },
     {
+        "name": "Model1.2",
+        "type": "ComponentDisposeStart"
+    },
+    {
+        "name": "Model1.2.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
         "name": "Model2.2",
         "type": "ComponentDisposeStart"
     },
@@ -345,17 +356,6 @@
     {
         "name": "Model2.2",
         "type": "ComponentDisposeComplete"
-    },
-    {
-        "name": "Model1.2",
-        "type": "ComponentDisposeStart"
-    },
-    {
-        "name": "Model1.2.dispose",
-        "tracked": false,
-        "type": "ActionStart",
-        "parameters": [
-        ]
     },
     {
         "name": "Model1.2.leaf.dispose",
