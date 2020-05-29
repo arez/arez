@@ -50,7 +50,6 @@ public final class ComponentInfoImplTest
     assertTrue( info.isDisposed() );
   }
 
-  @SuppressWarnings( "EqualsWithItself" )
   @Test
   public void equalsAndHashCode()
   {
@@ -63,7 +62,6 @@ public final class ComponentInfoImplTest
     final ComponentInfo info1b = new ComponentInfoImpl( component1 );
     final ComponentInfo info2 = component2.asInfo();
 
-    //noinspection EqualsBetweenInconvertibleTypes
     assertNotEquals( info1a, "" );
 
     assertEquals( info1a, info1a );
