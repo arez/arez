@@ -122,7 +122,7 @@ public @interface ArezComponent
 
   /**
    * Enum controlling whether sting integration is enabled. If enabled, the annotation processor will
-   * generate a sting module named "[MyComponent]Fragment". If the value of this parameter is
+   * add sting annotations to the generated component implementation. If the value of this parameter is
    * {@link Feature#AUTODETECT} then sting integration will be enabled if the {@link #service()} resolves
    * to {@link Feature#ENABLE} and the {@code sting.Injector} class is present on the classpath.
    *
@@ -148,10 +148,6 @@ public @interface ArezComponent
    * <li>a method annotated with the {@link ComponentId} annotation is present.</li>
    * <li>a method annotated with the {@link ComponentIdRef} annotation is present.</li>
    * </ul>
-   *
-   * <p>The feature is also enabled on every components if
-   * {@link Arez#areNativeComponentsEnabled()} is true, {@link Arez#areRegistriesEnabled()} is true or
-   * {@link Arez#areNamesEnabled()} is true.</p>
    *
    * @return enum controlling whether a unique if of the component can be accessed via {@link arez.component.Identifiable#getArezId(Object)}.
    */

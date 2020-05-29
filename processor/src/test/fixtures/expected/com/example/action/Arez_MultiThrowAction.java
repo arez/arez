@@ -7,7 +7,6 @@ import arez.Component;
 import arez.Disposable;
 import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
-import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.io.IOException;
 import java.text.ParseException;
@@ -16,7 +15,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_MultiThrowAction extends MultiThrowAction implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_MultiThrowAction extends MultiThrowAction implements Disposable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -34,12 +33,6 @@ final class Arez_MultiThrowAction extends MultiThrowAction implements Disposable
 
   private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
-  }
-
-  @Override
-  @Nonnull
-  public Integer getArezId() {
-    return $$arezi$$_id();
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {

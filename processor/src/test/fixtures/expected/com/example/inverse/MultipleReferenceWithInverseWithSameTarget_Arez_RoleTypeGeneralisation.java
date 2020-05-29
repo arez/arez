@@ -7,7 +7,6 @@ import arez.Disposable;
 import arez.Locator;
 import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
-import arez.component.Identifiable;
 import arez.component.Linkable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
@@ -17,7 +16,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation extends MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier, Linkable {
+final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation extends MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation implements Disposable, Verifiable, DisposeNotifier, Linkable {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -53,12 +52,6 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
 
   private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
-  }
-
-  @Override
-  @Nonnull
-  public Integer getArezId() {
-    return $$arezi$$_id();
   }
 
   private void $$arezi$$_preDispose() {

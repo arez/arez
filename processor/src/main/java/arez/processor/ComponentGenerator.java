@@ -187,10 +187,8 @@ final class ComponentGenerator
       component.getMemoizes().isEmpty() ? Collections.emptyList() : Collections.singletonList( "unchecked" );
     final List<TypeMirror> types = new ArrayList<>();
     final ExecutableElement componentId = component.getComponentId();
-    if ( null != componentId )
+    if ( component.isIdRequired() && null != componentId )
     {
-      //If Identifiable interface is ever optionally applied to component then this need not
-      // be added when Identifiable interface need not be present
       types.add( processingEnv.getTypeUtils().asMemberOf( component.asDeclaredType(), componentId ) );
     }
     types.add( component.asDeclaredType() );
@@ -202,9 +200,10 @@ final class ComponentGenerator
     }
 
     builder.addSuperinterface( DISPOSABLE_CLASSNAME );
-    // when/if IDENTIFIABLE becomes optional then change suppressions above so null != componentId will
-    // not result in suppress when IDENTIFIABLE is not present
-    builder.addSuperinterface( ParameterizedTypeName.get( IDENTIFIABLE_CLASSNAME, component.getIdType().box() ) );
+    if ( component.isIdRequired() )
+    {
+      builder.addSuperinterface( ParameterizedTypeName.get( IDENTIFIABLE_CLASSNAME, component.getIdType().box() ) );
+    }
     if ( component.isObservable() )
     {
       builder.addSuperinterface( COMPONENT_OBSERVABLE_CLASSNAME );
@@ -259,7 +258,10 @@ final class ComponentGenerator
     {
       builder.addMethod( buildComponentIdMethod( component ) );
     }
-    builder.addMethod( buildArezIdMethod( processingEnv, component ) );
+    if ( component.isIdRequired() )
+    {
+      builder.addMethod( buildArezIdMethod( processingEnv, component ) );
+    }
     for ( final ExecutableElement componentNameRef : component.getComponentNameRefs() )
     {
       final MethodSpec.Builder method =

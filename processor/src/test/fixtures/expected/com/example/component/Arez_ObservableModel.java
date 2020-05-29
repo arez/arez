@@ -8,14 +8,13 @@ import arez.Disposable;
 import arez.SafeProcedure;
 import arez.component.ComponentObservable;
 import arez.component.DisposeNotifier;
-import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_ObservableModel extends ObservableModel implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeNotifier {
+final class Arez_ObservableModel extends ObservableModel implements Disposable, ComponentObservable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -33,12 +32,6 @@ final class Arez_ObservableModel extends ObservableModel implements Disposable, 
 
   private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
-  }
-
-  @Override
-  @Nonnull
-  public Integer getArezId() {
-    return $$arezi$$_id();
   }
 
   @Override

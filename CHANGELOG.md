@@ -2,6 +2,9 @@
 
 ### Unreleased
 
+* Fix some incorrect javadocs on the `arez.component.Identifiable` interface.
+* Change the annotation processor so the component implementations only implement `arez.component.Identifiable` if the `@ArezComponent.requireId` parameter resolves to `ENABLE`. The unconditional implementation of `Identifiable` led to application code that would work in development mode (where `Arez.areNamesEnabled()` returns `true`) and fail in production mode when the component did not have an id.
+
 ### [v0.180](https://github.com/arez/arez/tree/v0.180) (2020-05-26) · [Full Changelog](https://github.com/arez/arez/compare/v0.179...v0.180)
 
 Changes in this release:

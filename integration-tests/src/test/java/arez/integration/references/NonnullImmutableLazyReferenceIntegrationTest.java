@@ -82,7 +82,7 @@ public final class NonnullImmutableLazyReferenceIntegrationTest
     }
   }
 
-  @ArezComponent
+  @ArezComponent( requireId = Feature.ENABLE )
   static abstract class Model2
   {
     @Action

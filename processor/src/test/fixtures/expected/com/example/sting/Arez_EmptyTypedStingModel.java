@@ -4,10 +4,8 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
-import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
-import javax.annotation.Nonnull;
 import sting.Eager;
 import sting.Injectable;
 import sting.Typed;
@@ -16,7 +14,7 @@ import sting.Typed;
 @Eager
 @Typed({})
 @Generated("arez.processor.ArezProcessor")
-final class Arez_EmptyTypedStingModel extends EmptyTypedStingModel implements Disposable, Identifiable<Integer> {
+final class Arez_EmptyTypedStingModel extends EmptyTypedStingModel implements Disposable {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -34,12 +32,6 @@ final class Arez_EmptyTypedStingModel extends EmptyTypedStingModel implements Di
 
   private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
-  }
-
-  @Override
-  @Nonnull
-  public Integer getArezId() {
-    return $$arezi$$_id();
   }
 
   @Override

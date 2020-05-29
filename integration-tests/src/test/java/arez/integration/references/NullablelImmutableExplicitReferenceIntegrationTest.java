@@ -100,7 +100,7 @@ public final class NullablelImmutableExplicitReferenceIntegrationTest
     }
   }
 
-  @ArezComponent
+  @ArezComponent( requireId = Feature.ENABLE )
   static abstract class Model2
   {
     @Action

@@ -81,7 +81,7 @@ public final class NonnullImmutableEagerReferenceIntegrationTest
     }
   }
 
-  @ArezComponent
+  @ArezComponent( requireId = Feature.ENABLE )
   static abstract class Model2
   {
     @Action

@@ -7,7 +7,6 @@ import arez.Disposable;
 import arez.Locator;
 import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
-import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
 import com.example.pre_inverse_remove.Arez_ProtectedAccessFromBasePreInverseRemoveModel;
@@ -18,7 +17,7 @@ import javax.annotation.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element extends BaseProtectedAccessPreInverseRemoveModel.Element implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
+public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element extends BaseProtectedAccessPreInverseRemoveModel.Element implements Disposable, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -51,12 +50,6 @@ public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element extends
 
   private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
-  }
-
-  @Override
-  @Nonnull
-  public Integer getArezId() {
-    return $$arezi$$_id();
   }
 
   private void $$arezi$$_preDispose() {

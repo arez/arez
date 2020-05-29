@@ -15,9 +15,7 @@ public final class IdentifiableIntegrationTest
   {
     final Model1 model = new IdentifiableIntegrationTest_Arez_Model1();
 
-    assertTrue( model instanceof Identifiable );
-    assertEquals( Identifiable.getArezId( model ), (Integer) 1 );
-    assertEquals( Identifiable.asIdentifiable( model ), model );
+    assertFalse( model instanceof Identifiable );
   }
 
   @Test

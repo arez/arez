@@ -116,7 +116,7 @@ public final class NullableObservableEagerReferenceIntegrationTest
     }
   }
 
-  @ArezComponent
+  @ArezComponent( requireId = Feature.ENABLE )
   static abstract class Model2
   {
     @Action

@@ -7,7 +7,6 @@ import arez.ComputableValue;
 import arez.Disposable;
 import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
-import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
@@ -15,7 +14,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-final class Arez_RawComputableValueParamOnActivateModel extends RawComputableValueParamOnActivateModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_RawComputableValueParamOnActivateModel extends RawComputableValueParamOnActivateModel implements Disposable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -37,12 +36,6 @@ final class Arez_RawComputableValueParamOnActivateModel extends RawComputableVal
 
   private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
-  }
-
-  @Override
-  @Nonnull
-  public Integer getArezId() {
-    return $$arezi$$_id();
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {

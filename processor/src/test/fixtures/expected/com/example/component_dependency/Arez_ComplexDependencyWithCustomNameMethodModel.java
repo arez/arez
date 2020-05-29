@@ -7,7 +7,6 @@ import arez.Disposable;
 import arez.ObservableValue;
 import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
-import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.Objects;
 import javax.annotation.Generated;
@@ -15,7 +14,7 @@ import javax.annotation.Nonnull;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_ComplexDependencyWithCustomNameMethodModel extends ComplexDependencyWithCustomNameMethodModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_ComplexDependencyWithCustomNameMethodModel extends ComplexDependencyWithCustomNameMethodModel implements Disposable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   private final ComponentKernel $$arezi$$_kernel;
@@ -45,12 +44,6 @@ final class Arez_ComplexDependencyWithCustomNameMethodModel extends ComplexDepen
 
   private int $$arezi$$_id() {
     return this.$$arezi$$_kernel.getId();
-  }
-
-  @Override
-  @Nonnull
-  public Integer getArezId() {
-    return $$arezi$$_id();
   }
 
   @Override
