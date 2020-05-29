@@ -3389,7 +3389,8 @@ final class ComponentGenerator
     final ComponentDescriptor component = observable.getComponent();
     final ExecutableElement getter = observable.getGetter();
     final List<String> additionalSuppressions = new ArrayList<>();
-    if ( TypesUtil.hasRawTypes( processingEnv, observable.getGetterType().getReturnType() ) && isCollectionType( getter ) )
+    if ( TypesUtil.hasRawTypes( processingEnv, observable.getGetterType().getReturnType() ) &&
+         isCollectionType( getter ) )
     {
       additionalSuppressions.add( "unchecked" );
     }
