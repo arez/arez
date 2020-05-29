@@ -46,8 +46,11 @@ public final class Component
   @Nullable
   @OmitSymbol( unless = "arez.enable_names" )
   private final String _name;
+  @Nonnull
   private final List<ObservableValue<?>> _observableValues = new ArrayList<>();
+  @Nonnull
   private final List<Observer> _observers = new ArrayList<>();
+  @Nonnull
   private final List<ComputableValue<?>> _computableValues = new ArrayList<>();
   /**
    * Hook action called just before the Component is disposed.
