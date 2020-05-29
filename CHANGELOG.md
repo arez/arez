@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.181'
 * Explicitly specify `requireId = Feature.DISABLE` parameter on `@ArezComponent` annotations as the default behaviour will change in the next version of arez.
 
 ### [v0.105](https://github.com/arez/arez-promise/tree/v0.105) (2020-05-26) · [Full Changelog](https://github.com/arez/arez-promise/compare/v0.104...v0.105)
