@@ -14,8 +14,6 @@ complete as there is too much un-said.
 * Add to build process so that every published packaged is attempted to be built using bazel to
   ensure it's dependencies align. Should also include something like [jvm-classpath-validator](https://github.com/or-shachar/jvm-classpath-validator)
 
-* Move some of the data driven tests in annotation processor so data in properties files.
-
 * Remove the need for enhanced component classes to ever be public by generating a sidecar public class for
   inverse references.
 
