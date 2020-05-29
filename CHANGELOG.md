@@ -2,6 +2,9 @@
 
 ### Unreleased
 
+### [v0.68](https://github.com/arez/arez-dom/tree/v0.68) (2020-05-29) · [Full Changelog](https://github.com/arez/arez-dom/compare/v0.67...v0.68)
+
+* Update the 'org.realityforge.arez' dependencies to version '0.181'
 * Explicitly specify `requireId = Feature.DISABLE` parameter on `@ArezComponent` annotations as the default behaviour will change in the next version of arez.
 
 ### [v0.67](https://github.com/arez/arez-dom/tree/v0.67) (2020-05-26) · [Full Changelog](https://github.com/arez/arez-dom/compare/v0.66...v0.67)
