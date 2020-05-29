@@ -1,5 +1,6 @@
 package arez.dom;
 
+import java.util.Objects;
 import javaemul.internal.annotations.DoNotAutobox;
 import javax.annotation.Nullable;
 
@@ -122,5 +123,11 @@ public final class Position
     {
       return false;
     }
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return Objects.hash( _latitude, _longitude );
   }
 }
