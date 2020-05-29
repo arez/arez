@@ -3,6 +3,7 @@ package arez.promise;
 import arez.Arez;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
+import arez.annotations.Feature;
 import arez.annotations.Observable;
 import elemental2.promise.IThenable;
 import elemental2.promise.Promise;
@@ -44,7 +45,7 @@ import static org.realityforge.braincheck.Guards.*;
  * @param <T> the type of the value that the promise will resolve to.
  * @param <E> the type of the error if the promise is rejected.
  */
-@ArezComponent
+@ArezComponent( requireId = Feature.DISABLE )
 public abstract class ObservablePromise<T, E>
 {
   /**
