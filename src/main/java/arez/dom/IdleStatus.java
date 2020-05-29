@@ -54,7 +54,7 @@ import javax.annotation.Nonnull;
  * }
  * }</pre>
  */
-@ArezComponent
+@ArezComponent( requireId = Feature.DISABLE )
 public abstract class IdleStatus
 {
   private static final long DEFAULT_TIMEOUT = 2000L;

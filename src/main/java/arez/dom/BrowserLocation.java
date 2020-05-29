@@ -5,6 +5,7 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComputableValueRef;
 import arez.annotations.DepType;
+import arez.annotations.Feature;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
@@ -19,7 +20,7 @@ import javax.annotation.Nonnull;
  * This is a simple abstraction over browser location as a hash.
  * The model exposes the observable values for the location as the application sees it via
  * {@link #getLocation()}, the way the browser sees it via {@link #getBrowserLocation()}.
- * The application code should define an autorun that monitors the location as the browser
+ * The application code should define an observer that monitors the location as the browser
  * sees it and update the location as the application sees it via {@link #changeLocation(String)}
  * if the browser location is valid. Otherwise the browser location should be reset to the application
  * location.
@@ -29,7 +30,7 @@ import javax.annotation.Nonnull;
  * the view. Observing the browser location will allow the application to decide whether the
  * route should be updated.</p>
  */
-@ArezComponent
+@ArezComponent( requireId = Feature.DISABLE )
 public abstract class BrowserLocation
 {
   @Nonnull

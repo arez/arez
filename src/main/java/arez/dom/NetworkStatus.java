@@ -5,6 +5,7 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComputableValueRef;
 import arez.annotations.DepType;
+import arez.annotations.Feature;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
@@ -47,7 +48,7 @@ import javax.annotation.Nonnull;
  * }
  * }</pre>
  */
-@ArezComponent
+@ArezComponent( requireId = Feature.DISABLE )
 public abstract class NetworkStatus
 {
   @Nonnull
