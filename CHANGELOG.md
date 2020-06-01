@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Improve the error message when a `@CascadeDispose` annotated field has a type that is annotated by `@ArezComponent(disposeNotifier=DISABLE)`
+
 ### [v0.181](https://github.com/arez/arez/tree/v0.181) (2020-05-29) · [Full Changelog](https://github.com/arez/arez/compare/v0.180...v0.181)
 
 Changes in this release:

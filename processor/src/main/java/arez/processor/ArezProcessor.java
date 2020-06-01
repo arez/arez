@@ -1005,9 +1005,9 @@ public final class ArezProcessor
         null;
       if ( null == value || !isDisposableTrackableRequired( typeElement ) )
       {
-        //The type of the field must implement {@link arez.Disposable} or must be annotated by {@link ArezComponent}
         throw new ProcessorException( "@CascadeDispose target must be assignable to " +
-                                      Constants.DISPOSABLE_CLASSNAME + " or a type annotated with @ArezComponent",
+                                      Constants.DISPOSABLE_CLASSNAME + " or a type annotated with the @ArezComponent " +
+                                      "annotation where the disposeNotifier does not resolve to DISABLE",
                                       field );
       }
     }
