@@ -1816,10 +1816,13 @@ public final class ArezContext
     T result;
     try
     {
-      if ( willPropagateSpyEvents() && generateActionEvents )
+      if ( Arez.areSpiesEnabled() && generateActionEvents )
       {
         startedAt = System.currentTimeMillis();
-        reportActionStarted( name, parameters, observe );
+        if ( willPropagateSpyEvents() )
+        {
+          reportActionStarted( name, parameters, observe );
+        }
       }
       verifyActionNestingAllowed( name, observer );
       if ( canImmediatelyInvokeAction( flags ) )
@@ -1890,10 +1893,13 @@ public final class ArezContext
     T result;
     try
     {
-      if ( willPropagateSpyEvents() && generateActionEvents )
+      if ( Arez.areSpiesEnabled() && generateActionEvents )
       {
         startedAt = System.currentTimeMillis();
-        reportActionStarted( name, parameters, observed );
+        if ( willPropagateSpyEvents() )
+        {
+          reportActionStarted( name, parameters, observed );
+        }
       }
       verifyActionNestingAllowed( name, observer );
       if ( canImmediatelyInvokeAction( flags ) )
