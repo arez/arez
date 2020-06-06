@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.braincheck` artifact to version `1.29.0`.
+
 ### [v0.106](https://github.com/arez/arez-promise/tree/v0.106) (2020-05-29) · [Full Changelog](https://github.com/arez/arez-promise/compare/v0.105...v0.106)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.181'
