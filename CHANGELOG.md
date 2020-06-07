@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.sting` artifacts to version `0.16`.
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.29.0`.
 * Improve the error message when a `@CascadeDispose` annotated field has a type that is annotated by `@ArezComponent(disposeNotifier=DISABLE)`
 * Avoid invariant failure when generating an `ActionCompleted` for an `@Action` that enables spy events within the action code and spies are enabled.
