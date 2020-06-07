@@ -1,6 +1,6 @@
 # Change Log
 
-### Unreleased
+### [v0.14](https://github.com/arez/arez-testng/tree/v0.14) (2020-06-07) · [Full Changelog](https://github.com/arez/arez-testng/compare/v0.13...v0.14)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.182'
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.29.0`.
