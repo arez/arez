@@ -30,7 +30,6 @@ import java.lang.annotation.Target;
  * <li>Must return a value</li>
  * <li>Must not be private</li>
  * <li>Must not be static</li>
- * <li>Must be final</li>
  * <li>Must not be abstract</li>
  * <li>Must not throw exceptions</li>
  * <li>Must be accessible to the class annotated by the {@link ArezComponent} annotation.</li>

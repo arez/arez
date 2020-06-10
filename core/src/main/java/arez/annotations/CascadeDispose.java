@@ -16,7 +16,6 @@ import java.lang.annotation.Target;
  * <p>If the element annotated is a method then the method must comply with the additional constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation other than {@link Reference} or {@link Observable}</li>
- * <li>Must be final</li>
  * <li>Must have 0 parameters</li>
  * <li>The type of the field must implement {@link arez.Disposable} or must be annotated by {@link ArezComponent}</li>
  * <li>Must not be private</li>
