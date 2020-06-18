@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Upgrade the `com.squareup:javapoet` artifact to version `1.13.0`.
+
 ### [v0.182](https://github.com/arez/arez/tree/v0.182) (2020-06-07) · [Full Changelog](https://github.com/arez/arez/compare/v0.181...v0.182)
 
 Changes in this release:
