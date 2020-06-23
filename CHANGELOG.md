@@ -1,6 +1,6 @@
 # Change Log
 
-### Unreleased
+### [v0.15](https://github.com/arez/arez-testng/tree/v0.15) (2020-06-23) · [Full Changelog](https://github.com/arez/arez-testng/compare/v0.14...v0.15)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.183'
 
