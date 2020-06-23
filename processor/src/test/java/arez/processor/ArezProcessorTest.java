@@ -45,6 +45,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.cascade_dispose.ComponentCascadeDisposeModel" },
         new Object[]{ "com.example.cascade_dispose.ComponentCascadeDisposeMethodModel" },
         new Object[]{ "com.example.cascade_dispose.DisposableCascadeDisposeModel" },
+        new Object[]{ "com.example.cascade_dispose.DisposeNotifierDisabledCascadeDisposeModel" },
         new Object[]{ "com.example.cascade_dispose.DisposableCascadeDisposeMethodModel" },
         new Object[]{ "com.example.cascade_dispose.NonStandardNameCascadeDisposeMethodModel" },
         new Object[]{ "com.example.cascade_dispose.NonStandardNameDisposableCascadeDisposeModel" },

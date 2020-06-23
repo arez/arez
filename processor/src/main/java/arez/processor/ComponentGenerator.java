@@ -287,9 +287,12 @@ final class ComponentGenerator
     {
       builder.addMethod( buildInternalPreDispose( component ) );
     }
-    if ( component.isDisposeNotifier() )
+    if ( hasInternalPreDispose( component ) || component.isDisposeNotifier() )
     {
       builder.addMethod( buildNativeComponentPreDispose( component ) );
+    }
+    if ( component.isDisposeNotifier() )
+    {
       builder.addMethod( buildAddOnDisposeListener() );
       builder.addMethod( buildRemoveOnDisposeListener() );
     }
@@ -1238,7 +1241,6 @@ final class ComponentGenerator
   private static MethodSpec buildNativeComponentPreDispose( @Nonnull final ComponentDescriptor component )
     throws ProcessorException
   {
-    assert component.isDisposeNotifier();
     final MethodSpec.Builder builder =
       MethodSpec.methodBuilder( INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME ).
         addModifiers( Modifier.PRIVATE );
@@ -1263,7 +1265,10 @@ final class ComponentGenerator
         }
       }
     }
-    builder.addStatement( "this.$N.notifyOnDisposeListeners()", KERNEL_FIELD_NAME );
+    if ( component.isDisposeNotifier() )
+    {
+      builder.addStatement( "this.$N.notifyOnDisposeListeners()", KERNEL_FIELD_NAME );
+    }
 
     return builder.build();
   }
@@ -1605,20 +1610,17 @@ final class ComponentGenerator
     params.add( component.getName() );
     params.add( ID_VAR_NAME );
     params.add( NAME_VAR_NAME );
-    if ( component.isDisposeNotifier() ||
+    final boolean hasInternalPreDispose = hasInternalPreDispose( component );
+    if ( hasInternalPreDispose ||
+         component.isDisposeNotifier() ||
          !component.getPreDisposes().isEmpty() ||
          !component.getPostDisposes().isEmpty() )
     {
       sb.append( ", " );
-      if ( component.isDisposeNotifier() )
+      if ( hasInternalPreDispose || component.isDisposeNotifier() )
       {
         sb.append( "this::$N" );
         params.add( INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME );
-      }
-      else if ( hasInternalPreDispose( component ) )
-      {
-        sb.append( "this::$N" );
-        params.add( INTERNAL_PRE_DISPOSE_METHOD_NAME );
       }
       else if ( 1 == component.getPreDisposes().size() )
       {

@@ -4,6 +4,7 @@
 
 * Upgrade the `com.squareup:javapoet` artifact to version `1.13.0`.
 * Migrate to the official `com.google.elemental2` artifact version `1.1.0`.
+* Fix a bug where a component that specified `@ArezComponent( disposeNotifier = Feature.DISABLE )` and also had a `@CascadeDispose` annotated element would not have the `@CascadeDispose` invoked when native components were enabled.
 
 ### [v0.182](https://github.com/arez/arez/tree/v0.182) (2020-06-07) · [Full Changelog](https://github.com/arez/arez/compare/v0.181...v0.182)
 
