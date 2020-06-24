@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Add invariant checks to ensure that `getArezId()`, `addOnDisposeListener(...)`, `removeOnDisposeListener(...)`, `observe()`, `dispose()`, `isDisposed()`, `link()` and `verify()` are not invoked before the component is sufficiently initialized.
+
 ### [v0.183](https://github.com/arez/arez/tree/v0.183) (2020-06-23) · [Full Changelog](https://github.com/arez/arez/compare/v0.182...v0.183)
 
 Changes in this release:

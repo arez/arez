@@ -43,6 +43,12 @@ final class Arez_WriteOutsideTransactionEnabledObservableModel extends WriteOuts
   @Override
   @Nonnull
   public Integer getArezId() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'WriteOutsideTransactionEnabledObservableModel'" );
+    }
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'getArezId' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
+    }
     return $$arezi$$_id();
   }
 
@@ -52,21 +58,42 @@ final class Arez_WriteOutsideTransactionEnabledObservableModel extends WriteOuts
 
   @Override
   public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'WriteOutsideTransactionEnabledObservableModel'" );
+    }
     this.$$arezi$$_kernel.addOnDisposeListener( key, action );
   }
 
   @Override
   public void removeOnDisposeListener(@Nonnull final Object key) {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'WriteOutsideTransactionEnabledObservableModel'" );
+    }
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
+    }
     this.$$arezi$$_kernel.removeOnDisposeListener( key );
   }
 
   @Override
   public boolean isDisposed() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'isDisposed' invoked on uninitialized component of type 'WriteOutsideTransactionEnabledObservableModel'" );
+    }
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'isDisposed' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
+    }
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
   public void dispose() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'dispose' invoked on uninitialized component of type 'WriteOutsideTransactionEnabledObservableModel'" );
+    }
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'dispose' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
+    }
     this.$$arezi$$_kernel.dispose();
   }
 

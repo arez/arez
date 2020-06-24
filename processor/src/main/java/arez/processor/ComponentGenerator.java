@@ -281,7 +281,7 @@ final class ComponentGenerator
 
     if ( component.isObservable() )
     {
-      builder.addMethod( buildObserve() );
+      builder.addMethod( buildObserve( component ) );
     }
     if ( hasInternalPreDispose( component ) )
     {
@@ -293,15 +293,15 @@ final class ComponentGenerator
     }
     if ( component.isDisposeNotifier() )
     {
-      builder.addMethod( buildAddOnDisposeListener() );
-      builder.addMethod( buildRemoveOnDisposeListener() );
+      builder.addMethod( buildAddOnDisposeListener( component ) );
+      builder.addMethod( buildRemoveOnDisposeListener( component ) );
     }
     if ( component.hasInternalPostDispose() )
     {
       builder.addMethod( buildInternalPostDispose( component ) );
     }
-    builder.addMethod( buildIsDisposed() );
-    builder.addMethod( buildDispose() );
+    builder.addMethod( buildIsDisposed( component ) );
+    builder.addMethod( buildDispose( component ) );
     if ( component.needsInternalDispose() )
     {
       builder.addMethod( buildInternalDispose( component ) );
@@ -1060,12 +1060,16 @@ final class ComponentGenerator
                                                @Nonnull final ComponentDescriptor component )
     throws ProcessorException
   {
-    final MethodSpec.Builder method = MethodSpec.methodBuilder( "getArezId" ).
+    final String methodName = "getArezId";
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
       addAnnotation( Override.class ).
       addAnnotation( GeneratorUtil.NONNULL_CLASSNAME ).
       addModifiers( Modifier.PUBLIC ).
-      returns( component.getIdType().box() ).
-      addStatement( "return $N()", component.getIdMethodName() );
+      returns( component.getIdType().box() );
+    generateNotInitializedInvariant( component, method, methodName );
+    generateNotConstructedInvariant( method, methodName );
+    method.addStatement( "return $N()", component.getIdMethodName() );
+
     final ExecutableElement componentId = component.getComponentId();
     if ( null != componentId )
     {
@@ -1093,12 +1097,15 @@ final class ComponentGenerator
   @Nonnull
   private static MethodSpec buildVerify( @Nonnull final ComponentDescriptor component )
   {
-    final MethodSpec.Builder builder =
-      MethodSpec.methodBuilder( "verify" ).
+    final String methodName = "verify";
+    final MethodSpec.Builder method =
+      MethodSpec.methodBuilder( methodName ).
         addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class );
 
-    generateNotDisposedInvariant( builder, "verify" );
+    generateNotInitializedInvariant( component, method, methodName );
+    generateNotConstructedInvariant( method, methodName );
+    generateNotDisposedInvariant( method, methodName );
 
     if ( !component.getReferences().isEmpty() || !component.getInverses().isEmpty() )
     {
@@ -1130,20 +1137,24 @@ final class ComponentGenerator
       }
 
       block.endControlFlow();
-      builder.addCode( block.build() );
+      method.addCode( block.build() );
     }
-    return builder.build();
+    return method.build();
   }
 
   @Nonnull
   private static MethodSpec buildLink( @Nonnull final ComponentDescriptor component )
   {
-    final MethodSpec.Builder builder =
-      MethodSpec.methodBuilder( "link" ).
+    final String methodName = "link";
+    final MethodSpec.Builder method =
+      MethodSpec.methodBuilder( methodName ).
         addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class );
 
-    generateNotDisposedInvariant( builder, "link" );
+    generateNotInitializedInvariant( component, method, methodName );
+    generateNotConstructedInvariant( method, methodName );
+
+    generateNotDisposedInvariant( method, methodName );
 
     final List<ReferenceDescriptor> explicitReferences =
       component.getReferences().values()
@@ -1152,26 +1163,30 @@ final class ComponentGenerator
         .collect( Collectors.toList() );
     for ( final ReferenceDescriptor reference : explicitReferences )
     {
-      builder.addStatement( "this.$N()", reference.getLinkMethodName() );
+      method.addStatement( "this.$N()", reference.getLinkMethodName() );
     }
-    return builder.build();
+    return method.build();
   }
 
   /**
    * Generate the dispose method.
    */
   @Nonnull
-  private static MethodSpec buildDispose()
+  private static MethodSpec buildDispose( @Nonnull final ComponentDescriptor component )
     throws ProcessorException
   {
-    final MethodSpec.Builder builder =
-      MethodSpec.methodBuilder( "dispose" ).
+    final String methodName = "dispose";
+    final MethodSpec.Builder method =
+      MethodSpec.methodBuilder( methodName ).
         addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class );
 
-    builder.addStatement( "this.$N.dispose()", KERNEL_FIELD_NAME );
+    generateNotInitializedInvariant( component, method, methodName );
+    generateNotConstructedInvariant( method, methodName );
 
-    return builder.build();
+    method.addStatement( "this.$N.dispose()", KERNEL_FIELD_NAME );
+
+    return method.build();
   }
 
   @Nonnull
@@ -1205,33 +1220,41 @@ final class ComponentGenerator
    * Generate the isDisposed method.
    */
   @Nonnull
-  private static MethodSpec buildIsDisposed()
+  private static MethodSpec buildIsDisposed( @Nonnull final ComponentDescriptor component )
     throws ProcessorException
   {
-    final MethodSpec.Builder builder =
-      MethodSpec.methodBuilder( "isDisposed" ).
+    final String methodName = "isDisposed";
+    final MethodSpec.Builder method =
+      MethodSpec.methodBuilder( methodName ).
         addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class ).
         returns( TypeName.BOOLEAN );
 
-    builder.addStatement( "return this.$N.isDisposed()", KERNEL_FIELD_NAME );
-    return builder.build();
+    generateNotInitializedInvariant( component, method, methodName );
+    generateNotConstructedInvariant( method, methodName );
+
+    method.addStatement( "return this.$N.isDisposed()", KERNEL_FIELD_NAME );
+    return method.build();
   }
 
   /**
    * Generate the observe method.
    */
   @Nonnull
-  private static MethodSpec buildObserve()
+  private static MethodSpec buildObserve( @Nonnull final ComponentDescriptor component )
     throws ProcessorException
   {
-    final MethodSpec.Builder builder =
-      MethodSpec.methodBuilder( "observe" ).
+    final String methodName = "observe";
+    final MethodSpec.Builder method =
+      MethodSpec.methodBuilder( methodName ).
         addModifiers( Modifier.PUBLIC ).
         addAnnotation( Override.class ).
         returns( TypeName.BOOLEAN );
-    builder.addStatement( "return this.$N.observe()", KERNEL_FIELD_NAME );
-    return builder.build();
+    generateNotInitializedInvariant( component, method, methodName );
+    generateNotConstructedInvariant( method, methodName );
+
+    method.addStatement( "return this.$N.observe()", KERNEL_FIELD_NAME );
+    return method.build();
   }
 
   /**
@@ -1409,10 +1432,11 @@ final class ComponentGenerator
    * Generate the addOnDisposeListener method.
    */
   @Nonnull
-  private static MethodSpec buildAddOnDisposeListener()
+  private static MethodSpec buildAddOnDisposeListener( @Nonnull final ComponentDescriptor component )
     throws ProcessorException
   {
-    return MethodSpec.methodBuilder( "addOnDisposeListener" ).
+    final String methodName = "addOnDisposeListener";
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
       addModifiers( Modifier.PUBLIC ).
       addAnnotation( Override.class ).
       addParameter( ParameterSpec.builder( TypeName.OBJECT, "key", Modifier.FINAL )
@@ -1420,24 +1444,30 @@ final class ComponentGenerator
                       .build() ).
       addParameter( ParameterSpec.builder( SAFE_PROCEDURE_CLASSNAME, "action", Modifier.FINAL )
                       .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
-                      .build() ).
-      addStatement( "this.$N.addOnDisposeListener( key, action )", KERNEL_FIELD_NAME ).build();
+                      .build() );
+    generateNotInitializedInvariant( component, method, methodName );
+    method.addStatement( "this.$N.addOnDisposeListener( key, action )", KERNEL_FIELD_NAME );
+    return method.build();
   }
 
   /**
    * Generate the removeOnDisposeListener method.
    */
   @Nonnull
-  private static MethodSpec buildRemoveOnDisposeListener()
+  private static MethodSpec buildRemoveOnDisposeListener( @Nonnull final ComponentDescriptor component )
     throws ProcessorException
   {
-    return MethodSpec.methodBuilder( "removeOnDisposeListener" ).
+    final String methodName = "removeOnDisposeListener";
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
       addModifiers( Modifier.PUBLIC ).
       addAnnotation( Override.class ).
       addParameter( ParameterSpec.builder( TypeName.OBJECT, "key", Modifier.FINAL )
                       .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
-                      .build() ).
-      addStatement( "this.$N.removeOnDisposeListener( key )", KERNEL_FIELD_NAME ).build();
+                      .build() );
+    generateNotInitializedInvariant( component, method, methodName );
+    generateNotConstructedInvariant( method, methodName );
+    method.addStatement( "this.$N.removeOnDisposeListener( key )", KERNEL_FIELD_NAME );
+    return method.build();
   }
 
   private static void buildComponentKernel( @Nonnull final ProcessingEnvironment processingEnv,

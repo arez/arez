@@ -8,6 +8,7 @@ import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
+import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 final class Arez_MultiPreDisposeNotDisposeNotifierModel extends MultiPreDisposeNotDisposeNotifierModel implements Disposable, Identifiable<Integer> {
@@ -33,6 +34,12 @@ final class Arez_MultiPreDisposeNotDisposeNotifierModel extends MultiPreDisposeN
   @Override
   @Nonnull
   public Integer getArezId() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'MultiPreDisposeNotDisposeNotifierModel'" );
+    }
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'getArezId' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
+    }
     return $$arezi$$_id();
   }
 
@@ -47,11 +54,23 @@ final class Arez_MultiPreDisposeNotDisposeNotifierModel extends MultiPreDisposeN
 
   @Override
   public boolean isDisposed() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'isDisposed' invoked on uninitialized component of type 'MultiPreDisposeNotDisposeNotifierModel'" );
+    }
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'isDisposed' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
+    }
     return this.$$arezi$$_kernel.isDisposed();
   }
 
   @Override
   public void dispose() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'dispose' invoked on uninitialized component of type 'MultiPreDisposeNotDisposeNotifierModel'" );
+    }
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'dispose' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
+    }
     this.$$arezi$$_kernel.dispose();
   }
 
