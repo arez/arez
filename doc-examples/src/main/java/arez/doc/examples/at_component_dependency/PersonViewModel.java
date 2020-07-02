@@ -18,7 +18,7 @@ public abstract class PersonViewModel
   final Person _person;
   //DOC ELIDE START
 
-  public PersonViewModel( @Nonnull final Person person )
+  PersonViewModel( @Nonnull final Person person )
   {
     _person = person;
   }

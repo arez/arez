@@ -16,7 +16,7 @@ public abstract class Group
   @Nonnull
   private String _name;
 
-  public Group( final int id, @Nonnull final String name )
+  Group( final int id, @Nonnull final String name )
   {
     _id = id;
     _name = Objects.requireNonNull( name );

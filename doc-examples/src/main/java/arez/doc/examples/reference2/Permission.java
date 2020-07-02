@@ -18,7 +18,7 @@ public abstract class Permission
   @Nonnull
   private String _name;
 
-  public Permission( final int id, final int groupId, @Nonnull final String name )
+  Permission( final int id, final int groupId, @Nonnull final String name )
   {
     _id = id;
     _groupId = groupId;

@@ -14,7 +14,7 @@ public abstract class User
   private String _name;
   private boolean _active;
 
-  public User( final int id, @Nonnull final String name )
+  User( final int id, @Nonnull final String name )
   {
     _id = id;
     _name = Objects.requireNonNull( name );

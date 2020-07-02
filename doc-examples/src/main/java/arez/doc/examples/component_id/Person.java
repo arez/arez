@@ -9,7 +9,7 @@ public abstract class Person
 {
   private final int _id;
 
-  public Person( final int id )
+  Person( final int id )
   {
     _id = id;
   }

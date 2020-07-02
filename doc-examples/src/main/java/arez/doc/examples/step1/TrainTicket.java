@@ -8,7 +8,7 @@ public abstract class TrainTicket
 {
   private int _remainingRides;
 
-  public TrainTicket( int remainingRides )
+  TrainTicket( int remainingRides )
   {
     _remainingRides = remainingRides;
   }
