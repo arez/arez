@@ -7,7 +7,7 @@ public abstract class ObservableWithCtorModel
 {
   private long _time;
 
-  public ObservableWithCtorModel( final long time )
+  ObservableWithCtorModel( final long time )
   {
     _time = time;
   }

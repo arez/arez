@@ -12,6 +12,7 @@ public abstract class BasicModelWithDifferentAccessLevels
   {
   }
 
+  @SuppressWarnings( "Arez:PublicConstructor" )
   public BasicModelWithDifferentAccessLevels( final String value, final long time )
   {
     _value = value;

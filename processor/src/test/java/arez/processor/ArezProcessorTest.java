@@ -55,7 +55,6 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.component.NoRequireEqualsModel" },
         new Object[]{ "com.example.component.NotObservableModel" },
         new Object[]{ "com.example.component.ObservableModel" },
-        new Object[]{ "com.example.component.PublicCtorNonPublicModel" },
         new Object[]{ "com.example.collections.AbstractCollectionObservableModel" },
         new Object[]{ "com.example.collections.AbstractListObservableModel" },
         new Object[]{ "com.example.collections.AbstractMapObservableModel" },
@@ -2012,6 +2011,10 @@ public final class ArezProcessorTest
       {
         new Object[]{ "com.example.component.AllowEmptyOnNonEmptyComponent",
                       "@ArezComponent target has specified allowEmpty = true but has methods annotated with @Action, @CascadeDispose, @Memoize, @Observable, @Inverse, @Reference, @ComponentDependency or @Observe" },
+        new Object[]{ "com.example.component.PublicCtorModel",
+                      "@ArezComponent target should not have a public constructor. It is recommended that a static create method be added to the component that is responsible for instantiating the arez implementation class. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicConstructor\" ) or @SuppressArezWarnings( \"Arez:PublicConstructor\" )" },
+        new Object[]{ "com.example.component.PublicCtorNonPublicModel",
+                      "@ArezComponent target should not have a public constructor. It is recommended that a static create method be added to the component that is responsible for instantiating the arez implementation class. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicConstructor\" ) or @SuppressArezWarnings( \"Arez:PublicConstructor\" )" },
         new Object[]{ "com.example.component.UnmanagedActAsComponentReference",
                       "Field named '_myComponent' has a type that is annotated with @ActAsComponent but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency and was not passed in via the constructor. This scenario can cause Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
         new Object[]{ "com.example.component.UnmanagedComponentReference",
@@ -2035,7 +2038,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.component.UnnecessaryDefaultWriteOutsideTransactionComponentModel",
                       "@ArezComponent target has specified a value for the defaultWriteOutsideTransaction parameter but does not contain any methods annotated with @Observable. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:UnnecessaryDefault\" ) or @SuppressArezWarnings( \"Arez:UnnecessaryDefault\" )" },
         new Object[]{ "com.example.component.ProtectedCtorModel",
-                      "@ArezComponent target should have a public or package access constructor. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedConstructor\" ) or @SuppressArezWarnings( \"Arez:ProtectedConstructor\" )" },
+                      "@ArezComponent target should have a package access constructor. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedConstructor\" ) or @SuppressArezWarnings( \"Arez:ProtectedConstructor\" )" },
         new Object[]{ "com.example.component.ProtectedDaggerCtorModel",
                       "@ArezComponent target should have a package access constructor. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedConstructor\" ) or @SuppressArezWarnings( \"Arez:ProtectedConstructor\" )" },
 

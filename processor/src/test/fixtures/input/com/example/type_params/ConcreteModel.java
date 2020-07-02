@@ -8,17 +8,17 @@ import java.io.Writer;
 abstract class ConcreteModel<W extends Writer>
   extends MiddleModel<W>
 {
-  public ConcreteModel( final W writer )
+  ConcreteModel( final W writer )
   {
     super( writer );
   }
 
-  public ConcreteModel( final IOException error )
+  ConcreteModel( final IOException error )
   {
     super( error );
   }
 
-  public ConcreteModel( final IOException error, final W writer, final int i )
+  ConcreteModel( final IOException error, final W writer, final int i )
   {
     super( error, writer, i );
   }

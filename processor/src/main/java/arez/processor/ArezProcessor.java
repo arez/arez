@@ -903,23 +903,25 @@ public final class ArezProcessor
                                       "type int.", element );
       }
     }
-    if ( component.isDaggerEnabled() || component.isStingEnabled() )
+    for ( final ExecutableElement constructor : ElementsUtil.getConstructors( element ) )
     {
-      for ( final ExecutableElement constructor : ElementsUtil.getConstructors( element ) )
+      if ( ElementsUtil.isNotSynthetic( constructor ) &&
+           constructor.getModifiers().contains( Modifier.PUBLIC ) &&
+           ElementsUtil.isWarningNotSuppressed( constructor, Constants.WARNING_PUBLIC_CONSTRUCTOR ) )
       {
-        if ( ElementsUtil.isNotSynthetic( constructor ) &&
-             constructor.getModifiers().contains( Modifier.PUBLIC ) &&
-             ElementsUtil.isWarningNotSuppressed( constructor, Constants.WARNING_PUBLIC_CONSTRUCTOR ) )
-        {
-          final String message =
-            MemberChecks.shouldNot( Constants.COMPONENT_CLASSNAME,
-                                    "have a public constructor. The type is instantiated by the " +
-                                    ( component.isDaggerEnabled() ? "dagger" : "sting" ) +
-                                    " injection framework and should have a package-access constructor. " +
-                                    MemberChecks.suppressedBy( Constants.WARNING_PUBLIC_CONSTRUCTOR,
-                                                               Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) );
-          processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message, constructor );
-        }
+        final String instruction =
+          component.isDaggerEnabled() || component.isStingEnabled() ?
+          "The type is instantiated by the " + ( component.isDaggerEnabled() ? "dagger" : "sting" ) +
+          " injection framework and should have a package-access constructor. " :
+          "It is recommended that a static create method be added to the component that is responsible " +
+          "for instantiating the arez implementation class. ";
+
+        final String message =
+          MemberChecks.shouldNot( Constants.COMPONENT_CLASSNAME,
+                                  "have a public constructor. " + instruction +
+                                  MemberChecks.suppressedBy( Constants.WARNING_PUBLIC_CONSTRUCTOR,
+                                                             Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) );
+        processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message, constructor );
       }
     }
     if ( component.isDaggerEnabled() && !element.getModifiers().contains( Modifier.PUBLIC ) )
@@ -2193,8 +2195,8 @@ public final class ArezProcessor
       {
         final String message =
           MemberChecks.should( Constants.COMPONENT_CLASSNAME,
-                               "have a " + ( dagger || sting ? "" : "public or " ) + "package access " +
-                               "constructor. " + suppressedBy( Constants.WARNING_PROTECTED_CONSTRUCTOR ) );
+                               "have a package access constructor. " +
+                               suppressedBy( Constants.WARNING_PROTECTED_CONSTRUCTOR ) );
         processingEnv.getMessager().printMessage( WARNING, message, constructor );
       }
       verifyConstructorParameters( constructor, dagger, sting );

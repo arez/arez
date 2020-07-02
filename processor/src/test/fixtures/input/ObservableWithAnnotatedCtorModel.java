@@ -10,9 +10,9 @@ public abstract class ObservableWithAnnotatedCtorModel
   {
   }
 
-  public ObservableWithAnnotatedCtorModel( final long time,
-                                           @DoNotCopyThisAnnotation final long other,
-                                           @Nonnull final String foo )
+  ObservableWithAnnotatedCtorModel( final long time,
+                                    @DoNotCopyThisAnnotation final long other,
+                                    @Nonnull final String foo )
   {
   }
 
