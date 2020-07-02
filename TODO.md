@@ -19,7 +19,7 @@ complete as there is too much un-said.
 
 * Support multiple instances of `@OnDepsChange`
 
-* `@ComponentDependency`/`@CascadeDispsoe` fields should not be public or protected and in same class
+* `@ComponentDependency`/`@CascadeDispose` fields should not be public or protected and in same class
 
 * Add integration test that verifies the sequencing of all the calls when multiple lifecycle steps present.
   Particularly when some are from parent classes and/or types.
