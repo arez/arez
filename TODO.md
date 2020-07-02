@@ -99,12 +99,6 @@ complete as there is too much un-said.
       Currently the Arez API does not expose a flag indicating whether computableValues are observed and not possible
       to implement the first strategy even though it may seem to be the right one.
 
-## Js Core integration
-
-* Consider bringing back `ObservablePromise` into core of library. Should also consider a utility
-  `LazyObservablePromise` that accepts a factory method that creates a promise. The factory is invoked
-  on activation to create promise and then nulled when deactivated.
-
 ## Process
 
 * A future version of BuildDownstream should only push out changes to downstream libraries IFF there already exists
