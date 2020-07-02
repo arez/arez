@@ -105,14 +105,6 @@ complete as there is too much un-said.
   `LazyObservablePromise` that accepts a factory method that creates a promise. The factory is invoked
   on activation to create promise and then nulled when deactivated.
 
-## J2CL Integration
-
-* Arez works well under GWT2.x but would work MUCH better under J2CL but the build infrastructure is not quite
-  there yet. We have created [bazel-depgen](https://github.com/realityforge/bazel-depgen) to manage dependencies
-  from maven but it would be nice to have a tool that automatically created fine-grain `java_library` rules from
-  maven-ish modules. We could even hava J2CL-CLI project that drives this whole process similar to how
-  [Angular CLI](https://github.com/angular/angular/issues/19058) works.
-
 ## Process
 
 * A future version of BuildDownstream should only push out changes to downstream libraries IFF there already exists
