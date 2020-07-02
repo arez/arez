@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.184](https://github.com/arez/arez/tree/v0.184) (2020-07-02) · [Full Changelog](https://github.com/arez/arez/compare/v0.183...v0.184)
+
+Changes in this release:
 
 * Add invariant checks to ensure that `getArezId()`, `addOnDisposeListener(...)`, `removeOnDisposeListener(...)`, `observe()`, `dispose()`, `isDisposed()`, `link()` and `verify()` are not invoked before the component is sufficiently initialized.
 * Generate a suppressable warning if an arez component has a public or protected constructor. It is expected that instances of arez components are either created via injection frameworks such as dagger or sting or are instantiated within the package.
