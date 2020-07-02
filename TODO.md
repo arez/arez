@@ -16,7 +16,7 @@ complete as there is too much un-said.
 * Change `@ArezComponent.service` to `@ArezComponent.kind` and give it possible values of `SERVICE`, `ENTITY` and `COMPONENT` which change the defaults on the component. Alternatively support alternative annotations such as `@Component`, `@Entity` and `@Service`
 
 * Add to build process so that every published packaged is attempted to be built using bazel to
-  ensure it's dependencies align. Should also include something like [jvm-classpath-validator](https://github.com/or-shachar/jvm-classpath-validator)
+  ensure it's dependencies align.
 
 * Remove the need for enhanced component classes to ever be public by generating a sidecar public class for
   inverse references.
