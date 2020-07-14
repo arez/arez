@@ -6,6 +6,8 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* `@Memoize( depType = DepType.AREZ_OR_EXTERNAL )` requires paired `@ComputableValueRef` method even if `ComputableValue` passed into `@OnActivate` method.
+
 * We should support both `@ComponentDependency` and `@CascadeDispose` on the same field/method as sometimes components are co-dependt and cascade disposes may come from dependencies in these components.
 
 * We should gracefully handle multiple dependencies from the same component to another component as sometimes it is not easy to statically determine that there will be a duplicate.
