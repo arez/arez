@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Add the `react4j-webspeechdemo` to the variants tracked as part of the release process.
+
 ### [v0.184](https://github.com/arez/arez/tree/v0.184) (2020-07-02) · [Full Changelog](https://github.com/arez/arez/compare/v0.183...v0.184)
 
 Changes in this release:
