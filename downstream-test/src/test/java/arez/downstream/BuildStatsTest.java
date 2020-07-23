@@ -69,6 +69,13 @@ public final class BuildStatsTest
     compareSizesForBranch( "webspeechdemo", false );
   }
 
+  @Test
+  public void heartRateMonitor()
+    throws Exception
+  {
+    compareSizesForBranch( "heart-rate-monitor", false );
+  }
+
   private void compareSizesForBranch( @Nonnull final String branch, final boolean includeBranchInFixtureKey )
     throws Exception
   {
