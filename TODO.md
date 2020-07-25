@@ -134,7 +134,3 @@ When we get to a stable release candidate we need to action the following items:
 * Performance testing and writeup?
 
 * Add Disposable to doco - i.e. explain how can dispose both components and reactive elements
-
-* Change the documentation for the peer projects so that the `README.md` is converted into a package summary
-  page in javadocs. Thus the README == the project documentation. We would need to link from README to the specific
-  deployed page. Could do this by using qualified url in README and gsubing when converting to html.
