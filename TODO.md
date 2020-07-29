@@ -131,6 +131,4 @@ When we get to a stable release candidate we need to action the following items:
 
 * Document lifecycle of component. i.e. The order of operations
 
-* Performance testing and writeup?
-
 * Add Disposable to doco - i.e. explain how can dispose both components and reactive elements
