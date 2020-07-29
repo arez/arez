@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.185](https://github.com/arez/arez/tree/v0.185) (2020-07-29) · [Full Changelog](https://github.com/arez/arez/compare/v0.184...v0.185)
+
+Changes in this release:
 
 * Add the `react4j-webspeechdemo` to the variants tracked as part of the release process.
 * Add the `react4j-heart-rate-monitor` to the variants tracked as part of the release process.
