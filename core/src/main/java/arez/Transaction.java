@@ -782,7 +782,7 @@ final class Transaction
            * ComputedValue depends on the "observableValue" parameter that is being
            * processed now. For this reason we skip the next check for ComputableValue instances.
            *
-           * It can also happen if the observer observes a lower priority ComputableValue and the observer
+           * It can also happen if the observer observes a lower or same priority ComputableValue and the observer
            * is marked as STALE and the ComputableValue marked as POSSIBLY_STALE (but will become STALE).
            * The observer will react first and will be marked as UP_TO_DATE while the ComputableValue will
            * react second.
@@ -790,7 +790,7 @@ final class Transaction
           if ( Arez.shouldCheckInvariants() &&
                !observer.isComputableValue() &&
                !( observableValue.isComputableValue() &&
-                  observer.getTask().getPriorityIndex() < observableValue.getObserver().getTask().getPriorityIndex() ) )
+                  observer.getTask().getPriorityIndex() <= observableValue.getObserver().getTask().getPriorityIndex() ) )
           {
             invariantObserverIsTracker( observableValue, observer );
           }

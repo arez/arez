@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Remove an invariant failure that occurs when an `Observer` is observing a `ComputableValue`, both have the same priority, the `Observer` is marked as `STALE` and the `ComputableValue` is marked as `POSSIBLY_STALE` and the observer reacts first and is updated to `UP_TO_DATE` before the `ComputableValue` can react. Previously the invariant would only be skipped if the `ComputableValue` had a lower priority.
+
 ### [v0.185](https://github.com/arez/arez/tree/v0.185) (2020-07-29) · [Full Changelog](https://github.com/arez/arez/compare/v0.184...v0.185)
 
 Changes in this release:
