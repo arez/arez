@@ -494,19 +494,6 @@
     ]
   },
   {
-    "code": 39,
-    "type": "API_INVARIANT",
-    "messagePattern": "ArezContext.computable() specified keepAlive = true and did not pass a null for onActivate.",
-    "callers": [
-      {
-        "class": "arez.ComputableValue",
-        "method": "<init>",
-        "file": "ComputableValue.java",
-        "lineNumber": 117
-      }
-    ]
-  },
-  {
     "code": 40,
     "type": "API_INVARIANT",
     "messagePattern": "Component.addObserver invoked on component '%s' specifying observer named '%s' when observer already exists for component.",
@@ -572,19 +559,6 @@
     ]
   },
   {
-    "code": 45,
-    "type": "API_INVARIANT",
-    "messagePattern": "ArezContext.computable() specified keepAlive = true and did not pass a null for onDeactivate.",
-    "callers": [
-      {
-        "class": "arez.ComputableValue",
-        "method": "<init>",
-        "file": "ComputableValue.java",
-        "lineNumber": 119
-      }
-    ]
-  },
-  {
     "code": 46,
     "type": "API_INVARIANT",
     "messagePattern": "Component.addComputableValue invoked on component '%s' specifying ComputableValue named '%s' when ComputableValue already exists for component.",
@@ -632,7 +606,7 @@
         "class": "arez.ComputableValue",
         "method": "get",
         "file": "ComputableValue.java",
-        "lineNumber": 166
+        "lineNumber": 159
       }
     ]
   },
@@ -645,7 +619,7 @@
         "class": "arez.ComputableValue",
         "method": "get",
         "file": "ComputableValue.java",
-        "lineNumber": 168
+        "lineNumber": 161
       }
     ]
   },
@@ -658,7 +632,7 @@
         "class": "arez.ComputableValue",
         "method": "returnResult",
         "file": "ComputableValue.java",
-        "lineNumber": 202
+        "lineNumber": 195
       }
     ]
   },
@@ -1087,7 +1061,7 @@
         "class": "arez.ComputableValue",
         "method": "getObservableValue",
         "file": "ComputableValue.java",
-        "lineNumber": 438
+        "lineNumber": 431
       }
     ]
   },
@@ -1100,7 +1074,7 @@
         "class": "arez.ComputableValue",
         "method": "reportPossiblyChanged",
         "file": "ComputableValue.java",
-        "lineNumber": 233
+        "lineNumber": 226
       }
     ]
   },
@@ -1555,7 +1529,7 @@
         "class": "arez.ComputableValue",
         "method": "reportPossiblyChanged",
         "file": "ComputableValue.java",
-        "lineNumber": 230
+        "lineNumber": 223
       }
     ]
   },
@@ -2088,7 +2062,7 @@
         "class": "arez.ComputableValue",
         "method": "keepAliveInvariants",
         "file": "ComputableValue.java",
-        "lineNumber": 396
+        "lineNumber": 389
       }
     ]
   },
@@ -2179,7 +2153,7 @@
         "class": "arez.ComputableValue",
         "method": "compute",
         "file": "ComputableValue.java",
-        "lineNumber": 499
+        "lineNumber": 492
       }
     ]
   },
@@ -2465,7 +2439,7 @@
         "class": "arez.ComputableValue",
         "method": "asInfo",
         "file": "ComputableValue.java",
-        "lineNumber": 558
+        "lineNumber": 551
       }
     ]
   },
@@ -2803,7 +2777,7 @@
         "class": "arez.ComputableValue",
         "method": "keepAlive",
         "file": "ComputableValue.java",
-        "lineNumber": 317
+        "lineNumber": 310
       }
     ]
   },

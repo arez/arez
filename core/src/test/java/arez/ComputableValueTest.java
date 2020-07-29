@@ -164,39 +164,6 @@ public final class ComputableValueTest
   }
 
   @Test
-  public void computableValue_withKeepAliveAndOnActivate()
-  {
-    final ArezContext context = Arez.context();
-
-    final Procedure action = () -> {
-    };
-
-    assertInvariantFailure( () -> context.computable( null,
-                                                      () -> "",
-                                                      action,
-                                                      null,
-                                                      null,
-                                                      ComputableValue.Flags.KEEPALIVE ),
-                            "Arez-0039: ArezContext.computable() specified keepAlive = true and did not pass a null for onActivate." );
-  }
-
-  @Test
-  public void computableValue_withKeepAliveAndOnDeactivate()
-  {
-    final ArezContext context = Arez.context();
-
-    final Procedure action = () -> {
-    };
-    assertInvariantFailure( () -> context.computable( null,
-                                                      () -> "",
-                                                      null,
-                                                      action,
-                                                      null,
-                                                      ComputableValue.Flags.KEEPALIVE ),
-                            "Arez-0045: ArezContext.computable() specified keepAlive = true and did not pass a null for onDeactivate." );
-  }
-
-  @Test
   public void computeValue()
   {
     final ArezContext context = Arez.context();
