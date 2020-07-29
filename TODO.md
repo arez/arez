@@ -50,8 +50,6 @@ complete as there is too much un-said.
 
 * https://www.jetbrains.com/help/idea/template-variables.html#predefined_functions document and define them
 
-* Why do zones not have a name? Why are Zones not part of serialized forms of events? - they should at least have a unique id
-
 * Can inverse references be maps. The key would be the component id.
 
 * Add `ObservableMap`, `ObservableList` and `ObservableSet` implementations that implement reactivity as a
