@@ -2241,8 +2241,7 @@ final class ComponentGenerator
     throws ProcessorException
   {
     assert isCollectionType( memoize.getMethod() );
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( getOnDeactivateHookMethodName(
-      memoize ) );
+    final MethodSpec.Builder builder = MethodSpec.methodBuilder( getOnDeactivateHookMethodName( memoize ) );
     builder.addModifiers( Modifier.PRIVATE );
 
     final CodeBlock.Builder block = CodeBlock.builder();
