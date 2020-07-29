@@ -2684,14 +2684,20 @@ final class ComponentGenerator
     final boolean isCollectionType = isCollectionType( memoize.getMethod() );
     if ( memoize.hasHooks() || ( isCollectionType && areCollectionsPropertiesUnmodifiable ) )
     {
-      if ( isCollectionType )
+      final ExecutableElement onActivate = memoize.getOnActivate();
+      if ( isCollectionType && null == onActivate )
+      {
+        sb.append( "$T.areCollectionsPropertiesUnmodifiable() ? this::$N : null" );
+        parameters.add( AREZ_CLASSNAME );
+        parameters.add( getOnActivateHookMethodName( memoize ) );
+      }
+      else if ( isCollectionType )
       {
         sb.append( "this::$N" );
         parameters.add( getOnActivateHookMethodName( memoize ) );
       }
       else
       {
-        final ExecutableElement onActivate = memoize.getOnActivate();
         if ( null != onActivate )
         {
           if ( onActivate.getParameters().isEmpty() )
@@ -2712,14 +2718,20 @@ final class ComponentGenerator
       }
       sb.append( ", " );
 
-      if ( isCollectionType )
+      final ExecutableElement onDeactivate = memoize.getOnDeactivate();
+      if ( isCollectionType && null == onDeactivate )
+      {
+        sb.append( "$T.areCollectionsPropertiesUnmodifiable() ? this::$N : null" );
+        parameters.add( AREZ_CLASSNAME );
+        parameters.add( getOnDeactivateHookMethodName( memoize ) );
+      }
+      else if ( isCollectionType )
       {
         sb.append( "this::$N" );
         parameters.add( getOnDeactivateHookMethodName( memoize ) );
       }
       else
       {
-        final ExecutableElement onDeactivate = memoize.getOnDeactivate();
         if ( null != onDeactivate )
         {
           sb.append( "this::$N" );

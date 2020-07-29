@@ -5,6 +5,7 @@
 * Add the `react4j-webspeechdemo` to the variants tracked as part of the release process.
 * Add the `react4j-heart-rate-monitor` to the variants tracked as part of the release process.
 * Avoid generating an invariant failure if a `ComputableValue` is created with the `KEEPALIVE` and has either an `onActivate` or `onDeactivate` callback passed during construction. The invariants were used to block what was considered a code smell leading to potential problems but in practice it never causes issues. The scenario is also impossible to avoid in some scenarios in the component layer such as a `@Memoize(keepAlive=true)` annotation on a method that returns a collection. The toolkit creates synthetic `onActivate`/`onDeactivate` hooks that will wrap the collection as an immutable collection in development environment.
+* Avoid passing synthetic `onActivate`/`onDeactivate` callback methods when creating `ComputableValue` instances for `@Memoize` method if compile-time constants would result in the callbacks being empty methods. 
 
 ### [v0.184](https://github.com/arez/arez/tree/v0.184) (2020-07-02) · [Full Changelog](https://github.com/arez/arez/compare/v0.183...v0.184)
 
