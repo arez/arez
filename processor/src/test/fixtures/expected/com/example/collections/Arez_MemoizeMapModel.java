@@ -27,6 +27,8 @@ final class Arez_MemoizeMapModel extends MemoizeMapModel implements Disposable, 
 
   private Map<String, String> $$arezd$$_$$cache$$_myValue;
 
+  private Map<String, String> $$arezd$$_$$unmodifiable_cache$$_myValue;
+
   private boolean $$arezd$$_$$cache_active$$_myValue;
 
   Arez_MemoizeMapModel() {
@@ -113,10 +115,11 @@ final class Arez_MemoizeMapModel extends MemoizeMapModel implements Disposable, 
     }
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
       final Map<String, String> $$ar$$_result = this.$$arez$$_myValue.get();
-      if ( null == this.$$arezd$$_$$cache$$_myValue && null != $$ar$$_result ) {
-        this.$$arezd$$_$$cache$$_myValue = CollectionsUtil.wrap( $$ar$$_result );
+      if ( this.$$arezd$$_$$cache$$_myValue != $$ar$$_result ) {
+        this.$$arezd$$_$$cache$$_myValue = $$ar$$_result;
+        this.$$arezd$$_$$unmodifiable_cache$$_myValue = CollectionsUtil.wrap( $$ar$$_result );
       }
-      return $$arezd$$_$$cache$$_myValue;
+      return $$arezd$$_$$unmodifiable_cache$$_myValue;
     } else {
       return this.$$arez$$_myValue.get();
     }
@@ -126,6 +129,7 @@ final class Arez_MemoizeMapModel extends MemoizeMapModel implements Disposable, 
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
       this.$$arezd$$_$$cache_active$$_myValue = true;
       this.$$arezd$$_$$cache$$_myValue = null;
+      this.$$arezd$$_$$unmodifiable_cache$$_myValue = null;
     }
   }
 
@@ -133,6 +137,7 @@ final class Arez_MemoizeMapModel extends MemoizeMapModel implements Disposable, 
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
       this.$$arezd$$_$$cache_active$$_myValue = false;
       this.$$arezd$$_$$cache$$_myValue = null;
+      this.$$arezd$$_$$unmodifiable_cache$$_myValue = null;
     }
   }
 

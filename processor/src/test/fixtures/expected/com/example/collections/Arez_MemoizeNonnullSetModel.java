@@ -27,6 +27,8 @@ final class Arez_MemoizeNonnullSetModel extends MemoizeNonnullSetModel implement
 
   private Set<String> $$arezd$$_$$cache$$_myValue;
 
+  private Set<String> $$arezd$$_$$unmodifiable_cache$$_myValue;
+
   private boolean $$arezd$$_$$cache_active$$_myValue;
 
   Arez_MemoizeNonnullSetModel() {
@@ -113,13 +115,12 @@ final class Arez_MemoizeNonnullSetModel extends MemoizeNonnullSetModel implement
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      if ( null == this.$$arezd$$_$$cache$$_myValue ) {
-        this.$$arezd$$_$$cache$$_myValue = CollectionsUtil.wrap( this.$$arez$$_myValue.get() );
-      } else {
-        // Make sure that we are observing computable value
-        this.$$arez$$_myValue.get();
+      final Set<String> $$ar$$_result = this.$$arez$$_myValue.get();
+      if ( this.$$arezd$$_$$cache$$_myValue != $$ar$$_result ) {
+        this.$$arezd$$_$$cache$$_myValue = $$ar$$_result;
+        this.$$arezd$$_$$unmodifiable_cache$$_myValue = CollectionsUtil.wrap( $$ar$$_result );
       }
-      return $$arezd$$_$$cache$$_myValue;
+      return $$arezd$$_$$unmodifiable_cache$$_myValue;
     } else {
       return this.$$arez$$_myValue.get();
     }
@@ -129,6 +130,7 @@ final class Arez_MemoizeNonnullSetModel extends MemoizeNonnullSetModel implement
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
       this.$$arezd$$_$$cache_active$$_myValue = true;
       this.$$arezd$$_$$cache$$_myValue = null;
+      this.$$arezd$$_$$unmodifiable_cache$$_myValue = null;
     }
   }
 
@@ -136,6 +138,7 @@ final class Arez_MemoizeNonnullSetModel extends MemoizeNonnullSetModel implement
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
       this.$$arezd$$_$$cache_active$$_myValue = false;
       this.$$arezd$$_$$cache$$_myValue = null;
+      this.$$arezd$$_$$unmodifiable_cache$$_myValue = null;
     }
   }
 

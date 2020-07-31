@@ -27,6 +27,8 @@ final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectionWithHo
 
   private Collection<Long> $$arezd$$_$$cache$$_time;
 
+  private Collection<Long> $$arezd$$_$$unmodifiable_cache$$_time;
+
   private boolean $$arezd$$_$$cache_active$$_time;
 
   Arez_MemoizeCollectionWithHooksModel() {
@@ -113,10 +115,11 @@ final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectionWithHo
     }
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
       final Collection<Long> $$ar$$_result = this.$$arez$$_time.get();
-      if ( null == this.$$arezd$$_$$cache$$_time && null != $$ar$$_result ) {
-        this.$$arezd$$_$$cache$$_time = CollectionsUtil.wrap( $$ar$$_result );
+      if ( this.$$arezd$$_$$cache$$_time != $$ar$$_result ) {
+        this.$$arezd$$_$$cache$$_time = $$ar$$_result;
+        this.$$arezd$$_$$unmodifiable_cache$$_time = CollectionsUtil.wrap( $$ar$$_result );
       }
-      return $$arezd$$_$$cache$$_time;
+      return $$arezd$$_$$unmodifiable_cache$$_time;
     } else {
       return this.$$arez$$_time.get();
     }
@@ -126,6 +129,7 @@ final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectionWithHo
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
       this.$$arezd$$_$$cache_active$$_time = true;
       this.$$arezd$$_$$cache$$_time = null;
+      this.$$arezd$$_$$unmodifiable_cache$$_time = null;
     }
     onTimeActivate();
   }
@@ -134,6 +138,7 @@ final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectionWithHo
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
       this.$$arezd$$_$$cache_active$$_time = false;
       this.$$arezd$$_$$cache$$_time = null;
+      this.$$arezd$$_$$unmodifiable_cache$$_time = null;
     }
     onTimeDeactivate();
   }

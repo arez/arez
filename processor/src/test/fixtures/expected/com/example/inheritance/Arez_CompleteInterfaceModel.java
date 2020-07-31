@@ -80,6 +80,8 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
 
   private Collection<Long> $$arezd$$_$$cache$$_collectionTime;
 
+  private Collection<Long> $$arezd$$_$$unmodifiable_cache$$_collectionTime;
+
   private boolean $$arezd$$_$$cache_active$$_collectionTime;
 
   @Nonnull
@@ -579,10 +581,11 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
     }
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
       final Collection<Long> $$ar$$_result = this.$$arez$$_collectionTime.get();
-      if ( null == this.$$arezd$$_$$cache$$_collectionTime && null != $$ar$$_result ) {
-        this.$$arezd$$_$$cache$$_collectionTime = CollectionsUtil.wrap( $$ar$$_result );
+      if ( this.$$arezd$$_$$cache$$_collectionTime != $$ar$$_result ) {
+        this.$$arezd$$_$$cache$$_collectionTime = $$ar$$_result;
+        this.$$arezd$$_$$unmodifiable_cache$$_collectionTime = CollectionsUtil.wrap( $$ar$$_result );
       }
-      return $$arezd$$_$$cache$$_collectionTime;
+      return $$arezd$$_$$unmodifiable_cache$$_collectionTime;
     } else {
       return this.$$arez$$_collectionTime.get();
     }
@@ -592,6 +595,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
       this.$$arezd$$_$$cache_active$$_collectionTime = true;
       this.$$arezd$$_$$cache$$_collectionTime = null;
+      this.$$arezd$$_$$unmodifiable_cache$$_collectionTime = null;
     }
   }
 
@@ -599,6 +603,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
       this.$$arezd$$_$$cache_active$$_collectionTime = false;
       this.$$arezd$$_$$cache$$_collectionTime = null;
+      this.$$arezd$$_$$unmodifiable_cache$$_collectionTime = null;
     }
   }
 

@@ -2182,7 +2182,6 @@ final class ComponentGenerator
       if ( isCollectionType( memoize.getMethod() ) )
       {
         builder.addMethod( buildOnDeactivateWrapperHook( memoize ) );
-        builder.addMethod( buildOnStaleWrapperHook( memoize ) );
       }
       for ( final CandidateMethod refMethod : memoize.getRefMethods() )
       {
@@ -2217,6 +2216,7 @@ final class ComponentGenerator
       block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
       block.addStatement( "this.$N = true", getMemoizeCollectionCacheDataActiveFieldName( memoize ) );
       block.addStatement( "this.$N = null", getMemoizeCollectionCacheDataFieldName( memoize ) );
+      block.addStatement( "this.$N = null", getMemoizeCollectionUnmodifiableCacheDataFieldName( memoize ) );
       block.endControlFlow();
       builder.addCode( block.build() );
     }
@@ -2248,6 +2248,7 @@ final class ComponentGenerator
     block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
     block.addStatement( "this.$N = false", getMemoizeCollectionCacheDataActiveFieldName( memoize ) );
     block.addStatement( "this.$N = null", getMemoizeCollectionCacheDataFieldName( memoize ) );
+    block.addStatement( "this.$N = null", getMemoizeCollectionUnmodifiableCacheDataFieldName( memoize ) );
     block.endControlFlow();
     builder.addCode( block.build() );
 
@@ -2256,25 +2257,6 @@ final class ComponentGenerator
     {
       builder.addStatement( "$N()", onDeactivate.getSimpleName().toString() );
     }
-    return builder.build();
-  }
-
-  @Nonnull
-  private static MethodSpec buildOnStaleWrapperHook( @Nonnull final MemoizeDescriptor memoize )
-    throws ProcessorException
-  {
-    assert isCollectionType( memoize.getMethod() );
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( getOnStaleHookMethodName( memoize ) );
-    builder.addModifiers( Modifier.PRIVATE );
-
-    final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() && this.$N )",
-                            AREZ_CLASSNAME,
-                            getMemoizeCollectionCacheDataActiveFieldName( memoize ) );
-    block.addStatement( "this.$N = null", getMemoizeCollectionCacheDataFieldName( memoize ) );
-    block.endControlFlow();
-    builder.addCode( block.build() );
-
     return builder.build();
   }
 
@@ -2296,58 +2278,30 @@ final class ComponentGenerator
 
     if ( isCollectionType( memoize.getMethod() ) )
     {
-      if ( AnnotationsUtil.hasNonnullAnnotation( memoize.getMethod() ) )
-      {
-        final CodeBlock.Builder block = CodeBlock.builder();
-        block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
 
-        final CodeBlock.Builder guard = CodeBlock.builder();
-        guard.beginControlFlow( "if ( null == this.$N )", getMemoizeCollectionCacheDataFieldName(
-          memoize ) );
-        guard.addStatement( "this.$N = $T.wrap( this.$N.get() )",
-                            getMemoizeCollectionCacheDataFieldName( memoize ),
-                            COLLECTIONS_UTIL_CLASSNAME,
-                            getMemoizeFieldName( memoize ) );
-        guard.nextControlFlow( "else" );
-        guard.add( "// Make sure that we are observing computable value\n" );
-        guard.addStatement( "this.$N.get()", getMemoizeFieldName( memoize ) );
-        guard.endControlFlow();
-        block.add( guard.build() );
-        block.addStatement( "return $N", getMemoizeCollectionCacheDataFieldName( memoize ) );
+      final String result = "$$ar$$_result";
+      block.addStatement( "final $T $N = this.$N.get()", returnType, result, getMemoizeFieldName( memoize ) );
+      final CodeBlock.Builder guard = CodeBlock.builder();
+      guard.beginControlFlow( "if ( this.$N != $N )",
+                              getMemoizeCollectionCacheDataFieldName( memoize ),
+                              result );
+      guard.addStatement( "this.$N = $N", getMemoizeCollectionCacheDataFieldName( memoize ), result );
+      guard.addStatement( "this.$N = $T.wrap( $N )",
+                          getMemoizeCollectionUnmodifiableCacheDataFieldName( memoize ),
+                          COLLECTIONS_UTIL_CLASSNAME,
+                          result );
+      guard.endControlFlow();
+      block.add( guard.build() );
+      block.addStatement( "return $N", getMemoizeCollectionUnmodifiableCacheDataFieldName( memoize ) );
 
-        block.nextControlFlow( "else" );
+      block.nextControlFlow( "else" );
 
-        block.addStatement( "return this.$N.get()", getMemoizeFieldName( memoize ) );
-        block.endControlFlow();
+      block.addStatement( "return this.$N.get()", getMemoizeFieldName( memoize ) );
+      block.endControlFlow();
 
-        method.addCode( block.build() );
-      }
-      else
-      {
-        final CodeBlock.Builder block = CodeBlock.builder();
-        block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
-
-        final String result = "$$ar$$_result";
-        block.addStatement( "final $T $N = this.$N.get()", returnType, result, getMemoizeFieldName( memoize ) );
-        final CodeBlock.Builder guard = CodeBlock.builder();
-        guard.beginControlFlow( "if ( null == this.$N && null != $N )",
-                                getMemoizeCollectionCacheDataFieldName( memoize ),
-                                result );
-        guard.addStatement( "this.$N = $T.wrap( $N )",
-                            getMemoizeCollectionCacheDataFieldName( memoize ),
-                            COLLECTIONS_UTIL_CLASSNAME,
-                            result );
-        guard.endControlFlow();
-        block.add( guard.build() );
-        block.addStatement( "return $N", getMemoizeCollectionCacheDataFieldName( memoize ) );
-
-        block.nextControlFlow( "else" );
-
-        block.addStatement( "return this.$N.get()", getMemoizeFieldName( memoize ) );
-        block.endControlFlow();
-
-        method.addCode( block.build() );
-      }
+      method.addCode( block.build() );
     }
     else if ( executableElement.getTypeParameters().isEmpty() )
     {
@@ -2474,10 +2428,20 @@ final class ComponentGenerator
     {
       final FieldSpec.Builder cacheField =
         FieldSpec.builder( TypeName.get( methodType.getReturnType() ),
-                           OBSERVABLE_DATA_FIELD_PREFIX + "$$cache$$_" + memoize.getName(),
+                           getMemoizeCollectionCacheDataFieldName( memoize ),
                            Modifier.PRIVATE );
       SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, cacheField, methodType.getReturnType() );
       builder.addField( cacheField.build() );
+
+      final FieldSpec.Builder unmodifiableCacheField =
+        FieldSpec.builder( TypeName.get( methodType.getReturnType() ),
+                           getMemoizeCollectionUnmodifiableCacheDataFieldName( memoize ),
+                           Modifier.PRIVATE );
+      SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv,
+                                                          unmodifiableCacheField,
+                                                          methodType.getReturnType() );
+      builder.addField( unmodifiableCacheField.build() );
+
       builder.addField( FieldSpec.builder( TypeName.BOOLEAN,
                                            getMemoizeCollectionCacheDataActiveFieldName( memoize ),
                                            Modifier.PRIVATE ).build() );
@@ -2742,19 +2706,7 @@ final class ComponentGenerator
           sb.append( "null" );
         }
       }
-      sb.append( ", " );
-
-      if ( isCollectionType )
-      {
-        sb.append( "this::$N" );
-        parameters.add( getOnStaleHookMethodName( memoize ) );
-      }
-      else
-      {
-        sb.append( "null" );
-      }
-
-      sb.append( ", " );
+      sb.append( ", null, " );
     }
 
     final List<String> flags = generateMemoizeFlags( memoize );
@@ -2847,12 +2799,6 @@ final class ComponentGenerator
   }
 
   @Nonnull
-  private static String getOnStaleHookMethodName( @Nonnull final MemoizeDescriptor memoize )
-  {
-    return FRAMEWORK_PREFIX + "onStale_" + memoize.getName();
-  }
-
-  @Nonnull
   private static String getMemoizeCollectionCacheDataActiveFieldName( @Nonnull final MemoizeDescriptor memoize )
   {
     return OBSERVABLE_DATA_FIELD_PREFIX + "$$cache_active$$_" + memoize.getName();
@@ -2862,6 +2808,12 @@ final class ComponentGenerator
   private static String getMemoizeCollectionCacheDataFieldName( @Nonnull final MemoizeDescriptor memoize )
   {
     return OBSERVABLE_DATA_FIELD_PREFIX + "$$cache$$_" + memoize.getName();
+  }
+
+  @Nonnull
+  private static String getMemoizeCollectionUnmodifiableCacheDataFieldName( @Nonnull final MemoizeDescriptor memoize )
+  {
+    return OBSERVABLE_DATA_FIELD_PREFIX + "$$unmodifiable_cache$$_" + memoize.getName();
   }
 
   private static void buildObservableFields( @Nonnull final ProcessingEnvironment processingEnv,
