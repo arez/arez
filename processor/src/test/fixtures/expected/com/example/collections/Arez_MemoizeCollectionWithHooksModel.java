@@ -38,7 +38,7 @@ final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectionWithHo
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "MemoizeCollectionWithHooksModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "MemoizeCollectionWithHooksModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_time = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, () -> super.getTime(), this::$$arezi$$_onActivate_time, this::$$arezi$$_onDeactivate_time, this::$$arezi$$_onStale_time, ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
+    this.$$arez$$_time = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, () -> super.getTime(), this::$$arezi$$_onActivate_time, this::$$arezi$$_onDeactivate_time, ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }
@@ -141,12 +141,6 @@ final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectionWithHo
       this.$$arezd$$_$$unmodifiable_cache$$_time = null;
     }
     onTimeDeactivate();
-  }
-
-  private void $$arezi$$_onStale_time() {
-    if ( Arez.areCollectionsPropertiesUnmodifiable() && this.$$arezd$$_$$cache_active$$_time ) {
-      this.$$arezd$$_$$cache$$_time = null;
-    }
   }
 
   @Override

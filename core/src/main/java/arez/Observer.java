@@ -469,7 +469,6 @@ public final class Observer
                 ( Flags.STATE_STALE == state || Flags.STATE_POSSIBLY_STALE == state ) )
       {
         _computableValue.getObservableValue().reportPossiblyChanged();
-        runHook( _computableValue.getOnStale(), ObserverError.ON_STALE_ERROR );
         if ( schedule )
         {
           scheduleReaction();

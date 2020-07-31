@@ -416,12 +416,10 @@ public final class ComponentTest
                                                                     ValueUtil.randomString(),
                                                                     () -> "",
                                                                     null,
-                                                                    null,
                                                                     null );
     final ComputableValue<?> computableValue2 = context.computable( component,
                                                                     ValueUtil.randomString(),
                                                                     () -> "",
-                                                                    null,
                                                                     null,
                                                                     null );
     final Procedure action = AbstractTest::observeADependency;

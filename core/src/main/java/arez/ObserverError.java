@@ -19,9 +19,5 @@ public enum ObserverError
   /**
    * Exception generated in OnDeactivate hook action.
    */
-  ON_DEACTIVATE_ERROR,
-  /**
-   * Exception generated in OnStale hook action.
-   */
-  ON_STALE_ERROR
+  ON_DEACTIVATE_ERROR
 }

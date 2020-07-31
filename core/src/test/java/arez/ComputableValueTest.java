@@ -28,10 +28,9 @@ public final class ComputableValueTest
     final SafeFunction<String> function = () -> "";
     final Procedure onActivate = new NoopProcedure();
     final Procedure onDeactivate = new NoopProcedure();
-    final Procedure onStale = new NoopProcedure();
 
     final ComputableValue<String> computableValue =
-      context.computable( name, function, onActivate, onDeactivate, onStale );
+      context.computable( name, function, onActivate, onDeactivate );
 
     assertEquals( computableValue.getName(), name );
     assertEquals( computableValue.getContext(), context );
@@ -44,7 +43,6 @@ public final class ComputableValueTest
 
     assertEquals( computableValue.getOnActivate(), onActivate );
     assertEquals( computableValue.getOnDeactivate(), onDeactivate );
-    assertEquals( computableValue.getOnStale(), onStale );
 
     // Verify the linking of all child elements
     assertEquals( computableValue.getObserver().getName(), name );

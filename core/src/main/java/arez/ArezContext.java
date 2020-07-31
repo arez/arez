@@ -460,7 +460,7 @@ public final class ArezContext
                                             @Nonnull final SafeFunction<T> function,
                                             @MagicConstant( flagsFromClass = ComputableValue.Flags.class ) final int flags )
   {
-    return computable( component, name, function, null, null, null, flags );
+    return computable( component, name, function, null, null, flags );
   }
 
   /**
@@ -472,7 +472,6 @@ public final class ArezContext
    * @param function     the function that computes the value.
    * @param onActivate   the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDeactivate the procedure to invoke when the ComputableValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onStale      the procedure to invoke when the ComputableValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @return the ComputableValue instance.
    */
   @Nonnull
@@ -480,10 +479,9 @@ public final class ArezContext
                                             @Nullable final String name,
                                             @Nonnull final SafeFunction<T> function,
                                             @Nullable final Procedure onActivate,
-                                            @Nullable final Procedure onDeactivate,
-                                            @Nullable final Procedure onStale )
+                                            @Nullable final Procedure onDeactivate )
   {
-    return computable( component, name, function, onActivate, onDeactivate, onStale, 0 );
+    return computable( component, name, function, onActivate, onDeactivate, 0 );
   }
 
   /**
@@ -494,17 +492,15 @@ public final class ArezContext
    * @param function     the function that computes the value.
    * @param onActivate   the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDeactivate the procedure to invoke when the ComputableValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onStale      the procedure to invoke when the ComputableValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @return the ComputableValue instance.
    */
   @Nonnull
   public <T> ComputableValue<T> computable( @Nullable final String name,
                                             @Nonnull final SafeFunction<T> function,
                                             @Nullable final Procedure onActivate,
-                                            @Nullable final Procedure onDeactivate,
-                                            @Nullable final Procedure onStale )
+                                            @Nullable final Procedure onDeactivate )
   {
-    return computable( name, function, onActivate, onDeactivate, onStale, 0 );
+    return computable( name, function, onActivate, onDeactivate, 0 );
   }
 
   /**
@@ -515,7 +511,6 @@ public final class ArezContext
    * @param function     the function that computes the value.
    * @param onActivate   the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDeactivate the procedure to invoke when the ComputableValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onStale      the procedure to invoke when the ComputableValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param flags        the flags used to create the ComputableValue. The acceptable flags are defined in {@link ComputableValue.Flags}.
    * @return the ComputableValue instance.
    */
@@ -524,10 +519,9 @@ public final class ArezContext
                                             @Nonnull final SafeFunction<T> function,
                                             @Nullable final Procedure onActivate,
                                             @Nullable final Procedure onDeactivate,
-                                            @Nullable final Procedure onStale,
                                             @MagicConstant( flagsFromClass = ComputableValue.Flags.class ) final int flags )
   {
-    return computable( null, name, function, onActivate, onDeactivate, onStale, flags );
+    return computable( null, name, function, onActivate, onDeactivate, flags );
   }
 
   /**
@@ -539,7 +533,6 @@ public final class ArezContext
    * @param function     the function that computes the value.
    * @param onActivate   the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param onDeactivate the procedure to invoke when the ComputableValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onStale      the procedure to invoke when the ComputableValue changes changes from the UP_TO_DATE state to STALE or POSSIBLY_STALE. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @param flags        the flags used to create the ComputableValue. The acceptable flags are defined in {@link ComputableValue.Flags}.
    * @return the ComputableValue instance.
    */
@@ -549,7 +542,6 @@ public final class ArezContext
                                             @Nonnull final SafeFunction<T> function,
                                             @Nullable final Procedure onActivate,
                                             @Nullable final Procedure onDeactivate,
-                                            @Nullable final Procedure onStale,
                                             @MagicConstant( flagsFromClass = ComputableValue.Flags.class ) final int flags )
   {
     return new ComputableValue<>( Arez.areZonesEnabled() ? this : null,
@@ -558,7 +550,6 @@ public final class ArezContext
                                   function,
                                   onActivate,
                                   onDeactivate,
-                                  onStale,
                                   flags );
   }
 

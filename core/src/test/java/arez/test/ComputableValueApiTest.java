@@ -454,8 +454,7 @@ public final class ComputableValueApiTest
       context.computable( null,
                           function,
                           () -> trace.add( "onActivate" ),
-                          () -> trace.add( "onDeactivate" ),
-                          () -> trace.add( "onStale" ) );
+                          () -> trace.add( "onDeactivate" ) );
 
     assertEquals( String.join( " ", trace ), "" );
 
@@ -487,8 +486,7 @@ public final class ComputableValueApiTest
       context.computable( null,
                           function,
                           () -> trace.add( "onActivate" ),
-                          () -> trace.add( "onDeactivate" ),
-                          () -> trace.add( "onStale" ) );
+                          () -> trace.add( "onDeactivate" ) );
 
     assertEquals( String.join( " ", trace ), "" );
 

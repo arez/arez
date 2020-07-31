@@ -84,11 +84,6 @@ public final class ComputableValue<T>
   @Nullable
   private final Procedure _onDeactivate;
   /**
-   * Hook action called when the ComputableValue moves from the UP_TO_DATE state to STALE or POSSIBLY_STALE.
-   */
-  @Nullable
-  private final Procedure _onStale;
-  /**
    * Cached info object associated with element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
    */
@@ -102,7 +97,6 @@ public final class ComputableValue<T>
                    @Nonnull final SafeFunction<T> function,
                    @Nullable final Procedure onActivate,
                    @Nullable final Procedure onDeactivate,
-                   @Nullable final Procedure onStale,
                    final int flags )
   {
     super( context, name );
@@ -116,7 +110,6 @@ public final class ComputableValue<T>
     _function = Objects.requireNonNull( function );
     _onActivate = onActivate;
     _onDeactivate = onDeactivate;
-    _onStale = onStale;
     _value = null;
     _computing = false;
     _readOutsideTransaction = Flags.READ_OUTSIDE_TRANSACTION == ( flags & Flags.READ_OUTSIDE_TRANSACTION );
@@ -455,17 +448,6 @@ public final class ComputableValue<T>
   Procedure getOnDeactivate()
   {
     return _onDeactivate;
-  }
-
-  /**
-   * Return the onStale hook.
-   *
-   * @return the onStale hook.
-   */
-  @Nullable
-  Procedure getOnStale()
-  {
-    return _onStale;
   }
 
   /**

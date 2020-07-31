@@ -38,7 +38,7 @@ final class Arez_MemoizeNonnullMapModel extends MemoizeNonnullMapModel implement
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "MemoizeNonnullMapModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "MemoizeNonnullMapModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_myValue = Arez.areCollectionsPropertiesUnmodifiable() ? $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myValue" : null, () -> super.getMyValue(), Arez.areCollectionsPropertiesUnmodifiable() ? this::$$arezi$$_onActivate_myValue : null, Arez.areCollectionsPropertiesUnmodifiable() ? this::$$arezi$$_onDeactivate_myValue : null, this::$$arezi$$_onStale_myValue, ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER ) : $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myValue" : null, () -> super.getMyValue(), ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
+    this.$$arez$$_myValue = Arez.areCollectionsPropertiesUnmodifiable() ? $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myValue" : null, () -> super.getMyValue(), Arez.areCollectionsPropertiesUnmodifiable() ? this::$$arezi$$_onActivate_myValue : null, Arez.areCollectionsPropertiesUnmodifiable() ? this::$$arezi$$_onDeactivate_myValue : null, ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER ) : $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myValue" : null, () -> super.getMyValue(), ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }
@@ -139,12 +139,6 @@ final class Arez_MemoizeNonnullMapModel extends MemoizeNonnullMapModel implement
       this.$$arezd$$_$$cache_active$$_myValue = false;
       this.$$arezd$$_$$cache$$_myValue = null;
       this.$$arezd$$_$$unmodifiable_cache$$_myValue = null;
-    }
-  }
-
-  private void $$arezi$$_onStale_myValue() {
-    if ( Arez.areCollectionsPropertiesUnmodifiable() && this.$$arezd$$_$$cache_active$$_myValue ) {
-      this.$$arezd$$_$$cache$$_myValue = null;
     }
   }
 

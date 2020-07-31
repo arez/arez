@@ -195,7 +195,6 @@ public final class ComponentKernel
                                     this::observe0,
                                     null,
                                     this::scheduleDispose,
-                                    null,
                                     ComputableValue.Flags.PRIORITY_HIGHEST );
   }
 

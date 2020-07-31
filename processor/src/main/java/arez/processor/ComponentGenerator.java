@@ -2706,7 +2706,7 @@ final class ComponentGenerator
           sb.append( "null" );
         }
       }
-      sb.append( ", null, " );
+      sb.append( ", " );
     }
 
     final List<String> flags = generateMemoizeFlags( memoize );

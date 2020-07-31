@@ -3,6 +3,7 @@
 ### Unreleased
 
 * `@Memoize` methods that returned collections would return a different instance of a collection if `Arez.areCollectionsPropertiesUnmodifiable()` returns true after `reportPossiblyChanged()` was invoked on the underlying `ComputableValue` even if arez determined that there was no change. This impacts downstream frameworks such as react4j that rely on object instances remaining unchanged if the value has not logically changed.  
+* Remove the ability to provide an `onStale` hook to a `ComputableValue`. The annotation driven mechanisms for supplying such a hook was removed in `0.157` as it was unused and no infrastructure code uses the underlying hook anymore.
 
 ### [v0.186](https://github.com/arez/arez/tree/v0.186) (2020-07-29) · [Full Changelog](https://github.com/arez/arez/compare/v0.185...v0.186)
 
