@@ -1,6 +1,10 @@
 # Change Log
 
-### Unreleased
+### [v0.188](https://github.com/arez/arez/tree/v0.188) (2020-08-03) · [Full Changelog](https://github.com/arez/arez/compare/v0.187...v0.188) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.187&new=0.188)
+
+The release includes 5 non breaking API changes.
+
+Changes in this release:
 
 * Add the ability to supply a `TaskInterceptor` to the `ArezContext` that provides a mechanism for application code to perform an action before and/or after task scheduler is triggered. This is a re-instatement of the (roughly) equivalent `Environment` functionality that was removed `0.119`. The functionality was removed to simplify the Arez codebase under the assumption that react would make infrastructure changes that would eliminate the need for manual batching. The changes to react did not eventuate and we need to re-add manual batching of view updates to improve application performance which requires task interception mechanisms.
 
