@@ -3369,4 +3369,37 @@ public final class ArezContextTest
     assertEquals( preTaskCount.get(), 1 );
     assertEquals( postTaskCount.get(), 1 );
   }
+
+  @Test
+  public void taskInterceptor_whereInterceptorGeneratesMoreTasks()
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicInteger preTaskCount = new AtomicInteger();
+    final AtomicInteger postTaskCount = new AtomicInteger();
+    final TaskInterceptor interceptor = a -> {
+      preTaskCount.incrementAndGet();
+      a.call();
+      if ( 0 == postTaskCount.get() )
+      {
+        // First time through generate another task in the interceptor
+        context.task( () -> {
+          final int count = preTaskCount.get();
+          assertEquals( count, 2 );
+          assertEquals( count + 1, postTaskCount.get() );
+        } );
+      }
+      postTaskCount.incrementAndGet();
+    };
+    context.setTaskInterceptor( interceptor );
+
+    assertEquals( preTaskCount.get(), 0 );
+    assertEquals( postTaskCount.get(), 0 );
+    context.task( () -> {
+      final int count = preTaskCount.get();
+      assertEquals( count + 1, postTaskCount.get() );
+    } );
+    assertEquals( preTaskCount.get(), 2 );
+    assertEquals( postTaskCount.get(), 2 );
+  }
 }

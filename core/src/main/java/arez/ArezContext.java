@@ -1270,7 +1270,10 @@ public final class ArezContext
           if ( Arez.isTaskInterceptorEnabled() && null != _taskInterceptor )
           {
             assert null != _taskExecuteAction;
-            _taskInterceptor.executeTasks( _taskExecuteAction );
+            do
+            {
+              _taskInterceptor.executeTasks( _taskExecuteAction );
+            } while ( _executor.getPendingTaskCount() > 0 );
           }
           else
           {
