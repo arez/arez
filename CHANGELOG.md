@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.189](https://github.com/arez/arez/tree/v0.189) (2020-08-03) · [Full Changelog](https://github.com/arez/arez/compare/v0.188...v0.189)
+
+Changes in this release:
 
 * If a task interceptor generates new tasks after the scheduler completes then re-trigger the task scheduler to execute the new tasks. This maintains the expectation that after the `triggerScheduler()` completes there is no tasks pending.
 
