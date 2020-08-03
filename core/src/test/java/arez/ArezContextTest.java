@@ -3337,4 +3337,36 @@ public final class ArezContextTest
                             "Arez-0224: Task named 'MyTask' passed invalid flags: " +
                             ActionFlags.REQUIRE_NEW_TRANSACTION );
   }
+
+  @Test
+  public void setTaskInterceptor_whenTaskInterceptorDisabled()
+  {
+    ArezTestUtil.disableTaskInterceptor();
+    final ArezContext context = Arez.context();
+    assertInvariantFailure( () -> context.setTaskInterceptor( SafeProcedure::call ),
+                            "Arez-0039: setTaskInterceptor() invoked but Arez.isTaskInterceptorEnabled() returns false." );
+  }
+
+  @Test
+  public void taskInterceptor()
+  {
+    final AtomicInteger preTaskCount = new AtomicInteger();
+    final AtomicInteger postTaskCount = new AtomicInteger();
+    final TaskInterceptor interceptor = a -> {
+      preTaskCount.incrementAndGet();
+      a.call();
+      postTaskCount.incrementAndGet();
+    };
+    final ArezContext context = Arez.context();
+    context.setTaskInterceptor( interceptor );
+
+    assertEquals( preTaskCount.get(), 0 );
+    assertEquals( postTaskCount.get(), 0 );
+    context.task( () -> {
+      assertEquals( preTaskCount.get(), 1 );
+      assertEquals( postTaskCount.get(), 0 );
+    } );
+    assertEquals( preTaskCount.get(), 1 );
+    assertEquals( postTaskCount.get(), 1 );
+  }
 }

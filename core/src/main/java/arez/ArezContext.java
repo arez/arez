@@ -125,6 +125,18 @@ public final class ArezContext
    * Flag indicating whether the scheduler is currently active.
    */
   private boolean _schedulerActive;
+  /**
+   * Cached copy of action to execute tasks.
+   */
+  @OmitSymbol( unless = "arez.enable_task_interceptor" )
+  @Nullable
+  private final SafeProcedure _taskExecuteAction = Arez.isTaskInterceptorEnabled() ? _executor::runTasks : null;
+  /**
+   * Interceptor that wraps all task executions.
+   */
+  @OmitSymbol( unless = "arez.enable_task_interceptor" )
+  @Nullable
+  private TaskInterceptor _taskInterceptor;
 
   /**
    * Arez context should not be created directly but only accessed via Arez.
@@ -1220,6 +1232,22 @@ public final class ArezContext
   }
 
   /**
+   * Specify a interceptor to use to wrap task execution in.
+   *
+   * @param taskInterceptor interceptor used to wrap task execution.
+   */
+  @OmitSymbol( unless = "arez.enable_task_interceptor" )
+  public void setTaskInterceptor( @Nullable final TaskInterceptor taskInterceptor )
+  {
+    if ( Arez.shouldCheckInvariants() )
+    {
+      invariant( Arez::isTaskInterceptorEnabled,
+                 () -> "Arez-0039: setTaskInterceptor() invoked but Arez.isTaskInterceptorEnabled() returns false." );
+    }
+    _taskInterceptor = taskInterceptor;
+  }
+
+  /**
    * Method invoked to trigger the scheduler to run any pending reactions. The scheduler will only be
    * triggered if there is no transaction active. This method is typically used after one or more Observers
    * have been created outside a transaction with the runImmediately flag set to false and the caller wants
@@ -1239,7 +1267,15 @@ public final class ArezContext
         _schedulerActive = true;
         try
         {
-          _executor.runTasks();
+          if ( Arez.isTaskInterceptorEnabled() && null != _taskInterceptor )
+          {
+            assert null != _taskExecuteAction;
+            _taskInterceptor.executeTasks( _taskExecuteAction );
+          }
+          else
+          {
+            _executor.runTasks();
+          }
         }
         finally
         {

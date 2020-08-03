@@ -25,6 +25,7 @@ final class ArezConfig
   private static boolean ENABLE_NATIVE_COMPONENTS = PROVIDER.areNativeComponentsEnabled();
   private static boolean ENABLE_REGISTRIES = PROVIDER.areRegistriesEnabled();
   private static boolean ENABLE_OBSERVER_ERROR_HANDLERS = PROVIDER.areObserverErrorHandlersEnabled();
+  private static boolean ENABLE_TASK_INTERCEPTOR = PROVIDER.isTaskInterceptorEnabled();
   private static boolean CHECK_INVARIANTS = PROVIDER.checkInvariants();
   private static boolean CHECK_API_INVARIANTS = PROVIDER.checkApiInvariants();
   @Nonnull
@@ -102,6 +103,11 @@ final class ArezConfig
   static boolean areObserverErrorHandlersEnabled()
   {
     return ENABLE_OBSERVER_ERROR_HANDLERS;
+  }
+
+  static boolean isTaskInterceptorEnabled()
+  {
+    return ENABLE_TASK_INTERCEPTOR;
   }
 
   static boolean checkInvariants()
@@ -221,6 +227,13 @@ final class ArezConfig
 
     @GwtIncompatible
     @Override
+    boolean isTaskInterceptorEnabled()
+    {
+      return "true".equals( System.getProperty( "arez.enable_task_interceptor", "true" ) );
+    }
+
+    @GwtIncompatible
+    @Override
     boolean checkInvariants()
     {
       return "true".equals( System.getProperty( "arez.check_invariants",
@@ -310,6 +323,11 @@ final class ArezConfig
     boolean areObserverErrorHandlersEnabled()
     {
       return "true" == System.getProperty( "arez.enable_observer_error_handlers" );
+    }
+
+    boolean isTaskInterceptorEnabled()
+    {
+      return "true" == System.getProperty( "arez.enable_task_interceptor" );
     }
 
     boolean checkInvariants()

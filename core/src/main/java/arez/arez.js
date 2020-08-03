@@ -44,6 +44,9 @@ arez.enable_registries = goog.define('arez.enable_registries', 'false');
 arez.enable_observer_error_handlers = goog.define('arez.enable_observer_error_handlers', 'true');
 
 /** @define {string} */
+arez.enable_task_interceptor = goog.define('arez.enable_task_interceptor', 'true');
+
+/** @define {string} */
 arez.check_invariants = goog.define('arez.check_invariants', 'false');
 
 /** @define {string} */

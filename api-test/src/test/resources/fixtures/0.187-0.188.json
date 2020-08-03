@@ -1,0 +1,81 @@
+[
+  {
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "interface arez.TaskInterceptor",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.TaskInterceptor",
+      "classSimpleName": "TaskInterceptor",
+      "elementKind": "interface",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method boolean arez.Arez::isTaskInterceptorEnabled()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Arez",
+      "classSimpleName": "Arez",
+      "elementKind": "method",
+      "methodName": "isTaskInterceptorEnabled",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method void arez.ArezContext::setTaskInterceptor(arez.TaskInterceptor)",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "setTaskInterceptor",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method void arez.ArezTestUtil::disableTaskInterceptor()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.ArezTestUtil",
+      "classSimpleName": "ArezTestUtil",
+      "elementKind": "method",
+      "methodName": "disableTaskInterceptor",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method void arez.ArezTestUtil::enableTaskInterceptor()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.ArezTestUtil",
+      "classSimpleName": "ArezTestUtil",
+      "elementKind": "method",
+      "methodName": "enableTaskInterceptor",
+      "package": "arez"
+    }
+  }
+]

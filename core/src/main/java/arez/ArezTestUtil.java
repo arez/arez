@@ -68,6 +68,7 @@ public final class ArezTestUtil
     }
     enableObserverErrorHandlers();
     enableReferences();
+    enableTaskInterceptor();
     purgeTasksWhenRunawayDetected();
     disableZones();
     resetState();
@@ -410,6 +411,34 @@ public final class ArezTestUtil
   private static void setEnableRegistries( final boolean value )
   {
     setConstant( "ENABLE_REGISTRIES", value );
+  }
+
+  /**
+   * Set the `arez.enable_task_interceptor` setting to true.
+   */
+  public static void enableTaskInterceptor()
+  {
+    setEnableTaskInterceptor( true );
+    resetState();
+  }
+
+  /**
+   * Set the `arez.enable_task_interceptor` setting to false.
+   */
+  public static void disableTaskInterceptor()
+  {
+    setEnableTaskInterceptor( false );
+    resetState();
+  }
+
+  /**
+   * Configure the "arez.enable_task_interceptor" setting.
+   *
+   * @param value the setting.
+   */
+  private static void setEnableTaskInterceptor( final boolean value )
+  {
+    setConstant( "ENABLE_TASK_INTERCEPTOR", value );
   }
 
   /**

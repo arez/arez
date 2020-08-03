@@ -145,6 +145,17 @@ public final class Arez
   }
 
   /**
+   * Return true if a task interceptor can be specified.
+   *
+   * @return true if a task interceptor can be specified
+   */
+  @OmitSymbol
+  public static boolean isTaskInterceptorEnabled()
+  {
+    return ArezConfig.isTaskInterceptorEnabled();
+  }
+
+  /**
    * Return true if invariants will be checked.
    *
    * @return true if invariants will be checked.
