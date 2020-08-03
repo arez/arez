@@ -24,7 +24,7 @@ your Maven project, simply add the following to your `pom.xml`:
     <dependency>
       <groupId>org.realityforge.arez</groupId>
       <artifactId>arez-core</artifactId>
-      <version>0.187</version>
+      <version>0.188</version>
     </dependency>
     ...
   </dependencies>
@@ -51,7 +51,7 @@ snippet to configure the maven compiler plugin from within the `pom.xml`:
             <path>
               <groupId>org.realityforge.arez</groupId>
               <artifactId>arez-processor</artifactId>
-              <version>0.187</version>
+              <version>0.188</version>
             </path>
           </annotationProcessorPaths>
         </configuration>
