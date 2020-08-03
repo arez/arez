@@ -93,8 +93,8 @@ final class RoundBasedTaskExecutor
     // determine if we need any more rounds and if we do ensure
     if ( 0 == _remainingTasksInCurrentRound )
     {
-      final int pendingTasksCount = _taskQueue.getQueueSize();
-      if ( 0 == pendingTasksCount )
+      final int pendingTaskCount = getPendingTaskCount();
+      if ( 0 == pendingTaskCount )
       {
         _currentRound = 0;
         return false;
@@ -108,7 +108,7 @@ final class RoundBasedTaskExecutor
       else
       {
         _currentRound = _currentRound + 1;
-        _remainingTasksInCurrentRound = pendingTasksCount;
+        _remainingTasksInCurrentRound = pendingTaskCount;
       }
     }
     /*
@@ -126,6 +126,11 @@ final class RoundBasedTaskExecutor
     assert null != task;
     task.executeTask();
     return true;
+  }
+
+  int getPendingTaskCount()
+  {
+    return _taskQueue.getQueueSize();
   }
 
   /**
