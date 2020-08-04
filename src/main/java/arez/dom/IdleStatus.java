@@ -11,10 +11,12 @@ import arez.annotations.PostConstruct;
 import arez.annotations.PreDispose;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.EventListener;
+import elemental2.dom.EventTarget;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.Nonnull;
+import jsinterop.base.JsPropertyMap;
 
 /**
  * An observable model that declares state that tracks when the user is "idle".
@@ -147,7 +149,9 @@ public abstract class IdleStatus
   void onIdleActivate()
   {
     _active = true;
-    _events.forEach( e -> DomGlobal.window.addEventListener( e, _listener ) );
+    final EventTarget.AddEventListenerOptionsUnionType options =
+      EventTarget.AddEventListenerOptionsUnionType.of( JsPropertyMap.of( "passive", true ) );
+    _events.forEach( e -> DomGlobal.window.addEventListener( e, _listener, options ) );
   }
 
   @OnDeactivate
