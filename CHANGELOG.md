@@ -1,6 +1,6 @@
 # Change Log
 
-### Unreleased
+### [v0.77](https://github.com/arez/arez-dom/tree/v0.77) (2020-08-04) · [Full Changelog](https://github.com/arez/arez-dom/compare/v0.76...v0.77)
 
 * Use passive event listeners in `IdleStatus` to reduce the potential performance impact of non-passive mouse move events.
 
