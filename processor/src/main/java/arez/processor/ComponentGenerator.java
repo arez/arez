@@ -2288,10 +2288,22 @@ final class ComponentGenerator
                               getMemoizeCollectionCacheDataFieldName( memoize ),
                               result );
       guard.addStatement( "this.$N = $N", getMemoizeCollectionCacheDataFieldName( memoize ), result );
-      guard.addStatement( "this.$N = $T.wrap( $N )",
-                          getMemoizeCollectionUnmodifiableCacheDataFieldName( memoize ),
-                          COLLECTIONS_UTIL_CLASSNAME,
-                          result );
+
+      if ( AnnotationsUtil.hasNonnullAnnotation( memoize.getMethod() ) )
+      {
+        guard.addStatement( "this.$N = $T.wrap( $N )",
+                            getMemoizeCollectionUnmodifiableCacheDataFieldName( memoize ),
+                            COLLECTIONS_UTIL_CLASSNAME,
+                            result );
+      }
+      else
+      {
+        guard.addStatement( "this.$N = null == $N ? null : $T.wrap( $N )",
+                            getMemoizeCollectionUnmodifiableCacheDataFieldName( memoize ),
+                            result,
+                            COLLECTIONS_UTIL_CLASSNAME,
+                            result );
+      }
       guard.endControlFlow();
       block.add( guard.build() );
       block.addStatement( "return $N", getMemoizeCollectionUnmodifiableCacheDataFieldName( memoize ) );

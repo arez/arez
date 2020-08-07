@@ -117,7 +117,7 @@ final class Arez_MemoizeKeepAliveListModel extends MemoizeKeepAliveListModel imp
       final List<String> $$ar$$_result = this.$$arez$$_myValue.get();
       if ( this.$$arezd$$_$$cache$$_myValue != $$ar$$_result ) {
         this.$$arezd$$_$$cache$$_myValue = $$ar$$_result;
-        this.$$arezd$$_$$unmodifiable_cache$$_myValue = CollectionsUtil.wrap( $$ar$$_result );
+        this.$$arezd$$_$$unmodifiable_cache$$_myValue = null == $$ar$$_result ? null : CollectionsUtil.wrap( $$ar$$_result );
       }
       return $$arezd$$_$$unmodifiable_cache$$_myValue;
     } else {

@@ -117,7 +117,7 @@ final class Arez_MemoizeListModel extends MemoizeListModel implements Disposable
       final List<String> $$ar$$_result = this.$$arez$$_myValue.get();
       if ( this.$$arezd$$_$$cache$$_myValue != $$ar$$_result ) {
         this.$$arezd$$_$$cache$$_myValue = $$ar$$_result;
-        this.$$arezd$$_$$unmodifiable_cache$$_myValue = CollectionsUtil.wrap( $$ar$$_result );
+        this.$$arezd$$_$$unmodifiable_cache$$_myValue = null == $$ar$$_result ? null : CollectionsUtil.wrap( $$ar$$_result );
       }
       return $$arezd$$_$$unmodifiable_cache$$_myValue;
     } else {

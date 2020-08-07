@@ -583,7 +583,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
       final Collection<Long> $$ar$$_result = this.$$arez$$_collectionTime.get();
       if ( this.$$arezd$$_$$cache$$_collectionTime != $$ar$$_result ) {
         this.$$arezd$$_$$cache$$_collectionTime = $$ar$$_result;
-        this.$$arezd$$_$$unmodifiable_cache$$_collectionTime = CollectionsUtil.wrap( $$ar$$_result );
+        this.$$arezd$$_$$unmodifiable_cache$$_collectionTime = null == $$ar$$_result ? null : CollectionsUtil.wrap( $$ar$$_result );
       }
       return $$arezd$$_$$unmodifiable_cache$$_collectionTime;
     } else {

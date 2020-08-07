@@ -117,7 +117,7 @@ final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectionWithHo
       final Collection<Long> $$ar$$_result = this.$$arez$$_time.get();
       if ( this.$$arezd$$_$$cache$$_time != $$ar$$_result ) {
         this.$$arezd$$_$$cache$$_time = $$ar$$_result;
-        this.$$arezd$$_$$unmodifiable_cache$$_time = CollectionsUtil.wrap( $$ar$$_result );
+        this.$$arezd$$_$$unmodifiable_cache$$_time = null == $$ar$$_result ? null : CollectionsUtil.wrap( $$ar$$_result );
       }
       return $$arezd$$_$$unmodifiable_cache$$_time;
     } else {
