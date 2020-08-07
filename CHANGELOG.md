@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.190](https://github.com/arez/arez/tree/v0.190) (2020-08-07) · [Full Changelog](https://github.com/arez/arez/compare/v0.189...v0.190)
+
+Changes in this release:
 
 * Fix bug that could see null collections returned from a `@Memoize` annotated method wrapped in an unmodifiable collection which would result in subsequent crashes when code interacted with the collection.
 
