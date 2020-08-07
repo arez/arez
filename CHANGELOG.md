@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.190'
+
 ### [v0.21](https://github.com/arez/arez-testng/tree/v0.21) (2020-08-03) · [Full Changelog](https://github.com/arez/arez-testng/compare/v0.20...v0.21)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.189'
