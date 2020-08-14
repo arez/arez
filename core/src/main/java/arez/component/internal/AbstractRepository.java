@@ -193,16 +193,10 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
                     () -> "Arez-0136: Called attach() passing an entity that is already attached " +
                           "to the container. Entity: " + entity );
     }
-    if ( reportWrite() )
-    {
-      getEntitiesObservableValue().preReportChanged();
-    }
+    getEntitiesObservableValue().preReportChanged();
     attachEntity( entity );
     _entities.put( Identifiable.getArezId( entity ), entity );
-    if ( reportWrite() )
-    {
-      getEntitiesObservableValue().reportChanged();
-    }
+    getEntitiesObservableValue().reportChanged();
   }
 
   /**
@@ -249,15 +243,9 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
     final T removed = _entities.remove( Identifiable.<K>getArezId( entity ) );
     if ( null != removed )
     {
-      if ( reportWrite() )
-      {
-        getEntitiesObservableValue().preReportChanged();
-      }
+      getEntitiesObservableValue().preReportChanged();
       detachEntity( entity, disposeEntity );
-      if ( reportWrite() )
-      {
-        getEntitiesObservableValue().reportChanged();
-      }
+      getEntitiesObservableValue().reportChanged();
     }
     else
     {
@@ -267,11 +255,6 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   }
 
   protected boolean reportRead()
-  {
-    return true;
-  }
-
-  protected boolean reportWrite()
   {
     return true;
   }
@@ -325,15 +308,9 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
     DisposeNotifier
       .asDisposeNotifier( entity )
       .addOnDisposeListener( this, () -> {
-        if ( reportWrite() )
-        {
-          getEntitiesObservableValue().preReportChanged();
-        }
+        getEntitiesObservableValue().preReportChanged();
         detach( entity, false );
-        if ( reportWrite() )
-        {
-          getEntitiesObservableValue().reportChanged();
-        }
+        getEntitiesObservableValue().reportChanged();
       } );
   }
 

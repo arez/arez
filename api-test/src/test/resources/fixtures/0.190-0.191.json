@@ -1,0 +1,18 @@
+[
+  {
+    "code": "java.method.removed",
+    "description": "Method was removed.",
+    "oldElement": "method boolean arez.component.internal.AbstractRepository<K, T, R extends arez.component.internal.AbstractRepository<K extends java.lang.Object, T extends java.lang.Object, R extends arez.component.internal.AbstractRepository<K, T, R>>>::reportWrite()",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.AbstractRepository",
+      "classSimpleName": "AbstractRepository",
+      "elementKind": "method",
+      "methodName": "reportWrite",
+      "package": "arez.component.internal"
+    }
+  }
+]

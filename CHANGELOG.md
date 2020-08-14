@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Remove `AbstractRepository.reportWrite()` template method as it never makes sense to skip change propagation for an arez enabled repository.
+
 ### [v0.190](https://github.com/arez/arez/tree/v0.190) (2020-08-07) · [Full Changelog](https://github.com/arez/arez/compare/v0.189...v0.190)
 
 Changes in this release:
