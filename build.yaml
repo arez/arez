@@ -11,7 +11,7 @@ artifacts:
 
   javax_annotation: org.realityforge.javax.annotation:javax.annotation:jar:1.0.1
 
-  arez_core: org.realityforge.arez:arez-core:jar:0.190
-  arez_processor: org.realityforge.arez:arez-processor:jar:0.190
+  arez_core: org.realityforge.arez:arez-core:jar:0.191
+  arez_processor: org.realityforge.arez:arez-processor:jar:0.191
 
   testng: org.testng:testng:jar:6.11
