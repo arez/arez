@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.org.jetbrains.annotations` artifact to version `1.6.0`.
+
 ### [v0.118](https://github.com/arez/arez-spytools/tree/v0.118) (2020-08-14) · [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.117...v0.118)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.191'
