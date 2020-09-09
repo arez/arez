@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.org.jetbrains.annotations` artifact to version `1.6.0`.
+
 ### [v0.79](https://github.com/arez/arez-dom/tree/v0.79) (2020-08-14) · [Full Changelog](https://github.com/arez/arez-dom/compare/v0.78...v0.79)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.191'
