@@ -6,7 +6,16 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* Consuder propagating `Unmodifiable` and `UnmodifiableView` jetbrains annotations, `@TestOnly` and `@VisibleForTesting` through code bases
+
+* Reactive collections ... please!
+
 * `@Memoize( depType = DepType.AREZ_OR_EXTERNAL )` requires paired `@ComputableValueRef` method even if `ComputableValue` passed into `@OnActivate` method.
+
+* Memoize should have writeOutsideTransaction which allows reportPossiblyChanged outside transaction
+
+
+* `@Observable(writeOutsideTransaction=ENABLE)` should work when invoking `ObservableValue.reportChanged()` directly.
 
 * We should support both `@ComponentDependency` and `@CascadeDispose` on the same field/method as sometimes components are co-dependt and cascade disposes may come from dependencies in these components.
 
@@ -71,6 +80,24 @@ complete as there is too much un-said.
   are not useful. We should also include the average amount of time it took to calculate the value? See the
   `ComputableValueMetrics` branch for the begining of this.
 
+* Add annotation processor to code for following
+
+`
+@CompileTimeSettings(name="arez")
+abstract class ArezConfig
+{
+  // override name
+  @Setting(name="someFlag")
+  boolean isFlagSet();
+
+  // Override default
+  @Setting(defaultValue="true")
+  boolean isSomeOtherFlagSet();
+
+  @Setting(values={"a", "b", "c"})
+  boolean logger();
+}`
+
 * Could also record fan out and fan in for each node and rates of change for each node to see what problems could
   arise and where the potential bottlenecks are located.
 
@@ -118,6 +145,8 @@ When we get to a stable release candidate we need to action the following items:
   Instead add a way to mark error as obsolete.
 
 ## Documentation
+
+* Link to [javadoc.io](https://javadoc.io/doc/org.realityforge.arez/arez-core/latest/index.html) site for arez docs?
 
 * Generate documentation for each invariant error that can occur driven by `diagnostic_messages.json`. The
   expectation is that the error could be linked to via code ala https://arez.github.io/errors.html#Arez-0022
