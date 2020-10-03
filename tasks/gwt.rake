@@ -44,8 +44,8 @@ def gwt_enhance(project, options = {})
         mkdir_p File.dirname(file)
         IO.write(file, <<CONTENT)
 <module>
-  <inherits name="#{gwt_module}"/>
-  <inherits name="com.google.gwt.user.User"/>
+  <inherits name='#{gwt_module}'/>
+  <inherits name='com.google.gwt.user.User'/>
   <source path='ignored'/>
   <collapse-all-properties/>
 </module>
