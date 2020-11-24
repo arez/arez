@@ -41,7 +41,12 @@ public class StringifyReplacer
     else
     {
       final String v = String.valueOf( value );
-      if ( !v.startsWith( "[object " ) )
+      if ( null == v )
+      {
+        // v may be null if value.toString() returns null which will occur in optimized code in some scenarios
+        return "null";
+      }
+      else if ( !v.startsWith( "[object " ) )
       {
         return v;
       }
