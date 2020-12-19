@@ -3047,21 +3047,24 @@ public final class ArezProcessor
     final TypeElement disposeNotifier = getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
 
     final Set<String> injectedTypes = new HashSet<>();
-    for ( final ExecutableElement constructor : ElementsUtil.getConstructors( descriptor.getElement() ) )
+    if ( descriptor.isDaggerEnabled() || descriptor.isStingEnabled() )
     {
-      final List<? extends VariableElement> parameters = constructor.getParameters();
-      for ( final VariableElement parameter : parameters )
+      for ( final ExecutableElement constructor : ElementsUtil.getConstructors( descriptor.getElement() ) )
       {
-        final boolean isDisposeNotifier = isAssignable( parameter.asType(), disposeNotifier );
-        final boolean isTypeAnnotatedByComponentAnnotation =
-          !isDisposeNotifier && isTypeAnnotatedByComponentAnnotation( parameter );
-        final boolean isTypeAnnotatedActAsComponent =
-          !isDisposeNotifier &&
-          !isTypeAnnotatedByComponentAnnotation &&
-          isTypeAnnotatedByActAsComponentAnnotation( parameter );
-        if ( isDisposeNotifier || isTypeAnnotatedByComponentAnnotation || isTypeAnnotatedActAsComponent )
+        final List<? extends VariableElement> parameters = constructor.getParameters();
+        for ( final VariableElement parameter : parameters )
         {
-          injectedTypes.add( parameter.asType().toString() );
+          final boolean isDisposeNotifier = isAssignable( parameter.asType(), disposeNotifier );
+          final boolean isTypeAnnotatedByComponentAnnotation =
+            !isDisposeNotifier && isTypeAnnotatedByComponentAnnotation( parameter );
+          final boolean isTypeAnnotatedActAsComponent =
+            !isDisposeNotifier &&
+            !isTypeAnnotatedByComponentAnnotation &&
+            isTypeAnnotatedByActAsComponentAnnotation( parameter );
+          if ( isDisposeNotifier || isTypeAnnotatedByComponentAnnotation || isTypeAnnotatedActAsComponent )
+          {
+            injectedTypes.add( parameter.asType().toString() );
+          }
         }
       }
     }
@@ -3093,8 +3096,8 @@ public final class ArezProcessor
             final String message =
               "Field named '" + field.getSimpleName().toString() + "' has a type that is " + label +
               " but is not annotated with @" + Constants.CASCADE_DISPOSE_CLASSNAME + " or " +
-              "@" + Constants.COMPONENT_DEPENDENCY_CLASSNAME + " and was not passed in via the " +
-              "constructor. This scenario can cause Please " +
+              "@" + Constants.COMPONENT_DEPENDENCY_CLASSNAME + " and was not injected into the " +
+              "constructor. This scenario can cause errors if the value is disposed. Please " +
               "annotate the field as appropriate or suppress the warning by annotating the field with " +
               "@SuppressWarnings( \"" + Constants.WARNING_UNMANAGED_COMPONENT_REFERENCE + "\" ) or " +
               "@SuppressArezWarnings( \"" + Constants.WARNING_UNMANAGED_COMPONENT_REFERENCE + "\" )";
