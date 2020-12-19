@@ -12,8 +12,6 @@ complete as there is too much un-said.
 
 * Memoize should have writeOutsideTransaction which allows reportPossiblyChanged outside transaction
 
-* `@Observable(writeOutsideTransaction=ENABLE)` should work when invoking `ObservableValue.reportChanged()` directly.
-
 * We should support both `@ComponentDependency` and `@CascadeDispose` on the same field/method as sometimes components are co-dependent and cascade disposes may come from dependencies in these components.
 
 * We should gracefully handle multiple dependencies from the same component to another component as sometimes it is not easy to statically determine that there will be a duplicate.
@@ -64,8 +62,10 @@ complete as there is too much un-said.
 * Add ability to explicitly activate/deactivate non `ComputableValue` observers. Perhaps we should return an
   `ActivationLock` that is disposed when no longer care for Observer to be activated.
 
-* Consider adding flags to `Observable` object and move configuration of `readOutsideTransaction` and `writeOutsideTransaction`
-  into this field. This will hopefully result in a smaller API surface and reduced code size.
+* Consider adding flags to `Observable` object to move the configuration of `readOutsideTransaction`
+  and `writeOutsideTransaction` into this field. This will hopefully result in a smaller API surface
+  and reduced code size. `@Observable(writeOutsideTransaction=ENABLE)` should also work when invoking
+  `ObservableValue.reportChanged()` directly.
 
 * Add hook at end of scheduling so framework can do stuff (like batching spy message sent to DevTools)
 
