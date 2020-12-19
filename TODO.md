@@ -8,8 +8,6 @@ complete as there is too much un-said.
 
 * Consider propagating `Unmodifiable` and `UnmodifiableView` jetbrains annotations, `@TestOnly` and `@VisibleForTesting` through code bases
 
-* Reactive collections ... please!
-
 * `@Memoize( depType = DepType.AREZ_OR_EXTERNAL )` requires paired `@ComputableValueRef` method even if `ComputableValue` passed into `@OnActivate` method.
 
 * Memoize should have writeOutsideTransaction which allows reportPossiblyChanged outside transaction
