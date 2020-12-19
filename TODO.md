@@ -6,7 +6,7 @@ complete as there is too much un-said.
 
 ## Enhancements
 
-* Consuder propagating `Unmodifiable` and `UnmodifiableView` jetbrains annotations, `@TestOnly` and `@VisibleForTesting` through code bases
+* Consider propagating `Unmodifiable` and `UnmodifiableView` jetbrains annotations, `@TestOnly` and `@VisibleForTesting` through code bases
 
 * Reactive collections ... please!
 
