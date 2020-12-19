@@ -16,7 +16,7 @@ complete as there is too much un-said.
 
 * `@Observable(writeOutsideTransaction=ENABLE)` should work when invoking `ObservableValue.reportChanged()` directly.
 
-* We should support both `@ComponentDependency` and `@CascadeDispose` on the same field/method as sometimes components are co-dependt and cascade disposes may come from dependencies in these components.
+* We should support both `@ComponentDependency` and `@CascadeDispose` on the same field/method as sometimes components are co-dependent and cascade disposes may come from dependencies in these components.
 
 * We should gracefully handle multiple dependencies from the same component to another component as sometimes it is not easy to statically determine that there will be a duplicate.
 
