@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.192](https://github.com/arez/arez/tree/v0.192) (2020-12-19) · [Full Changelog](https://github.com/arez/arez/compare/v0.191...v0.192)
+
+Changes in this release:
 
 * Upgrade the `org.realityforge.org.jetbrains.annotations` artifact to version `1.7.0`.
 * Generate a suppressable warning when a component reference within a component is not annotated with `@ComponentDependency` or `@CascadeDispose`, is passed in as a constructor argument but not via sting or dagger injection.
