@@ -14,7 +14,6 @@ complete as there is too much un-said.
 
 * Memoize should have writeOutsideTransaction which allows reportPossiblyChanged outside transaction
 
-
 * `@Observable(writeOutsideTransaction=ENABLE)` should work when invoking `ObservableValue.reportChanged()` directly.
 
 * We should support both `@ComponentDependency` and `@CascadeDispose` on the same field/method as sometimes components are co-dependt and cascade disposes may come from dependencies in these components.
