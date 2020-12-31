@@ -48,7 +48,7 @@ public final class ArezContext
   @Nullable
   private final Zone _zone;
   /**
-   * Tasks scheduled but  yet to be run.
+   * Tasks scheduled but yet to be run.
    */
   @Nonnull
   private final TaskQueue _taskQueue = new TaskQueue( Task.Flags.PRIORITY_COUNT, 100 );
