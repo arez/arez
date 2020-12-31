@@ -133,6 +133,11 @@ public abstract class AbstractTest
     assertEquals( expectThrows( IllegalStateException.class, throwingRunnable ).getMessage(), message );
   }
 
+  protected final void assertDefaultToString( @Nonnull final Object object )
+  {
+    assertEquals( object.toString(), object.getClass().getName() + "@" + Integer.toHexString( object.hashCode() ) );
+  }
+
   protected static void observeADependency()
   {
     Arez.context().observable().reportObserved();

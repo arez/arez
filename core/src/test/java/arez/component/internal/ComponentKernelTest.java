@@ -138,7 +138,7 @@ public final class ComponentKernelTest
       new ComponentKernel( context, null, id, component, null, null, null, false, false, false );
 
     assertEquals( kernel.getContext(), context );
-    assertTrue( kernel.toString().startsWith( kernel.getClass().getName() + "@" ), "kernel.toString() == " + kernel );
+    assertDefaultToString( kernel );
 
     assertInvariantFailure( kernel::getName,
                             "Arez-0164: ComponentKernel.getName() invoked when Arez.areNamesEnabled() returns false." );

@@ -50,7 +50,7 @@ public final class NodeTest
 
     final TestNode node = new TestNode( context, null );
     assertEquals( node.getContext(), context );
-    assertTrue( node.toString().startsWith( node.getClass().getName() + "@" ), "node.toString() == " + node );
+    assertDefaultToString( node );
 
     assertInvariantFailure( node::getName, "Arez-0053: Node.getName() invoked when Arez.areNamesEnabled() is false" );
   }
