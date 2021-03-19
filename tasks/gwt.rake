@@ -15,7 +15,7 @@ def gwt_enhance(project, options = {})
     a.is_a?(String) ? file(a) : a
   end
 
-  if project.enable_annotation_processor?
+  if !!project.compile.options[:processor] || (project.compile.options[:processor].nil? && !(project.compile.options[:processor_path] || []).empty?)
     extra_deps += [project.file(project._(:generated, 'processors/main/java'))]
   end
 
@@ -90,7 +90,7 @@ CONTENT
     config[gwt_module] = false
   end
   project.iml.add_gwt_facet(config, :settings => {
-      :compilerMaxHeapSize => '1024',
-      :compilerParameters => '-draftCompile -localWorkers 2 -strict'
+    :compilerMaxHeapSize => '1024',
+    :compilerParameters => '-draftCompile -localWorkers 2 -strict'
   }, :gwt_dev_artifact => :gwt_dev)
 end
