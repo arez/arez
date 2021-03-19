@@ -25,8 +25,6 @@ define 'arez-spytools' do
   pom.include_transitive_dependencies << dom_artifact
   pom.dependency_filter = Proc.new {|dep| core_artifact == dep[:artifact] || dom_artifact == dep[:artifact] || jetbrains_annotations_artifact == dep[:artifact]}
 
-  compile.options[:processor_path] << [:arez_processor]
-
   compile.with :javax_annotation,
                :braincheck,
                :grim_annotations,
@@ -37,6 +35,8 @@ define 'arez-spytools' do
                :elemental2_dom,
                :elemental2_promise,
                :arez_core
+
+  compile.options[:processor_path] << [:arez_processor]
 
   gwt_enhance(project)
 
