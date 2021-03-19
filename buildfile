@@ -32,8 +32,6 @@ define 'arez-dom' do
   pom.include_transitive_dependencies << dom_artifact
   pom.dependency_filter = Proc.new {|dep| dom_artifact == dep[:artifact]}
 
-  project.processorpath << :arez_processor
-
   compile.with :javax_annotation,
                :braincheck,
                :jetbrains_annotations,
@@ -46,6 +44,8 @@ define 'arez-dom' do
                :arez_core,
                # gwt_user is present for @DoNotAutobox annotation
                :gwt_user
+
+  compile.options[:processor_path] << [:arez_processor]
 
   gwt_enhance(project)
 
@@ -71,7 +71,6 @@ define 'arez-dom' do
   ipr.extra_modules << 'example/example.iml'
 
   ipr.add_default_testng_configuration(:jvm_args => '-ea -Darez.environment=development')
-  ipr.add_component_from_artifact(:idea_codestyle)
 
   GWT_EXAMPLES.each_pair do |gwt_module, path|
     short_name = gwt_module
@@ -84,6 +83,11 @@ define 'arez-dom' do
                               :shell_parameters => "-strict -style PRETTY -XmethodNameDisplayMode FULL -nostartServer -incremental -codeServerPort 8889 -bindAddress 0.0.0.0 -deploy #{_(:generated, :gwt, 'deploy')} -extra #{_(:generated, :gwt, 'extra')} -war #{_(:generated, :gwt, 'war')}",
                               :launch_page => "http://127.0.0.1:8889/#{path}/index.html")
   end
+
+  ipr.add_component_from_artifact(:idea_codestyle)
+  ipr.add_code_insight_settings
+  ipr.add_nullable_manager
+  ipr.add_javac_settings('-Xlint:all,-processing,-serial -Werror -Xmaxerrs 10000 -Xmaxwarns 10000')
 end
 
 define 'example', :base_dir => "#{File.dirname(__FILE__)}/example" do
