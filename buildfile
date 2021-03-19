@@ -4,6 +4,7 @@ require 'buildr/single_intermediate_layout'
 require 'buildr/gwt'
 require 'buildr/jacoco'
 require 'buildr/top_level_generate_dir'
+require 'buildr/shade'
 
 TEST_DEPS = [:guiceyloops]
 GWT_DEPS =
@@ -137,11 +138,10 @@ define 'arez' do
       jar.merge(artifact(:javapoet))
       jar.merge(artifact(:proton_core))
       jar.enhance do |f|
-        shaded_jar = (f.to_s + '-shaded')
-        a = artifact('org.realityforge.shade:shade-cli:jar:1.0.0')
-        a.invoke
-        sh "#{Java::Commands.path_to_bin('java')} -jar #{a} --input #{f} --output #{shaded_jar} -rcom.squareup.javapoet=arez.processor.vendor.javapoet -rorg.realityforge.proton=arez.processor.vendor.proton"
-        FileUtils.mv shaded_jar, f.to_s
+        Buildr::Shade.shade(f,
+                            f,
+                            'com.squareup.javapoet' => 'arez.processor.vendor.javapoet',
+                            'org.realityforge.proton' => 'arez.processor.vendor.proton')
       end
     end
 
