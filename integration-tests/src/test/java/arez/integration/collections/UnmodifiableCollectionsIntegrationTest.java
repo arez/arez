@@ -20,6 +20,7 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
+@SuppressWarnings( "SimplifiableAssertion" )
 public final class UnmodifiableCollectionsIntegrationTest
   extends AbstractArezIntegrationTest
 {
@@ -40,15 +41,15 @@ public final class UnmodifiableCollectionsIntegrationTest
     safeAction( () -> assertNull( m1.getPois2() ) );
 
     // Reference identity should be guaranteed
-    safeAction( () -> assertSame( m1.getNames(), m1.getNames() ) );
-    safeAction( () -> assertSame( m1.getDates(), m1.getDates() ) );
-    safeAction( () -> assertSame( m1.getTimes(), m1.getTimes() ) );
-    safeAction( () -> assertSame( m1.getPois(), m1.getPois() ) );
+    safeAction( () -> assertTrue( m1.getNames() == m1.getNames() ) );
+    safeAction( () -> assertTrue( m1.getDates() == m1.getDates() ) );
+    safeAction( () -> assertTrue( m1.getTimes() == m1.getTimes() ) );
+    safeAction( () -> assertTrue( m1.getPois() == m1.getPois() ) );
 
-    safeAction( () -> assertSame( m1.getNames2(), m1.getNames2() ) );
-    safeAction( () -> assertSame( m1.getDates2(), m1.getDates2() ) );
-    safeAction( () -> assertSame( m1.getTimes2(), m1.getTimes2() ) );
-    safeAction( () -> assertSame( m1.getPois2(), m1.getPois2() ) );
+    safeAction( () -> assertTrue( m1.getNames2() == m1.getNames2() ) );
+    safeAction( () -> assertTrue( m1.getDates2() == m1.getDates2() ) );
+    safeAction( () -> assertTrue( m1.getTimes2() == m1.getTimes2() ) );
+    safeAction( () -> assertTrue( m1.getPois2() == m1.getPois2() ) );
 
     final HashSet<String> names = new HashSet<>( Arrays.asList( "1", "2", "3" ) );
     final HashSet<Date> dates = new HashSet<>( Collections.singletonList( new Date() ) );
@@ -94,15 +95,15 @@ public final class UnmodifiableCollectionsIntegrationTest
     safeAction( () -> assertTrue( m1.getPois2().containsKey( pois2.keySet().iterator().next() ) ) );
 
     // Reference identity should be guaranteed
-    safeAction( () -> assertSame( m1.getNames(), m1.getNames() ) );
-    safeAction( () -> assertSame( m1.getDates(), m1.getDates() ) );
-    safeAction( () -> assertSame( m1.getTimes(), m1.getTimes() ) );
-    safeAction( () -> assertSame( m1.getPois(), m1.getPois() ) );
+    safeAction( () -> assertTrue( m1.getNames() == m1.getNames() ) );
+    safeAction( () -> assertTrue( m1.getDates() == m1.getDates() ) );
+    safeAction( () -> assertTrue( m1.getTimes() == m1.getTimes() ) );
+    safeAction( () -> assertTrue( m1.getPois() == m1.getPois() ) );
 
-    safeAction( () -> assertSame( m1.getNames2(), m1.getNames2() ) );
-    safeAction( () -> assertSame( m1.getDates2(), m1.getDates2() ) );
-    safeAction( () -> assertSame( m1.getTimes2(), m1.getTimes2() ) );
-    safeAction( () -> assertSame( m1.getPois2(), m1.getPois2() ) );
+    safeAction( () -> assertTrue( m1.getNames2() == m1.getNames2() ) );
+    safeAction( () -> assertTrue( m1.getDates2() == m1.getDates2() ) );
+    safeAction( () -> assertTrue( m1.getTimes2() == m1.getTimes2() ) );
+    safeAction( () -> assertTrue( m1.getPois2() == m1.getPois2() ) );
   }
 
   @Test
@@ -123,15 +124,15 @@ public final class UnmodifiableCollectionsIntegrationTest
     safeAction( () -> assertNull( m1.getPois2() ) );
 
     // Reference identity should be guaranteed
-    safeAction( () -> assertSame( m1.getNames(), m1.getNames() ) );
-    safeAction( () -> assertSame( m1.getDates(), m1.getDates() ) );
-    safeAction( () -> assertSame( m1.getTimes(), m1.getTimes() ) );
-    safeAction( () -> assertSame( m1.getPois(), m1.getPois() ) );
+    safeAction( () -> assertTrue( m1.getNames() == m1.getNames() ) );
+    safeAction( () -> assertTrue( m1.getDates() == m1.getDates() ) );
+    safeAction( () -> assertTrue( m1.getTimes() == m1.getTimes() ) );
+    safeAction( () -> assertTrue( m1.getPois() == m1.getPois() ) );
 
-    safeAction( () -> assertSame( m1.getNames2(), m1.getNames2() ) );
-    safeAction( () -> assertSame( m1.getDates2(), m1.getDates2() ) );
-    safeAction( () -> assertSame( m1.getTimes2(), m1.getTimes2() ) );
-    safeAction( () -> assertSame( m1.getPois2(), m1.getPois2() ) );
+    safeAction( () -> assertTrue( m1.getNames2() == m1.getNames2() ) );
+    safeAction( () -> assertTrue( m1.getDates2() == m1.getDates2() ) );
+    safeAction( () -> assertTrue( m1.getTimes2() == m1.getTimes2() ) );
+    safeAction( () -> assertTrue( m1.getPois2() == m1.getPois2() ) );
 
     final HashSet<String> names = new HashSet<>( Arrays.asList( "1", "2", "3" ) );
     final HashSet<Date> dates = new HashSet<>( Collections.singletonList( new Date() ) );
@@ -177,15 +178,15 @@ public final class UnmodifiableCollectionsIntegrationTest
     safeAction( () -> assertTrue( m1.getPois2().containsKey( pois2.keySet().iterator().next() ) ) );
 
     // Reference identity should be guaranteed
-    safeAction( () -> assertSame( m1.getNames(), m1.getNames() ) );
-    safeAction( () -> assertSame( m1.getDates(), m1.getDates() ) );
-    safeAction( () -> assertSame( m1.getTimes(), m1.getTimes() ) );
-    safeAction( () -> assertSame( m1.getPois(), m1.getPois() ) );
+    safeAction( () -> assertTrue( m1.getNames() == m1.getNames() ) );
+    safeAction( () -> assertTrue( m1.getDates() == m1.getDates() ) );
+    safeAction( () -> assertTrue( m1.getTimes() == m1.getTimes() ) );
+    safeAction( () -> assertTrue( m1.getPois() == m1.getPois() ) );
 
-    safeAction( () -> assertSame( m1.getNames2(), m1.getNames2() ) );
-    safeAction( () -> assertSame( m1.getDates2(), m1.getDates2() ) );
-    safeAction( () -> assertSame( m1.getTimes2(), m1.getTimes2() ) );
-    safeAction( () -> assertSame( m1.getPois2(), m1.getPois2() ) );
+    safeAction( () -> assertTrue( m1.getNames2() == m1.getNames2() ) );
+    safeAction( () -> assertTrue( m1.getDates2() == m1.getDates2() ) );
+    safeAction( () -> assertTrue( m1.getTimes2() == m1.getTimes2() ) );
+    safeAction( () -> assertTrue( m1.getPois2() == m1.getPois2() ) );
 
     // Reset to Null
     safeAction( () -> m1.setNames2( null ) );

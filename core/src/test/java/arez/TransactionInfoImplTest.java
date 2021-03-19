@@ -71,6 +71,7 @@ public final class TransactionInfoImplTest
     assertEquals( parent.getName(), transaction1.getName() );
 
     // Ensure the same instance is returned if parent is called multiple times
-    assertSame( info.getParent(), parent );
+    //noinspection SimplifiableAssertion
+    assertTrue( info.getParent() == parent );
   }
 }

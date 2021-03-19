@@ -14,6 +14,7 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
+@SuppressWarnings( "SimplifiableAssertion" )
 public final class UnmodifiableSetterlessCollectionsIntegrationTest
   extends AbstractArezIntegrationTest
 {
@@ -26,7 +27,7 @@ public final class UnmodifiableSetterlessCollectionsIntegrationTest
     assertThrows( () -> safeAction( () -> assertUnmodifiable( m1.getValue(), ValueUtil::randomString ) ) );
 
     // Reference identity should be guaranteed
-    safeAction( () -> assertSame( m1.getValue(), m1.getValue() ) );
+    safeAction( () -> assertTrue( m1.getValue() == m1.getValue() ) );
 
     final HashSet<String> value = new HashSet<>( Arrays.asList( "1", "2", "3" ) );
 
@@ -39,7 +40,7 @@ public final class UnmodifiableSetterlessCollectionsIntegrationTest
     safeAction( () -> assertTrue( m1.getValue().contains( value.iterator().next() ) ) );
 
     // Reference identity should be guaranteed
-    safeAction( () -> assertSame( m1.getValue(), m1.getValue() ) );
+    safeAction( () -> assertTrue( m1.getValue() == m1.getValue() ) );
   }
 
   @Test
@@ -50,7 +51,7 @@ public final class UnmodifiableSetterlessCollectionsIntegrationTest
     assertThrows( () -> safeAction( () -> assertUnmodifiable( m1.getValue(), ValueUtil::randomString ) ) );
 
     // Reference identity should be guaranteed
-    safeAction( () -> assertSame( m1.getValue(), m1.getValue() ) );
+    safeAction( () -> assertTrue( m1.getValue() == m1.getValue() ) );
 
     final HashSet<String> value = new HashSet<>( Arrays.asList( "1", "2", "3" ) );
 
@@ -62,7 +63,7 @@ public final class UnmodifiableSetterlessCollectionsIntegrationTest
     safeAction( () -> assertTrue( m1.getValue().contains( value.iterator().next() ) ) );
 
     // Reference identity should be guaranteed
-    safeAction( () -> assertSame( m1.getValue(), m1.getValue() ) );
+    safeAction( () -> assertTrue( m1.getValue() == m1.getValue() ) );
   }
 
   private <T> void assertUnmodifiable( @Nonnull final Collection<T> collection, @Nonnull final Supplier<T> creator )

@@ -478,7 +478,8 @@ public final class ObserverTest
       observer.replaceDependencies( newDependencies );
 
       assertEquals( observer.getDependencies().size(), 1 );
-      assertNotSame( observer.getDependencies(), originalDependencies );
+      //noinspection SimplifiableAssertion
+      assertTrue( observer.getDependencies() != originalDependencies );
       assertTrue( observer.getDependencies().contains( observable ) );
     }, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
   }

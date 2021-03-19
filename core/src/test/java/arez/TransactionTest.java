@@ -8,6 +8,7 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
+@SuppressWarnings( "SimplifiableAssertion" )
 public final class TransactionTest
   extends AbstractTest
 {
@@ -220,7 +221,7 @@ public final class TransactionTest
 
     // The next code block essentially verifies it calls completeTracking
     assertEquals( tracker.getState(), Observer.Flags.STATE_UP_TO_DATE );
-    assertNotSame( tracker.getDependencies(), dependencies );
+    assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 1 );
     assertTrue( tracker.getDependencies().contains( observableValue1 ) );
     assertEquals( observableValue1.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
@@ -458,7 +459,8 @@ public final class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_UP_TO_DATE );
-    assertSame( tracker.getDependencies(), dependencies );
+    //noinspection SimplifiableAssertion
+    assertTrue( tracker.getDependencies() == dependencies );
     assertEquals( tracker.getDependencies().size(), 0 );
   }
 
@@ -534,7 +536,7 @@ public final class TransactionTest
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_DISPOSED );
     final List<ObservableValue<?>> dependencies1 = tracker.getDependencies();
-    assertNotSame( dependencies1, dependencies );
+    assertTrue( dependencies1 != dependencies );
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue1.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
     assertEquals( observableValue2.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
@@ -572,7 +574,7 @@ public final class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_STALE );
-    assertNotSame( tracker.getDependencies(), dependencies );
+    assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 1 );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
     assertEquals( observableValue.getObservers().size(), 2 );
@@ -602,7 +604,7 @@ public final class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_UP_TO_DATE );
-    assertNotSame( tracker.getDependencies(), dependencies );
+    assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue1.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
     assertEquals( observableValue1.getObservers().size(), 0 );
@@ -630,7 +632,7 @@ public final class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_UP_TO_DATE );
-    assertNotSame( tracker.getDependencies(), dependencies );
+    assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 1 );
     assertTrue( tracker.getDependencies().contains( observableValue ) );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
@@ -664,7 +666,7 @@ public final class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_UP_TO_DATE );
-    assertNotSame( tracker.getDependencies(), dependencies );
+    assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 4 );
     assertTrue( tracker.getDependencies().contains( observableValue1 ) );
     assertEquals( observableValue1.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
@@ -698,7 +700,7 @@ public final class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_UP_TO_DATE );
-    assertNotSame( tracker.getDependencies(), dependencies );
+    assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 1 );
     assertTrue( tracker.getDependencies().contains( observableValue ) );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
@@ -733,7 +735,7 @@ public final class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_UP_TO_DATE );
-    assertNotSame( tracker.getDependencies(), dependencies );
+    assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 2 );
     assertTrue( tracker.getDependencies().contains( observableValue1 ) );
     assertTrue( tracker.getDependencies().contains( observableValue2 ) );
@@ -771,7 +773,8 @@ public final class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_UP_TO_DATE );
-    assertSame( tracker.getDependencies(), dependencies );
+    //noinspection SimplifiableAssertion
+    assertTrue( tracker.getDependencies() == dependencies );
     assertEquals( tracker.getDependencies().size(), 2 );
     assertTrue( tracker.getDependencies().contains( observableValue1 ) );
     assertTrue( tracker.getDependencies().contains( observableValue2 ) );
@@ -813,7 +816,7 @@ public final class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_UP_TO_DATE );
-    assertNotSame( tracker.getDependencies(), dependencies );
+    assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 2 );
     assertTrue( tracker.getDependencies().contains( observableValue1 ) );
     assertTrue( tracker.getDependencies().contains( observableValue3 ) );
@@ -848,7 +851,8 @@ public final class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_UP_TO_DATE );
-    assertSame( tracker.getDependencies(), dependencies );
+    //noinspection SimplifiableAssertion
+    assertTrue( tracker.getDependencies() == dependencies );
     assertEquals( tracker.getDependencies().size(), 1 );
     assertTrue( tracker.getDependencies().contains( observableValue ) );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
@@ -882,7 +886,8 @@ public final class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_STALE );
-    assertSame( tracker.getDependencies(), dependencies );
+    //noinspection SimplifiableAssertion
+    assertTrue( tracker.getDependencies() == dependencies );
     assertEquals( tracker.getDependencies().size(), 1 );
     assertTrue( tracker.getDependencies().contains( observableValue ) );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
@@ -960,7 +965,7 @@ public final class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_UP_TO_DATE );
-    assertNotSame( tracker.getDependencies(), dependencies );
+    assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
 
@@ -997,7 +1002,7 @@ public final class TransactionTest
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_UP_TO_DATE );
-    assertNotSame( tracker.getDependencies(), dependencies );
+    assertTrue( tracker.getDependencies() != dependencies );
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
 
@@ -1054,7 +1059,8 @@ public final class TransactionTest
     assertNotNull( transaction2.getPendingDeactivations() );
 
     // Pending deactivations list in both transactions should be the same instance
-    assertSame( transaction1.getPendingDeactivations(), transaction2.getPendingDeactivations() );
+    //noinspection SimplifiableAssertion
+    assertTrue( transaction1.getPendingDeactivations() == transaction2.getPendingDeactivations() );
 
     assertEquals( transaction1.getPendingDeactivations().size(), 1 );
     assertTrue( transaction1.getPendingDeactivations().contains( observableValue ) );

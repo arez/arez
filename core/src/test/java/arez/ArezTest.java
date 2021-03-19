@@ -14,7 +14,8 @@ public final class ArezTest
     final ArezContext context1 = Arez.context();
     assertNotNull( context1 );
     final ArezContext context2 = Arez.context();
-    assertSame( context1, context2 );
+    //noinspection SimplifiableAssertion
+    assertTrue( context1 == context2 );
   }
 
   @Test

@@ -118,7 +118,7 @@ define 'arez' do
                  :javapoet
 
     test.with :compile_testing,
-              Java.tools_jar,
+              Buildr::Util.tools_jar,
               :proton_qa,
               :truth,
               :junit,
@@ -138,15 +138,9 @@ define 'arez' do
       jar.merge(artifact(:proton_core))
       jar.enhance do |f|
         shaded_jar = (f.to_s + '-shaded')
-        Buildr.ant 'shade_jar' do |ant|
-          artifact = Buildr.artifact(:shade_task)
-          artifact.invoke
-          ant.taskdef :name => 'shade', :classname => 'org.realityforge.ant.shade.Shade', :classpath => artifact.to_s
-          ant.shade :jar => f.to_s, :uberJar => shaded_jar do
-            ant.relocation :pattern => 'com.squareup.javapoet', :shadedPattern => 'arez.processor.vendor.javapoet'
-            ant.relocation :pattern => 'org.realityforge.proton', :shadedPattern => 'arez.processor.vendor.proton'
-          end
-        end
+        a = artifact('org.realityforge.shade:shade-cli:jar:1.0.0')
+        a.invoke
+        sh "#{Java::Commands.path_to_bin('java')} -jar #{a} --input #{f} --output #{shaded_jar} -rcom.squareup.javapoet=arez.processor.vendor.javapoet -rorg.realityforge.proton=arez.processor.vendor.proton"
         FileUtils.mv shaded_jar, f.to_s
       end
     end
