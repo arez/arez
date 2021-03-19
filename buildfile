@@ -23,8 +23,6 @@ define 'arez-promise' do
   pom.include_transitive_dependencies << dom_artifact
   pom.dependency_filter = Proc.new {|dep| dom_artifact == dep[:artifact]}
 
-  project.processorpath << :arez_processor
-
   compile.with :javax_annotation,
                :braincheck,
                :jetbrains_annotations,
@@ -34,6 +32,8 @@ define 'arez-promise' do
                :elemental2_core,
                :elemental2_promise,
                :arez_core
+
+  compile.options[:processor_path] << [:arez_processor]
 
   gwt_enhance(project)
 
@@ -52,8 +52,6 @@ define 'arez-promise' do
   iml.excluded_directories << project._('tmp')
   ipr.extra_modules << 'example/example.iml'
 
-  ipr.add_component_from_artifact(:idea_codestyle)
-
   GWT_EXAMPLES.each do |gwt_module|
     short_name = gwt_module.gsub(/.*\./, '')
     ipr.add_gwt_configuration(project,
@@ -66,6 +64,11 @@ define 'arez-promise' do
                               :shell_parameters => "-strict -style PRETTY -XmethodNameDisplayMode FULL -nostartServer -incremental -codeServerPort 8889 -bindAddress 0.0.0.0 -deploy #{_(:generated, :gwt, 'deploy')} -extra #{_(:generated, :gwt, 'extra')} -war #{_(:generated, :gwt, 'war')}",
                               :launch_page => "http://127.0.0.1:8888/#{gwt_module}/index.html")
   end
+
+  ipr.add_component_from_artifact(:idea_codestyle)
+  ipr.add_code_insight_settings
+  ipr.add_nullable_manager
+  ipr.add_javac_settings('-Xlint:all,-processing,-serial -Werror -Xmaxerrs 10000 -Xmaxwarns 10000')
 end
 
 define 'example', :base_dir => "#{File.dirname(__FILE__)}/example" do
