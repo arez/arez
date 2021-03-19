@@ -25,7 +25,7 @@ define 'arez-spytools' do
   pom.include_transitive_dependencies << dom_artifact
   pom.dependency_filter = Proc.new {|dep| core_artifact == dep[:artifact] || dom_artifact == dep[:artifact] || jetbrains_annotations_artifact == dep[:artifact]}
 
-  project.processorpath << :arez_processor
+  compile.options[:processor_path] << [:arez_processor]
 
   compile.with :javax_annotation,
                :braincheck,
@@ -61,5 +61,9 @@ define 'arez-spytools' do
   iml.excluded_directories << project._('tmp')
 
   ipr.add_default_testng_configuration(:jvm_args => '-ea -Darez.environment=development')
+
   ipr.add_component_from_artifact(:idea_codestyle)
+  ipr.add_code_insight_settings
+  ipr.add_nullable_manager
+  ipr.add_javac_settings('-Xlint:all,-processing,-serial -Werror -Xmaxerrs 10000 -Xmaxwarns 10000')
 end
