@@ -1,5 +1,5 @@
 def cleanup_javadocs(project, base_path)
-  project.javadoc do
+  project.doc do
     Dir["#{project.doc.target}/#{base_path}/**/*.html"].each do |f|
       content = IO.read(f, :encoding => 'UTF-8')
       content.gsub!(/@Nonnull<\/a>[ \n\t]+/, '@Nonnull</a> ')
