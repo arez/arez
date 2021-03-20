@@ -23,7 +23,7 @@ artifacts:
 
   braincheck: org.realityforge.braincheck:braincheck:jar:1.29.0
 
-  grim_annotations: org.realityforge.grim:grim-annotations:jar:0.04
+  grim_annotations: org.realityforge.grim:grim-annotations:jar:0.05
 
   elemental2_core: org.realityforge.com.google.elemental2:elemental2-core:jar:2.27
   elemental2_dom: org.realityforge.com.google.elemental2:elemental2-dom:jar:2.27
