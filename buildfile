@@ -2,6 +2,8 @@ require 'buildr/git_auto_version'
 require 'buildr/gpg'
 require 'buildr/gwt'
 
+Buildr::MavenCentral.define_publish_tasks(:profile_name => 'org.realityforge', :username => 'realityforge')
+
 GWT_EXAMPLES=%w(arez.promise.example.ObservablePromiseExample)
 
 desc 'Arez-Promise: Arez component that wraps a Promise and makes it observable'
