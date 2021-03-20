@@ -122,6 +122,7 @@ define 'arez' do
               Buildr::Util.tools_jar,
               :proton_qa,
               :truth,
+              :error_prone_annotations,
               :junit,
               :hamcrest_core,
               DAGGER_PROCESSOR_DEPS,
