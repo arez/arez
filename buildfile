@@ -2,6 +2,8 @@ require 'buildr/git_auto_version'
 require 'buildr/gpg'
 require 'buildr/gwt'
 
+Buildr::MavenCentral.define_publish_tasks(:profile_name => 'org.realityforge', :username => 'realityforge')
+
 desc 'Arez-TestNG: Arez utilities for writing TestNG tests'
 define 'arez-testng' do
   project.group = 'org.realityforge.arez.testng'
