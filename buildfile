@@ -14,22 +14,22 @@ GWT_DEPS =
     :elemental2_promise,
     :jsinterop_base
   ]
-DAGGER_DEPS =
+DAGGER_RUNTIME_DEPS = [:javax_inject, :dagger_core]
+DAGGER_PROCESSOR_DEPS =
   [
     :javax_inject,
     :dagger_core,
     :dagger_producers,
     :dagger_spi,
     :dagger_compiler,
-    :autocommon,
-    :guava,
     :guava_failureaccess,
     :kotlinx_metadata_jvm,
     :kotlin_stdlib,
     :kotlin_stdlib_common,
     :googlejavaformat,
     :errorprone,
-    :error_prone_annotations
+    :javapoet,
+    :guava
   ]
 
 # JDK options passed to test environment. Essentially turns assertions on.
@@ -62,7 +62,7 @@ define 'arez' do
 
     compile.with deps
 
-    project.processorpath << artifacts(:grim_processor, :javax_json)
+    compile.options[:processor_path] << artifacts(:grim_processor, :javax_json)
 
     test.options[:properties] =
       AREZ_TEST_OPTIONS.merge('arez.core.compile_target' => compile.target.to_s,
@@ -124,7 +124,7 @@ define 'arez' do
               :truth,
               :junit,
               :hamcrest_core,
-              DAGGER_DEPS,
+              DAGGER_PROCESSOR_DEPS,
               :sting_core,
               :sting_processor,
               project('core').package(:jar),
@@ -156,24 +156,23 @@ define 'arez' do
 
   desc 'Arez Integration Tests'
   define 'integration-tests' do
-    project.enable_annotation_processor = true
-
     test.options[:properties] = AREZ_TEST_OPTIONS.merge('arez.integration_fixture_dir' => _('src/test/resources'))
     test.options[:java_args] = ['-ea']
 
     test.using :testng
     test.compile.with TEST_DEPS,
-                      DAGGER_DEPS,
+                      DAGGER_RUNTIME_DEPS,
                       :sting_core,
-                      :sting_processor,
                       GWT_DEPS,
                       :javax_json,
                       :jsonassert,
                       :android_json,
                       project('core').package(:jar),
-                      project('core').compile.dependencies,
-                      project('processor').package(:jar),
-                      project('processor').compile.dependencies
+                      project('core').compile.dependencies
+
+    test.compile.options[:processor_path] << [project('processor').package(:jar), project('processor').compile.dependencies]
+    test.compile.options[:processor_path] << [:sting_processor]
+    test.compile.options[:processor_path] << DAGGER_PROCESSOR_DEPS
 
     # The generators are configured to generate to here.
     iml.test_source_directories << _('generated/processors/test/java')
@@ -264,17 +263,16 @@ define 'arez' do
 
   desc 'Arez Examples used in documentation'
   define 'doc-examples' do
-    project.enable_annotation_processor = true
-
-    compile.with project('processor').package(:jar),
-                 project('processor').compile.dependencies,
-                 project('core').package(:jar),
+    compile.with project('core').package(:jar),
                  project('core').compile.dependencies,
                  :gwt_user,
-                 DAGGER_DEPS,
+                 DAGGER_RUNTIME_DEPS,
                  :sting_core,
-                 :sting_processor,
                  GWT_DEPS
+
+    compile.options[:processor_path] << [project('processor').package(:jar), project('processor').compile.dependencies]
+    compile.options[:processor_path] << [:sting_processor]
+    compile.options[:processor_path] << DAGGER_PROCESSOR_DEPS
 
     project.jacoco.enabled = false
   end
