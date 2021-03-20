@@ -2,6 +2,8 @@ require 'buildr/git_auto_version'
 require 'buildr/gpg'
 require 'buildr/gwt'
 
+Buildr::MavenCentral.define_publish_tasks(:profile_name => 'org.realityforge', :username => 'realityforge')
+
 desc 'Arez-SpyTools: Arez utilities that enhance the spy capabilities'
 define 'arez-spytools' do
   project.group = 'org.realityforge.arez.spytools'
