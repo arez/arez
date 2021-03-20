@@ -9,7 +9,7 @@ artifacts:
 
   braincheck: org.realityforge.braincheck:braincheck:jar:1.29.0
 
-  grim_annotations: org.realityforge.grim:grim-annotations:jar:0.04
+  grim_annotations: org.realityforge.grim:grim-annotations:jar:0.05
 
   guiceyloops: org.realityforge.guiceyloops:guiceyloops:jar:0.106
 
