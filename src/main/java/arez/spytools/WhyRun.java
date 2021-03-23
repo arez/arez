@@ -1,12 +1,12 @@
 package arez.spytools;
 
+import akasha.Console;
 import arez.Arez;
 import arez.spy.ComputableValueInfo;
 import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import arez.spy.Spy;
 import arez.spy.TransactionInfo;
-import elemental2.dom.DomGlobal;
 import java.util.List;
 import javax.annotation.Nonnull;
 
@@ -21,7 +21,7 @@ public final class WhyRun
 
   public static void log()
   {
-    DomGlobal.console.log( whyRun() );
+    Console.log( whyRun() );
   }
 
   public static String whyRun()

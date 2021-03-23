@@ -4,6 +4,7 @@
 
 * Upgrade the `org.realityforge.grim` artifacts to version `0.05`.
 * Upgrade the `au.com.stocksoftware.idea.codestyle` artifact to version `1.17`.
+* Migrate from Elemental2 to Akasha to interact with the Browser API.
 
 ### [v0.120](https://github.com/arez/arez-spytools/tree/v0.120) (2020-12-19) · [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.119...v0.120)
 

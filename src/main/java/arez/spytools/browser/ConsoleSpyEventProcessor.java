@@ -1,5 +1,7 @@
 package arez.spytools.browser;
 
+import akasha.Console;
+import akasha.core.JSON;
 import arez.Arez;
 import arez.spy.ActionCompleteEvent;
 import arez.spy.ActionStartEvent;
@@ -28,8 +30,6 @@ import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import arez.spytools.AbstractSpyEventProcessor;
 import arez.spytools.SpyUtil;
-import elemental2.core.Global;
-import elemental2.dom.DomGlobal;
 import javax.annotation.Nonnull;
 
 /**
@@ -245,11 +245,11 @@ public class ConsoleSpyEventProcessor
   protected void onObservableValueChange( @Nonnull final SpyUtil.NestingDelta d,
                                           @Nonnull final ObservableValueChangeEvent e )
   {
-    DomGlobal.console.log( "%cObservable Changed " +
-                           e.getObservableValue().getName() +
-                           ( Arez.arePropertyIntrospectorsEnabled() ? " Value: %o " : null ),
-                           OBSERVABLE_COLOR,
-                           ( Arez.arePropertyIntrospectorsEnabled() ? e.getValue() : null ) );
+    Console.log( "%cObservable Changed " +
+                 e.getObservableValue().getName() +
+                 ( Arez.arePropertyIntrospectorsEnabled() ? " Value: %o " : null ),
+                 OBSERVABLE_COLOR,
+                 ( Arez.arePropertyIntrospectorsEnabled() ? e.getValue() : null ) );
   }
 
   /**
@@ -459,7 +459,7 @@ public class ConsoleSpyEventProcessor
         {
           requireComma = true;
         }
-        sb.append( Global.JSON.stringify( parameter, filter::handleValue ) );
+        sb.append( JSON.stringify( parameter, ( k, value ) -> filter.handleValue( value ) ) );
       }
       sb.append( ")" );
       return sb.toString();
@@ -491,22 +491,22 @@ public class ConsoleSpyEventProcessor
   {
     if ( SpyUtil.NestingDelta.INCREASE == delta )
     {
-      DomGlobal.console.groupCollapsed( message, styling );
+      Console.groupCollapsed( message, styling );
     }
     else if ( SpyUtil.NestingDelta.DECREASE == delta )
     {
-      DomGlobal.console.log( message, styling );
-      DomGlobal.console.groupEnd();
+      Console.log( message, styling );
+      Console.groupEnd();
     }
     else
     {
-      DomGlobal.console.log( message, styling );
+      Console.log( message, styling );
     }
   }
 
   @Override
   protected void handleUnhandledEvent( @Nonnull final Object event )
   {
-    DomGlobal.console.log( event );
+    Console.log( event );
   }
 }

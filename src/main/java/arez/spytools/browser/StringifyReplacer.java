@@ -1,9 +1,11 @@
 package arez.spytools.browser;
 
-import elemental2.core.JsArray;
-import elemental2.core.JsObject;
+import akasha.lang.JsArray;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
+import jsinterop.base.Any;
 import jsinterop.base.Js;
 import jsinterop.base.JsArrayLike;
 import jsinterop.base.JsPropertyMap;
@@ -14,17 +16,17 @@ import jsinterop.base.JsPropertyMap;
  */
 public class StringifyReplacer
 {
+  @Nonnull
   private final JsArrayLike<Object> _array = new JsArray<>();
 
   /**
    * Return the transformed value for key-value pair.
    *
-   * @param key   the name of the field.
    * @param value the value to transform.
    * @return the transformed value.
    */
   @Nullable
-  public Object handleValue( @Nonnull final String key, @Nullable final Object value )
+  public Any handleValue( @Nullable final Object value )
   {
     if ( null == value )
     {
@@ -32,11 +34,11 @@ public class StringifyReplacer
     }
     else if ( Js.typeof( value ).equals( "function" ) )
     {
-      return Js.asPropertyMap( value ).get( "name" );
+      return Js.asPropertyMap( value ).getAsAny( "name" );
     }
     else if ( !Js.typeof( value ).equals( "object" ) )
     {
-      return value;
+      return Js.asAny( value );
     }
     else
     {
@@ -44,11 +46,11 @@ public class StringifyReplacer
       if ( null == v )
       {
         // v may be null if value.toString() returns null which will occur in optimized code in some scenarios
-        return "null";
+        return Js.asAny( "null" );
       }
       else if ( !v.startsWith( "[object " ) )
       {
-        return v;
+        return Js.asAny( v );
       }
       else
       {
@@ -56,7 +58,7 @@ public class StringifyReplacer
         {
           if ( Js.isTripleEqual( value, _array.getAtAsAny( i ) ) )
           {
-            return "[Circular]";
+            return Js.asAny( "[Circular]" );
           }
         }
         _array.setAt( _array.getLength(), value );
@@ -67,7 +69,7 @@ public class StringifyReplacer
         {
           map.set( propertyName, Js.asPropertyMap( value ).getAsAny( propertyName ) );
         }
-        return map;
+        return Js.asAny( map );
       }
     }
   }
@@ -81,7 +83,14 @@ public class StringifyReplacer
   @Nonnull
   protected String[] getPropertyNames( @Nonnull final Object object )
   {
-    final JsArray<String> names = JsObject.getOwnPropertyNames( Js.uncheckedCast( object ) );
+    final JsArray<String> names = JsObject.getOwnPropertyNames( object );
     return names.asArray( new String[ names.length ] );
+  }
+
+  @JsType( isNative = true, name = "Object", namespace = JsPackage.GLOBAL )
+  private static class JsObject
+  {
+    @Nonnull
+    private static native JsArray<String> getOwnPropertyNames( @Nonnull Object obj );
   }
 }

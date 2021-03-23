@@ -21,11 +21,11 @@ define 'arez-spytools' do
 
   jetbrains_annotations_artifact = artifact(:jetbrains_annotations)
   core_artifact = artifact(:arez_core)
-  dom_artifact = artifact(:elemental2_dom)
+  akasha_artifact = artifact(:akasha)
   pom.include_transitive_dependencies << jetbrains_annotations_artifact
   pom.include_transitive_dependencies << core_artifact
-  pom.include_transitive_dependencies << dom_artifact
-  pom.dependency_filter = Proc.new {|dep| core_artifact == dep[:artifact] || dom_artifact == dep[:artifact] || jetbrains_annotations_artifact == dep[:artifact]}
+  pom.include_transitive_dependencies << akasha_artifact
+  pom.dependency_filter = Proc.new {|dep| core_artifact == dep[:artifact] || akasha_artifact == dep[:artifact] || jetbrains_annotations_artifact == dep[:artifact]}
 
   compile.with :javax_annotation,
                :braincheck,
@@ -33,9 +33,7 @@ define 'arez-spytools' do
                :jetbrains_annotations,
                :jsinterop_base,
                :jsinterop_annotations,
-               :elemental2_core,
-               :elemental2_dom,
-               :elemental2_promise,
+               :akasha,
                :arez_core
 
   compile.options[:processor_path] << [:arez_processor]
