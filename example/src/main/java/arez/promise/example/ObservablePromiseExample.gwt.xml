@@ -1,5 +1,6 @@
 <module>
-  <inherits name='elemental2.dom.Dom'/>
+  <inherits name='com.google.gwt.core.Core'/>
+  <inherits name='akasha.Akasha'/>
   <inherits name='arez.ArezDev'/>
   <inherits name='arez.promise.ObservablePromise'/>
 

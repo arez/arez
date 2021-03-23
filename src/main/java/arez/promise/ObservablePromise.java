@@ -1,12 +1,11 @@
 package arez.promise;
 
+import akasha.promise.Promise;
 import arez.Arez;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import arez.annotations.Observable;
-import elemental2.promise.IThenable;
-import elemental2.promise.Promise;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import jsinterop.base.Js;
@@ -178,7 +177,7 @@ public abstract class ObservablePromise<T, E>
 
   @Action
   @Nonnull
-  IThenable<T> onFulfilled( final T value )
+  Promise<T> onFulfilled( final T value )
   {
     setState( State.FULFILLED );
     setValue( value );
@@ -186,7 +185,7 @@ public abstract class ObservablePromise<T, E>
   }
 
   @Action
-  IThenable<Object> onRejected( @Nonnull final Object error )
+  Promise<Object> onRejected( @Nonnull final Object error )
   {
     setState( State.REJECTED );
     setError( Js.uncheckedCast( error ) );

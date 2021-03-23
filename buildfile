@@ -31,8 +31,7 @@ define 'arez-promise' do
                :grim_annotations,
                :jsinterop_base,
                :jsinterop_annotations,
-               :elemental2_core,
-               :elemental2_promise,
+               :akasha,
                :arez_core
 
   compile.options[:processor_path] << [:arez_processor]
@@ -79,7 +78,6 @@ define 'example', :base_dir => "#{File.dirname(__FILE__)}/example" do
 
   compile.with project('arez-promise').package(:jar),
                project('arez-promise').compile.dependencies,
-               :elemental2_dom,
                :gwt_user
 
   gwt_enhance(project)
