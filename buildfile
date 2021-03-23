@@ -9,13 +9,7 @@ require 'buildr/shade'
 Buildr::MavenCentral.define_publish_tasks(:profile_name => 'org.realityforge', :username => 'realityforge')
 
 TEST_DEPS = [:guiceyloops]
-GWT_DEPS =
-  [
-    :elemental2_core,
-    :elemental2_dom,
-    :elemental2_promise,
-    :jsinterop_base
-  ]
+GWT_DEPS = [:akasha, :jsinterop_base]
 DAGGER_RUNTIME_DEPS = [:javax_inject, :dagger_core]
 DAGGER_PROCESSOR_DEPS =
   [

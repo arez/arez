@@ -3,8 +3,8 @@ package arez.doc.examples.at_observe;
 import arez.annotations.ArezComponent;
 import arez.annotations.CascadeDispose;
 import arez.annotations.Observe;
-import elemental2.dom.DomGlobal;
-import elemental2.dom.Element;
+import akasha.Global;
+import akasha.Element;
 
 @ArezComponent
 public abstract class CurrencyView
@@ -15,7 +15,8 @@ public abstract class CurrencyView
   @Observe
   void renderView()
   {
-    final Element element = DomGlobal.document.getElementById( "currencyTracker" );
+    final Element element = Global.document().getElementById( "currencyTracker" );
+    assert null != element;
     element.innerHTML = "1 BTC = $" + bitcoin.getAmount() + "AUD";
   }
 }

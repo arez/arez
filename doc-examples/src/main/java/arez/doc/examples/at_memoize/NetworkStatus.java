@@ -1,19 +1,19 @@
 package arez.doc.examples.at_memoize;
 
+import akasha.EventListener;
+import akasha.Global;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
-import elemental2.dom.DomGlobal;
-import elemental2.dom.EventListener;
 
 @ArezComponent
 public abstract class NetworkStatus
 {
   private final EventListener _listener = e -> updateOnlineStatus();
-  private boolean _rawOnLine = DomGlobal.navigator.onLine;
+  private boolean _rawOnLine = getIsOnLine();
 
   @Memoize
   public boolean isOnLine()
@@ -24,15 +24,15 @@ public abstract class NetworkStatus
   @OnActivate
   void onOnLineActivate()
   {
-    DomGlobal.window.addEventListener( "online", _listener );
-    DomGlobal.window.addEventListener( "offline", _listener );
+    Global.addOnlineListener( _listener );
+    Global.addOfflineListener( _listener );
   }
 
   @OnDeactivate
   void onOnLineDeactivate()
   {
-    DomGlobal.window.removeEventListener( "online", _listener );
-    DomGlobal.window.removeEventListener( "offline", _listener );
+    Global.removeOnlineListener( _listener );
+    Global.removeOfflineListener( _listener );
   }
 
   @Observable
@@ -50,6 +50,11 @@ public abstract class NetworkStatus
   void updateOnlineStatus()
   {
     //Updating the observable will force @Memoize method to recalculate
-    setRawOnLine( DomGlobal.navigator.onLine );
+    setRawOnLine( getIsOnLine() );
+  }
+
+  private boolean getIsOnLine()
+  {
+    return Global.navigator().onLine();
   }
 }
