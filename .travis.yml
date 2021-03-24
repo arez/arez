@@ -24,7 +24,7 @@ install:
 - yarn install
 - gem install bundler
 - bundle install
-script: bundle exec buildr ci
+script: bundle exec buildr ci J2CL=no
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 git:
