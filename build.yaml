@@ -26,7 +26,7 @@ artifacts:
 
   akasha: org.realityforge.akasha:akasha-java:jar:0.02
 
-  arez_core: org.realityforge.arez:arez-core:jar:0.192
-  arez_processor: org.realityforge.arez:arez-processor:jar:0.192
+  arez_core: org.realityforge.arez:arez-core:jar:0.193
+  arez_processor: org.realityforge.arez:arez-processor:jar:0.193
 
   testng: org.testng:testng:jar:6.11

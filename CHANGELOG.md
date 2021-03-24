@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.193'
+
 ### [v0.121](https://github.com/arez/arez-spytools/tree/v0.121) (2021-03-23) · [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.120...v0.121)
 
 * Upgrade the `org.realityforge.grim` artifacts to version `0.05`.
