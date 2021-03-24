@@ -1,6 +1,6 @@
 # Change Log
 
-### Unreleased
+### [v0.118](https://github.com/arez/arez-promise/tree/v0.118) (2021-03-24) · [Full Changelog](https://github.com/arez/arez-promise/compare/v0.117...v0.118)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.193'
 * Upgrade the `org.realityforge.grim` artifacts to version `0.05`.
