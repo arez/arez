@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.sting` artifacts to version `0.17`.
+
 ### [v0.193](https://github.com/arez/arez/tree/v0.193) (2021-03-24) · [Full Changelog](https://github.com/arez/arez/compare/v0.192...v0.193)
 
 Changes in this release:
