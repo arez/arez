@@ -40,9 +40,7 @@ define 'arez-dom' do
                :grim_annotations,
                :jsinterop_base,
                :jsinterop_annotations,
-               :elemental2_core,
-               :elemental2_promise,
-               :elemental2_dom,
+               :akasha,
                :arez_core,
                # gwt_user is present for @DoNotAutobox annotation
                :gwt_user

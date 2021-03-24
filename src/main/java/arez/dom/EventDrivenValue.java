@@ -1,5 +1,7 @@
 package arez.dom;
 
+import akasha.EventListener;
+import akasha.EventTarget;
 import arez.ComputableValue;
 import arez.Disposable;
 import arez.annotations.Action;
@@ -11,8 +13,6 @@ import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
-import elemental2.dom.EventListener;
-import elemental2.dom.EventTarget;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import jsinterop.annotations.JsFunction;

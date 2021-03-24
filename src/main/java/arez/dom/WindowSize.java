@@ -1,6 +1,6 @@
 package arez.dom;
 
-import elemental2.dom.Window;
+import akasha.Window;
 import javax.annotation.Nonnull;
 
 /**
@@ -12,18 +12,18 @@ import javax.annotation.Nonnull;
  * import arez.dom.EventDrivenValue;
  * import arez.dom.WindowSize;
  * import com.google.gwt.core.client.EntryPoint;
- * import elemental2.dom.DomGlobal;
- * import elemental2.dom.Window;
+ * import akasha.Global;
+ * import akasha.Window;
  *
  * public class WindowSizeExample
  *   implements EntryPoint
  * {
  *   public void onModuleLoad()
  *   {
- *     final EventDrivenValue<Window, Integer> innerHeight = WindowSize.innerHeight( DomGlobal.window );
- *     final EventDrivenValue<Window, Integer> innerWidth = WindowSize.innerWidth( DomGlobal.window );
+ *     final EventDrivenValue<Window, Integer> innerHeight = WindowSize.innerHeight( Global.window() );
+ *     final EventDrivenValue<Window, Integer> innerWidth = WindowSize.innerWidth( Global.window() );
  *
- *     Arez.context().observer( () -> DomGlobal.document.querySelector( "#status" ).textContent =
+ *     Arez.context().observer( () -> Global.document().querySelector( "#status" ).textContent =
  *       "Screen size: " + innerWidth.getValue() + " x " + innerHeight.getValue() );
  *   }
  * }
@@ -44,7 +44,7 @@ public final class WindowSize
   @Nonnull
   public static EventDrivenValue<Window, Dimension> inner( @Nonnull final Window window )
   {
-    return EventDrivenValue.create( window, "resize", w -> new Dimension( w.innerWidth, w.innerHeight ) );
+    return EventDrivenValue.create( window, "resize", w -> new Dimension( w.innerWidth(), w.innerHeight() ) );
   }
 
   /**
@@ -56,7 +56,7 @@ public final class WindowSize
   @Nonnull
   public static EventDrivenValue<Window, Integer> innerHeight( @Nonnull final Window window )
   {
-    return EventDrivenValue.create( window, "resize", w -> w.innerHeight );
+    return EventDrivenValue.create( window, "resize", Window::innerHeight );
   }
 
   /**
@@ -68,7 +68,7 @@ public final class WindowSize
   @Nonnull
   public static EventDrivenValue<Window, Integer> innerWidth( @Nonnull final Window window )
   {
-    return EventDrivenValue.create( window, "resize", w -> w.innerWidth );
+    return EventDrivenValue.create( window, "resize", Window::innerWidth );
   }
 
   /**
@@ -80,7 +80,7 @@ public final class WindowSize
   @Nonnull
   public static EventDrivenValue<Window, Integer> outerHeight( @Nonnull final Window window )
   {
-    return EventDrivenValue.create( window, "resize", w -> w.outerHeight );
+    return EventDrivenValue.create( window, "resize", Window::outerHeight );
   }
 
   /**
@@ -92,6 +92,6 @@ public final class WindowSize
   @Nonnull
   public static EventDrivenValue<Window, Integer> outerWidth( @Nonnull final Window window )
   {
-    return EventDrivenValue.create( window, "resize", w -> w.outerWidth );
+    return EventDrivenValue.create( window, "resize", Window::outerWidth );
   }
 }

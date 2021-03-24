@@ -1,5 +1,9 @@
 package arez.dom;
 
+import akasha.EventListener;
+import akasha.Global;
+import akasha.MediaQueryList;
+import akasha.Window;
 import arez.ComputableValue;
 import arez.Disposable;
 import arez.annotations.Action;
@@ -11,10 +15,6 @@ import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
-import elemental2.dom.DomGlobal;
-import elemental2.dom.MediaQueryList;
-import elemental2.dom.MediaQueryListListener;
-import elemental2.dom.Window;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 
@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
  * import arez.Arez;
  * import arez.mediaquery.MediaQuery;
  * import com.google.gwt.core.client.EntryPoint;
- * import elemental2.dom.DomGlobal;
+ * import akasha.Console;
  *
  * public class MediaQueryExample
  *   implements EntryPoint
@@ -45,7 +45,7 @@ import javax.annotation.Nonnull;
 public abstract class MediaQuery
 {
   @Nonnull
-  private final MediaQueryListListener _listener = e -> notifyOnMatchChange();
+  private final EventListener _listener = e -> notifyOnMatchChange();
   @Nonnull
   private final Window _window;
   @Nonnull
@@ -61,7 +61,7 @@ public abstract class MediaQuery
   @Nonnull
   public static MediaQuery create( @Nonnull final String query )
   {
-    return create( DomGlobal.window, query );
+    return create( Global.window(), query );
   }
 
   /**
@@ -103,7 +103,7 @@ public abstract class MediaQuery
   @Observable
   public String getQuery()
   {
-    return _mediaQueryList.media;
+    return _mediaQueryList.media();
   }
 
   /**
@@ -136,7 +136,7 @@ public abstract class MediaQuery
   {
     // Observe query so that this is re-calculated if query changes
     getQuery();
-    return _mediaQueryList.matches;
+    return _mediaQueryList.matches();
   }
 
   @ComputableValueRef

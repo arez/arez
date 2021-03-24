@@ -1,8 +1,8 @@
 package arez.dom;
 
 import arez.Disposable;
-import elemental2.dom.DomGlobal;
-import elemental2.dom.HTMLDocument;
+import akasha.Global;
+import akasha.Document;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 
@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
  * import arez.Arez;
  * import arez.dom.DocumentVisibility;
  * import com.google.gwt.core.client.EntryPoint;
- * import elemental2.dom.DomGlobal;
+ * import akasha.Console;
  *
  * public class DocumentVisibilityExample
  *   implements EntryPoint
@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
  *   public void onModuleLoad()
  *   {
  *     final DocumentVisibility v = DocumentVisibility.create();
- *     Arez.context().observer( () -> DomGlobal.console.log( "Document Visibility: " + v.getVisibility() ) );
+ *     Arez.context().observer( () -> Console.log( "Document Visibility: " + v.getVisibility() ) );
  *   }
  * }
  * }</pre>
@@ -52,7 +52,7 @@ public final class DocumentVisibility
   /**
    * The underlying component performing the monitoring.
    */
-  private final EventDrivenValue<HTMLDocument, String> _value;
+  private final EventDrivenValue<Document, String> _value;
 
   /**
    * Create component monitoring the default document.
@@ -62,7 +62,7 @@ public final class DocumentVisibility
   @Nonnull
   public static DocumentVisibility create()
   {
-    return create( DomGlobal.document );
+    return create( Global.document() );
   }
 
   /**
@@ -72,14 +72,14 @@ public final class DocumentVisibility
    * @return the new component.
    */
   @Nonnull
-  public static DocumentVisibility create( @Nonnull final HTMLDocument document )
+  public static DocumentVisibility create( @Nonnull final Document document )
   {
     return new DocumentVisibility( Objects.requireNonNull( document ) );
   }
 
-  private DocumentVisibility( @Nonnull final HTMLDocument document )
+  private DocumentVisibility( @Nonnull final Document document )
   {
-    _value = EventDrivenValue.create( document, "visibilitychange", d -> d.visibilityState );
+    _value = EventDrivenValue.create( document, "visibilitychange", Document::visibilityState );
   }
 
   /**
@@ -88,7 +88,7 @@ public final class DocumentVisibility
    * @return the document.
    */
   @Nonnull
-  public HTMLDocument getDocument()
+  public Document getDocument()
   {
     return _value.getSource();
   }
@@ -98,7 +98,7 @@ public final class DocumentVisibility
    *
    * @param document the new document.
    */
-  public void setDocument( @Nonnull final HTMLDocument document )
+  public void setDocument( @Nonnull final Document document )
   {
     _value.setSource( document );
   }

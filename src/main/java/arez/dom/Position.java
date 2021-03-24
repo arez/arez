@@ -5,7 +5,7 @@ import javaemul.internal.annotations.DoNotAutobox;
 import javax.annotation.Nullable;
 
 /**
- * An immutable variant of {@link elemental2.dom.GeolocationCoordinates}.
+ * An immutable variant of {@link akasha.Coordinates}.
  */
 public final class Position
 {

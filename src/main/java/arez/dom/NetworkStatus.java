@@ -1,5 +1,7 @@
 package arez.dom;
 
+import akasha.EventListener;
+import akasha.Global;
 import arez.ComputableValue;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
@@ -10,8 +12,6 @@ import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
-import elemental2.dom.DomGlobal;
-import elemental2.dom.EventListener;
 import java.util.Date;
 import javax.annotation.Nonnull;
 
@@ -26,7 +26,8 @@ import javax.annotation.Nonnull;
  * <h1>A very simple example</h1>
  * <pre>{@code
  * import com.google.gwt.core.client.EntryPoint;
- * import elemental2.dom.DomGlobal;
+ * import akasha.Global;
+ * import akasha.Console;
  * import arez.Arez;
  * import arez.networkstatus.NetworkStatus;
  *
@@ -38,10 +39,10 @@ import javax.annotation.Nonnull;
  *     final NetworkStatus networkStatus = NetworkStatus.create();
  *     Arez.context().observer( () -> {
  *       final String message = "Network Status: " + ( networkStatus.isOnLine() ? "Online" : "Offline" );
- *       DomGlobal.console.log( message );
+ *       Console.log( message );
  *       if ( !networkStatus.isOnLine() )
  *       {
- *         DomGlobal.console.log( "Offline since: " + networkStatus.getLastChangedAt() );
+ *         Console.log( "Offline since: " + networkStatus.getLastChangedAt() );
  *       }
  *     } );
  *   }
@@ -77,7 +78,7 @@ public abstract class NetworkStatus
   @Memoize( depType = DepType.AREZ_OR_EXTERNAL )
   public boolean isOnLine()
   {
-    return DomGlobal.navigator.onLine;
+    return Global.navigator().onLine();
   }
 
   /**
@@ -99,15 +100,15 @@ public abstract class NetworkStatus
   @OnActivate
   void onOnLineActivate()
   {
-    DomGlobal.window.addEventListener( "online", _listener );
-    DomGlobal.window.addEventListener( "offline", _listener );
+    Global.addOnlineListener( _listener );
+    Global.addOfflineListener( _listener );
   }
 
   @OnDeactivate
   void onOnLineDeactivate()
   {
-    DomGlobal.window.removeEventListener( "online", _listener );
-    DomGlobal.window.removeEventListener( "offline", _listener );
+    Global.removeOnlineListener( _listener );
+    Global.removeOfflineListener( _listener );
   }
 
   @Action

@@ -4,8 +4,8 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.dom.MediaQuery;
 import com.google.gwt.core.client.EntryPoint;
-import elemental2.dom.DomGlobal;
-import elemental2.dom.Element;
+import akasha.Global;
+import akasha.Element;
 
 public class MediaQueryExample
   implements EntryPoint
@@ -13,14 +13,14 @@ public class MediaQueryExample
   @Override
   public void onModuleLoad()
   {
-    final Element statusElement = DomGlobal.document.querySelector( "#status" );
-    final Element queryElement = DomGlobal.document.querySelector( "#query" );
+    final Element statusElement = Global.document().querySelector( "#status" );
+    final Element queryElement = Global.document().querySelector( "#query" );
     final MediaQuery mediaQuery = MediaQuery.create( "(max-width: 600px)" );
     final ArezContext context = Arez.context();
     context
       .observer( () -> statusElement.textContent = "Screen size: " + ( mediaQuery.matches() ? "Narrow" : "Wide" ) );
     context.observer( () -> queryElement.textContent = mediaQuery.getQuery() );
-    DomGlobal.document.querySelector( "#change-query" ).addEventListener( "click", e -> {
+    Global.document().querySelector( "#change-query" ).addEventListener( "click", e -> {
       context.safeAction( () -> {
         if ( mediaQuery.getQuery().equals( "(max-width: 600px)" ) )
         {

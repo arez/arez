@@ -1,5 +1,9 @@
 package arez.dom;
 
+import akasha.AddEventListenerOptions;
+import akasha.EventListener;
+import akasha.Global;
+import akasha.TimerHandler;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
@@ -9,14 +13,10 @@ import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
 import arez.annotations.PostConstruct;
 import arez.annotations.PreDispose;
-import elemental2.dom.DomGlobal;
-import elemental2.dom.EventListener;
-import elemental2.dom.EventTarget;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.Nonnull;
-import jsinterop.base.JsPropertyMap;
 
 /**
  * An observable model that declares state that tracks when the user is "idle".
@@ -38,7 +38,7 @@ import jsinterop.base.JsPropertyMap;
  * <h1>A very simple example</h1>
  * <pre>{@code
  * import com.google.gwt.core.client.EntryPoint;
- * import elemental2.dom.DomGlobal;
+ * import akasha.DomGlobal;
  * import arez.Arez;
  * import arez.dom.IdleStatus;
  *
@@ -61,7 +61,7 @@ public abstract class IdleStatus
 {
   private static final long DEFAULT_TIMEOUT = 2000L;
   @Nonnull
-  private final DomGlobal.SetTimeoutCallbackFn _timeoutCallback = e -> onTimeout();
+  private final TimerHandler _timeoutCallback = this::onTimeout;
   @Nonnull
   private final EventListener _listener = e -> resetLastActivityTime();
   @Nonnull
@@ -74,7 +74,7 @@ public abstract class IdleStatus
   /**
    * The id of timeout scheduled action, 0 if none set.
    */
-  private double _timeoutId;
+  private int _timeoutId;
 
   /**
    * Create an instance of this model.
@@ -129,7 +129,7 @@ public abstract class IdleStatus
     }
     else
     {
-      final long timeToWait = getTimeToWait();
+      final int timeToWait = getTimeToWait();
       if ( timeToWait > 0 )
       {
         if ( 0 == _timeoutId )
@@ -149,16 +149,14 @@ public abstract class IdleStatus
   void onIdleActivate()
   {
     _active = true;
-    final EventTarget.AddEventListenerOptionsUnionType options =
-      EventTarget.AddEventListenerOptionsUnionType.of( JsPropertyMap.of( "passive", true ) );
-    _events.forEach( e -> DomGlobal.window.addEventListener( e, _listener, options ) );
+    _events.forEach( e -> Global.addEventListener( e, _listener, AddEventListenerOptions.create().passive( true ) ) );
   }
 
   @OnDeactivate
   void onIdleDeactivate()
   {
     _active = false;
-    _events.forEach( e -> DomGlobal.window.removeEventListener( e, _listener ) );
+    _events.forEach( e -> Global.removeEventListener( e, _listener ) );
   }
 
   /**
@@ -219,11 +217,11 @@ public abstract class IdleStatus
       //Remove any old events
       oldEvents.stream().
         filter( e -> !_events.contains( e ) ).
-        forEach( e -> DomGlobal.window.removeEventListener( e, _listener ) );
+        forEach( e -> Global.removeEventListener( e, _listener ) );
       // Add any new events
       _events.stream().
         filter( e -> !oldEvents.contains( e ) ).
-        forEach( e -> DomGlobal.window.addEventListener( e, _listener ) );
+        forEach( e -> Global.addEventListener( e, _listener ) );
     }
   }
 
@@ -237,27 +235,27 @@ public abstract class IdleStatus
 
   abstract void setLastActivityAt( long lastActivityAt );
 
-  private long getTimeToWait()
+  private int getTimeToWait()
   {
-    return getLastActivityAt() + getTimeout() - System.currentTimeMillis();
+    return (int) ( getLastActivityAt() + getTimeout() - System.currentTimeMillis() );
   }
 
   private void cancelTimeout()
   {
-    DomGlobal.clearTimeout( _timeoutId );
+    Global.clearTimeout( _timeoutId );
     _timeoutId = 0;
   }
 
-  private void scheduleTimeout( final long timeToWait )
+  private void scheduleTimeout( final int timeToWait )
   {
-    _timeoutId = DomGlobal.setTimeout( _timeoutCallback, timeToWait );
+    _timeoutId = Global.setTimeout( _timeoutCallback, timeToWait );
   }
 
   @Action
   void onTimeout()
   {
     _timeoutId = 0;
-    final long timeToWait = getTimeToWait();
+    final int timeToWait = getTimeToWait();
     if ( timeToWait > 0 )
     {
       scheduleTimeout( timeToWait );

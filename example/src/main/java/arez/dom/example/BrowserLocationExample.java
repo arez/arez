@@ -1,11 +1,12 @@
 package arez.dom.example;
 
+import akasha.Console;
+import akasha.Global;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Observer;
 import arez.dom.BrowserLocation;
 import com.google.gwt.core.client.EntryPoint;
-import elemental2.dom.DomGlobal;
 import javax.annotation.Nonnull;
 
 public class BrowserLocationExample
@@ -21,14 +22,14 @@ public class BrowserLocationExample
                       Observer.Flags.READ_WRITE | Observer.Flags.NESTED_ACTIONS_ALLOWED );
     context.observer( () -> printBrowserLocation( browserLocation ) );
 
-    DomGlobal.document.querySelector( "#route_base" ).
-      addEventListener( "click", e -> browserLocation.changeLocation( "" ) );
-    DomGlobal.document.querySelector( "#route_slash" ).
-      addEventListener( "click", e -> browserLocation.changeLocation( "/" ) );
-    DomGlobal.document.querySelector( "#route_event" ).
-      addEventListener( "click", e -> browserLocation.changeLocation( "/event" ) );
-    DomGlobal.document.querySelector( "#route_other" ).
-      addEventListener( "click", e -> browserLocation.changeLocation( "/other" ) );
+    Global.document().querySelector( "#route_base" ).
+      addClickListener( e -> browserLocation.changeLocation( "" ) );
+    Global.document().querySelector( "#route_slash" ).
+      addClickListener( e -> browserLocation.changeLocation( "/" ) );
+    Global.document().querySelector( "#route_event" ).
+      addClickListener( e -> browserLocation.changeLocation( "/event" ) );
+    Global.document().querySelector( "#route_other" ).
+      addClickListener( e -> browserLocation.changeLocation( "/other" ) );
   }
 
   private void cleanLocation( @Nonnull final BrowserLocation l )
@@ -64,7 +65,7 @@ public class BrowserLocationExample
 
   private void emitLocation( @Nonnull final String selector, @Nonnull final String message )
   {
-    DomGlobal.document.querySelector( selector ).textContent = message;
-    DomGlobal.console.log( message );
+    Global.document().querySelector( selector ).textContent = message;
+    Console.log( message );
   }
 }

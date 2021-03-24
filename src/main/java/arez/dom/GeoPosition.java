@@ -1,5 +1,8 @@
 package arez.dom;
 
+import akasha.Coordinates;
+import akasha.Global;
+import akasha.PositionError;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ComputableValue;
@@ -14,13 +17,9 @@ import arez.annotations.Feature;
 import arez.annotations.Memoize;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
-import elemental2.dom.DomGlobal;
-import elemental2.dom.GeolocationCoordinates;
-import elemental2.dom.GeolocationPositionError;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import jsinterop.base.Js;
 
 /**
  * A component that exposes the current geo position as an observable property. This component relies on the
@@ -187,7 +186,7 @@ public abstract class GeoPosition
       context().task( Arez.areNamesEnabled() ? componentName() + ".setLoadingStatus" : null,
                       () -> setStatus( Status.LOADING ),
                       Task.Flags.DISPOSE_ON_COMPLETE );
-      _watcherId = DomGlobal.navigator.geolocation.watchPosition( e -> onSuccess( e.getCoords() ), this::onFailure );
+      _watcherId = Global.navigator().geolocation().watchPosition( e -> onSuccess( e.coords() ), this::onFailure );
     }
     _activateCount++;
   }
@@ -198,17 +197,16 @@ public abstract class GeoPosition
     if ( 0 == _activateCount )
     {
       setStatus( Status.INITIAL );
-      DomGlobal.navigator.geolocation.clearWatch( _watcherId );
+      Global.navigator().geolocation().clearWatch( _watcherId );
       _watcherId = 0;
     }
   }
 
   @Action
-  void onFailure( @Nonnull final GeolocationPositionError e )
+  void onFailure( @Nonnull final PositionError e )
   {
-    int status = Js.asInt( e.getCode() );
-    setStatus( status );
-    String errorMessage = e.getMessage();
+    setStatus( e.code() );
+    String errorMessage = e.message();
     if ( !Objects.equals( errorMessage, _errorMessage ) )
     {
       _errorMessage = errorMessage;
@@ -232,7 +230,7 @@ public abstract class GeoPosition
   }
 
   @Action
-  void onSuccess( @Nonnull final GeolocationCoordinates coords )
+  void onSuccess( @Nonnull final Coordinates coords )
   {
     setStatus( Status.POSITION_LOADED );
     if ( null != _errorMessage )
@@ -240,12 +238,8 @@ public abstract class GeoPosition
       _errorMessage = null;
       getErrorMessageComputableValue().reportPossiblyChanged();
     }
-    _position = new Position( coords.getAccuracy(),
-                              coords.getAltitude(),
-                              coords.getHeading(),
-                              coords.getLatitude(),
-                              coords.getLongitude(),
-                              coords.getLongitude() );
+    _position =
+      new Position( coords.accuracy(), coords.altitude(), coords.heading(), coords.latitude(), coords.longitude(), coords.longitude() );
     getPositionComputableValue().reportPossiblyChanged();
   }
 
