@@ -1,6 +1,6 @@
 # Change Log
 
-### Unreleased
+### [v0.81](https://github.com/arez/arez-dom/tree/v0.81) (2021-03-24) · [Full Changelog](https://github.com/arez/arez-dom/compare/v0.80...v0.81)
 
 * Upgrade the `org.realityforge.grim` artifacts to version `0.05`.
 * Upgrade the `au.com.stocksoftware.idea.codestyle` artifact to version `1.17`.
