@@ -1,5 +1,7 @@
 package arez.doc.examples.at_memoize2;
 
+import akasha.EventListener;
+import akasha.Global;
 import arez.ComputableValue;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
@@ -8,8 +10,6 @@ import arez.annotations.DepType;
 import arez.annotations.Memoize;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
-import akasha.Global;
-import akasha.EventListener;
 
 @ArezComponent
 public abstract class NetworkStatus
@@ -30,15 +30,15 @@ public abstract class NetworkStatus
   @OnActivate
   void onOnLineActivate()
   {
-    DomGlobal.window.addEventListener( "online", _listener );
-    DomGlobal.window.addEventListener( "offline", _listener );
+    Global.addOnlineListener( _listener );
+    Global.addOfflineListener( _listener );
   }
 
   @OnDeactivate
   void onOnLineDeactivate()
   {
-    DomGlobal.window.removeEventListener( "online", _listener );
-    DomGlobal.window.removeEventListener( "offline", _listener );
+    Global.removeOnlineListener( _listener );
+    Global.removeOfflineListener( _listener );
   }
 
   @Action
