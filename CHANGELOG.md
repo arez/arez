@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.193'
 * Upgrade the `org.realityforge.grim` artifacts to version `0.05`.
 * Upgrade the `au.com.stocksoftware.idea.codestyle` artifact to version `1.17`.
 * Migrate from using Elemental2 to Akasha when interacting with the Browser API.
