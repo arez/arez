@@ -165,11 +165,12 @@ define 'arez' do
                       :jsonassert,
                       :android_json,
                       project('core').package(:jar),
-                      project('core').compile.dependencies
-
-    test.compile.options[:processor_path] << [project('processor').package(:jar), project('processor').compile.dependencies]
-    test.compile.options[:processor_path] << [:sting_processor]
-    test.compile.options[:processor_path] << DAGGER_PROCESSOR_DEPS
+                      project('core').compile.dependencies,
+                      project('processor').package(:jar),
+                      project('processor').compile.dependencies,
+                      :sting_processor,
+                      DAGGER_PROCESSOR_DEPS
+    test.compile.options[:processor] = true
 
     # The generators are configured to generate to here.
     iml.test_source_directories << _('generated/processors/test/java')
@@ -262,14 +263,16 @@ define 'arez' do
   define 'doc-examples' do
     compile.with project('core').package(:jar),
                  project('core').compile.dependencies,
+                 project('processor').package(:jar),
+                 project('processor').compile.dependencies,
+                 :sting_processor,
+                 DAGGER_PROCESSOR_DEPS,
                  :gwt_user,
                  DAGGER_RUNTIME_DEPS,
                  :sting_core,
                  GWT_DEPS
 
-    compile.options[:processor_path] << [project('processor').package(:jar), project('processor').compile.dependencies]
-    compile.options[:processor_path] << [:sting_processor]
-    compile.options[:processor_path] << DAGGER_PROCESSOR_DEPS
+    test.compile.options[:processor] = true
 
     project.jacoco.enabled = false
   end
