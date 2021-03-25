@@ -55,10 +55,10 @@ public final class MemoizeDepTypeTest
     final Model model = Model.create();
 
     assertInvariant( () -> safeAction( model::derive1 ),
-                     "Arez-0173: ComputableValue named 'Model.1.derive1' completed compute but is not observing any properties. As a result compute will never be rescheduled. This is not a ComputableValue candidate." );
+                     "Arez-0173: ComputableValue named 'arez_integration_memoize_MemoizeDepTypeTest_Model.1.derive1' completed compute but is not observing any properties. As a result compute will never be rescheduled. This is not a ComputableValue candidate." );
 
     assertInvariant( () -> safeAction( () -> model.search1( ValueUtil.randomString() ) ),
-                     "Arez-0173: ComputableValue named 'Model.1.search1.0' completed compute but is not observing any properties. As a result compute will never be rescheduled. This is not a ComputableValue candidate." );
+                     "Arez-0173: ComputableValue named 'arez_integration_memoize_MemoizeDepTypeTest_Model.1.search1.0' completed compute but is not observing any properties. As a result compute will never be rescheduled. This is not a ComputableValue candidate." );
 
     safeAction( model::derive2 );
     safeAction( () -> model.search2( ValueUtil.randomString() ) );

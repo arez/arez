@@ -25,6 +25,6 @@ public final class ComponentNameRefInvokedInCtorTest
   public void scenario()
   {
     assertInvariant( ComponentNameRefInvokedInCtorTest_Arez_TestComponent::new,
-                     "Method named 'getName' invoked on uninitialized component of type 'TestComponent'" );
+                     "Method named 'getName' invoked on uninitialized component of type 'arez_integration_component_name_ref_ComponentNameRefInvokedInCtorTest_TestComponent'" );
   }
 }

@@ -43,7 +43,7 @@ public final class ObserveArezDependenciesOnlyTest
 
     // reportStale should result in exception
     assertInvariant( () -> safeAction( () -> component.getRenderObserver().reportStale() ),
-                     "Arez-0199: Observer.reportStale() invoked on observer named 'TestComponent1.1.render' but the observer has not specified AREZ_OR_EXTERNAL_DEPENDENCIES flag." );
+                     "Arez-0199: Observer.reportStale() invoked on observer named 'arez_integration_observe_ObserveArezDependenciesOnlyTest_TestComponent1.1.render' but the observer has not specified AREZ_OR_EXTERNAL_DEPENDENCIES flag." );
 
     assertEquals( component._renderCallCount, 1 );
   }

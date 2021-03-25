@@ -1982,7 +1982,9 @@ public final class ArezProcessor
     }
 
     final String name =
-      Constants.SENTINEL.equals( declaredName ) ? typeElement.getSimpleName().toString() : declaredName;
+      Constants.SENTINEL.equals( declaredName ) ?
+      typeElement.getQualifiedName().toString().replace( ".", "_" ) :
+      declaredName;
 
     if ( !SourceVersion.isIdentifier( name ) )
     {

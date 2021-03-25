@@ -1,23 +1,23 @@
 
 [
     {
-        "name": "PersonModel.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "PersonModel.1.isDisposed",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.isDisposed",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "PersonModel.1.name",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "PersonModel.1.age",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.age",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "PersonModel.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1",
         "type": "ComponentCreateComplete"
     },
     {
@@ -50,33 +50,33 @@
         "type": "ObservableValueCreate"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesSearchMatch.0",
-        "tracker": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "ObservableValueChange",
         "value": false
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesSearchMatch.0",
-        "tracker": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -135,33 +135,33 @@
         "type": "ObservableValueCreate"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesSearchMatch.1",
-        "tracker": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesSearchMatch.1",
-        "tracker": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -220,33 +220,33 @@
         "type": "ObservableValueCreate"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.0",
-        "tracker": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "ObservableValueChange",
         "value": false
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.0",
-        "tracker": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -305,33 +305,33 @@
         "type": "ObservableValueCreate"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.1",
-        "tracker": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "ObservableValueChange",
         "value": false
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.1",
-        "tracker": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -374,24 +374,24 @@
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.name",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.name",
         "type": "ObservableValueChange",
         "value": "Gill"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "type": "ObserveSchedule"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "ObserveSchedule"
     },
     {
@@ -411,90 +411,90 @@
         ]
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesSearchMatch.0",
-        "tracker": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesSearchMatch.0",
-        "tracker": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesSearchMatch.1",
-        "tracker": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesSearchMatch.1",
-        "tracker": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.0",
-        "tracker": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.0",
-        "tracker": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.1",
-        "tracker": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.1",
-        "tracker": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -512,24 +512,24 @@
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.name",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.name",
         "type": "ObservableValueChange",
         "value": "Fred"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "type": "ObserveSchedule"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "ObserveSchedule"
     },
     {
@@ -549,17 +549,17 @@
         ]
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesSearchMatch.0",
-        "tracker": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "ObservableValueChange",
         "value": true
     },
@@ -569,28 +569,28 @@
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesSearchMatch.0",
-        "tracker": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesSearchMatch.1",
-        "tracker": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -600,50 +600,50 @@
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesSearchMatch.1",
-        "tracker": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.0",
-        "tracker": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.0",
-        "tracker": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.1",
-        "tracker": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "ObservableValueChange",
         "value": true
     },
@@ -653,13 +653,13 @@
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.1",
-        "tracker": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -815,24 +815,24 @@
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.name",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.name",
         "type": "ObservableValueChange",
         "value": "Donald"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "type": "ObserveSchedule"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "ObserveSchedule"
     },
     {
@@ -852,17 +852,17 @@
         ]
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesSearchMatch.0",
-        "tracker": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -872,72 +872,72 @@
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesSearchMatch.0",
-        "tracker": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesSearchMatch.1",
-        "tracker": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesSearchMatch.1",
-        "tracker": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.0",
-        "tracker": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.0",
-        "tracker": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.1",
-        "tracker": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -947,13 +947,13 @@
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.1",
-        "tracker": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1079,7 +1079,7 @@
         ]
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -1087,19 +1087,19 @@
     },
     {
         "mutation": true,
-        "name": "PersonModel.1.doesSearchMatch.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1.dispose",
         "tracker": null,
         "type": "TransactionStart"
     },
     {
         "mutation": true,
-        "name": "PersonModel.1.doesSearchMatch.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1.dispose",
         "tracker": null,
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "PersonModel.1.doesSearchMatch.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1108,11 +1108,11 @@
         ]
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "type": "ComputableValueDispose"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -1120,24 +1120,24 @@
     },
     {
         "mutation": true,
-        "name": "PersonModel.1.doesSearchMatch.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1.dispose",
         "tracker": null,
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1",
         "type": "ObservableValueChange",
         "value": null
     },
     {
         "mutation": true,
-        "name": "PersonModel.1.doesSearchMatch.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1.dispose",
         "tracker": null,
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "PersonModel.1.doesSearchMatch.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1146,7 +1146,7 @@
         ]
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -1154,19 +1154,19 @@
     },
     {
         "mutation": true,
-        "name": "PersonModel.1.doesSearchMatch.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1.dispose",
         "tracker": null,
         "type": "TransactionStart"
     },
     {
         "mutation": true,
-        "name": "PersonModel.1.doesSearchMatch.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1.dispose",
         "tracker": null,
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "PersonModel.1.doesSearchMatch.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.1.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1192,20 +1192,20 @@
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.name",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.name",
         "type": "ObservableValueChange",
         "value": "Fred"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "ObserveSchedule"
     },
     {
@@ -1225,17 +1225,17 @@
         ]
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesSearchMatch.0",
-        "tracker": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "ObservableValueChange",
         "value": true
     },
@@ -1245,50 +1245,50 @@
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesSearchMatch.0",
-        "tracker": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.0",
-        "tracker": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.0",
-        "tracker": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.1",
-        "tracker": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "ObservableValueChange",
         "value": true
     },
@@ -1298,13 +1298,13 @@
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.1",
-        "tracker": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1414,20 +1414,20 @@
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.name",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.name",
         "type": "ObservableValueChange",
         "value": "Bill"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "ObserveSchedule"
     },
     {
@@ -1447,17 +1447,17 @@
         ]
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesSearchMatch.0",
-        "tracker": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -1467,50 +1467,50 @@
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesSearchMatch.0",
-        "tracker": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.0",
-        "tracker": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.0",
-        "tracker": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.1",
-        "tracker": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -1520,13 +1520,13 @@
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.doesFullSearchMatch.1",
-        "tracker": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
+        "tracker": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1623,11 +1623,11 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "PersonModel.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1",
         "type": "ComponentDisposeStart"
     },
     {
-        "name": "PersonModel.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -1635,12 +1635,12 @@
     },
     {
         "mutation": true,
-        "name": "PersonModel.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.dispose",
         "tracker": null,
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -1648,7 +1648,7 @@
     },
     {
         "result": null,
-        "name": "PersonModel.1.doesSearchMatch.0.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1657,18 +1657,18 @@
         ]
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "ComputableValueDispose"
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0",
         "type": "ObservableValueChange",
         "value": null
     },
@@ -1678,7 +1678,7 @@
     },
     {
         "result": null,
-        "name": "PersonModel.1.doesSearchMatch.0.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1687,7 +1687,7 @@
         ]
     },
     {
-        "name": "PersonModel.1.doesSearchMatch.0.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -1695,7 +1695,7 @@
     },
     {
         "result": null,
-        "name": "PersonModel.1.doesSearchMatch.0.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesSearchMatch.0.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1704,7 +1704,7 @@
         ]
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.0.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -1712,7 +1712,7 @@
     },
     {
         "result": null,
-        "name": "PersonModel.1.doesFullSearchMatch.0.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1721,18 +1721,18 @@
         ]
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "ComputableValueDispose"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.0.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.0",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0",
         "type": "ObservableValueChange",
         "value": null
     },
@@ -1742,7 +1742,7 @@
     },
     {
         "result": null,
-        "name": "PersonModel.1.doesFullSearchMatch.0.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1751,7 +1751,7 @@
         ]
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.0.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -1759,7 +1759,7 @@
     },
     {
         "result": null,
-        "name": "PersonModel.1.doesFullSearchMatch.0.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.0.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1768,7 +1768,7 @@
         ]
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -1776,7 +1776,7 @@
     },
     {
         "result": null,
-        "name": "PersonModel.1.doesFullSearchMatch.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1785,18 +1785,18 @@
         ]
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "ComputableValueDispose"
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1",
         "type": "ObservableValueChange",
         "value": null
     },
@@ -1806,7 +1806,7 @@
     },
     {
         "result": null,
-        "name": "PersonModel.1.doesFullSearchMatch.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1815,7 +1815,7 @@
         ]
     },
     {
-        "name": "PersonModel.1.doesFullSearchMatch.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -1823,7 +1823,7 @@
     },
     {
         "result": null,
-        "name": "PersonModel.1.doesFullSearchMatch.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.doesFullSearchMatch.1.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1832,20 +1832,20 @@
         ]
     },
     {
-        "name": "PersonModel.1.isDisposed.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.isDisposed.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "PersonModel.1.isDisposed",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.isDisposed",
         "type": "ObservableValueChange",
         "value": false
     },
     {
         "result": null,
-        "name": "PersonModel.1.isDisposed.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.isDisposed.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1854,24 +1854,24 @@
         ]
     },
     {
-        "name": "PersonModel.1.isDisposed",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.isDisposed",
         "type": "ObservableValueDispose"
     },
     {
-        "name": "PersonModel.1.name.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.name.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "PersonModel.1.name",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.name",
         "type": "ObservableValueChange",
         "value": "Bill"
     },
     {
         "result": null,
-        "name": "PersonModel.1.name.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.name.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1880,24 +1880,24 @@
         ]
     },
     {
-        "name": "PersonModel.1.name",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.name",
         "type": "ObservableValueDispose"
     },
     {
-        "name": "PersonModel.1.age.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.age.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "PersonModel.1.age",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.age",
         "type": "ObservableValueChange",
         "value": 15
     },
     {
         "result": null,
-        "name": "PersonModel.1.age.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.age.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1906,18 +1906,18 @@
         ]
     },
     {
-        "name": "PersonModel.1.age",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.age",
         "type": "ObservableValueDispose"
     },
     {
         "mutation": true,
-        "name": "PersonModel.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.dispose",
         "tracker": null,
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "PersonModel.1.dispose",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -2052,7 +2052,7 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "PersonModel.1",
+        "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.1",
         "type": "ComponentDisposeComplete"
     }
 ]

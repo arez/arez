@@ -109,7 +109,7 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "TestComponent.1.setOtherID",
+        "name": "arez_integration_ObservableValueRefNoSetterTest_TestComponent.1.setOtherID",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -118,12 +118,12 @@
     },
     {
         "mutation": true,
-        "name": "TestComponent.1.setOtherID",
+        "name": "arez_integration_ObservableValueRefNoSetterTest_TestComponent.1.setOtherID",
         "tracker": null,
         "type": "TransactionStart"
     },
     {
-        "name": "TestComponent.1.otherID",
+        "name": "arez_integration_ObservableValueRefNoSetterTest_TestComponent.1.otherID",
         "type": "ObservableValueChange",
         "value": 22
     },
@@ -137,13 +137,13 @@
     },
     {
         "mutation": true,
-        "name": "TestComponent.1.setOtherID",
+        "name": "arez_integration_ObservableValueRefNoSetterTest_TestComponent.1.setOtherID",
         "tracker": null,
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "TestComponent.1.setOtherID",
+        "name": "arez_integration_ObservableValueRefNoSetterTest_TestComponent.1.setOtherID",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,

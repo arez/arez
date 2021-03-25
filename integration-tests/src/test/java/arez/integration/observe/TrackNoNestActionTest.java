@@ -62,7 +62,7 @@ public final class TrackNoNestActionTest
     assertEquals( component._depsChangedCallCount, 0 );
 
     assertInvariant( component::render,
-                     "Arez-0187: Attempting to nest action named 'TestComponent1.1.myAction' inside transaction named 'TestComponent1.1.render' created by an observer that does not allow nested actions." );
+                     "Arez-0187: Attempting to nest action named 'arez_integration_observe_TrackNoNestActionTest_TestComponent1.1.myAction' inside transaction named 'arez_integration_observe_TrackNoNestActionTest_TestComponent1.1.render' created by an observer that does not allow nested actions." );
 
     assertEquals( component._renderCallCount, 1 );
     assertEquals( component._actionCallCount, 0 );

@@ -53,7 +53,7 @@ public final class NullablelImmutableLazyReferenceIntegrationTest
     Disposable.dispose( model1 );
 
     assertInvariant( model1::getModel2,
-                     "Method named 'getModel2' invoked on disposed component named 'Model1.1'" );
+                     "Method named 'getModel2' invoked on disposed component named 'arez_integration_references_NullablelImmutableLazyReferenceIntegrationTest_Model1.1'" );
 
     findCallCount.set( 0 );
 

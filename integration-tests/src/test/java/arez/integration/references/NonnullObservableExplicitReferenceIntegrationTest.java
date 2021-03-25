@@ -52,7 +52,7 @@ public final class NonnullObservableExplicitReferenceIntegrationTest
     assertEquals( findCallCount.get(), 0 );
 
     assertInvariant( () -> safeAction( model1::getModel2 ),
-                     "Nonnull reference method named 'getModel2' invoked on component named 'Model1.1' but reference has not been resolved yet is not lazy. Id = 1" );
+                     "Nonnull reference method named 'getModel2' invoked on component named 'arez_integration_references_NonnullObservableExplicitReferenceIntegrationTest_Model1.1' but reference has not been resolved yet is not lazy. Id = 1" );
 
     assertEquals( findCallCount.get(), 0 );
 
@@ -94,7 +94,7 @@ public final class NonnullObservableExplicitReferenceIntegrationTest
     Disposable.dispose( model1 );
 
     assertInvariant( model1::getModel2,
-                     "Method named 'getModel2' invoked on disposed component named 'Model1.1'" );
+                     "Method named 'getModel2' invoked on disposed component named 'arez_integration_references_NonnullObservableExplicitReferenceIntegrationTest_Model1.1'" );
   }
 
   @ArezComponent

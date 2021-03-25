@@ -44,7 +44,7 @@ public final class ObserveManualScheduleDisallowedTest
 
     // Manual schedule should generate error
     assertInvariant( () -> safeAction( () -> component.getRenderObserver().schedule() ),
-                     "Arez-0202: Observer.schedule() invoked on observer named 'TestComponent1.1.render' but supportsManualSchedule() returns false." );
+                     "Arez-0202: Observer.schedule() invoked on observer named 'arez_integration_observe_ObserveManualScheduleDisallowedTest_TestComponent1.1.render' but supportsManualSchedule() returns false." );
 
     assertEquals( component._renderCallCount, 1 );
   }

@@ -3,6 +3,7 @@
 ### Unreleased
 
 * Upgrade the `org.realityforge.sting` artifacts to version `0.17`.
+* Change the default name of components from the simple class name to the qualified classname with `'.'` separators replaced by `'_'` characters. This change produces less user-friendly names during debugging but avoids conflicts when multiple arez components exist with the same simple name and potentially overlapping id space.
 
 ### [v0.193](https://github.com/arez/arez/tree/v0.193) (2021-03-24) · [Full Changelog](https://github.com/arez/arez/compare/v0.192...v0.193)
 

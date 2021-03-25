@@ -79,7 +79,7 @@ public final class NullableObservableEagerReferenceIntegrationTest
     Disposable.dispose( model1 );
 
     assertInvariant( model1::getModel2,
-                     "Method named 'getModel2' invoked on disposed component named 'Model1.1'" );
+                     "Method named 'getModel2' invoked on disposed component named 'arez_integration_references_NullableObservableEagerReferenceIntegrationTest_Model1.1'" );
   }
 
   @ArezComponent

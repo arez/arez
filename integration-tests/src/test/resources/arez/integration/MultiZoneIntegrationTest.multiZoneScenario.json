@@ -1,43 +1,43 @@
 
 [
     {
-        "name": "PersonModel.1",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "PersonModel.1.firstName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.firstName",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "PersonModel.1.lastName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.lastName",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "PersonModel.1.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "PersonModel.1",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "PersonModel.2",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.2",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "PersonModel.2.firstName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.2.firstName",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "PersonModel.2.lastName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.2.lastName",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "PersonModel.2.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.2.fullName",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "PersonModel.2",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.2",
         "type": "ComponentCreateComplete"
     },
     {
@@ -178,29 +178,29 @@
         "type": "ObservableValueCreate"
     },
     {
-        "name": "PersonModel.1.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.fullName",
-        "tracker": "PersonModel.1.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
+        "tracker": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
         "type": "ObservableValueChange",
         "value": "Bill Smith"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.fullName",
-        "tracker": "PersonModel.1.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
+        "tracker": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
         "type": "TransactionComplete"
     },
     {
         "result": "Bill Smith",
-        "name": "PersonModel.1.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -259,29 +259,29 @@
         "type": "ObservableValueCreate"
     },
     {
-        "name": "PersonModel.2.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.2.fullName",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.2.fullName",
-        "tracker": "PersonModel.2.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.2.fullName",
+        "tracker": "arez_integration_MultiZoneIntegrationTest_PersonModel.2.fullName",
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.2.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.2.fullName",
         "type": "ObservableValueChange",
         "value": "Bill Smith"
     },
     {
         "mutation": false,
-        "name": "PersonModel.2.fullName",
-        "tracker": "PersonModel.2.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.2.fullName",
+        "tracker": "arez_integration_MultiZoneIntegrationTest_PersonModel.2.fullName",
         "type": "TransactionComplete"
     },
     {
         "result": "Bill Smith",
-        "name": "PersonModel.2.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.2.fullName",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -324,7 +324,7 @@
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.firstName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.firstName",
         "type": "ObservableValueChange",
         "value": "Fred"
     },
@@ -333,7 +333,7 @@
         "type": "ObserveSchedule"
     },
     {
-        "name": "PersonModel.1.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
         "type": "ObserveSchedule"
     },
     {
@@ -399,17 +399,17 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "PersonModel.1.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.fullName",
-        "tracker": "PersonModel.1.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
+        "tracker": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
         "type": "ObservableValueChange",
         "value": "Fred Smith"
     },
@@ -419,13 +419,13 @@
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.fullName",
-        "tracker": "PersonModel.1.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
+        "tracker": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
         "type": "TransactionComplete"
     },
     {
         "result": "Fred Smith",
-        "name": "PersonModel.1.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -489,12 +489,12 @@
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.lastName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.lastName",
         "type": "ObservableValueChange",
         "value": "Donaldo"
     },
     {
-        "name": "PersonModel.1.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
         "type": "ObserveSchedule"
     },
     {
@@ -514,17 +514,17 @@
         ]
     },
     {
-        "name": "PersonModel.1.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.fullName",
-        "tracker": "PersonModel.1.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
+        "tracker": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.1.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
         "type": "ObservableValueChange",
         "value": "Fred Donaldo"
     },
@@ -534,13 +534,13 @@
     },
     {
         "mutation": false,
-        "name": "PersonModel.1.fullName",
-        "tracker": "PersonModel.1.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
+        "tracker": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
         "type": "TransactionComplete"
     },
     {
         "result": "Fred Donaldo",
-        "name": "PersonModel.1.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -604,12 +604,12 @@
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.2.lastName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.2.lastName",
         "type": "ObservableValueChange",
         "value": "Donaldo"
     },
     {
-        "name": "PersonModel.2.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.2.fullName",
         "type": "ObserveSchedule"
     },
     {
@@ -629,17 +629,17 @@
         ]
     },
     {
-        "name": "PersonModel.2.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.2.fullName",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "PersonModel.2.fullName",
-        "tracker": "PersonModel.2.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.2.fullName",
+        "tracker": "arez_integration_MultiZoneIntegrationTest_PersonModel.2.fullName",
         "type": "TransactionStart"
     },
     {
-        "name": "PersonModel.2.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.2.fullName",
         "type": "ObservableValueChange",
         "value": "Bill Donaldo"
     },
@@ -649,13 +649,13 @@
     },
     {
         "mutation": false,
-        "name": "PersonModel.2.fullName",
-        "tracker": "PersonModel.2.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.2.fullName",
+        "tracker": "arez_integration_MultiZoneIntegrationTest_PersonModel.2.fullName",
         "type": "TransactionComplete"
     },
     {
         "result": "Bill Donaldo",
-        "name": "PersonModel.2.fullName",
+        "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.2.fullName",
         "errorMessage": null,
         "type": "ComputeComplete"
     },

@@ -38,6 +38,6 @@ public final class AccessingDisposedTest
 
     assertTrue( Disposable.isDisposed( component ) );
     assertInvariant( component::myAction,
-                     "Method named 'myAction' invoked on disposed component named 'TestComponent.1'" );
+                     "Method named 'myAction' invoked on disposed component named 'arez_integration_AccessingDisposedTest_TestComponent.1'" );
   }
 }

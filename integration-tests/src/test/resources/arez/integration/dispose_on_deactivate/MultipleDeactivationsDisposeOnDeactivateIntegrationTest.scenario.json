@@ -1,19 +1,19 @@
 
 [
     {
-        "name": "Model1.1",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Model1.1.isDisposed",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.isDisposed",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Model1.1.disposeOnDeactivate",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Model1.1",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1",
         "type": "ComponentCreateComplete"
     },
     {
@@ -46,29 +46,29 @@
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Model1.1.disposeOnDeactivate",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model1.1.disposeOnDeactivate",
-        "tracker": "Model1.1.disposeOnDeactivate",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate",
+        "tracker": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate",
         "type": "TransactionStart"
     },
     {
-        "name": "Model1.1.disposeOnDeactivate",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Model1.1.disposeOnDeactivate",
-        "tracker": "Model1.1.disposeOnDeactivate",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate",
+        "tracker": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model1.1.disposeOnDeactivate",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -154,29 +154,29 @@
         "type": "TransactionStart"
     },
     {
-        "name": "Model1.1.disposeOnDeactivate",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model1.1.disposeOnDeactivate",
-        "tracker": "Model1.1.disposeOnDeactivate",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate",
+        "tracker": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate",
         "type": "TransactionStart"
     },
     {
-        "name": "Model1.1.disposeOnDeactivate",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Model1.1.disposeOnDeactivate",
-        "tracker": "Model1.1.disposeOnDeactivate",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate",
+        "tracker": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model1.1.disposeOnDeactivate",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -310,11 +310,11 @@
         ]
     },
     {
-        "name": "Model1.1",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1",
         "type": "ComponentDisposeStart"
     },
     {
-        "name": "Model1.1.dispose",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -322,12 +322,12 @@
     },
     {
         "mutation": true,
-        "name": "Model1.1.dispose",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.dispose",
         "tracker": null,
         "type": "TransactionStart"
     },
     {
-        "name": "Model1.1.disposeOnDeactivate.dispose",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -335,7 +335,7 @@
     },
     {
         "result": null,
-        "name": "Model1.1.disposeOnDeactivate.dispose",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -344,24 +344,24 @@
         ]
     },
     {
-        "name": "Model1.1.disposeOnDeactivate",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate",
         "type": "ComputableValueDispose"
     },
     {
-        "name": "Model1.1.disposeOnDeactivate.dispose",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "Model1.1.disposeOnDeactivate",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate",
         "type": "ObservableValueChange",
         "value": null
     },
     {
         "result": null,
-        "name": "Model1.1.disposeOnDeactivate.dispose",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -370,7 +370,7 @@
         ]
     },
     {
-        "name": "Model1.1.disposeOnDeactivate.dispose",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -378,7 +378,7 @@
     },
     {
         "result": null,
-        "name": "Model1.1.disposeOnDeactivate.dispose",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.disposeOnDeactivate.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -387,20 +387,20 @@
         ]
     },
     {
-        "name": "Model1.1.isDisposed.dispose",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.isDisposed.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "Model1.1.isDisposed",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.isDisposed",
         "type": "ObservableValueChange",
         "value": false
     },
     {
         "result": null,
-        "name": "Model1.1.isDisposed.dispose",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.isDisposed.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -409,18 +409,18 @@
         ]
     },
     {
-        "name": "Model1.1.isDisposed",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.isDisposed",
         "type": "ObservableValueDispose"
     },
     {
         "mutation": true,
-        "name": "Model1.1.dispose",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.dispose",
         "tracker": null,
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "Model1.1.dispose",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -429,7 +429,7 @@
         ]
     },
     {
-        "name": "Model1.1",
+        "name": "arez_integration_dispose_on_deactivate_MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Model1.1",
         "type": "ComponentDisposeComplete"
     }
 ]

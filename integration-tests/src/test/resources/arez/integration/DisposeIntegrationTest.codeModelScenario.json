@@ -1,27 +1,27 @@
 
 [
     {
-        "name": "CodeModel.1",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "CodeModel.1.name",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "CodeModel.1.packageName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.packageName",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "CodeModel.1.rawQualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.rawQualifiedName",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "CodeModel.1",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1",
         "type": "ComponentCreateComplete"
     },
     {
@@ -54,29 +54,29 @@
         "type": "ObservableValueCreate"
     },
     {
-        "name": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "CodeModel.1.qualifiedName",
-        "tracker": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
+        "tracker": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "TransactionStart"
     },
     {
-        "name": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "ObservableValueChange",
         "value": "com.example.MyType"
     },
     {
         "mutation": false,
-        "name": "CodeModel.1.qualifiedName",
-        "tracker": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
+        "tracker": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "TransactionComplete"
     },
     {
         "result": "com.example.MyType",
-        "name": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -119,12 +119,12 @@
         "type": "TransactionStart"
     },
     {
-        "name": "CodeModel.1.rawQualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.rawQualifiedName",
         "type": "ObservableValueChange",
         "value": "com.biz.Fred"
     },
     {
-        "name": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "ObserveSchedule"
     },
     {
@@ -144,17 +144,17 @@
         ]
     },
     {
-        "name": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "CodeModel.1.qualifiedName",
-        "tracker": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
+        "tracker": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "TransactionStart"
     },
     {
-        "name": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "ObservableValueChange",
         "value": "com.biz.Fred"
     },
@@ -164,13 +164,13 @@
     },
     {
         "mutation": false,
-        "name": "CodeModel.1.qualifiedName",
-        "tracker": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
+        "tracker": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "TransactionComplete"
     },
     {
         "result": "com.biz.Fred",
-        "name": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -234,12 +234,12 @@
         "type": "TransactionStart"
     },
     {
-        "name": "CodeModel.1.rawQualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.rawQualifiedName",
         "type": "ObservableValueChange",
         "value": null
     },
     {
-        "name": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "ObserveSchedule"
     },
     {
@@ -259,17 +259,17 @@
         ]
     },
     {
-        "name": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "CodeModel.1.qualifiedName",
-        "tracker": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
+        "tracker": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "TransactionStart"
     },
     {
-        "name": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "ObservableValueChange",
         "value": "com.example.MyType"
     },
@@ -279,13 +279,13 @@
     },
     {
         "mutation": false,
-        "name": "CodeModel.1.qualifiedName",
-        "tracker": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
+        "tracker": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "TransactionComplete"
     },
     {
         "result": "com.example.MyType",
-        "name": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -349,12 +349,12 @@
         "type": "TransactionStart"
     },
     {
-        "name": "CodeModel.1.name",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.name",
         "type": "ObservableValueChange",
         "value": "MyType2"
     },
     {
-        "name": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "ObserveSchedule"
     },
     {
@@ -374,17 +374,17 @@
         ]
     },
     {
-        "name": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "CodeModel.1.qualifiedName",
-        "tracker": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
+        "tracker": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "TransactionStart"
     },
     {
-        "name": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "ObservableValueChange",
         "value": "com.example.MyType2"
     },
@@ -394,13 +394,13 @@
     },
     {
         "mutation": false,
-        "name": "CodeModel.1.qualifiedName",
-        "tracker": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
+        "tracker": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "TransactionComplete"
     },
     {
         "result": "com.example.MyType2",
-        "name": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -484,11 +484,11 @@
         "type": "ObserverDispose"
     },
     {
-        "name": "CodeModel.1",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1",
         "type": "ComponentDisposeStart"
     },
     {
-        "name": "CodeModel.1.dispose",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -496,12 +496,12 @@
     },
     {
         "mutation": true,
-        "name": "CodeModel.1.dispose",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.dispose",
         "tracker": null,
         "type": "TransactionStart"
     },
     {
-        "name": "CodeModel.1.qualifiedName.dispose",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -509,7 +509,7 @@
     },
     {
         "result": null,
-        "name": "CodeModel.1.qualifiedName.dispose",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -518,24 +518,24 @@
         ]
     },
     {
-        "name": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "ComputableValueDispose"
     },
     {
-        "name": "CodeModel.1.qualifiedName.dispose",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "CodeModel.1.qualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
         "type": "ObservableValueChange",
         "value": null
     },
     {
         "result": null,
-        "name": "CodeModel.1.qualifiedName.dispose",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -544,7 +544,7 @@
         ]
     },
     {
-        "name": "CodeModel.1.qualifiedName.dispose",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -552,7 +552,7 @@
     },
     {
         "result": null,
-        "name": "CodeModel.1.qualifiedName.dispose",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -561,20 +561,20 @@
         ]
     },
     {
-        "name": "CodeModel.1.name.dispose",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.name.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "CodeModel.1.name",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.name",
         "type": "ObservableValueChange",
         "value": "MyType2"
     },
     {
         "result": null,
-        "name": "CodeModel.1.name.dispose",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.name.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -583,24 +583,24 @@
         ]
     },
     {
-        "name": "CodeModel.1.name",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.name",
         "type": "ObservableValueDispose"
     },
     {
-        "name": "CodeModel.1.packageName.dispose",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.packageName.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "CodeModel.1.packageName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.packageName",
         "type": "ObservableValueChange",
         "value": "com.example"
     },
     {
         "result": null,
-        "name": "CodeModel.1.packageName.dispose",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.packageName.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -609,24 +609,24 @@
         ]
     },
     {
-        "name": "CodeModel.1.packageName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.packageName",
         "type": "ObservableValueDispose"
     },
     {
-        "name": "CodeModel.1.rawQualifiedName.dispose",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.rawQualifiedName.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "CodeModel.1.rawQualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.rawQualifiedName",
         "type": "ObservableValueChange",
         "value": null
     },
     {
         "result": null,
-        "name": "CodeModel.1.rawQualifiedName.dispose",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.rawQualifiedName.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -635,18 +635,18 @@
         ]
     },
     {
-        "name": "CodeModel.1.rawQualifiedName",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.rawQualifiedName",
         "type": "ObservableValueDispose"
     },
     {
         "mutation": true,
-        "name": "CodeModel.1.dispose",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.dispose",
         "tracker": null,
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "CodeModel.1.dispose",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -655,7 +655,7 @@
         ]
     },
     {
-        "name": "CodeModel.1",
+        "name": "arez_integration_DisposeIntegrationTest_CodeModel.1",
         "type": "ComponentDisposeComplete"
     }
 ]

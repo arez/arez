@@ -26,6 +26,6 @@ public final class ContextRefReferencedInCtorTest
   public void scenario()
   {
     assertInvariant( ContextRefReferencedInCtorTest_Arez_TestComponent::new,
-                     "Method named 'getContext' invoked on uninitialized component of type 'TestComponent'" );
+                     "Method named 'getContext' invoked on uninitialized component of type 'arez_integration_context_ref_ContextRefReferencedInCtorTest_TestComponent'" );
   }
 }

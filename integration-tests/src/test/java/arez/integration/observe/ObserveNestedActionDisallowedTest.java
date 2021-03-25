@@ -57,7 +57,7 @@ public final class ObserveNestedActionDisallowedTest
 
     assertEquals( getObserverErrors().size(), 1 );
     assertEquals( getObserverErrors().get( 0 ),
-                  "Observer: TestComponent1.1.render Error: REACTION_ERROR java.lang.IllegalStateException: Arez-0187: Attempting to nest action named 'TestComponent1.1.myAction' inside transaction named 'TestComponent1.1.render' created by an observer that does not allow nested actions." );
+                  "Observer: arez_integration_observe_ObserveNestedActionDisallowedTest_TestComponent1.1.render Error: REACTION_ERROR java.lang.IllegalStateException: Arez-0187: Attempting to nest action named 'arez_integration_observe_ObserveNestedActionDisallowedTest_TestComponent1.1.myAction' inside transaction named 'arez_integration_observe_ObserveNestedActionDisallowedTest_TestComponent1.1.render' created by an observer that does not allow nested actions." );
 
     // This should not trigger render because render not observing as action eliminates dependency
     safeAction( () -> component.setTime( ValueUtil.randomLong() ) );

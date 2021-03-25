@@ -1,335 +1,335 @@
 
 [
     {
-        "name": "FilterContext.1",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_FilterContext.1",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "FilterContext.1.filter",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_FilterContext.1.filter",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "FilterContext.1",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_FilterContext.1",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Node.1",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Node.1.name",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Node.1",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Node.2",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Node.2.name",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Node.2",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Node.3",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Node.3.name",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Node.3",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Node.4",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Node.4.name",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Node.4",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Node.5",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Node.5.name",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Node.5",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Node.6",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Node.6.name",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Node.6",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Node.7",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Node.7.name",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Node.7",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Node.8",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Node.8.name",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Node.8",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Node.9",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Node.9.name",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Node.9",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Node.10",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Node.10.name",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Node.10",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Node.11",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Node.11.name",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Node.11",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Node.12",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Node.12.name",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Node.12",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Node.13",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Node.13.name",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Node.13",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Node.14",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Node.14.name",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Node.14",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Node.15",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Node.15.name",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Node.15",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Node.16",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Node.16.name",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Node.16",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Node.17",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Node.17.name",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Node.17",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Node.18",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Node.18.name",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Node.18",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Node.19",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Node.19.name",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Node.19",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Node.20",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Node.20.name",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Node.20",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20",
         "type": "ComponentCreateComplete"
     },
     {
@@ -362,83 +362,83 @@
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.1.visible",
-        "tracker": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.2.visible",
-        "tracker": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.3.visible",
-        "tracker": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Node.3.visible",
-        "tracker": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Node.2.visible",
-        "tracker": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Node.1.visible",
-        "tracker": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -593,29 +593,29 @@
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.4.visible",
-        "tracker": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Node.4.visible",
-        "tracker": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -670,29 +670,29 @@
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.5.visible",
-        "tracker": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Node.5.visible",
-        "tracker": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -747,29 +747,29 @@
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.6.visible",
-        "tracker": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Node.6.visible",
-        "tracker": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -824,110 +824,110 @@
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.7.visible",
-        "tracker": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.8.visible",
-        "tracker": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.9.visible",
-        "tracker": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.10.visible",
-        "tracker": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Node.10.visible",
-        "tracker": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Node.9.visible",
-        "tracker": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Node.8.visible",
-        "tracker": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Node.7.visible",
-        "tracker": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1132,29 +1132,29 @@
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.11.visible",
-        "tracker": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Node.11.visible",
-        "tracker": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1209,29 +1209,29 @@
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.12.visible",
-        "tracker": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Node.12.visible",
-        "tracker": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1286,83 +1286,83 @@
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.13.visible",
-        "tracker": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.14.visible",
-        "tracker": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.15.visible",
-        "tracker": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Node.15.visible",
-        "tracker": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Node.14.visible",
-        "tracker": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Node.13.visible",
-        "tracker": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1517,29 +1517,29 @@
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.16.visible",
-        "tracker": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Node.16.visible",
-        "tracker": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1594,29 +1594,29 @@
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.17.visible",
-        "tracker": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Node.17.visible",
-        "tracker": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1671,56 +1671,56 @@
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.18.visible",
-        "tracker": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.19.visible",
-        "tracker": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Node.19.visible",
-        "tracker": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Node.18.visible",
-        "tracker": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1825,29 +1825,29 @@
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.20.visible",
-        "tracker": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Node.20.visible",
-        "tracker": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1886,88 +1886,88 @@
         "type": "TransactionStart"
     },
     {
-        "name": "FilterContext.1.filter",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_FilterContext.1.filter",
         "type": "ObservableValueChange",
         "value": "o"
     },
     {
-        "name": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "ObserveSchedule"
     },
     {
@@ -1987,93 +1987,93 @@
         ]
     },
     {
-        "name": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.1.visible",
-        "tracker": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.3.visible",
-        "tracker": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.3.visible",
-        "tracker": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
         "mutation": false,
-        "name": "Node.1.visible",
-        "tracker": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.2.visible",
-        "tracker": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.2.visible",
-        "tracker": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "ComputeStart"
     },
     {
         "result": true,
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.4.visible",
-        "tracker": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -2083,28 +2083,28 @@
     },
     {
         "mutation": false,
-        "name": "Node.4.visible",
-        "tracker": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.5.visible",
-        "tracker": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -2114,28 +2114,28 @@
     },
     {
         "mutation": false,
-        "name": "Node.5.visible",
-        "tracker": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.6.visible",
-        "tracker": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -2145,38 +2145,38 @@
     },
     {
         "mutation": false,
-        "name": "Node.6.visible",
-        "tracker": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.7.visible",
-        "tracker": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.10.visible",
-        "tracker": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -2186,38 +2186,38 @@
     },
     {
         "mutation": false,
-        "name": "Node.10.visible",
-        "tracker": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.9.visible",
-        "tracker": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.11.visible",
-        "tracker": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -2227,28 +2227,28 @@
     },
     {
         "mutation": false,
-        "name": "Node.11.visible",
-        "tracker": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.12.visible",
-        "tracker": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -2258,18 +2258,18 @@
     },
     {
         "mutation": false,
-        "name": "Node.12.visible",
-        "tracker": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -2279,242 +2279,242 @@
     },
     {
         "mutation": false,
-        "name": "Node.9.visible",
-        "tracker": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.8.visible",
-        "tracker": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.15.visible",
-        "tracker": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.15.visible",
-        "tracker": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
         "mutation": false,
-        "name": "Node.8.visible",
-        "tracker": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
         "mutation": false,
-        "name": "Node.7.visible",
-        "tracker": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "ComputeStart"
     },
     {
         "result": true,
-        "name": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.13.visible",
-        "tracker": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.13.visible",
-        "tracker": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.14.visible",
-        "tracker": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.14.visible",
-        "tracker": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "ComputeStart"
     },
     {
         "result": true,
-        "name": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.16.visible",
-        "tracker": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.16.visible",
-        "tracker": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.17.visible",
-        "tracker": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.17.visible",
-        "tracker": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.18.visible",
-        "tracker": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.19.visible",
-        "tracker": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -2524,28 +2524,28 @@
     },
     {
         "mutation": false,
-        "name": "Node.19.visible",
-        "tracker": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.20.visible",
-        "tracker": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -2555,18 +2555,18 @@
     },
     {
         "mutation": false,
-        "name": "Node.20.visible",
-        "tracker": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -2576,33 +2576,33 @@
     },
     {
         "mutation": false,
-        "name": "Node.18.visible",
-        "tracker": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -3040,88 +3040,88 @@
         "type": "TransactionStart"
     },
     {
-        "name": "FilterContext.1.filter",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_FilterContext.1.filter",
         "type": "ObservableValueChange",
         "value": "ob"
     },
     {
-        "name": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "ObserveSchedule"
     },
     {
@@ -3141,235 +3141,235 @@
         ]
     },
     {
-        "name": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.1.visible",
-        "tracker": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.3.visible",
-        "tracker": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.3.visible",
-        "tracker": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
         "mutation": false,
-        "name": "Node.1.visible",
-        "tracker": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.2.visible",
-        "tracker": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.2.visible",
-        "tracker": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "ComputeStart"
     },
     {
         "result": true,
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.4.visible",
-        "tracker": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.4.visible",
-        "tracker": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.5.visible",
-        "tracker": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.5.visible",
-        "tracker": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.6.visible",
-        "tracker": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.6.visible",
-        "tracker": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.7.visible",
-        "tracker": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.10.visible",
-        "tracker": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.10.visible",
-        "tracker": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.11.visible",
-        "tracker": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.11.visible",
-        "tracker": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.12.visible",
-        "tracker": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.12.visible",
-        "tracker": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.15.visible",
-        "tracker": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -3379,38 +3379,38 @@
     },
     {
         "mutation": false,
-        "name": "Node.15.visible",
-        "tracker": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.14.visible",
-        "tracker": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.16.visible",
-        "tracker": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -3420,28 +3420,28 @@
     },
     {
         "mutation": false,
-        "name": "Node.16.visible",
-        "tracker": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.17.visible",
-        "tracker": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -3451,18 +3451,18 @@
     },
     {
         "mutation": false,
-        "name": "Node.17.visible",
-        "tracker": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -3472,72 +3472,72 @@
     },
     {
         "mutation": false,
-        "name": "Node.14.visible",
-        "tracker": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.13.visible",
-        "tracker": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.19.visible",
-        "tracker": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.19.visible",
-        "tracker": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.20.visible",
-        "tracker": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.20.visible",
-        "tracker": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -3547,28 +3547,28 @@
     },
     {
         "mutation": false,
-        "name": "Node.13.visible",
-        "tracker": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.8.visible",
-        "tracker": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -3578,18 +3578,18 @@
     },
     {
         "mutation": false,
-        "name": "Node.8.visible",
-        "tracker": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -3599,167 +3599,167 @@
     },
     {
         "mutation": false,
-        "name": "Node.7.visible",
-        "tracker": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.9.visible",
-        "tracker": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.9.visible",
-        "tracker": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.18.visible",
-        "tracker": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.18.visible",
-        "tracker": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -4071,88 +4071,88 @@
         "type": "TransactionStart"
     },
     {
-        "name": "FilterContext.1.filter",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_FilterContext.1.filter",
         "type": "ObservableValueChange",
         "value": "obb"
     },
     {
-        "name": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "ObserveSchedule"
     },
     {
@@ -4172,27 +4172,27 @@
         ]
     },
     {
-        "name": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.1.visible",
-        "tracker": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.3.visible",
-        "tracker": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -4202,94 +4202,94 @@
     },
     {
         "mutation": false,
-        "name": "Node.3.visible",
-        "tracker": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.2.visible",
-        "tracker": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.4.visible",
-        "tracker": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.4.visible",
-        "tracker": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.5.visible",
-        "tracker": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.5.visible",
-        "tracker": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.6.visible",
-        "tracker": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.6.visible",
-        "tracker": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -4299,18 +4299,18 @@
     },
     {
         "mutation": false,
-        "name": "Node.2.visible",
-        "tracker": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -4320,451 +4320,451 @@
     },
     {
         "mutation": false,
-        "name": "Node.1.visible",
-        "tracker": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.7.visible",
-        "tracker": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.10.visible",
-        "tracker": "Node.10.visible",
-        "type": "TransactionStart"
-    },
-    {
-        "mutation": false,
-        "name": "Node.10.visible",
-        "tracker": "Node.10.visible",
-        "type": "TransactionComplete"
-    },
-    {
-        "result": false,
-        "name": "Node.10.visible",
-        "errorMessage": null,
-        "type": "ComputeComplete"
-    },
-    {
-        "name": "Node.11.visible",
-        "type": "ComputeStart"
-    },
-    {
-        "mutation": false,
-        "name": "Node.11.visible",
-        "tracker": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.11.visible",
-        "tracker": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.12.visible",
-        "tracker": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.12.visible",
-        "tracker": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.15.visible",
-        "tracker": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.15.visible",
-        "tracker": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.16.visible",
-        "tracker": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.16.visible",
-        "tracker": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.17.visible",
-        "tracker": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.17.visible",
-        "tracker": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.19.visible",
-        "tracker": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.19.visible",
-        "tracker": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.20.visible",
-        "tracker": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.20.visible",
-        "tracker": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "mutation": false,
-        "name": "Node.7.visible",
-        "tracker": "Node.7.visible",
-        "type": "TransactionComplete"
-    },
-    {
-        "result": false,
-        "name": "Node.7.visible",
-        "errorMessage": null,
-        "type": "ComputeComplete"
-    },
-    {
-        "name": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.8.visible",
-        "tracker": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.8.visible",
-        "tracker": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.9.visible",
+        "mutation": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.9.visible",
-        "tracker": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.9.visible",
-        "tracker": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.10.visible",
-        "type": "ComputeStart"
-    },
-    {
-        "result": false,
-        "name": "Node.10.visible",
-        "errorMessage": null,
-        "type": "ComputeComplete"
-    },
-    {
-        "name": "Node.11.visible",
-        "type": "ComputeStart"
-    },
-    {
-        "result": false,
-        "name": "Node.11.visible",
-        "errorMessage": null,
-        "type": "ComputeComplete"
-    },
-    {
-        "name": "Node.12.visible",
-        "type": "ComputeStart"
-    },
-    {
-        "result": false,
-        "name": "Node.12.visible",
-        "errorMessage": null,
-        "type": "ComputeComplete"
-    },
-    {
-        "name": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.13.visible",
-        "tracker": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.13.visible",
-        "tracker": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
+        "type": "ComputeStart"
+    },
+    {
+        "result": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
+        "type": "ComputeStart"
+    },
+    {
+        "result": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
+        "type": "ComputeStart"
+    },
+    {
+        "result": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.14.visible",
-        "tracker": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.14.visible",
-        "tracker": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.15.visible",
-        "type": "ComputeStart"
-    },
-    {
-        "result": false,
-        "name": "Node.15.visible",
-        "errorMessage": null,
-        "type": "ComputeComplete"
-    },
-    {
-        "name": "Node.16.visible",
-        "type": "ComputeStart"
-    },
-    {
-        "result": false,
-        "name": "Node.16.visible",
-        "errorMessage": null,
-        "type": "ComputeComplete"
-    },
-    {
-        "name": "Node.17.visible",
-        "type": "ComputeStart"
-    },
-    {
-        "result": false,
-        "name": "Node.17.visible",
-        "errorMessage": null,
-        "type": "ComputeComplete"
-    },
-    {
-        "name": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.18.visible",
-        "tracker": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.18.visible",
-        "tracker": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
+        "type": "ComputeStart"
+    },
+    {
+        "result": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
+        "type": "ComputeStart"
+    },
+    {
+        "mutation": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
+        "type": "ComputeStart"
+    },
+    {
+        "result": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
+        "type": "ComputeStart"
+    },
+    {
+        "result": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -4908,88 +4908,88 @@
         "type": "TransactionStart"
     },
     {
-        "name": "FilterContext.1.filter",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_FilterContext.1.filter",
         "type": "ObservableValueChange",
         "value": "ob"
     },
     {
-        "name": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "ObserveSchedule"
     },
     {
@@ -5009,27 +5009,27 @@
         ]
     },
     {
-        "name": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.1.visible",
-        "tracker": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.3.visible",
-        "tracker": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "ObservableValueChange",
         "value": true
     },
@@ -5039,28 +5039,28 @@
     },
     {
         "mutation": false,
-        "name": "Node.3.visible",
-        "tracker": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.2.visible",
-        "tracker": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "ObservableValueChange",
         "value": true
     },
@@ -5070,18 +5070,18 @@
     },
     {
         "mutation": false,
-        "name": "Node.2.visible",
-        "tracker": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "ObservableValueChange",
         "value": true
     },
@@ -5091,487 +5091,487 @@
     },
     {
         "mutation": false,
-        "name": "Node.1.visible",
-        "tracker": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Node.1.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "type": "ComputeStart"
     },
     {
         "result": true,
-        "name": "Node.2.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.2.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "type": "ComputeStart"
     },
     {
         "result": true,
-        "name": "Node.3.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.3.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.4.visible",
-        "tracker": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.4.visible",
-        "tracker": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.4.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.4.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.5.visible",
-        "tracker": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.5.visible",
-        "tracker": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.5.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.5.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.6.visible",
-        "tracker": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.6.visible",
-        "tracker": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.6.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.6.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.7.visible",
-        "tracker": "Node.7.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
         "type": "TransactionStart"
     },
     {
-        "name": "Node.10.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.10.visible",
-        "tracker": "Node.10.visible",
-        "type": "TransactionStart"
-    },
-    {
-        "mutation": false,
-        "name": "Node.10.visible",
-        "tracker": "Node.10.visible",
-        "type": "TransactionComplete"
-    },
-    {
-        "result": false,
-        "name": "Node.10.visible",
-        "errorMessage": null,
-        "type": "ComputeComplete"
-    },
-    {
-        "name": "Node.11.visible",
-        "type": "ComputeStart"
-    },
-    {
-        "mutation": false,
-        "name": "Node.11.visible",
-        "tracker": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.11.visible",
-        "tracker": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.11.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.12.visible",
-        "tracker": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.12.visible",
-        "tracker": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.12.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.15.visible",
-        "tracker": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.15.visible",
-        "tracker": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.15.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.16.visible",
-        "tracker": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.16.visible",
-        "tracker": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.16.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.17.visible",
-        "tracker": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.17.visible",
-        "tracker": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.17.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.19.visible",
-        "tracker": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.19.visible",
-        "tracker": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.20.visible",
-        "tracker": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.20.visible",
-        "tracker": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "mutation": false,
-        "name": "Node.7.visible",
-        "tracker": "Node.7.visible",
-        "type": "TransactionComplete"
-    },
-    {
-        "result": false,
-        "name": "Node.7.visible",
-        "errorMessage": null,
-        "type": "ComputeComplete"
-    },
-    {
-        "name": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.8.visible",
-        "tracker": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.8.visible",
-        "tracker": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.8.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.9.visible",
+        "mutation": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.7.visible",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.9.visible",
-        "tracker": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.9.visible",
-        "tracker": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.9.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.8.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.10.visible",
-        "type": "ComputeStart"
-    },
-    {
-        "result": false,
-        "name": "Node.10.visible",
-        "errorMessage": null,
-        "type": "ComputeComplete"
-    },
-    {
-        "name": "Node.11.visible",
-        "type": "ComputeStart"
-    },
-    {
-        "result": false,
-        "name": "Node.11.visible",
-        "errorMessage": null,
-        "type": "ComputeComplete"
-    },
-    {
-        "name": "Node.12.visible",
-        "type": "ComputeStart"
-    },
-    {
-        "result": false,
-        "name": "Node.12.visible",
-        "errorMessage": null,
-        "type": "ComputeComplete"
-    },
-    {
-        "name": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.13.visible",
-        "tracker": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.13.visible",
-        "tracker": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.13.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.9.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
+        "type": "ComputeStart"
+    },
+    {
+        "result": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.10.visible",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
+        "type": "ComputeStart"
+    },
+    {
+        "result": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.11.visible",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
+        "type": "ComputeStart"
+    },
+    {
+        "result": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.12.visible",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.14.visible",
-        "tracker": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.14.visible",
-        "tracker": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.14.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.13.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.15.visible",
-        "type": "ComputeStart"
-    },
-    {
-        "result": false,
-        "name": "Node.15.visible",
-        "errorMessage": null,
-        "type": "ComputeComplete"
-    },
-    {
-        "name": "Node.16.visible",
-        "type": "ComputeStart"
-    },
-    {
-        "result": false,
-        "name": "Node.16.visible",
-        "errorMessage": null,
-        "type": "ComputeComplete"
-    },
-    {
-        "name": "Node.17.visible",
-        "type": "ComputeStart"
-    },
-    {
-        "result": false,
-        "name": "Node.17.visible",
-        "errorMessage": null,
-        "type": "ComputeComplete"
-    },
-    {
-        "name": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Node.18.visible",
-        "tracker": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Node.18.visible",
-        "tracker": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Node.18.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.14.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.19.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.15.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
         "type": "ComputeStart"
     },
     {
         "result": false,
-        "name": "Node.20.visible",
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.16.visible",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
+        "type": "ComputeStart"
+    },
+    {
+        "result": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.17.visible",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
+        "type": "ComputeStart"
+    },
+    {
+        "mutation": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
+        "tracker": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.18.visible",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
+        "type": "ComputeStart"
+    },
+    {
+        "result": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.19.visible",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
+        "type": "ComputeStart"
+    },
+    {
+        "result": false,
+        "name": "arez_integration_NestedComputableValueIntegrationTest_Node.20.visible",
         "errorMessage": null,
         "type": "ComputeComplete"
     },

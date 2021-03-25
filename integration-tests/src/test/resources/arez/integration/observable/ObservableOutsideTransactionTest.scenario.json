@@ -1,15 +1,15 @@
 
 [
     {
-        "name": "MyComponent.1",
+        "name": "arez_integration_observable_ObservableOutsideTransactionTest_MyComponent.1",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "MyComponent.1.time",
+        "name": "arez_integration_observable_ObservableOutsideTransactionTest_MyComponent.1.time",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "MyComponent.1",
+        "name": "arez_integration_observable_ObservableOutsideTransactionTest_MyComponent.1",
         "type": "ComponentCreateComplete"
     },
     {
@@ -76,7 +76,7 @@
         "type": "TransactionStart"
     },
     {
-        "name": "MyComponent.1.time",
+        "name": "arez_integration_observable_ObservableOutsideTransactionTest_MyComponent.1.time",
         "type": "ObservableValueChange",
         "value": 37
     },
@@ -156,7 +156,7 @@
         "type": "TransactionStart"
     },
     {
-        "name": "MyComponent.1.time",
+        "name": "arez_integration_observable_ObservableOutsideTransactionTest_MyComponent.1.time",
         "type": "ObservableValueChange",
         "value": 42
     },

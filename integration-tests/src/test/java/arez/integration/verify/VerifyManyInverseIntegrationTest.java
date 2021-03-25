@@ -89,7 +89,7 @@ public final class VerifyManyInverseIntegrationTest
     field.set( kernel, (byte) -1 );
 
     assertInvariant( () -> Verifiable.verify( model2 ),
-                     "Inverse relationship named 'model1s' on component named 'Model2.1' contains disposed element 'ArezComponent[Model1.0]'" );
+                     "Inverse relationship named 'model1s' on component named 'arez_integration_verify_VerifyManyInverseIntegrationTest_Model2.1' contains disposed element 'ArezComponent[arez_integration_verify_VerifyManyInverseIntegrationTest_Model1.0]'" );
   }
 
   @ArezComponent

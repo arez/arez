@@ -1,59 +1,59 @@
 
 [
     {
-        "name": "Model1.1",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.1",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Model1.1.name",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.1.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Model1.1",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.1",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Model1.2",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.2",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Model1.2.name",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.2.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Model1.2",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.2",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Model2.1",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.1",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Model2.1.name",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.1.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Model2.1",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.1",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Model2.2",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.2",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Model2.2.name",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.2.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Model2.2",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.2",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Model2.1",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.1",
         "type": "ComponentDisposeStart"
     },
     {
-        "name": "Model2.1.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.1.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -61,25 +61,25 @@
     },
     {
         "mutation": true,
-        "name": "Model2.1.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.1.dispose",
         "tracker": null,
         "type": "TransactionStart"
     },
     {
-        "name": "Model2.1.name.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.1.name.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "Model2.1.name",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.1.name",
         "type": "ObservableValueChange",
         "value": "Model2A"
     },
     {
         "result": null,
-        "name": "Model2.1.name.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.1.name.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -88,18 +88,18 @@
         ]
     },
     {
-        "name": "Model2.1.name",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.1.name",
         "type": "ObservableValueDispose"
     },
     {
         "mutation": true,
-        "name": "Model2.1.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.1.dispose",
         "tracker": null,
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "Model2.1.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.1.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -108,15 +108,15 @@
         ]
     },
     {
-        "name": "Model2.1",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.1",
         "type": "ComponentDisposeComplete"
     },
     {
-        "name": "Model1.1",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.1",
         "type": "ComponentDisposeStart"
     },
     {
-        "name": "Model1.1.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.1.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -124,25 +124,25 @@
     },
     {
         "mutation": true,
-        "name": "Model1.1.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.1.dispose",
         "tracker": null,
         "type": "TransactionStart"
     },
     {
-        "name": "Model1.1.name.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.1.name.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "Model1.1.name",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.1.name",
         "type": "ObservableValueChange",
         "value": "Model1A"
     },
     {
         "result": null,
-        "name": "Model1.1.name.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.1.name.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -151,18 +151,18 @@
         ]
     },
     {
-        "name": "Model1.1.name",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.1.name",
         "type": "ObservableValueDispose"
     },
     {
         "mutation": true,
-        "name": "Model1.1.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.1.dispose",
         "tracker": null,
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "Model1.1.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.1.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -171,15 +171,15 @@
         ]
     },
     {
-        "name": "Model1.1",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.1",
         "type": "ComponentDisposeComplete"
     },
     {
-        "name": "Model1.2",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.2",
         "type": "ComponentDisposeStart"
     },
     {
-        "name": "Model1.2.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.2.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -187,36 +187,36 @@
     },
     {
         "mutation": true,
-        "name": "Model1.2.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.2.dispose",
         "tracker": null,
         "type": "TransactionStart"
     },
     {
-        "name": "Model2.2",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.2",
         "type": "ComponentDisposeStart"
     },
     {
-        "name": "Model2.2.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.2.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "Model2.2.name.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.2.name.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "Model2.2.name",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.2.name",
         "type": "ObservableValueChange",
         "value": "Model2B"
     },
     {
         "result": null,
-        "name": "Model2.2.name.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.2.name.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -225,12 +225,12 @@
         ]
     },
     {
-        "name": "Model2.2.name",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.2.name",
         "type": "ObservableValueDispose"
     },
     {
         "result": null,
-        "name": "Model2.2.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.2.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -239,24 +239,24 @@
         ]
     },
     {
-        "name": "Model2.2",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.2",
         "type": "ComponentDisposeComplete"
     },
     {
-        "name": "Model1.2.name.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.2.name.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "Model1.2.name",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.2.name",
         "type": "ObservableValueChange",
         "value": "Model1B"
     },
     {
         "result": null,
-        "name": "Model1.2.name.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.2.name.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -265,18 +265,18 @@
         ]
     },
     {
-        "name": "Model1.2.name",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.2.name",
         "type": "ObservableValueDispose"
     },
     {
         "mutation": true,
-        "name": "Model1.2.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.2.dispose",
         "tracker": null,
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "Model1.2.dispose",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.2.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -285,7 +285,7 @@
         ]
     },
     {
-        "name": "Model1.2",
+        "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.2",
         "type": "ComponentDisposeComplete"
     }
 ]

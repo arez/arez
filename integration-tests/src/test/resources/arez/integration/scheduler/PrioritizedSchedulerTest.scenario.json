@@ -1,91 +1,91 @@
 
 [
     {
-        "name": "TestComponent.1",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "TestComponent.1.value1",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.value1",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "TestComponent.1.value2",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.value2",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "TestComponent.1.value3",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.value3",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "TestComponent.1.computed1",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "TestComponent.1.computed2",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed2",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "TestComponent.1.computed3",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed3",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "TestComponent.1.observer1a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a",
         "type": "ObserverCreate"
     },
     {
-        "name": "TestComponent.1.observer1a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a",
         "type": "ObserveSchedule"
     },
     {
-        "name": "TestComponent.1.observer1b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b",
         "type": "ObserverCreate"
     },
     {
-        "name": "TestComponent.1.observer1b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b",
         "type": "ObserveSchedule"
     },
     {
-        "name": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "type": "ObserverCreate"
     },
     {
-        "name": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "type": "ObserveSchedule"
     },
     {
-        "name": "TestComponent.1.observer2b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b",
         "type": "ObserverCreate"
     },
     {
-        "name": "TestComponent.1.observer2b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b",
         "type": "ObserveSchedule"
     },
     {
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "type": "ObserverCreate"
     },
     {
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "type": "ObserveSchedule"
     },
     {
-        "name": "TestComponent.1.observer3b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b",
         "type": "ObserverCreate"
     },
     {
-        "name": "TestComponent.1.observer3b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b",
         "type": "ObserveSchedule"
     },
     {
-        "name": "TestComponent.1",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "TestComponent.1.observer1a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a",
         "type": "ObserveStart"
     },
     {
-        "name": "TestComponent.1.observer1a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a",
         "tracked": true,
         "type": "ActionStart",
         "parameters": [
@@ -93,19 +93,19 @@
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer1a",
-        "tracker": "TestComponent.1.observer1a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer1a",
-        "tracker": "TestComponent.1.observer1a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a",
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "TestComponent.1.observer1a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a",
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
@@ -114,16 +114,16 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer1a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a",
         "errorMessage": null,
         "type": "ObserveComplete"
     },
     {
-        "name": "TestComponent.1.observer1b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b",
         "type": "ObserveStart"
     },
     {
-        "name": "TestComponent.1.observer1b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b",
         "tracked": true,
         "type": "ActionStart",
         "parameters": [
@@ -131,41 +131,41 @@
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer1b",
-        "tracker": "TestComponent.1.observer1b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b",
         "type": "TransactionStart"
     },
     {
-        "name": "TestComponent.1.computed1",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.computed1",
-        "tracker": "TestComponent.1.computed1",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.computed1",
-        "tracker": "TestComponent.1.computed1",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1",
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "TestComponent.1.computed1",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer1b",
-        "tracker": "TestComponent.1.observer1b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b",
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "TestComponent.1.observer1b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b",
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
@@ -174,16 +174,16 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer1b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b",
         "errorMessage": null,
         "type": "ObserveComplete"
     },
     {
-        "name": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "type": "ObserveStart"
     },
     {
-        "name": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "tracked": true,
         "type": "ActionStart",
         "parameters": [
@@ -191,19 +191,19 @@
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer2a",
-        "tracker": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer2a",
-        "tracker": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
@@ -212,16 +212,16 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "errorMessage": null,
         "type": "ObserveComplete"
     },
     {
-        "name": "TestComponent.1.observer2b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b",
         "type": "ObserveStart"
     },
     {
-        "name": "TestComponent.1.observer2b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b",
         "tracked": true,
         "type": "ActionStart",
         "parameters": [
@@ -229,19 +229,19 @@
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer2b",
-        "tracker": "TestComponent.1.observer2b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer2b",
-        "tracker": "TestComponent.1.observer2b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b",
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "TestComponent.1.observer2b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b",
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
@@ -250,16 +250,16 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer2b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b",
         "errorMessage": null,
         "type": "ObserveComplete"
     },
     {
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "type": "ObserveStart"
     },
     {
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "tracked": true,
         "type": "ActionStart",
         "parameters": [
@@ -267,19 +267,19 @@
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer3a",
-        "tracker": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer3a",
-        "tracker": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
@@ -288,16 +288,16 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "errorMessage": null,
         "type": "ObserveComplete"
     },
     {
-        "name": "TestComponent.1.observer3b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b",
         "type": "ObserveStart"
     },
     {
-        "name": "TestComponent.1.observer3b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b",
         "tracked": true,
         "type": "ActionStart",
         "parameters": [
@@ -305,19 +305,19 @@
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer3b",
-        "tracker": "TestComponent.1.observer3b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer3b",
-        "tracker": "TestComponent.1.observer3b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b",
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "TestComponent.1.observer3b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b",
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
@@ -326,7 +326,7 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer3b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b",
         "errorMessage": null,
         "type": "ObserveComplete"
     },
@@ -344,24 +344,24 @@
         "type": "TransactionStart"
     },
     {
-        "name": "TestComponent.1.value1",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.value1",
         "type": "ObservableValueChange",
         "value": "1"
     },
     {
-        "name": "TestComponent.1.observer1a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a",
         "type": "ObserveSchedule"
     },
     {
-        "name": "TestComponent.1.computed1",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1",
         "type": "ObserveSchedule"
     },
     {
-        "name": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "type": "ObserveSchedule"
     },
     {
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "type": "ObserveSchedule"
     },
     {
@@ -381,11 +381,11 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer1a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a",
         "type": "ObserveStart"
     },
     {
-        "name": "TestComponent.1.observer1a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a",
         "tracked": true,
         "type": "ActionStart",
         "parameters": [
@@ -393,19 +393,19 @@
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer1a",
-        "tracker": "TestComponent.1.observer1a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer1a",
-        "tracker": "TestComponent.1.observer1a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a",
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "TestComponent.1.observer1a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a",
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
@@ -414,55 +414,55 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer1a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a",
         "errorMessage": null,
         "type": "ObserveComplete"
     },
     {
-        "name": "TestComponent.1.computed1",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.computed1",
-        "tracker": "TestComponent.1.computed1",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1",
         "type": "TransactionStart"
     },
     {
-        "name": "TestComponent.1.computed1",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1",
         "type": "ObservableValueChange",
         "value": "1"
     },
     {
-        "name": "TestComponent.1.observer1b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b",
         "type": "ObserveSchedule"
     },
     {
-        "name": "TestComponent.1.observer2b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b",
         "type": "ObserveSchedule"
     },
     {
-        "name": "TestComponent.1.observer3b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b",
         "type": "ObserveSchedule"
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.computed1",
-        "tracker": "TestComponent.1.computed1",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1",
         "type": "TransactionComplete"
     },
     {
         "result": "1",
-        "name": "TestComponent.1.computed1",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "TestComponent.1.observer1b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b",
         "type": "ObserveStart"
     },
     {
-        "name": "TestComponent.1.observer1b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b",
         "tracked": true,
         "type": "ActionStart",
         "parameters": [
@@ -470,19 +470,19 @@
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer1b",
-        "tracker": "TestComponent.1.observer1b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer1b",
-        "tracker": "TestComponent.1.observer1b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b",
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "TestComponent.1.observer1b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b",
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
@@ -491,16 +491,16 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer1b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b",
         "errorMessage": null,
         "type": "ObserveComplete"
     },
     {
-        "name": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "type": "ObserveStart"
     },
     {
-        "name": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "tracked": true,
         "type": "ActionStart",
         "parameters": [
@@ -508,19 +508,19 @@
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer2a",
-        "tracker": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer2a",
-        "tracker": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
@@ -529,16 +529,16 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "errorMessage": null,
         "type": "ObserveComplete"
     },
     {
-        "name": "TestComponent.1.observer2b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b",
         "type": "ObserveStart"
     },
     {
-        "name": "TestComponent.1.observer2b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b",
         "tracked": true,
         "type": "ActionStart",
         "parameters": [
@@ -546,19 +546,19 @@
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer2b",
-        "tracker": "TestComponent.1.observer2b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer2b",
-        "tracker": "TestComponent.1.observer2b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b",
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "TestComponent.1.observer2b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b",
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
@@ -567,16 +567,16 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer2b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b",
         "errorMessage": null,
         "type": "ObserveComplete"
     },
     {
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "type": "ObserveStart"
     },
     {
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "tracked": true,
         "type": "ActionStart",
         "parameters": [
@@ -584,19 +584,19 @@
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer3a",
-        "tracker": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer3a",
-        "tracker": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
@@ -605,16 +605,16 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "errorMessage": null,
         "type": "ObserveComplete"
     },
     {
-        "name": "TestComponent.1.observer3b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b",
         "type": "ObserveStart"
     },
     {
-        "name": "TestComponent.1.observer3b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b",
         "tracked": true,
         "type": "ActionStart",
         "parameters": [
@@ -622,19 +622,19 @@
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer3b",
-        "tracker": "TestComponent.1.observer3b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer3b",
-        "tracker": "TestComponent.1.observer3b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b",
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "TestComponent.1.observer3b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b",
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
@@ -643,7 +643,7 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer3b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b",
         "errorMessage": null,
         "type": "ObserveComplete"
     },
@@ -661,16 +661,16 @@
         "type": "TransactionStart"
     },
     {
-        "name": "TestComponent.1.value2",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.value2",
         "type": "ObservableValueChange",
         "value": "2"
     },
     {
-        "name": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "type": "ObserveSchedule"
     },
     {
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "type": "ObserveSchedule"
     },
     {
@@ -690,11 +690,11 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "type": "ObserveStart"
     },
     {
-        "name": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "tracked": true,
         "type": "ActionStart",
         "parameters": [
@@ -702,19 +702,19 @@
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer2a",
-        "tracker": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer2a",
-        "tracker": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
@@ -723,16 +723,16 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "errorMessage": null,
         "type": "ObserveComplete"
     },
     {
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "type": "ObserveStart"
     },
     {
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "tracked": true,
         "type": "ActionStart",
         "parameters": [
@@ -740,19 +740,19 @@
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer3a",
-        "tracker": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer3a",
-        "tracker": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
@@ -761,7 +761,7 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "errorMessage": null,
         "type": "ObserveComplete"
     },
@@ -779,12 +779,12 @@
         "type": "TransactionStart"
     },
     {
-        "name": "TestComponent.1.value3",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.value3",
         "type": "ObservableValueChange",
         "value": "3"
     },
     {
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "type": "ObserveSchedule"
     },
     {
@@ -804,11 +804,11 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "type": "ObserveStart"
     },
     {
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "tracked": true,
         "type": "ActionStart",
         "parameters": [
@@ -816,19 +816,19 @@
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer3a",
-        "tracker": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "TestComponent.1.observer3a",
-        "tracker": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
+        "tracker": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
@@ -837,16 +837,16 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "errorMessage": null,
         "type": "ObserveComplete"
     },
     {
-        "name": "TestComponent.1",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1",
         "type": "ComponentDisposeStart"
     },
     {
-        "name": "TestComponent.1.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -854,12 +854,12 @@
     },
     {
         "mutation": true,
-        "name": "TestComponent.1.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.dispose",
         "tracker": null,
         "type": "TransactionStart"
     },
     {
-        "name": "TestComponent.1.observer1a.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -867,7 +867,7 @@
     },
     {
         "result": null,
-        "name": "TestComponent.1.observer1a.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -876,11 +876,11 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer1a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1a",
         "type": "ObserverDispose"
     },
     {
-        "name": "TestComponent.1.observer1b.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -888,7 +888,7 @@
     },
     {
         "result": null,
-        "name": "TestComponent.1.observer1b.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -897,11 +897,11 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer1b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer1b",
         "type": "ObserverDispose"
     },
     {
-        "name": "TestComponent.1.observer2a.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -909,7 +909,7 @@
     },
     {
         "result": null,
-        "name": "TestComponent.1.observer2a.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -918,11 +918,11 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer2a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2a",
         "type": "ObserverDispose"
     },
     {
-        "name": "TestComponent.1.observer2b.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -930,7 +930,7 @@
     },
     {
         "result": null,
-        "name": "TestComponent.1.observer2b.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -939,11 +939,11 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer2b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer2b",
         "type": "ObserverDispose"
     },
     {
-        "name": "TestComponent.1.observer3a.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -951,7 +951,7 @@
     },
     {
         "result": null,
-        "name": "TestComponent.1.observer3a.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -960,11 +960,11 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer3a",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3a",
         "type": "ObserverDispose"
     },
     {
-        "name": "TestComponent.1.observer3b.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -972,7 +972,7 @@
     },
     {
         "result": null,
-        "name": "TestComponent.1.observer3b.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -981,11 +981,11 @@
         ]
     },
     {
-        "name": "TestComponent.1.observer3b",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.observer3b",
         "type": "ObserverDispose"
     },
     {
-        "name": "TestComponent.1.computed1.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -993,7 +993,7 @@
     },
     {
         "result": null,
-        "name": "TestComponent.1.computed1.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1002,24 +1002,24 @@
         ]
     },
     {
-        "name": "TestComponent.1.computed1",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1",
         "type": "ComputableValueDispose"
     },
     {
-        "name": "TestComponent.1.computed1.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "TestComponent.1.computed1",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1",
         "type": "ObservableValueChange",
         "value": null
     },
     {
         "result": null,
-        "name": "TestComponent.1.computed1.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1028,7 +1028,7 @@
         ]
     },
     {
-        "name": "TestComponent.1.computed1.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -1036,7 +1036,7 @@
     },
     {
         "result": null,
-        "name": "TestComponent.1.computed1.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed1.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1045,7 +1045,7 @@
         ]
     },
     {
-        "name": "TestComponent.1.computed2.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed2.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -1053,7 +1053,7 @@
     },
     {
         "result": null,
-        "name": "TestComponent.1.computed2.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed2.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1062,24 +1062,24 @@
         ]
     },
     {
-        "name": "TestComponent.1.computed2",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed2",
         "type": "ComputableValueDispose"
     },
     {
-        "name": "TestComponent.1.computed2.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed2.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "TestComponent.1.computed2",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed2",
         "type": "ObservableValueChange",
         "value": null
     },
     {
         "result": null,
-        "name": "TestComponent.1.computed2.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed2.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1088,7 +1088,7 @@
         ]
     },
     {
-        "name": "TestComponent.1.computed2.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed2.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -1096,7 +1096,7 @@
     },
     {
         "result": null,
-        "name": "TestComponent.1.computed2.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed2.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1105,7 +1105,7 @@
         ]
     },
     {
-        "name": "TestComponent.1.computed3.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed3.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -1113,7 +1113,7 @@
     },
     {
         "result": null,
-        "name": "TestComponent.1.computed3.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed3.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1122,24 +1122,24 @@
         ]
     },
     {
-        "name": "TestComponent.1.computed3",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed3",
         "type": "ComputableValueDispose"
     },
     {
-        "name": "TestComponent.1.computed3.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed3.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "TestComponent.1.computed3",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed3",
         "type": "ObservableValueChange",
         "value": null
     },
     {
         "result": null,
-        "name": "TestComponent.1.computed3.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed3.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1148,7 +1148,7 @@
         ]
     },
     {
-        "name": "TestComponent.1.computed3.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed3.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -1156,7 +1156,7 @@
     },
     {
         "result": null,
-        "name": "TestComponent.1.computed3.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.computed3.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1165,20 +1165,20 @@
         ]
     },
     {
-        "name": "TestComponent.1.value1.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.value1.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "TestComponent.1.value1",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.value1",
         "type": "ObservableValueChange",
         "value": "1"
     },
     {
         "result": null,
-        "name": "TestComponent.1.value1.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.value1.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1187,24 +1187,24 @@
         ]
     },
     {
-        "name": "TestComponent.1.value1",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.value1",
         "type": "ObservableValueDispose"
     },
     {
-        "name": "TestComponent.1.value2.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.value2.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "TestComponent.1.value2",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.value2",
         "type": "ObservableValueChange",
         "value": "2"
     },
     {
         "result": null,
-        "name": "TestComponent.1.value2.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.value2.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1213,24 +1213,24 @@
         ]
     },
     {
-        "name": "TestComponent.1.value2",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.value2",
         "type": "ObservableValueDispose"
     },
     {
-        "name": "TestComponent.1.value3.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.value3.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "TestComponent.1.value3",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.value3",
         "type": "ObservableValueChange",
         "value": "3"
     },
     {
         "result": null,
-        "name": "TestComponent.1.value3.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.value3.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1239,18 +1239,18 @@
         ]
     },
     {
-        "name": "TestComponent.1.value3",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.value3",
         "type": "ObservableValueDispose"
     },
     {
         "mutation": true,
-        "name": "TestComponent.1.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.dispose",
         "tracker": null,
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "TestComponent.1.dispose",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -1259,7 +1259,7 @@
         ]
     },
     {
-        "name": "TestComponent.1",
+        "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1",
         "type": "ComponentDisposeComplete"
     }
 ]

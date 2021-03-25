@@ -14,44 +14,44 @@
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.name",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.name",
         "type": "ObservableValueChange",
         "value": "bl"
     },
     {
-        "name": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "ObserveSchedule"
     },
     {
@@ -71,17 +71,17 @@
         ]
     },
     {
-        "name": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.0",
-        "tracker": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "ObservableValueChange",
         "value": true
     },
@@ -91,13 +91,13 @@
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.0",
-        "tracker": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -140,61 +140,61 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.1",
-        "tracker": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.1",
-        "tracker": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.2",
-        "tracker": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.2",
-        "tracker": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.0",
-        "tracker": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "ObservableValueChange",
         "value": true
     },
@@ -204,13 +204,13 @@
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.0",
-        "tracker": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -253,61 +253,61 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.1",
-        "tracker": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.1",
-        "tracker": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.2",
-        "tracker": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.2",
-        "tracker": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.0",
-        "tracker": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "ObservableValueChange",
         "value": true
     },
@@ -317,13 +317,13 @@
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.0",
-        "tracker": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -366,46 +366,46 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.1",
-        "tracker": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.1",
-        "tracker": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.2",
-        "tracker": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.2",
-        "tracker": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -423,44 +423,44 @@
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.name",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.name",
         "type": "ObservableValueChange",
         "value": "blu"
     },
     {
-        "name": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "ObserveSchedule"
     },
     {
@@ -480,200 +480,200 @@
         ]
     },
     {
-        "name": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.0",
-        "tracker": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.0",
-        "tracker": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.1",
-        "tracker": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.1",
-        "tracker": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.2",
-        "tracker": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.2",
-        "tracker": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.0",
-        "tracker": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.0",
-        "tracker": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.1",
-        "tracker": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.1",
-        "tracker": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.2",
-        "tracker": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.2",
-        "tracker": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.0",
-        "tracker": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.0",
-        "tracker": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.1",
-        "tracker": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.1",
-        "tracker": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.2",
-        "tracker": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.2",
-        "tracker": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -691,44 +691,44 @@
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.name",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.name",
         "type": "ObservableValueChange",
         "value": "blue and"
     },
     {
-        "name": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "ObserveSchedule"
     },
     {
@@ -748,39 +748,39 @@
         ]
     },
     {
-        "name": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.0",
-        "tracker": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.0",
-        "tracker": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.1",
-        "tracker": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "ObservableValueChange",
         "value": true
     },
@@ -790,13 +790,13 @@
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.1",
-        "tracker": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -839,61 +839,61 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.2",
-        "tracker": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.2",
-        "tracker": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.0",
-        "tracker": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.0",
-        "tracker": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.1",
-        "tracker": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "ObservableValueChange",
         "value": true
     },
@@ -903,13 +903,13 @@
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.1",
-        "tracker": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -952,61 +952,61 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.2",
-        "tracker": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.2",
-        "tracker": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.0",
-        "tracker": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.0",
-        "tracker": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.1",
-        "tracker": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "ObservableValueChange",
         "value": true
     },
@@ -1016,13 +1016,13 @@
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.1",
-        "tracker": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1065,24 +1065,24 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.2",
-        "tracker": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.2",
-        "tracker": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1100,44 +1100,44 @@
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.name",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.name",
         "type": "ObservableValueChange",
         "value": "blue and red"
     },
     {
-        "name": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "ObserveSchedule"
     },
     {
@@ -1157,61 +1157,61 @@
         ]
     },
     {
-        "name": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.0",
-        "tracker": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.0",
-        "tracker": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.1",
-        "tracker": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.1",
-        "tracker": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.2",
-        "tracker": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "ObservableValueChange",
         "value": true
     },
@@ -1221,13 +1221,13 @@
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.2",
-        "tracker": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1270,61 +1270,61 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.0",
-        "tracker": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.0",
-        "tracker": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.1",
-        "tracker": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.1",
-        "tracker": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.2",
-        "tracker": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "ObservableValueChange",
         "value": true
     },
@@ -1334,13 +1334,13 @@
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.2",
-        "tracker": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1383,61 +1383,61 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.0",
-        "tracker": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.0",
-        "tracker": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.1",
-        "tracker": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.1",
-        "tracker": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.2",
-        "tracker": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "ObservableValueChange",
         "value": true
     },
@@ -1447,13 +1447,13 @@
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.2",
-        "tracker": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1509,44 +1509,44 @@
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.name",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.name",
         "type": "ObservableValueChange",
         "value": "XXXXX"
     },
     {
-        "name": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "ObserveSchedule"
     },
     {
@@ -1566,17 +1566,17 @@
         ]
     },
     {
-        "name": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.0",
-        "tracker": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -1586,13 +1586,13 @@
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.0",
-        "tracker": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search2.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1635,17 +1635,17 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.1",
-        "tracker": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -1655,13 +1655,13 @@
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.1",
-        "tracker": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search2.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1704,17 +1704,17 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.2",
-        "tracker": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -1724,13 +1724,13 @@
     },
     {
         "mutation": false,
-        "name": "Model.1.search2.2",
-        "tracker": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search2.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.2",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1773,17 +1773,17 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.0",
-        "tracker": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -1793,13 +1793,13 @@
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.0",
-        "tracker": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search3.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1842,17 +1842,17 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.1",
-        "tracker": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -1862,13 +1862,13 @@
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.1",
-        "tracker": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search3.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1911,17 +1911,17 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.2",
-        "tracker": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -1931,13 +1931,13 @@
     },
     {
         "mutation": false,
-        "name": "Model.1.search3.2",
-        "tracker": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search3.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search3.2",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -1980,17 +1980,17 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.0",
-        "tracker": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -2000,13 +2000,13 @@
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.0",
-        "tracker": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search1.0",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.0",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -2049,17 +2049,17 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.1",
-        "tracker": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -2069,13 +2069,13 @@
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.1",
-        "tracker": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search1.1",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.1",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
@@ -2118,17 +2118,17 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.2",
-        "tracker": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "TransactionStart"
     },
     {
-        "name": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "ObservableValueChange",
         "value": false
     },
@@ -2138,13 +2138,13 @@
     },
     {
         "mutation": false,
-        "name": "Model.1.search1.2",
-        "tracker": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
+        "tracker": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "type": "TransactionComplete"
     },
     {
         "result": false,
-        "name": "Model.1.search1.2",
+        "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "errorMessage": null,
         "type": "ComputeComplete"
     },

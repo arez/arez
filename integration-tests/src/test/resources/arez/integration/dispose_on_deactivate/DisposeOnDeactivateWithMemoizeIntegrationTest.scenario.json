@@ -1,90 +1,90 @@
 
 [
     {
-        "name": "Model1.1",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model1.1",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Model1.1.name",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model1.1.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Model1.1",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model1.1",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Model2.1",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Model2.1.isDisposed",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.isDisposed",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Model2.1.disposeOnDeactivate",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.disposeOnDeactivate",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Model2.1.someValue",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.someValue",
         "type": "ComputableValueCreate"
     },
     {
-        "name": "Model2.1.someValue",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.someValue",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model2.1",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Model2.1.someValue",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.someValue",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model2.1.someValue",
-        "tracker": "Model2.1.someValue",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.someValue",
+        "tracker": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.someValue",
         "type": "TransactionStart"
     },
     {
-        "name": "Model2.1.someValue",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.someValue",
         "type": "ObservableValueChange",
         "value": 21
     },
     {
         "mutation": false,
-        "name": "Model2.1.someValue",
-        "tracker": "Model2.1.someValue",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.someValue",
+        "tracker": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.someValue",
         "type": "TransactionComplete"
     },
     {
         "result": 21,
-        "name": "Model2.1.someValue",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.someValue",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
-        "name": "Model3.1",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "type": "ObserverCreate"
     },
     {
-        "name": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model3.1",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "type": "ObserveStart"
     },
     {
-        "name": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "tracked": true,
         "type": "ActionStart",
         "parameters": [
@@ -92,46 +92,46 @@
     },
     {
         "mutation": true,
-        "name": "Model3.1.myAutorun",
-        "tracker": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
+        "tracker": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "type": "TransactionStart"
     },
     {
-        "name": "Model2.1.disposeOnDeactivate",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.disposeOnDeactivate",
         "type": "ComputeStart"
     },
     {
         "mutation": false,
-        "name": "Model2.1.disposeOnDeactivate",
-        "tracker": "Model2.1.disposeOnDeactivate",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.disposeOnDeactivate",
+        "tracker": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.disposeOnDeactivate",
         "type": "TransactionStart"
     },
     {
-        "name": "Model2.1.disposeOnDeactivate",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.disposeOnDeactivate",
         "type": "ObservableValueChange",
         "value": true
     },
     {
         "mutation": false,
-        "name": "Model2.1.disposeOnDeactivate",
-        "tracker": "Model2.1.disposeOnDeactivate",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.disposeOnDeactivate",
+        "tracker": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.disposeOnDeactivate",
         "type": "TransactionComplete"
     },
     {
         "result": true,
-        "name": "Model2.1.disposeOnDeactivate",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.disposeOnDeactivate",
         "errorMessage": null,
         "type": "ComputeComplete"
     },
     {
         "mutation": true,
-        "name": "Model3.1.myAutorun",
-        "tracker": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
+        "tracker": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
@@ -140,7 +140,7 @@
         ]
     },
     {
-        "name": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "errorMessage": null,
         "type": "ObserveComplete"
     },
@@ -158,16 +158,16 @@
         "type": "TransactionStart"
     },
     {
-        "name": "Model1.1.name",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model1.1.name",
         "type": "ObservableValueChange",
         "value": "Hello"
     },
     {
-        "name": "Model2.1.someValue",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.someValue",
         "type": "ObserveSchedule"
     },
     {
-        "name": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "type": "ObserveSchedule"
     },
     {
@@ -187,11 +187,11 @@
         ]
     },
     {
-        "name": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "type": "ObserveStart"
     },
     {
-        "name": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "tracked": true,
         "type": "ActionStart",
         "parameters": [
@@ -199,28 +199,28 @@
     },
     {
         "mutation": true,
-        "name": "Model3.1.myAutorun",
-        "tracker": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
+        "tracker": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "type": "TransactionStart"
     },
     {
-        "name": "Model1.1.name",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model1.1.name",
         "type": "ObservableValueChange",
         "value": "Blah"
     },
     {
-        "name": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "type": "ObserveSchedule"
     },
     {
         "mutation": true,
-        "name": "Model3.1.myAutorun",
-        "tracker": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
+        "tracker": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
@@ -229,16 +229,16 @@
         ]
     },
     {
-        "name": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "errorMessage": null,
         "type": "ObserveComplete"
     },
     {
-        "name": "Model2.1",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1",
         "type": "ComponentDisposeStart"
     },
     {
-        "name": "Model2.1.dispose",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -246,12 +246,12 @@
     },
     {
         "mutation": true,
-        "name": "Model2.1.dispose",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.dispose",
         "tracker": null,
         "type": "TransactionStart"
     },
     {
-        "name": "Model2.1.disposeOnDeactivate.dispose",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.disposeOnDeactivate.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -259,7 +259,7 @@
     },
     {
         "result": null,
-        "name": "Model2.1.disposeOnDeactivate.dispose",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.disposeOnDeactivate.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -268,24 +268,24 @@
         ]
     },
     {
-        "name": "Model2.1.disposeOnDeactivate",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.disposeOnDeactivate",
         "type": "ComputableValueDispose"
     },
     {
-        "name": "Model2.1.disposeOnDeactivate.dispose",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.disposeOnDeactivate.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "Model2.1.disposeOnDeactivate",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.disposeOnDeactivate",
         "type": "ObservableValueChange",
         "value": null
     },
     {
         "result": null,
-        "name": "Model2.1.disposeOnDeactivate.dispose",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.disposeOnDeactivate.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -294,7 +294,7 @@
         ]
     },
     {
-        "name": "Model2.1.disposeOnDeactivate.dispose",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.disposeOnDeactivate.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -302,7 +302,7 @@
     },
     {
         "result": null,
-        "name": "Model2.1.disposeOnDeactivate.dispose",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.disposeOnDeactivate.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -311,7 +311,7 @@
         ]
     },
     {
-        "name": "Model2.1.someValue.dispose",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.someValue.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -319,7 +319,7 @@
     },
     {
         "result": null,
-        "name": "Model2.1.someValue.dispose",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.someValue.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -328,24 +328,24 @@
         ]
     },
     {
-        "name": "Model2.1.someValue",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.someValue",
         "type": "ComputableValueDispose"
     },
     {
-        "name": "Model2.1.someValue.dispose",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.someValue.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "Model2.1.someValue",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.someValue",
         "type": "ObservableValueChange",
         "value": null
     },
     {
         "result": null,
-        "name": "Model2.1.someValue.dispose",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.someValue.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -354,7 +354,7 @@
         ]
     },
     {
-        "name": "Model2.1.someValue.dispose",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.someValue.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -362,7 +362,7 @@
     },
     {
         "result": null,
-        "name": "Model2.1.someValue.dispose",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.someValue.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -371,20 +371,20 @@
         ]
     },
     {
-        "name": "Model2.1.isDisposed.dispose",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.isDisposed.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "Model2.1.isDisposed",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.isDisposed",
         "type": "ObservableValueChange",
         "value": false
     },
     {
         "result": null,
-        "name": "Model2.1.isDisposed.dispose",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.isDisposed.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -393,18 +393,18 @@
         ]
     },
     {
-        "name": "Model2.1.isDisposed",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.isDisposed",
         "type": "ObservableValueDispose"
     },
     {
         "mutation": true,
-        "name": "Model2.1.dispose",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.dispose",
         "tracker": null,
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "Model2.1.dispose",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -413,15 +413,15 @@
         ]
     },
     {
-        "name": "Model2.1",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1",
         "type": "ComponentDisposeComplete"
     },
     {
-        "name": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "type": "ObserveStart"
     },
     {
-        "name": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "tracked": true,
         "type": "ActionStart",
         "parameters": [
@@ -429,19 +429,19 @@
     },
     {
         "mutation": true,
-        "name": "Model3.1.myAutorun",
-        "tracker": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
+        "tracker": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "type": "TransactionStart"
     },
     {
         "mutation": true,
-        "name": "Model3.1.myAutorun",
-        "tracker": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
+        "tracker": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
@@ -450,7 +450,7 @@
         ]
     },
     {
-        "name": "Model3.1.myAutorun",
+        "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "errorMessage": null,
         "type": "ObserveComplete"
     }

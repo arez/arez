@@ -1,75 +1,75 @@
 
 [
     {
-        "name": "Model1.1",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.1",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Model1.1.name",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.1.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Model1.1",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.1",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Model1.2",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.2",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Model1.2.name",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.2.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Model1.2",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.2",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Model1.3",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.3",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Model1.3.name",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.3.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Model1.3",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.3",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Model1.4",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.4",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Model1.4.name",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.4.name",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Model1.4",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.4",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "Model2.1",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "Model2.1.reference1",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1.reference1",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Model2.1.reference2",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1.reference2",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Model2.1.reference3",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1.reference3",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Model2.1.reference4",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1.reference4",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "Model2.1",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1",
         "type": "ComponentCreateComplete"
     },
     {
@@ -92,11 +92,11 @@
         "type": "TransactionComplete"
     },
     {
-        "name": "Model1.1",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.1",
         "type": "ComponentDisposeStart"
     },
     {
-        "name": "Model1.1.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.1.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -104,30 +104,30 @@
     },
     {
         "mutation": true,
-        "name": "Model1.1.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.1.dispose",
         "tracker": null,
         "type": "TransactionStart"
     },
     {
-        "name": "Model2.1.reference1",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1.reference1",
         "type": "ObservableValueChange",
         "value": null
     },
     {
-        "name": "Model1.1.name.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.1.name.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "Model1.1.name",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.1.name",
         "type": "ObservableValueChange",
         "value": "Model1A1"
     },
     {
         "result": null,
-        "name": "Model1.1.name.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.1.name.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -136,18 +136,18 @@
         ]
     },
     {
-        "name": "Model1.1.name",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.1.name",
         "type": "ObservableValueDispose"
     },
     {
         "mutation": true,
-        "name": "Model1.1.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.1.dispose",
         "tracker": null,
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "Model1.1.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.1.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -156,7 +156,7 @@
         ]
     },
     {
-        "name": "Model1.1",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.1",
         "type": "ComponentDisposeComplete"
     },
     {
@@ -189,11 +189,11 @@
         ]
     },
     {
-        "name": "Model1.3",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.3",
         "type": "ComponentDisposeStart"
     },
     {
-        "name": "Model1.3.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.3.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -201,36 +201,36 @@
     },
     {
         "mutation": true,
-        "name": "Model1.3.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.3.dispose",
         "tracker": null,
         "type": "TransactionStart"
     },
     {
-        "name": "Model2.1",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1",
         "type": "ComponentDisposeStart"
     },
     {
-        "name": "Model2.1.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "Model2.1.reference1.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1.reference1.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "Model2.1.reference1",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1.reference1",
         "type": "ObservableValueChange",
         "value": null
     },
     {
         "result": null,
-        "name": "Model2.1.reference1.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1.reference1.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -239,11 +239,11 @@
         ]
     },
     {
-        "name": "Model2.1.reference1",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1.reference1",
         "type": "ObservableValueDispose"
     },
     {
-        "name": "Model2.1.reference2.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1.reference2.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -251,7 +251,7 @@
     },
     {
         "result": null,
-        "name": "Model2.1.reference2.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1.reference2.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -260,11 +260,11 @@
         ]
     },
     {
-        "name": "Model2.1.reference2",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1.reference2",
         "type": "ObservableValueDispose"
     },
     {
-        "name": "Model2.1.reference3.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1.reference3.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -272,7 +272,7 @@
     },
     {
         "result": null,
-        "name": "Model2.1.reference3.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1.reference3.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -281,11 +281,11 @@
         ]
     },
     {
-        "name": "Model2.1.reference3",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1.reference3",
         "type": "ObservableValueDispose"
     },
     {
-        "name": "Model2.1.reference4.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1.reference4.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -293,7 +293,7 @@
     },
     {
         "result": null,
-        "name": "Model2.1.reference4.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1.reference4.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -302,12 +302,12 @@
         ]
     },
     {
-        "name": "Model2.1.reference4",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1.reference4",
         "type": "ObservableValueDispose"
     },
     {
         "result": null,
-        "name": "Model2.1.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -316,24 +316,24 @@
         ]
     },
     {
-        "name": "Model2.1",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model2.1",
         "type": "ComponentDisposeComplete"
     },
     {
-        "name": "Model1.3.name.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.3.name.dispose",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
         ]
     },
     {
-        "name": "Model1.3.name",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.3.name",
         "type": "ObservableValueChange",
         "value": "Model1A3"
     },
     {
         "result": null,
-        "name": "Model1.3.name.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.3.name.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -342,18 +342,18 @@
         ]
     },
     {
-        "name": "Model1.3.name",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.3.name",
         "type": "ObservableValueDispose"
     },
     {
         "mutation": true,
-        "name": "Model1.3.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.3.dispose",
         "tracker": null,
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "Model1.3.dispose",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.3.dispose",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -362,7 +362,7 @@
         ]
     },
     {
-        "name": "Model1.3",
+        "name": "arez_integration_component_dependency_ComplexComponentDependencyIntegrationTest_Model1.3",
         "type": "ComponentDisposeComplete"
     }
 ]

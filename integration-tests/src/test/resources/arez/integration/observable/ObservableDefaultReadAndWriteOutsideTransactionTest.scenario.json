@@ -1,15 +1,15 @@
 
 [
     {
-        "name": "MyComponent.1",
+        "name": "arez_integration_observable_ObservableDefaultReadAndWriteOutsideTransactionTest_MyComponent.1",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "MyComponent.1.time",
+        "name": "arez_integration_observable_ObservableDefaultReadAndWriteOutsideTransactionTest_MyComponent.1.time",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "MyComponent.1",
+        "name": "arez_integration_observable_ObservableDefaultReadAndWriteOutsideTransactionTest_MyComponent.1",
         "type": "ComponentCreateComplete"
     },
     {
@@ -63,7 +63,7 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "MyComponent.1.setTime",
+        "name": "arez_integration_observable_ObservableDefaultReadAndWriteOutsideTransactionTest_MyComponent.1.setTime",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -71,12 +71,12 @@
     },
     {
         "mutation": true,
-        "name": "MyComponent.1.setTime",
+        "name": "arez_integration_observable_ObservableDefaultReadAndWriteOutsideTransactionTest_MyComponent.1.setTime",
         "tracker": null,
         "type": "TransactionStart"
     },
     {
-        "name": "MyComponent.1.time",
+        "name": "arez_integration_observable_ObservableDefaultReadAndWriteOutsideTransactionTest_MyComponent.1.time",
         "type": "ObservableValueChange",
         "value": 37
     },
@@ -86,13 +86,13 @@
     },
     {
         "mutation": true,
-        "name": "MyComponent.1.setTime",
+        "name": "arez_integration_observable_ObservableDefaultReadAndWriteOutsideTransactionTest_MyComponent.1.setTime",
         "tracker": null,
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "MyComponent.1.setTime",
+        "name": "arez_integration_observable_ObservableDefaultReadAndWriteOutsideTransactionTest_MyComponent.1.setTime",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -143,7 +143,7 @@
         "type": "ObserveComplete"
     },
     {
-        "name": "MyComponent.1.setTime",
+        "name": "arez_integration_observable_ObservableDefaultReadAndWriteOutsideTransactionTest_MyComponent.1.setTime",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -151,12 +151,12 @@
     },
     {
         "mutation": true,
-        "name": "MyComponent.1.setTime",
+        "name": "arez_integration_observable_ObservableDefaultReadAndWriteOutsideTransactionTest_MyComponent.1.setTime",
         "tracker": null,
         "type": "TransactionStart"
     },
     {
-        "name": "MyComponent.1.time",
+        "name": "arez_integration_observable_ObservableDefaultReadAndWriteOutsideTransactionTest_MyComponent.1.time",
         "type": "ObservableValueChange",
         "value": 42
     },
@@ -166,13 +166,13 @@
     },
     {
         "mutation": true,
-        "name": "MyComponent.1.setTime",
+        "name": "arez_integration_observable_ObservableDefaultReadAndWriteOutsideTransactionTest_MyComponent.1.setTime",
         "tracker": null,
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "MyComponent.1.setTime",
+        "name": "arez_integration_observable_ObservableDefaultReadAndWriteOutsideTransactionTest_MyComponent.1.setTime",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,

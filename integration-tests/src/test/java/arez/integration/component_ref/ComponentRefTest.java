@@ -23,6 +23,6 @@ public final class ComponentRefTest
     final TestComponent instance = new ComponentRefTest_Arez_TestComponent();
     final Component component = instance.getComponent();
     assertNotNull( component );
-    assertEquals( component.getType(), "TestComponent" );
+    assertEquals( component.getType(), "arez_integration_component_ref_ComponentRefTest_TestComponent" );
   }
 }

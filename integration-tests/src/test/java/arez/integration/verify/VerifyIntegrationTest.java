@@ -40,7 +40,7 @@ public final class VerifyIntegrationTest
     entities2.clear();
 
     assertInvariant( () -> Verifiable.verify( model1 ),
-                     "Method named 'verify' invoked on disposed component named 'Model1.0'" );
+                     "Method named 'verify' invoked on disposed component named 'arez_integration_verify_VerifyIntegrationTest_Model1.0'" );
   }
 
   @Test
@@ -91,7 +91,7 @@ public final class VerifyIntegrationTest
     entities2.clear();
 
     assertInvariant( () -> Verifiable.verify( model1 ),
-                     "Reference named 'model2' on component named 'Model1.0' is unable to resolve entity of type arez.integration.verify.VerifyIntegrationTest.Model2 and id = 1" );
+                     "Reference named 'model2' on component named 'arez_integration_verify_VerifyIntegrationTest_Model1.0' is unable to resolve entity of type arez.integration.verify.VerifyIntegrationTest.Model2 and id = 1" );
   }
 
   @Test

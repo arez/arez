@@ -1,27 +1,27 @@
 
 [
     {
-        "name": "TestComponent1.1",
+        "name": "arez_integration_observe_TrackCanNestActionTest_TestComponent1.1",
         "type": "ComponentCreateStart"
     },
     {
-        "name": "TestComponent1.1.time",
+        "name": "arez_integration_observe_TrackCanNestActionTest_TestComponent1.1.time",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "TestComponent1.1.time2",
+        "name": "arez_integration_observe_TrackCanNestActionTest_TestComponent1.1.time2",
         "type": "ObservableValueCreate"
     },
     {
-        "name": "TestComponent1.1.render",
+        "name": "arez_integration_observe_TrackCanNestActionTest_TestComponent1.1.render",
         "type": "ObserverCreate"
     },
     {
-        "name": "TestComponent1.1",
+        "name": "arez_integration_observe_TrackCanNestActionTest_TestComponent1.1",
         "type": "ComponentCreateComplete"
     },
     {
-        "name": "TestComponent1.1.render",
+        "name": "arez_integration_observe_TrackCanNestActionTest_TestComponent1.1.render",
         "tracked": true,
         "type": "ActionStart",
         "parameters": [
@@ -29,12 +29,12 @@
     },
     {
         "mutation": false,
-        "name": "TestComponent1.1.render",
-        "tracker": "TestComponent1.1.render",
+        "name": "arez_integration_observe_TrackCanNestActionTest_TestComponent1.1.render",
+        "tracker": "arez_integration_observe_TrackCanNestActionTest_TestComponent1.1.render",
         "type": "TransactionStart"
     },
     {
-        "name": "TestComponent1.1.myAction",
+        "name": "arez_integration_observe_TrackCanNestActionTest_TestComponent1.1.myAction",
         "tracked": false,
         "type": "ActionStart",
         "parameters": [
@@ -42,19 +42,19 @@
     },
     {
         "mutation": false,
-        "name": "TestComponent1.1.myAction",
+        "name": "arez_integration_observe_TrackCanNestActionTest_TestComponent1.1.myAction",
         "tracker": null,
         "type": "TransactionStart"
     },
     {
         "mutation": false,
-        "name": "TestComponent1.1.myAction",
+        "name": "arez_integration_observe_TrackCanNestActionTest_TestComponent1.1.myAction",
         "tracker": null,
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "TestComponent1.1.myAction",
+        "name": "arez_integration_observe_TrackCanNestActionTest_TestComponent1.1.myAction",
         "errorMessage": null,
         "tracked": false,
         "returnsResult": false,
@@ -64,13 +64,13 @@
     },
     {
         "mutation": false,
-        "name": "TestComponent1.1.render",
-        "tracker": "TestComponent1.1.render",
+        "name": "arez_integration_observe_TrackCanNestActionTest_TestComponent1.1.render",
+        "tracker": "arez_integration_observe_TrackCanNestActionTest_TestComponent1.1.render",
         "type": "TransactionComplete"
     },
     {
         "result": null,
-        "name": "TestComponent1.1.render",
+        "name": "arez_integration_observe_TrackCanNestActionTest_TestComponent1.1.render",
         "errorMessage": null,
         "tracked": true,
         "returnsResult": false,
@@ -92,7 +92,7 @@
         "type": "TransactionStart"
     },
     {
-        "name": "TestComponent1.1.time",
+        "name": "arez_integration_observe_TrackCanNestActionTest_TestComponent1.1.time",
         "type": "ObservableValueChange",
         "value": 33
     },
@@ -126,12 +126,12 @@
         "type": "TransactionStart"
     },
     {
-        "name": "TestComponent1.1.time2",
+        "name": "arez_integration_observe_TrackCanNestActionTest_TestComponent1.1.time2",
         "type": "ObservableValueChange",
         "value": 33
     },
     {
-        "name": "TestComponent1.1.render",
+        "name": "arez_integration_observe_TrackCanNestActionTest_TestComponent1.1.render",
         "type": "ObserveSchedule"
     },
     {
@@ -151,11 +151,11 @@
         ]
     },
     {
-        "name": "TestComponent1.1.render",
+        "name": "arez_integration_observe_TrackCanNestActionTest_TestComponent1.1.render",
         "type": "ObserveStart"
     },
     {
-        "name": "TestComponent1.1.render",
+        "name": "arez_integration_observe_TrackCanNestActionTest_TestComponent1.1.render",
         "errorMessage": null,
         "type": "ObserveComplete"
     }

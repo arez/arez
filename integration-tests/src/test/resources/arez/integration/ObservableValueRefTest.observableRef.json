@@ -122,7 +122,7 @@
         "type": "TransactionStart"
     },
     {
-        "name": "TestComponent.1.otherID",
+        "name": "arez_integration_ObservableValueRefTest_TestComponent.1.otherID",
         "type": "ObservableValueChange",
         "value": 22
     },

@@ -109,7 +109,7 @@ public final class VerifyZeroOrOneInverseIntegrationTest
     field.set( kernel, (byte) -1 );
 
     assertInvariant( () -> verify( model2 ),
-                     "Inverse relationship named 'model1' on component named 'Model2.1' contains disposed element 'ArezComponent[Model1.0]'" );
+                     "Inverse relationship named 'model1' on component named 'arez_integration_verify_VerifyZeroOrOneInverseIntegrationTest_Model2.1' contains disposed element 'ArezComponent[arez_integration_verify_VerifyZeroOrOneInverseIntegrationTest_Model1.0]'" );
   }
 
   private void verify( @Nonnull final Object object )
