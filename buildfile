@@ -272,7 +272,7 @@ define 'arez' do
                  :sting_core,
                  GWT_DEPS
 
-    test.compile.options[:processor] = true
+    compile.options[:processor] = true
 
     project.jacoco.enabled = false
   end
