@@ -296,6 +296,17 @@
         "type": "TransactionStart"
     },
     {
+        "name": "arez_integration_component_dependency_DualDisposedDependenciesIntegrationTest_Model1.2",
+        "type": "ComponentDisposeStart"
+    },
+    {
+        "name": "arez_integration_component_dependency_DualDisposedDependenciesIntegrationTest_Model1.2.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
         "name": "arez_integration_component_dependency_DualDisposedDependenciesIntegrationTest_Model2.2",
         "type": "ComponentDisposeStart"
     },
@@ -345,17 +356,6 @@
     {
         "name": "arez_integration_component_dependency_DualDisposedDependenciesIntegrationTest_Model2.2",
         "type": "ComponentDisposeComplete"
-    },
-    {
-        "name": "arez_integration_component_dependency_DualDisposedDependenciesIntegrationTest_Model1.2",
-        "type": "ComponentDisposeStart"
-    },
-    {
-        "name": "arez_integration_component_dependency_DualDisposedDependenciesIntegrationTest_Model1.2.dispose",
-        "tracked": false,
-        "type": "ActionStart",
-        "parameters": [
-        ]
     },
     {
         "name": "arez_integration_component_dependency_DualDisposedDependenciesIntegrationTest_Model1.2.leaf.dispose",
