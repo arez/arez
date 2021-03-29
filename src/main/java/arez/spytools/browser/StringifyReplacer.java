@@ -1,10 +1,9 @@
 package arez.spytools.browser;
 
+import akasha.core.JsObject;
 import akasha.lang.JsArray;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsType;
 import jsinterop.base.Any;
 import jsinterop.base.Js;
 import jsinterop.base.JsArrayLike;
@@ -85,12 +84,5 @@ public class StringifyReplacer
   {
     final JsArray<String> names = JsObject.getOwnPropertyNames( object );
     return names.asArray( new String[ names.length ] );
-  }
-
-  @JsType( isNative = true, name = "Object", namespace = JsPackage.GLOBAL )
-  private static class JsObject
-  {
-    @Nonnull
-    private static native JsArray<String> getOwnPropertyNames( @Nonnull Object obj );
   }
 }
