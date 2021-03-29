@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.akasha` artifact to version `0.04`.
+
 ### [v0.194](https://github.com/arez/arez/tree/v0.194) (2021-03-26) · [Full Changelog](https://github.com/arez/arez/compare/v0.193...v0.194)
 
 Changes in this release:
