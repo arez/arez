@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.braincheck` artifact to version `1.30.0`.
+
 ### [v0.124](https://github.com/arez/arez-spytools/tree/v0.124) (2021-03-30) · [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.123...v0.124)
 
 * Upgrade the `org.realityforge.akasha` artifact to version `0.05`.

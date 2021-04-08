@@ -7,7 +7,7 @@ repositories:
 artifacts:
   idea_codestyle: au.com.stocksoftware.idea.codestyle:idea-codestyle:xml:1.17
 
-  braincheck: org.realityforge.braincheck:braincheck:jar:1.29.0
+  braincheck: org.realityforge.braincheck:braincheck:jar:1.30.0
 
   grim_annotations: org.realityforge.grim:grim-annotations:jar:0.05
 
