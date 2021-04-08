@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.braincheck` artifact to version `1.30.0`.
 * Upgrade the `org.realityforge.akasha` artifact to version `0.05`.
 
 ### [v0.83](https://github.com/arez/arez-dom/tree/v0.83) (2021-03-26) · [Full Changelog](https://github.com/arez/arez-dom/compare/v0.82...v0.83)
