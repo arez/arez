@@ -1,6 +1,6 @@
 # Change Log
 
-### Unreleased
+### [v0.85](https://github.com/arez/arez-dom/tree/v0.85) (2021-04-10) · [Full Changelog](https://github.com/arez/arez-dom/compare/v0.84...v0.85)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.196'
 * Upgrade the `org.realityforge.akasha` artifact to version `0.06`.
