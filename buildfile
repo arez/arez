@@ -52,7 +52,7 @@ define 'arez' do
 
   desc 'Arez Core'
   define 'core' do
-    deps = artifacts(:javax_annotation, :jsinterop_annotations, :jetbrains_annotations, :braincheck, :grim_annotations)
+    deps = artifacts(:javax_annotation, :jsinterop_annotations, :jetbrains_annotations, :braincheck_core, :grim_annotations)
     pom.include_transitive_dependencies << deps
     pom.dependency_filter = Proc.new { |dep| dep[:scope].to_s != 'test' && deps.include?(dep[:artifact]) }
 
@@ -72,7 +72,7 @@ define 'arez' do
     package(:javadoc)
 
     test.using :testng
-    test.compile.with TEST_DEPS, :jdepend, :javax_json
+    test.compile.with TEST_DEPS, :braincheck_testng, :jdepend, :javax_json
   end
 
   desc 'API Test'
