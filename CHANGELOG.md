@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.akasha` artifact to version `0.06`.
+
 ### [v0.120](https://github.com/arez/arez-promise/tree/v0.120) (2021-04-09) · [Full Changelog](https://github.com/arez/arez-promise/compare/v0.119...v0.120)
 
 * Update the 'org.realityforge.arez' dependencies to version '0.195'
