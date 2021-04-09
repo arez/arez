@@ -41,7 +41,7 @@ Buildr::ReleaseTool.define_release_task do |t|
   t.stage('PatchStatisticsPostRelease', 'Copy the statistics forward to prepare for next development iteration') do
     filename = 'downstream-test/src/test/resources/fixtures/statistics.properties'
     current_version = ENV['PRODUCT_VERSION']
-    next_version = calc_next_version(ENV['PRODUCT_VERSION'])
+    next_version = Buildr::ReleaseTool.derive_next_version(current_version)
     pattern = /^#{current_version}\./
 
     lines = IO.read(filename).split("\n")
