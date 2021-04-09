@@ -25,7 +25,7 @@ artifacts:
 
   grim_annotations: org.realityforge.grim:grim-annotations:jar:0.05
 
-  akasha: org.realityforge.akasha:akasha-java:jar:0.05
+  akasha: org.realityforge.akasha:akasha-java:jar:0.06
 
   arez_core: org.realityforge.arez:arez-core:jar:0.195
   arez_processor: org.realityforge.arez:arez-processor:jar:0.195
