@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.195](https://github.com/arez/arez/tree/v0.195) (2021-04-09) · [Full Changelog](https://github.com/arez/arez/compare/v0.194...v0.195)
+
+Changes in this release:
 
 * Upgrade the `org.realityforge.sting` artifacts to version `0.18`.
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.30.0`.
