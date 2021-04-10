@@ -21,7 +21,7 @@ artifacts:
 
   jsinterop_base: com.google.jsinterop:base:jar:1.0.0
 
-  braincheck: org.realityforge.braincheck:braincheck-core:jar:1.30.0
+  braincheck: org.realityforge.braincheck:braincheck-core:jar:1.31.0
 
   grim_annotations: org.realityforge.grim:grim-annotations:jar:0.05
 
