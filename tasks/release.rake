@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/util')
-require 'buildr/release_tool.rb'
+require 'buildr/release_tool'
 
 Buildr::ReleaseTool.define_release_task do |t|
   t.extract_version_from_changelog
