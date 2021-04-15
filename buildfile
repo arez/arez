@@ -19,16 +19,12 @@ define 'arez-spytools' do
   pom.add_github_project('arez/arez-spytools')
   pom.add_developer('realityforge', 'Peter Donald')
 
-  jetbrains_annotations_artifact = artifact(:jetbrains_annotations)
-  core_artifact = artifact(:arez_core)
-  akasha_artifact = artifact(:akasha)
-  pom.include_transitive_dependencies << jetbrains_annotations_artifact
-  pom.include_transitive_dependencies << core_artifact
-  pom.include_transitive_dependencies << akasha_artifact
-  pom.dependency_filter = Proc.new {|dep| core_artifact == dep[:artifact] || akasha_artifact == dep[:artifact] || jetbrains_annotations_artifact == dep[:artifact]}
+  deps = artifacts(:jetbrains_annotations, :arez_core, :akasha, :jsinterop_base, :braincheck_core, :javax_annotation)
+  pom.include_transitive_dependencies += deps
+  pom.dependency_filter = Proc.new {|dep| deps.include?(dep[:artifact])}
 
   compile.with :javax_annotation,
-               :braincheck,
+               :braincheck_core,
                :grim_annotations,
                :jetbrains_annotations,
                :jsinterop_base,

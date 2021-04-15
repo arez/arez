@@ -3,6 +3,7 @@
 ### Unreleased
 
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.31.0`.
+* Explicitly include all dependencies that are referenced in source so that the pom can be used to generate an accurate dependency graph. It also means that the pom can be used to manage J2CL dependencies.
 
 ### [v0.126](https://github.com/arez/arez-spytools/tree/v0.126) (2021-04-10) · [Full Changelog](https://github.com/arez/arez-spytools/compare/v0.125...v0.126)
 
