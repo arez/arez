@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.akasha` artifact to version `0.07`.
+
 ### [v0.127](https://github.com/arez/arez-spytools/tree/v0.127) (2021-04-15) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.126...v0.127)
 
 Changes in this release:
