@@ -21,7 +21,7 @@ define 'arez-spytools' do
 
   deps = artifacts(:jetbrains_annotations, :arez_core, :akasha, :jsinterop_base, :braincheck_core, :javax_annotation)
   pom.include_transitive_dependencies += deps
-  pom.dependency_filter = Proc.new {|dep| deps.include?(dep[:artifact])}
+  pom.dependency_filter = Proc.new { |dep| deps.include?(dep[:artifact]) }
 
   compile.with :javax_annotation,
                :braincheck_core,
