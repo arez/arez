@@ -2,8 +2,8 @@ package arez.spytools.browser.react4j;
 
 import arez.spytools.browser.ConsoleSpyEventProcessor;
 import arez.spytools.browser.StringifyReplacer;
-import java.util.Arrays;
 import javax.annotation.Nonnull;
+import jsinterop.base.Any;
 
 /**
  * A customized console event processor that avoids accessing "key" and "ref" attributes.
@@ -18,13 +18,9 @@ public class ReactArezConsoleSpyEventProcessor
   {
     return new StringifyReplacer()
     {
-      @Nonnull
-      @Override
-      protected String[] getPropertyNames( @Nonnull final Object object )
+      protected boolean includeProperty( @Nonnull final Any value, @Nonnull final String propertyName )
       {
-        return Arrays.stream( super.getPropertyNames( object ) ).
-          filter( n -> !n.equals( "key" ) && !n.equals( "ref" ) )
-          .toArray( String[]::new );
+        return !"key".equals( propertyName ) && !"ref".equals( propertyName );
       }
     };
   }

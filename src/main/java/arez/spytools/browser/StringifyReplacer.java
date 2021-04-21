@@ -25,64 +25,62 @@ public class StringifyReplacer
    * @return the transformed value.
    */
   @Nullable
-  public Any handleValue( @Nullable final Object value )
+  public final Any handleValue( @Nullable final Any value )
   {
     if ( null == value )
     {
       return null;
     }
-    else if ( Js.typeof( value ).equals( "function" ) )
-    {
-      return Js.asPropertyMap( value ).getAsAny( "name" );
-    }
-    else if ( !Js.typeof( value ).equals( "object" ) )
-    {
-      return Js.asAny( value );
-    }
     else
     {
-      final String v = String.valueOf( value );
-      if ( null == v )
+      final String typeof = Js.typeof( value );
+      if ( typeof.equals( "function" ) )
       {
-        // v may be null if value.toString() returns null which will occur in optimized code in some scenarios
-        return Js.asAny( "null" );
+        return Js.asPropertyMap( value ).getAsAny( "name" );
       }
-      else if ( !v.startsWith( "[object " ) )
+      else if ( !typeof.equals( "object" ) )
       {
-        return Js.asAny( v );
+        return Js.asAny( value );
       }
       else
       {
-        for ( int i = 0; i < _array.getLength(); i++ )
+        final String v = String.valueOf( value );
+        if ( null == v )
         {
-          if ( Js.isTripleEqual( value, _array.getAtAsAny( i ) ) )
+          // v may be null if value.toString() returns null which will occur in optimized code in some scenarios
+          return Js.asAny( "null" );
+        }
+        else if ( !v.startsWith( "[object " ) )
+        {
+          return Js.asAny( v );
+        }
+        else
+        {
+          for ( int i = 0; i < _array.getLength(); i++ )
           {
-            return Js.asAny( "[Circular]" );
+            if ( Js.isTripleEqual( value, _array.getAtAsAny( i ) ) )
+            {
+              return Js.asAny( "[Circular]" );
+            }
           }
-        }
-        _array.setAt( _array.getLength(), value );
+          _array.setAt( _array.getLength(), value );
 
-        final String[] propertyNames = getPropertyNames( value );
-        final JsPropertyMap<Object> map = JsPropertyMap.of();
-        for ( final String propertyName : propertyNames )
-        {
-          map.set( propertyName, Js.asPropertyMap( value ).getAsAny( propertyName ) );
+          final JsArray<String> names = JsObject.getOwnPropertyNames( value );
+          final String[] propertyNames = names.asArray( new String[ names.length ] );
+          final JsPropertyMap<Object> map = JsPropertyMap.of();
+          for ( final String propertyName : propertyNames )
+          {
+            if( includeProperty(value, propertyName) )
+            map.set( propertyName, Js.asPropertyMap( value ).getAsAny( propertyName ) );
+          }
+          return Js.asAny( map );
         }
-        return Js.asAny( map );
       }
     }
   }
 
-  /**
-   * Return the property names that should be extracted from object when converting object.
-   *
-   * @param object the object value.
-   * @return the property names.
-   */
-  @Nonnull
-  protected String[] getPropertyNames( @Nonnull final Object object )
+  protected boolean includeProperty( @Nonnull final Any value, @Nonnull final String propertyName )
   {
-    final JsArray<String> names = JsObject.getOwnPropertyNames( object );
-    return names.asArray( new String[ names.length ] );
+    return true;
   }
 }

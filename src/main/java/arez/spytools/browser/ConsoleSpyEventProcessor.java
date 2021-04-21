@@ -31,6 +31,7 @@ import arez.spy.TransactionStartEvent;
 import arez.spytools.AbstractSpyEventProcessor;
 import arez.spytools.SpyUtil;
 import javax.annotation.Nonnull;
+import jsinterop.base.Js;
 
 /**
  * A SpyEventHandler that prints spy events to the browser console.
@@ -459,7 +460,7 @@ public class ConsoleSpyEventProcessor
         {
           requireComma = true;
         }
-        sb.append( JSON.stringify( parameter, ( k, value ) -> filter.handleValue( value ) ) );
+        sb.append( JSON.stringify( parameter, ( k, value ) -> filter.handleValue( Js.asAny( value ) ) ) );
       }
       sb.append( ")" );
       return sb.toString();
