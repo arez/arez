@@ -46,6 +46,11 @@ define 'arez-spytools' do
   test.using :testng
   test.compile.with [:guiceyloops]
 
+  Buildr::BazelJ2cl.define_bazel_j2cl_test(project,
+                                           [project],
+                                           %w[arez.spytools.SpyUtil arez.spytools.browser.BrowserSpyUtil],
+                                           :javax_annotation => true)
+
   doc.
     using(:javadoc,
           :windowtitle => 'Arez SpyTools API Documentation',
