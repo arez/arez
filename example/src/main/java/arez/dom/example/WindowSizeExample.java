@@ -1,5 +1,6 @@
 package arez.dom.example;
 
+import akasha.WindowGlobal;
 import arez.Arez;
 import arez.dom.Dimension;
 import arez.dom.EventDrivenValue;
@@ -13,11 +14,11 @@ public class WindowSizeExample
 {
   public void onModuleLoad()
   {
-    final EventDrivenValue<Window, Dimension> inner = WindowSize.inner( Global.window() );
+    final EventDrivenValue<Window, Dimension> inner = WindowSize.inner( WindowGlobal.window() );
 
     Arez.context().observer( () -> {
       final Dimension dimension = inner.getValue();
-      Global.document().querySelector( "#status" ).textContent =
+      WindowGlobal.document().querySelector( "#status" ).textContent =
         "Screen size: " + dimension.getWidth() + " x " + dimension.getHeight();
     } );
   }

@@ -2,6 +2,7 @@ package arez.dom.example;
 
 import akasha.Global;
 import akasha.HTMLElement;
+import akasha.WindowGlobal;
 import arez.Arez;
 import arez.dom.GeoPosition;
 import arez.dom.Position;
@@ -15,13 +16,13 @@ public class GeoPositionExample
   {
     final GeoPosition geoPosition = GeoPosition.create();
 
-    ( (HTMLElement) Global.document().querySelector( "#watch" ) ).onclick = e -> {
+    ( (HTMLElement) WindowGlobal.document().querySelector( "#watch" ) ).onclick = e -> {
       Arez.context().observer( () -> {
         final int status = geoPosition.getStatus();
         final String errorMessage = geoPosition.getErrorMessage();
         final Position position = geoPosition.getPosition();
         Js.debugger();
-        Global.document().querySelector( "#status" ).textContent =
+        WindowGlobal.document().querySelector( "#status" ).textContent =
           "GeoPosition: " + status +
           ( null != position ? " Position: " + position.getLatitude() + ", " + position.getLongitude() : "" ) +
           ( null != errorMessage ? " ErrorMessage: " + errorMessage : "" );

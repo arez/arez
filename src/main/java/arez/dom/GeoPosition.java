@@ -1,8 +1,8 @@
 package arez.dom;
 
 import akasha.Coordinates;
-import akasha.Global;
 import akasha.PositionError;
+import akasha.WindowGlobal;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ComputableValue;
@@ -186,7 +186,7 @@ public abstract class GeoPosition
       context().task( Arez.areNamesEnabled() ? componentName() + ".setLoadingStatus" : null,
                       () -> setStatus( Status.LOADING ),
                       Task.Flags.DISPOSE_ON_COMPLETE );
-      _watcherId = Global.navigator().geolocation().watchPosition( e -> onSuccess( e.coords() ), this::onFailure );
+      _watcherId = WindowGlobal.navigator().geolocation().watchPosition( e -> onSuccess( e.coords() ), this::onFailure );
     }
     _activateCount++;
   }
@@ -197,7 +197,7 @@ public abstract class GeoPosition
     if ( 0 == _activateCount )
     {
       setStatus( Status.INITIAL );
-      Global.navigator().geolocation().clearWatch( _watcherId );
+      WindowGlobal.navigator().geolocation().clearWatch( _watcherId );
       _watcherId = 0;
     }
   }

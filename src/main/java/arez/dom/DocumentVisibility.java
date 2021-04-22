@@ -1,8 +1,8 @@
 package arez.dom;
 
-import arez.Disposable;
-import akasha.Global;
 import akasha.Document;
+import akasha.WindowGlobal;
+import arez.Disposable;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 
@@ -62,7 +62,7 @@ public final class DocumentVisibility
   @Nonnull
   public static DocumentVisibility create()
   {
-    return create( Global.document() );
+    return create( WindowGlobal.document() );
   }
 
   /**

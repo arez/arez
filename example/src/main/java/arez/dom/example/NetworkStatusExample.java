@@ -1,5 +1,6 @@
 package arez.dom.example;
 
+import akasha.WindowGlobal;
 import arez.Arez;
 import arez.dom.NetworkStatus;
 import com.google.gwt.core.client.EntryPoint;
@@ -13,7 +14,7 @@ public class NetworkStatusExample
   {
     final NetworkStatus networkStatus = NetworkStatus.create();
     Arez.context().observer( () ->
-                               Global.document().querySelector( "#network" ).textContent =
+                               WindowGlobal.document().querySelector( "#network" ).textContent =
                                  "Network Status: " + ( networkStatus.isOnLine() ? "Online" : "Offline" ) );
   }
 }

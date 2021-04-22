@@ -1,7 +1,7 @@
 package arez.dom;
 
 import akasha.EventListener;
-import akasha.Global;
+import akasha.WindowGlobal;
 import arez.ComputableValue;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
@@ -78,7 +78,7 @@ public abstract class NetworkStatus
   @Memoize( depType = DepType.AREZ_OR_EXTERNAL )
   public boolean isOnLine()
   {
-    return Global.navigator().onLine();
+    return WindowGlobal.navigator().onLine();
   }
 
   /**
@@ -100,15 +100,15 @@ public abstract class NetworkStatus
   @OnActivate
   void onOnLineActivate()
   {
-    Global.addOnlineListener( _listener );
-    Global.addOfflineListener( _listener );
+    WindowGlobal.addOnlineListener( _listener );
+    WindowGlobal.addOfflineListener( _listener );
   }
 
   @OnDeactivate
   void onOnLineDeactivate()
   {
-    Global.removeOnlineListener( _listener );
-    Global.removeOfflineListener( _listener );
+    WindowGlobal.removeOnlineListener( _listener );
+    WindowGlobal.removeOfflineListener( _listener );
   }
 
   @Action

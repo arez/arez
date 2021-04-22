@@ -1,7 +1,7 @@
 package arez.dom.example;
 
 import akasha.Console;
-import akasha.Global;
+import akasha.WindowGlobal;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Observer;
@@ -22,13 +22,13 @@ public class BrowserLocationExample
                       Observer.Flags.READ_WRITE | Observer.Flags.NESTED_ACTIONS_ALLOWED );
     context.observer( () -> printBrowserLocation( browserLocation ) );
 
-    Global.document().querySelector( "#route_base" ).
+    WindowGlobal.document().querySelector( "#route_base" ).
       addClickListener( e -> browserLocation.changeLocation( "" ) );
-    Global.document().querySelector( "#route_slash" ).
+    WindowGlobal.document().querySelector( "#route_slash" ).
       addClickListener( e -> browserLocation.changeLocation( "/" ) );
-    Global.document().querySelector( "#route_event" ).
+    WindowGlobal.document().querySelector( "#route_event" ).
       addClickListener( e -> browserLocation.changeLocation( "/event" ) );
-    Global.document().querySelector( "#route_other" ).
+    WindowGlobal.document().querySelector( "#route_other" ).
       addClickListener( e -> browserLocation.changeLocation( "/other" ) );
   }
 
@@ -65,7 +65,7 @@ public class BrowserLocationExample
 
   private void emitLocation( @Nonnull final String selector, @Nonnull final String message )
   {
-    Global.document().querySelector( selector ).textContent = message;
+    WindowGlobal.document().querySelector( selector ).textContent = message;
     Console.log( message );
   }
 }

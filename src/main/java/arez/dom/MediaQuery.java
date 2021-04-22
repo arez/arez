@@ -1,9 +1,9 @@
 package arez.dom;
 
 import akasha.EventListener;
-import akasha.Global;
 import akasha.MediaQueryList;
 import akasha.Window;
+import akasha.WindowGlobal;
 import arez.ComputableValue;
 import arez.Disposable;
 import arez.annotations.Action;
@@ -61,7 +61,7 @@ public abstract class MediaQuery
   @Nonnull
   public static MediaQuery create( @Nonnull final String query )
   {
-    return create( Global.window(), query );
+    return create( WindowGlobal.window(), query );
   }
 
   /**

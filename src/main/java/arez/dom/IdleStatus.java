@@ -2,7 +2,7 @@ package arez.dom;
 
 import akasha.AddEventListenerOptions;
 import akasha.EventListener;
-import akasha.Global;
+import akasha.WindowGlobal;
 import akasha.TimerHandler;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
@@ -38,7 +38,7 @@ import javax.annotation.Nonnull;
  * <h1>A very simple example</h1>
  * <pre>{@code
  * import com.google.gwt.core.client.EntryPoint;
- * import akasha.DomGlobal;
+ * import akasha.Console;
  * import arez.Arez;
  * import arez.dom.IdleStatus;
  *
@@ -50,7 +50,7 @@ import javax.annotation.Nonnull;
  *     final IdleStatus idleStatus = IdleStatus.create();
  *     Arez.context().autorun( () -> {
  *       final String message = "Interaction Status: " + ( idleStatus.isIdle() ? "Idle" : "Active" );
- *       DomGlobal.console.log( message );
+ *       Console.log( message );
  *     } );
  *   }
  * }
@@ -149,14 +149,14 @@ public abstract class IdleStatus
   void onIdleActivate()
   {
     _active = true;
-    _events.forEach( e -> Global.addEventListener( e, _listener, AddEventListenerOptions.create().passive( true ) ) );
+    _events.forEach( e -> WindowGlobal.addEventListener( e, _listener, AddEventListenerOptions.create().passive( true ) ) );
   }
 
   @OnDeactivate
   void onIdleDeactivate()
   {
     _active = false;
-    _events.forEach( e -> Global.removeEventListener( e, _listener ) );
+    _events.forEach( e -> WindowGlobal.removeEventListener( e, _listener ) );
   }
 
   /**
@@ -217,11 +217,11 @@ public abstract class IdleStatus
       //Remove any old events
       oldEvents.stream().
         filter( e -> !_events.contains( e ) ).
-        forEach( e -> Global.removeEventListener( e, _listener ) );
+        forEach( e -> WindowGlobal.removeEventListener( e, _listener ) );
       // Add any new events
       _events.stream().
         filter( e -> !oldEvents.contains( e ) ).
-        forEach( e -> Global.addEventListener( e, _listener ) );
+        forEach( e -> WindowGlobal.addEventListener( e, _listener ) );
     }
   }
 
@@ -242,13 +242,13 @@ public abstract class IdleStatus
 
   private void cancelTimeout()
   {
-    Global.clearTimeout( _timeoutId );
+    WindowGlobal.clearTimeout( _timeoutId );
     _timeoutId = 0;
   }
 
   private void scheduleTimeout( final int timeToWait )
   {
-    _timeoutId = Global.setTimeout( _timeoutCallback, timeToWait );
+    _timeoutId = WindowGlobal.setTimeout( _timeoutCallback, timeToWait );
   }
 
   @Action
