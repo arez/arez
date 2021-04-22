@@ -48,7 +48,8 @@ define 'arez-spytools' do
 
   Buildr::BazelJ2cl.define_bazel_j2cl_test(project,
                                            [project],
-                                           %w[arez.spytools.SpyUtil arez.spytools.browser.BrowserSpyUtil],
+                                           'arez.spytools.SpyToolsCompileTest',
+                                           _(:source, :test, :js, 'arez/spytools/SpyToolsCompileTest.js'),
                                            :javax_annotation => true)
 
   doc.
