@@ -25,6 +25,6 @@ install:
 - rvm use 2.7.2
 - gem install bundler
 - bundle install
-script: buildr package
+script: buildr package arez-spytools:bazel_j2cl_test
 git:
   depth: false

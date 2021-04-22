@@ -4,7 +4,7 @@ Buildr::ReleaseTool.define_release_task do |t|
   t.extract_version_from_changelog
   t.zapwhite
   t.ensure_git_clean
-  t.build
+  t.build(:additional_tasks => 'arez-spytools:bazel_j2cl_test')
   t.patch_changelog('arez/arez-spytools')
   t.patch_maven_version_in_readme
   t.tag_project
