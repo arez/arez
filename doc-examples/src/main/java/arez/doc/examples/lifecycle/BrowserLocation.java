@@ -1,8 +1,8 @@
 package arez.doc.examples.lifecycle;
 
-import akasha.Global;
 import akasha.HashChangeEvent;
 import akasha.HashChangeEventListener;
+import akasha.WindowGlobal;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.PostConstruct;
@@ -19,7 +19,7 @@ public abstract class BrowserLocation
   @PostConstruct
   void postConstruct()
   {
-    Global.addHashchangeListener( _listener, false );
+    WindowGlobal.addHashchangeListener( _listener, false );
     //DOC ELIDE START
     //DOC ELIDE END
   }
@@ -27,7 +27,7 @@ public abstract class BrowserLocation
   @PreDispose
   void preDispose()
   {
-    Global.removeHashchangeListener( _listener, false );
+    WindowGlobal.removeHashchangeListener( _listener, false );
   }
 
   //DOC ELIDE START

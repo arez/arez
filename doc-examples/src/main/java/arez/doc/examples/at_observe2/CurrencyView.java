@@ -1,7 +1,7 @@
 package arez.doc.examples.at_observe2;
 
 import akasha.Element;
-import akasha.Global;
+import akasha.WindowGlobal;
 import arez.Observer;
 import arez.SafeProcedure;
 import arez.annotations.ArezComponent;
@@ -19,7 +19,7 @@ public abstract class CurrencyView
   @Observe
   void render()
   {
-    final Element element = Global.document().getElementById( "currencyTracker" );
+    final Element element = WindowGlobal.document().getElementById( "currencyTracker" );
     assert null != element;
     element.innerHTML = "1 BTC = $" + bitcoin.getAmount() + "AUD";
   }

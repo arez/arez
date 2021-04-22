@@ -1,7 +1,7 @@
 package arez.doc.examples.at_memoize;
 
 import akasha.EventListener;
-import akasha.Global;
+import akasha.WindowGlobal;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
@@ -24,15 +24,15 @@ public abstract class NetworkStatus
   @OnActivate
   void onOnLineActivate()
   {
-    Global.addOnlineListener( _listener );
-    Global.addOfflineListener( _listener );
+    WindowGlobal.addOnlineListener( _listener );
+    WindowGlobal.addOfflineListener( _listener );
   }
 
   @OnDeactivate
   void onOnLineDeactivate()
   {
-    Global.removeOnlineListener( _listener );
-    Global.removeOfflineListener( _listener );
+    WindowGlobal.removeOnlineListener( _listener );
+    WindowGlobal.removeOfflineListener( _listener );
   }
 
   @Observable
@@ -55,6 +55,6 @@ public abstract class NetworkStatus
 
   private boolean getIsOnLine()
   {
-    return Global.navigator().onLine();
+    return WindowGlobal.navigator().onLine();
   }
 }
