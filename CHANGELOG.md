@@ -1,5 +1,7 @@
 # Change Log
 
+### Unreleased
+
 ### [v0.197](https://github.com/arez/arez/tree/v0.197) (2021-04-23) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.196...v0.197)
 
 Changes in this release:
