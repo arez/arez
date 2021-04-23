@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the 'org.realityforge.arez' dependencies to version '0.197'
 * Upgrade the `org.realityforge.akasha` artifact to version `0.10`.
 
 ### [v0.127](https://github.com/arez/arez-spytools/tree/v0.127) (2021-04-15) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.126...v0.127)
