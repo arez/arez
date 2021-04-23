@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.197](https://github.com/arez/arez/tree/v0.197) (2021-04-23) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.196...v0.197)
+
+Changes in this release:
 
 * Upgrade the `org.realityforge.akasha` artifact to version `0.10`.
 * Upgrade the `org.realityforge.braincheck` artifacts to version `1.31.0`.
