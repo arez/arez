@@ -15,7 +15,7 @@ The simplest way to use component;
 <dependency>
    <groupId>org.realityforge.arez.spytools</groupId>
    <artifactId>arez-spytools</artifactId>
-   <version>0.127</version>
+   <version>0.128</version>
 </dependency>
 ```
 
