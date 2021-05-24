@@ -128,7 +128,11 @@ replacements:
   - coord: org.realityforge.javaemul.internal.annotations:javaemul.internal.annotations
     targets:
       - target: ":javaemul_internal_annotations-j2cl"
+  - coord: org.realityforge.akasha:akasha-gwt
+    targets:
+      - target: ":akasha_j2cl-j2cl"
 artifacts:
+  - coord: org.realityforge.akasha:akasha-j2cl:#{Buildr.artifact(:akasha).to_spec_hash[:version]}
 TEXT
 
         dependencies.collect { |d| d.to_spec_hash }.each do |d|
