@@ -42,7 +42,7 @@ artifacts:
 
   jsinterop_base: com.google.jsinterop:base:jar:1.0.0
 
-  akasha: org.realityforge.akasha:akasha-gwt:jar:0.11
+  akasha: org.realityforge.akasha:akasha-gwt:jar:0.12
 
   sting_core: org.realityforge.sting:sting-core:jar:0.19
   sting_processor: org.realityforge.sting:sting-processor:jar:0.19
