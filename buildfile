@@ -311,7 +311,7 @@ define 'arez' do
 
     desc 'TestNG: Arez utilities for writing TestNG tests'
     define 'testng' do
-      deps = artifacts(:javax_annotation, :testng, :braincheck_core) + [project('core').package(:jar)]
+      deps = artifacts(:javax_annotation, :testng, :grim_annotations, :braincheck_core) + [project('core').package(:jar)]
       pom.include_transitive_dependencies << deps
       pom.dependency_filter = Proc.new { |dep| deps.include?(dep[:artifact]) }
 
