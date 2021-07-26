@@ -22,7 +22,7 @@ The simplest way to use the library;
   extend an abstract test class. This will result in observer errors causing the test to fail.
 
   The `ArezTestSupport` interface explicitly adds a hook, a `@BeforeMethod` method and a `@AfterMethod`
-  method. In most cases it is succifient to implement the interface. However, it may be necessary to
+  method. In most cases it is sufficient to implement the interface. However, it may be necessary to
   override the methods on the interface to add custom code but be sure to invoke the equivalent methods
   on the `ArezTestSupport`. An example of the **most** complex scenario is:
 
