@@ -7,7 +7,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 
 /**
- * Wrapper of component to expose visibility state of document reactively.
+ * Exposes {@code document.visibilityState} as an observable property for specified documents.
  *
  * <h1>A very simple example</h1>
  * <pre>{@code

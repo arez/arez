@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeoPosition Example</title>
+</head>
+<body>
+<button id="watch">Load GeoPosition Data</button>
+<div id="status"></div>
+<p>
+  It should be noted that GeoLocation is only available if the page is served over https and thus this page will
+  only worked if served from this environment. The simplest approach is to use a simple node program to run a http
+  server:
+</p>
+<pre>
+  npx http-server-ssl --ssl --proxy http://127.0.0.1:8889
+</pre>
+<script type="text/javascript" language="javascript" src="arez.dom.example.GeoPositionExample.nocache.js"></script>
+</body>
+</html>

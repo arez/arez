@@ -19,8 +19,9 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /**
- * An observable model that declares state that tracks when the user is "idle".
- * A user is considered idle if they have not interacted with the browser
+ * An Arez browser component that tracks when the user is idle. A user is considered idle if they have not
+ * interacted with the browser for a specified amount of time. The component declares state that tracks when
+ * the user is "idle". A user is considered idle if they have not interacted with the browser
  * for a specified amount of time.
  *
  * <p>Application code can observe the idle state via accessing {@link #isIdle()}.

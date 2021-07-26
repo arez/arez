@@ -18,8 +18,8 @@ import javax.annotation.Nonnull;
 import jsinterop.annotations.JsFunction;
 
 /**
- * An observable component that exposes a value provided by a lambda as observable where the value can
- * change in response to a browser event. A typical example is making the value of <code>window.innerWidth</code>
+ * Generic component that exposes a property as observable where changes to the variable are signalled
+ * using a browser event. A typical example is making the value of <code>window.innerWidth</code>
  * observable by listening to <code>"resize"</code> events on the window. This could be achieved with code such
  * as:
  *

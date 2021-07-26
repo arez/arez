@@ -29,7 +29,7 @@ public final class BuildDownstream
   private static void run()
     throws Exception
   {
-    Gir.go( () -> Stream.of( "arez-dom", "arez-spytools", "arez-persist" )
+    Gir.go( () -> Stream.of( "arez-spytools", "arez-persist" )
       .forEach( name -> WorkspaceUtil.forEachBranch( name,
                                                      "https://github.com/arez/" + name + ".git",
                                                      Collections.singletonList( "master" ),

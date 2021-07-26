@@ -1,7 +1,7 @@
 package arez.dom;
 
-import akasha.Coordinates;
-import akasha.PositionError;
+import akasha.GeolocationCoordinates;
+import akasha.GeolocationPositionError;
 import akasha.WindowGlobal;
 import arez.Arez;
 import arez.ArezContext;
@@ -40,6 +40,7 @@ import javax.annotation.Nullable;
 @ArezComponent( requireId = Feature.DISABLE, disposeNotifier = Feature.DISABLE )
 public abstract class GeoPosition
 {
+  @SuppressWarnings( "unused" )
   public static final class Status
   {
     /**
@@ -57,15 +58,15 @@ public abstract class GeoPosition
     /**
      * The acquisition of the geolocation information failed because the page didn't have the permission to do it.
      */
-    public static final int PERMISSION_DENIED = 1;
+    public static final int PERMISSION_DENIED = GeolocationPositionError.PERMISSION_DENIED;
     /**
      * The acquisition of the geolocation failed because at least one internal source of position returned an internal error.
      */
-    public static final int POSITION_UNAVAILABLE = 2;
+    public static final int POSITION_UNAVAILABLE = GeolocationPositionError.POSITION_UNAVAILABLE;
     /**
      * The time allowed to acquire the geolocation, defined by PositionOptions.timeout information was reached before the information was obtained.
      */
-    public static final int TIMEOUT = 3;
+    public static final int TIMEOUT = GeolocationPositionError.TIMEOUT;
 
     private Status()
     {
@@ -203,10 +204,10 @@ public abstract class GeoPosition
   }
 
   @Action
-  void onFailure( @Nonnull final PositionError e )
+  void onFailure( @Nonnull final GeolocationPositionError e )
   {
     setStatus( e.code() );
-    String errorMessage = e.message();
+    final String errorMessage = e.message();
     if ( !Objects.equals( errorMessage, _errorMessage ) )
     {
       _errorMessage = errorMessage;
@@ -230,7 +231,7 @@ public abstract class GeoPosition
   }
 
   @Action
-  void onSuccess( @Nonnull final Coordinates coords )
+  void onSuccess( @Nonnull final GeolocationCoordinates coords )
   {
     setStatus( Status.POSITION_LOADED );
     if ( null != _errorMessage )

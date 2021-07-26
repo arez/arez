@@ -42,6 +42,8 @@ artifacts:
 
   jsinterop_base: com.google.jsinterop:base:jar:1.0.0
 
+  javaemul_internal_annotations: org.realityforge.javaemul.internal.annotations:javaemul.internal.annotations:jar:0.01
+
   akasha: org.realityforge.akasha:akasha-gwt:jar:0.15
 
   sting_core: org.realityforge.sting:sting-core:jar:0.19

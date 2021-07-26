@@ -36,7 +36,14 @@ AREZ_TEST_OPTIONS =
   }
 
 GWT_EXAMPLES = {
-  'promise-example' => 'arez.promise.example.ObservablePromiseExample'
+  'promise-example' => %w(arez.promise.example.ObservablePromiseExample),
+  'dom-example' => %w(arez.dom.example.BrowserLocationExample
+                      arez.dom.example.DocumentVisibilityExample
+                      arez.dom.example.GeoPositionExample
+                      arez.dom.example.IdleStatusExample
+                      arez.dom.example.MediaQueryExample
+                      arez.dom.example.NetworkStatusExample
+                      arez.dom.example.WindowSizeExample)
 }
 
 desc 'Arez: Simple, Scalable State Management Library'
@@ -292,7 +299,7 @@ define 'arez' do
       gwt_enhance(project, :package_jars => false)
 
       gwt_modules = {}
-      GWT_EXAMPLES.select{|project_name, gwt_module| project_name == 'promise'}.values.each do |gwt_module|
+      GWT_EXAMPLES['promise-example'].each do |gwt_module|
         gwt_modules[gwt_module] = false
       end
       iml.add_gwt_facet(gwt_modules,
@@ -315,6 +322,58 @@ define 'arez' do
       package(:javadoc)
     end
 
+    desc 'Dom: Arez browser components that make DOM properties observable'
+    define 'dom' do
+      deps = artifacts(:javax_annotation,
+                       :braincheck_core,
+                       :jetbrains_annotations,
+                       :javaemul_internal_annotations,
+                       :grim_annotations,
+                       :jsinterop_base,
+                       :jsinterop_annotations,
+                       :akasha) + [project('core').package(:jar)]
+      pom.include_transitive_dependencies << deps
+      pom.dependency_filter = Proc.new { |dep| deps.include?(dep[:artifact]) }
+
+      compile.with deps
+
+      compile.with deps,
+                   project('processor').package(:jar),
+                   project('processor').compile.dependencies
+
+      compile.options[:processor] = true
+
+      gwt_enhance(project)
+
+      package(:jar)
+      package(:sources)
+      package(:javadoc)
+
+      test.options[:properties] = { 'arez.environment' => 'development' }
+      test.options[:java_args] = ['-ea']
+
+      test.using :testng
+      test.compile.with [:guiceyloops]
+    end
+
+    define 'dom-example' do
+      compile.with project('dom').package(:jar),
+                   project('dom').compile.dependencies,
+                   :gwt_user
+
+      gwt_enhance(project, :package_jars => false)
+
+      gwt_modules = {}
+      GWT_EXAMPLES['dom-example'].each do |gwt_module|
+        gwt_modules[gwt_module] = false
+      end
+
+      iml.add_gwt_facet(gwt_modules,
+                        :settings => { :compilerMaxHeapSize => '1024' },
+                        :gwt_dev_artifact => :gwt_dev)
+
+      project.no_ipr
+    end
     project.no_iml
   end
 
@@ -336,7 +395,7 @@ define 'arez' do
     project.jacoco.enabled = false
   end
 
-  doc.from(projects(%w(core processor))).
+  doc.from(projects(%w(core processor extras:promise extras:testng extras:dom))).
     using(:javadoc,
           :windowtitle => 'Arez API Documentation',
           :linksource => true,
@@ -344,7 +403,8 @@ define 'arez' do
           :link => %w(https://docs.oracle.com/javase/8/docs/api http://www.gwtproject.org/javadoc/latest/),
           :group => {
             'Core Packages' => 'arez:arez.spy*',
-            'Component Packages' => 'arez.annotations*:arez.component*:arez.processor*'
+            'Component Packages' => 'arez.annotations*:arez.component*:arez.processor*',
+            'Extras Packages' => 'arez.promise*:arez.dom*:arez.testng*'
           }
     )
 
@@ -368,17 +428,19 @@ define 'arez' do
                                :module => 'integration-tests',
                                :jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=true -Darez.integration_fixture_dir=src/test/resources')
 
-  GWT_EXAMPLES.each_pair do |project_name, gwt_module|
-    short_name = gwt_module.gsub(/.*\./, '')
-    ipr.add_gwt_configuration(project,
-                              :iml_name => project_name,
-                              :name => "#{project_name} Example: #{short_name}",
-                              :gwt_module => gwt_module,
-                              :start_javascript_debugger => false,
-                              :open_in_browser => false,
-                              :vm_parameters => '-Xmx2G',
-                              :shell_parameters => "-strict -style PRETTY -XmethodNameDisplayMode FULL -nostartServer -incremental -codeServerPort 8889 -bindAddress 0.0.0.0 -deploy #{_(:generated, :gwt, 'deploy')} -extra #{_(:generated, :gwt, 'extra')} -war #{_(:generated, :gwt, 'war')}",
-                              :launch_page => "http://127.0.0.1:8888/#{gwt_module}/index.html")
+  GWT_EXAMPLES.each_pair do |project_name, gwt_modules|
+    gwt_modules.each do |gwt_module|
+      short_name = gwt_module.gsub(/.*\./, '')
+      ipr.add_gwt_configuration(project,
+                                :iml_name => project_name,
+                                :name => "#{project_name}: #{short_name}",
+                                :gwt_module => gwt_module,
+                                :start_javascript_debugger => false,
+                                :open_in_browser => false,
+                                :vm_parameters => '-Xmx2G',
+                                :shell_parameters => "-strict -style PRETTY -XmethodNameDisplayMode FULL -nostartServer -incremental -codeServerPort 8889 -bindAddress 0.0.0.0 -deploy #{_(:generated, :gwt, 'deploy')} -extra #{_(:generated, :gwt, 'extra')} -war #{_(:generated, :gwt, 'war')}",
+                                :launch_page => "http://127.0.0.1:8888/#{gwt_module}/#{short_name}.html")
+    end
   end
 
   ipr.nonnull_assertions = false
