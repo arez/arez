@@ -1,0 +1,7 @@
+<module>
+  <inherits name='arez.component.Component'/>
+  <inherits name='akasha.Akasha'/>
+
+  <source path=''/>
+  <public path='public'/>
+</module>
