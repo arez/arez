@@ -38,8 +38,7 @@ import javax.annotation.Nonnull;
  *   {
  *     final NetworkStatus networkStatus = NetworkStatus.create();
  *     Arez.context().observer( () -> {
- *       final String message = "Network Status: " + ( networkStatus.isOnLine() ? "Online" : "Offline" );
- *       Console.log( message );
+ *       Console.log( "Network Status: " + ( networkStatus.isOnLine() ? "Online" : "Offline" ) );
  *       if ( !networkStatus.isOnLine() )
  *       {
  *         Console.log( "Offline since: " + networkStatus.getLastChangedAt() );
