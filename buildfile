@@ -198,7 +198,7 @@ define 'arez' do
 
     local_test_repository_url = URI.join('file:///', project._(:target, :local_test_repository)).to_s
     compile.enhance do
-      projects_to_upload = projects(%w(core processor arez:extras:promise))
+      projects_to_upload = projects(%w(core processor arez:extras:promise arez:extras:testng))
       old_release_to = repositories.release_to
       begin
         # First we install them in a local repository so we don't have to access the network during local builds
