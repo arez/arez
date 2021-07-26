@@ -269,9 +269,11 @@ define 'arez' do
       pom.include_transitive_dependencies << deps
       pom.dependency_filter = Proc.new { |dep| deps.include?(dep[:artifact]) }
 
-      compile.with deps
+      compile.with deps,
+                   project('processor').package(:jar),
+                   project('processor').compile.dependencies
 
-      compile.options[:processor_path] << [project('processor').package(:jar), project('processor').compile.dependencies]
+      compile.options[:processor] = true
 
       gwt_enhance(project)
 
