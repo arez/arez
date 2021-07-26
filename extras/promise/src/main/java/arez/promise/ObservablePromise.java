@@ -19,24 +19,22 @@ import static org.realityforge.braincheck.Guards.*;
  *
  * <h1>A very simple example</h1>
  * <pre>{@code
- * import com.google.gwt.core.client.EntryPoint;
- * import elemental2.dom.DomGlobal;
- * import elemental2.dom.Response;
- * import elemental2.promise.Promise;
+ * import akasha.Console;
+ * import akasha.Response;
+ * import akasha.WindowGlobal;
+ * import akasha.promise.Promise;
  * import arez.Arez;
  * import arez.promise.ObservablePromise;
+ * import com.google.gwt.core.client.EntryPoint;
  *
  * public class Example
  *   implements EntryPoint
  * {
  *   public void onModuleLoad()
  *   {
- *     final Promise<Response> promise = DomGlobal.fetch( "https://example.com/" );
+ *     final Promise<Response> fetch = WindowGlobal.fetch( "https://example.com/" );
  *     final ObservablePromise<Response, Object> observablePromise = ObservablePromise.create( promise );
- *     Arez.context().observer( () -> {
- *       final String message = "Promise Status: " + observablePromise.getState();
- *       DomGlobal.console.log( message );
- *     } );
+ *     Arez.context().observer( () -> Console.log( "Promise Status: " + observablePromise.getState() ) );
  *   }
  * }
  * }</pre>
