@@ -19,9 +19,6 @@ to this page.
   - [MediaQuery](https://arez.github.io/dom/index.html?arez/dom/MediaQuery.html): A component that exposes a flag indicating whether the browser matches a particular CSS media query.
   - [NetworkStatus](https://arez.github.io/dom/index.html?arez/dom/NetworkStatus.html): A component that tracks when the user is "online".
   - [WindowSize](https://arez.github.io/dom/index.html?arez/dom/WindowSize.html): Factory for creating observables for dimensions of a window. (i.e. `window.(inner|outer)(Width|Height)`)
-* [arez-promise](https://github.com/arez/arez-promise) A GWT/Javascript based Arez component that
-  wraps a Promise and exposes observable state that tracks the state of the promise.
-  <span style="font-size: smaller">**[API Docs](https://arez.github.io/promise) · [GitHub Project](https://github.com/arez/arez-promise)**</span>
 * [arez-spytools](https://github.com/arez/arez-spytools) This library provides additional utilities and
   introspection tools based on the core Arez spy infrastructure.
   <span style="font-size: smaller">**[API Docs](https://arez.github.io/spytools) · [GitHub Project](https://github.com/arez/arez-spytools)**</span>

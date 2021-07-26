@@ -10,6 +10,7 @@
 /tmp
 /generated
 /*/generated
+/extras/**/generated
 /node_modules
 /website/translated_docs
 /website/build/

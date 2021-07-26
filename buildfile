@@ -35,6 +35,10 @@ AREZ_TEST_OPTIONS =
     'arez.environment' => 'development'
   }
 
+GWT_EXAMPLES = {
+  'promise-example' => 'arez.promise.example.ObservablePromiseExample'
+}
+
 desc 'Arez: Simple, Scalable State Management Library'
 define 'arez' do
   project.group = 'org.realityforge.arez'
@@ -194,7 +198,7 @@ define 'arez' do
 
     local_test_repository_url = URI.join('file:///', project._(:target, :local_test_repository)).to_s
     compile.enhance do
-      projects_to_upload = projects(%w(core processor))
+      projects_to_upload = projects(%w(core processor arez:extras:promise))
       old_release_to = repositories.release_to
       begin
         # First we install them in a local repository so we don't have to access the network during local builds
@@ -259,6 +263,46 @@ define 'arez' do
     project.jacoco.enabled = false
   end
 
+  define 'extras' do
+    define 'promise' do
+      deps = artifacts(:javax_annotation, :jsinterop_annotations, :jsinterop_base, :jetbrains_annotations, :braincheck_core, :grim_annotations, :akasha) + [project('core').package(:jar)]
+      pom.include_transitive_dependencies << deps
+      pom.dependency_filter = Proc.new { |dep| deps.include?(dep[:artifact]) }
+
+      compile.with deps
+
+      compile.options[:processor_path] << [project('processor').package(:jar), project('processor').compile.dependencies]
+
+      gwt_enhance(project)
+
+      package(:jar)
+      package(:sources)
+      package(:javadoc)
+
+      project.jacoco.enabled = false
+    end
+
+    define 'promise-example' do
+      compile.with project('promise').package(:jar),
+                   project('promise').compile.dependencies,
+                   :gwt_user
+
+      gwt_enhance(project, :package_jars => false)
+
+      gwt_modules = {}
+      GWT_EXAMPLES.select{|project_name, gwt_module| project_name == 'promise'}.values.each do |gwt_module|
+        gwt_modules[gwt_module] = false
+      end
+      iml.add_gwt_facet(gwt_modules,
+                        :settings => { :compilerMaxHeapSize => '1024' },
+                        :gwt_dev_artifact => :gwt_dev)
+
+      project.no_ipr
+    end
+
+    project.no_iml
+  end
+
   desc 'Arez Examples used in documentation'
   define 'doc-examples' do
     compile.with project('core').package(:jar),
@@ -308,6 +352,19 @@ define 'arez' do
   ipr.add_testng_configuration('integration-tests',
                                :module => 'integration-tests',
                                :jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=true -Darez.integration_fixture_dir=src/test/resources')
+
+  GWT_EXAMPLES.each_pair do |project_name, gwt_module|
+    short_name = gwt_module.gsub(/.*\./, '')
+    ipr.add_gwt_configuration(project,
+                              :iml_name => project_name,
+                              :name => "#{project_name} Example: #{short_name}",
+                              :gwt_module => gwt_module,
+                              :start_javascript_debugger => false,
+                              :open_in_browser => false,
+                              :vm_parameters => '-Xmx2G',
+                              :shell_parameters => "-strict -style PRETTY -XmethodNameDisplayMode FULL -nostartServer -incremental -codeServerPort 8889 -bindAddress 0.0.0.0 -deploy #{_(:generated, :gwt, 'deploy')} -extra #{_(:generated, :gwt, 'extra')} -war #{_(:generated, :gwt, 'war')}",
+                              :launch_page => "http://127.0.0.1:8888/#{gwt_module}/index.html")
+  end
 
   ipr.nonnull_assertions = false
 
