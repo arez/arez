@@ -4,6 +4,7 @@
 
 * Upgrade the `org.realityforge.akasha` artifacts to version `0.15`.
 * Merge [arez/arez-promise](https://github.com/arez/arez-promise) repository back into arez repository as there was little value in an independent repository.
+* Merge [arez/arez-testng](https://github.com/arez/arez-testng) repository back into arez repository as there was little value in an independent repository.
 
 ### [v0.197](https://github.com/arez/arez/tree/v0.197) (2021-04-23) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.196...v0.197)
 

@@ -22,9 +22,6 @@ to this page.
 * [arez-spytools](https://github.com/arez/arez-spytools) This library provides additional utilities and
   introspection tools based on the core Arez spy infrastructure.
   <span style="font-size: smaller">**[API Docs](https://arez.github.io/spytools) · [GitHub Project](https://github.com/arez/arez-spytools)**</span>
-* [arez-testng](https://github.com/arez/arez-testng) This library provides utilities to simplify testing
-  Arez applications using the [TestNG](https://testng.org/doc/) testing framework.
-  <span style="font-size: smaller">**[API Docs](https://arez.github.io/testng) · [GitHub Project](https://github.com/arez/arez-testng)**</span>
 * [arez-persist](https://github.com/arez/arez-persist) This library provides annotation driven
   infrastructure for persisting observable properties on Arez components.
   <span style="font-size: smaller">**[API Docs](https://arez.github.io/persist) · [GitHub Project](https://github.com/arez/arez-persist)**</span>

@@ -300,6 +300,19 @@ define 'arez' do
       project.no_ipr
     end
 
+    desc 'TestNG: Arez utilities for writing TestNG tests'
+    define 'testng' do
+      deps = artifacts(:javax_annotation, :testng, :braincheck_core) + [project('core').package(:jar)]
+      pom.include_transitive_dependencies << deps
+      pom.dependency_filter = Proc.new { |dep| deps.include?(dep[:artifact]) }
+
+      compile.with deps
+
+      package(:jar)
+      package(:sources)
+      package(:javadoc)
+    end
+
     project.no_iml
   end
 
