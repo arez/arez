@@ -1,0 +1,10 @@
+<module rename-to='geo_position'>
+  <inherits name='com.google.gwt.core.Core'/>
+  <inherits name='arez.ArezDebug'/>
+  <inherits name='arez.dom.Dom'/>
+
+  <source path='' includes='GeoPositionExample.java'/>
+  <public path='public/geo_position'/>
+
+  <entry-point class='arez.dom.example.GeoPositionExample'/>
+</module>

@@ -1,0 +1,10 @@
+<module rename-to='browser_location'>
+  <inherits name="com.google.gwt.core.Core"/>
+  <inherits name='arez.ArezDebug'/>
+  <inherits name='arez.dom.Dom'/>
+
+  <source path='' includes='BrowserLocationExample.java'/>
+  <public path='public/browser_location'/>
+
+  <entry-point class='arez.dom.example.BrowserLocationExample'/>
+</module>
