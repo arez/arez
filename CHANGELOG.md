@@ -6,6 +6,7 @@
 * Merge [arez/arez-promise](https://github.com/arez/arez-promise) repository back into arez repository as there was little value in an independent repository.
 * Merge [arez/arez-testng](https://github.com/arez/arez-testng) repository back into arez repository as there was little value in an independent repository.
 * Merge [arez/arez-dom](https://github.com/arez/arez-dom) repository back into arez repository as there was little value in an independent repository.
+* Add `NetworkStatus.isOffLine()` helper method to compliment `NetworkStatus.isOnLine()`.
 
 ### [v0.197](https://github.com/arez/arez/tree/v0.197) (2021-04-23) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.196...v0.197)
 

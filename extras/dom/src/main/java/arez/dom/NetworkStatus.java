@@ -39,7 +39,7 @@ import javax.annotation.Nonnull;
  *     final NetworkStatus networkStatus = NetworkStatus.create();
  *     Arez.context().observer( () -> {
  *       Console.log( "Network Status: " + ( networkStatus.isOnLine() ? "Online" : "Offline" ) );
- *       if ( !networkStatus.isOnLine() )
+ *       if ( networkStatus.isOffLine() )
  *       {
  *         Console.log( "Offline since: " + networkStatus.getLastChangedAt() );
  *       }
@@ -67,6 +67,16 @@ public abstract class NetworkStatus
 
   NetworkStatus()
   {
+  }
+
+  /**
+   * Return true if the browser is offline, false otherwise.
+   *
+   * @return true if the browser is offline, false otherwise.
+   */
+  public boolean isOffLine()
+  {
+    return !isOnLine();
   }
 
   /**
