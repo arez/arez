@@ -64,7 +64,7 @@ public final class CollectBuildStats
       if ( isMaven )
       {
         Maven.patchPomProperty( context.appDirectory,
-                                () -> "Update the 'arez' dependencies to version '" + version + "'",
+                                () -> "Update the `org.realityforge.arez` artifacts to version `" + version + "`",
                                 "arez.version",
                                 version );
       }
