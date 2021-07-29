@@ -284,6 +284,12 @@ define 'arez' do
 
       gwt_enhance(project)
 
+      Buildr::BazelJ2cl.define_bazel_j2cl_test(project,
+                                               [project] + projects(%w(arez:core)),
+                                               'arez.promise.PromiseCompileTest',
+                                               _(:source, :test, :js, 'arez/promise/PromiseCompileTest.js'),
+                                               :javax_annotation => true)
+
       package(:jar)
       package(:sources)
       package(:javadoc)

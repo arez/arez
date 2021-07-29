@@ -72,18 +72,31 @@ CONTENT
                          :output_key => output_key })
     end
   end
-
-  project.package(:jar).tap do |j|
-    extra_deps.each do |dep|
-      j.enhance([dep]) do |j2|
-        j2.include("#{dep}/*")
+  if package_jars
+    project.package(:jar).tap do |j|
+      extra_deps.flatten.each do |dep|
+        j.enhance([dep]) do |j2|
+          j2.include("#{dep}/*")
+        end
       end
+      assets.each do |path|
+        j.include("#{path}/*")
+      end
+      j.include("#{project._(:source, :main, :java)}/*")
     end
-    assets.each do |path|
-      j.include("#{path}/*")
+
+    project.package(:sources).tap do |j|
+      extra_deps.flatten.each do |dep|
+        j.enhance([dep]) do |j2|
+          j2.include("#{dep}/*")
+        end
+      end
+      assets.each do |path|
+        j.include("#{path}/*")
+      end
+      j.include("#{project._(:source, :main, :java)}/*")
     end
-    j.include("#{project._(:source, :main, :java)}/*")
-  end if package_jars
+  end
 
   config = {}
   gwt_modules.each do |gwt_module|
