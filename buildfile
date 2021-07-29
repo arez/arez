@@ -380,6 +380,39 @@ define 'arez' do
 
       project.no_ipr
     end
+
+    desc 'SpyTools: Arez utilities that enhance the spy capabilities'
+    define 'spytools' do
+      deps = artifacts(:javax_annotation, :jsinterop_annotations, :jsinterop_base, :jetbrains_annotations, :braincheck_core, :grim_annotations, :akasha) + [project('core').package(:jar)]
+      pom.include_transitive_dependencies << deps
+      pom.dependency_filter = Proc.new { |dep| deps.include?(dep[:artifact]) }
+
+      compile.with deps,
+                   project('processor').package(:jar),
+                   project('processor').compile.dependencies
+
+      compile.options[:processor] = true
+
+      gwt_enhance(project)
+
+      Buildr::BazelJ2cl.define_bazel_j2cl_test(project,
+                                               [project] + projects(%w(arez:core)),
+                                               'arez.spytools.SpyToolsCompileTest',
+                                               _(:source, :test, :js, 'arez/spytools/SpyToolsCompileTest.js'),
+                                               :javax_annotation => true)
+
+      package(:jar)
+      package(:sources)
+      package(:javadoc)
+
+      test.options[:properties] = { 'braincheck.environment' => 'development', 'arez.environment' => 'development' }
+      test.options[:java_args] = ['-ea']
+
+      test.using :testng
+      test.compile.with [:guiceyloops]
+
+      project.jacoco.enabled = false
+    end
     project.no_iml
   end
 

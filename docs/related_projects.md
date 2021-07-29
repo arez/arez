@@ -6,9 +6,6 @@ Arez is a relatively new toolkit but there are some other resources and related 
 This list will hopefully grow over time. Feel free to submit a pull request to add new projects
 to this page.
 
-* [arez-spytools](https://github.com/arez/arez-spytools) This library provides additional utilities and
-  introspection tools based on the core Arez spy infrastructure.
-  <span style="font-size: smaller">**[API Docs](https://arez.github.io/spytools) · [GitHub Project](https://github.com/arez/arez-spytools)**</span>
 * [arez-persist](https://github.com/arez/arez-persist) This library provides annotation driven
   infrastructure for persisting observable properties on Arez components.
   <span style="font-size: smaller">**[API Docs](https://arez.github.io/persist) · [GitHub Project](https://github.com/arez/arez-persist)**</span>
