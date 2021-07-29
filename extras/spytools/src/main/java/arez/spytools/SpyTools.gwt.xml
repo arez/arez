@@ -1,0 +1,6 @@
+<module>
+  <inherits name='arez.Arez'/>
+  <inherits name='akasha.Akasha'/>
+
+  <source path='' includes='*.java'/>
+</module>
