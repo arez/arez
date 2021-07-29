@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the `org.realityforge.gir` artifact to version `0.12`.
 * Merge [arez/arez-spytools](https://github.com/arez/arez-spytools) repository back into arez repository as there was little value in an independent repository.
 
 ### [v0.198](https://github.com/arez/arez/tree/v0.198) (2021-07-26) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.197...v0.198)
