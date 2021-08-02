@@ -43,10 +43,6 @@ final class ComponentDescriptor
   private final boolean _verify;
   private final AnnotationMirror _scopeAnnotation;
   private final boolean _generateToString;
-  /**
-   * Is the service use defaults associated with a "service" component rather than an "entity" component
-   */
-  private final boolean _service;
   private boolean _idRequired;
   @Nonnull
   private final TypeElement _element;
@@ -98,7 +94,6 @@ final class ComponentDescriptor
   private final String _defaultWriteOutsideTransaction;
 
   ComponentDescriptor( @Nonnull final String name,
-                       final boolean service,
                        @Nullable final Priority defaultPriority,
                        final boolean observable,
                        final boolean disposeNotifier,
@@ -114,7 +109,6 @@ final class ComponentDescriptor
                        @Nullable final String defaultWriteOutsideTransaction )
   {
     _name = Objects.requireNonNull( name );
-    _service = service;
     _defaultPriority = defaultPriority;
     _observable = observable;
     _disposeNotifier = disposeNotifier;

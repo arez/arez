@@ -2089,7 +2089,6 @@ public final class ArezProcessor
 
     final ComponentDescriptor descriptor =
       new ComponentDescriptor( name,
-                               service,
                                defaultPriority,
                                observableFlag,
                                disposeNotifierFlag,
