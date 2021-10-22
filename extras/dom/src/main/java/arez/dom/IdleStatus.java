@@ -150,7 +150,7 @@ public abstract class IdleStatus
   void onIdleActivate()
   {
     _active = true;
-    _events.forEach( e -> WindowGlobal.addEventListener( e, _listener, AddEventListenerOptions.create().passive( true ) ) );
+    _events.forEach( e -> WindowGlobal.addEventListener( e, _listener, AddEventListenerOptions.of().passive( true ) ) );
   }
 
   @OnDeactivate
