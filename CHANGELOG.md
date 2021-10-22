@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.200](https://github.com/arez/arez/tree/v0.200) (2021-10-22) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.199...v0.200)
+
+Changes in this release:
 
 * Update the `org.realityforge.akasha` artifacts to version `0.28`.
 
