@@ -6,7 +6,7 @@ Arez components provide several mechanisms for integrating into dependency injec
 injection frameworks that have seen the most usage are:
 
 * [Sting](https://sting-ioc.github.io/)
-* [Dagger2](https://google.github.io/dagger)
+* [Dagger2](https://dagger.dev/)
 * [Gin](https://code.google.com/archive/p/google-gin/)
 
 [Sting](https://sting-ioc.github.io/) is the recommended toolkit as it is the easiest to integrate with, and it
@@ -30,7 +30,7 @@ of objects. The following sections describe the two frameworks that have builtin
 
 [Sting](https://sting-ioc.github.io/) is a fast, easy to use, compile-time dependency injection toolkit. The toolkit
 accepts a set of annotated java classes and generates source code to instantiate and wire together the components.
-Sting was heavily inspired by [Dagger2](https://google.github.io/dagger) but with a better developer-experience and
+Sting was heavily inspired by [Dagger2](https://dagger.dev/) but with a better developer-experience and
 more efficient code generation. Sting models the application as a set of components that are contained within an
 injector. An injector is responsible for constructing and linking components together.
 
@@ -54,7 +54,7 @@ The injector can then be used in code like:
 
 ## Dagger2
 
-[Dagger2](https://google.github.io/dagger) is a another take on a dependency injection framework that uses annotation
+[Dagger2](https://dagger.dev/) is a another take on a dependency injection framework that uses annotation
 processors and statically checks the object graph at compilation time. The root objects in the graph are accessed via
 a component which is an interface annotated by the `@dagger.Component` annotation. The injection rules are customized
 via `@dagger.Module` annotated classes.

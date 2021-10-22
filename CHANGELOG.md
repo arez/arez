@@ -2610,7 +2610,7 @@ Changes in this release:
 
 #### Added
 * **\[docs\]** Add initial documentation about integrating Arez components into dependency injection
-  frameworks such as [Dagger2](https://google.github.io/dagger) and [GIN](https://code.google.com/archive/p/google-gin/).
+  frameworks such as [Dagger2](https://dagger.dev/) and [GIN](https://code.google.com/archive/p/google-gin/).
 
 #### Changed
 * **\[processor\]** Use the same mechanisms for building the dagger module between the component and the
@@ -2721,7 +2721,7 @@ Changes in this release:
 * **\[browser-extras\]** Enhance `NetworkStatus` component so that it exposes an observable property
   `lastChangedAt` that exposes the time at which online status last changed.
 * **\[annotations\]** Add boolean parameter `dagger` to `@Repository` annotation that defaults to false. If
-  the `dagger` parameter is set to true then a [Dagger2](https://google.github.io/dagger) module will be
+  the `dagger` parameter is set to true then a [Dagger2](https://dagger.dev/) module will be
   generated for the generated repository class.
 * **\[docs\]** Define a placeholder Logo for project and add favicon support to website.
 * **\[docs\]** Move the documentation to a separate repository `https://github.com/arez/arez.github.io` so

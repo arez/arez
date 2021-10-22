@@ -42,7 +42,7 @@ The generated component subclass also implements the following interfaces; {@lin
 
 ## The Dagger Module Class
 
-The Dagger module class is used to enable integration with the [Dagger2](https://google.github.io/dagger)
+The Dagger module class is used to enable integration with the [Dagger2](https://dagger.dev/)
 dependency injection framework. The name of the dagger module class is the same name as the Arez component
 suffixed with `DaggerModule`. i.e. If the name of the Arez component class is `com.example.MyComponent` then
 the dagger module class would be named `com.example.MyComponentDaggerModule`. If the
