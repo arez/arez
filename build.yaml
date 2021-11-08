@@ -44,7 +44,7 @@ artifacts:
 
   javaemul_internal_annotations: org.realityforge.javaemul.internal.annotations:javaemul.internal.annotations:jar:0.01
 
-  akasha: org.realityforge.akasha:akasha-gwt:jar:0.28
+  akasha: org.realityforge.akasha:akasha-gwt:jar:0.29
 
   sting_core: org.realityforge.sting:sting-core:jar:0.19
   sting_processor: org.realityforge.sting:sting-processor:jar:0.19
