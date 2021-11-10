@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.201](https://github.com/arez/arez/tree/v0.201) (2021-11-10) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.200...v0.201)
+
+Changes in this release:
 
 * Upgrade the `org.realityforge.proton` artifacts to version `0.52`. This fixes a crash that occurs with concurrent, incremental builds within the IntelliJ IDE. (This is the crash reported with message `javax.annotation.processing.FilerException: Attempt to recreate a file for type ...`).
 * Upgrade the `org.realityforge.sting` artifacts to version `0.21`.
