@@ -1,6 +1,7 @@
 # Change Log
 
 * Upgrade the `org.realityforge.proton` artifacts to version `0.52`. This fixes a crash that occurs with concurrent, incremental builds within the IntelliJ IDE. (This is the crash reported with message `javax.annotation.processing.FilerException: Attempt to recreate a file for type ...`).
+* Upgrade the `org.realityforge.sting` artifacts to version `0.21`.
 
 ### [v0.200](https://github.com/arez/arez/tree/v0.200) (2021-10-22) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.199...v0.200)
 
