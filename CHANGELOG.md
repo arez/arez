@@ -3,6 +3,7 @@
 ### Unreleased
 
 * Generate a suppressable warning when a component extends a class that is also annotated with `@ArezComponent`.
+* Upgrade the `org.realityforge.guiceyloops` artifact to version `0.110`.
 
 ### [v0.201](https://github.com/arez/arez/tree/v0.201) (2021-11-10) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.200...v0.201)
 
