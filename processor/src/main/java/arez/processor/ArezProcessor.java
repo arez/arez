@@ -2074,8 +2074,11 @@ public final class ArezProcessor
       noneMatch( m -> m.getSimpleName().toString().equals( "toString" ) &&
                       m.getParameters().size() == 0 &&
                       !( m.getEnclosingElement().getSimpleName().toString().equals( "Object" ) &&
-                         "java.lang".equals( processingEnv.getElementUtils().
-                           getPackageOf( m.getEnclosingElement() ).getQualifiedName().toString() ) ) );
+                         "java.lang".equals( processingEnv
+                                               .getElementUtils()
+                                               .getPackageOf( m.getEnclosingElement() )
+                                               .getQualifiedName()
+                                               .toString() ) ) );
 
     final String priority = getDefaultPriority( arezComponent );
     final Priority defaultPriority =
