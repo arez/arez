@@ -2068,6 +2068,28 @@ public final class ArezProcessor
                                     "disposeOnDeactivate = true which is not a valid combination", typeElement );
     }
 
+    if ( isWarningNotSuppressed( typeElement, Constants.WARNING_EXTENDS_COMPONENT ) )
+    {
+      TypeMirror parent = typeElement.getSuperclass();
+      while ( null != parent )
+      {
+        final Element parentElement = processingEnv.getTypeUtils().asElement( parent );
+        final TypeElement parentTypeElement =
+          null != parentElement && ElementKind.CLASS == parentElement.getKind() ? (TypeElement) parentElement : null;
+
+        if ( null != parentTypeElement &&
+             AnnotationsUtil.hasAnnotationOfType( parentTypeElement, Constants.COMPONENT_CLASSNAME ) )
+        {
+          final String message =
+            MemberChecks.shouldNot( Constants.COMPONENT_CLASSNAME,
+                                    "extend a class annotated with the " + Constants.COMPONENT_CLASSNAME +
+                                    " annotation. " + suppressedBy( Constants.WARNING_EXTENDS_COMPONENT ) );
+          processingEnv.getMessager().printMessage( WARNING, message, typeElement );
+        }
+        parent = null != parentTypeElement ? parentTypeElement.getSuperclass() : null;
+      }
+    }
+
     final List<ExecutableElement> methods =
       ElementsUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() );
     final boolean generateToString = methods.stream().

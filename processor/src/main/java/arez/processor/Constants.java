@@ -61,6 +61,8 @@ final class Constants
   static final String WARNING_PROTECTED_CONSTRUCTOR = "Arez:ProtectedConstructor";
   static final String WARNING_PUBLIC_CONSTRUCTOR = "Arez:PublicConstructor";
   @Nonnull
+  static final String WARNING_EXTENDS_COMPONENT = "Arez:ExtendsComponent";
+  @Nonnull
   static final String WARNING_FINAL_METHOD = "Arez:FinalMethod";
 
   private Constants()

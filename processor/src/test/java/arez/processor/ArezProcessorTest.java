@@ -2043,6 +2043,8 @@ public final class ArezProcessorTest
                       "@ArezComponent target should have a package access constructor. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedConstructor\" ) or @SuppressArezWarnings( \"Arez:ProtectedConstructor\" )" },
         new Object[]{ "com.example.component.ProtectedDaggerCtorModel",
                       "@ArezComponent target should have a package access constructor. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedConstructor\" ) or @SuppressArezWarnings( \"Arez:ProtectedConstructor\" )" },
+        new Object[]{ "com.example.component.ExtendsComponentModel",
+                      "@ArezComponent target should not extend a class annotated with the arez.annotations.ArezComponent annotation. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ExtendsComponent\" ) or @SuppressArezWarnings( \"Arez:ExtendsComponent\" )" },
 
         new Object[]{ "com.example.component_ref.ProtectedAccessComponentRefModel",
                       "@ArezComponent target should not declare a protected method. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedMethod\" )" },
@@ -2142,9 +2144,6 @@ public final class ArezProcessorTest
   {
     return new Object[][]
       {
-        new Object[]{ "com.example.component.Suppressed1ProtectedCtorModel" },
-        new Object[]{ "com.example.component.Suppressed1UnnecessaryAllowEmptyPresentComponent" },
-        new Object[]{ "com.example.component.Suppressed1UnnecessaryDefaultPriorityPresentComponent" },
         new Object[]{ "com.example.component.UnmanagedComponentReferenceDaggerInjected" },
         new Object[]{ "com.example.component.UnmanagedComponentReferenceStingInjected" },
         new Object[]{ "com.example.component.UnmanagedComponentReferenceSuppressed" },
@@ -2161,6 +2160,11 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.component_name_ref.Suppressed1ProtectedAccessComponentNameRefModel" },
         new Object[]{ "com.example.component_name_ref.Suppressed1PublicAccessComponentNameRefModel" },
         new Object[]{ "com.example.component_name_ref.Suppressed2PublicAccessComponentNameRefModel" },
+        new Object[]{ "com.example.component.Suppressed1ExtendsComponentModel" },
+        new Object[]{ "com.example.component.Suppressed1ProtectedCtorModel" },
+        new Object[]{ "com.example.component.Suppressed1UnnecessaryAllowEmptyPresentComponent" },
+        new Object[]{ "com.example.component.Suppressed1UnnecessaryDefaultPriorityPresentComponent" },
+        new Object[]{ "com.example.component.Suppressed2ExtendsComponentModel" },
         new Object[]{ "com.example.component.Suppressed2ProtectedCtorModel" },
         new Object[]{ "com.example.component.Suppressed2UnnecessaryAllowEmptyPresentComponent" },
         new Object[]{ "com.example.component.Suppressed2UnnecessaryDefaultPriorityPresentComponent" },
