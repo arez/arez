@@ -191,8 +191,8 @@ public final class ObservableValue<T>
 
   private void performDispose()
   {
-    getContext().getTransaction().reportDispose( this );
     reportChanged();
+    getContext().getTransaction().reportDispose( this );
     _workState = DISPOSED;
   }
 
@@ -539,7 +539,9 @@ public final class ObservableValue<T>
   {
     if ( willPropagateSpyEvents() )
     {
-      reportSpyEvent( new ObservableValueChangeEvent( asInfo(), getObservableValue() ) );
+      // isDisposed is checked as we call reportChanged() from performDispose() after dispose has started
+      // and thus it is no longer valid to call getObservableValue()
+      reportSpyEvent( new ObservableValueChangeEvent( asInfo(), isDisposed() ? null : getObservableValue() ) );
     }
     getContext().getTransaction().reportChanged( this );
   }
