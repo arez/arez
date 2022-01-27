@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.203](https://github.com/arez/arez/tree/v0.203) (2022-01-27) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.202...v0.203)
+
+Changes in this release:
 
 * Avoid an error that occurs when spy events are enabled and a `ObservableValue` is disposed and the `ObservableValue` attempts to emit a spy message to indicate the observable has changed including the value (which generates an error as the framework disallows access to observable values after a dispose has commenced).
 
