@@ -970,7 +970,7 @@
         "class": "arez.ObservableValue",
         "method": "invariantOwner",
         "file": "ObservableValue.java",
-        "lineNumber": 606
+        "lineNumber": 608
       }
     ]
   },
@@ -983,7 +983,7 @@
         "class": "arez.ObservableValue",
         "method": "lambda$invariantObserversLinked$46",
         "file": "ObservableValue.java",
-        "lineNumber": 617
+        "lineNumber": 619
       }
     ]
   },
@@ -996,7 +996,7 @@
         "class": "arez.ObservableValue",
         "method": "invariantLeastStaleObserverState",
         "file": "ObservableValue.java",
-        "lineNumber": 632
+        "lineNumber": 634
       }
     ]
   },
@@ -2465,7 +2465,7 @@
         "class": "arez.ObservableValue",
         "method": "asInfo",
         "file": "ObservableValue.java",
-        "lineNumber": 592
+        "lineNumber": 594
       }
     ]
   },
