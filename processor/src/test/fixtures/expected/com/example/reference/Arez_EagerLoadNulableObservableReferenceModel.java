@@ -42,7 +42,7 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_reference_EagerLoadNulableObservableReferenceModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_reference_EagerLoadNulableObservableReferenceModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_myEntityId = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myEntityId" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> this.$$arezd$$_myEntityId : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myEntityId = v : null );
+    this.$$arez$$_myEntityId = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myEntityId" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_myEntityId ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myEntityId = v : null );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_link_myEntity();
     this.$$arezi$$_kernel.componentReady();

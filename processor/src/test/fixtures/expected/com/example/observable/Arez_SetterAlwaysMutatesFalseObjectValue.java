@@ -30,7 +30,7 @@ final class Arez_SetterAlwaysMutatesFalseObjectValue extends SetterAlwaysMutates
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_observable_SetterAlwaysMutatesFalseObjectValue." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_observable_SetterAlwaysMutatesFalseObjectValue", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_field = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".field" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> super.getField() : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setField( v ) : null );
+    this.$$arez$$_field = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".field" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : super.getField() ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setField( v ) : null );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }

@@ -75,7 +75,7 @@
     {
         "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.1.name",
         "type": "ObservableValueChange",
-        "value": "Model2A"
+        "value": null
     },
     {
         "result": null,
@@ -138,7 +138,7 @@
     {
         "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.1.name",
         "type": "ObservableValueChange",
-        "value": "Model1A"
+        "value": null
     },
     {
         "result": null,
@@ -212,7 +212,7 @@
     {
         "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model2.2.name",
         "type": "ObservableValueChange",
-        "value": "Model2B"
+        "value": null
     },
     {
         "result": null,
@@ -252,7 +252,7 @@
     {
         "name": "arez_integration_component_dependency_CascadeOnDisposeIntegrationTest_Model1.2.name",
         "type": "ObservableValueChange",
-        "value": "Model1B"
+        "value": null
     },
     {
         "result": null,

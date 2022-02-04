@@ -410,6 +410,16 @@ public final class ComponentKernel
   }
 
   /**
+   * Return true if the component is NOT ready.
+   *
+   * @return true if the component is NOT ready.
+   */
+  public boolean isNotReady()
+  {
+    return !isReady();
+  }
+
+  /**
    * Return true if the component is disposing.
    *
    * @return true if the component is disposing.

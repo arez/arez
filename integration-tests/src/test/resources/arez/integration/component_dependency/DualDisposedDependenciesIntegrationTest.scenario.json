@@ -107,7 +107,7 @@
     {
         "name": "arez_integration_component_dependency_DualDisposedDependenciesIntegrationTest_Model2.1.name",
         "type": "ObservableValueChange",
-        "value": "Model2A"
+        "value": null
     },
     {
         "result": null,
@@ -179,6 +179,11 @@
         ]
     },
     {
+        "name": "arez_integration_component_dependency_DualDisposedDependenciesIntegrationTest_Model1.1.leaf",
+        "type": "ObservableValueChange",
+        "value": null
+    },
+    {
         "result": null,
         "name": "arez_integration_component_dependency_DualDisposedDependenciesIntegrationTest_Model1.1.leaf.dispose",
         "errorMessage": null,
@@ -202,7 +207,7 @@
     {
         "name": "arez_integration_component_dependency_DualDisposedDependenciesIntegrationTest_Model1.1.name",
         "type": "ObservableValueChange",
-        "value": "Model1A"
+        "value": null
     },
     {
         "result": null,
@@ -242,7 +247,7 @@
     {
         "name": "arez_integration_component_dependency_DualDisposedDependenciesIntegrationTest_Model0.1.name",
         "type": "ObservableValueChange",
-        "value": "Model1A"
+        "value": null
     },
     {
         "result": null,
@@ -327,7 +332,7 @@
     {
         "name": "arez_integration_component_dependency_DualDisposedDependenciesIntegrationTest_Model2.2.name",
         "type": "ObservableValueChange",
-        "value": "Model2B"
+        "value": null
     },
     {
         "result": null,
@@ -365,6 +370,11 @@
         ]
     },
     {
+        "name": "arez_integration_component_dependency_DualDisposedDependenciesIntegrationTest_Model1.2.leaf",
+        "type": "ObservableValueChange",
+        "value": null
+    },
+    {
         "result": null,
         "name": "arez_integration_component_dependency_DualDisposedDependenciesIntegrationTest_Model1.2.leaf.dispose",
         "errorMessage": null,
@@ -388,7 +398,7 @@
     {
         "name": "arez_integration_component_dependency_DualDisposedDependenciesIntegrationTest_Model1.2.name",
         "type": "ObservableValueChange",
-        "value": "Model1B"
+        "value": null
     },
     {
         "result": null,
@@ -428,7 +438,7 @@
     {
         "name": "arez_integration_component_dependency_DualDisposedDependenciesIntegrationTest_Model0.2.name",
         "type": "ObservableValueChange",
-        "value": "Model1B"
+        "value": null
     },
     {
         "result": null,

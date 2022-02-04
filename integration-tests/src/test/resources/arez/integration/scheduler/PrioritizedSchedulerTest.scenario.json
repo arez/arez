@@ -1174,7 +1174,7 @@
     {
         "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.value1",
         "type": "ObservableValueChange",
-        "value": "1"
+        "value": null
     },
     {
         "result": null,
@@ -1200,7 +1200,7 @@
     {
         "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.value2",
         "type": "ObservableValueChange",
-        "value": "2"
+        "value": null
     },
     {
         "result": null,
@@ -1226,7 +1226,7 @@
     {
         "name": "arez_integration_scheduler_PrioritizedSchedulerTest_TestComponent.1.value3",
         "type": "ObservableValueChange",
-        "value": "3"
+        "value": null
     },
     {
         "result": null,

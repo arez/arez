@@ -2880,7 +2880,7 @@ final class ComponentGenerator
     sb.append( "this.$N = $N.observable( " +
                "$T.areNativeComponentsEnabled() ? $N : null, " +
                "$T.areNamesEnabled() ? $N + $S : null, " +
-               "$T.arePropertyIntrospectorsEnabled() ? () -> " );
+               "$T.arePropertyIntrospectorsEnabled() ? () -> ( this.$N.isNotReady() ? null : " );
     parameters.add( observable.getFieldName() );
     parameters.add( CONTEXT_VAR_NAME );
     parameters.add( AREZ_CLASSNAME );
@@ -2889,6 +2889,7 @@ final class ComponentGenerator
     parameters.add( NAME_VAR_NAME );
     parameters.add( "." + observable.getName() );
     parameters.add( AREZ_CLASSNAME );
+    parameters.add( KERNEL_FIELD_NAME );
 
     final boolean abstractObservables = observable.isAbstract();
     if ( abstractObservables )
@@ -2907,7 +2908,7 @@ final class ComponentGenerator
       parameters.add( observable.getComponent().getClassName() );
       parameters.add( observable.getGetter().getSimpleName() );
     }
-    sb.append( " : null" );
+    sb.append( " ) : null" );
 
     if ( observable.hasSetter() )
     {

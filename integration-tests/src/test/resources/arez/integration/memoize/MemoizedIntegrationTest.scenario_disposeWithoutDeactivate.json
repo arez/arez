@@ -218,7 +218,7 @@
     {
         "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.4.name",
         "type": "ObservableValueChange",
-        "value": "Bill"
+        "value": null
     },
     {
         "result": null,
@@ -244,7 +244,7 @@
     {
         "name": "arez_integration_memoize_MemoizedIntegrationTest_PersonModel.4.age",
         "type": "ObservableValueChange",
-        "value": 15
+        "value": null
     },
     {
         "result": null,

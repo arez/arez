@@ -570,7 +570,7 @@
     {
         "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.name",
         "type": "ObservableValueChange",
-        "value": "MyType2"
+        "value": null
     },
     {
         "result": null,
@@ -596,7 +596,7 @@
     {
         "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.packageName",
         "type": "ObservableValueChange",
-        "value": "com.example"
+        "value": null
     },
     {
         "result": null,
