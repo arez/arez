@@ -2062,7 +2062,7 @@
         "class": "arez.component.internal.ComponentKernel",
         "method": "getName",
         "file": "ComponentKernel.java",
-        "lineNumber": 604
+        "lineNumber": 614
       }
     ]
   },
@@ -2088,7 +2088,7 @@
         "class": "arez.component.internal.ComponentKernel",
         "method": "addOnDisposeListener",
         "file": "ComponentKernel.java",
-        "lineNumber": 669
+        "lineNumber": 679
       }
     ]
   },
@@ -2101,7 +2101,7 @@
         "class": "arez.component.internal.ComponentKernel",
         "method": "removeOnDisposeListener",
         "file": "ComponentKernel.java",
-        "lineNumber": 694
+        "lineNumber": 704
       }
     ]
   },
@@ -2127,7 +2127,7 @@
         "class": "arez.component.internal.ComponentKernel",
         "method": "addOnDisposeListener",
         "file": "ComponentKernel.java",
-        "lineNumber": 667
+        "lineNumber": 677
       }
     ]
   },
@@ -2673,7 +2673,7 @@
         "class": "arez.component.internal.ComponentKernel",
         "method": "getId",
         "file": "ComponentKernel.java",
-        "lineNumber": 622
+        "lineNumber": 632
       }
     ]
   },
@@ -2712,7 +2712,7 @@
         "class": "arez.component.internal.ComponentKernel",
         "method": "getComponent",
         "file": "ComponentKernel.java",
-        "lineNumber": 641
+        "lineNumber": 651
       }
     ]
   },
@@ -2725,7 +2725,7 @@
         "class": "arez.component.internal.ComponentKernel",
         "method": "makeComponentReady",
         "file": "ComponentKernel.java",
-        "lineNumber": 533
+        "lineNumber": 543
       }
     ]
   },
@@ -2738,7 +2738,7 @@
         "class": "arez.component.internal.ComponentKernel",
         "method": "componentConstructed",
         "file": "ComponentKernel.java",
-        "lineNumber": 476
+        "lineNumber": 486
       }
     ]
   },
@@ -2751,7 +2751,7 @@
         "class": "arez.component.internal.ComponentKernel",
         "method": "componentComplete",
         "file": "ComponentKernel.java",
-        "lineNumber": 495
+        "lineNumber": 505
       }
     ]
   },
