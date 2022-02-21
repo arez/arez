@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the `org.realityforge.akasha` artifacts to version `0.30`.
 * Add further guards in the introspector in `ObservableValue` to avoid accessing values while not ready.
 
 ### [v0.203](https://github.com/arez/arez/tree/v0.203) (2022-01-27) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.202...v0.203)
