@@ -17,8 +17,8 @@ import arez.component.internal.MemoizeCache;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
-import javax.annotation.Generated;
 import javax.annotation.Nonnull;
+import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")

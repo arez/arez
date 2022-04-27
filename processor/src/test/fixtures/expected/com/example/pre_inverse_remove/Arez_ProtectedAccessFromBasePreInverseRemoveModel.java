@@ -17,8 +17,8 @@ import com.example.pre_inverse_remove.other.BaseProtectedAccessPreInverseRemoveM
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import javax.annotation.Generated;
 import javax.annotation.Nonnull;
+import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")

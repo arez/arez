@@ -12,9 +12,9 @@ import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
 import com.example.inverse.Arez_PackageAccessWithDifferentPackageInverseModel;
 import com.example.inverse.PackageAccessWithDifferentPackageInverseModel;
-import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
