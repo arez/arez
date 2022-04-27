@@ -55,7 +55,7 @@ import static javax.tools.Diagnostic.Kind.*;
  * Annotation processor that analyzes Arez annotated source and generates models from the annotations.
  */
 @SupportedAnnotationTypes( Constants.COMPONENT_CLASSNAME )
-@SupportedSourceVersion( SourceVersion.RELEASE_8 )
+@SupportedSourceVersion( SourceVersion.RELEASE_17 )
 @SupportedOptions( { "arez.defer.unresolved", "arez.defer.errors", "arez.debug" } )
 public final class ArezProcessor
   extends AbstractStandardProcessor

@@ -7,6 +7,7 @@
 * Upgrade the `org.realityforge.grim` artifacts to version `0.09`.
 * Upgrade the `org.realityforge.proton` artifacts to version `0.57`.
 * Eliminate the dependency on `com.google.testing.compile:compile-testing` to avoid migration complexity when moving to a modern java version.
+* Upgrade the minimum JVM version to `17`.
 
 ### [v0.203](https://github.com/arez/arez/tree/v0.203) (2022-01-27) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.202...v0.203)
 
