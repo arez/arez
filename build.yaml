@@ -78,3 +78,5 @@ artifacts:
   jdepend: guru.nidi:jdepend:jar:2.9.5
 
   revapi_diff: org.realityforge.revapi.diff:revapi-diff:jar:all:0.08
+
+  jaxws_api: javax.xml.ws:jaxws-api:jar:2.3.0

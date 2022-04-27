@@ -135,6 +135,8 @@ define 'arez' do
               DAGGER_PROCESSOR_DEPS,
               :sting_core,
               :sting_processor,
+              # jaxws_api is used in test
+              :jaxws_api,
               project('core').package(:jar),
               project('core').compile.dependencies
 
