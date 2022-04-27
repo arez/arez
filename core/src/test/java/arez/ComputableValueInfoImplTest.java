@@ -300,7 +300,7 @@ public final class ComputableValueInfoImplTest
     final ComputableValueInfo info1b = new ComputableValueInfoImpl( computableValue1 );
     final ComputableValueInfo info2 = computableValue2.asInfo();
 
-    //noinspection EqualsBetweenInconvertibleTypes
+    //noinspection AssertBetweenInconvertibleTypes
     assertNotEquals( info1a, "" );
 
     assertEquals( info1a, info1a );
