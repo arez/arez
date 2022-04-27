@@ -909,7 +909,7 @@ public final class ArezProcessor
     }
     for ( final ExecutableElement constructor : ElementsUtil.getConstructors( element ) )
     {
-      if ( ElementsUtil.isNotSynthetic( constructor ) &&
+      if ( Elements.Origin.EXPLICIT == processingEnv.getElementUtils().getOrigin( constructor ) &&
            constructor.getModifiers().contains( Modifier.PUBLIC ) &&
            ElementsUtil.isWarningNotSuppressed( constructor, Constants.WARNING_PUBLIC_CONSTRUCTOR ) )
       {
