@@ -23,6 +23,6 @@ public final class MessageCollector
     final String fixtureDir = System.getProperty( "arez.diagnostic_messages_file" );
     assertNotNull( fixtureDir,
                    "Expected System.getProperty( \"arez.diagnostic_messages_file\" ) to return location of diagnostic messages file" );
-    return new GuardMessageCollector( "Arez", new File( fixtureDir ), saveIfChanged );
+    return new GuardMessageCollector( "Arez", new File( fixtureDir ), saveIfChanged, true, false );
   }
 }
