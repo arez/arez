@@ -3190,7 +3190,7 @@ public final class ArezContextTest
 
     final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
 
-    final Task task = context.task( name, callCount::incrementAndGet, 0 );
+    final Task task = context.task( name, callCount::incrementAndGet, Task.Flags.PRIORITY_NORMAL );
 
     assertEquals( task.getName(), name );
     assertEquals( callCount.get(), 1 );
@@ -3232,7 +3232,7 @@ public final class ArezContextTest
       callCount.incrementAndGet();
       throw new RuntimeException( errorMessage );
     };
-    final Task task = context.task( name, work, 0 );
+    final Task task = context.task( name, work, Task.Flags.PRIORITY_NORMAL );
 
     assertEquals( task.getName(), name );
     assertEquals( callCount.get(), 1 );
