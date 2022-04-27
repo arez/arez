@@ -9,7 +9,6 @@ import arez.spy.Spy;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -172,8 +171,7 @@ public final class ComputableValueInfoImplTest
     context.getTransaction().safeGetObservables().add( observableValue3 );
     context.getTransaction().safeGetObservables().add( observableValue2 );
 
-    final List<String> dependencies = info.getDependencies().stream().
-      map( ElementInfo::getName ).collect( Collectors.toList() );
+    final List<String> dependencies = info.getDependencies().stream().map( ElementInfo::getName ).toList();
     assertEquals( dependencies.size(), 2 );
     assertTrue( dependencies.contains( observableValue2.getName() ) );
     assertTrue( dependencies.contains( observableValue3.getName() ) );
