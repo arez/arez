@@ -2,7 +2,6 @@ require 'buildr/git_auto_version'
 require 'buildr/gpg'
 require 'buildr/single_intermediate_layout'
 require 'buildr/gwt'
-require 'buildr/jacoco'
 require 'buildr/top_level_generate_dir'
 require 'buildr/shade'
 
@@ -241,8 +240,6 @@ define 'arez' do
                       :gwt_symbolmap,
                       :jetbrains_annotations,
                       :testng
-
-    project.jacoco.enabled = false
   end
 
   define 'extras' do
@@ -268,8 +265,6 @@ define 'arez' do
       package(:jar)
       package(:sources)
       package(:javadoc)
-
-      project.jacoco.enabled = false
     end
 
     define 'promise-example' do
@@ -385,8 +380,6 @@ define 'arez' do
 
       test.using :testng
       test.compile.with [:guiceyloops]
-
-      project.jacoco.enabled = false
     end
     project.no_iml
   end
@@ -403,8 +396,6 @@ define 'arez' do
                  GWT_DEPS
 
     compile.options[:processor] = true
-
-    project.jacoco.enabled = false
   end
 
   doc.from(projects(%w(core processor extras:promise extras:testng extras:dom))).

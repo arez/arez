@@ -42,22 +42,6 @@ Finally you add the public part of the deploy key to the repository at
 [https://github.com/arez/arez.github.io/settings/keys](https://github.com/arez/arez.github.io/settings/keys) and
 make sure you give the key write access.
 
-### Publishing Coverage Reports to codecov
-
-The project publishes the code coverage reports to codecov. This is to make it easier to review pull requests
-and to get a quick overview on how we are doing test-coverage wise. It is not a goal of the project to get 100%
-test coverage as that does not necessarily mean the tests are any good. Some parts of the codebase we do try and
-keep reasonably high coverage as they are complex pieces of code. The coverage just helps asses the code and
-may suggest parts that need more testing.
-
-To get codecov reports, the project was signed up to codecov and then we enabled the buildr `jacoco` addon. Then
-all that remains is to add the following snippet in out TravisCI configuration.
-
-```yaml
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
-```
-
 ### Encrypting Files for TravisCI
 
 TravisCI can only decrypt a single file in a build. So we package secret files into an archive and
