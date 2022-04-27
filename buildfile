@@ -125,13 +125,8 @@ define 'arez' do
                  :proton_core,
                  :javapoet
 
-    test.with :compile_testing,
-              Buildr::Util.tools_jar,
-              :proton_qa,
-              :truth,
+    test.with :proton_qa,
               :error_prone_annotations,
-              :junit,
-              :hamcrest_core,
               DAGGER_PROCESSOR_DEPS,
               :sting_core,
               :sting_processor,

@@ -78,6 +78,8 @@ public final class ArezProcessor
   private static final Pattern POST_INVERSE_ADD_PATTERN = Pattern.compile( "^post([A-Z].*)Add" );
   @Nonnull
   private final DeferredElementSet _deferredTypes = new DeferredElementSet();
+  @Nonnull
+  private final StopWatch _analyzeComponentStopWatch = new StopWatch( "Analyze Component" );
 
   @Override
   @Nonnull
@@ -94,11 +96,23 @@ public final class ArezProcessor
   }
 
   @Override
+  protected void collectStopWatches( @Nonnull final Collection<StopWatch> stopWatches )
+  {
+    stopWatches.add( _analyzeComponentStopWatch );
+  }
+
+  @Override
   public boolean process( @Nonnull final Set<? extends TypeElement> annotations, @Nonnull final RoundEnvironment env )
   {
     debugAnnotationProcessingRootElements( env );
     collectRootTypeNames( env );
-    processTypeElements( annotations, env, Constants.COMPONENT_CLASSNAME, _deferredTypes, this::process );
+    processTypeElements( annotations,
+                         env,
+                         Constants.COMPONENT_CLASSNAME,
+                         _deferredTypes,
+                         _analyzeComponentStopWatch.getName(),
+                         this::process,
+                         _analyzeComponentStopWatch );
     errorIfProcessingOverAndInvalidTypesDetected( env );
     clearRootTypeNamesIfProcessingOver( env );
     return true;
