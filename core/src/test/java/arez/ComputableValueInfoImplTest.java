@@ -289,7 +289,6 @@ public final class ComputableValueInfoImplTest
                             "Arez-0116: Spy.getValue invoked when Arez.arePropertyIntrospectorsEnabled() returns false." );
   }
 
-  @SuppressWarnings( "EqualsWithItself" )
   @Test
   public void equalsAndHashCode()
   {
