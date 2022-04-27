@@ -24,7 +24,6 @@ import arez.spy.TaskStartEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import java.io.IOException;
-import java.security.AccessControlException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -1054,7 +1053,7 @@ public final class ArezContextTest
     assertInvariantFailure( context::getTransaction,
                             "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
-    final AccessControlException secException = new AccessControlException( "" );
+    final IllegalStateException secException = new IllegalStateException( "" );
 
     final String name = ValueUtil.randomString();
 
@@ -1064,7 +1063,7 @@ public final class ArezContextTest
 
     final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
-    assertThrows( AccessControlException.class, () ->
+    assertThrows( IllegalStateException.class, () ->
       context.safeAction( name, () -> {
         throw secException;
       }, ActionFlags.READ_ONLY, new Object[]{ param1, param2, param3 } ) );
@@ -1262,7 +1261,7 @@ public final class ArezContextTest
     assertInvariantFailure( context::getTransaction,
                             "Arez-0117: Attempting to get current transaction but no transaction is active." );
 
-    final AccessControlException secException = new AccessControlException( "" );
+    final IllegalStateException secException = new IllegalStateException( "" );
 
     final String name = ValueUtil.randomString();
 
@@ -1275,7 +1274,7 @@ public final class ArezContextTest
     final SafeProcedure procedure = () -> {
       throw secException;
     };
-    assertThrows( AccessControlException.class,
+    assertThrows( IllegalStateException.class,
                   () -> context.safeAction( name, procedure, 0, new Object[]{ param1, param2, param3 } ) );
 
     assertFalse( context.isTransactionActive() );
