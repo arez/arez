@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import sting.Named;
 
-@ArezComponent( sting = Feature.DISABLE, dagger = Feature.DISABLE, allowEmpty = true )
+@ArezComponent( sting = Feature.DISABLE, allowEmpty = true )
 public abstract class NamedArgButNoStingModel
 {
   NamedArgButNoStingModel( @Named( "port" ) int port )

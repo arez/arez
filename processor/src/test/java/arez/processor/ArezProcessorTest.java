@@ -414,28 +414,7 @@ public final class ArezProcessorTest
   public void processSuccessfulCompile( @Nonnull final String classname )
     throws Exception
   {
-    assertSuccessfulCompile( classname, false );
-  }
-
-  @DataProvider( name = "successfulDaggerCompiles" )
-  public Object[][] successfulDaggerCompiles()
-  {
-    return new Object[][]
-      {
-        new Object[]{ "com.example.dagger.BasicDaggerModel" },
-        new Object[]{ "com.example.dagger.Jsr330NamedArgDaggerModel" },
-        new Object[]{ "com.example.dagger.Jsr330NamedDaggerModel" },
-        new Object[]{ "com.example.dagger.Jsr330ScopedDaggerModel" },
-        new Object[]{ "com.example.dagger.MultipleArgsDaggerModel" },
-        new Object[]{ "com.example.inject.DualNamedArgInjectModel" }
-      };
-  }
-
-  @Test( dataProvider = "successfulDaggerCompiles" )
-  public void processSuccessfulDaggerCompile( @Nonnull final String classname )
-    throws Exception
-  {
-    assertSuccessfulCompile( classname, true );
+    assertSuccessfulCompile( classname );
   }
 
   @Test
@@ -444,7 +423,7 @@ public final class ArezProcessorTest
   {
     // Use deprecated types but arez should suppress the warnings and generate code that has no warnings...
     final String classname = "com.example.deprecated.DeprecatedUsageModel";
-    final String[] expectedOutputResources = deriveExpectedOutputs( classname, false );
+    final String[] expectedOutputResources = deriveExpectedOutputs( classname );
     final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
     final JavaFileObject input2 = fixture( "input/" + toFilename( "com.example.deprecated.MyDeprecatedEntity" ) );
     assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
@@ -456,7 +435,7 @@ public final class ArezProcessorTest
   {
     // Use deprecated types but arez should suppress the warnings and generate code that has no warnings...
     final String classname = "com.example.deprecated.DeprecatedTypeParameterModel";
-    final String[] expectedOutputResources = deriveExpectedOutputs( classname, false );
+    final String[] expectedOutputResources = deriveExpectedOutputs( classname );
     final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
     final JavaFileObject input2 = fixture( "input/" + toFilename( "com.example.deprecated.MyDeprecatedEntity" ) );
     assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
@@ -468,7 +447,7 @@ public final class ArezProcessorTest
   {
     // Use deprecated types but arez should suppress the warnings and generate code that has no warnings...
     final String classname = "com.example.raw_types.RawTypesUsageModel";
-    final String[] expectedOutputResources = deriveExpectedOutputs( classname, false );
+    final String[] expectedOutputResources = deriveExpectedOutputs( classname );
     final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
     assertSuccessfulCompile( Collections.singletonList( input1 ), Arrays.asList( expectedOutputResources ) );
   }
@@ -1507,31 +1486,6 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.id.DisableIdAndInverseModel",
                       "@ArezComponent target has specified the idRequired = DISABLE annotation parameter but also has annotated a method with @Inverse that requires idRequired = ENABLE." },
 
-        new Object[]{ "com.example.dagger.MultipleConstructorsModel",
-                      "@ArezComponent target must not enable dagger integration and have multiple constructors" },
-        new Object[]{ "com.example.dagger.DaggerEnableNonPublicModel",
-                      "@ArezComponent target must be public if dagger integration is enabled due to constraints within the dagger framework" },
-        new Object[]{ "com.example.dagger.InjectArrayTypeDaggerModel",
-                      "@ArezComponent target must not enable dagger integration and contain a constructor with a parameter that contains an array type" },
-        new Object[]{ "com.example.dagger.InjectParameterizedTypeDaggerModel",
-                      "@ArezComponent target must not enable dagger integration and contain a constructor with a parameter that contains a parameterized type" },
-        new Object[]{ "com.example.dagger.InjectRawTypeDaggerModel",
-                      "@ArezComponent target must not enable dagger integration and contain a constructor with a parameter that contains a raw type" },
-        new Object[]{ "com.example.dagger.InjectWildcardTypeDaggerModel",
-                      "@ArezComponent target must not enable dagger integration and contain a constructor with a parameter that contains a wildcard type" },
-        new Object[]{ "com.example.dagger.Jsr330InjectFieldDaggerModel",
-                      "@ArezComponent target must not contain fields annotated by the javax.inject.Inject annotation. Use constructor injection instead" },
-        new Object[]{ "com.example.dagger.Jsr330InjectMethodDaggerModel",
-                      "@ArezComponent target must not contain methods annotated by the javax.inject.Inject annotation. Use constructor injection instead" },
-        new Object[]{ "com.example.dagger.Jsr330NamedConstructorParameterNonDaggerModel",
-                      "@ArezComponent target must not disable dagger integration and contain a constructor with a parameter that is annotated with the javax.inject.Named annotation" },
-        new Object[]{ "com.example.dagger.Jsr330ScopedNonDaggerModel",
-                      "@ArezComponent target must not disable dagger integration and be annotated with scope annotations: [javax.inject.Singleton]" },
-        new Object[]{ "com.example.dagger.MultipleJsr330ScopesModel",
-                      "@ArezComponent target has specified multiple scope annotations: [javax.inject.Singleton, com.example.dagger.MultipleJsr330ScopesModel.MyScope]" },
-        new Object[]{ "com.example.dagger.ParameterizedTypeDaggerModel",
-                      "@ArezComponent target must not enable dagger integration and be a parameterized type" },
-
         new Object[]{ "com.example.sting.MultipleConstructorsModel",
                       "@ArezComponent target must not enable sting integration and have multiple constructors" },
         new Object[]{ "com.example.sting.InjectArrayTypeStingModel",
@@ -2041,8 +1995,6 @@ public final class ArezProcessorTest
                       "@ArezComponent target has specified a value for the defaultWriteOutsideTransaction parameter but does not contain any methods annotated with @Observable. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:UnnecessaryDefault\" ) or @SuppressArezWarnings( \"Arez:UnnecessaryDefault\" )" },
         new Object[]{ "com.example.component.ProtectedCtorModel",
                       "@ArezComponent target should have a package access constructor. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedConstructor\" ) or @SuppressArezWarnings( \"Arez:ProtectedConstructor\" )" },
-        new Object[]{ "com.example.component.ProtectedDaggerCtorModel",
-                      "@ArezComponent target should have a package access constructor. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedConstructor\" ) or @SuppressArezWarnings( \"Arez:ProtectedConstructor\" )" },
         new Object[]{ "com.example.component.ExtendsComponentModel",
                       "@ArezComponent target should not extend a class annotated with the arez.annotations.ArezComponent annotation. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ExtendsComponent\" ) or @SuppressArezWarnings( \"Arez:ExtendsComponent\" )" },
 
@@ -2075,9 +2027,6 @@ public final class ArezProcessorTest
                       "@ArezComponent target should not declare a protected method. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedMethod\" )" },
         new Object[]{ "com.example.context_ref.PublicAccessContextRefModel",
                       "@ContextRef target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings( \"Arez:PublicRefMethod\" )" },
-
-        new Object[]{ "com.example.dagger.PublicCtorDaggerModel",
-                      "@ArezComponent target should not have a public constructor. The type is instantiated by the dagger injection framework and should have a package-access constructor. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicConstructor\" ) or @SuppressArezWarnings( \"Arez:PublicConstructor\" )" },
 
         new Object[]{ "com.example.observable_value_ref.ProtectedAccessObservableValueRefModel",
                       "@ArezComponent target should not declare a protected method. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedMethod\" ) or @SuppressArezWarnings( \"Arez:ProtectedMethod\" )" },
@@ -2144,13 +2093,11 @@ public final class ArezProcessorTest
   {
     return new Object[][]
       {
-        new Object[]{ "com.example.component.UnmanagedComponentReferenceDaggerInjected" },
         new Object[]{ "com.example.component.UnmanagedComponentReferenceStingInjected" },
         new Object[]{ "com.example.component.UnmanagedComponentReferenceSuppressed" },
         new Object[]{ "com.example.component.UnmanagedComponentReferenceSuppressedAtClass" },
         new Object[]{ "com.example.component.UnmanagedComponentReferenceToNonDisposeNotifier" },
         new Object[]{ "com.example.component.UnmanagedComponentReferenceToNonVerify" },
-        new Object[]{ "com.example.component.UnmanagedComponentReferenceToSingleton" },
         new Object[]{ "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressed" },
         new Object[]{ "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressedOnClass" },
         new Object[]{ "com.example.component.UnmanagedObservableComponentReferenceViaInheritanceSuppressed" },
@@ -2350,21 +2297,17 @@ public final class ArezProcessorTest
                                                    Collections.emptyList() );
   }
 
-  void assertSuccessfulCompile( @Nonnull final String classname, final boolean dagger )
+  private void assertSuccessfulCompile( @Nonnull final String classname )
     throws Exception
   {
-    assertSuccessfulCompile( classname, deriveExpectedOutputs( classname, dagger ) );
+    assertSuccessfulCompile( classname, deriveExpectedOutputs( classname ) );
   }
 
   @Nonnull
-  String[] deriveExpectedOutputs( @Nonnull final String classname, final boolean dagger )
+  private String[] deriveExpectedOutputs( @Nonnull final String classname )
   {
     final List<String> expectedOutputs = new ArrayList<>();
     expectedOutputs.add( toFilename( classname, "Arez_", ".java" ) );
-    if ( dagger )
-    {
-      expectedOutputs.add( toFilename( classname, "", "DaggerModule.java" ) );
-    }
     return expectedOutputs.toArray( new String[ 0 ] );
   }
 

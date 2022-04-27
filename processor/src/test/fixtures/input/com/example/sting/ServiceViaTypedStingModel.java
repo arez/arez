@@ -6,7 +6,7 @@ import sting.Eager;
 import sting.Typed;
 
 @Typed( ServiceViaTypedStingModel.class )
-@ArezComponent( dagger = Feature.DISABLE, allowEmpty = true )
+@ArezComponent( allowEmpty = true )
 public abstract class ServiceViaTypedStingModel
 {
 }

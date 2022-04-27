@@ -3,7 +3,7 @@ package com.example.component;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 
-@ArezComponent( allowEmpty = true, sting = Feature.DISABLE, dagger = Feature.DISABLE )
+@ArezComponent( allowEmpty = true, sting = Feature.DISABLE )
 abstract class UnmanagedComponentReferencePassedInConstructor
 {
   final MyComponent _myComponent;

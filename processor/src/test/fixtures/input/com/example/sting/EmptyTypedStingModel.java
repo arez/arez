@@ -7,7 +7,7 @@ import sting.Typed;
 
 @Typed( {} )
 @Eager
-@ArezComponent( sting = Feature.ENABLE, dagger = Feature.DISABLE, allowEmpty = true )
+@ArezComponent( sting = Feature.ENABLE, allowEmpty = true )
 public abstract class EmptyTypedStingModel
 {
 }

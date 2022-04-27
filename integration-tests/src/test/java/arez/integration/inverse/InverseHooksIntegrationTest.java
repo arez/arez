@@ -143,7 +143,7 @@ public final class InverseHooksIntegrationTest
     abstract Collection<Wheel> getWheels();
   }
 
-  @ArezComponent( service = Feature.ENABLE, dagger = Feature.DISABLE, sting = Feature.DISABLE )
+  @ArezComponent( service = Feature.ENABLE, sting = Feature.DISABLE )
   static abstract class CarRepository
     extends AbstractRepository<Integer, Car, CarRepository>
   {

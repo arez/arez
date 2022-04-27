@@ -16,7 +16,6 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.processing.ProcessingEnvironment;
@@ -124,12 +123,7 @@ public final class ArezProcessor
     throws IOException, ProcessorException
   {
     final ComponentDescriptor descriptor = parse( element );
-    final String packageName = descriptor.getPackageName();
-    emitTypeSpec( packageName, ComponentGenerator.buildType( processingEnv, descriptor ) );
-    if ( descriptor.isDaggerEnabled() )
-    {
-      emitTypeSpec( packageName, DaggerModuleGenerator.buildType( processingEnv, descriptor ) );
-    }
+    emitTypeSpec( descriptor.getPackageName(), ComponentGenerator.buildType( processingEnv, descriptor ) );
   }
 
   @Nonnull
@@ -930,9 +924,8 @@ public final class ArezProcessor
            ElementsUtil.isWarningNotSuppressed( constructor, Constants.WARNING_PUBLIC_CONSTRUCTOR ) )
       {
         final String instruction =
-          component.isDaggerEnabled() || component.isStingEnabled() ?
-          "The type is instantiated by the " + ( component.isDaggerEnabled() ? "dagger" : "sting" ) +
-          " injection framework and should have a package-access constructor. " :
+          component.isStingEnabled() ?
+          "The type is instantiated by the sting injection framework and should have a package-access constructor. " :
           "It is recommended that a static create method be added to the component that is responsible " +
           "for instantiating the arez implementation class. ";
 
@@ -943,12 +936,6 @@ public final class ArezProcessor
                                                              Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) );
         processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message, constructor );
       }
-    }
-    if ( component.isDaggerEnabled() && !element.getModifiers().contains( Modifier.PUBLIC ) )
-    {
-      throw new ProcessorException( MemberChecks.must( Constants.COMPONENT_CLASSNAME,
-                                                       "be public if dagger integration is enabled due to constraints within the dagger framework" ),
-                                    element );
     }
     if ( null != component.getDeclaredDefaultReadOutsideTransaction() &&
          component.getObservables().isEmpty() &&
@@ -1323,6 +1310,12 @@ public final class ArezProcessor
       }
     }
     return null;
+  }
+
+  @Override
+  public SourceVersion getSupportedSourceVersion()
+  {
+    return SourceVersion.RELEASE_17;
   }
 
   private boolean isSupportedInverseCollectionType( @Nonnull final String typeClassname )
@@ -1978,13 +1971,9 @@ public final class ArezProcessor
     final boolean service = isService( typeElement );
     final boolean disposeNotifierFlag = isDisposableTrackableRequired( typeElement );
     final boolean allowEmpty = getAnnotationParameter( arezComponent, "allowEmpty" );
-    final List<AnnotationMirror> scopeAnnotations =
-      typeElement.getAnnotationMirrors().stream().filter( this::isScopeAnnotation ).collect( Collectors.toList() );
-    final AnnotationMirror scopeAnnotation = scopeAnnotations.isEmpty() ? null : scopeAnnotations.get( 0 );
     final List<VariableElement> fields = ElementsUtil.getFields( typeElement );
     ensureNoFieldInjections( fields );
     ensureNoMethodInjections( typeElement );
-    final boolean dagger = isDaggerIntegrationEnabled( arezComponent, service );
     final boolean sting = isStingIntegrationEnabled( arezComponent, service );
 
     final AnnotationValue defaultReadOutsideTransaction =
@@ -2016,33 +2005,8 @@ public final class ArezProcessor
                                     "name must not be a java keyword.", typeElement );
     }
 
-    verifyConstructors( typeElement, dagger, sting );
+    verifyConstructors( typeElement, sting );
 
-    if ( scopeAnnotations.size() > 1 )
-    {
-      final List<String> scopes = scopeAnnotations.stream()
-        .map( a -> processingEnv.getTypeUtils().asElement( a.getAnnotationType() ).asType().toString() )
-        .collect( Collectors.toList() );
-      throw new ProcessorException( "@ArezComponent target has specified multiple scope annotations: " + scopes,
-                                    typeElement );
-    }
-
-    if ( !dagger && !scopeAnnotations.isEmpty() )
-    {
-      throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
-                                                          "disable dagger integration and be annotated with scope annotations: " +
-                                                          scopeAnnotations.stream()
-                                                            .map( a -> a.getAnnotationType().toString() )
-                                                            .collect( Collectors.toList() ) ),
-                                    typeElement );
-    }
-
-    if ( dagger && !( (DeclaredType) typeElement.asType() ).getTypeArguments().isEmpty() )
-    {
-      throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
-                                                          "enable dagger integration and be a parameterized type" ),
-                                    typeElement );
-    }
     if ( sting && !( (DeclaredType) typeElement.asType() ).getTypeArguments().isEmpty() )
     {
       throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
@@ -2137,11 +2101,9 @@ public final class ArezProcessor
                                observableFlag,
                                disposeNotifierFlag,
                                disposeOnDeactivate,
-                               dagger,
                                sting,
                                requireEquals,
                                requireVerify,
-                               scopeAnnotation,
                                generateToString,
                                typeElement,
                                defaultReadOutsideTransactionValue,
@@ -2205,28 +2167,12 @@ public final class ArezProcessor
              null != findTypeElement( Constants.STING_INJECTOR ) );
   }
 
-  private boolean isDaggerIntegrationEnabled( @Nonnull final AnnotationMirror arezComponent, final boolean service )
-  {
-    final VariableElement parameter = getAnnotationParameter( arezComponent, "dagger" );
-    final String value = parameter.getSimpleName().toString();
-    return "ENABLE".equals( value ) ||
-           ( "AUTODETECT".equals( value ) &&
-             service &&
-             null != findTypeElement( Constants.DAGGER_MODULE_CLASSNAME ) );
-  }
-
-  private void verifyConstructors( @Nonnull final TypeElement typeElement, final boolean dagger, final boolean sting )
+  private void verifyConstructors( @Nonnull final TypeElement typeElement, final boolean sting )
   {
     final List<ExecutableElement> constructors = ElementsUtil.getConstructors( typeElement );
     if ( constructors.size() > 1 )
     {
-      if ( dagger )
-      {
-        throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
-                                                            "enable dagger integration and have multiple constructors" ),
-                                      typeElement );
-      }
-      else if ( sting )
+      if ( sting )
       {
         throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
                                                             "enable sting integration and have multiple constructors" ),
@@ -2245,50 +2191,16 @@ public final class ArezProcessor
                                suppressedBy( Constants.WARNING_PROTECTED_CONSTRUCTOR ) );
         processingEnv.getMessager().printMessage( WARNING, message, constructor );
       }
-      verifyConstructorParameters( constructor, dagger, sting );
+      verifyConstructorParameters( constructor, sting );
     }
   }
 
-  private void verifyConstructorParameters( @Nonnull final ExecutableElement constructor,
-                                            final boolean dagger,
-                                            final boolean sting )
+  private void verifyConstructorParameters( @Nonnull final ExecutableElement constructor, final boolean sting )
   {
     for ( final VariableElement parameter : constructor.getParameters() )
     {
       final TypeMirror type = parameter.asType();
-      if ( dagger && TypesUtil.containsArrayType( type ) )
-      {
-        throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
-                                                            "enable dagger integration and contain a constructor with a parameter that contains an array type" ),
-                                      parameter );
-      }
-      else if ( dagger && TypesUtil.containsWildcard( type ) )
-      {
-        throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
-                                                            "enable dagger integration and contain a constructor with a parameter that contains a wildcard type parameter" ),
-                                      parameter );
-      }
-      else if ( dagger && TypesUtil.containsRawType( type ) )
-      {
-        throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
-                                                            "enable dagger integration and contain a constructor with a parameter that contains a raw type" ),
-                                      parameter );
-      }
-      else if ( !dagger && AnnotationsUtil.hasAnnotationOfType( parameter, Constants.JSR_330_NAMED_CLASSNAME ) )
-      {
-        throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
-                                                            "disable dagger integration and contain a constructor with a parameter that is annotated with the " +
-                                                            Constants.JSR_330_NAMED_CLASSNAME +
-                                                            " annotation" ),
-                                      parameter );
-      }
-      else if ( dagger && TypeKind.DECLARED == type.getKind() && !( (DeclaredType) type ).getTypeArguments().isEmpty() )
-      {
-        throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
-                                                            "enable dagger integration and contain a constructor with a parameter that contains a parameterized type" ),
-                                      parameter );
-      }
-      else if ( sting && TypesUtil.containsArrayType( type ) )
+      if ( sting && TypesUtil.containsArrayType( type ) )
       {
         throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
                                                             "enable sting integration and contain a constructor with a parameter that contains an array type" ),
@@ -3092,7 +3004,7 @@ public final class ArezProcessor
     final TypeElement disposeNotifier = getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
 
     final Set<String> injectedTypes = new HashSet<>();
-    if ( descriptor.isDaggerEnabled() || descriptor.isStingEnabled() )
+    if ( descriptor.isStingEnabled() )
     {
       for ( final ExecutableElement constructor : ElementsUtil.getConstructors( descriptor.getElement() ) )
       {
@@ -3247,12 +3159,6 @@ public final class ArezProcessor
            AnnotationsUtil.hasAnnotationOfType( element, annotation );
   }
 
-  private boolean isScopeAnnotation( @Nonnull final AnnotationMirror a )
-  {
-    final Element element = processingEnv.getTypeUtils().asElement( a.getAnnotationType() );
-    return AnnotationsUtil.hasAnnotationOfType( element, Constants.SCOPE_CLASSNAME );
-  }
-
   private boolean isService( @Nonnull final TypeElement typeElement )
   {
     switch ( AnnotationsUtil.getEnumAnnotationParameter( typeElement, Constants.COMPONENT_CLASSNAME, "service" ) )
@@ -3265,9 +3171,7 @@ public final class ArezProcessor
         return AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_CONTRIBUTE_TO ) ||
                AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_TYPED ) ||
                AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_NAMED ) ||
-               AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_EAGER ) ||
-               AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.JSR_330_NAMED_CLASSNAME ) ||
-               typeElement.getAnnotationMirrors().stream().anyMatch( this::isScopeAnnotation );
+               AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_EAGER );
     }
   }
 

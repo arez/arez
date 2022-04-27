@@ -5,7 +5,6 @@ title: Generated Classes
 Arez generates one or more classes for every Arez component. The classes generated are:
 
 * [The Generated Component Subclass](#the-generated-component-subclass)
-* [The Dagger Module Class](#the-dagger-module-class)
 
 ## The Generated Component Subclass
 
@@ -39,20 +38,3 @@ The generated component subclass also implements the following interfaces; {@lin
   observing a particular property of the component. This is typically used in conjunction with the
   {@link: arez.annotations.ArezComponent#disposeOnDeactivate() @ArezComponent.disposeOnDeactivate} parameter to ensure a component is kept
   alive while it is in use.
-
-## The Dagger Module Class
-
-The Dagger module class is used to enable integration with the [Dagger2](https://dagger.dev/)
-dependency injection framework. The name of the dagger module class is the same name as the Arez component
-suffixed with `DaggerModule`. i.e. If the name of the Arez component class is `com.example.MyComponent` then
-the dagger module class would be named `com.example.MyComponentDaggerModule`. If the
-[`@ArezComponent`](at_arez_component.md) annotated class is not a top-level type, the dagger module class name
-will be include its enclosing types names, joined with an underscore similar to the way the
-[generated component subclass](#the-generated-component-subclass) is named. i.e. The
-inner class `com.example.MyContainer.MyComponent` would generate a dagger module class named
-`com.example.MyContainer_MyComponentDaggerModule`. The dagger module class is public as public access is
-required to integrate with a Dagger2 component in a different package.
-
-It should be noted that the dagger annotation processor will also generate several other java classes during the
-compilation process. These are not documented here. Consult the Dagger2 documentation for further details on the
-outputs from the dagger annotation processor.

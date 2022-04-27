@@ -111,16 +111,6 @@ public @interface ArezComponent
   boolean disposeOnDeactivate() default false;
 
   /**
-   * Enum controlling whether dagger integration is enabled. If enabled, the annotation processor will
-   * generate a dagger module named "[MyComponent]DaggerModule". If the value of this parameter is
-   * {@link Feature#AUTODETECT} then dagger integration will be enabled if the {@link #service()} resolves
-   * to {@link Feature#ENABLE} and the {@code dagger.Module} class is present on the classpath.
-   *
-   * @return an enum controlling whether a dagger integration is enabled.
-   */
-  Feature dagger() default Feature.AUTODETECT;
-
-  /**
    * Enum controlling whether sting integration is enabled. If enabled, the annotation processor will
    * add sting annotations to the generated component implementation. If the value of this parameter is
    * {@link Feature#AUTODETECT} then sting integration will be enabled if the {@link #service()} resolves

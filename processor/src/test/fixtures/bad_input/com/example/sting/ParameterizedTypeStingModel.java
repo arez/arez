@@ -3,7 +3,7 @@ package com.example.sting;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 
-@ArezComponent( sting = Feature.ENABLE, allowEmpty = true, dagger = Feature.DISABLE )
+@ArezComponent( sting = Feature.ENABLE, allowEmpty = true )
 public abstract class ParameterizedTypeStingModel<T>
 {
 }

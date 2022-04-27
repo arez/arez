@@ -2,17 +2,9 @@
 title: Dependency Injection
 ---
 
-Arez components provide several mechanisms for integrating into dependency injection frameworks. The dependency
-injection frameworks that have seen the most usage are:
-
-* [Sting](https://sting-ioc.github.io/)
-* [Dagger2](https://dagger.dev/)
-* [Gin](https://code.google.com/archive/p/google-gin/)
-
-[Sting](https://sting-ioc.github.io/) is the recommended toolkit as it is the easiest to integrate with, and it
-produces faster, smaller code. It also has several enhancements aimed at improving the developer-experience. See
-the [dagger comparison](https://sting-ioc.github.io/docs/dagger.html) for some reasons why it is considered a better
-fit in the context of web applications.
+Arez components provide additional support when integrating into the [Sting](https://sting-ioc.github.io/)
+dependency injection framework. Although historically Arez has been used with both [Dagger2](https://dagger.dev/)
+and [Gin](https://code.google.com/archive/p/google-gin/).
 
 Arez components require dependencies to be passed in as constructor parameters. (Historically Arez supported
 field and method injection but this frequently produced inefficient code and confused component authors as different
@@ -31,8 +23,10 @@ of objects. The following sections describe the two frameworks that have builtin
 [Sting](https://sting-ioc.github.io/) is a fast, easy to use, compile-time dependency injection toolkit. The toolkit
 accepts a set of annotated java classes and generates source code to instantiate and wire together the components.
 Sting was heavily inspired by [Dagger2](https://dagger.dev/) but with a better developer-experience and
-more efficient code generation. Sting models the application as a set of components that are contained within an
-injector. An injector is responsible for constructing and linking components together.
+more efficient code generation. See the [dagger comparison](https://sting-ioc.github.io/docs/dagger.html) for some
+reasons why it is considered a better fit in the context of web applications. Sting models the application as a
+set of components that are contained within an injector. An injector is responsible for constructing and linking
+components together.
 
 The {@link: arez.annotations.ArezComponent @ArezComponent} annotation has a
 {@link: arez.annotations.ArezComponent#sting() sting} parameter that controls whether the Arez annotation processor
@@ -50,27 +44,3 @@ the `includes` parameter of the injector. (Although the next release of Sting wi
 The injector can then be used in code like:
 
 {@file_content: file=arez/doc/examples/sting/StingExample.java "start_line=  {" "end_line=  }" include_start_line=false include_end_line=false}
-
-
-## Dagger2
-
-[Dagger2](https://dagger.dev/) is a another take on a dependency injection framework that uses annotation
-processors and statically checks the object graph at compilation time. The root objects in the graph are accessed via
-a component which is an interface annotated by the `@dagger.Component` annotation. The injection rules are customized
-via `@dagger.Module` annotated classes.
-
-The {@link: arez.annotations.ArezComponent @ArezComponent} annotation has a
-{@link: arez.annotations.ArezComponent#dagger() dagger} parameter that controls whether the Arez annotation processor
-generates a Dagger module. If the value of the {@link: arez.annotations.ArezComponent#dagger() dagger} parameter is
-{@link: arez.annotations.Feature#ENABLE ENABLE} or {@link: arez.annotations.Feature#AUTODETECT AUTODETECT} and the
-`dagger.Component` class is on the classpath then a module will be generated that looks like:
-
-{@file_content: path=generated/processors/main/java file=arez/doc/examples/dagger/MyServiceDaggerModule.java "start_line=@Generated" include_start_line=false }
-
-These can be incorporated into a dagger component like:
-
-{@file_content: file=arez/doc/examples/dagger/ExampleDaggerComponent.java "start_line=@Singleton"}
-
-The dagger component can then be used in code like:
-
-{@file_content: file=arez/doc/examples/dagger/DaggerExample.java "start_line=  {" "end_line=  }" include_start_line=false include_end_line=false strip_block=true}

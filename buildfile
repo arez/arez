@@ -10,23 +10,6 @@ Buildr::MavenCentral.define_publish_tasks(:profile_name => 'org.realityforge', :
 
 TEST_DEPS = [:guiceyloops]
 GWT_DEPS = [:akasha, :jsinterop_base]
-DAGGER_RUNTIME_DEPS = [:javax_inject, :dagger_core]
-DAGGER_PROCESSOR_DEPS =
-  [
-    :javax_inject,
-    :dagger_core,
-    :dagger_producers,
-    :dagger_spi,
-    :dagger_compiler,
-    :guava_failureaccess,
-    :kotlinx_metadata_jvm,
-    :kotlin_stdlib,
-    :kotlin_stdlib_common,
-    :googlejavaformat,
-    :errorprone,
-    :javapoet,
-    :guava
-  ]
 
 # JDK options passed to test environment. Essentially turns assertions on.
 AREZ_TEST_OPTIONS =
@@ -113,8 +96,6 @@ define 'arez' do
     end unless ENV['TEST'] == 'no' || ENV['PRODUCT_VERSION'].nil? || ENV['PREVIOUS_PRODUCT_VERSION'].nil?
 
     test.exclude '*ApiDiffTest' if ENV['PRODUCT_VERSION'].nil? || ENV['PREVIOUS_PRODUCT_VERSION'].nil?
-
-    project.jacoco.enabled = false
   end
 
   desc 'Arez Annotation processor'
@@ -126,8 +107,6 @@ define 'arez' do
                  :javapoet
 
     test.with :proton_qa,
-              :error_prone_annotations,
-              DAGGER_PROCESSOR_DEPS,
               :sting_core,
               :sting_processor,
               # jaxws_api is used in test
@@ -166,7 +145,7 @@ define 'arez' do
 
     test.using :testng
     test.compile.with TEST_DEPS,
-                      DAGGER_RUNTIME_DEPS,
+                      :javax_inject,
                       :sting_core,
                       GWT_DEPS,
                       :javax_json,
@@ -176,8 +155,7 @@ define 'arez' do
                       project('core').compile.dependencies,
                       project('processor').package(:jar),
                       project('processor').compile.dependencies,
-                      :sting_processor,
-                      DAGGER_PROCESSOR_DEPS
+                      :sting_processor
     test.compile.options[:processor] = true
 
     # The generators are configured to generate to here.
@@ -420,9 +398,7 @@ define 'arez' do
                  project('processor').package(:jar),
                  project('processor').compile.dependencies,
                  :sting_processor,
-                 DAGGER_PROCESSOR_DEPS,
                  :gwt_user,
-                 DAGGER_RUNTIME_DEPS,
                  :sting_core,
                  GWT_DEPS
 

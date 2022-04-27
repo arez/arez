@@ -41,14 +41,11 @@ final class Constants
   static final String EJB_POST_CONSTRUCT_CLASSNAME = "javax.annotation.PostConstruct";
   static final String JAX_WS_ACTION_CLASSNAME = "javax.xml.ws.Action";
   static final String INJECT_CLASSNAME = "javax.inject.Inject";
-  static final String SCOPE_CLASSNAME = "javax.inject.Scope";
   static final String STING_INJECTOR = "sting.Injector";
   static final String STING_CONTRIBUTE_TO = "sting.ContributeTo";
   static final String STING_NAMED = "sting.Named";
   static final String STING_EAGER = "sting.Eager";
   static final String STING_TYPED = "sting.Typed";
-  static final String JSR_330_NAMED_CLASSNAME = "javax.inject.Named";
-  static final String DAGGER_MODULE_CLASSNAME = "dagger.Module";
   static final String SENTINEL = "<default>";
   static final String WARNING_PUBLIC_LIFECYCLE_METHOD = "Arez:PublicLifecycleMethod";
   static final String WARNING_PUBLIC_HOOK_METHOD = "Arez:PublicHookMethod";

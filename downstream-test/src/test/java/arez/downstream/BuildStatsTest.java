@@ -25,27 +25,10 @@ public final class BuildStatsTest
   }
 
   @Test
-  public void dagger()
-    throws Exception
-  {
-    compareSizesForBranch( "dagger", true );
-  }
-
-  @Test
   public void spritz()
     throws Exception
   {
     compareSizesForBranch( "spritz", true );
-  }
-
-  @Test
-  public void dagger_j2cl()
-    throws Exception
-  {
-    if ( WorkspaceUtil.buildJ2clBuilds() )
-    {
-      compareSizesForBranch( "sting_maven_j2cl", true );
-    }
   }
 
   @Test

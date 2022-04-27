@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
@@ -34,14 +33,12 @@ final class ComponentDescriptor
   private final boolean _observable;
   private final boolean _disposeNotifier;
   private final boolean _disposeOnDeactivate;
-  private final boolean _dagger;
   private final boolean _sting;
   private final boolean _requireEquals;
   /**
    * Flag indicating whether generated component should implement arez.component.Verifiable.
    */
   private final boolean _verify;
-  private final AnnotationMirror _scopeAnnotation;
   private final boolean _generateToString;
   private boolean _idRequired;
   @Nonnull
@@ -98,11 +95,9 @@ final class ComponentDescriptor
                        final boolean observable,
                        final boolean disposeNotifier,
                        final boolean disposeOnDeactivate,
-                       final boolean dagger,
                        final boolean sting,
                        final boolean requireEquals,
                        final boolean verify,
-                       @Nullable final AnnotationMirror scopeAnnotation,
                        final boolean generateToString,
                        @Nonnull final TypeElement element,
                        @Nullable final String defaultReadOutsideTransaction,
@@ -113,11 +108,9 @@ final class ComponentDescriptor
     _observable = observable;
     _disposeNotifier = disposeNotifier;
     _disposeOnDeactivate = disposeOnDeactivate;
-    _dagger = dagger;
     _sting = sting;
     _requireEquals = requireEquals;
     _verify = verify;
-    _scopeAnnotation = scopeAnnotation;
     _generateToString = generateToString;
     _element = Objects.requireNonNull( element );
     _defaultReadOutsideTransaction = defaultReadOutsideTransaction;
@@ -393,11 +386,6 @@ final class ComponentDescriptor
       .collect( Collectors.toList() );
   }
 
-  boolean isDaggerEnabled()
-  {
-    return _dagger;
-  }
-
   boolean isStingEnabled()
   {
     return _sting;
@@ -412,12 +400,6 @@ final class ComponentDescriptor
   ClassName getEnhancedClassName()
   {
     return GeneratorUtil.getGeneratedClassName( getElement(), "Arez_", "" );
-  }
-
-  @Nonnull
-  String getComponentDaggerModuleName()
-  {
-    return GeneratorUtil.getGeneratedSimpleClassName( getElement(), "", "DaggerModule" );
   }
 
   @Nonnull
@@ -539,14 +521,6 @@ final class ComponentDescriptor
   boolean isRequireEquals()
   {
     return _requireEquals;
-  }
-
-  /**
-   * Scope annotation that is declared on component and should be transferred to injection providers.
-   */
-  AnnotationMirror getScopeAnnotation()
-  {
-    return _scopeAnnotation;
   }
 
   boolean isGenerateToString()

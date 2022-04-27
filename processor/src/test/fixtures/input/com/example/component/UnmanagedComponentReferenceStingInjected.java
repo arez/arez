@@ -3,7 +3,7 @@ package com.example.component;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 
-@ArezComponent( allowEmpty = true, sting = Feature.ENABLE, dagger = Feature.DISABLE )
+@ArezComponent( allowEmpty = true, sting = Feature.ENABLE )
 abstract class UnmanagedComponentReferenceStingInjected
 {
   final MyComponent _myComponent;

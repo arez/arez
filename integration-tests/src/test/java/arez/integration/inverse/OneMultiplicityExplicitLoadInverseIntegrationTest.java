@@ -139,7 +139,7 @@ public final class OneMultiplicityExplicitLoadInverseIntegrationTest
     abstract Certificate getCertificate();
   }
 
-  @ArezComponent( service = Feature.ENABLE, dagger = Feature.DISABLE, sting = Feature.DISABLE )
+  @ArezComponent( service = Feature.ENABLE, sting = Feature.DISABLE )
   static abstract class PersonRepository
     extends AbstractRepository<Integer, Person, PersonRepository>
   {

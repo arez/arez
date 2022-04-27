@@ -90,7 +90,7 @@ public final class NonnullImmutableEagerReferenceIntegrationTest
     }
   }
 
-  @ArezComponent( service = Feature.ENABLE, dagger = Feature.DISABLE, sting = Feature.DISABLE )
+  @ArezComponent( service = Feature.ENABLE, sting = Feature.DISABLE )
   static abstract class Model2Repository
     extends AbstractRepository<Integer, Model2, Model2Repository>
   {

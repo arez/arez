@@ -5,7 +5,7 @@ import arez.annotations.Feature;
 import sting.Eager;
 
 @Eager
-@ArezComponent( dagger = Feature.DISABLE, allowEmpty = true )
+@ArezComponent( allowEmpty = true )
 public abstract class ServiceViaEagerStingModel
 {
 }

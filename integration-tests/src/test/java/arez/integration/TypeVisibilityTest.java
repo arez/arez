@@ -11,7 +11,7 @@ import static org.testng.Assert.*;
 public final class TypeVisibilityTest
   extends AbstractArezIntegrationTest
 {
-  @ArezComponent( dagger = Feature.ENABLE )
+  @ArezComponent
   public static abstract class PersonModel
   {
     PersonModel()
@@ -30,7 +30,7 @@ public final class TypeVisibilityTest
     }
   }
 
-  @ArezComponent( dagger = Feature.ENABLE )
+  @ArezComponent
   public static abstract class PersonModel2
   {
     @Observable
@@ -50,7 +50,5 @@ public final class TypeVisibilityTest
   {
     assertFalse( Modifier.isPublic( TypeVisibilityTest_Arez_PersonModel.class.getModifiers() ) );
     assertFalse( Modifier.isPublic( TypeVisibilityTest_Arez_PersonModel2.class.getModifiers() ) );
-    assertTrue( Modifier.isPublic( TypeVisibilityTest_PersonModelDaggerModule.class.getModifiers() ) );
-    assertTrue( Modifier.isPublic( TypeVisibilityTest_PersonModel2DaggerModule.class.getModifiers() ) );
   }
 }

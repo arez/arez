@@ -4,7 +4,7 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 
-@ArezComponent( sting = Feature.ENABLE, dagger = Feature.DISABLE )
+@ArezComponent( sting = Feature.ENABLE )
 public abstract class MultipleConstructorsModel
 {
   MultipleConstructorsModel()

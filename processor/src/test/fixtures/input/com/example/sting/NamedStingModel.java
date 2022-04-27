@@ -5,7 +5,7 @@ import arez.annotations.Feature;
 import sting.Named;
 
 @Named( "" )
-@ArezComponent( sting = Feature.ENABLE, dagger = Feature.DISABLE, allowEmpty = true  )
+@ArezComponent( sting = Feature.ENABLE, allowEmpty = true  )
 public abstract class NamedStingModel
 {
 }
