@@ -47,8 +47,8 @@ Buildr::ReleaseTool.define_release_task do |t|
     lines = IO.read(filename).split("\n")
     lines +=
       lines
-        .select{|line| line =~ pattern}
-        .collect{|line| line.gsub("#{current_version}.","#{next_version}.")}
+        .select { |line| line =~ pattern }
+        .collect { |line| line.gsub("#{current_version}.", "#{next_version}.") }
 
     IO.write(filename, lines.sort.uniq.join("\n") + "\n")
 
