@@ -5,9 +5,9 @@
     "build": "cd website && docusaurus-build"
   },
   "devDependencies": {
-    "broken-link-checker": "0.7.6",
-    "docusaurus": "1.0.3",
-    "markdown-toc": "1.2.0",
-    "remarkable-embed": "0.4.1"
+    "broken-link-checker": "^0.7.8",
+    "docusaurus": "= 1.0.3",
+    "markdown-toc": "= 1.2.0",
+    "remarkable-embed": "= 0.4.1"
   }
 }
