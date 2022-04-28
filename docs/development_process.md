@@ -7,7 +7,6 @@ title: Development Process
 
 - [Publishing](#publishing)
   * [Publishing the Website](#publishing-the-website)
-  * [Publishing Coverage Reports to codecov](#publishing-coverage-reports-to-codecov)
   * [Encrypting Files for TravisCI](#encrypting-files-for-travisci)
 
 <!-- tocstop -->
