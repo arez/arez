@@ -1,6 +1,10 @@
 # Change Log
 
-### Unreleased
+### [v0.204](https://github.com/arez/arez/tree/v0.204) (2022-04-28) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.203...v0.204) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.203&new=0.204)
+
+The release includes 1 non breaking API change and 1 breaking API change.
+
+Changes in this release:
 
 * Update the `org.realityforge.akasha` artifacts to version `0.30`.
 * Add further guards in the introspector in `ObservableValue` to avoid accessing values while not ready.
