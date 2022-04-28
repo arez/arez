@@ -17,7 +17,7 @@ import static org.realityforge.braincheck.Guards.*;
  * as the value that it resolves to or the error it was rejected with as observable
  * properties.
  *
- * <h1>A very simple example</h1>
+ * <p>A very simple example</p>
  * <pre>{@code
  * import akasha.Console;
  * import akasha.Response;

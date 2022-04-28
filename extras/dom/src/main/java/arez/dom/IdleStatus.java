@@ -36,7 +36,7 @@ import javax.annotation.Nonnull;
  * there is no observer observing the idle state then the model will remove listeners
  * so as not to have any significant performance impact.</p>
  *
- * <h1>A very simple example</h1>
+ * <p>A very simple example</p>
  * <pre>{@code
  * import com.google.gwt.core.client.EntryPoint;
  * import akasha.Console;

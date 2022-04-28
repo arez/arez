@@ -6,7 +6,7 @@ import javax.annotation.Nonnull;
 /**
  * Factory for getting observable models that sizing of windows.
  *
- * <h1>A very simple example</h1>
+ * <p>A very simple example</p>
  * <pre>{@code
  * import arez.Arez;
  * import arez.dom.EventDrivenValue;

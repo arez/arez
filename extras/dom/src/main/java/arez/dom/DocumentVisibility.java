@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 /**
  * Exposes {@code document.visibilityState} as an observable property for specified documents.
  *
- * <h1>A very simple example</h1>
+ * <p>A very simple example</p>
  * <pre>{@code
  * import arez.Arez;
  * import arez.dom.DocumentVisibility;

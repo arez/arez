@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
 /**
  * An observable model that indicates whether a window matches a CSS media query.
  *
- * <h1>A very simple example</h1>
+ * <p>A very simple example</p>
  * <pre>{@code
  * import arez.Arez;
  * import arez.mediaquery.MediaQuery;

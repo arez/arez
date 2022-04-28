@@ -41,7 +41,7 @@ public final class Component
   private final Object _id;
   /**
    * A human consumable name for node. It should be non-null if {@link Arez#areNamesEnabled()} returns
-   * true and <tt>null</tt> otherwise.
+   * true and <code>null</code> otherwise.
    */
   @Nullable
   @OmitSymbol( unless = "arez.enable_names" )

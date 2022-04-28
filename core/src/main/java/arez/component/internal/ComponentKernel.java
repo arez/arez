@@ -75,7 +75,7 @@ public final class ComponentKernel
   private final ArezContext _context;
   /**
    * A human consumable name for component. It should be non-null if {@link Arez#areNamesEnabled()} returns
-   * <code>true</code> and <tt>null</tt> otherwise.
+   * <code>true</code> and <code>null</code> otherwise.
    */
   @Nullable
   @OmitSymbol( unless = "arez.enable_names" )
@@ -102,7 +102,7 @@ public final class ComponentKernel
   private byte _state;
   /**
    * The native component associated with the component. This should be non-null if {@link Arez#areNativeComponentsEnabled()}
-   * returns <code>true</code> and <tt>null</tt> otherwise.
+   * returns <code>true</code> and <code>null</code> otherwise.
    */
   @OmitSymbol( unless = "arez.enable_native_components" )
   @Nullable

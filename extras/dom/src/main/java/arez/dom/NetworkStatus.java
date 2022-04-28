@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
  * observer for the state, the model will not listen to to the browser events so as
  * not to have any significant performance impact.
  *
- * <h1>A very simple example</h1>
+ * <p>A very simple example</p>
  * <pre>{@code
  * import com.google.gwt.core.client.EntryPoint;
  * import akasha.Global;

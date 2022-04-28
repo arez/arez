@@ -17,11 +17,11 @@ import javax.annotation.Nonnull;
  * <ul>
  * <li>The value returned by {@link #name()} indicates the type name for instances
  * of this object. If not specified it will default to the SimpleName of the class.
- * i.e. The class <tt>com.biz.models.MyModel</tt> will default to a name of
+ * i.e. The class <code>com.biz.models.MyModel</code> will default to a name of
  * "MyModel".</li>
  * </ul>
  * <p>The name of any elements contained within the component follows the pattern
- * "<tt>[ArezComponent.name].[ArezComponent.id].[Element.name]</tt>".</p>
+ * "<code>[ArezComponent.name].[ArezComponent.id].[Element.name]</code>".</p>
  *
  * <p>The type that is annotated with this annotation must comply with the additional constraints:</p>
  * <ul>
