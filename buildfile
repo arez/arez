@@ -36,6 +36,7 @@ define 'arez' do
   compile.options.lint = 'all,-processing,-serial'
   project.compile.options.warnings = true
   project.compile.options.other = %w(-Werror -Xmaxerrs 10000 -Xmaxwarns 10000)
+  project.doc.options.merge!('Xdoclint:all,-missing' => true)
 
   project.version = ENV['PRODUCT_VERSION'] if ENV['PRODUCT_VERSION']
 
@@ -48,6 +49,7 @@ define 'arez' do
     deps = artifacts(:javax_annotation, :jsinterop_annotations, :jetbrains_annotations, :braincheck_core, :grim_annotations)
     pom.include_transitive_dependencies << deps
     pom.dependency_filter = Proc.new { |dep| dep[:scope].to_s != 'test' && deps.include?(dep[:artifact]) }
+    project.doc.options.merge!('Xdoclint:all,-missing' => true)
 
     compile.with deps
 
@@ -100,6 +102,7 @@ define 'arez' do
   desc 'Arez Annotation processor'
   define 'processor' do
     pom.dependency_filter = Proc.new { |_| false }
+    project.doc.options.merge!('Xdoclint:all,-missing' => true)
 
     compile.with :javax_annotation,
                  :proton_core,
@@ -247,6 +250,7 @@ define 'arez' do
       deps = artifacts(:javax_annotation, :jsinterop_annotations, :jsinterop_base, :jetbrains_annotations, :braincheck_core, :grim_annotations, :akasha) + [project('core').package(:jar)]
       pom.include_transitive_dependencies << deps
       pom.dependency_filter = Proc.new { |dep| deps.include?(dep[:artifact]) }
+      project.doc.options.merge!('Xdoclint:all,-missing' => true)
 
       compile.with deps,
                    project('processor').package(:jar),
@@ -290,6 +294,7 @@ define 'arez' do
       deps = artifacts(:javax_annotation, :testng, :grim_annotations, :braincheck_core) + [project('core').package(:jar)]
       pom.include_transitive_dependencies << deps
       pom.dependency_filter = Proc.new { |dep| deps.include?(dep[:artifact]) }
+      project.doc.options.merge!('Xdoclint:all,-missing' => true)
 
       compile.with deps
 
@@ -310,6 +315,7 @@ define 'arez' do
                        :akasha) + [project('core').package(:jar)]
       pom.include_transitive_dependencies << deps
       pom.dependency_filter = Proc.new { |dep| deps.include?(dep[:artifact]) }
+      project.doc.options.merge!('Xdoclint:all,-missing' => true)
 
       compile.with deps
 
@@ -356,6 +362,7 @@ define 'arez' do
       deps = artifacts(:javax_annotation, :jsinterop_annotations, :jsinterop_base, :jetbrains_annotations, :braincheck_core, :grim_annotations, :akasha) + [project('core').package(:jar)]
       pom.include_transitive_dependencies << deps
       pom.dependency_filter = Proc.new { |dep| deps.include?(dep[:artifact]) }
+      project.doc.options.merge!('Xdoclint:all,-missing' => true)
 
       compile.with deps,
                    project('processor').package(:jar),
