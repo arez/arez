@@ -1,0 +1,34 @@
+[
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method boolean arez.component.internal.ComponentKernel::isNotReady()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.ComponentKernel",
+      "classSimpleName": "ComponentKernel",
+      "elementKind": "method",
+      "methodName": "isNotReady",
+      "package": "arez.component.internal"
+    }
+  },
+  {
+    "code": "java.method.attributeRemovedFromAnnotationType",
+    "description": "The annotation no longer has an attribute.",
+    "oldElement": "method arez.annotations.Feature arez.annotations.ArezComponent::dagger()",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.ArezComponent",
+      "classSimpleName": "ArezComponent",
+      "elementKind": "method",
+      "methodName": "dagger",
+      "package": "arez.annotations"
+    }
+  }
+]
