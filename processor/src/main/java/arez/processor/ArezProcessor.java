@@ -1292,9 +1292,8 @@ public final class ArezProcessor
   private TypeElement getInverseManyTypeTarget( @Nonnull final ExecutableElement method )
   {
     final TypeName typeName = TypeName.get( method.getReturnType() );
-    if ( typeName instanceof ParameterizedTypeName )
+    if ( typeName instanceof final ParameterizedTypeName type )
     {
-      final ParameterizedTypeName type = (ParameterizedTypeName) typeName;
       if ( isSupportedInverseCollectionType( type.rawType.toString() ) && !type.typeArguments.isEmpty() )
       {
         final TypeElement typeElement = getTypeElement( type.typeArguments.get( 0 ).toString() );
