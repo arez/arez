@@ -38,8 +38,8 @@ artifacts:
 
   akasha: org.realityforge.akasha:akasha-gwt:jar:0.30
 
-  sting_core: org.realityforge.sting:sting-core:jar:0.25
-  sting_processor: org.realityforge.sting:sting-processor:jar:0.25
+  sting_core: org.realityforge.sting:sting-core:jar:0.27
+  sting_processor: org.realityforge.sting:sting-processor:jar:0.27
 
   javax_json: org.glassfish:javax.json:jar:1.1
 

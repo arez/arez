@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the `org.realityforge.sting` artifacts to version `0.27`.
 * Update the `org.realityforge.proton` artifacts to version `0.58`.
 
 ### [v0.204](https://github.com/arez/arez/tree/v0.204) (2022-04-28) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.203...v0.204) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.203&new=0.204)
