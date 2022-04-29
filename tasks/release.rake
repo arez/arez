@@ -9,7 +9,7 @@ Buildr::ReleaseTool.define_release_task do |t|
   t.cleanup_staging
   t.build(:additional_tasks => "do_test_api_diff J2CL=#{ENV['J2CL']} STAGE_RELEASE=true")
   t.stage('ArchiveDownstream', 'Archive downstream projects that may need changes pushed') do
-    unless ENV['BUILD_STATS'] == 'no'
+    unless ENV['DOWNSTREAM'] == 'no'
       FileUtils.rm_rf 'archive'
       FileUtils.mkdir_p 'archive'
       mv 'target/arez_downstream-test/deploy_test/workdir', 'archive/downstream'
@@ -61,7 +61,7 @@ Buildr::ReleaseTool.define_release_task do |t|
   t.push_changes
   t.github_release('arez/arez')
   t.stage('PushDownstreamChanges', 'Push downstream changes') do
-    unless ENV['BUILD_STATS'] == 'no'
+    unless ENV['DOWNSTREAM'] == 'no'
       # Push the changes that have been made locally in downstream projects.
       # Artifacts have been pushed to staging repository by this time so they should build
       # even if it has not made it through the Maven release process
