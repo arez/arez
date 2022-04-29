@@ -1312,12 +1312,6 @@ public final class ArezProcessor
     return null;
   }
 
-  @Override
-  public SourceVersion getSupportedSourceVersion()
-  {
-    return SourceVersion.RELEASE_17;
-  }
-
   private boolean isSupportedInverseCollectionType( @Nonnull final String typeClassname )
   {
     return Collection.class.getName().equals( typeClassname ) ||
