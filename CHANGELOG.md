@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.205](https://github.com/arez/arez/tree/v0.205) (2022-04-29) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.204...v0.205)
+
+Changes in this release:
 
 * Update the `org.realityforge.sting` artifacts to version `0.27`.
 * Update the `org.realityforge.proton` artifacts to version `0.58`.
