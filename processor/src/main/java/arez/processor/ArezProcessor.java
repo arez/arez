@@ -1435,15 +1435,12 @@ public final class ArezProcessor
     final AnnotationValue v =
       null == annotation ? null : AnnotationsUtil.findAnnotationValueNoDefaults( annotation, "initializer" );
     final String value = null == v ? "AUTODETECT" : ( (VariableElement) v.getValue() ).getSimpleName().toString();
-    switch ( value )
-    {
-      case "ENABLE":
-        return Boolean.TRUE;
-      case "DISABLE":
-        return Boolean.FALSE;
-      default:
-        return null;
-    }
+    return switch ( value )
+      {
+        case "ENABLE" -> Boolean.TRUE;
+        case "DISABLE" -> Boolean.FALSE;
+        default -> null;
+      };
   }
 
   private boolean autodetectInitializer( @Nonnull final ExecutableElement element )
@@ -1592,16 +1589,13 @@ public final class ArezProcessor
   private boolean hasInverse( @Nonnull final AnnotationMirror annotation )
   {
     final VariableElement variableElement = AnnotationsUtil.getAnnotationValueValue( annotation, "inverse" );
-    switch ( variableElement.getSimpleName().toString() )
-    {
-      case "ENABLE":
-        return true;
-      case "DISABLE":
-        return false;
-      default:
-        return null != AnnotationsUtil.findAnnotationValueNoDefaults( annotation, "inverseName" ) ||
-               null != AnnotationsUtil.findAnnotationValueNoDefaults( annotation, "inverseMultiplicity" );
-    }
+    return switch ( variableElement.getSimpleName().toString() )
+      {
+        case "ENABLE" -> true;
+        case "DISABLE" -> false;
+        default -> null != AnnotationsUtil.findAnnotationValueNoDefaults( annotation, "inverseName" ) ||
+                   null != AnnotationsUtil.findAnnotationValueNoDefaults( annotation, "inverseMultiplicity" );
+      };
   }
 
   private void verifyMultiplicityOfAssociatedReferenceMethod( @Nonnull final ComponentDescriptor component,
@@ -1701,15 +1695,12 @@ public final class ArezProcessor
   {
     final VariableElement variableElement =
       AnnotationsUtil.getAnnotationValueValue( annotation, "inverseMultiplicity" );
-    switch ( variableElement.getSimpleName().toString() )
-    {
-      case "MANY":
-        return Multiplicity.MANY;
-      case "ONE":
-        return Multiplicity.ONE;
-      default:
-        return Multiplicity.ZERO_OR_ONE;
-    }
+    return switch ( variableElement.getSimpleName().toString() )
+      {
+        case "MANY" -> Multiplicity.MANY;
+        case "ONE" -> Multiplicity.ONE;
+        default -> Multiplicity.ZERO_OR_ONE;
+      };
   }
 
   @Nonnull
@@ -1918,14 +1909,7 @@ public final class ArezProcessor
       AnnotationsUtil.getEnumAnnotationParameter( method,
                                                   Constants.COMPONENT_DEPENDENCY_CLASSNAME,
                                                   "action" );
-    switch ( value )
-    {
-      case "CASCADE":
-        return true;
-      case "SET_NULL":
-      default:
-        return false;
-    }
+    return "CASCADE".equals( value );
   }
 
   @SuppressWarnings( "BooleanMethodIsAlwaysInverted" )
@@ -3116,15 +3100,12 @@ public final class ArezProcessor
       AnnotationsUtil.getEnumAnnotationParameter( element,
                                                   Constants.COMPONENT_CLASSNAME,
                                                   "verifyReferencesToComponent" );
-    switch ( verifyReferencesToComponent )
-    {
-      case "ENABLE":
-        return true;
-      case "DISABLE":
-        return false;
-      default:
-        return isDisposableTrackableRequired( element );
-    }
+    return switch ( verifyReferencesToComponent )
+      {
+        case "ENABLE" -> true;
+        case "DISABLE" -> false;
+        default -> isDisposableTrackableRequired( element );
+      };
   }
 
   private boolean isUnmanagedComponentReferenceNotSuppressed( @Nonnull final Element element )
@@ -3155,49 +3136,43 @@ public final class ArezProcessor
 
   private boolean isService( @Nonnull final TypeElement typeElement )
   {
-    switch ( AnnotationsUtil.getEnumAnnotationParameter( typeElement, Constants.COMPONENT_CLASSNAME, "service" ) )
-    {
-      case "ENABLE":
-        return true;
-      case "DISABLE":
-        return false;
-      default:
-        return AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_CONTRIBUTE_TO ) ||
-               AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_TYPED ) ||
-               AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_NAMED ) ||
-               AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_EAGER );
-    }
+    final String service =
+      AnnotationsUtil.getEnumAnnotationParameter( typeElement, Constants.COMPONENT_CLASSNAME, "service" );
+    return switch ( service )
+      {
+        case "ENABLE" -> true;
+        case "DISABLE" -> false;
+        default -> AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_CONTRIBUTE_TO ) ||
+                   AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_TYPED ) ||
+                   AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_NAMED ) ||
+                   AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_EAGER );
+      };
   }
 
   private boolean isComponentObservableRequired( @Nonnull final AnnotationMirror arezComponent,
                                                  final boolean disposeOnDeactivate )
   {
     final VariableElement variableElement = getAnnotationParameter( arezComponent, "observable" );
-    switch ( variableElement.getSimpleName().toString() )
-    {
-      case "ENABLE":
-        return true;
-      case "DISABLE":
-        return false;
-      default:
-        return disposeOnDeactivate;
-    }
+    return switch ( variableElement.getSimpleName().toString() )
+      {
+        case "ENABLE" -> true;
+        case "DISABLE" -> false;
+        default -> disposeOnDeactivate;
+      };
   }
 
   private boolean isVerifyRequired( @Nonnull final AnnotationMirror arezComponent,
                                     @Nonnull final TypeElement typeElement )
   {
     final VariableElement parameter = getAnnotationParameter( arezComponent, "verify" );
-    switch ( parameter.getSimpleName().toString() )
-    {
-      case "ENABLE":
-        return true;
-      case "DISABLE":
-        return false;
-      default:
-        return ElementsUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() ).
-          stream().anyMatch( this::hasReferenceAnnotations );
-    }
+    return switch ( parameter.getSimpleName().toString() )
+      {
+        case "ENABLE" -> true;
+        case "DISABLE" -> false;
+        default ->
+          ElementsUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() ).
+            stream().anyMatch( this::hasReferenceAnnotations );
+      };
   }
 
   private boolean hasReferenceAnnotations( @Nonnull final Element method )
@@ -3247,16 +3222,15 @@ public final class ArezProcessor
 
   private boolean isDisposableTrackableRequired( @Nonnull final TypeElement element )
   {
-    switch ( AnnotationsUtil.getEnumAnnotationParameter( element, Constants.COMPONENT_CLASSNAME, "disposeNotifier" ) )
-    {
-      case "ENABLE":
-        return true;
-      case "DISABLE":
-        return false;
-      default:
-        return null == AnnotationsUtil.findAnnotationByType( element, Constants.COMPONENT_CLASSNAME ) ||
-               !isService( element );
-    }
+    final String disposeNotifier =
+      AnnotationsUtil.getEnumAnnotationParameter( element, Constants.COMPONENT_CLASSNAME, "disposeNotifier" );
+    return switch ( disposeNotifier )
+      {
+        case "ENABLE" -> true;
+        case "DISABLE" -> false;
+        default -> null == AnnotationsUtil.findAnnotationByType( element, Constants.COMPONENT_CLASSNAME ) ||
+                   !isService( element );
+      };
   }
 
   @Nonnull
