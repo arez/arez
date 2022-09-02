@@ -416,6 +416,9 @@ public final class Observer
                     () -> "Arez-0201: Observer.reportStale() invoked on observer named '" + getName() +
                           "' when the active transaction '" + getContext().getTransaction().getName() +
                           "' is READ_ONLY rather than READ_WRITE." );
+    }
+    if ( Arez.shouldEnforceTransactionType() && Arez.shouldCheckInvariants() )
+    {
       getContext().getTransaction().markTransactionAsUsed();
     }
     setState( Flags.STATE_STALE );
