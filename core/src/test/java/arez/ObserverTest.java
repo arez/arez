@@ -28,6 +28,29 @@ public final class ObserverTest
   extends AbstractTest
 {
   @Test
+  public void enableSpyAsPartOfObserver()
+  {
+    final ArezContext context = Arez.context();
+    final String name = ValueUtil.randomString();
+    final TestSpyEventHandler handler = new TestSpyEventHandler( context );
+    ;
+    final AtomicBoolean done = new AtomicBoolean();
+
+    final Procedure observed = () -> {
+      if ( !done.get() )
+      {
+        context.getSpy().addSpyEventHandler( handler );
+        done.set( true );
+      }
+    };
+    new Observer( context, null, name, observed, null, Observer.Flags.AREZ_OR_NO_DEPENDENCIES );
+
+    handler.assertEventCount( 2 );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ActionCompleteEvent.class );
+  }
+
+  @Test
   public void initialState()
   {
     final ArezContext context = Arez.context();

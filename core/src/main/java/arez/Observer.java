@@ -652,7 +652,9 @@ public final class Observer
         error = t;
         getContext().reportObserverError( this, ObserverError.REACTION_ERROR, t );
       }
-      if ( willPropagateSpyEvents() )
+      // start == 0 implies that spy events were enabled as part of observer, and thus we can skip this
+      // chain of events
+      if ( willPropagateSpyEvents() && 0 != start )
       {
         final long duration = System.currentTimeMillis() - start;
         if ( isComputableValue() )

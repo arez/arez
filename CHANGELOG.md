@@ -3,6 +3,7 @@
 ### Unreleased
 
 * Ensure `Observer.reportStale()` marks a transaction as used if `Arez.shouldCheckInvariants()` is true rather than only if `Arez.shouldCheckApiInvariants()` is true as the `ArezContext.verifyActionRequired(...)` requires transaction to be marked as used but only runs if `Arez.shouldCheckInvariants()` is true.
+* Ensure that invariants are not tripped if spys are enabled but no handlers are registered and then a handler registers a handler.
 
 ### [v0.205](https://github.com/arez/arez/tree/v0.205) (2022-04-29) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.204...v0.205)
 
