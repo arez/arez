@@ -55,7 +55,11 @@ import static javax.tools.Diagnostic.Kind.*;
  */
 @SupportedAnnotationTypes( Constants.COMPONENT_CLASSNAME )
 @SupportedSourceVersion( SourceVersion.RELEASE_17 )
-@SupportedOptions( { "arez.defer.unresolved", "arez.defer.errors", "arez.debug" } )
+@SupportedOptions( { "arez.defer.unresolved",
+                     "arez.defer.errors",
+                     "arez.debug",
+                     "arez.profile",
+                     "arez.verbose_out_of_round" } )
 public final class ArezProcessor
   extends AbstractStandardProcessor
 {

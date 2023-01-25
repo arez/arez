@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Add `arez.profile` and `arez.verbose_out_of_round` to the list of processor options declared as supported. This was not required in Java 8 but is required in Java 17 to have these options accessed by processor without errors.
+
 ### [v0.206](https://github.com/arez/arez/tree/v0.206) (2023-01-23) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.205...v0.206)
 
 Changes in this release:
