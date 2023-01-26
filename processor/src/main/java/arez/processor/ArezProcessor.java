@@ -59,7 +59,7 @@ import static javax.tools.Diagnostic.Kind.*;
                      "arez.defer.errors",
                      "arez.debug",
                      "arez.profile",
-                     "arez.verbose_out_of_round" } )
+                     "arez.verbose_out_of_round.errors" } )
 public final class ArezProcessor
   extends AbstractStandardProcessor
 {
