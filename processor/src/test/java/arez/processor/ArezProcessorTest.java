@@ -1232,6 +1232,18 @@ public final class ArezProcessorTest
                              Collections.singletonList( output1 ) );
   }
 
+  @Test
+  public void processSuccessfulWhereTraceInheritanceChainInInterfaces()
+    throws Exception
+  {
+    final JavaFileObject source1 = fixture( "input/com/example/inheritance/interface_inheritance/MyBaseInterface.java" );
+    final JavaFileObject source2 = fixture( "input/com/example/inheritance/interface_inheritance/MyInterface.java" );
+    final JavaFileObject source3 = fixture( "input/com/example/inheritance/interface_inheritance/MyModel.java" );
+    final String output1 = "com/example/inheritance/interface_inheritance/Arez_MyModel.java";
+    assertSuccessfulCompile( Arrays.asList( source1, source2, source3 ),
+                             Collections.singletonList( output1 ) );
+  }
+
   @DataProvider( name = "failedCompiles" )
   public Object[][] failedCompiles()
   {
