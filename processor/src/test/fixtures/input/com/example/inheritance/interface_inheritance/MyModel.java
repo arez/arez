@@ -9,7 +9,6 @@ abstract class MyModel
 {
   MyModel( String valueA )
   {
-
   }
 
   @Observable
