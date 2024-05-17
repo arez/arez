@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.209](https://github.com/arez/arez/tree/v0.209) (2024-05-17) · [Full Changelog](https://github.com/arez/arez/compare/v0.208...v0.209)
+
+Changes in this release:
 
 * Update the `org.realityforge.guiceyloops` artifact to version `0.113`.
 * Update the `com.google.gwt` artifacts to version `2.11.0`.
