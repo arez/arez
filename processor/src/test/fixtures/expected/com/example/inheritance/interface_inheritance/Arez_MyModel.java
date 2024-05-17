@@ -140,7 +140,7 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Int
   }
 
   @Override
-  String getValueC() {
+  public String getValueC() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getValueC' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }

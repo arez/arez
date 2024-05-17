@@ -17,7 +17,7 @@ abstract class MyModel
   abstract void setValueB( String valueB );
 
   @Observable
-  abstract String getValueC();
+  public abstract String getValueC();
 
   abstract void setValueC( String valueC );
 }
