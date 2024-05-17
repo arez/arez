@@ -174,7 +174,7 @@ public final class ArezProcessor
     {
       setter = false;
       //Must be a getter
-      if ( 0 != method.getParameters().size() )
+      if ( !method.getParameters().isEmpty() )
       {
         throw new ProcessorException( "@Observable target should be a setter or getter", method );
       }
