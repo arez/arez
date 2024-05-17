@@ -25,8 +25,8 @@ artifacts:
   proton_qa: org.realityforge.proton:proton-qa:jar:0.62
 
   # GWT deps
-  gwt_user: com.google.gwt:gwt-user:jar:2.10.0
-  gwt_dev: com.google.gwt:gwt-dev:jar:2.10.0
+  gwt_user: org.gwtproject:gwt-user:jar:2.11.0
+  gwt_dev: org.gwtproject:gwt-dev:jar:2.11.0
 
   jsinterop_annotations: com.google.jsinterop:jsinterop-annotations:jar:2.0.0
 
