@@ -379,11 +379,12 @@ final class ComponentDescriptor
   @Nonnull
   List<ObservableDescriptor> getInitializers()
   {
-    return getObservables()
-      .values()
-      .stream()
-      .filter( ObservableDescriptor::requireInitializer )
-      .collect( Collectors.toList() );
+    return
+      getObservables()
+        .values()
+        .stream()
+        .filter( ObservableDescriptor::requireInitializer )
+        .collect( Collectors.toList() );
   }
 
   boolean isStingEnabled()
