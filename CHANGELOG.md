@@ -5,7 +5,7 @@
 * Update the `org.realityforge.guiceyloops` artifact to version `0.113`.
 * Update the `com.google.gwt` artifacts to version `2.10.0`.
 * Update the `realityforge-buildr` dependency to version `1.5.24`.
-* Update the `org.realityforge.proton` artifacts to version `0.60`.
+* Update the `org.realityforge.proton` artifacts to version `0.62`.
 * Collect methods from interface hierarchy after methods collected from class hierarchy so that property definition order and method definition orders defined by classes are stable. Thus, interfaces that are used to extend components cannot alter the order of properties by defining getters. 
 
 ### [v0.208](https://github.com/arez/arez/tree/v0.208) (2023-01-26) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.207...v0.208)
