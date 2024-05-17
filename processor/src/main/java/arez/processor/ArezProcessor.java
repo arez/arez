@@ -2055,7 +2055,7 @@ public final class ArezProcessor
       ElementsUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() );
     final boolean generateToString = methods.stream().
       noneMatch( m -> m.getSimpleName().toString().equals( "toString" ) &&
-                      m.getParameters().size() == 0 &&
+                      m.getParameters().isEmpty() &&
                       !( m.getEnclosingElement().getSimpleName().toString().equals( "Object" ) &&
                          "java.lang".equals( processingEnv
                                                .getElementUtils()
