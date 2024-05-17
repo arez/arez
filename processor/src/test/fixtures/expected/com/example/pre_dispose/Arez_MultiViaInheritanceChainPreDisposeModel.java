@@ -46,16 +46,16 @@ final class Arez_MultiViaInheritanceChainPreDisposeModel extends MultiViaInherit
   }
 
   private void $$arezi$$_preDispose() {
-    super.preDispose2();
-    super.preDispose1();
     super.interface2PreDispose2();
     super.interface2PreDispose1();
-    super.middlePreDispose2();
-    super.middlePreDispose1();
     super.interface3PreDispose2();
     super.interface3PreDispose1();
     super.interface1PreDispose2();
     super.interface1PreDispose1();
+    super.preDispose2();
+    super.preDispose1();
+    super.middlePreDispose2();
+    super.middlePreDispose1();
     super.abstractPreDispose2();
     super.abstractPreDispose1();
   }

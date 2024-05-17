@@ -69,16 +69,16 @@ final class Arez_MultiViaInheritanceChainPostDisposeModel extends MultiViaInheri
   }
 
   private void $$arezi$$_postDispose() {
-    super.postDispose2();
-    super.postDispose1();
     super.interface2PostDispose2();
     super.interface2PostDispose1();
-    super.middlePostDispose2();
-    super.middlePostDispose1();
     super.interface3PostDispose2();
     super.interface3PostDispose1();
     super.interface1PostDispose2();
     super.interface1PostDispose1();
+    super.postDispose2();
+    super.postDispose1();
+    super.middlePostDispose2();
+    super.middlePostDispose1();
     super.abstractPostDispose2();
     super.abstractPostDispose1();
   }

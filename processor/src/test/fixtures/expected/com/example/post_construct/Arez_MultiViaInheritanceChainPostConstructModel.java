@@ -28,16 +28,16 @@ final class Arez_MultiViaInheritanceChainPostConstructModel extends MultiViaInhe
     this.$$arezi$$_kernel.componentConstructed();
     super.abstractPostConstruct1();
     super.abstractPostConstruct2();
+    super.middlePostConstruct1();
+    super.middlePostConstruct2();
+    super.postConstruct1();
+    super.postConstruct2();
     super.interface1PostConstruct1();
     super.interface1PostConstruct2();
     super.interface3PostConstruct1();
     super.interface3PostConstruct2();
-    super.middlePostConstruct1();
-    super.middlePostConstruct2();
     super.interface2PostConstruct1();
     super.interface2PostConstruct2();
-    super.postConstruct1();
-    super.postConstruct2();
     this.$$arezi$$_kernel.componentReady();
   }
 

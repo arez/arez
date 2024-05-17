@@ -2052,7 +2052,7 @@ public final class ArezProcessor
     }
 
     final List<ExecutableElement> methods =
-      ElementsUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() );
+      ElementsUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils(), true );
     final boolean generateToString = methods.stream().
       noneMatch( m -> m.getSimpleName().toString().equals( "toString" ) &&
                       m.getParameters().isEmpty() &&

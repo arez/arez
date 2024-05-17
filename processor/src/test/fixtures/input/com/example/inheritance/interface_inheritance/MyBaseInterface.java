@@ -11,7 +11,7 @@ public interface MyBaseInterface
     return true;
   }
 
-  //String getValueA();
-  //
-  //String getValueC();
+  // Adding this here will cause the potential property to be defined earlier ... but this should not re-order
+  // the way the set of observables as they appear in the entity
+  String getValueC();
 }
