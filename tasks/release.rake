@@ -77,7 +77,7 @@ Buildr::ReleaseTool.define_release_task do |t|
       DOWNSTREAM_PROJECTS.each do |downstream|
         # Need to extract the version from that project
         downstream_version = IO.read("archive/downstream/#{downstream}/CHANGELOG.md")[/^### \[v(\d+\.\d+)\]/, 1]
-        sh "cd archive/downstream/#{downstream} && bundle exec buildr perform_release STAGE=StageRelease PREVIOUS_PRODUCT_VERSION= PRODUCT_VERSION=#{downstream_version}#{Buildr.application.options.trace ? ' --trace' : ''}"
+        sh "cd archive/downstream/#{downstream} && bundle exec buildr perform_release STAGE=MavenCentralPublish PREVIOUS_PRODUCT_VERSION= PRODUCT_VERSION=#{downstream_version}#{Buildr.application.options.trace ? ' --trace' : ''}"
         full_branch = "master-ArezUpgrade-#{ENV['PRODUCT_VERSION']}"
         `cd archive/downstream/#{downstream} && git push origin :#{full_branch} 2>&1`
         puts "Completed remote branch #{downstream}/#{full_branch}. Removed." if 0 == $?.exitstatus
