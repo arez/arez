@@ -37,7 +37,6 @@ Buildr::ReleaseTool.define_release_task do |t|
   end
 
   t.tag_project
-  t.stage_release(:release_to => { :url => 'https://stocksoftware.jfrog.io/stocksoftware/staging', :username => ENV['STAGING_USERNAME'], :password => ENV['STAGING_PASSWORD'] })
   t.maven_central_publish(:additional_tasks => 'arez:doc-examples:compile site:deploy')
   t.patch_changelog_post_release
   t.stage('PatchStatisticsPostRelease', 'Copy the statistics forward to prepare for next development iteration') do
@@ -63,8 +62,8 @@ Buildr::ReleaseTool.define_release_task do |t|
   t.stage('PushDownstreamChanges', 'Push downstream changes') do
     unless ENV['DOWNSTREAM'] == 'no'
       # Push the changes that have been made locally in downstream projects.
-      # Artifacts have been pushed to staging repository by this time so they should build
-      # even if it has not made it through the Maven release process
+      # We should really wait here until the maven central artifact is available
+      # and has made it through the Maven release process.
 
       DOWNSTREAM_EXAMPLES.each_pair do |downstream_example, branches|
         sh "cd archive/downstream/#{downstream_example} && git push --all"
