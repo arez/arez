@@ -1,15 +1,24 @@
 package com.example.inheritance.interface_inheritance;
 
 import arez.annotations.ArezComponent;
-import arez.annotations.Memoize;
+import arez.annotations.Observable;
 
 @ArezComponent
 abstract class MyModel
   implements MyInterface
 {
-  @Memoize
-  int myMemoize()
+  MyModel( String valueA )
   {
-    return 0;
+
   }
+
+  @Observable
+  abstract String getValueB();
+
+  abstract void setValueB( String valueB );
+
+  @Observable
+  abstract String getValueC();
+
+  abstract void setValueC( String valueC );
 }
