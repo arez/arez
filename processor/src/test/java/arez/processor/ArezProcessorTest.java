@@ -1236,7 +1236,8 @@ public final class ArezProcessorTest
   public void processSuccessfulWhereTraceInheritanceChainInInterfaces()
     throws Exception
   {
-    final JavaFileObject source1 = fixture( "input/com/example/inheritance/interface_inheritance/MyBaseInterface.java" );
+    final JavaFileObject source1 =
+      fixture( "input/com/example/inheritance/interface_inheritance/MyBaseInterface.java" );
     final JavaFileObject source2 = fixture( "input/com/example/inheritance/interface_inheritance/MyInterface.java" );
     final JavaFileObject source3 = fixture( "input/com/example/inheritance/interface_inheritance/MyModel.java" );
     final String output1 = "com/example/inheritance/interface_inheritance/Arez_MyModel.java";
