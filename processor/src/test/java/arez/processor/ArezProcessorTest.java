@@ -421,7 +421,7 @@ public final class ArezProcessorTest
   public void deprecatedUsageModel()
     throws Exception
   {
-    // Use deprecated types but arez should suppress the warnings and generate code that has no warnings...
+    // Use deprecated types, but arez should suppress the warnings and generate code that has no warnings...
     final String classname = "com.example.deprecated.DeprecatedUsageModel";
     final String[] expectedOutputResources = deriveExpectedOutputs( classname );
     final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
@@ -433,7 +433,7 @@ public final class ArezProcessorTest
   public void deprecatedTypeParameterModel()
     throws Exception
   {
-    // Use deprecated types but arez should suppress the warnings and generate code that has no warnings...
+    // Use deprecated types, but arez should suppress the warnings and generate code that has no warnings...
     final String classname = "com.example.deprecated.DeprecatedTypeParameterModel";
     final String[] expectedOutputResources = deriveExpectedOutputs( classname );
     final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
