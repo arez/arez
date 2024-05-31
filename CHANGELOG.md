@@ -18,7 +18,7 @@ Changes in this release:
 
 Changes in this release:
 
-* Rename `arez.verbose_out_of_round` to `arez.verbose_out_of_round.errors` in the list of processor options declared as supportedn to reflect actual key accessed.
+* Rename `arez.verbose_out_of_round` to `arez.verbose_out_of_round.errors` in the list of processor options declared as supported to reflect actual key accessed.
 
 ### [v0.207](https://github.com/arez/arez/tree/v0.207) (2023-01-25) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.206...v0.207)
 
