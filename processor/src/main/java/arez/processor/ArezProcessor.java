@@ -63,23 +63,37 @@ import static javax.tools.Diagnostic.Kind.*;
 public final class ArezProcessor
   extends AbstractStandardProcessor
 {
+  @Nonnull
   static final Pattern GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)$" );
+  @Nonnull
   private static final Pattern ON_ACTIVATE_PATTERN = Pattern.compile( "^on([A-Z].*)Activate$" );
+  @Nonnull
   private static final Pattern ON_DEACTIVATE_PATTERN = Pattern.compile( "^on([A-Z].*)Deactivate$" );
+  @Nonnull
   private static final Pattern SETTER_PATTERN = Pattern.compile( "^set([A-Z].*)$" );
+  @Nonnull
   private static final Pattern ISSER_PATTERN = Pattern.compile( "^is([A-Z].*)$" );
   @Nonnull
   private static final List<String> OBJECT_METHODS =
     Arrays.asList( "hashCode", "equals", "clone", "toString", "finalize", "getClass", "wait", "notifyAll", "notify" );
+  @Nonnull
   private static final List<String> AREZ_SPECIAL_METHODS =
     Arrays.asList( "observe", "dispose", "isDisposed", "getArezId" );
+  @Nonnull
   private static final Pattern ID_GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)Id$" );
+  @Nonnull
   private static final Pattern RAW_ID_GETTER_PATTERN = Pattern.compile( "^(.*)Id$" );
+  @Nonnull
   private static final Pattern OBSERVABLE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)ObservableValue$" );
+  @Nonnull
   private static final Pattern COMPUTABLE_VALUE_REF_PATTERN = Pattern.compile( "^get([A-Z].*)ComputableValue$" );
+  @Nonnull
   private static final Pattern OBSERVER_REF_PATTERN = Pattern.compile( "^get([A-Z].*)Observer$" );
+  @Nonnull
   private static final Pattern ON_DEPS_CHANGE_PATTERN = Pattern.compile( "^on([A-Z].*)DepsChange" );
+  @Nonnull
   private static final Pattern PRE_INVERSE_REMOVE_PATTERN = Pattern.compile( "^pre([A-Z].*)Remove" );
+  @Nonnull
   private static final Pattern POST_INVERSE_ADD_PATTERN = Pattern.compile( "^post([A-Z].*)Add" );
   @Nonnull
   private final DeferredElementSet _deferredTypes = new DeferredElementSet();
