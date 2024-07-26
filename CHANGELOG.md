@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the `org.realityforge.javax.annotation` artifact to version `1.1.1`.
 * Update the `org.realityforge.proton` artifacts to version `0.64`.
 
 ### [v0.209](https://github.com/arez/arez/tree/v0.209) (2024-05-17) · [Full Changelog](https://github.com/arez/arez/compare/v0.208...v0.209)
