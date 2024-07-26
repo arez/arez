@@ -16,6 +16,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.processing.ProcessingEnvironment;
@@ -95,6 +96,12 @@ public final class ArezProcessor
   private static final Pattern PRE_INVERSE_REMOVE_PATTERN = Pattern.compile( "^pre([A-Z].*)Remove" );
   @Nonnull
   private static final Pattern POST_INVERSE_ADD_PATTERN = Pattern.compile( "^post([A-Z].*)Add" );
+  @Nonnull
+  private static final Pattern CAPTURE_PATTERN = Pattern.compile( "^capture([A-Z].*)" );
+  @Nonnull
+  private static final Pattern POP_PATTERN = Pattern.compile( "^pop([A-Z].*)" );
+  @Nonnull
+  private static final Pattern PUSH_PATTERN = Pattern.compile( "^push([A-Z].*)" );
   @Nonnull
   private final DeferredElementSet _deferredTypes = new DeferredElementSet();
   @Nonnull
@@ -804,6 +811,7 @@ public final class ArezProcessor
                      Constants.OBSERVABLE_CLASSNAME,
                      Constants.OBSERVABLE_VALUE_REF_CLASSNAME,
                      Constants.MEMOIZE_CLASSNAME,
+                     Constants.MEMOIZE_CONTEXT_PARAMETER_CLASSNAME,
                      Constants.COMPUTABLE_VALUE_REF_CLASSNAME,
                      Constants.COMPONENT_REF_CLASSNAME,
                      Constants.COMPONENT_ID_CLASSNAME,
@@ -867,6 +875,7 @@ public final class ArezProcessor
     component.getCascadeDisposes().values().forEach( CascadeDisposeDescriptor::validate );
     component.getObservables().values().forEach( ObservableDescriptor::validate );
     component.getMemoizes().values().forEach( e -> e.validate( processingEnv ) );
+    component.getMemoizeContextParameters().values().forEach( p -> p.validate( processingEnv ) );
     component.getObserves().values().forEach( ObserveDescriptor::validate );
     component.getDependencies().values().forEach( DependencyDescriptor::validate );
     component.getReferences().values().forEach( ReferenceDescriptor::validate );
@@ -1229,6 +1238,90 @@ public final class ArezProcessor
     }
     component.getObserverRefs().computeIfAbsent( name, s -> new ArrayList<>() )
       .add( new CandidateMethod( method, methodType ) );
+  }
+
+  private void addMemoizeContextParameter( @Nonnull final ComponentDescriptor component,
+                                           @Nonnull final AnnotationMirror annotation,
+                                           @Nonnull final ExecutableElement method,
+                                           @Nonnull final ExecutableType methodType )
+    throws ProcessorException
+  {
+    final String methodName = method.getSimpleName().toString();
+    final MemoizeContextParameterMethodType mcpMethodType =
+      PUSH_PATTERN.matcher( methodName ).matches() ? MemoizeContextParameterMethodType.Push :
+      POP_PATTERN.matcher( methodName ).matches() ? MemoizeContextParameterMethodType.Pop :
+      MemoizeContextParameterMethodType.Capture;
+    final String name = deriveMemoizeContextParameterName( method, annotation, mcpMethodType );
+
+    checkNameUnique( component, name, method, Constants.MEMOIZE_CONTEXT_PARAMETER_CLASSNAME );
+    final boolean allowEmpty = AnnotationsUtil.getAnnotationValueValue( annotation, "allowEmpty" );
+    final String pattern = AnnotationsUtil.getAnnotationValueValue( annotation, "pattern" );
+    final MemoizeContextParameterDescriptor descriptor = component.findOrCreateMemoizeContextParameter( name );
+
+    final Pattern compiledPattern;
+    try
+    {
+      compiledPattern = Pattern.compile( pattern );
+    }
+    catch ( final PatternSyntaxException e )
+    {
+      throw new ProcessorException( "@MemoizeContextParameter target specified a pattern parameter " +
+                                    "that is not a valid regular expression.", method );
+    }
+
+    if ( MemoizeContextParameterMethodType.Capture == mcpMethodType )
+    {
+      descriptor.setCapture( method, methodType, allowEmpty, pattern, compiledPattern );
+    }
+    else if ( MemoizeContextParameterMethodType.Push == mcpMethodType )
+    {
+      descriptor.setPush( method, methodType, allowEmpty, pattern, compiledPattern );
+    }
+    else // MemoizeContextParameterMethodType.Pop == mcpMethodType
+    {
+      descriptor.setPop( method, methodType, allowEmpty, pattern, compiledPattern );
+    }
+  }
+
+  private String deriveMemoizeContextParameterName( @Nonnull final ExecutableElement method,
+                                                    @Nonnull final AnnotationMirror annotation,
+                                                    @Nonnull final MemoizeContextParameterMethodType mcpMethodType )
+    throws ProcessorException
+  {
+    final String name = AnnotationsUtil.getAnnotationValueValue( annotation, "name" );
+    if ( Constants.SENTINEL.equals( name ) )
+    {
+      final Pattern pattern =
+        MemoizeContextParameterMethodType.Push == mcpMethodType ? PUSH_PATTERN :
+        MemoizeContextParameterMethodType.Pop == mcpMethodType ? POP_PATTERN :
+        CAPTURE_PATTERN;
+      final String methodName = method.getSimpleName().toString();
+      final Matcher matcher = pattern.matcher( methodName );
+      if ( matcher.find() )
+      {
+        final String candidate = matcher.group( 1 );
+        return firstCharacterToLowerCase( candidate );
+      }
+      else
+      {
+        // we get here for a capture method that does not start with capture
+        return methodName;
+      }
+    }
+    else
+    {
+      if ( !SourceVersion.isIdentifier( name ) )
+      {
+        throw new ProcessorException( "@MemoizeContextParameter target specified an invalid name '" + name +
+                                      "'. The name must be a valid java identifier.", method );
+      }
+      else if ( SourceVersion.isKeyword( name ) )
+      {
+        throw new ProcessorException( "@MemoizeContextParameter target specified an invalid name '" + name +
+                                      "'. The name must not be a java keyword.", method );
+      }
+      return name;
+    }
   }
 
   private void addMemoize( @Nonnull final ComponentDescriptor component,
@@ -2284,6 +2377,9 @@ public final class ArezProcessor
       }
     }
     final Map<String, CandidateMethod> getters = new HashMap<>();
+    final Map<String, CandidateMethod> captures = new HashMap<>();
+    final Map<String, CandidateMethod> pushes = new HashMap<>();
+    final Map<String, CandidateMethod> pops = new HashMap<>();
     final Map<String, CandidateMethod> setters = new HashMap<>();
     final Map<String, CandidateMethod> observes = new HashMap<>();
     final Map<String, CandidateMethod> onDepsChanges = new HashMap<>();
@@ -2306,6 +2402,25 @@ public final class ArezProcessor
         final boolean voidReturn = method.getReturnType().getKind() == TypeKind.VOID;
         final int parameterCount = method.getParameters().size();
         String name;
+
+        name = deriveName( method, PUSH_PATTERN, Constants.SENTINEL );
+        if ( voidReturn && 1 == parameterCount && null != name )
+        {
+          pushes.put( name, candidateMethod );
+          continue;
+        }
+        name = deriveName( method, POP_PATTERN, Constants.SENTINEL );
+        if ( voidReturn && 1 == parameterCount && null != name )
+        {
+          pops.put( name, candidateMethod );
+          continue;
+        }
+        name = deriveName( method, CAPTURE_PATTERN, Constants.SENTINEL );
+        if ( !voidReturn && 0 == parameterCount && null != name )
+        {
+          captures.put( name, candidateMethod );
+          continue;
+        }
 
         if ( !method.getModifiers().contains( Modifier.FINAL ) )
         {
@@ -2353,6 +2468,7 @@ public final class ArezProcessor
 
     linkUnAnnotatedObservables( componentDescriptor, getters, setters );
     linkUnAnnotatedObserves( componentDescriptor, observes, onDepsChanges );
+    linkUnMemoizeContextParameters( componentDescriptor, captures, pushes, pops );
     linkObserverRefs( componentDescriptor );
     linkCascadeDisposeObservables( componentDescriptor );
     linkCascadeDisposeReferences( componentDescriptor );
@@ -2368,6 +2484,8 @@ public final class ArezProcessor
         }
       }
     } );
+
+    linkMemoizeContextParametersToMemoizes( componentDescriptor );
 
     linkDependencies( componentDescriptor, getters.values() );
 
@@ -2385,6 +2503,54 @@ public final class ArezProcessor
 
     processCascadeDisposeFields( componentDescriptor );
     processComponentDependencyFields( componentDescriptor );
+  }
+
+  private static void linkMemoizeContextParametersToMemoizes( final @Nonnull ComponentDescriptor componentDescriptor )
+  {
+    // Link MemoizeContextParameters to associated Memoize descriptors
+    componentDescriptor
+      .getMemoizes()
+      .values()
+      .forEach( m ->
+                  componentDescriptor
+                    .getMemoizeContextParameters()
+                    .values()
+                    .forEach( p -> p.tryMatchMemoizeDescriptor( m ) ) );
+  }
+
+  private void linkUnMemoizeContextParameters( @Nonnull final ComponentDescriptor componentDescriptor,
+                                               @Nonnull final Map<String, CandidateMethod> captures,
+                                               @Nonnull final Map<String, CandidateMethod> pushes,
+                                               @Nonnull final Map<String, CandidateMethod> pops )
+  {
+    final var parameters = componentDescriptor.getMemoizeContextParameters().values();
+    for ( final var parameter : parameters )
+    {
+      if ( !parameter.hasCapture() )
+      {
+        final CandidateMethod capture = captures.remove( parameter.getName() );
+        if ( null != capture )
+        {
+          parameter.linkUnAnnotatedCapture( capture.getMethod(), capture.getMethodType() );
+        }
+      }
+      if ( !parameter.hasPop() )
+      {
+        final CandidateMethod pop = pops.remove( parameter.getName() );
+        if ( null != pop )
+        {
+          parameter.linkUnAnnotatedPop( pop.getMethod(), pop.getMethodType() );
+        }
+      }
+      if ( !parameter.hasPush() )
+      {
+        final CandidateMethod push = pushes.remove( parameter.getName() );
+        if ( null != push )
+        {
+          parameter.linkUnAnnotatedPush( push.getMethod(), push.getMethodType() );
+        }
+      }
+    }
   }
 
   private void ensureNoAbstractMethods( @Nonnull final ComponentDescriptor componentDescriptor,
@@ -2422,6 +2588,8 @@ public final class ArezProcessor
       AnnotationsUtil.findAnnotationByType( method, Constants.OBSERVABLE_VALUE_REF_CLASSNAME );
     final AnnotationMirror memoize =
       AnnotationsUtil.findAnnotationByType( method, Constants.MEMOIZE_CLASSNAME );
+    final AnnotationMirror memoizeContextParameter =
+      AnnotationsUtil.findAnnotationByType( method, Constants.MEMOIZE_CONTEXT_PARAMETER_CLASSNAME );
     final AnnotationMirror computableValueRef =
       AnnotationsUtil.findAnnotationByType( method, Constants.COMPUTABLE_VALUE_REF_CLASSNAME );
     final AnnotationMirror contextRef =
@@ -2524,6 +2692,11 @@ public final class ArezProcessor
     else if ( null != stateRef )
     {
       addComponentStateRef( descriptor, stateRef, method );
+      return true;
+    }
+    else if ( null != memoizeContextParameter )
+    {
+      addMemoizeContextParameter( descriptor, memoizeContextParameter, method, methodType );
       return true;
     }
     else if ( null != memoize )

@@ -23,6 +23,7 @@ final class Constants
   static final String COMPUTABLE_VALUE_REF_CLASSNAME = "arez.annotations.ComputableValueRef";
   static final String CONTEXT_REF_CLASSNAME = "arez.annotations.ContextRef";
   static final String MEMOIZE_CLASSNAME = "arez.annotations.Memoize";
+  static final String MEMOIZE_CONTEXT_PARAMETER_CLASSNAME = "arez.annotations.MemoizeContextParameter";
   static final String OBSERVABLE_CLASSNAME = "arez.annotations.Observable";
   static final String OBSERVABLE_VALUE_REF_CLASSNAME = "arez.annotations.ObservableValueRef";
   static final String OBSERVER_REF_CLASSNAME = "arez.annotations.ObserverRef";

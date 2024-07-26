@@ -72,6 +72,8 @@ final class ComponentDescriptor
   @Nonnull
   private final Map<String, ActionDescriptor> _actions = new LinkedHashMap<>();
   @Nonnull
+  private final Map<String, MemoizeContextParameterDescriptor> _memoizeContextParameters = new LinkedHashMap<>();
+  @Nonnull
   private final Map<String, MemoizeDescriptor> _memoizes = new LinkedHashMap<>();
   @Nonnull
   private final Map<String, ObserveDescriptor> _observes = new LinkedHashMap<>();
@@ -274,6 +276,12 @@ final class ComponentDescriptor
   ObserveDescriptor findOrCreateObserve( @Nonnull final String name )
   {
     return getObserves().computeIfAbsent( name, n -> new ObserveDescriptor( this, n ) );
+  }
+
+  @Nonnull
+  MemoizeContextParameterDescriptor findOrCreateMemoizeContextParameter( @Nonnull final String name )
+  {
+    return getMemoizeContextParameters().computeIfAbsent( name, n -> new MemoizeContextParameterDescriptor( this, n ) );
   }
 
   @Nonnull
@@ -492,6 +500,12 @@ final class ComponentDescriptor
   Map<String, ActionDescriptor> getActions()
   {
     return _actions;
+  }
+
+  @Nonnull
+  Map<String, MemoizeContextParameterDescriptor> getMemoizeContextParameters()
+  {
+    return _memoizeContextParameters;
   }
 
   @Nonnull
