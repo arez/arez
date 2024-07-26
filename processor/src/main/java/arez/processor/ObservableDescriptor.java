@@ -317,9 +317,8 @@ final class ObservableDescriptor
     for ( final CandidateMethod refMethod : _refMethods )
     {
       final TypeName typeName = TypeName.get( refMethod.getMethodType().getReturnType() );
-      if ( typeName instanceof ParameterizedTypeName )
+      if ( typeName instanceof final ParameterizedTypeName parameterizedTypeName )
       {
-        final ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
         final TypeName expectedType = parameterizedTypeName.typeArguments.get( 0 );
         if ( !( expectedType instanceof WildcardTypeName ) )
         {
