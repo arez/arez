@@ -42,6 +42,8 @@ final class MemoizeDescriptor
   private ExecutableElement _onDeactivate;
   @Nonnull
   private final List<CandidateMethod> _refMethods = new ArrayList<>();
+  @Nonnull
+  private final List<MemoizeContextParameterDescriptor> _contextParameters = new ArrayList<>();
 
   MemoizeDescriptor( @Nonnull final ComponentDescriptor component, @Nonnull final String name )
   {
@@ -147,6 +149,18 @@ final class MemoizeDescriptor
   List<CandidateMethod> getRefMethods()
   {
     return _refMethods;
+  }
+
+  void addContextParameter( @Nonnull final MemoizeContextParameterDescriptor parameter )
+    throws ProcessorException
+  {
+    _contextParameters.add( parameter );
+  }
+
+  @Nonnull
+  List<MemoizeContextParameterDescriptor> getContextParameters()
+  {
+    return _contextParameters;
   }
 
   void setOnActivate( @Nonnull final ExecutableElement method )

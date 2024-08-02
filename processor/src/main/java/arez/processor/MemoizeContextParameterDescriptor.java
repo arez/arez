@@ -131,8 +131,8 @@ final class MemoizeContextParameterDescriptor
   {
     if ( _pattern.matcher( memoizeDescriptor.getName() ).matches() )
     {
-      // TODO: Add link to this object in MemoizeDescriptor
       _matchedMemoizeDescriptors.add( memoizeDescriptor );
+      memoizeDescriptor.addContextParameter( this );
       return true;
     }
     else
