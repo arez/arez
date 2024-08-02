@@ -18,7 +18,7 @@ import org.intellij.lang.annotations.Language;
  * type of the context parameter), and one to pop the value from the calling context (prefixed with "pop"
  * with a single parameter that has the type of the context parameter).</p>
  *
- * <h4>Capture Method</h4>
+ * <h2>Capture Method</h2>
  *
  * <p>The method to capture the context parameter is invoked prior to the invocation of the {@link Memoize}
  * annotated method when non-arez-framework code invokes the method. It may be invoked outside of an arez
@@ -37,7 +37,7 @@ import org.intellij.lang.annotations.Language;
  * <li>Must be accessible to the class annotated by the {@link ArezComponent} annotation.</li>
  * </ul>
  *
- * <h4>Push Method</h4>
+ * <h2>Push Method</h2>
  *
  * <p>The method to push the context parameter into the current context is invoked prior to the invocation
  * of the {@link Memoize} annotated method when the arez framework invokes the method to determine whether
@@ -58,7 +58,7 @@ import org.intellij.lang.annotations.Language;
  * <li>Must be accessible to the class annotated by the {@link ArezComponent} annotation.</li>
  * </ul>
  *
- * <h4>Pop Method</h4>
+ * <h2>Pop Method</h2>
  *
  * <p>The method to pop the context parameter from the current context is invoked after to the invocation
  * of the {@link Memoize} annotated method when the arez framework invokes the method to determine whether
