@@ -1160,7 +1160,7 @@ final class ComponentGenerator
       component.getReferences().values()
         .stream()
         .filter( r -> r.getLinkType().equals( "EXPLICIT" ) )
-        .collect( Collectors.toList() );
+        .toList();
     for ( final ReferenceDescriptor reference : explicitReferences )
     {
       method.addStatement( "this.$N()", reference.getLinkMethodName() );
@@ -1843,7 +1843,7 @@ final class ComponentGenerator
         .values()
         .stream()
         .filter( r -> r.getLinkType().equals( "EAGER" ) )
-        .collect( Collectors.toList() );
+        .toList();
     for ( final ReferenceDescriptor reference : eagerReferences )
     {
       builder.addStatement( "this.$N()", reference.getLinkMethodName() );
