@@ -256,9 +256,8 @@ final class MemoizeDescriptor
       if ( 1 == parameters.size() )
       {
         final TypeName typeName = TypeName.get( parameters.get( 0 ).asType() );
-        if ( typeName instanceof ParameterizedTypeName )
+        if ( typeName instanceof final ParameterizedTypeName parameterizedTypeName )
         {
-          final ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
           final TypeName paramType = parameterizedTypeName.typeArguments.get( 0 );
           if ( !( paramType instanceof WildcardTypeName ) )
           {
@@ -277,9 +276,8 @@ final class MemoizeDescriptor
     for ( final CandidateMethod refMethod : _refMethods )
     {
       final TypeName typeName = TypeName.get( refMethod.getMethod().getReturnType() );
-      if ( typeName instanceof ParameterizedTypeName )
+      if ( typeName instanceof final ParameterizedTypeName parameterizedTypeName )
       {
-        final ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
         final TypeName expectedType = parameterizedTypeName.typeArguments.get( 0 );
         if ( !( expectedType instanceof WildcardTypeName ) )
         {
