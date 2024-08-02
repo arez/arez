@@ -56,7 +56,7 @@ public final class MemoizeSingleContextParameterIntegrationTest
 
     observer1.dispose();
     observer2.dispose();
-    
+
     assertMatchesFixture( recorder );
   }
 
