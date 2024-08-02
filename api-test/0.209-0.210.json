@@ -1,0 +1,17 @@
+[
+  {
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "@interface arez.annotations.MemoizeContextParameter",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.MemoizeContextParameter",
+      "classSimpleName": "MemoizeContextParameter",
+      "elementKind": "@interface",
+      "package": "arez.annotations"
+    }
+  }
+]
