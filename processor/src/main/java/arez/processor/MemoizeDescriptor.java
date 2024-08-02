@@ -236,6 +236,10 @@ final class MemoizeDescriptor
                                       "keepAlive as true.", _onDeactivate );
       }
     }
+    // One day we may want to support parameters here.
+    // But rather than put the effort into correct code generation when there is no
+    // current use case, let's throw an exception.
+    // When a use case pops up, then we can implement the functionality.
     if ( !_method.getParameters().isEmpty() )
     {
       if ( null != _onActivate )
