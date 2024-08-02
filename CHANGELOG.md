@@ -1,6 +1,10 @@
 # Change Log
 
-### Unreleased
+### [v0.210](https://github.com/arez/arez/tree/v0.210) (2024-08-02) · [Full Changelog](https://github.com/arez/arez/compare/v0.209...v0.210) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.209&new=0.210)
+
+The release includes 1 non breaking API change.
+
+Changes in this release:
 
 * Update the `org.realityforge.proton` artifacts to version `0.64`.
 
