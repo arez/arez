@@ -151,6 +151,15 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.memoize.ReadOutsideTransactionFromDisabledDefaultMemoizeModel" },
         new Object[]{ "com.example.memoize.ReadOutsideTransactionFromEnabledDefaultMemoizeModel" },
         new Object[]{ "com.example.memoize.TypeParametersModel" },
+
+        new Object[]{ "com.example.memoize_context_parameter.AllowEmptyModel" },
+        new Object[]{ "com.example.memoize_context_parameter.BasicModel" },
+        new Object[]{ "com.example.memoize_context_parameter.FinalMethodsModel" },
+        new Object[]{ "com.example.memoize_context_parameter.FullyAnnotatedBasicModel" },
+        new Object[]{ "com.example.memoize_context_parameter.ManyTypesModel" },
+        new Object[]{ "com.example.memoize_context_parameter.NoCapturePrefixModel" },
+        new Object[]{ "com.example.memoize_context_parameter.OverrideNameModel" },
+
         new Object[]{ "com.example.computable_value_ref.BasicComputableValueRefModel" },
         new Object[]{ "com.example.computable_value_ref.MultiComputableValueRefModel" },
         new Object[]{ "com.example.computable_value_ref.NonStandardName1ComputableValueRefModel" },
@@ -415,6 +424,30 @@ public final class ArezProcessorTest
     throws Exception
   {
     assertSuccessfulCompile( classname );
+  }
+
+  @Test
+  public void memoizeContextParameterInherit()
+    throws Exception
+  {
+    final String classname = "com.example.memoize_context_parameter.inherit.ConcreteModel";
+    final String[] expectedOutputResources = deriveExpectedOutputs( classname );
+    final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
+    final JavaFileObject input2 =
+      fixture( "input/" + toFilename( "com.example.memoize_context_parameter.inherit.subpkg.AbstractModel" ) );
+    assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
+  }
+
+  @Test
+  public void memoizeContextParameterInterface()
+    throws Exception
+  {
+    final String classname = "com.example.memoize_context_parameter.intf.ConcreteModel";
+    final String[] expectedOutputResources = deriveExpectedOutputs( classname );
+    final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
+    final JavaFileObject input2 =
+      fixture( "input/" + toFilename( "com.example.memoize_context_parameter.intf.subpkg.MyInterfaceModelBase" ) );
+    assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
   }
 
   @Test
@@ -1417,6 +1450,8 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.memoize.FinalModel", "@Memoize target must not be final" },
         new Object[]{ "com.example.memoize.KeepAliveWithParametersModel",
                       "@Memoize target specified parameter keepAlive as true but has parameters." },
+        new Object[]{ "com.example.memoize.KeepAliveWithContextParametersModel",
+                      "@Memoize target specified parameter keepAlive as true but has matching context parameters." },
         new Object[]{ "com.example.memoize.MissingComputableValueRefModel",
                       "@Memoize target specified depType = AREZ_OR_EXTERNAL but there is no associated @ComputableValueRef method." },
         new Object[]{ "com.example.memoize.PrivateModel", "@Memoize target must not be private" },
@@ -1652,12 +1687,63 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.observer_ref.StaticModel", "@ObserverRef target must be abstract" },
         new Object[]{ "com.example.observer_ref.VoidReturnModel", "@ObserverRef target must return a value" },
 
+        new Object[]{ "com.example.memoize_context_parameter.capture.AbstractCaptureModel",
+                      "@MemoizeContextParameter target must not be abstract" },
+        new Object[]{ "com.example.memoize_context_parameter.capture.BadTypeCaptureModel",
+                      "@MemoizeContextParameter target defines a push method with a different type (java.lang.String) from the matching @MemoizeContextParameter Capture method named captureMyContextVar that defines the type int." },
+        new Object[]{ "com.example.memoize_context_parameter.capture.PrivateCaptureModel",
+                      "@MemoizeContextParameter target must not be private" },
+        new Object[]{ "com.example.memoize_context_parameter.capture.StaticCaptureModel",
+                      "@MemoizeContextParameter target must not be static" },
+        new Object[]{ "com.example.memoize_context_parameter.capture.ThrowsCaptureModel",
+                      "@MemoizeContextParameter target must not throw any exceptions" },
+        new Object[]{ "com.example.memoize_context_parameter.capture.TypeParamCaptureModel",
+                      "@MemoizeContextParameter target must not have any type parameters" },
+        new Object[]{ "com.example.memoize_context_parameter.capture.VoidCaptureModel",
+                      "@MemoizeContextParameter target must return a value" },
+
+        new Object[]{ "com.example.memoize_context_parameter.pop.AbstractPopModel",
+                      "@MemoizeContextParameter target must not be abstract" },
+        new Object[]{ "com.example.memoize_context_parameter.pop.BadTypePopModel",
+                      "@MemoizeContextParameter target defines a pop method with a different type (int) from the matching @MemoizeContextParameter Capture method named captureMyContextVar that defines the type java.lang.String." },
+        new Object[]{ "com.example.memoize_context_parameter.pop.MultipleParameterPopModel",
+                      "@MemoizeContextParameter target on pop method should accept a single parameter" },
+        new Object[]{ "com.example.memoize_context_parameter.pop.PrivatePopModel",
+                      "@MemoizeContextParameter target must not be private" },
+        new Object[]{ "com.example.memoize_context_parameter.pop.ReturningPopModel",
+                      "@MemoizeContextParameter target must not return a value" },
+        new Object[]{ "com.example.memoize_context_parameter.pop.StaticPopModel",
+                      "@MemoizeContextParameter target must not be static" },
+        new Object[]{ "com.example.memoize_context_parameter.pop.ThrowsPopModel",
+                      "@MemoizeContextParameter target must not throw any exceptions" },
+        new Object[]{ "com.example.memoize_context_parameter.pop.TypeParamPopModel",
+                      "@MemoizeContextParameter target must not have any type parameters" },
+
+        new Object[]{ "com.example.memoize_context_parameter.push.AbstractPushModel",
+                      "@MemoizeContextParameter target must not be abstract" },
+        new Object[]{ "com.example.memoize_context_parameter.push.BadTypePushModel",
+                      "@MemoizeContextParameter target defines a push method with a different type (int) from the matching @MemoizeContextParameter Capture method named captureMyContextVar that defines the type java.lang.String." },
+        new Object[]{ "com.example.memoize_context_parameter.push.MultipleParameterPushModel",
+                      "@MemoizeContextParameter target on push method should accept a single parameter" },
+        new Object[]{ "com.example.memoize_context_parameter.push.PrivatePushModel",
+                      "@MemoizeContextParameter target must not be private" },
+        new Object[]{ "com.example.memoize_context_parameter.push.ReturningPushModel",
+                      "@MemoizeContextParameter target must not return a value" },
+        new Object[]{ "com.example.memoize_context_parameter.push.StaticPushModel",
+                      "@MemoizeContextParameter target must not be static" },
+        new Object[]{ "com.example.memoize_context_parameter.push.ThrowsPushModel",
+                      "@MemoizeContextParameter target must not throw any exceptions" },
+        new Object[]{ "com.example.memoize_context_parameter.push.TypeParamPushModel",
+                      "@MemoizeContextParameter target must not have any type parameters" },
+
         new Object[]{ "com.example.name_duplicates.ActionDuplicatesObservableNameModel",
                       "Method annotated with @Action specified name field that duplicates @Observable defined by method getField" },
         new Object[]{ "com.example.on_activate.BadTypeParamComputableValueParamModel",
                       "@OnActivate target has a parameter of type ComputableValue with a type parameter of java.lang.String but the @Memoize method returns a type of long" },
         new Object[]{ "com.example.on_activate.MemoizeHasParametersModel",
                       "@OnActivate target associated with @Memoize method that has parameters." },
+        new Object[]{ "com.example.on_activate.MemoizeHasContextParametersModel",
+                      "@OnActivate target associated with @Memoize method that has matching context parameters." },
         new Object[]{ "com.example.on_activate.OnActivateAbstractModel", "@OnActivate target must not be abstract" },
         new Object[]{ "com.example.on_activate.OnActivateNoMemoizeModel",
                       "@OnActivate exists but there is no corresponding @Memoize" },
@@ -1681,6 +1767,8 @@ public final class ArezProcessorTest
                       "@OnActivate target duplicates existing method named foo" },
         new Object[]{ "com.example.on_deactivate.MemoizeHasParametersModel",
                       "@OnDeactivate target associated with @Memoize method that has parameters." },
+        new Object[]{ "com.example.on_deactivate.MemoizeHasContextParametersModel",
+                      "@OnDeactivate target associated with @Memoize method that has matching context parameters." },
         new Object[]{ "com.example.on_deactivate.OnDeactivateAbstractModel",
                       "@OnDeactivate target must not be abstract" },
         new Object[]{ "com.example.on_deactivate.OnDeactivateNoMemoizeModel",
