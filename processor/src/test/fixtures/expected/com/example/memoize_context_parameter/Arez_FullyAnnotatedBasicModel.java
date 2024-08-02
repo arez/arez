@@ -38,7 +38,7 @@ final class Arez_FullyAnnotatedBasicModel extends FullyAnnotatedBasicModel imple
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_memoize_context_parameter_FullyAnnotatedBasicModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arez$$_time = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, () -> super.getTime(), ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
-    this.$$arez$$_count = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".count" : null, args -> super.count((long) args[ 0 ], (float) args[ 1 ]), 2, ComputableValue.Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_count = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".count" : null, args -> $$arezi$$_memoize_count((String) args[ 0 ], (long) args[ 1 ], (float) args[ 2 ]), 3, ComputableValue.Flags.AREZ_DEPENDENCIES );
     this.$$arez$$_count2 = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".count2" : null, args -> super.count2((long) args[ 0 ], (float) args[ 1 ]), 2, ComputableValue.Flags.AREZ_DEPENDENCIES );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
@@ -119,12 +119,22 @@ final class Arez_FullyAnnotatedBasicModel extends FullyAnnotatedBasicModel imple
     return this.$$arez$$_time.get();
   }
 
+  public long $$arezi$$_memoize_count(final String $$arezi$$_CV, final long time,
+      final float someOtherParameter) {
+    try {
+      pushSomeOtherMethod( $$arezi$$_CV );
+      return count( time, someOtherParameter );
+    } finally {
+      popSomeThirdMethod( $$arezi$$_CV );
+    }
+  }
+
   @Override
   public long count(final long time, final float someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'count' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
-    return this.$$arez$$_count.get( time, someOtherParameter );
+    return this.$$arez$$_count.get( someMethod(), time, someOtherParameter );
   }
 
   @Override

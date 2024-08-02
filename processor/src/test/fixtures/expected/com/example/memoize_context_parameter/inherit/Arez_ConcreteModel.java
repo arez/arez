@@ -25,7 +25,7 @@ final class Arez_ConcreteModel extends ConcreteModel implements Disposable, Iden
   private final MemoizeCache<Long> $$arez$$_countFromAbstract;
 
   @Nonnull
-  private final ComputableValue<Long> $$arez$$_time;
+  private final MemoizeCache<Long> $$arez$$_time;
 
   @Nonnull
   private final MemoizeCache<Long> $$arez$$_countFromConcrete;
@@ -37,9 +37,9 @@ final class Arez_ConcreteModel extends ConcreteModel implements Disposable, Iden
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_memoize_context_parameter_inherit_ConcreteModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_memoize_context_parameter_inherit_ConcreteModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_countFromAbstract = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".countFromAbstract" : null, args -> super.countFromAbstract((long) args[ 0 ], (float) args[ 1 ]), 2, ComputableValue.Flags.AREZ_DEPENDENCIES );
-    this.$$arez$$_time = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, () -> super.getTime(), ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
-    this.$$arez$$_countFromConcrete = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".countFromConcrete" : null, args -> super.countFromConcrete((long) args[ 0 ], (float) args[ 1 ]), 2, ComputableValue.Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_countFromAbstract = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".countFromAbstract" : null, args -> $$arezi$$_memoize_countFromAbstract((String) args[ 0 ], (long) args[ 1 ], (float) args[ 2 ]), 3, ComputableValue.Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_time = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, args -> $$arezi$$_memoize_time((String) args[ 0 ]), 1, ComputableValue.Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_countFromConcrete = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".countFromConcrete" : null, args -> $$arezi$$_memoize_countFromConcrete((String) args[ 0 ], (long) args[ 1 ], (float) args[ 2 ]), 3, ComputableValue.Flags.AREZ_DEPENDENCIES );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }
@@ -111,12 +111,31 @@ final class Arez_ConcreteModel extends ConcreteModel implements Disposable, Iden
     this.$$arez$$_countFromConcrete.dispose();
   }
 
+  public long $$arezi$$_memoize_countFromAbstract(final String $$arezi$$_myContextVar,
+      final long time, final float someOtherParameter) {
+    try {
+      pushMyContextVar( $$arezi$$_myContextVar );
+      return countFromAbstract( time, someOtherParameter );
+    } finally {
+      popMyContextVar( $$arezi$$_myContextVar );
+    }
+  }
+
   @Override
   public long countFromAbstract(final long time, final float someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'countFromAbstract' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
-    return this.$$arez$$_countFromAbstract.get( time, someOtherParameter );
+    return this.$$arez$$_countFromAbstract.get( captureMyContextVar(), time, someOtherParameter );
+  }
+
+  public long $$arezi$$_memoize_time(final String $$arezi$$_myContextVar) {
+    try {
+      pushMyContextVar( $$arezi$$_myContextVar );
+      return getTime(  );
+    } finally {
+      popMyContextVar( $$arezi$$_myContextVar );
+    }
   }
 
   @Override
@@ -127,12 +146,22 @@ final class Arez_ConcreteModel extends ConcreteModel implements Disposable, Iden
     return this.$$arez$$_time.get();
   }
 
+  public long $$arezi$$_memoize_countFromConcrete(final String $$arezi$$_myContextVar,
+      final long time, final float someOtherParameter) {
+    try {
+      pushMyContextVar( $$arezi$$_myContextVar );
+      return countFromConcrete( time, someOtherParameter );
+    } finally {
+      popMyContextVar( $$arezi$$_myContextVar );
+    }
+  }
+
   @Override
   public long countFromConcrete(final long time, final float someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'countFromConcrete' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
-    return this.$$arez$$_countFromConcrete.get( time, someOtherParameter );
+    return this.$$arez$$_countFromConcrete.get( captureMyContextVar(), time, someOtherParameter );
   }
 
   @Override

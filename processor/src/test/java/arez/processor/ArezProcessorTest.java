@@ -156,6 +156,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.memoize_context_parameter.BasicModel" },
         new Object[]{ "com.example.memoize_context_parameter.FinalMethodsModel" },
         new Object[]{ "com.example.memoize_context_parameter.FullyAnnotatedBasicModel" },
+        new Object[]{ "com.example.memoize_context_parameter.ManyTypesModel" },
         new Object[]{ "com.example.memoize_context_parameter.NoCapturePrefixModel" },
         new Object[]{ "com.example.memoize_context_parameter.OverrideNameModel" },
 

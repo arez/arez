@@ -2169,6 +2169,10 @@ final class ComponentGenerator
                                            @Nonnull final TypeSpec.Builder builder )
     throws ProcessorException
   {
+    if ( !memoize.getContextParameters().isEmpty() )
+    {
+      builder.addMethod( buildMemoizeAdapterMethod( processingEnv, memoize ) );
+    }
     if ( memoize.getMethod().getParameters().isEmpty() )
     {
       builder.addMethod( buildMemoizeWithoutParams( processingEnv, memoize ) );
@@ -2258,6 +2262,98 @@ final class ComponentGenerator
       builder.addStatement( "$N()", onDeactivate.getSimpleName().toString() );
     }
     return builder.build();
+  }
+
+  /**
+   * Generate a wrapper around the Memoize method the setups up all the context parameters.
+   */
+  @Nonnull
+  private static MethodSpec buildMemoizeAdapterMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                                       @Nonnull final MemoizeDescriptor memoize )
+    throws ProcessorException
+  {
+    assert !memoize.getContextParameters().isEmpty();
+
+    final ExecutableElement executableElement = memoize.getMethod();
+    final ComponentDescriptor component = memoize.getComponent();
+    final TypeElement typeElement = component.getElement();
+
+    final DeclaredType declaredType = (DeclaredType) typeElement.asType();
+    final ExecutableType executableType =
+      (ExecutableType) processingEnv.getTypeUtils().asMemberOf( declaredType, executableElement );
+
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( getMemoizeWrapperMethodName( memoize ) );
+
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv,
+                                                        method,
+                                                        Collections.singletonList( executableType ) );
+    GeneratorUtil.copyAccessModifiers( executableElement, method );
+    GeneratorUtil.copyTypeParameters( executableType, method );
+    GeneratorUtil.copyWhitelistedAnnotations( executableElement, method );
+
+    method.varargs( executableElement.isVarArgs() );
+
+    // Add context parameters
+    for ( final MemoizeContextParameterDescriptor contextParameter : memoize.getContextParameters() )
+    {
+      final String contextParameterName = FRAMEWORK_PREFIX + contextParameter.getName();
+      final TypeName typeName = TypeName.get( contextParameter.initialValueType() );
+      final ParameterSpec.Builder parameter = ParameterSpec.builder( typeName, contextParameterName, Modifier.FINAL );
+      GeneratorUtil.copyWhitelistedAnnotations( contextParameter.getCapture(), parameter );
+      method.addParameter( parameter.build() );
+    }
+
+    // Copy all the parameters across
+    GeneratorUtil.copyParameters( executableElement, executableType, method );
+    GeneratorUtil.copyExceptions( executableType, method );
+
+    // Copy return type
+    method.returns( TypeName.get( executableType.getReturnType() ) );
+
+    for ( final MemoizeContextParameterDescriptor contextParameter : memoize.getContextParameters() )
+    {
+      method.beginControlFlow( "try" );
+      method.addStatement( "$N( $N )",
+                           contextParameter.getPush().getSimpleName().toString(),
+                           FRAMEWORK_PREFIX + contextParameter.getName() );
+    }
+    final StringBuilder sb = new StringBuilder();
+    final List<Object> parameters = new ArrayList<>();
+    sb.append( "return " );
+    if ( !executableElement.getTypeParameters().isEmpty() )
+    {
+      sb.append( "($T) " );
+      parameters.add( TypeName.get( memoize.getMethodType().getReturnType() ).box() );
+    }
+
+    sb.append( "$N( " );
+    parameters.add( memoize.getMethod().getSimpleName().toString() );
+
+    boolean first = true;
+    for ( final VariableElement element : executableElement.getParameters() )
+    {
+      if ( !first )
+      {
+        sb.append( ", " );
+      }
+      first = false;
+      sb.append( "$N" );
+      parameters.add( element.getSimpleName().toString() );
+    }
+    sb.append( " )" );
+
+    method.addStatement( sb.toString(), parameters.toArray() );
+
+    for ( final MemoizeContextParameterDescriptor contextParameter : memoize.getContextParameters() )
+    {
+      method.nextControlFlow( "finally" );
+      method.addStatement( "$N( $N )",
+                           contextParameter.getPop().getSimpleName().toString(),
+                           FRAMEWORK_PREFIX + contextParameter.getName() );
+      method.endControlFlow();
+    }
+
+    return method.build();
   }
 
   /**
@@ -2389,6 +2485,17 @@ final class ComponentGenerator
     parameters.add( getMemoizeFieldName( memoize ) );
 
     boolean first = true;
+    for ( final MemoizeContextParameterDescriptor contextParameter : memoize.getContextParameters() )
+    {
+      if ( !first )
+      {
+        sb.append( ", " );
+      }
+      first = false;
+      sb.append( "$N()" );
+      parameters.add( contextParameter.getCapture().getSimpleName().toString() );
+    }
+
     for ( final VariableElement element : executableElement.getParameters() )
     {
       if ( !first )
@@ -2410,7 +2517,7 @@ final class ComponentGenerator
                                           @Nonnull final MemoizeDescriptor memoize,
                                           @Nonnull final TypeSpec.Builder builder )
   {
-    if ( memoize.getMethod().getParameters().isEmpty() )
+    if ( memoize.getMethod().getParameters().isEmpty() && memoize.getContextParameters().isEmpty() )
     {
       buildMemoizeWithNoParametersFields( processingEnv, memoize, builder );
     }
@@ -2487,7 +2594,7 @@ final class ComponentGenerator
   private static void buildMemoizeInitializer( @Nonnull final MemoizeDescriptor memoize,
                                                @Nonnull final MethodSpec.Builder builder )
   {
-    if ( memoize.getMethod().getParameters().isEmpty() )
+    if ( memoize.getMethod().getParameters().isEmpty() && memoize.getContextParameters().isEmpty() )
     {
       buildMemoizeWithNoParameters( memoize, builder );
     }
@@ -2520,7 +2627,12 @@ final class ComponentGenerator
       parameters.add( NAME_VAR_NAME );
       parameters.add( "." + memoize.getName() );
 
-      if ( component.isClassType() )
+      if ( !memoize.getContextParameters().isEmpty() )
+      {
+        sb.append( "args -> $N(" );
+        parameters.add( getMemoizeWrapperMethodName( memoize ) );
+      }
+      else if ( component.isClassType() )
       {
         sb.append( "() -> super.$N(), " );
         parameters.add( method.getSimpleName().toString() );
@@ -2605,7 +2717,12 @@ final class ComponentGenerator
 
     final ComponentDescriptor component = memoize.getComponent();
     final ExecutableElement method = memoize.getMethod();
-    if ( component.isClassType() )
+    if ( !memoize.getContextParameters().isEmpty() )
+    {
+      sb.append( "args -> $N(" );
+      parameters.add( getMemoizeWrapperMethodName( memoize ) );
+    }
+    else if ( component.isClassType() )
     {
       sb.append( "args -> super.$N(" );
       parameters.add( method.getSimpleName().toString() );
@@ -2617,13 +2734,34 @@ final class ComponentGenerator
       parameters.add( method.getSimpleName().toString() );
     }
 
+    boolean first = true;
     int index = 0;
-    for ( final TypeMirror arg : memoize.getMethodType().getParameterTypes() )
+    for ( final var contextParameter : memoize.getContextParameters() )
     {
-      if ( 0 != index )
+      if ( !first )
       {
         sb.append( ", " );
       }
+      first = false;
+      final TypeName contextParameterJavaType = TypeName.get( contextParameter.initialValueType() );
+      if ( contextParameterJavaType.equals( TypeName.OBJECT ) )
+      {
+        sb.append( "args[ " ).append( index ).append( " ]" );
+      }
+      else
+      {
+        sb.append( "($T) args[ " ).append( index ).append( " ]" );
+        parameters.add( contextParameterJavaType );
+      }
+      index++;
+    }
+    for ( final TypeMirror arg : memoize.getMethodType().getParameterTypes() )
+    {
+      if ( !first )
+      {
+        sb.append( ", " );
+      }
+      first = false;
       if ( TypeName.get( arg ).equals( TypeName.OBJECT ) )
       {
         sb.append( "args[ " ).append( index ).append( " ]" );
@@ -2637,7 +2775,7 @@ final class ComponentGenerator
     }
 
     sb.append( "), " );
-    sb.append( memoize.getMethod().getParameters().size() );
+    sb.append( index );
     sb.append( ", " );
 
     final List<String> flags = generateMemoizeFlags( memoize );
@@ -2796,6 +2934,12 @@ final class ComponentGenerator
       final TypeElement element = (TypeElement) declaredType.asElement();
       return element.getQualifiedName().toString().equals( type.getName() );
     }
+  }
+
+  @Nonnull
+  private static String getMemoizeWrapperMethodName( @Nonnull final MemoizeDescriptor memoize )
+  {
+    return FRAMEWORK_PREFIX + "memoize_" + memoize.getName();
   }
 
   @Nonnull

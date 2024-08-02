@@ -22,7 +22,7 @@ final class Arez_BasicModel extends BasicModel implements Disposable, Identifiab
   private final ComponentKernel $$arezi$$_kernel;
 
   @Nonnull
-  private final ComputableValue<Long> $$arez$$_time;
+  private final MemoizeCache<Long> $$arez$$_time;
 
   @Nonnull
   private final MemoizeCache<Long> $$arez$$_count;
@@ -34,8 +34,8 @@ final class Arez_BasicModel extends BasicModel implements Disposable, Identifiab
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_memoize_context_parameter_BasicModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_memoize_context_parameter_BasicModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_time = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, () -> super.getTime(), ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
-    this.$$arez$$_count = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".count" : null, args -> super.count((long) args[ 0 ], (float) args[ 1 ]), 2, ComputableValue.Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_time = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, args -> $$arezi$$_memoize_time((String) args[ 0 ]), 1, ComputableValue.Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_count = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".count" : null, args -> $$arezi$$_memoize_count((String) args[ 0 ], (long) args[ 1 ], (float) args[ 2 ]), 3, ComputableValue.Flags.AREZ_DEPENDENCIES );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }
@@ -106,6 +106,15 @@ final class Arez_BasicModel extends BasicModel implements Disposable, Identifiab
     this.$$arez$$_count.dispose();
   }
 
+  public long $$arezi$$_memoize_time(final String $$arezi$$_myContextVar) {
+    try {
+      pushMyContextVar( $$arezi$$_myContextVar );
+      return getTime(  );
+    } finally {
+      popMyContextVar( $$arezi$$_myContextVar );
+    }
+  }
+
   @Override
   public long getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -114,12 +123,22 @@ final class Arez_BasicModel extends BasicModel implements Disposable, Identifiab
     return this.$$arez$$_time.get();
   }
 
+  public long $$arezi$$_memoize_count(final String $$arezi$$_myContextVar, final long time,
+      final float someOtherParameter) {
+    try {
+      pushMyContextVar( $$arezi$$_myContextVar );
+      return count( time, someOtherParameter );
+    } finally {
+      popMyContextVar( $$arezi$$_myContextVar );
+    }
+  }
+
   @Override
   public long count(final long time, final float someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'count' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
-    return this.$$arez$$_count.get( time, someOtherParameter );
+    return this.$$arez$$_count.get( captureMyContextVar(), time, someOtherParameter );
   }
 
   @Override
