@@ -2327,7 +2327,7 @@ final class ComponentGenerator
       parameters.add( TypeName.get( memoize.getMethodType().getReturnType() ).box() );
     }
 
-    sb.append( "$N( " );
+    sb.append( "super.$N(" );
     parameters.add( memoize.getMethod().getSimpleName().toString() );
 
     boolean first = true;
@@ -2335,13 +2335,17 @@ final class ComponentGenerator
     {
       if ( !first )
       {
-        sb.append( ", " );
+        sb.append( "," );
       }
       first = false;
-      sb.append( "$N" );
+      sb.append( " $N" );
       parameters.add( element.getSimpleName().toString() );
     }
-    sb.append( " )" );
+    if ( !first )
+    {
+      sb.append( " " );
+    }
+    sb.append( ")" );
 
     method.addStatement( sb.toString(), parameters.toArray() );
 

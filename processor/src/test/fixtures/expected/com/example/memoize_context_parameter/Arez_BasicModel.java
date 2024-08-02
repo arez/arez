@@ -109,7 +109,7 @@ final class Arez_BasicModel extends BasicModel implements Disposable, Identifiab
   public long $$arezi$$_memoize_time(final String $$arezi$$_myContextVar) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );
-      return getTime(  );
+      return super.getTime();
     } finally {
       popMyContextVar( $$arezi$$_myContextVar );
     }
@@ -127,7 +127,7 @@ final class Arez_BasicModel extends BasicModel implements Disposable, Identifiab
       final float someOtherParameter) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );
-      return count( time, someOtherParameter );
+      return super.count( time, someOtherParameter );
     } finally {
       popMyContextVar( $$arezi$$_myContextVar );
     }

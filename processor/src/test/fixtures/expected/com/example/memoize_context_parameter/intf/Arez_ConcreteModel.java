@@ -114,7 +114,7 @@ final class Arez_ConcreteModel extends ConcreteModel implements Disposable, Iden
   public long $$arezi$$_memoize_time(final String $$arezi$$_myContextVar) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );
-      return getTime(  );
+      return super.getTime();
     } finally {
       popMyContextVar( $$arezi$$_myContextVar );
     }
@@ -132,7 +132,7 @@ final class Arez_ConcreteModel extends ConcreteModel implements Disposable, Iden
       final long time, final float someOtherParameter) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );
-      return countFromConcrete( time, someOtherParameter );
+      return super.countFromConcrete( time, someOtherParameter );
     } finally {
       popMyContextVar( $$arezi$$_myContextVar );
     }
@@ -150,7 +150,7 @@ final class Arez_ConcreteModel extends ConcreteModel implements Disposable, Iden
       final long time, final float someOtherParameter) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );
-      return countFromAbstract( time, someOtherParameter );
+      return super.countFromAbstract( time, someOtherParameter );
     } finally {
       popMyContextVar( $$arezi$$_myContextVar );
     }

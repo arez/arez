@@ -109,7 +109,7 @@ final class Arez_OverrideNameModel extends OverrideNameModel implements Disposab
   public long $$arezi$$_memoize_time(final String $$arezi$$_foo) {
     try {
       pushFoo( $$arezi$$_foo );
-      return getTime(  );
+      return super.getTime();
     } finally {
       popFoo( $$arezi$$_foo );
     }
@@ -127,7 +127,7 @@ final class Arez_OverrideNameModel extends OverrideNameModel implements Disposab
       final float someOtherParameter) {
     try {
       pushFoo( $$arezi$$_foo );
-      return count( time, someOtherParameter );
+      return super.count( time, someOtherParameter );
     } finally {
       popFoo( $$arezi$$_foo );
     }

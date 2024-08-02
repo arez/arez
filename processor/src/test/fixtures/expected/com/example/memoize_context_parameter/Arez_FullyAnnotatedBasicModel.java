@@ -123,7 +123,7 @@ final class Arez_FullyAnnotatedBasicModel extends FullyAnnotatedBasicModel imple
       final float someOtherParameter) {
     try {
       pushSomeOtherMethod( $$arezi$$_CV );
-      return count( time, someOtherParameter );
+      return super.count( time, someOtherParameter );
     } finally {
       popSomeThirdMethod( $$arezi$$_CV );
     }
