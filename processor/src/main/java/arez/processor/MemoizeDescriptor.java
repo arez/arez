@@ -253,6 +253,23 @@ final class MemoizeDescriptor
                                       _onDeactivate );
       }
     }
+    // One day we may want to support context parameters here.
+    // But rather than put the effort into correct code generation when there is no
+    // current use case, let's throw an exception.
+    // When a use case pops up, then we can implement the functionality.
+    if ( !getContextParameters().isEmpty() )
+    {
+      if ( null != _onActivate )
+      {
+        throw new ProcessorException( "@OnActivate target associated with @Memoize method that has matching context parameters.",
+                                      _onActivate );
+      }
+      else if ( null != _onDeactivate )
+      {
+        throw new ProcessorException( "@OnDeactivate target associated with @Memoize method that has matching context parameters.",
+                                      _onDeactivate );
+      }
+    }
 
     if ( null != _onActivate && null != _method )
     {
