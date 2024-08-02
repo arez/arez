@@ -220,6 +220,11 @@ final class MemoizeDescriptor
         throw new ProcessorException( "@Memoize target specified parameter keepAlive as true but has parameters.",
                                       _method );
       }
+      else if ( !getContextParameters().isEmpty() )
+      {
+        throw new ProcessorException( "@Memoize target specified parameter keepAlive as true but has matching context parameters.",
+                                      _method );
+      }
       else if ( null != _onActivate )
       {
         throw new ProcessorException( "@OnActivate exists for @Memoize property that specified parameter " +

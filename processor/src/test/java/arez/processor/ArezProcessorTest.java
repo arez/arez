@@ -1449,6 +1449,8 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.memoize.FinalModel", "@Memoize target must not be final" },
         new Object[]{ "com.example.memoize.KeepAliveWithParametersModel",
                       "@Memoize target specified parameter keepAlive as true but has parameters." },
+        new Object[]{ "com.example.memoize.KeepAliveWithContextParametersModel",
+                      "@Memoize target specified parameter keepAlive as true but has matching context parameters." },
         new Object[]{ "com.example.memoize.MissingComputableValueRefModel",
                       "@Memoize target specified depType = AREZ_OR_EXTERNAL but there is no associated @ComputableValueRef method." },
         new Object[]{ "com.example.memoize.PrivateModel", "@Memoize target must not be private" },
