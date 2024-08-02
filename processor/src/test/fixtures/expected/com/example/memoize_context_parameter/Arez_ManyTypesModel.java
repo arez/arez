@@ -131,7 +131,7 @@ final class Arez_ManyTypesModel extends ManyTypesModel implements Disposable, Id
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
-    return this.$$arez$$_time.get();
+    return this.$$arez$$_time.get( captureMyContextVar(), captureMyContextVar2() );
   }
 
   @Nonnull
@@ -156,7 +156,7 @@ final class Arez_ManyTypesModel extends ManyTypesModel implements Disposable, Id
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getText' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
-    return this.$$arez$$_text.get();
+    return this.$$arez$$_text.get( captureMyContextVar(), captureMyContextVar2() );
   }
 
   public long $$arezi$$_memoize_count(@Nonnull final String $$arezi$$_myContextVar,

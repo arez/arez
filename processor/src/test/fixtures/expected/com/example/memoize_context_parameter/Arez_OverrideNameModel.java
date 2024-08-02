@@ -120,7 +120,7 @@ final class Arez_OverrideNameModel extends OverrideNameModel implements Disposab
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
-    return this.$$arez$$_time.get();
+    return this.$$arez$$_time.get( captureSomeVar() );
   }
 
   public long $$arezi$$_memoize_count(final String $$arezi$$_foo, final long time,

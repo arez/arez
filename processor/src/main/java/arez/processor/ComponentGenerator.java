@@ -2169,11 +2169,7 @@ final class ComponentGenerator
                                            @Nonnull final TypeSpec.Builder builder )
     throws ProcessorException
   {
-    if ( !memoize.getContextParameters().isEmpty() )
-    {
-      builder.addMethod( buildMemoizeAdapterMethod( processingEnv, memoize ) );
-    }
-    if ( memoize.getMethod().getParameters().isEmpty() )
+    if ( memoize.getMethod().getParameters().isEmpty() && memoize.getContextParameters().isEmpty() )
     {
       builder.addMethod( buildMemoizeWithoutParams( processingEnv, memoize ) );
       final ExecutableElement onActivate = memoize.getOnActivate();
@@ -2199,6 +2195,11 @@ final class ComponentGenerator
     }
     else
     {
+      if ( !memoize.getContextParameters().isEmpty() )
+      {
+        builder.addMethod( buildMemoizeAdapterMethod( processingEnv, memoize ) );
+      }
+
       builder.addMethod( buildMemoizeWithParams( processingEnv, memoize ) );
       for ( final CandidateMethod refMethod : memoize.getRefMethods() )
       {
