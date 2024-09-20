@@ -1099,7 +1099,7 @@ public final class ArezContext
   /**
    * Return true if there is a tracking transaction in progress.
    * A tracking transaction is one created by an {@link Observer} via the {@link #observer(Procedure)}
-   * or {@link #tracker(Procedure)} methods.
+   * or {@link #tracker(Procedure)} methods or a computable via the {@link #computable(SafeFunction)} function.
    *
    * @return true if there is a tracking transaction in progress.
    */
