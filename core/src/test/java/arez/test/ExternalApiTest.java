@@ -211,7 +211,7 @@ public final class ExternalApiTest
       assertTrue( context.isReadOnlyTransactionActive() );
       assertFalse( context.isReadWriteTransactionActive() );
       assertTrue( context.isTrackingTransactionActive() );
-      assertTrue( context.isComputableTransactionActive() );
+      assertFalse( context.isComputableTransactionActive() );
     } );
 
     assertEquals( autorunCallCount.get(), 1 );
