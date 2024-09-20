@@ -215,7 +215,7 @@ final class Transaction
    *
    * @param context  the associated context.
    * @param name     the name of the transaction. Should be non-null if {@link Arez#areNamesEnabled()} is true, false otherwise.
-   * @param mutation is transaction a READ_WRITE transaction.
+   * @param mutation is transaction a READ_WRITE transaction?
    * @param tracker  the observer that is tracking transaction if any.
    * @return the new transaction.
    */
