@@ -1,0 +1,18 @@
+[
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method boolean arez.ArezContext::isComputableTransactionActive()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "isComputableTransactionActive",
+      "package": "arez"
+    }
+  }
+]
