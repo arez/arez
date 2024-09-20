@@ -1037,7 +1037,7 @@ public final class ArezContext
   @Nonnull
   public Task task( @Nullable final String name, @Nonnull final SafeProcedure work )
   {
-    return task( name, work, 0 );
+    return task( name, work, Task.Flags.STATE_IDLE );
   }
 
   /**
