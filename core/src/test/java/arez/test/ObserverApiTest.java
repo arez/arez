@@ -29,6 +29,7 @@ public final class ObserverApiTest
       assertTrue( context.isTransactionActive() );
       assertFalse( context.isReadWriteTransactionActive() );
       assertTrue( context.isTrackingTransactionActive() );
+      assertFalse( context.isComputableTransactionActive() );
     } );
 
     assertEquals( observer.getName(), name );

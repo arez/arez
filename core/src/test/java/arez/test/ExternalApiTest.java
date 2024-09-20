@@ -172,6 +172,7 @@ public final class ExternalApiTest
       assertTrue( context.isTransactionActive() );
       assertTrue( context.isReadWriteTransactionActive() );
       assertFalse( context.isTrackingTransactionActive() );
+      assertFalse( context.isComputableTransactionActive() );
 
       computableValue.dispose();
 
@@ -210,6 +211,7 @@ public final class ExternalApiTest
       assertTrue( context.isReadOnlyTransactionActive() );
       assertFalse( context.isReadWriteTransactionActive() );
       assertTrue( context.isTrackingTransactionActive() );
+      assertTrue( context.isComputableTransactionActive() );
     } );
 
     assertEquals( autorunCallCount.get(), 1 );
@@ -298,6 +300,7 @@ public final class ExternalApiTest
         assertTrue( context.isTransactionActive() );
         assertFalse( context.isReadWriteTransactionActive() );
         assertTrue( context.isTrackingTransactionActive() );
+        assertFalse( context.isComputableTransactionActive() );
       } );
 
     assertEquals( reactionCount.get(), 1 );
@@ -308,6 +311,7 @@ public final class ExternalApiTest
       assertTrue( context.isTransactionActive() );
       assertTrue( context.isReadWriteTransactionActive() );
       assertFalse( context.isTrackingTransactionActive() );
+      assertFalse( context.isComputableTransactionActive() );
     } );
 
     assertEquals( reactionCount.get(), 2 );
@@ -362,6 +366,7 @@ public final class ExternalApiTest
         assertTrue( context.isTransactionActive() );
         assertFalse( context.isReadWriteTransactionActive() );
         assertTrue( context.isTrackingTransactionActive() );
+        assertFalse( context.isComputableTransactionActive() );
       } );
 
     assertEquals( reactionCount.get(), 1 );

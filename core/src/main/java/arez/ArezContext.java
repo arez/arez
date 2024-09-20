@@ -1109,6 +1109,25 @@ public final class ArezContext
   }
 
   /**
+   * Return true if there is a transaction in progress calculating a computable value.
+   * The transaction is one created for an {@link ComputableValue} via the {@link #computable(SafeFunction)} functions.
+   *
+   * @return true, if there is a transaction in progress calculating a computable value.
+   */
+  public boolean isComputableTransactionActive()
+  {
+    if ( !Transaction.isTransactionActive( this ) )
+    {
+      return false;
+    }
+    else
+    {
+      final Observer tracker = Transaction.current().getTracker();
+      return null != tracker && tracker.isComputableValue();
+    }
+  }
+
+  /**
    * Return true if there is a read-write transaction in progress.
    *
    * @return true if there is a read-write transaction in progress.

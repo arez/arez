@@ -196,6 +196,43 @@ public final class ArezContextTest
     assertFalse( context.isTrackingTransactionActive() );
   }
 
+  @Test
+  public void isComputableTransactionActive()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    assertFalse( context.isTransactionActive() );
+    assertFalse( context.isReadOnlyTransactionActive() );
+    assertFalse( context.isReadWriteTransactionActive() );
+    assertFalse( context.isTrackingTransactionActive() );
+    assertFalse( context.isComputableTransactionActive() );
+
+    context.action( () -> {
+      assertTrue( context.isTransactionActive() );
+      assertFalse( context.isReadOnlyTransactionActive() );
+      assertTrue( context.isReadWriteTransactionActive() );
+      assertFalse( context.isComputableTransactionActive() );
+      observeADependency();
+    } );
+
+    context.computable( () -> {
+      observeADependency();
+      assertTrue( context.isTransactionActive() );
+      assertTrue( context.isReadOnlyTransactionActive() );
+      assertFalse( context.isReadWriteTransactionActive() );
+      assertTrue( context.isTrackingTransactionActive() );
+      assertTrue( context.isComputableTransactionActive() );
+      return 0;
+    } );
+
+    assertFalse( context.isTransactionActive() );
+    assertFalse( context.isReadOnlyTransactionActive() );
+    assertFalse( context.isReadWriteTransactionActive() );
+    assertFalse( context.isTrackingTransactionActive() );
+    assertFalse( context.isComputableTransactionActive() );
+  }
+
   @SuppressWarnings( "unused" )
   @Test
   public void requireNewTransaction_false()
