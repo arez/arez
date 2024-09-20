@@ -30,13 +30,12 @@ import static org.realityforge.braincheck.Guards.*;
 public final class ArezContext
 {
   /**
-   * Id of next node to be created.
+   * ID of the next node to be created.
    * This is only used if {@link Arez#areNamesEnabled()} returns true but no name has been supplied.
    */
   private int _nextNodeId = 1;
   /**
-   * Id of next transaction to be created.
-   *
+   * ID of the next transaction to be created.
    * This needs to start at 1 as {@link ObservableValue#NOT_IN_CURRENT_TRACKING} is used
    * to optimize dependency tracking in transactions.
    */
