@@ -1,6 +1,10 @@
 # Change Log
 
-### Unreleased
+### [v0.212](https://github.com/arez/arez/tree/v0.212) (2024-09-20) · [Full Changelog](https://github.com/arez/arez/compare/v0.211...v0.212) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.211&new=0.212)
+
+The release includes 1 non breaking API change.
+
+Changes in this release:
 
 * Add `ArezContext.isComputableTransactionActive()` to detect if computable transaction is active.
 * Change `IdleStatus` so that when a browser event is triggered in the context of a transaction, the action will be scheduled for a later time to avoid constraint violations.
