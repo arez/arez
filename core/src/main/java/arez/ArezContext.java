@@ -868,7 +868,7 @@ public final class ArezContext
    * dependencies in the observe function are updated. Application code is responsible for executing the
    * observe function by invoking a observe method such as {@link #observe(Observer, Procedure)}.
    *
-   * @param component    the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param component    the component containing the observer, if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name         the name of the observer.
    * @param onDepsChange the hook invoked when dependencies changed.
    * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Observer.Flags}.
@@ -898,7 +898,7 @@ public final class ArezContext
   /**
    * Create an ObservableValue with the specified name.
    *
-   * @param name the name of the ObservableValue. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
+   * @param name the name of the ObservableValue. Should be non-null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
    * @param <T>  the type of observable.
    * @return the new ObservableValue.
    */
@@ -911,7 +911,7 @@ public final class ArezContext
   /**
    * Create an ObservableValue.
    *
-   * @param name     the name of the observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
+   * @param name     the name of the observable. Should be non-null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
    * @param accessor the accessor for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
    * @param mutator  the mutator for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
    * @param <T>      the type of observable.
@@ -930,7 +930,7 @@ public final class ArezContext
    *
    * @param <T>       The type of the value that is observable.
    * @param component the component containing observable if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name      the name of the observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
+   * @param name      the name of the observable. Should be non-null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
    * @return the new ObservableValue.
    */
   @Nonnull
@@ -945,7 +945,7 @@ public final class ArezContext
    *
    * @param <T>       The type of the value that is observable.
    * @param component the component containing observable if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name      the name of the observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
+   * @param name      the name of the observable. Should be non-null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
    * @param accessor  the accessor for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
    * @return the new ObservableValue.
    */
@@ -962,7 +962,7 @@ public final class ArezContext
    *
    * @param <T>       The type of the value that is observable.
    * @param component the component containing observable if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name      the name of the observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
+   * @param name      the name of the observable. Should be non-null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
    * @param accessor  the accessor for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
    * @param mutator   the mutator for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
    * @return the new ObservableValue.
@@ -989,7 +989,7 @@ public final class ArezContext
 
   /**
    * Pass the supplied observer to the scheduler.
-   * The observer should NOT be already pending execution.
+   * The observer should NOT be pending execution.
    *
    * @param observer the reaction to schedule.
    */
@@ -1015,7 +1015,7 @@ public final class ArezContext
 
   /**
    * Create and queue a task to be executed by the runtime.
-   * If the scheduler is not running then the scheduler will be triggered.
+   * If the scheduler is not running, then the scheduler will be triggered.
    *
    * @param work the representation of the task to execute.
    * @return the new task.
@@ -1028,7 +1028,7 @@ public final class ArezContext
 
   /**
    * Create and queue a task to be executed by the runtime.
-   * If the scheduler is not running then the scheduler will be triggered.
+   * If the scheduler is not running, then the scheduler will be triggered.
    *
    * @param name the name of the task. Must be null if {@link Arez#areNamesEnabled()} returns <code>false</code>.
    * @param work the representation of the task to execute.
@@ -1046,7 +1046,7 @@ public final class ArezContext
    * scheduler will be triggered.
    *
    * @param work  the representation of the task to execute.
-   * @param flags the flags to configure task. Valid flags include PRIORITY_* flags, DISPOSE_ON_COMPLETE and RUN_* flags.
+   * @param flags the flags to configure the task. Valid flags include PRIORITY_* flags, DISPOSE_ON_COMPLETE and RUN_* flags.
    * @return the new task.
    */
   @Nonnull
