@@ -182,7 +182,7 @@ public final class ArezContext
    *
    * @param type the component type.
    * @param id   the component id.
-   * @return true if component is defined in context.
+   * @return the created component.
    */
   @OmitSymbol( unless = "arez.enable_native_components" )
   @Nonnull
@@ -201,7 +201,7 @@ public final class ArezContext
    * @param type the component type.
    * @param id   the component id.
    * @param name the name of the component. Should be null if {@link Arez#areNamesEnabled()} returns false.
-   * @return true if component is defined in context.
+   * @return the created component.
    */
   @OmitSymbol( unless = "arez.enable_native_components" )
   @Nonnull
@@ -221,7 +221,7 @@ public final class ArezContext
    * @param id         the component id.
    * @param name       the name of the component. Should be null if {@link Arez#areNamesEnabled()} returns false.
    * @param preDispose the hook action called just before the Component is disposed. The hook method is called from within the dispose transaction.
-   * @return true if component is defined in context.
+   * @return the created component.
    */
   @OmitSymbol( unless = "arez.enable_native_components" )
   @Nonnull
@@ -245,7 +245,7 @@ public final class ArezContext
    * @param name        the name of the component. Should be null if {@link Arez#areNamesEnabled()} returns false.
    * @param preDispose  the hook action called just before the Component is disposed. The hook method is called from within the dispose transaction.
    * @param postDispose the hook action called just after the Component is disposed. The hook method is called from within the dispose transaction.
-   * @return true if component is defined in context.
+   * @return the created component.
    */
   @OmitSymbol( unless = "arez.enable_native_components" )
   @Nonnull
