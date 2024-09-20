@@ -3,6 +3,7 @@
 ### Unreleased
 
 * Add `ArezContext.isComputableTransactionActive()` to detect if computable transaction is active.
+* Change `IdleStatus` so that when a browser event is triggered in the context of a transaction, the action will be scheduled for a later time to avoid constraint violations.
 
 ### [v0.211](https://github.com/arez/arez/tree/v0.211) (2024-08-17) · [Full Changelog](https://github.com/arez/arez/compare/v0.210...v0.211)
 
