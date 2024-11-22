@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+* If an arez annotated method is annotated with `@SuppressWarnings("deprecation")` and would be overridden by arez, then
+  make sure the annotation is copied to the override even when no parameter or return value is marked as deprecated.
+  This will avoid the scenario that generates a deprecation warning when the method is implementing a deprecated interface.
+
 ### [v0.212](https://github.com/arez/arez/tree/v0.212) (2024-09-20) · [Full Changelog](https://github.com/arez/arez/compare/v0.211...v0.212) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.211&new=0.212)
 
 The release includes 1 non breaking API change.

@@ -13,7 +13,10 @@ import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-@SuppressWarnings("deprecation")
+@SuppressWarnings({
+    "RedundantSuppression",
+    "deprecation"
+})
 final class Arez_DeprecatedTypeParameterModel<T extends MyDeprecatedEntity> extends DeprecatedTypeParameterModel<T> implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 

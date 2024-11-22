@@ -211,6 +211,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.deprecated.DeprecatedObserveModel2" },
         new Object[]{ "com.example.deprecated.DeprecatedObserveModel3" },
         new Object[]{ "com.example.deprecated.DeprecatedObserveModel4" },
+        new Object[]{ "com.example.deprecation.DeprecationModel" },
         new Object[]{ "com.example.dispose_notifier.DisposeNotifierModel" },
         new Object[]{ "com.example.dispose_notifier.NoDisposeNotifierModel" },
         new Object[]{ "com.example.id.ComponentIdExample" },

@@ -22,7 +22,11 @@ import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-@SuppressWarnings("unchecked")
+@SuppressWarnings({
+    "RedundantSuppression",
+    "deprecation",
+    "unchecked"
+})
 final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 

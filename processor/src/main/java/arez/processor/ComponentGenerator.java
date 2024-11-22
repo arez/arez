@@ -12,6 +12,7 @@ import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeVariableName;
 import com.squareup.javapoet.WildcardTypeName;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -25,6 +26,7 @@ import java.util.stream.IntStream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.AnnotatedConstruct;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.Element;
@@ -184,7 +186,10 @@ final class ComponentGenerator
 
     GeneratorUtil.addGeneratedAnnotation( processingEnv, builder, ArezProcessor.class.getName() );
     final List<String> additionalSuppressions =
-      component.getMemoizes().isEmpty() ? Collections.emptyList() : Collections.singletonList( "unchecked" );
+      new ArrayList<>( component.getMemoizes().isEmpty() ?
+                       Collections.emptyList() :
+                       Collections.singletonList( "unchecked" ) );
+    additionalSuppressions.addAll( getAdditionalSuppressions( component.asDeclaredType().asElement() ) );
     final List<TypeMirror> types = new ArrayList<>();
     final ExecutableElement componentId = component.getComponentId();
     if ( component.isIdRequired() && null != componentId )
@@ -234,8 +239,7 @@ final class ComponentGenerator
 
     for ( final ExecutableElement contextRef : component.getContextRefs() )
     {
-      final MethodSpec.Builder method =
-        GeneratorUtil.refMethod( processingEnv, component.getElement(), contextRef );
+      final MethodSpec.Builder method = refMethod( processingEnv, component.getElement(), contextRef );
       generateNotInitializedInvariant( component, method, contextRef.getSimpleName().toString() );
       method.addStatement( "return this.$N.getContext()", KERNEL_FIELD_NAME );
       builder.addMethod( method.build() );
@@ -246,7 +250,7 @@ final class ComponentGenerator
     }
     for ( final ExecutableElement componentIdRef : component.getComponentIdRefs() )
     {
-      builder.addMethod( GeneratorUtil.refMethod( processingEnv, component.getElement(), componentIdRef )
+      builder.addMethod( refMethod( processingEnv, component.getElement(), componentIdRef )
                            .addStatement( "return this.$N()", component.getIdMethodName() )
                            .build() );
     }
@@ -264,17 +268,14 @@ final class ComponentGenerator
     }
     for ( final ExecutableElement componentNameRef : component.getComponentNameRefs() )
     {
-      final MethodSpec.Builder method =
-        GeneratorUtil.refMethod( processingEnv, component.getElement(), componentNameRef );
+      final MethodSpec.Builder method = refMethod( processingEnv, component.getElement(), componentNameRef );
       generateNotInitializedInvariant( component, method, componentNameRef.getSimpleName().toString() );
       method.addStatement( "return this.$N.getName()", KERNEL_FIELD_NAME );
       builder.addMethod( method.build() );
     }
     for ( final ExecutableElement componentTypeNameRef : component.getComponentTypeNameRefs() )
     {
-      builder.addMethod( GeneratorUtil.refMethod( processingEnv,
-                                                  component.getElement(),
-                                                  componentTypeNameRef )
+      builder.addMethod( refMethod( processingEnv, component.getElement(), componentTypeNameRef )
                            .addStatement( "return $S", component.getName() )
                            .build() );
     }
@@ -578,8 +579,7 @@ final class ComponentGenerator
   {
     final String methodName = action.getAction().getSimpleName().toString();
     final ComponentDescriptor component = action.getComponent();
-    final MethodSpec.Builder method =
-      GeneratorUtil.overrideMethod( processingEnv, component.getElement(), action.getAction() );
+    final MethodSpec.Builder method = overrideMethod( processingEnv, component.getElement(), action.getAction() );
 
     final boolean isProcedure = action.getActionType().getReturnType().getKind() == TypeKind.VOID;
     final List<? extends TypeMirror> thrownTypes = action.getAction().getThrownTypes();
@@ -1032,7 +1032,7 @@ final class ComponentGenerator
                                                      @Nonnull final ExecutableElement componentRef )
     throws ProcessorException
   {
-    final MethodSpec.Builder method = GeneratorUtil.refMethod( processingEnv, component.getElement(), componentRef );
+    final MethodSpec.Builder method = refMethod( processingEnv, component.getElement(), componentRef );
 
     final String methodName = componentRef.getSimpleName().toString();
     generateNotInitializedInvariant( component, method, methodName );
@@ -2186,7 +2186,7 @@ final class ComponentGenerator
       for ( final CandidateMethod refMethod : memoize.getRefMethods() )
       {
         final MethodSpec.Builder method =
-          GeneratorUtil.refMethod( processingEnv, memoize.getComponent().getElement(), refMethod.getMethod() );
+          refMethod( processingEnv, memoize.getComponent().getElement(), refMethod.getMethod() );
         generateNotDisposedInvariant( method, refMethod.getMethod().getSimpleName().toString() );
         builder.addMethod( method
                              .addStatement( "return $N", getMemoizeFieldName( memoize ) )
@@ -2285,9 +2285,7 @@ final class ComponentGenerator
 
     final MethodSpec.Builder method = MethodSpec.methodBuilder( getMemoizeWrapperMethodName( memoize ) );
 
-    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv,
-                                                        method,
-                                                        Collections.singletonList( executableType ) );
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, method, executableType );
     GeneratorUtil.copyAccessModifiers( executableElement, method );
     GeneratorUtil.copyTypeParameters( executableType, method );
     GeneratorUtil.copyWhitelistedAnnotations( executableElement, method );
@@ -2361,6 +2359,72 @@ final class ComponentGenerator
     return method.build();
   }
 
+  @Nonnull
+  private static MethodSpec.Builder refMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                               @Nonnull final TypeElement typeElement,
+                                               @Nonnull final ExecutableElement executableElement )
+  {
+    final MethodSpec.Builder method =
+      GeneratorUtil.overrideMethod( processingEnv,
+                                    typeElement,
+                                    executableElement,
+                                    getAdditionalSuppressions( executableElement ),
+                                    false );
+    if ( !executableElement.getReturnType().getKind().isPrimitive() )
+    {
+      method.addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
+    }
+    return method;
+  }
+
+  @Nonnull
+  private static MethodSpec.Builder overrideMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                                    @Nonnull final TypeElement typeElement,
+                                                    @Nonnull final ExecutableElement executableElement )
+  {
+    return GeneratorUtil.overrideMethod( processingEnv,
+                                         typeElement,
+                                         executableElement,
+                                         getAdditionalSuppressions( executableElement ),
+                                         true );
+  }
+
+  @Nonnull
+  private static List<String> getAdditionalSuppressions( @Nonnull final AnnotatedConstruct annotatedConstruct )
+  {
+    return hasSuppressWarningsDeprecation( annotatedConstruct ) ?
+           Arrays.asList( "RedundantSuppression", "deprecation" ) :
+           Collections.emptyList();
+  }
+
+  private static boolean hasSuppressWarningsDeprecation( @Nonnull final AnnotatedConstruct annotatedConstruct )
+  {
+    for ( var annotationMirror : annotatedConstruct.getAnnotationMirrors() )
+    {
+      if ( annotationMirror.getAnnotationType().toString().equals( SuppressWarnings.class.getCanonicalName() ) )
+      {
+        for ( var entry : annotationMirror.getElementValues().entrySet() )
+        {
+          if ( entry.getKey().getSimpleName().toString().equals( "value" ) )
+          {
+            // Get the list of values (e.g., ["unchecked", "deprecation"])
+            @SuppressWarnings( "unchecked" )
+            var values = (List<? extends AnnotationValue>) entry.getValue().getValue();
+            for ( var value : values )
+            {
+              if ( "deprecation".equals( value.getValue().toString() ) )
+              {
+                return true;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return false;
+  }
+
   /**
    * Generate the wrapper around Memoize method.
    */
@@ -2371,8 +2435,7 @@ final class ComponentGenerator
   {
     final ExecutableElement executableElement = memoize.getMethod();
     final ComponentDescriptor component = memoize.getComponent();
-    final MethodSpec.Builder method =
-      GeneratorUtil.overrideMethod( processingEnv, component.getElement(), executableElement );
+    final MethodSpec.Builder method = overrideMethod( processingEnv, component.getElement(), executableElement );
 
     final TypeName returnType = TypeName.get( memoize.getMethodType().getReturnType() );
     generateNotDisposedInvariant( method, executableElement.getSimpleName().toString() );
@@ -2434,7 +2497,7 @@ final class ComponentGenerator
     throws ProcessorException
   {
     final MethodSpec.Builder method =
-      GeneratorUtil.refMethod( processingEnv, memoize.getComponent().getElement(), refMethod.getMethod() );
+      refMethod( processingEnv, memoize.getComponent().getElement(), refMethod.getMethod() );
     generateNotDisposedInvariant( method, refMethod.getMethod().getSimpleName().toString() );
 
     final StringBuilder sb = new StringBuilder();
@@ -2468,7 +2531,8 @@ final class ComponentGenerator
 
     final boolean hasTypeParameters = !executableElement.getTypeParameters().isEmpty();
     final List<String> additionalSuppressions =
-      hasTypeParameters ? Collections.singletonList( "unchecked" ) : Collections.emptyList();
+      new ArrayList<>( hasTypeParameters ? Collections.singletonList( "unchecked" ) : Collections.emptyList() );
+    additionalSuppressions.addAll( getAdditionalSuppressions( executableElement ) );
     final MethodSpec.Builder builder =
       GeneratorUtil.overrideMethod( processingEnv,
                                     memoize.getComponent().getElement(),
@@ -3114,7 +3178,7 @@ final class ComponentGenerator
     for ( final CandidateMethod refMethod : observable.getRefMethods() )
     {
       final MethodSpec.Builder method =
-        GeneratorUtil.refMethod( processingEnv, observable.getComponent().getElement(), refMethod.getMethod() );
+        refMethod( processingEnv, observable.getComponent().getElement(), refMethod.getMethod() );
 
       generateNotDisposedInvariant( method, refMethod.getMethod().getSimpleName().toString() );
 
@@ -3131,7 +3195,7 @@ final class ComponentGenerator
     final ExecutableType setterType = observable.getSetterType();
     final String methodName = setter.getSimpleName().toString();
     final ComponentDescriptor component = observable.getComponent();
-    final MethodSpec.Builder method = GeneratorUtil.overrideMethod( processingEnv, component.getElement(), setter );
+    final MethodSpec.Builder method = overrideMethod( processingEnv, component.getElement(), setter );
 
     if ( observable.canWriteOutsideTransaction() )
     {
@@ -3474,6 +3538,7 @@ final class ComponentGenerator
     {
       additionalSuppressions.add( "unchecked" );
     }
+    additionalSuppressions.addAll( getAdditionalSuppressions( getter ) );
     final MethodSpec.Builder method =
       GeneratorUtil.overrideMethod( processingEnv, component.getElement(), getter, additionalSuppressions, true );
 
@@ -3983,7 +4048,10 @@ final class ComponentGenerator
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     GeneratorUtil.copyAccessModifiers( method, builder );
     GeneratorUtil.copyTypeParameters( reference.getMethodType(), builder );
-    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, method.asType() );
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv,
+                                                        builder,
+                                                        getAdditionalSuppressions( method ),
+                                                        Collections.singletonList( method.asType() ) );
     GeneratorUtil.copyWhitelistedAnnotations( method, builder );
 
     builder.addAnnotation( Override.class );
@@ -4313,7 +4381,7 @@ final class ComponentGenerator
     for ( final ExecutableElement refMethod : observe.getRefMethods() )
     {
       final ComponentDescriptor component = observe.getComponent();
-      final MethodSpec.Builder method = GeneratorUtil.refMethod( processingEnv, component.getElement(), refMethod );
+      final MethodSpec.Builder method = refMethod( processingEnv, component.getElement(), refMethod );
       generateNotDisposedInvariant( method, refMethod.getSimpleName().toString() );
       builder.addMethod( method.addStatement( "return $N", observe.getFieldName() ).build() );
     }
@@ -4359,8 +4427,7 @@ final class ComponentGenerator
     final ExecutableElement method = observe.getMethod();
     final String methodName = method.getSimpleName().toString();
     final ComponentDescriptor component = observe.getComponent();
-    final MethodSpec.Builder builder =
-      GeneratorUtil.overrideMethod( processingEnv, component.getElement(), observe.getMethod() );
+    final MethodSpec.Builder builder = overrideMethod( processingEnv, component.getElement(), observe.getMethod() );
 
     final TypeMirror returnType = methodType.getReturnType();
 
@@ -4484,8 +4551,7 @@ final class ComponentGenerator
   {
     assert observe.hasObserve();
     final ComponentDescriptor component = observe.getComponent();
-    final MethodSpec.Builder method =
-      GeneratorUtil.overrideMethod( processingEnv, component.getElement(), observe.getMethod() );
+    final MethodSpec.Builder method = overrideMethod( processingEnv, component.getElement(), observe.getMethod() );
 
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
