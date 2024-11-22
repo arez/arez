@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.213](https://github.com/arez/arez/tree/v0.213) (2024-11-22) · [Full Changelog](https://github.com/arez/arez/compare/v0.212...v0.213)
+
+Changes in this release:
 
 * If an arez annotated method is annotated with `@SuppressWarnings("deprecation")` and would be overridden by arez, then
   make sure the annotation is copied to the override even when no parameter or return value is marked as deprecated.
