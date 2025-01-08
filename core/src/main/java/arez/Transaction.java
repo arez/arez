@@ -790,7 +790,8 @@ final class Transaction
           if ( Arez.shouldCheckInvariants() &&
                !observer.isComputableValue() &&
                !( observableValue.isComputableValue() &&
-                  observer.getTask().getPriorityIndex() <= observableValue.getObserver().getTask().getPriorityIndex() ) )
+                  observer.getTask().getPriorityIndex() <=
+                  observableValue.getObserver().getTask().getPriorityIndex() ) )
           {
             invariantObserverIsTracker( observableValue, observer );
           }
