@@ -39,10 +39,10 @@ public final class Observer
   /**
    * The observables that this observer receives notifications from.
    * These are the dependencies within the dependency graph and will
-   * typically correspond to the observables that were accessed in last
-   * transaction that this observer was tracking.
+   * typically correspond to the observables that were accessed in the
+   * last transaction that this observer was tracking.
    *
-   * This list should contain no duplicates.
+   * <p>This list should contain no duplicates.</p>
    */
   @Nonnull
   private List<ObservableValue<?>> _dependencies = new ArrayList<>();
