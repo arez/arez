@@ -498,7 +498,7 @@ final class Transaction
     }
   }
 
-  boolean hasTransactionUseOccured()
+  boolean hasTransactionUseOccurred()
   {
     return Arez.shouldCheckInvariants() && _transactionUsed;
   }

@@ -2048,7 +2048,7 @@ public final class ArezContext
     if ( Arez.shouldCheckInvariants() &&
          ActionFlags.NO_VERIFY_ACTION_REQUIRED != ( flags & ActionFlags.NO_VERIFY_ACTION_REQUIRED ) )
     {
-      invariant( transaction::hasTransactionUseOccured,
+      invariant( transaction::hasTransactionUseOccurred,
                  () -> "Arez-0185: Action named '" + transaction.getName() + "' completed but no reads, writes, " +
                        "schedules, reportStales or reportPossiblyChanged occurred within the scope of the action." );
     }

@@ -308,7 +308,7 @@ public final class TransactionTest
     assertEquals( observableValue.getObservers().size(), 0 );
     assertNull( transaction.getObservableValues() );
     assertNotEquals( transaction.getId(), observableValue.getLastTrackerTransactionId() );
-    assertFalse( transaction.hasTransactionUseOccured() );
+    assertFalse( transaction.hasTransactionUseOccurred() );
 
     transaction.observe( observableValue );
 
@@ -319,7 +319,7 @@ public final class TransactionTest
 
     assertTrue( transaction.getObservableValues().contains( observableValue ) );
     assertEquals( transaction.getObservableValues().size(), 1 );
-    assertTrue( transaction.hasTransactionUseOccured() );
+    assertTrue( transaction.hasTransactionUseOccurred() );
   }
 
   @Test
@@ -1411,12 +1411,12 @@ public final class TransactionTest
     final ObservableValue<?> observableValue = context.observable();
 
     assertEquals( observableValue.getLeastStaleObserverState(), Observer.Flags.STATE_UP_TO_DATE );
-    assertFalse( transaction.hasTransactionUseOccured() );
+    assertFalse( transaction.hasTransactionUseOccurred() );
 
     transaction.reportChanged( observableValue );
 
     assertEquals( observableValue.getLeastStaleObserverState(), Observer.Flags.STATE_UP_TO_DATE );
-    assertTrue( transaction.hasTransactionUseOccured() );
+    assertTrue( transaction.hasTransactionUseOccurred() );
   }
 
   @Test
@@ -1437,14 +1437,14 @@ public final class TransactionTest
 
     assertEquals( observableValue.getLeastStaleObserverState(), Observer.Flags.STATE_UP_TO_DATE );
     assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
-    assertFalse( transaction.hasTransactionUseOccured() );
+    assertFalse( transaction.hasTransactionUseOccurred() );
 
     Transaction.setTransaction( transaction );
     transaction.reportChanged( observableValue );
 
     assertEquals( observableValue.getLeastStaleObserverState(), Observer.Flags.STATE_STALE );
     assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
-    assertTrue( transaction.hasTransactionUseOccured() );
+    assertTrue( transaction.hasTransactionUseOccurred() );
   }
 
   @Test
