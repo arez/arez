@@ -1712,7 +1712,7 @@ final class ComponentGenerator
   }
 
   /**
-   * Build a constructor based on the supplied constructor
+   * Build a constructor based on the supplied constructor.
    */
   @Nonnull
   private static MethodSpec buildConstructor( @Nonnull final ProcessingEnvironment processingEnv,
@@ -1984,7 +1984,7 @@ final class ComponentGenerator
   }
 
   /**
-   * Build any fields required by
+   * Build any fields required by ObserveDescriptor.
    */
   private static void buildObserveFields( @Nonnull final ObserveDescriptor observe,
                                           @Nonnull final TypeSpec.Builder builder )
