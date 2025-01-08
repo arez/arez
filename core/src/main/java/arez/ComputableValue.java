@@ -716,7 +716,7 @@ public final class ComputableValue<T>
      */
     public static final int PRIORITY_MASK = 0b111 << 15;
     /**
-     * Can the ComputableValue be accessed outside a transaction?
+     * Flag indicating that the ComputableValue be accessed outside a transaction.
      */
     public static final int READ_OUTSIDE_TRANSACTION = 1 << 14;
     /**
