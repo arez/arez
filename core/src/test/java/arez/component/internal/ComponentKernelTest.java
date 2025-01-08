@@ -381,7 +381,7 @@ public final class ComponentKernelTest
       }
     } );
 
-    assertTrue( context.safeAction( (SafeFunction<Boolean>) kernel::observe ) );
+    assertTrue( context.safeAction( kernel::observe ) );
 
     assertEquals( notDisposedCallCount.get(), 1 );
     assertEquals( disposedCallCount.get(), 0 );
@@ -389,7 +389,7 @@ public final class ComponentKernelTest
     // Dispose the observer - this should trigger the dispose of the ComponentKernel
     Disposable.dispose( observer );
 
-    assertFalse( context.safeAction( (SafeFunction<Boolean>) kernel::observe, ActionFlags.NO_VERIFY_ACTION_REQUIRED ) );
+    assertFalse( context.safeAction( kernel::observe, ActionFlags.NO_VERIFY_ACTION_REQUIRED ) );
 
     assertEquals( notDisposedCallCount.get(), 1 );
 
