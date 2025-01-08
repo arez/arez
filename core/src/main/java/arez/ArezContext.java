@@ -2060,7 +2060,7 @@ public final class ArezContext
   }
 
   /**
-   * Return true if action can immediately invoked, false if a transaction needs to be created.
+   * Return true if the action can be immediately invoked, false if a transaction needs to be created.
    */
   private boolean canImmediatelyInvokeAction( final int flags )
   {
