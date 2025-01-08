@@ -47,6 +47,15 @@ public final class Observer
   @Nonnull
   private List<ObservableValue<?>> _dependencies = new ArrayList<>();
   /**
+   * The list of procedures that this observer will invoke when it deactivates.
+   * These correspond to the procedures that were registered in the last
+   * transaction that this observer was tracking.
+   *
+   * <p>This list should contain no duplicates.</p>
+   */
+  @Nonnull
+  private List<Procedure> _onDeactivateHooks = new ArrayList<>();
+  /**
    * Observe function to invoke if any.
    * This may be null if external executor is responsible for executing the observe function via
    * methods such as {@link ArezContext#observe(Observer, Function, Object...)}. If this is null then
@@ -482,10 +491,11 @@ public final class Observer
       {
         if ( isComputableValue() )
         {
-          final ComputableValue<?> computableValue = getComputableValue();
-          runHook( computableValue.getOnDeactivate(), ObserverError.ON_DEACTIVATE_ERROR );
-          computableValue.completeDeactivate();
+          getComputableValue().completeDeactivate();
         }
+        final List<Procedure> hooks = getOnDeactivateHooks();
+        hooks.forEach( hook -> runHook( hook, ObserverError.ON_DEACTIVATE_ERROR ) );
+        hooks.clear();
         clearDependencies();
       }
       else if ( Flags.STATE_INACTIVE == originalState &&
@@ -771,6 +781,28 @@ public final class Observer
      */
     markDependenciesLeastStaleObserverAsUpToDate();
     return false;
+  }
+
+  /**
+   * Return the onDeactivate callbacks.
+   *
+   * @return the onDeactivate callbacks.
+   */
+  @Nonnull
+  List<Procedure> getOnDeactivateHooks()
+  {
+    return _onDeactivateHooks;
+  }
+
+  /**
+   * Replace the current set of OnDeactivateHooks with supplied OnDeactivateHooks.
+   * This should be the only mechanism via which the OnDeactivateHooks are updated.
+   *
+   * @param onDeactivateHooks the new set of OnDeactivateHooks.
+   */
+  void replaceOnDeactivateHooks( @Nonnull final List<Procedure> onDeactivateHooks )
+  {
+    _onDeactivateHooks = Objects.requireNonNull( onDeactivateHooks );
   }
 
   /**

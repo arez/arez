@@ -161,6 +161,15 @@ final class Transaction
   @Nullable
   private List<ObservableValue<?>> _observableValues;
   /**
+   * The list of deactivation hooks that have been registered during tracking.
+   * This list may contain duplicates, but the duplicates will be eliminated when converting the list
+   * of observables to deactivation hooks to pass to the tracking observer.
+   *
+   * <p>This should be null unless the _tracker is non-null.</p>
+   */
+  @Nullable
+  private List<Procedure> _onDeactivateHooks;
+  /**
    * The flag set if transaction interacts with Arez resources.
    * This should only be accessed when {@link Arez#shouldCheckInvariants()} returns true.
    */
@@ -606,6 +615,17 @@ final class Transaction
     }
   }
 
+  void registerOnDeactivationHook( @Nonnull final Procedure onDeactivationHook )
+  {
+    if ( Arez.shouldCheckInvariants() )
+    {
+      markTransactionAsUsed();
+      invariant( () -> null != _tracker,
+                 () -> "Arez-0045: registerOnDeactivateHook() invoked outside of a tracking transaction." );
+    }
+    safeGetOnDeactivateHooks().add( onDeactivationHook );
+  }
+
   /**
    * Mark transaction as used.
    */
@@ -1002,6 +1022,8 @@ final class Transaction
       }
     }
 
+    _tracker.replaceOnDeactivateHooks( null != _onDeactivateHooks ? _onDeactivateHooks : new ArrayList<>() );
+
     if ( Disposable.isNotDisposed( _tracker ) && _tracker.isComputableValue() )
     {
       final ComputableValue<?> computableValue = _tracker.getComputableValue();
@@ -1029,6 +1051,12 @@ final class Transaction
       _tracker.invariantDependenciesBackLink( "Post completeTracking" );
       _tracker.invariantDependenciesNotDisposed();
     }
+  }
+
+  @Nullable
+  List<Procedure> getOnDeactivateHooks()
+  {
+    return _onDeactivateHooks;
   }
 
   @Nullable
@@ -1072,6 +1100,19 @@ final class Transaction
       _observableValues = new ArrayList<>();
     }
     return _observableValues;
+  }
+
+  /**
+   * Return the OnDeactivateHooks, initializing the array if necessary.
+   */
+  @Nonnull
+  List<Procedure> safeGetOnDeactivateHooks()
+  {
+    if ( null == _onDeactivateHooks )
+    {
+      _onDeactivateHooks = new ArrayList<>();
+    }
+    return _onDeactivateHooks;
   }
 
   @Nullable

@@ -456,6 +456,11 @@ public final class ComputableValue<T>
    */
   void compute()
   {
+    final Procedure onDeactivate = getOnDeactivate();
+    if ( null != onDeactivate )
+    {
+      Transaction.current().registerOnDeactivationHook( onDeactivate );
+    }
     final T oldValue = _value;
     try
     {

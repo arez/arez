@@ -1307,6 +1307,27 @@ public final class ArezContext
   }
 
   /**
+   * Register a callback that will be invoked when the current ComputedValue or Observer is deactivated.
+   * This method MUST be invoked from within the scope of the transaction.
+   * The hooks that are invoked on the observers/computed values deactivate will be the last hooks registered.
+   * It is recommended that registering the callbacks is the first action performed within the scope of the transaction.
+   *
+   * @param onDeactivateHook the OnDeactivate hook.
+   */
+  public void registerOnDeactivateHook( @Nonnull final Procedure onDeactivateHook )
+  {
+    if ( Arez.shouldCheckInvariants() )
+    {
+      //noinspection ConstantValue
+      invariant( () -> null != onDeactivateHook,
+                 () -> "Arez-0124: registerOnDeactivateHook() invoked with a null callback." );
+      invariant( this::isTransactionActive,
+                 () -> "Arez-0098: registerOnDeactivateHook() invoked outside of a transaction." );
+    }
+    Transaction.current().registerOnDeactivationHook( onDeactivateHook );
+  }
+
+  /**
    * Execute the supplied executable in a transaction.
    * The executable may throw an exception.
    *

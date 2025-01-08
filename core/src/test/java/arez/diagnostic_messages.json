@@ -220,6 +220,11 @@
     "messagePattern": "Component.removeObservableValue invoked on component '%s' specifying ObservableValue named '%s' when ObservableValue does not exist for component."
   },
   {
+    "code": 45,
+    "type": "INVARIANT",
+    "messagePattern": "registerOnDeactivateHook() invoked outside of a tracking transaction."
+  },
+  {
     "code": 46,
     "type": "API_INVARIANT",
     "messagePattern": "Component.addComputableValue invoked on component '%s' specifying ComputableValue named '%s' when ComputableValue already exists for component."
@@ -480,6 +485,11 @@
     "messagePattern": "Attempting to remove handler %s that is not in the list of error handlers."
   },
   {
+    "code": 98,
+    "type": "INVARIANT",
+    "messagePattern": "registerOnDeactivateHook() invoked outside of a transaction."
+  },
+  {
     "code": 99,
     "type": "INVARIANT",
     "messagePattern": "Attempting to queue task named '%s' when task is already queued."
@@ -603,6 +613,11 @@
     "code": 123,
     "type": "INVARIANT",
     "messagePattern": "Attempting to commit transaction named '%s' but this does not match existing transaction named '%s'."
+  },
+  {
+    "code": 124,
+    "type": "INVARIANT",
+    "messagePattern": "registerOnDeactivateHook() invoked with a null callback."
   },
   {
     "code": 126,

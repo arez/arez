@@ -2,6 +2,11 @@
 
 ### Unreleased
 
+* Add `ArezContext.registerOnDeactivateHook()` that allows the registration of hooks that will be invoked when the
+  current observer or computed value is deactivated. The intent is to enable dynamic set of OnDeactivate hooks for
+  `ComputableValue` instances or `@Memoize` annotated methods without the existing restrictions aroun `OnDeactivate`
+  hooks.
+
 ### [v0.213](https://github.com/arez/arez/tree/v0.213) (2024-11-22) · [Full Changelog](https://github.com/arez/arez/compare/v0.212...v0.213)
 
 Changes in this release:

@@ -17,6 +17,7 @@ import arez.spy.Priority;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -739,6 +740,7 @@ public final class ObserverTest
     watcher.setState( Observer.Flags.STATE_UP_TO_DATE );
     observer.getComputableValue().getObservableValue().rawAddObserver( watcher );
     watcher.getDependencies().add( observer.getComputableValue().getObservableValue() );
+    observer.replaceOnDeactivateHooks( new ArrayList<>( Collections.singletonList( onDeactivate ) ) );
 
     watcher.setState( Observer.Flags.STATE_UP_TO_DATE );
 

@@ -323,6 +323,53 @@ public final class TransactionTest
   }
 
   @Test
+  public void registerOnDeactivationHook()
+  {
+    final ArezContext context = Arez.context();
+    final Observer tracker = context.computable( () -> "" ).getObserver();
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker, false );
+    Transaction.setTransaction( transaction );
+
+    transaction.beginTracking();
+
+    assertEquals( tracker.getOnDeactivateHooks().size(), 0 );
+    assertNull( transaction.getOnDeactivateHooks() );
+    assertFalse( transaction.hasTransactionUseOccurred() );
+
+    final Procedure onDeactivationHook = new NoopProcedure();
+    transaction.registerOnDeactivationHook( onDeactivationHook );
+
+    assertNotNull( transaction.getOnDeactivateHooks() );
+    assertEquals( transaction.getOnDeactivateHooks().size(), 1 );
+    assertTrue( transaction.getOnDeactivateHooks().contains( onDeactivationHook ) );
+
+    assertEquals( tracker.getOnDeactivateHooks().size(), 0 );
+
+    transaction.completeTracking();
+
+    assertEquals( tracker.getOnDeactivateHooks().size(), 1 );
+    assertTrue( tracker.getOnDeactivateHooks().contains( onDeactivationHook ) );
+  }
+
+  @Test
+  public void registerOnDeactivationHook_outsideTrackingTransaction()
+  {
+    final ArezContext context = Arez.context();
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null, false );
+    Transaction.setTransaction( transaction );
+
+    transaction.beginTracking();
+
+    assertNull( transaction.getOnDeactivateHooks() );
+    assertFalse( transaction.hasTransactionUseOccurred() );
+
+    final Procedure onDeactivationHook = new NoopProcedure();
+
+    assertInvariantFailure( () -> transaction.registerOnDeactivationHook( onDeactivationHook ),
+                            "Arez-0045: registerOnDeactivateHook() invoked outside of a tracking transaction." );
+  }
+
+  @Test
   public void observe_onDisposedObservable()
   {
     final ArezContext context = Arez.context();

@@ -11,6 +11,7 @@ import arez.spy.ObserveScheduleEvent;
 import arez.spy.Priority;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -192,8 +193,12 @@ public final class ComputableValueTest
     final AtomicReference<String> value = new AtomicReference<>();
     final String value1 = ValueUtil.randomString();
     final String value2 = ValueUtil.randomString();
+    final NoopProcedure onDeactivateHook1 = new NoopProcedure();
+    final NoopProcedure onDeactivateHook2 = new NoopProcedure();
     final SafeFunction<String> function = () -> {
       observeADependency();
+      Arez.context().registerOnDeactivateHook( onDeactivateHook1 );
+      Arez.context().registerOnDeactivateHook( onDeactivateHook2 );
       return value.get();
     };
     final ComputableValue<String> computableValue = context.computable( name, function );
@@ -212,11 +217,25 @@ public final class ComputableValueTest
     value.set( value2 );
 
     setCurrentTransaction( computableValue.getObserver() );
+
+    assertNull( Transaction.current().getOnDeactivateHooks() );
+    assertEquals( computableValue.getObserver().getOnDeactivateHooks().size(), 0 );
+
     computableValue.compute();
 
     assertEquals( computableValue.getValue(), value2 );
     assertNull( computableValue.getError() );
     assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
+
+    // The hooks should have been registered with the transaction
+    final List<Procedure> hooks = Transaction.current().getOnDeactivateHooks();
+    assertNotNull( hooks );
+    assertEquals( hooks.size(), 2 );
+    assertTrue( hooks.contains( onDeactivateHook1 ) );
+    assertTrue( hooks.contains( onDeactivateHook2 ) );
+
+    // The hooks will not be updated until transaction completes
+    assertEquals( computableValue.getObserver().getOnDeactivateHooks().size(), 0 );
   }
 
   @Test
