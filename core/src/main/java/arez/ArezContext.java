@@ -1999,8 +1999,7 @@ public final class ArezContext
     }
   }
 
-  private void verifyActionFlags( @Nullable final String name,
-                                  @MagicConstant( flagsFromClass = ActionFlags.class ) final int flags )
+  private void verifyActionFlags( @Nullable final String name, final int flags )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
@@ -2042,8 +2041,7 @@ public final class ArezContext
     }
   }
 
-  private void verifyActionRequired( @Nonnull final Transaction transaction,
-                                     @MagicConstant( flagsFromClass = ActionFlags.class ) final int flags )
+  private void verifyActionRequired( @Nonnull final Transaction transaction, final int flags )
   {
     if ( Arez.shouldCheckInvariants() &&
          ActionFlags.NO_VERIFY_ACTION_REQUIRED != ( flags & ActionFlags.NO_VERIFY_ACTION_REQUIRED ) )
@@ -2055,9 +2053,7 @@ public final class ArezContext
   }
 
   @Nonnull
-  private Transaction newTransaction( @Nullable final String name,
-                                      @MagicConstant( flagsFromClass = ActionFlags.class ) final int flags,
-                                      @Nullable final Observer observer )
+  private Transaction newTransaction( @Nullable final String name, final int flags, @Nullable final Observer observer )
   {
     final boolean mutation = Arez.shouldEnforceTransactionType() && 0 == ( flags & Transaction.Flags.READ_ONLY );
     return Transaction.begin( this, generateName( "Transaction", name ), mutation, observer );
