@@ -6,7 +6,6 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
-import arez.Procedure;
 import arez.SafeFunction;
 import arez.Task;
 import grim.annotations.OmitSymbol;
@@ -263,9 +262,11 @@ public final class MemoizeCache<T>
   {
     final Component component = Arez.areNativeComponentsEnabled() ? _component : null;
     final String name = Arez.areNamesEnabled() ? _name + "." + _nextIndex++ : null;
-    final Procedure onDeactivate = () -> disposeComputableValue( args );
-    final SafeFunction<T> function = () -> _function.call( args );
-    return getContext().computable( component, name, function, null, onDeactivate, _flags );
+    final SafeFunction<T> function = () -> {
+      Arez.context().registerOnDeactivateHook( () -> disposeComputableValue( args ) );
+      return _function.call( args );
+    };
+    return getContext().computable( component, name, function, null, _flags );
   }
 
   /**

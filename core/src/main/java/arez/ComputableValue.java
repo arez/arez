@@ -79,11 +79,6 @@ public final class ComputableValue<T>
   @Nullable
   private final Procedure _onActivate;
   /**
-   * Hook action called when the ComputableValue moves to unobserved state from any other state.
-   */
-  @Nullable
-  private final Procedure _onDeactivate;
-  /**
    * Cached info object associated with the element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
    */
@@ -96,7 +91,6 @@ public final class ComputableValue<T>
                    @Nullable final String name,
                    @Nonnull final SafeFunction<T> function,
                    @Nullable final Procedure onActivate,
-                   @Nullable final Procedure onDeactivate,
                    final int flags )
   {
     super( context, name );
@@ -109,7 +103,6 @@ public final class ComputableValue<T>
     _component = Arez.areNativeComponentsEnabled() ? component : null;
     _function = Objects.requireNonNull( function );
     _onActivate = onActivate;
-    _onDeactivate = onDeactivate;
     _value = null;
     _computing = false;
     _readOutsideTransaction = Flags.READ_OUTSIDE_TRANSACTION == ( flags & Flags.READ_OUTSIDE_TRANSACTION );
@@ -440,27 +433,11 @@ public final class ComputableValue<T>
   }
 
   /**
-   * Return the onDeactivate hook.
-   *
-   * @return the onDeactivate hook.
-   */
-  @Nullable
-  Procedure getOnDeactivate()
-  {
-    return _onDeactivate;
-  }
-
-  /**
    * Compute the new value and compare it to the old value using equality comparator. If
    * the new value differs from the old value, cache the new value.
    */
   void compute()
   {
-    final Procedure onDeactivate = getOnDeactivate();
-    if ( null != onDeactivate )
-    {
-      Transaction.current().registerOnDeactivationHook( onDeactivate );
-    }
     final T oldValue = _value;
     try
     {

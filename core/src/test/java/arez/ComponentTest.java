@@ -415,12 +415,10 @@ public final class ComponentTest
     final ComputableValue<?> computableValue1 = context.computable( component,
                                                                     ValueUtil.randomString(),
                                                                     () -> "",
-                                                                    null,
                                                                     null );
     final ComputableValue<?> computableValue2 = context.computable( component,
                                                                     ValueUtil.randomString(),
                                                                     () -> "",
-                                                                    null,
                                                                     null );
     final Procedure action = AbstractTest::observeADependency;
     final Observer observer1 = context.observer( component, null, action, Observer.Flags.RUN_LATER );

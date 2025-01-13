@@ -134,10 +134,14 @@ public final class ComponentKernel
   @Nullable
   private final ObservableValue<Boolean> _componentObservable;
   /**
+   * Flag that indicates whether {@link ArezComponent#disposeOnDeactivate()} is true for component.
+   */
+  private final boolean _disposeOnDeactivate;
+  /**
    * Mechanism for implementing {@link ArezComponent#disposeOnDeactivate()} on the component.
    */
   @Nullable
-  private final ComputableValue<Boolean> _disposeOnDeactivate;
+  private final ComputableValue<Boolean> _disposeOnDeactivateValue;
   /**
    * Guard to ensure we never try to schedule a dispose multiple times, otherwise the underlying task
    * system will detect multiple tasks with the same name and object.
@@ -184,7 +188,8 @@ public final class ComponentKernel
     _disposeCallback = Arez.areNativeComponentsEnabled() ? null : disposeCallback;
     _postDisposeCallback = Arez.areNativeComponentsEnabled() ? null : postDisposeCallback;
     _componentObservable = isComponentObservable ? createComponentObservable() : null;
-    _disposeOnDeactivate = disposeOnDeactivate ? createDisposeOnDeactivate() : null;
+    _disposeOnDeactivate = disposeOnDeactivate;
+    _disposeOnDeactivateValue = disposeOnDeactivate ? createDisposeOnDeactivate() : null;
   }
 
   @Nonnull
@@ -194,7 +199,6 @@ public final class ComponentKernel
                                     Arez.areNamesEnabled() ? getName() + ".disposeOnDeactivate" : null,
                                     this::observe0,
                                     null,
-                                    this::scheduleDispose,
                                     ComputableValue.Flags.PRIORITY_HIGHEST );
   }
 
@@ -232,13 +236,13 @@ public final class ComponentKernel
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( () -> null != _disposeOnDeactivate || null != _componentObservable,
+      apiInvariant( () -> null != _disposeOnDeactivateValue || null != _componentObservable,
                     () -> "Arez-0221: ComponentKernel.observe() invoked on component named '" + getName() +
                           "' but observing is not enabled for component." );
     }
-    if ( null != _disposeOnDeactivate )
+    if ( null != _disposeOnDeactivateValue )
     {
-      return isNotDisposed() ? _disposeOnDeactivate.get() : false;
+      return isNotDisposed() ? _disposeOnDeactivateValue.get() : false;
     }
     else
     {
@@ -252,11 +256,16 @@ public final class ComponentKernel
   private boolean observe0()
   {
     assert null != _componentObservable;
+    if ( _disposeOnDeactivate )
+    {
+      getContext().registerOnDeactivateHook( this::scheduleDispose );
+    }
     final boolean isNotDisposed = isNotDisposed();
     if ( isNotDisposed )
     {
       _componentObservable.reportObserved();
     }
+
     return isNotDisposed;
   }
 
@@ -318,7 +327,7 @@ public final class ComponentKernel
     if ( !Arez.areNativeComponentsEnabled() )
     {
       Disposable.dispose( _componentObservable );
-      Disposable.dispose( _disposeOnDeactivate );
+      Disposable.dispose( _disposeOnDeactivateValue );
     }
   }
 

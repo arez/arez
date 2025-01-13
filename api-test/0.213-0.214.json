@@ -1,0 +1,316 @@
+[
+  {
+    "code": "java.method.numberOfParametersChanged",
+    "description": "The number of parameters of the method have changed.",
+    "newElement": "method <T> arez.ComputableValue<T> arez.ArezContext::computable(arez.Component, java.lang.String, arez.SafeFunction<T>, arez.Procedure)",
+    "oldElement": "method <T> arez.ComputableValue<T> arez.ArezContext::computable(java.lang.String, arez.SafeFunction<T>, int)",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "computable",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.method.numberOfParametersChanged",
+    "description": "The number of parameters of the method have changed.",
+    "newElement": "method <T> arez.ComputableValue<T> arez.ArezContext::computable(java.lang.String, arez.SafeFunction<T>, arez.Procedure)",
+    "oldElement": "method <T> arez.ComputableValue<T> arez.ArezContext::computable(java.lang.String, arez.SafeFunction<T>, arez.Procedure, arez.Procedure)",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "computable",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.method.numberOfParametersChanged",
+    "description": "The number of parameters of the method have changed.",
+    "newElement": "method <T> arez.ComputableValue<T> arez.ArezContext::computable(java.lang.String, arez.SafeFunction<T>, arez.Procedure, int)",
+    "oldElement": "method <T> arez.ComputableValue<T> arez.ArezContext::computable(arez.Component, java.lang.String, arez.SafeFunction<T>, arez.Procedure, arez.Procedure, int)",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "computable",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.method.numberOfParametersChanged",
+    "description": "The number of parameters of the method have changed.",
+    "newElement": "method <T> arez.ComputableValue<T> arez.ArezContext::computable(java.lang.String, arez.SafeFunction<T>, int)",
+    "oldElement": "method <T> arez.ComputableValue<T> arez.ArezContext::computable(java.lang.String, arez.SafeFunction<T>, arez.Procedure, arez.Procedure, int)",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "computable",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method void arez.ArezContext::registerOnDeactivateHook(arez.Procedure)",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "registerOnDeactivateHook",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'javax.annotation.Nullable'.",
+    "newElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(arez.Component, ===java.lang.String===, arez.SafeFunction<T>, arez.Procedure)",
+    "oldElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(java.lang.String, ===arez.SafeFunction<T>===, int)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@javax.annotation.Nullable",
+      "annotationType": "javax.annotation.Nullable",
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "parameter",
+      "methodName": "computable",
+      "package": "arez",
+      "parameterIndex": "1"
+    }
+  },
+  {
+    "code": "java.annotation.removed",
+    "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
+    "newElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(arez.Component, ===java.lang.String===, arez.SafeFunction<T>, arez.Procedure)",
+    "oldElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(java.lang.String, ===arez.SafeFunction<T>===, int)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@javax.annotation.Nonnull",
+      "annotationType": "javax.annotation.Nonnull",
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "parameter",
+      "methodName": "computable",
+      "package": "arez",
+      "parameterIndex": "1"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'javax.annotation.Nonnull'.",
+    "newElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(arez.Component, java.lang.String, ===arez.SafeFunction<T>===, arez.Procedure)",
+    "oldElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(java.lang.String, arez.SafeFunction<T>, ===int===)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@javax.annotation.Nonnull",
+      "annotationType": "javax.annotation.Nonnull",
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "parameter",
+      "methodName": "computable",
+      "package": "arez",
+      "parameterIndex": "2"
+    }
+  },
+  {
+    "code": "java.annotation.removed",
+    "description": "Element no longer annotated with 'javax.annotation.Nullable'.",
+    "newElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(arez.Component, java.lang.String, arez.SafeFunction<T>, arez.Procedure, ===int===)",
+    "oldElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(arez.Component, java.lang.String, arez.SafeFunction<T>, arez.Procedure, ===arez.Procedure===)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@javax.annotation.Nullable",
+      "annotationType": "javax.annotation.Nullable",
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "parameter",
+      "methodName": "computable",
+      "package": "arez",
+      "parameterIndex": "4"
+    }
+  },
+  {
+    "code": "java.method.parameterTypeChanged",
+    "description": "The type of the parameter changed from 'arez.Procedure' to 'int'.",
+    "newElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(arez.Component, java.lang.String, arez.SafeFunction<T>, arez.Procedure, ===int===)",
+    "oldElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(arez.Component, java.lang.String, arez.SafeFunction<T>, arez.Procedure, ===arez.Procedure===)",
+    "classification": {
+      "SOURCE": "POTENTIALLY_BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "parameter",
+      "methodName": "computable",
+      "newType": "int",
+      "oldType": "arez.Procedure",
+      "package": "arez",
+      "parameterIndex": "4"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'javax.annotation.Nonnull'.",
+    "newElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(java.lang.String, ===arez.SafeFunction<T>===, arez.Procedure, int)",
+    "oldElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(arez.Component, ===java.lang.String===, arez.SafeFunction<T>, arez.Procedure, arez.Procedure, int)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@javax.annotation.Nonnull",
+      "annotationType": "javax.annotation.Nonnull",
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "parameter",
+      "methodName": "computable",
+      "package": "arez",
+      "parameterIndex": "1"
+    }
+  },
+  {
+    "code": "java.annotation.removed",
+    "description": "Element no longer annotated with 'javax.annotation.Nullable'.",
+    "newElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(java.lang.String, ===arez.SafeFunction<T>===, arez.Procedure, int)",
+    "oldElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(arez.Component, ===java.lang.String===, arez.SafeFunction<T>, arez.Procedure, arez.Procedure, int)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@javax.annotation.Nullable",
+      "annotationType": "javax.annotation.Nullable",
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "parameter",
+      "methodName": "computable",
+      "package": "arez",
+      "parameterIndex": "1"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'javax.annotation.Nullable'.",
+    "newElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(java.lang.String, arez.SafeFunction<T>, ===arez.Procedure===, int)",
+    "oldElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(arez.Component, java.lang.String, ===arez.SafeFunction<T>===, arez.Procedure, arez.Procedure, int)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@javax.annotation.Nullable",
+      "annotationType": "javax.annotation.Nullable",
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "parameter",
+      "methodName": "computable",
+      "package": "arez",
+      "parameterIndex": "2"
+    }
+  },
+  {
+    "code": "java.annotation.removed",
+    "description": "Element no longer annotated with 'javax.annotation.Nonnull'.",
+    "newElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(java.lang.String, arez.SafeFunction<T>, ===arez.Procedure===, int)",
+    "oldElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(arez.Component, java.lang.String, ===arez.SafeFunction<T>===, arez.Procedure, arez.Procedure, int)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@javax.annotation.Nonnull",
+      "annotationType": "javax.annotation.Nonnull",
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "parameter",
+      "methodName": "computable",
+      "package": "arez",
+      "parameterIndex": "2"
+    }
+  },
+  {
+    "code": "java.annotation.removed",
+    "description": "Element no longer annotated with 'javax.annotation.Nullable'.",
+    "newElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(java.lang.String, arez.SafeFunction<T>, ===int===)",
+    "oldElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(java.lang.String, arez.SafeFunction<T>, ===arez.Procedure===, arez.Procedure, int)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@javax.annotation.Nullable",
+      "annotationType": "javax.annotation.Nullable",
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "parameter",
+      "methodName": "computable",
+      "package": "arez",
+      "parameterIndex": "2"
+    }
+  },
+  {
+    "code": "java.annotation.removed",
+    "description": "Element no longer annotated with 'javax.annotation.Nullable'.",
+    "newElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(java.lang.String, arez.SafeFunction<T>, arez.Procedure, ===int===)",
+    "oldElement": "parameter <T> arez.ComputableValue<T> arez.ArezContext::computable(arez.Component, java.lang.String, arez.SafeFunction<T>, ===arez.Procedure===, arez.Procedure, int)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@javax.annotation.Nullable",
+      "annotationType": "javax.annotation.Nullable",
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "parameter",
+      "methodName": "computable",
+      "package": "arez",
+      "parameterIndex": "3"
+    }
+  }
+]

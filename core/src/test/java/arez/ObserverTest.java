@@ -729,7 +729,7 @@ public final class ObserverTest
     final TestProcedure onDeactivate = new TestProcedure();
 
     final ComputableValue<String> computableValue =
-      Arez.context().computable( null, null, () -> "", onActivate, onDeactivate );
+      Arez.context().computable( null, null, () -> "", onActivate );
     final ObservableValue<String> derivedValue = computableValue.getObservableValue();
     final Observer observer = computableValue.getObserver();
 
