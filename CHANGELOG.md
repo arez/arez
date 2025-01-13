@@ -6,6 +6,7 @@
   current observer or computed value is deactivated. The intent is to enable dynamic set of OnDeactivate hooks for
   `ComputableValue` instances or `@Memoize` annotated methods without the existing restrictions aroun `OnDeactivate`
   hooks.
+* Update the `org.realityforge.proton` artifacts to version `0.65`.
 
 ### [v0.213](https://github.com/arez/arez/tree/v0.213) (2024-11-22) · [Full Changelog](https://github.com/arez/arez/compare/v0.212...v0.213)
 
