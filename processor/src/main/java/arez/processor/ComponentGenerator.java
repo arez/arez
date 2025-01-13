@@ -2169,20 +2169,24 @@ final class ComponentGenerator
                                            @Nonnull final TypeSpec.Builder builder )
     throws ProcessorException
   {
-    if ( memoize.getMethod().getParameters().isEmpty() && memoize.getContextParameters().isEmpty() )
+    if ( memoize.shouldGenerateMemoizeWrapper() )
+    {
+      builder.addMethod( buildMemoizeAdapterMethod( processingEnv, memoize ) );
+    }
+    if ( memoize.shouldGenerateDeactivateWrapperHook() )
+    {
+      builder.addMethod( buildOnDeactivateWrapperHook( memoize ) );
+    }
+
+    if ( memoize.hasNoParameters() )
     {
       builder.addMethod( buildMemoizeWithoutParams( processingEnv, memoize ) );
       final ExecutableElement onActivate = memoize.getOnActivate();
-      if ( ( null != onActivate && !onActivate.getParameters().isEmpty() ) ||
-           isCollectionType( memoize.getMethod() ) )
+      if ( ( null != onActivate && !onActivate.getParameters().isEmpty() ) || memoize.isCollectionType() )
       {
         builder.addMethod( buildOnActivateWrapperHook( memoize ) );
       }
 
-      if ( isCollectionType( memoize.getMethod() ) )
-      {
-        builder.addMethod( buildOnDeactivateWrapperHook( memoize ) );
-      }
       for ( final CandidateMethod refMethod : memoize.getRefMethods() )
       {
         final MethodSpec.Builder method =
@@ -2195,11 +2199,6 @@ final class ComponentGenerator
     }
     else
     {
-      if ( !memoize.getContextParameters().isEmpty() )
-      {
-        builder.addMethod( buildMemoizeAdapterMethod( processingEnv, memoize ) );
-      }
-
       builder.addMethod( buildMemoizeWithParams( processingEnv, memoize ) );
       for ( final CandidateMethod refMethod : memoize.getRefMethods() )
       {
@@ -2215,7 +2214,7 @@ final class ComponentGenerator
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( getOnActivateHookMethodName( memoize ) );
     builder.addModifiers( Modifier.PRIVATE );
 
-    if ( isCollectionType( memoize.getMethod() ) )
+    if ( memoize.isCollectionType() )
     {
       final CodeBlock.Builder block = CodeBlock.builder();
       block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
@@ -2245,17 +2244,20 @@ final class ComponentGenerator
   private static MethodSpec buildOnDeactivateWrapperHook( @Nonnull final MemoizeDescriptor memoize )
     throws ProcessorException
   {
-    assert isCollectionType( memoize.getMethod() );
+    assert memoize.shouldGenerateDeactivateWrapperHook();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( getOnDeactivateHookMethodName( memoize ) );
     builder.addModifiers( Modifier.PRIVATE );
 
-    final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
-    block.addStatement( "this.$N = false", getMemoizeCollectionCacheDataActiveFieldName( memoize ) );
-    block.addStatement( "this.$N = null", getMemoizeCollectionCacheDataFieldName( memoize ) );
-    block.addStatement( "this.$N = null", getMemoizeCollectionUnmodifiableCacheDataFieldName( memoize ) );
-    block.endControlFlow();
-    builder.addCode( block.build() );
+    if ( memoize.isCollectionType() && memoize.hasNoParameters() )
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
+      block.addStatement( "this.$N = false", getMemoizeCollectionCacheDataActiveFieldName( memoize ) );
+      block.addStatement( "this.$N = null", getMemoizeCollectionCacheDataFieldName( memoize ) );
+      block.addStatement( "this.$N = null", getMemoizeCollectionUnmodifiableCacheDataFieldName( memoize ) );
+      block.endControlFlow();
+      builder.addCode( block.build() );
+    }
 
     final ExecutableElement onDeactivate = memoize.getOnDeactivate();
     if ( null != onDeactivate )
@@ -2273,7 +2275,7 @@ final class ComponentGenerator
                                                        @Nonnull final MemoizeDescriptor memoize )
     throws ProcessorException
   {
-    assert !memoize.getContextParameters().isEmpty();
+    assert memoize.shouldGenerateMemoizeWrapper();
 
     final ExecutableElement executableElement = memoize.getMethod();
     final ComponentDescriptor component = memoize.getComponent();
@@ -2285,8 +2287,21 @@ final class ComponentGenerator
 
     final MethodSpec.Builder method = MethodSpec.methodBuilder( getMemoizeWrapperMethodName( memoize ) );
 
-    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, method, executableType );
-    GeneratorUtil.copyAccessModifiers( executableElement, method );
+    final List<String> additionalSuppressions = new ArrayList<>();
+    final ExecutableElement onDeactivate = memoize.getOnDeactivate();
+    final boolean onDeactivateRequiresWrapper = memoize.shouldGenerateDeactivateWrapperHook();
+    if ( null != onDeactivate && null != onDeactivate.getAnnotation( Deprecated.class ) )
+    {
+      if ( !onDeactivateRequiresWrapper )
+      {
+        additionalSuppressions.add( "deprecation" );
+      }
+    }
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv,
+                                                        method,
+                                                        additionalSuppressions,
+                                                        Collections.singletonList( executableType ) );
+    method.addModifiers( Modifier.PRIVATE );
     GeneratorUtil.copyTypeParameters( executableType, method );
     GeneratorUtil.copyWhitelistedAnnotations( executableElement, method );
 
@@ -2309,6 +2324,29 @@ final class ComponentGenerator
     // Copy return type
     method.returns( TypeName.get( executableType.getReturnType() ) );
 
+    if ( null != onDeactivate || onDeactivateRequiresWrapper )
+    {
+      if ( onDeactivateRequiresWrapper )
+      {
+        method.addStatement( "this.$N.getContext().registerOnDeactivateHook( this::$N )",
+                             KERNEL_FIELD_NAME,
+                             getOnDeactivateHookMethodName( memoize ) );
+      }
+      else if ( component.isClassType() )
+      {
+        method.addStatement( "this.$N.getContext().registerOnDeactivateHook( () -> super.$N() )",
+                             KERNEL_FIELD_NAME,
+                             onDeactivate.getSimpleName() );
+      }
+      else
+      {
+        method.addStatement( "this.$N.getContext().registerOnDeactivateHook( () -> $T.super.$N() )",
+                             KERNEL_FIELD_NAME,
+                             component.getClassName(),
+                             onDeactivate.getSimpleName() );
+      }
+    }
+
     for ( final MemoizeContextParameterDescriptor contextParameter : memoize.getContextParameters() )
     {
       method.beginControlFlow( "try" );
@@ -2325,8 +2363,17 @@ final class ComponentGenerator
       parameters.add( TypeName.get( memoize.getMethodType().getReturnType() ).box() );
     }
 
-    sb.append( "super.$N(" );
-    parameters.add( memoize.getMethod().getSimpleName().toString() );
+    else if ( component.isClassType() )
+    {
+      sb.append( "super.$N(" );
+      parameters.add( memoize.getMethod().getSimpleName().toString() );
+    }
+    else
+    {
+      sb.append( "$T.super.$N(" );
+      parameters.add( component.getClassName() );
+      parameters.add( memoize.getMethod().getSimpleName().toString() );
+    }
 
     boolean first = true;
     for ( final VariableElement element : executableElement.getParameters() )
@@ -2440,7 +2487,7 @@ final class ComponentGenerator
     final TypeName returnType = TypeName.get( memoize.getMethodType().getReturnType() );
     generateNotDisposedInvariant( method, executableElement.getSimpleName().toString() );
 
-    if ( isCollectionType( memoize.getMethod() ) )
+    if ( memoize.isCollectionType() )
     {
       final CodeBlock.Builder block = CodeBlock.builder();
       block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
@@ -2586,7 +2633,7 @@ final class ComponentGenerator
                                           @Nonnull final MemoizeDescriptor memoize,
                                           @Nonnull final TypeSpec.Builder builder )
   {
-    if ( memoize.getMethod().getParameters().isEmpty() && memoize.getContextParameters().isEmpty() )
+    if ( memoize.hasNoParameters() )
     {
       buildMemoizeWithNoParametersFields( processingEnv, memoize, builder );
     }
@@ -2612,7 +2659,7 @@ final class ComponentGenerator
         addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, field, methodType.getReturnType() );
     builder.addField( field.build() );
-    if ( isCollectionType( memoize.getMethod() ) )
+    if ( memoize.isCollectionType() )
     {
       final FieldSpec.Builder cacheField =
         FieldSpec.builder( TypeName.get( methodType.getReturnType() ),
@@ -2663,7 +2710,7 @@ final class ComponentGenerator
   private static void buildMemoizeInitializer( @Nonnull final MemoizeDescriptor memoize,
                                                @Nonnull final MethodSpec.Builder builder )
   {
-    if ( memoize.getMethod().getParameters().isEmpty() && memoize.getContextParameters().isEmpty() )
+    if ( memoize.hasNoParameters() )
     {
       buildMemoizeWithNoParameters( memoize, builder );
     }
@@ -2681,7 +2728,7 @@ final class ComponentGenerator
 
     final ComponentDescriptor component = memoize.getComponent();
     final ExecutableElement method = memoize.getMethod();
-    if ( isCollectionType( memoize.getMethod() ) && !memoize.hasHooks() )
+    if ( memoize.isCollectionType() && !memoize.hasHooks() )
     {
       sb.append( "this.$N = $T.areCollectionsPropertiesUnmodifiable() ? " +
                  "$N.computable( " +
@@ -2696,9 +2743,9 @@ final class ComponentGenerator
       parameters.add( NAME_VAR_NAME );
       parameters.add( "." + memoize.getName() );
 
-      if ( !memoize.getContextParameters().isEmpty() )
+      if ( memoize.shouldGenerateMemoizeWrapper() )
       {
-        sb.append( "args -> $N(" );
+        sb.append( "() -> $N(), " );
         parameters.add( getMemoizeWrapperMethodName( memoize ) );
       }
       else if ( component.isClassType() )
@@ -2750,7 +2797,12 @@ final class ComponentGenerator
       parameters.add( NAME_VAR_NAME );
       parameters.add( "." + memoize.getName() );
 
-      if ( component.isClassType() )
+      if ( memoize.shouldGenerateMemoizeWrapper() )
+      {
+        sb.append( "() -> $N(), " );
+        parameters.add( getMemoizeWrapperMethodName( memoize ) );
+      }
+      else if ( component.isClassType() )
       {
         sb.append( "() -> super.$N(), " );
         parameters.add( method.getSimpleName().toString() );
@@ -2786,7 +2838,7 @@ final class ComponentGenerator
 
     final ComponentDescriptor component = memoize.getComponent();
     final ExecutableElement method = memoize.getMethod();
-    if ( !memoize.getContextParameters().isEmpty() )
+    if ( memoize.shouldGenerateMemoizeWrapper() )
     {
       sb.append( "args -> $N(" );
       parameters.add( getMemoizeWrapperMethodName( memoize ) );
@@ -2864,7 +2916,7 @@ final class ComponentGenerator
                                                @Nonnull final StringBuilder sb,
                                                final boolean areCollectionsPropertiesUnmodifiable )
   {
-    final boolean isCollectionType = isCollectionType( memoize.getMethod() );
+    final boolean isCollectionType = memoize.isCollectionType();
     if ( memoize.hasHooks() || ( isCollectionType && areCollectionsPropertiesUnmodifiable ) )
     {
       final ExecutableElement onActivate = memoize.getOnActivate();
@@ -2899,33 +2951,7 @@ final class ComponentGenerator
           sb.append( "null" );
         }
       }
-      sb.append( ", " );
-
-      final ExecutableElement onDeactivate = memoize.getOnDeactivate();
-      if ( isCollectionType && null == onDeactivate )
-      {
-        sb.append( "$T.areCollectionsPropertiesUnmodifiable() ? this::$N : null" );
-        parameters.add( AREZ_CLASSNAME );
-        parameters.add( getOnDeactivateHookMethodName( memoize ) );
-      }
-      else if ( isCollectionType )
-      {
-        sb.append( "this::$N" );
-        parameters.add( getOnDeactivateHookMethodName( memoize ) );
-      }
-      else
-      {
-        if ( null != onDeactivate )
-        {
-          sb.append( "this::$N" );
-          parameters.add( onDeactivate.getSimpleName().toString() );
-        }
-        else
-        {
-          sb.append( "null" );
-        }
-      }
-      sb.append( ", " );
+      sb.append( ", null, " );
     }
 
     final List<String> flags = generateMemoizeFlags( memoize );
@@ -2981,7 +3007,7 @@ final class ComponentGenerator
     return flags;
   }
 
-  private static boolean isCollectionType( @Nonnull final ExecutableElement method )
+  static boolean isCollectionType( @Nonnull final ExecutableElement method )
   {
     return isMethodReturnType( method, Collection.class ) ||
            isMethodReturnType( method, Set.class ) ||

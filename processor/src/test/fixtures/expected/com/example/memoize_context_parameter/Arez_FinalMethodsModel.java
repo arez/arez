@@ -106,7 +106,7 @@ final class Arez_FinalMethodsModel extends FinalMethodsModel implements Disposab
     this.$$arez$$_count.dispose();
   }
 
-  public long $$arezi$$_memoize_time(final String $$arezi$$_myContextVar) {
+  private long $$arezi$$_memoize_time(final String $$arezi$$_myContextVar) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );
       return super.getTime();
@@ -123,7 +123,7 @@ final class Arez_FinalMethodsModel extends FinalMethodsModel implements Disposab
     return this.$$arez$$_time.get( captureMyContextVar() );
   }
 
-  public long $$arezi$$_memoize_count(final String $$arezi$$_myContextVar, final long time,
+  private long $$arezi$$_memoize_count(final String $$arezi$$_myContextVar, final long time,
       final float someOtherParameter) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );

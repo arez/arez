@@ -64,7 +64,7 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
     this.$$arez$$_value = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : super.getValue() ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue( v ) : null );
     this.$$arez$$_count = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".count" : null, args -> super.count((long) args[ 0 ], (float) args[ 1 ]), 2, ComputableValue.Flags.AREZ_DEPENDENCIES );
     this.$$arez$$_time2 = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time2" : null, args -> $$arezi$$_memoize_time2((String) args[ 0 ]), 1, ComputableValue.Flags.AREZ_DEPENDENCIES );
-    this.$$arez$$_time = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, () -> super.getTime(), this::onTimeActivate, this::onTimeDeactivate, ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
+    this.$$arez$$_time = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, () -> $$arezi$$_memoize_time(), this::onTimeActivate, null, ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
     this.$$arez$$_myObserve = $$arezv$$_context.observer( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myObserve" : null, () -> super.myObserve(), Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
     this.$$arez$$_render = $$arezv$$_context.tracker( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".render" : null, () -> super.onRenderDepsChange(), Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
     this.$$arez$$_render2 = $$arezv$$_context.observer( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".render2" : null, () -> super.render2(), () -> super.onRender2DepsChange(), Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
@@ -274,7 +274,7 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
     return this.$$arez$$_count.get( time, someOtherParameter );
   }
 
-  public long $$arezi$$_memoize_time2(final String $$arezi$$_myContextVar) {
+  private long $$arezi$$_memoize_time2(final String $$arezi$$_myContextVar) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );
       return super.getTime2();
@@ -293,6 +293,11 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime2' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     return this.$$arez$$_time2.get( captureMyContextVar() );
+  }
+
+  private long $$arezi$$_memoize_time() {
+    this.$$arezi$$_kernel.getContext().registerOnDeactivateHook( () -> super.onTimeDeactivate() );
+    return super.getTime();
   }
 
   @Override

@@ -111,7 +111,7 @@ final class Arez_ManyTypesModel extends ManyTypesModel implements Disposable, Id
     this.$$arez$$_count.dispose();
   }
 
-  public long $$arezi$$_memoize_time(@Nonnull final String $$arezi$$_myContextVar,
+  private long $$arezi$$_memoize_time(@Nonnull final String $$arezi$$_myContextVar,
       final int $$arezi$$_myContextVar2) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );
@@ -135,7 +135,7 @@ final class Arez_ManyTypesModel extends ManyTypesModel implements Disposable, Id
   }
 
   @Nonnull
-  public String $$arezi$$_memoize_text(@Nonnull final String $$arezi$$_myContextVar,
+  private String $$arezi$$_memoize_text(@Nonnull final String $$arezi$$_myContextVar,
       final int $$arezi$$_myContextVar2) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );
@@ -159,7 +159,7 @@ final class Arez_ManyTypesModel extends ManyTypesModel implements Disposable, Id
     return this.$$arez$$_text.get( captureMyContextVar(), captureMyContextVar2() );
   }
 
-  public long $$arezi$$_memoize_count(@Nonnull final String $$arezi$$_myContextVar,
+  private long $$arezi$$_memoize_count(@Nonnull final String $$arezi$$_myContextVar,
       final int $$arezi$$_myContextVar2, final long time, final float someOtherParameter) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );

@@ -38,7 +38,7 @@ final class Arez_MemoizeCollectionModel extends MemoizeCollectionModel implement
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_collections_MemoizeCollectionModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_collections_MemoizeCollectionModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_myValue = Arez.areCollectionsPropertiesUnmodifiable() ? $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myValue" : null, () -> super.getMyValue(), Arez.areCollectionsPropertiesUnmodifiable() ? this::$$arezi$$_onActivate_myValue : null, Arez.areCollectionsPropertiesUnmodifiable() ? this::$$arezi$$_onDeactivate_myValue : null, ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER ) : $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myValue" : null, () -> super.getMyValue(), ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
+    this.$$arez$$_myValue = Arez.areCollectionsPropertiesUnmodifiable() ? $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myValue" : null, () -> $$arezi$$_memoize_myValue(), Arez.areCollectionsPropertiesUnmodifiable() ? this::$$arezi$$_onActivate_myValue : null, null, ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER ) : $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myValue" : null, () -> super.getMyValue(), ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }
@@ -108,6 +108,19 @@ final class Arez_MemoizeCollectionModel extends MemoizeCollectionModel implement
     this.$$arez$$_myValue.dispose();
   }
 
+  private Collection<String> $$arezi$$_memoize_myValue() {
+    this.$$arezi$$_kernel.getContext().registerOnDeactivateHook( this::$$arezi$$_onDeactivate_myValue );
+    return super.getMyValue();
+  }
+
+  private void $$arezi$$_onDeactivate_myValue() {
+    if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
+      this.$$arezd$$_$$cache_active$$_myValue = false;
+      this.$$arezd$$_$$cache$$_myValue = null;
+      this.$$arezd$$_$$unmodifiable_cache$$_myValue = null;
+    }
+  }
+
   @Override
   public Collection<String> getMyValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -128,14 +141,6 @@ final class Arez_MemoizeCollectionModel extends MemoizeCollectionModel implement
   private void $$arezi$$_onActivate_myValue() {
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
       this.$$arezd$$_$$cache_active$$_myValue = true;
-      this.$$arezd$$_$$cache$$_myValue = null;
-      this.$$arezd$$_$$unmodifiable_cache$$_myValue = null;
-    }
-  }
-
-  private void $$arezi$$_onDeactivate_myValue() {
-    if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      this.$$arezd$$_$$cache_active$$_myValue = false;
       this.$$arezd$$_$$cache$$_myValue = null;
       this.$$arezd$$_$$unmodifiable_cache$$_myValue = null;
     }

@@ -31,7 +31,7 @@ final class Arez_DeprecatedMemoizeModel3 extends DeprecatedMemoizeModel3 impleme
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_deprecated_DeprecatedMemoizeModel3." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_deprecated_DeprecatedMemoizeModel3", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_time = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, () -> super.getTime(), this::onTimeActivate, this::onTimeDeactivate, ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
+    this.$$arez$$_time = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, () -> $$arezi$$_memoize_time(), this::onTimeActivate, null, ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }
@@ -99,6 +99,12 @@ final class Arez_DeprecatedMemoizeModel3 extends DeprecatedMemoizeModel3 impleme
 
   private void $$arezi$$_dispose() {
     this.$$arez$$_time.dispose();
+  }
+
+  @SuppressWarnings("deprecation")
+  private long $$arezi$$_memoize_time() {
+    this.$$arezi$$_kernel.getContext().registerOnDeactivateHook( () -> super.onTimeDeactivate() );
+    return super.getTime();
   }
 
   @Override

@@ -106,7 +106,7 @@ final class Arez_NoCapturePrefixModel extends NoCapturePrefixModel implements Di
     this.$$arez$$_count.dispose();
   }
 
-  public long $$arezi$$_memoize_time(final String $$arezi$$_myContextVar) {
+  private long $$arezi$$_memoize_time(final String $$arezi$$_myContextVar) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );
       return super.getTime();
@@ -123,7 +123,7 @@ final class Arez_NoCapturePrefixModel extends NoCapturePrefixModel implements Di
     return this.$$arez$$_time.get( myContextVar() );
   }
 
-  public long $$arezi$$_memoize_count(final String $$arezi$$_myContextVar, final long time,
+  private long $$arezi$$_memoize_count(final String $$arezi$$_myContextVar, final long time,
       final float someOtherParameter) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );

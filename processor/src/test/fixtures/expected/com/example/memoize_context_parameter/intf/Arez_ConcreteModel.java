@@ -111,7 +111,7 @@ final class Arez_ConcreteModel extends ConcreteModel implements Disposable, Iden
     this.$$arez$$_countFromAbstract.dispose();
   }
 
-  public long $$arezi$$_memoize_time(final String $$arezi$$_myContextVar) {
+  private long $$arezi$$_memoize_time(final String $$arezi$$_myContextVar) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );
       return super.getTime();
@@ -128,7 +128,7 @@ final class Arez_ConcreteModel extends ConcreteModel implements Disposable, Iden
     return this.$$arez$$_time.get( captureMyContextVar() );
   }
 
-  public long $$arezi$$_memoize_countFromConcrete(final String $$arezi$$_myContextVar,
+  private long $$arezi$$_memoize_countFromConcrete(final String $$arezi$$_myContextVar,
       final long time, final float someOtherParameter) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );
@@ -146,7 +146,7 @@ final class Arez_ConcreteModel extends ConcreteModel implements Disposable, Iden
     return this.$$arez$$_countFromConcrete.get( captureMyContextVar(), time, someOtherParameter );
   }
 
-  public long $$arezi$$_memoize_countFromAbstract(final String $$arezi$$_myContextVar,
+  private long $$arezi$$_memoize_countFromAbstract(final String $$arezi$$_myContextVar,
       final long time, final float someOtherParameter) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );

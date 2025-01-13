@@ -119,7 +119,7 @@ final class Arez_FullyAnnotatedBasicModel extends FullyAnnotatedBasicModel imple
     return this.$$arez$$_time.get();
   }
 
-  public long $$arezi$$_memoize_count(final String $$arezi$$_CV, final long time,
+  private long $$arezi$$_memoize_count(final String $$arezi$$_CV, final long time,
       final float someOtherParameter) {
     try {
       pushSomeOtherMethod( $$arezi$$_CV );

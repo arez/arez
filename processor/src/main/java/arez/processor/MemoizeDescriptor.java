@@ -157,6 +157,31 @@ final class MemoizeDescriptor
     _contextParameters.add( parameter );
   }
 
+  boolean shouldGenerateMemoizeWrapper()
+  {
+    return !getContextParameters().isEmpty() || hasHooks() || shouldGenerateDeactivateWrapperHook();
+  }
+
+  boolean shouldGenerateDeactivateWrapperHook()
+  {
+    return isCollectionType() && hasNoParameters();
+  }
+
+  boolean isCollectionType()
+  {
+    return ComponentGenerator.isCollectionType( getMethod() );
+  }
+
+  /**
+   * Return true if the Memoize has either explicit or implicit (aka context) parameters.
+   *
+   * @return true if the Memoize has either explicit or implicit (aka context) parameters.
+   */
+  boolean hasNoParameters()
+  {
+    return getMethod().getParameters().isEmpty() && getContextParameters().isEmpty();
+  }
+
   @Nonnull
   List<MemoizeContextParameterDescriptor> getContextParameters()
   {
