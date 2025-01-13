@@ -78,6 +78,7 @@ public final class MemoizeCache<T>
   /**
    * The flags passed to the created ComputableValues.
    */
+  @MagicConstant( flagsFromClass = ComputableValue.Flags.class )
   private final int _flags;
   /**
    * The index of the next ComputableValue created.
