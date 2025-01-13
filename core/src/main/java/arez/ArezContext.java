@@ -1325,7 +1325,7 @@ public final class ArezContext
    * @param <T>        the type of return value.
    * @param executable the executable.
    * @return the value returned from the executable.
-   * @throws Exception if the executable throws an an exception.
+   * @throws Exception if the executable throws an exception.
    */
   public <T> T action( @Nonnull final Function<T> executable )
     throws Throwable
@@ -1341,7 +1341,7 @@ public final class ArezContext
    * @param executable the executable.
    * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
    * @return the value returned from the executable.
-   * @throws Exception if the executable throws an an exception.
+   * @throws Exception if the executable throws an exception.
    */
   public <T> T action( @Nonnull final Function<T> executable,
                        @MagicConstant( flagsFromClass = ActionFlags.class ) final int flags )
@@ -1358,7 +1358,7 @@ public final class ArezContext
    * @param name       the name of the action.
    * @param executable the executable.
    * @return the value returned from the executable.
-   * @throws Exception if the executable throws an an exception.
+   * @throws Exception if the executable throws an exception.
    */
   public <T> T action( @Nullable final String name,
                        @Nonnull final Function<T> executable )
@@ -1376,7 +1376,7 @@ public final class ArezContext
    * @param executable the executable.
    * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
    * @return the value returned from the executable.
-   * @throws Exception if the executable throws an an exception.
+   * @throws Exception if the executable throws an exception.
    */
   public <T> T action( @Nullable final String name,
                        @Nonnull final Function<T> executable,
@@ -1396,7 +1396,7 @@ public final class ArezContext
    * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @return the value returned from the executable.
-   * @throws Exception if the executable throws an an exception.
+   * @throws Exception if the executable throws an exception.
    */
   public <T> T action( @Nullable final String name,
                        @Nonnull final Function<T> executable,
@@ -1416,7 +1416,7 @@ public final class ArezContext
    * @param observer the Observer.
    * @param observe  the observe function.
    * @return the value returned from the observe function.
-   * @throws Exception if the observe function throws an an exception.
+   * @throws Exception if the observe function throws an exception.
    */
   public <T> T observe( @Nonnull final Observer observer, @Nonnull final Function<T> observe )
     throws Throwable
@@ -1434,7 +1434,7 @@ public final class ArezContext
    * @param observe    the observe function.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @return the value returned from the observe function.
-   * @throws Exception if the observe function throws an an exception.
+   * @throws Exception if the observe function throws an exception.
    */
   public <T> T observe( @Nonnull final Observer observer,
                         @Nonnull final Function<T> observe,
@@ -1583,7 +1583,7 @@ public final class ArezContext
    * The executable may throw an exception.
    *
    * @param executable the executable.
-   * @throws Throwable if the procedure throws an an exception.
+   * @throws Throwable if the procedure throws an exception.
    */
   public void action( @Nonnull final Procedure executable )
     throws Throwable
@@ -1597,7 +1597,7 @@ public final class ArezContext
    *
    * @param executable the executable.
    * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
-   * @throws Throwable if the procedure throws an an exception.
+   * @throws Throwable if the procedure throws an exception.
    */
   public void action( @Nonnull final Procedure executable,
                       @MagicConstant( flagsFromClass = ActionFlags.class ) final int flags )
@@ -1612,7 +1612,7 @@ public final class ArezContext
    *
    * @param name       the name of the action.
    * @param executable the executable.
-   * @throws Throwable if the procedure throws an an exception.
+   * @throws Throwable if the procedure throws an exception.
    */
   public void action( @Nullable final String name, @Nonnull final Procedure executable )
     throws Throwable
@@ -1627,7 +1627,7 @@ public final class ArezContext
    * @param name       the name of the action.
    * @param executable the executable.
    * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
-   * @throws Throwable if the procedure throws an an exception.
+   * @throws Throwable if the procedure throws an exception.
    */
   public void action( @Nullable final String name,
                       @Nonnull final Procedure executable,
@@ -1645,7 +1645,7 @@ public final class ArezContext
    * @param executable the executable.
    * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
-   * @throws Throwable if the procedure throws an an exception.
+   * @throws Throwable if the procedure throws an exception.
    */
   public void action( @Nullable final String name,
                       @Nonnull final Procedure executable,
@@ -1663,7 +1663,7 @@ public final class ArezContext
    *
    * @param observer the Observer.
    * @param observe  the observe function.
-   * @throws Exception if the observe function throws an an exception.
+   * @throws Exception if the observe function throws an exception.
    */
   public void observe( @Nonnull final Observer observer, @Nonnull final Procedure observe )
     throws Throwable
@@ -1679,7 +1679,7 @@ public final class ArezContext
    * @param observer   the Observer.
    * @param observe    the observe function.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
-   * @throws Exception if the observe function throws an an exception.
+   * @throws Exception if the observe function throws an exception.
    */
   public void observe( @Nonnull final Observer observer,
                        @Nonnull final Procedure observe,
