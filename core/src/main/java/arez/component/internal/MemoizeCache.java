@@ -20,7 +20,7 @@ import org.intellij.lang.annotations.MagicConstant;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
- * The class responsible for caching
+ * The class responsible for caching ComputableValue instances for different input parameters.
  */
 public final class MemoizeCache<T>
   implements Disposable
