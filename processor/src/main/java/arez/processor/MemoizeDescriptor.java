@@ -222,8 +222,8 @@ final class MemoizeDescriptor
       }
       else if ( !getContextParameters().isEmpty() )
       {
-        throw new ProcessorException( "@Memoize target specified parameter keepAlive as true but has matching context parameters.",
-                                      _method );
+        throw new ProcessorException( "@Memoize target specified parameter keepAlive as true but has " +
+                                      "matching context parameters.", _method );
       }
       else if ( null != _onActivate )
       {
@@ -261,13 +261,13 @@ final class MemoizeDescriptor
     {
       if ( null != _onActivate )
       {
-        throw new ProcessorException( "@OnActivate target associated with @Memoize method that has matching context parameters.",
-                                      _onActivate );
+        throw new ProcessorException( "@OnActivate target associated with @Memoize method that has " +
+                                      "matching context parameters.", _onActivate );
       }
       else if ( null != _onDeactivate )
       {
-        throw new ProcessorException( "@OnDeactivate target associated with @Memoize method that has matching context parameters.",
-                                      _onDeactivate );
+        throw new ProcessorException( "@OnDeactivate target associated with @Memoize method that has " +
+                                      "matching context parameters.", _onDeactivate );
       }
     }
 
