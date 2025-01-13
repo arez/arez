@@ -6,7 +6,10 @@ import arez.spy.TransactionInfo;
 import arez.spy.TransactionStartEvent;
 import grim.annotations.OmitSymbol;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -161,14 +164,10 @@ final class Transaction
   @Nullable
   private List<ObservableValue<?>> _observableValues;
   /**
-   * The list of deactivation hooks that have been registered during tracking.
-   * This list may contain duplicates, but the duplicates will be eliminated when converting the list
-   * of observables to deactivation hooks to pass to the tracking observer.
-   *
-   * <p>This should be null unless the _tracker is non-null.</p>
+   * The map of hooks that have been registered during tracking.
    */
   @Nullable
-  private List<Procedure> _onDeactivateHooks;
+  private Map<String, Hook> _hooks;
   /**
    * The flag set if transaction interacts with Arez resources.
    * This should only be accessed when {@link Arez#shouldCheckInvariants()} returns true.
@@ -615,15 +614,41 @@ final class Transaction
     }
   }
 
-  void registerOnDeactivationHook( @Nonnull final Procedure onDeactivationHook )
+  void registerHook( @Nonnull final String key,
+                     @Nullable final Procedure onActivate,
+                     @Nullable final Procedure onDeactivate )
   {
+    //noinspection ConstantValue
+    assert null != key;
+    assert null != onActivate || null != onDeactivate;
+
     if ( Arez.shouldCheckInvariants() )
     {
       markTransactionAsUsed();
       invariant( () -> null != _tracker,
-                 () -> "Arez-0045: registerOnDeactivateHook() invoked outside of a tracking transaction." );
+                 () -> "Arez-0045: registerHook() invoked outside of a tracking transaction." );
     }
-    safeGetOnDeactivateHooks().add( onDeactivationHook );
+
+    final Map<String, Hook> hooks = safeGetHooks();
+    if ( !hooks.containsKey( key ) )
+    {
+      final Observer tracker = getTracker();
+      assert null != tracker;
+      final Map<String, Hook> trackerHooks = tracker.getHooks();
+      final Hook existing = trackerHooks.get( key );
+      if ( null != existing )
+      {
+        hooks.put( key, existing );
+      }
+      else
+      {
+        hooks.put( key, new Hook( onActivate, onDeactivate ) );
+        if ( null != onActivate )
+        {
+          tracker.runHook( onActivate, ObserverError.ON_ACTIVATE_ERROR );
+        }
+      }
+    }
   }
 
   /**
@@ -1022,7 +1047,20 @@ final class Transaction
       }
     }
 
-    _tracker.replaceOnDeactivateHooks( null != _onDeactivateHooks ? _onDeactivateHooks : new ArrayList<>() );
+    final Map<String, Hook> hooks = safeGetHooks();
+    for ( final Map.Entry<String, Hook> entry : _tracker.getHooks().entrySet() )
+    {
+      if ( !hooks.containsKey( entry.getKey() ) )
+      {
+        final Procedure onDeactivate = entry.getValue().getOnDeactivate();
+        if( null != onDeactivate )
+        {
+          _tracker.runHook( onDeactivate, ObserverError.ON_DEACTIVATE_ERROR );
+        }
+      }
+    }
+
+    _tracker.replaceHooks( hooks );
 
     if ( Disposable.isNotDisposed( _tracker ) && _tracker.isComputableValue() )
     {
@@ -1054,9 +1092,9 @@ final class Transaction
   }
 
   @Nullable
-  List<Procedure> getOnDeactivateHooks()
+  Map<String, Hook> getHooks()
   {
-    return _onDeactivateHooks;
+    return _hooks;
   }
 
   @Nullable
@@ -1103,16 +1141,16 @@ final class Transaction
   }
 
   /**
-   * Return the OnDeactivateHooks, initializing the array if necessary.
+   * Return the hooks associated with the current transaction, initializing the field if necessary.
    */
   @Nonnull
-  List<Procedure> safeGetOnDeactivateHooks()
+  Map<String, Hook> safeGetHooks()
   {
-    if ( null == _onDeactivateHooks )
+    if ( null == _hooks )
     {
-      _onDeactivateHooks = new ArrayList<>();
+      _hooks = new LinkedHashMap<>();
     }
-    return _onDeactivateHooks;
+    return _hooks;
   }
 
   @Nullable

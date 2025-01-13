@@ -296,7 +296,7 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
   }
 
   private long $$arezi$$_memoize_time() {
-    this.$$arezi$$_kernel.getContext().registerOnDeactivateHook( () -> super.onTimeDeactivate() );
+    this.$$arezi$$_kernel.getContext().registerHook( "$H", () -> super.onTimeActivate(), () -> super.onTimeDeactivate() );
     return super.getTime();
   }
 

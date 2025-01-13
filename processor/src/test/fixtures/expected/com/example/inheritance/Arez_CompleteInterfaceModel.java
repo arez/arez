@@ -550,7 +550,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   }
 
   private long $$arezi$$_memoize_time() {
-    this.$$arezi$$_kernel.getContext().registerOnDeactivateHook( () -> CompleteInterfaceModel.super.onTimeDeactivate() );
+    this.$$arezi$$_kernel.getContext().registerHook( "$H", () -> CompleteInterfaceModel.super.onTimeActivate(), () -> CompleteInterfaceModel.super.onTimeDeactivate() );
     return CompleteInterfaceModel.super.getTime();
   }
 
@@ -580,7 +580,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   }
 
   private Collection<Long> $$arezi$$_memoize_collectionTime() {
-    this.$$arezi$$_kernel.getContext().registerOnDeactivateHook( this::$$arezi$$_onDeactivate_collectionTime );
+    this.$$arezi$$_kernel.getContext().registerHook( "$H", this::$$arezi$$_onActivate_collectionTime, this::$$arezi$$_onDeactivate_collectionTime );
     return CompleteInterfaceModel.super.getCollectionTime();
   }
 

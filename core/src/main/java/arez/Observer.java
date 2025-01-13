@@ -10,7 +10,9 @@ import arez.spy.ObserverInfo;
 import grim.annotations.OmitSymbol;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
@@ -47,14 +49,13 @@ public final class Observer
   @Nonnull
   private List<ObservableValue<?>> _dependencies = new ArrayList<>();
   /**
-   * The list of procedures that this observer will invoke when it deactivates.
-   * These correspond to the procedures that were registered in the last
+   * The list of hooks that this observer that will be invoked when it deactivates or
+   * has already been invoked as part of the register/activate process.
+   * These correspond to the hooks that were registered in the last
    * transaction that this observer was tracking.
-   *
-   * <p>This list should contain no duplicates.</p>
    */
   @Nonnull
-  private List<Procedure> _onDeactivateHooks = new ArrayList<>();
+  private Map<String, Hook> _hooks = new LinkedHashMap<>();
   /**
    * Observe function to invoke if any.
    * This may be null if external executor is responsible for executing the observe function via
@@ -493,8 +494,13 @@ public final class Observer
         {
           getComputableValue().completeDeactivate();
         }
-        final List<Procedure> hooks = getOnDeactivateHooks();
-        hooks.forEach( hook -> runHook( hook, ObserverError.ON_DEACTIVATE_ERROR ) );
+        final Map<String, Hook> hooks = getHooks();
+        hooks
+          .values()
+          .stream()
+          .map( Hook::getOnDeactivate )
+          .filter( Objects::nonNull )
+          .forEach( hook -> runHook( hook, ObserverError.ON_DEACTIVATE_ERROR ) );
         hooks.clear();
         clearDependencies();
       }
@@ -784,25 +790,24 @@ public final class Observer
   }
 
   /**
-   * Return the onDeactivate callbacks.
+   * Return the hooks.
    *
-   * @return the onDeactivate callbacks.
+   * @return the hooks.
    */
   @Nonnull
-  List<Procedure> getOnDeactivateHooks()
+  Map<String, Hook> getHooks()
   {
-    return _onDeactivateHooks;
+    return _hooks;
   }
 
   /**
-   * Replace the current set of OnDeactivateHooks with supplied OnDeactivateHooks.
-   * This should be the only mechanism via which the OnDeactivateHooks are updated.
+   * Replace the current set of hooks with the supplied hooks.
    *
-   * @param onDeactivateHooks the new set of OnDeactivateHooks.
+   * @param hooks the new set of hooks.
    */
-  void replaceOnDeactivateHooks( @Nonnull final List<Procedure> onDeactivateHooks )
+  void replaceHooks( @Nonnull final Map<String,Hook> hooks )
   {
-    _onDeactivateHooks = Objects.requireNonNull( onDeactivateHooks );
+    _hooks = Objects.requireNonNull( hooks );
   }
 
   /**

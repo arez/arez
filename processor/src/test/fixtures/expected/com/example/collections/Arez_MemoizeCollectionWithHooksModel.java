@@ -109,7 +109,7 @@ final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectionWithHo
   }
 
   private Collection<Long> $$arezi$$_memoize_time() {
-    this.$$arezi$$_kernel.getContext().registerOnDeactivateHook( this::$$arezi$$_onDeactivate_time );
+    this.$$arezi$$_kernel.getContext().registerHook( "$H", this::$$arezi$$_onActivate_time, this::$$arezi$$_onDeactivate_time );
     return super.getTime();
   }
 

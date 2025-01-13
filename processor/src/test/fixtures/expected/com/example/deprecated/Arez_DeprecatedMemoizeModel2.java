@@ -101,8 +101,9 @@ final class Arez_DeprecatedMemoizeModel2 extends DeprecatedMemoizeModel2 impleme
     this.$$arez$$_time.dispose();
   }
 
+  @SuppressWarnings("deprecation")
   private long $$arezi$$_memoize_time() {
-    this.$$arezi$$_kernel.getContext().registerOnDeactivateHook( () -> super.onTimeDeactivate() );
+    this.$$arezi$$_kernel.getContext().registerHook( "$H", () -> super.onTimeActivate(), () -> super.onTimeDeactivate() );
     return super.getTime();
   }
 

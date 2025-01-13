@@ -101,7 +101,7 @@ final class Arez_PackageAccessOnDeactivateModel extends PackageAccessOnDeactivat
   }
 
   private long $$arezi$$_memoize_time() {
-    this.$$arezi$$_kernel.getContext().registerOnDeactivateHook( () -> super.onTimeDeactivate() );
+    this.$$arezi$$_kernel.getContext().registerHook( "$H", null, () -> super.onTimeDeactivate() );
     return super.getTime();
   }
 

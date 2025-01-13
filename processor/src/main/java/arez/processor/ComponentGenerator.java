@@ -2277,6 +2277,12 @@ final class ComponentGenerator
   {
     assert memoize.shouldGenerateMemoizeWrapper();
 
+    final ExecutableElement onActivate = memoize.getOnActivate();
+    final ExecutableElement onDeactivate = memoize.getOnDeactivate();
+
+    final boolean onActivateRequiresWrapper = memoize.shouldGenerateActivateWrapperHook();
+    final boolean onDeactivateRequiresWrapper = memoize.shouldGenerateDeactivateWrapperHook();
+
     final ExecutableElement executableElement = memoize.getMethod();
     final ComponentDescriptor component = memoize.getComponent();
     final TypeElement typeElement = component.getElement();
@@ -2288,11 +2294,17 @@ final class ComponentGenerator
     final MethodSpec.Builder method = MethodSpec.methodBuilder( getMemoizeWrapperMethodName( memoize ) );
 
     final List<String> additionalSuppressions = new ArrayList<>();
-    final ExecutableElement onDeactivate = memoize.getOnDeactivate();
-    final boolean onDeactivateRequiresWrapper = memoize.shouldGenerateDeactivateWrapperHook();
+
+    if ( null != onActivate && null != onActivate.getAnnotation( Deprecated.class ) )
+    {
+      if ( !onActivateRequiresWrapper )
+      {
+        additionalSuppressions.add( "deprecation" );
+      }
+    }
     if ( null != onDeactivate && null != onDeactivate.getAnnotation( Deprecated.class ) )
     {
-      if ( !onDeactivateRequiresWrapper )
+      if ( !onDeactivateRequiresWrapper && !additionalSuppressions.contains( "deprecation" ) )
       {
         additionalSuppressions.add( "deprecation" );
       }
@@ -2324,27 +2336,100 @@ final class ComponentGenerator
     // Copy return type
     method.returns( TypeName.get( executableType.getReturnType() ) );
 
-    if ( null != onDeactivate || onDeactivateRequiresWrapper )
+    // Register Hook
+    if ( memoize.hasHooks() || onActivateRequiresWrapper || onDeactivateRequiresWrapper )
     {
-      if ( onDeactivateRequiresWrapper )
+      final StringBuilder sb = new StringBuilder();
+      final List<Object> parameters = new ArrayList<>();
+      sb.append( "this.$N.getContext().registerHook( $S, " );
+      parameters.add( KERNEL_FIELD_NAME );
+      parameters.add( "$H" );
+
+      if ( null != onActivate || onActivateRequiresWrapper )
       {
-        method.addStatement( "this.$N.getContext().registerOnDeactivateHook( this::$N )",
-                             KERNEL_FIELD_NAME,
-                             getOnDeactivateHookMethodName( memoize ) );
-      }
-      else if ( component.isClassType() )
-      {
-        method.addStatement( "this.$N.getContext().registerOnDeactivateHook( () -> super.$N() )",
-                             KERNEL_FIELD_NAME,
-                             onDeactivate.getSimpleName() );
+        if ( onActivateRequiresWrapper )
+        {
+          sb.append( "this::$N" );
+          parameters.add( getOnActivateHookMethodName( memoize ) );
+        }
+        else if ( component.isClassType() )
+        {
+          if ( onActivate.getParameters().isEmpty() )
+          {
+            sb.append( "() -> super.$N()" );
+            parameters.add( onActivate.getSimpleName() );
+          }
+          else
+          {
+            sb.append( "() -> super.$N( this )" );
+            parameters.add( onActivate.getSimpleName() );
+          }
+        }
+        else
+        {
+          if ( onActivate.getParameters().isEmpty() )
+          {
+            sb.append( "() -> $T.super.$N()" );
+            parameters.add( component.getClassName() );
+            parameters.add( onActivate.getSimpleName() );
+          }
+          else
+          {
+            sb.append( "() -> $T.super.$N( this )" );
+            parameters.add( component.getClassName() );
+            parameters.add( onActivate.getSimpleName() );
+          }
+        }
       }
       else
       {
-        method.addStatement( "this.$N.getContext().registerOnDeactivateHook( () -> $T.super.$N() )",
-                             KERNEL_FIELD_NAME,
-                             component.getClassName(),
-                             onDeactivate.getSimpleName() );
+        sb.append( "null" );
       }
+
+      sb.append( ", " );
+
+      if ( null != onDeactivate || onDeactivateRequiresWrapper )
+      {
+        if ( onDeactivateRequiresWrapper )
+        {
+          sb.append( "this::$N" );
+          parameters.add( getOnDeactivateHookMethodName( memoize ) );
+        }
+        else if ( component.isClassType() )
+        {
+          if ( onDeactivate.getParameters().isEmpty() )
+          {
+            sb.append( "() -> super.$N()" );
+            parameters.add( onDeactivate.getSimpleName() );
+          }
+          else
+          {
+            sb.append( "() -> super.$N( this )" );
+            parameters.add( onDeactivate.getSimpleName() );
+          }
+        }
+        else
+        {
+          if ( onDeactivate.getParameters().isEmpty() )
+          {
+            sb.append( "() -> $T.super.$N()" );
+            parameters.add( component.getClassName() );
+            parameters.add( onDeactivate.getSimpleName() );
+          }
+          else
+          {
+            sb.append( "() -> $T.super.$N( this )" );
+            parameters.add( component.getClassName() );
+            parameters.add( onDeactivate.getSimpleName() );
+          }
+        }
+      }
+      else
+      {
+        sb.append( "null" );
+      }
+      sb.append( " )" );
+      method.addStatement( sb.toString(), parameters.toArray() );
     }
 
     for ( final MemoizeContextParameterDescriptor contextParameter : memoize.getContextParameters() )

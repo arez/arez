@@ -11,7 +11,7 @@ import arez.spy.ObserveScheduleEvent;
 import arez.spy.Priority;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
-import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -195,8 +195,8 @@ public final class ComputableValueTest
     final NoopProcedure onDeactivateHook2 = new NoopProcedure();
     final SafeFunction<String> function = () -> {
       observeADependency();
-      Arez.context().registerOnDeactivateHook( onDeactivateHook1 );
-      Arez.context().registerOnDeactivateHook( onDeactivateHook2 );
+      Arez.context().registerHook( "1", null, onDeactivateHook1 );
+      Arez.context().registerHook( "2", null, onDeactivateHook2 );
       return value.get();
     };
     final ComputableValue<String> computableValue = context.computable( name, function );
@@ -216,8 +216,8 @@ public final class ComputableValueTest
 
     setCurrentTransaction( computableValue.getObserver() );
 
-    assertNull( Transaction.current().getOnDeactivateHooks() );
-    assertEquals( computableValue.getObserver().getOnDeactivateHooks().size(), 0 );
+    assertNull( Transaction.current().getHooks() );
+    assertEquals( computableValue.getObserver().getHooks().size(), 0 );
 
     computableValue.compute();
 
@@ -226,14 +226,14 @@ public final class ComputableValueTest
     assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
 
     // The hooks should have been registered with the transaction
-    final List<Procedure> hooks = Transaction.current().getOnDeactivateHooks();
+    final Map<String, Hook> hooks = Transaction.current().getHooks();
     assertNotNull( hooks );
     assertEquals( hooks.size(), 2 );
-    assertTrue( hooks.contains( onDeactivateHook1 ) );
-    assertTrue( hooks.contains( onDeactivateHook2 ) );
+    assertTrue( hooks.values().stream().anyMatch( e -> e.getOnDeactivate() == onDeactivateHook1 ) );
+    assertTrue( hooks.values().stream().anyMatch( e -> e.getOnDeactivate() == onDeactivateHook2 ) );
 
     // The hooks will not be updated until transaction completes
-    assertEquals( computableValue.getObserver().getOnDeactivateHooks().size(), 0 );
+    assertEquals( computableValue.getObserver().getHooks().size(), 0 );
   }
 
   @Test

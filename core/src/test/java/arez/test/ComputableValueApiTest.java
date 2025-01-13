@@ -446,30 +446,27 @@ public final class ComputableValueApiTest
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
     final SafeFunction<Double> function = () -> {
-      context.registerOnDeactivateHook( () -> trace.add( "onDeactivate1" ) );
-      context.registerOnDeactivateHook( () -> trace.add( "onDeactivate2" ) );
+      context.registerHook( "A", () -> trace.add( "onActivate1" ), () -> trace.add( "onDeactivate1" ) );
+      context.registerHook( "B", () -> trace.add( "onActivate2" ), () -> trace.add( "onDeactivate2" ) );
       observable.reportObserved();
       trace.add( "compute" );
       return Math.random();
     };
-    final ComputableValue<Double> computable =
-      context.computable( null,
-                          function,
-                          () -> trace.add( "onActivate" ) );
+    final ComputableValue<Double> computable = context.computable( function );
 
     assertEquals( String.join( " ", trace ), "" );
 
     final Observer observer = context.observer( computable::get );
 
-    assertEquals( String.join( " ", trace ), "onActivate compute" );
+    assertEquals( String.join( " ", trace ), "onActivate1 onActivate2 compute" );
 
     observer.dispose();
 
-    assertEquals( String.join( " ", trace ), "onActivate compute onDeactivate1 onDeactivate2" );
+    assertEquals( String.join( " ", trace ), "onActivate1 onActivate2 compute onDeactivate1 onDeactivate2" );
 
     computable.dispose();
 
-    assertEquals( String.join( " ", trace ), "onActivate compute onDeactivate1 onDeactivate2" );
+    assertEquals( String.join( " ", trace ), "onActivate1 onActivate2 compute onDeactivate1 onDeactivate2" );
   }
 
   @Test
@@ -479,26 +476,23 @@ public final class ComputableValueApiTest
     final ArezContext context = Arez.context();
     final ObservableValue<Object> observable = context.observable();
     final SafeFunction<Double> function = () -> {
-      context.registerOnDeactivateHook( () -> trace.add( "onDeactivate1" ) );
-      context.registerOnDeactivateHook( () -> trace.add( "onDeactivate2" ) );
+      context.registerHook( "A", () -> trace.add( "onActivate1" ), () -> trace.add( "onDeactivate1" ) );
+      context.registerHook( "B", () -> trace.add( "onActivate2" ), () -> trace.add( "onDeactivate2" ) );
       observable.reportObserved();
       trace.add( "compute" );
       return Math.random();
     };
-    final ComputableValue<Double> computable =
-      context.computable( null,
-                          function,
-                          () -> trace.add( "onActivate" ) );
+    final ComputableValue<Double> computable = context.computable( function );
 
     assertEquals( String.join( " ", trace ), "" );
 
     context.safeAction( computable::get );
 
-    assertEquals( String.join( " ", trace ), "onActivate compute onDeactivate1 onDeactivate2" );
+    assertEquals( String.join( " ", trace ), "onActivate1 onActivate2 compute onDeactivate1 onDeactivate2" );
 
     computable.dispose();
 
-    assertEquals( String.join( " ", trace ), "onActivate compute onDeactivate1 onDeactivate2" );
+    assertEquals( String.join( " ", trace ), "onActivate1 onActivate2 compute onDeactivate1 onDeactivate2" );
   }
 
   @Test

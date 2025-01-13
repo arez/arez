@@ -421,32 +421,16 @@ public final class ArezProcessor
                               @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
-    final String name = deriveHookName( component, method,
-                                        ON_ACTIVATE_PATTERN,
-                                        "Activate",
-                                        AnnotationsUtil.getAnnotationValueValue( annotation, "name" ) );
-    MemberChecks.mustNotBeAbstract( Constants.ON_ACTIVATE_CLASSNAME, method );
-    MemberChecks.mustBeSubclassCallable( component.getElement(),
-                                         Constants.COMPONENT_CLASSNAME,
-                                         Constants.ON_ACTIVATE_CLASSNAME,
-                                         method );
-    final List<? extends VariableElement> parameters = method.getParameters();
-
-    if (
-      !(
-        parameters.isEmpty() ||
-        ( 1 == parameters.size() &&
-          Constants.COMPUTABLE_VALUE_CLASSNAME.equals( ElementsUtil.toRawType( parameters.get( 0 ).asType() )
-                                                         .toString() ) )
-      )
-    )
-    {
-      throw new ProcessorException( "@OnActivate target must not have any parameters or must have a single " +
-                                    "parameter of type arez.ComputableValue", method );
-    }
-
-    MemberChecks.mustNotReturnAnyValue( Constants.ON_ACTIVATE_CLASSNAME, method );
-    MemberChecks.mustNotThrowAnyExceptions( Constants.ON_ACTIVATE_CLASSNAME, method );
+    final String name =
+      deriveHookName( component,
+                      method,
+                      ON_ACTIVATE_PATTERN,
+                      "Activate",
+                      AnnotationsUtil.getAnnotationValueValue( annotation, "name" ) );
+    MemberChecks.mustBeLifecycleHook( component.getElement(),
+                                      Constants.COMPONENT_CLASSNAME,
+                                      Constants.ON_ACTIVATE_CLASSNAME,
+                                      method );
     shouldBeInternalHookMethod( processingEnv,
                                 component,
                                 method,
@@ -461,7 +445,8 @@ public final class ArezProcessor
     throws ProcessorException
   {
     final String name =
-      deriveHookName( component, method,
+      deriveHookName( component,
+                      method,
                       ON_DEACTIVATE_PATTERN,
                       "Deactivate",
                       AnnotationsUtil.getAnnotationValueValue( annotation, "name" ) );

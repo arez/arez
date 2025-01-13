@@ -264,7 +264,7 @@ public final class MemoizeCache<T>
     final Component component = Arez.areNativeComponentsEnabled() ? _component : null;
     final String name = Arez.areNamesEnabled() ? _name + "." + _nextIndex++ : null;
     final SafeFunction<T> function = () -> {
-      Arez.context().registerOnDeactivateHook( () -> disposeComputableValue( args ) );
+      Arez.context().registerHook( "$MC$", null, () -> disposeComputableValue( args ) );
       return _function.call( args );
     };
     return getContext().computable( component, name, function, null, _flags );

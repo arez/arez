@@ -477,11 +477,11 @@ public final class ArezContext
   /**
    * Create a ComputableValue with specified parameters.
    *
-   * @param <T>          the type of the computable value.
-   * @param component    the component that contains the ComputableValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
-   * @param name         the name of the ComputableValue.
-   * @param function     the function that computes the value.
-   * @param onActivate   the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param <T>        the type of the computable value.
+   * @param component  the component that contains the ComputableValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
+   * @param name       the name of the ComputableValue.
+   * @param function   the function that computes the value.
+   * @param onActivate the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @return the ComputableValue instance.
    */
   @Nonnull
@@ -496,10 +496,10 @@ public final class ArezContext
   /**
    * Create a ComputableValue with specified parameters.
    *
-   * @param <T>          the type of the computable value.
-   * @param name         the name of the ComputableValue.
-   * @param function     the function that computes the value.
-   * @param onActivate   the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param <T>        the type of the computable value.
+   * @param name       the name of the ComputableValue.
+   * @param function   the function that computes the value.
+   * @param onActivate the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
    * @return the ComputableValue instance.
    */
   @Nonnull
@@ -513,11 +513,11 @@ public final class ArezContext
   /**
    * Create a ComputableValue with specified parameters.
    *
-   * @param <T>          the type of the computable value.
-   * @param name         the name of the ComputableValue.
-   * @param function     the function that computes the value.
-   * @param onActivate   the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param flags        the flags used to create the ComputableValue. The acceptable flags are defined in {@link ComputableValue.Flags}.
+   * @param <T>        the type of the computable value.
+   * @param name       the name of the ComputableValue.
+   * @param function   the function that computes the value.
+   * @param onActivate the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param flags      the flags used to create the ComputableValue. The acceptable flags are defined in {@link ComputableValue.Flags}.
    * @return the ComputableValue instance.
    */
   @Nonnull
@@ -532,12 +532,12 @@ public final class ArezContext
   /**
    * Create a ComputableValue with specified parameters.
    *
-   * @param <T>          the type of the computable value.
-   * @param component    the component that contains the ComputableValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
-   * @param name         the name of the ComputableValue.
-   * @param function     the function that computes the value.
-   * @param onActivate   the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param flags        the flags used to create the ComputableValue. The acceptable flags are defined in {@link ComputableValue.Flags}.
+   * @param <T>        the type of the computable value.
+   * @param component  the component that contains the ComputableValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
+   * @param name       the name of the ComputableValue.
+   * @param function   the function that computes the value.
+   * @param onActivate the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param flags      the flags used to create the ComputableValue. The acceptable flags are defined in {@link ComputableValue.Flags}.
    * @return the ComputableValue instance.
    */
   @Nonnull
@@ -1298,24 +1298,33 @@ public final class ArezContext
   }
 
   /**
-   * Register a callback that will be invoked when the current ComputedValue or Observer is deactivated.
-   * This method MUST be invoked from within the scope of the transaction.
-   * The hooks that are invoked on the observers/computed values deactivate will be the last hooks registered.
-   * It is recommended that registering the callbacks is the first action performed within the scope of the transaction.
+   * Register a hook for the current ComputedValue or Observer.
    *
-   * @param onDeactivateHook the OnDeactivate hook.
+   * <ul>
+   * <li>If a hook with the same key was registered in the previous transaction, then this is effectively a noop.</li>
+   * <li>If a new key is registered, then the OnActivate callback is invoked and the OnDeactivate callback will be
+   * invoked when the observer is deactivated.</li>
+   * <li>If the previous transaction had registered a hook and that hook is not registered in the current transaction,
+   * then the OnDeactivate of the hook will be invoked.</li>
+   * </ul>
+   *
+   * @param key          a unique string identifying the key.
+   * @param onActivate   a lambda that is invoked immediately if they key is not active.
+   * @param onDeactivate a lambda that is invoked when the hook deregisters, or the observer deactivates.
    */
-  public void registerOnDeactivateHook( @Nonnull final Procedure onDeactivateHook )
+  public void registerHook( @Nonnull final String key,
+                            @Nullable final Procedure onActivate,
+                            @Nullable final Procedure onDeactivate )
   {
     if ( Arez.shouldCheckInvariants() )
     {
       //noinspection ConstantValue
-      invariant( () -> null != onDeactivateHook,
-                 () -> "Arez-0124: registerOnDeactivateHook() invoked with a null callback." );
-      invariant( this::isTransactionActive,
-                 () -> "Arez-0098: registerOnDeactivateHook() invoked outside of a transaction." );
+      invariant( () -> null != key, () -> "Arez-0125: registerHook() invoked with a null key." );
+      invariant( () -> null != onActivate || null != onDeactivate,
+                 () -> "Arez-0124: registerHook() invoked with null onActivate and onDeactivate callbacks." );
+      invariant( this::isTransactionActive, () -> "Arez-0098: registerHook() invoked outside of a transaction." );
     }
-    Transaction.current().registerOnDeactivationHook( onDeactivateHook );
+    Transaction.current().registerHook( key, onActivate, onDeactivate );
   }
 
   /**

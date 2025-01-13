@@ -328,10 +328,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.observer_ref.PackageAccessObserverRefModel" },
 
         new Object[]{ "com.example.on_activate.BasicOnActivateModel" },
-        new Object[]{ "com.example.on_activate.ComputableValueParamOnActivateModel" },
         new Object[]{ "com.example.on_activate.PackageAccessOnActivateModel" },
-        new Object[]{ "com.example.on_activate.RawComputableValueParamOnActivateModel" },
-        new Object[]{ "com.example.on_activate.WildcardComputableValueParamOnActivateModel" },
 
         new Object[]{ "com.example.on_deactivate.BasicOnDeactivateModel" },
         new Object[]{ "com.example.on_deactivate.PackageAccessOnDeactivateModel" },
@@ -1739,8 +1736,6 @@ public final class ArezProcessorTest
 
         new Object[]{ "com.example.name_duplicates.ActionDuplicatesObservableNameModel",
                       "Method annotated with @Action specified name field that duplicates @Observable defined by method getField" },
-        new Object[]{ "com.example.on_activate.BadTypeParamComputableValueParamModel",
-                      "@OnActivate target has a parameter of type ComputableValue with a type parameter of java.lang.String but the @Memoize method returns a type of long" },
         new Object[]{ "com.example.on_activate.MemoizeHasParametersModel",
                       "@OnActivate target associated with @Memoize method that has parameters." },
         new Object[]{ "com.example.on_activate.MemoizeHasContextParametersModel",
@@ -1759,7 +1754,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.on_activate.OnActivateOnKeepAliveModel",
                       "@OnActivate exists for @Memoize property that specified parameter keepAlive as true." },
         new Object[]{ "com.example.on_activate.OnActivateParametersModel",
-                      "@OnActivate target must not have any parameters or must have a single parameter of type arez.ComputableValue" },
+                      "@OnActivate target must not have any parameters" },
         new Object[]{ "com.example.on_activate.OnActivateReturnValueModel",
                       "@OnActivate target must not return a value" },
         new Object[]{ "com.example.on_activate.OnActivateThrowsExceptionModel",

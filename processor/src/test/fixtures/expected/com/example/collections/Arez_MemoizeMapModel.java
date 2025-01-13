@@ -109,7 +109,7 @@ final class Arez_MemoizeMapModel extends MemoizeMapModel implements Disposable, 
   }
 
   private Map<String, String> $$arezi$$_memoize_myValue() {
-    this.$$arezi$$_kernel.getContext().registerOnDeactivateHook( this::$$arezi$$_onDeactivate_myValue );
+    this.$$arezi$$_kernel.getContext().registerHook( "$H", this::$$arezi$$_onActivate_myValue, this::$$arezi$$_onDeactivate_myValue );
     return super.getMyValue();
   }
 

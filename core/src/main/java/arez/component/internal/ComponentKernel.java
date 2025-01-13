@@ -258,7 +258,7 @@ public final class ComponentKernel
     assert null != _componentObservable;
     if ( _disposeOnDeactivate )
     {
-      getContext().registerOnDeactivateHook( this::scheduleDispose );
+      getContext().registerHook( "$DOD$", null, this::scheduleDispose );
     }
     final boolean isNotDisposed = isNotDisposed();
     if ( isNotDisposed )

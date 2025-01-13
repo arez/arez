@@ -26,6 +26,7 @@ import arez.spy.TransactionStartEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
@@ -235,9 +236,13 @@ public final class ArezContextTest
   }
 
   @Test
-  public void registerOnDeactivationHook_basic()
+  public void registerHook_basic()
   {
     final ArezContext context = Arez.context();
+
+    final CountingProcedure onActivateHook1 = new CountingProcedure();
+    final CountingProcedure onActivateHook2 = new CountingProcedure();
+    final CountingProcedure onActivateHook3 = new CountingProcedure();
 
     final CountingProcedure onDeactivateHook1 = new CountingProcedure();
     final CountingProcedure onDeactivateHook2 = new CountingProcedure();
@@ -246,19 +251,30 @@ public final class ArezContextTest
     final ComputableValue<Integer> computable =
       context.computable( () -> {
         observeADependency();
-        context.registerOnDeactivateHook( onDeactivateHook1 );
-        context.registerOnDeactivateHook( onDeactivateHook2 );
-        context.registerOnDeactivateHook( onDeactivateHook3 );
+        context.registerHook( "3", onActivateHook1, onDeactivateHook1 );
+        context.registerHook( "2", onActivateHook2, onDeactivateHook2 );
+        context.registerHook( "1", onActivateHook3, onDeactivateHook3 );
         return 0;
       } );
 
-    // Computed observed by observer with all deactivate hooks active when deactivated
-
-    assertEquals( computable.getObserver().getOnDeactivateHooks().size(), 0 );
+    assertEquals( computable.getObserver().getHooks().size(), 0 );
 
     final Observer observer = context.observer( () -> assertEquals( computable.get(), (Integer) 0 ) );
 
-    assertEquals( computable.getObserver().getOnDeactivateHooks().size(), 3 );
+    final Map<String, Hook> hooks = computable.getObserver().getHooks();
+    assertEquals( hooks.size(), 3 );
+
+    assertHookOrder( hooks, "3,2,1" );
+    assertEquals( hooks.get( "3" ).getOnActivate(), onActivateHook1 );
+    assertEquals( hooks.get( "3" ).getOnDeactivate(), onDeactivateHook1 );
+    assertEquals( hooks.get( "2" ).getOnActivate(), onActivateHook2 );
+    assertEquals( hooks.get( "2" ).getOnDeactivate(), onDeactivateHook2 );
+    assertEquals( hooks.get( "1" ).getOnActivate(), onActivateHook3 );
+    assertEquals( hooks.get( "1" ).getOnDeactivate(), onDeactivateHook3 );
+
+    assertEquals( onActivateHook1.getCallCount(), 1 );
+    assertEquals( onActivateHook2.getCallCount(), 1 );
+    assertEquals( onActivateHook3.getCallCount(), 1 );
 
     assertEquals( onDeactivateHook1.getCallCount(), 0 );
     assertEquals( onDeactivateHook2.getCallCount(), 0 );
@@ -266,11 +282,22 @@ public final class ArezContextTest
 
     Disposable.dispose( observer );
 
-    assertEquals( computable.getObserver().getOnDeactivateHooks().size(), 0 );
+    assertEquals( computable.getObserver().getHooks().size(), 0 );
+
+    assertEquals( onActivateHook1.getCallCount(), 1 );
+    assertEquals( onActivateHook2.getCallCount(), 1 );
+    assertEquals( onActivateHook3.getCallCount(), 1 );
 
     assertEquals( onDeactivateHook1.getCallCount(), 1 );
     assertEquals( onDeactivateHook2.getCallCount(), 1 );
     assertEquals( onDeactivateHook3.getCallCount(), 1 );
+  }
+
+  private static void assertHookOrder( @Nonnull final Map<String, Hook> hooks, @Nonnull final String expected )
+  {
+    @SuppressWarnings( { "NonJREEmulationClassesInClientCode", "SimplifyStreamApiCallChains" } )
+    final List<String> list = hooks.entrySet().stream().map( Map.Entry::getKey ).toList();
+    assertEquals( String.join( ",", list ), expected );
   }
 
   @Test
@@ -279,6 +306,10 @@ public final class ArezContextTest
     final ArezContext context = Arez.context();
 
     final AtomicBoolean includeAll = new AtomicBoolean( true );
+
+    final CountingProcedure onActivateHook1 = new CountingProcedure();
+    final CountingProcedure onActivateHook2 = new CountingProcedure();
+    final CountingProcedure onActivateHook3 = new CountingProcedure();
 
     final CountingProcedure onDeactivateHook1 = new CountingProcedure();
     final CountingProcedure onDeactivateHook2 = new CountingProcedure();
@@ -290,20 +321,33 @@ public final class ArezContextTest
       context.computable( () -> {
         observable.reportObserved();
 
-        context.registerOnDeactivateHook( onDeactivateHook1 );
+        context.registerHook( "3", onActivateHook1, onDeactivateHook1 );
+
         if ( includeAll.get() )
         {
-          context.registerOnDeactivateHook( onDeactivateHook2 );
-          context.registerOnDeactivateHook( onDeactivateHook3 );
+          context.registerHook( "2", onActivateHook2, onDeactivateHook2 );
+          context.registerHook( "1", onActivateHook3, onDeactivateHook3 );
         }
         return 0;
       } );
 
-    assertEquals( computable.getObserver().getOnDeactivateHooks().size(), 0 );
+    assertEquals( computable.getObserver().getHooks().size(), 0 );
 
     final Observer observer = context.observer( () -> assertEquals( computable.get(), (Integer) 0 ) );
 
-    assertEquals( computable.getObserver().getOnDeactivateHooks().size(), 3 );
+    final Map<String, Hook> hooks = computable.getObserver().getHooks();
+    assertEquals( hooks.size(), 3 );
+    assertHookOrder( hooks, "3,2,1" );
+    assertEquals( hooks.get( "3" ).getOnActivate(), onActivateHook1 );
+    assertEquals( hooks.get( "3" ).getOnDeactivate(), onDeactivateHook1 );
+    assertEquals( hooks.get( "2" ).getOnActivate(), onActivateHook2 );
+    assertEquals( hooks.get( "2" ).getOnDeactivate(), onDeactivateHook2 );
+    assertEquals( hooks.get( "1" ).getOnActivate(), onActivateHook3 );
+    assertEquals( hooks.get( "1" ).getOnDeactivate(), onDeactivateHook3 );
+
+    assertEquals( onActivateHook1.getCallCount(), 1 );
+    assertEquals( onActivateHook2.getCallCount(), 1 );
+    assertEquals( onActivateHook3.getCallCount(), 1 );
 
     assertEquals( onDeactivateHook1.getCallCount(), 0 );
     assertEquals( onDeactivateHook2.getCallCount(), 0 );
@@ -313,39 +357,67 @@ public final class ArezContextTest
     includeAll.set( false );
     context.safeAction( observable::reportChanged, ActionFlags.READ_WRITE );
 
-    assertEquals( computable.getObserver().getOnDeactivateHooks().size(), 1 );
+    assertEquals( computable.getObserver().getHooks().size(), 1 );
+
+    assertEquals( onActivateHook1.getCallCount(), 1 );
+    assertEquals( onActivateHook2.getCallCount(), 1 );
+    assertEquals( onActivateHook3.getCallCount(), 1 );
 
     assertEquals( onDeactivateHook1.getCallCount(), 0 );
-    assertEquals( onDeactivateHook2.getCallCount(), 0 );
-    assertEquals( onDeactivateHook3.getCallCount(), 0 );
+    assertEquals( onDeactivateHook2.getCallCount(), 1 );
+    assertEquals( onDeactivateHook3.getCallCount(), 1 );
 
     Disposable.dispose( observer );
 
-    assertEquals( computable.getObserver().getOnDeactivateHooks().size(), 0 );
+    assertEquals( computable.getObserver().getHooks().size(), 0 );
+
+    assertEquals( onActivateHook1.getCallCount(), 1 );
+    assertEquals( onActivateHook2.getCallCount(), 1 );
+    assertEquals( onActivateHook3.getCallCount(), 1 );
 
     assertEquals( onDeactivateHook1.getCallCount(), 1 );
-    assertEquals( onDeactivateHook2.getCallCount(), 0 );
-    assertEquals( onDeactivateHook3.getCallCount(), 0 );
+    assertEquals( onDeactivateHook2.getCallCount(), 1 );
+    assertEquals( onDeactivateHook3.getCallCount(), 1 );
   }
 
   @Test
-  public void registerOnDeactivationHook_nullHook()
+  public void registerOnDeactivationHook_nullKey()
   {
     final ArezContext context = Arez.context();
 
     final ComputableValue<Integer> computable =
       context.computable( () -> {
         observeADependency();
-        assertInvariantFailure( () -> context.registerOnDeactivateHook( null ),
-                                "Arez-0124: registerOnDeactivateHook() invoked with a null callback." );
+        assertInvariantFailure( () -> context.registerHook( null, new NoopProcedure(), new NoopProcedure() ),
+                                "Arez-0125: registerHook() invoked with a null key." );
         return 0;
       } );
 
-    assertEquals( computable.getObserver().getOnDeactivateHooks().size(), 0 );
+    assertEquals( computable.getObserver().getHooks().size(), 0 );
 
     context.observer( () -> assertEquals( computable.get(), (Integer) 0 ) );
 
-    assertEquals( computable.getObserver().getOnDeactivateHooks().size(), 0 );
+    assertEquals( computable.getObserver().getHooks().size(), 0 );
+  }
+
+  @Test
+  public void registerOnDeactivationHook_nullCallbacks()
+  {
+    final ArezContext context = Arez.context();
+
+    final ComputableValue<Integer> computable =
+      context.computable( () -> {
+        observeADependency();
+        assertInvariantFailure( () -> context.registerHook( "X", null, null ),
+                                "Arez-0124: registerHook() invoked with null onActivate and onDeactivate callbacks." );
+        return 0;
+      } );
+
+    assertEquals( computable.getObserver().getHooks().size(), 0 );
+
+    context.observer( () -> assertEquals( computable.get(), (Integer) 0 ) );
+
+    assertEquals( computable.getObserver().getHooks().size(), 0 );
   }
 
   @Test
@@ -353,8 +425,8 @@ public final class ArezContextTest
   {
     final ArezContext context = Arez.context();
 
-    assertInvariantFailure( () -> context.registerOnDeactivateHook( new NoopProcedure() ),
-                            "Arez-0098: registerOnDeactivateHook() invoked outside of a transaction." );
+    assertInvariantFailure( () -> context.registerHook( "X", new NoopProcedure(), new NoopProcedure() ),
+                            "Arez-0098: registerHook() invoked outside of a transaction." );
   }
 
   @SuppressWarnings( "unused" )

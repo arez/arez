@@ -162,6 +162,11 @@ final class MemoizeDescriptor
     return !getContextParameters().isEmpty() || hasHooks() || shouldGenerateDeactivateWrapperHook();
   }
 
+  boolean shouldGenerateActivateWrapperHook()
+  {
+    return isCollectionType() && hasNoParameters();
+  }
+
   boolean shouldGenerateDeactivateWrapperHook()
   {
     return isCollectionType() && hasNoParameters();

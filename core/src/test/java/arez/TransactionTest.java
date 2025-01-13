@@ -332,23 +332,23 @@ public final class TransactionTest
 
     transaction.beginTracking();
 
-    assertEquals( tracker.getOnDeactivateHooks().size(), 0 );
-    assertNull( transaction.getOnDeactivateHooks() );
+    assertEquals( tracker.getHooks().size(), 0 );
+    assertNull( transaction.getHooks() );
     assertFalse( transaction.hasTransactionUseOccurred() );
 
-    final Procedure onDeactivationHook = new NoopProcedure();
-    transaction.registerOnDeactivationHook( onDeactivationHook );
+    final String key = ValueUtil.randomString();
+    transaction.registerHook( key, new NoopProcedure(), new NoopProcedure() );
 
-    assertNotNull( transaction.getOnDeactivateHooks() );
-    assertEquals( transaction.getOnDeactivateHooks().size(), 1 );
-    assertTrue( transaction.getOnDeactivateHooks().contains( onDeactivationHook ) );
+    assertNotNull( transaction.getHooks() );
+    assertEquals( transaction.getHooks().size(), 1 );
+    assertTrue( transaction.getHooks().containsKey( key ) );
 
-    assertEquals( tracker.getOnDeactivateHooks().size(), 0 );
+    assertEquals( tracker.getHooks().size(), 0 );
 
     transaction.completeTracking();
 
-    assertEquals( tracker.getOnDeactivateHooks().size(), 1 );
-    assertTrue( tracker.getOnDeactivateHooks().contains( onDeactivationHook ) );
+    assertEquals( tracker.getHooks().size(), 1 );
+    assertTrue( transaction.getHooks().containsKey( key ) );
   }
 
   @Test
@@ -360,13 +360,13 @@ public final class TransactionTest
 
     transaction.beginTracking();
 
-    assertNull( transaction.getOnDeactivateHooks() );
+    assertNull( transaction.getHooks() );
     assertFalse( transaction.hasTransactionUseOccurred() );
 
-    final Procedure onDeactivationHook = new NoopProcedure();
-
-    assertInvariantFailure( () -> transaction.registerOnDeactivationHook( onDeactivationHook ),
-                            "Arez-0045: registerOnDeactivateHook() invoked outside of a tracking transaction." );
+    assertInvariantFailure( () -> transaction.registerHook( ValueUtil.randomString(),
+                                                            new NoopProcedure(),
+                                                            new NoopProcedure() ),
+                            "Arez-0045: registerHook() invoked outside of a tracking transaction." );
   }
 
   @Test

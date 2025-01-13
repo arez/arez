@@ -101,6 +101,7 @@ final class Arez_BasicOnActivateModel extends BasicOnActivateModel implements Di
   }
 
   private long $$arezi$$_memoize_time() {
+    this.$$arezi$$_kernel.getContext().registerHook( "$H", () -> super.onTimeActivate(), null );
     return super.getTime();
   }
 

@@ -110,7 +110,7 @@ final class Arez_MemoizeNonnullSetModel extends MemoizeNonnullSetModel implement
 
   @Nonnull
   private Set<String> $$arezi$$_memoize_myValue() {
-    this.$$arezi$$_kernel.getContext().registerOnDeactivateHook( this::$$arezi$$_onDeactivate_myValue );
+    this.$$arezi$$_kernel.getContext().registerHook( "$H", this::$$arezi$$_onActivate_myValue, this::$$arezi$$_onDeactivate_myValue );
     return super.getMyValue();
   }
 

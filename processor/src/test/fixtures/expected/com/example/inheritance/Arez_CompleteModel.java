@@ -410,7 +410,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   private long $$arezi$$_memoize_time() {
-    this.$$arezi$$_kernel.getContext().registerOnDeactivateHook( () -> super.onTimeDeactivate() );
+    this.$$arezi$$_kernel.getContext().registerHook( "$H", () -> super.onTimeActivate(), () -> super.onTimeDeactivate() );
     return super.getTime();
   }
 
@@ -440,7 +440,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   private Collection<Long> $$arezi$$_memoize_collectionTime() {
-    this.$$arezi$$_kernel.getContext().registerOnDeactivateHook( this::$$arezi$$_onDeactivate_collectionTime );
+    this.$$arezi$$_kernel.getContext().registerHook( "$H", this::$$arezi$$_onActivate_collectionTime, this::$$arezi$$_onDeactivate_collectionTime );
     return super.getCollectionTime();
   }
 
