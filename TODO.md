@@ -6,6 +6,8 @@ complete as there is too much un-said.
 
 ## Enhancements
 
+* The use of `LinkedHashMap` inside `arez.Observer` adds to the size of generated code (4k?) so if we want to shrink code then replace it with something hand-written and more optimized.
+
 * Consider propagating `Unmodifiable` and `UnmodifiableView` jetbrains annotations, `@TestOnly` and `@VisibleForTesting` through code bases
 
 * `@Memoize( depType = DepType.AREZ_OR_EXTERNAL )` requires paired `@ComputableValueRef` method even if `ComputableValue` passed into `@OnActivate` method.
