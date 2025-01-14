@@ -189,7 +189,7 @@ public abstract class BrowserLocation
   private void setHash( @Nonnull final String hash )
   {
     final Location location = WindowGlobal.location();
-    if ( 0 == hash.length() )
+    if ( hash.isEmpty() )
     {
       /*
        * This code is needed to remove the stray #.
