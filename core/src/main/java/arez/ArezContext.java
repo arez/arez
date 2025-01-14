@@ -471,87 +471,10 @@ public final class ArezContext
                                             @Nonnull final SafeFunction<T> function,
                                             @MagicConstant( flagsFromClass = ComputableValue.Flags.class ) final int flags )
   {
-    return computable( component, name, function, null, flags );
-  }
-
-  /**
-   * Create a ComputableValue with specified parameters.
-   *
-   * @param <T>        the type of the computable value.
-   * @param component  the component that contains the ComputableValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
-   * @param name       the name of the ComputableValue.
-   * @param function   the function that computes the value.
-   * @param onActivate the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @return the ComputableValue instance.
-   */
-  @Nonnull
-  public <T> ComputableValue<T> computable( @Nullable final Component component,
-                                            @Nullable final String name,
-                                            @Nonnull final SafeFunction<T> function,
-                                            @Nullable final Procedure onActivate )
-  {
-    return computable( component, name, function, onActivate, 0 );
-  }
-
-  /**
-   * Create a ComputableValue with specified parameters.
-   *
-   * @param <T>        the type of the computable value.
-   * @param name       the name of the ComputableValue.
-   * @param function   the function that computes the value.
-   * @param onActivate the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @return the ComputableValue instance.
-   */
-  @Nonnull
-  public <T> ComputableValue<T> computable( @Nullable final String name,
-                                            @Nonnull final SafeFunction<T> function,
-                                            @Nullable final Procedure onActivate )
-  {
-    return computable( name, function, onActivate, 0 );
-  }
-
-  /**
-   * Create a ComputableValue with specified parameters.
-   *
-   * @param <T>        the type of the computable value.
-   * @param name       the name of the ComputableValue.
-   * @param function   the function that computes the value.
-   * @param onActivate the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param flags      the flags used to create the ComputableValue. The acceptable flags are defined in {@link ComputableValue.Flags}.
-   * @return the ComputableValue instance.
-   */
-  @Nonnull
-  public <T> ComputableValue<T> computable( @Nullable final String name,
-                                            @Nonnull final SafeFunction<T> function,
-                                            @Nullable final Procedure onActivate,
-                                            @MagicConstant( flagsFromClass = ComputableValue.Flags.class ) final int flags )
-  {
-    return computable( null, name, function, onActivate, flags );
-  }
-
-  /**
-   * Create a ComputableValue with specified parameters.
-   *
-   * @param <T>        the type of the computable value.
-   * @param component  the component that contains the ComputableValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
-   * @param name       the name of the ComputableValue.
-   * @param function   the function that computes the value.
-   * @param onActivate the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param flags      the flags used to create the ComputableValue. The acceptable flags are defined in {@link ComputableValue.Flags}.
-   * @return the ComputableValue instance.
-   */
-  @Nonnull
-  public <T> ComputableValue<T> computable( @Nullable final Component component,
-                                            @Nullable final String name,
-                                            @Nonnull final SafeFunction<T> function,
-                                            @Nullable final Procedure onActivate,
-                                            @MagicConstant( flagsFromClass = ComputableValue.Flags.class ) final int flags )
-  {
     return new ComputableValue<>( Arez.areZonesEnabled() ? this : null,
                                   component,
                                   generateName( "ComputableValue", name ),
                                   function,
-                                  onActivate,
                                   flags );
   }
 

@@ -2243,7 +2243,6 @@ public final class ArezContextTest
       context.computable( null,
                           name,
                           function,
-                          onActivate,
                           ComputableValue.Flags.PRIORITY_HIGH );
 
     assertEquals( computableValue.getName(), name );
@@ -2251,7 +2250,6 @@ public final class ArezContextTest
     assertFalse( computableValue.getObserver().isKeepAlive() );
     assertTrue( computableValue.getObserver().areArezDependenciesRequired() );
     assertEquals( computableValue.getObservableValue().getName(), name );
-    assertEquals( computableValue.getOnActivate(), onActivate );
     assertEquals( computableValue.getObserver().getName(), name );
     assertEquals( computableValue.getObserver().getTask().getPriority(), Priority.HIGH );
     assertFalse( computableValue.getObserver().canObserveLowerPriorityDependencies() );
@@ -2301,8 +2299,7 @@ public final class ArezContextTest
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
 
     final String name = ValueUtil.randomString();
-    final ComputableValue<String> computableValue =
-      context.computable( component, name, () -> "", null );
+    final ComputableValue<String> computableValue = context.computable( component, name, () -> "" );
 
     assertEquals( computableValue.getName(), name );
     assertEquals( computableValue.getComponent(), component );
@@ -2385,7 +2382,6 @@ public final class ArezContextTest
     assertEquals( computableValue.getContext(), context );
     assertEquals( computableValue.getObserver().getName(), name );
     assertEquals( computableValue.getObservableValue().getName(), name );
-    assertNull( computableValue.getOnActivate() );
     assertEquals( computableValue.getObserver().getTask().getPriority(), Priority.NORMAL );
   }
 
@@ -2406,7 +2402,6 @@ public final class ArezContextTest
     assertEquals( computableValue.getContext(), context );
     assertEquals( computableValue.getObserver().getName(), name );
     assertEquals( computableValue.getObservableValue().getName(), name );
-    assertNull( computableValue.getOnActivate() );
     assertEquals( computableValue.getObserver().getTask().getPriority(), Priority.NORMAL );
     assertFalse( computableValue.getObserver().canObserveLowerPriorityDependencies() );
   }

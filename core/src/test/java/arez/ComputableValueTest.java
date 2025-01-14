@@ -27,10 +27,8 @@ public final class ComputableValueTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
     final SafeFunction<String> function = () -> "";
-    final Procedure onActivate = new NoopProcedure();
 
-    final ComputableValue<String> computableValue =
-      context.computable( name, function, onActivate );
+    final ComputableValue<String> computableValue = context.computable( name, function );
 
     assertEquals( computableValue.getName(), name );
     assertEquals( computableValue.getContext(), context );
@@ -40,8 +38,6 @@ public final class ComputableValueTest
 
     // Value starts out as null
     assertNull( computableValue.getValue() );
-
-    assertEquals( computableValue.getOnActivate(), onActivate );
 
     // Verify the linking of all child elements
     assertEquals( computableValue.getObserver().getName(), name );

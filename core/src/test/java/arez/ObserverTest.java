@@ -727,8 +727,7 @@ public final class ObserverTest
     final TestProcedure onActivate = new TestProcedure();
     final TestProcedure onDeactivate = new TestProcedure();
 
-    final ComputableValue<String> computableValue =
-      Arez.context().computable( null, null, () -> "", onActivate );
+    final ComputableValue<String> computableValue = Arez.context().computable( null, null, () -> "" );
     final ObservableValue<String> derivedValue = computableValue.getObservableValue();
     final Observer observer = computableValue.getObserver();
 
@@ -740,7 +739,7 @@ public final class ObserverTest
     observer.getComputableValue().getObservableValue().rawAddObserver( watcher );
     watcher.getDependencies().add( observer.getComputableValue().getObservableValue() );
     observer.getHooks().clear();
-    observer.getHooks().put( ValueUtil.randomString(), new Hook( null, onDeactivate ) );
+    observer.getHooks().put( ValueUtil.randomString(), new Hook( onActivate, onDeactivate ) );
 
     watcher.setState( Observer.Flags.STATE_UP_TO_DATE );
 
@@ -758,7 +757,7 @@ public final class ObserverTest
 
     assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
     assertFalse( observer.getTask().isQueued() );
-    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onActivate.getCalls(), 0 );
     assertEquals( onDeactivate.getCalls(), 0 );
     assertNotNull( computableValue.getValue() );
 
@@ -766,7 +765,7 @@ public final class ObserverTest
 
     assertEquals( observer.getState(), Observer.Flags.STATE_POSSIBLY_STALE );
     assertTrue( observer.getTask().isQueued() );
-    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onActivate.getCalls(), 0 );
     assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( watcher.getState(), Observer.Flags.STATE_POSSIBLY_STALE );
     assertEquals( derivedValue.getLeastStaleObserverState(), Observer.Flags.STATE_POSSIBLY_STALE );
@@ -778,7 +777,7 @@ public final class ObserverTest
     observer.setState( Observer.Flags.STATE_UP_TO_DATE );
 
     assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
-    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onActivate.getCalls(), 0 );
     assertEquals( onDeactivate.getCalls(), 0 );
     assertNotNull( computableValue.getValue() );
 
@@ -789,7 +788,7 @@ public final class ObserverTest
 
     assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
     assertTrue( observer.getTask().isQueued() );
-    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onActivate.getCalls(), 0 );
     assertEquals( onDeactivate.getCalls(), 0 );
 
     assertEquals( watcher.getState(), Observer.Flags.STATE_POSSIBLY_STALE );
@@ -798,7 +797,7 @@ public final class ObserverTest
     observer.setState( Observer.Flags.STATE_INACTIVE );
 
     assertEquals( observer.getState(), Observer.Flags.STATE_INACTIVE );
-    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onActivate.getCalls(), 0 );
     assertEquals( onDeactivate.getCalls(), 1 );
     assertNull( computableValue.getValue() );
   }

@@ -74,11 +74,6 @@ public final class ComputableValue<T>
    */
   private int _keepAliveRefCount;
   /**
-   * Hook action called when the ComputableValue moves to observed state.
-   */
-  @Nullable
-  private final Procedure _onActivate;
-  /**
    * Cached info object associated with the element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
    */
@@ -90,7 +85,6 @@ public final class ComputableValue<T>
                    @Nullable final Component component,
                    @Nullable final String name,
                    @Nonnull final SafeFunction<T> function,
-                   @Nullable final Procedure onActivate,
                    final int flags )
   {
     super( context, name );
@@ -102,7 +96,6 @@ public final class ComputableValue<T>
     }
     _component = Arez.areNativeComponentsEnabled() ? component : null;
     _function = Objects.requireNonNull( function );
-    _onActivate = onActivate;
     _value = null;
     _computing = false;
     _readOutsideTransaction = Flags.READ_OUTSIDE_TRANSACTION == ( flags & Flags.READ_OUTSIDE_TRANSACTION );
@@ -419,17 +412,6 @@ public final class ComputableValue<T>
                        "named '" + getName() + "'." );
     }
     return _observableValue;
-  }
-
-  /**
-   * Return the onActivate hook.
-   *
-   * @return the onActivate hook.
-   */
-  @Nullable
-  Procedure getOnActivate()
-  {
-    return _onActivate;
   }
 
   /**

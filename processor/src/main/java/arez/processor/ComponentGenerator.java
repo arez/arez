@@ -2844,7 +2844,7 @@ final class ComponentGenerator
         parameters.add( component.getClassName() );
         parameters.add( method.getSimpleName().toString() );
       }
-      appendInitializerSuffix( memoize, parameters, sb, true );
+      appendInitializerSuffix( memoize, parameters, sb );
 
       // Else part of ternary
       sb.append( " : $N.computable( " +
@@ -2867,7 +2867,7 @@ final class ComponentGenerator
         parameters.add( component.getClassName() );
         parameters.add( method.getSimpleName().toString() );
       }
-      appendInitializerSuffix( memoize, parameters, sb, false );
+      appendInitializerSuffix( memoize, parameters, sb );
     }
     else // hasHooks()
     {
@@ -2898,7 +2898,7 @@ final class ComponentGenerator
         parameters.add( component.getClassName() );
         parameters.add( method.getSimpleName().toString() );
       }
-      appendInitializerSuffix( memoize, parameters, sb, true );
+      appendInitializerSuffix( memoize, parameters, sb );
     }
     builder.addStatement( sb.toString(), parameters.toArray() );
   }
@@ -2998,47 +2998,8 @@ final class ComponentGenerator
 
   private static void appendInitializerSuffix( @Nonnull final MemoizeDescriptor memoize,
                                                @Nonnull final List<Object> parameters,
-                                               @Nonnull final StringBuilder sb,
-                                               final boolean areCollectionsPropertiesUnmodifiable )
+                                               @Nonnull final StringBuilder sb )
   {
-    final boolean isCollectionType = memoize.isCollectionType();
-    if ( memoize.hasHooks() || ( isCollectionType && areCollectionsPropertiesUnmodifiable ) )
-    {
-      final ExecutableElement onActivate = memoize.getOnActivate();
-      if ( isCollectionType && null == onActivate )
-      {
-        sb.append( "$T.areCollectionsPropertiesUnmodifiable() ? this::$N : null" );
-        parameters.add( AREZ_CLASSNAME );
-        parameters.add( getOnActivateHookMethodName( memoize ) );
-      }
-      else if ( isCollectionType )
-      {
-        sb.append( "this::$N" );
-        parameters.add( getOnActivateHookMethodName( memoize ) );
-      }
-      else
-      {
-        if ( null != onActivate )
-        {
-          if ( onActivate.getParameters().isEmpty() )
-          {
-            sb.append( "this::$N" );
-            parameters.add( onActivate.getSimpleName().toString() );
-          }
-          else
-          {
-            sb.append( "this::$N" );
-            parameters.add( getOnActivateHookMethodName( memoize ) );
-          }
-        }
-        else
-        {
-          sb.append( "null" );
-        }
-      }
-      sb.append( ", " );
-    }
-
     final List<String> flags = generateMemoizeFlags( memoize );
     flags.add( "RUN_LATER" );
     if ( memoize.isKeepAlive() )

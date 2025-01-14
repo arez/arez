@@ -504,14 +504,6 @@ public final class Observer
         hooks.clear();
         clearDependencies();
       }
-      else if ( Flags.STATE_INACTIVE == originalState &&
-                ( ( Flags.STATE_DISPOSED | Flags.STATE_DISPOSING ) & state ) == 0 )
-      {
-        if ( isComputableValue() )
-        {
-          runHook( getComputableValue().getOnActivate(), ObserverError.ON_ACTIVATE_ERROR );
-        }
-      }
       if ( Arez.shouldCheckInvariants() )
       {
         invariantState();
@@ -805,7 +797,7 @@ public final class Observer
    *
    * @param hooks the new set of hooks.
    */
-  void replaceHooks( @Nonnull final Map<String,Hook> hooks )
+  void replaceHooks( @Nonnull final Map<String, Hook> hooks )
   {
     _hooks = Objects.requireNonNull( hooks );
   }

@@ -5,7 +5,9 @@
 * Add `ArezContext.registerHook()` that allows the registration of hooks to execute on activation and deactivation
   of the current observer or computed value. The intent is to enable a dynamic set of OnActivate and OnDeactivate hooks
   for `ComputableValue` instances or `@Memoize` annotated methods without the existing restrictions.
+* Stop supporting passing in arbitrary `onActivate` and `onDeactivate` parameters when creating `ComputableValue` instances via the context. Instead rely on the newly implemented hooks feature.
 * Update the `org.realityforge.proton` artifacts to version `0.65`.
+* Stop supporting the optional `ComputableValue` parameter to methods annotated with `OnActivate`. If access to the `ComputableValue` is required, it is recommended that a `@ComponentValueRef` annotated method is used instead.
 
 ### [v0.213](https://github.com/arez/arez/tree/v0.213) (2024-11-22) · [Full Changelog](https://github.com/arez/arez/compare/v0.212...v0.213)
 

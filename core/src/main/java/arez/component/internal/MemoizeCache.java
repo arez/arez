@@ -267,7 +267,7 @@ public final class MemoizeCache<T>
       Arez.context().registerHook( "$MC$", null, () -> disposeComputableValue( args ) );
       return _function.call( args );
     };
-    return getContext().computable( component, name, function, null, _flags );
+    return getContext().computable( component, name, function, _flags );
   }
 
   /**

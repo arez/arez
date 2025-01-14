@@ -198,7 +198,6 @@ public final class ComponentKernel
     return getContext().computable( Arez.areNativeComponentsEnabled() ? getComponent() : null,
                                     Arez.areNamesEnabled() ? getName() + ".disposeOnDeactivate" : null,
                                     this::observe0,
-                                    null,
                                     ComputableValue.Flags.PRIORITY_HIGHEST );
   }
 
