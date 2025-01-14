@@ -48,7 +48,7 @@ public abstract class BrowserLocation
   @Nonnull
   private String _targetLocation;
   /**
-   * Should we prevent the default action associated with hash change?
+   * Should we prevent the default action associated with hash change.
    */
   private boolean _preventDefault = true;
 
