@@ -9,12 +9,14 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("rawtypes")
 final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel implements Disposable, Identifiable<RawTypeComponentIdRefModel.MyId>, DisposeNotifier {
+  @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
   @SuppressWarnings("rawtypes")

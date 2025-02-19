@@ -33,6 +33,7 @@ import org.realityforge.braincheck.Guards;
 public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel, Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
+  @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
   @Nonnull
@@ -178,6 +179,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   }
 
   private int $$arezi$$_id() {
+    assert null != this.$$arezi$$_kernel;
     return this.$$arezi$$_kernel.getId();
   }
 

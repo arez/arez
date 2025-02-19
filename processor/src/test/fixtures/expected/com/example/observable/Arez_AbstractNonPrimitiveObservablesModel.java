@@ -12,6 +12,7 @@ import arez.component.internal.ComponentKernel;
 import java.util.Date;
 import java.util.Objects;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 
@@ -19,6 +20,7 @@ import org.realityforge.braincheck.Guards;
 final class Arez_AbstractNonPrimitiveObservablesModel extends AbstractNonPrimitiveObservablesModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
+  @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
   @Nonnull
@@ -39,6 +41,7 @@ final class Arez_AbstractNonPrimitiveObservablesModel extends AbstractNonPrimiti
   }
 
   private int $$arezi$$_id() {
+    assert null != this.$$arezi$$_kernel;
     return this.$$arezi$$_kernel.getId();
   }
 

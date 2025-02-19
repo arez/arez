@@ -9,6 +9,7 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 import sting.Injectable;
@@ -20,6 +21,7 @@ import sting.Typed;
 final class Arez_MultipleArgsStingModel extends MultipleArgsStingModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
+  @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
   Arez_MultipleArgsStingModel(final int i, final String foo) {
@@ -34,6 +36,7 @@ final class Arez_MultipleArgsStingModel extends MultipleArgsStingModel implement
   }
 
   private int $$arezi$$_id() {
+    assert null != this.$$arezi$$_kernel;
     return this.$$arezi$$_kernel.getId();
   }
 

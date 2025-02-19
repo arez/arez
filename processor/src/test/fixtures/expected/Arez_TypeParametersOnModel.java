@@ -8,6 +8,7 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 
@@ -15,6 +16,7 @@ import org.realityforge.braincheck.Guards;
 final class Arez_TypeParametersOnModel<T extends Integer> extends TypeParametersOnModel<T> implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
+  @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
   Arez_TypeParametersOnModel() {
@@ -29,6 +31,7 @@ final class Arez_TypeParametersOnModel<T extends Integer> extends TypeParameters
   }
 
   private int $$arezi$$_id() {
+    assert null != this.$$arezi$$_kernel;
     return this.$$arezi$$_kernel.getId();
   }
 

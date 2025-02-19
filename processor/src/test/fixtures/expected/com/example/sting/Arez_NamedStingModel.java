@@ -7,6 +7,7 @@ import arez.Disposable;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 import sting.Injectable;
@@ -20,6 +21,7 @@ import sting.Typed;
 final class Arez_NamedStingModel extends NamedStingModel implements Disposable, Identifiable<Integer> {
   private static volatile int $$arezi$$_nextId;
 
+  @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
   Arez_NamedStingModel() {
@@ -34,6 +36,7 @@ final class Arez_NamedStingModel extends NamedStingModel implements Disposable, 
   }
 
   private int $$arezi$$_id() {
+    assert null != this.$$arezi$$_kernel;
     return this.$$arezi$$_kernel.getId();
   }
 

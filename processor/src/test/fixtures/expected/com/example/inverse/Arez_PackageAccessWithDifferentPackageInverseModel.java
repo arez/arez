@@ -17,6 +17,7 @@ import com.example.inverse.other.Element;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 
@@ -24,6 +25,7 @@ import org.realityforge.braincheck.Guards;
 public final class Arez_PackageAccessWithDifferentPackageInverseModel extends PackageAccessWithDifferentPackageInverseModel implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
+  @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
   @Nonnull
@@ -56,6 +58,7 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel extends Pa
   }
 
   private int $$arezi$$_id() {
+    assert null != this.$$arezi$$_kernel;
     return this.$$arezi$$_kernel.getId();
   }
 

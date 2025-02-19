@@ -13,12 +13,14 @@ import arez.component.internal.ComponentKernel;
 import java.io.IOException;
 import java.io.Writer;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
 final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W> implements Disposable, Identifiable<IOException>, DisposeNotifier {
+  @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
   @Nonnull

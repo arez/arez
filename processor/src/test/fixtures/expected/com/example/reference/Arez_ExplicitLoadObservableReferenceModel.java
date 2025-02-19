@@ -21,6 +21,7 @@ import org.realityforge.braincheck.Guards;
 final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObservableReferenceModel implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier, Linkable {
   private static volatile int $$arezi$$_nextId;
 
+  @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
   @Nonnull
@@ -55,6 +56,7 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
   }
 
   private int $$arezi$$_id() {
+    assert null != this.$$arezi$$_kernel;
     return this.$$arezi$$_kernel.getId();
   }
 

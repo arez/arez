@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Add some additional dev-only assertions in generated Arez classes when accessing kernel to highlight issues earlier.
+
 ### [v0.214](https://github.com/arez/arez/tree/v0.214) (2025-01-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.213...v0.214) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.213&new=0.214)
 
 The release includes 2 non breaking API changes and 4 breaking API changes.

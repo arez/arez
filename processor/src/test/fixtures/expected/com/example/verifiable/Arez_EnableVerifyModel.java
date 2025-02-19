@@ -10,6 +10,7 @@ import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 
@@ -17,6 +18,7 @@ import org.realityforge.braincheck.Guards;
 final class Arez_EnableVerifyModel extends EnableVerifyModel implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
+  @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
   Arez_EnableVerifyModel() {
@@ -31,6 +33,7 @@ final class Arez_EnableVerifyModel extends EnableVerifyModel implements Disposab
   }
 
   private int $$arezi$$_id() {
+    assert null != this.$$arezi$$_kernel;
     return this.$$arezi$$_kernel.getId();
   }
 

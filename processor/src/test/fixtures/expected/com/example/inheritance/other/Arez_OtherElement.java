@@ -22,6 +22,7 @@ import org.realityforge.braincheck.Guards;
 public final class Arez_OtherElement extends OtherElement implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier, Linkable {
   private static volatile int $$arezi$$_nextId;
 
+  @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
   @Nullable
@@ -54,6 +55,7 @@ public final class Arez_OtherElement extends OtherElement implements Disposable,
   }
 
   private int $$arezi$$_id() {
+    assert null != this.$$arezi$$_kernel;
     return this.$$arezi$$_kernel.getId();
   }
 

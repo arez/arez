@@ -19,6 +19,7 @@ import org.realityforge.braincheck.Guards;
 final class NonStandardNameModel_Arez_Element extends NonStandardNameModel.Element implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
+  @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
   @Nullable
@@ -48,6 +49,7 @@ final class NonStandardNameModel_Arez_Element extends NonStandardNameModel.Eleme
   }
 
   private int $$arezi$$_id() {
+    assert null != this.$$arezi$$_kernel;
     return this.$$arezi$$_kernel.getId();
   }
 

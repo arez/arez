@@ -19,6 +19,7 @@ import org.realityforge.braincheck.Guards;
 final class NonObservableNullableOneReferenceModel_Arez_Element extends NonObservableNullableOneReferenceModel.Element implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
+  @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
   @Nullable
@@ -48,6 +49,7 @@ final class NonObservableNullableOneReferenceModel_Arez_Element extends NonObser
   }
 
   private int $$arezi$$_id() {
+    assert null != this.$$arezi$$_kernel;
     return this.$$arezi$$_kernel.getId();
   }
 

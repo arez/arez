@@ -20,6 +20,7 @@ import org.realityforge.braincheck.Guards;
 final class Arez_AnnotatedModel extends AnnotatedModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
+  @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
   @Nonnull
@@ -42,6 +43,7 @@ final class Arez_AnnotatedModel extends AnnotatedModel implements Disposable, Id
   }
 
   private int $$arezi$$_id() {
+    assert null != this.$$arezi$$_kernel;
     return this.$$arezi$$_kernel.getId();
   }
 

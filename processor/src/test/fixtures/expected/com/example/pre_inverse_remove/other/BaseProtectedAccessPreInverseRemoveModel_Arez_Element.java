@@ -21,6 +21,7 @@ import org.realityforge.braincheck.Guards;
 public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element extends BaseProtectedAccessPreInverseRemoveModel.Element implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
+  @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
   @Nullable
@@ -50,6 +51,7 @@ public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element extends
   }
 
   private int $$arezi$$_id() {
+    assert null != this.$$arezi$$_kernel;
     return this.$$arezi$$_kernel.getId();
   }
 

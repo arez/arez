@@ -31,6 +31,7 @@ import org.realityforge.braincheck.Guards;
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
 public final class Arez_CompleteModel extends CompleteModel implements Disposable, Identifiable<Byte>, Verifiable, DisposeNotifier {
+  @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
   @Nonnull

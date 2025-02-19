@@ -1090,6 +1090,7 @@ final class ComponentGenerator
       .methodBuilder( ID_FIELD_NAME )
       .addModifiers( Modifier.PRIVATE )
       .returns( DEFAULT_ID_TYPE )
+      .addStatement( "assert null != this.$N", KERNEL_FIELD_NAME )
       .addStatement( "return this.$N.getId()", KERNEL_FIELD_NAME )
       .build();
   }
@@ -1899,7 +1900,8 @@ final class ComponentGenerator
       FieldSpec.builder( KERNEL_CLASSNAME,
                          KERNEL_FIELD_NAME,
                          Modifier.FINAL,
-                         Modifier.PRIVATE );
+                         Modifier.PRIVATE ).
+        addAnnotation( GeneratorUtil.NULLABLE_CLASSNAME );
     builder.addField( idField.build() );
 
     // If we don't have a method for object id but we need one then synthesize it
