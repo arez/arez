@@ -2425,8 +2425,6 @@ public final class ArezProcessorTest
   @Override
   protected boolean emitGeneratedFile( @Nonnull final String target )
   {
-    return super.emitGeneratedFile( target ) &&
-           !target.endsWith( "RepositoryDaggerModule.java" ) &&
-           ( target.contains( "/Arez_" ) || target.contains( "_Arez_" ) );
+    return super.emitGeneratedFile( target ) && !target.endsWith( "RepositoryDaggerModule.java" );
   }
 }
