@@ -485,6 +485,19 @@ public final class ArezProcessorTest
   }
 
   @Test
+  public void deprecatedViaInterfaceModel()
+    throws Exception
+  {
+    // Use deprecated types, but arez should suppress the warnings and generate code that has no warnings...
+    final String classname = "com.example.deprecated.DeprecatedViaInterfaceModel";
+    final String[] expectedOutputResources = deriveExpectedOutputs( classname );
+    final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
+    final JavaFileObject input2 = fixture( "input/" + toFilename( "com.example.deprecated.DeprecatedInterface" ) );
+    final JavaFileObject input3 = fixture( "input/" + toFilename( "com.example.deprecated.DeprecatedBaseInterface" ) );
+    assertSuccessfulCompile( Arrays.asList( input1, input2, input3 ), Arrays.asList( expectedOutputResources ) );
+  }
+
+  @Test
   public void rawTypesUsageModel()
     throws Exception
   {
