@@ -473,6 +473,18 @@ public final class ArezProcessorTest
   }
 
   @Test
+  public void deprecatedParameterModelModel()
+    throws Exception
+  {
+    // Use deprecated types, but arez should suppress the warnings and generate code that has no warnings...
+    final String classname = "com.example.deprecated.DeprecatedParameterModel";
+    final String[] expectedOutputResources = deriveExpectedOutputs( classname );
+    final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
+    final JavaFileObject input2 = fixture( "input/" + toFilename( "com.example.deprecated.MyDeprecatedEntity" ) );
+    assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
+  }
+
+  @Test
   public void rawTypesUsageModel()
     throws Exception
   {
