@@ -25,6 +25,7 @@ final class Arez_DeprecatedMemoizeModel1 extends DeprecatedMemoizeModel1 impleme
   @Nonnull
   private final ComputableValue<Long> $$arez$$_time;
 
+  @SuppressWarnings("deprecation")
   Arez_DeprecatedMemoizeModel1() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -104,6 +105,7 @@ final class Arez_DeprecatedMemoizeModel1 extends DeprecatedMemoizeModel1 impleme
   }
 
   @Override
+  @Deprecated
   public long getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
