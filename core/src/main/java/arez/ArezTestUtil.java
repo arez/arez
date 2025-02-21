@@ -87,7 +87,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Specify logger to use to capture logging in tests
+   * Specify logger to use to capture logging in tests.
    *
    * @param logger the logger.
    */
