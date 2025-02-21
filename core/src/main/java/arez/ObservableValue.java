@@ -381,7 +381,7 @@ public final class ObservableValue<T>
 
   boolean hasObservers()
   {
-    return getObservers().size() > 0;
+    return !getObservers().isEmpty();
   }
 
   boolean hasObserver( @Nonnull final Observer observer )
