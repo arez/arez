@@ -8,9 +8,7 @@ import arez.spy.ObservableValueInfo;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
 import grim.annotations.OmitSymbol;
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -36,7 +34,7 @@ public final class ObservableValue<T>
    * to derivation.
    */
   static final int NOT_IN_CURRENT_TRACKING = 0;
-  private final List<Observer> _observers = new ArrayList<>();
+  private final FastList<Observer> _observers = new FastList<>();
   /**
    * True if deactivation has been requested.
    * Used to avoid adding duplicates to pending deactivation list.
@@ -45,12 +43,12 @@ public final class ObservableValue<T>
   /**
    * The workState variable contains some data used during processing of observable
    * at various stages.
-   *
+   * <br/>
    * Within the scope of a tracking transaction, it is set to the id of the tracking
    * observer if the observable was observed. This enables an optimization that skips
    * adding this observer to the same observer multiple times. This optimization sometimes
    * ignored as nested transactions that observe the same observer will reset this value.
-   *
+   * <br/>
    * When completing a tracking transaction the value may be set to {@link #IN_CURRENT_TRACKING}
    * or {@link #NOT_IN_CURRENT_TRACKING} but should be set to {@link #NOT_IN_CURRENT_TRACKING} after
    * {@link Transaction#completeTracking()} method is completed..
@@ -374,7 +372,7 @@ public final class ObservableValue<T>
   }
 
   @Nonnull
-  List<Observer> getObservers()
+  FastList<Observer> getObservers()
   {
     return _observers;
   }
@@ -444,8 +442,7 @@ public final class ObservableValue<T>
                  () -> "Arez-0070: Attempting to remove observer named '" + observer.getName() + "' from " +
                        "ObservableValue named '" + getName() + "' when observer is not observing ObservableValue." );
     }
-    final List<Observer> observers = getObservers();
-    observers.remove( observer );
+    getObservers().remove( observer );
     if ( canDeactivateNow() )
     {
       queueForDeactivation();
@@ -628,9 +625,11 @@ public final class ObservableValue<T>
     if ( Arez.shouldCheckInvariants() )
     {
       final int leastStaleObserverState =
-        getObservers().stream().
+        getObservers().
+          stream().
           map( Observer::getLeastStaleObserverState ).
-          min( Comparator.naturalOrder() ).orElse( Observer.Flags.STATE_UP_TO_DATE );
+          min( Comparator.naturalOrder() ).
+          orElse( Observer.Flags.STATE_UP_TO_DATE );
       invariant( () -> leastStaleObserverState >= _leastStaleObserverState,
                  () -> "Arez-0078: Calculated leastStaleObserverState on ObservableValue named '" +
                        getName() + "' is '" + Observer.Flags.getStateName( leastStaleObserverState ) +

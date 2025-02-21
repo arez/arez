@@ -161,7 +161,7 @@ final class Transaction
    * <p>This should be null unless the _tracker is non-null.</p>
    */
   @Nullable
-  private List<ObservableValue<?>> _observableValues;
+  private FastList<ObservableValue<?>> _observableValues;
   /**
    * The map of hooks that have been registered during tracking.
    */
@@ -562,7 +562,7 @@ final class Transaction
     }
     else
     {
-      if ( Arez.shouldCheckInvariants() )
+      if ( Arez.shouldCheckExpensiveInvariants() )
       {
         invariant( () -> !_pendingDeactivations.contains( observableValue ),
                    () -> "Arez-0141: Invoked queueForDeactivation on transaction named '" + getName() + "' for " +
@@ -712,8 +712,11 @@ final class Transaction
     if ( observableValue.hasObservers() && Observer.Flags.STATE_STALE != observableValue.getLeastStaleObserverState() )
     {
       observableValue.setLeastStaleObserverState( Observer.Flags.STATE_STALE );
-      for ( final Observer observer : observableValue.getObservers() )
+      final FastList<Observer> observers = observableValue.getObservers();
+      for ( int i = 0, end = observers.size(); i < end; ++i )
       {
+        final Observer observer = observers.get( i );
+        assert null != observer;
         final int state = observer.getState();
         if ( Arez.shouldCheckInvariants() )
         {
@@ -763,8 +766,11 @@ final class Transaction
          Observer.Flags.STATE_UP_TO_DATE == observableValue.getLeastStaleObserverState() )
     {
       observableValue.setLeastStaleObserverState( Observer.Flags.STATE_POSSIBLY_STALE );
-      for ( final Observer observer : observableValue.getObservers() )
+      final FastList<Observer> observers = observableValue.getObservers();
+      for ( int i = 0, end = observers.size(); i < end; ++i )
       {
+        final Observer observer = observers.get( i );
+        assert null != observer;
         final int state = observer.getState();
         if ( Observer.Flags.STATE_UP_TO_DATE == state )
         {
@@ -806,8 +812,11 @@ final class Transaction
     {
       observableValue.setLeastStaleObserverState( Observer.Flags.STATE_STALE );
 
-      for ( final Observer observer : observableValue.getObservers() )
+      final FastList<Observer> observers = observableValue.getObservers();
+      for ( int i = 0, end = observers.size(); i < end; ++i )
       {
+        final Observer observer = observers.get( i );
+        assert null != observer;
         if ( Observer.Flags.STATE_POSSIBLY_STALE == observer.getState() )
         {
           observer.setState( Observer.Flags.STATE_STALE );
@@ -946,7 +955,7 @@ final class Transaction
       for ( int i = 0; i < size; i++ )
       {
         final ObservableValue<?> observableValue = _observableValues.get( i );
-        if ( !observableValue.isInCurrentTracking() && observableValue.isNotDisposed() )
+        if ( null != observableValue && !observableValue.isInCurrentTracking() && observableValue.isNotDisposed() )
         {
           observableValue.putInCurrentTracking();
           if ( i != currentIndex )
@@ -970,19 +979,22 @@ final class Transaction
 
     // Look through the old dependencies and any that are no longer tracked
     // should no longer be observed.
-    final List<ObservableValue<?>> dependencies = _tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = _tracker.getDependencies();
     for ( int i = dependencies.size() - 1; i >= 0; i-- )
     {
       final ObservableValue<?> observableValue = dependencies.get( i );
-      if ( !observableValue.isInCurrentTracking() )
+      if ( null != observableValue )
       {
-        // Old dependency was not part of current tracking and needs to be unobserved
-        observableValue.removeObserver( _tracker );
-        dependenciesChanged = true;
-      }
-      else
-      {
-        observableValue.removeFromCurrentTracking();
+        if ( !observableValue.isInCurrentTracking() )
+        {
+          // Old dependency was not part of current tracking and needs to be unobserved
+          observableValue.removeObserver( _tracker );
+          dependenciesChanged = true;
+        }
+        else
+        {
+          observableValue.removeFromCurrentTracking();
+        }
       }
     }
 
@@ -1005,7 +1017,7 @@ final class Transaction
       for ( int i = currentIndex - 1; i >= 0; i-- )
       {
         final ObservableValue<?> observableValue = _observableValues.get( i );
-        if ( observableValue.isInCurrentTracking() )
+        if ( null != observableValue && observableValue.isInCurrentTracking() )
         {
           observableValue.removeFromCurrentTracking();
           //ObservableValue was not a dependency so it needs to be observed
@@ -1027,7 +1039,6 @@ final class Transaction
     // that avoids this by just allowing us to change the current size
     if ( null != _observableValues )
     {
-      //noinspection ListRemoveInLoop
       for ( int i = _observableValues.size() - 1; i >= currentIndex; i-- )
       {
         _observableValues.remove( i );
@@ -1042,7 +1053,7 @@ final class Transaction
     {
       if ( dependenciesChanged )
       {
-        _tracker.replaceDependencies( new ArrayList<>() );
+        _tracker.replaceDependencies( new FastList<>() );
       }
     }
 
@@ -1052,7 +1063,7 @@ final class Transaction
       if ( !hooks.containsKey( entry.getKey() ) )
       {
         final Procedure onDeactivate = entry.getValue().getOnDeactivate();
-        if( null != onDeactivate )
+        if ( null != onDeactivate )
         {
           _tracker.runHook( onDeactivate, ObserverError.ON_DEACTIVATE_ERROR );
         }
@@ -1078,8 +1089,10 @@ final class Transaction
     {
       if ( null != _observableValues )
       {
-        for ( final ObservableValue<?> observableValue : _observableValues )
+        for ( int i = 0, end = _observableValues.size(); i < end; ++i )
         {
+          final ObservableValue<?> observableValue = _observableValues.get( i );
+          assert null != observableValue;
           observableValue.invariantLeastStaleObserverState();
           observableValue.invariantObserversLinked();
         }
@@ -1097,7 +1110,7 @@ final class Transaction
   }
 
   @Nullable
-  List<ObservableValue<?>> getObservableValues()
+  FastList<ObservableValue<?>> getObservableValues()
   {
     return _observableValues;
   }
@@ -1130,11 +1143,11 @@ final class Transaction
    * Return the observables, initializing the array if necessary.
    */
   @Nonnull
-  List<ObservableValue<?>> safeGetObservables()
+  FastList<ObservableValue<?>> safeGetObservables()
   {
     if ( null == _observableValues )
     {
-      _observableValues = new ArrayList<>();
+      _observableValues = new FastList<>();
     }
     return _observableValues;
   }

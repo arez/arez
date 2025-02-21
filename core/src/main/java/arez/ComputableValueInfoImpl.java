@@ -79,7 +79,7 @@ final class ComputableValueInfoImpl
     if ( _computableValue.isComputing() )
     {
       final Transaction transaction = getTransactionComputing();
-      final List<ObservableValue<?>> observableValues = transaction.getObservableValues();
+      final FastList<ObservableValue<?>> observableValues = transaction.getObservableValues();
       if ( null == observableValues )
       {
         return Collections.emptyList();
@@ -87,13 +87,18 @@ final class ComputableValueInfoImpl
       else
       {
         // Copy the list removing any duplicates that may exist.
-        final List<ObservableValue<?>> list = observableValues.stream().distinct().collect( Collectors.toList() );
+        final List<ObservableValue<?>> list =
+          observableValues.stream().distinct().collect( Collectors.toList() );
         return ObservableValueInfoImpl.asUnmodifiableInfos( list );
       }
     }
     else
     {
-      return ObservableValueInfoImpl.asUnmodifiableInfos( _computableValue.getObserver().getDependencies() );
+      return ObservableValueInfoImpl.asUnmodifiableInfos( _computableValue
+                                                            .getObserver()
+                                                            .getDependencies()
+                                                            .stream()
+                                                            .collect( Collectors.toList() ) );
     }
   }
 
@@ -101,7 +106,11 @@ final class ComputableValueInfoImpl
   @Override
   public List<ObserverInfo> getObservers()
   {
-    return ObserverInfoImpl.asUnmodifiableInfos( _computableValue.getObservableValue().getObservers() );
+    return ObserverInfoImpl.asUnmodifiableInfos( _computableValue
+                                                   .getObservableValue()
+                                                   .getObservers()
+                                                   .stream()
+                                                   .collect( Collectors.toList() ) );
   }
 
   @Nullable

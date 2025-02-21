@@ -13,7 +13,6 @@ import grim.annotations.OmitSymbol;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnull;
@@ -1976,7 +1975,7 @@ public final class ArezContext
       {
         final Transaction current = Transaction.current();
 
-        final List<ObservableValue<?>> observableValues = current.getObservableValues();
+        final FastList<ObservableValue<?>> observableValues = current.getObservableValues();
         invariant( () -> Objects.requireNonNull( current.getTracker() ).isDisposing() ||
                          ( null != observableValues && !observableValues.isEmpty() ),
                    () -> "Arez-0118: Observer named '" + name + "' completed observed function (executed by " +

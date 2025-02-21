@@ -293,6 +293,7 @@ public final class ArezContextTest
     assertEquals( onDeactivateHook3.getCallCount(), 1 );
   }
 
+  @SuppressWarnings( "SameParameterValue" )
   private static void assertHookOrder( @Nonnull final Map<String, Hook> hooks, @Nonnull final String expected )
   {
     @SuppressWarnings( { "NonJREEmulationClassesInClientCode", "SimplifyStreamApiCallChains" } )
@@ -1026,7 +1027,7 @@ public final class ArezContextTest
         observableValue.reportObserved();
 
         // Tracking so state updated
-        final List<ObservableValue<?>> observableValues = transaction.getObservableValues();
+        final FastList<ObservableValue<?>> observableValues = transaction.getObservableValues();
         assertNotNull( observableValues );
         assertEquals( observableValues.size(), 1 );
         assertEquals( observableValue.getObservers().size(), 0 );
@@ -1410,7 +1411,7 @@ public final class ArezContextTest
         observableValue.reportObserved();
 
         // Tracking so state updated
-        final List<ObservableValue<?>> observableValues = transaction.getObservableValues();
+        final FastList<ObservableValue<?>> observableValues = transaction.getObservableValues();
         assertNotNull( observableValues );
         assertEquals( observableValues.size(), 1 );
         assertEquals( observableValue.getObservers().size(), 0 );
@@ -1576,7 +1577,7 @@ public final class ArezContextTest
       observableValue.reportObserved();
 
       // Tracking so state updated
-      final List<ObservableValue<?>> observableValues = transaction.getObservableValues();
+      final FastList<ObservableValue<?>> observableValues = transaction.getObservableValues();
       assertNotNull( observableValues );
       assertEquals( observableValues.size(), 1 );
       assertEquals( observableValue.getObservers().size(), 0 );
@@ -1695,7 +1696,7 @@ public final class ArezContextTest
       observableValue.reportObserved();
 
       // Tracking so state updated
-      final List<ObservableValue<?>> observableValues = transaction.getObservableValues();
+      final FastList<ObservableValue<?>> observableValues = transaction.getObservableValues();
       assertNotNull( observableValues );
       assertEquals( observableValues.size(), 1 );
       assertEquals( observableValue.getObservers().size(), 0 );

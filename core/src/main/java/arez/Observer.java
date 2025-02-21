@@ -8,10 +8,7 @@ import arez.spy.ObserverCreateEvent;
 import arez.spy.ObserverDisposeEvent;
 import arez.spy.ObserverInfo;
 import grim.annotations.OmitSymbol;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -47,7 +44,7 @@ public final class Observer
    * <p>This list should contain no duplicates.</p>
    */
   @Nonnull
-  private List<ObservableValue<?>> _dependencies = new ArrayList<>();
+  private FastList<ObservableValue<?>> _dependencies = new FastList<>();
   /**
    * The list of hooks that this observer that will be invoked when it deactivates or
    * has already been invoked as part of the register/activate process.
@@ -692,7 +689,7 @@ public final class Observer
         _observe.call();
         final Transaction current = Transaction.current();
 
-        final List<ObservableValue<?>> observableValues = current.getObservableValues();
+        final FastList<ObservableValue<?>> observableValues = current.getObservableValues();
         invariant( () -> Objects.requireNonNull( current.getTracker() ).isDisposing() ||
                          ( null != observableValues && !observableValues.isEmpty() ),
                    () -> "Arez-0172: Observer named '" + getName() + "' that does not use an external executor " +
@@ -713,8 +710,11 @@ public final class Observer
    */
   void markDependenciesLeastStaleObserverAsUpToDate()
   {
-    for ( final ObservableValue<?> dependency : getDependencies() )
+    final FastList<ObservableValue<?>> dependencies = getDependencies();
+    for ( int i = 0, end = dependencies.size(); i < end; ++i )
     {
+      final ObservableValue<?> dependency = dependencies.get( i );
+      assert null != dependency;
       dependency.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
     }
   }
@@ -745,8 +745,11 @@ public final class Observer
         return true;
       case Flags.STATE_POSSIBLY_STALE:
       {
-        for ( final ObservableValue<?> observableValue : getDependencies() )
+        final FastList<ObservableValue<?>> dependencies = getDependencies();
+        for ( int i = 0, end = dependencies.size(); i < end; ++i )
         {
+          final ObservableValue<?> observableValue = dependencies.get( i );
+          assert null != observableValue;
           if ( observableValue.isComputableValue() )
           {
             final Observer owner = observableValue.getObserver();
@@ -808,7 +811,7 @@ public final class Observer
    * @return the dependencies.
    */
   @Nonnull
-  List<ObservableValue<?>> getDependencies()
+  FastList<ObservableValue<?>> getDependencies()
   {
     return _dependencies;
   }
@@ -819,7 +822,7 @@ public final class Observer
    *
    * @param dependencies the new set of dependencies.
    */
-  void replaceDependencies( @Nonnull final List<ObservableValue<?>> dependencies )
+  void replaceDependencies( @Nonnull final FastList<ObservableValue<?>> dependencies )
   {
     if ( Arez.shouldCheckInvariants() )
     {
@@ -844,7 +847,7 @@ public final class Observer
   {
     if ( Arez.shouldCheckExpensiveInvariants() )
     {
-      invariant( () -> getDependencies().size() == new HashSet<>( getDependencies() ).size(),
+      invariant( () -> getDependencies().size() == getDependencies().stream().collect( Collectors.toSet() ).size(),
                  () -> "Arez-0089: " + context + ": The set of dependencies in observer named '" +
                        getName() + "' is not unique. Current list: '" +
                        getDependencies().stream().map( Node::getName ).collect( Collectors.toList() ) + "'." );
@@ -1285,6 +1288,7 @@ public final class Observer
     static String getStateName( final int state )
     {
       assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
+      //noinspection EnhancedSwitchMigration
       switch ( state )
       {
         case STATE_DISPOSED:

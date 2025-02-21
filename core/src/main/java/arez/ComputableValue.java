@@ -434,7 +434,7 @@ public final class ComputableValue<T>
       {
         if ( getObserver().areArezDependenciesRequired() )
         {
-          final List<ObservableValue<?>> observableValues = Transaction.current().getObservableValues();
+          final FastList<ObservableValue<?>> observableValues = Transaction.current().getObservableValues();
           apiInvariant( () -> null != observableValues && !observableValues.isEmpty(),
                         () -> "Arez-0173: ComputableValue named '" + getName() + "' completed compute but is not " +
                               "observing any properties. As a result compute will never be rescheduled. " +

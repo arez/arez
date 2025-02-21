@@ -215,7 +215,7 @@ public final class TransactionTest
     assertTrue( observableValue2.isPendingDeactivation() );
 
     transaction.safeGetObservables().add( observableValue1 );
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.commit();
 
@@ -483,7 +483,7 @@ public final class TransactionTest
     // Two instances of same observableValue is expected as the LastTrackerTransactionId
     // failed to match causing duplicate to be added. This would normally be cleaned
     // up at later time in process during completeTracking()
-    assertEquals( transaction.getObservableValues().size(), 2 );
+    assertEquals( transaction.getObservableValues().size(), 1 );
   }
 
   @Test
@@ -501,7 +501,7 @@ public final class TransactionTest
 
     assertNull( transaction.getObservableValues() );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -577,12 +577,12 @@ public final class TransactionTest
     transaction.safeGetObservables().add( observableValue1 );
     transaction.safeGetObservables().add( observableValue3 );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_DISPOSED );
-    final List<ObservableValue<?>> dependencies1 = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies1 = tracker.getDependencies();
     assertTrue( dependencies1 != dependencies );
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue1.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
@@ -614,7 +614,7 @@ public final class TransactionTest
     observableValue.getObservers().add( observer2 );
     observableValue.setLeastStaleObserverState( observer2.getState() );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.observe( observableValue );
 
@@ -646,7 +646,7 @@ public final class TransactionTest
     tracker.getDependencies().add( observableValue1 );
     observableValue1.getObservers().add( tracker );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -674,7 +674,7 @@ public final class TransactionTest
 
     transaction.safeGetObservables().add( observableValue );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -708,7 +708,7 @@ public final class TransactionTest
     transaction.safeGetObservables().add( observableValue3 );
     transaction.safeGetObservables().add( observableValue4 );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -742,7 +742,7 @@ public final class TransactionTest
     transaction.safeGetObservables().add( observableValue );
     transaction.safeGetObservables().add( observableValue );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -777,7 +777,7 @@ public final class TransactionTest
     transaction.safeGetObservables().add( observableValue2 );
     transaction.safeGetObservables().add( observableValue1 );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -815,7 +815,7 @@ public final class TransactionTest
     transaction.safeGetObservables().add( observableValue1 );
     transaction.safeGetObservables().add( observableValue2 );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -858,7 +858,7 @@ public final class TransactionTest
     transaction.safeGetObservables().add( observableValue1 );
     transaction.safeGetObservables().add( observableValue3 );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -893,7 +893,7 @@ public final class TransactionTest
     observableValue.getObservers().add( tracker );
     transaction.safeGetObservables().add( observableValue );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -926,7 +926,7 @@ public final class TransactionTest
     observableValue.getObservers().add( tracker );
     transaction.safeGetObservables().add( observableValue );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_UP_TO_DATE );
 
@@ -1005,7 +1005,7 @@ public final class TransactionTest
     tracker.getDependencies().add( observableValue );
     observableValue.getObservers().add( tracker );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_UP_TO_DATE );
 
@@ -1042,7 +1042,7 @@ public final class TransactionTest
     tracker.getDependencies().add( observableValue );
     observableValue.getObservers().add( tracker );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_UP_TO_DATE );
 
