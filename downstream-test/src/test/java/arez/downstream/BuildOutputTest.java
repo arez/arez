@@ -41,6 +41,7 @@ public final class BuildOutputTest
     compileTimeProperties.put( "arez.enable_registries", "false" );
     compileTimeProperties.put( "arez.enable_observer_error_handlers", "false" );
     compileTimeProperties.put( "arez.check_invariants", "false" );
+    compileTimeProperties.put( "arez.check_expensive_invariants", "false" );
     compileTimeProperties.put( "arez.check_api_invariants", "false" );
     compileTimeProperties.put( "arez.logger", "none" );
 

@@ -27,6 +27,7 @@ final class ArezConfig
   private static boolean ENABLE_OBSERVER_ERROR_HANDLERS = PROVIDER.areObserverErrorHandlersEnabled();
   private static boolean ENABLE_TASK_INTERCEPTOR = PROVIDER.isTaskInterceptorEnabled();
   private static boolean CHECK_INVARIANTS = PROVIDER.checkInvariants();
+  private static boolean CHECK_EXPENSIVE_INVARIANTS = PROVIDER.checkExpensiveInvariants();
   private static boolean CHECK_API_INVARIANTS = PROVIDER.checkApiInvariants();
   @Nonnull
   private static final String LOGGER_TYPE = PROVIDER.loggerType();
@@ -113,6 +114,11 @@ final class ArezConfig
   static boolean checkInvariants()
   {
     return CHECK_INVARIANTS;
+  }
+
+  static boolean checkExpensiveInvariants()
+  {
+    return CHECK_EXPENSIVE_INVARIANTS;
   }
 
   static boolean checkApiInvariants()
@@ -242,6 +248,14 @@ final class ArezConfig
 
     @GwtIncompatible
     @Override
+    boolean checkExpensiveInvariants()
+    {
+      return "true".equals( System.getProperty( "arez.check_expensive_invariants",
+                                                isProductionEnvironment() ? "false" : "true" ) );
+    }
+
+    @GwtIncompatible
+    @Override
     boolean checkApiInvariants()
     {
       return "true".equals( System.getProperty( "arez.check_api_invariants",
@@ -333,6 +347,11 @@ final class ArezConfig
     boolean checkInvariants()
     {
       return "true" == System.getProperty( "arez.check_invariants" );
+    }
+
+    boolean checkExpensiveInvariants()
+    {
+      return "true" == System.getProperty( "arez.check_expensive_invariants" );
     }
 
     boolean checkApiInvariants()

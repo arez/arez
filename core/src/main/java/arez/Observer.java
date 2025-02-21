@@ -842,7 +842,7 @@ public final class Observer
    */
   void invariantDependenciesUnique( @Nonnull final String context )
   {
-    if ( Arez.shouldCheckInvariants() )
+    if ( Arez.shouldCheckExpensiveInvariants() )
     {
       invariant( () -> getDependencies().size() == new HashSet<>( getDependencies() ).size(),
                  () -> "Arez-0089: " + context + ": The set of dependencies in observer named '" +
@@ -859,7 +859,7 @@ public final class Observer
    */
   void invariantDependenciesBackLink( @Nonnull final String context )
   {
-    if ( Arez.shouldCheckInvariants() )
+    if ( Arez.shouldCheckExpensiveInvariants() )
     {
       getDependencies().forEach( observable ->
                                    invariant( () -> observable.getObservers().contains( this ),
@@ -876,7 +876,7 @@ public final class Observer
    */
   void invariantDependenciesNotDisposed()
   {
-    if ( Arez.shouldCheckInvariants() )
+    if ( Arez.shouldCheckExpensiveInvariants() )
     {
       getDependencies().forEach( observable ->
                                    invariant( observable::isNotDisposed,

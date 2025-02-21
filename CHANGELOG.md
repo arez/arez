@@ -3,6 +3,7 @@
 ### Unreleased
 
 * Add some additional dev-only assertions in generated Arez classes when accessing kernel to highlight issues earlier.
+* Move some more expensive invariant checking to be guarded by the compile time property `arez.check_expensive_invariants`.
 
 ### [v0.214](https://github.com/arez/arez/tree/v0.214) (2025-01-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.213...v0.214) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.213&new=0.214)
 

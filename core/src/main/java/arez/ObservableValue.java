@@ -613,7 +613,7 @@ public final class ObservableValue<T>
 
   void invariantObserversLinked()
   {
-    if ( Arez.shouldCheckInvariants() )
+    if ( Arez.shouldCheckExpensiveInvariants() )
     {
       getObservers().forEach( observer ->
                                 invariant( () -> observer.getDependencies().contains( this ),

@@ -167,6 +167,17 @@ public final class Arez
   }
 
   /**
+   * Return true if expensive invariants will be checked.
+   *
+   * @return true if expensive invariants will be checked.
+   */
+  @OmitSymbol
+  public static boolean shouldCheckExpensiveInvariants()
+  {
+    return ArezConfig.checkExpensiveInvariants() && BrainCheckConfig.checkInvariants();
+  }
+
+  /**
    * Return true if apiInvariants will be checked.
    *
    * @return true if apiInvariants will be checked.

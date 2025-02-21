@@ -50,6 +50,9 @@ arez.enable_task_interceptor = goog.define('arez.enable_task_interceptor', 'true
 arez.check_invariants = goog.define('arez.check_invariants', 'false');
 
 /** @define {string} */
+arez.check_expensive_invariants = goog.define('arez.check_expensive_invariants', 'false');
+
+/** @define {string} */
 arez.check_api_invariants = goog.define('arez.check_api_invariants', 'false');
 
 /** @define {string} */
