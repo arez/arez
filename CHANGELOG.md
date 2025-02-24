@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Update `MemoizeCache` so that if a parameters is used that is a `DisposeNotifier`, and it gets disposed then it will also dispose the associated `ComputableValue`.
+
 ### [v0.215](https://github.com/arez/arez/tree/v0.215) (2025-02-21) · [Full Changelog](https://github.com/arez/arez/compare/v0.214...v0.215) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.214&new=0.215)
 
 The release includes 3 non breaking API changes.

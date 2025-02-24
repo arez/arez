@@ -8,6 +8,7 @@ import arez.ComputableValue;
 import arez.Disposable;
 import arez.SafeFunction;
 import arez.Task;
+import arez.component.DisposeNotifier;
 import grim.annotations.OmitSymbol;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -267,7 +268,15 @@ public final class MemoizeCache<T>
       Arez.context().registerHook( "$MC$", null, () -> disposeComputableValue( args ) );
       return _function.call( args );
     };
-    return getContext().computable( component, name, function, _flags );
+    final ComputableValue<T> computable = getContext().computable( component, name, function, _flags );
+    for ( final Object arg : args )
+    {
+      if ( arg instanceof DisposeNotifier )
+      {
+        DisposeNotifier.asDisposeNotifier( arg ).addOnDisposeListener( "MemoizeCache", computable::dispose );
+      }
+    }
+    return computable;
   }
 
   /**
