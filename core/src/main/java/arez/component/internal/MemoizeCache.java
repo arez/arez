@@ -229,7 +229,7 @@ public final class MemoizeCache<T>
    */
   @SuppressWarnings( "unchecked" )
   @Nonnull
-  public ComputableValue<T> getComputableValue( @Nonnull final Object... args )
+  ComputableValue<T> getComputableValue( @Nonnull final Object... args )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
