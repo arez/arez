@@ -263,7 +263,8 @@ public final class MemoizeCache<T>
   private ComputableValue<T> createComputableValue( @Nonnull final Object... args )
   {
     final Component component = Arez.areNativeComponentsEnabled() ? _component : null;
-    final String name = Arez.areNamesEnabled() ? _name + "." + _nextIndex++ : null;
+    final int id = _nextIndex++;
+    final String name = Arez.areNamesEnabled() ? _name + "." + id : null;
     final SafeFunction<T> function = () -> {
       Arez.context().registerHook( "$MC$", null, () -> disposeComputableValue( args ) );
       return _function.call( args );
@@ -273,7 +274,7 @@ public final class MemoizeCache<T>
     {
       if ( arg instanceof DisposeNotifier )
       {
-        DisposeNotifier.asDisposeNotifier( arg ).addOnDisposeListener( "MemoizeCache", computable::dispose );
+        DisposeNotifier.asDisposeNotifier( arg ).addOnDisposeListener( "MemoizeCache" + id, computable::dispose );
       }
     }
     return computable;
