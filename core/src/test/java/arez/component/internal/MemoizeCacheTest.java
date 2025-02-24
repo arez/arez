@@ -55,9 +55,9 @@ public final class MemoizeCacheTest
     assertEquals( callCount.get(), 1 );
     assertEquals( cache.getNextIndex(), 1 );
     assertEquals( cache.getCache().size(), 1 );
-    assertEquals( ( (Map) cache.getCache().get( "a" ) ).size(), 1 );
+    assertEquals( ( (Map<Object, Object>) cache.getCache().get( "a" ) ).size(), 1 );
     final ComputableValue<String> computableValue1 =
-      (ComputableValue<String>) ( (Map) cache.getCache().get( "a" ) ).get( "b" );
+      (ComputableValue<String>) ( (Map<Object, Object>) cache.getCache().get( "a" ) ).get( "b" );
     assertNotNull( computableValue1 );
     assertEquals( context.safeAction( computableValue1::get ), "a.b" );
     final Observer observer2 = context.observer( () -> {
@@ -67,7 +67,7 @@ public final class MemoizeCacheTest
     assertEquals( callCount.get(), 1 );
     assertEquals( cache.getNextIndex(), 1 );
     assertEquals( cache.getCache().size(), 1 );
-    assertEquals( ( (Map) cache.getCache().get( "a" ) ).size(), 1 );
+    assertEquals( ( (Map<Object, Object>) cache.getCache().get( "a" ) ).size(), 1 );
     final Observer observer3 = context.observer( () -> {
       observeADependency();
       assertEquals( cache.get( "a", "c" ), "a.c" );
@@ -75,9 +75,9 @@ public final class MemoizeCacheTest
     assertEquals( callCount.get(), 2 );
     assertEquals( cache.getNextIndex(), 2 );
     assertEquals( cache.getCache().size(), 1 );
-    assertEquals( ( (Map) cache.getCache().get( "a" ) ).size(), 2 );
+    assertEquals( ( (Map<Object, Object>) cache.getCache().get( "a" ) ).size(), 2 );
     final ComputableValue<String> computableValue2 =
-      (ComputableValue<String>) ( (Map) cache.getCache().get( "a" ) ).get( "c" );
+      (ComputableValue<String>) ( (Map<Object, Object>) cache.getCache().get( "a" ) ).get( "c" );
     assertNotNull( computableValue2 );
     assertEquals( context.safeAction( computableValue2::get ), "a.c" );
 
@@ -87,7 +87,7 @@ public final class MemoizeCacheTest
     assertEquals( cache.getCache().size(), 1 );
     assertFalse( computableValue1.isDisposed() );
     assertFalse( computableValue2.isDisposed() );
-    assertEquals( ( (Map) cache.getCache().get( "a" ) ).size(), 2 );
+    assertEquals( ( (Map<Object, Object>) cache.getCache().get( "a" ) ).size(), 2 );
 
     observer2.dispose();
     assertEquals( callCount.get(), 2 );
@@ -95,7 +95,7 @@ public final class MemoizeCacheTest
     assertEquals( cache.getCache().size(), 1 );
     assertTrue( computableValue1.isDisposed() );
     assertFalse( computableValue2.isDisposed() );
-    assertEquals( ( (Map) cache.getCache().get( "a" ) ).size(), 1 );
+    assertEquals( ( (Map<Object, Object>) cache.getCache().get( "a" ) ).size(), 1 );
 
     observer3.dispose();
     assertEquals( callCount.get(), 2 );
@@ -192,7 +192,7 @@ public final class MemoizeCacheTest
     assertEquals( cache.getCache().size(), 1 );
 
     final ComputableValue<String> computableValue1 =
-      (ComputableValue<String>) ( (Map) cache.getCache().get( "a" ) ).get( "b" );
+      (ComputableValue<String>) ( (Map<Object, Object>) cache.getCache().get( "a" ) ).get( "b" );
     assertNotNull( computableValue1 );
 
     assertFalse( computableValue1.isDisposed() );
