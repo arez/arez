@@ -4,12 +4,14 @@ import arez.Arez;
 import arez.ArezContext;
 import java.util.HashMap;
 import java.util.Map;
+import javax.annotation.Nonnull;
 
 /**
  * Utility class for interacting with spy capabilities.
  */
 public final class BrowserSpyUtil
 {
+  @Nonnull
   private static final Map<ArezContext, ConsoleSpyEventProcessor> c_processors =
     Arez.areSpiesEnabled() ? new HashMap<>() : null;
 
