@@ -18,7 +18,7 @@ import static org.realityforge.braincheck.Guards.*;
 public interface DisposeNotifier
 {
   /**
-   * Add the listener to notify list under key.
+   * Add the listener to the notify list under key.
    * This method MUST NOT be invoked after the component has been disposed.
    * This method should not be invoked if another listener has been added with the same key without
    * being removed.
@@ -34,7 +34,7 @@ public interface DisposeNotifier
   void addOnDisposeListener( @Nonnull Object key, @Nonnull SafeProcedure action, boolean errorIfDuplicate );
 
   /**
-   * Remove the listener with specified key from the notify list.
+   * Remove the listener with the specified key from the notify list.
    * This method should only be invoked when a listener has been added for specific key using
    * {@link #addOnDisposeListener(Object, SafeProcedure, boolean)} and has not been removed by another
    * call to this method.
