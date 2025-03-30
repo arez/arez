@@ -1,12 +1,14 @@
 package arez.spytools.browser.react4j;
 
 import arez.Arez;
+import javax.annotation.Nullable;
 
 /**
  * Utility class for interacting with spy capabilities.
  */
 public final class ReactArezSpyUtil
 {
+  @Nullable
   private static final ReactArezConsoleSpyEventProcessor PROCESSOR =
     Arez.areSpiesEnabled() ? new ReactArezConsoleSpyEventProcessor() : null;
   private static boolean c_loggingEnabled;
