@@ -27,20 +27,22 @@ public interface DisposeNotifier
    * when invoking the calback then the callback will be skipped. This rare situation only occurs when there is
    * circular dependency in the object model usually involving {@link CascadeDispose}.</p>
    *
-   * @param key    the key to uniquely identify listener.
-   * @param action the listener callback.
+   * @param key              the key to uniquely identify listener.
+   * @param action           the listener callback.
+   * @param errorIfDuplicate generate an assertion error if duplicate key inserted.
    */
-  void addOnDisposeListener( @Nonnull Object key, @Nonnull SafeProcedure action );
+  void addOnDisposeListener( @Nonnull Object key, @Nonnull SafeProcedure action, boolean errorIfDuplicate );
 
   /**
    * Remove the listener with specified key from the notify list.
    * This method should only be invoked when a listener has been added for specific key using
-   * {@link #addOnDisposeListener(Object, SafeProcedure)} and has not been removed by another
+   * {@link #addOnDisposeListener(Object, SafeProcedure, boolean)} and has not been removed by another
    * call to this method.
    *
-   * @param key the key under which the listener was previously added.
+   * @param key            the key under which the listener was previously added.
+   * @param errorIfMissing generate an assertion error if no such key exists.
    */
-  void removeOnDisposeListener( @Nonnull Object key );
+  void removeOnDisposeListener( @Nonnull Object key, boolean errorIfMissing );
 
   /**
    * Cast the specified object to an instance of DisposeNotifier.

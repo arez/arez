@@ -8,7 +8,6 @@ import arez.ArezTestUtil;
 import arez.Component;
 import arez.Disposable;
 import arez.Observer;
-import arez.SafeFunction;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
@@ -322,7 +321,7 @@ public final class ComponentKernelTest
     kernel.componentConstructed();
     kernel.componentReady();
 
-    assertTrue( context.safeAction( (SafeFunction<Boolean>) kernel::observe ) );
+    assertTrue( context.safeAction( kernel::observe ) );
 
     final AtomicInteger disposedCallCount = new AtomicInteger();
     final AtomicInteger notDisposedCallCount = new AtomicInteger();
@@ -345,7 +344,7 @@ public final class ComponentKernelTest
 
     Disposable.dispose( kernel );
 
-    assertFalse( context.safeAction( (SafeFunction<Boolean>) kernel::observe, ActionFlags.NO_VERIFY_ACTION_REQUIRED ) );
+    assertFalse( context.safeAction( kernel::observe, ActionFlags.NO_VERIFY_ACTION_REQUIRED ) );
 
     assertEquals( notDisposedCallCount.get(), 1 );
     assertEquals( disposedCallCount.get(), 1 );
@@ -425,7 +424,7 @@ public final class ComponentKernelTest
     kernel.addOnDisposeListener( "X", () -> {
       tasks.add( "OnDisposeListener" );
       assertEquals( kernel.describeState(), "disposing" );
-    } );
+    }, true );
 
     Disposable.dispose( kernel );
 
@@ -456,7 +455,7 @@ public final class ComponentKernelTest
     assertEquals( kernel.getOnDisposeListeners().size(), 0 );
     assertEquals( callCount.get(), 0 );
 
-    kernel.addOnDisposeListener( key, callCount::incrementAndGet );
+    kernel.addOnDisposeListener( key, callCount::incrementAndGet, true );
 
     assertEquals( kernel.getOnDisposeListeners().size(), 1 );
     assertEquals( callCount.get(), 0 );
@@ -488,7 +487,7 @@ public final class ComponentKernelTest
     final String key = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
 
-    assertInvariantFailure( () -> kernel.addOnDisposeListener( key, callCount::incrementAndGet ),
+    assertInvariantFailure( () -> kernel.addOnDisposeListener( key, callCount::incrementAndGet, true ),
                             "Arez-0170: Attempting to add OnDispose listener but ComponentKernel has been disposed." );
   }
 
@@ -511,11 +510,13 @@ public final class ComponentKernelTest
     final String key = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
 
-    kernel.addOnDisposeListener( key, callCount::incrementAndGet );
+    kernel.addOnDisposeListener( key, callCount::incrementAndGet, true );
 
-    assertInvariantFailure( () -> kernel.addOnDisposeListener( key, callCount::incrementAndGet ),
+    assertInvariantFailure( () -> kernel.addOnDisposeListener( key, callCount::incrementAndGet, true ),
                             "Arez-0166: Attempting to add OnDispose listener with key '" + key +
                             "' but a listener with that key already exists." );
+
+    kernel.addOnDisposeListener( key, callCount::incrementAndGet, false );
   }
 
   @Test
@@ -539,11 +540,11 @@ public final class ComponentKernelTest
 
     assertEquals( kernel.getOnDisposeListeners().size(), 0 );
 
-    kernel.addOnDisposeListener( key, callCount::incrementAndGet );
+    kernel.addOnDisposeListener( key, callCount::incrementAndGet, true );
 
     assertEquals( kernel.getOnDisposeListeners().size(), 1 );
 
-    kernel.removeOnDisposeListener( key );
+    kernel.removeOnDisposeListener( key, true );
 
     assertEquals( kernel.getOnDisposeListeners().size(), 0 );
   }
@@ -567,14 +568,14 @@ public final class ComponentKernelTest
     final String key = ValueUtil.randomString();
     final AtomicInteger callCount = new AtomicInteger();
 
-    kernel.addOnDisposeListener( key, callCount::incrementAndGet );
+    kernel.addOnDisposeListener( key, callCount::incrementAndGet, true );
 
     assertEquals( kernel.getOnDisposeListeners().size(), 1 );
 
     kernel.dispose();
 
     // Perfectly legitimate to remove after dispose and can occur in certain application sequences
-    kernel.removeOnDisposeListener( key );
+    kernel.removeOnDisposeListener( key, true );
 
     assertEquals( kernel.getOnDisposeListeners().size(), 0 );
   }
@@ -596,9 +597,11 @@ public final class ComponentKernelTest
                            false );
 
     final String key = ValueUtil.randomString();
-    assertInvariantFailure( () -> kernel.removeOnDisposeListener( key ),
+    assertInvariantFailure( () -> kernel.removeOnDisposeListener( key, true ),
                             "Arez-0167: Attempting to remove OnDispose listener with key '" + key +
                             "' but no such listener exists." );
+
+    kernel.removeOnDisposeListener( key, false );
   }
 
   @Test
@@ -627,7 +630,7 @@ public final class ComponentKernelTest
 
     assertEquals( callCount.get(), 0 );
 
-    kernel.addOnDisposeListener( key, callCount::incrementAndGet );
+    kernel.addOnDisposeListener( key, callCount::incrementAndGet, true );
 
     assertEquals( callCount.get(), 0 );
 
@@ -672,15 +675,15 @@ public final class ComponentKernelTest
     assertEquals( callCount2.get(), 0 );
     assertEquals( callCount3.get(), 0 );
 
-    kernel.addOnDisposeListener( key1, callCount1::incrementAndGet );
-    kernel.addOnDisposeListener( key2, callCount2::incrementAndGet );
-    kernel.addOnDisposeListener( key3, callCount3::incrementAndGet );
+    kernel.addOnDisposeListener( key1, callCount1::incrementAndGet, true );
+    kernel.addOnDisposeListener( key2, callCount2::incrementAndGet, true );
+    kernel.addOnDisposeListener( key3, callCount3::incrementAndGet, true );
 
     assertEquals( callCount1.get(), 0 );
     assertEquals( callCount2.get(), 0 );
     assertEquals( callCount3.get(), 0 );
 
-    kernel.removeOnDisposeListener( key2 );
+    kernel.removeOnDisposeListener( key2, true );
 
     assertEquals( callCount1.get(), 0 );
     assertEquals( callCount2.get(), 0 );
@@ -739,8 +742,8 @@ public final class ComponentKernelTest
     assertEquals( callCount1.get(), 0 );
     assertEquals( callCount2.get(), 0 );
 
-    kernel.addOnDisposeListener( key1, callCount1::incrementAndGet );
-    kernel.addOnDisposeListener( key2, callCount2::incrementAndGet );
+    kernel.addOnDisposeListener( key1, callCount1::incrementAndGet, true );
+    kernel.addOnDisposeListener( key2, callCount2::incrementAndGet, true );
 
     assertEquals( callCount1.get(), 0 );
     assertEquals( callCount2.get(), 0 );

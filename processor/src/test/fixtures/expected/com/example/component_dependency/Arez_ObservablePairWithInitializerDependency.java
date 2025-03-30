@@ -38,7 +38,7 @@ final class Arez_ObservablePairWithInitializerDependency extends ObservablePairW
     this.$$arez$$_value = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_value ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_value = v : null );
     final DisposeNotifier $$arezv$$_getValue_dependency = this.$$arezd$$_value;
     if ( null != $$arezv$$_getValue_dependency ) {
-      DisposeNotifier.asDisposeNotifier( $$arezd$$_value ).addOnDisposeListener( this, this::dispose );
+      DisposeNotifier.asDisposeNotifier( $$arezd$$_value ).addOnDisposeListener( this, this::dispose, true );
     }
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentComplete();
@@ -64,7 +64,7 @@ final class Arez_ObservablePairWithInitializerDependency extends ObservablePairW
   private void $$arezi$$_preDispose() {
     final DisposeNotifier $$arezv$$_getValue_dependency = this.$$arezd$$_value;
     if ( null != $$arezv$$_getValue_dependency ) {
-      DisposeNotifier.asDisposeNotifier( $$arezv$$_getValue_dependency ).removeOnDisposeListener( this );
+      DisposeNotifier.asDisposeNotifier( $$arezv$$_getValue_dependency ).removeOnDisposeListener( this, true );
     }
   }
 
@@ -74,22 +74,23 @@ final class Arez_ObservablePairWithInitializerDependency extends ObservablePairW
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
+  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+      final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_component_dependency_ObservablePairWithInitializerDependency'" );
     }
-    this.$$arezi$$_kernel.addOnDisposeListener( key, action );
+    this.$$arezi$$_kernel.addOnDisposeListener( key, action, errorIfDuplicate );
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key) {
+  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_component_dependency_ObservablePairWithInitializerDependency'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener( key );
+    this.$$arezi$$_kernel.removeOnDisposeListener( key, true );
   }
 
   @Override
@@ -136,11 +137,11 @@ final class Arez_ObservablePairWithInitializerDependency extends ObservablePairW
     final DisposeNotifier $$arezv$$_currentValue = this.$$arezd$$_value;
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
       if ( null != $$arezv$$_currentValue ) {
-        DisposeNotifier.asDisposeNotifier( $$arezv$$_currentValue ).removeOnDisposeListener( this );
+        DisposeNotifier.asDisposeNotifier( $$arezv$$_currentValue ).removeOnDisposeListener( this, true );
       }
       this.$$arezd$$_value = value;
       if ( null != value ) {
-        DisposeNotifier.asDisposeNotifier( value ).addOnDisposeListener( this, this::dispose );
+        DisposeNotifier.asDisposeNotifier( value ).addOnDisposeListener( this, this::dispose, true );
       }
       this.$$arez$$_value.reportChanged();
     }

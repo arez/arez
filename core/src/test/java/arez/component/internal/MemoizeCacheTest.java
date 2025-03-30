@@ -131,13 +131,15 @@ public final class MemoizeCacheTest
     }
 
     @Override
-    public void addOnDisposeListener( @Nonnull final Object key, @Nonnull final SafeProcedure action )
+    public void addOnDisposeListener( @Nonnull final Object key,
+                                      @Nonnull final SafeProcedure action,
+                                      final boolean errorIfDuplicate )
     {
       _onDisposeListeners.put( key, action );
     }
 
     @Override
-    public void removeOnDisposeListener( @Nonnull final Object key )
+    public void removeOnDisposeListener( @Nonnull final Object key, final boolean errorIfMissing )
     {
       fail( "Should not have been called" );
     }

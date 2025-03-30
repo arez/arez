@@ -777,7 +777,7 @@ final class ComponentGenerator
       final String fieldName = dependency.getField().getSimpleName().toString();
       if ( AnnotationsUtil.hasNonnullAnnotation( dependency.getField() ) )
       {
-        builder.addStatement( "$T.asDisposeNotifier( this.$N ).addOnDisposeListener( this, this::dispose )",
+        builder.addStatement( "$T.asDisposeNotifier( this.$N ).addOnDisposeListener( this, this::dispose, true )",
                               DISPOSE_TRACKABLE_CLASSNAME,
                               fieldName );
       }
@@ -785,7 +785,7 @@ final class ComponentGenerator
       {
         final CodeBlock.Builder listenerBlock = CodeBlock.builder();
         listenerBlock.beginControlFlow( "if ( null != this.$N )", fieldName );
-        listenerBlock.addStatement( "$T.asDisposeNotifier( this.$N ).addOnDisposeListener( this, this::dispose )",
+        listenerBlock.addStatement( "$T.asDisposeNotifier( this.$N ).addOnDisposeListener( this, this::dispose, true )",
                                     DISPOSE_TRACKABLE_CLASSNAME,
                                     dependency.getField().getSimpleName() );
         listenerBlock.endControlFlow();
@@ -803,7 +803,7 @@ final class ComponentGenerator
         if ( AnnotationsUtil.hasNonnullAnnotation( method ) )
         {
           assert dependency.shouldCascadeDispose();
-          builder.addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
+          builder.addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose, true )",
                                 DISPOSE_TRACKABLE_CLASSNAME,
                                 observable.getDataFieldName() );
         }
@@ -820,13 +820,13 @@ final class ComponentGenerator
           listenerBlock.beginControlFlow( "if ( null != $N )", varName );
           if ( dependency.shouldCascadeDispose() )
           {
-            listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
+            listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose, true )",
                                         DISPOSE_TRACKABLE_CLASSNAME,
                                         observable.getDataFieldName() );
           }
           else
           {
-            listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, () -> $N( null ) )",
+            listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, () -> $N( null ), true )",
                                         DISPOSE_TRACKABLE_CLASSNAME,
                                         observable.getDataFieldName(),
                                         observable.getSetter().getSimpleName().toString() );
@@ -842,13 +842,13 @@ final class ComponentGenerator
           assert dependency.shouldCascadeDispose();
           if ( dependency.getComponent().isClassType() )
           {
-            builder.addStatement( "$T.asDisposeNotifier( super.$N() ).addOnDisposeListener( this, this::dispose )",
+            builder.addStatement( "$T.asDisposeNotifier( super.$N() ).addOnDisposeListener( this, this::dispose, true )",
                                   DISPOSE_TRACKABLE_CLASSNAME,
                                   method.getSimpleName().toString() );
           }
           else
           {
-            builder.addStatement( "$T.asDisposeNotifier( $T.super.$N() ).addOnDisposeListener( this, this::dispose )",
+            builder.addStatement( "$T.asDisposeNotifier( $T.super.$N() ).addOnDisposeListener( this, this::dispose, true )",
                                   DISPOSE_TRACKABLE_CLASSNAME,
                                   dependency.getComponent().getClassName(),
                                   method.getSimpleName().toString() );
@@ -879,14 +879,14 @@ final class ComponentGenerator
             if ( dependency.getComponent().isClassType() )
             {
               listenerBlock.addStatement( "$T.asDisposeNotifier( super.$N() )." +
-                                          "addOnDisposeListener( this, this::dispose )",
+                                          "addOnDisposeListener( this, this::dispose, true )",
                                           DISPOSE_TRACKABLE_CLASSNAME,
                                           method.getSimpleName() );
             }
             else
             {
               listenerBlock.addStatement( "$T.asDisposeNotifier( $T.super.$N() )." +
-                                          "addOnDisposeListener( this, this::dispose )",
+                                          "addOnDisposeListener( this, this::dispose, true )",
                                           DISPOSE_TRACKABLE_CLASSNAME,
                                           dependency.getComponent().getClassName(),
                                           method.getSimpleName() );
@@ -898,7 +898,7 @@ final class ComponentGenerator
             if ( dependency.getComponent().isClassType() )
             {
               listenerBlock.addStatement( "$T.asDisposeNotifier( super.$N() )." +
-                                          "addOnDisposeListener( this, () -> $N( null ) )",
+                                          "addOnDisposeListener( this, () -> $N( null ), true )",
                                           DISPOSE_TRACKABLE_CLASSNAME,
                                           method.getSimpleName(),
                                           observable.getSetter().getSimpleName().toString() );
@@ -906,7 +906,7 @@ final class ComponentGenerator
             else
             {
               listenerBlock.addStatement( "$T.asDisposeNotifier( $T.super.$N() )." +
-                                          "addOnDisposeListener( this, () -> $N( null ) )",
+                                          "addOnDisposeListener( this, () -> $N( null ), true )",
                                           DISPOSE_TRACKABLE_CLASSNAME,
                                           dependency.getComponent().getClassName(),
                                           method.getSimpleName(),
@@ -1337,7 +1337,7 @@ final class ComponentGenerator
           final String methodName = method.getSimpleName().toString();
           if ( AnnotationsUtil.hasNonnullAnnotation( element ) )
           {
-            builder.addStatement( "$T.asDisposeNotifier( $N() ).removeOnDisposeListener( this )",
+            builder.addStatement( "$T.asDisposeNotifier( $N() ).removeOnDisposeListener( this, true )",
                                   DISPOSE_TRACKABLE_CLASSNAME,
                                   methodName );
           }
@@ -1369,7 +1369,7 @@ final class ComponentGenerator
             }
             final CodeBlock.Builder listenerBlock = CodeBlock.builder();
             listenerBlock.beginControlFlow( "if ( null != $N )", varName );
-            listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( this )",
+            listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( this, true )",
                                         DISPOSE_TRACKABLE_CLASSNAME,
                                         varName );
             listenerBlock.endControlFlow();
@@ -1382,7 +1382,7 @@ final class ComponentGenerator
           final String fieldName = field.getSimpleName().toString();
           if ( AnnotationsUtil.hasNonnullAnnotation( element ) )
           {
-            builder.addStatement( "$T.asDisposeNotifier( this.$N ).removeOnDisposeListener( this )",
+            builder.addStatement( "$T.asDisposeNotifier( this.$N ).removeOnDisposeListener( this, true )",
                                   DISPOSE_TRACKABLE_CLASSNAME,
                                   fieldName );
           }
@@ -1390,7 +1390,7 @@ final class ComponentGenerator
           {
             final CodeBlock.Builder listenerBlock = CodeBlock.builder();
             listenerBlock.beginControlFlow( "if ( null != this.$N )", fieldName );
-            listenerBlock.addStatement( "$T.asDisposeNotifier( this.$N ).removeOnDisposeListener( this )",
+            listenerBlock.addStatement( "$T.asDisposeNotifier( this.$N ).removeOnDisposeListener( this, true )",
                                         DISPOSE_TRACKABLE_CLASSNAME,
                                         fieldName );
             listenerBlock.endControlFlow();
@@ -1445,9 +1445,10 @@ final class ComponentGenerator
                       .build() ).
       addParameter( ParameterSpec.builder( SAFE_PROCEDURE_CLASSNAME, "action", Modifier.FINAL )
                       .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
-                      .build() );
+                      .build() ).
+      addParameter( ParameterSpec.builder( TypeName.BOOLEAN, "errorIfDuplicate", Modifier.FINAL ).build() );
     generateNotInitializedInvariant( component, method, methodName );
-    method.addStatement( "this.$N.addOnDisposeListener( key, action )", KERNEL_FIELD_NAME );
+    method.addStatement( "this.$N.addOnDisposeListener( key, action, errorIfDuplicate )", KERNEL_FIELD_NAME );
     return method.build();
   }
 
@@ -1464,10 +1465,11 @@ final class ComponentGenerator
       addAnnotation( Override.class ).
       addParameter( ParameterSpec.builder( TypeName.OBJECT, "key", Modifier.FINAL )
                       .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
-                      .build() );
+                      .build() ).
+      addParameter( ParameterSpec.builder( TypeName.BOOLEAN, "errorIfMissing", Modifier.FINAL ).build() );
     generateNotInitializedInvariant( component, method, methodName );
     generateNotConstructedInvariant( method, methodName );
-    method.addStatement( "this.$N.removeOnDisposeListener( key )", KERNEL_FIELD_NAME );
+    method.addStatement( "this.$N.removeOnDisposeListener( key, true )", KERNEL_FIELD_NAME );
     return method.build();
   }
 
@@ -3414,7 +3416,7 @@ final class ComponentGenerator
       {
         if ( observable.isGetterNonnull() )
         {
-          codeBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( this )",
+          codeBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( this, true )",
                                   DISPOSE_TRACKABLE_CLASSNAME,
                                   varName );
         }
@@ -3422,7 +3424,7 @@ final class ComponentGenerator
         {
           final CodeBlock.Builder listenerBlock = CodeBlock.builder();
           listenerBlock.beginControlFlow( "if ( null != $N )", varName );
-          listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( this )",
+          listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( this, true )",
                                       DISPOSE_TRACKABLE_CLASSNAME,
                                       varName );
           listenerBlock.endControlFlow();
@@ -3437,7 +3439,7 @@ final class ComponentGenerator
           if ( observable.isGetterNonnull() )
           {
             codeBlock
-              .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
+              .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose, true )",
                              DISPOSE_TRACKABLE_CLASSNAME,
                              paramName );
           }
@@ -3446,7 +3448,7 @@ final class ComponentGenerator
             final CodeBlock.Builder listenerBlock = CodeBlock.builder();
             listenerBlock.beginControlFlow( "if ( null != $N )", paramName );
             listenerBlock
-              .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
+              .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose, true )",
                              DISPOSE_TRACKABLE_CLASSNAME,
                              paramName );
             listenerBlock.endControlFlow();
@@ -3458,7 +3460,7 @@ final class ComponentGenerator
           final CodeBlock.Builder listenerBlock = CodeBlock.builder();
           listenerBlock.beginControlFlow( "if ( null != $N )", paramName );
           listenerBlock
-            .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, () -> $N( null ) )",
+            .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, () -> $N( null ), true )",
                            DISPOSE_TRACKABLE_CLASSNAME,
                            paramName,
                            setter.getSimpleName().toString() );
@@ -3473,7 +3475,7 @@ final class ComponentGenerator
       {
         if ( observable.isGetterNonnull() )
         {
-          codeBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( this )",
+          codeBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( this, true )",
                                   DISPOSE_TRACKABLE_CLASSNAME,
                                   varName );
         }
@@ -3481,7 +3483,7 @@ final class ComponentGenerator
         {
           final CodeBlock.Builder listenerBlock = CodeBlock.builder();
           listenerBlock.beginControlFlow( "if ( null != $N )", varName );
-          listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( this )",
+          listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( this, true )",
                                       DISPOSE_TRACKABLE_CLASSNAME,
                                       varName );
           listenerBlock.endControlFlow();
@@ -3503,7 +3505,7 @@ final class ComponentGenerator
           if ( observable.isGetterNonnull() )
           {
             codeBlock
-              .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
+              .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose, true )",
                              DISPOSE_TRACKABLE_CLASSNAME,
                              paramName );
           }
@@ -3512,7 +3514,7 @@ final class ComponentGenerator
             final CodeBlock.Builder listenerBlock = CodeBlock.builder();
             listenerBlock.beginControlFlow( "if ( null != $N )", paramName );
             listenerBlock
-              .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
+              .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose, true )",
                              DISPOSE_TRACKABLE_CLASSNAME,
                              paramName );
             listenerBlock.endControlFlow();
@@ -3524,7 +3526,7 @@ final class ComponentGenerator
           final CodeBlock.Builder listenerBlock = CodeBlock.builder();
           listenerBlock.beginControlFlow( "if ( null != $N )", paramName );
           listenerBlock
-            .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, () -> $N( null ) )",
+            .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, () -> $N( null ), true )",
                            DISPOSE_TRACKABLE_CLASSNAME,
                            paramName,
                            setter.getSimpleName().toString() );

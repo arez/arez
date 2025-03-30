@@ -29,7 +29,7 @@ final class Arez_BasicDependencyModel extends BasicDependencyModel implements Di
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, null, null, true, false, false );
     final DisposeNotifier $$arezv$$_getTime_dependency = super.getTime();
     if ( null != $$arezv$$_getTime_dependency ) {
-      DisposeNotifier.asDisposeNotifier( super.getTime() ).addOnDisposeListener( this, this::dispose );
+      DisposeNotifier.asDisposeNotifier( super.getTime() ).addOnDisposeListener( this, this::dispose, true );
     }
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentComplete();
@@ -55,7 +55,7 @@ final class Arez_BasicDependencyModel extends BasicDependencyModel implements Di
   private void $$arezi$$_preDispose() {
     final DisposeNotifier $$arezv$$_getTime_dependency = super.getTime();
     if ( null != $$arezv$$_getTime_dependency ) {
-      DisposeNotifier.asDisposeNotifier( $$arezv$$_getTime_dependency ).removeOnDisposeListener( this );
+      DisposeNotifier.asDisposeNotifier( $$arezv$$_getTime_dependency ).removeOnDisposeListener( this, true );
     }
   }
 
@@ -65,22 +65,23 @@ final class Arez_BasicDependencyModel extends BasicDependencyModel implements Di
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
+  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+      final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_component_dependency_BasicDependencyModel'" );
     }
-    this.$$arezi$$_kernel.addOnDisposeListener( key, action );
+    this.$$arezi$$_kernel.addOnDisposeListener( key, action, errorIfDuplicate );
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key) {
+  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_component_dependency_BasicDependencyModel'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener( key );
+    this.$$arezi$$_kernel.removeOnDisposeListener( key, true );
   }
 
   @Override

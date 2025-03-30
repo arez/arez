@@ -35,11 +35,11 @@ final class Arez_ComplexDependencyWithCustomNameMethodModel extends ComplexDepen
     this.$$arez$$_value3 = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".value3" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : super.getValue3() ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue3( v ) : null );
     final DisposeNotifier $$arezv$$_getValue1_dependency = super.getValue1();
     if ( null != $$arezv$$_getValue1_dependency ) {
-      DisposeNotifier.asDisposeNotifier( super.getValue1() ).addOnDisposeListener( this, this::dispose );
+      DisposeNotifier.asDisposeNotifier( super.getValue1() ).addOnDisposeListener( this, this::dispose, true );
     }
     final DisposeNotifier $$arezv$$_getValue3_dependency = super.getValue3();
     if ( null != $$arezv$$_getValue3_dependency ) {
-      DisposeNotifier.asDisposeNotifier( super.getValue3() ).addOnDisposeListener( this, () -> setValue3( null ) );
+      DisposeNotifier.asDisposeNotifier( super.getValue3() ).addOnDisposeListener( this, () -> setValue3( null ), true );
     }
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentComplete();
@@ -74,11 +74,11 @@ final class Arez_ComplexDependencyWithCustomNameMethodModel extends ComplexDepen
   private void $$arezi$$_preDispose() {
     final DisposeNotifier $$arezv$$_getValue1_dependency = super.getValue1();
     if ( null != $$arezv$$_getValue1_dependency ) {
-      DisposeNotifier.asDisposeNotifier( $$arezv$$_getValue1_dependency ).removeOnDisposeListener( this );
+      DisposeNotifier.asDisposeNotifier( $$arezv$$_getValue1_dependency ).removeOnDisposeListener( this, true );
     }
     final DisposeNotifier $$arezv$$_getValue3_dependency = super.getValue3();
     if ( null != $$arezv$$_getValue3_dependency ) {
-      DisposeNotifier.asDisposeNotifier( $$arezv$$_getValue3_dependency ).removeOnDisposeListener( this );
+      DisposeNotifier.asDisposeNotifier( $$arezv$$_getValue3_dependency ).removeOnDisposeListener( this, true );
     }
   }
 
@@ -88,22 +88,23 @@ final class Arez_ComplexDependencyWithCustomNameMethodModel extends ComplexDepen
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
+  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+      final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_component_dependency_ComplexDependencyWithCustomNameMethodModel'" );
     }
-    this.$$arezi$$_kernel.addOnDisposeListener( key, action );
+    this.$$arezi$$_kernel.addOnDisposeListener( key, action, errorIfDuplicate );
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key) {
+  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_component_dependency_ComplexDependencyWithCustomNameMethodModel'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener( key );
+    this.$$arezi$$_kernel.removeOnDisposeListener( key, true );
   }
 
   @Override
@@ -150,11 +151,11 @@ final class Arez_ComplexDependencyWithCustomNameMethodModel extends ComplexDepen
     final DisposeNotifier $$arezv$$_currentValue = super.getValue3();
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
       if ( null != $$arezv$$_currentValue ) {
-        DisposeNotifier.asDisposeNotifier( $$arezv$$_currentValue ).removeOnDisposeListener( this );
+        DisposeNotifier.asDisposeNotifier( $$arezv$$_currentValue ).removeOnDisposeListener( this, true );
       }
       super.setValue3( value );
       if ( null != value ) {
-        DisposeNotifier.asDisposeNotifier( value ).addOnDisposeListener( this, () -> setValue3( null ) );
+        DisposeNotifier.asDisposeNotifier( value ).addOnDisposeListener( this, () -> setValue3( null ), true );
       }
       this.$$arez$$_value3.reportChanged();
     }

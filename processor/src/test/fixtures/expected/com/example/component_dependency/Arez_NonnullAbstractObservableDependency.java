@@ -37,7 +37,7 @@ final class Arez_NonnullAbstractObservableDependency extends NonnullAbstractObse
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arezd$$_value = Objects.requireNonNull( value );
     this.$$arez$$_value = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_value ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_value = v : null );
-    DisposeNotifier.asDisposeNotifier( $$arezd$$_value ).addOnDisposeListener( this, this::dispose );
+    DisposeNotifier.asDisposeNotifier( $$arezd$$_value ).addOnDisposeListener( this, this::dispose, true );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentComplete();
   }
@@ -60,7 +60,7 @@ final class Arez_NonnullAbstractObservableDependency extends NonnullAbstractObse
   }
 
   private void $$arezi$$_preDispose() {
-    DisposeNotifier.asDisposeNotifier( getValue() ).removeOnDisposeListener( this );
+    DisposeNotifier.asDisposeNotifier( getValue() ).removeOnDisposeListener( this, true );
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
@@ -69,22 +69,23 @@ final class Arez_NonnullAbstractObservableDependency extends NonnullAbstractObse
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
+  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+      final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_component_dependency_NonnullAbstractObservableDependency'" );
     }
-    this.$$arezi$$_kernel.addOnDisposeListener( key, action );
+    this.$$arezi$$_kernel.addOnDisposeListener( key, action, errorIfDuplicate );
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key) {
+  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_component_dependency_NonnullAbstractObservableDependency'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener( key );
+    this.$$arezi$$_kernel.removeOnDisposeListener( key, true );
   }
 
   @Override
@@ -132,9 +133,9 @@ final class Arez_NonnullAbstractObservableDependency extends NonnullAbstractObse
     final DisposeNotifier $$arezv$$_currentValue = this.$$arezd$$_value;
     assert null != value;
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
-      DisposeNotifier.asDisposeNotifier( $$arezv$$_currentValue ).removeOnDisposeListener( this );
+      DisposeNotifier.asDisposeNotifier( $$arezv$$_currentValue ).removeOnDisposeListener( this, true );
       this.$$arezd$$_value = value;
-      DisposeNotifier.asDisposeNotifier( value ).addOnDisposeListener( this, this::dispose );
+      DisposeNotifier.asDisposeNotifier( value ).addOnDisposeListener( this, this::dispose, true );
       this.$$arez$$_value.reportChanged();
     }
   }

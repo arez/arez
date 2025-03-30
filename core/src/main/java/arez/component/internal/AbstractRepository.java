@@ -307,16 +307,18 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
   {
     DisposeNotifier
       .asDisposeNotifier( entity )
-      .addOnDisposeListener( this, () -> {
-        getEntitiesObservableValue().preReportChanged();
-        detach( entity, false );
-        getEntitiesObservableValue().reportChanged();
-      } );
+      .addOnDisposeListener( this,
+                             () -> {
+                               getEntitiesObservableValue().preReportChanged();
+                               detach( entity, false );
+                               getEntitiesObservableValue().reportChanged();
+                             },
+                             true );
   }
 
   private void detachEntity( @Nonnull final T entity, final boolean disposeOnDetach )
   {
-    DisposeNotifier.asDisposeNotifier( entity ).removeOnDisposeListener( this );
+    DisposeNotifier.asDisposeNotifier( entity ).removeOnDisposeListener( this, true );
     if ( disposeOnDetach )
     {
       Disposable.dispose( entity );

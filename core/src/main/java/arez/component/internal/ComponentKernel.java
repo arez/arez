@@ -664,6 +664,12 @@ public final class ComponentKernel
     return _component;
   }
 
+  @Deprecated
+  public void addOnDisposeListener( @Nonnull final Object key, @Nonnull final SafeProcedure action )
+  {
+    addOnDisposeListener( key, action, true );
+  }
+
   /**
    * Add the listener to notify list under key.
    * This method MUST NOT be invoked after {@link #dispose()} has been invoked.
@@ -677,29 +683,36 @@ public final class ComponentKernel
    * @param key    the key to uniquely identify listener.
    * @param action the listener callback.
    */
-  public void addOnDisposeListener( @Nonnull final Object key, @Nonnull final SafeProcedure action )
+  public void addOnDisposeListener( @Nonnull final Object key, @Nonnull final SafeProcedure action, final boolean errorIfDuplicate )
   {
     assert null != _onDisposeListeners;
     if ( Arez.shouldCheckApiInvariants() )
     {
       invariant( this::isNotDisposed,
                  () -> "Arez-0170: Attempting to add OnDispose listener but ComponentKernel has been disposed." );
-      invariant( () -> !_onDisposeListeners.containsKey( key ),
+      invariant( () -> !errorIfDuplicate || !_onDisposeListeners.containsKey( key ),
                  () -> "Arez-0166: Attempting to add OnDispose listener with key '" + key +
                        "' but a listener with that key already exists." );
     }
     _onDisposeListeners.put( key, action );
   }
 
+  @Deprecated
+  public void removeOnDisposeListener( @Nonnull final Object key )
+  {
+    removeOnDisposeListener( key, true );
+  }
+
   /**
    * Remove the listener with specified key from the notify list.
    * This method should only be invoked when a listener has been added for specific key using
-   * {@link #addOnDisposeListener(Object, SafeProcedure)} and has not been removed by another
+   * {@link #addOnDisposeListener(Object, SafeProcedure, boolean)} and has not been removed by another
    * call to this method.
    *
    * @param key the key under which the listener was previously added.
+   * @param errorIfMissing generate an assertion error if no such key exists.
    */
-  public void removeOnDisposeListener( @Nonnull final Object key )
+  public void removeOnDisposeListener( @Nonnull final Object key, final boolean errorIfMissing )
   {
     assert null != _onDisposeListeners;
     // This method can be called when the notifier is disposed to avoid the caller (i.e. per-component
@@ -709,7 +722,7 @@ public final class ComponentKernel
     final SafeProcedure removed = _onDisposeListeners.remove( key );
     if ( Arez.shouldCheckApiInvariants() )
     {
-      invariant( () -> null != removed,
+      invariant( () -> !errorIfMissing || null != removed,
                  () -> "Arez-0167: Attempting to remove OnDispose listener with key '" + key +
                        "' but no such listener exists." );
     }
