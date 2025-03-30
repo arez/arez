@@ -185,7 +185,7 @@ public final class MemoizeCacheTest
 
     assertEquals( cache.getFlags(), ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
 
-    final Observer observer1 = context.observer( () -> {
+    context.observer( () -> {
       observeADependency();
       if ( Disposable.isNotDisposed( element ) )
       {
