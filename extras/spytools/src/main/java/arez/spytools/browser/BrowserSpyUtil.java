@@ -2,6 +2,7 @@ package arez.spytools.browser;
 
 import arez.Arez;
 import arez.ArezContext;
+import arez.spy.SpyEventHandler;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Nonnull;
@@ -12,8 +13,7 @@ import javax.annotation.Nonnull;
 public final class BrowserSpyUtil
 {
   @Nonnull
-  private static final Map<ArezContext, ConsoleSpyEventProcessor> c_processors =
-    Arez.areSpiesEnabled() ? new HashMap<>() : null;
+  private static final Map<ArezContext, SpyEventHandler> c_processors = Arez.areSpiesEnabled() ? new HashMap<>() : null;
 
   /**
    * Return true if spy event logging is enabled.
@@ -33,10 +33,10 @@ public final class BrowserSpyUtil
   {
     if ( Arez.areSpiesEnabled() && !isSpyEventLoggingEnabled() )
     {
-      final ConsoleSpyEventProcessor handler = new ConsoleSpyEventProcessor();
+      final SpyEventHandler actualHandler = null == handler ? new ConsoleSpyEventProcessor() : handler;
       final ArezContext context = Arez.context();
-      context.getSpy().addSpyEventHandler( handler );
-      c_processors.put( context, handler );
+      context.getSpy().addSpyEventHandler( actualHandler );
+      c_processors.put( context, actualHandler );
     }
   }
 
@@ -49,7 +49,7 @@ public final class BrowserSpyUtil
     if ( Arez.areSpiesEnabled() && isSpyEventLoggingEnabled() )
     {
       final ArezContext context = Arez.context();
-      final ConsoleSpyEventProcessor handler = c_processors.remove( context );
+      final SpyEventHandler handler = c_processors.remove( context );
       assert null != handler;
       context.getSpy().removeSpyEventHandler( handler );
     }
