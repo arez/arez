@@ -6,6 +6,7 @@ import arez.spy.SpyEventHandler;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Utility class for interacting with spy capabilities.
@@ -30,6 +31,17 @@ public final class BrowserSpyUtil
    * This is a noop if spies are not enabled or logging has already been enabled.
    */
   public static void enableSpyEventLogging()
+  {
+    enableSpyEventLogging( Arez.areSpiesEnabled() && !isSpyEventLoggingEnabled() ?
+                           new ConsoleSpyEventProcessor() :
+                           null );
+  }
+
+  /**
+   * Enable console logging of all spy events.
+   * This is a noop if spies are not enabled or logging has already been enabled.
+   */
+  public static void enableSpyEventLogging( @Nullable final SpyEventHandler handler )
   {
     if ( Arez.areSpiesEnabled() && !isSpyEventLoggingEnabled() )
     {
