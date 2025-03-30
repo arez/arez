@@ -274,7 +274,7 @@ public final class MemoizeCache<T>
     {
       if ( arg instanceof DisposeNotifier )
       {
-        DisposeNotifier.asDisposeNotifier( arg ).addOnDisposeListener( "MemoizeCache" + id, computable::dispose );
+        DisposeNotifier.asDisposeNotifier( arg ).addOnDisposeListener( computable, computable::dispose, false );
       }
     }
     return computable;
