@@ -13,6 +13,7 @@ import arez.component.DisposeNotifier;
 import arez.spy.ComponentInfo;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -114,6 +115,11 @@ public final class MemoizeCacheTest
   static final class MyElement
     implements DisposeNotifier, Disposable
   {
+    @Nonnull
+    private final List<Object> _onDisposeListenersAdded = new ArrayList<>();
+    @Nonnull
+    private final List<Object> _onDisposeListenersRemoved = new ArrayList<>();
+    @Nonnull
     private final Map<Object, SafeProcedure> _onDisposeListeners = new HashMap<>();
     @Nonnull
     private final String _value;
@@ -135,13 +141,15 @@ public final class MemoizeCacheTest
                                       @Nonnull final SafeProcedure action,
                                       final boolean errorIfDuplicate )
     {
+      _onDisposeListenersAdded.add( key );
       _onDisposeListeners.put( key, action );
     }
 
     @Override
     public void removeOnDisposeListener( @Nonnull final Object key, final boolean errorIfMissing )
     {
-      fail( "Should not have been called" );
+      _onDisposeListenersRemoved.add( key );
+      _onDisposeListeners.remove( key );
     }
 
     @Override
@@ -202,6 +210,58 @@ public final class MemoizeCacheTest
     assertEquals( context.safeAction( computableValue::get ), "P" );
 
     Disposable.dispose( element );
+
+    assertEquals( callCount.get(), 1 );
+    assertEquals( cache.getNextIndex(), 1 );
+    assertEquals( cache.getCache().size(), 0 );
+    assertNull( cache.getCache().get( element ) );
+  }
+
+  @Test
+  public void disposeNotifierParameters_clearedWhenObserverRemoved()
+  {
+    final MyElement element = new MyElement( "P" );
+    final AtomicInteger callCount = new AtomicInteger();
+    final MemoizeCache.Function<String> function = args -> {
+      observeADependency();
+      callCount.incrementAndGet();
+      return ( (MyElement) args[ 0 ] ).getValue();
+    };
+    final ArezContext context = Arez.context();
+    final String name = ValueUtil.randomString();
+    final MemoizeCache<String> cache =
+      new MemoizeCache<>( context, null, name, function, 1, ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+
+    assertFalse( cache.isDisposed() );
+    assertEquals( cache.getNextIndex(), 0 );
+
+    assertEquals( cache.getFlags(), ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+
+    assertEquals( element._onDisposeListeners.size(), 0 );
+    assertEquals( element._onDisposeListenersAdded.size(), 0 );
+    assertEquals( element._onDisposeListenersRemoved.size(), 0 );
+
+    final Observer observer = context.observer( () -> {
+      observeADependency();
+      assertEquals( cache.get( element ), "P" );
+    } );
+    assertEquals( callCount.get(), 1 );
+    assertEquals( cache.getNextIndex(), 1 );
+    assertEquals( cache.getCache().size(), 1 );
+
+    assertEquals( element._onDisposeListeners.size(), 1 );
+    assertEquals( element._onDisposeListenersAdded.size(), 1 );
+    assertEquals( element._onDisposeListenersRemoved.size(), 0 );
+
+    final ComputableValue<String> computableValue = (ComputableValue<String>) cache.getCache().get( element );
+    assertNotNull( computableValue );
+    assertEquals( context.safeAction( computableValue::get ), "P" );
+
+    Disposable.dispose( observer );
+
+    assertEquals( element._onDisposeListeners.size(), 0 );
+    assertEquals( element._onDisposeListenersAdded.size(), 1 );
+    assertEquals( element._onDisposeListenersRemoved.size(), 1 );
 
     assertEquals( callCount.get(), 1 );
     assertEquals( cache.getNextIndex(), 1 );

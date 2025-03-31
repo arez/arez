@@ -318,6 +318,13 @@ public final class MemoizeCache<T>
     getContext().task( Arez.areNamesEnabled() ? computableValue.getName() + ".dispose" : null,
                        computableValue::dispose,
                        Task.Flags.PRIORITY_HIGHEST | Task.Flags.DISPOSE_ON_COMPLETE | Task.Flags.NO_WRAP_TASK );
+    for ( final Object arg : args )
+    {
+      if ( arg instanceof DisposeNotifier )
+      {
+        DisposeNotifier.asDisposeNotifier( arg ).removeOnDisposeListener( computableValue, false );
+      }
+    }
     while ( stack.size() > 1 )
     {
       final Map<Object, ?> map = stack.pop();
