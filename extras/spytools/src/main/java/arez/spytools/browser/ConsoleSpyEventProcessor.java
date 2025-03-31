@@ -480,7 +480,7 @@ public class ConsoleSpyEventProcessor
   }
 
   /**
-   * Log specified message with parameters
+   * Log specified message with parameters.
    *
    * @param delta   the nesting delta.
    * @param message the message.
