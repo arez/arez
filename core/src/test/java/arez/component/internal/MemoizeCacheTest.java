@@ -203,7 +203,6 @@ public final class MemoizeCacheTest
     assertEquals( callCount.get(), 1 );
     assertEquals( cache.getNextIndex(), 1 );
     assertEquals( cache.getCache().size(), 1 );
-    assertEquals( cache.getCache().size(), 1 );
 
     final ComputableValue<String> computableValue = (ComputableValue<String>) cache.getCache().get( element );
     assertNotNull( computableValue );
