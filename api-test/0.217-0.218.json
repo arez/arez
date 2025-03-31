@@ -1,0 +1,104 @@
+[
+  {
+    "code": "java.method.numberOfParametersChanged",
+    "description": "The number of parameters of the method have changed.",
+    "newElement": "method void arez.component.DisposeNotifier::addOnDisposeListener(java.lang.Object, arez.SafeProcedure, boolean)",
+    "oldElement": "method void arez.component.DisposeNotifier::addOnDisposeListener(java.lang.Object, arez.SafeProcedure)",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.DisposeNotifier",
+      "classSimpleName": "DisposeNotifier",
+      "elementKind": "method",
+      "methodName": "addOnDisposeListener",
+      "package": "arez.component"
+    }
+  },
+  {
+    "code": "java.method.numberOfParametersChanged",
+    "description": "The number of parameters of the method have changed.",
+    "newElement": "method void arez.component.DisposeNotifier::removeOnDisposeListener(java.lang.Object, boolean)",
+    "oldElement": "method void arez.component.DisposeNotifier::removeOnDisposeListener(java.lang.Object)",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.DisposeNotifier",
+      "classSimpleName": "DisposeNotifier",
+      "elementKind": "method",
+      "methodName": "removeOnDisposeListener",
+      "package": "arez.component"
+    }
+  },
+  {
+    "code": "java.element.nowDeprecated",
+    "description": "The element is now deprecated.",
+    "element": "method void arez.component.internal.ComponentKernel::addOnDisposeListener(java.lang.Object, arez.SafeProcedure)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT"
+    },
+    "attachments": {
+      "annotation": "@java.lang.Deprecated",
+      "annotationType": "java.lang.Deprecated",
+      "classQualifiedName": "arez.component.internal.ComponentKernel",
+      "classSimpleName": "ComponentKernel",
+      "elementKind": "method",
+      "methodName": "addOnDisposeListener",
+      "package": "arez.component.internal"
+    }
+  },
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method void arez.component.internal.ComponentKernel::addOnDisposeListener(java.lang.Object, arez.SafeProcedure, boolean)",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.ComponentKernel",
+      "classSimpleName": "ComponentKernel",
+      "elementKind": "method",
+      "methodName": "addOnDisposeListener",
+      "package": "arez.component.internal"
+    }
+  },
+  {
+    "code": "java.element.nowDeprecated",
+    "description": "The element is now deprecated.",
+    "element": "method void arez.component.internal.ComponentKernel::removeOnDisposeListener(java.lang.Object)",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT"
+    },
+    "attachments": {
+      "annotation": "@java.lang.Deprecated",
+      "annotationType": "java.lang.Deprecated",
+      "classQualifiedName": "arez.component.internal.ComponentKernel",
+      "classSimpleName": "ComponentKernel",
+      "elementKind": "method",
+      "methodName": "removeOnDisposeListener",
+      "package": "arez.component.internal"
+    }
+  },
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method void arez.component.internal.ComponentKernel::removeOnDisposeListener(java.lang.Object, boolean)",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.ComponentKernel",
+      "classSimpleName": "ComponentKernel",
+      "elementKind": "method",
+      "methodName": "removeOnDisposeListener",
+      "package": "arez.component.internal"
+    }
+  }
+]
