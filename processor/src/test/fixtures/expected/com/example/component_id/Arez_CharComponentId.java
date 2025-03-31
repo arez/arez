@@ -62,7 +62,7 @@ final class Arez_CharComponentId extends CharComponentId implements Disposable, 
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener( key, true );
+    this.$$arezi$$_kernel.removeOnDisposeListener( key, errorIfMissing );
   }
 
   @Override

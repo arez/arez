@@ -1469,7 +1469,7 @@ final class ComponentGenerator
       addParameter( ParameterSpec.builder( TypeName.BOOLEAN, "errorIfMissing", Modifier.FINAL ).build() );
     generateNotInitializedInvariant( component, method, methodName );
     generateNotConstructedInvariant( method, methodName );
-    method.addStatement( "this.$N.removeOnDisposeListener( key, true )", KERNEL_FIELD_NAME );
+    method.addStatement( "this.$N.removeOnDisposeListener( key, errorIfMissing )", KERNEL_FIELD_NAME );
     return method.build();
   }
 
