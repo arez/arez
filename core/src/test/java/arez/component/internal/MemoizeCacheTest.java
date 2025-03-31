@@ -229,7 +229,7 @@ public final class MemoizeCacheTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
     final MemoizeCache<String> cache =
-      new MemoizeCache<>( context, null, name, function, 1, ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+      new MemoizeCache<>( null, null, name, function, 1, ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
 
     assertFalse( cache.isDisposed() );
     assertEquals( cache.getNextIndex(), 0 );
