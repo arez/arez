@@ -31,6 +31,7 @@ import arez.spy.TransactionStartEvent;
 import arez.spytools.AbstractSpyEventProcessor;
 import arez.spytools.SpyUtil;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import jsinterop.base.Js;
 
 /**
@@ -246,11 +247,17 @@ public class ConsoleSpyEventProcessor
   protected void onObservableValueChange( @Nonnull final SpyUtil.NestingDelta d,
                                           @Nonnull final ObservableValueChangeEvent e )
   {
-    Console.log( "%cObservable Changed " +
-                 e.getObservableValue().getName() +
-                 ( Arez.arePropertyIntrospectorsEnabled() ? " Value: %o " : null ),
-                 OBSERVABLE_COLOR,
-                 ( Arez.arePropertyIntrospectorsEnabled() ? e.getValue() : null ) );
+    if ( Arez.arePropertyIntrospectorsEnabled() )
+    {
+      log( SpyUtil.NestingDelta.NONE,
+           "%cObservable Changed " + e.getObservableValue().getName() + " Value: %o ",
+           OBSERVABLE_COLOR,
+           e.getValue() );
+    }
+    else
+    {
+      log( SpyUtil.NestingDelta.NONE, "%cObservable Changed " + e.getObservableValue().getName(), OBSERVABLE_COLOR );
+    }
   }
 
   /**
@@ -502,6 +509,35 @@ public class ConsoleSpyEventProcessor
     else
     {
       Console.log( message, styling );
+    }
+  }
+
+  /**
+   * Log specified message with parameters.
+   *
+   * @param delta   the nesting delta.
+   * @param message the message.
+   * @param styling the styling parameter. It is assumed that the message has a %c somewhere in it to identify the start of the styling.
+   * @param value   an arbitrary value parameter added to console log.
+   */
+  @SuppressWarnings( "SameParameterValue" )
+  protected void log( @Nonnull final SpyUtil.NestingDelta delta,
+                      @Nonnull final String message,
+                      @CssRules @Nonnull final String styling,
+                      @Nullable final Object value )
+  {
+    if ( SpyUtil.NestingDelta.INCREASE == delta )
+    {
+      Console.groupCollapsed( message, styling );
+    }
+    else if ( SpyUtil.NestingDelta.DECREASE == delta )
+    {
+      Console.log( message, styling );
+      Console.groupEnd();
+    }
+    else
+    {
+      Console.log( message, styling, value );
     }
   }
 
