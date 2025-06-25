@@ -1196,7 +1196,13 @@ public final class ArezProcessorTest
                                Arrays.asList( synthesizingProcessor1, synthesizingProcessor2, processor() ),
                                Collections.emptyList() );
     outputFilesIfEnabled( compilation,
-                          compilation.sourceOutputFilenames().stream().filter( this::emitGeneratedFile ).toList(),
+                          compilation
+                            .sourceOutputFilenames()
+                            .stream()
+                            .filter( f ->
+                                       !f.endsWith( "OtherModel.java" ) &&
+                                       !f.endsWith( "MyFrameworkModelImpl.java" ) )
+                            .toList(),
                           compilation.classOutputFilenames().stream().filter( this::emitGeneratedFile ).toList() );
     assertCompilationSuccessful( compilation );
   }
