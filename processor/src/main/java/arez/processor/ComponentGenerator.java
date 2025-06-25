@@ -100,7 +100,7 @@ final class ComponentGenerator
   /**
    * For constructor initializer args where it collides with existing name.
    */
-  static final String INITIALIZER_PREFIX = "$$arezip$$_";
+  private static final String INITIALIZER_PREFIX = "$$arezip$$_";
   /**
    * For variables used within generated methods that need a unique name.
    */
