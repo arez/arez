@@ -110,6 +110,7 @@ define 'arez' do
 
     test.with :proton_qa,
               :sting_core,
+              :grim_annotations,
               :sting_processor,
               # jaxws_api is used in test
               :jaxws_api,
