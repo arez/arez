@@ -17,6 +17,7 @@ public final class ArezProcessorTest
   extends AbstractProcessorTest
 {
   @DataProvider( name = "successfulCompiles" )
+  @Nonnull
   public Object[][] successfulCompiles()
   {
     return new Object[][]
