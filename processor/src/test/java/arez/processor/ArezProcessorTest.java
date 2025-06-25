@@ -185,6 +185,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.component_dependency.ComplexDependencyModel" },
         new Object[]{ "com.example.component_dependency.ComplexDependencyWithCustomNameMethodModel" },
         new Object[]{ "com.example.component_dependency.ComponentDependencyModel" },
+        new Object[]{ "com.example.component_dependency.MultiComponentDependencyModel" },
         new Object[]{ "com.example.component_dependency.ComponentFieldDependencyModel" },
         new Object[]{ "com.example.component_dependency.ConcreteObservablePairWithInitializerDependency" },
         new Object[]{ "com.example.component_dependency.NonCascadeObservableDependency" },

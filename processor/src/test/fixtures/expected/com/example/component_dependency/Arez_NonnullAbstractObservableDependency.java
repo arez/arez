@@ -60,7 +60,7 @@ final class Arez_NonnullAbstractObservableDependency extends NonnullAbstractObse
   }
 
   private void $$arezi$$_preDispose() {
-    DisposeNotifier.asDisposeNotifier( getValue() ).removeOnDisposeListener( this, true );
+    DisposeNotifier.asDisposeNotifier( $$arezd$$_value ).removeOnDisposeListener( this, true );
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {

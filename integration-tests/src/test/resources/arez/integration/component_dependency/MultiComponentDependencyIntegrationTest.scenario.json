@@ -1,0 +1,170 @@
+
+[
+    {
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_SharedModel.1",
+        "type": "ComponentCreateStart"
+    },
+    {
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_SharedModel.1",
+        "type": "ComponentCreateComplete"
+    },
+    {
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_ModelUnderTest.1",
+        "type": "ComponentCreateStart"
+    },
+    {
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_ModelUnderTest.1.ref3",
+        "type": "ObservableValueCreate"
+    },
+    {
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_ModelUnderTest.1.ref4",
+        "type": "ObservableValueCreate"
+    },
+    {
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_ModelUnderTest.1",
+        "type": "ComponentCreateComplete"
+    },
+    {
+        "name": "Action@1",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "Action@1",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": true,
+        "name": "Action@1",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "Action@1",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_SharedModel.1",
+        "type": "ComponentDisposeStart"
+    },
+    {
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_SharedModel.1.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_SharedModel.1.dispose",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_ModelUnderTest.1",
+        "type": "ComponentDisposeStart"
+    },
+    {
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_ModelUnderTest.1.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_ModelUnderTest.1.ref3.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_ModelUnderTest.1.ref3",
+        "type": "ObservableValueChange",
+        "value": null
+    },
+    {
+        "result": null,
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_ModelUnderTest.1.ref3.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_ModelUnderTest.1.ref3",
+        "type": "ObservableValueDispose"
+    },
+    {
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_ModelUnderTest.1.ref4.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_ModelUnderTest.1.ref4",
+        "type": "ObservableValueChange",
+        "value": null
+    },
+    {
+        "result": null,
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_ModelUnderTest.1.ref4.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_ModelUnderTest.1.ref4",
+        "type": "ObservableValueDispose"
+    },
+    {
+        "result": null,
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_ModelUnderTest.1.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_ModelUnderTest.1",
+        "type": "ComponentDisposeComplete"
+    },
+    {
+        "mutation": true,
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_SharedModel.1.dispose",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_SharedModel.1.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "arez_integration_component_dependency_MultiComponentDependencyIntegrationTest_SharedModel.1",
+        "type": "ComponentDisposeComplete"
+    }
+]
