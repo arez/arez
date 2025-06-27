@@ -1054,7 +1054,7 @@ public final class ComputableValueTest
     value.set( 2 );
 
     context.safeAction( computable1::reportPossiblyChanged );
-    handler.assertEventCount( 15 );
+    handler.assertEventCount( 17 );
 
     handler.assertNextEvent( ActionStartEvent.class );
     handler.assertNextEvent( TransactionStartEvent.class );
@@ -1068,15 +1068,19 @@ public final class ComputableValueTest
     handler.assertNextEvent( ComputeStartEvent.class,
                              e -> assertEquals( e.getComputableValue().getName(), computable2.getName() ) );
     handler.assertNextEvent( TransactionStartEvent.class, e -> assertEquals( e.getName(), computable2.getName() ) );
-    handler.assertNextEvent( TransactionCompleteEvent.class, e -> assertEquals( e.getName(), computable2.getName() ) );
-    handler.assertNextEvent( ComputeCompleteEvent.class,
-                             e -> assertEquals( e.getComputableValue().getName(), computable2.getName() ) );
     handler.assertNextEvent( ComputeStartEvent.class,
                              e -> assertEquals( e.getComputableValue().getName(), computable1.getName() ) );
     handler.assertNextEvent( TransactionStartEvent.class, e -> assertEquals( e.getName(), computable1.getName() ) );
     handler.assertNextEvent( ObservableValueChangeEvent.class,
                              e -> assertEquals( e.getObservableValue().getName(), computable1.getName() ) );
     handler.assertNextEvent( TransactionCompleteEvent.class, e -> assertEquals( e.getName(), computable1.getName() ) );
+    handler.assertNextEvent( ComputeCompleteEvent.class,
+                             e -> assertEquals( e.getComputableValue().getName(), computable1.getName() ) );
+    handler.assertNextEvent( TransactionCompleteEvent.class, e -> assertEquals( e.getName(), computable2.getName() ) );
+    handler.assertNextEvent( ComputeCompleteEvent.class,
+                             e -> assertEquals( e.getComputableValue().getName(), computable2.getName() ) );
+    handler.assertNextEvent( ComputeStartEvent.class,
+                             e -> assertEquals( e.getComputableValue().getName(), computable1.getName() ) );
     handler.assertNextEvent( ComputeCompleteEvent.class,
                              e -> assertEquals( e.getComputableValue().getName(), computable1.getName() ) );
   }

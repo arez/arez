@@ -216,7 +216,7 @@ public final class ComputableValue<T>
     }
     if ( Observer.Flags.STATE_UP_TO_DATE == getObserver().getState() )
     {
-      getObserver().setState( Observer.Flags.STATE_POSSIBLY_STALE );
+      getObserver().setState( Observer.Flags.STATE_STALE );
     }
   }
 
