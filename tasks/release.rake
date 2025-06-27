@@ -37,7 +37,13 @@ Buildr::ReleaseTool.define_release_task do |t|
   end
 
   t.tag_project
-  t.maven_central_publish(:additional_tasks => 'arez:doc-examples:compile site:deploy')
+  t.stage('MavenCentralPublish', 'Publish archive to Maven Central') do
+    task('upload_to_maven_central').invoke
+  end
+  t.stage('DeploySite', 'Deploy the website') do
+    task('arez:doc-examples:compile').invoke
+    task('site:deploy').invoke
+  end
   t.patch_changelog_post_release
   t.stage('PatchStatisticsPostRelease', 'Copy the statistics forward to prepare for next development iteration') do
     filename = 'downstream-test/src/test/resources/fixtures/statistics.properties'
