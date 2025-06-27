@@ -3,6 +3,7 @@ require 'net/http'
 require 'uri'
 require 'net/http/post/multipart'
 require 'netrc'
+require 'base64'
 
 # Recursively get all files in a directory
 def get_all_files(dir)
