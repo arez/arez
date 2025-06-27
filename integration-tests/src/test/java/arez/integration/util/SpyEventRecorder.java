@@ -7,11 +7,8 @@ import arez.spy.SpyEventHandler;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Nonnull;
@@ -63,7 +60,7 @@ public final class SpyEventRecorder
   {
     if ( event instanceof SerializableEvent )
     {
-      log( (SerializableEvent) event );
+      _events.add( SpyEventTestUtil.toJsonObject( (SerializableEvent) event, _keepValue ) );
     }
   }
 
@@ -105,39 +102,4 @@ public final class SpyEventRecorder
     return writer.toString();
   }
 
-  private void log( @Nonnull final SerializableEvent event )
-  {
-    final HashMap<String, Object> map = new HashMap<>();
-    event.toMap( map );
-    map.remove( "duration" );
-    if ( !_keepValue )
-    {
-      map.remove( "value" );
-    }
-    final HashMap<String, Object> output = new HashMap<>();
-    for ( final Map.Entry<String, Object> entry : map.entrySet() )
-    {
-      final String key = entry.getKey();
-      final Object value = entry.getValue();
-      if ( key.equals( "value" ) && value instanceof Collection )
-      {
-        // Useful for debugging repositories
-        output.put( key, ( (Collection<?>) value ).size() + " items" );
-      }
-      else if ( null != value && value.getClass().isArray() )
-      {
-        final ArrayList<Object> v = new ArrayList<>();
-        for ( int i = 0, end = Array.getLength( value ); i < end; i++ )
-        {
-          v.add( Array.get( value, i ) );
-        }
-        output.put( key, v );
-      }
-      else
-      {
-        output.put( key, value );
-      }
-    }
-    _events.add( Json.createObjectBuilder( output ) );
-  }
 }
