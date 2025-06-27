@@ -2,8 +2,6 @@
 
 ### Unreleased
 
-### Unreleased
-
 ### [v0.220](https://github.com/arez/arez/tree/v0.220) (2025-06-25) · [Full Changelog](https://github.com/arez/arez/compare/v0.219...v0.220)
 
 Changes in this release:
