@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.221](https://github.com/arez/arez/tree/v0.221) (2025-06-27) · [Full Changelog](https://github.com/arez/arez/compare/v0.220...v0.221)
+
+Changes in this release:
 
 * Change `ComputableValue.reportPossiblyChanged()` so that it marks the `ComputableValue` as `STALE` rather than `POSSIBLY_STALE`, otherwise changes in external dependencies will not trigger the re-evaluation of the `ComputableValue`.
 
