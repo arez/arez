@@ -2,6 +2,7 @@ package arez.spy;
 
 import arez.AbstractTest;
 import java.util.HashMap;
+import java.util.Map;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -21,7 +22,7 @@ public final class TransactionStartEventTest
     assertEquals( event.isMutation(), mutation );
     assertEquals( event.getTracker(), tracker );
 
-    final HashMap<String, Object> data = new HashMap<>();
+    final Map<String, Object> data = new HashMap<>();
     event.toMap( data );
 
     assertEquals( data.get( "type" ), "TransactionStart" );
