@@ -55,10 +55,10 @@ def install_artifacts_to_directory(local_test_repository_dir, project_names)
   end
 end
 
-def upload_to_sonatype(version, zip_file)
+def upload_to_sonatype(key, version, zip_file)
 
   # Define the endpoint and parameters
-  uri = URI.parse("https://central.sonatype.com/api/v1/publisher/upload?name=arez-v#{version}&publishingType=AUTOMATIC")
+  uri = URI.parse("https://central.sonatype.com/api/v1/publisher/upload?name=#{key}-v#{version}&publishingType=AUTOMATIC")
   upload_io = UploadIO.new(zip_file, "application/zip")
   form_data = { "bundle" => upload_io }
 
@@ -93,6 +93,7 @@ task 'upload_to_maven_central' do
 
   # Phase 2 - Zip up the directory ready for release to Maven Central
   zip_directory(local_test_repository_dir, output_zip)
+  upload_to_sonatype('arez', version, output_zip)
 
   # Phase 3 - Upload to Maven Central
   upload_to_sonatype(version, output_zip)
