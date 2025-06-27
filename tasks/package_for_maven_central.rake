@@ -88,14 +88,8 @@ task 'upload_to_maven_central' do
   version = ENV['PRODUCT_VERSION'] || Buildr.project('arez').version
   output_zip = "#{workspace_dir}/target/arez-#{version}.zip"
 
-  # Phase 1 - Put the output in to a directory
   install_artifacts_to_directory(local_test_repository_dir,
                                  %w(arez:core arez:processor arez:extras:dom arez:extras:promise arez:extras:spytools arez:extras:testng))
-
-  # Phase 2 - Zip up the directory ready for release to Maven Central
   zip_directory(local_test_repository_dir, output_zip)
   upload_to_sonatype('arez', version, output_zip)
-
-  # Phase 3 - Upload to Maven Central
-  upload_to_sonatype(version, output_zip)
 end
