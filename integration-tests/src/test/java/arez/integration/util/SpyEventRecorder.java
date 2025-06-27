@@ -30,6 +30,7 @@ import org.skyscreamer.jsonassert.comparator.DefaultComparator;
 public final class SpyEventRecorder
   implements SpyEventHandler
 {
+  @Nonnull
   private final JsonArrayBuilder _events = Json.createArrayBuilder();
   private final boolean _keepValue;
 
