@@ -206,7 +206,6 @@ public final class TransactionTest
     derivation.setState( Observer.Flags.STATE_UP_TO_DATE );
     final ObservableValue<?> observableValue2 = derivation.getComputableValue().getObservableValue();
 
-    observableValue2.markAsPendingDeactivation();
     transaction.queueForDeactivation( observableValue2 );
 
     assertNotNull( transaction.getPendingDeactivations() );
@@ -1131,9 +1130,9 @@ public final class TransactionTest
     transaction.queueForDeactivation( observableValue );
 
     assertInvariantFailure( () -> transaction.queueForDeactivation( observableValue ),
-                            "Arez-0141: Invoked queueForDeactivation on transaction named '" +
+                            "Arez-0157: Invoked queueForDeactivation on transaction named '" +
                             transaction.getName() + "' for observableValue named '" + observableValue.getName() +
-                            "' when pending deactivation already exists for observableValue." );
+                            "' when observableValue is already pending deactivation." );
   }
 
   @Test
@@ -1167,7 +1166,6 @@ public final class TransactionTest
     derivation.setState( Observer.Flags.STATE_UP_TO_DATE );
     final ObservableValue<?> observableValue = derivation.getComputableValue().getObservableValue();
 
-    observableValue.markAsPendingDeactivation();
     transaction.queueForDeactivation( observableValue );
 
     assertNotNull( transaction.getPendingDeactivations() );
@@ -1215,7 +1213,6 @@ public final class TransactionTest
     derivation.setState( Observer.Flags.STATE_UP_TO_DATE );
     final ObservableValue<?> observableValue = derivation.getComputableValue().getObservableValue();
 
-    observableValue.markAsPendingDeactivation();
     transaction.queueForDeactivation( observableValue );
     otherObserver.getDependencies().add( observableValue );
     observableValue.rawAddObserver( otherObserver );
@@ -1250,7 +1247,6 @@ public final class TransactionTest
     derivation.setState( Observer.Flags.STATE_UP_TO_DATE );
     final ObservableValue<?> observableValue = derivation.getComputableValue().getObservableValue();
 
-    observableValue.markAsPendingDeactivation();
     transaction.queueForDeactivation( observableValue );
     otherObserver.getDependencies().add( observableValue );
     observableValue.rawAddObserver( otherObserver );
@@ -1292,7 +1288,6 @@ public final class TransactionTest
 
     final ObservableValue<?> observableValue3 = derivation2.getComputableValue().getObservableValue();
 
-    observableValue3.markAsPendingDeactivation();
     transaction.queueForDeactivation( observableValue3 );
 
     assertNotNull( transaction.getPendingDeactivations() );
@@ -1339,7 +1334,6 @@ public final class TransactionTest
 
     final ObservableValue<?> derivedObservableValue = derivation.getComputableValue().getObservableValue();
 
-    derivedObservableValue.markAsPendingDeactivation();
     transaction.queueForDeactivation( derivedObservableValue );
 
     assertNotNull( transaction.getPendingDeactivations() );

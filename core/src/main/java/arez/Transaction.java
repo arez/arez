@@ -550,6 +550,10 @@ final class Transaction
                  () -> "Arez-0140: Invoked queueForDeactivation on transaction named '" +
                        getName() + "' for observableValue named '" + observableValue.getName() + "' when " +
                        "observableValue can not be deactivated." );
+      invariant( () -> !observableValue.isPendingDeactivation(),
+                 () -> "Arez-0157: Invoked queueForDeactivation on transaction named '" +
+                       getName() + "' for observableValue named '" + observableValue.getName() + "' when " +
+                       "observableValue is already pending deactivation." );
     }
     if ( null == _pendingDeactivations )
     {
