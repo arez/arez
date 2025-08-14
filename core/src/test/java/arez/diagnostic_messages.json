@@ -780,6 +780,11 @@
     "messagePattern": "ComponentKernel passed a name '%s' but Arez.areNamesEnabled() returns false."
   },
   {
+    "code": 157,
+    "type": "INVARIANT",
+    "messagePattern": "Invoked queueForDeactivation on transaction named '%s' for observableValue named '%s' when observableValue is already pending deactivation."
+  },
+  {
     "code": 158,
     "type": "API_INVARIANT",
     "messagePattern": "Object passed to asIdentifiable does not implement Identifiable. Object: %s"
