@@ -1080,7 +1080,7 @@ final class Transaction
     {
       final ComputableValue<?> computableValue = _tracker.getComputableValue();
       final ObservableValue<?> observableValue = computableValue.getObservableValue();
-      if ( observableValue.canDeactivateNow() )
+      if ( observableValue.canDeactivateNow() && !observableValue.isPendingDeactivation() )
       {
         queueForDeactivation( observableValue );
       }
