@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.222](https://github.com/arez/arez/tree/v0.222) (2025-08-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.221...v0.222)
+
+Changes in this release:
 
 * Add assertion to ensure that `ObservableValue` instances should not be queued for deactivation if they are already pending deactivation.
 * Check for pendingDeactivation before queuing deactivation in transaction commits.
