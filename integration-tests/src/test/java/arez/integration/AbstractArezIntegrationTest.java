@@ -27,6 +27,7 @@ public abstract class AbstractArezIntegrationTest
   @Nonnull
   private final List<String> _observerErrors = new ArrayList<>();
   private boolean _captureObserverErrors;
+  @Nullable
   private String _currentMethod;
 
   protected final void captureObserverErrors()
@@ -35,7 +36,7 @@ public abstract class AbstractArezIntegrationTest
   }
 
   @BeforeMethod
-  public void handleTestMethodName( Method method )
+  public void handleTestMethodName( @Nonnull final Method method )
   {
     _currentMethod = method.getName();
     ArezTestUtil.resetConfig( false );
@@ -44,6 +45,7 @@ public abstract class AbstractArezIntegrationTest
     Arez.context().addObserverErrorHandler( this::onObserverError );
   }
 
+  @SuppressWarnings( "CallToPrintStackTrace" )
   private void onObserverError( @Nonnull final Observer observer,
                                 @Nonnull final ObserverError error,
                                 @Nullable final Throwable throwable )
