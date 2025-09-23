@@ -2419,7 +2419,9 @@ public final class ArezContext
                                       final boolean returnsResult,
                                       final Object result )
   {
-    final long duration = System.currentTimeMillis() - startedAt;
+    final long now = System.currentTimeMillis();
+    final long duration = now - startedAt;
+    final int durationAsInt = (int) duration;
     assert null != name;
     final Object[] params = null == parameters ? new Object[ 0 ] : parameters;
     getSpy().reportSpyEvent( new ActionCompleteEvent( name,
@@ -2428,7 +2430,7 @@ public final class ArezContext
                                                       returnsResult,
                                                       result,
                                                       t,
-                                                      (int) duration ) );
+                                                      durationAsInt ) );
   }
 
   @OmitSymbol
