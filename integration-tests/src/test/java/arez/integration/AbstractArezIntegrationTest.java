@@ -45,7 +45,6 @@ public abstract class AbstractArezIntegrationTest
     Arez.context().addObserverErrorHandler( this::onObserverError );
   }
 
-  @SuppressWarnings( "CallToPrintStackTrace" )
   private void onObserverError( @Nonnull final Observer observer,
                                 @Nonnull final ObserverError error,
                                 @Nullable final Throwable throwable )
@@ -57,7 +56,7 @@ public abstract class AbstractArezIntegrationTest
       System.out.println( message );
       if ( null != throwable )
       {
-        throwable.printStackTrace();
+        throwable.printStackTrace( System.out );
       }
     }
   }
