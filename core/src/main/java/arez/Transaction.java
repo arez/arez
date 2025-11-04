@@ -315,11 +315,11 @@ final class Transaction
         final boolean mutation = !Arez.shouldEnforceTransactionType() || c_transaction.isMutation();
         final Observer tracker = c_transaction.getTracker();
         final ObserverInfo trackerInfo = null != tracker ? tracker.asInfo() : null;
-        final long duration = System.currentTimeMillis() - c_transaction.getStartedAt();
+        final int duration = Math.max( 0, (int) ( System.currentTimeMillis() - c_transaction.getStartedAt() ) );
         c_transaction
           .getContext()
           .getSpy()
-          .reportSpyEvent( new TransactionCompleteEvent( name, mutation, trackerInfo, (int) duration ) );
+          .reportSpyEvent( new TransactionCompleteEvent( name, mutation, trackerInfo, duration ) );
       }
     }
     finally

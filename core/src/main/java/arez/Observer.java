@@ -605,10 +605,10 @@ public final class Observer
   {
     if ( isNotDisposed() )
     {
-      final long start;
+      final long startedAt;
       if ( willPropagateSpyEvents() )
       {
-        start = System.currentTimeMillis();
+        startedAt = System.currentTimeMillis();
         if ( isComputableValue() )
         {
           reportSpyEvent( new ComputeStartEvent( getComputableValue().asInfo() ) );
@@ -620,7 +620,7 @@ public final class Observer
       }
       else
       {
-        start = 0;
+        startedAt = 0;
       }
       Throwable error = null;
       try
@@ -659,20 +659,20 @@ public final class Observer
       }
       // start == 0 implies that spy events were enabled as part of observer, and thus we can skip this
       // chain of events
-      if ( willPropagateSpyEvents() && 0 != start )
+      if ( willPropagateSpyEvents() && 0 != startedAt )
       {
-        final long duration = System.currentTimeMillis() - start;
+        final int duration = Math.max( 0, (int) ( System.currentTimeMillis() - startedAt ) );
         if ( isComputableValue() )
         {
           final ComputableValue<?> computableValue = getComputableValue();
           reportSpyEvent( new ComputeCompleteEvent( computableValue.asInfo(),
                                                     noReportResults() ? null : computableValue.getValue(),
                                                     computableValue.getError(),
-                                                    (int) duration ) );
+                                                    duration ) );
         }
         else
         {
-          reportSpyEvent( new ObserveCompleteEvent( asInfo(), error, (int) duration ) );
+          reportSpyEvent( new ObserveCompleteEvent( asInfo(), error, duration ) );
         }
       }
     }

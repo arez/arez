@@ -179,8 +179,8 @@ public final class Task
     }
     if ( willPropagateSpyEvents() )
     {
-      final long duration = System.currentTimeMillis() - startedAt;
-      getSpy().reportSpyEvent( new TaskCompleteEvent( asInfo(), error, (int) duration ) );
+      final int duration = Math.max( 0, (int) ( System.currentTimeMillis() - startedAt ) );
+      getSpy().reportSpyEvent( new TaskCompleteEvent( asInfo(), error, duration ) );
     }
   }
 

@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Ensure that the duration is not negative when reporting duration in various spy events.
+
 ### [v0.222](https://github.com/arez/arez/tree/v0.222) (2025-08-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.221...v0.222)
 
 Changes in this release:
