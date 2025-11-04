@@ -50,7 +50,7 @@ public abstract class AbstractArezIntegrationTest
                                 @Nonnull final ObserverError error,
                                 @Nullable final Throwable throwable )
   {
-    final String message = "Observer: " + observer.getName() + " Error: " + error + " " + throwable;
+    final var message = "Observer: " + observer.getName() + " Error: " + error + " " + throwable;
     _observerErrors.add( message );
     if ( !_captureObserverErrors )
     {
