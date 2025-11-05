@@ -2,7 +2,7 @@
 
 ### Unreleased
 
-* Update the `org.realityforge.sting` artifacts to version `0.28`.
+* Update the `org.realityforge.sting` artifacts to version `0.29`.
 * Ensure that the duration is not negative when reporting duration in various spy events.
 
 ### [v0.222](https://github.com/arez/arez/tree/v0.222) (2025-08-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.221...v0.222)
