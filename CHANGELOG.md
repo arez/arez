@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the `org.realityforge.braincheck` artifacts to version `1.32.0`.
 * Update the `org.realityforge.sting` artifacts to version `0.29`.
 * Ensure that the duration is not negative when reporting duration in various spy events.
 
