@@ -60,7 +60,7 @@ Prerequisites: JDK 17+, Ruby 2.7.x with Bundler, Node.js (for docs site) and Yar
 - Language: Java 17; compilation uses `-Xlint:all` and `-Werror` (warnings must be fixed).
 - Indentation: 2 spaces; braces on a new line for types/methods; keep imports ordered and minimal.
 - Annotations: prefer `@Nonnull`/`@Nullable`; use `final` where practical.
-- Naming: packages lowercase (`sting.*`), classes `PascalCase`, methods/fields `camelCase`, constants `UPPER_SNAKE_CASE`.
+- Naming: packages lowercase (`arez.*`), classes `PascalCase`, methods/fields `camelCase`, constants `UPPER_SNAKE_CASE`.
 - Public API must include Javadoc; keep package-level docs in `package-info.java`.
 
 ## Testing Guidelines
