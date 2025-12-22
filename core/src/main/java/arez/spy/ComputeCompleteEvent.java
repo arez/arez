@@ -66,5 +66,6 @@ public final class ComputeCompleteEvent
       null == throwable ? null : null == throwable.getMessage() ? throwable.toString() : throwable.getMessage();
     map.put( "errorMessage", message );
     map.put( "result", getResult() );
+    SpyEventUtil.maybeAddZone( map );
   }
 }

@@ -17,10 +17,14 @@ import static org.realityforge.braincheck.Guards.*;
 final class ZoneHolder
 {
   /**
+   * The next numeric suffix for auto-generated zone names.
+   */
+  private static int c_nextZoneId = 1;
+  /**
    * Default zone if zones are enabled.
    */
   @Nullable
-  private static Zone c_defaultZone = Arez.areZonesEnabled() ? new Zone() : null;
+  private static Zone c_defaultZone = Arez.areZonesEnabled() ? createZone( null ) : null;
   /**
    * Default zone if zones are enabled.
    */
@@ -35,6 +39,19 @@ final class ZoneHolder
 
   private ZoneHolder()
   {
+  }
+
+  /**
+   * Create a new zone, generating a name if appropriate.
+   *
+   * @param name the optional name.
+   * @return the new zone instance.
+   */
+  @Nonnull
+  static Zone createZone( @Nullable final String name )
+  {
+    assert Arez.areZonesEnabled();
+    return new Zone( Arez.areNamesEnabled() ? null != name ? name : "Zone@" + c_nextZoneId++ : null );
   }
 
   /**
@@ -107,7 +124,8 @@ final class ZoneHolder
   @OmitSymbol
   static void reset()
   {
-    c_defaultZone = Arez.areZonesEnabled() ? new Zone() : null;
+    c_nextZoneId = 1;
+    c_defaultZone = Arez.areZonesEnabled() ? createZone( null ) : null;
     c_zone = c_defaultZone;
     c_zoneStack = Arez.areZonesEnabled() ? new ArrayList<>() : null;
   }

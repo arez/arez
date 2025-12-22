@@ -1,6 +1,7 @@
 package arez.spy;
 
 import arez.AbstractTest;
+import arez.ArezTestUtil;
 import arez.Arez;
 import arez.ArezContext;
 import arez.Task;
@@ -31,7 +32,8 @@ public final class TaskCompleteEventTest
     assertEquals( data.get( "name" ), task.getName() );
     assertEquals( data.get( "duration" ), duration );
     assertNull( data.get( "errorMessage" ) );
-    assertEquals( data.size(), 4 );
+    assertNotNull( data.get( "zone" ) );
+    assertEquals( data.size(), 5 );
   }
 
   @Test
@@ -54,6 +56,29 @@ public final class TaskCompleteEventTest
     assertEquals( data.get( "name" ), task.getName() );
     assertEquals( data.get( "duration" ), duration );
     assertEquals( data.get( "errorMessage" ), "Boo!" );
+    assertNotNull( data.get( "zone" ) );
+    assertEquals( data.size(), 5 );
+  }
+
+  @Test
+  public void basicOperation_zonesDisabled()
+  {
+    ArezTestUtil.disableZones();
+
+    final int duration = 23;
+    final ArezContext context = Arez.context();
+    final Task task = context.task( ValueUtil::randomString );
+    final TaskInfo info = context.getSpy().asTaskInfo( task );
+    final TaskCompleteEvent event = new TaskCompleteEvent( info, null, duration );
+
+    final HashMap<String, Object> data = new HashMap<>();
+    event.toMap( data );
+
+    assertEquals( data.get( "type" ), "TaskComplete" );
+    assertEquals( data.get( "name" ), task.getName() );
+    assertEquals( data.get( "duration" ), duration );
+    assertNull( data.get( "errorMessage" ) );
+    assertNull( data.get( "zone" ) );
     assertEquals( data.size(), 4 );
   }
 }

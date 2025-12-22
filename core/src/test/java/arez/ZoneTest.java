@@ -8,6 +8,46 @@ import static org.testng.Assert.*;
 public final class ZoneTest
   extends AbstractTest
 {
+  /**
+   * Verifies default and custom zone names are assigned.
+   */
+  @Test
+  public void zone_names_defaultAndCustom()
+  {
+    ArezTestUtil.enableZones();
+
+    // Default zone should have a name when names enabled
+    final Zone defaultZone = ZoneHolder.getDefaultZone();
+    assertNotNull( defaultZone.getName() );
+    assertTrue( defaultZone.getName().startsWith( "Zone@" ) );
+
+    // create unnamed zone should auto-generate incrementing name
+    final Zone z2 = Arez.createZone();
+    assertNotNull( z2.getName() );
+    assertTrue( z2.getName().startsWith( "Zone@" ) );
+
+    final Zone z3 = Arez.createZone();
+    assertNotNull( z3.getName() );
+    assertTrue( z3.getName().startsWith( "Zone@" ) );
+
+    // create named zone should keep name
+    final Zone zNamed = Arez.createZone( "MyZone" );
+    assertEquals( zNamed.getName(), "MyZone" );
+  }
+
+  @Test
+  public void zone_names_disabled()
+  {
+    ArezTestUtil.enableZones();
+    ArezTestUtil.disableNames();
+
+    assertInvariantFailure( () -> assertNull( ZoneHolder.getDefaultZone().getName() ),
+                            "Arez-0169: Zone.getName() invoked when Arez.areNamesEnabled() is false" );
+  }
+
+  /**
+   * Verifies zone activates during safe function execution.
+   */
   @Test
   public void zone_safeRun_Function()
   {

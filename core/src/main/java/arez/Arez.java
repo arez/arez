@@ -4,6 +4,7 @@ import arez.component.Verifiable;
 import grim.annotations.OmitClinit;
 import grim.annotations.OmitSymbol;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import org.realityforge.braincheck.BrainCheckConfig;
 import static org.realityforge.braincheck.Guards.*;
 
@@ -220,11 +221,25 @@ public final class Arez
   @Nonnull
   public static Zone createZone()
   {
+    return createZone( null );
+  }
+
+  /**
+   * Create a new named or unnamed zone.
+   * This zone is not yet activated.
+   *
+   * @param name the name of the zone. Should be null if {@link #areNamesEnabled()} returns false.
+   * @return the new zone.
+   */
+  @OmitSymbol( unless = "arez.enable_zones" )
+  @Nonnull
+  public static Zone createZone( @Nullable final String name )
+  {
     if ( shouldCheckApiInvariants() )
     {
       apiInvariant( Arez::areZonesEnabled, () -> "Arez-0001: Invoked Arez.createZone() but zones are not enabled." );
     }
-    return new Zone();
+    return ZoneHolder.createZone( name );
   }
 
   /**
@@ -254,7 +269,7 @@ public final class Arez
    */
   @OmitSymbol( unless = "arez.enable_zones" )
   @Nonnull
-  static Zone currentZone()
+  public static Zone currentZone()
   {
     return ZoneHolder.currentZone();
   }

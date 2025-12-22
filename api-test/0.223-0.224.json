@@ -1,0 +1,52 @@
+[
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method arez.Zone arez.Arez::createZone(java.lang.String)",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Arez",
+      "classSimpleName": "Arez",
+      "elementKind": "method",
+      "methodName": "createZone",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.method.visibilityIncreased",
+    "description": "visibility increased",
+    "element": "method arez.Zone arez.Arez::currentZone()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Arez",
+      "classSimpleName": "Arez",
+      "elementKind": "method",
+      "methodName": "currentZone",
+      "newVisibility": "public",
+      "oldVisibility": "package",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method java.lang.String arez.Zone::getName()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Zone",
+      "classSimpleName": "Zone",
+      "elementKind": "method",
+      "methodName": "getName",
+      "package": "arez"
+    }
+  }
+]

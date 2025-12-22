@@ -1,5 +1,6 @@
 package arez;
 
+import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -153,7 +154,7 @@ public final class ArezTest
   {
     ArezTestUtil.disableZones();
 
-    assertInvariantFailure( () -> Arez.activateZone( new Zone() ),
+    assertInvariantFailure( () -> Arez.activateZone( new Zone( ValueUtil.randomString() ) ),
                             "Arez-0002: Invoked Arez.activateZone() but zones are not enabled." );
   }
 
@@ -162,7 +163,7 @@ public final class ArezTest
   {
     ArezTestUtil.disableZones();
 
-    assertInvariantFailure( () -> Arez.deactivateZone( new Zone() ),
+    assertInvariantFailure( () -> Arez.deactivateZone( new Zone( ValueUtil.randomString() ) ),
                             "Arez-0003: Invoked Arez.deactivateZone() but zones are not enabled." );
   }
 
@@ -177,7 +178,7 @@ public final class ArezTest
   public void deactivateZone_whenNotActive()
   {
     ArezTestUtil.enableZones();
-    assertInvariantFailure( () -> Arez.deactivateZone( new Zone() ),
+    assertInvariantFailure( () -> Arez.deactivateZone( Arez.createZone() ),
                             "Arez-0004: Attempted to deactivate zone that is not active." );
   }
 }

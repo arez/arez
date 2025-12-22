@@ -29,5 +29,6 @@ public final class ComputableValueCreateEvent
   {
     map.put( "type", "ComputableValueCreate" );
     map.put( "name", getComputableValue().getName() );
+    SpyEventUtil.maybeAddZone( map );
   }
 }

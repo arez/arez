@@ -22,6 +22,7 @@ public final class SpyEventTestUtil
     final Map<String, Object> map = new HashMap<>();
     event.toMap( map );
     map.remove( "duration" );
+    map.remove( "zone" );
     if ( !keepValue )
     {
       map.remove( "value" );
