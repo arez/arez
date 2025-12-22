@@ -29,5 +29,6 @@ public final class ComputableValueDisposeEvent
   {
     map.put( "type", "ComputableValueDispose" );
     map.put( "name", getComputableValue().getName() );
+    SpyEventUtil.maybeAddZone( map );
   }
 }

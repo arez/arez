@@ -840,6 +840,11 @@
     "messagePattern": "Called attach() passing an entity that is disposed. Entity: %s"
   },
   {
+    "code": 169,
+    "type": "API_INVARIANT",
+    "messagePattern": "Zone.getName() invoked when Arez.areNamesEnabled() is false"
+  },
+  {
     "code": 170,
     "type": "INVARIANT",
     "messagePattern": "Attempting to add OnDispose listener but ComponentKernel has been disposed."

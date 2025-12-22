@@ -29,5 +29,6 @@ public final class ObservableValueDisposeEvent
   {
     map.put( "type", "ObservableValueDispose" );
     map.put( "name", getObservableValue().getName() );
+    SpyEventUtil.maybeAddZone( map );
   }
 }

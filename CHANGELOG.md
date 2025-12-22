@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Add names to zones. Names are unique and are present in serialized forms of event. This primarily enables multiple zones to operate within a single application without interfering or causing confusion to devtools
+
 ### [v0.223](https://github.com/arez/arez/tree/v0.223) (2025-12-05) · [Full Changelog](https://github.com/arez/arez/compare/v0.222...v0.223)
 
 Changes in this release:

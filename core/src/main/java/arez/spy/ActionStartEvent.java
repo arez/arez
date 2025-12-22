@@ -50,5 +50,6 @@ public final class ActionStartEvent
     map.put( "name", getName() );
     map.put( "tracked", isTracked() );
     map.put( "parameters", getParameters() );
+    SpyEventUtil.maybeAddZone( map );
   }
 }

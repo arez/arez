@@ -29,5 +29,6 @@ public final class ObserveStartEvent
   {
     map.put( "type", "ObserveStart" );
     map.put( "name", getObserver().getName() );
+    SpyEventUtil.maybeAddZone( map );
   }
 }

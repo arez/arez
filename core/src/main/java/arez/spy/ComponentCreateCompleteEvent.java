@@ -29,5 +29,6 @@ public final class ComponentCreateCompleteEvent
   {
     map.put( "type", "ComponentCreateComplete" );
     map.put( "name", getComponentInfo().getName() );
+    SpyEventUtil.maybeAddZone( map );
   }
 }

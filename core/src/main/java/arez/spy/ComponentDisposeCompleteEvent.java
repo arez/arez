@@ -29,5 +29,6 @@ public final class ComponentDisposeCompleteEvent
   {
     map.put( "type", "ComponentDisposeComplete" );
     map.put( "name", getComponentInfo().getName() );
+    SpyEventUtil.maybeAddZone( map );
   }
 }

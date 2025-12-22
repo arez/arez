@@ -29,5 +29,6 @@ public final class ObservableValueCreateEvent
   {
     map.put( "type", "ObservableValueCreate" );
     map.put( "name", getObservableValue().getName() );
+    SpyEventUtil.maybeAddZone( map );
   }
 }

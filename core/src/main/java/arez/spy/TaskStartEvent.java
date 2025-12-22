@@ -29,5 +29,6 @@ public final class TaskStartEvent
   {
     map.put( "type", "TaskStart" );
     map.put( "name", getTask().getName() );
+    SpyEventUtil.maybeAddZone( map );
   }
 }
