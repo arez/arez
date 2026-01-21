@@ -1,5 +1,20 @@
 [
   {
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "class arez.spy.ActionSkippedEvent",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.spy.ActionSkippedEvent",
+      "classSimpleName": "ActionSkippedEvent",
+      "elementKind": "class",
+      "package": "arez.spy"
+    }
+  },
+  {
     "code": "java.method.added",
     "description": "Method was added.",
     "newElement": "method arez.Zone arez.Arez::createZone(java.lang.String)",
@@ -31,6 +46,22 @@
       "newVisibility": "public",
       "oldVisibility": "package",
       "package": "arez"
+    }
+  },
+  {
+    "code": "java.method.attributeWithDefaultAddedToAnnotationType",
+    "description": "The annotation has a new attribute with a default value.",
+    "newElement": "method boolean arez.annotations.Action::skipIfDisposed()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.Action",
+      "classSimpleName": "Action",
+      "elementKind": "method",
+      "methodName": "skipIfDisposed",
+      "package": "arez.annotations"
     }
   },
   {
