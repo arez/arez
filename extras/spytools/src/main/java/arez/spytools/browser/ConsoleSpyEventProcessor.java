@@ -4,6 +4,7 @@ import akasha.Console;
 import akasha.core.JSON;
 import arez.Arez;
 import arez.spy.ActionCompleteEvent;
+import arez.spy.ActionSkippedEvent;
 import arez.spy.ActionStartEvent;
 import arez.spy.ComponentCreateCompleteEvent;
 import arez.spy.ComponentCreateStartEvent;
@@ -104,6 +105,7 @@ public class ConsoleSpyEventProcessor
 
     on( ActionStartEvent.class, this::onActionStart );
     on( ActionCompleteEvent.class, this::onActionComplete );
+    on( ActionSkippedEvent.class, this::onActionSkipped );
 
     on( TaskStartEvent.class, this::onTaskStart );
     on( TaskCompleteEvent.class, this::onTaskComplete );
@@ -434,6 +436,20 @@ public class ConsoleSpyEventProcessor
                            " Duration [" +
                            e.getDuration() +
                            "]";
+    log( d, "%c" + message, ACTION_COLOR );
+  }
+
+  /**
+   * Handle the ActionSkippedEvent.
+   *
+   * @param d the change in nesting level.
+   * @param e the event.
+   */
+  protected void onActionSkipped( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ActionSkippedEvent e )
+  {
+    final String message =
+      ( e.isTracked() ? "Tracked " : "" ) + "Action Skipped " + e.getName() +
+      parametersToString( e.getParameters() );
     log( d, "%c" + message, ACTION_COLOR );
   }
 

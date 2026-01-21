@@ -36,6 +36,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.action.UnsafeProcedureActionModel" },
         new Object[]{ "com.example.action.NoReportResultActionModel" },
         new Object[]{ "com.example.action.NoVerifyActionModel" },
+        new Object[]{ "com.example.action.SkipIfDisposedActionModel" },
         new Object[]{ "com.example.action.ReadOnlyActionModel" },
         new Object[]{ "com.example.action.RequiresNewTxTypeActionModel" },
         new Object[]{ "com.example.action.RequiresTxTypeActionModel" },
@@ -1340,6 +1341,8 @@ public final class ArezProcessorTest
                       "@javax.xml.ws.Action annotation not supported in components annotated with @ArezComponent, use the @arez.annotations.Action annotation instead." },
         new Object[]{ "com.example.action.PrivateActionModel", "@Action target must not be private" },
         new Object[]{ "com.example.action.StaticActionModel", "@Action target must not be static" },
+        new Object[]{ "com.example.action.SkipIfDisposedReturnsValueModel",
+                      "@Action target must not return a value when skipIfDisposed=true" },
 
         new Object[]{ "com.example.observe.ApplicationExecutorButNoOnDepsChangeModel",
                       "@Observe target defined parameter executor=EXTERNAL but does not specify an @OnDepsChange method." },

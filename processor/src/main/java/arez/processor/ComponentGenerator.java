@@ -51,6 +51,7 @@ final class ComponentGenerator
   private static final ClassName GUARDS_CLASSNAME = ClassName.get( "org.realityforge.braincheck", "Guards" );
   private static final ClassName AREZ_CLASSNAME = ClassName.get( "arez", "Arez" );
   private static final ClassName ACTION_FLAGS_CLASSNAME = ClassName.get( "arez", "ActionFlags" );
+  private static final ClassName ACTION_SKIPPED_EVENT_CLASSNAME = ClassName.get( "arez.spy", "ActionSkippedEvent" );
   private static final ClassName OBSERVER_FLAGS_CLASSNAME = ClassName.get( "arez", "Observer", "Flags" );
   private static final ClassName COMPUTABLE_VALUE_FLAGS_CLASSNAME = ClassName.get( "arez", "ComputableValue", "Flags" );
   private static final ClassName AREZ_CONTEXT_CLASSNAME = ClassName.get( "arez", "ArezContext" );
@@ -683,7 +684,33 @@ final class ComponentGenerator
     }
     statement.append( " )" );
 
-    generateNotDisposedInvariant( method, methodName );
+    if ( action.isSkipIfDisposed() )
+    {
+      final CodeBlock nameExpr =
+        CodeBlock.of( "$T.areNamesEnabled() ? this.$N.getName() + $S : null",
+                      AREZ_CLASSNAME,
+                      KERNEL_FIELD_NAME,
+                      "." + action.getName() );
+      final CodeBlock parametersExpr = buildActionParametersExpression( action, parameters );
+      final CodeBlock.Builder guardBlock = CodeBlock.builder();
+      guardBlock.beginControlFlow( "if ( this.$N.isDisposed() )", KERNEL_FIELD_NAME );
+      guardBlock.beginControlFlow( "if ( $T.areSpiesEnabled() && this.$N.getContext().getSpy().willPropagateSpyEvents() )",
+                                   AREZ_CLASSNAME,
+                                   KERNEL_FIELD_NAME );
+      guardBlock.addStatement( "this.$N.getContext().getSpy().reportSpyEvent( new $T( $L, false, $L ) )",
+                               KERNEL_FIELD_NAME,
+                               ACTION_SKIPPED_EVENT_CLASSNAME,
+                               nameExpr,
+                               parametersExpr );
+      guardBlock.endControlFlow();
+      guardBlock.addStatement( "return" );
+      guardBlock.endControlFlow();
+      method.addCode( guardBlock.build() );
+    }
+    else
+    {
+      generateNotDisposedInvariant( method, methodName );
+    }
     if ( isSafe )
     {
       method.addStatement( statement.toString(), params.toArray() );
@@ -696,6 +723,33 @@ final class ComponentGenerator
     }
 
     return method.build();
+  }
+
+  @Nonnull
+  private static CodeBlock buildActionParametersExpression( @Nonnull final ActionDescriptor action,
+                                                            @Nonnull final List<? extends VariableElement> parameters )
+  {
+    if ( action.isReportParameters() && !parameters.isEmpty() )
+    {
+      final CodeBlock.Builder builder = CodeBlock.builder();
+      builder.add( "new $T[] { ", Object.class );
+      boolean firstParam = true;
+      for ( final VariableElement parameter : parameters )
+      {
+        if ( !firstParam )
+        {
+          builder.add( ", " );
+        }
+        firstParam = false;
+        builder.add( "$N", parameter.getSimpleName().toString() );
+      }
+      builder.add( " }" );
+      return builder.build();
+    }
+    else
+    {
+      return CodeBlock.of( "new $T[ 0 ]", Object.class );
+    }
   }
 
   private static void appendActionFlags( @Nonnull final ActionDescriptor action,
