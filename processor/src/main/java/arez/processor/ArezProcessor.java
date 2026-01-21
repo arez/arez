@@ -3210,7 +3210,7 @@ public final class ArezProcessor
               isTypeAnnotatedByComponentAnnotation ? "an Arez component" :
               "annotated with @ActAsComponent";
             final String message =
-              "Field named '" + field.getSimpleName().toString() + "' has a type that is " + label +
+              "Field named '" + field.getSimpleName() + "' has a type that is " + label +
               " but is not annotated with @" + Constants.CASCADE_DISPOSE_CLASSNAME + " or " +
               "@" + Constants.COMPONENT_DEPENDENCY_CLASSNAME + " and was not injected into the " +
               "constructor. This scenario can cause errors if the value is disposed. Please " +
@@ -3254,7 +3254,7 @@ public final class ArezProcessor
                 isTypeAnnotatedByComponentAnnotation ? "an Arez component" :
                 "annotated with @ActAsComponent";
               final String message =
-                "Method named '" + getter.getSimpleName().toString() + "' has a return type that is " + label +
+                "Method named '" + getter.getSimpleName() + "' has a return type that is " + label +
                 " but is not annotated with @" + Constants.CASCADE_DISPOSE_CLASSNAME + " or " +
                 "@" + Constants.COMPONENT_DEPENDENCY_CLASSNAME + ". This scenario can cause errors. " +
                 "Please annotate the method as appropriate or suppress the warning by annotating the method with " +
