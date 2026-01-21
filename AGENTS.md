@@ -10,7 +10,7 @@ reasonable alternatives.
 
 ## Project Structure & Module Organization
 
-- Java modules: 
+- Java modules:
   - `core/` (runtime and annotations)
   - `processor/` (annotation processor)
   - `extras/dom` (Arez-Enabled DOM components) and `extras/dom-example` (Examples for the DOM components)
