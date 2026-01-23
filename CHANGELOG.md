@@ -1,5 +1,7 @@
 # Change Log
 
+### Unreleased
+
 ### [v0.225](https://github.com/arez/arez/tree/v0.225) (2026-01-23) · [Full Changelog](https://github.com/arez/arez/compare/v0.224...v0.225) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.224&new=0.225)
 
 The release includes 1 non breaking API change.
