@@ -1098,6 +1098,11 @@ public final class ArezProcessor
     final boolean reportResult = AnnotationsUtil.getAnnotationValueValue( annotation, "reportResult" );
     final boolean verifyRequired = AnnotationsUtil.getAnnotationValueValue( annotation, "verifyRequired" );
     final boolean skipIfDisposed = AnnotationsUtil.getAnnotationValueValue( annotation, "skipIfDisposed" );
+    if ( !reportParameters && method.getParameters().isEmpty() )
+    {
+      throw new ProcessorException( "@Action target must not specify reportParameters parameter " +
+                                    "when no parameters are present", method );
+    }
     if ( skipIfDisposed && TypeKind.VOID != methodType.getReturnType().getKind() )
     {
       throw new ProcessorException( "@Action target must not return a value when skipIfDisposed=true", method );

@@ -1341,6 +1341,8 @@ public final class ArezProcessorTest
                       "@javax.xml.ws.Action annotation not supported in components annotated with @ArezComponent, use the @arez.annotations.Action annotation instead." },
         new Object[]{ "com.example.action.PrivateActionModel", "@Action target must not be private" },
         new Object[]{ "com.example.action.StaticActionModel", "@Action target must not be static" },
+        new Object[]{ "com.example.action.ReportParametersWithNoParametersActionModel",
+                      "@Action target must not specify reportParameters parameter when no parameters are present" },
         new Object[]{ "com.example.action.SkipIfDisposedReturnsValueModel",
                       "@Action target must not return a value when skipIfDisposed=true" },
 

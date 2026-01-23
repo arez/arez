@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Reject `@Action(reportParameters = false)` when the action method has no parameters.
+
 ### [v0.224](https://github.com/arez/arez/tree/v0.224) (2026-01-21) · [Full Changelog](https://github.com/arez/arez/compare/v0.223...v0.224) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.223&new=0.224)
 
 The release includes 4 non breaking API changes.
