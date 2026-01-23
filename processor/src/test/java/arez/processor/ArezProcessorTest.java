@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.processing.Processor;
 import javax.tools.JavaFileObject;
+import org.jetbrains.annotations.Contract;
 import org.realityforge.proton.qa.AbstractProcessorTest;
 import org.realityforge.proton.qa.Compilation;
 import org.realityforge.proton.qa.CompileTestUtil;
@@ -2127,6 +2128,7 @@ public final class ArezProcessorTest
   }
 
   @Nonnull
+  @Contract( value = " -> new", pure = true )
   @DataProvider( name = "compileWithWarnings" )
   public Object[][] compileWithWarnings()
   {
