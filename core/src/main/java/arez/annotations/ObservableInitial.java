@@ -13,8 +13,8 @@ import javax.annotation.Nonnull;
  * The annotated element must be a static, final field or a static method. The initial value will be used
  * when constructing the generated component and removes the need to pass the value via the constructor.</p>
  *
- * <p>If the associated {@link Observable} getter is annotated with {@link javax.annotation.Nonnull} then
- * the annotated field or method should also be annotated with {@link javax.annotation.Nonnull}.</p>
+ * <p>If the associated {@link Observable} getter is annotated with {@link Nonnull} then
+ * the annotated field or method should also be annotated with {@link Nonnull}.</p>
  */
 @Documented
 @Target( { ElementType.METHOD, ElementType.FIELD } )
