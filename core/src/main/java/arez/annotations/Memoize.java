@@ -47,7 +47,7 @@ public @interface Memoize
    * If the method has parameters then the name will be used in combination with a sequence
    * when naming the synthesized {@link ComputableValue} instances. The value must conform to
    * the requirements of a java identifier. The name must also be unique across {@link Observable}s,
-   * {@link Memoize}s and {@link Action}s within the scope of the {@link ArezComponent} annotated element.
+   * {@code Memoize}s and {@link Action}s within the scope of the {@link ArezComponent} annotated element.
    *
    * @return the root name of the element relative to the component.
    */
