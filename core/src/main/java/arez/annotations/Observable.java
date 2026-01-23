@@ -63,7 +63,7 @@ public @interface Observable
    * This parameter should only be set to {@link Feature#ENABLE} when the observable property is defined by a
    * pair of abstract methods. If set to {@link Feature#AUTODETECT} then an initializer will be added for an
    * observable property if it is defined by a pair of abstract methods and the values is annotated with the
-   * {@link javax.annotation.Nonnull} annotation and it is not annotated by {@link Inverse}.
+   * {@link Nonnull} annotation and it is not annotated by {@link Inverse}.
    * It is an error to set this parameter to {@link Feature#ENABLE} when the property has an
    * {@link ObservableInitial} annotation. If {@link ObservableInitial} is present and this parameter is
    * {@link Feature#AUTODETECT}, the initializer is treated as {@link Feature#DISABLE}.
@@ -74,6 +74,7 @@ public @interface Observable
    *
    * @return flag controlling whether a parameter should be added to the constructor to initialize the property.
    */
+  @Nonnull
   Feature initializer() default Feature.AUTODETECT;
 
   /**

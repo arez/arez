@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
  * the {@link ArezComponent} annotation or a {@link java.util.Collection}, a {@link java.util.List} or a
  * {@link java.util.Set} where the type parameter refers to a class annotated with the
  * {@link ArezComponent} annotation. If the method returns a non-collection type then the type
- * must also be annotated with either {@link javax.annotation.Nonnull} or {@link javax.annotation.Nullable}.
+ * must also be annotated with either {@link Nonnull} or {@link javax.annotation.Nullable}.
  *
  * <p>The method must also conform to the following constraints:</p>
  * <ul>

@@ -22,8 +22,8 @@ Abstract observables typically require a constructor parameter to supply the ini
 initialized from a static field or static method, removing the need for constructor parameters.
 
 The annotated field must be `static final` (or a `static` method) and the associated observable must be abstract.
-If the observable getter is annotated with {@link: javax.annotation.Nonnull @Nonnull} then the initializer
-must also be annotated with {@link: javax.annotation.Nonnull @Nonnull}.
+If the observable getter is annotated with `javax.annotation.Nonnull` then the initializer
+must also be annotated with `javax.annotation.Nonnull`.
 
 For example:
 
