@@ -41,8 +41,8 @@ public @interface Inverse
   /**
    * Return the name of the reference that the inverse is associated with. The value must conform
    * to the requirements of a java identifier. If not specified, the name will be derived by assuming
-   * that the reference name is the camelCase name of the class on which the {@link Inverse} annotation
-   * appears unless the {@link Inverse} appears on an interface in which case it is the class annotated
+   * that the reference name is the camelCase name of the class on which the {@code Inverse} annotation
+   * appears unless the {@code Inverse} appears on an interface in which case it is the class annotated
    * with {@link ArezComponent}.
    *
    * @return the name of the reference relative to the component.
