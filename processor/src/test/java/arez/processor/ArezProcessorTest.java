@@ -2126,6 +2126,7 @@ public final class ArezProcessorTest
     assertFailedCompile( classname, messageFragment );
   }
 
+  @Nonnull
   @DataProvider( name = "compileWithWarnings" )
   public Object[][] compileWithWarnings()
   {
