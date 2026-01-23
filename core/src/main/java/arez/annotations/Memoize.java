@@ -66,7 +66,7 @@ public @interface Memoize
   boolean keepAlive() default false;
 
   /**
-   * The priority of the underlying ComputableValue observer
+   * The priority of the underlying ComputableValue observer.
    *
    * @return the priority of the ComputableValue observer.
    */
