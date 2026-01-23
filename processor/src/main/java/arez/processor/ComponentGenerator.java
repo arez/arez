@@ -1924,6 +1924,34 @@ final class ComponentGenerator
       }
     }
 
+    for ( final ObservableDescriptor observable : component.getObservables().values() )
+    {
+      if ( observable.hasObservableInitial() )
+      {
+        final ObservableInitialDescriptor observableInitial = observable.getObservableInitial();
+        final CodeBlock initializer =
+          observableInitial.isField() ?
+          CodeBlock.of( "$T.$N", component.getClassName(), observableInitial.getField().getSimpleName() ) :
+          CodeBlock.of( "$T.$N()", component.getClassName(), observableInitial.getMethod().getSimpleName() );
+        final boolean isPrimitive = TypeName.get( observable.getGetterType().getReturnType() ).isPrimitive();
+        if ( isPrimitive )
+        {
+          builder.addStatement( "this.$N = $L", observable.getDataFieldName(), initializer );
+        }
+        else if ( observable.isGetterNonnull() )
+        {
+          builder.addStatement( "this.$N = $T.requireNonNull( $L )",
+                                observable.getDataFieldName(),
+                                Objects.class,
+                                initializer );
+        }
+        else
+        {
+          builder.addStatement( "this.$N = $L", observable.getDataFieldName(), initializer );
+        }
+      }
+    }
+
     component.getObservables().values().forEach( observable -> buildObservableInitializer( observable, builder ) );
     component.getMemoizes().values().forEach( memoize -> buildMemoizeInitializer( memoize, builder ) );
     component.getObserves().values().forEach( observe -> buildObserveInitializer( observe, builder ) );

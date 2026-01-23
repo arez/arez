@@ -36,6 +36,8 @@ final class ObservableDescriptor
   private boolean _setterAlwaysMutates;
   private Boolean _initializer;
   @Nullable
+  private ObservableInitialDescriptor _observableInitial;
+  @Nullable
   private ExecutableElement _getter;
   @Nullable
   private ExecutableType _getterType;
@@ -89,6 +91,30 @@ final class ObservableDescriptor
   void setInitializer( @Nonnull final Boolean initializer )
   {
     _initializer = Objects.requireNonNull( initializer );
+  }
+
+  boolean hasObservableInitial()
+  {
+    return null != _observableInitial;
+  }
+
+  void setObservableInitial( @Nonnull final ObservableInitialDescriptor observableInitial )
+    throws ProcessorException
+  {
+    if ( null != _observableInitial )
+    {
+      throw new ProcessorException( "@ObservableInitial target duplicates existing initializer for observable " +
+                                    "named " + getName(),
+                                    observableInitial.getElement() );
+    }
+    _observableInitial = Objects.requireNonNull( observableInitial );
+  }
+
+  @Nonnull
+  ObservableInitialDescriptor getObservableInitial()
+  {
+    assert null != _observableInitial;
+    return _observableInitial;
   }
 
   void setSetterAlwaysMutates( final boolean setterAlwaysMutates )

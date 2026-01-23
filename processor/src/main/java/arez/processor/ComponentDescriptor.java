@@ -70,6 +70,8 @@ final class ComponentDescriptor
   @Nonnull
   private final Map<String, ObservableDescriptor> _observables = new LinkedHashMap<>();
   @Nonnull
+  private final Map<String, ObservableInitialDescriptor> _observableInitials = new LinkedHashMap<>();
+  @Nonnull
   private final Map<String, ActionDescriptor> _actions = new LinkedHashMap<>();
   @Nonnull
   private final Map<String, MemoizeContextParameterDescriptor> _memoizeContextParameters = new LinkedHashMap<>();
@@ -305,6 +307,12 @@ final class ComponentDescriptor
   Map<String, ObservableDescriptor> getObservables()
   {
     return _observables;
+  }
+
+  @Nonnull
+  Map<String, ObservableInitialDescriptor> getObservableInitials()
+  {
+    return _observableInitials;
   }
 
   boolean requiresSchedule()

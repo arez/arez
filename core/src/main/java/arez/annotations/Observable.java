@@ -64,6 +64,9 @@ public @interface Observable
    * pair of abstract methods. If set to {@link Feature#AUTODETECT} then an initializer will be added for an
    * observable property if it is defined by a pair of abstract methods and the values is annotated with the
    * {@link javax.annotation.Nonnull} annotation and it is not annotated by {@link Inverse}.
+   * It is an error to set this parameter to {@link Feature#ENABLE} when the property has an
+   * {@link ObservableInitial} annotation. If {@link ObservableInitial} is present and this parameter is
+   * {@link Feature#AUTODETECT}, the initializer is treated as {@link Feature#DISABLE}.
    *
    * <p>The initializer parameters will be added as additional parameters at the end of the parameter list in
    * the generated classes constructors. The initializers will be defined in the order that the observable

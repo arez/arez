@@ -47,6 +47,8 @@ final class Constants
   @Nonnull
   static final String OBSERVABLE_CLASSNAME = "arez.annotations.Observable";
   @Nonnull
+  static final String OBSERVABLE_INITIAL_CLASSNAME = "arez.annotations.ObservableInitial";
+  @Nonnull
   static final String OBSERVABLE_VALUE_REF_CLASSNAME = "arez.annotations.ObservableValueRef";
   @Nonnull
   static final String OBSERVER_REF_CLASSNAME = "arez.annotations.ObserverRef";

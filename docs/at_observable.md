@@ -15,6 +15,20 @@ For example:
 
 {@file_content: file=arez/doc/examples/at_observable2/MyModel.java start_line=@ArezComponent "end_line=^}"}
 
+## Initial values
+
+Abstract observables typically require a constructor parameter to supply the initial value. The
+{@link: arez.annotations.ObservableInitial @ObservableInitial} annotation allows an abstract observable to be
+initialized from a static field or static method, removing the need for constructor parameters.
+
+The annotated field must be `static final` (or a `static` method) and the associated observable must be abstract.
+If the observable getter is annotated with {@link: javax.annotation.Nonnull @Nonnull} then the initializer
+must also be annotated with {@link: javax.annotation.Nonnull @Nonnull}.
+
+For example:
+
+{@file_content: file=arez/doc/examples/at_observable_initial/MyModel.java start_line=@ArezComponent "end_line=^}"}
+
 There are additional constraints that are apply when defining observable. i.e. The type of the getter and setter
 must match. These constraints are detailed in the {@link: arez.annotations.Observable @Observable} API documentation.
 

@@ -43,7 +43,9 @@ An easier way to define observable properties is with a pair of abstract methods
 wil define the field and method bodies appropriately and it will initialize the field to the normal java
 default value (i.e. `null`, `0` or `false` depending on the type of the field.) You can also get the annotation
 processor to initialize the value of the property with a value passed in through the constructor by
-specifying the `initializer` parameter on the `@Observable` annotation. For example:
+specifying the `initializer` parameter on the `@Observable` annotation. For abstract observables you can
+also supply an initial value via the {@link: arez.annotations.ObservableInitial @ObservableInitial}
+annotation on a static field or static method. For example:
 
 {@file_content: file=arez/doc/examples/step2b/TrainTicket.java start_line=@ArezComponent}
 

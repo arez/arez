@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -74,6 +75,10 @@ public final class ArezProcessor
   private static final Pattern SETTER_PATTERN = Pattern.compile( "^set([A-Z].*)$" );
   @Nonnull
   private static final Pattern ISSER_PATTERN = Pattern.compile( "^is([A-Z].*)$" );
+  @Nonnull
+  private static final Pattern OBSERVABLE_INITIAL_METHOD_PATTERN = Pattern.compile( "^getInitial([A-Z].*)$" );
+  @Nonnull
+  private static final Pattern OBSERVABLE_INITIAL_FIELD_PATTERN = Pattern.compile( "^INITIAL_([A-Z].*)$" );
   @Nonnull
   private static final List<String> OBJECT_METHODS =
     Arrays.asList( "hashCode", "equals", "clone", "toString", "finalize", "getClass", "wait", "notifyAll", "notify" );
@@ -794,6 +799,7 @@ public final class ArezProcessor
                      Constants.ON_DEPS_CHANGE_CLASSNAME,
                      Constants.OBSERVER_REF_CLASSNAME,
                      Constants.OBSERVABLE_CLASSNAME,
+                     Constants.OBSERVABLE_INITIAL_CLASSNAME,
                      Constants.OBSERVABLE_VALUE_REF_CLASSNAME,
                      Constants.MEMOIZE_CLASSNAME,
                      Constants.MEMOIZE_CONTEXT_PARAMETER_CLASSNAME,
@@ -830,7 +836,8 @@ public final class ArezProcessor
   {
     MemberChecks.verifyNoOverlappingAnnotations( field,
                                                  Arrays.asList( Constants.COMPONENT_DEPENDENCY_CLASSNAME,
-                                                                Constants.CASCADE_DISPOSE_CLASSNAME ),
+                                                                Constants.CASCADE_DISPOSE_CLASSNAME,
+                                                                Constants.OBSERVABLE_INITIAL_CLASSNAME ),
                                                  Collections.emptyMap() );
   }
 
@@ -1533,6 +1540,59 @@ public final class ArezProcessor
     }
   }
 
+  private void linkObservableInitials( @Nonnull final ComponentDescriptor component )
+  {
+    for ( final ObservableInitialDescriptor observableInitial : component.getObservableInitials().values() )
+    {
+      final String name = observableInitial.getName();
+      final ObservableDescriptor observable = component.getObservables().get( name );
+      if ( null == observable )
+      {
+        throw new ProcessorException( "@ObservableInitial target defined observable named '" + name + "' but no " +
+                                      "@Observable method with that name exists", observableInitial.getElement() );
+      }
+      if ( !observable.hasGetter() )
+      {
+        throw new ProcessorException( "@ObservableInitial target defined observable named '" + name + "' but the " +
+                                      "observable does not define a getter", observableInitial.getElement() );
+      }
+      if ( !observable.isAbstract() )
+      {
+        throw new ProcessorException( "@ObservableInitial target defined observable named '" + name + "' but the " +
+                                      "observable is not abstract", observableInitial.getElement() );
+      }
+
+      final TypeMirror observableType = observable.getGetterType().getReturnType();
+      final TypeMirror initialType = observableInitial.getType();
+      if ( !processingEnv.getTypeUtils().isSameType( initialType, observableType ) &&
+           !initialType.toString().equals( observableType.toString() ) )
+      {
+        throw new ProcessorException( "@ObservableInitial target defined observable named '" + name +
+                                      "' with incompatible type. Observable type: " + observableType +
+                                      " Initial type: " + initialType + ".", observableInitial.getElement() );
+      }
+      if ( observable.isGetterNonnull() && !AnnotationsUtil.hasNonnullAnnotation( observableInitial.getElement() ) )
+      {
+        throw new ProcessorException( "@ObservableInitial target defined observable named '" + name + "' but " +
+                                      "the initializer is not annotated with @" + AnnotationsUtil.NONNULL_CLASSNAME,
+                                      observableInitial.getElement() );
+      }
+
+      final Boolean initializer = observable.getInitializer();
+      if ( Boolean.TRUE.equals( initializer ) )
+      {
+        throw new ProcessorException( "@ObservableInitial target defined observable named '" + name + "' but " +
+                                      "the observable defines initializer = Feature.ENABLE which is not " +
+                                      "compatible with @ObservableInitial", observableInitial.getElement() );
+      }
+      if ( null == initializer )
+      {
+        observable.setInitializer( Boolean.FALSE );
+      }
+      observable.setObservableInitial( observableInitial );
+    }
+  }
+
   @Nullable
   private Boolean isInitializerRequired( @Nonnull final ExecutableElement element )
   {
@@ -1639,6 +1699,15 @@ public final class ArezProcessor
       .forEach( field -> processComponentDependencyField( component, field ) );
   }
 
+  private void processObservableInitialFields( @Nonnull final ComponentDescriptor component,
+                                               @Nonnull final List<VariableElement> fields )
+  {
+    fields
+      .stream()
+      .filter( f -> AnnotationsUtil.hasAnnotationOfType( f, Constants.OBSERVABLE_INITIAL_CLASSNAME ) )
+      .forEach( field -> processObservableInitialField( component, field ) );
+  }
+
   private void processComponentDependencyField( @Nonnull final ComponentDescriptor component,
                                                 @Nonnull final VariableElement field )
   {
@@ -1648,6 +1717,159 @@ public final class ArezProcessor
                                          Constants.COMPONENT_DEPENDENCY_CLASSNAME,
                                          field );
     component.addDependency( createFieldDependencyDescriptor( component, field ) );
+  }
+
+  private void processObservableInitialField( @Nonnull final ComponentDescriptor component,
+                                              @Nonnull final VariableElement field )
+  {
+    verifyNoDuplicateAnnotations( field );
+    if ( !field.getModifiers().contains( Modifier.STATIC ) )
+    {
+      throw new ProcessorException( "@ObservableInitial target must be static", field );
+    }
+    if ( field.getModifiers().contains( Modifier.PRIVATE ) )
+    {
+      throw new ProcessorException( "@ObservableInitial target must not be private", field );
+    }
+    MemberChecks.mustBeFinal( Constants.OBSERVABLE_INITIAL_CLASSNAME, field );
+
+    final AnnotationMirror annotation =
+      AnnotationsUtil.getAnnotationByType( field, Constants.OBSERVABLE_INITIAL_CLASSNAME );
+    final String declaredName = AnnotationsUtil.getAnnotationValueValue( annotation, "name" );
+    final String name = deriveObservableInitialName( field, declaredName );
+    if ( null == name )
+    {
+      throw new ProcessorException( "Field annotated with @ObservableInitial should specify name or be " +
+                                    "named according to the convention INITIAL_[Name]", field );
+    }
+
+    addObservableInitial( component, new ObservableInitialDescriptor( name, field ) );
+  }
+
+  private void addObservableInitialMethod( @Nonnull final ComponentDescriptor component,
+                                           @Nonnull final AnnotationMirror annotation,
+                                           @Nonnull final ExecutableElement method,
+                                           @Nonnull final ExecutableType methodType )
+  {
+    if ( !method.getModifiers().contains( Modifier.STATIC ) )
+    {
+      throw new ProcessorException( "@ObservableInitial target must be static", method );
+    }
+    if ( method.getModifiers().contains( Modifier.PRIVATE ) )
+    {
+      throw new ProcessorException( "@ObservableInitial target must not be private", method );
+    }
+    MemberChecks.mustNotBeAbstract( Constants.OBSERVABLE_INITIAL_CLASSNAME, method );
+    MemberChecks.mustNotHaveAnyParameters( Constants.OBSERVABLE_INITIAL_CLASSNAME, method );
+    MemberChecks.mustReturnAValue( Constants.OBSERVABLE_INITIAL_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.OBSERVABLE_INITIAL_CLASSNAME, method );
+
+    final String declaredName = AnnotationsUtil.getAnnotationValueValue( annotation, "name" );
+    final String name = deriveObservableInitialName( method, declaredName );
+    if ( null == name )
+    {
+      throw new ProcessorException( "Method annotated with @ObservableInitial should specify name or be " +
+                                    "named according to the convention getInitial[Name]", method );
+    }
+
+    addObservableInitial( component, new ObservableInitialDescriptor( name, method, methodType ) );
+  }
+
+  private void addObservableInitial( @Nonnull final ComponentDescriptor component,
+                                     @Nonnull final ObservableInitialDescriptor descriptor )
+  {
+    final String name = descriptor.getName();
+    if ( component.getObservableInitials().containsKey( name ) )
+    {
+      throw new ProcessorException( "@ObservableInitial target duplicates existing initializer for observable " +
+                                    "named " + name, descriptor.getElement() );
+    }
+    component.getObservableInitials().put( name, descriptor );
+  }
+
+  @Nullable
+  private String deriveObservableInitialName( @Nonnull final ExecutableElement method,
+                                              @Nonnull final String declaredName )
+  {
+    if ( Constants.SENTINEL.equals( declaredName ) )
+    {
+      return deriveName( method, OBSERVABLE_INITIAL_METHOD_PATTERN, declaredName );
+    }
+    else
+    {
+      if ( !SourceVersion.isIdentifier( declaredName ) )
+      {
+        throw new ProcessorException( "@ObservableInitial target specified an invalid name '" + declaredName +
+                                      "'. The name must be a valid java identifier.", method );
+      }
+      else if ( SourceVersion.isKeyword( declaredName ) )
+      {
+        throw new ProcessorException( "@ObservableInitial target specified an invalid name '" + declaredName +
+                                      "'. The name must not be a java keyword.", method );
+      }
+      return declaredName;
+    }
+  }
+
+  @Nullable
+  private String deriveObservableInitialName( @Nonnull final VariableElement field,
+                                              @Nonnull final String declaredName )
+  {
+    if ( Constants.SENTINEL.equals( declaredName ) )
+    {
+      final String fieldName = field.getSimpleName().toString();
+      final Matcher matcher = OBSERVABLE_INITIAL_FIELD_PATTERN.matcher( fieldName );
+      if ( matcher.find() )
+      {
+        return constantCaseToLowerCamel( matcher.group( 1 ) );
+      }
+      else
+      {
+        return null;
+      }
+    }
+    else
+    {
+      if ( !SourceVersion.isIdentifier( declaredName ) )
+      {
+        throw new ProcessorException( "@ObservableInitial target specified an invalid name '" + declaredName +
+                                      "'. The name must be a valid java identifier.", field );
+      }
+      else if ( SourceVersion.isKeyword( declaredName ) )
+      {
+        throw new ProcessorException( "@ObservableInitial target specified an invalid name '" + declaredName +
+                                      "'. The name must not be a java keyword.", field );
+      }
+      return declaredName;
+    }
+  }
+
+  @Nonnull
+  private String constantCaseToLowerCamel( @Nonnull final String name )
+  {
+    final String[] parts = name.split( "_" );
+    final StringBuilder sb = new StringBuilder();
+    for ( final String part : parts )
+    {
+      if ( part.isEmpty() )
+      {
+        continue;
+      }
+      final String lower = part.toLowerCase( Locale.ENGLISH );
+      if ( sb.isEmpty() )
+      {
+        sb.append( lower );
+      }
+      else
+      {
+        sb.append( Character.toUpperCase( lower.charAt( 0 ) ) );
+        if ( lower.length() > 1 )
+        {
+          sb.append( lower.substring( 1 ) );
+        }
+      }
+    }
+    return sb.toString();
   }
 
   private void addReference( @Nonnull final ComponentDescriptor component,
@@ -2193,6 +2415,7 @@ public final class ArezProcessor
                                defaultReadOutsideTransactionValue,
                                defaultWriteOutsideTransactionValue );
 
+    processObservableInitialFields( descriptor, fields );
     analyzeCandidateMethods( descriptor, methods, processingEnv.getTypeUtils() );
     validate( allowEmpty, descriptor );
 
@@ -2468,6 +2691,7 @@ public final class ArezProcessor
     linkObserverRefs( componentDescriptor );
     linkCascadeDisposeObservables( componentDescriptor );
     linkCascadeDisposeReferences( componentDescriptor );
+    linkObservableInitials( componentDescriptor );
 
     // CascadeDispose returned false but it was actually processed so lets remove them from getters set
 
@@ -2580,6 +2804,8 @@ public final class ArezProcessor
       AnnotationsUtil.findAnnotationByType( method, Constants.OBSERVE_CLASSNAME );
     final AnnotationMirror observable =
       AnnotationsUtil.findAnnotationByType( method, Constants.OBSERVABLE_CLASSNAME );
+    final AnnotationMirror observableInitial =
+      AnnotationsUtil.findAnnotationByType( method, Constants.OBSERVABLE_INITIAL_CLASSNAME );
     final AnnotationMirror observableValueRef =
       AnnotationsUtil.findAnnotationByType( method, Constants.OBSERVABLE_VALUE_REF_CLASSNAME );
     final AnnotationMirror memoize =
@@ -2649,6 +2875,11 @@ public final class ArezProcessor
       {
         addCascadeDisposeMethod( descriptor, method, observableDescriptor );
       }
+      return true;
+    }
+    else if ( null != observableInitial )
+    {
+      addObservableInitialMethod( descriptor, observableInitial, method, methodType );
       return true;
     }
     else if ( null != observableValueRef )
