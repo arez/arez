@@ -2167,7 +2167,7 @@ final class ComponentGenerator
       if ( !onDepsChange.getParameters().isEmpty() )
       {
         sb.append( "this::$N, " );
-        parameters.add( FRAMEWORK_PREFIX + onDepsChange.getSimpleName().toString() );
+        parameters.add( FRAMEWORK_PREFIX + onDepsChange.getSimpleName() );
       }
       else if ( component.isClassType() )
       {
@@ -2211,7 +2211,7 @@ final class ComponentGenerator
     if ( !onDepsChange.getParameters().isEmpty() )
     {
       sb.append( "this::$N, " );
-      parameters.add( FRAMEWORK_PREFIX + onDepsChange.getSimpleName().toString() );
+      parameters.add( FRAMEWORK_PREFIX + onDepsChange.getSimpleName() );
     }
     else if ( component.isClassType() )
     {
