@@ -2491,18 +2491,9 @@ final class ComponentGenerator
         }
         else
         {
-          if ( onActivate.getParameters().isEmpty() )
-          {
-            sb.append( "() -> $T.super.$N()" );
-            parameters.add( component.getClassName() );
-            parameters.add( onActivate.getSimpleName() );
-          }
-          else
-          {
-            sb.append( "() -> $T.super.$N( this )" );
-            parameters.add( component.getClassName() );
-            parameters.add( onActivate.getSimpleName() );
-          }
+          sb.append( onActivate.getParameters().isEmpty() ? "() -> $T.super.$N()" : "() -> $T.super.$N( this )" );
+          parameters.add( component.getClassName() );
+          parameters.add( onActivate.getSimpleName() );
         }
       }
       else
@@ -2534,18 +2525,9 @@ final class ComponentGenerator
         }
         else
         {
-          if ( onDeactivate.getParameters().isEmpty() )
-          {
-            sb.append( "() -> $T.super.$N()" );
-            parameters.add( component.getClassName() );
-            parameters.add( onDeactivate.getSimpleName() );
-          }
-          else
-          {
-            sb.append( "() -> $T.super.$N( this )" );
-            parameters.add( component.getClassName() );
-            parameters.add( onDeactivate.getSimpleName() );
-          }
+          sb.append( onDeactivate.getParameters().isEmpty() ? "() -> $T.super.$N()" : "() -> $T.super.$N( this )" );
+          parameters.add( component.getClassName() );
+          parameters.add( onDeactivate.getSimpleName() );
         }
       }
       else
