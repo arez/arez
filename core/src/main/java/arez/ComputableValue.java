@@ -91,7 +91,7 @@ public final class ComputableValue<T>
                    @Nonnull final SafeFunction<T> function,
                    final int flags )
   {
-    this( context, component, name, function, flags, ObjectsEqualsComparator.Type.INSTANCE );
+    this( context, component, name, function, flags, new ObjectsEqualsComparator() );
   }
 
   ComputableValue( @Nullable final ArezContext context,

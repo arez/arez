@@ -11,19 +11,6 @@ import javax.annotation.Nullable;
 public final class ObjectsDeepEqualsComparator
   implements EqualityComparator
 {
-  // Class exists to avoid <clinit> on outer class
-  public static final class Type
-  {
-    /**
-     * Shared reusable instance.
-     */
-    public static final ObjectsDeepEqualsComparator INSTANCE = new ObjectsDeepEqualsComparator();
-  }
-
-  private ObjectsDeepEqualsComparator()
-  {
-  }
-
   @Override
   public boolean areEqual( @Nullable final Object oldValue, @Nullable final Object newValue )
   {

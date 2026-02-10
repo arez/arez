@@ -470,7 +470,7 @@ public final class ArezContext
                                              @Nonnull final SafeFunction<T> function,
                                              @MagicConstant( flagsFromClass = ComputableValue.Flags.class ) final int flags )
   {
-    return computable( component, name, function, flags, ObjectsEqualsComparator.Type.INSTANCE );
+    return computable( component, name, function, flags, new ObjectsEqualsComparator() );
   }
 
   /**
