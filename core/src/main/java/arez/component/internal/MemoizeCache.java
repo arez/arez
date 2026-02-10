@@ -113,7 +113,7 @@ public final class MemoizeCache<T>
                        @Nonnull final Function<T> function,
                        final int argCount )
   {
-    this( context, component, name, function, argCount, 0, ObjectsEqualsComparator.INSTANCE );
+    this( context, component, name, function, argCount, 0, ObjectsEqualsComparator.Type.INSTANCE );
   }
 
   /**
@@ -133,7 +133,7 @@ public final class MemoizeCache<T>
                        final int argCount,
                        @MagicConstant( flagsFromClass = ComputableValue.Flags.class ) final int flags )
   {
-    this( context, component, name, function, argCount, flags, ObjectsEqualsComparator.INSTANCE );
+    this( context, component, name, function, argCount, flags, ObjectsEqualsComparator.Type.INSTANCE );
   }
 
   /**

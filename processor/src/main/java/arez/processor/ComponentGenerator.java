@@ -3136,7 +3136,7 @@ final class ComponentGenerator
       sb.append( ", " );
       if ( memoize.hasObjectsDeepEqualsComparator() )
       {
-        sb.append( "$T.INSTANCE" );
+        sb.append( "$T.Type.INSTANCE" );
         parameters.add( OBJECTS_DEEP_EQUALS_COMPARATOR_CLASSNAME );
       }
       else

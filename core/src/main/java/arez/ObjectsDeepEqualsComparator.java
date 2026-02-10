@@ -1,18 +1,24 @@
 package arez;
 
+import grim.annotations.OmitClinit;
 import java.util.Objects;
 import javax.annotation.Nullable;
 
 /**
  * Equality comparator that delegates to {@link Objects#deepEquals(Object, Object)}.
  */
+@OmitClinit
 public final class ObjectsDeepEqualsComparator
   implements EqualityComparator
 {
-  /**
-   * Shared reusable instance.
-   */
-  public static final ObjectsDeepEqualsComparator INSTANCE = new ObjectsDeepEqualsComparator();
+  // Class exists to avoid <clinit> on outer class
+  public static final class Type
+  {
+    /**
+     * Shared reusable instance.
+     */
+    public static final ObjectsDeepEqualsComparator INSTANCE = new ObjectsDeepEqualsComparator();
+  }
 
   private ObjectsDeepEqualsComparator()
   {

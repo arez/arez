@@ -313,7 +313,7 @@ public final class ComputableValueTest
       return value.get();
     };
     final ComputableValue<int[]> computableValue =
-      context.computable( null, null, function, 0, ObjectsDeepEqualsComparator.INSTANCE );
+      context.computable( null, null, function, 0, ObjectsDeepEqualsComparator.Type.INSTANCE );
 
     final Observer observer = context.observer( new CountAndObserveProcedure() );
 

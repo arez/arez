@@ -1,0 +1,130 @@
+[
+  {
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "class arez.ObjectsDeepEqualsComparator",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.ObjectsDeepEqualsComparator",
+      "classSimpleName": "ObjectsDeepEqualsComparator",
+      "elementKind": "class",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "class arez.ObjectsEqualsComparator",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.ObjectsEqualsComparator",
+      "classSimpleName": "ObjectsEqualsComparator",
+      "elementKind": "class",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "interface arez.EqualityComparator",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.EqualityComparator",
+      "classSimpleName": "EqualityComparator",
+      "elementKind": "interface",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method <T> arez.ComputableValue<T> arez.ArezContext::computable(arez.Component, java.lang.String, arez.SafeFunction<T>, int, arez.EqualityComparator)",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "computable",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.annotation.added",
+    "description": "Element newly annotated with 'javax.annotation.Nonnull'.",
+    "element": "method arez.annotations.Feature arez.annotations.Observable::initializer()",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@javax.annotation.Nonnull",
+      "annotationType": "javax.annotation.Nonnull",
+      "classQualifiedName": "arez.annotations.Observable",
+      "classSimpleName": "Observable",
+      "elementKind": "method",
+      "methodName": "initializer",
+      "package": "arez.annotations"
+    }
+  },
+  {
+    "code": "java.method.attributeWithDefaultAddedToAnnotationType",
+    "description": "The annotation has a new attribute with a default value.",
+    "newElement": "method java.lang.Class<? extends arez.EqualityComparator> arez.annotations.Memoize::equalityComparator()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.Memoize",
+      "classSimpleName": "Memoize",
+      "elementKind": "method",
+      "methodName": "equalityComparator",
+      "package": "arez.annotations"
+    }
+  },
+  {
+    "code": "java.method.attributeWithDefaultAddedToAnnotationType",
+    "description": "The annotation has a new attribute with a default value.",
+    "newElement": "method java.lang.Class<? extends arez.EqualityComparator> arez.annotations.Observable::equalityComparator()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.Observable",
+      "classSimpleName": "Observable",
+      "elementKind": "method",
+      "methodName": "equalityComparator",
+      "package": "arez.annotations"
+    }
+  },
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method void arez.component.internal.MemoizeCache<T>::<init>(arez.ArezContext, arez.Component, java.lang.String, arez.component.internal.MemoizeCache.Function<T>, int, int, arez.EqualityComparator)",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.internal.MemoizeCache",
+      "classSimpleName": "MemoizeCache",
+      "elementKind": "constructor",
+      "methodName": "<init>",
+      "package": "arez.component.internal"
+    }
+  }
+]
