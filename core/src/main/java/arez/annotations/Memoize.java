@@ -1,6 +1,8 @@
 package arez.annotations;
 
 import arez.ComputableValue;
+import arez.EqualityComparator;
+import arez.ObjectsEqualsComparator;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
@@ -115,4 +117,13 @@ public @interface Memoize
    * @return flag that determines whether the memoized value allows reads outside a transaction, false to require a transaction to read the memoized value.
    */
   Feature readOutsideTransaction() default Feature.AUTODETECT;
+
+  /**
+   * Return the strategy used to compare computed values when deciding whether to
+   * propagate a change.
+   *
+   * @return the comparator type used when checking whether values are equal.
+   */
+  @Nonnull
+  Class<? extends EqualityComparator> equalityComparator() default ObjectsEqualsComparator.class;
 }

@@ -2,6 +2,9 @@
 
 ### Unreleased
 
+* Add configurable equality comparison strategies for `@Observable` setters and `@Memoize` computations via `EqualityComparator`.
+* Add built-in comparators `ObjectsEqualsComparator` and `ObjectsDeepEqualsComparator`.
+
 ### [v0.225](https://github.com/arez/arez/tree/v0.225) (2026-01-23) · [Full Changelog](https://github.com/arez/arez/compare/v0.224...v0.225) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.224&new=0.225)
 
 The release includes 1 non breaking API change.

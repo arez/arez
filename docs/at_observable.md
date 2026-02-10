@@ -43,6 +43,19 @@ For example:
 
 {@file_content: file=arez/doc/examples/at_observable/Currency.java start_line=@ArezComponent "end_line=^}"}
 
+## Equality Comparison
+
+By default, generated setters compare the new value and current value using
+`Objects.equals(...)` before reporting a change. You can customize this behavior via
+the `equalityComparator` parameter on the {@link: arez.annotations.Observable @Observable}
+annotation.
+
+Common options include:
+
+* {@link: arez.ObjectsEqualsComparator} (default)
+* {@link: arez.ObjectsDeepEqualsComparator}
+* A custom implementation of {@link: arez.EqualityComparator}
+
 ## Custom change propagation
 
 Sometimes you want to integrate Arez into systems that have existing change propagation mechanisms. For

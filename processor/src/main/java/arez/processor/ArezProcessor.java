@@ -175,7 +175,17 @@ public final class ArezProcessor
     final VariableElement writeOutsideTransaction =
       AnnotationsUtil.getAnnotationValueValue( annotation, "writeOutsideTransaction" );
     final boolean setterAlwaysMutates = AnnotationsUtil.getAnnotationValueValue( annotation, "setterAlwaysMutates" );
+    final TypeMirror equalityComparator =
+      AnnotationsUtil.getAnnotationValueValue( annotation, "equalityComparator" );
     final Boolean requireInitializer = isInitializerRequired( method );
+
+    if ( !isAssignable( equalityComparator, getEqualityComparatorTypeElement() ) )
+    {
+      throw new ProcessorException( "@Observable target specified equalityComparator of type '" + equalityComparator +
+                                    "' but the type is not assignable to " +
+                                    Constants.EQUALITY_COMPARATOR_CLASSNAME,
+                                    method );
+    }
 
     final TypeMirror returnType = method.getReturnType();
     final String methodName = method.getSimpleName().toString();
@@ -230,6 +240,23 @@ public final class ArezProcessor
     }
 
     final ObservableDescriptor observable = component.findOrCreateObservable( name );
+    final String equalityComparatorClassName = equalityComparator.toString();
+    final String existingComparator = observable.getEqualityComparator();
+    final boolean existingComparatorIsDefault =
+      Constants.OBJECTS_EQUALS_COMPARATOR_CLASSNAME.equals( existingComparator );
+    final boolean comparatorIsDefault = Constants.OBJECTS_EQUALS_COMPARATOR_CLASSNAME.equals( equalityComparatorClassName );
+    if ( existingComparatorIsDefault )
+    {
+      observable.setEqualityComparator( equalityComparatorClassName );
+    }
+    else if ( !comparatorIsDefault && !existingComparator.equals( equalityComparatorClassName ) )
+    {
+      throw new ProcessorException( "@Observable target specified equalityComparator of type '" +
+                                    equalityComparatorClassName + "' but the paired accessor has already specified " +
+                                    "equalityComparator of type '" + existingComparator + "'.",
+                                    method );
+    }
+
     observable.setReadOutsideTransaction( readOutsideTransaction.getSimpleName().toString() );
     observable.setWriteOutsideTransaction( writeOutsideTransaction.getSimpleName().toString() );
     if ( !setterAlwaysMutates )
@@ -1343,6 +1370,17 @@ public final class ArezProcessor
       AnnotationsUtil.getAnnotationValueValue( annotation, "readOutsideTransaction" );
     final VariableElement priority = AnnotationsUtil.getAnnotationValueValue( annotation, "priority" );
     final VariableElement depType = AnnotationsUtil.getAnnotationValueValue( annotation, "depType" );
+    final TypeMirror equalityComparator =
+      AnnotationsUtil.getAnnotationValueValue( annotation, "equalityComparator" );
+
+    if ( !isAssignable( equalityComparator, getEqualityComparatorTypeElement() ) )
+    {
+      throw new ProcessorException( "@Memoize target specified equalityComparator of type '" + equalityComparator +
+                                    "' but the type is not assignable to " +
+                                    Constants.EQUALITY_COMPARATOR_CLASSNAME,
+                                    method );
+    }
+
     final String depTypeAsString = depType.getSimpleName().toString();
     component.findOrCreateMemoize( name ).setMemoize( method,
                                                       methodType,
@@ -1352,7 +1390,8 @@ public final class ArezProcessor
                                                       reportResult,
                                                       observeLowerPriorityDependencies,
                                                       readOutsideTransaction.getSimpleName().toString(),
-                                                      depTypeAsString );
+                                                      depTypeAsString,
+                                                      equalityComparator.toString() );
   }
 
   @Nonnull
@@ -3634,6 +3673,12 @@ public final class ArezProcessor
   private TypeElement getDisposableTypeElement()
   {
     return getTypeElement( Constants.DISPOSABLE_CLASSNAME );
+  }
+
+  @Nonnull
+  private TypeElement getEqualityComparatorTypeElement()
+  {
+    return getTypeElement( Constants.EQUALITY_COMPARATOR_CLASSNAME );
   }
 
   private boolean isDisposableTrackableRequired( @Nonnull final TypeElement element )

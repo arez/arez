@@ -6,6 +6,8 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
+import arez.EqualityComparator;
+import arez.ObjectsEqualsComparator;
 import arez.SafeFunction;
 import arez.Task;
 import arez.component.DisposeNotifier;
@@ -82,6 +84,11 @@ public final class MemoizeCache<T>
   @MagicConstant( flagsFromClass = ComputableValue.Flags.class )
   private final int _flags;
   /**
+   * Strategy used to compare old and new computed values.
+   */
+  @Nonnull
+  private final EqualityComparator _equalityComparator;
+  /**
    * The index of the next ComputableValue created.
    * This is only used when creating unique names for ComputableValues.
    */
@@ -106,7 +113,7 @@ public final class MemoizeCache<T>
                        @Nonnull final Function<T> function,
                        final int argCount )
   {
-    this( context, component, name, function, argCount, 0 );
+    this( context, component, name, function, argCount, 0, ObjectsEqualsComparator.INSTANCE );
   }
 
   /**
@@ -125,6 +132,28 @@ public final class MemoizeCache<T>
                        @Nonnull final Function<T> function,
                        final int argCount,
                        @MagicConstant( flagsFromClass = ComputableValue.Flags.class ) final int flags )
+  {
+    this( context, component, name, function, argCount, flags, ObjectsEqualsComparator.INSTANCE );
+  }
+
+  /**
+   * Create the Memoize method cache.
+   *
+   * @param context            the context in which to create ComputableValue instances.
+   * @param component          the associated native component if any. This should only be set if {@link Arez#areNativeComponentsEnabled()} returns true.
+   * @param name               a human consumable prefix for computable values.
+   * @param function           the memoized function.
+   * @param argCount           the number of arguments expected to be passed to memoized function.
+   * @param flags              the flags that are used when creating ComputableValue instances. The only flags supported are flags defined in {@link ComputableValue.Flags} except for {@link ComputableValue.Flags#KEEPALIVE}, {@link ComputableValue.Flags#RUN_NOW} and {@link ComputableValue.Flags#RUN_LATER}.
+   * @param equalityComparator strategy used to compare old and new computed values.
+   */
+  public MemoizeCache( @Nullable final ArezContext context,
+                       @Nullable final Component component,
+                       @Nullable final String name,
+                       @Nonnull final Function<T> function,
+                       final int argCount,
+                       @MagicConstant( flagsFromClass = ComputableValue.Flags.class ) final int flags,
+                       @Nonnull final EqualityComparator equalityComparator )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
@@ -156,6 +185,7 @@ public final class MemoizeCache<T>
     _function = Objects.requireNonNull( function );
     _argCount = argCount;
     _flags = flags;
+    _equalityComparator = Objects.requireNonNull( equalityComparator );
   }
 
   /**
@@ -269,7 +299,7 @@ public final class MemoizeCache<T>
       Arez.context().registerHook( "$MC$", null, () -> disposeComputableValue( args ) );
       return _function.call( args );
     };
-    final ComputableValue<T> computable = getContext().computable( component, name, function, _flags );
+    final ComputableValue<T> computable = getContext().computable( component, name, function, _flags, _equalityComparator );
     for ( final Object arg : args )
     {
       if ( arg instanceof DisposeNotifier )
@@ -355,5 +385,12 @@ public final class MemoizeCache<T>
   int getFlags()
   {
     return _flags;
+  }
+
+  @OmitSymbol
+  @Nonnull
+  EqualityComparator getEqualityComparator()
+  {
+    return _equalityComparator;
   }
 }

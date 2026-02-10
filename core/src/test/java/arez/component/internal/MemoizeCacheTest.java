@@ -7,7 +7,9 @@ import arez.ArezTestUtil;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
+import arez.EqualityComparator;
 import arez.Observer;
+import arez.ObjectsEqualsComparator;
 import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
 import arez.spy.ComponentInfo;
@@ -432,6 +434,25 @@ public final class MemoizeCacheTest
 
     assertInvariantFailure( () -> cache.get( "a", "b" ),
                             "Arez-0161: MemoizeCache named 'X' had get() invoked when disposed." );
+  }
+
+  @Test
+  public void constructor_defaultsEqualityComparator()
+  {
+    final MemoizeCache<String> cache =
+      new MemoizeCache<>( null, null, "X", args -> args[ 0 ] + "." + args[ 1 ], 2 );
+
+    assertSame( cache.getEqualityComparator(), ObjectsEqualsComparator.INSTANCE );
+  }
+
+  @Test
+  public void constructor_explicitEqualityComparator()
+  {
+    final EqualityComparator comparator = ( oldValue, newValue ) -> true;
+    final MemoizeCache<String> cache =
+      new MemoizeCache<>( null, null, "X", args -> args[ 0 ] + "." + args[ 1 ], 2, 0, comparator );
+
+    assertSame( cache.getEqualityComparator(), comparator );
   }
 
   @Test

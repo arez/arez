@@ -303,6 +303,76 @@ public final class ComputableValueTest
   }
 
   @Test
+  public void compute_whereValueDeepMatches_withComparator()
+  {
+    final ArezContext context = Arez.context();
+    final AtomicReference<int[]> value = new AtomicReference<>();
+    final int[] value1 = new int[]{ 1, 2, 3 };
+    final SafeFunction<int[]> function = () -> {
+      observeADependency();
+      return value.get();
+    };
+    final ComputableValue<int[]> computableValue =
+      context.computable( null, null, function, 0, ObjectsDeepEqualsComparator.INSTANCE );
+
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
+
+    setCurrentTransaction( computableValue.getObserver() );
+
+    observer.setState( Observer.Flags.STATE_POSSIBLY_STALE );
+    computableValue.getObservableValue().rawAddObserver( observer );
+    observer.getDependencies().add( computableValue.getObservableValue() );
+
+    computableValue.getObservableValue().setLeastStaleObserverState( Observer.Flags.STATE_POSSIBLY_STALE );
+
+    value.set( new int[]{ 1, 2, 3 } );
+    computableValue.setValue( value1 );
+
+    setCurrentTransaction( computableValue.getObserver() );
+
+    computableValue.compute();
+
+    assertSame( computableValue.getValue(), value1 );
+    // Verify state does not change
+    assertEquals( observer.getState(), Observer.Flags.STATE_POSSIBLY_STALE );
+  }
+
+  @Test
+  public void compute_whereValueMatches_customComparator()
+  {
+    final ArezContext context = Arez.context();
+    final AtomicReference<String> value = new AtomicReference<>();
+    final String value1 = ValueUtil.randomString();
+    final SafeFunction<String> function = () -> {
+      observeADependency();
+      return value.get();
+    };
+    final ComputableValue<String> computableValue =
+      context.computable( null, null, function, 0, ( oldValue, newValue ) -> true );
+
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
+
+    setCurrentTransaction( computableValue.getObserver() );
+
+    observer.setState( Observer.Flags.STATE_POSSIBLY_STALE );
+    computableValue.getObservableValue().rawAddObserver( observer );
+    observer.getDependencies().add( computableValue.getObservableValue() );
+
+    computableValue.getObservableValue().setLeastStaleObserverState( Observer.Flags.STATE_POSSIBLY_STALE );
+
+    value.set( ValueUtil.randomString() );
+    computableValue.setValue( value1 );
+
+    setCurrentTransaction( computableValue.getObserver() );
+
+    computableValue.compute();
+
+    assertEquals( computableValue.getValue(), value1 );
+    // Verify state does not change
+    assertEquals( observer.getState(), Observer.Flags.STATE_POSSIBLY_STALE );
+  }
+
+  @Test
   public void compute_producesException()
   {
     final ArezContext context = Arez.context();

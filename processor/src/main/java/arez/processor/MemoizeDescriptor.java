@@ -36,6 +36,8 @@ final class MemoizeDescriptor
   private boolean _observeLowerPriorityDependencies;
   private String _readOutsideTransaction;
   private String _depType;
+  @Nonnull
+  private String _equalityComparator = Constants.OBJECTS_EQUALS_COMPARATOR_CLASSNAME;
   @Nullable
   private ExecutableElement _onActivate;
   @Nullable
@@ -110,7 +112,8 @@ final class MemoizeDescriptor
                    final boolean reportResult,
                    final boolean observeLowerPriorityDependencies,
                    @Nonnull final String readOutsideTransaction,
-                   @Nonnull final String depType )
+                   @Nonnull final String depType,
+                   @Nonnull final String equalityComparator )
     throws ProcessorException
   {
     //The caller already verified that no duplicate computable have been defined
@@ -130,6 +133,7 @@ final class MemoizeDescriptor
     _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
     _readOutsideTransaction = readOutsideTransaction;
     _depType = Objects.requireNonNull( depType );
+    _equalityComparator = Objects.requireNonNull( equalityComparator );
 
     if ( ComponentGenerator.isMethodReturnType( getMethod(), Stream.class ) )
     {
@@ -398,5 +402,21 @@ final class MemoizeDescriptor
   String getDepType()
   {
     return _depType;
+  }
+
+  @Nonnull
+  String getEqualityComparator()
+  {
+    return _equalityComparator;
+  }
+
+  boolean hasObjectsEqualsComparator()
+  {
+    return Constants.OBJECTS_EQUALS_COMPARATOR_CLASSNAME.equals( _equalityComparator );
+  }
+
+  boolean hasObjectsDeepEqualsComparator()
+  {
+    return Constants.OBJECTS_DEEP_EQUALS_COMPARATOR_CLASSNAME.equals( _equalityComparator );
   }
 }

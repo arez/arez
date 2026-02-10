@@ -30,6 +30,16 @@ model is memoized as follows.
 
 {@file_content: file=arez/doc/examples/memoize/PersonModel.java start_line=@Observable "end_line=^}" strip_block=true include_end_line=false}
 
+## Equality Comparison
+
+Memoized values only propagate changes when the newly computed value is considered different
+from the previously cached value. By default this comparison uses
+{@link: arez.ObjectsEqualsComparator}. You can customize this by specifying the
+`equalityComparator` parameter on {@link: arez.annotations.Memoize @Memoize}.
+
+Common options include {@link: arez.ObjectsDeepEqualsComparator} or a custom
+{@link: arez.EqualityComparator} implementation.
+
 ## Lifecycle Hooks
 
 The component model also supports the definition of callback methods as described in the

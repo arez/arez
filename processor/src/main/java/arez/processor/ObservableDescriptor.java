@@ -35,6 +35,8 @@ final class ObservableDescriptor
   private String _readOutsideTransaction = "AUTODETECT";
   @Nonnull
   private String _writeOutsideTransaction = "AUTODETECT";
+  @Nonnull
+  private String _equalityComparator = Constants.OBJECTS_EQUALS_COMPARATOR_CLASSNAME;
   private boolean _setterAlwaysMutates;
   private Boolean _initializer;
   @Nullable
@@ -144,6 +146,32 @@ final class ObservableDescriptor
   void setWriteOutsideTransaction( @Nonnull final String writeOutsideTransaction )
   {
     _writeOutsideTransaction = writeOutsideTransaction;
+  }
+
+  void setEqualityComparator( @Nonnull final String equalityComparator )
+  {
+    _equalityComparator = Objects.requireNonNull( equalityComparator );
+  }
+
+  @Nonnull
+  String getEqualityComparator()
+  {
+    return _equalityComparator;
+  }
+
+  boolean hasObjectsEqualsComparator()
+  {
+    return Constants.OBJECTS_EQUALS_COMPARATOR_CLASSNAME.equals( _equalityComparator );
+  }
+
+  boolean hasObjectsDeepEqualsComparator()
+  {
+    return Constants.OBJECTS_DEEP_EQUALS_COMPARATOR_CLASSNAME.equals( _equalityComparator );
+  }
+
+  boolean hasCustomEqualityComparator()
+  {
+    return !hasObjectsEqualsComparator() && !hasObjectsDeepEqualsComparator();
   }
 
   void setExpectSetter( final boolean expectSetter )
@@ -278,6 +306,12 @@ final class ObservableDescriptor
   String getFieldName()
   {
     return ComponentGenerator.FIELD_PREFIX + getName();
+  }
+
+  @Nonnull
+  String getEqualityComparatorFieldName()
+  {
+    return ComponentGenerator.FIELD_PREFIX + "equalityComparator_" + getName();
   }
 
   boolean isAbstract()

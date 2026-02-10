@@ -43,6 +43,11 @@ public final class ComputableValue<T>
   @Nonnull
   private final ObservableValue<T> _observableValue;
   /**
+   * Strategy used to compare old and new computed values.
+   */
+  @Nonnull
+  private final EqualityComparator _equalityComparator;
+  /**
    * Flag set to true if computable value can be read outside a transaction.
    */
   private final boolean _readOutsideTransaction;
@@ -86,6 +91,16 @@ public final class ComputableValue<T>
                    @Nonnull final SafeFunction<T> function,
                    final int flags )
   {
+    this( context, component, name, function, flags, ObjectsEqualsComparator.INSTANCE );
+  }
+
+  ComputableValue( @Nullable final ArezContext context,
+                   @Nullable final Component component,
+                   @Nullable final String name,
+                   @Nonnull final SafeFunction<T> function,
+                   final int flags,
+                   @Nonnull final EqualityComparator equalityComparator )
+  {
     super( context, name );
     if ( Arez.shouldCheckInvariants() )
     {
@@ -95,6 +110,7 @@ public final class ComputableValue<T>
     }
     _component = Arez.areNativeComponentsEnabled() ? component : null;
     _function = Objects.requireNonNull( function );
+    _equalityComparator = Objects.requireNonNull( equalityComparator );
     _value = null;
     _computing = false;
     _readOutsideTransaction = Flags.READ_OUTSIDE_TRANSACTION == ( flags & Flags.READ_OUTSIDE_TRANSACTION );
@@ -423,7 +439,7 @@ public final class ComputableValue<T>
     try
     {
       final T newValue = computeValue();
-      if ( !Objects.equals( oldValue, newValue ) )
+      if ( !_equalityComparator.areEqual( oldValue, newValue ) )
       {
         _value = newValue;
         _error = null;

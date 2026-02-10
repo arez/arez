@@ -1,6 +1,8 @@
 package arez.annotations;
 
+import arez.EqualityComparator;
 import arez.ObservableValue;
+import arez.ObjectsEqualsComparator;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
@@ -112,4 +114,12 @@ public @interface Observable
    * @return false if the setter should verify observable value has changed before propagating change.
    */
   boolean setterAlwaysMutates() default true;
+
+  /**
+   * Return the strategy used to compare values when checking whether the observable has changed.
+   *
+   * @return the comparator type used when checking whether values are equal.
+   */
+  @Nonnull
+  Class<? extends EqualityComparator> equalityComparator() default ObjectsEqualsComparator.class;
 }

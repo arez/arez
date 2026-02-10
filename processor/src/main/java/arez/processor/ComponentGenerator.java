@@ -54,6 +54,7 @@ final class ComponentGenerator
   private static final ClassName ACTION_SKIPPED_EVENT_CLASSNAME = ClassName.get( "arez.spy", "ActionSkippedEvent" );
   private static final ClassName OBSERVER_FLAGS_CLASSNAME = ClassName.get( "arez", "Observer", "Flags" );
   private static final ClassName COMPUTABLE_VALUE_FLAGS_CLASSNAME = ClassName.get( "arez", "ComputableValue", "Flags" );
+  private static final ClassName OBJECTS_DEEP_EQUALS_COMPARATOR_CLASSNAME = ClassName.get( "arez", "ObjectsDeepEqualsComparator" );
   private static final ClassName AREZ_CONTEXT_CLASSNAME = ClassName.get( "arez", "ArezContext" );
   private static final ClassName OBSERVABLE_CLASSNAME = ClassName.get( "arez", "ObservableValue" );
   private static final ClassName OBSERVER_CLASSNAME = ClassName.get( "arez", "Observer" );
@@ -3098,6 +3099,8 @@ final class ComponentGenerator
       parameters.add( COMPUTABLE_VALUE_FLAGS_CLASSNAME );
     }
 
+    appendMemoizeEqualityComparatorArg( memoize, parameters, sb );
+
     sb.append( " )" );
     builder.addStatement( sb.toString(), parameters.toArray() );
   }
@@ -3119,7 +3122,30 @@ final class ComponentGenerator
       parameters.add( COMPUTABLE_VALUE_FLAGS_CLASSNAME );
     }
 
+    appendMemoizeEqualityComparatorArg( memoize, parameters, sb );
+
     sb.append( " )" );
+  }
+
+  private static void appendMemoizeEqualityComparatorArg( @Nonnull final MemoizeDescriptor memoize,
+                                                          @Nonnull final List<Object> parameters,
+                                                          @Nonnull final StringBuilder sb )
+  {
+    if ( !memoize.hasObjectsEqualsComparator() )
+    {
+      sb.append( ", " );
+      if ( memoize.hasObjectsDeepEqualsComparator() )
+      {
+        sb.append( "$T.INSTANCE" );
+        parameters.add( OBJECTS_DEEP_EQUALS_COMPARATOR_CLASSNAME );
+      }
+      else
+      {
+        final ClassName comparatorClassName = ClassName.bestGuess( memoize.getEqualityComparator() );
+        sb.append( "new $T()" );
+        parameters.add( comparatorClassName );
+      }
+    }
   }
 
   @Nonnull
@@ -3235,6 +3261,16 @@ final class ComponentGenerator
         addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, field, getterType.getReturnType() );
     builder.addField( field.build() );
+    if ( observable.hasCustomEqualityComparator() )
+    {
+      final ClassName equalityComparatorClassName = ClassName.bestGuess( observable.getEqualityComparator() );
+      builder.addField( FieldSpec.builder( equalityComparatorClassName,
+                                           observable.getEqualityComparatorFieldName(),
+                                           Modifier.FINAL,
+                                           Modifier.PRIVATE )
+                          .initializer( "new $T()", equalityComparatorClassName )
+                          .build() );
+    }
     if ( observable.isAbstract() )
     {
       final FieldSpec.Builder dataField =
@@ -3501,7 +3537,21 @@ final class ComponentGenerator
       {
         builder.addStatement( "assert null != $N", paramName );
       }
-      codeBlock.beginControlFlow( "if ( !$T.equals( $N, $N ) )", Objects.class, paramName, varName );
+      if ( observable.hasObjectsDeepEqualsComparator() )
+      {
+        codeBlock.beginControlFlow( "if ( !$T.deepEquals( $N, $N ) )", Objects.class, paramName, varName );
+      }
+      else if ( observable.hasCustomEqualityComparator() )
+      {
+        codeBlock.beginControlFlow( "if ( !this.$N.areEqual( $N, $N ) )",
+                                    observable.getEqualityComparatorFieldName(),
+                                    paramName,
+                                    varName );
+      }
+      else
+      {
+        codeBlock.beginControlFlow( "if ( !$T.equals( $N, $N ) )", Objects.class, paramName, varName );
+      }
     }
     if ( observable.shouldGenerateUnmodifiableCollectionVariant() )
     {
@@ -3671,20 +3721,59 @@ final class ComponentGenerator
       }
       else
       {
-        if ( component.isClassType() )
+        if ( observable.hasObjectsDeepEqualsComparator() )
         {
-          block.beginControlFlow( "if ( !$T.equals( $N, super.$N() ) )",
-                                  Objects.class,
-                                  varName,
-                                  getter.getSimpleName() );
+          if ( component.isClassType() )
+          {
+            block.beginControlFlow( "if ( !$T.deepEquals( $N, super.$N() ) )",
+                                    Objects.class,
+                                    varName,
+                                    getter.getSimpleName() );
+          }
+          else
+          {
+            block.beginControlFlow( "if ( !$T.deepEquals( $N, $T.super.$N() ) )",
+                                    Objects.class,
+                                    varName,
+                                    component.getClassName(),
+                                    getter.getSimpleName() );
+          }
+        }
+        else if ( observable.hasCustomEqualityComparator() )
+        {
+          if ( component.isClassType() )
+          {
+            block.beginControlFlow( "if ( !this.$N.areEqual( $N, super.$N() ) )",
+                                    observable.getEqualityComparatorFieldName(),
+                                    varName,
+                                    getter.getSimpleName() );
+          }
+          else
+          {
+            block.beginControlFlow( "if ( !this.$N.areEqual( $N, $T.super.$N() ) )",
+                                    observable.getEqualityComparatorFieldName(),
+                                    varName,
+                                    component.getClassName(),
+                                    getter.getSimpleName() );
+          }
         }
         else
         {
-          block.beginControlFlow( "if ( !$T.equals( $N, $T.super.$N() ) )",
-                                  Objects.class,
-                                  varName,
-                                  component.getClassName(),
-                                  getter.getSimpleName() );
+          if ( component.isClassType() )
+          {
+            block.beginControlFlow( "if ( !$T.equals( $N, super.$N() ) )",
+                                    Objects.class,
+                                    varName,
+                                    getter.getSimpleName() );
+          }
+          else
+          {
+            block.beginControlFlow( "if ( !$T.equals( $N, $T.super.$N() ) )",
+                                    Objects.class,
+                                    varName,
+                                    component.getClassName(),
+                                    getter.getSimpleName() );
+          }
         }
       }
       block.addStatement( "this.$N.reportChanged()", observable.getFieldName() );

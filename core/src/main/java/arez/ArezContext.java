@@ -466,15 +466,37 @@ public final class ArezContext
    */
   @Nonnull
   public <T> ComputableValue<T> computable( @Nullable final Component component,
+                                             @Nullable final String name,
+                                             @Nonnull final SafeFunction<T> function,
+                                             @MagicConstant( flagsFromClass = ComputableValue.Flags.class ) final int flags )
+  {
+    return computable( component, name, function, flags, ObjectsEqualsComparator.INSTANCE );
+  }
+
+  /**
+   * Create a ComputableValue with specified parameters.
+   *
+   * @param <T>                the type of the computable value.
+   * @param component          the component that contains the ComputableValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
+   * @param name               the name of the ComputableValue.
+   * @param function           the function that computes the value.
+   * @param flags              the flags used to create the ComputableValue. The acceptable flags are defined in {@link ComputableValue.Flags}.
+   * @param equalityComparator strategy used to compare old and new computed values.
+   * @return the ComputableValue instance.
+   */
+  @Nonnull
+  public <T> ComputableValue<T> computable( @Nullable final Component component,
                                             @Nullable final String name,
                                             @Nonnull final SafeFunction<T> function,
-                                            @MagicConstant( flagsFromClass = ComputableValue.Flags.class ) final int flags )
+                                            @MagicConstant( flagsFromClass = ComputableValue.Flags.class ) final int flags,
+                                            @Nonnull final EqualityComparator equalityComparator )
   {
     return new ComputableValue<>( Arez.areZonesEnabled() ? this : null,
                                   component,
                                   generateName( "ComputableValue", name ),
                                   function,
-                                  flags );
+                                  flags,
+                                  equalityComparator );
   }
 
   /**
