@@ -523,28 +523,25 @@ final class ComponentGenerator
     final ObservableDescriptor observable = inverse.getObservable();
     final String delinkMethodName = getDelinkMethodName( inverse.getReferenceName() );
     final ClassName arezClassName = getArezClassName( inverse );
+    final CodeBlock.Builder block = CodeBlock.builder();
     if ( Multiplicity.MANY == inverse.getMultiplicity() )
     {
-      final CodeBlock.Builder block = CodeBlock.builder();
       block.beginControlFlow( "for ( final $T other : new $T<>( $N ) )",
                               inverse.getTargetType(),
                               TypeName.get( ArrayList.class ),
                               observable.getDataFieldName() );
       block.addStatement( "( ($T) other ).$N()", arezClassName, delinkMethodName );
-      block.endControlFlow();
-      builder.addCode( block.build() );
     }
     else
     {
-      final CodeBlock.Builder block = CodeBlock.builder();
       block.beginControlFlow( "if ( null != $N )", observable.getDataFieldName() );
       block.addStatement( "( ($T) $N ).$N()",
                           arezClassName,
                           observable.getDataFieldName(),
                           delinkMethodName );
-      block.endControlFlow();
-      builder.addCode( block.build() );
     }
+    block.endControlFlow();
+    builder.addCode( block.build() );
   }
 
   @Nonnull
