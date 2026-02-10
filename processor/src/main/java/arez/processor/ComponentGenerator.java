@@ -691,9 +691,10 @@ final class ComponentGenerator
       final CodeBlock parametersExpr = buildActionParametersExpression( action, parameters );
       final CodeBlock.Builder guardBlock = CodeBlock.builder();
       guardBlock.beginControlFlow( "if ( this.$N.isDisposed() )", KERNEL_FIELD_NAME );
-      guardBlock.beginControlFlow( "if ( $T.areSpiesEnabled() && this.$N.getContext().getSpy().willPropagateSpyEvents() )",
-                                   AREZ_CLASSNAME,
-                                   KERNEL_FIELD_NAME );
+      guardBlock
+        .beginControlFlow( "if ( $T.areSpiesEnabled() && this.$N.getContext().getSpy().willPropagateSpyEvents() )",
+                           AREZ_CLASSNAME,
+                           KERNEL_FIELD_NAME );
       guardBlock.addStatement( "this.$N.getContext().getSpy().reportSpyEvent( new $T( $L, false, $L ) )",
                                KERNEL_FIELD_NAME,
                                ACTION_SKIPPED_EVENT_CLASSNAME,
