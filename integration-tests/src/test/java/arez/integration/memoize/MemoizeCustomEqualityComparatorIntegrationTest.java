@@ -18,7 +18,7 @@ public final class MemoizeCustomEqualityComparatorIntegrationTest
     @Override
     public boolean areEqual( final Object oldValue, final Object newValue )
     {
-      return true;
+      return null != oldValue;
     }
   }
 
