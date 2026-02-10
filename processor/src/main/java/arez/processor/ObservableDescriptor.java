@@ -31,7 +31,9 @@ final class ObservableDescriptor
   @Nonnull
   private final String _name;
   private boolean _expectSetter;
+  @Nonnull
   private String _readOutsideTransaction = "AUTODETECT";
+  @Nonnull
   private String _writeOutsideTransaction = "AUTODETECT";
   private boolean _setterAlwaysMutates;
   private Boolean _initializer;
@@ -122,7 +124,7 @@ final class ObservableDescriptor
     _setterAlwaysMutates = setterAlwaysMutates;
   }
 
-  void setReadOutsideTransaction( final String readOutsideTransaction )
+  void setReadOutsideTransaction( @Nonnull final String readOutsideTransaction )
   {
     _readOutsideTransaction = readOutsideTransaction;
   }
