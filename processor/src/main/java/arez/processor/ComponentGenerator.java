@@ -3425,7 +3425,7 @@ final class ComponentGenerator
     final ExecutableElement setter = observable.getSetter();
     final ExecutableType setterType = observable.getSetterType();
     final MethodSpec.Builder builder =
-      MethodSpec.methodBuilder( FRAMEWORK_PREFIX + setter.getSimpleName().toString() );
+      MethodSpec.methodBuilder( FRAMEWORK_PREFIX + setter.getSimpleName() );
     builder.addModifiers( Modifier.PRIVATE );
     GeneratorUtil.copyExceptions( setterType, builder );
     GeneratorUtil.copyTypeParameters( setterType, builder );
