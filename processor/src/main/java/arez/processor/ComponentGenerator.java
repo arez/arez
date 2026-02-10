@@ -4614,7 +4614,7 @@ final class ComponentGenerator
     throws ProcessorException
   {
     final ExecutableElement onDepsChange = observe.getOnDepsChange();
-    final String methodName = FRAMEWORK_PREFIX + onDepsChange.getSimpleName().toString();
+    final String methodName = FRAMEWORK_PREFIX + onDepsChange.getSimpleName();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     builder.addModifiers( Modifier.PRIVATE );
 
