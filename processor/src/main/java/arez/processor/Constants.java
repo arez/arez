@@ -77,8 +77,6 @@ final class Constants
   @Nonnull
   static final String DISPOSE_NOTIFIER_CLASSNAME = "arez.component.DisposeNotifier";
   @Nonnull
-  static final String EQUALITY_COMPARATOR_CLASSNAME = "arez.EqualityComparator";
-  @Nonnull
   static final String OBJECTS_EQUALS_COMPARATOR_CLASSNAME = "arez.ObjectsEqualsComparator";
   @Nonnull
   static final String OBJECTS_DEEP_EQUALS_COMPARATOR_CLASSNAME = "arez.ObjectsDeepEqualsComparator";

@@ -179,14 +179,6 @@ public final class ArezProcessor
       AnnotationsUtil.getAnnotationValueValue( annotation, "equalityComparator" );
     final Boolean requireInitializer = isInitializerRequired( method );
 
-    if ( !isAssignable( equalityComparator, getEqualityComparatorTypeElement() ) )
-    {
-      throw new ProcessorException( "@Observable target specified equalityComparator of type '" + equalityComparator +
-                                    "' but the type is not assignable to " +
-                                    Constants.EQUALITY_COMPARATOR_CLASSNAME,
-                                    method );
-    }
-
     final TypeMirror returnType = method.getReturnType();
     final String methodName = method.getSimpleName().toString();
     String name;
@@ -1372,14 +1364,6 @@ public final class ArezProcessor
     final VariableElement depType = AnnotationsUtil.getAnnotationValueValue( annotation, "depType" );
     final TypeMirror equalityComparator =
       AnnotationsUtil.getAnnotationValueValue( annotation, "equalityComparator" );
-
-    if ( !isAssignable( equalityComparator, getEqualityComparatorTypeElement() ) )
-    {
-      throw new ProcessorException( "@Memoize target specified equalityComparator of type '" + equalityComparator +
-                                    "' but the type is not assignable to " +
-                                    Constants.EQUALITY_COMPARATOR_CLASSNAME,
-                                    method );
-    }
 
     final String depTypeAsString = depType.getSimpleName().toString();
     component.findOrCreateMemoize( name ).setMemoize( method,
@@ -3673,12 +3657,6 @@ public final class ArezProcessor
   private TypeElement getDisposableTypeElement()
   {
     return getTypeElement( Constants.DISPOSABLE_CLASSNAME );
-  }
-
-  @Nonnull
-  private TypeElement getEqualityComparatorTypeElement()
-  {
-    return getTypeElement( Constants.EQUALITY_COMPARATOR_CLASSNAME );
   }
 
   private boolean isDisposableTrackableRequired( @Nonnull final TypeElement element )

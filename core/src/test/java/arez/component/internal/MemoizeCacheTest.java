@@ -442,7 +442,7 @@ public final class MemoizeCacheTest
     final MemoizeCache<String> cache =
       new MemoizeCache<>( null, null, "X", args -> args[ 0 ] + "." + args[ 1 ], 2 );
 
-    assertSame( cache.getEqualityComparator(), new ObjectsEqualsComparator() );
+    assertTrue( cache.getEqualityComparator() instanceof ObjectsEqualsComparator );
   }
 
   @Test
