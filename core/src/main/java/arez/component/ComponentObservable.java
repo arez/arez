@@ -22,8 +22,6 @@ public interface ComponentObservable
 
   /**
    * Invoke {@link #observe()} on the supplied object if any.
-   * If a null object is passed into this method then it will return true.
-   * If an object that is not an instance of {@link ComponentObservable} is passed into this method then it will return true.
    *
    * @param object the object to observe if any.
    * @return false if the component is not disposing or disposed, true otherwise.

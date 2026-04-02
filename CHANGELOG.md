@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Correct the javadocs for `ComponentObservable.observe()` to reflect the actual implementation with respect to nullability etc.
+
 ### [v0.226](https://github.com/arez/arez/tree/v0.226) (2026-02-11) · [Full Changelog](https://github.com/arez/arez/compare/v0.225...v0.226) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.225&new=0.226)
 
 The release includes 7 non breaking API changes.
