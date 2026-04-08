@@ -59,7 +59,7 @@ final class Arez_SetNullObservableDependency extends SetNullObservableDependency
   private void $$arezi$$_preDispose() {
     final DisposeNotifier $$arezv$$_getValue_dependency = this.$$arezd$$_value;
     if ( null != $$arezv$$_getValue_dependency ) {
-      DisposeNotifier.asDisposeNotifier( $$arezv$$_getValue_dependency ).removeOnDisposeListener( this, true );
+      DisposeNotifier.asDisposeNotifier( $$arezv$$_getValue_dependency ).removeOnDisposeListener( this );
     }
   }
 
@@ -132,11 +132,11 @@ final class Arez_SetNullObservableDependency extends SetNullObservableDependency
     final DisposeNotifier $$arezv$$_currentValue = this.$$arezd$$_value;
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
       if ( null != $$arezv$$_currentValue ) {
-        DisposeNotifier.asDisposeNotifier( $$arezv$$_currentValue ).removeOnDisposeListener( this, true );
+        DisposeNotifier.asDisposeNotifier( $$arezv$$_currentValue ).removeOnDisposeListener( this );
       }
       this.$$arezd$$_value = value;
       if ( null != value ) {
-        DisposeNotifier.asDisposeNotifier( value ).addOnDisposeListener( this, () -> setValue( null ), true );
+        DisposeNotifier.asDisposeNotifier( value ).addOnDisposeListener( this, () -> setValue( null ) );
       }
       this.$$arez$$_value.reportChanged();
     }

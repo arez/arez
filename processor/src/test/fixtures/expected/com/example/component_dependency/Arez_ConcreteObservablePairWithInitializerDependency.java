@@ -35,7 +35,7 @@ final class Arez_ConcreteObservablePairWithInitializerDependency extends Concret
     this.$$arez$$_value = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : super.getValue() ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue( v ) : null );
     final DisposeNotifier $$arezv$$_getValue_dependency = super.getValue();
     if ( null != $$arezv$$_getValue_dependency ) {
-      DisposeNotifier.asDisposeNotifier( super.getValue() ).addOnDisposeListener( this, this::dispose, true );
+      DisposeNotifier.asDisposeNotifier( super.getValue() ).addOnDisposeListener( this, this::dispose );
     }
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentComplete();
@@ -61,7 +61,7 @@ final class Arez_ConcreteObservablePairWithInitializerDependency extends Concret
   private void $$arezi$$_preDispose() {
     final DisposeNotifier $$arezv$$_getValue_dependency = super.getValue();
     if ( null != $$arezv$$_getValue_dependency ) {
-      DisposeNotifier.asDisposeNotifier( $$arezv$$_getValue_dependency ).removeOnDisposeListener( this, true );
+      DisposeNotifier.asDisposeNotifier( $$arezv$$_getValue_dependency ).removeOnDisposeListener( this );
     }
   }
 
@@ -134,11 +134,11 @@ final class Arez_ConcreteObservablePairWithInitializerDependency extends Concret
     final DisposeNotifier $$arezv$$_currentValue = super.getValue();
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
       if ( null != $$arezv$$_currentValue ) {
-        DisposeNotifier.asDisposeNotifier( $$arezv$$_currentValue ).removeOnDisposeListener( this, true );
+        DisposeNotifier.asDisposeNotifier( $$arezv$$_currentValue ).removeOnDisposeListener( this );
       }
       super.setValue( value );
       if ( null != value ) {
-        DisposeNotifier.asDisposeNotifier( value ).addOnDisposeListener( this, this::dispose, true );
+        DisposeNotifier.asDisposeNotifier( value ).addOnDisposeListener( this, this::dispose );
       }
       this.$$arez$$_value.reportChanged();
     }

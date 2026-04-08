@@ -29,7 +29,7 @@ final class Arez_ActAsComponentMethodDependencyModel extends ActAsComponentMetho
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, null, null, true, false, false );
     final ActAsComponentMethodDependencyModel.MyType $$arezv$$_getTime_dependency = super.getTime();
     if ( null != $$arezv$$_getTime_dependency ) {
-      DisposeNotifier.asDisposeNotifier( super.getTime() ).addOnDisposeListener( this, this::dispose, true );
+      DisposeNotifier.asDisposeNotifier( super.getTime() ).addOnDisposeListener( this, this::dispose );
     }
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentComplete();
@@ -55,7 +55,7 @@ final class Arez_ActAsComponentMethodDependencyModel extends ActAsComponentMetho
   private void $$arezi$$_preDispose() {
     final ActAsComponentMethodDependencyModel.MyType $$arezv$$_getTime_dependency = super.getTime();
     if ( null != $$arezv$$_getTime_dependency ) {
-      DisposeNotifier.asDisposeNotifier( $$arezv$$_getTime_dependency ).removeOnDisposeListener( this, true );
+      DisposeNotifier.asDisposeNotifier( $$arezv$$_getTime_dependency ).removeOnDisposeListener( this );
     }
   }
 

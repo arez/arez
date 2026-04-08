@@ -55,15 +55,15 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
     this.$$arez_dk$$_getFoo3 = Arez_MultiComponentDependencyModel.class.getName() + $$arezv$$_id + '.' + "getFoo3";
     final MultiComponentDependencyModel.Foo $$arezv$$_getFoo_dependency = super.getFoo();
     if ( null != $$arezv$$_getFoo_dependency ) {
-      DisposeNotifier.asDisposeNotifier( super.getFoo() ).addOnDisposeListener( $$arez_dk$$_getFoo, this::dispose, true );
+      DisposeNotifier.asDisposeNotifier( super.getFoo() ).addOnDisposeListener( $$arez_dk$$_getFoo, this::dispose );
     }
     final MultiComponentDependencyModel.Foo $$arezv$$_getFoo2_dependency = super.getFoo2();
     if ( null != $$arezv$$_getFoo2_dependency ) {
-      DisposeNotifier.asDisposeNotifier( super.getFoo2() ).addOnDisposeListener( $$arez_dk$$_getFoo2, this::dispose, true );
+      DisposeNotifier.asDisposeNotifier( super.getFoo2() ).addOnDisposeListener( $$arez_dk$$_getFoo2, this::dispose );
     }
     final MultiComponentDependencyModel.Foo $$arezv$$_getFoo3_dependency = super.getFoo3();
     if ( null != $$arezv$$_getFoo3_dependency ) {
-      DisposeNotifier.asDisposeNotifier( super.getFoo3() ).addOnDisposeListener( $$arez_dk$$_getFoo3, this::dispose, true );
+      DisposeNotifier.asDisposeNotifier( super.getFoo3() ).addOnDisposeListener( $$arez_dk$$_getFoo3, this::dispose );
     }
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentComplete();
@@ -89,23 +89,23 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
   private void $$arezi$$_preDispose() {
     final MultiComponentDependencyModel.Foo $$arezv$$_getFoo_dependency = super.getFoo();
     if ( null != $$arezv$$_getFoo_dependency ) {
-      DisposeNotifier.asDisposeNotifier( $$arezv$$_getFoo_dependency ).removeOnDisposeListener( $$arez_dk$$_getFoo, true );
+      DisposeNotifier.asDisposeNotifier( $$arezv$$_getFoo_dependency ).removeOnDisposeListener( $$arez_dk$$_getFoo );
     }
     final MultiComponentDependencyModel.Foo $$arezv$$_getFoo2_dependency = super.getFoo2();
     if ( null != $$arezv$$_getFoo2_dependency ) {
-      DisposeNotifier.asDisposeNotifier( $$arezv$$_getFoo2_dependency ).removeOnDisposeListener( $$arez_dk$$_getFoo2, true );
+      DisposeNotifier.asDisposeNotifier( $$arezv$$_getFoo2_dependency ).removeOnDisposeListener( $$arez_dk$$_getFoo2 );
     }
     final MultiComponentDependencyModel.Foo $$arezv$$_getFoo3_dependency = super.getFoo3();
     if ( null != $$arezv$$_getFoo3_dependency ) {
-      DisposeNotifier.asDisposeNotifier( $$arezv$$_getFoo3_dependency ).removeOnDisposeListener( $$arez_dk$$_getFoo3, true );
+      DisposeNotifier.asDisposeNotifier( $$arezv$$_getFoo3_dependency ).removeOnDisposeListener( $$arez_dk$$_getFoo3 );
     }
     final MultiComponentDependencyModel.Foo $$arezv$$_getFoo4_dependency = this.$$arezd$$_foo4;
     if ( null != $$arezv$$_getFoo4_dependency ) {
-      DisposeNotifier.asDisposeNotifier( $$arezv$$_getFoo4_dependency ).removeOnDisposeListener( $$arez$$_foo4, true );
+      DisposeNotifier.asDisposeNotifier( $$arezv$$_getFoo4_dependency ).removeOnDisposeListener( $$arez$$_foo4 );
     }
     final MultiComponentDependencyModel.Foo $$arezv$$_getFoo5_dependency = this.$$arezd$$_foo5;
     if ( null != $$arezv$$_getFoo5_dependency ) {
-      DisposeNotifier.asDisposeNotifier( $$arezv$$_getFoo5_dependency ).removeOnDisposeListener( $$arez$$_foo5, true );
+      DisposeNotifier.asDisposeNotifier( $$arezv$$_getFoo5_dependency ).removeOnDisposeListener( $$arez$$_foo5 );
     }
   }
 
@@ -179,11 +179,11 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
     final MultiComponentDependencyModel.Foo $$arezv$$_currentValue = this.$$arezd$$_foo4;
     if ( !Objects.equals( foo, $$arezv$$_currentValue ) ) {
       if ( null != $$arezv$$_currentValue ) {
-        DisposeNotifier.asDisposeNotifier( $$arezv$$_currentValue ).removeOnDisposeListener( $$arez$$_foo4, true );
+        DisposeNotifier.asDisposeNotifier( $$arezv$$_currentValue ).removeOnDisposeListener( $$arez$$_foo4 );
       }
       this.$$arezd$$_foo4 = foo;
       if ( null != foo ) {
-        DisposeNotifier.asDisposeNotifier( foo ).addOnDisposeListener( $$arez$$_foo4, this::dispose, true );
+        DisposeNotifier.asDisposeNotifier( foo ).addOnDisposeListener( $$arez$$_foo4, this::dispose );
       }
       this.$$arez$$_foo4.reportChanged();
     }
@@ -207,11 +207,11 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
     final MultiComponentDependencyModel.Foo $$arezv$$_currentValue = this.$$arezd$$_foo5;
     if ( !Objects.equals( foo, $$arezv$$_currentValue ) ) {
       if ( null != $$arezv$$_currentValue ) {
-        DisposeNotifier.asDisposeNotifier( $$arezv$$_currentValue ).removeOnDisposeListener( $$arez$$_foo5, true );
+        DisposeNotifier.asDisposeNotifier( $$arezv$$_currentValue ).removeOnDisposeListener( $$arez$$_foo5 );
       }
       this.$$arezd$$_foo5 = foo;
       if ( null != foo ) {
-        DisposeNotifier.asDisposeNotifier( foo ).addOnDisposeListener( $$arez$$_foo5, this::dispose, true );
+        DisposeNotifier.asDisposeNotifier( foo ).addOnDisposeListener( $$arez$$_foo5, this::dispose );
       }
       this.$$arez$$_foo5.reportChanged();
     }

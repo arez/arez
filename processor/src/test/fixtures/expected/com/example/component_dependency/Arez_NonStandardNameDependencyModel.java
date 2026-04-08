@@ -29,7 +29,7 @@ final class Arez_NonStandardNameDependencyModel extends NonStandardNameDependenc
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, null, null, true, false, false );
     final DisposeNotifier $$arezv$$_$$MYDEP$$_dependency = super.$$MYDEP$$();
     if ( null != $$arezv$$_$$MYDEP$$_dependency ) {
-      DisposeNotifier.asDisposeNotifier( super.$$MYDEP$$() ).addOnDisposeListener( this, this::dispose, true );
+      DisposeNotifier.asDisposeNotifier( super.$$MYDEP$$() ).addOnDisposeListener( this, this::dispose );
     }
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentComplete();
@@ -55,7 +55,7 @@ final class Arez_NonStandardNameDependencyModel extends NonStandardNameDependenc
   private void $$arezi$$_preDispose() {
     final DisposeNotifier $$arezv$$_$$MYDEP$$_dependency = super.$$MYDEP$$();
     if ( null != $$arezv$$_$$MYDEP$$_dependency ) {
-      DisposeNotifier.asDisposeNotifier( $$arezv$$_$$MYDEP$$_dependency ).removeOnDisposeListener( this, true );
+      DisposeNotifier.asDisposeNotifier( $$arezv$$_$$MYDEP$$_dependency ).removeOnDisposeListener( this );
     }
   }
 

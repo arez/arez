@@ -1,0 +1,34 @@
+[
+  {
+    "code": "java.method.defaultMethodAddedToInterface",
+    "description": "A default method has been added to the interface.",
+    "newElement": "method void arez.component.DisposeNotifier::addOnDisposeListener(java.lang.Object, arez.SafeProcedure)",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.DisposeNotifier",
+      "classSimpleName": "DisposeNotifier",
+      "elementKind": "method",
+      "methodName": "addOnDisposeListener",
+      "package": "arez.component"
+    }
+  },
+  {
+    "code": "java.method.defaultMethodAddedToInterface",
+    "description": "A default method has been added to the interface.",
+    "newElement": "method void arez.component.DisposeNotifier::removeOnDisposeListener(java.lang.Object)",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.DisposeNotifier",
+      "classSimpleName": "DisposeNotifier",
+      "elementKind": "method",
+      "methodName": "removeOnDisposeListener",
+      "package": "arez.component"
+    }
+  }
+]
