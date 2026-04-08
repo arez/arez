@@ -1,6 +1,10 @@
 # Change Log
 
-### Unreleased
+### [v0.227](https://github.com/arez/arez/tree/v0.227) (2026-04-08) · [Full Changelog](https://github.com/arez/arez/compare/v0.226...v0.227) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.226&new=0.227)
+
+The release includes 2 non breaking API changes.
+
+Changes in this release:
 
 * Correct the javadocs for `ComponentObservable.observe()` to reflect the actual implementation with respect to nullability etc.
 * Add simplified `DisposeNotifier` default methods and reuse it in generator.
