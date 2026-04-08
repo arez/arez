@@ -17,7 +17,7 @@ The simplest way to use the library;
 <dependency>
    <groupId>org.realityforge.arez.persist</groupId>
    <artifactId>arez-persist-core</artifactId>
-   <version>0.60</version>
+   <version>0.61</version>
 </dependency>
 ```
 * To enable the annotation processor used by the framework, you need add the following
@@ -40,7 +40,7 @@ The simplest way to use the library;
             <path>
                <groupId>org.realityforge.arez.persist</groupId>
                <artifactId>arez-persist-processor</artifactId>
-               <version>0.60</version>
+               <version>0.61</version>
             </path>
           </annotationProcessorPaths>
         </configuration>
