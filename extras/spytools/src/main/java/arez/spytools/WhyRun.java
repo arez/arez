@@ -24,6 +24,7 @@ public final class WhyRun
     Console.log( whyRun() );
   }
 
+  @Nonnull
   public static String whyRun()
   {
     return whyRun( Arez.context().getSpy() );
