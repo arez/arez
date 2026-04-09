@@ -173,6 +173,7 @@ public final class WhyRun
    * @param computableValue the ComputableValue.
    * @return the status description.
    */
+  @Nonnull
   private static String describeComputableValueStatus( @Nonnull final ComputableValueInfo computableValue )
   {
     if ( computableValue.isActive() )
