@@ -16,6 +16,7 @@ AREZ_TEST_OPTIONS =
     'braincheck.environment' => 'development',
     'arez.environment' => 'development'
   }
+AREZ_PERSIST_TEST_OPTIONS = AREZ_TEST_OPTIONS.dup.merge('arez.persist.environment' => 'development')
 
 GWT_EXAMPLES = {
   'promise-example' => %w(arez.promise.example.ObservablePromiseExample),
@@ -382,6 +383,117 @@ define 'arez' do
     end
     project.no_iml
   end
+  define 'persist' do
+    project.no_iml
+
+    desc 'The Persist Core Library'
+    define 'core' do
+      project.iml.prefix = 'persist_'
+      deps = artifacts(:javax_annotation,
+                       :grim_annotations,
+                       :braincheck_core,
+                       project('arez:core').package(:jar),
+                       :jetbrains_annotations,
+                       :akasha,
+                       :jsinterop_base,
+                       :jsinterop_annotations)
+      pom.include_transitive_dependencies << deps
+      pom.dependency_filter = Proc.new { |dep| dep[:scope].to_s != 'test' && deps.include?(dep[:artifact]) }
+
+      compile.with deps,
+                   project('arez:processor').package(:jar),
+                   project('arez:processor').compile.dependencies,
+                   :grim_processor,
+                   :javax_json
+      test.compile.options[:processor] = true
+
+      # The generators are configured to generate to here.
+      iml.test_source_directories << _('generated/processors/test/java')
+
+      test.options[:properties] =
+        AREZ_PERSIST_TEST_OPTIONS.merge('arez.persist.core.compile_target' => compile.target.to_s)
+      test.options[:java_args] = ['-ea']
+
+      gwt_enhance(project)
+
+      package(:jar)
+      package(:sources)
+      package(:javadoc)
+
+      test.using :testng
+      test.compile.with :guiceyloops,
+                        :jdepend,
+                        project('arez:extras:testng').package(:jar),
+                        :mockito,
+                        :byte_buddy,
+                        :objenesis
+
+    end
+
+    desc 'The Persist Annotation processor'
+    define 'processor' do
+      project.iml.prefix = 'persist_'
+      pom.dependency_filter = Proc.new { |_| false }
+
+      compile.with :javax_annotation,
+                   :proton_core,
+                   :javapoet
+
+      test.compile.with :proton_qa,
+                        project('arez:processor').package(:jar),
+                        project('arez:processor').compile.dependencies,
+                        project('arez:persist:core').package(:jar),
+                        project('arez:persist:core').compile.dependencies
+
+      test.compile.options[:processor] = true
+
+      package(:jar)
+      package(:sources)
+      package(:javadoc)
+
+      package(:jar).enhance do |jar|
+        jar.merge(artifact(:javapoet))
+        jar.merge(artifact(:proton_core))
+        jar.enhance do |f|
+          Buildr::Shade.shade(f,
+                              f,
+                              'com.squareup.javapoet' => 'arez.persist.processor.vendor.javapoet',
+                              'org.realityforge.proton' => 'arez.persist.processor.vendor.proton')
+        end
+      end
+
+      test.using :testng
+      test.options[:properties] = { 'arez.persist.fixture_dir' => _('src/test/fixtures') }
+      test.compile.with :guiceyloops
+
+      iml.test_source_directories << _('src/test/fixtures/input')
+      iml.test_source_directories << _('src/test/fixtures/expected')
+      iml.test_source_directories << _('src/test/fixtures/bad_input')
+    end
+
+    desc 'Arez Persist Integration Tests'
+    define 'integration-tests' do
+      project.iml.prefix = 'persist_'
+      test.options[:properties] = AREZ_PERSIST_TEST_OPTIONS
+      test.options[:java_args] = ['-ea']
+
+      test.using :testng
+      test.compile.with :guiceyloops,
+                        project('arez:extras:testng').package(:jar),
+                        :javax_json,
+                        project('arez:persist:core').package(:jar),
+                        project('arez:persist:core').compile.dependencies,
+                        project('arez:processor').package(:jar),
+                        project('arez:processor').compile.dependencies,
+                        project('arez:persist:processor').package(:jar),
+                        project('arez:persist:processor').compile.dependencies
+
+      test.compile.options[:processor] = true
+
+      # The generators are configured to generate to here.
+      iml.test_source_directories << _('generated/processors/test/java')
+    end
+  end
 
   desc 'Arez Examples used in documentation'
   define 'doc-examples' do
@@ -397,7 +509,7 @@ define 'arez' do
     compile.options[:processor] = true
   end
 
-  doc.from(projects(%w(core processor extras:promise extras:testng extras:dom))).
+  doc.from(projects(%w(core processor extras:promise extras:testng extras:dom persist:core persist:processor))).
     using(:javadoc,
           :windowtitle => 'Arez API Documentation',
           :linksource => true,
@@ -406,6 +518,7 @@ define 'arez' do
           :group => {
             'Core Packages' => 'arez:arez.spy*',
             'Component Packages' => 'arez.annotations*:arez.component*:arez.processor*',
+            'Persist Packages' => 'arez.persist*',
             'Extras Packages' => 'arez.promise*:arez.dom*:arez.testng*'
           }
     )
@@ -415,7 +528,7 @@ define 'arez' do
   iml.excluded_directories << project._('node_modules')
   iml.excluded_directories << project._('tmp')
 
-  ipr.add_default_testng_configuration(:jvm_args => "-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=false -Darez.deploy_test.build_before=true -Darez.fixture_dir=processor/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources -Darez.api_test.fixture_dir=api-test/src/test/resources/fixtures -Darez.deploy_test.fixture_dir=downstream-test/src/test/resources/fixtures -Darez.deploy_test.work_dir=target/arez_downstream-test/deploy_test/workdir -Darez.prev.version=X -Darez.prev.jar=#{artifact("org.realityforge.arez:arez-core:jar:#{ENV['PREVIOUS_PRODUCT_VERSION'] || project.version}")} -Darez.next.version=X -Darez.next.jar=#{project('core').package(:jar)} -Darez.core.compile_target=target/arez_core/idea/classes -Darez.revapi.jar=#{artifact(:revapi_diff)} -Darez.diagnostic_messages_file=core/src/test/java/arez/diagnostic_messages.json -Darez.check_diagnostic_messages=false")
+  ipr.add_default_testng_configuration(:jvm_args => "-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=false -Darez.persist.environment=development -Darez.persist.output_fixture_data=false -Darez.persist.fixture_dir=persist/processor/src/test/resources -Darez.persist.core.compile_target=target/arez_persist_core/idea/classes -Darez.deploy_test.build_before=true -Darez.fixture_dir=processor/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources -Darez.api_test.fixture_dir=api-test/src/test/resources/fixtures -Darez.deploy_test.fixture_dir=downstream-test/src/test/resources/fixtures -Darez.deploy_test.work_dir=target/arez_downstream-test/deploy_test/workdir -Darez.prev.version=X -Darez.prev.jar=#{artifact("org.realityforge.arez:arez-core:jar:#{ENV['PREVIOUS_PRODUCT_VERSION'] || project.version}")} -Darez.next.version=X -Darez.next.jar=#{project('core').package(:jar)} -Darez.core.compile_target=target/arez_core/idea/classes -Darez.revapi.jar=#{artifact(:revapi_diff)} -Darez.diagnostic_messages_file=core/src/test/java/arez/diagnostic_messages.json -Darez.check_diagnostic_messages=false")
 
   ipr.add_testng_configuration('core',
                                :module => 'core',
@@ -429,6 +542,18 @@ define 'arez' do
   ipr.add_testng_configuration('integration-tests',
                                :module => 'integration-tests',
                                :jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=true -Darez.integration_fixture_dir=src/test/resources')
+
+  ipr.add_default_testng_configuration(:jvm_args => "-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.persist.environment=development -Darez.persist.output_fixture_data=false -Darez.persist.fixture_dir=processor/src/test/resources -Darez.persist.core.compile_target=target/arez-persist_core/idea/classes")
+
+  ipr.add_testng_configuration('persist_core',
+                               :module => 'persist_core',
+                               :jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.persist.environment=development -Darez.persist.output_fixture_data=false -Darez.persist.core.compile_target=../target/arez-persist_core/idea/classes')
+  ipr.add_testng_configuration('persist_processor',
+                               :module => 'persist_processor',
+                               :jvm_args => '-ea -Darez.persist.output_fixture_data=true -Darez.persist.fixture_dir=src/test/fixtures')
+  ipr.add_testng_configuration('persist_integration-tests',
+                               :module => 'persist_integration-tests',
+                               :jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.persist.environment=development')
 
   GWT_EXAMPLES.each_pair do |project_name, gwt_modules|
     gwt_modules.each do |gwt_module|

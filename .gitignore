@@ -11,6 +11,7 @@
 /generated
 /*/generated
 /extras/**/generated
+/persist/**/generated
 /node_modules
 /website/translated_docs
 /website/build/

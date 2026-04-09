@@ -59,3 +59,8 @@ artifacts:
   revapi_diff: org.realityforge.revapi.diff:revapi-diff:jar:all:0.08
 
   jaxws_api: javax.xml.ws:jaxws-api:jar:2.3.0
+
+  # Mockito deps
+  mockito: org.mockito:mockito-core:jar:4.5.1
+  byte_buddy: net.bytebuddy:byte-buddy:jar:1.12.9
+  objenesis: org.objenesis:objenesis:jar:3.2
