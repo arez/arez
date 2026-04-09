@@ -94,5 +94,5 @@ end
 
 desc 'Create Package and deploy to Maven Central'
 task 'upload_to_maven_central' do
-  release_to_maven_central('arez', %w(arez:core arez:processor arez:extras:dom arez:extras:promise arez:extras:spytools arez:extras:testng))
+  release_to_maven_central('arez', %w(arez:core arez:processor arez:extras:dom arez:extras:promise arez:extras:spytools arez:extras:testng arez:persist:core arez:persist:processor))
 end
