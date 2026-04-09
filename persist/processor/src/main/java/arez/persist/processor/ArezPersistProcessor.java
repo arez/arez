@@ -68,7 +68,7 @@ public final class ArezPersistProcessor
   @Nonnull
   protected String getIssueTrackerURL()
   {
-    return "https://github.com/arez/arez-persist/issues";
+    return "https://github.com/arez/arez/issues";
   }
 
   @Nonnull

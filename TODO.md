@@ -127,12 +127,6 @@ abstract class ArezConfig
 
 ## Process
 
-* A future version of BuildDownstream should only push out changes to downstream libraries IFF there already exists
-  the patch branch {branch}-ArezUpgrade-{version}. The reason behind this is that all we are doing is checking that
-  compilation works with the downstream project, however if compilation fails then the downstream project needs to
-  publish a release as it indicates that there was some code change required. The other trigger for a release may be
-  when the major version of arez changes.
-
 * Consider a tool that creates branches in downstream branches if it does not exist and the build fails. This would
   make it easy to come along and update the branch as required.
 

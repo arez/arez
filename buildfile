@@ -220,7 +220,6 @@ define 'arez' do
       Java::Commands.java 'arez.downstream.CollectWebSpeechDemoStats', { :classpath => cp, :properties => properties } unless ENV['BUILD_STATS'] == 'no'
       Java::Commands.java 'arez.downstream.CollectDrumLoopBuildStats', { :classpath => cp, :properties => properties } unless ENV['BUILD_STATS'] == 'no'
       Java::Commands.java 'arez.downstream.CollectFluxChallengeBuildStats', { :classpath => cp, :properties => properties } unless ENV['BUILD_STATS'] == 'no'
-      Java::Commands.java 'arez.downstream.BuildDownstream', { :classpath => cp, :properties => properties } unless ENV['DOWNSTREAM'] == 'no'
       Java::Commands.java 'arez.downstream.CollectBuildStats', { :classpath => cp, :properties => properties } unless ENV['BUILD_STATS'] == 'no'
     end
 
