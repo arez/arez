@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.229](https://github.com/arez/arez/tree/v0.229) (2026-04-09) · [Full Changelog](https://github.com/arez/arez/compare/v0.228...v0.229)
+
+Changes in this release:
 
 * Complete the inlining of `arez-persist`
 
