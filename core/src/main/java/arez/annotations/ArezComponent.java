@@ -105,6 +105,9 @@ public @interface ArezComponent
    * Return true if the component should dispose itself once it is no longer "observed".
    * By "observed" it means that the component will have {@link arez.component.ComponentObservable#observe(Object)}
    * called on it. This parameter MUST be false if {@link #observable()} has the value {@link Feature#DISABLE}.
+   * Components configured in this mode should not also be explicitly disposed by an owning component via
+   * {@link CascadeDispose}, otherwise the annotation processor will emit the suppressable warning
+   * {@code "Arez:ConflictingDisposeModel"}.
    *
    * @return true if the component should dispose itself once it is no longer "observed".
    */

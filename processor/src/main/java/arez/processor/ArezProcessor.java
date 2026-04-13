@@ -236,7 +236,8 @@ public final class ArezProcessor
     final String existingComparator = observable.getEqualityComparator();
     final boolean existingComparatorIsDefault =
       Constants.OBJECTS_EQUALS_COMPARATOR_CLASSNAME.equals( existingComparator );
-    final boolean comparatorIsDefault = Constants.OBJECTS_EQUALS_COMPARATOR_CLASSNAME.equals( equalityComparatorClassName );
+    final boolean comparatorIsDefault =
+      Constants.OBJECTS_EQUALS_COMPARATOR_CLASSNAME.equals( equalityComparatorClassName );
     if ( existingComparatorIsDefault )
     {
       observable.setEqualityComparator( equalityComparatorClassName );
@@ -1015,6 +1016,7 @@ public final class ArezProcessor
                                          Constants.CASCADE_DISPOSE_CLASSNAME,
                                          field );
     mustBeCascadeDisposeTypeCompatible( field );
+    emitWarningForConflictingDisposeModel( field );
     component.addCascadeDispose( new CascadeDisposeDescriptor( field ) );
   }
 
@@ -1071,7 +1073,41 @@ public final class ArezProcessor
                                          Constants.CASCADE_DISPOSE_CLASSNAME,
                                          method );
     mustBeCascadeDisposeTypeCompatible( method );
+    emitWarningForConflictingDisposeModel( method );
     component.addCascadeDispose( new CascadeDisposeDescriptor( method, observable ) );
+  }
+
+  private void emitWarningForConflictingDisposeModel( @Nonnull final VariableElement field )
+  {
+    if ( isWarningNotSuppressed( field, Constants.WARNING_CONFLICTING_DISPOSE_MODEL ) &&
+         isLivenessDisposedArezComponent( field.asType() ) )
+    {
+      final String message =
+        "Field named '" + field.getSimpleName() + "' is annotated with @" + Constants.CASCADE_DISPOSE_CLASSNAME +
+        " but has a type that is an Arez component configured with disposeOnDeactivate = true. " +
+        "Disposal should be managed either by liveness (i.e. disposeOnDeactivate = true) or explicitly " +
+        "(via @CascadeDispose or manual disposal), but not both. Please choose a single disposal model " +
+        "or suppress the warning by annotating the field with @SuppressWarnings( \"" +
+        Constants.WARNING_CONFLICTING_DISPOSE_MODEL + "\" ) or @SuppressArezWarnings( \"" +
+        Constants.WARNING_CONFLICTING_DISPOSE_MODEL + "\" )";
+      processingEnv.getMessager().printMessage( WARNING, message, field );
+    }
+  }
+
+  private void emitWarningForConflictingDisposeModel( @Nonnull final ExecutableElement method )
+  {
+    if ( isWarningNotSuppressed( method, Constants.WARNING_CONFLICTING_DISPOSE_MODEL ) &&
+         isLivenessDisposedArezComponent( method.getReturnType() ) )
+    {
+      final String message =
+        "Method named '" + method.getSimpleName() + "' is annotated with @" + Constants.CASCADE_DISPOSE_CLASSNAME +
+        " but returns an Arez component configured with disposeOnDeactivate = true. Disposal should be managed " +
+        "either by liveness (i.e. disposeOnDeactivate = true) or explicitly (via @CascadeDispose or manual " +
+        "disposal), but not both. Please choose a single disposal model or suppress the warning by annotating " +
+        "the method with @SuppressWarnings( \"" + Constants.WARNING_CONFLICTING_DISPOSE_MODEL +
+        "\" ) or @SuppressArezWarnings( \"" + Constants.WARNING_CONFLICTING_DISPOSE_MODEL + "\" )";
+      processingEnv.getMessager().printMessage( WARNING, message, method );
+    }
   }
 
   private void mustBeCascadeDisposeTypeCompatible( @Nonnull final ExecutableElement method )
@@ -2274,6 +2310,16 @@ public final class ArezProcessor
   {
     return AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.COMPONENT_CLASSNAME ) &&
            isDisposableTrackableRequired( typeElement );
+  }
+
+  private boolean isLivenessDisposedArezComponent( @Nonnull final TypeMirror typeMirror )
+  {
+    final Element element = processingEnv.getTypeUtils().asElement( typeMirror );
+    final AnnotationMirror arezComponent = element instanceof TypeElement ?
+                                           AnnotationsUtil.findAnnotationByType( element,
+                                                                                 Constants.COMPONENT_CLASSNAME ) :
+                                           null;
+    return null != arezComponent && this.<Boolean>getAnnotationParameter( arezComponent, "disposeOnDeactivate" );
   }
 
   @Nonnull

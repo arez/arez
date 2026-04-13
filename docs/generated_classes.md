@@ -37,4 +37,5 @@ The generated component subclass also implements the following interfaces; {@lin
 * The {@link: arez.component.ComponentObservable} allows observers to observe the component without
   observing a particular property of the component. This is typically used in conjunction with the
   {@link: arez.annotations.ArezComponent#disposeOnDeactivate() @ArezComponent.disposeOnDeactivate} parameter to ensure a component is kept
-  alive while it is in use.
+  alive while it is in use. Components managed this way should not also be explicitly cascade-disposed by an
+  owning component; the annotation processor warns about that mixed lifecycle configuration.
