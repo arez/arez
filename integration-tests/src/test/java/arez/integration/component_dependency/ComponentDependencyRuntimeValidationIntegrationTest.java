@@ -4,6 +4,7 @@ import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 import arez.integration.AbstractArezIntegrationTest;
+import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -49,6 +50,7 @@ public final class ComponentDependencyRuntimeValidationIntegrationTest
   static abstract class Model1
     implements MyInterface
   {
+    @Nonnull
     static Model1 create()
     {
       return new ComponentDependencyRuntimeValidationIntegrationTest_Arez_Model1();
@@ -61,6 +63,7 @@ public final class ComponentDependencyRuntimeValidationIntegrationTest
     @ComponentDependency( validateTypeAtRuntime = true )
     final MyInterface _reference1;
 
+    @Nonnull
     static Model2 create( final MyInterface reference1 )
     {
       return new ComponentDependencyRuntimeValidationIntegrationTest_Arez_Model2( reference1 );
