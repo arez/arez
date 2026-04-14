@@ -67,24 +67,6 @@ complete as there is too much un-said.
 * Maybe when the spy events are over a channel the puller can decide when parameters/results are sent across
   channel and when not.
 
-* Add annotation processor to code for following
-
-`
-@CompileTimeSettings(name="arez")
-abstract class ArezConfig
-{
-  // override name
-  @Setting(name="someFlag")
-  boolean isFlagSet();
-
-  // Override default
-  @Setting(defaultValue="true")
-  boolean isSomeOtherFlagSet();
-
-  @Setting(values={"a", "b", "c"})
-  boolean logger();
-}`
-
 * Could also record fan out and fan in for each node and rates of change for each node to see what problems could
   arise and where the potential bottlenecks are located.
 
