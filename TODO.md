@@ -44,9 +44,6 @@ complete as there is too much un-said.
   generate the constant file, the `ArezConfig`, `ArezTestUtil`, parts of `Arez.gwt.xml` and part of the `arez.js`
   from a single descriptor somewhere. Update `BuildOutputTest` to use constants.
 
-* Before a `1.0` release move `arez.*` to `arez.core.*` and `arez.annotations.*` to `arez.*`. Users are much more
-  likely to use the annotations to interact with Arez and thus the shorter package names have a significant advantage.
-
 * Refactor `AbstractRepository` so that rather than being a base class, it implements a `Repository` class that
   is composed in downstream repositories.
 
