@@ -6,6 +6,11 @@ The {@link: arez.annotations.CascadeDispose @CascadeDispose} annotation is used 
 be disposed when the component is disposed. This is a short-hand way of cleaning up arez components and other
 resources that have been created or are owned by the component when the component is disposed.
 
+If the referenced value already uses liveness-managed disposal via
+{@link: arez.annotations.ArezComponent#disposeOnDeactivate() disposeOnDeactivate = true} and should only be kept alive
+while the owner is alive, prefer {@link: arez.annotations.AutoObserve @AutoObserve}. `@CascadeDispose` is for
+ownership; `@AutoObserve` is for liveness.
+
 If the target is an {@link: arez.annotations.ArezComponent @ArezComponent} configured with
 {@link: arez.annotations.ArezComponent#disposeOnDeactivate() disposeOnDeactivate = true} then the annotation processor
 will emit the suppressable warning `Arez:ConflictingDisposeModel`. Disposal should be managed either by liveness

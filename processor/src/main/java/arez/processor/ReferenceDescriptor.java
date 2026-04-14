@@ -36,6 +36,8 @@ final class ReferenceDescriptor
   private Multiplicity _inverseMultiplicity;
   @Nullable
   private CascadeDisposeDescriptor _cascadeDisposeDescriptor;
+  @Nullable
+  private AutoObserveDescriptor _autoObserveDescriptor;
 
   ReferenceDescriptor( @Nonnull final ComponentDescriptor component, @Nonnull final String name )
   {
@@ -93,6 +95,17 @@ final class ReferenceDescriptor
   void setCascadeDisposeDescriptor( @Nonnull final CascadeDisposeDescriptor cascadeDisposeDescriptor )
   {
     _cascadeDisposeDescriptor = Objects.requireNonNull( cascadeDisposeDescriptor );
+  }
+
+  @Nullable
+  AutoObserveDescriptor getAutoObserveDescriptor()
+  {
+    return _autoObserveDescriptor;
+  }
+
+  void setAutoObserveDescriptor( @Nonnull final AutoObserveDescriptor autoObserveDescriptor )
+  {
+    _autoObserveDescriptor = Objects.requireNonNull( autoObserveDescriptor );
   }
 
   @Nonnull

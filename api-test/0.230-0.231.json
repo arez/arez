@@ -1,0 +1,33 @@
+[
+  {
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "@interface arez.annotations.AutoObserve",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.AutoObserve",
+      "classSimpleName": "AutoObserve",
+      "elementKind": "@interface",
+      "package": "arez.annotations"
+    }
+  },
+  {
+    "code": "java.method.attributeWithDefaultAddedToAnnotationType",
+    "description": "The annotation has a new attribute with a default value.",
+    "newElement": "method boolean arez.annotations.AutoObserve::validateTypeAtRuntime()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.AutoObserve",
+      "classSimpleName": "AutoObserve",
+      "elementKind": "method",
+      "methodName": "validateTypeAtRuntime",
+      "package": "arez.annotations"
+    }
+  }
+]

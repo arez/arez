@@ -32,6 +32,7 @@ import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
+import javax.lang.model.element.Name;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.TypeParameterElement;
 import javax.lang.model.element.VariableElement;
@@ -54,7 +55,8 @@ final class ComponentGenerator
   private static final ClassName ACTION_SKIPPED_EVENT_CLASSNAME = ClassName.get( "arez.spy", "ActionSkippedEvent" );
   private static final ClassName OBSERVER_FLAGS_CLASSNAME = ClassName.get( "arez", "Observer", "Flags" );
   private static final ClassName COMPUTABLE_VALUE_FLAGS_CLASSNAME = ClassName.get( "arez", "ComputableValue", "Flags" );
-  private static final ClassName OBJECTS_DEEP_EQUALS_COMPARATOR_CLASSNAME = ClassName.get( "arez", "ObjectsDeepEqualsComparator" );
+  private static final ClassName OBJECTS_DEEP_EQUALS_COMPARATOR_CLASSNAME =
+    ClassName.get( "arez", "ObjectsDeepEqualsComparator" );
   private static final ClassName AREZ_CONTEXT_CLASSNAME = ClassName.get( "arez", "ArezContext" );
   private static final ClassName OBSERVABLE_CLASSNAME = ClassName.get( "arez", "ObservableValue" );
   private static final ClassName OBSERVER_CLASSNAME = ClassName.get( "arez", "Observer" );
@@ -97,6 +99,8 @@ final class ComponentGenerator
   private static final String INTERNAL_POST_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "postDispose";
   private static final String NEXT_ID_FIELD_NAME = FRAMEWORK_PREFIX + "nextId";
   private static final String KERNEL_FIELD_NAME = FRAMEWORK_PREFIX + "kernel";
+  private static final String AUTO_OBSERVE_FIELD_NAME = FIELD_PREFIX + "$autoObserve";
+  private static final String AUTO_OBSERVE_METHOD_NAME = FRAMEWORK_PREFIX + "$autoObserve";
   static final String ID_FIELD_NAME = FRAMEWORK_PREFIX + "id";
   private static final String LOCATOR_METHOD_NAME = FRAMEWORK_PREFIX + "locator";
   /**
@@ -326,6 +330,10 @@ final class ComponentGenerator
                                                                                    builder ) );
     component.getObservables().values().forEach( e -> buildObservableMethods( processingEnv, e, builder ) );
     component.getObserves().values().forEach( e -> buildObserveMethods( processingEnv, e, builder ) );
+    if ( !component.getAutoObserves().isEmpty() )
+    {
+      builder.addMethod( buildAutoObserveMethod( component ) );
+    }
     component.getActions().values().forEach( e -> builder.addMethod( buildAction( processingEnv, e ) ) );
     component.getMemoizes().values().forEach( e -> buildMemoizeMethods( processingEnv, e, builder ) );
     component.getReferences().values().forEach( e -> buildReferenceMethods( processingEnv, e, builder ) );
@@ -1276,6 +1284,10 @@ final class ComponentGenerator
 
     componentDescriptor.getObserves().values().forEach( observe -> buildObserveDisposer( observe,
                                                                                          builder ) );
+    if ( !componentDescriptor.getAutoObserves().isEmpty() )
+    {
+      buildAutoObserveDisposer( builder );
+    }
     componentDescriptor.getMemoizes().values().forEach( memoize -> buildMemoizeDisposer( memoize,
                                                                                          builder ) );
     componentDescriptor.getObservables().values().forEach( observable -> buildObservableDisposer( observable,
@@ -1889,6 +1901,32 @@ final class ComponentGenerator
       block.endControlFlow();
       builder.addCode( block.build() );
     }
+    final var runtimeValidatedFieldAutoObserves =
+      component.getAutoObserves()
+        .values()
+        .stream()
+        .filter( ao -> ao.isValidateTypeAtRuntime() && null != ao.getField() )
+        .collect(
+          Collectors.toUnmodifiableList() );
+    if ( !runtimeValidatedFieldAutoObserves.isEmpty() )
+    {
+      builder.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
+      for ( final var autoObserve : runtimeValidatedFieldAutoObserves )
+      {
+        final var field = autoObserve.getField();
+        assert null != field;
+        final var name = field.getSimpleName();
+        builder.addStatement( "$T.apiInvariant( () -> null == this.$N || this.$N instanceof $T, " +
+                              "() -> $S + this.$N )",
+                              GUARDS_CLASSNAME,
+                              name,
+                              name,
+                              COMPONENT_OBSERVABLE_CLASSNAME,
+                              "Field annotated with @AutoObserve( validateTypeAtRuntime = true ) references a non-null value that does not implement ComponentObservable. Value: ",
+                              name );
+      }
+      builder.endControlFlow();
+    }
 
     buildComponentKernel( processingEnv, component, builder );
 
@@ -1954,6 +1992,10 @@ final class ComponentGenerator
     component.getObservables().values().forEach( observable -> buildObservableInitializer( observable, builder ) );
     component.getMemoizes().values().forEach( memoize -> buildMemoizeInitializer( memoize, builder ) );
     component.getObserves().values().forEach( observe -> buildObserveInitializer( observe, builder ) );
+    if ( !component.getAutoObserves().isEmpty() )
+    {
+      buildAutoObserveInitializer( component, builder );
+    }
     component.getInverses().values().forEach( e -> buildInverseInitializer( e, builder ) );
     component.getDependencies().values().forEach( e -> buildDependencyKeyInitializer( e, builder ) );
     component.getDependencies().values().forEach( e -> buildDependencyInitializer( e, builder ) );
@@ -2043,6 +2085,10 @@ final class ComponentGenerator
       .forEach( observable -> buildObservableFields( processingEnv, observable, builder ) );
     component.getMemoizes().values().forEach( memoize -> buildMemoizeFields( processingEnv, memoize, builder ) );
     component.getObserves().values().forEach( observe -> buildObserveFields( observe, builder ) );
+    if ( !component.getAutoObserves().isEmpty() )
+    {
+      buildAutoObserveField( builder );
+    }
     component.getReferences().values().forEach( r -> buildReferenceFields( r, builder ) );
     component.getDependencies().values().forEach( e -> buildDependencyKeyField( e, builder ) );
   }
@@ -2120,6 +2166,14 @@ final class ComponentGenerator
     builder.addField( field.build() );
   }
 
+  private static void buildAutoObserveField( @Nonnull final TypeSpec.Builder builder )
+  {
+    final FieldSpec.Builder field =
+      FieldSpec.builder( OBSERVER_CLASSNAME, AUTO_OBSERVE_FIELD_NAME, Modifier.FINAL, Modifier.PRIVATE ).
+        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
+    builder.addField( field.build() );
+  }
+
   /**
    * Setup initial state of observed in constructor.
    */
@@ -2133,6 +2187,61 @@ final class ComponentGenerator
     else
     {
       buildTrackerInitializer( observe, builder );
+    }
+  }
+
+  private static void buildAutoObserveInitializer( @Nonnull final ComponentDescriptor component,
+                                                   @Nonnull final MethodSpec.Builder builder )
+  {
+    final String dependencyFlags =
+      autoObserveCanRunWithoutDependencies( component ) ?
+      "$T.AREZ_OR_NO_DEPENDENCIES" :
+      "$T.AREZ_DEPENDENCIES";
+    builder.addStatement( "this.$N = $N.observer( $T.areNativeComponentsEnabled() ? $N : null, " +
+                          "$T.areNamesEnabled() ? $N + $S : null, () -> this.$N(), " +
+                          "$T.RUN_LATER | $T.NESTED_ACTIONS_DISALLOWED | " + dependencyFlags + " )",
+                          AUTO_OBSERVE_FIELD_NAME,
+                          CONTEXT_VAR_NAME,
+                          AREZ_CLASSNAME,
+                          COMPONENT_VAR_NAME,
+                          AREZ_CLASSNAME,
+                          NAME_VAR_NAME,
+                          ".$autoObserve",
+                          AUTO_OBSERVE_METHOD_NAME,
+                          OBSERVER_FLAGS_CLASSNAME,
+                          OBSERVER_FLAGS_CLASSNAME,
+                          OBSERVER_FLAGS_CLASSNAME );
+  }
+
+  private static boolean autoObserveCanRunWithoutDependencies( @Nonnull final ComponentDescriptor component )
+  {
+    return
+      component
+        .getAutoObserves()
+        .values()
+        .stream()
+        .noneMatch( ComponentGenerator::autoObserveAlwaysTracksADependency );
+  }
+
+  private static boolean autoObserveAlwaysTracksADependency( @Nonnull final AutoObserveDescriptor autoObserve )
+  {
+    if ( null != autoObserve.getObservable() || null != autoObserve.getReference() )
+    {
+      return true;
+    }
+    else
+    {
+      final VariableElement field = autoObserve.getField();
+      if ( null != field )
+      {
+        return AnnotationsUtil.hasNonnullAnnotation( field );
+      }
+      else
+      {
+        final ExecutableElement method = autoObserve.getMethod();
+        assert null != method;
+        return !isNullable( method, method.getReturnType() );
+      }
     }
   }
 
@@ -3373,6 +3482,11 @@ final class ComponentGenerator
                                                @Nonnull final MethodSpec.Builder codeBlock )
   {
     codeBlock.addStatement( "this.$N.dispose()", observable.getFieldName() );
+  }
+
+  private static void buildAutoObserveDisposer( @Nonnull final MethodSpec.Builder codeBlock )
+  {
+    codeBlock.addStatement( "this.$N.dispose()", AUTO_OBSERVE_FIELD_NAME );
   }
 
   private static void buildObservableMethods( @Nonnull final ProcessingEnvironment processingEnv,
@@ -4664,6 +4778,109 @@ final class ComponentGenerator
                           KERNEL_FIELD_NAME,
                           reference.getMethod().getReturnType().toString(),
                           reference.getIdMethod().getSimpleName() );
+  }
+
+  @Nonnull
+  private static MethodSpec buildAutoObserveMethod( @Nonnull final ComponentDescriptor component )
+  {
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( AUTO_OBSERVE_METHOD_NAME ).
+        addModifiers( Modifier.PRIVATE );
+
+    generateNotDisposedInvariant( builder, AUTO_OBSERVE_METHOD_NAME );
+
+    int index = 0;
+    for ( final AutoObserveDescriptor autoObserve : component.getAutoObserves().values() )
+    {
+      final VariableElement field = autoObserve.getField();
+      final ReferenceDescriptor reference = autoObserve.getReference();
+      if ( null != field )
+      {
+        final String varName = VARIABLE_PREFIX + "autoObserve_" + index++;
+        builder.addStatement( "final $T $N = this.$N",
+                              TypeName.get( field.asType() ),
+                              varName,
+                              field.getSimpleName().toString() );
+        if ( AnnotationsUtil.hasNonnullAnnotation( field ) )
+        {
+          emitAutoObserve( builder, autoObserve, varName );
+        }
+        else
+        {
+          builder.beginControlFlow( "if ( null != $N )", varName );
+          emitAutoObserve( builder, autoObserve, varName );
+          builder.endControlFlow();
+        }
+      }
+      else if ( null != reference )
+      {
+        final String varName = VARIABLE_PREFIX + "autoObserve_" + index++;
+        builder.addStatement( "this.$N()", reference.getLinkMethodName() );
+        builder.addStatement( "final $T $N = this.$N()",
+                              TypeName.get( reference.getMethod().getReturnType() ),
+                              varName,
+                              reference.getMethod().getSimpleName().toString() );
+        if ( reference.isNullable() )
+        {
+          builder.beginControlFlow( "if ( null != $N )", varName );
+          builder.addStatement( "$T.observe( $N )", COMPONENT_OBSERVABLE_CLASSNAME, varName );
+          builder.endControlFlow();
+        }
+        else
+        {
+          builder.addStatement( "$T.observe( $N )", COMPONENT_OBSERVABLE_CLASSNAME, varName );
+        }
+      }
+      else
+      {
+        final ExecutableElement method = Objects.requireNonNull( autoObserve.getMethod() );
+        final String varName = VARIABLE_PREFIX + "autoObserve_" + index++;
+        builder.addStatement( "final $T $N = this.$N()",
+                              TypeName.get( method.getReturnType() ),
+                              varName,
+                              method.getSimpleName().toString() );
+        if ( isNullable( method, method.getReturnType() ) )
+        {
+          builder.beginControlFlow( "if ( null != $N )", varName );
+          builder.addStatement( "$T.observe( $N )", COMPONENT_OBSERVABLE_CLASSNAME, varName );
+          builder.endControlFlow();
+        }
+        else
+        {
+          builder.addStatement( "$T.observe( $N )", COMPONENT_OBSERVABLE_CLASSNAME, varName );
+        }
+      }
+    }
+
+    return builder.build();
+  }
+
+  private static void emitAutoObserve( @Nonnull final MethodSpec.Builder builder,
+                                       @Nonnull final AutoObserveDescriptor autoObserve,
+                                       @Nonnull final String varName )
+  {
+    if ( autoObserve.isValidateTypeAtRuntime() && null != autoObserve.getMethod() )
+    {
+      builder.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
+      builder.addStatement( "$T.apiInvariant( () -> $N instanceof $T, " +
+                            "() -> $S + $N )",
+                            GUARDS_CLASSNAME,
+                            varName,
+                            COMPONENT_OBSERVABLE_CLASSNAME,
+                            "Method annotated with @AutoObserve( validateTypeAtRuntime = true ) has returned a non-null value that does not implement ComponentObservable. Object: ",
+                            varName );
+      builder.endControlFlow();
+      builder.addStatement( "$T.observe( $N )", COMPONENT_OBSERVABLE_CLASSNAME, varName );
+    }
+    else
+    {
+      builder.addStatement( "$T.observe( $N )", COMPONENT_OBSERVABLE_CLASSNAME, varName );
+    }
+  }
+
+  private static boolean isNullable( @Nonnull final Element element, @Nonnull final TypeMirror type )
+  {
+    return !type.getKind().isPrimitive() && !AnnotationsUtil.hasNonnullAnnotation( element );
   }
 
   private static void buildObserveDisposer( @Nonnull final ObserveDescriptor observe,

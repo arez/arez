@@ -59,6 +59,8 @@ final class ObservableDescriptor
   private InverseDescriptor _inverseDescriptor;
   @Nullable
   private CascadeDisposeDescriptor _cascadeDisposeDescriptor;
+  @Nullable
+  private AutoObserveDescriptor _autoObserveDescriptor;
 
   ObservableDescriptor( @Nonnull final ComponentDescriptor component, @Nonnull final String name )
   {
@@ -288,6 +290,17 @@ final class ObservableDescriptor
   void setCascadeDisposeDescriptor( @Nonnull final CascadeDisposeDescriptor cascadeDisposeDescriptor )
   {
     _cascadeDisposeDescriptor = Objects.requireNonNull( cascadeDisposeDescriptor );
+  }
+
+  @Nullable
+  AutoObserveDescriptor getAutoObserveDescriptor()
+  {
+    return _autoObserveDescriptor;
+  }
+
+  void setAutoObserveDescriptor( @Nonnull final AutoObserveDescriptor autoObserveDescriptor )
+  {
+    _autoObserveDescriptor = Objects.requireNonNull( autoObserveDescriptor );
   }
 
   @Nonnull

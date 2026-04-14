@@ -15,6 +15,8 @@ final class Constants
   @Nonnull
   static final String OBSERVE_CLASSNAME = "arez.annotations.Observe";
   @Nonnull
+  static final String AUTO_OBSERVE_CLASSNAME = "arez.annotations.AutoObserve";
+  @Nonnull
   static final String CASCADE_DISPOSE_CLASSNAME = "arez.annotations.CascadeDispose";
   @Nonnull
   static final String COMPONENT_DEPENDENCY_CLASSNAME = "arez.annotations.ComponentDependency";
@@ -72,6 +74,8 @@ final class Constants
   static final String COMPUTABLE_VALUE_CLASSNAME = "arez.ComputableValue";
   @Nonnull
   static final String OBSERVER_CLASSNAME = "arez.Observer";
+  @Nonnull
+  static final String COMPONENT_OBSERVABLE_CLASSNAME = "arez.component.ComponentObservable";
   @Nonnull
   static final String DISPOSABLE_CLASSNAME = "arez.Disposable";
   @Nonnull

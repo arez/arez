@@ -25,6 +25,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedOptions;
 import javax.annotation.processing.SupportedSourceVersion;
+import javax.lang.model.AnnotatedConstruct;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
@@ -815,6 +816,7 @@ public final class ArezProcessor
   {
     final List<String> annotations =
       Arrays.asList( Constants.ACTION_CLASSNAME,
+                     Constants.AUTO_OBSERVE_CLASSNAME,
                      Constants.OBSERVE_CLASSNAME,
                      Constants.ON_DEPS_CHANGE_CLASSNAME,
                      Constants.OBSERVER_REF_CLASSNAME,
@@ -842,9 +844,11 @@ public final class ArezProcessor
     exceptions.put( Constants.OBSERVABLE_CLASSNAME,
                     Arrays.asList( Constants.COMPONENT_DEPENDENCY_CLASSNAME,
                                    Constants.CASCADE_DISPOSE_CLASSNAME,
+                                   Constants.AUTO_OBSERVE_CLASSNAME,
                                    Constants.REFERENCE_ID_CLASSNAME ) );
     exceptions.put( Constants.REFERENCE_CLASSNAME,
-                    Collections.singletonList( Constants.CASCADE_DISPOSE_CLASSNAME ) );
+                    Arrays.asList( Constants.CASCADE_DISPOSE_CLASSNAME,
+                                   Constants.AUTO_OBSERVE_CLASSNAME ) );
     exceptions.put( Constants.POST_CONSTRUCT_CLASSNAME,
                     Collections.singletonList( Constants.ACTION_CLASSNAME ) );
 
@@ -857,6 +861,7 @@ public final class ArezProcessor
     MemberChecks.verifyNoOverlappingAnnotations( field,
                                                  Arrays.asList( Constants.COMPONENT_DEPENDENCY_CLASSNAME,
                                                                 Constants.CASCADE_DISPOSE_CLASSNAME,
+                                                                Constants.AUTO_OBSERVE_CLASSNAME,
                                                                 Constants.OBSERVABLE_INITIAL_CLASSNAME ),
                                                  Collections.emptyMap() );
   }
@@ -885,6 +890,7 @@ public final class ArezProcessor
     throws ProcessorException
   {
     component.getCascadeDisposes().values().forEach( CascadeDisposeDescriptor::validate );
+    component.getAutoObserves().values().forEach( AutoObserveDescriptor::validate );
     component.getObservables().values().forEach( ObservableDescriptor::validate );
     component.getMemoizes().values().forEach( e -> e.validate( processingEnv ) );
     component.getMemoizeContextParameters().values().forEach( p -> p.validate( processingEnv ) );
@@ -898,6 +904,7 @@ public final class ArezProcessor
       component.getActions().isEmpty() &&
       component.getMemoizes().isEmpty() &&
       component.getDependencies().isEmpty() &&
+      component.getAutoObserves().isEmpty() &&
       component.getCascadeDisposes().isEmpty() &&
       component.getReferences().isEmpty() &&
       component.getInverses().isEmpty() &&
@@ -920,7 +927,7 @@ public final class ArezProcessor
     if ( !allowEmpty && hasZeroReactiveElements )
     {
       throw new ProcessorException( "@ArezComponent target has no methods annotated with @Action, " +
-                                    "@CascadeDispose, @Memoize, @Observable, @Inverse, " +
+                                    "@AutoObserve, @CascadeDispose, @Memoize, @Observable, @Inverse, " +
                                     "@Reference, @ComponentDependency or @Observe", element );
     }
     else if ( allowEmpty &&
@@ -929,7 +936,7 @@ public final class ArezProcessor
     {
       final String message =
         "@ArezComponent target has specified allowEmpty = true but has methods " +
-        "annotated with @Action, @CascadeDispose, @Memoize, @Observable, @Inverse, " +
+        "annotated with @Action, @AutoObserve, @CascadeDispose, @Memoize, @Observable, @Inverse, " +
         "@Reference, @ComponentDependency or @Observe. " +
         suppressedBy( Constants.WARNING_UNNECESSARY_ALLOW_EMPTY );
       processingEnv.getMessager().printMessage( WARNING, message, element );
@@ -1007,6 +1014,14 @@ public final class ArezProcessor
       .forEach( field -> processCascadeDisposeField( component, field ) );
   }
 
+  private void processAutoObserveFields( @Nonnull final ComponentDescriptor component )
+  {
+    ElementsUtil.getFields( component.getElement() )
+      .stream()
+      .filter( f -> AnnotationsUtil.hasAnnotationOfType( f, Constants.AUTO_OBSERVE_CLASSNAME ) )
+      .forEach( field -> processAutoObserveField( component, field ) );
+  }
+
   private void processCascadeDisposeField( @Nonnull final ComponentDescriptor component,
                                            @Nonnull final VariableElement field )
   {
@@ -1018,6 +1033,20 @@ public final class ArezProcessor
     mustBeCascadeDisposeTypeCompatible( field );
     emitWarningForConflictingDisposeModel( field );
     component.addCascadeDispose( new CascadeDisposeDescriptor( field ) );
+  }
+
+  private void processAutoObserveField( @Nonnull final ComponentDescriptor component,
+                                        @Nonnull final VariableElement field )
+  {
+    verifyNoDuplicateAnnotations( field );
+    MemberChecks.mustBeSubclassCallable( component.getElement(),
+                                         Constants.COMPONENT_CLASSNAME,
+                                         Constants.AUTO_OBSERVE_CLASSNAME,
+                                         field );
+    MemberChecks.mustBeFinal( Constants.AUTO_OBSERVE_CLASSNAME, field );
+    final boolean validateTypeAtRuntime = isAutoObserveValidateTypeAtRuntime( field );
+    mustBeAutoObserveTypeCompatible( component, validateTypeAtRuntime, field );
+    component.addAutoObserve( new AutoObserveDescriptor( validateTypeAtRuntime, field ) );
   }
 
   @Nonnull
@@ -1062,6 +1091,31 @@ public final class ArezProcessor
     }
   }
 
+  private void mustBeAutoObserveTypeCompatible( @Nonnull final ComponentDescriptor component,
+                                                final boolean validateTypeAtRuntime,
+                                                @Nonnull final VariableElement field )
+  {
+    final TypeMirror type = processingEnv.getTypeUtils().asMemberOf( component.asDeclaredType(), field );
+    if ( TypeKind.TYPEVAR != type.getKind() && TypeKind.DECLARED != type.getKind() )
+    {
+      throw new ProcessorException( "@AutoObserve target must be a non-primitive value", field );
+    }
+    if ( validateTypeAtRuntime )
+    {
+      final Element element = processingEnv.getTypeUtils().asElement( type );
+      if ( !( element instanceof TypeElement ) || !isActAsComponentAnnotated( (TypeElement) element ) )
+      {
+        throw new ProcessorException( "@AutoObserve target specified validateTypeAtRuntime = true but the " +
+                                      "declared type is not annotated with @ActAsComponent", field );
+      }
+    }
+    else if ( !isAutoObserveCompileTimeCompatible( type ) )
+    {
+      throw new ProcessorException( "@AutoObserve target must be an instance compatible with " +
+                                    Constants.COMPONENT_OBSERVABLE_CLASSNAME, field );
+    }
+  }
+
   private void addCascadeDisposeMethod( @Nonnull final ComponentDescriptor component,
                                         @Nonnull final ExecutableElement method,
                                         @Nullable final ObservableDescriptor observable )
@@ -1075,6 +1129,31 @@ public final class ArezProcessor
     mustBeCascadeDisposeTypeCompatible( method );
     emitWarningForConflictingDisposeModel( method );
     component.addCascadeDispose( new CascadeDisposeDescriptor( method, observable ) );
+  }
+
+  private void addAutoObserveMethod( @Nonnull final ComponentDescriptor component,
+                                     @Nonnull final ExecutableElement method,
+                                     @Nullable final ObservableDescriptor observable )
+  {
+    MemberChecks.mustNotHaveAnyParameters( Constants.AUTO_OBSERVE_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.AUTO_OBSERVE_CLASSNAME, method );
+    MemberChecks.mustBeSubclassCallable( component.getElement(),
+                                         Constants.COMPONENT_CLASSNAME,
+                                         Constants.AUTO_OBSERVE_CLASSNAME,
+                                         method );
+    MemberChecks.mustReturnAValue( Constants.AUTO_OBSERVE_CLASSNAME, method );
+    final boolean validateTypeAtRuntime = isAutoObserveValidateTypeAtRuntime( method );
+    mustBeAutoObserveTypeCompatible( validateTypeAtRuntime, method );
+    component.addAutoObserve( new AutoObserveDescriptor( validateTypeAtRuntime, method, observable ) );
+  }
+
+  private static boolean isAutoObserveValidateTypeAtRuntime( @Nonnull final AnnotatedConstruct annotatedConstruct )
+  {
+    return Boolean.TRUE.equals( AnnotationsUtil
+                                  .getAnnotationValue( annotatedConstruct,
+                                                       Constants.AUTO_OBSERVE_CLASSNAME,
+                                                       "validateTypeAtRuntime" )
+                                  .getValue() );
   }
 
   private void emitWarningForConflictingDisposeModel( @Nonnull final VariableElement field )
@@ -1128,6 +1207,52 @@ public final class ArezProcessor
                                       method );
       }
     }
+  }
+
+  private void mustBeAutoObserveTypeCompatible( final boolean validateTypeAtRuntime,
+                                                @Nonnull final ExecutableElement method )
+  {
+    final TypeMirror type = method.getReturnType();
+    if ( TypeKind.TYPEVAR != type.getKind() && TypeKind.DECLARED != type.getKind() )
+    {
+      throw new ProcessorException( "@AutoObserve target must return a non-primitive value", method );
+    }
+    if ( validateTypeAtRuntime )
+    {
+      final Element element = processingEnv.getTypeUtils().asElement( type );
+      if ( !( element instanceof TypeElement ) || !isActAsComponentAnnotated( (TypeElement) element ) )
+      {
+        throw new ProcessorException( "@AutoObserve target specified validateTypeAtRuntime = true but the " +
+                                      "declared return type is not annotated with @ActAsComponent", method );
+      }
+    }
+    else if ( !isAutoObserveCompileTimeCompatible( type ) )
+    {
+      throw new ProcessorException( "@AutoObserve target must return an instance compatible with " +
+                                    Constants.COMPONENT_OBSERVABLE_CLASSNAME, method );
+    }
+  }
+
+  @SuppressWarnings( "BooleanMethodIsAlwaysInverted" )
+  private boolean isAutoObserveCompileTimeCompatible( @Nonnull final TypeMirror type )
+  {
+    if ( isAssignable( type, getTypeElement( Constants.COMPONENT_OBSERVABLE_CLASSNAME ) ) )
+    {
+      return true;
+    }
+
+    final Element element = processingEnv.getTypeUtils().asElement( type );
+    if ( element instanceof TypeElement typeElement )
+    {
+      final AnnotationMirror arezComponent =
+        AnnotationsUtil.findAnnotationByType( typeElement, Constants.COMPONENT_CLASSNAME );
+      if ( null != arezComponent )
+      {
+        final boolean disposeOnDeactivate = getAnnotationParameter( arezComponent, "disposeOnDeactivate" );
+        return isComponentObservableRequired( arezComponent, disposeOnDeactivate );
+      }
+    }
+    return false;
   }
 
   private void addOrUpdateDependency( @Nonnull final ComponentDescriptor component,
@@ -1572,6 +1697,38 @@ public final class ArezProcessor
       if ( null == cascadeDisposeDescriptor && reference.hasMethod() )
       {
         final CascadeDisposeDescriptor descriptor = component.getCascadeDisposes().get( reference.getMethod() );
+        if ( null != descriptor )
+        {
+          descriptor.setReference( reference );
+        }
+      }
+    }
+  }
+
+  private void linkAutoObserveObservables( @Nonnull final ComponentDescriptor component )
+  {
+    for ( final ObservableDescriptor observable : component.getObservables().values() )
+    {
+      final AutoObserveDescriptor autoObserveDescriptor = observable.getAutoObserveDescriptor();
+      if ( null == autoObserveDescriptor )
+      {
+        final AutoObserveDescriptor descriptor = component.getAutoObserves().get( observable.getGetter() );
+        if ( null != descriptor )
+        {
+          descriptor.setObservable( observable );
+        }
+      }
+    }
+  }
+
+  private void linkAutoObserveReferences( @Nonnull final ComponentDescriptor component )
+  {
+    for ( final ReferenceDescriptor reference : component.getReferences().values() )
+    {
+      final AutoObserveDescriptor autoObserveDescriptor = reference.getAutoObserveDescriptor();
+      if ( null == autoObserveDescriptor && reference.hasMethod() )
+      {
+        final AutoObserveDescriptor descriptor = component.getAutoObserves().get( reference.getMethod() );
         if ( null != descriptor )
         {
           descriptor.setReference( reference );
@@ -2214,11 +2371,7 @@ public final class ArezProcessor
     MemberChecks.mustNotThrowAnyExceptions( Constants.COMPONENT_DEPENDENCY_CLASSNAME, method );
     MemberChecks.mustReturnAValue( Constants.COMPONENT_DEPENDENCY_CLASSNAME, method );
 
-    final boolean validateTypeAtRuntime =
-      (Boolean) AnnotationsUtil.getAnnotationValue( method,
-                                                    Constants.COMPONENT_DEPENDENCY_CLASSNAME,
-                                                    "validateTypeAtRuntime" ).getValue();
-
+    final boolean validateTypeAtRuntime = isComponentDependencyValidateTypeAtRuntime( method );
     final TypeMirror type = method.getReturnType();
     if ( TypeKind.DECLARED != type.getKind() )
     {
@@ -2243,6 +2396,15 @@ public final class ArezProcessor
     return new DependencyDescriptor( descriptor, method, cascade );
   }
 
+  private static boolean isComponentDependencyValidateTypeAtRuntime( @Nonnull final AnnotatedConstruct annotatedConstruct )
+  {
+    return Boolean.TRUE.equals( AnnotationsUtil
+                                  .getAnnotationValue( annotatedConstruct,
+                                                       Constants.COMPONENT_DEPENDENCY_CLASSNAME,
+                                                       "validateTypeAtRuntime" )
+                                  .getValue() );
+  }
+
   @Nonnull
   private DependencyDescriptor createFieldDependencyDescriptor( @Nonnull final ComponentDescriptor descriptor,
                                                                 @Nonnull final VariableElement field )
@@ -2253,11 +2415,7 @@ public final class ArezProcessor
                                          field );
     MemberChecks.mustBeFinal( Constants.COMPONENT_DEPENDENCY_CLASSNAME, field );
 
-    final boolean validateTypeAtRuntime =
-      (Boolean) AnnotationsUtil.getAnnotationValue( field,
-                                                    Constants.COMPONENT_DEPENDENCY_CLASSNAME,
-                                                    "validateTypeAtRuntime" ).getValue();
-
+    final boolean validateTypeAtRuntime = isComponentDependencyValidateTypeAtRuntime( field );
     final TypeMirror type = processingEnv.getTypeUtils().asMemberOf( descriptor.asDeclaredType(), field );
     if ( TypeKind.TYPEVAR != type.getKind() && TypeKind.DECLARED != type.getKind() )
     {
@@ -2760,6 +2918,8 @@ public final class ArezProcessor
     linkObserverRefs( componentDescriptor );
     linkCascadeDisposeObservables( componentDescriptor );
     linkCascadeDisposeReferences( componentDescriptor );
+    linkAutoObserveObservables( componentDescriptor );
+    linkAutoObserveReferences( componentDescriptor );
     linkObservableInitials( componentDescriptor );
 
     // CascadeDispose returned false but it was actually processed so lets remove them from getters set
@@ -2791,6 +2951,7 @@ public final class ArezProcessor
     ensureNoAbstractMethods( componentDescriptor, onDepsChanges.values() );
 
     processCascadeDisposeFields( componentDescriptor );
+    processAutoObserveFields( componentDescriptor );
     processComponentDependencyFields( componentDescriptor );
   }
 
@@ -2915,6 +3076,8 @@ public final class ArezProcessor
       AnnotationsUtil.findAnnotationByType( method, Constants.OBSERVER_REF_CLASSNAME );
     final AnnotationMirror dependency =
       AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_DEPENDENCY_CLASSNAME );
+    final AnnotationMirror autoObserve =
+      AnnotationsUtil.findAnnotationByType( method, Constants.AUTO_OBSERVE_CLASSNAME );
     final AnnotationMirror reference =
       AnnotationsUtil.findAnnotationByType( method, Constants.REFERENCE_CLASSNAME );
     final AnnotationMirror referenceId =
@@ -2943,6 +3106,10 @@ public final class ArezProcessor
       if ( null != cascadeDispose )
       {
         addCascadeDisposeMethod( descriptor, method, observableDescriptor );
+      }
+      if ( null != autoObserve )
+      {
+        addAutoObserveMethod( descriptor, method, observableDescriptor );
       }
       return true;
     }
@@ -3012,6 +3179,15 @@ public final class ArezProcessor
         addCascadeDisposeMethod( descriptor, method, null );
       }
       addReference( descriptor, reference, method, methodType );
+      if ( null != autoObserve )
+      {
+        addAutoObserveMethod( descriptor, method, null );
+      }
+      return true;
+    }
+    else if ( null != autoObserve )
+    {
+      addAutoObserveMethod( descriptor, method, null );
       return true;
     }
     else if ( null != cascadeDispose )
@@ -3506,6 +3682,7 @@ public final class ArezProcessor
         {
           if ( !descriptor.isDependencyDefined( field ) &&
                !descriptor.isCascadeDisposeDefined( field ) &&
+               !descriptor.isAutoObserveDefined( field ) &&
                ( isDisposeNotifier || isTypeAnnotatedActAsComponent || verifyReferencesToComponent( field ) ) &&
                isUnmanagedComponentReferenceNotSuppressed( field ) &&
                !injectedTypes.contains( field.asType().toString() ) )
@@ -3517,7 +3694,8 @@ public final class ArezProcessor
             final String message =
               "Field named '" + field.getSimpleName() + "' has a type that is " + label +
               " but is not annotated with @" + Constants.CASCADE_DISPOSE_CLASSNAME + " or " +
-              "@" + Constants.COMPONENT_DEPENDENCY_CLASSNAME + " and was not injected into the " +
+              "@" + Constants.COMPONENT_DEPENDENCY_CLASSNAME + " or @" + Constants.AUTO_OBSERVE_CLASSNAME +
+              " and was not injected into the " +
               "constructor. This scenario can cause errors if the value is disposed. Please " +
               "annotate the field as appropriate or suppress the warning by annotating the field with " +
               "@SuppressWarnings( \"" + Constants.WARNING_UNMANAGED_COMPONENT_REFERENCE + "\" ) or " +
@@ -3548,6 +3726,7 @@ public final class ArezProcessor
           {
             if ( !descriptor.isDependencyDefined( getter ) &&
                  !descriptor.isCascadeDisposeDefined( getter ) &&
+                 !descriptor.isAutoObserveDefined( getter ) &&
                  ( isDisposeNotifier ||
                    isTypeAnnotatedActAsComponent ||
                    verifyReferencesToComponent( (TypeElement) returnElement ) ) &&
@@ -3561,7 +3740,8 @@ public final class ArezProcessor
               final String message =
                 "Method named '" + getter.getSimpleName() + "' has a return type that is " + label +
                 " but is not annotated with @" + Constants.CASCADE_DISPOSE_CLASSNAME + " or " +
-                "@" + Constants.COMPONENT_DEPENDENCY_CLASSNAME + ". This scenario can cause errors. " +
+                "@" + Constants.COMPONENT_DEPENDENCY_CLASSNAME + " or @" + Constants.AUTO_OBSERVE_CLASSNAME +
+                ". This scenario can cause errors. " +
                 "Please annotate the method as appropriate or suppress the warning by annotating the method with " +
                 "@SuppressWarnings( \"" + Constants.WARNING_UNMANAGED_COMPONENT_REFERENCE + "\" ) or " +
                 "@SuppressArezWarnings( \"" + Constants.WARNING_UNMANAGED_COMPONENT_REFERENCE + "\" )";
