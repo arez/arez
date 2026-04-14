@@ -31,10 +31,16 @@ final class ObservableDescriptor
   @Nonnull
   private final String _name;
   private boolean _expectSetter;
+  @Nonnull
   private String _readOutsideTransaction = "AUTODETECT";
+  @Nonnull
   private String _writeOutsideTransaction = "AUTODETECT";
+  @Nonnull
+  private String _equalityComparator = Constants.OBJECTS_EQUALS_COMPARATOR_CLASSNAME;
   private boolean _setterAlwaysMutates;
   private Boolean _initializer;
+  @Nullable
+  private ObservableInitialDescriptor _observableInitial;
   @Nullable
   private ExecutableElement _getter;
   @Nullable
@@ -53,6 +59,8 @@ final class ObservableDescriptor
   private InverseDescriptor _inverseDescriptor;
   @Nullable
   private CascadeDisposeDescriptor _cascadeDisposeDescriptor;
+  @Nullable
+  private AutoObserveDescriptor _autoObserveDescriptor;
 
   ObservableDescriptor( @Nonnull final ComponentDescriptor component, @Nonnull final String name )
   {
@@ -91,12 +99,36 @@ final class ObservableDescriptor
     _initializer = Objects.requireNonNull( initializer );
   }
 
+  boolean hasObservableInitial()
+  {
+    return null != _observableInitial;
+  }
+
+  void setObservableInitial( @Nonnull final ObservableInitialDescriptor observableInitial )
+    throws ProcessorException
+  {
+    if ( null != _observableInitial )
+    {
+      throw new ProcessorException( "@ObservableInitial target duplicates existing initializer for observable " +
+                                    "named " + getName(),
+                                    observableInitial.getElement() );
+    }
+    _observableInitial = Objects.requireNonNull( observableInitial );
+  }
+
+  @Nonnull
+  ObservableInitialDescriptor getObservableInitial()
+  {
+    assert null != _observableInitial;
+    return _observableInitial;
+  }
+
   void setSetterAlwaysMutates( final boolean setterAlwaysMutates )
   {
     _setterAlwaysMutates = setterAlwaysMutates;
   }
 
-  void setReadOutsideTransaction( final String readOutsideTransaction )
+  void setReadOutsideTransaction( @Nonnull final String readOutsideTransaction )
   {
     _readOutsideTransaction = readOutsideTransaction;
   }
@@ -116,6 +148,32 @@ final class ObservableDescriptor
   void setWriteOutsideTransaction( @Nonnull final String writeOutsideTransaction )
   {
     _writeOutsideTransaction = writeOutsideTransaction;
+  }
+
+  void setEqualityComparator( @Nonnull final String equalityComparator )
+  {
+    _equalityComparator = Objects.requireNonNull( equalityComparator );
+  }
+
+  @Nonnull
+  String getEqualityComparator()
+  {
+    return _equalityComparator;
+  }
+
+  boolean hasObjectsEqualsComparator()
+  {
+    return Constants.OBJECTS_EQUALS_COMPARATOR_CLASSNAME.equals( _equalityComparator );
+  }
+
+  boolean hasObjectsDeepEqualsComparator()
+  {
+    return Constants.OBJECTS_DEEP_EQUALS_COMPARATOR_CLASSNAME.equals( _equalityComparator );
+  }
+
+  boolean hasCustomEqualityComparator()
+  {
+    return !hasObjectsEqualsComparator() && !hasObjectsDeepEqualsComparator();
   }
 
   void setExpectSetter( final boolean expectSetter )
@@ -234,6 +292,17 @@ final class ObservableDescriptor
     _cascadeDisposeDescriptor = Objects.requireNonNull( cascadeDisposeDescriptor );
   }
 
+  @Nullable
+  AutoObserveDescriptor getAutoObserveDescriptor()
+  {
+    return _autoObserveDescriptor;
+  }
+
+  void setAutoObserveDescriptor( @Nonnull final AutoObserveDescriptor autoObserveDescriptor )
+  {
+    _autoObserveDescriptor = Objects.requireNonNull( autoObserveDescriptor );
+  }
+
   @Nonnull
   String getDataFieldName()
   {
@@ -250,6 +319,12 @@ final class ObservableDescriptor
   String getFieldName()
   {
     return ComponentGenerator.FIELD_PREFIX + getName();
+  }
+
+  @Nonnull
+  String getEqualityComparatorFieldName()
+  {
+    return ComponentGenerator.FIELD_PREFIX + "equalityComparator_" + getName();
   }
 
   boolean isAbstract()
@@ -317,9 +392,8 @@ final class ObservableDescriptor
     for ( final CandidateMethod refMethod : _refMethods )
     {
       final TypeName typeName = TypeName.get( refMethod.getMethodType().getReturnType() );
-      if ( typeName instanceof ParameterizedTypeName )
+      if ( typeName instanceof final ParameterizedTypeName parameterizedTypeName )
       {
-        final ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
         final TypeName expectedType = parameterizedTypeName.typeArguments.get( 0 );
         if ( !( expectedType instanceof WildcardTypeName ) )
         {

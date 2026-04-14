@@ -51,6 +51,10 @@ The `load` parameter can also be set to {@link: arez.annotations.LinkType#LAZY} 
 reference will be resolved when the reference is accessed and cached until the value returned by the method
 annotated by {@link: arez.annotations.ReferenceId @ReferenceId} changes.
 
+A {@link: arez.annotations.Reference @Reference} accessor may also be annotated with
+{@link: arez.annotations.AutoObserve @AutoObserve}. In that case Arez will force resolution of the reference and keep
+the resolved target observed while the owner component is alive, even when `load = LAZY`.
+
 The other value that the `load` parameter can be set to is {@link: arez.annotations.LinkType#EXPLICIT}.
 This means that the references are resolved explicitly by the application. The application must invoke the method
 {@link: arez.component.Linkable#link()} before an attempt is made to access the reference. The

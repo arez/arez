@@ -51,5 +51,6 @@ public final class TransactionStartEvent
     map.put( "mutation", isMutation() );
     final ObserverInfo tracker = getTracker();
     map.put( "tracker", null == tracker ? null : tracker.getName() );
+    SpyEventUtil.maybeAddZone( map );
   }
 }

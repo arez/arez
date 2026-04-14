@@ -13,6 +13,16 @@ a similar lifecycle. In development mode [native components](native_components.m
 components have a common name from which all elements contained in the component use as the name prefix. Components
 instances also define a unique identifier that can be supplied by the developer or synthesized by the runtime.
 
+Components can also opt into liveness-managed disposal via
+{@link: arez.annotations.ArezComponent#disposeOnDeactivate() @ArezComponent.disposeOnDeactivate}. When enabled,
+the component should not also be owned via {@link: arez.annotations.CascadeDispose @CascadeDispose}; mixing those
+models triggers the suppressable warning `Arez:ConflictingDisposeModel`.
+
+If another component needs to keep a `disposeOnDeactivate = true` component alive for its own lifetime, prefer
+{@link: arez.annotations.AutoObserve @AutoObserve} rather than
+{@link: arez.annotations.CascadeDispose @CascadeDispose}. `@AutoObserve` couples liveness without transferring
+ownership of disposal.
+
 It is recommended that you review the {@link: arez.annotations.ArezComponent @ArezComponent} API documentation for the full
 description of how the annotation is used. However there are several other annotations that are component-level
 concerns. These are [@ComponentId](at_component_id.md) for defining identity and the

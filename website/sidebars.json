@@ -29,6 +29,7 @@
       "at_observe",
       "at_component_dependency",
       "at_cascade_dispose",
+      "at_auto_observe",
       "at_reference",
       "generated_classes",
       "accessing_primitives",

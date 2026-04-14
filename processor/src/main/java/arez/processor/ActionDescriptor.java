@@ -19,6 +19,7 @@ final class ActionDescriptor
   private final boolean _verifyRequired;
   private final boolean _reportParameters;
   private final boolean _reportResult;
+  private final boolean _skipIfDisposed;
   @Nonnull
   private final ExecutableElement _action;
   @Nonnull
@@ -31,6 +32,7 @@ final class ActionDescriptor
                     final boolean verifyRequired,
                     final boolean reportParameters,
                     final boolean reportResult,
+                    final boolean skipIfDisposed,
                     @Nonnull final ExecutableElement action,
                     @Nonnull final ExecutableType actionType )
   {
@@ -41,6 +43,7 @@ final class ActionDescriptor
     _verifyRequired = verifyRequired;
     _reportParameters = reportParameters;
     _reportResult = reportResult;
+    _skipIfDisposed = skipIfDisposed;
     _action = Objects.requireNonNull( action );
     _actionType = Objects.requireNonNull( actionType );
   }
@@ -86,6 +89,11 @@ final class ActionDescriptor
   boolean isReportResult()
   {
     return _reportResult;
+  }
+
+  boolean isSkipIfDisposed()
+  {
+    return _skipIfDisposed;
   }
 
   @Nonnull

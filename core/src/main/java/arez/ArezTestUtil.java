@@ -87,7 +87,7 @@ public final class ArezTestUtil
   }
 
   /**
-   * Specify logger to use to capture logging in tests
+   * Specify logger to use to capture logging in tests.
    *
    * @param logger the logger.
    */
@@ -491,6 +491,32 @@ public final class ArezTestUtil
   private static void setCheckInvariants( final boolean checkInvariants )
   {
     setConstant( "CHECK_INVARIANTS", checkInvariants );
+  }
+
+  /**
+   * Set the `arez.check_expensive_invariants` setting to true.
+   */
+  public static void checkExpensiveInvariants()
+  {
+    setCheckExpensiveInvariants( true );
+  }
+
+  /**
+   * Set the `arez.check_expensive_invariants` setting to false.
+   */
+  public static void noCheckExpensiveInvariants()
+  {
+    setCheckExpensiveInvariants( false );
+  }
+
+  /**
+   * Configure the `arez.check_expensive_invariants` setting.
+   *
+   * @param checkExpensiveInvariants the "check expensive invariants" setting.
+   */
+  private static void setCheckExpensiveInvariants( final boolean checkExpensiveInvariants )
+  {
+    setConstant( "CHECK_EXPENSIVE_INVARIANTS", checkExpensiveInvariants );
   }
 
   /**

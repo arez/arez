@@ -72,4 +72,14 @@ public @interface Action
    * @return true to verify action reads or writes observable data.
    */
   boolean verifyRequired() default true;
+
+  /**
+   * True if the action will be skipped if the owning component is disposed. The default is false, in which case an
+   * invariant will verify that the action is not called on a disposed component. If this parameter is true, then
+   * the action must be a void method.
+   *
+   * @return true if the action will be skipped if the owning component is disposed, false if the component must not
+   * be disposed.
+   */
+  boolean skipIfDisposed() default false;
 }

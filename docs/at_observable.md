@@ -15,6 +15,20 @@ For example:
 
 {@file_content: file=arez/doc/examples/at_observable2/MyModel.java start_line=@ArezComponent "end_line=^}"}
 
+## Initial values
+
+Abstract observables typically require a constructor parameter to supply the initial value. The
+{@link: arez.annotations.ObservableInitial @ObservableInitial} annotation allows an abstract observable to be
+initialized from a static field or static method, removing the need for constructor parameters.
+
+The annotated field must be `static final` (or a `static` method) and the associated observable must be abstract.
+If the observable getter is annotated with `javax.annotation.Nonnull` then the initializer
+must also be annotated with `javax.annotation.Nonnull`.
+
+For example:
+
+{@file_content: file=arez/doc/examples/at_observable_initial/MyModel.java start_line=@ArezComponent "end_line=^}"}
+
 There are additional constraints that are apply when defining observable. i.e. The type of the getter and setter
 must match. These constraints are detailed in the {@link: arez.annotations.Observable @Observable} API documentation.
 
@@ -28,6 +42,19 @@ the setter with the `@Observable` annotation.
 For example:
 
 {@file_content: file=arez/doc/examples/at_observable/Currency.java start_line=@ArezComponent "end_line=^}"}
+
+## Equality Comparison
+
+By default, generated setters compare the new value and current value using
+`Objects.equals(...)` before reporting a change. You can customize this behavior via
+the `equalityComparator` parameter on the {@link: arez.annotations.Observable @Observable}
+annotation.
+
+Common options include:
+
+* {@link: arez.ObjectsEqualsComparator} (default)
+* {@link: arez.ObjectsDeepEqualsComparator}
+* A custom implementation of {@link: arez.EqualityComparator}
 
 ## Custom change propagation
 

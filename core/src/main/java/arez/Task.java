@@ -179,8 +179,8 @@ public final class Task
     }
     if ( willPropagateSpyEvents() )
     {
-      final long duration = System.currentTimeMillis() - startedAt;
-      getSpy().reportSpyEvent( new TaskCompleteEvent( asInfo(), error, (int) duration ) );
+      final int duration = Math.max( 0, (int) ( System.currentTimeMillis() - startedAt ) );
+      getSpy().reportSpyEvent( new TaskCompleteEvent( asInfo(), error, duration ) );
     }
   }
 
@@ -380,7 +380,7 @@ public final class Task
       PRIORITY_MASK | RUN_TYPE_MASK | DISPOSE_ON_COMPLETE | NO_REGISTER_TASK | NO_WRAP_TASK;
     /**
      * Mask containing flags that can be applied to a task representing an observer.
-     * This omits DISPOSE_ON_COMPLETE as observer is responsible for disposing task
+     * This omits the flag DISPOSE_ON_COMPLETE as the observer is responsible for disposing the task.
      */
     static final int OBSERVER_TASK_FLAGS_MASK = PRIORITY_MASK | RUN_TYPE_MASK;
     /**

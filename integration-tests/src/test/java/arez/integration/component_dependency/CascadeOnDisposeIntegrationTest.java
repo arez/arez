@@ -58,6 +58,7 @@ public final class CascadeOnDisposeIntegrationTest
   {
     private String _name;
 
+    @Nonnull
     static Model1 create( final String name )
     {
       return new CascadeOnDisposeIntegrationTest_Arez_Model1( name );
@@ -87,6 +88,7 @@ public final class CascadeOnDisposeIntegrationTest
     private final Model1 _reference;
     private String _name;
 
+    @Nonnull
     static Model2 create( final Model1 reference, final String name )
     {
       return new CascadeOnDisposeIntegrationTest_Arez_Model2( reference, name );

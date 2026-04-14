@@ -2,16 +2,19 @@ package arez.spytools.browser;
 
 import arez.Arez;
 import arez.ArezContext;
+import arez.spy.SpyEventHandler;
 import java.util.HashMap;
 import java.util.Map;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Utility class for interacting with spy capabilities.
  */
 public final class BrowserSpyUtil
 {
-  private static final Map<ArezContext, ConsoleSpyEventProcessor> c_processors =
-    Arez.areSpiesEnabled() ? new HashMap<>() : null;
+  @Nonnull
+  private static final Map<ArezContext, SpyEventHandler> c_processors = Arez.areSpiesEnabled() ? new HashMap<>() : null;
 
   /**
    * Return true if spy event logging is enabled.
@@ -29,12 +32,23 @@ public final class BrowserSpyUtil
    */
   public static void enableSpyEventLogging()
   {
+    enableSpyEventLogging( Arez.areSpiesEnabled() && !isSpyEventLoggingEnabled() ?
+                           new ConsoleSpyEventProcessor() :
+                           null );
+  }
+
+  /**
+   * Enable console logging of all spy events.
+   * This is a noop if spies are not enabled or logging has already been enabled.
+   */
+  public static void enableSpyEventLogging( @Nullable final SpyEventHandler handler )
+  {
     if ( Arez.areSpiesEnabled() && !isSpyEventLoggingEnabled() )
     {
-      final ConsoleSpyEventProcessor handler = new ConsoleSpyEventProcessor();
+      final SpyEventHandler actualHandler = null == handler ? new ConsoleSpyEventProcessor() : handler;
       final ArezContext context = Arez.context();
-      context.getSpy().addSpyEventHandler( handler );
-      c_processors.put( context, handler );
+      context.getSpy().addSpyEventHandler( actualHandler );
+      c_processors.put( context, actualHandler );
     }
   }
 
@@ -47,7 +61,7 @@ public final class BrowserSpyUtil
     if ( Arez.areSpiesEnabled() && isSpyEventLoggingEnabled() )
     {
       final ArezContext context = Arez.context();
-      final ConsoleSpyEventProcessor handler = c_processors.remove( context );
+      final SpyEventHandler handler = c_processors.remove( context );
       assert null != handler;
       context.getSpy().removeSpyEventHandler( handler );
     }

@@ -19,7 +19,7 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-@SuppressWarnings( "SimplifiableAssertion" )
+@SuppressWarnings( { "SimplifiableAssertion", "ExpressionComparedToItself" } )
 public final class UnmodifiableMemoizeCollectionsIntegrationTest
   extends AbstractArezIntegrationTest
 {

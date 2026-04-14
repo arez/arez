@@ -1,6 +1,7 @@
 package arez.spytools;
 
 import arez.spy.ActionCompleteEvent;
+import arez.spy.ActionSkippedEvent;
 import arez.spy.ActionStartEvent;
 import arez.spy.ComponentCreateCompleteEvent;
 import arez.spy.ComponentCreateStartEvent;
@@ -91,7 +92,8 @@ public final class SpyUtil
               ComputableValueDeactivateEvent.class == type ||
               ComputableValueCreateEvent.class == type ||
               ComputableValueDisposeEvent.class == type ||
-              ObserveScheduleEvent.class == type )
+              ObserveScheduleEvent.class == type ||
+              ActionSkippedEvent.class == type )
     {
       return NestingDelta.NONE;
     }

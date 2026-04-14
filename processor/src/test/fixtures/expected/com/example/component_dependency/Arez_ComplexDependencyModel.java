@@ -11,6 +11,7 @@ import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.Objects;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 
@@ -18,10 +19,14 @@ import org.realityforge.braincheck.Guards;
 final class Arez_ComplexDependencyModel extends ComplexDependencyModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
+  @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
   @Nonnull
   private final ObservableValue<DisposeNotifier> $$arez$$_value3;
+
+  @Nonnull
+  private final String $$arez_dk$$_getValue1;
 
   Arez_ComplexDependencyModel() {
     super();
@@ -31,19 +36,21 @@ final class Arez_ComplexDependencyModel extends ComplexDependencyModel implement
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_component_dependency_ComplexDependencyModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arez$$_value3 = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".value3" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : super.getValue3() ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue3( v ) : null );
+    this.$$arez_dk$$_getValue1 = Arez_ComplexDependencyModel.class.getName() + $$arezv$$_id + '.' + "getValue1";
     final DisposeNotifier $$arezv$$_getValue1_dependency = super.getValue1();
     if ( null != $$arezv$$_getValue1_dependency ) {
-      DisposeNotifier.asDisposeNotifier( super.getValue1() ).addOnDisposeListener( this, this::dispose );
+      DisposeNotifier.asDisposeNotifier( super.getValue1() ).addOnDisposeListener( $$arez_dk$$_getValue1, this::dispose );
     }
     final DisposeNotifier $$arezv$$_getValue3_dependency = super.getValue3();
     if ( null != $$arezv$$_getValue3_dependency ) {
-      DisposeNotifier.asDisposeNotifier( super.getValue3() ).addOnDisposeListener( this, () -> setValue3( null ) );
+      DisposeNotifier.asDisposeNotifier( super.getValue3() ).addOnDisposeListener( $$arez$$_value3, () -> setValue3( null ) );
     }
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentComplete();
   }
 
   private int $$arezi$$_id() {
+    assert null != this.$$arezi$$_kernel;
     return this.$$arezi$$_kernel.getId();
   }
 
@@ -62,11 +69,11 @@ final class Arez_ComplexDependencyModel extends ComplexDependencyModel implement
   private void $$arezi$$_preDispose() {
     final DisposeNotifier $$arezv$$_getValue1_dependency = super.getValue1();
     if ( null != $$arezv$$_getValue1_dependency ) {
-      DisposeNotifier.asDisposeNotifier( $$arezv$$_getValue1_dependency ).removeOnDisposeListener( this );
+      DisposeNotifier.asDisposeNotifier( $$arezv$$_getValue1_dependency ).removeOnDisposeListener( $$arez_dk$$_getValue1 );
     }
     final DisposeNotifier $$arezv$$_getValue3_dependency = super.getValue3();
     if ( null != $$arezv$$_getValue3_dependency ) {
-      DisposeNotifier.asDisposeNotifier( $$arezv$$_getValue3_dependency ).removeOnDisposeListener( this );
+      DisposeNotifier.asDisposeNotifier( $$arezv$$_getValue3_dependency ).removeOnDisposeListener( $$arez$$_value3 );
     }
   }
 
@@ -76,22 +83,23 @@ final class Arez_ComplexDependencyModel extends ComplexDependencyModel implement
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
+  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+      final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_component_dependency_ComplexDependencyModel'" );
     }
-    this.$$arezi$$_kernel.addOnDisposeListener( key, action );
+    this.$$arezi$$_kernel.addOnDisposeListener( key, action, errorIfDuplicate );
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key) {
+  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_component_dependency_ComplexDependencyModel'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener( key );
+    this.$$arezi$$_kernel.removeOnDisposeListener( key, errorIfMissing );
   }
 
   @Override
@@ -138,11 +146,11 @@ final class Arez_ComplexDependencyModel extends ComplexDependencyModel implement
     final DisposeNotifier $$arezv$$_currentValue = super.getValue3();
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
       if ( null != $$arezv$$_currentValue ) {
-        DisposeNotifier.asDisposeNotifier( $$arezv$$_currentValue ).removeOnDisposeListener( this );
+        DisposeNotifier.asDisposeNotifier( $$arezv$$_currentValue ).removeOnDisposeListener( $$arez$$_value3 );
       }
       super.setValue3( value );
       if ( null != value ) {
-        DisposeNotifier.asDisposeNotifier( value ).addOnDisposeListener( this, () -> setValue3( null ) );
+        DisposeNotifier.asDisposeNotifier( value ).addOnDisposeListener( $$arez$$_value3, () -> setValue3( null ) );
       }
       this.$$arez$$_value3.reportChanged();
     }

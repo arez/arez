@@ -7,6 +7,7 @@ import arez.Disposable;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 import sting.Eager;
@@ -20,6 +21,7 @@ import sting.Typed;
 final class Arez_ServiceViaEagerStingModel extends ServiceViaEagerStingModel implements Disposable, Identifiable<Integer> {
   private static volatile int $$arezi$$_nextId;
 
+  @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
   Arez_ServiceViaEagerStingModel() {
@@ -34,6 +36,7 @@ final class Arez_ServiceViaEagerStingModel extends ServiceViaEagerStingModel imp
   }
 
   private int $$arezi$$_id() {
+    assert null != this.$$arezi$$_kernel;
     return this.$$arezi$$_kernel.getId();
   }
 

@@ -11,6 +11,9 @@ parameter is {@link: arez.annotations.ComponentDependency.Action#SET_NULL SET_NU
 useful if an Arez component is derived from one or more other Arez components such as when a view model in a web
 application is derived from entities that are propagated from a server.
 
+If the dependency should merely stay alive while the owner stays alive, and disposal of the dependency should not
+directly mutate or dispose the owner, then {@link: arez.annotations.AutoObserve @AutoObserve} is usually the better fit.
+
 The {@link: arez.annotations.ComponentDependency @ComponentDependency} annotation can be placed on an {@link: arez.annotations.Observable @Observable}
 property or on a non-observable property. The component will correctly monitor mutations of
 {@link: arez.annotations.Observable @Observable} property to ensure that the correct dependency is monitored. For non-observable

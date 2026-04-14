@@ -1,14 +1,19 @@
 package arez;
 
+import arez.spy.SerializableEvent;
 import arez.spy.SpyEventHandler;
+import arez.spy.SpyEventTestUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import static org.testng.Assert.*;
 
+@SuppressWarnings( "NonJREEmulationClassesInClientCode" )
 public final class TestSpyEventHandler
   implements SpyEventHandler
 {
@@ -53,7 +58,27 @@ public final class TestSpyEventHandler
 
   public void assertEventCount( final int count )
   {
-    assertEquals( _events.size(), count, "Actual events: " + _events );
+    assertEquals( _events.size(), count, "Actual events:\n" + eventsDebug() );
+  }
+
+  @Nonnull
+  private String eventsDebug()
+  {
+    final AtomicInteger counter = new AtomicInteger( 0 );
+    return
+      _events
+        .stream()
+        .map( this::convertEventToString )
+        .map( s -> counter.getAndIncrement() + ": " + s )
+        .collect( Collectors.joining( "\n" ) );
+  }
+
+  @Nonnull
+  private String convertEventToString( @Nonnull final Object event )
+  {
+    return ( event instanceof SerializableEvent se ) ?
+           SpyEventTestUtil.toJsonObject( se, false ).toString() :
+           event.toString();
   }
 
   /**
@@ -86,7 +111,8 @@ public final class TestSpyEventHandler
     final Object e = _events.get( _currentAssertIndex );
     assertTrue( type.isInstance( e ),
                 "Expected event at index " + _currentAssertIndex + " to be of type " + type + " but is " +
-                " of type " + e.getClass() + " with value " + e );
+                "of type " + e.getClass() + " with value " + e + "\n\n" +
+                "Actual events:\n" + eventsDebug() );
     _currentAssertIndex++;
     final T event = type.cast( e );
     if ( null != action )

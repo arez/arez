@@ -1,0 +1,184 @@
+meta:
+  project: arez-auto-observe
+  last_updated: 2026-04-13
+  required_full_gates:
+    - bundle exec buildr ci J2CL=no
+  statuses:
+    - pending
+    - in_progress
+    - completed
+    - cancelled
+
+current_focus: T07
+
+tasks:
+  - id: PLAN-APPROVAL
+    title: Review and accept structured delivery artifacts
+    status: completed
+    priority: high
+    depends_on: []
+    acceptance_criteria:
+      - User has reviewed the latest plan artifacts.
+      - Any feedback has been incorporated into the planning docs.
+      - Plan status is ready to move from draft to accepted.
+    files_touched:
+      - plans/auto-observe/*
+    evidence:
+      - command: user review in thread
+        result: pass
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T01
+    title: Add `@AutoObserve` annotation and public API docs
+    status: completed
+    priority: high
+    depends_on:
+      - PLAN-APPROVAL
+    acceptance_criteria:
+      - New annotation exists with final Javadocs and `validateTypeAtRuntime`.
+      - Annotation package metadata and API compatibility artifacts are updated.
+      - `CHANGELOG.md` captures the user-visible addition.
+    files_touched:
+      - core/src/main/java/arez/annotations/*
+      - api-test/*
+      - CHANGELOG.md
+    evidence:
+      - Added `arez.annotations.AutoObserve` with public Javadocs and `validateTypeAtRuntime`.
+      - Updated `CHANGELOG.md` and `api-test/0.230-0.231.json`.
+    commit:
+      hash: pending
+      message: Add AutoObserve annotation API
+
+  - id: T02
+    title: Parse and validate `@AutoObserve` targets in the processor
+    status: completed
+    priority: high
+    depends_on:
+      - T01
+    acceptance_criteria:
+      - Supported field and method forms are parsed into a dedicated descriptor.
+      - Final-field, method-shape, type-validation, and mutual-exclusion rules are enforced.
+      - Unmanaged-reference warnings treat `@AutoObserve` as managed.
+    files_touched:
+      - processor/src/main/java/arez/processor/*
+    evidence:
+      - Added `AutoObserveDescriptor` and processor validation/linking paths.
+      - Added unmanaged-reference warning suppression and mutual-exclusion diagnostics.
+    commit:
+      hash: pending
+      message: Add AutoObserve processor validation
+
+  - id: T03
+    title: Generate owner-lifetime auto-observer and construction scheduling
+    status: completed
+    priority: high
+    depends_on:
+      - T02
+    acceptance_criteria:
+      - Components with auto-observe targets generate internal observer field and method.
+      - Generated code handles nullable, `@Observable`, plain-method, and `@Reference` targets correctly.
+      - Auto-observe participates in construction scheduling and is disposed during internal dispose.
+    files_touched:
+      - processor/src/main/java/arez/processor/*
+    evidence:
+      - Generated owner-lifetime auto-observer field/method/initializer/disposer.
+      - Included auto-observe in construction scheduling via `requiresSchedule()`.
+    commit:
+      hash: pending
+      message: Generate AutoObserve runtime wiring
+
+  - id: T04
+    title: Add processor fixtures and warning coverage
+    status: completed
+    priority: high
+    depends_on:
+      - T03
+    acceptance_criteria:
+      - Positive fixtures cover each supported target shape.
+      - Negative fixtures cover invalid combinations and invalid runtime-validation usage.
+      - Generated expected files assert observer creation, null guards, and disposal wiring.
+    files_touched:
+      - processor/src/test/java/arez/processor/ArezProcessorTest.java
+      - processor/src/test/fixtures/**
+    evidence:
+      - Added positive and negative processor fixtures under `processor/src/test/fixtures/**/auto_observe`.
+      - Added expected generated output fixtures for successful compile baselines.
+    commit:
+      hash: pending
+      message: Add AutoObserve processor fixtures
+
+  - id: T05
+    title: Add integration coverage for owner-lifetime keepalive behavior
+    status: completed
+    priority: high
+    depends_on:
+      - T03
+    acceptance_criteria:
+      - Integration tests prove a live owner keeps a `disposeOnDeactivate` target alive.
+      - Tests cover nullable retargeting, `@Observable` getter retargeting, lazy `@Reference` resolution, and `@ActAsComponent` runtime validation.
+      - Scenario fixtures are updated where spy output is asserted.
+    files_touched:
+      - integration-tests/src/test/java/**
+      - integration-tests/src/test/resources/**
+    evidence:
+      - Added integration tests for field, observable retargeting, lazy reference resolution, and runtime validation.
+    commit:
+      hash: pending
+      message: Add AutoObserve integration tests
+
+  - id: T06
+    title: Update docs and doc-examples
+    status: completed
+    priority: medium
+    depends_on:
+      - T03
+    acceptance_criteria:
+      - New `docs/at_auto_observe.md` exists.
+      - Existing docs for `@ArezComponent`, `@CascadeDispose`, `@ComponentDependency`, and `@Reference` cross-link the feature.
+      - Doc examples demonstrate field, `@Observable`, and `@Reference` usage.
+    files_touched:
+      - docs/**
+      - doc-examples/src/main/java/**
+    evidence:
+      - Added `docs/at_auto_observe.md`, cross-links in related docs, and doc examples.
+      - Updated website sidebar and localized title strings.
+    commit:
+      hash: pending
+      message: Document AutoObserve usage
+
+  - id: T07
+    title: Run full gates and close out
+    status: in_progress
+    priority: high
+    depends_on:
+      - T04
+      - T05
+      - T06
+    acceptance_criteria:
+      - `bundle exec buildr ci J2CL=no` passes.
+      - `bundle exec buildr test` passes.
+      - Task board evidence and commit hashes are complete and no pending hashes remain for completed tasks.
+    files_touched:
+      - plans/auto-observe/*
+    evidence:
+      - command: bundle exec buildr arez:processor:test
+        result: pass
+      - command: bundle exec buildr arez:integration-tests:test
+        result: pass
+      - command: bundle exec buildr test
+        result: blocked
+        note: Fails in `arez.downstream.BuildOutputTest` looking for `/target/arez_downstream-test/deploy_test/workdir/archive/arez.after/assets/WEB-INF/deploy/todomvc/symbolMaps`.
+      - command: bundle exec buildr ci J2CL=no
+        result: blocked
+        note: Fails in downstream collection step when `git clone https://github.com/react4j/react4j-heart-rate-monitor.git` cannot resolve `github.com` under restricted network access.
+    commit:
+      hash: not_required
+      message: not_required
+
+history:
+  - timestamp: 2026-04-13
+    task: PLAN-APPROVAL
+    commit: not_required
+    note: User approved the structured delivery plan and requested implementation.

@@ -14,7 +14,7 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-@SuppressWarnings( "SimplifiableAssertion" )
+@SuppressWarnings( { "SimplifiableAssertion", "ExpressionComparedToItself" } )
 public final class UnmodifiableSetterlessCollectionsIntegrationTest
   extends AbstractArezIntegrationTest
 {
@@ -23,7 +23,7 @@ public final class UnmodifiableSetterlessCollectionsIntegrationTest
   {
     final Model1 m1 = Model1.create();
 
-    // In the future this should actuall no throw an exception
+    // In the future this should actually not throw an exception
     assertThrows( () -> safeAction( () -> assertUnmodifiable( m1.getValue(), ValueUtil::randomString ) ) );
 
     // Reference identity should be guaranteed

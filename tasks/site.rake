@@ -91,9 +91,6 @@ task 'site:link_check' do
     # This next line is required if updating docs in branch and adding new
     # pages then this url may not exist until it is merged to master
     excludes << 'https://github.com/arez/arez/tree/master/docs'
-    DOWNSTREAM_PROJECTS.each do |project_name|
-      excludes << "#{base_url}/#{project_name.gsub(/^arez-/, '')}"
-    end
     sh "yarn blc --user-agent SiteChecker --ordered --recursive --filter-level 3 #{base_url} #{excludes.collect {|e| "--exclude #{e}"}.join(' ')}"
   ensure
     webserver.shutdown
@@ -125,7 +122,7 @@ task 'site:deploy' => ['site:build'] do
     sh "git clone -b master --depth 1 #{origin_url} #{local_dir}"
 
     # This is the list of directories controlled by other processes that should be left alone
-    excludes = DOWNSTREAM_PROJECTS.collect {|project_name| project_name.gsub(/^arez-/, '')}
+    excludes = []
 
     in_dir(local_dir) do
       message = "Publish website#{travis_build_number.nil? ? '' : " - Travis build: #{travis_build_number}"}"

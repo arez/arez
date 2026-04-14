@@ -365,15 +365,17 @@ public final class RepositoryTest
     }
 
     @Override
-    public void addOnDisposeListener( @Nonnull final Object key, @Nonnull final SafeProcedure action )
+    public void addOnDisposeListener( @Nonnull final Object key,
+                                      @Nonnull final SafeProcedure action,
+                                      final boolean errorIfDuplicate )
     {
-      _kernel.addOnDisposeListener( key, action );
+      _kernel.addOnDisposeListener( key, action, errorIfDuplicate );
     }
 
     @Override
-    public void removeOnDisposeListener( @Nonnull final Object key )
+    public void removeOnDisposeListener( @Nonnull final Object key, final boolean errorIfMissing )
     {
-      _kernel.removeOnDisposeListener( key );
+      _kernel.removeOnDisposeListener( key, errorIfMissing );
     }
 
     @Override

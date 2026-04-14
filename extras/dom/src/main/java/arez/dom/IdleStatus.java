@@ -2,10 +2,14 @@ package arez.dom;
 
 import akasha.AddEventListenerOptions;
 import akasha.EventListener;
-import akasha.WindowGlobal;
 import akasha.TimerHandler;
+import akasha.WindowGlobal;
+import arez.ArezContext;
+import arez.Disposable;
+import arez.Task;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
+import arez.annotations.ContextRef;
 import arez.annotations.Feature;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
@@ -64,7 +68,7 @@ public abstract class IdleStatus
   @Nonnull
   private final TimerHandler _timeoutCallback = this::onTimeout;
   @Nonnull
-  private final EventListener _listener = e -> resetLastActivityTime();
+  private final EventListener _listener = e -> tryResetLastActivityTime();
   @Nonnull
   private Set<String> _events =
     new HashSet<>( Arrays.asList( "keydown", "touchstart", "scroll", "mousemove", "mouseup", "mousedown", "wheel" ) );
@@ -103,6 +107,9 @@ public abstract class IdleStatus
   IdleStatus()
   {
   }
+
+  @ContextRef
+  abstract ArezContext context();
 
   @PostConstruct
   void postConstruct()
@@ -264,6 +271,31 @@ public abstract class IdleStatus
     else
     {
       setRawIdle( true );
+    }
+  }
+
+  void tryResetLastActivityTime()
+  {
+    if ( context().isTransactionActive() )
+    {
+      // This can be called anytime an event occurs ... which can
+      // actually occur during the middle of a transaction (i.e. a browser exception event)
+      // So if we are in the middle of a transaction, just trigger its execution for later.
+      context().task( this::doResetLastActivityTime, Task.Flags.DISPOSE_ON_COMPLETE );
+    }
+    else
+    {
+      doResetLastActivityTime();
+    }
+  }
+
+  void doResetLastActivityTime()
+  {
+    // As the tryResetLastActivityTime can be scheduled later,
+    // it is possible that this will be invoked after the object has been disposed
+    if( Disposable.isNotDisposed( this ) )
+    {
+      resetLastActivityTime();
     }
   }
 

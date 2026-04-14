@@ -107,7 +107,7 @@ final class ObserverInfoImpl
     final Transaction transaction = _spy.isTransactionActive() ? getTrackerTransaction() : null;
     if ( null != transaction )
     {
-      final List<ObservableValue<?>> observableValues = transaction.getObservableValues();
+      final FastList<ObservableValue<?>> observableValues = transaction.getObservableValues();
       if ( null == observableValues )
       {
         return Collections.emptyList();
@@ -115,13 +115,18 @@ final class ObserverInfoImpl
       else
       {
         // Copy the list removing any duplicates that may exist.
-        final List<ObservableValue<?>> list = observableValues.stream().distinct().collect( Collectors.toList() );
-        return ObservableValueInfoImpl.asUnmodifiableInfos( list );
+        return ObservableValueInfoImpl.asUnmodifiableInfos( observableValues
+                                                              .stream()
+                                                              .distinct()
+                                                              .collect( Collectors.toList() ) );
       }
     }
     else
     {
-      return ObservableValueInfoImpl.asUnmodifiableInfos( _observer.getDependencies() );
+      return ObservableValueInfoImpl.asUnmodifiableInfos( _observer
+                                                            .getDependencies()
+                                                            .stream()
+                                                            .collect( Collectors.toList() ) );
     }
   }
 

@@ -51,6 +51,9 @@
   <define-property name='arez.enable_task_interceptor' values='true,false'/>
   <set-property name='arez.enable_task_interceptor' value='true'/>
 
+  <define-property name='arez.check_expensive_invariants' values='true,false'/>
+  <set-property name='arez.check_expensive_invariants' value='false'/>
+
   <define-property name='arez.check_invariants' values='true,false'/>
   <set-property name='arez.check_invariants' value='false'/>
 

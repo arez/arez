@@ -2,7 +2,198 @@
 
 ### Unreleased
 
+### [v0.231](https://github.com/arez/arez/tree/v0.231) (2026-04-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.230...v0.231) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.230&new=0.231)
+
+The release includes 1 non breaking API change.
+
+Changes in this release:
+
+* Add `@AutoObserve` to keep referenced `ComponentObservable` values observed for the alive lifetime of a component.
+
+### [v0.230](https://github.com/arez/arez/tree/v0.230) (2026-04-13) · [Full Changelog](https://github.com/arez/arez/compare/v0.229...v0.230)
+
+Changes in this release:
+
+* Add the suppressable `Arez:ConflictingDisposeModel` warning when `@CascadeDispose` targets an `@ArezComponent` configured with `disposeOnDeactivate = true`.
+
+### [v0.229](https://github.com/arez/arez/tree/v0.229) (2026-04-09) · [Full Changelog](https://github.com/arez/arez/compare/v0.228...v0.229)
+
+Changes in this release:
+
+* Complete the inlining of `arez-persist`
+
+### [v0.228](https://github.com/arez/arez/tree/v0.228) (2026-04-09) · [Full Changelog](https://github.com/arez/arez/compare/v0.227...v0.228)
+
+Changes in this release:
+
+### [v0.227](https://github.com/arez/arez/tree/v0.227) (2026-04-08) · [Full Changelog](https://github.com/arez/arez/compare/v0.226...v0.227) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.226&new=0.227)
+
+The release includes 2 non breaking API changes.
+
+Changes in this release:
+
+* Correct the javadocs for `ComponentObservable.observe()` to reflect the actual implementation with respect to nullability etc.
+* Add simplified `DisposeNotifier` default methods and reuse it in generator.
+
+### [v0.226](https://github.com/arez/arez/tree/v0.226) (2026-02-11) · [Full Changelog](https://github.com/arez/arez/compare/v0.225...v0.226) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.225&new=0.226)
+
+The release includes 7 non breaking API changes.
+
+Changes in this release:
+
+* Add configurable equality comparison strategies for `@Observable` setters and `@Memoize` computations via `EqualityComparator`.
+* Add built-in comparators `ObjectsEqualsComparator` and `ObjectsDeepEqualsComparator`.
+
+### [v0.225](https://github.com/arez/arez/tree/v0.225) (2026-01-23) · [Full Changelog](https://github.com/arez/arez/compare/v0.224...v0.225) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.224&new=0.225)
+
+The release includes 1 non breaking API change.
+
+Changes in this release:
+
+* Reject `@Action(reportParameters = false)` when the action method has no parameters.
+* Add `@ObservableInitial` to provide initial values for abstract observables.
+
+### [v0.224](https://github.com/arez/arez/tree/v0.224) (2026-01-21) · [Full Changelog](https://github.com/arez/arez/compare/v0.223...v0.224) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.223&new=0.224)
+
+The release includes 4 non breaking API changes.
+
+Changes in this release:
+
+* Add names to zones. Names are unique and are present in serialized forms of event. This primarily enables multiple zones to operate within a single application without interfering or causing confusion to devtools
+* Add `@Action.skipIfDisposed` to skip action invocations on disposing/disposed components and emit an `ActionSkipped` spy event.
+
+### [v0.223](https://github.com/arez/arez/tree/v0.223) (2025-12-05) · [Full Changelog](https://github.com/arez/arez/compare/v0.222...v0.223)
+
+Changes in this release:
+
+* Update the `org.realityforge.braincheck` artifacts to version `1.32.0`.
+* Update the `org.realityforge.sting` artifacts to version `0.29`.
+* Ensure that the duration is not negative when reporting duration in various spy events.
+
+### [v0.222](https://github.com/arez/arez/tree/v0.222) (2025-08-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.221...v0.222)
+
+Changes in this release:
+
+* Add assertion to ensure that `ObservableValue` instances should not be queued for deactivation if they are already pending deactivation.
+* Check for pendingDeactivation before queuing deactivation in transaction commits.
+
+### [v0.221](https://github.com/arez/arez/tree/v0.221) (2025-06-27) · [Full Changelog](https://github.com/arez/arez/compare/v0.220...v0.221)
+
+Changes in this release:
+
+* Change `ComputableValue.reportPossiblyChanged()` so that it marks the `ComputableValue` as `STALE` rather than `POSSIBLY_STALE`, otherwise changes in external dependencies will not trigger the re-evaluation of the `ComputableValue`.
+
+### [v0.220](https://github.com/arez/arez/tree/v0.220) (2025-06-25) · [Full Changelog](https://github.com/arez/arez/compare/v0.219...v0.220)
+
+Changes in this release:
+
+* Fix bug which would result in crashes if one component had multiple references to the same component instance and more than one references used `@ComponentDependency` annotation.
+
+### [v0.219](https://github.com/arez/arez/tree/v0.219) (2025-03-31) · [Full Changelog](https://github.com/arez/arez/compare/v0.218...v0.219)
+
+Changes in this release:
+
+* Fix bug where `errorIfMissing` parameter was not passed through when generating `removeOnDisposeListener` on components.
+
+### [v0.218](https://github.com/arez/arez/tree/v0.218) (2025-03-31) · [Full Changelog](https://github.com/arez/arez/compare/v0.217...v0.218) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.217&new=0.218)
+
+The release includes 2 non breaking API changes and 2 breaking API changes.
+
+Changes in this release:
+
+* Change `DisposeNotifier.addOnDisposeListener(...)` to take an optional boolean parameter to stop assertions checking that the added listener does not already exist.
+* Change `DisposeNotifier.removeOnDisposeListener(...)` to take an optional boolean parameter to stop assertions checking that the removed listener does exist.
+
+### [v0.217](https://github.com/arez/arez/tree/v0.217) (2025-02-24) · [Full Changelog](https://github.com/arez/arez/compare/v0.216...v0.217)
+
+Changes in this release:
+
+### [v0.216](https://github.com/arez/arez/tree/v0.216) (2025-02-24) · [Full Changelog](https://github.com/arez/arez/compare/v0.215...v0.216)
+
+Changes in this release:
+
+* Update `MemoizeCache` so that if a parameters is used that is a `DisposeNotifier`, and it gets disposed then it will also dispose the associated `ComputableValue`.
+
+### [v0.215](https://github.com/arez/arez/tree/v0.215) (2025-02-21) · [Full Changelog](https://github.com/arez/arez/compare/v0.214...v0.215) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.214&new=0.215)
+
+The release includes 3 non breaking API changes.
+
+Changes in this release:
+
+* Add some additional dev-only assertions in generated Arez classes when accessing kernel to highlight issues earlier.
+* Move some more expensive invariant checking to be guarded by the compile time property `arez.check_expensive_invariants`.
+
+### [v0.214](https://github.com/arez/arez/tree/v0.214) (2025-01-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.213...v0.214) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.213&new=0.214)
+
+The release includes 2 non breaking API changes and 4 breaking API changes.
+
+Changes in this release:
+
+* Add `ArezContext.registerHook()` that allows the registration of hooks to execute on activation and deactivation
+  of the current observer or computed value. The intent is to enable a dynamic set of OnActivate and OnDeactivate hooks
+  for `ComputableValue` instances or `@Memoize` annotated methods without the existing restrictions.
+* Stop supporting passing in arbitrary `onActivate` and `onDeactivate` parameters when creating `ComputableValue` instances via the context. Instead rely on the newly implemented hooks feature.
+* Update the `org.realityforge.proton` artifacts to version `0.65`.
+* Stop supporting the optional `ComputableValue` parameter to methods annotated with `OnActivate`. If access to the `ComputableValue` is required, it is recommended that a `@ComponentValueRef` annotated method is used instead.
+
+### [v0.213](https://github.com/arez/arez/tree/v0.213) (2024-11-22) · [Full Changelog](https://github.com/arez/arez/compare/v0.212...v0.213)
+
+Changes in this release:
+
+* If an arez annotated method is annotated with `@SuppressWarnings("deprecation")` and would be overridden by arez, then
+  make sure the annotation is copied to the override even when no parameter or return value is marked as deprecated.
+  This will avoid the scenario that generates a deprecation warning when the method is implementing a deprecated interface.
+
+### [v0.212](https://github.com/arez/arez/tree/v0.212) (2024-09-20) · [Full Changelog](https://github.com/arez/arez/compare/v0.211...v0.212) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.211&new=0.212)
+
+The release includes 1 non breaking API change.
+
+Changes in this release:
+
+* Add `ArezContext.isComputableTransactionActive()` to detect if computable transaction is active.
+* Change `IdleStatus` so that when a browser event is triggered in the context of a transaction, the action will be scheduled for a later time to avoid constraint violations.
+
+### [v0.211](https://github.com/arez/arez/tree/v0.211) (2024-08-17) · [Full Changelog](https://github.com/arez/arez/compare/v0.210...v0.211)
+
+Changes in this release:
+
+### [v0.210](https://github.com/arez/arez/tree/v0.210) (2024-08-02) · [Full Changelog](https://github.com/arez/arez/compare/v0.209...v0.210) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.209&new=0.210)
+
+The release includes 1 non breaking API change.
+
+Changes in this release:
+
+* Update the `org.realityforge.javax.annotation` artifact to version `1.1.1`.
+* Update the `org.realityforge.proton` artifacts to version `0.64`.
+
+### [v0.209](https://github.com/arez/arez/tree/v0.209) (2024-05-17) · [Full Changelog](https://github.com/arez/arez/compare/v0.208...v0.209)
+
+Changes in this release:
+
+* Update the `org.realityforge.guiceyloops` artifact to version `0.113`.
+* Update the `com.google.gwt` artifacts to version `2.11.0`.
+* Update the `realityforge-buildr` dependency to version `1.5.24`.
+* Update the `org.realityforge.proton` artifacts to version `0.62`.
+* Collect methods from interface hierarchy after methods collected from class hierarchy so that property definition order and method definition orders defined by classes are stable. Thus, interfaces that are used to extend components cannot alter the order of properties by defining getters.
+
+### [v0.208](https://github.com/arez/arez/tree/v0.208) (2023-01-26) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.207...v0.208)
+
+Changes in this release:
+
+* Rename `arez.verbose_out_of_round` to `arez.verbose_out_of_round.errors` in the list of processor options declared as supported to reflect actual key accessed.
+
+### [v0.207](https://github.com/arez/arez/tree/v0.207) (2023-01-25) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.206...v0.207)
+
+Changes in this release:
+
+* Add `arez.profile` and `arez.verbose_out_of_round` to the list of processor options declared as supported. This was not required in Java 8 but is required in Java 17 to have these options accessed by processor without errors.
+
+### [v0.206](https://github.com/arez/arez/tree/v0.206) (2023-01-23) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.205...v0.206)
+
+Changes in this release:
+
 * Ensure `Observer.reportStale()` marks a transaction as used if `Arez.shouldCheckInvariants()` is true rather than only if `Arez.shouldCheckApiInvariants()` is true as the `ArezContext.verifyActionRequired(...)` requires transaction to be marked as used but only runs if `Arez.shouldCheckInvariants()` is true.
+* Ensure that invariants are not tripped if spys are enabled but no handlers are registered and then a handler registers a handler.
 
 ### [v0.205](https://github.com/arez/arez/tree/v0.205) (2022-04-29) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.204...v0.205)
 

@@ -1,0 +1,25 @@
+<module>
+  <inherits name='arez.Arez'/>
+  <!-- arez.component.Component is present to support Identifiable and may be removed in the future -->
+  <inherits name='arez.component.Component'/>
+
+  <source path='' includes='*.java'/>
+  <source path='runtime' includes='*.java'/>
+
+  <!--
+    These properties are all defined in arez.persist.runtime.ArezPersistConfig
+    See that class for a better understanding of what these properties do.
+  -->
+
+  <define-property name='arez.persist.environment' values='development,production'/>
+  <set-property name='arez.persist.environment' value='production'/>
+
+  <define-property name='arez.persist.enable_application_store' values='true,false'/>
+  <set-property name='arez.persist.enable_application_store' value='true'/>
+
+  <define-property name='arez.persist.check_api_invariants' values='true,false'/>
+  <set-property name='arez.persist.check_api_invariants' value='false'/>
+
+  <define-property name='arez.persist.logger' values='console,proxy,none'/>
+  <set-property name='arez.persist.logger' value='console'/>
+</module>

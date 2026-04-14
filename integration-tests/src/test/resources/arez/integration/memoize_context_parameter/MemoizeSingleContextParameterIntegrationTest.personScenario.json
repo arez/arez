@@ -1,0 +1,906 @@
+
+[
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1",
+        "type": "ComponentCreateStart"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.firstName",
+        "type": "ObservableValueCreate"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.lastName",
+        "type": "ObservableValueCreate"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1",
+        "type": "ComponentCreateComplete"
+    },
+    {
+        "name": "FullNamePrinterC1",
+        "type": "ObserverCreate"
+    },
+    {
+        "name": "FullNamePrinterC1",
+        "type": "ObserveSchedule"
+    },
+    {
+        "name": "FullNamePrinterC1",
+        "type": "ObserveStart"
+    },
+    {
+        "name": "FullNamePrinterC1",
+        "tracked": true,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "name": "FullNamePrinterC1",
+        "tracker": "FullNamePrinterC1",
+        "type": "TransactionStart"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "type": "ComputableValueCreate"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "type": "ComputeStart"
+    },
+    {
+        "mutation": false,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "tracker": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "type": "TransactionStart"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "type": "ObservableValueChange",
+        "value": "Bill Smith (--C1--)"
+    },
+    {
+        "mutation": false,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "tracker": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": "Bill Smith (--C1--)",
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "type": "usermark",
+        "fullname": "Bill Smith (--C1--)"
+    },
+    {
+        "mutation": false,
+        "name": "FullNamePrinterC1",
+        "tracker": "FullNamePrinterC1",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "FullNamePrinterC1",
+        "errorMessage": null,
+        "tracked": true,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "FullNamePrinterC1",
+        "errorMessage": null,
+        "type": "ObserveComplete"
+    },
+    {
+        "name": "FullNamePrinterC2",
+        "type": "ObserverCreate"
+    },
+    {
+        "name": "FullNamePrinterC2",
+        "type": "ObserveSchedule"
+    },
+    {
+        "name": "FullNamePrinterC2",
+        "type": "ObserveStart"
+    },
+    {
+        "name": "FullNamePrinterC2",
+        "tracked": true,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "name": "FullNamePrinterC2",
+        "tracker": "FullNamePrinterC2",
+        "type": "TransactionStart"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "type": "ComputableValueCreate"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "type": "ComputeStart"
+    },
+    {
+        "mutation": false,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "tracker": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "type": "TransactionStart"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "type": "ObservableValueChange",
+        "value": "Bill Smith (--C2--)"
+    },
+    {
+        "mutation": false,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "tracker": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": "Bill Smith (--C2--)",
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "type": "usermark",
+        "fullname": "Bill Smith (--C2--)"
+    },
+    {
+        "mutation": false,
+        "name": "FullNamePrinterC2",
+        "tracker": "FullNamePrinterC2",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "FullNamePrinterC2",
+        "errorMessage": null,
+        "tracked": true,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "FullNamePrinterC2",
+        "errorMessage": null,
+        "type": "ObserveComplete"
+    },
+    {
+        "name": "First Name Update",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "First Name Update",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.firstName",
+        "type": "ObservableValueChange",
+        "value": "Fred"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "type": "ObserveSchedule"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "type": "ObserveSchedule"
+    },
+    {
+        "mutation": true,
+        "name": "First Name Update",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "First Name Update",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "type": "ComputeStart"
+    },
+    {
+        "mutation": false,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "tracker": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "type": "TransactionStart"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "type": "ObservableValueChange",
+        "value": "Fred Smith (--C1--)"
+    },
+    {
+        "name": "FullNamePrinterC1",
+        "type": "ObserveSchedule"
+    },
+    {
+        "mutation": false,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "tracker": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": "Fred Smith (--C1--)",
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "type": "ComputeStart"
+    },
+    {
+        "mutation": false,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "tracker": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "type": "TransactionStart"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "type": "ObservableValueChange",
+        "value": "Fred Smith (--C2--)"
+    },
+    {
+        "name": "FullNamePrinterC2",
+        "type": "ObserveSchedule"
+    },
+    {
+        "mutation": false,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "tracker": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": "Fred Smith (--C2--)",
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "FullNamePrinterC1",
+        "type": "ObserveStart"
+    },
+    {
+        "name": "FullNamePrinterC1",
+        "tracked": true,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "name": "FullNamePrinterC1",
+        "tracker": "FullNamePrinterC1",
+        "type": "TransactionStart"
+    },
+    {
+        "type": "usermark",
+        "fullname": "Fred Smith (--C1--)"
+    },
+    {
+        "mutation": false,
+        "name": "FullNamePrinterC1",
+        "tracker": "FullNamePrinterC1",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "FullNamePrinterC1",
+        "errorMessage": null,
+        "tracked": true,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "FullNamePrinterC1",
+        "errorMessage": null,
+        "type": "ObserveComplete"
+    },
+    {
+        "name": "FullNamePrinterC2",
+        "type": "ObserveStart"
+    },
+    {
+        "name": "FullNamePrinterC2",
+        "tracked": true,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "name": "FullNamePrinterC2",
+        "tracker": "FullNamePrinterC2",
+        "type": "TransactionStart"
+    },
+    {
+        "type": "usermark",
+        "fullname": "Fred Smith (--C2--)"
+    },
+    {
+        "mutation": false,
+        "name": "FullNamePrinterC2",
+        "tracker": "FullNamePrinterC2",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "FullNamePrinterC2",
+        "errorMessage": null,
+        "tracked": true,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "FullNamePrinterC2",
+        "errorMessage": null,
+        "type": "ObserveComplete"
+    },
+    {
+        "name": "Second Name Update that does nothing",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "Second Name Update that does nothing",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.firstName",
+        "type": "ObservableValueChange",
+        "value": "FredSomethingElse"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "type": "ObserveSchedule"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "type": "ObserveSchedule"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.firstName",
+        "type": "ObservableValueChange",
+        "value": "Fred"
+    },
+    {
+        "mutation": true,
+        "name": "Second Name Update that does nothing",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "Second Name Update that does nothing",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "type": "ComputeStart"
+    },
+    {
+        "mutation": false,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "tracker": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "tracker": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": "Fred Smith (--C1--)",
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "type": "ComputeStart"
+    },
+    {
+        "mutation": false,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "tracker": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": false,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "tracker": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": "Fred Smith (--C2--)",
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "Last Name Update",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "Last Name Update",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.lastName",
+        "type": "ObservableValueChange",
+        "value": "Donaldo"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "type": "ObserveSchedule"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "type": "ObserveSchedule"
+    },
+    {
+        "mutation": true,
+        "name": "Last Name Update",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "Last Name Update",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "type": "ComputeStart"
+    },
+    {
+        "mutation": false,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "tracker": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "type": "TransactionStart"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "type": "ObservableValueChange",
+        "value": "Fred Donaldo (--C1--)"
+    },
+    {
+        "name": "FullNamePrinterC1",
+        "type": "ObserveSchedule"
+    },
+    {
+        "mutation": false,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "tracker": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": "Fred Donaldo (--C1--)",
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "type": "ComputeStart"
+    },
+    {
+        "mutation": false,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "tracker": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "type": "TransactionStart"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "type": "ObservableValueChange",
+        "value": "Fred Donaldo (--C2--)"
+    },
+    {
+        "name": "FullNamePrinterC2",
+        "type": "ObserveSchedule"
+    },
+    {
+        "mutation": false,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "tracker": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": "Fred Donaldo (--C2--)",
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "errorMessage": null,
+        "type": "ComputeComplete"
+    },
+    {
+        "name": "FullNamePrinterC1",
+        "type": "ObserveStart"
+    },
+    {
+        "name": "FullNamePrinterC1",
+        "tracked": true,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "name": "FullNamePrinterC1",
+        "tracker": "FullNamePrinterC1",
+        "type": "TransactionStart"
+    },
+    {
+        "type": "usermark",
+        "fullname": "Fred Donaldo (--C1--)"
+    },
+    {
+        "mutation": false,
+        "name": "FullNamePrinterC1",
+        "tracker": "FullNamePrinterC1",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "FullNamePrinterC1",
+        "errorMessage": null,
+        "tracked": true,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "FullNamePrinterC1",
+        "errorMessage": null,
+        "type": "ObserveComplete"
+    },
+    {
+        "name": "FullNamePrinterC2",
+        "type": "ObserveStart"
+    },
+    {
+        "name": "FullNamePrinterC2",
+        "tracked": true,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": false,
+        "name": "FullNamePrinterC2",
+        "tracker": "FullNamePrinterC2",
+        "type": "TransactionStart"
+    },
+    {
+        "type": "usermark",
+        "fullname": "Fred Donaldo (--C2--)"
+    },
+    {
+        "mutation": false,
+        "name": "FullNamePrinterC2",
+        "tracker": "FullNamePrinterC2",
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "FullNamePrinterC2",
+        "errorMessage": null,
+        "tracked": true,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "FullNamePrinterC2",
+        "errorMessage": null,
+        "type": "ObserveComplete"
+    },
+    {
+        "name": "FullNamePrinterC1.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "FullNamePrinterC1.dispose",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": true,
+        "name": "FullNamePrinterC1.dispose",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "FullNamePrinterC1.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0.dispose",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": true,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0.dispose",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "type": "ComputableValueDispose"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0.dispose",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
+        "type": "ObservableValueChange",
+        "value": null
+    },
+    {
+        "mutation": true,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0.dispose",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0.dispose",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": true,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0.dispose",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "FullNamePrinterC1",
+        "type": "ObserverDispose"
+    },
+    {
+        "name": "FullNamePrinterC2.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "FullNamePrinterC2.dispose",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": true,
+        "name": "FullNamePrinterC2.dispose",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "FullNamePrinterC2.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1.dispose",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": true,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1.dispose",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "type": "ComputableValueDispose"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1.dispose",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1",
+        "type": "ObservableValueChange",
+        "value": null
+    },
+    {
+        "mutation": true,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1.dispose",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1.dispose",
+        "tracked": false,
+        "type": "ActionStart",
+        "parameters": [
+        ]
+    },
+    {
+        "mutation": true,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1.dispose",
+        "tracker": null,
+        "type": "TransactionStart"
+    },
+    {
+        "mutation": true,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1.dispose",
+        "tracker": null,
+        "type": "TransactionComplete"
+    },
+    {
+        "result": null,
+        "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1.dispose",
+        "errorMessage": null,
+        "tracked": false,
+        "returnsResult": false,
+        "type": "ActionComplete",
+        "parameters": [
+        ]
+    },
+    {
+        "name": "FullNamePrinterC2",
+        "type": "ObserverDispose"
+    }
+]

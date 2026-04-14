@@ -56,5 +56,6 @@ public final class ObserverErrorEvent
     final String message =
       null == throwable ? null : null == throwable.getMessage() ? throwable.toString() : throwable.getMessage();
     map.put( "message", message );
+    SpyEventUtil.maybeAddZone( map );
   }
 }

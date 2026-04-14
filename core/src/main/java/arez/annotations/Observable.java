@@ -1,6 +1,8 @@
 package arez.annotations;
 
+import arez.EqualityComparator;
 import arez.ObservableValue;
+import arez.ObjectsEqualsComparator;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
@@ -63,7 +65,10 @@ public @interface Observable
    * This parameter should only be set to {@link Feature#ENABLE} when the observable property is defined by a
    * pair of abstract methods. If set to {@link Feature#AUTODETECT} then an initializer will be added for an
    * observable property if it is defined by a pair of abstract methods and the values is annotated with the
-   * {@link javax.annotation.Nonnull} annotation and it is not annotated by {@link Inverse}.
+   * {@link Nonnull} annotation and it is not annotated by {@link Inverse}.
+   * It is an error to set this parameter to {@link Feature#ENABLE} when the property has an
+   * {@link ObservableInitial} annotation. If {@link ObservableInitial} is present and this parameter is
+   * {@link Feature#AUTODETECT}, the initializer is treated as {@link Feature#DISABLE}.
    *
    * <p>The initializer parameters will be added as additional parameters at the end of the parameter list in
    * the generated classes constructors. The initializers will be defined in the order that the observable
@@ -71,6 +76,7 @@ public @interface Observable
    *
    * @return flag controlling whether a parameter should be added to the constructor to initialize the property.
    */
+  @Nonnull
   Feature initializer() default Feature.AUTODETECT;
 
   /**
@@ -108,4 +114,12 @@ public @interface Observable
    * @return false if the setter should verify observable value has changed before propagating change.
    */
   boolean setterAlwaysMutates() default true;
+
+  /**
+   * Return the strategy used to compare values when checking whether the observable has changed.
+   *
+   * @return the comparator type used when checking whether values are equal.
+   */
+  @Nonnull
+  Class<? extends EqualityComparator> equalityComparator() default ObjectsEqualsComparator.class;
 }

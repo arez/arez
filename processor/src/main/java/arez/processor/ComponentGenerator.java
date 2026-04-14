@@ -12,6 +12,7 @@ import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeVariableName;
 import com.squareup.javapoet.WildcardTypeName;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -25,11 +26,13 @@ import java.util.stream.IntStream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.AnnotatedConstruct;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
+import javax.lang.model.element.Name;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.TypeParameterElement;
 import javax.lang.model.element.VariableElement;
@@ -49,8 +52,11 @@ final class ComponentGenerator
   private static final ClassName GUARDS_CLASSNAME = ClassName.get( "org.realityforge.braincheck", "Guards" );
   private static final ClassName AREZ_CLASSNAME = ClassName.get( "arez", "Arez" );
   private static final ClassName ACTION_FLAGS_CLASSNAME = ClassName.get( "arez", "ActionFlags" );
+  private static final ClassName ACTION_SKIPPED_EVENT_CLASSNAME = ClassName.get( "arez.spy", "ActionSkippedEvent" );
   private static final ClassName OBSERVER_FLAGS_CLASSNAME = ClassName.get( "arez", "Observer", "Flags" );
   private static final ClassName COMPUTABLE_VALUE_FLAGS_CLASSNAME = ClassName.get( "arez", "ComputableValue", "Flags" );
+  private static final ClassName OBJECTS_DEEP_EQUALS_COMPARATOR_CLASSNAME =
+    ClassName.get( "arez", "ObjectsDeepEqualsComparator" );
   private static final ClassName AREZ_CONTEXT_CLASSNAME = ClassName.get( "arez", "ArezContext" );
   private static final ClassName OBSERVABLE_CLASSNAME = ClassName.get( "arez", "ObservableValue" );
   private static final ClassName OBSERVER_CLASSNAME = ClassName.get( "arez", "Observer" );
@@ -93,16 +99,19 @@ final class ComponentGenerator
   private static final String INTERNAL_POST_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "postDispose";
   private static final String NEXT_ID_FIELD_NAME = FRAMEWORK_PREFIX + "nextId";
   private static final String KERNEL_FIELD_NAME = FRAMEWORK_PREFIX + "kernel";
+  private static final String AUTO_OBSERVE_FIELD_NAME = FIELD_PREFIX + "$autoObserve";
+  private static final String AUTO_OBSERVE_METHOD_NAME = FRAMEWORK_PREFIX + "$autoObserve";
   static final String ID_FIELD_NAME = FRAMEWORK_PREFIX + "id";
   private static final String LOCATOR_METHOD_NAME = FRAMEWORK_PREFIX + "locator";
   /**
    * For constructor initializer args where it collides with existing name.
    */
-  static final String INITIALIZER_PREFIX = "$$arezip$$_";
+  private static final String INITIALIZER_PREFIX = "$$arezip$$_";
   /**
    * For variables used within generated methods that need a unique name.
    */
   private static final String VARIABLE_PREFIX = "$$arezv$$_";
+  private static final String DEPENDENCY_KEY_PREFIX = "$$arez_dk$$_";
   private static final String COMPONENT_VAR_NAME = VARIABLE_PREFIX + "component";
   private static final String NAME_VAR_NAME = VARIABLE_PREFIX + "name";
   private static final String ID_VAR_NAME = VARIABLE_PREFIX + "id";
@@ -184,7 +193,10 @@ final class ComponentGenerator
 
     GeneratorUtil.addGeneratedAnnotation( processingEnv, builder, ArezProcessor.class.getName() );
     final List<String> additionalSuppressions =
-      component.getMemoizes().isEmpty() ? Collections.emptyList() : Collections.singletonList( "unchecked" );
+      new ArrayList<>( component.getMemoizes().isEmpty() ?
+                       Collections.emptyList() :
+                       Collections.singletonList( "unchecked" ) );
+    additionalSuppressions.addAll( getAdditionalSuppressions( component.asDeclaredType().asElement() ) );
     final List<TypeMirror> types = new ArrayList<>();
     final ExecutableElement componentId = component.getComponentId();
     if ( component.isIdRequired() && null != componentId )
@@ -234,8 +246,7 @@ final class ComponentGenerator
 
     for ( final ExecutableElement contextRef : component.getContextRefs() )
     {
-      final MethodSpec.Builder method =
-        GeneratorUtil.refMethod( processingEnv, component.getElement(), contextRef );
+      final MethodSpec.Builder method = refMethod( processingEnv, component.getElement(), contextRef );
       generateNotInitializedInvariant( component, method, contextRef.getSimpleName().toString() );
       method.addStatement( "return this.$N.getContext()", KERNEL_FIELD_NAME );
       builder.addMethod( method.build() );
@@ -246,7 +257,7 @@ final class ComponentGenerator
     }
     for ( final ExecutableElement componentIdRef : component.getComponentIdRefs() )
     {
-      builder.addMethod( GeneratorUtil.refMethod( processingEnv, component.getElement(), componentIdRef )
+      builder.addMethod( refMethod( processingEnv, component.getElement(), componentIdRef )
                            .addStatement( "return this.$N()", component.getIdMethodName() )
                            .build() );
     }
@@ -264,17 +275,14 @@ final class ComponentGenerator
     }
     for ( final ExecutableElement componentNameRef : component.getComponentNameRefs() )
     {
-      final MethodSpec.Builder method =
-        GeneratorUtil.refMethod( processingEnv, component.getElement(), componentNameRef );
+      final MethodSpec.Builder method = refMethod( processingEnv, component.getElement(), componentNameRef );
       generateNotInitializedInvariant( component, method, componentNameRef.getSimpleName().toString() );
       method.addStatement( "return this.$N.getName()", KERNEL_FIELD_NAME );
       builder.addMethod( method.build() );
     }
     for ( final ExecutableElement componentTypeNameRef : component.getComponentTypeNameRefs() )
     {
-      builder.addMethod( GeneratorUtil.refMethod( processingEnv,
-                                                  component.getElement(),
-                                                  componentTypeNameRef )
+      builder.addMethod( refMethod( processingEnv, component.getElement(), componentTypeNameRef )
                            .addStatement( "return $S", component.getName() )
                            .build() );
     }
@@ -322,6 +330,10 @@ final class ComponentGenerator
                                                                                    builder ) );
     component.getObservables().values().forEach( e -> buildObservableMethods( processingEnv, e, builder ) );
     component.getObserves().values().forEach( e -> buildObserveMethods( processingEnv, e, builder ) );
+    if ( !component.getAutoObserves().isEmpty() )
+    {
+      builder.addMethod( buildAutoObserveMethod( component ) );
+    }
     component.getActions().values().forEach( e -> builder.addMethod( buildAction( processingEnv, e ) ) );
     component.getMemoizes().values().forEach( e -> buildMemoizeMethods( processingEnv, e, builder ) );
     component.getReferences().values().forEach( e -> buildReferenceMethods( processingEnv, e, builder ) );
@@ -520,28 +532,25 @@ final class ComponentGenerator
     final ObservableDescriptor observable = inverse.getObservable();
     final String delinkMethodName = getDelinkMethodName( inverse.getReferenceName() );
     final ClassName arezClassName = getArezClassName( inverse );
+    final CodeBlock.Builder block = CodeBlock.builder();
     if ( Multiplicity.MANY == inverse.getMultiplicity() )
     {
-      final CodeBlock.Builder block = CodeBlock.builder();
       block.beginControlFlow( "for ( final $T other : new $T<>( $N ) )",
                               inverse.getTargetType(),
                               TypeName.get( ArrayList.class ),
                               observable.getDataFieldName() );
       block.addStatement( "( ($T) other ).$N()", arezClassName, delinkMethodName );
-      block.endControlFlow();
-      builder.addCode( block.build() );
     }
     else
     {
-      final CodeBlock.Builder block = CodeBlock.builder();
       block.beginControlFlow( "if ( null != $N )", observable.getDataFieldName() );
       block.addStatement( "( ($T) $N ).$N()",
                           arezClassName,
                           observable.getDataFieldName(),
                           delinkMethodName );
-      block.endControlFlow();
-      builder.addCode( block.build() );
     }
+    block.endControlFlow();
+    builder.addCode( block.build() );
   }
 
   @Nonnull
@@ -578,8 +587,7 @@ final class ComponentGenerator
   {
     final String methodName = action.getAction().getSimpleName().toString();
     final ComponentDescriptor component = action.getComponent();
-    final MethodSpec.Builder method =
-      GeneratorUtil.overrideMethod( processingEnv, component.getElement(), action.getAction() );
+    final MethodSpec.Builder method = overrideMethod( processingEnv, component.getElement(), action.getAction() );
 
     final boolean isProcedure = action.getActionType().getReturnType().getKind() == TypeKind.VOID;
     final List<? extends TypeMirror> thrownTypes = action.getAction().getThrownTypes();
@@ -682,7 +690,34 @@ final class ComponentGenerator
     }
     statement.append( " )" );
 
-    generateNotDisposedInvariant( method, methodName );
+    if ( action.isSkipIfDisposed() )
+    {
+      final CodeBlock nameExpr =
+        CodeBlock.of( "$T.areNamesEnabled() ? this.$N.getName() + $S : null",
+                      AREZ_CLASSNAME,
+                      KERNEL_FIELD_NAME,
+                      "." + action.getName() );
+      final CodeBlock parametersExpr = buildActionParametersExpression( action, parameters );
+      final CodeBlock.Builder guardBlock = CodeBlock.builder();
+      guardBlock.beginControlFlow( "if ( this.$N.isDisposed() )", KERNEL_FIELD_NAME );
+      guardBlock
+        .beginControlFlow( "if ( $T.areSpiesEnabled() && this.$N.getContext().getSpy().willPropagateSpyEvents() )",
+                           AREZ_CLASSNAME,
+                           KERNEL_FIELD_NAME );
+      guardBlock.addStatement( "this.$N.getContext().getSpy().reportSpyEvent( new $T( $L, false, $L ) )",
+                               KERNEL_FIELD_NAME,
+                               ACTION_SKIPPED_EVENT_CLASSNAME,
+                               nameExpr,
+                               parametersExpr );
+      guardBlock.endControlFlow();
+      guardBlock.addStatement( "return" );
+      guardBlock.endControlFlow();
+      method.addCode( guardBlock.build() );
+    }
+    else
+    {
+      generateNotDisposedInvariant( method, methodName );
+    }
     if ( isSafe )
     {
       method.addStatement( statement.toString(), params.toArray() );
@@ -695,6 +730,33 @@ final class ComponentGenerator
     }
 
     return method.build();
+  }
+
+  @Nonnull
+  private static CodeBlock buildActionParametersExpression( @Nonnull final ActionDescriptor action,
+                                                            @Nonnull final List<? extends VariableElement> parameters )
+  {
+    if ( action.isReportParameters() && !parameters.isEmpty() )
+    {
+      final CodeBlock.Builder builder = CodeBlock.builder();
+      builder.add( "new $T[] { ", Object.class );
+      boolean firstParam = true;
+      for ( final VariableElement parameter : parameters )
+      {
+        if ( !firstParam )
+        {
+          builder.add( ", " );
+        }
+        firstParam = false;
+        builder.add( "$N", parameter.getSimpleName().toString() );
+      }
+      builder.add( " }" );
+      return builder.build();
+    }
+    else
+    {
+      return CodeBlock.of( "new $T[ 0 ]", Object.class );
+    }
   }
 
   private static void appendActionFlags( @Nonnull final ActionDescriptor action,
@@ -768,6 +830,15 @@ final class ComponentGenerator
     }
   }
 
+  @Nonnull
+  private static String getDependencyKey( @Nonnull final DependencyDescriptor dependency )
+  {
+    return dependency.getComponent().getDependencies().size() > 1 ?
+           dependency.hasNoObservable() ? DEPENDENCY_KEY_PREFIX + dependency.getKeyName() :
+           dependency.getObservable().getFieldName() :
+           "this";
+  }
+
   private static void buildDependencyInitializer( @Nonnull final DependencyDescriptor dependency,
                                                   @Nonnull final MethodSpec.Builder builder )
   {
@@ -777,17 +848,19 @@ final class ComponentGenerator
       final String fieldName = dependency.getField().getSimpleName().toString();
       if ( AnnotationsUtil.hasNonnullAnnotation( dependency.getField() ) )
       {
-        builder.addStatement( "$T.asDisposeNotifier( this.$N ).addOnDisposeListener( this, this::dispose )",
+        builder.addStatement( "$T.asDisposeNotifier( this.$N ).addOnDisposeListener( $N, this::dispose )",
                               DISPOSE_TRACKABLE_CLASSNAME,
-                              fieldName );
+                              fieldName,
+                              getDependencyKey( dependency ) );
       }
       else
       {
         final CodeBlock.Builder listenerBlock = CodeBlock.builder();
         listenerBlock.beginControlFlow( "if ( null != this.$N )", fieldName );
-        listenerBlock.addStatement( "$T.asDisposeNotifier( this.$N ).addOnDisposeListener( this, this::dispose )",
+        listenerBlock.addStatement( "$T.asDisposeNotifier( this.$N ).addOnDisposeListener( $N, this::dispose )",
                                     DISPOSE_TRACKABLE_CLASSNAME,
-                                    dependency.getField().getSimpleName() );
+                                    dependency.getField().getSimpleName(),
+                                    getDependencyKey( dependency ) );
         listenerBlock.endControlFlow();
         builder.addCode( listenerBlock.build() );
       }
@@ -803,9 +876,10 @@ final class ComponentGenerator
         if ( AnnotationsUtil.hasNonnullAnnotation( method ) )
         {
           assert dependency.shouldCascadeDispose();
-          builder.addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
+          builder.addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( $N, this::dispose )",
                                 DISPOSE_TRACKABLE_CLASSNAME,
-                                observable.getDataFieldName() );
+                                observable.getDataFieldName(),
+                                getDependencyKey( dependency ) );
         }
         // Abstract methods that do not require initializer have no chance to be non-null in the constructor
         // so there is no need to try and add listener as this can not occur
@@ -820,16 +894,19 @@ final class ComponentGenerator
           listenerBlock.beginControlFlow( "if ( null != $N )", varName );
           if ( dependency.shouldCascadeDispose() )
           {
-            listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
+            listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( $N, this::dispose )",
                                         DISPOSE_TRACKABLE_CLASSNAME,
-                                        observable.getDataFieldName() );
+                                        observable.getDataFieldName(),
+                                        getDependencyKey( dependency ) );
           }
           else
           {
-            listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, () -> $N( null ) )",
-                                        DISPOSE_TRACKABLE_CLASSNAME,
-                                        observable.getDataFieldName(),
-                                        observable.getSetter().getSimpleName().toString() );
+            listenerBlock
+              .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( $N, () -> $N( null ) )",
+                             DISPOSE_TRACKABLE_CLASSNAME,
+                             observable.getDataFieldName(),
+                             getDependencyKey( dependency ),
+                             observable.getSetter().getSimpleName().toString() );
           }
           listenerBlock.endControlFlow();
           builder.addCode( listenerBlock.build() );
@@ -842,16 +919,19 @@ final class ComponentGenerator
           assert dependency.shouldCascadeDispose();
           if ( dependency.getComponent().isClassType() )
           {
-            builder.addStatement( "$T.asDisposeNotifier( super.$N() ).addOnDisposeListener( this, this::dispose )",
+            builder.addStatement( "$T.asDisposeNotifier( super.$N() ).addOnDisposeListener( $N, this::dispose )",
                                   DISPOSE_TRACKABLE_CLASSNAME,
-                                  method.getSimpleName().toString() );
+                                  method.getSimpleName().toString(),
+                                  getDependencyKey( dependency ) );
           }
           else
           {
-            builder.addStatement( "$T.asDisposeNotifier( $T.super.$N() ).addOnDisposeListener( this, this::dispose )",
-                                  DISPOSE_TRACKABLE_CLASSNAME,
-                                  dependency.getComponent().getClassName(),
-                                  method.getSimpleName().toString() );
+            builder
+              .addStatement( "$T.asDisposeNotifier( $T.super.$N() ).addOnDisposeListener( $N, this::dispose )",
+                             DISPOSE_TRACKABLE_CLASSNAME,
+                             dependency.getComponent().getClassName(),
+                             method.getSimpleName().toString(),
+                             getDependencyKey( dependency ) );
           }
         }
         else
@@ -879,17 +959,19 @@ final class ComponentGenerator
             if ( dependency.getComponent().isClassType() )
             {
               listenerBlock.addStatement( "$T.asDisposeNotifier( super.$N() )." +
-                                          "addOnDisposeListener( this, this::dispose )",
+                                          "addOnDisposeListener( $N, this::dispose )",
                                           DISPOSE_TRACKABLE_CLASSNAME,
-                                          method.getSimpleName() );
+                                          method.getSimpleName(),
+                                          getDependencyKey( dependency ) );
             }
             else
             {
               listenerBlock.addStatement( "$T.asDisposeNotifier( $T.super.$N() )." +
-                                          "addOnDisposeListener( this, this::dispose )",
+                                          "addOnDisposeListener( $N, this::dispose )",
                                           DISPOSE_TRACKABLE_CLASSNAME,
                                           dependency.getComponent().getClassName(),
-                                          method.getSimpleName() );
+                                          method.getSimpleName(),
+                                          getDependencyKey( dependency ) );
             }
           }
           else
@@ -898,18 +980,20 @@ final class ComponentGenerator
             if ( dependency.getComponent().isClassType() )
             {
               listenerBlock.addStatement( "$T.asDisposeNotifier( super.$N() )." +
-                                          "addOnDisposeListener( this, () -> $N( null ) )",
+                                          "addOnDisposeListener( $N, () -> $N( null ) )",
                                           DISPOSE_TRACKABLE_CLASSNAME,
                                           method.getSimpleName(),
+                                          getDependencyKey( dependency ),
                                           observable.getSetter().getSimpleName().toString() );
             }
             else
             {
               listenerBlock.addStatement( "$T.asDisposeNotifier( $T.super.$N() )." +
-                                          "addOnDisposeListener( this, () -> $N( null ) )",
+                                          "addOnDisposeListener( $N, () -> $N( null ) )",
                                           DISPOSE_TRACKABLE_CLASSNAME,
                                           dependency.getComponent().getClassName(),
                                           method.getSimpleName(),
+                                          getDependencyKey( dependency ),
                                           observable.getSetter().getSimpleName().toString() );
             }
           }
@@ -1032,7 +1116,7 @@ final class ComponentGenerator
                                                      @Nonnull final ExecutableElement componentRef )
     throws ProcessorException
   {
-    final MethodSpec.Builder method = GeneratorUtil.refMethod( processingEnv, component.getElement(), componentRef );
+    final MethodSpec.Builder method = refMethod( processingEnv, component.getElement(), componentRef );
 
     final String methodName = componentRef.getSimpleName().toString();
     generateNotInitializedInvariant( component, method, methodName );
@@ -1090,6 +1174,7 @@ final class ComponentGenerator
       .methodBuilder( ID_FIELD_NAME )
       .addModifiers( Modifier.PRIVATE )
       .returns( DEFAULT_ID_TYPE )
+      .addStatement( "assert null != this.$N", KERNEL_FIELD_NAME )
       .addStatement( "return this.$N.getId()", KERNEL_FIELD_NAME )
       .build();
   }
@@ -1160,7 +1245,7 @@ final class ComponentGenerator
       component.getReferences().values()
         .stream()
         .filter( r -> r.getLinkType().equals( "EXPLICIT" ) )
-        .collect( Collectors.toList() );
+        .toList();
     for ( final ReferenceDescriptor reference : explicitReferences )
     {
       method.addStatement( "this.$N()", reference.getLinkMethodName() );
@@ -1199,6 +1284,10 @@ final class ComponentGenerator
 
     componentDescriptor.getObserves().values().forEach( observe -> buildObserveDisposer( observe,
                                                                                          builder ) );
+    if ( !componentDescriptor.getAutoObserves().isEmpty() )
+    {
+      buildAutoObserveDisposer( builder );
+    }
     componentDescriptor.getMemoizes().values().forEach( memoize -> buildMemoizeDisposer( memoize,
                                                                                          builder ) );
     componentDescriptor.getObservables().values().forEach( observable -> buildObservableDisposer( observable,
@@ -1336,9 +1425,21 @@ final class ComponentGenerator
           final String methodName = method.getSimpleName().toString();
           if ( AnnotationsUtil.hasNonnullAnnotation( element ) )
           {
-            builder.addStatement( "$T.asDisposeNotifier( $N() ).removeOnDisposeListener( this )",
-                                  DISPOSE_TRACKABLE_CLASSNAME,
-                                  methodName );
+            final boolean abstractObservables = method.getModifiers().contains( Modifier.ABSTRACT );
+            if ( abstractObservables )
+            {
+              builder.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( $N )",
+                                    DISPOSE_TRACKABLE_CLASSNAME,
+                                    dependency.getObservable().getDataFieldName(),
+                                    getDependencyKey( dependency ) );
+            }
+            else
+            {
+              builder.addStatement( "$T.asDisposeNotifier( $N() ).removeOnDisposeListener( $N )",
+                                    DISPOSE_TRACKABLE_CLASSNAME,
+                                    methodName,
+                                    getDependencyKey( dependency ) );
+            }
           }
           else
           {
@@ -1368,9 +1469,10 @@ final class ComponentGenerator
             }
             final CodeBlock.Builder listenerBlock = CodeBlock.builder();
             listenerBlock.beginControlFlow( "if ( null != $N )", varName );
-            listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( this )",
+            listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( $N )",
                                         DISPOSE_TRACKABLE_CLASSNAME,
-                                        varName );
+                                        varName,
+                                        getDependencyKey( dependency ) );
             listenerBlock.endControlFlow();
             builder.addCode( listenerBlock.build() );
           }
@@ -1381,17 +1483,19 @@ final class ComponentGenerator
           final String fieldName = field.getSimpleName().toString();
           if ( AnnotationsUtil.hasNonnullAnnotation( element ) )
           {
-            builder.addStatement( "$T.asDisposeNotifier( this.$N ).removeOnDisposeListener( this )",
+            builder.addStatement( "$T.asDisposeNotifier( this.$N ).removeOnDisposeListener( $N )",
                                   DISPOSE_TRACKABLE_CLASSNAME,
-                                  fieldName );
+                                  fieldName,
+                                  getDependencyKey( dependency ) );
           }
           else
           {
             final CodeBlock.Builder listenerBlock = CodeBlock.builder();
             listenerBlock.beginControlFlow( "if ( null != this.$N )", fieldName );
-            listenerBlock.addStatement( "$T.asDisposeNotifier( this.$N ).removeOnDisposeListener( this )",
+            listenerBlock.addStatement( "$T.asDisposeNotifier( this.$N ).removeOnDisposeListener( $N )",
                                         DISPOSE_TRACKABLE_CLASSNAME,
-                                        fieldName );
+                                        fieldName,
+                                        getDependencyKey( dependency ) );
             listenerBlock.endControlFlow();
             builder.addCode( listenerBlock.build() );
           }
@@ -1444,9 +1548,10 @@ final class ComponentGenerator
                       .build() ).
       addParameter( ParameterSpec.builder( SAFE_PROCEDURE_CLASSNAME, "action", Modifier.FINAL )
                       .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
-                      .build() );
+                      .build() ).
+      addParameter( ParameterSpec.builder( TypeName.BOOLEAN, "errorIfDuplicate", Modifier.FINAL ).build() );
     generateNotInitializedInvariant( component, method, methodName );
-    method.addStatement( "this.$N.addOnDisposeListener( key, action )", KERNEL_FIELD_NAME );
+    method.addStatement( "this.$N.addOnDisposeListener( key, action, errorIfDuplicate )", KERNEL_FIELD_NAME );
     return method.build();
   }
 
@@ -1463,10 +1568,11 @@ final class ComponentGenerator
       addAnnotation( Override.class ).
       addParameter( ParameterSpec.builder( TypeName.OBJECT, "key", Modifier.FINAL )
                       .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
-                      .build() );
+                      .build() ).
+      addParameter( ParameterSpec.builder( TypeName.BOOLEAN, "errorIfMissing", Modifier.FINAL ).build() );
     generateNotInitializedInvariant( component, method, methodName );
     generateNotConstructedInvariant( method, methodName );
-    method.addStatement( "this.$N.removeOnDisposeListener( key )", KERNEL_FIELD_NAME );
+    method.addStatement( "this.$N.removeOnDisposeListener( key, errorIfMissing )", KERNEL_FIELD_NAME );
     return method.build();
   }
 
@@ -1712,7 +1818,7 @@ final class ComponentGenerator
   }
 
   /**
-   * Build a constructor based on the supplied constructor
+   * Build a constructor based on the supplied constructor.
    */
   @Nonnull
   private static MethodSpec buildConstructor( @Nonnull final ProcessingEnvironment processingEnv,
@@ -1795,6 +1901,32 @@ final class ComponentGenerator
       block.endControlFlow();
       builder.addCode( block.build() );
     }
+    final var runtimeValidatedFieldAutoObserves =
+      component.getAutoObserves()
+        .values()
+        .stream()
+        .filter( ao -> ao.isValidateTypeAtRuntime() && null != ao.getField() )
+        .collect(
+          Collectors.toUnmodifiableList() );
+    if ( !runtimeValidatedFieldAutoObserves.isEmpty() )
+    {
+      builder.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
+      for ( final var autoObserve : runtimeValidatedFieldAutoObserves )
+      {
+        final var field = autoObserve.getField();
+        assert null != field;
+        final var name = field.getSimpleName();
+        builder.addStatement( "$T.apiInvariant( () -> null == this.$N || this.$N instanceof $T, " +
+                              "() -> $S + this.$N )",
+                              GUARDS_CLASSNAME,
+                              name,
+                              name,
+                              COMPONENT_OBSERVABLE_CLASSNAME,
+                              "Field annotated with @AutoObserve( validateTypeAtRuntime = true ) references a non-null value that does not implement ComponentObservable. Value: ",
+                              name );
+      }
+      builder.endControlFlow();
+    }
 
     buildComponentKernel( processingEnv, component, builder );
 
@@ -1829,21 +1961,54 @@ final class ComponentGenerator
       }
     }
 
-    component.getObservables().values().forEach( observable -> buildObservableInitializer( observable,
-                                                                                           builder ) );
+    for ( final ObservableDescriptor observable : component.getObservables().values() )
+    {
+      if ( observable.hasObservableInitial() )
+      {
+        final ObservableInitialDescriptor observableInitial = observable.getObservableInitial();
+        final CodeBlock initializer =
+          observableInitial.isField() ?
+          CodeBlock.of( "$T.$N", component.getClassName(), observableInitial.getField().getSimpleName() ) :
+          CodeBlock.of( "$T.$N()", component.getClassName(), observableInitial.getMethod().getSimpleName() );
+        final boolean isPrimitive = TypeName.get( observable.getGetterType().getReturnType() ).isPrimitive();
+        if ( isPrimitive )
+        {
+          builder.addStatement( "this.$N = $L", observable.getDataFieldName(), initializer );
+        }
+        else if ( observable.isGetterNonnull() )
+        {
+          builder.addStatement( "this.$N = $T.requireNonNull( $L )",
+                                observable.getDataFieldName(),
+                                Objects.class,
+                                initializer );
+        }
+        else
+        {
+          builder.addStatement( "this.$N = $L", observable.getDataFieldName(), initializer );
+        }
+      }
+    }
+
+    component.getObservables().values().forEach( observable -> buildObservableInitializer( observable, builder ) );
     component.getMemoizes().values().forEach( memoize -> buildMemoizeInitializer( memoize, builder ) );
     component.getObserves().values().forEach( observe -> buildObserveInitializer( observe, builder ) );
+    if ( !component.getAutoObserves().isEmpty() )
+    {
+      buildAutoObserveInitializer( component, builder );
+    }
     component.getInverses().values().forEach( e -> buildInverseInitializer( e, builder ) );
+    component.getDependencies().values().forEach( e -> buildDependencyKeyInitializer( e, builder ) );
     component.getDependencies().values().forEach( e -> buildDependencyInitializer( e, builder ) );
 
     builder.addStatement( "this.$N.componentConstructed()", KERNEL_FIELD_NAME );
 
     final List<ReferenceDescriptor> eagerReferences =
-      component.getReferences()
+      component
+        .getReferences()
         .values()
         .stream()
         .filter( r -> r.getLinkType().equals( "EAGER" ) )
-        .collect( Collectors.toList() );
+        .toList();
     for ( final ReferenceDescriptor reference : eagerReferences )
     {
       builder.addStatement( "this.$N()", reference.getLinkMethodName() );
@@ -1899,7 +2064,8 @@ final class ComponentGenerator
       FieldSpec.builder( KERNEL_CLASSNAME,
                          KERNEL_FIELD_NAME,
                          Modifier.FINAL,
-                         Modifier.PRIVATE );
+                         Modifier.PRIVATE ).
+        addAnnotation( GeneratorUtil.NULLABLE_CLASSNAME );
     builder.addField( idField.build() );
 
     // If we don't have a method for object id but we need one then synthesize it
@@ -1919,7 +2085,12 @@ final class ComponentGenerator
       .forEach( observable -> buildObservableFields( processingEnv, observable, builder ) );
     component.getMemoizes().values().forEach( memoize -> buildMemoizeFields( processingEnv, memoize, builder ) );
     component.getObserves().values().forEach( observe -> buildObserveFields( observe, builder ) );
+    if ( !component.getAutoObserves().isEmpty() )
+    {
+      buildAutoObserveField( builder );
+    }
     component.getReferences().values().forEach( r -> buildReferenceFields( r, builder ) );
+    component.getDependencies().values().forEach( e -> buildDependencyKeyField( e, builder ) );
   }
 
   @Nonnull
@@ -1984,13 +2155,21 @@ final class ComponentGenerator
   }
 
   /**
-   * Build any fields required by
+   * Build any fields required by ObserveDescriptor.
    */
   private static void buildObserveFields( @Nonnull final ObserveDescriptor observe,
                                           @Nonnull final TypeSpec.Builder builder )
   {
     final FieldSpec.Builder field =
       FieldSpec.builder( OBSERVER_CLASSNAME, observe.getFieldName(), Modifier.FINAL, Modifier.PRIVATE ).
+        addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
+    builder.addField( field.build() );
+  }
+
+  private static void buildAutoObserveField( @Nonnull final TypeSpec.Builder builder )
+  {
+    final FieldSpec.Builder field =
+      FieldSpec.builder( OBSERVER_CLASSNAME, AUTO_OBSERVE_FIELD_NAME, Modifier.FINAL, Modifier.PRIVATE ).
         addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
     builder.addField( field.build() );
   }
@@ -2008,6 +2187,61 @@ final class ComponentGenerator
     else
     {
       buildTrackerInitializer( observe, builder );
+    }
+  }
+
+  private static void buildAutoObserveInitializer( @Nonnull final ComponentDescriptor component,
+                                                   @Nonnull final MethodSpec.Builder builder )
+  {
+    final String dependencyFlags =
+      autoObserveCanRunWithoutDependencies( component ) ?
+      "$T.AREZ_OR_NO_DEPENDENCIES" :
+      "$T.AREZ_DEPENDENCIES";
+    builder.addStatement( "this.$N = $N.observer( $T.areNativeComponentsEnabled() ? $N : null, " +
+                          "$T.areNamesEnabled() ? $N + $S : null, () -> this.$N(), " +
+                          "$T.RUN_LATER | $T.NESTED_ACTIONS_DISALLOWED | " + dependencyFlags + " )",
+                          AUTO_OBSERVE_FIELD_NAME,
+                          CONTEXT_VAR_NAME,
+                          AREZ_CLASSNAME,
+                          COMPONENT_VAR_NAME,
+                          AREZ_CLASSNAME,
+                          NAME_VAR_NAME,
+                          ".$autoObserve",
+                          AUTO_OBSERVE_METHOD_NAME,
+                          OBSERVER_FLAGS_CLASSNAME,
+                          OBSERVER_FLAGS_CLASSNAME,
+                          OBSERVER_FLAGS_CLASSNAME );
+  }
+
+  private static boolean autoObserveCanRunWithoutDependencies( @Nonnull final ComponentDescriptor component )
+  {
+    return
+      component
+        .getAutoObserves()
+        .values()
+        .stream()
+        .noneMatch( ComponentGenerator::autoObserveAlwaysTracksADependency );
+  }
+
+  private static boolean autoObserveAlwaysTracksADependency( @Nonnull final AutoObserveDescriptor autoObserve )
+  {
+    if ( null != autoObserve.getObservable() || null != autoObserve.getReference() )
+    {
+      return true;
+    }
+    else
+    {
+      final VariableElement field = autoObserve.getField();
+      if ( null != field )
+      {
+        return AnnotationsUtil.hasNonnullAnnotation( field );
+      }
+      else
+      {
+        final ExecutableElement method = autoObserve.getMethod();
+        assert null != method;
+        return !isNullable( method, method.getReturnType() );
+      }
     }
   }
 
@@ -2043,7 +2277,7 @@ final class ComponentGenerator
       if ( !onDepsChange.getParameters().isEmpty() )
       {
         sb.append( "this::$N, " );
-        parameters.add( FRAMEWORK_PREFIX + onDepsChange.getSimpleName().toString() );
+        parameters.add( FRAMEWORK_PREFIX + onDepsChange.getSimpleName() );
       }
       else if ( component.isClassType() )
       {
@@ -2087,7 +2321,7 @@ final class ComponentGenerator
     if ( !onDepsChange.getParameters().isEmpty() )
     {
       sb.append( "this::$N, " );
-      parameters.add( FRAMEWORK_PREFIX + onDepsChange.getSimpleName().toString() );
+      parameters.add( FRAMEWORK_PREFIX + onDepsChange.getSimpleName() );
     }
     else if ( component.isClassType() )
     {
@@ -2169,24 +2403,28 @@ final class ComponentGenerator
                                            @Nonnull final TypeSpec.Builder builder )
     throws ProcessorException
   {
-    if ( memoize.getMethod().getParameters().isEmpty() )
+    if ( memoize.shouldGenerateMemoizeWrapper() )
+    {
+      builder.addMethod( buildMemoizeAdapterMethod( processingEnv, memoize ) );
+    }
+    if ( memoize.shouldGenerateDeactivateWrapperHook() )
+    {
+      builder.addMethod( buildOnDeactivateWrapperHook( memoize ) );
+    }
+
+    if ( memoize.hasNoParameters() )
     {
       builder.addMethod( buildMemoizeWithoutParams( processingEnv, memoize ) );
       final ExecutableElement onActivate = memoize.getOnActivate();
-      if ( ( null != onActivate && !onActivate.getParameters().isEmpty() ) ||
-           isCollectionType( memoize.getMethod() ) )
+      if ( ( null != onActivate && !onActivate.getParameters().isEmpty() ) || memoize.isCollectionType() )
       {
         builder.addMethod( buildOnActivateWrapperHook( memoize ) );
       }
 
-      if ( isCollectionType( memoize.getMethod() ) )
-      {
-        builder.addMethod( buildOnDeactivateWrapperHook( memoize ) );
-      }
       for ( final CandidateMethod refMethod : memoize.getRefMethods() )
       {
         final MethodSpec.Builder method =
-          GeneratorUtil.refMethod( processingEnv, memoize.getComponent().getElement(), refMethod.getMethod() );
+          refMethod( processingEnv, memoize.getComponent().getElement(), refMethod.getMethod() );
         generateNotDisposedInvariant( method, refMethod.getMethod().getSimpleName().toString() );
         builder.addMethod( method
                              .addStatement( "return $N", getMemoizeFieldName( memoize ) )
@@ -2210,7 +2448,7 @@ final class ComponentGenerator
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( getOnActivateHookMethodName( memoize ) );
     builder.addModifiers( Modifier.PRIVATE );
 
-    if ( isCollectionType( memoize.getMethod() ) )
+    if ( memoize.isCollectionType() )
     {
       final CodeBlock.Builder block = CodeBlock.builder();
       block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
@@ -2240,17 +2478,20 @@ final class ComponentGenerator
   private static MethodSpec buildOnDeactivateWrapperHook( @Nonnull final MemoizeDescriptor memoize )
     throws ProcessorException
   {
-    assert isCollectionType( memoize.getMethod() );
+    assert memoize.shouldGenerateDeactivateWrapperHook();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( getOnDeactivateHookMethodName( memoize ) );
     builder.addModifiers( Modifier.PRIVATE );
 
-    final CodeBlock.Builder block = CodeBlock.builder();
-    block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
-    block.addStatement( "this.$N = false", getMemoizeCollectionCacheDataActiveFieldName( memoize ) );
-    block.addStatement( "this.$N = null", getMemoizeCollectionCacheDataFieldName( memoize ) );
-    block.addStatement( "this.$N = null", getMemoizeCollectionUnmodifiableCacheDataFieldName( memoize ) );
-    block.endControlFlow();
-    builder.addCode( block.build() );
+    if ( memoize.isCollectionType() && memoize.hasNoParameters() )
+    {
+      final CodeBlock.Builder block = CodeBlock.builder();
+      block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
+      block.addStatement( "this.$N = false", getMemoizeCollectionCacheDataActiveFieldName( memoize ) );
+      block.addStatement( "this.$N = null", getMemoizeCollectionCacheDataFieldName( memoize ) );
+      block.addStatement( "this.$N = null", getMemoizeCollectionUnmodifiableCacheDataFieldName( memoize ) );
+      block.endControlFlow();
+      builder.addCode( block.build() );
+    }
 
     final ExecutableElement onDeactivate = memoize.getOnDeactivate();
     if ( null != onDeactivate )
@@ -2258,6 +2499,278 @@ final class ComponentGenerator
       builder.addStatement( "$N()", onDeactivate.getSimpleName().toString() );
     }
     return builder.build();
+  }
+
+  /**
+   * Generate a wrapper around the Memoize method the setups up all the context parameters.
+   */
+  @Nonnull
+  private static MethodSpec buildMemoizeAdapterMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                                       @Nonnull final MemoizeDescriptor memoize )
+    throws ProcessorException
+  {
+    assert memoize.shouldGenerateMemoizeWrapper();
+
+    final ExecutableElement onActivate = memoize.getOnActivate();
+    final ExecutableElement onDeactivate = memoize.getOnDeactivate();
+
+    final boolean onActivateRequiresWrapper = memoize.shouldGenerateActivateWrapperHook();
+    final boolean onDeactivateRequiresWrapper = memoize.shouldGenerateDeactivateWrapperHook();
+
+    final ExecutableElement executableElement = memoize.getMethod();
+    final ComponentDescriptor component = memoize.getComponent();
+    final TypeElement typeElement = component.getElement();
+
+    final DeclaredType declaredType = (DeclaredType) typeElement.asType();
+    final ExecutableType executableType =
+      (ExecutableType) processingEnv.getTypeUtils().asMemberOf( declaredType, executableElement );
+
+    final MethodSpec.Builder method = MethodSpec.methodBuilder( getMemoizeWrapperMethodName( memoize ) );
+
+    final List<String> additionalSuppressions = new ArrayList<>();
+
+    if ( null != onActivate && null != onActivate.getAnnotation( Deprecated.class ) )
+    {
+      if ( !onActivateRequiresWrapper )
+      {
+        additionalSuppressions.add( "deprecation" );
+      }
+    }
+    if ( null != onDeactivate && null != onDeactivate.getAnnotation( Deprecated.class ) )
+    {
+      if ( !onDeactivateRequiresWrapper && !additionalSuppressions.contains( "deprecation" ) )
+      {
+        additionalSuppressions.add( "deprecation" );
+      }
+    }
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv,
+                                                        method,
+                                                        additionalSuppressions,
+                                                        Collections.singletonList( executableType ) );
+    method.addModifiers( Modifier.PRIVATE );
+    GeneratorUtil.copyTypeParameters( executableType, method );
+    GeneratorUtil.copyWhitelistedAnnotations( executableElement, method );
+
+    method.varargs( executableElement.isVarArgs() );
+
+    // Add context parameters
+    for ( final MemoizeContextParameterDescriptor contextParameter : memoize.getContextParameters() )
+    {
+      final String contextParameterName = FRAMEWORK_PREFIX + contextParameter.getName();
+      final TypeName typeName = TypeName.get( contextParameter.initialValueType() );
+      final ParameterSpec.Builder parameter = ParameterSpec.builder( typeName, contextParameterName, Modifier.FINAL );
+      GeneratorUtil.copyWhitelistedAnnotations( contextParameter.getCapture(), parameter );
+      method.addParameter( parameter.build() );
+    }
+
+    // Copy all the parameters across
+    GeneratorUtil.copyParameters( executableElement, executableType, method );
+    GeneratorUtil.copyExceptions( executableType, method );
+
+    // Copy return type
+    method.returns( TypeName.get( executableType.getReturnType() ) );
+
+    // Register Hook
+    if ( memoize.hasHooks() || onActivateRequiresWrapper || onDeactivateRequiresWrapper )
+    {
+      final StringBuilder sb = new StringBuilder();
+      final List<Object> parameters = new ArrayList<>();
+      sb.append( "this.$N.getContext().registerHook( $S, " );
+      parameters.add( KERNEL_FIELD_NAME );
+      parameters.add( "$H" );
+
+      if ( null != onActivate || onActivateRequiresWrapper )
+      {
+        if ( onActivateRequiresWrapper )
+        {
+          sb.append( "this::$N" );
+          parameters.add( getOnActivateHookMethodName( memoize ) );
+        }
+        else if ( component.isClassType() )
+        {
+          if ( onActivate.getParameters().isEmpty() )
+          {
+            sb.append( "() -> super.$N()" );
+            parameters.add( onActivate.getSimpleName() );
+          }
+          else
+          {
+            sb.append( "() -> super.$N( this )" );
+            parameters.add( onActivate.getSimpleName() );
+          }
+        }
+        else
+        {
+          sb.append( onActivate.getParameters().isEmpty() ? "() -> $T.super.$N()" : "() -> $T.super.$N( this )" );
+          parameters.add( component.getClassName() );
+          parameters.add( onActivate.getSimpleName() );
+        }
+      }
+      else
+      {
+        sb.append( "null" );
+      }
+
+      sb.append( ", " );
+
+      if ( null != onDeactivate || onDeactivateRequiresWrapper )
+      {
+        if ( onDeactivateRequiresWrapper )
+        {
+          sb.append( "this::$N" );
+          parameters.add( getOnDeactivateHookMethodName( memoize ) );
+        }
+        else if ( component.isClassType() )
+        {
+          if ( onDeactivate.getParameters().isEmpty() )
+          {
+            sb.append( "() -> super.$N()" );
+            parameters.add( onDeactivate.getSimpleName() );
+          }
+          else
+          {
+            sb.append( "() -> super.$N( this )" );
+            parameters.add( onDeactivate.getSimpleName() );
+          }
+        }
+        else
+        {
+          sb.append( onDeactivate.getParameters().isEmpty() ? "() -> $T.super.$N()" : "() -> $T.super.$N( this )" );
+          parameters.add( component.getClassName() );
+          parameters.add( onDeactivate.getSimpleName() );
+        }
+      }
+      else
+      {
+        sb.append( "null" );
+      }
+      sb.append( " )" );
+      method.addStatement( sb.toString(), parameters.toArray() );
+    }
+
+    for ( final MemoizeContextParameterDescriptor contextParameter : memoize.getContextParameters() )
+    {
+      method.beginControlFlow( "try" );
+      method.addStatement( "$N( $N )",
+                           contextParameter.getPush().getSimpleName().toString(),
+                           FRAMEWORK_PREFIX + contextParameter.getName() );
+    }
+    final StringBuilder sb = new StringBuilder();
+    final List<Object> parameters = new ArrayList<>();
+    sb.append( "return " );
+    if ( !executableElement.getTypeParameters().isEmpty() )
+    {
+      sb.append( "($T) " );
+      parameters.add( TypeName.get( memoize.getMethodType().getReturnType() ).box() );
+    }
+
+    else if ( component.isClassType() )
+    {
+      sb.append( "super.$N(" );
+      parameters.add( memoize.getMethod().getSimpleName().toString() );
+    }
+    else
+    {
+      sb.append( "$T.super.$N(" );
+      parameters.add( component.getClassName() );
+      parameters.add( memoize.getMethod().getSimpleName().toString() );
+    }
+
+    boolean first = true;
+    for ( final VariableElement element : executableElement.getParameters() )
+    {
+      if ( !first )
+      {
+        sb.append( "," );
+      }
+      first = false;
+      sb.append( " $N" );
+      parameters.add( element.getSimpleName().toString() );
+    }
+    if ( !first )
+    {
+      sb.append( " " );
+    }
+    sb.append( ")" );
+
+    method.addStatement( sb.toString(), parameters.toArray() );
+
+    for ( final MemoizeContextParameterDescriptor contextParameter : memoize.getContextParameters() )
+    {
+      method.nextControlFlow( "finally" );
+      method.addStatement( "$N( $N )",
+                           contextParameter.getPop().getSimpleName().toString(),
+                           FRAMEWORK_PREFIX + contextParameter.getName() );
+      method.endControlFlow();
+    }
+
+    return method.build();
+  }
+
+  @Nonnull
+  private static MethodSpec.Builder refMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                               @Nonnull final TypeElement typeElement,
+                                               @Nonnull final ExecutableElement executableElement )
+  {
+    final MethodSpec.Builder method =
+      GeneratorUtil.overrideMethod( processingEnv,
+                                    typeElement,
+                                    executableElement,
+                                    getAdditionalSuppressions( executableElement ),
+                                    false );
+    if ( !executableElement.getReturnType().getKind().isPrimitive() )
+    {
+      method.addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
+    }
+    return method;
+  }
+
+  @Nonnull
+  private static MethodSpec.Builder overrideMethod( @Nonnull final ProcessingEnvironment processingEnv,
+                                                    @Nonnull final TypeElement typeElement,
+                                                    @Nonnull final ExecutableElement executableElement )
+  {
+    return GeneratorUtil.overrideMethod( processingEnv,
+                                         typeElement,
+                                         executableElement,
+                                         getAdditionalSuppressions( executableElement ),
+                                         true );
+  }
+
+  @Nonnull
+  private static List<String> getAdditionalSuppressions( @Nonnull final AnnotatedConstruct annotatedConstruct )
+  {
+    return hasSuppressWarningsDeprecation( annotatedConstruct ) ?
+           Arrays.asList( "RedundantSuppression", "deprecation" ) :
+           Collections.emptyList();
+  }
+
+  private static boolean hasSuppressWarningsDeprecation( @Nonnull final AnnotatedConstruct annotatedConstruct )
+  {
+    for ( var annotationMirror : annotatedConstruct.getAnnotationMirrors() )
+    {
+      if ( annotationMirror.getAnnotationType().toString().equals( SuppressWarnings.class.getCanonicalName() ) )
+      {
+        for ( var entry : annotationMirror.getElementValues().entrySet() )
+        {
+          if ( entry.getKey().getSimpleName().toString().equals( "value" ) )
+          {
+            // Get the list of values (e.g., ["unchecked", "deprecation"])
+            @SuppressWarnings( "unchecked" )
+            var values = (List<? extends AnnotationValue>) entry.getValue().getValue();
+            for ( var value : values )
+            {
+              if ( "deprecation".equals( value.getValue().toString() ) )
+              {
+                return true;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return false;
   }
 
   /**
@@ -2270,13 +2783,12 @@ final class ComponentGenerator
   {
     final ExecutableElement executableElement = memoize.getMethod();
     final ComponentDescriptor component = memoize.getComponent();
-    final MethodSpec.Builder method =
-      GeneratorUtil.overrideMethod( processingEnv, component.getElement(), executableElement );
+    final MethodSpec.Builder method = overrideMethod( processingEnv, component.getElement(), executableElement );
 
     final TypeName returnType = TypeName.get( memoize.getMethodType().getReturnType() );
     generateNotDisposedInvariant( method, executableElement.getSimpleName().toString() );
 
-    if ( isCollectionType( memoize.getMethod() ) )
+    if ( memoize.isCollectionType() )
     {
       final CodeBlock.Builder block = CodeBlock.builder();
       block.beginControlFlow( "if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME );
@@ -2333,7 +2845,7 @@ final class ComponentGenerator
     throws ProcessorException
   {
     final MethodSpec.Builder method =
-      GeneratorUtil.refMethod( processingEnv, memoize.getComponent().getElement(), refMethod.getMethod() );
+      refMethod( processingEnv, memoize.getComponent().getElement(), refMethod.getMethod() );
     generateNotDisposedInvariant( method, refMethod.getMethod().getSimpleName().toString() );
 
     final StringBuilder sb = new StringBuilder();
@@ -2367,7 +2879,8 @@ final class ComponentGenerator
 
     final boolean hasTypeParameters = !executableElement.getTypeParameters().isEmpty();
     final List<String> additionalSuppressions =
-      hasTypeParameters ? Collections.singletonList( "unchecked" ) : Collections.emptyList();
+      new ArrayList<>( hasTypeParameters ? Collections.singletonList( "unchecked" ) : Collections.emptyList() );
+    additionalSuppressions.addAll( getAdditionalSuppressions( executableElement ) );
     final MethodSpec.Builder builder =
       GeneratorUtil.overrideMethod( processingEnv,
                                     memoize.getComponent().getElement(),
@@ -2389,6 +2902,17 @@ final class ComponentGenerator
     parameters.add( getMemoizeFieldName( memoize ) );
 
     boolean first = true;
+    for ( final MemoizeContextParameterDescriptor contextParameter : memoize.getContextParameters() )
+    {
+      if ( !first )
+      {
+        sb.append( ", " );
+      }
+      first = false;
+      sb.append( "$N()" );
+      parameters.add( contextParameter.getCapture().getSimpleName().toString() );
+    }
+
     for ( final VariableElement element : executableElement.getParameters() )
     {
       if ( !first )
@@ -2410,7 +2934,7 @@ final class ComponentGenerator
                                           @Nonnull final MemoizeDescriptor memoize,
                                           @Nonnull final TypeSpec.Builder builder )
   {
-    if ( memoize.getMethod().getParameters().isEmpty() )
+    if ( memoize.hasNoParameters() )
     {
       buildMemoizeWithNoParametersFields( processingEnv, memoize, builder );
     }
@@ -2436,7 +2960,7 @@ final class ComponentGenerator
         addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, field, methodType.getReturnType() );
     builder.addField( field.build() );
-    if ( isCollectionType( memoize.getMethod() ) )
+    if ( memoize.isCollectionType() )
     {
       final FieldSpec.Builder cacheField =
         FieldSpec.builder( TypeName.get( methodType.getReturnType() ),
@@ -2487,7 +3011,7 @@ final class ComponentGenerator
   private static void buildMemoizeInitializer( @Nonnull final MemoizeDescriptor memoize,
                                                @Nonnull final MethodSpec.Builder builder )
   {
-    if ( memoize.getMethod().getParameters().isEmpty() )
+    if ( memoize.hasNoParameters() )
     {
       buildMemoizeWithNoParameters( memoize, builder );
     }
@@ -2505,7 +3029,7 @@ final class ComponentGenerator
 
     final ComponentDescriptor component = memoize.getComponent();
     final ExecutableElement method = memoize.getMethod();
-    if ( isCollectionType( memoize.getMethod() ) && !memoize.hasHooks() )
+    if ( memoize.isCollectionType() && !memoize.hasHooks() )
     {
       sb.append( "this.$N = $T.areCollectionsPropertiesUnmodifiable() ? " +
                  "$N.computable( " +
@@ -2520,7 +3044,12 @@ final class ComponentGenerator
       parameters.add( NAME_VAR_NAME );
       parameters.add( "." + memoize.getName() );
 
-      if ( component.isClassType() )
+      if ( memoize.shouldGenerateMemoizeWrapper() )
+      {
+        sb.append( "() -> $N(), " );
+        parameters.add( getMemoizeWrapperMethodName( memoize ) );
+      }
+      else if ( component.isClassType() )
       {
         sb.append( "() -> super.$N(), " );
         parameters.add( method.getSimpleName().toString() );
@@ -2531,7 +3060,7 @@ final class ComponentGenerator
         parameters.add( component.getClassName() );
         parameters.add( method.getSimpleName().toString() );
       }
-      appendInitializerSuffix( memoize, parameters, sb, true );
+      appendInitializerSuffix( memoize, parameters, sb );
 
       // Else part of ternary
       sb.append( " : $N.computable( " +
@@ -2554,7 +3083,7 @@ final class ComponentGenerator
         parameters.add( component.getClassName() );
         parameters.add( method.getSimpleName().toString() );
       }
-      appendInitializerSuffix( memoize, parameters, sb, false );
+      appendInitializerSuffix( memoize, parameters, sb );
     }
     else // hasHooks()
     {
@@ -2569,7 +3098,12 @@ final class ComponentGenerator
       parameters.add( NAME_VAR_NAME );
       parameters.add( "." + memoize.getName() );
 
-      if ( component.isClassType() )
+      if ( memoize.shouldGenerateMemoizeWrapper() )
+      {
+        sb.append( "() -> $N(), " );
+        parameters.add( getMemoizeWrapperMethodName( memoize ) );
+      }
+      else if ( component.isClassType() )
       {
         sb.append( "() -> super.$N(), " );
         parameters.add( method.getSimpleName().toString() );
@@ -2580,7 +3114,7 @@ final class ComponentGenerator
         parameters.add( component.getClassName() );
         parameters.add( method.getSimpleName().toString() );
       }
-      appendInitializerSuffix( memoize, parameters, sb, true );
+      appendInitializerSuffix( memoize, parameters, sb );
     }
     builder.addStatement( sb.toString(), parameters.toArray() );
   }
@@ -2605,7 +3139,12 @@ final class ComponentGenerator
 
     final ComponentDescriptor component = memoize.getComponent();
     final ExecutableElement method = memoize.getMethod();
-    if ( component.isClassType() )
+    if ( memoize.shouldGenerateMemoizeWrapper() )
+    {
+      sb.append( "args -> $N(" );
+      parameters.add( getMemoizeWrapperMethodName( memoize ) );
+    }
+    else if ( component.isClassType() )
     {
       sb.append( "args -> super.$N(" );
       parameters.add( method.getSimpleName().toString() );
@@ -2617,13 +3156,34 @@ final class ComponentGenerator
       parameters.add( method.getSimpleName().toString() );
     }
 
+    boolean first = true;
     int index = 0;
-    for ( final TypeMirror arg : memoize.getMethodType().getParameterTypes() )
+    for ( final var contextParameter : memoize.getContextParameters() )
     {
-      if ( 0 != index )
+      if ( !first )
       {
         sb.append( ", " );
       }
+      first = false;
+      final TypeName contextParameterJavaType = TypeName.get( contextParameter.initialValueType() );
+      if ( contextParameterJavaType.equals( TypeName.OBJECT ) )
+      {
+        sb.append( "args[ " ).append( index ).append( " ]" );
+      }
+      else
+      {
+        sb.append( "($T) args[ " ).append( index ).append( " ]" );
+        parameters.add( contextParameterJavaType );
+      }
+      index++;
+    }
+    for ( final TypeMirror arg : memoize.getMethodType().getParameterTypes() )
+    {
+      if ( !first )
+      {
+        sb.append( ", " );
+      }
+      first = false;
       if ( TypeName.get( arg ).equals( TypeName.OBJECT ) )
       {
         sb.append( "args[ " ).append( index ).append( " ]" );
@@ -2637,7 +3197,7 @@ final class ComponentGenerator
     }
 
     sb.append( "), " );
-    sb.append( memoize.getMethod().getParameters().size() );
+    sb.append( index );
     sb.append( ", " );
 
     final List<String> flags = generateMemoizeFlags( memoize );
@@ -2648,79 +3208,16 @@ final class ComponentGenerator
       parameters.add( COMPUTABLE_VALUE_FLAGS_CLASSNAME );
     }
 
+    appendMemoizeEqualityComparatorArg( memoize, parameters, sb );
+
     sb.append( " )" );
     builder.addStatement( sb.toString(), parameters.toArray() );
   }
 
   private static void appendInitializerSuffix( @Nonnull final MemoizeDescriptor memoize,
                                                @Nonnull final List<Object> parameters,
-                                               @Nonnull final StringBuilder sb,
-                                               final boolean areCollectionsPropertiesUnmodifiable )
+                                               @Nonnull final StringBuilder sb )
   {
-    final boolean isCollectionType = isCollectionType( memoize.getMethod() );
-    if ( memoize.hasHooks() || ( isCollectionType && areCollectionsPropertiesUnmodifiable ) )
-    {
-      final ExecutableElement onActivate = memoize.getOnActivate();
-      if ( isCollectionType && null == onActivate )
-      {
-        sb.append( "$T.areCollectionsPropertiesUnmodifiable() ? this::$N : null" );
-        parameters.add( AREZ_CLASSNAME );
-        parameters.add( getOnActivateHookMethodName( memoize ) );
-      }
-      else if ( isCollectionType )
-      {
-        sb.append( "this::$N" );
-        parameters.add( getOnActivateHookMethodName( memoize ) );
-      }
-      else
-      {
-        if ( null != onActivate )
-        {
-          if ( onActivate.getParameters().isEmpty() )
-          {
-            sb.append( "this::$N" );
-            parameters.add( onActivate.getSimpleName().toString() );
-          }
-          else
-          {
-            sb.append( "this::$N" );
-            parameters.add( getOnActivateHookMethodName( memoize ) );
-          }
-        }
-        else
-        {
-          sb.append( "null" );
-        }
-      }
-      sb.append( ", " );
-
-      final ExecutableElement onDeactivate = memoize.getOnDeactivate();
-      if ( isCollectionType && null == onDeactivate )
-      {
-        sb.append( "$T.areCollectionsPropertiesUnmodifiable() ? this::$N : null" );
-        parameters.add( AREZ_CLASSNAME );
-        parameters.add( getOnDeactivateHookMethodName( memoize ) );
-      }
-      else if ( isCollectionType )
-      {
-        sb.append( "this::$N" );
-        parameters.add( getOnDeactivateHookMethodName( memoize ) );
-      }
-      else
-      {
-        if ( null != onDeactivate )
-        {
-          sb.append( "this::$N" );
-          parameters.add( onDeactivate.getSimpleName().toString() );
-        }
-        else
-        {
-          sb.append( "null" );
-        }
-      }
-      sb.append( ", " );
-    }
-
     final List<String> flags = generateMemoizeFlags( memoize );
     flags.add( "RUN_LATER" );
     if ( memoize.isKeepAlive() )
@@ -2734,7 +3231,30 @@ final class ComponentGenerator
       parameters.add( COMPUTABLE_VALUE_FLAGS_CLASSNAME );
     }
 
+    appendMemoizeEqualityComparatorArg( memoize, parameters, sb );
+
     sb.append( " )" );
+  }
+
+  private static void appendMemoizeEqualityComparatorArg( @Nonnull final MemoizeDescriptor memoize,
+                                                          @Nonnull final List<Object> parameters,
+                                                          @Nonnull final StringBuilder sb )
+  {
+    if ( !memoize.hasObjectsEqualsComparator() )
+    {
+      sb.append( ", " );
+      if ( memoize.hasObjectsDeepEqualsComparator() )
+      {
+        sb.append( "new $T()" );
+        parameters.add( OBJECTS_DEEP_EQUALS_COMPARATOR_CLASSNAME );
+      }
+      else
+      {
+        final ClassName comparatorClassName = ClassName.bestGuess( memoize.getEqualityComparator() );
+        sb.append( "new $T()" );
+        parameters.add( comparatorClassName );
+      }
+    }
   }
 
   @Nonnull
@@ -2774,7 +3294,7 @@ final class ComponentGenerator
     return flags;
   }
 
-  private static boolean isCollectionType( @Nonnull final ExecutableElement method )
+  static boolean isCollectionType( @Nonnull final ExecutableElement method )
   {
     return isMethodReturnType( method, Collection.class ) ||
            isMethodReturnType( method, Set.class ) ||
@@ -2796,6 +3316,12 @@ final class ComponentGenerator
       final TypeElement element = (TypeElement) declaredType.asElement();
       return element.getQualifiedName().toString().equals( type.getName() );
     }
+  }
+
+  @Nonnull
+  private static String getMemoizeWrapperMethodName( @Nonnull final MemoizeDescriptor memoize )
+  {
+    return FRAMEWORK_PREFIX + "memoize_" + memoize.getName();
   }
 
   @Nonnull
@@ -2844,6 +3370,16 @@ final class ComponentGenerator
         addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
     SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, field, getterType.getReturnType() );
     builder.addField( field.build() );
+    if ( observable.hasCustomEqualityComparator() )
+    {
+      final ClassName equalityComparatorClassName = ClassName.bestGuess( observable.getEqualityComparator() );
+      builder.addField( FieldSpec.builder( equalityComparatorClassName,
+                                           observable.getEqualityComparatorFieldName(),
+                                           Modifier.FINAL,
+                                           Modifier.PRIVATE )
+                          .initializer( "new $T()", equalityComparatorClassName )
+                          .build() );
+    }
     if ( observable.isAbstract() )
     {
       final FieldSpec.Builder dataField =
@@ -2948,6 +3484,11 @@ final class ComponentGenerator
     codeBlock.addStatement( "this.$N.dispose()", observable.getFieldName() );
   }
 
+  private static void buildAutoObserveDisposer( @Nonnull final MethodSpec.Builder codeBlock )
+  {
+    codeBlock.addStatement( "this.$N.dispose()", AUTO_OBSERVE_FIELD_NAME );
+  }
+
   private static void buildObservableMethods( @Nonnull final ProcessingEnvironment processingEnv,
                                               @Nonnull final ObservableDescriptor observable,
                                               @Nonnull final TypeSpec.Builder builder )
@@ -2965,7 +3506,7 @@ final class ComponentGenerator
     for ( final CandidateMethod refMethod : observable.getRefMethods() )
     {
       final MethodSpec.Builder method =
-        GeneratorUtil.refMethod( processingEnv, observable.getComponent().getElement(), refMethod.getMethod() );
+        refMethod( processingEnv, observable.getComponent().getElement(), refMethod.getMethod() );
 
       generateNotDisposedInvariant( method, refMethod.getMethod().getSimpleName().toString() );
 
@@ -2982,7 +3523,7 @@ final class ComponentGenerator
     final ExecutableType setterType = observable.getSetterType();
     final String methodName = setter.getSimpleName().toString();
     final ComponentDescriptor component = observable.getComponent();
-    final MethodSpec.Builder method = GeneratorUtil.overrideMethod( processingEnv, component.getElement(), setter );
+    final MethodSpec.Builder method = overrideMethod( processingEnv, component.getElement(), setter );
 
     if ( observable.canWriteOutsideTransaction() )
     {
@@ -3034,7 +3575,7 @@ final class ComponentGenerator
     final ExecutableElement setter = observable.getSetter();
     final ExecutableType setterType = observable.getSetterType();
     final MethodSpec.Builder builder =
-      MethodSpec.methodBuilder( FRAMEWORK_PREFIX + setter.getSimpleName().toString() );
+      MethodSpec.methodBuilder( FRAMEWORK_PREFIX + setter.getSimpleName() );
     builder.addModifiers( Modifier.PRIVATE );
     GeneratorUtil.copyExceptions( setterType, builder );
     GeneratorUtil.copyTypeParameters( setterType, builder );
@@ -3110,7 +3651,21 @@ final class ComponentGenerator
       {
         builder.addStatement( "assert null != $N", paramName );
       }
-      codeBlock.beginControlFlow( "if ( !$T.equals( $N, $N ) )", Objects.class, paramName, varName );
+      if ( observable.hasObjectsDeepEqualsComparator() )
+      {
+        codeBlock.beginControlFlow( "if ( !$T.deepEquals( $N, $N ) )", Objects.class, paramName, varName );
+      }
+      else if ( observable.hasCustomEqualityComparator() )
+      {
+        codeBlock.beginControlFlow( "if ( !this.$N.areEqual( $N, $N ) )",
+                                    observable.getEqualityComparatorFieldName(),
+                                    paramName,
+                                    varName );
+      }
+      else
+      {
+        codeBlock.beginControlFlow( "if ( !$T.equals( $N, $N ) )", Objects.class, paramName, varName );
+      }
     }
     if ( observable.shouldGenerateUnmodifiableCollectionVariant() )
     {
@@ -3121,47 +3676,52 @@ final class ComponentGenerator
 
       builder.addCode( block.build() );
     }
+    final DependencyDescriptor dependency = observable.getDependencyDescriptor();
     if ( abstractObservables )
     {
-      if ( null != observable.getDependencyDescriptor() )
+      if ( null != dependency )
       {
         if ( observable.isGetterNonnull() )
         {
-          codeBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( this )",
+          codeBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( $N )",
                                   DISPOSE_TRACKABLE_CLASSNAME,
-                                  varName );
+                                  varName,
+                                  getDependencyKey( dependency ) );
         }
         else
         {
           final CodeBlock.Builder listenerBlock = CodeBlock.builder();
           listenerBlock.beginControlFlow( "if ( null != $N )", varName );
-          listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( this )",
+          listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( $N )",
                                       DISPOSE_TRACKABLE_CLASSNAME,
-                                      varName );
+                                      varName,
+                                      getDependencyKey( dependency ) );
           listenerBlock.endControlFlow();
           codeBlock.add( listenerBlock.build() );
         }
       }
       codeBlock.addStatement( "this.$N = $N", observable.getDataFieldName(), paramName );
-      if ( null != observable.getDependencyDescriptor() )
+      if ( null != dependency )
       {
-        if ( observable.getDependencyDescriptor().shouldCascadeDispose() )
+        if ( dependency.shouldCascadeDispose() )
         {
           if ( observable.isGetterNonnull() )
           {
             codeBlock
-              .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
+              .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( $N, this::dispose )",
                              DISPOSE_TRACKABLE_CLASSNAME,
-                             paramName );
+                             paramName,
+                             getDependencyKey( dependency ) );
           }
           else
           {
             final CodeBlock.Builder listenerBlock = CodeBlock.builder();
             listenerBlock.beginControlFlow( "if ( null != $N )", paramName );
             listenerBlock
-              .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
+              .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( $N, this::dispose )",
                              DISPOSE_TRACKABLE_CLASSNAME,
-                             paramName );
+                             paramName,
+                             getDependencyKey( dependency ) );
             listenerBlock.endControlFlow();
             codeBlock.add( listenerBlock.build() );
           }
@@ -3171,9 +3731,10 @@ final class ComponentGenerator
           final CodeBlock.Builder listenerBlock = CodeBlock.builder();
           listenerBlock.beginControlFlow( "if ( null != $N )", paramName );
           listenerBlock
-            .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, () -> $N( null ) )",
+            .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( $N, () -> $N( null ) )",
                            DISPOSE_TRACKABLE_CLASSNAME,
                            paramName,
+                           getDependencyKey( dependency ),
                            setter.getSimpleName().toString() );
           listenerBlock.endControlFlow();
           codeBlock.add( listenerBlock.build() );
@@ -3182,21 +3743,23 @@ final class ComponentGenerator
     }
     else
     {
-      if ( null != observable.getDependencyDescriptor() )
+      if ( null != dependency )
       {
         if ( observable.isGetterNonnull() )
         {
-          codeBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( this )",
+          codeBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( $N )",
                                   DISPOSE_TRACKABLE_CLASSNAME,
-                                  varName );
+                                  varName,
+                                  getDependencyKey( dependency ) );
         }
         else
         {
           final CodeBlock.Builder listenerBlock = CodeBlock.builder();
           listenerBlock.beginControlFlow( "if ( null != $N )", varName );
-          listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( this )",
+          listenerBlock.addStatement( "$T.asDisposeNotifier( $N ).removeOnDisposeListener( $N )",
                                       DISPOSE_TRACKABLE_CLASSNAME,
-                                      varName );
+                                      varName,
+                                      getDependencyKey( dependency ) );
           listenerBlock.endControlFlow();
           codeBlock.add( listenerBlock.build() );
         }
@@ -3209,25 +3772,27 @@ final class ComponentGenerator
       {
         codeBlock.addStatement( "$T.super.$N( $N )", component.getClassName(), setter.getSimpleName(), paramName );
       }
-      if ( null != observable.getDependencyDescriptor() )
+      if ( null != dependency )
       {
-        if ( observable.getDependencyDescriptor().shouldCascadeDispose() )
+        if ( dependency.shouldCascadeDispose() )
         {
           if ( observable.isGetterNonnull() )
           {
             codeBlock
-              .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
+              .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( $N, this::dispose )",
                              DISPOSE_TRACKABLE_CLASSNAME,
-                             paramName );
+                             paramName,
+                             getDependencyKey( dependency ) );
           }
           else
           {
             final CodeBlock.Builder listenerBlock = CodeBlock.builder();
             listenerBlock.beginControlFlow( "if ( null != $N )", paramName );
             listenerBlock
-              .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, this::dispose )",
+              .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( $N, this::dispose )",
                              DISPOSE_TRACKABLE_CLASSNAME,
-                             paramName );
+                             paramName,
+                             getDependencyKey( dependency ) );
             listenerBlock.endControlFlow();
             codeBlock.add( listenerBlock.build() );
           }
@@ -3237,9 +3802,10 @@ final class ComponentGenerator
           final CodeBlock.Builder listenerBlock = CodeBlock.builder();
           listenerBlock.beginControlFlow( "if ( null != $N )", paramName );
           listenerBlock
-            .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( this, () -> $N( null ) )",
+            .addStatement( "$T.asDisposeNotifier( $N ).addOnDisposeListener( $N, () -> $N( null ) )",
                            DISPOSE_TRACKABLE_CLASSNAME,
                            paramName,
+                           getDependencyKey( dependency ),
                            setter.getSimpleName().toString() );
           listenerBlock.endControlFlow();
           codeBlock.add( listenerBlock.build() );
@@ -3269,20 +3835,59 @@ final class ComponentGenerator
       }
       else
       {
-        if ( component.isClassType() )
+        if ( observable.hasObjectsDeepEqualsComparator() )
         {
-          block.beginControlFlow( "if ( !$T.equals( $N, super.$N() ) )",
-                                  Objects.class,
-                                  varName,
-                                  getter.getSimpleName() );
+          if ( component.isClassType() )
+          {
+            block.beginControlFlow( "if ( !$T.deepEquals( $N, super.$N() ) )",
+                                    Objects.class,
+                                    varName,
+                                    getter.getSimpleName() );
+          }
+          else
+          {
+            block.beginControlFlow( "if ( !$T.deepEquals( $N, $T.super.$N() ) )",
+                                    Objects.class,
+                                    varName,
+                                    component.getClassName(),
+                                    getter.getSimpleName() );
+          }
+        }
+        else if ( observable.hasCustomEqualityComparator() )
+        {
+          if ( component.isClassType() )
+          {
+            block.beginControlFlow( "if ( !this.$N.areEqual( $N, super.$N() ) )",
+                                    observable.getEqualityComparatorFieldName(),
+                                    varName,
+                                    getter.getSimpleName() );
+          }
+          else
+          {
+            block.beginControlFlow( "if ( !this.$N.areEqual( $N, $T.super.$N() ) )",
+                                    observable.getEqualityComparatorFieldName(),
+                                    varName,
+                                    component.getClassName(),
+                                    getter.getSimpleName() );
+          }
         }
         else
         {
-          block.beginControlFlow( "if ( !$T.equals( $N, $T.super.$N() ) )",
-                                  Objects.class,
-                                  varName,
-                                  component.getClassName(),
-                                  getter.getSimpleName() );
+          if ( component.isClassType() )
+          {
+            block.beginControlFlow( "if ( !$T.equals( $N, super.$N() ) )",
+                                    Objects.class,
+                                    varName,
+                                    getter.getSimpleName() );
+          }
+          else
+          {
+            block.beginControlFlow( "if ( !$T.equals( $N, $T.super.$N() ) )",
+                                    Objects.class,
+                                    varName,
+                                    component.getClassName(),
+                                    getter.getSimpleName() );
+          }
         }
       }
       block.addStatement( "this.$N.reportChanged()", observable.getFieldName() );
@@ -3325,6 +3930,7 @@ final class ComponentGenerator
     {
       additionalSuppressions.add( "unchecked" );
     }
+    additionalSuppressions.addAll( getAdditionalSuppressions( getter ) );
     final MethodSpec.Builder method =
       GeneratorUtil.overrideMethod( processingEnv, component.getElement(), getter, additionalSuppressions, true );
 
@@ -3798,6 +4404,35 @@ final class ComponentGenerator
     }
   }
 
+  private static void buildDependencyKeyField( @Nonnull final DependencyDescriptor dependency,
+                                               @Nonnull final TypeSpec.Builder builder )
+  {
+    if ( dependency.needsKey() )
+    {
+      final FieldSpec.Builder field =
+        FieldSpec.builder( TypeName.get( String.class ),
+                           DEPENDENCY_KEY_PREFIX + dependency.getKeyName(),
+                           Modifier.FINAL,
+                           Modifier.PRIVATE ).
+          addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
+      builder.addField( field.build() );
+    }
+  }
+
+  private static void buildDependencyKeyInitializer( @Nonnull final DependencyDescriptor dependency,
+                                                     @Nonnull final MethodSpec.Builder builder )
+  {
+    if ( dependency.needsKey() )
+    {
+      final ComponentDescriptor component = dependency.getComponent();
+      builder.addStatement( "this.$N = $N.class.getName() + $N + '.' + $S",
+                            DEPENDENCY_KEY_PREFIX + dependency.getKeyName(),
+                            component.getEnhancedClassName().simpleName(),
+                            null == component.getComponentId() && !component.isIdRequired() ? "this" : ID_VAR_NAME,
+                            dependency.getElement().getSimpleName() );
+    }
+  }
+
   private static void buildReferenceFields( @Nonnull final ReferenceDescriptor reference,
                                             @Nonnull final TypeSpec.Builder builder )
   {
@@ -3834,7 +4469,10 @@ final class ComponentGenerator
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     GeneratorUtil.copyAccessModifiers( method, builder );
     GeneratorUtil.copyTypeParameters( reference.getMethodType(), builder );
-    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, builder, method.asType() );
+    SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv,
+                                                        builder,
+                                                        getAdditionalSuppressions( method ),
+                                                        Collections.singletonList( method.asType() ) );
     GeneratorUtil.copyWhitelistedAnnotations( method, builder );
 
     builder.addAnnotation( Override.class );
@@ -4142,6 +4780,109 @@ final class ComponentGenerator
                           reference.getIdMethod().getSimpleName() );
   }
 
+  @Nonnull
+  private static MethodSpec buildAutoObserveMethod( @Nonnull final ComponentDescriptor component )
+  {
+    final MethodSpec.Builder builder =
+      MethodSpec.methodBuilder( AUTO_OBSERVE_METHOD_NAME ).
+        addModifiers( Modifier.PRIVATE );
+
+    generateNotDisposedInvariant( builder, AUTO_OBSERVE_METHOD_NAME );
+
+    int index = 0;
+    for ( final AutoObserveDescriptor autoObserve : component.getAutoObserves().values() )
+    {
+      final VariableElement field = autoObserve.getField();
+      final ReferenceDescriptor reference = autoObserve.getReference();
+      if ( null != field )
+      {
+        final String varName = VARIABLE_PREFIX + "autoObserve_" + index++;
+        builder.addStatement( "final $T $N = this.$N",
+                              TypeName.get( field.asType() ),
+                              varName,
+                              field.getSimpleName().toString() );
+        if ( AnnotationsUtil.hasNonnullAnnotation( field ) )
+        {
+          emitAutoObserve( builder, autoObserve, varName );
+        }
+        else
+        {
+          builder.beginControlFlow( "if ( null != $N )", varName );
+          emitAutoObserve( builder, autoObserve, varName );
+          builder.endControlFlow();
+        }
+      }
+      else if ( null != reference )
+      {
+        final String varName = VARIABLE_PREFIX + "autoObserve_" + index++;
+        builder.addStatement( "this.$N()", reference.getLinkMethodName() );
+        builder.addStatement( "final $T $N = this.$N()",
+                              TypeName.get( reference.getMethod().getReturnType() ),
+                              varName,
+                              reference.getMethod().getSimpleName().toString() );
+        if ( reference.isNullable() )
+        {
+          builder.beginControlFlow( "if ( null != $N )", varName );
+          builder.addStatement( "$T.observe( $N )", COMPONENT_OBSERVABLE_CLASSNAME, varName );
+          builder.endControlFlow();
+        }
+        else
+        {
+          builder.addStatement( "$T.observe( $N )", COMPONENT_OBSERVABLE_CLASSNAME, varName );
+        }
+      }
+      else
+      {
+        final ExecutableElement method = Objects.requireNonNull( autoObserve.getMethod() );
+        final String varName = VARIABLE_PREFIX + "autoObserve_" + index++;
+        builder.addStatement( "final $T $N = this.$N()",
+                              TypeName.get( method.getReturnType() ),
+                              varName,
+                              method.getSimpleName().toString() );
+        if ( isNullable( method, method.getReturnType() ) )
+        {
+          builder.beginControlFlow( "if ( null != $N )", varName );
+          builder.addStatement( "$T.observe( $N )", COMPONENT_OBSERVABLE_CLASSNAME, varName );
+          builder.endControlFlow();
+        }
+        else
+        {
+          builder.addStatement( "$T.observe( $N )", COMPONENT_OBSERVABLE_CLASSNAME, varName );
+        }
+      }
+    }
+
+    return builder.build();
+  }
+
+  private static void emitAutoObserve( @Nonnull final MethodSpec.Builder builder,
+                                       @Nonnull final AutoObserveDescriptor autoObserve,
+                                       @Nonnull final String varName )
+  {
+    if ( autoObserve.isValidateTypeAtRuntime() && null != autoObserve.getMethod() )
+    {
+      builder.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
+      builder.addStatement( "$T.apiInvariant( () -> $N instanceof $T, " +
+                            "() -> $S + $N )",
+                            GUARDS_CLASSNAME,
+                            varName,
+                            COMPONENT_OBSERVABLE_CLASSNAME,
+                            "Method annotated with @AutoObserve( validateTypeAtRuntime = true ) has returned a non-null value that does not implement ComponentObservable. Object: ",
+                            varName );
+      builder.endControlFlow();
+      builder.addStatement( "$T.observe( $N )", COMPONENT_OBSERVABLE_CLASSNAME, varName );
+    }
+    else
+    {
+      builder.addStatement( "$T.observe( $N )", COMPONENT_OBSERVABLE_CLASSNAME, varName );
+    }
+  }
+
+  private static boolean isNullable( @Nonnull final Element element, @Nonnull final TypeMirror type )
+  {
+    return !type.getKind().isPrimitive() && !AnnotationsUtil.hasNonnullAnnotation( element );
+  }
+
   private static void buildObserveDisposer( @Nonnull final ObserveDescriptor observe,
                                             @Nonnull final MethodSpec.Builder codeBlock )
   {
@@ -4164,7 +4905,7 @@ final class ComponentGenerator
     for ( final ExecutableElement refMethod : observe.getRefMethods() )
     {
       final ComponentDescriptor component = observe.getComponent();
-      final MethodSpec.Builder method = GeneratorUtil.refMethod( processingEnv, component.getElement(), refMethod );
+      final MethodSpec.Builder method = refMethod( processingEnv, component.getElement(), refMethod );
       generateNotDisposedInvariant( method, refMethod.getSimpleName().toString() );
       builder.addMethod( method.addStatement( "return $N", observe.getFieldName() ).build() );
     }
@@ -4179,7 +4920,7 @@ final class ComponentGenerator
     throws ProcessorException
   {
     final ExecutableElement onDepsChange = observe.getOnDepsChange();
-    final String methodName = FRAMEWORK_PREFIX + onDepsChange.getSimpleName().toString();
+    final String methodName = FRAMEWORK_PREFIX + onDepsChange.getSimpleName();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
     builder.addModifiers( Modifier.PRIVATE );
 
@@ -4210,8 +4951,7 @@ final class ComponentGenerator
     final ExecutableElement method = observe.getMethod();
     final String methodName = method.getSimpleName().toString();
     final ComponentDescriptor component = observe.getComponent();
-    final MethodSpec.Builder builder =
-      GeneratorUtil.overrideMethod( processingEnv, component.getElement(), observe.getMethod() );
+    final MethodSpec.Builder builder = overrideMethod( processingEnv, component.getElement(), observe.getMethod() );
 
     final TypeMirror returnType = methodType.getReturnType();
 
@@ -4335,8 +5075,7 @@ final class ComponentGenerator
   {
     assert observe.hasObserve();
     final ComponentDescriptor component = observe.getComponent();
-    final MethodSpec.Builder method =
-      GeneratorUtil.overrideMethod( processingEnv, component.getElement(), observe.getMethod() );
+    final MethodSpec.Builder method = overrideMethod( processingEnv, component.getElement(), observe.getMethod() );
 
     final CodeBlock.Builder block = CodeBlock.builder();
     block.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );

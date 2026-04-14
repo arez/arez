@@ -4,7 +4,6 @@ import arez.spy.ComputableValueCreateEvent;
 import arez.spy.ComputableValueDisposeEvent;
 import arez.spy.ComputableValueInfo;
 import grim.annotations.OmitSymbol;
-import java.util.List;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -12,12 +11,12 @@ import static org.realityforge.braincheck.Guards.*;
 
 /**
  * The ComputableValue represents an ObservableValue derived from other ObservableValues within
- * the Arez system. The value is calculated lazily. i.e. The ComputableValue will only
+ * the Arez system. The value is calculated lazily. i.e., The ComputableValue will only
  * be calculated if the ComputableValue has observers.
  *
  * <p>It should be noted that the ComputableValue is backed by both an ObservableValue and
- * an Observer. The id's of each of these nodes differ but they share the name and
- * thus while debugging appear to be a single element.</p>
+ * an Observer. The id's of each of these nodes differ, but they share the name and
+ * thus while debugging appears to be a single element.</p>
  */
 public final class ComputableValue<T>
   extends Node
@@ -31,7 +30,7 @@ public final class ComputableValue<T>
   @Nullable
   private final Component _component;
   /**
-   * The underlying observer that watches the dependencies are triggers the recomputation when required.
+   * The underlying observer that watches the dependencies triggers the re-computation when required.
    */
   private final Observer _observer;
   /**
@@ -44,7 +43,12 @@ public final class ComputableValue<T>
   @Nonnull
   private final ObservableValue<T> _observableValue;
   /**
-   * Flag set to true if computable value can be read outside of a transaction.
+   * Strategy used to compare old and new computed values.
+   */
+  @Nonnull
+  private final EqualityComparator _equalityComparator;
+  /**
+   * Flag set to true if computable value can be read outside a transaction.
    */
   private final boolean _readOutsideTransaction;
   /**
@@ -74,17 +78,7 @@ public final class ComputableValue<T>
    */
   private int _keepAliveRefCount;
   /**
-   * Hook action called when the ComputableValue moves to observed state.
-   */
-  @Nullable
-  private final Procedure _onActivate;
-  /**
-   * Hook action called when the ComputableValue moves to un-observed state from any other state.
-   */
-  @Nullable
-  private final Procedure _onDeactivate;
-  /**
-   * Cached info object associated with element.
+   * Cached info object associated with the element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
    */
   @OmitSymbol( unless = "arez.enable_spies" )
@@ -95,9 +89,17 @@ public final class ComputableValue<T>
                    @Nullable final Component component,
                    @Nullable final String name,
                    @Nonnull final SafeFunction<T> function,
-                   @Nullable final Procedure onActivate,
-                   @Nullable final Procedure onDeactivate,
                    final int flags )
+  {
+    this( context, component, name, function, flags, new ObjectsEqualsComparator() );
+  }
+
+  ComputableValue( @Nullable final ArezContext context,
+                   @Nullable final Component component,
+                   @Nullable final String name,
+                   @Nonnull final SafeFunction<T> function,
+                   final int flags,
+                   @Nonnull final EqualityComparator equalityComparator )
   {
     super( context, name );
     if ( Arez.shouldCheckInvariants() )
@@ -108,8 +110,7 @@ public final class ComputableValue<T>
     }
     _component = Arez.areNativeComponentsEnabled() ? component : null;
     _function = Objects.requireNonNull( function );
-    _onActivate = onActivate;
-    _onDeactivate = onDeactivate;
+    _equalityComparator = Objects.requireNonNull( equalityComparator );
     _value = null;
     _computing = false;
     _readOutsideTransaction = Flags.READ_OUTSIDE_TRANSACTION == ( flags & Flags.READ_OUTSIDE_TRANSACTION );
@@ -141,7 +142,7 @@ public final class ComputableValue<T>
 
   /**
    * Return the computable value, calculating the value if it is not up to date.
-   * Before invoking this method, a transaction <b>MUST</b> be active but it may be read-only or read-write.
+   * Before invoking this method, a transaction <b>MUST</b> be active, but it may be read-only or read-write.
    *
    * @return the computable value.
    */
@@ -203,7 +204,7 @@ public final class ComputableValue<T>
 
   /**
    * Invoked when a non-arez dependency of the ComputableValue has changed. The ComputableValue
-   * may or may not change as a result of the dependency change but Arez will recalculate
+   * may or may not change as a result of the dependency change, but Arez will recalculate
    * the ComputableValue during the normal reaction cycle or when next accessed and will propagate
    * the change at that time if required. This method must be explicitly invoked by the
    * developer if the ComputableValue is derived from non-arez data and that data changes.
@@ -231,7 +232,7 @@ public final class ComputableValue<T>
     }
     if ( Observer.Flags.STATE_UP_TO_DATE == getObserver().getState() )
     {
-      getObserver().setState( Observer.Flags.STATE_POSSIBLY_STALE );
+      getObserver().setState( Observer.Flags.STATE_STALE );
     }
   }
 
@@ -284,7 +285,7 @@ public final class ComputableValue<T>
    * Invoke this method to ensure that the ComputableValue is activated and computing
    * a value even if there are no observers. This is used when there is a chance that
    * the value will be accessed multiple times, without being accessed from within a
-   * tracking transaction (i.e. the value may only be accessed from actions or may have
+   * tracking transaction (i.e., the value may only be accessed from actions or may have
    * observers come and go).
    *
    * <p>This method should not be called if the computable value was created with the
@@ -429,28 +430,6 @@ public final class ComputableValue<T>
   }
 
   /**
-   * Return the onActivate hook.
-   *
-   * @return the onActivate hook.
-   */
-  @Nullable
-  Procedure getOnActivate()
-  {
-    return _onActivate;
-  }
-
-  /**
-   * Return the onDeactivate hook.
-   *
-   * @return the onDeactivate hook.
-   */
-  @Nullable
-  Procedure getOnDeactivate()
-  {
-    return _onDeactivate;
-  }
-
-  /**
    * Compute the new value and compare it to the old value using equality comparator. If
    * the new value differs from the old value, cache the new value.
    */
@@ -460,7 +439,7 @@ public final class ComputableValue<T>
     try
     {
       final T newValue = computeValue();
-      if ( !Objects.equals( oldValue, newValue ) )
+      if ( !_equalityComparator.areEqual( oldValue, newValue ) )
       {
         _value = newValue;
         _error = null;
@@ -470,7 +449,7 @@ public final class ComputableValue<T>
       {
         if ( getObserver().areArezDependenciesRequired() )
         {
-          final List<ObservableValue<?>> observableValues = Transaction.current().getObservableValues();
+          final FastList<ObservableValue<?>> observableValues = Transaction.current().getObservableValues();
           apiInvariant( () -> null != observableValues && !observableValues.isEmpty(),
                         () -> "Arez-0173: ComputableValue named '" + getName() + "' completed compute but is not " +
                               "observing any properties. As a result compute will never be rescheduled. " +
@@ -484,7 +463,7 @@ public final class ComputableValue<T>
       {
         /*
          * This handles the scenario where the computable generates an exception. The observers should still be
-         * marked as STALE. When they react to this the computable will throw the exception that was caught.
+         * marked as STALE. When they react to this, the computable will throw the exception that was caught.
          */
         _value = null;
         _error = e;
@@ -619,7 +598,7 @@ public final class ComputableValue<T>
      */
     public static final int NO_REPORT_RESULT = 1 << 12;
     /**
-     * Indicates that application code can not invoke {@link ComputableValue#reportPossiblyChanged()}
+     * Indicates that application code cannot invoke {@link ComputableValue#reportPossiblyChanged()}
      * and the {@link ComputableValue} is only recalculated if a dependency is updated.
      *
      * @see arez.annotations.DepType#AREZ
@@ -627,7 +606,7 @@ public final class ComputableValue<T>
      */
     public static final int AREZ_DEPENDENCIES = 1 << 27;
     /**
-     * Flag set set if the application code can not invoke {@link ComputableValue#reportPossiblyChanged()} to
+     * Flag set if the application code cannot invoke {@link ComputableValue#reportPossiblyChanged()} to
      * indicate that a dependency has changed.
      *
      * @see arez.annotations.DepType#AREZ_OR_NONE
@@ -689,8 +668,8 @@ public final class ComputableValue<T>
     /**
      * Low priority.
      * Usually used to schedule ComputableValues that support reflecting state onto non-reactive
-     * application components. i.e. ComputableValue that are used to build html views,
-     * perform network operations etc. These ComputableValues are often at low priority
+     * application components. i.e., ComputableValue that are used to build html views,
+     * perform network operations, etc. These ComputableValues are often at low priority
      * to avoid recalculation of dependencies (i.e. {@link ComputableValue}s) triggering
      * this ComputableValue multiple times within a single reaction round.
      * <p>Only one of the PRIORITY_* flags should be applied to ComputableValue.</p>
@@ -702,8 +681,8 @@ public final class ComputableValue<T>
     public static final int PRIORITY_LOW = 0b100 << 15;
     /**
      * Lowest priority. Use this priority if the ComputableValue may be unobserved when
-     * a {@link #PRIORITY_LOW} element reacts. This is used to avoid recomputing state that is
-     * likely to either be unobserved or recomputed as part of another elements reaction.
+     * a {@link #PRIORITY_LOW} element reacts. This is used to avoid recomputing state, that is
+     * likely to either be unobserved or recomputed as part of another element's reaction.
      * <p>Only one of the PRIORITY_* flags should be applied to ComputableValue.</p>
      *
      * @see arez.annotations.Priority#LOWEST
@@ -716,7 +695,7 @@ public final class ComputableValue<T>
      */
     public static final int PRIORITY_MASK = 0b111 << 15;
     /**
-     * Can the ComputableValue be accessed outside a transaction.
+     * Flag indicating that the ComputableValue be accessed outside a transaction.
      */
     public static final int READ_OUTSIDE_TRANSACTION = 1 << 14;
     /**

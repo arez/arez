@@ -70,7 +70,11 @@ final class ComponentDescriptor
   @Nonnull
   private final Map<String, ObservableDescriptor> _observables = new LinkedHashMap<>();
   @Nonnull
+  private final Map<String, ObservableInitialDescriptor> _observableInitials = new LinkedHashMap<>();
+  @Nonnull
   private final Map<String, ActionDescriptor> _actions = new LinkedHashMap<>();
+  @Nonnull
+  private final Map<String, MemoizeContextParameterDescriptor> _memoizeContextParameters = new LinkedHashMap<>();
   @Nonnull
   private final Map<String, MemoizeDescriptor> _memoizes = new LinkedHashMap<>();
   @Nonnull
@@ -79,6 +83,8 @@ final class ComponentDescriptor
   private final Map<Element, DependencyDescriptor> _dependencies = new LinkedHashMap<>();
   @Nonnull
   private final Map<Element, CascadeDisposeDescriptor> _cascadeDisposes = new LinkedHashMap<>();
+  @Nonnull
+  private final Map<Element, AutoObserveDescriptor> _autoObserves = new LinkedHashMap<>();
   @Nonnull
   private final Map<String, ReferenceDescriptor> _references = new LinkedHashMap<>();
   @Nonnull
@@ -155,6 +161,10 @@ final class ComponentDescriptor
                                  .anyMatch( e -> ( e.isMethodDependency() && isDeprecated( e.getMethod() ) ) ||
                                                  ( !e.isMethodDependency() &&
                                                    isDeprecated( e.getField() ) ) ) ||
+                               getAutoObserves().values()
+                                 .stream()
+                                 .anyMatch( e -> ( null != e.getMethod() && isDeprecated( e.getMethod() ) ) ||
+                                                 ( null != e.getField() && isDeprecated( e.getField() ) ) ) ||
                                getActions().values().stream().anyMatch( e -> isDeprecated( e.getAction() ) ) ||
                                getObserves().values()
                                  .stream()
@@ -277,6 +287,12 @@ final class ComponentDescriptor
   }
 
   @Nonnull
+  MemoizeContextParameterDescriptor findOrCreateMemoizeContextParameter( @Nonnull final String name )
+  {
+    return getMemoizeContextParameters().computeIfAbsent( name, n -> new MemoizeContextParameterDescriptor( this, n ) );
+  }
+
+  @Nonnull
   MemoizeDescriptor findOrCreateMemoize( @Nonnull final String name )
   {
     return getMemoizes().computeIfAbsent( name, n -> new MemoizeDescriptor( this, n ) );
@@ -299,9 +315,16 @@ final class ComponentDescriptor
     return _observables;
   }
 
+  @Nonnull
+  Map<String, ObservableInitialDescriptor> getObservableInitials()
+  {
+    return _observableInitials;
+  }
+
   boolean requiresSchedule()
   {
     return getObserves().values().stream().anyMatch( ObserveDescriptor::isInternalExecutor ) ||
+           !getAutoObserves().isEmpty() ||
            !getDependencies().isEmpty() ||
            getMemoizes().values().stream().anyMatch( MemoizeDescriptor::isKeepAlive );
   }
@@ -321,6 +344,23 @@ final class ComponentDescriptor
   boolean isCascadeDisposeDefined( @Nonnull final Element element )
   {
     return getCascadeDisposes().containsKey( element );
+  }
+
+  void addAutoObserve( @Nonnull final AutoObserveDescriptor descriptor )
+  {
+    getAutoObserves().put( descriptor.getElement(), descriptor );
+  }
+
+  @Nonnull
+  Map<Element, AutoObserveDescriptor> getAutoObserves()
+  {
+    return _autoObserves;
+  }
+
+  @SuppressWarnings( "BooleanMethodIsAlwaysInverted" )
+  boolean isAutoObserveDefined( @Nonnull final Element element )
+  {
+    return getAutoObserves().containsKey( element );
   }
 
   @Nonnull
@@ -373,17 +413,18 @@ final class ComponentDescriptor
 
   boolean needsInternalDispose()
   {
-    return !getObserves().isEmpty() || !getMemoizes().isEmpty() || !getObservables().isEmpty();
+    return !getAutoObserves().isEmpty() || !getObserves().isEmpty() || !getMemoizes().isEmpty() || !getObservables().isEmpty();
   }
 
   @Nonnull
   List<ObservableDescriptor> getInitializers()
   {
-    return getObservables()
-      .values()
-      .stream()
-      .filter( ObservableDescriptor::requireInitializer )
-      .collect( Collectors.toList() );
+    return
+      getObservables()
+        .values()
+        .stream()
+        .filter( ObservableDescriptor::requireInitializer )
+        .collect( Collectors.toList() );
   }
 
   boolean isStingEnabled()
@@ -491,6 +532,12 @@ final class ComponentDescriptor
   Map<String, ActionDescriptor> getActions()
   {
     return _actions;
+  }
+
+  @Nonnull
+  Map<String, MemoizeContextParameterDescriptor> getMemoizeContextParameters()
+  {
+    return _memoizeContextParameters;
   }
 
   @Nonnull

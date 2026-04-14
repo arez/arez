@@ -16,8 +16,6 @@ import arez.spy.ObserverInfo;
 import arez.spy.Priority;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -27,6 +25,29 @@ import static org.testng.Assert.*;
 public final class ObserverTest
   extends AbstractTest
 {
+  @Test
+  public void enableSpyAsPartOfObserver()
+  {
+    final ArezContext context = Arez.context();
+    final String name = ValueUtil.randomString();
+    final TestSpyEventHandler handler = new TestSpyEventHandler( context );
+    ;
+    final AtomicBoolean done = new AtomicBoolean();
+
+    final Procedure observed = () -> {
+      if ( !done.get() )
+      {
+        context.getSpy().addSpyEventHandler( handler );
+        done.set( true );
+      }
+    };
+    new Observer( context, null, name, observed, null, Observer.Flags.AREZ_OR_NO_DEPENDENCIES );
+
+    handler.assertEventCount( 2 );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ActionCompleteEvent.class );
+  }
+
   @Test
   public void initialState()
   {
@@ -370,28 +391,6 @@ public final class ObserverTest
   }
 
   @Test
-  public void invariantDependenciesUnique()
-  {
-    final ArezContext context = Arez.context();
-    final ObservableValue<Object> observable = context.observable();
-    final Observer observer = context.observer( observable::reportObserved );
-
-    observer.invariantDependenciesUnique( "TEST1" );
-
-    // Add a duplicate
-    observer.getDependencies().add( observable );
-
-    assertInvariantFailure( () -> observer.invariantDependenciesUnique( "TEST2" ),
-                            "Arez-0089: TEST2: The set of dependencies in observer named '" +
-                            observer.getName() +
-                            "' is not unique. Current list: '[" +
-                            observable.getName() +
-                            ", " +
-                            observable.getName() +
-                            "]'." );
-  }
-
-  @Test
   public void invariantState()
   {
     final ArezContext context = Arez.context();
@@ -465,13 +464,13 @@ public final class ObserverTest
     final ObservableValue<Object> observable = context.observable();
     final Observer observer = context.observer( new CountingProcedure(), Observer.Flags.AREZ_OR_NO_DEPENDENCIES );
 
-    final List<ObservableValue<?>> originalDependencies = observer.getDependencies();
+    final FastList<ObservableValue<?>> originalDependencies = observer.getDependencies();
 
     assertTrue( originalDependencies.isEmpty() );
 
     context.safeAction( () -> {
 
-      final List<ObservableValue<?>> newDependencies = new ArrayList<>();
+      final FastList<ObservableValue<?>> newDependencies = new FastList<>();
       newDependencies.add( observable );
       observable.rawAddObserver( observer );
 
@@ -485,21 +484,6 @@ public final class ObserverTest
   }
 
   @Test
-  public void replaceDependencies_duplicateDependency()
-  {
-    final ArezContext context = Arez.context();
-    final ObservableValue<Object> observable = context.observable();
-    final Observer observer = context.observer( observable::reportObserved );
-
-    final List<ObservableValue<?>> newDependencies = new ArrayList<>();
-    newDependencies.add( observable );
-    newDependencies.add( observable );
-
-    assertInvariantFailure( () -> observer.replaceDependencies( newDependencies ),
-                            "Arez-0089: Post replaceDependencies: The set of dependencies in observer named 'Observer@2' is not unique. Current list: '[ObservableValue@1, ObservableValue@1]'." );
-  }
-
-  @Test
   public void replaceDependencies_notBackLinkedDependency()
   {
     final ArezContext context = Arez.context();
@@ -507,7 +491,7 @@ public final class ObserverTest
     final ObservableValue<Object> observable2 = context.observable();
     final Observer observer = context.observer( observable::reportObserved );
 
-    final List<ObservableValue<?>> newDependencies = new ArrayList<>();
+    final FastList<ObservableValue<?>> newDependencies = new FastList<>();
     newDependencies.add( observable );
     newDependencies.add( observable2 );
 
@@ -704,8 +688,7 @@ public final class ObserverTest
     final TestProcedure onActivate = new TestProcedure();
     final TestProcedure onDeactivate = new TestProcedure();
 
-    final ComputableValue<String> computableValue =
-      Arez.context().computable( null, null, () -> "", onActivate, onDeactivate );
+    final ComputableValue<String> computableValue = Arez.context().computable( null, null, () -> "" );
     final ObservableValue<String> derivedValue = computableValue.getObservableValue();
     final Observer observer = computableValue.getObserver();
 
@@ -716,6 +699,8 @@ public final class ObserverTest
     watcher.setState( Observer.Flags.STATE_UP_TO_DATE );
     observer.getComputableValue().getObservableValue().rawAddObserver( watcher );
     watcher.getDependencies().add( observer.getComputableValue().getObservableValue() );
+    observer.getHooks().clear();
+    observer.getHooks().put( ValueUtil.randomString(), new Hook( onActivate, onDeactivate ) );
 
     watcher.setState( Observer.Flags.STATE_UP_TO_DATE );
 
@@ -733,7 +718,7 @@ public final class ObserverTest
 
     assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
     assertFalse( observer.getTask().isQueued() );
-    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onActivate.getCalls(), 0 );
     assertEquals( onDeactivate.getCalls(), 0 );
     assertNotNull( computableValue.getValue() );
 
@@ -741,7 +726,7 @@ public final class ObserverTest
 
     assertEquals( observer.getState(), Observer.Flags.STATE_POSSIBLY_STALE );
     assertTrue( observer.getTask().isQueued() );
-    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onActivate.getCalls(), 0 );
     assertEquals( onDeactivate.getCalls(), 0 );
     assertEquals( watcher.getState(), Observer.Flags.STATE_POSSIBLY_STALE );
     assertEquals( derivedValue.getLeastStaleObserverState(), Observer.Flags.STATE_POSSIBLY_STALE );
@@ -753,7 +738,7 @@ public final class ObserverTest
     observer.setState( Observer.Flags.STATE_UP_TO_DATE );
 
     assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
-    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onActivate.getCalls(), 0 );
     assertEquals( onDeactivate.getCalls(), 0 );
     assertNotNull( computableValue.getValue() );
 
@@ -764,7 +749,7 @@ public final class ObserverTest
 
     assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
     assertTrue( observer.getTask().isQueued() );
-    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onActivate.getCalls(), 0 );
     assertEquals( onDeactivate.getCalls(), 0 );
 
     assertEquals( watcher.getState(), Observer.Flags.STATE_POSSIBLY_STALE );
@@ -773,7 +758,7 @@ public final class ObserverTest
     observer.setState( Observer.Flags.STATE_INACTIVE );
 
     assertEquals( observer.getState(), Observer.Flags.STATE_INACTIVE );
-    assertEquals( onActivate.getCalls(), 1 );
+    assertEquals( onActivate.getCalls(), 0 );
     assertEquals( onDeactivate.getCalls(), 1 );
     assertNull( computableValue.getValue() );
   }

@@ -36,12 +36,16 @@ final class MemoizeDescriptor
   private boolean _observeLowerPriorityDependencies;
   private String _readOutsideTransaction;
   private String _depType;
+  @Nonnull
+  private String _equalityComparator = Constants.OBJECTS_EQUALS_COMPARATOR_CLASSNAME;
   @Nullable
   private ExecutableElement _onActivate;
   @Nullable
   private ExecutableElement _onDeactivate;
   @Nonnull
   private final List<CandidateMethod> _refMethods = new ArrayList<>();
+  @Nonnull
+  private final List<MemoizeContextParameterDescriptor> _contextParameters = new ArrayList<>();
 
   MemoizeDescriptor( @Nonnull final ComponentDescriptor component, @Nonnull final String name )
   {
@@ -108,7 +112,8 @@ final class MemoizeDescriptor
                    final boolean reportResult,
                    final boolean observeLowerPriorityDependencies,
                    @Nonnull final String readOutsideTransaction,
-                   @Nonnull final String depType )
+                   @Nonnull final String depType,
+                   @Nonnull final String equalityComparator )
     throws ProcessorException
   {
     //The caller already verified that no duplicate computable have been defined
@@ -128,6 +133,7 @@ final class MemoizeDescriptor
     _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
     _readOutsideTransaction = readOutsideTransaction;
     _depType = Objects.requireNonNull( depType );
+    _equalityComparator = Objects.requireNonNull( equalityComparator );
 
     if ( ComponentGenerator.isMethodReturnType( getMethod(), Stream.class ) )
     {
@@ -147,6 +153,48 @@ final class MemoizeDescriptor
   List<CandidateMethod> getRefMethods()
   {
     return _refMethods;
+  }
+
+  void addContextParameter( @Nonnull final MemoizeContextParameterDescriptor parameter )
+    throws ProcessorException
+  {
+    _contextParameters.add( parameter );
+  }
+
+  boolean shouldGenerateMemoizeWrapper()
+  {
+    return !getContextParameters().isEmpty() || hasHooks() || shouldGenerateDeactivateWrapperHook();
+  }
+
+  boolean shouldGenerateActivateWrapperHook()
+  {
+    return isCollectionType() && hasNoParameters();
+  }
+
+  boolean shouldGenerateDeactivateWrapperHook()
+  {
+    return isCollectionType() && hasNoParameters();
+  }
+
+  boolean isCollectionType()
+  {
+    return ComponentGenerator.isCollectionType( getMethod() );
+  }
+
+  /**
+   * Return true if the Memoize has either explicit or implicit (aka context) parameters.
+   *
+   * @return true if the Memoize has either explicit or implicit (aka context) parameters.
+   */
+  boolean hasNoParameters()
+  {
+    return getMethod().getParameters().isEmpty() && getContextParameters().isEmpty();
+  }
+
+  @Nonnull
+  List<MemoizeContextParameterDescriptor> getContextParameters()
+  {
+    return _contextParameters;
   }
 
   void setOnActivate( @Nonnull final ExecutableElement method )
@@ -206,6 +254,11 @@ final class MemoizeDescriptor
         throw new ProcessorException( "@Memoize target specified parameter keepAlive as true but has parameters.",
                                       _method );
       }
+      else if ( !getContextParameters().isEmpty() )
+      {
+        throw new ProcessorException( "@Memoize target specified parameter keepAlive as true but has " +
+                                      "matching context parameters.", _method );
+      }
       else if ( null != _onActivate )
       {
         throw new ProcessorException( "@OnActivate exists for @Memoize property that specified parameter " +
@@ -217,6 +270,10 @@ final class MemoizeDescriptor
                                       "keepAlive as true.", _onDeactivate );
       }
     }
+    // One day we may want to support parameters here.
+    // But rather than put the effort into correct code generation when there is no
+    // current use case, let's throw an exception.
+    // When a use case pops up, then we can implement the functionality.
     if ( !_method.getParameters().isEmpty() )
     {
       if ( null != _onActivate )
@@ -230,6 +287,23 @@ final class MemoizeDescriptor
                                       _onDeactivate );
       }
     }
+    // One day we may want to support context parameters here.
+    // But rather than put the effort into correct code generation when there is no
+    // current use case, let's throw an exception.
+    // When a use case pops up, then we can implement the functionality.
+    if ( !getContextParameters().isEmpty() )
+    {
+      if ( null != _onActivate )
+      {
+        throw new ProcessorException( "@OnActivate target associated with @Memoize method that has " +
+                                      "matching context parameters.", _onActivate );
+      }
+      else if ( null != _onDeactivate )
+      {
+        throw new ProcessorException( "@OnDeactivate target associated with @Memoize method that has " +
+                                      "matching context parameters.", _onDeactivate );
+      }
+    }
 
     if ( null != _onActivate && null != _method )
     {
@@ -237,9 +311,8 @@ final class MemoizeDescriptor
       if ( 1 == parameters.size() )
       {
         final TypeName typeName = TypeName.get( parameters.get( 0 ).asType() );
-        if ( typeName instanceof ParameterizedTypeName )
+        if ( typeName instanceof final ParameterizedTypeName parameterizedTypeName )
         {
-          final ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
           final TypeName paramType = parameterizedTypeName.typeArguments.get( 0 );
           if ( !( paramType instanceof WildcardTypeName ) )
           {
@@ -258,9 +331,8 @@ final class MemoizeDescriptor
     for ( final CandidateMethod refMethod : _refMethods )
     {
       final TypeName typeName = TypeName.get( refMethod.getMethod().getReturnType() );
-      if ( typeName instanceof ParameterizedTypeName )
+      if ( typeName instanceof final ParameterizedTypeName parameterizedTypeName )
       {
-        final ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
         final TypeName expectedType = parameterizedTypeName.typeArguments.get( 0 );
         if ( !( expectedType instanceof WildcardTypeName ) )
         {
@@ -330,5 +402,21 @@ final class MemoizeDescriptor
   String getDepType()
   {
     return _depType;
+  }
+
+  @Nonnull
+  String getEqualityComparator()
+  {
+    return _equalityComparator;
+  }
+
+  boolean hasObjectsEqualsComparator()
+  {
+    return Constants.OBJECTS_EQUALS_COMPARATOR_CLASSNAME.equals( _equalityComparator );
+  }
+
+  boolean hasObjectsDeepEqualsComparator()
+  {
+    return Constants.OBJECTS_DEEP_EQUALS_COMPARATOR_CLASSNAME.equals( _equalityComparator );
   }
 }

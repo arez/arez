@@ -6,7 +6,9 @@ import arez.spy.TransactionInfo;
 import arez.spy.TransactionStartEvent;
 import grim.annotations.OmitSymbol;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -64,10 +66,10 @@ final class Transaction
     }
 
     /**
-     * Return name of transaction mode.
+     * Return the name of transaction mode.
      *
      * @param flags the flags.
-     * @return true if flags contains transaction mode.
+     * @return the name of transaction mode.
      */
     @Nonnull
     static String getTransactionModeName( final int flags )
@@ -93,7 +95,7 @@ final class Transaction
    * This references the current active transaction.
    *
    * <p>Note: Despite being a mutable static field, this does not trigger a clinit as no assignment
-   * occurs here. Thus we do not a separate TransactionHolder class.</p>
+   * occurs here. Thus, we do not need a separate TransactionHolder class.</p>
    */
   @Nullable
   private static Transaction c_transaction;
@@ -152,14 +154,19 @@ final class Transaction
   @Nullable
   private final Observer _tracker;
   /**
-   * the list of observables that have been observed during tracking.
-   * This list may contain duplicates but the duplicates will be eliminated when converting the list
+   * The list of observables that have been observed during tracking.
+   * This list may contain duplicates, but the duplicates will be eliminated when converting the list
    * of observables to dependencies to pass to the tracking observer.
    *
-   * This should be null unless the _tracker is non null.
+   * <p>This should be null unless the _tracker is non-null.</p>
    */
   @Nullable
-  private List<ObservableValue<?>> _observableValues;
+  private FastList<ObservableValue<?>> _observableValues;
+  /**
+   * The map of hooks that have been registered during tracking.
+   */
+  @Nullable
+  private Map<String, Hook> _hooks;
   /**
    * The flag set if transaction interacts with Arez resources.
    * This should only be accessed when {@link Arez#shouldCheckInvariants()} returns true.
@@ -173,7 +180,7 @@ final class Transaction
   @OmitSymbol( unless = "arez.enable_zones" )
   private final boolean _zoneActivated;
   /**
-   * Cached info object associated with element.
+   * Cached info object associated with the element.
    * This should be null if {@link Arez#areSpiesEnabled()} is false;
    */
   @OmitSymbol( unless = "arez.enable_spies" )
@@ -181,9 +188,9 @@ final class Transaction
   private TransactionInfoImpl _info;
 
   /**
-   * Return true if there is a transaction for speciffied context in progress.
+   * Return true if there is a transaction for specified context in progress.
    *
-   * @return true if there is a transaction for speciffied context in progress.
+   * @return true if there is a transaction for specified context in progress.
    */
   static boolean isTransactionActive( @Nonnull final ArezContext context )
   {
@@ -193,7 +200,7 @@ final class Transaction
 
   /**
    * Return the current transaction.
-   * This method should not be invoked unless a transaction active and will throw an
+   * This method should not be invoked unless a transaction is active and will throw an
    * exception if invariant checks are enabled.
    *
    * @return the current transaction.
@@ -215,7 +222,7 @@ final class Transaction
    *
    * @param context  the associated context.
    * @param name     the name of the transaction. Should be non-null if {@link Arez#areNamesEnabled()} is true, false otherwise.
-   * @param mutation is transaction a READ_WRITE transaction.
+   * @param mutation is transaction a READ_WRITE transaction?
    * @param tracker  the observer that is tracking transaction if any.
    * @return the new transaction.
    */
@@ -281,8 +288,8 @@ final class Transaction
   /**
    * Commit the supplied transaction.
    *
-   * This method verifies that the transaction active is the supplied transaction before committing
-   * the transaction and restoring the prior transaction if any.
+   * <p>This method verifies that the transaction active is the supplied transaction before committing
+   * the transaction and restoring the prior transaction if any.</p>
    *
    * @param transaction the transaction.
    */
@@ -308,16 +315,16 @@ final class Transaction
         final boolean mutation = !Arez.shouldEnforceTransactionType() || c_transaction.isMutation();
         final Observer tracker = c_transaction.getTracker();
         final ObserverInfo trackerInfo = null != tracker ? tracker.asInfo() : null;
-        final long duration = System.currentTimeMillis() - c_transaction.getStartedAt();
+        final int duration = Math.max( 0, (int) ( System.currentTimeMillis() - c_transaction.getStartedAt() ) );
         c_transaction
           .getContext()
           .getSpy()
-          .reportSpyEvent( new TransactionCompleteEvent( name, mutation, trackerInfo, (int) duration ) );
+          .reportSpyEvent( new TransactionCompleteEvent( name, mutation, trackerInfo, duration ) );
       }
     }
     finally
     {
-      // Finally block is required because if an exception occurs during transaction cleanup Arez
+      // Finally, block is required because if an exception occurs during transaction cleanup Arez
       // will be unable to recover as the transaction field will be wrong
       final Transaction previousInSameContext =
         Arez.areZonesEnabled() ? c_transaction.getPreviousInSameContext() : c_transaction.getPrevious();
@@ -460,7 +467,7 @@ final class Transaction
       if ( !_tracker.isDisposing() )
       {
         // Mark the tracker as up to date at the start of the transaction.
-        // If it is made stale during the transaction then completeTracking() will fix the
+        // If it is made stale during the transaction, then completeTracking() will fix the
         // state of the _tracker.
         _tracker.setState( Observer.Flags.STATE_UP_TO_DATE );
       }
@@ -492,12 +499,12 @@ final class Transaction
     completeTracking();
     if ( isRootTransaction() )
     {
-      // Only the root transactions performs deactivations.
+      // Only the root transaction performs deactivations.
       processPendingDeactivations();
     }
   }
 
-  boolean hasTransactionUseOccured()
+  boolean hasTransactionUseOccurred()
   {
     return Arez.shouldCheckInvariants() && _transactionUsed;
   }
@@ -543,6 +550,10 @@ final class Transaction
                  () -> "Arez-0140: Invoked queueForDeactivation on transaction named '" +
                        getName() + "' for observableValue named '" + observableValue.getName() + "' when " +
                        "observableValue can not be deactivated." );
+      invariant( () -> !observableValue.isPendingDeactivation(),
+                 () -> "Arez-0157: Invoked queueForDeactivation on transaction named '" +
+                       getName() + "' for observableValue named '" + observableValue.getName() + "' when " +
+                       "observableValue is already pending deactivation." );
     }
     if ( null == _pendingDeactivations )
     {
@@ -555,7 +566,7 @@ final class Transaction
     }
     else
     {
-      if ( Arez.shouldCheckInvariants() )
+      if ( Arez.shouldCheckExpensiveInvariants() )
       {
         invariant( () -> !_pendingDeactivations.contains( observableValue ),
                    () -> "Arez-0141: Invoked queueForDeactivation on transaction named '" + getName() + "' for " +
@@ -579,8 +590,8 @@ final class Transaction
     if ( null != _tracker )
     {
       /*
-       * This invariant is in place as owned observables are generated by the tracker and thus should not be
-       * observed during own generation process.
+       * This invariant is in place as: owned observables are generated by the tracker and thus should not be
+       * observed during trackers transaction.
        */
       if ( Arez.shouldCheckInvariants() )
       {
@@ -593,15 +604,52 @@ final class Transaction
       /*
        * This optimization attempts to stop the same observableValue being added multiple
        * times to the observables list by caching the transaction id on the observableValue.
-       * This is optimization may be defeated if the same observableValue is observed in a
-       * nested tracking transaction in which case the same observableValue may appear multiple.
-       * times in the _observableValues list. However completeTracking will eliminate duplicates.
+       * This optimization may be defeated if the same observableValue is observed in a
+       * nested tracking transaction, in which case the same observableValue may appear multiple
+       * times in the _observableValues list. However, completeTracking will eliminate duplicates.
        */
       final int id = getId();
       if ( observableValue.getLastTrackerTransactionId() != id )
       {
         observableValue.setLastTrackerTransactionId( id );
         safeGetObservables().add( observableValue );
+      }
+    }
+  }
+
+  void registerHook( @Nonnull final String key,
+                     @Nullable final Procedure onActivate,
+                     @Nullable final Procedure onDeactivate )
+  {
+    //noinspection ConstantValue
+    assert null != key;
+    assert null != onActivate || null != onDeactivate;
+
+    if ( Arez.shouldCheckInvariants() )
+    {
+      markTransactionAsUsed();
+      invariant( () -> null != _tracker,
+                 () -> "Arez-0045: registerHook() invoked outside of a tracking transaction." );
+    }
+
+    final Map<String, Hook> hooks = safeGetHooks();
+    if ( !hooks.containsKey( key ) )
+    {
+      final Observer tracker = getTracker();
+      assert null != tracker;
+      final Map<String, Hook> trackerHooks = tracker.getHooks();
+      final Hook existing = trackerHooks.get( key );
+      if ( null != existing )
+      {
+        hooks.put( key, existing );
+      }
+      else
+      {
+        hooks.put( key, new Hook( onActivate, onDeactivate ) );
+        if ( null != onActivate )
+        {
+          tracker.runHook( onActivate, ObserverError.ON_ACTIVATE_ERROR );
+        }
       }
     }
   }
@@ -668,8 +716,11 @@ final class Transaction
     if ( observableValue.hasObservers() && Observer.Flags.STATE_STALE != observableValue.getLeastStaleObserverState() )
     {
       observableValue.setLeastStaleObserverState( Observer.Flags.STATE_STALE );
-      for ( final Observer observer : observableValue.getObservers() )
+      final FastList<Observer> observers = observableValue.getObservers();
+      for ( int i = 0, end = observers.size(); i < end; ++i )
       {
+        final Observer observer = observers.get( i );
+        assert null != observer;
         final int state = observer.getState();
         if ( Arez.shouldCheckInvariants() )
         {
@@ -692,9 +743,9 @@ final class Transaction
 
   /**
    * Invoked with a derived observableValue when a dependency of the observableValue has
-   * changed. The observableValue may or may not have changed but the framework will
-   * recalculate the value during normal reaction cycle or when accessed within
-   * transaction scope and will update the state of the observableValue at that time.
+   * changed. The observableValue may or may not have changed. However, the framework will
+   * recalculate the value during normal reaction cycle or when accessed from within
+   * the scope of a transaction and will update the state of the observableValue at that time.
    */
   void reportPossiblyChanged( @Nonnull final ObservableValue<?> observableValue )
   {
@@ -719,8 +770,11 @@ final class Transaction
          Observer.Flags.STATE_UP_TO_DATE == observableValue.getLeastStaleObserverState() )
     {
       observableValue.setLeastStaleObserverState( Observer.Flags.STATE_POSSIBLY_STALE );
-      for ( final Observer observer : observableValue.getObservers() )
+      final FastList<Observer> observers = observableValue.getObservers();
+      for ( int i = 0, end = observers.size(); i < end; ++i )
       {
+        final Observer observer = observers.get( i );
+        assert null != observer;
         final int state = observer.getState();
         if ( Observer.Flags.STATE_UP_TO_DATE == state )
         {
@@ -762,8 +816,11 @@ final class Transaction
     {
       observableValue.setLeastStaleObserverState( Observer.Flags.STATE_STALE );
 
-      for ( final Observer observer : observableValue.getObservers() )
+      final FastList<Observer> observers = observableValue.getObservers();
+      for ( int i = 0, end = observers.size(); i < end; ++i )
       {
+        final Observer observer = observers.get( i );
+        assert null != observer;
         if ( Observer.Flags.STATE_POSSIBLY_STALE == observer.getState() )
         {
           observer.setState( Observer.Flags.STATE_STALE );
@@ -777,10 +834,10 @@ final class Transaction
            *
            * It can also happen if there is multiple ComputedValue instances that have
            * been marked as possibly stale and the scheduler has started to compute() the
-           * ComputedValue instances. However an instance that is marked as possiblyStale
+           * ComputedValue instances. However, an instance that is marked as possiblyStale
            * turned out to not be stale but was changed back to UP_TO_DATE but this
            * ComputedValue depends on the "observableValue" parameter that is being
-           * processed now. For this reason we skip the next check for ComputableValue instances.
+           * processed now. For this reason, we skip the next check for ComputableValue instances.
            *
            * It can also happen if the observer observes a lower or same priority ComputableValue and the observer
            * is marked as STALE and the ComputableValue marked as POSSIBLY_STALE (but will become STALE).
@@ -790,7 +847,8 @@ final class Transaction
           if ( Arez.shouldCheckInvariants() &&
                !observer.isComputableValue() &&
                !( observableValue.isComputableValue() &&
-                  observer.getTask().getPriorityIndex() <= observableValue.getObserver().getTask().getPriorityIndex() ) )
+                  observer.getTask().getPriorityIndex() <=
+                  observableValue.getObserver().getTask().getPriorityIndex() ) )
           {
             invariantObserverIsTracker( observableValue, observer );
           }
@@ -808,7 +866,7 @@ final class Transaction
    * Verifies that the specified observer is a tracker for the current
    * transaction or one of the parent transactions.
    *
-   * @param observableValue the observableValue which the observer is observing. Used when constructing invariant message.
+   * @param observableValue the observableValue which the observer is observing. Used when constructing the invariant message.
    * @param observer        the observer.
    */
   void invariantObserverIsTracker( @Nonnull final ObservableValue<?> observableValue, @Nonnull final Observer observer )
@@ -882,10 +940,10 @@ final class Transaction
                        "of INACTIVE is not expected when tracker has not been disposed." );
     }
 
-    // the newDerivation state should be State.STATE_UP_TO_DATE in most cases
-    // as that is what it was set to in beginTracking. However if an observer adds a
+    // The newDerivation state should be State.STATE_UP_TO_DATE in most cases
+    // as that is what it was set to in beginTracking. However, if an observer adds a
     // new observable, the tracker itself is stale and the observable has a LeastStaleObserverState
-    // of STALE due to another observer, the newDerivationState value can be incorrect
+    // of STALE due to another observer, the newDerivationState value can be incorrect.
     // The state tracker can also be disposed within the scope of the transaction which will lead to
     // DISPOSED or DISPOSING state.
     int newDerivationState = _tracker.getLeastStaleObserverState();
@@ -901,7 +959,7 @@ final class Transaction
       for ( int i = 0; i < size; i++ )
       {
         final ObservableValue<?> observableValue = _observableValues.get( i );
-        if ( !observableValue.isInCurrentTracking() && observableValue.isNotDisposed() )
+        if ( null != observableValue && !observableValue.isInCurrentTracking() && observableValue.isNotDisposed() )
         {
           observableValue.putInCurrentTracking();
           if ( i != currentIndex )
@@ -925,26 +983,29 @@ final class Transaction
 
     // Look through the old dependencies and any that are no longer tracked
     // should no longer be observed.
-    final List<ObservableValue<?>> dependencies = _tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = _tracker.getDependencies();
     for ( int i = dependencies.size() - 1; i >= 0; i-- )
     {
       final ObservableValue<?> observableValue = dependencies.get( i );
-      if ( !observableValue.isInCurrentTracking() )
+      if ( null != observableValue )
       {
-        // Old dependency was not part of current tracking and needs to be unobserved
-        observableValue.removeObserver( _tracker );
-        dependenciesChanged = true;
-      }
-      else
-      {
-        observableValue.removeFromCurrentTracking();
+        if ( !observableValue.isInCurrentTracking() )
+        {
+          // Old dependency was not part of current tracking and needs to be unobserved
+          observableValue.removeObserver( _tracker );
+          dependenciesChanged = true;
+        }
+        else
+        {
+          observableValue.removeFromCurrentTracking();
+        }
       }
     }
 
     // Some newly observed derivation owned observables may have become stale during
-    // tracking operation but they have had no chance to propagate staleness to this
+    // tracking operation, but they have had no chance to propagate staleness to this
     // observer so rectify this. This should NOT reschedule tracker.
-    // NOTE: This must occur before subsequent observable.addObserver() calls
+    // NOTE: This must occur before later observable.addObserver() calls
     if ( _tracker.isNotDisposedOrDisposing() && Observer.Flags.STATE_UP_TO_DATE != newDerivationState )
     {
       if ( _tracker.getState() < newDerivationState )
@@ -955,12 +1016,12 @@ final class Transaction
 
     if ( null != _observableValues )
     {
-      // Look through the new observables and any that are still flagged must be
+      // Look through the new observables, and any that are still flagged must be
       // new dependencies and need to be observed by the observer
       for ( int i = currentIndex - 1; i >= 0; i-- )
       {
         final ObservableValue<?> observableValue = _observableValues.get( i );
-        if ( observableValue.isInCurrentTracking() )
+        if ( null != observableValue && observableValue.isInCurrentTracking() )
         {
           observableValue.removeFromCurrentTracking();
           //ObservableValue was not a dependency so it needs to be observed
@@ -977,12 +1038,11 @@ final class Transaction
     }
 
     // Ugly hack to remove the elements from the end of the list that are no longer
-    // required. We start from end of list and work back to avoid array copies.
+    // required. We start from the end of the list, and work back to avoid array copies.
     // We should replace _observableValues with a structure that works under both JS and Java
-    // that avoids this by just allowing us to change current size
+    // that avoids this by just allowing us to change the current size
     if ( null != _observableValues )
     {
-      //noinspection ListRemoveInLoop
       for ( int i = _observableValues.size() - 1; i >= currentIndex; i-- )
       {
         _observableValues.remove( i );
@@ -997,15 +1057,30 @@ final class Transaction
     {
       if ( dependenciesChanged )
       {
-        _tracker.replaceDependencies( new ArrayList<>() );
+        _tracker.replaceDependencies( new FastList<>() );
       }
     }
+
+    final Map<String, Hook> hooks = safeGetHooks();
+    for ( final Map.Entry<String, Hook> entry : _tracker.getHooks().entrySet() )
+    {
+      if ( !hooks.containsKey( entry.getKey() ) )
+      {
+        final Procedure onDeactivate = entry.getValue().getOnDeactivate();
+        if ( null != onDeactivate )
+        {
+          _tracker.runHook( onDeactivate, ObserverError.ON_DEACTIVATE_ERROR );
+        }
+      }
+    }
+
+    _tracker.replaceHooks( hooks );
 
     if ( Disposable.isNotDisposed( _tracker ) && _tracker.isComputableValue() )
     {
       final ComputableValue<?> computableValue = _tracker.getComputableValue();
       final ObservableValue<?> observableValue = computableValue.getObservableValue();
-      if ( observableValue.canDeactivateNow() )
+      if ( observableValue.canDeactivateNow() && !observableValue.isPendingDeactivation() )
       {
         queueForDeactivation( observableValue );
       }
@@ -1018,8 +1093,10 @@ final class Transaction
     {
       if ( null != _observableValues )
       {
-        for ( final ObservableValue<?> observableValue : _observableValues )
+        for ( int i = 0, end = _observableValues.size(); i < end; ++i )
         {
+          final ObservableValue<?> observableValue = _observableValues.get( i );
+          assert null != observableValue;
           observableValue.invariantLeastStaleObserverState();
           observableValue.invariantObserversLinked();
         }
@@ -1031,7 +1108,13 @@ final class Transaction
   }
 
   @Nullable
-  List<ObservableValue<?>> getObservableValues()
+  Map<String, Hook> getHooks()
+  {
+    return _hooks;
+  }
+
+  @Nullable
+  FastList<ObservableValue<?>> getObservableValues()
   {
     return _observableValues;
   }
@@ -1064,13 +1147,26 @@ final class Transaction
    * Return the observables, initializing the array if necessary.
    */
   @Nonnull
-  List<ObservableValue<?>> safeGetObservables()
+  FastList<ObservableValue<?>> safeGetObservables()
   {
     if ( null == _observableValues )
     {
-      _observableValues = new ArrayList<>();
+      _observableValues = new FastList<>();
     }
     return _observableValues;
+  }
+
+  /**
+   * Return the hooks associated with the current transaction, initializing the field if necessary.
+   */
+  @Nonnull
+  Map<String, Hook> safeGetHooks()
+  {
+    if ( null == _hooks )
+    {
+      _hooks = new LinkedHashMap<>();
+    }
+    return _hooks;
   }
 
   @Nullable

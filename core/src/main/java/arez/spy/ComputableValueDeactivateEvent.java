@@ -29,5 +29,6 @@ public final class ComputableValueDeactivateEvent
   {
     map.put( "type", "ComputableValueDeactivate" );
     map.put( "name", getComputableValue().getName() );
+    SpyEventUtil.maybeAddZone( map );
   }
 }

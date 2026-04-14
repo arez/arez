@@ -29,5 +29,6 @@ public final class ComputableValueActivateEvent
   {
     map.put( "type", "ComputableValueActivate" );
     map.put( "name", getComputableValue().getName() );
+    SpyEventUtil.maybeAddZone( map );
   }
 }

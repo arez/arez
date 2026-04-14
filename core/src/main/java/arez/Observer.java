@@ -8,9 +8,8 @@ import arez.spy.ObserverCreateEvent;
 import arez.spy.ObserverDisposeEvent;
 import arez.spy.ObserverInfo;
 import grim.annotations.OmitSymbol;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
@@ -39,13 +38,21 @@ public final class Observer
   /**
    * The observables that this observer receives notifications from.
    * These are the dependencies within the dependency graph and will
-   * typically correspond to the observables that were accessed in last
-   * transaction that this observer was tracking.
+   * typically correspond to the observables that were accessed in the
+   * last transaction that this observer was tracking.
    *
-   * This list should contain no duplicates.
+   * <p>This list should contain no duplicates.</p>
    */
   @Nonnull
-  private List<ObservableValue<?>> _dependencies = new ArrayList<>();
+  private FastList<ObservableValue<?>> _dependencies = new FastList<>();
+  /**
+   * The list of hooks that this observer that will be invoked when it deactivates or
+   * has already been invoked as part of the register/activate process.
+   * These correspond to the hooks that were registered in the last
+   * transaction that this observer was tracking.
+   */
+  @Nonnull
+  private Map<String, Hook> _hooks = new LinkedHashMap<>();
   /**
    * Observe function to invoke if any.
    * This may be null if external executor is responsible for executing the observe function via
@@ -482,19 +489,17 @@ public final class Observer
       {
         if ( isComputableValue() )
         {
-          final ComputableValue<?> computableValue = getComputableValue();
-          runHook( computableValue.getOnDeactivate(), ObserverError.ON_DEACTIVATE_ERROR );
-          computableValue.completeDeactivate();
+          getComputableValue().completeDeactivate();
         }
+        final Map<String, Hook> hooks = getHooks();
+        hooks
+          .values()
+          .stream()
+          .map( Hook::getOnDeactivate )
+          .filter( Objects::nonNull )
+          .forEach( hook -> runHook( hook, ObserverError.ON_DEACTIVATE_ERROR ) );
+        hooks.clear();
         clearDependencies();
-      }
-      else if ( Flags.STATE_INACTIVE == originalState &&
-                ( ( Flags.STATE_DISPOSED | Flags.STATE_DISPOSING ) & state ) == 0 )
-      {
-        if ( isComputableValue() )
-        {
-          runHook( getComputableValue().getOnActivate(), ObserverError.ON_ACTIVATE_ERROR );
-        }
       }
       if ( Arez.shouldCheckInvariants() )
       {
@@ -600,10 +605,10 @@ public final class Observer
   {
     if ( isNotDisposed() )
     {
-      final long start;
+      final long startedAt;
       if ( willPropagateSpyEvents() )
       {
-        start = System.currentTimeMillis();
+        startedAt = System.currentTimeMillis();
         if ( isComputableValue() )
         {
           reportSpyEvent( new ComputeStartEvent( getComputableValue().asInfo() ) );
@@ -615,7 +620,7 @@ public final class Observer
       }
       else
       {
-        start = 0;
+        startedAt = 0;
       }
       Throwable error = null;
       try
@@ -652,20 +657,22 @@ public final class Observer
         error = t;
         getContext().reportObserverError( this, ObserverError.REACTION_ERROR, t );
       }
-      if ( willPropagateSpyEvents() )
+      // start == 0 implies that spy events were enabled as part of observer, and thus we can skip this
+      // chain of events
+      if ( willPropagateSpyEvents() && 0 != startedAt )
       {
-        final long duration = System.currentTimeMillis() - start;
+        final int duration = Math.max( 0, (int) ( System.currentTimeMillis() - startedAt ) );
         if ( isComputableValue() )
         {
           final ComputableValue<?> computableValue = getComputableValue();
           reportSpyEvent( new ComputeCompleteEvent( computableValue.asInfo(),
                                                     noReportResults() ? null : computableValue.getValue(),
                                                     computableValue.getError(),
-                                                    (int) duration ) );
+                                                    duration ) );
         }
         else
         {
-          reportSpyEvent( new ObserveCompleteEvent( asInfo(), error, (int) duration ) );
+          reportSpyEvent( new ObserveCompleteEvent( asInfo(), error, duration ) );
         }
       }
     }
@@ -682,7 +689,7 @@ public final class Observer
         _observe.call();
         final Transaction current = Transaction.current();
 
-        final List<ObservableValue<?>> observableValues = current.getObservableValues();
+        final FastList<ObservableValue<?>> observableValues = current.getObservableValues();
         invariant( () -> Objects.requireNonNull( current.getTracker() ).isDisposing() ||
                          ( null != observableValues && !observableValues.isEmpty() ),
                    () -> "Arez-0172: Observer named '" + getName() + "' that does not use an external executor " +
@@ -703,8 +710,11 @@ public final class Observer
    */
   void markDependenciesLeastStaleObserverAsUpToDate()
   {
-    for ( final ObservableValue<?> dependency : getDependencies() )
+    final FastList<ObservableValue<?>> dependencies = getDependencies();
+    for ( int i = 0, end = dependencies.size(); i < end; ++i )
     {
+      final ObservableValue<?> dependency = dependencies.get( i );
+      assert null != dependency;
       dependency.setLeastStaleObserverState( Flags.STATE_UP_TO_DATE );
     }
   }
@@ -735,8 +745,11 @@ public final class Observer
         return true;
       case Flags.STATE_POSSIBLY_STALE:
       {
-        for ( final ObservableValue<?> observableValue : getDependencies() )
+        final FastList<ObservableValue<?>> dependencies = getDependencies();
+        for ( int i = 0, end = dependencies.size(); i < end; ++i )
         {
+          final ObservableValue<?> observableValue = dependencies.get( i );
+          assert null != observableValue;
           if ( observableValue.isComputableValue() )
           {
             final Observer owner = observableValue.getObserver();
@@ -772,12 +785,33 @@ public final class Observer
   }
 
   /**
+   * Return the hooks.
+   *
+   * @return the hooks.
+   */
+  @Nonnull
+  Map<String, Hook> getHooks()
+  {
+    return _hooks;
+  }
+
+  /**
+   * Replace the current set of hooks with the supplied hooks.
+   *
+   * @param hooks the new set of hooks.
+   */
+  void replaceHooks( @Nonnull final Map<String, Hook> hooks )
+  {
+    _hooks = Objects.requireNonNull( hooks );
+  }
+
+  /**
    * Return the dependencies.
    *
    * @return the dependencies.
    */
   @Nonnull
-  List<ObservableValue<?>> getDependencies()
+  FastList<ObservableValue<?>> getDependencies()
   {
     return _dependencies;
   }
@@ -788,7 +822,7 @@ public final class Observer
    *
    * @param dependencies the new set of dependencies.
    */
-  void replaceDependencies( @Nonnull final List<ObservableValue<?>> dependencies )
+  void replaceDependencies( @Nonnull final FastList<ObservableValue<?>> dependencies )
   {
     if ( Arez.shouldCheckInvariants() )
     {
@@ -811,9 +845,9 @@ public final class Observer
    */
   void invariantDependenciesUnique( @Nonnull final String context )
   {
-    if ( Arez.shouldCheckInvariants() )
+    if ( Arez.shouldCheckExpensiveInvariants() )
     {
-      invariant( () -> getDependencies().size() == new HashSet<>( getDependencies() ).size(),
+      invariant( () -> getDependencies().size() == getDependencies().stream().collect( Collectors.toSet() ).size(),
                  () -> "Arez-0089: " + context + ": The set of dependencies in observer named '" +
                        getName() + "' is not unique. Current list: '" +
                        getDependencies().stream().map( Node::getName ).collect( Collectors.toList() ) + "'." );
@@ -828,7 +862,7 @@ public final class Observer
    */
   void invariantDependenciesBackLink( @Nonnull final String context )
   {
-    if ( Arez.shouldCheckInvariants() )
+    if ( Arez.shouldCheckExpensiveInvariants() )
     {
       getDependencies().forEach( observable ->
                                    invariant( () -> observable.getObservers().contains( this ),
@@ -845,7 +879,7 @@ public final class Observer
    */
   void invariantDependenciesNotDisposed()
   {
-    if ( Arez.shouldCheckInvariants() )
+    if ( Arez.shouldCheckExpensiveInvariants() )
     {
       getDependencies().forEach( observable ->
                                    invariant( observable::isNotDisposed,
@@ -1254,6 +1288,7 @@ public final class Observer
     static String getStateName( final int state )
     {
       assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
+      //noinspection EnhancedSwitchMigration
       switch ( state )
       {
         case STATE_DISPOSED:

@@ -1,6 +1,8 @@
 package arez.annotations;
 
 import arez.ComputableValue;
+import arez.EqualityComparator;
+import arez.ObjectsEqualsComparator;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
@@ -47,7 +49,7 @@ public @interface Memoize
    * If the method has parameters then the name will be used in combination with a sequence
    * when naming the synthesized {@link ComputableValue} instances. The value must conform to
    * the requirements of a java identifier. The name must also be unique across {@link Observable}s,
-   * {@link Memoize}s and {@link Action}s within the scope of the {@link ArezComponent} annotated element.
+   * {@code Memoize}s and {@link Action}s within the scope of the {@link ArezComponent} annotated element.
    *
    * @return the root name of the element relative to the component.
    */
@@ -66,7 +68,7 @@ public @interface Memoize
   boolean keepAlive() default false;
 
   /**
-   * The priority of the underlying ComputableValue observer
+   * The priority of the underlying ComputableValue observer.
    *
    * @return the priority of the ComputableValue observer.
    */
@@ -115,4 +117,13 @@ public @interface Memoize
    * @return flag that determines whether the memoized value allows reads outside a transaction, false to require a transaction to read the memoized value.
    */
   Feature readOutsideTransaction() default Feature.AUTODETECT;
+
+  /**
+   * Return the strategy used to compare computed values when deciding whether to
+   * propagate a change.
+   *
+   * @return the comparator type used when checking whether values are equal.
+   */
+  @Nonnull
+  Class<? extends EqualityComparator> equalityComparator() default ObjectsEqualsComparator.class;
 }

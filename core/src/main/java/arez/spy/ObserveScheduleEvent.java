@@ -29,5 +29,6 @@ public final class ObserveScheduleEvent
   {
     map.put( "type", "ObserveSchedule" );
     map.put( "name", getObserver().getName() );
+    SpyEventUtil.maybeAddZone( map );
   }
 }

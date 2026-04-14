@@ -22,12 +22,15 @@ Buildr::ReleaseTool.define_release_task do |t|
     setup_filename = 'docs/project_setup.md'
     IO.write(setup_filename, IO.read(setup_filename).
       gsub("<version>#{ENV['PREVIOUS_PRODUCT_VERSION']}</version>", "<version>#{ENV['PRODUCT_VERSION']}</version>"))
+    persist_filename = 'persist/README.md'
+    IO.write(persist_filename, IO.read(persist_filename).
+      gsub("<version>#{ENV['PREVIOUS_PRODUCT_VERSION']}</version>", "<version>#{ENV['PRODUCT_VERSION']}</version>"))
     sh 'git reset 2>&1 1> /dev/null'
-    sh "git add #{setup_filename}"
+    sh "git add #{setup_filename} #{persist_filename}"
     # Zapwhite only runs against files added to git so we have to do this dance after adding files
     `bundle exec zapwhite`
     sh 'git reset 2>&1 1> /dev/null'
-    sh "git add #{setup_filename}"
+    sh "git add #{setup_filename} #{persist_filename}"
     sh "git commit -m \"Update documentation to reflect the #{ENV['PRODUCT_VERSION']} release\""
   end
 
@@ -37,8 +40,13 @@ Buildr::ReleaseTool.define_release_task do |t|
   end
 
   t.tag_project
-  t.stage_release(:release_to => { :url => 'https://stocksoftware.jfrog.io/stocksoftware/staging', :username => ENV['STAGING_USERNAME'], :password => ENV['STAGING_PASSWORD'] })
-  t.maven_central_publish(:additional_tasks => 'arez:doc-examples:compile site:deploy')
+  t.stage('MavenCentralPublish', 'Publish archive to Maven Central') do
+    sh "bundle exec buildr upload_to_maven_central PRODUCT_VERSION=#{ENV['PRODUCT_VERSION']}#{ENV['TEST'].nil? ? '' : " TEST=#{ENV['TEST']}"}#{Buildr.application.options.trace ? ' --trace' : ''}"
+  end
+  t.stage('DeploySite', 'Deploy the website') do
+    task('arez:doc-examples:compile').invoke
+    task('site:deploy').invoke
+  end
   t.patch_changelog_post_release
   t.stage('PatchStatisticsPostRelease', 'Copy the statistics forward to prepare for next development iteration') do
     filename = 'downstream-test/src/test/resources/fixtures/statistics.properties'
@@ -55,7 +63,9 @@ Buildr::ReleaseTool.define_release_task do |t|
     IO.write(filename, lines.sort.uniq.join("\n") + "\n")
 
     sh "git add #{filename}"
-    sh 'git commit -m "Update statistics in preparation for next development iteration"'
+    if `git status --porcelain`.strip != ''
+      sh 'git commit -m "Update statistics in preparation for next development iteration"'
+    end
   end
 
   t.push_changes
@@ -63,8 +73,8 @@ Buildr::ReleaseTool.define_release_task do |t|
   t.stage('PushDownstreamChanges', 'Push downstream changes') do
     unless ENV['DOWNSTREAM'] == 'no'
       # Push the changes that have been made locally in downstream projects.
-      # Artifacts have been pushed to staging repository by this time so they should build
-      # even if it has not made it through the Maven release process
+      # We should really wait here until the maven central artifact is available
+      # and has made it through the Maven release process.
 
       DOWNSTREAM_EXAMPLES.each_pair do |downstream_example, branches|
         sh "cd archive/downstream/#{downstream_example} && git push --all"
@@ -73,15 +83,6 @@ Buildr::ReleaseTool.define_release_task do |t|
           `cd archive/downstream/#{downstream_example} && git push origin :#{full_branch} 2>&1`
           puts "Completed remote branch #{downstream_example}/#{full_branch}. Removed." if 0 == $?.exitstatus
         end
-      end
-
-      DOWNSTREAM_PROJECTS.each do |downstream|
-        # Need to extract the version from that project
-        downstream_version = IO.read("archive/downstream/#{downstream}/CHANGELOG.md")[/^### \[v(\d+\.\d+)\]/, 1]
-        sh "cd archive/downstream/#{downstream} && bundle exec buildr perform_release STAGE=StageRelease PREVIOUS_PRODUCT_VERSION= PRODUCT_VERSION=#{downstream_version}#{Buildr.application.options.trace ? ' --trace' : ''}"
-        full_branch = "master-ArezUpgrade-#{ENV['PRODUCT_VERSION']}"
-        `cd archive/downstream/#{downstream} && git push origin :#{full_branch} 2>&1`
-        puts "Completed remote branch #{downstream}/#{full_branch}. Removed." if 0 == $?.exitstatus
       end
 
       FileUtils.rm_rf 'archive'

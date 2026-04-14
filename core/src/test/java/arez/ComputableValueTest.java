@@ -11,6 +11,7 @@ import arez.spy.ObserveScheduleEvent;
 import arez.spy.Priority;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -26,11 +27,8 @@ public final class ComputableValueTest
     final ArezContext context = Arez.context();
     final String name = ValueUtil.randomString();
     final SafeFunction<String> function = () -> "";
-    final Procedure onActivate = new NoopProcedure();
-    final Procedure onDeactivate = new NoopProcedure();
 
-    final ComputableValue<String> computableValue =
-      context.computable( name, function, onActivate, onDeactivate );
+    final ComputableValue<String> computableValue = context.computable( name, function );
 
     assertEquals( computableValue.getName(), name );
     assertEquals( computableValue.getContext(), context );
@@ -40,9 +38,6 @@ public final class ComputableValueTest
 
     // Value starts out as null
     assertNull( computableValue.getValue() );
-
-    assertEquals( computableValue.getOnActivate(), onActivate );
-    assertEquals( computableValue.getOnDeactivate(), onDeactivate );
 
     // Verify the linking of all child elements
     assertEquals( computableValue.getObserver().getName(), name );
@@ -192,8 +187,12 @@ public final class ComputableValueTest
     final AtomicReference<String> value = new AtomicReference<>();
     final String value1 = ValueUtil.randomString();
     final String value2 = ValueUtil.randomString();
+    final NoopProcedure onDeactivateHook1 = new NoopProcedure();
+    final NoopProcedure onDeactivateHook2 = new NoopProcedure();
     final SafeFunction<String> function = () -> {
       observeADependency();
+      Arez.context().registerHook( "1", null, onDeactivateHook1 );
+      Arez.context().registerHook( "2", null, onDeactivateHook2 );
       return value.get();
     };
     final ComputableValue<String> computableValue = context.computable( name, function );
@@ -212,11 +211,25 @@ public final class ComputableValueTest
     value.set( value2 );
 
     setCurrentTransaction( computableValue.getObserver() );
+
+    assertNull( Transaction.current().getHooks() );
+    assertEquals( computableValue.getObserver().getHooks().size(), 0 );
+
     computableValue.compute();
 
     assertEquals( computableValue.getValue(), value2 );
     assertNull( computableValue.getError() );
     assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
+
+    // The hooks should have been registered with the transaction
+    final Map<String, Hook> hooks = Transaction.current().getHooks();
+    assertNotNull( hooks );
+    assertEquals( hooks.size(), 2 );
+    assertTrue( hooks.values().stream().anyMatch( e -> e.getOnDeactivate() == onDeactivateHook1 ) );
+    assertTrue( hooks.values().stream().anyMatch( e -> e.getOnDeactivate() == onDeactivateHook2 ) );
+
+    // The hooks will not be updated until transaction completes
+    assertEquals( computableValue.getObserver().getHooks().size(), 0 );
   }
 
   @Test
@@ -278,6 +291,76 @@ public final class ComputableValueTest
     computableValue.getObservableValue().setLeastStaleObserverState( Observer.Flags.STATE_POSSIBLY_STALE );
 
     value.set( value1 );
+    computableValue.setValue( value1 );
+
+    setCurrentTransaction( computableValue.getObserver() );
+
+    computableValue.compute();
+
+    assertEquals( computableValue.getValue(), value1 );
+    // Verify state does not change
+    assertEquals( observer.getState(), Observer.Flags.STATE_POSSIBLY_STALE );
+  }
+
+  @Test
+  public void compute_whereValueDeepMatches_withComparator()
+  {
+    final ArezContext context = Arez.context();
+    final AtomicReference<int[]> value = new AtomicReference<>();
+    final int[] value1 = new int[]{ 1, 2, 3 };
+    final SafeFunction<int[]> function = () -> {
+      observeADependency();
+      return value.get();
+    };
+    final ComputableValue<int[]> computableValue =
+      context.computable( null, null, function, 0, new ObjectsDeepEqualsComparator() );
+
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
+
+    setCurrentTransaction( computableValue.getObserver() );
+
+    observer.setState( Observer.Flags.STATE_POSSIBLY_STALE );
+    computableValue.getObservableValue().rawAddObserver( observer );
+    observer.getDependencies().add( computableValue.getObservableValue() );
+
+    computableValue.getObservableValue().setLeastStaleObserverState( Observer.Flags.STATE_POSSIBLY_STALE );
+
+    value.set( new int[]{ 1, 2, 3 } );
+    computableValue.setValue( value1 );
+
+    setCurrentTransaction( computableValue.getObserver() );
+
+    computableValue.compute();
+
+    assertSame( computableValue.getValue(), value1 );
+    // Verify state does not change
+    assertEquals( observer.getState(), Observer.Flags.STATE_POSSIBLY_STALE );
+  }
+
+  @Test
+  public void compute_whereValueMatches_customComparator()
+  {
+    final ArezContext context = Arez.context();
+    final AtomicReference<String> value = new AtomicReference<>();
+    final String value1 = ValueUtil.randomString();
+    final SafeFunction<String> function = () -> {
+      observeADependency();
+      return value.get();
+    };
+    final ComputableValue<String> computableValue =
+      context.computable( null, null, function, 0, ( oldValue, newValue ) -> true );
+
+    final Observer observer = context.observer( new CountAndObserveProcedure() );
+
+    setCurrentTransaction( computableValue.getObserver() );
+
+    observer.setState( Observer.Flags.STATE_POSSIBLY_STALE );
+    computableValue.getObservableValue().rawAddObserver( observer );
+    observer.getDependencies().add( computableValue.getObservableValue() );
+
+    computableValue.getObservableValue().setLeastStaleObserverState( Observer.Flags.STATE_POSSIBLY_STALE );
+
+    value.set( ValueUtil.randomString() );
     computableValue.setValue( value1 );
 
     setCurrentTransaction( computableValue.getObserver() );
@@ -1041,7 +1124,7 @@ public final class ComputableValueTest
     value.set( 2 );
 
     context.safeAction( computable1::reportPossiblyChanged );
-    handler.assertEventCount( 15 );
+    handler.assertEventCount( 17 );
 
     handler.assertNextEvent( ActionStartEvent.class );
     handler.assertNextEvent( TransactionStartEvent.class );
@@ -1055,15 +1138,19 @@ public final class ComputableValueTest
     handler.assertNextEvent( ComputeStartEvent.class,
                              e -> assertEquals( e.getComputableValue().getName(), computable2.getName() ) );
     handler.assertNextEvent( TransactionStartEvent.class, e -> assertEquals( e.getName(), computable2.getName() ) );
-    handler.assertNextEvent( TransactionCompleteEvent.class, e -> assertEquals( e.getName(), computable2.getName() ) );
-    handler.assertNextEvent( ComputeCompleteEvent.class,
-                             e -> assertEquals( e.getComputableValue().getName(), computable2.getName() ) );
     handler.assertNextEvent( ComputeStartEvent.class,
                              e -> assertEquals( e.getComputableValue().getName(), computable1.getName() ) );
     handler.assertNextEvent( TransactionStartEvent.class, e -> assertEquals( e.getName(), computable1.getName() ) );
     handler.assertNextEvent( ObservableValueChangeEvent.class,
                              e -> assertEquals( e.getObservableValue().getName(), computable1.getName() ) );
     handler.assertNextEvent( TransactionCompleteEvent.class, e -> assertEquals( e.getName(), computable1.getName() ) );
+    handler.assertNextEvent( ComputeCompleteEvent.class,
+                             e -> assertEquals( e.getComputableValue().getName(), computable1.getName() ) );
+    handler.assertNextEvent( TransactionCompleteEvent.class, e -> assertEquals( e.getName(), computable2.getName() ) );
+    handler.assertNextEvent( ComputeCompleteEvent.class,
+                             e -> assertEquals( e.getComputableValue().getName(), computable2.getName() ) );
+    handler.assertNextEvent( ComputeStartEvent.class,
+                             e -> assertEquals( e.getComputableValue().getName(), computable1.getName() ) );
     handler.assertNextEvent( ComputeCompleteEvent.class,
                              e -> assertEquals( e.getComputableValue().getName(), computable1.getName() ) );
   }

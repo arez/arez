@@ -44,5 +44,6 @@ public final class ObservableValueChangeEvent
     {
       map.put( "value", getValue() );
     }
+    SpyEventUtil.maybeAddZone( map );
   }
 }

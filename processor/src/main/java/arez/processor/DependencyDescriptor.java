@@ -49,6 +49,16 @@ final class DependencyDescriptor
     return _component;
   }
 
+  boolean needsKey()
+  {
+    return _component.getDependencies().size() > 1 && hasNoObservable();
+  }
+
+  String getKeyName()
+  {
+    return getElement().getSimpleName().toString();
+  }
+
   boolean shouldCascadeDispose()
   {
     return _cascade;
@@ -85,7 +95,7 @@ final class DependencyDescriptor
     _observable.setDependencyDescriptor( this );
   }
 
-  private boolean hasNoObservable()
+  boolean hasNoObservable()
   {
     return null == _observable;
   }

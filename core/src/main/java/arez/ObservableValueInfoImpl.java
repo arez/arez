@@ -69,7 +69,10 @@ final class ObservableValueInfoImpl
   @Override
   public List<ObserverInfo> getObservers()
   {
-    return ObserverInfoImpl.asUnmodifiableInfos( _observableValue.getObservers() );
+    return ObserverInfoImpl.asUnmodifiableInfos( _observableValue
+                                                   .getObservers()
+                                                   .stream()
+                                                   .collect( Collectors.toList() ) );
   }
 
   @Nullable

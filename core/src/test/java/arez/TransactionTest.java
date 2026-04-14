@@ -206,7 +206,6 @@ public final class TransactionTest
     derivation.setState( Observer.Flags.STATE_UP_TO_DATE );
     final ObservableValue<?> observableValue2 = derivation.getComputableValue().getObservableValue();
 
-    observableValue2.markAsPendingDeactivation();
     transaction.queueForDeactivation( observableValue2 );
 
     assertNotNull( transaction.getPendingDeactivations() );
@@ -215,7 +214,7 @@ public final class TransactionTest
     assertTrue( observableValue2.isPendingDeactivation() );
 
     transaction.safeGetObservables().add( observableValue1 );
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.commit();
 
@@ -308,7 +307,7 @@ public final class TransactionTest
     assertEquals( observableValue.getObservers().size(), 0 );
     assertNull( transaction.getObservableValues() );
     assertNotEquals( transaction.getId(), observableValue.getLastTrackerTransactionId() );
-    assertFalse( transaction.hasTransactionUseOccured() );
+    assertFalse( transaction.hasTransactionUseOccurred() );
 
     transaction.observe( observableValue );
 
@@ -319,7 +318,54 @@ public final class TransactionTest
 
     assertTrue( transaction.getObservableValues().contains( observableValue ) );
     assertEquals( transaction.getObservableValues().size(), 1 );
-    assertTrue( transaction.hasTransactionUseOccured() );
+    assertTrue( transaction.hasTransactionUseOccurred() );
+  }
+
+  @Test
+  public void registerOnDeactivationHook()
+  {
+    final ArezContext context = Arez.context();
+    final Observer tracker = context.computable( () -> "" ).getObserver();
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, tracker, false );
+    Transaction.setTransaction( transaction );
+
+    transaction.beginTracking();
+
+    assertEquals( tracker.getHooks().size(), 0 );
+    assertNull( transaction.getHooks() );
+    assertFalse( transaction.hasTransactionUseOccurred() );
+
+    final String key = ValueUtil.randomString();
+    transaction.registerHook( key, new NoopProcedure(), new NoopProcedure() );
+
+    assertNotNull( transaction.getHooks() );
+    assertEquals( transaction.getHooks().size(), 1 );
+    assertTrue( transaction.getHooks().containsKey( key ) );
+
+    assertEquals( tracker.getHooks().size(), 0 );
+
+    transaction.completeTracking();
+
+    assertEquals( tracker.getHooks().size(), 1 );
+    assertTrue( transaction.getHooks().containsKey( key ) );
+  }
+
+  @Test
+  public void registerOnDeactivationHook_outsideTrackingTransaction()
+  {
+    final ArezContext context = Arez.context();
+    final Transaction transaction = new Transaction( context, null, ValueUtil.randomString(), false, null, false );
+    Transaction.setTransaction( transaction );
+
+    transaction.beginTracking();
+
+    assertNull( transaction.getHooks() );
+    assertFalse( transaction.hasTransactionUseOccurred() );
+
+    assertInvariantFailure( () -> transaction.registerHook( ValueUtil.randomString(),
+                                                            new NoopProcedure(),
+                                                            new NoopProcedure() ),
+                            "Arez-0045: registerHook() invoked outside of a tracking transaction." );
   }
 
   @Test
@@ -436,7 +482,7 @@ public final class TransactionTest
     // Two instances of same observableValue is expected as the LastTrackerTransactionId
     // failed to match causing duplicate to be added. This would normally be cleaned
     // up at later time in process during completeTracking()
-    assertEquals( transaction.getObservableValues().size(), 2 );
+    assertEquals( transaction.getObservableValues().size(), 1 );
   }
 
   @Test
@@ -454,7 +500,7 @@ public final class TransactionTest
 
     assertNull( transaction.getObservableValues() );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -530,12 +576,12 @@ public final class TransactionTest
     transaction.safeGetObservables().add( observableValue1 );
     transaction.safeGetObservables().add( observableValue3 );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_DISPOSED );
-    final List<ObservableValue<?>> dependencies1 = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies1 = tracker.getDependencies();
     assertTrue( dependencies1 != dependencies );
     assertEquals( tracker.getDependencies().size(), 0 );
     assertEquals( observableValue1.getWorkState(), ObservableValue.NOT_IN_CURRENT_TRACKING );
@@ -567,7 +613,7 @@ public final class TransactionTest
     observableValue.getObservers().add( observer2 );
     observableValue.setLeastStaleObserverState( observer2.getState() );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.observe( observableValue );
 
@@ -599,7 +645,7 @@ public final class TransactionTest
     tracker.getDependencies().add( observableValue1 );
     observableValue1.getObservers().add( tracker );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -627,7 +673,7 @@ public final class TransactionTest
 
     transaction.safeGetObservables().add( observableValue );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -661,7 +707,7 @@ public final class TransactionTest
     transaction.safeGetObservables().add( observableValue3 );
     transaction.safeGetObservables().add( observableValue4 );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -695,7 +741,7 @@ public final class TransactionTest
     transaction.safeGetObservables().add( observableValue );
     transaction.safeGetObservables().add( observableValue );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -730,7 +776,7 @@ public final class TransactionTest
     transaction.safeGetObservables().add( observableValue2 );
     transaction.safeGetObservables().add( observableValue1 );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -768,7 +814,7 @@ public final class TransactionTest
     transaction.safeGetObservables().add( observableValue1 );
     transaction.safeGetObservables().add( observableValue2 );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -811,7 +857,7 @@ public final class TransactionTest
     transaction.safeGetObservables().add( observableValue1 );
     transaction.safeGetObservables().add( observableValue3 );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -846,7 +892,7 @@ public final class TransactionTest
     observableValue.getObservers().add( tracker );
     transaction.safeGetObservables().add( observableValue );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     transaction.completeTracking();
 
@@ -879,7 +925,7 @@ public final class TransactionTest
     observableValue.getObservers().add( tracker );
     transaction.safeGetObservables().add( observableValue );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_UP_TO_DATE );
 
@@ -958,7 +1004,7 @@ public final class TransactionTest
     tracker.getDependencies().add( observableValue );
     observableValue.getObservers().add( tracker );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_UP_TO_DATE );
 
@@ -995,7 +1041,7 @@ public final class TransactionTest
     tracker.getDependencies().add( observableValue );
     observableValue.getObservers().add( tracker );
 
-    final List<ObservableValue<?>> dependencies = tracker.getDependencies();
+    final FastList<ObservableValue<?>> dependencies = tracker.getDependencies();
 
     assertEquals( tracker.getState(), Observer.Flags.STATE_UP_TO_DATE );
 
@@ -1084,9 +1130,9 @@ public final class TransactionTest
     transaction.queueForDeactivation( observableValue );
 
     assertInvariantFailure( () -> transaction.queueForDeactivation( observableValue ),
-                            "Arez-0141: Invoked queueForDeactivation on transaction named '" +
+                            "Arez-0157: Invoked queueForDeactivation on transaction named '" +
                             transaction.getName() + "' for observableValue named '" + observableValue.getName() +
-                            "' when pending deactivation already exists for observableValue." );
+                            "' when observableValue is already pending deactivation." );
   }
 
   @Test
@@ -1120,7 +1166,6 @@ public final class TransactionTest
     derivation.setState( Observer.Flags.STATE_UP_TO_DATE );
     final ObservableValue<?> observableValue = derivation.getComputableValue().getObservableValue();
 
-    observableValue.markAsPendingDeactivation();
     transaction.queueForDeactivation( observableValue );
 
     assertNotNull( transaction.getPendingDeactivations() );
@@ -1168,7 +1213,6 @@ public final class TransactionTest
     derivation.setState( Observer.Flags.STATE_UP_TO_DATE );
     final ObservableValue<?> observableValue = derivation.getComputableValue().getObservableValue();
 
-    observableValue.markAsPendingDeactivation();
     transaction.queueForDeactivation( observableValue );
     otherObserver.getDependencies().add( observableValue );
     observableValue.rawAddObserver( otherObserver );
@@ -1203,7 +1247,6 @@ public final class TransactionTest
     derivation.setState( Observer.Flags.STATE_UP_TO_DATE );
     final ObservableValue<?> observableValue = derivation.getComputableValue().getObservableValue();
 
-    observableValue.markAsPendingDeactivation();
     transaction.queueForDeactivation( observableValue );
     otherObserver.getDependencies().add( observableValue );
     observableValue.rawAddObserver( otherObserver );
@@ -1245,7 +1288,6 @@ public final class TransactionTest
 
     final ObservableValue<?> observableValue3 = derivation2.getComputableValue().getObservableValue();
 
-    observableValue3.markAsPendingDeactivation();
     transaction.queueForDeactivation( observableValue3 );
 
     assertNotNull( transaction.getPendingDeactivations() );
@@ -1292,7 +1334,6 @@ public final class TransactionTest
 
     final ObservableValue<?> derivedObservableValue = derivation.getComputableValue().getObservableValue();
 
-    derivedObservableValue.markAsPendingDeactivation();
     transaction.queueForDeactivation( derivedObservableValue );
 
     assertNotNull( transaction.getPendingDeactivations() );
@@ -1411,12 +1452,12 @@ public final class TransactionTest
     final ObservableValue<?> observableValue = context.observable();
 
     assertEquals( observableValue.getLeastStaleObserverState(), Observer.Flags.STATE_UP_TO_DATE );
-    assertFalse( transaction.hasTransactionUseOccured() );
+    assertFalse( transaction.hasTransactionUseOccurred() );
 
     transaction.reportChanged( observableValue );
 
     assertEquals( observableValue.getLeastStaleObserverState(), Observer.Flags.STATE_UP_TO_DATE );
-    assertTrue( transaction.hasTransactionUseOccured() );
+    assertTrue( transaction.hasTransactionUseOccurred() );
   }
 
   @Test
@@ -1437,14 +1478,14 @@ public final class TransactionTest
 
     assertEquals( observableValue.getLeastStaleObserverState(), Observer.Flags.STATE_UP_TO_DATE );
     assertEquals( observer.getState(), Observer.Flags.STATE_UP_TO_DATE );
-    assertFalse( transaction.hasTransactionUseOccured() );
+    assertFalse( transaction.hasTransactionUseOccurred() );
 
     Transaction.setTransaction( transaction );
     transaction.reportChanged( observableValue );
 
     assertEquals( observableValue.getLeastStaleObserverState(), Observer.Flags.STATE_STALE );
     assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
-    assertTrue( transaction.hasTransactionUseOccured() );
+    assertTrue( transaction.hasTransactionUseOccurred() );
   }
 
   @Test

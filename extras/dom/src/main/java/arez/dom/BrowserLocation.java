@@ -48,7 +48,7 @@ public abstract class BrowserLocation
   @Nonnull
   private String _targetLocation;
   /**
-   * Should we prevent the default action associated with hash change?
+   * Should we prevent the default action associated with hash change.
    */
   private boolean _preventDefault = true;
 
@@ -189,7 +189,7 @@ public abstract class BrowserLocation
   private void setHash( @Nonnull final String hash )
   {
     final Location location = WindowGlobal.location();
-    if ( 0 == hash.length() )
+    if ( hash.isEmpty() )
     {
       /*
        * This code is needed to remove the stray #.

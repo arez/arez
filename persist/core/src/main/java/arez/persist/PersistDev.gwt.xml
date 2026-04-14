@@ -1,0 +1,10 @@
+<module>
+  <inherits name='arez.persist.Persist'/>
+  <inherits name='org.realityforge.braincheck.BrainCheckDev'/>
+
+  <source path='ignored'/>
+
+  <set-property name='arez.persist.environment' value='development'/>
+
+  <set-property name='arez.persist.check_api_invariants' value='true'/>
+</module>

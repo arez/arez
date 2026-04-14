@@ -4,6 +4,7 @@ import akasha.Console;
 import akasha.core.JSON;
 import arez.Arez;
 import arez.spy.ActionCompleteEvent;
+import arez.spy.ActionSkippedEvent;
 import arez.spy.ActionStartEvent;
 import arez.spy.ComponentCreateCompleteEvent;
 import arez.spy.ComponentCreateStartEvent;
@@ -31,6 +32,7 @@ import arez.spy.TransactionStartEvent;
 import arez.spytools.AbstractSpyEventProcessor;
 import arez.spytools.SpyUtil;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import jsinterop.base.Js;
 
 /**
@@ -103,6 +105,7 @@ public class ConsoleSpyEventProcessor
 
     on( ActionStartEvent.class, this::onActionStart );
     on( ActionCompleteEvent.class, this::onActionComplete );
+    on( ActionSkippedEvent.class, this::onActionSkipped );
 
     on( TaskStartEvent.class, this::onTaskStart );
     on( TaskCompleteEvent.class, this::onTaskComplete );
@@ -246,11 +249,17 @@ public class ConsoleSpyEventProcessor
   protected void onObservableValueChange( @Nonnull final SpyUtil.NestingDelta d,
                                           @Nonnull final ObservableValueChangeEvent e )
   {
-    Console.log( "%cObservable Changed " +
-                 e.getObservableValue().getName() +
-                 ( Arez.arePropertyIntrospectorsEnabled() ? " Value: %o " : null ),
-                 OBSERVABLE_COLOR,
-                 ( Arez.arePropertyIntrospectorsEnabled() ? e.getValue() : null ) );
+    if ( Arez.arePropertyIntrospectorsEnabled() )
+    {
+      log( SpyUtil.NestingDelta.NONE,
+           "%cObservable Changed " + e.getObservableValue().getName() + " Value: %o ",
+           OBSERVABLE_COLOR,
+           e.getValue() );
+    }
+    else
+    {
+      log( SpyUtil.NestingDelta.NONE, "%cObservable Changed " + e.getObservableValue().getName(), OBSERVABLE_COLOR );
+    }
   }
 
   /**
@@ -431,6 +440,20 @@ public class ConsoleSpyEventProcessor
   }
 
   /**
+   * Handle the ActionSkippedEvent.
+   *
+   * @param d the change in nesting level.
+   * @param e the event.
+   */
+  protected void onActionSkipped( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ActionSkippedEvent e )
+  {
+    final String message =
+      ( e.isTracked() ? "Tracked " : "" ) + "Action Skipped " + e.getName() +
+      parametersToString( e.getParameters() );
+    log( d, "%c" + message, ACTION_COLOR );
+  }
+
+  /**
    * Convert array of parameters into something consumable by a human.
    * Java objects use toString() while native javascript objects use <code>JSON.stringify()</code>.
    *
@@ -480,7 +503,7 @@ public class ConsoleSpyEventProcessor
   }
 
   /**
-   * Log specified message with parameters
+   * Log specified message with parameters.
    *
    * @param delta   the nesting delta.
    * @param message the message.
@@ -502,6 +525,35 @@ public class ConsoleSpyEventProcessor
     else
     {
       Console.log( message, styling );
+    }
+  }
+
+  /**
+   * Log specified message with parameters.
+   *
+   * @param delta   the nesting delta.
+   * @param message the message.
+   * @param styling the styling parameter. It is assumed that the message has a %c somewhere in it to identify the start of the styling.
+   * @param value   an arbitrary value parameter added to console log.
+   */
+  @SuppressWarnings( "SameParameterValue" )
+  protected void log( @Nonnull final SpyUtil.NestingDelta delta,
+                      @Nonnull final String message,
+                      @CssRules @Nonnull final String styling,
+                      @Nullable final Object value )
+  {
+    if ( SpyUtil.NestingDelta.INCREASE == delta )
+    {
+      Console.groupCollapsed( message, styling );
+    }
+    else if ( SpyUtil.NestingDelta.DECREASE == delta )
+    {
+      Console.log( message, styling );
+      Console.groupEnd();
+    }
+    else
+    {
+      Console.log( message, styling, value );
     }
   }
 

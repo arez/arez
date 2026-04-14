@@ -134,10 +134,14 @@ public final class ComponentKernel
   @Nullable
   private final ObservableValue<Boolean> _componentObservable;
   /**
+   * Flag that indicates whether {@link ArezComponent#disposeOnDeactivate()} is true for component.
+   */
+  private final boolean _disposeOnDeactivate;
+  /**
    * Mechanism for implementing {@link ArezComponent#disposeOnDeactivate()} on the component.
    */
   @Nullable
-  private final ComputableValue<Boolean> _disposeOnDeactivate;
+  private final ComputableValue<Boolean> _disposeOnDeactivateValue;
   /**
    * Guard to ensure we never try to schedule a dispose multiple times, otherwise the underlying task
    * system will detect multiple tasks with the same name and object.
@@ -184,7 +188,8 @@ public final class ComponentKernel
     _disposeCallback = Arez.areNativeComponentsEnabled() ? null : disposeCallback;
     _postDisposeCallback = Arez.areNativeComponentsEnabled() ? null : postDisposeCallback;
     _componentObservable = isComponentObservable ? createComponentObservable() : null;
-    _disposeOnDeactivate = disposeOnDeactivate ? createDisposeOnDeactivate() : null;
+    _disposeOnDeactivate = disposeOnDeactivate;
+    _disposeOnDeactivateValue = disposeOnDeactivate ? createDisposeOnDeactivate() : null;
   }
 
   @Nonnull
@@ -193,8 +198,6 @@ public final class ComponentKernel
     return getContext().computable( Arez.areNativeComponentsEnabled() ? getComponent() : null,
                                     Arez.areNamesEnabled() ? getName() + ".disposeOnDeactivate" : null,
                                     this::observe0,
-                                    null,
-                                    this::scheduleDispose,
                                     ComputableValue.Flags.PRIORITY_HIGHEST );
   }
 
@@ -232,13 +235,13 @@ public final class ComponentKernel
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
-      apiInvariant( () -> null != _disposeOnDeactivate || null != _componentObservable,
+      apiInvariant( () -> null != _disposeOnDeactivateValue || null != _componentObservable,
                     () -> "Arez-0221: ComponentKernel.observe() invoked on component named '" + getName() +
                           "' but observing is not enabled for component." );
     }
-    if ( null != _disposeOnDeactivate )
+    if ( null != _disposeOnDeactivateValue )
     {
-      return isNotDisposed() ? _disposeOnDeactivate.get() : false;
+      return isNotDisposed() ? _disposeOnDeactivateValue.get() : false;
     }
     else
     {
@@ -252,11 +255,16 @@ public final class ComponentKernel
   private boolean observe0()
   {
     assert null != _componentObservable;
+    if ( _disposeOnDeactivate )
+    {
+      getContext().registerHook( "$DOD$", null, this::scheduleDispose );
+    }
     final boolean isNotDisposed = isNotDisposed();
     if ( isNotDisposed )
     {
       _componentObservable.reportObserved();
     }
+
     return isNotDisposed;
   }
 
@@ -318,7 +326,7 @@ public final class ComponentKernel
     if ( !Arez.areNativeComponentsEnabled() )
     {
       Disposable.dispose( _componentObservable );
-      Disposable.dispose( _disposeOnDeactivate );
+      Disposable.dispose( _disposeOnDeactivateValue );
     }
   }
 
@@ -656,6 +664,12 @@ public final class ComponentKernel
     return _component;
   }
 
+  @Deprecated
+  public void addOnDisposeListener( @Nonnull final Object key, @Nonnull final SafeProcedure action )
+  {
+    addOnDisposeListener( key, action, true );
+  }
+
   /**
    * Add the listener to notify list under key.
    * This method MUST NOT be invoked after {@link #dispose()} has been invoked.
@@ -669,29 +683,36 @@ public final class ComponentKernel
    * @param key    the key to uniquely identify listener.
    * @param action the listener callback.
    */
-  public void addOnDisposeListener( @Nonnull final Object key, @Nonnull final SafeProcedure action )
+  public void addOnDisposeListener( @Nonnull final Object key, @Nonnull final SafeProcedure action, final boolean errorIfDuplicate )
   {
     assert null != _onDisposeListeners;
     if ( Arez.shouldCheckApiInvariants() )
     {
       invariant( this::isNotDisposed,
                  () -> "Arez-0170: Attempting to add OnDispose listener but ComponentKernel has been disposed." );
-      invariant( () -> !_onDisposeListeners.containsKey( key ),
+      invariant( () -> !errorIfDuplicate || !_onDisposeListeners.containsKey( key ),
                  () -> "Arez-0166: Attempting to add OnDispose listener with key '" + key +
                        "' but a listener with that key already exists." );
     }
     _onDisposeListeners.put( key, action );
   }
 
+  @Deprecated
+  public void removeOnDisposeListener( @Nonnull final Object key )
+  {
+    removeOnDisposeListener( key, true );
+  }
+
   /**
    * Remove the listener with specified key from the notify list.
    * This method should only be invoked when a listener has been added for specific key using
-   * {@link #addOnDisposeListener(Object, SafeProcedure)} and has not been removed by another
+   * {@link #addOnDisposeListener(Object, SafeProcedure, boolean)} and has not been removed by another
    * call to this method.
    *
    * @param key the key under which the listener was previously added.
+   * @param errorIfMissing generate an assertion error if no such key exists.
    */
-  public void removeOnDisposeListener( @Nonnull final Object key )
+  public void removeOnDisposeListener( @Nonnull final Object key, final boolean errorIfMissing )
   {
     assert null != _onDisposeListeners;
     // This method can be called when the notifier is disposed to avoid the caller (i.e. per-component
@@ -701,7 +722,7 @@ public final class ComponentKernel
     final SafeProcedure removed = _onDisposeListeners.remove( key );
     if ( Arez.shouldCheckApiInvariants() )
     {
-      invariant( () -> null != removed,
+      invariant( () -> !errorIfMissing || null != removed,
                  () -> "Arez-0167: Attempting to remove OnDispose listener with key '" + key +
                        "' but no such listener exists." );
     }

@@ -13,7 +13,6 @@ import grim.annotations.OmitSymbol;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnull;
@@ -30,13 +29,12 @@ import static org.realityforge.braincheck.Guards.*;
 public final class ArezContext
 {
   /**
-   * Id of next node to be created.
+   * ID of the next node to be created.
    * This is only used if {@link Arez#areNamesEnabled()} returns true but no name has been supplied.
    */
   private int _nextNodeId = 1;
   /**
-   * Id of next transaction to be created.
-   *
+   * ID of the next transaction to be created.
    * This needs to start at 1 as {@link ObservableValue#NOT_IN_CURRENT_TRACKING} is used
    * to optimize dependency tracking in transactions.
    */
@@ -183,7 +181,7 @@ public final class ArezContext
    *
    * @param type the component type.
    * @param id   the component id.
-   * @return true if component is defined in context.
+   * @return the created component.
    */
   @OmitSymbol( unless = "arez.enable_native_components" )
   @Nonnull
@@ -202,7 +200,7 @@ public final class ArezContext
    * @param type the component type.
    * @param id   the component id.
    * @param name the name of the component. Should be null if {@link Arez#areNamesEnabled()} returns false.
-   * @return true if component is defined in context.
+   * @return the created component.
    */
   @OmitSymbol( unless = "arez.enable_native_components" )
   @Nonnull
@@ -222,7 +220,7 @@ public final class ArezContext
    * @param id         the component id.
    * @param name       the name of the component. Should be null if {@link Arez#areNamesEnabled()} returns false.
    * @param preDispose the hook action called just before the Component is disposed. The hook method is called from within the dispose transaction.
-   * @return true if component is defined in context.
+   * @return the created component.
    */
   @OmitSymbol( unless = "arez.enable_native_components" )
   @Nonnull
@@ -246,7 +244,7 @@ public final class ArezContext
    * @param name        the name of the component. Should be null if {@link Arez#areNamesEnabled()} returns false.
    * @param preDispose  the hook action called just before the Component is disposed. The hook method is called from within the dispose transaction.
    * @param postDispose the hook action called just after the Component is disposed. The hook method is called from within the dispose transaction.
-   * @return true if component is defined in context.
+   * @return the created component.
    */
   @OmitSymbol( unless = "arez.enable_native_components" )
   @Nonnull
@@ -468,101 +466,37 @@ public final class ArezContext
    */
   @Nonnull
   public <T> ComputableValue<T> computable( @Nullable final Component component,
-                                            @Nullable final String name,
-                                            @Nonnull final SafeFunction<T> function,
-                                            @MagicConstant( flagsFromClass = ComputableValue.Flags.class ) final int flags )
+                                             @Nullable final String name,
+                                             @Nonnull final SafeFunction<T> function,
+                                             @MagicConstant( flagsFromClass = ComputableValue.Flags.class ) final int flags )
   {
-    return computable( component, name, function, null, null, flags );
+    return computable( component, name, function, flags, new ObjectsEqualsComparator() );
   }
 
   /**
    * Create a ComputableValue with specified parameters.
    *
-   * @param <T>          the type of the computable value.
-   * @param component    the component that contains the ComputableValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
-   * @param name         the name of the ComputableValue.
-   * @param function     the function that computes the value.
-   * @param onActivate   the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDeactivate the procedure to invoke when the ComputableValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
+   * @param <T>                the type of the computable value.
+   * @param component          the component that contains the ComputableValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
+   * @param name               the name of the ComputableValue.
+   * @param function           the function that computes the value.
+   * @param flags              the flags used to create the ComputableValue. The acceptable flags are defined in {@link ComputableValue.Flags}.
+   * @param equalityComparator strategy used to compare old and new computed values.
    * @return the ComputableValue instance.
    */
   @Nonnull
   public <T> ComputableValue<T> computable( @Nullable final Component component,
                                             @Nullable final String name,
                                             @Nonnull final SafeFunction<T> function,
-                                            @Nullable final Procedure onActivate,
-                                            @Nullable final Procedure onDeactivate )
-  {
-    return computable( component, name, function, onActivate, onDeactivate, 0 );
-  }
-
-  /**
-   * Create a ComputableValue with specified parameters.
-   *
-   * @param <T>          the type of the computable value.
-   * @param name         the name of the ComputableValue.
-   * @param function     the function that computes the value.
-   * @param onActivate   the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDeactivate the procedure to invoke when the ComputableValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @return the ComputableValue instance.
-   */
-  @Nonnull
-  public <T> ComputableValue<T> computable( @Nullable final String name,
-                                            @Nonnull final SafeFunction<T> function,
-                                            @Nullable final Procedure onActivate,
-                                            @Nullable final Procedure onDeactivate )
-  {
-    return computable( name, function, onActivate, onDeactivate, 0 );
-  }
-
-  /**
-   * Create a ComputableValue with specified parameters.
-   *
-   * @param <T>          the type of the computable value.
-   * @param name         the name of the ComputableValue.
-   * @param function     the function that computes the value.
-   * @param onActivate   the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDeactivate the procedure to invoke when the ComputableValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param flags        the flags used to create the ComputableValue. The acceptable flags are defined in {@link ComputableValue.Flags}.
-   * @return the ComputableValue instance.
-   */
-  @Nonnull
-  public <T> ComputableValue<T> computable( @Nullable final String name,
-                                            @Nonnull final SafeFunction<T> function,
-                                            @Nullable final Procedure onActivate,
-                                            @Nullable final Procedure onDeactivate,
-                                            @MagicConstant( flagsFromClass = ComputableValue.Flags.class ) final int flags )
-  {
-    return computable( null, name, function, onActivate, onDeactivate, flags );
-  }
-
-  /**
-   * Create a ComputableValue with specified parameters.
-   *
-   * @param <T>          the type of the computable value.
-   * @param component    the component that contains the ComputableValue if any. Must be null unless {@link Arez#areNativeComponentsEnabled()} returns true.
-   * @param name         the name of the ComputableValue.
-   * @param function     the function that computes the value.
-   * @param onActivate   the procedure to invoke when the ComputableValue changes from the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param onDeactivate the procedure to invoke when the ComputableValue changes to the INACTIVE state to any other state. This will be invoked when the transition occurs and will occur in the context of the transaction that made the change.
-   * @param flags        the flags used to create the ComputableValue. The acceptable flags are defined in {@link ComputableValue.Flags}.
-   * @return the ComputableValue instance.
-   */
-  @Nonnull
-  public <T> ComputableValue<T> computable( @Nullable final Component component,
-                                            @Nullable final String name,
-                                            @Nonnull final SafeFunction<T> function,
-                                            @Nullable final Procedure onActivate,
-                                            @Nullable final Procedure onDeactivate,
-                                            @MagicConstant( flagsFromClass = ComputableValue.Flags.class ) final int flags )
+                                            @MagicConstant( flagsFromClass = ComputableValue.Flags.class ) final int flags,
+                                            @Nonnull final EqualityComparator equalityComparator )
   {
     return new ComputableValue<>( Arez.areZonesEnabled() ? this : null,
                                   component,
                                   generateName( "ComputableValue", name ),
                                   function,
-                                  onActivate,
-                                  onDeactivate,
-                                  flags );
+                                  flags,
+                                  equalityComparator );
   }
 
   /**
@@ -869,7 +803,7 @@ public final class ArezContext
    * dependencies in the observe function are updated. Application code is responsible for executing the
    * observe function by invoking a observe method such as {@link #observe(Observer, Procedure)}.
    *
-   * @param component    the component containing the observer if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
+   * @param component    the component containing the observer, if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
    * @param name         the name of the observer.
    * @param onDepsChange the hook invoked when dependencies changed.
    * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Observer.Flags}.
@@ -899,7 +833,7 @@ public final class ArezContext
   /**
    * Create an ObservableValue with the specified name.
    *
-   * @param name the name of the ObservableValue. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
+   * @param name the name of the ObservableValue. Should be non-null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
    * @param <T>  the type of observable.
    * @return the new ObservableValue.
    */
@@ -912,7 +846,7 @@ public final class ArezContext
   /**
    * Create an ObservableValue.
    *
-   * @param name     the name of the observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
+   * @param name     the name of the observable. Should be non-null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
    * @param accessor the accessor for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
    * @param mutator  the mutator for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
    * @param <T>      the type of observable.
@@ -931,7 +865,7 @@ public final class ArezContext
    *
    * @param <T>       The type of the value that is observable.
    * @param component the component containing observable if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name      the name of the observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
+   * @param name      the name of the observable. Should be non-null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
    * @return the new ObservableValue.
    */
   @Nonnull
@@ -946,7 +880,7 @@ public final class ArezContext
    *
    * @param <T>       The type of the value that is observable.
    * @param component the component containing observable if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name      the name of the observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
+   * @param name      the name of the observable. Should be non-null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
    * @param accessor  the accessor for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
    * @return the new ObservableValue.
    */
@@ -963,7 +897,7 @@ public final class ArezContext
    *
    * @param <T>       The type of the value that is observable.
    * @param component the component containing observable if any. Should be null if {@link Arez#areNativeComponentsEnabled()} returns false.
-   * @param name      the name of the observable. Should be non null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
+   * @param name      the name of the observable. Should be non-null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
    * @param accessor  the accessor for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
    * @param mutator   the mutator for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
    * @return the new ObservableValue.
@@ -990,7 +924,7 @@ public final class ArezContext
 
   /**
    * Pass the supplied observer to the scheduler.
-   * The observer should NOT be already pending execution.
+   * The observer should NOT be pending execution.
    *
    * @param observer the reaction to schedule.
    */
@@ -1016,7 +950,7 @@ public final class ArezContext
 
   /**
    * Create and queue a task to be executed by the runtime.
-   * If the scheduler is not running then the scheduler will be triggered.
+   * If the scheduler is not running, then the scheduler will be triggered.
    *
    * @param work the representation of the task to execute.
    * @return the new task.
@@ -1029,7 +963,7 @@ public final class ArezContext
 
   /**
    * Create and queue a task to be executed by the runtime.
-   * If the scheduler is not running then the scheduler will be triggered.
+   * If the scheduler is not running, then the scheduler will be triggered.
    *
    * @param name the name of the task. Must be null if {@link Arez#areNamesEnabled()} returns <code>false</code>.
    * @param work the representation of the task to execute.
@@ -1038,7 +972,7 @@ public final class ArezContext
   @Nonnull
   public Task task( @Nullable final String name, @Nonnull final SafeProcedure work )
   {
-    return task( name, work, 0 );
+    return task( name, work, Task.Flags.STATE_IDLE );
   }
 
   /**
@@ -1047,7 +981,7 @@ public final class ArezContext
    * scheduler will be triggered.
    *
    * @param work  the representation of the task to execute.
-   * @param flags the flags to configure task. Valid flags include PRIORITY_* flags, DISPOSE_ON_COMPLETE and RUN_* flags.
+   * @param flags the flags to configure the task. Valid flags include PRIORITY_* flags, DISPOSE_ON_COMPLETE and RUN_* flags.
    * @return the new task.
    */
   @Nonnull
@@ -1100,13 +1034,32 @@ public final class ArezContext
   /**
    * Return true if there is a tracking transaction in progress.
    * A tracking transaction is one created by an {@link Observer} via the {@link #observer(Procedure)}
-   * or {@link #tracker(Procedure)} methods.
+   * or {@link #tracker(Procedure)} methods or a computable via the {@link #computable(SafeFunction)} function.
    *
    * @return true if there is a tracking transaction in progress.
    */
   public boolean isTrackingTransactionActive()
   {
     return Transaction.isTransactionActive( this ) && null != Transaction.current().getTracker();
+  }
+
+  /**
+   * Return true if there is a transaction in progress calculating a computable value.
+   * The transaction is one created for an {@link ComputableValue} via the {@link #computable(SafeFunction)} functions.
+   *
+   * @return true, if there is a transaction in progress calculating a computable value.
+   */
+  public boolean isComputableTransactionActive()
+  {
+    if ( !Transaction.isTransactionActive( this ) )
+    {
+      return false;
+    }
+    else
+    {
+      final Observer tracker = Transaction.current().getTracker();
+      return null != tracker && tracker.isComputableValue();
+    }
   }
 
   /**
@@ -1289,13 +1242,43 @@ public final class ArezContext
   }
 
   /**
+   * Register a hook for the current ComputedValue or Observer.
+   *
+   * <ul>
+   * <li>If a hook with the same key was registered in the previous transaction, then this is effectively a noop.</li>
+   * <li>If a new key is registered, then the OnActivate callback is invoked and the OnDeactivate callback will be
+   * invoked when the observer is deactivated.</li>
+   * <li>If the previous transaction had registered a hook and that hook is not registered in the current transaction,
+   * then the OnDeactivate of the hook will be invoked.</li>
+   * </ul>
+   *
+   * @param key          a unique string identifying the key.
+   * @param onActivate   a lambda that is invoked immediately if they key is not active.
+   * @param onDeactivate a lambda that is invoked when the hook deregisters, or the observer deactivates.
+   */
+  public void registerHook( @Nonnull final String key,
+                            @Nullable final Procedure onActivate,
+                            @Nullable final Procedure onDeactivate )
+  {
+    if ( Arez.shouldCheckInvariants() )
+    {
+      //noinspection ConstantValue
+      invariant( () -> null != key, () -> "Arez-0125: registerHook() invoked with a null key." );
+      invariant( () -> null != onActivate || null != onDeactivate,
+                 () -> "Arez-0124: registerHook() invoked with null onActivate and onDeactivate callbacks." );
+      invariant( this::isTransactionActive, () -> "Arez-0098: registerHook() invoked outside of a transaction." );
+    }
+    Transaction.current().registerHook( key, onActivate, onDeactivate );
+  }
+
+  /**
    * Execute the supplied executable in a transaction.
    * The executable may throw an exception.
    *
    * @param <T>        the type of return value.
    * @param executable the executable.
    * @return the value returned from the executable.
-   * @throws Exception if the executable throws an an exception.
+   * @throws Exception if the executable throws an exception.
    */
   public <T> T action( @Nonnull final Function<T> executable )
     throws Throwable
@@ -1311,7 +1294,7 @@ public final class ArezContext
    * @param executable the executable.
    * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
    * @return the value returned from the executable.
-   * @throws Exception if the executable throws an an exception.
+   * @throws Exception if the executable throws an exception.
    */
   public <T> T action( @Nonnull final Function<T> executable,
                        @MagicConstant( flagsFromClass = ActionFlags.class ) final int flags )
@@ -1328,7 +1311,7 @@ public final class ArezContext
    * @param name       the name of the action.
    * @param executable the executable.
    * @return the value returned from the executable.
-   * @throws Exception if the executable throws an an exception.
+   * @throws Exception if the executable throws an exception.
    */
   public <T> T action( @Nullable final String name,
                        @Nonnull final Function<T> executable )
@@ -1346,7 +1329,7 @@ public final class ArezContext
    * @param executable the executable.
    * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
    * @return the value returned from the executable.
-   * @throws Exception if the executable throws an an exception.
+   * @throws Exception if the executable throws an exception.
    */
   public <T> T action( @Nullable final String name,
                        @Nonnull final Function<T> executable,
@@ -1366,7 +1349,7 @@ public final class ArezContext
    * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @return the value returned from the executable.
-   * @throws Exception if the executable throws an an exception.
+   * @throws Exception if the executable throws an exception.
    */
   public <T> T action( @Nullable final String name,
                        @Nonnull final Function<T> executable,
@@ -1386,7 +1369,7 @@ public final class ArezContext
    * @param observer the Observer.
    * @param observe  the observe function.
    * @return the value returned from the observe function.
-   * @throws Exception if the observe function throws an an exception.
+   * @throws Exception if the observe function throws an exception.
    */
   public <T> T observe( @Nonnull final Observer observer, @Nonnull final Function<T> observe )
     throws Throwable
@@ -1404,7 +1387,7 @@ public final class ArezContext
    * @param observe    the observe function.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
    * @return the value returned from the observe function.
-   * @throws Exception if the observe function throws an an exception.
+   * @throws Exception if the observe function throws an exception.
    */
   public <T> T observe( @Nonnull final Observer observer,
                         @Nonnull final Function<T> observe,
@@ -1553,7 +1536,7 @@ public final class ArezContext
    * The executable may throw an exception.
    *
    * @param executable the executable.
-   * @throws Throwable if the procedure throws an an exception.
+   * @throws Throwable if the procedure throws an exception.
    */
   public void action( @Nonnull final Procedure executable )
     throws Throwable
@@ -1567,7 +1550,7 @@ public final class ArezContext
    *
    * @param executable the executable.
    * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
-   * @throws Throwable if the procedure throws an an exception.
+   * @throws Throwable if the procedure throws an exception.
    */
   public void action( @Nonnull final Procedure executable,
                       @MagicConstant( flagsFromClass = ActionFlags.class ) final int flags )
@@ -1582,7 +1565,7 @@ public final class ArezContext
    *
    * @param name       the name of the action.
    * @param executable the executable.
-   * @throws Throwable if the procedure throws an an exception.
+   * @throws Throwable if the procedure throws an exception.
    */
   public void action( @Nullable final String name, @Nonnull final Procedure executable )
     throws Throwable
@@ -1597,7 +1580,7 @@ public final class ArezContext
    * @param name       the name of the action.
    * @param executable the executable.
    * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
-   * @throws Throwable if the procedure throws an an exception.
+   * @throws Throwable if the procedure throws an exception.
    */
   public void action( @Nullable final String name,
                       @Nonnull final Procedure executable,
@@ -1615,7 +1598,7 @@ public final class ArezContext
    * @param executable the executable.
    * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
-   * @throws Throwable if the procedure throws an an exception.
+   * @throws Throwable if the procedure throws an exception.
    */
   public void action( @Nullable final String name,
                       @Nonnull final Procedure executable,
@@ -1633,7 +1616,7 @@ public final class ArezContext
    *
    * @param observer the Observer.
    * @param observe  the observe function.
-   * @throws Exception if the observe function throws an an exception.
+   * @throws Exception if the observe function throws an exception.
    */
   public void observe( @Nonnull final Observer observer, @Nonnull final Procedure observe )
     throws Throwable
@@ -1649,7 +1632,7 @@ public final class ArezContext
    * @param observer   the Observer.
    * @param observe    the observe function.
    * @param parameters the parameters if any. The parameters are only used to generate a spy event.
-   * @throws Exception if the observe function throws an an exception.
+   * @throws Exception if the observe function throws an exception.
    */
   public void observe( @Nonnull final Observer observer,
                        @Nonnull final Procedure observe,
@@ -1981,8 +1964,7 @@ public final class ArezContext
     }
   }
 
-  private void verifyActionFlags( @Nullable final String name,
-                                  @MagicConstant( flagsFromClass = ActionFlags.class ) final int flags )
+  private void verifyActionFlags( @Nullable final String name, final int flags )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
@@ -2015,7 +1997,7 @@ public final class ArezContext
       {
         final Transaction current = Transaction.current();
 
-        final List<ObservableValue<?>> observableValues = current.getObservableValues();
+        final FastList<ObservableValue<?>> observableValues = current.getObservableValues();
         invariant( () -> Objects.requireNonNull( current.getTracker() ).isDisposing() ||
                          ( null != observableValues && !observableValues.isEmpty() ),
                    () -> "Arez-0118: Observer named '" + name + "' completed observed function (executed by " +
@@ -2024,29 +2006,26 @@ public final class ArezContext
     }
   }
 
-  private void verifyActionRequired( @Nonnull final Transaction transaction,
-                                     @MagicConstant( flagsFromClass = ActionFlags.class ) final int flags )
+  private void verifyActionRequired( @Nonnull final Transaction transaction, final int flags )
   {
     if ( Arez.shouldCheckInvariants() &&
          ActionFlags.NO_VERIFY_ACTION_REQUIRED != ( flags & ActionFlags.NO_VERIFY_ACTION_REQUIRED ) )
     {
-      invariant( transaction::hasTransactionUseOccured,
+      invariant( transaction::hasTransactionUseOccurred,
                  () -> "Arez-0185: Action named '" + transaction.getName() + "' completed but no reads, writes, " +
                        "schedules, reportStales or reportPossiblyChanged occurred within the scope of the action." );
     }
   }
 
   @Nonnull
-  private Transaction newTransaction( @Nullable final String name,
-                                      @MagicConstant( flagsFromClass = ActionFlags.class ) final int flags,
-                                      @Nullable final Observer observer )
+  private Transaction newTransaction( @Nullable final String name, final int flags, @Nullable final Observer observer )
   {
     final boolean mutation = Arez.shouldEnforceTransactionType() && 0 == ( flags & Transaction.Flags.READ_ONLY );
     return Transaction.begin( this, generateName( "Transaction", name ), mutation, observer );
   }
 
   /**
-   * Return true if action can immediately invoked, false if a transaction needs to be created.
+   * Return true if the action can be immediately invoked, false if a transaction needs to be created.
    */
   private boolean canImmediatelyInvokeAction( final int flags )
   {
@@ -2462,7 +2441,7 @@ public final class ArezContext
                                       final boolean returnsResult,
                                       final Object result )
   {
-    final long duration = System.currentTimeMillis() - startedAt;
+    final int duration = Math.max( 0, (int) ( System.currentTimeMillis() - startedAt ) );
     assert null != name;
     final Object[] params = null == parameters ? new Object[ 0 ] : parameters;
     getSpy().reportSpyEvent( new ActionCompleteEvent( name,
@@ -2471,7 +2450,7 @@ public final class ArezContext
                                                       returnsResult,
                                                       result,
                                                       t,
-                                                      (int) duration ) );
+                                                      duration ) );
   }
 
   @OmitSymbol

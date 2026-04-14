@@ -1,15 +1,18 @@
 package arez.spytools.browser.react4j;
 
 import arez.Arez;
+import arez.spy.SpyEventHandler;
+import arez.spytools.browser.BrowserSpyUtil;
+import javax.annotation.Nullable;
 
 /**
  * Utility class for interacting with spy capabilities.
  */
 public final class ReactArezSpyUtil
 {
-  private static final ReactArezConsoleSpyEventProcessor PROCESSOR =
+  @Nullable
+  private static final SpyEventHandler PROCESSOR =
     Arez.areSpiesEnabled() ? new ReactArezConsoleSpyEventProcessor() : null;
-  private static boolean c_loggingEnabled;
 
   /**
    * Return true if spy event logging is enabled.
@@ -18,7 +21,7 @@ public final class ReactArezSpyUtil
    */
   public static boolean isSpyEventLoggingEnabled()
   {
-    return Arez.areSpiesEnabled() && c_loggingEnabled;
+    return BrowserSpyUtil.isSpyEventLoggingEnabled();
   }
 
   /**
@@ -27,11 +30,7 @@ public final class ReactArezSpyUtil
    */
   public static void enableSpyEventLogging()
   {
-    if ( Arez.areSpiesEnabled() && !isSpyEventLoggingEnabled() )
-    {
-      Arez.context().getSpy().addSpyEventHandler( PROCESSOR );
-      c_loggingEnabled = true;
-    }
+    BrowserSpyUtil.enableSpyEventLogging( PROCESSOR );
   }
 
   /**
@@ -40,11 +39,7 @@ public final class ReactArezSpyUtil
    */
   public static void disableSpyEventLogging()
   {
-    if ( Arez.areSpiesEnabled() && isSpyEventLoggingEnabled() )
-    {
-      Arez.context().getSpy().removeSpyEventHandler( PROCESSOR );
-      c_loggingEnabled = false;
-    }
+    BrowserSpyUtil.disableSpyEventLogging();
   }
 
   private ReactArezSpyUtil()

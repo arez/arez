@@ -29,5 +29,6 @@ public final class ObserverDisposeEvent
   {
     map.put( "type", "ObserverDispose" );
     map.put( "name", getObserver().getName() );
+    SpyEventUtil.maybeAddZone( map );
   }
 }

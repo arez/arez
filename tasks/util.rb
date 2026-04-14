@@ -1,7 +1,5 @@
 WORKSPACE_DIR = File.expand_path(File.dirname(__FILE__) + '/..')
 
-DOWNSTREAM_PROJECTS=%w(arez-persist)
-
 # Project -> [Branch1, Branch2, ...]
 DOWNSTREAM_EXAMPLES =
   {

@@ -7,10 +7,19 @@ import arez.ArezTestUtil;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
+import arez.EqualityComparator;
 import arez.Observer;
+import arez.ObjectsEqualsComparator;
+import arez.SafeProcedure;
+import arez.component.DisposeNotifier;
 import arez.spy.ComponentInfo;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
+import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -55,9 +64,9 @@ public final class MemoizeCacheTest
     assertEquals( callCount.get(), 1 );
     assertEquals( cache.getNextIndex(), 1 );
     assertEquals( cache.getCache().size(), 1 );
-    assertEquals( ( (Map) cache.getCache().get( "a" ) ).size(), 1 );
+    assertEquals( ( (Map<Object, Object>) cache.getCache().get( "a" ) ).size(), 1 );
     final ComputableValue<String> computableValue1 =
-      (ComputableValue<String>) ( (Map) cache.getCache().get( "a" ) ).get( "b" );
+      (ComputableValue<String>) ( (Map<Object, Object>) cache.getCache().get( "a" ) ).get( "b" );
     assertNotNull( computableValue1 );
     assertEquals( context.safeAction( computableValue1::get ), "a.b" );
     final Observer observer2 = context.observer( () -> {
@@ -67,7 +76,7 @@ public final class MemoizeCacheTest
     assertEquals( callCount.get(), 1 );
     assertEquals( cache.getNextIndex(), 1 );
     assertEquals( cache.getCache().size(), 1 );
-    assertEquals( ( (Map) cache.getCache().get( "a" ) ).size(), 1 );
+    assertEquals( ( (Map<Object, Object>) cache.getCache().get( "a" ) ).size(), 1 );
     final Observer observer3 = context.observer( () -> {
       observeADependency();
       assertEquals( cache.get( "a", "c" ), "a.c" );
@@ -75,9 +84,9 @@ public final class MemoizeCacheTest
     assertEquals( callCount.get(), 2 );
     assertEquals( cache.getNextIndex(), 2 );
     assertEquals( cache.getCache().size(), 1 );
-    assertEquals( ( (Map) cache.getCache().get( "a" ) ).size(), 2 );
+    assertEquals( ( (Map<Object, Object>) cache.getCache().get( "a" ) ).size(), 2 );
     final ComputableValue<String> computableValue2 =
-      (ComputableValue<String>) ( (Map) cache.getCache().get( "a" ) ).get( "c" );
+      (ComputableValue<String>) ( (Map<Object, Object>) cache.getCache().get( "a" ) ).get( "c" );
     assertNotNull( computableValue2 );
     assertEquals( context.safeAction( computableValue2::get ), "a.c" );
 
@@ -87,7 +96,7 @@ public final class MemoizeCacheTest
     assertEquals( cache.getCache().size(), 1 );
     assertFalse( computableValue1.isDisposed() );
     assertFalse( computableValue2.isDisposed() );
-    assertEquals( ( (Map) cache.getCache().get( "a" ) ).size(), 2 );
+    assertEquals( ( (Map<Object, Object>) cache.getCache().get( "a" ) ).size(), 2 );
 
     observer2.dispose();
     assertEquals( callCount.get(), 2 );
@@ -95,7 +104,7 @@ public final class MemoizeCacheTest
     assertEquals( cache.getCache().size(), 1 );
     assertTrue( computableValue1.isDisposed() );
     assertFalse( computableValue2.isDisposed() );
-    assertEquals( ( (Map) cache.getCache().get( "a" ) ).size(), 1 );
+    assertEquals( ( (Map<Object, Object>) cache.getCache().get( "a" ) ).size(), 1 );
 
     observer3.dispose();
     assertEquals( callCount.get(), 2 );
@@ -103,6 +112,162 @@ public final class MemoizeCacheTest
     assertTrue( computableValue1.isDisposed() );
     assertTrue( computableValue2.isDisposed() );
     assertEquals( cache.getCache().size(), 0 );
+  }
+
+  static final class MyElement
+    implements DisposeNotifier, Disposable
+  {
+    @Nonnull
+    private final List<Object> _onDisposeListenersAdded = new ArrayList<>();
+    @Nonnull
+    private final List<Object> _onDisposeListenersRemoved = new ArrayList<>();
+    @Nonnull
+    private final Map<Object, SafeProcedure> _onDisposeListeners = new HashMap<>();
+    @Nonnull
+    private final String _value;
+    private boolean _disposed;
+
+    MyElement( @Nonnull final String value )
+    {
+      _value = Objects.requireNonNull( value );
+    }
+
+    @Nonnull
+    String getValue()
+    {
+      return _value;
+    }
+
+    @Override
+    public void addOnDisposeListener( @Nonnull final Object key,
+                                      @Nonnull final SafeProcedure action,
+                                      final boolean errorIfDuplicate )
+    {
+      _onDisposeListenersAdded.add( key );
+      _onDisposeListeners.put( key, action );
+    }
+
+    @Override
+    public void removeOnDisposeListener( @Nonnull final Object key, final boolean errorIfMissing )
+    {
+      _onDisposeListenersRemoved.add( key );
+      _onDisposeListeners.remove( key );
+    }
+
+    @Override
+    public void dispose()
+    {
+      _disposed = true;
+      for ( final Map.Entry<Object, SafeProcedure> entry : new ArrayList<>( _onDisposeListeners.entrySet() ) )
+      {
+        final Object key = entry.getKey();
+        if ( !Disposable.isDisposed( key ) )
+        {
+          entry.getValue().call();
+        }
+      }
+    }
+
+    @Override
+    public boolean isDisposed()
+    {
+      return _disposed;
+    }
+  }
+
+  @Test
+  public void disposeNotifierParameters_disposeComputableValue()
+  {
+    final MyElement element = new MyElement( "P" );
+    final AtomicInteger callCount = new AtomicInteger();
+    final MemoizeCache.Function<String> function = args -> {
+      observeADependency();
+      callCount.incrementAndGet();
+      return ( (MyElement) args[ 0 ] ).getValue();
+    };
+    final ArezContext context = Arez.context();
+    final String name = ValueUtil.randomString();
+    final MemoizeCache<String> cache =
+      new MemoizeCache<>( null, null, name, function, 1, ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+
+    assertFalse( cache.isDisposed() );
+    assertEquals( cache.getNextIndex(), 0 );
+
+    assertEquals( cache.getFlags(), ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+
+    context.observer( () -> {
+      observeADependency();
+      if ( Disposable.isNotDisposed( element ) )
+      {
+        assertEquals( cache.get( element ), "P" );
+      }
+    } );
+    assertEquals( callCount.get(), 1 );
+    assertEquals( cache.getNextIndex(), 1 );
+    assertEquals( cache.getCache().size(), 1 );
+
+    final ComputableValue<String> computableValue = (ComputableValue<String>) cache.getCache().get( element );
+    assertNotNull( computableValue );
+    assertEquals( context.safeAction( computableValue::get ), "P" );
+
+    Disposable.dispose( element );
+
+    assertEquals( callCount.get(), 1 );
+    assertEquals( cache.getNextIndex(), 1 );
+    assertEquals( cache.getCache().size(), 0 );
+    assertNull( cache.getCache().get( element ) );
+  }
+
+  @Test
+  public void disposeNotifierParameters_clearedWhenObserverRemoved()
+  {
+    final MyElement element = new MyElement( "P" );
+    final AtomicInteger callCount = new AtomicInteger();
+    final MemoizeCache.Function<String> function = args -> {
+      observeADependency();
+      callCount.incrementAndGet();
+      return ( (MyElement) args[ 0 ] ).getValue();
+    };
+    final ArezContext context = Arez.context();
+    final String name = ValueUtil.randomString();
+    final MemoizeCache<String> cache =
+      new MemoizeCache<>( null, null, name, function, 1, ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+
+    assertFalse( cache.isDisposed() );
+    assertEquals( cache.getNextIndex(), 0 );
+
+    assertEquals( cache.getFlags(), ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+
+    assertEquals( element._onDisposeListeners.size(), 0 );
+    assertEquals( element._onDisposeListenersAdded.size(), 0 );
+    assertEquals( element._onDisposeListenersRemoved.size(), 0 );
+
+    final Observer observer = context.observer( () -> {
+      observeADependency();
+      assertEquals( cache.get( element ), "P" );
+    } );
+    assertEquals( callCount.get(), 1 );
+    assertEquals( cache.getNextIndex(), 1 );
+    assertEquals( cache.getCache().size(), 1 );
+
+    assertEquals( element._onDisposeListeners.size(), 1 );
+    assertEquals( element._onDisposeListenersAdded.size(), 1 );
+    assertEquals( element._onDisposeListenersRemoved.size(), 0 );
+
+    final ComputableValue<String> computableValue = (ComputableValue<String>) cache.getCache().get( element );
+    assertNotNull( computableValue );
+    assertEquals( context.safeAction( computableValue::get ), "P" );
+
+    Disposable.dispose( observer );
+
+    assertEquals( element._onDisposeListeners.size(), 0 );
+    assertEquals( element._onDisposeListenersAdded.size(), 1 );
+    assertEquals( element._onDisposeListenersRemoved.size(), 1 );
+
+    assertEquals( callCount.get(), 1 );
+    assertEquals( cache.getNextIndex(), 1 );
+    assertEquals( cache.getCache().size(), 0 );
+    assertNull( cache.getCache().get( element ) );
   }
 
   @Test
@@ -192,7 +357,7 @@ public final class MemoizeCacheTest
     assertEquals( cache.getCache().size(), 1 );
 
     final ComputableValue<String> computableValue1 =
-      (ComputableValue<String>) ( (Map) cache.getCache().get( "a" ) ).get( "b" );
+      (ComputableValue<String>) ( (Map<Object, Object>) cache.getCache().get( "a" ) ).get( "b" );
     assertNotNull( computableValue1 );
 
     assertFalse( computableValue1.isDisposed() );
@@ -269,6 +434,25 @@ public final class MemoizeCacheTest
 
     assertInvariantFailure( () -> cache.get( "a", "b" ),
                             "Arez-0161: MemoizeCache named 'X' had get() invoked when disposed." );
+  }
+
+  @Test
+  public void constructor_defaultsEqualityComparator()
+  {
+    final MemoizeCache<String> cache =
+      new MemoizeCache<>( null, null, "X", args -> args[ 0 ] + "." + args[ 1 ], 2 );
+
+    assertTrue( cache.getEqualityComparator() instanceof ObjectsEqualsComparator );
+  }
+
+  @Test
+  public void constructor_explicitEqualityComparator()
+  {
+    final EqualityComparator comparator = ( oldValue, newValue ) -> true;
+    final MemoizeCache<String> cache =
+      new MemoizeCache<>( null, null, "X", args -> args[ 0 ] + "." + args[ 1 ], 2, 0, comparator );
+
+    assertSame( cache.getEqualityComparator(), comparator );
   }
 
   @Test

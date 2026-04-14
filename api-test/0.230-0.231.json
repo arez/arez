@@ -1,0 +1,17 @@
+[
+  {
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "@interface arez.annotations.AutoObserve",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.AutoObserve",
+      "classSimpleName": "AutoObserve",
+      "elementKind": "@interface",
+      "package": "arez.annotations"
+    }
+  }
+]

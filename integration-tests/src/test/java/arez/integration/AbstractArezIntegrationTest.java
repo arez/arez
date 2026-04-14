@@ -27,6 +27,7 @@ public abstract class AbstractArezIntegrationTest
   @Nonnull
   private final List<String> _observerErrors = new ArrayList<>();
   private boolean _captureObserverErrors;
+  @Nullable
   private String _currentMethod;
 
   protected final void captureObserverErrors()
@@ -35,7 +36,7 @@ public abstract class AbstractArezIntegrationTest
   }
 
   @BeforeMethod
-  public void handleTestMethodName( Method method )
+  public void handleTestMethodName( @Nonnull final Method method )
   {
     _currentMethod = method.getName();
     ArezTestUtil.resetConfig( false );
@@ -48,14 +49,14 @@ public abstract class AbstractArezIntegrationTest
                                 @Nonnull final ObserverError error,
                                 @Nullable final Throwable throwable )
   {
-    final String message = "Observer: " + observer.getName() + " Error: " + error + " " + throwable;
+    final var message = "Observer: " + observer.getName() + " Error: " + error + " " + throwable;
     _observerErrors.add( message );
     if ( !_captureObserverErrors )
     {
       System.out.println( message );
       if ( null != throwable )
       {
-        throwable.printStackTrace();
+        throwable.printStackTrace( System.out );
       }
     }
   }

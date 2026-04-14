@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.processing.Processor;
 import javax.tools.JavaFileObject;
+import org.jetbrains.annotations.Contract;
 import org.realityforge.proton.qa.AbstractProcessorTest;
 import org.realityforge.proton.qa.Compilation;
 import org.realityforge.proton.qa.CompileTestUtil;
@@ -17,6 +18,7 @@ public final class ArezProcessorTest
   extends AbstractProcessorTest
 {
   @DataProvider( name = "successfulCompiles" )
+  @Nonnull
   public Object[][] successfulCompiles()
   {
     return new Object[][]
@@ -35,6 +37,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.action.UnsafeProcedureActionModel" },
         new Object[]{ "com.example.action.NoReportResultActionModel" },
         new Object[]{ "com.example.action.NoVerifyActionModel" },
+        new Object[]{ "com.example.action.SkipIfDisposedActionModel" },
         new Object[]{ "com.example.action.ReadOnlyActionModel" },
         new Object[]{ "com.example.action.RequiresNewTxTypeActionModel" },
         new Object[]{ "com.example.action.RequiresTxTypeActionModel" },
@@ -151,6 +154,15 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.memoize.ReadOutsideTransactionFromDisabledDefaultMemoizeModel" },
         new Object[]{ "com.example.memoize.ReadOutsideTransactionFromEnabledDefaultMemoizeModel" },
         new Object[]{ "com.example.memoize.TypeParametersModel" },
+
+        new Object[]{ "com.example.memoize_context_parameter.AllowEmptyModel" },
+        new Object[]{ "com.example.memoize_context_parameter.BasicModel" },
+        new Object[]{ "com.example.memoize_context_parameter.FinalMethodsModel" },
+        new Object[]{ "com.example.memoize_context_parameter.FullyAnnotatedBasicModel" },
+        new Object[]{ "com.example.memoize_context_parameter.ManyTypesModel" },
+        new Object[]{ "com.example.memoize_context_parameter.NoCapturePrefixModel" },
+        new Object[]{ "com.example.memoize_context_parameter.OverrideNameModel" },
+
         new Object[]{ "com.example.computable_value_ref.BasicComputableValueRefModel" },
         new Object[]{ "com.example.computable_value_ref.MultiComputableValueRefModel" },
         new Object[]{ "com.example.computable_value_ref.NonStandardName1ComputableValueRefModel" },
@@ -165,6 +177,14 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.context_ref.MultiContextRefModel" },
         new Object[]{ "com.example.context_ref.NonStandardMethodNameContextRefModel" },
 
+        new Object[]{ "com.example.auto_observe.BasicAutoObserveModel" },
+        new Object[]{ "com.example.auto_observe.NonnullFieldAutoObserveModel" },
+        new Object[]{ "com.example.auto_observe.NonnullRuntimeTypeValidateFieldAutoObserveModel" },
+        new Object[]{ "com.example.auto_observe.NullableFieldAutoObserveModel" },
+        new Object[]{ "com.example.auto_observe.NullableMethodAutoObserveModel" },
+        new Object[]{ "com.example.auto_observe.NullableRuntimeTypeValidateFieldAutoObserveModel" },
+        new Object[]{ "com.example.auto_observe.RuntimeTypeValidateFieldAutoObserveModel" },
+
         new Object[]{ "com.example.component_dependency.AbstractObservableDependency" },
         new Object[]{ "com.example.component_dependency.ActAsComponentFieldDependencyModel" },
         new Object[]{ "com.example.component_dependency.ActAsComponentMethodDependencyModel" },
@@ -175,6 +195,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.component_dependency.ComplexDependencyModel" },
         new Object[]{ "com.example.component_dependency.ComplexDependencyWithCustomNameMethodModel" },
         new Object[]{ "com.example.component_dependency.ComponentDependencyModel" },
+        new Object[]{ "com.example.component_dependency.MultiComponentDependencyModel" },
         new Object[]{ "com.example.component_dependency.ComponentFieldDependencyModel" },
         new Object[]{ "com.example.component_dependency.ConcreteObservablePairWithInitializerDependency" },
         new Object[]{ "com.example.component_dependency.NonCascadeObservableDependency" },
@@ -202,6 +223,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.deprecated.DeprecatedObserveModel2" },
         new Object[]{ "com.example.deprecated.DeprecatedObserveModel3" },
         new Object[]{ "com.example.deprecated.DeprecatedObserveModel4" },
+        new Object[]{ "com.example.deprecation.DeprecationModel" },
         new Object[]{ "com.example.dispose_notifier.DisposeNotifierModel" },
         new Object[]{ "com.example.dispose_notifier.NoDisposeNotifierModel" },
         new Object[]{ "com.example.id.ComponentIdExample" },
@@ -236,6 +258,8 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.memoize.DefaultPrioritySpecifiedLocalPriorityMemoizeModel" },
         new Object[]{ "com.example.memoize.DefaultPriorityUnspecifiedLocalPriorityMemoizeModel" },
         new Object[]{ "com.example.memoize.LocalTypeParamModel" },
+        new Object[]{ "com.example.memoize.NoArgEqualityComparatorModel" },
+        new Object[]{ "com.example.memoize.ParameterizedEqualityComparatorModel" },
         new Object[]{ "com.example.memoize.NonStandardNameModel" },
         new Object[]{ "com.example.memoize.TypeParamModel" },
         new Object[]{ "com.example.observable.AbstractNonPrimitiveObservablesModel" },
@@ -253,6 +277,8 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.observable.ReadOutsideTransactionFromDisabledDefaultObservableModel" },
         new Object[]{ "com.example.observable.ReadOutsideTransactionFromEnabledDefaultObservableModel" },
         new Object[]{ "com.example.observable.SetterAlwaysMutatesFalseObjectValue" },
+        new Object[]{ "com.example.observable.SetterAlwaysMutatesFalseDeepObjectValue" },
+        new Object[]{ "com.example.observable.SetterAlwaysMutatesFalseCustomObjectValue" },
         new Object[]{ "com.example.observable.SetterAlwaysMutatesFalsePrimitiveValue" },
         new Object[]{ "com.example.observable.UnannotatedObservableModel" },
         new Object[]{ "com.example.observable.WildcardGenericObservableModel" },
@@ -264,6 +290,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.observable.WriteOutsideTransactionThrowingObservablesModel" },
         new Object[]{ "com.example.observable.AbstractNonPrimitiveNonnullObservablesModel" },
         new Object[]{ "com.example.observable.AbstractPrimitiveObservablesWithInitializerModel" },
+        new Object[]{ "com.example.observable.ObservableInitialModel" },
 
         new Object[]{ "com.example.observable_value_ref.BasicObservableValueRefModel" },
         new Object[]{ "com.example.observable_value_ref.MultiObservableValueRefModel" },
@@ -318,10 +345,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.observer_ref.PackageAccessObserverRefModel" },
 
         new Object[]{ "com.example.on_activate.BasicOnActivateModel" },
-        new Object[]{ "com.example.on_activate.ComputableValueParamOnActivateModel" },
         new Object[]{ "com.example.on_activate.PackageAccessOnActivateModel" },
-        new Object[]{ "com.example.on_activate.RawComputableValueParamOnActivateModel" },
-        new Object[]{ "com.example.on_activate.WildcardComputableValueParamOnActivateModel" },
 
         new Object[]{ "com.example.on_deactivate.BasicOnDeactivateModel" },
         new Object[]{ "com.example.on_deactivate.PackageAccessOnDeactivateModel" },
@@ -418,10 +442,34 @@ public final class ArezProcessorTest
   }
 
   @Test
+  public void memoizeContextParameterInherit()
+    throws Exception
+  {
+    final String classname = "com.example.memoize_context_parameter.inherit.ConcreteModel";
+    final String[] expectedOutputResources = deriveExpectedOutputs( classname );
+    final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
+    final JavaFileObject input2 =
+      fixture( "input/" + toFilename( "com.example.memoize_context_parameter.inherit.subpkg.AbstractModel" ) );
+    assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
+  }
+
+  @Test
+  public void memoizeContextParameterInterface()
+    throws Exception
+  {
+    final String classname = "com.example.memoize_context_parameter.intf.ConcreteModel";
+    final String[] expectedOutputResources = deriveExpectedOutputs( classname );
+    final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
+    final JavaFileObject input2 =
+      fixture( "input/" + toFilename( "com.example.memoize_context_parameter.intf.subpkg.MyInterfaceModelBase" ) );
+    assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
+  }
+
+  @Test
   public void deprecatedUsageModel()
     throws Exception
   {
-    // Use deprecated types but arez should suppress the warnings and generate code that has no warnings...
+    // Use deprecated types, but arez should suppress the warnings and generate code that has no warnings...
     final String classname = "com.example.deprecated.DeprecatedUsageModel";
     final String[] expectedOutputResources = deriveExpectedOutputs( classname );
     final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
@@ -433,12 +481,37 @@ public final class ArezProcessorTest
   public void deprecatedTypeParameterModel()
     throws Exception
   {
-    // Use deprecated types but arez should suppress the warnings and generate code that has no warnings...
+    // Use deprecated types, but arez should suppress the warnings and generate code that has no warnings...
     final String classname = "com.example.deprecated.DeprecatedTypeParameterModel";
     final String[] expectedOutputResources = deriveExpectedOutputs( classname );
     final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
     final JavaFileObject input2 = fixture( "input/" + toFilename( "com.example.deprecated.MyDeprecatedEntity" ) );
     assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
+  }
+
+  @Test
+  public void deprecatedParameterModelModel()
+    throws Exception
+  {
+    // Use deprecated types, but arez should suppress the warnings and generate code that has no warnings...
+    final String classname = "com.example.deprecated.DeprecatedParameterModel";
+    final String[] expectedOutputResources = deriveExpectedOutputs( classname );
+    final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
+    final JavaFileObject input2 = fixture( "input/" + toFilename( "com.example.deprecated.MyDeprecatedEntity" ) );
+    assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
+  }
+
+  @Test
+  public void deprecatedViaInterfaceModel()
+    throws Exception
+  {
+    // Use deprecated types, but arez should suppress the warnings and generate code that has no warnings...
+    final String classname = "com.example.deprecated.DeprecatedViaInterfaceModel";
+    final String[] expectedOutputResources = deriveExpectedOutputs( classname );
+    final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
+    final JavaFileObject input2 = fixture( "input/" + toFilename( "com.example.deprecated.DeprecatedInterface" ) );
+    final JavaFileObject input3 = fixture( "input/" + toFilename( "com.example.deprecated.DeprecatedBaseInterface" ) );
+    assertSuccessfulCompile( Arrays.asList( input1, input2, input3 ), Arrays.asList( expectedOutputResources ) );
   }
 
   @Test
@@ -1140,7 +1213,13 @@ public final class ArezProcessorTest
                                Arrays.asList( synthesizingProcessor1, synthesizingProcessor2, processor() ),
                                Collections.emptyList() );
     outputFilesIfEnabled( compilation,
-                          compilation.sourceOutputFilenames().stream().filter( this::emitGeneratedFile ).toList(),
+                          compilation
+                            .sourceOutputFilenames()
+                            .stream()
+                            .filter( f ->
+                                       !f.endsWith( "OtherModel.java" ) &&
+                                       !f.endsWith( "MyFrameworkModelImpl.java" ) )
+                            .toList(),
                           compilation.classOutputFilenames().stream().filter( this::emitGeneratedFile ).toList() );
     assertCompilationSuccessful( compilation );
   }
@@ -1232,6 +1311,19 @@ public final class ArezProcessorTest
                              Collections.singletonList( output1 ) );
   }
 
+  @Test
+  public void processSuccessfulWhereTraceInheritanceChainInInterfaces()
+    throws Exception
+  {
+    final JavaFileObject source1 =
+      fixture( "input/com/example/inheritance/interface_inheritance/MyBaseInterface.java" );
+    final JavaFileObject source2 = fixture( "input/com/example/inheritance/interface_inheritance/MyInterface.java" );
+    final JavaFileObject source3 = fixture( "input/com/example/inheritance/interface_inheritance/MyModel.java" );
+    final String output1 = "com/example/inheritance/interface_inheritance/Arez_MyModel.java";
+    assertSuccessfulCompile( Arrays.asList( source1, source2, source3 ),
+                             Collections.singletonList( output1 ) );
+  }
+
   @DataProvider( name = "failedCompiles" )
   public Object[][] failedCompiles()
   {
@@ -1263,6 +1355,10 @@ public final class ArezProcessorTest
                       "@javax.xml.ws.Action annotation not supported in components annotated with @ArezComponent, use the @arez.annotations.Action annotation instead." },
         new Object[]{ "com.example.action.PrivateActionModel", "@Action target must not be private" },
         new Object[]{ "com.example.action.StaticActionModel", "@Action target must not be static" },
+        new Object[]{ "com.example.action.ReportParametersWithNoParametersActionModel",
+                      "@Action target must not specify reportParameters parameter when no parameters are present" },
+        new Object[]{ "com.example.action.SkipIfDisposedReturnsValueModel",
+                      "@Action target must not return a value when skipIfDisposed=true" },
 
         new Object[]{ "com.example.observe.ApplicationExecutorButNoOnDepsChangeModel",
                       "@Observe target defined parameter executor=EXTERNAL but does not specify an @OnDepsChange method." },
@@ -1327,7 +1423,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.component.BadTypeComponent2",
                       "@ArezComponent target specified an invalid name 'long'. The name must not be a java keyword." },
         new Object[]{ "com.example.component.EmptyComponent",
-                      "@ArezComponent target has no methods annotated with @Action, @CascadeDispose, @Memoize, @Observable, @Inverse, @Reference, @ComponentDependency or @Observe" },
+                      "@ArezComponent target has no methods annotated with @Action, @AutoObserve, @CascadeDispose, @Memoize, @Observable, @Inverse, @Reference, @ComponentDependency or @Observe" },
         new Object[]{ "com.example.component.EmptyTypeComponent",
                       "@ArezComponent target specified an invalid name ''. The name must be a valid java identifier." },
         new Object[]{ "com.example.component.EnumModel", "@ArezComponent target must be a class or an interface" },
@@ -1404,6 +1500,8 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.memoize.FinalModel", "@Memoize target must not be final" },
         new Object[]{ "com.example.memoize.KeepAliveWithParametersModel",
                       "@Memoize target specified parameter keepAlive as true but has parameters." },
+        new Object[]{ "com.example.memoize.KeepAliveWithContextParametersModel",
+                      "@Memoize target specified parameter keepAlive as true but has matching context parameters." },
         new Object[]{ "com.example.memoize.MissingComputableValueRefModel",
                       "@Memoize target specified depType = AREZ_OR_EXTERNAL but there is no associated @ComputableValueRef method." },
         new Object[]{ "com.example.memoize.PrivateModel", "@Memoize target must not be private" },
@@ -1441,6 +1539,21 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.context_ref.ThrowsExceptionModel",
                       "@ContextRef target must not throw any exceptions" },
         new Object[]{ "com.example.context_ref.ParametersModel", "@ContextRef target must not have any parameters" },
+
+        new Object[]{ "com.example.auto_observe.AbstractMethodAutoObserveModel",
+                      "@AutoObserve target must not be abstract unless the method is also annotated with the @Observable or @Reference annotation." },
+        new Object[]{ "com.example.auto_observe.BadTypeFieldAutoObserveModel",
+                      "@AutoObserve target must be an instance compatible with arez.component.ComponentObservable" },
+        new Object[]{ "com.example.auto_observe.ComponentDependencyAndAutoObserveModel",
+                      "Method can not be annotated with both @ComponentDependency and @AutoObserve" },
+        new Object[]{ "com.example.auto_observe.ConcreteObservableAutoObserveModel",
+                      "@AutoObserve target must be abstract if the method is also annotated with the @Observable or @Reference annotation." },
+        new Object[]{ "com.example.auto_observe.NonFinalFieldAutoObserveModel",
+                      "@AutoObserve target must be final" },
+        new Object[]{ "com.example.auto_observe.PrimitiveReturnAutoObserveModel",
+                      "@AutoObserve target must return a non-primitive value" },
+        new Object[]{ "com.example.auto_observe.RuntimeValidateWithoutActAsComponentFieldAutoObserveModel",
+                      "@AutoObserve target specified validateTypeAtRuntime = true but the declared type is not annotated with @ActAsComponent" },
 
         new Object[]{ "com.example.component_dependency.AbstractDependency",
                       "@ArezComponent target has an abstract method not implemented by framework. The method is named getTime" },
@@ -1639,12 +1752,61 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.observer_ref.StaticModel", "@ObserverRef target must be abstract" },
         new Object[]{ "com.example.observer_ref.VoidReturnModel", "@ObserverRef target must return a value" },
 
+        new Object[]{ "com.example.memoize_context_parameter.capture.AbstractCaptureModel",
+                      "@MemoizeContextParameter target must not be abstract" },
+        new Object[]{ "com.example.memoize_context_parameter.capture.BadTypeCaptureModel",
+                      "@MemoizeContextParameter target defines a push method with a different type (java.lang.String) from the matching @MemoizeContextParameter Capture method named captureMyContextVar that defines the type int." },
+        new Object[]{ "com.example.memoize_context_parameter.capture.PrivateCaptureModel",
+                      "@MemoizeContextParameter target must not be private" },
+        new Object[]{ "com.example.memoize_context_parameter.capture.StaticCaptureModel",
+                      "@MemoizeContextParameter target must not be static" },
+        new Object[]{ "com.example.memoize_context_parameter.capture.ThrowsCaptureModel",
+                      "@MemoizeContextParameter target must not throw any exceptions" },
+        new Object[]{ "com.example.memoize_context_parameter.capture.TypeParamCaptureModel",
+                      "@MemoizeContextParameter target must not have any type parameters" },
+        new Object[]{ "com.example.memoize_context_parameter.capture.VoidCaptureModel",
+                      "@MemoizeContextParameter target must return a value" },
+
+        new Object[]{ "com.example.memoize_context_parameter.pop.AbstractPopModel",
+                      "@MemoizeContextParameter target must not be abstract" },
+        new Object[]{ "com.example.memoize_context_parameter.pop.BadTypePopModel",
+                      "@MemoizeContextParameter target defines a pop method with a different type (int) from the matching @MemoizeContextParameter Capture method named captureMyContextVar that defines the type java.lang.String." },
+        new Object[]{ "com.example.memoize_context_parameter.pop.MultipleParameterPopModel",
+                      "@MemoizeContextParameter target on pop method should accept a single parameter" },
+        new Object[]{ "com.example.memoize_context_parameter.pop.PrivatePopModel",
+                      "@MemoizeContextParameter target must not be private" },
+        new Object[]{ "com.example.memoize_context_parameter.pop.ReturningPopModel",
+                      "@MemoizeContextParameter target must not return a value" },
+        new Object[]{ "com.example.memoize_context_parameter.pop.StaticPopModel",
+                      "@MemoizeContextParameter target must not be static" },
+        new Object[]{ "com.example.memoize_context_parameter.pop.ThrowsPopModel",
+                      "@MemoizeContextParameter target must not throw any exceptions" },
+        new Object[]{ "com.example.memoize_context_parameter.pop.TypeParamPopModel",
+                      "@MemoizeContextParameter target must not have any type parameters" },
+
+        new Object[]{ "com.example.memoize_context_parameter.push.AbstractPushModel",
+                      "@MemoizeContextParameter target must not be abstract" },
+        new Object[]{ "com.example.memoize_context_parameter.push.BadTypePushModel",
+                      "@MemoizeContextParameter target defines a push method with a different type (int) from the matching @MemoizeContextParameter Capture method named captureMyContextVar that defines the type java.lang.String." },
+        new Object[]{ "com.example.memoize_context_parameter.push.MultipleParameterPushModel",
+                      "@MemoizeContextParameter target on push method should accept a single parameter" },
+        new Object[]{ "com.example.memoize_context_parameter.push.PrivatePushModel",
+                      "@MemoizeContextParameter target must not be private" },
+        new Object[]{ "com.example.memoize_context_parameter.push.ReturningPushModel",
+                      "@MemoizeContextParameter target must not return a value" },
+        new Object[]{ "com.example.memoize_context_parameter.push.StaticPushModel",
+                      "@MemoizeContextParameter target must not be static" },
+        new Object[]{ "com.example.memoize_context_parameter.push.ThrowsPushModel",
+                      "@MemoizeContextParameter target must not throw any exceptions" },
+        new Object[]{ "com.example.memoize_context_parameter.push.TypeParamPushModel",
+                      "@MemoizeContextParameter target must not have any type parameters" },
+
         new Object[]{ "com.example.name_duplicates.ActionDuplicatesObservableNameModel",
                       "Method annotated with @Action specified name field that duplicates @Observable defined by method getField" },
-        new Object[]{ "com.example.on_activate.BadTypeParamComputableValueParamModel",
-                      "@OnActivate target has a parameter of type ComputableValue with a type parameter of java.lang.String but the @Memoize method returns a type of long" },
         new Object[]{ "com.example.on_activate.MemoizeHasParametersModel",
                       "@OnActivate target associated with @Memoize method that has parameters." },
+        new Object[]{ "com.example.on_activate.MemoizeHasContextParametersModel",
+                      "@OnActivate target associated with @Memoize method that has matching context parameters." },
         new Object[]{ "com.example.on_activate.OnActivateAbstractModel", "@OnActivate target must not be abstract" },
         new Object[]{ "com.example.on_activate.OnActivateNoMemoizeModel",
                       "@OnActivate exists but there is no corresponding @Memoize" },
@@ -1659,7 +1821,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.on_activate.OnActivateOnKeepAliveModel",
                       "@OnActivate exists for @Memoize property that specified parameter keepAlive as true." },
         new Object[]{ "com.example.on_activate.OnActivateParametersModel",
-                      "@OnActivate target must not have any parameters or must have a single parameter of type arez.ComputableValue" },
+                      "@OnActivate target must not have any parameters" },
         new Object[]{ "com.example.on_activate.OnActivateReturnValueModel",
                       "@OnActivate target must not return a value" },
         new Object[]{ "com.example.on_activate.OnActivateThrowsExceptionModel",
@@ -1668,6 +1830,8 @@ public final class ArezProcessorTest
                       "@OnActivate target duplicates existing method named foo" },
         new Object[]{ "com.example.on_deactivate.MemoizeHasParametersModel",
                       "@OnDeactivate target associated with @Memoize method that has parameters." },
+        new Object[]{ "com.example.on_deactivate.MemoizeHasContextParametersModel",
+                      "@OnDeactivate target associated with @Memoize method that has matching context parameters." },
         new Object[]{ "com.example.on_deactivate.OnDeactivateAbstractModel",
                       "@OnDeactivate target must not be abstract" },
         new Object[]{ "com.example.on_deactivate.OnDeactivateNoMemoizeModel",
@@ -1916,6 +2080,8 @@ public final class ArezProcessorTest
                       "@Observable target specified an invalid name '-ace'. The name must be a valid java identifier." },
         new Object[]{ "com.example.observable.BadObservableName2Model",
                       "@Observable target specified an invalid name 'default'. The name must not be a java keyword." },
+        new Object[]{ "com.example.observable.ConflictingEqualityComparatorModel",
+                      "paired accessor has already specified equalityComparator of type 'arez.ObjectsDeepEqualsComparator'" },
         new Object[]{ "com.example.observable.ExtraParameterSetterModel",
                       "@Observable target should be a setter or getter" },
         new Object[]{ "com.example.observable.ExtraParameterGetterModel",
@@ -1938,6 +2104,38 @@ public final class ArezProcessorTest
                       "@Observable target defines type variables. Method level type parameters are not supported for observable values." },
         new Object[]{ "com.example.observable.TypeArgumentsOnObservableSetterModel",
                       "@Observable target defines type variables. Method level type parameters are not supported for observable values." },
+        new Object[]{ "com.example.observable.ObservableInitialNonStaticFieldModel",
+                      "@ObservableInitial target must be static" },
+        new Object[]{ "com.example.observable.ObservableInitialNonFinalFieldModel",
+                      "@ObservableInitial target must be final" },
+        new Object[]{ "com.example.observable.ObservableInitialNonStaticMethodModel",
+                      "@ObservableInitial target must be static" },
+        new Object[]{ "com.example.observable.ObservableInitialMethodWithParametersModel",
+                      "@ObservableInitial target must not have any parameters" },
+        new Object[]{ "com.example.observable.ObservableInitialMethodReturnsVoidModel",
+                      "@ObservableInitial target must return a value" },
+        new Object[]{ "com.example.observable.ObservableInitialMethodThrowsExceptionModel",
+                      "@ObservableInitial target must not throw any exceptions" },
+        new Object[]{ "com.example.observable.ObservableInitialMethodNoDerivedNameModel",
+                      "Method annotated with @ObservableInitial should specify name or be named according to the convention getInitial[Name]" },
+        new Object[]{ "com.example.observable.ObservableInitialFieldNoDerivedNameModel",
+                      "Field annotated with @ObservableInitial should specify name or be named according to the convention INITIAL_[Name]" },
+        new Object[]{ "com.example.observable.ObservableInitialInvalidNameModel",
+                      "@ObservableInitial target specified an invalid name 'assert'. The name must not be a java keyword." },
+        new Object[]{ "com.example.observable.ObservableInitialNoMatchingObservableModel",
+                      "@ObservableInitial target defined observable named 'age' but no @Observable method with that name exists" },
+        new Object[]{ "com.example.observable.ObservableInitialNonAbstractObservableModel",
+                      "@ObservableInitial target defined observable named 'name' but the observable is not abstract" },
+        new Object[]{ "com.example.observable.ObservableInitialInitializerEnabledModel",
+                      "@ObservableInitial target defined observable named 'name' but the observable defines initializer = Feature.ENABLE which is not compatible with @ObservableInitial" },
+        new Object[]{ "com.example.observable.ObservableInitialTypeMismatchModel",
+                      "@ObservableInitial target defined observable named 'name' with incompatible type." },
+        new Object[]{ "com.example.observable.ObservableInitialDuplicateModel",
+                      "@ObservableInitial target duplicates existing initializer for observable named name" },
+        new Object[]{ "com.example.observable.ObservableInitialMissingNonnullFieldModel",
+                      "@ObservableInitial target defined observable named 'name' but the initializer is not annotated with @javax.annotation.Nonnull" },
+        new Object[]{ "com.example.observable.ObservableInitialMissingNonnullMethodModel",
+                      "@ObservableInitial target defined observable named 'name' but the initializer is not annotated with @javax.annotation.Nonnull" },
 
         new Object[]{ "com.example.sting.ContributeToButNoStingModel",
                       "@ArezComponent target must not disable sting integration and be annotated with sting.ContributeTo" },
@@ -1958,35 +2156,43 @@ public final class ArezProcessorTest
     assertFailedCompile( classname, messageFragment );
   }
 
+  @Nonnull
+  @Contract( value = " -> new", pure = true )
   @DataProvider( name = "compileWithWarnings" )
   public Object[][] compileWithWarnings()
   {
     return new Object[][]
       {
         new Object[]{ "com.example.component.AllowEmptyOnNonEmptyComponent",
-                      "@ArezComponent target has specified allowEmpty = true but has methods annotated with @Action, @CascadeDispose, @Memoize, @Observable, @Inverse, @Reference, @ComponentDependency or @Observe" },
+                      "@ArezComponent target has specified allowEmpty = true but has methods annotated with @Action, @AutoObserve, @CascadeDispose, @Memoize, @Observable, @Inverse, @Reference, @ComponentDependency or @Observe" },
         new Object[]{ "com.example.component.PublicCtorModel",
                       "@ArezComponent target should not have a public constructor. It is recommended that a static create method be added to the component that is responsible for instantiating the arez implementation class. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicConstructor\" ) or @SuppressArezWarnings( \"Arez:PublicConstructor\" )" },
         new Object[]{ "com.example.component.PublicCtorNonPublicModel",
                       "@ArezComponent target should not have a public constructor. It is recommended that a static create method be added to the component that is responsible for instantiating the arez implementation class. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicConstructor\" ) or @SuppressArezWarnings( \"Arez:PublicConstructor\" )" },
         new Object[]{ "com.example.component.UnmanagedComponentReferencePassedInConstructor",
-                      "Field named '_myComponent' has a type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency and was not injected into the constructor. This scenario can cause errors if the value is disposed. Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
+                      "Field named '_myComponent' has a type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency or @arez.annotations.AutoObserve and was not injected into the constructor. This scenario can cause errors if the value is disposed. Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
         new Object[]{ "com.example.component.UnmanagedActAsComponentReference",
-                      "Field named '_myComponent' has a type that is annotated with @ActAsComponent but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency and was not injected into the constructor. This scenario can cause errors if the value is disposed. Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
+                      "Field named '_myComponent' has a type that is annotated with @ActAsComponent but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency or @arez.annotations.AutoObserve and was not injected into the constructor. This scenario can cause errors if the value is disposed. Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
         new Object[]{ "com.example.component.UnmanagedComponentReference",
-                      "Field named '_myComponent' has a type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency and was not injected into the constructor. This scenario can cause errors if the value is disposed. Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
+                      "Field named '_myComponent' has a type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency or @arez.annotations.AutoObserve and was not injected into the constructor. This scenario can cause errors if the value is disposed. Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
         new Object[]{ "com.example.component.UnmanagedComponentReferenceViaInheritance",
-                      "Field named '_component' has a type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency and was not injected into the constructor. This scenario can cause errors if the value is disposed. Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
+                      "Field named '_component' has a type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency or @arez.annotations.AutoObserve and was not injected into the constructor. This scenario can cause errors if the value is disposed. Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
         new Object[]{ "com.example.component.UnmanagedDisposeNotifierReference",
-                      "Field named 'time' has a type that is an implementation of DisposeNotifier but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency and was not injected into the constructor. This scenario can cause errors if the value is disposed. Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
+                      "Field named 'time' has a type that is an implementation of DisposeNotifier but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency or @arez.annotations.AutoObserve and was not injected into the constructor. This scenario can cause errors if the value is disposed. Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
         new Object[]{ "com.example.component.UnmanagedObservableComponentReference",
-                      "Method named 'getMyComponent' has a return type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
+                      "Method named 'getMyComponent' has a return type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency or @arez.annotations.AutoObserve. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
         new Object[]{ "com.example.component.UnmanagedObservableActAsComponentReference",
-                      "Method named 'getMyComponent' has a return type that is annotated with @ActAsComponent but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
+                      "Method named 'getMyComponent' has a return type that is annotated with @ActAsComponent but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency or @arez.annotations.AutoObserve. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
         new Object[]{ "com.example.component.UnmanagedObservableDisposeNotifierReference",
-                      "Method named 'getMyComponent' has a return type that is an implementation of DisposeNotifier but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
+                      "Method named 'getMyComponent' has a return type that is an implementation of DisposeNotifier but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency or @arez.annotations.AutoObserve. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
         new Object[]{ "com.example.component.UnmanagedObservableComponentReferenceViaInheritance",
-                      "Method named 'getMyComponent' has a return type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
+                      "Method named 'getMyComponent' has a return type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency or @arez.annotations.AutoObserve. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
+        new Object[]{ "com.example.cascade_dispose.DisposeOnDeactivateCascadeDisposeFieldModel",
+                      "Field named '_myElement' is annotated with @arez.annotations.CascadeDispose but has a type that is an Arez component configured with disposeOnDeactivate = true. Disposal should be managed either by liveness (i.e. disposeOnDeactivate = true) or explicitly (via @CascadeDispose or manual disposal), but not both. Please choose a single disposal model or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:ConflictingDisposeModel\" ) or @SuppressArezWarnings( \"Arez:ConflictingDisposeModel\" )" },
+        new Object[]{ "com.example.cascade_dispose.DisposeOnDeactivateCascadeDisposeMethodModel",
+                      "Method named 'myElement' is annotated with @arez.annotations.CascadeDispose but returns an Arez component configured with disposeOnDeactivate = true. Disposal should be managed either by liveness (i.e. disposeOnDeactivate = true) or explicitly (via @CascadeDispose or manual disposal), but not both. Please choose a single disposal model or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:ConflictingDisposeModel\" ) or @SuppressArezWarnings( \"Arez:ConflictingDisposeModel\" )" },
+        new Object[]{ "com.example.cascade_dispose.DisposeOnDeactivateObservableCascadeDisposeModel",
+                      "Method named 'getElement' is annotated with @arez.annotations.CascadeDispose but returns an Arez component configured with disposeOnDeactivate = true. Disposal should be managed either by liveness (i.e. disposeOnDeactivate = true) or explicitly (via @CascadeDispose or manual disposal), but not both. Please choose a single disposal model or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:ConflictingDisposeModel\" ) or @SuppressArezWarnings( \"Arez:ConflictingDisposeModel\" )" },
         new Object[]{ "com.example.component.UnnecessaryDefaultPriorityPresentComponent",
                       "@ArezComponent target should not specify the defaultPriority parameter unless it contains methods annotated with either the @Memoize annotation or the @Observe annotation. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:UnnecessaryDefaultPriority\" ) or @SuppressArezWarnings( \"Arez:UnnecessaryDefaultPriority\" )" },
         new Object[]{ "com.example.component.UnnecessaryDefaultReadOutsideTransactionComponentModel",
@@ -2098,6 +2304,11 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.component.UnmanagedComponentReferenceSuppressedAtClass" },
         new Object[]{ "com.example.component.UnmanagedComponentReferenceToNonDisposeNotifier" },
         new Object[]{ "com.example.component.UnmanagedComponentReferenceToNonVerify" },
+        new Object[]{ "com.example.component.ManagedAutoObserveActAsComponentReference" },
+        new Object[]{ "com.example.component.ManagedObservableAutoObserveActAsComponentReference" },
+        new Object[]{ "com.example.cascade_dispose.Suppressed1DisposeOnDeactivateCascadeDisposeFieldModel" },
+        new Object[]{ "com.example.cascade_dispose.Suppressed2DisposeOnDeactivateCascadeDisposeMethodModel" },
+        new Object[]{ "com.example.cascade_dispose.DisposeOnDeactivateCascadeDisposeSuppressedAtClassModel" },
         new Object[]{ "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressed" },
         new Object[]{ "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressedOnClass" },
         new Object[]{ "com.example.component.UnmanagedObservableComponentReferenceViaInheritanceSuppressed" },
@@ -2323,13 +2534,5 @@ public final class ArezProcessorTest
   protected ArezProcessor processor()
   {
     return new ArezProcessor();
-  }
-
-  @Override
-  protected boolean emitGeneratedFile( @Nonnull final String target )
-  {
-    return super.emitGeneratedFile( target ) &&
-           !target.endsWith( "RepositoryDaggerModule.java" ) &&
-           ( target.contains( "/Arez_" ) || target.contains( "_Arez_" ) );
   }
 }

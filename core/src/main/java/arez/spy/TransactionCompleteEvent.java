@@ -61,5 +61,6 @@ public final class TransactionCompleteEvent
     final ObserverInfo tracker = getTracker();
     map.put( "tracker", null == tracker ? null : tracker.getName() );
     map.put( "duration", getDuration() );
+    SpyEventUtil.maybeAddZone( map );
   }
 }

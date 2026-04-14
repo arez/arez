@@ -1,0 +1,97 @@
+[
+  {
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "class arez.Hook",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Hook",
+      "classSimpleName": "Hook",
+      "elementKind": "class",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method void arez.ArezContext::registerHook(java.lang.String, arez.Procedure, arez.Procedure)",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "registerHook",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.method.removed",
+    "description": "Method was removed.",
+    "oldElement": "method <T> arez.ComputableValue<T> arez.ArezContext::computable(arez.Component, java.lang.String, arez.SafeFunction<T>, arez.Procedure, arez.Procedure)",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "computable",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.method.removed",
+    "description": "Method was removed.",
+    "oldElement": "method <T> arez.ComputableValue<T> arez.ArezContext::computable(arez.Component, java.lang.String, arez.SafeFunction<T>, arez.Procedure, arez.Procedure, int)",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "computable",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.method.removed",
+    "description": "Method was removed.",
+    "oldElement": "method <T> arez.ComputableValue<T> arez.ArezContext::computable(java.lang.String, arez.SafeFunction<T>, arez.Procedure, arez.Procedure)",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "computable",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.method.removed",
+    "description": "Method was removed.",
+    "oldElement": "method <T> arez.ComputableValue<T> arez.ArezContext::computable(java.lang.String, arez.SafeFunction<T>, arez.Procedure, arez.Procedure, int)",
+    "classification": {
+      "SOURCE": "BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.ArezContext",
+      "classSimpleName": "ArezContext",
+      "elementKind": "method",
+      "methodName": "computable",
+      "package": "arez"
+    }
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method boolean arez.Arez::shouldCheckExpensiveInvariants()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.Arez",
+      "classSimpleName": "Arez",
+      "elementKind": "method",
+      "methodName": "shouldCheckExpensiveInvariants",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method void arez.ArezTestUtil::checkExpensiveInvariants()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.ArezTestUtil",
+      "classSimpleName": "ArezTestUtil",
+      "elementKind": "method",
+      "methodName": "checkExpensiveInvariants",
+      "package": "arez"
+    }
+  },
+  {
+    "code": "java.method.added",
+    "description": "Method was added.",
+    "newElement": "method void arez.ArezTestUtil::noCheckExpensiveInvariants()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.ArezTestUtil",
+      "classSimpleName": "ArezTestUtil",
+      "elementKind": "method",
+      "methodName": "noCheckExpensiveInvariants",
+      "package": "arez"
+    }
+  }
+]

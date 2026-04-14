@@ -6,9 +6,11 @@ import arez.ArezContext;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
-import arez.Procedure;
+import arez.EqualityComparator;
+import arez.ObjectsEqualsComparator;
 import arez.SafeFunction;
 import arez.Task;
+import arez.component.DisposeNotifier;
 import grim.annotations.OmitSymbol;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,7 +23,7 @@ import org.intellij.lang.annotations.MagicConstant;
 import static org.realityforge.braincheck.Guards.*;
 
 /**
- * The class responsible for caching
+ * The class responsible for caching ComputableValue instances for different input parameters.
  */
 public final class MemoizeCache<T>
   implements Disposable
@@ -79,7 +81,13 @@ public final class MemoizeCache<T>
   /**
    * The flags passed to the created ComputableValues.
    */
+  @MagicConstant( flagsFromClass = ComputableValue.Flags.class )
   private final int _flags;
+  /**
+   * Strategy used to compare old and new computed values.
+   */
+  @Nonnull
+  private final EqualityComparator _equalityComparator;
   /**
    * The index of the next ComputableValue created.
    * This is only used when creating unique names for ComputableValues.
@@ -105,7 +113,7 @@ public final class MemoizeCache<T>
                        @Nonnull final Function<T> function,
                        final int argCount )
   {
-    this( context, component, name, function, argCount, 0 );
+    this( context, component, name, function, argCount, 0, new ObjectsEqualsComparator() );
   }
 
   /**
@@ -124,6 +132,28 @@ public final class MemoizeCache<T>
                        @Nonnull final Function<T> function,
                        final int argCount,
                        @MagicConstant( flagsFromClass = ComputableValue.Flags.class ) final int flags )
+  {
+    this( context, component, name, function, argCount, flags, new ObjectsEqualsComparator() );
+  }
+
+  /**
+   * Create the Memoize method cache.
+   *
+   * @param context            the context in which to create ComputableValue instances.
+   * @param component          the associated native component if any. This should only be set if {@link Arez#areNativeComponentsEnabled()} returns true.
+   * @param name               a human consumable prefix for computable values.
+   * @param function           the memoized function.
+   * @param argCount           the number of arguments expected to be passed to memoized function.
+   * @param flags              the flags that are used when creating ComputableValue instances. The only flags supported are flags defined in {@link ComputableValue.Flags} except for {@link ComputableValue.Flags#KEEPALIVE}, {@link ComputableValue.Flags#RUN_NOW} and {@link ComputableValue.Flags#RUN_LATER}.
+   * @param equalityComparator strategy used to compare old and new computed values.
+   */
+  public MemoizeCache( @Nullable final ArezContext context,
+                       @Nullable final Component component,
+                       @Nullable final String name,
+                       @Nonnull final Function<T> function,
+                       final int argCount,
+                       @MagicConstant( flagsFromClass = ComputableValue.Flags.class ) final int flags,
+                       @Nonnull final EqualityComparator equalityComparator )
   {
     if ( Arez.shouldCheckApiInvariants() )
     {
@@ -155,6 +185,7 @@ public final class MemoizeCache<T>
     _function = Objects.requireNonNull( function );
     _argCount = argCount;
     _flags = flags;
+    _equalityComparator = Objects.requireNonNull( equalityComparator );
   }
 
   /**
@@ -262,10 +293,21 @@ public final class MemoizeCache<T>
   private ComputableValue<T> createComputableValue( @Nonnull final Object... args )
   {
     final Component component = Arez.areNativeComponentsEnabled() ? _component : null;
-    final String name = Arez.areNamesEnabled() ? _name + "." + _nextIndex++ : null;
-    final Procedure onDeactivate = () -> disposeComputableValue( args );
-    final SafeFunction<T> function = () -> _function.call( args );
-    return getContext().computable( component, name, function, null, onDeactivate, _flags );
+    final int id = _nextIndex++;
+    final String name = Arez.areNamesEnabled() ? _name + "." + id : null;
+    final SafeFunction<T> function = () -> {
+      Arez.context().registerHook( "$MC$", null, () -> disposeComputableValue( args ) );
+      return _function.call( args );
+    };
+    final ComputableValue<T> computable = getContext().computable( component, name, function, _flags, _equalityComparator );
+    for ( final Object arg : args )
+    {
+      if ( arg instanceof DisposeNotifier )
+      {
+        DisposeNotifier.asDisposeNotifier( arg ).addOnDisposeListener( computable, computable::dispose, false );
+      }
+    }
+    return computable;
   }
 
   /**
@@ -306,6 +348,13 @@ public final class MemoizeCache<T>
     getContext().task( Arez.areNamesEnabled() ? computableValue.getName() + ".dispose" : null,
                        computableValue::dispose,
                        Task.Flags.PRIORITY_HIGHEST | Task.Flags.DISPOSE_ON_COMPLETE | Task.Flags.NO_WRAP_TASK );
+    for ( final Object arg : args )
+    {
+      if ( arg instanceof DisposeNotifier )
+      {
+        DisposeNotifier.asDisposeNotifier( arg ).removeOnDisposeListener( computableValue, false );
+      }
+    }
     while ( stack.size() > 1 )
     {
       final Map<Object, ?> map = stack.pop();
@@ -336,5 +385,12 @@ public final class MemoizeCache<T>
   int getFlags()
   {
     return _flags;
+  }
+
+  @OmitSymbol
+  @Nonnull
+  EqualityComparator getEqualityComparator()
+  {
+    return _equalityComparator;
   }
 }

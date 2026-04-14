@@ -55,7 +55,9 @@ The callbacks are:
 Every time an activated computable value's dependency is marked as stale, the computable value will attempt to
 re-computed the computable value. If the computable value is equal to the cached value then the computable value
 will be marked as unchanged and no downstream observers or computable values will be scheduled. Equality is
-tested using `Object.equals(...)` method.
+tested using an {@link: arez.EqualityComparator}. Computable values generated for
+{@link: arez.annotations.Memoize @Memoize} methods use the comparator configured by the
+annotation and default to {@link: arez.ObjectsEqualsComparator}.
 
 ## Error Handling
 

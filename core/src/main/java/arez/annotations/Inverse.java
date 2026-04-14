@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
  * the {@link ArezComponent} annotation or a {@link java.util.Collection}, a {@link java.util.List} or a
  * {@link java.util.Set} where the type parameter refers to a class annotated with the
  * {@link ArezComponent} annotation. If the method returns a non-collection type then the type
- * must also be annotated with either {@link javax.annotation.Nonnull} or {@link javax.annotation.Nullable}.
+ * must also be annotated with either {@link Nonnull} or {@link javax.annotation.Nullable}.
  *
  * <p>The method must also conform to the following constraints:</p>
  * <ul>
@@ -41,8 +41,8 @@ public @interface Inverse
   /**
    * Return the name of the reference that the inverse is associated with. The value must conform
    * to the requirements of a java identifier. If not specified, the name will be derived by assuming
-   * that the reference name is the camelCase name of the class on which the {@link Inverse} annotation
-   * appears unless the {@link Inverse} appears on an interface in which case it is the class annotated
+   * that the reference name is the camelCase name of the class on which the {@code Inverse} annotation
+   * appears unless the {@code Inverse} appears on an interface in which case it is the class annotated
    * with {@link ArezComponent}.
    *
    * @return the name of the reference relative to the component.

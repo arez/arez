@@ -29,5 +29,6 @@ public final class ComputeStartEvent
   {
     map.put( "type", "ComputeStart" );
     map.put( "name", getComputableValue().getName() );
+    SpyEventUtil.maybeAddZone( map );
   }
 }

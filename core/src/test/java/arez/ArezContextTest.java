@@ -26,6 +26,8 @@ import arez.spy.TransactionStartEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -194,6 +196,238 @@ public final class ArezContextTest
     assertFalse( context.isReadOnlyTransactionActive() );
     assertFalse( context.isReadWriteTransactionActive() );
     assertFalse( context.isTrackingTransactionActive() );
+  }
+
+  @Test
+  public void isComputableTransactionActive()
+    throws Throwable
+  {
+    final ArezContext context = Arez.context();
+
+    assertFalse( context.isTransactionActive() );
+    assertFalse( context.isReadOnlyTransactionActive() );
+    assertFalse( context.isReadWriteTransactionActive() );
+    assertFalse( context.isTrackingTransactionActive() );
+    assertFalse( context.isComputableTransactionActive() );
+
+    context.action( () -> {
+      assertTrue( context.isTransactionActive() );
+      assertFalse( context.isReadOnlyTransactionActive() );
+      assertTrue( context.isReadWriteTransactionActive() );
+      assertFalse( context.isComputableTransactionActive() );
+      observeADependency();
+    } );
+
+    context.computable( () -> {
+      observeADependency();
+      assertTrue( context.isTransactionActive() );
+      assertTrue( context.isReadOnlyTransactionActive() );
+      assertFalse( context.isReadWriteTransactionActive() );
+      assertTrue( context.isTrackingTransactionActive() );
+      assertTrue( context.isComputableTransactionActive() );
+      return 0;
+    } );
+
+    assertFalse( context.isTransactionActive() );
+    assertFalse( context.isReadOnlyTransactionActive() );
+    assertFalse( context.isReadWriteTransactionActive() );
+    assertFalse( context.isTrackingTransactionActive() );
+    assertFalse( context.isComputableTransactionActive() );
+  }
+
+  @Test
+  public void registerHook_basic()
+  {
+    final ArezContext context = Arez.context();
+
+    final CountingProcedure onActivateHook1 = new CountingProcedure();
+    final CountingProcedure onActivateHook2 = new CountingProcedure();
+    final CountingProcedure onActivateHook3 = new CountingProcedure();
+
+    final CountingProcedure onDeactivateHook1 = new CountingProcedure();
+    final CountingProcedure onDeactivateHook2 = new CountingProcedure();
+    final CountingProcedure onDeactivateHook3 = new CountingProcedure();
+
+    final ComputableValue<Integer> computable =
+      context.computable( () -> {
+        observeADependency();
+        context.registerHook( "3", onActivateHook1, onDeactivateHook1 );
+        context.registerHook( "2", onActivateHook2, onDeactivateHook2 );
+        context.registerHook( "1", onActivateHook3, onDeactivateHook3 );
+        return 0;
+      } );
+
+    assertEquals( computable.getObserver().getHooks().size(), 0 );
+
+    final Observer observer = context.observer( () -> assertEquals( computable.get(), (Integer) 0 ) );
+
+    final Map<String, Hook> hooks = computable.getObserver().getHooks();
+    assertEquals( hooks.size(), 3 );
+
+    assertHookOrder( hooks, "3,2,1" );
+    assertEquals( hooks.get( "3" ).getOnActivate(), onActivateHook1 );
+    assertEquals( hooks.get( "3" ).getOnDeactivate(), onDeactivateHook1 );
+    assertEquals( hooks.get( "2" ).getOnActivate(), onActivateHook2 );
+    assertEquals( hooks.get( "2" ).getOnDeactivate(), onDeactivateHook2 );
+    assertEquals( hooks.get( "1" ).getOnActivate(), onActivateHook3 );
+    assertEquals( hooks.get( "1" ).getOnDeactivate(), onDeactivateHook3 );
+
+    assertEquals( onActivateHook1.getCallCount(), 1 );
+    assertEquals( onActivateHook2.getCallCount(), 1 );
+    assertEquals( onActivateHook3.getCallCount(), 1 );
+
+    assertEquals( onDeactivateHook1.getCallCount(), 0 );
+    assertEquals( onDeactivateHook2.getCallCount(), 0 );
+    assertEquals( onDeactivateHook3.getCallCount(), 0 );
+
+    Disposable.dispose( observer );
+
+    assertEquals( computable.getObserver().getHooks().size(), 0 );
+
+    assertEquals( onActivateHook1.getCallCount(), 1 );
+    assertEquals( onActivateHook2.getCallCount(), 1 );
+    assertEquals( onActivateHook3.getCallCount(), 1 );
+
+    assertEquals( onDeactivateHook1.getCallCount(), 1 );
+    assertEquals( onDeactivateHook2.getCallCount(), 1 );
+    assertEquals( onDeactivateHook3.getCallCount(), 1 );
+  }
+
+  @SuppressWarnings( "SameParameterValue" )
+  private static void assertHookOrder( @Nonnull final Map<String, Hook> hooks, @Nonnull final String expected )
+  {
+    @SuppressWarnings( { "NonJREEmulationClassesInClientCode", "SimplifyStreamApiCallChains" } )
+    final List<String> list = hooks.entrySet().stream().map( Map.Entry::getKey ).toList();
+    assertEquals( String.join( ",", list ), expected );
+  }
+
+  @Test
+  public void registerOnDeactivationHook_dynamicallyAdjustHooks()
+  {
+    final ArezContext context = Arez.context();
+
+    final AtomicBoolean includeAll = new AtomicBoolean( true );
+
+    final CountingProcedure onActivateHook1 = new CountingProcedure();
+    final CountingProcedure onActivateHook2 = new CountingProcedure();
+    final CountingProcedure onActivateHook3 = new CountingProcedure();
+
+    final CountingProcedure onDeactivateHook1 = new CountingProcedure();
+    final CountingProcedure onDeactivateHook2 = new CountingProcedure();
+    final CountingProcedure onDeactivateHook3 = new CountingProcedure();
+
+    final ObservableValue<Object> observable = Arez.context().observable();
+
+    final ComputableValue<Integer> computable =
+      context.computable( () -> {
+        observable.reportObserved();
+
+        context.registerHook( "3", onActivateHook1, onDeactivateHook1 );
+
+        if ( includeAll.get() )
+        {
+          context.registerHook( "2", onActivateHook2, onDeactivateHook2 );
+          context.registerHook( "1", onActivateHook3, onDeactivateHook3 );
+        }
+        return 0;
+      } );
+
+    assertEquals( computable.getObserver().getHooks().size(), 0 );
+
+    final Observer observer = context.observer( () -> assertEquals( computable.get(), (Integer) 0 ) );
+
+    final Map<String, Hook> hooks = computable.getObserver().getHooks();
+    assertEquals( hooks.size(), 3 );
+    assertHookOrder( hooks, "3,2,1" );
+    assertEquals( hooks.get( "3" ).getOnActivate(), onActivateHook1 );
+    assertEquals( hooks.get( "3" ).getOnDeactivate(), onDeactivateHook1 );
+    assertEquals( hooks.get( "2" ).getOnActivate(), onActivateHook2 );
+    assertEquals( hooks.get( "2" ).getOnDeactivate(), onDeactivateHook2 );
+    assertEquals( hooks.get( "1" ).getOnActivate(), onActivateHook3 );
+    assertEquals( hooks.get( "1" ).getOnDeactivate(), onDeactivateHook3 );
+
+    assertEquals( onActivateHook1.getCallCount(), 1 );
+    assertEquals( onActivateHook2.getCallCount(), 1 );
+    assertEquals( onActivateHook3.getCallCount(), 1 );
+
+    assertEquals( onDeactivateHook1.getCallCount(), 0 );
+    assertEquals( onDeactivateHook2.getCallCount(), 0 );
+    assertEquals( onDeactivateHook3.getCallCount(), 0 );
+
+    // Retrigger computed so it reduces the number of OnDeactivateHooks
+    includeAll.set( false );
+    context.safeAction( observable::reportChanged, ActionFlags.READ_WRITE );
+
+    assertEquals( computable.getObserver().getHooks().size(), 1 );
+
+    assertEquals( onActivateHook1.getCallCount(), 1 );
+    assertEquals( onActivateHook2.getCallCount(), 1 );
+    assertEquals( onActivateHook3.getCallCount(), 1 );
+
+    assertEquals( onDeactivateHook1.getCallCount(), 0 );
+    assertEquals( onDeactivateHook2.getCallCount(), 1 );
+    assertEquals( onDeactivateHook3.getCallCount(), 1 );
+
+    Disposable.dispose( observer );
+
+    assertEquals( computable.getObserver().getHooks().size(), 0 );
+
+    assertEquals( onActivateHook1.getCallCount(), 1 );
+    assertEquals( onActivateHook2.getCallCount(), 1 );
+    assertEquals( onActivateHook3.getCallCount(), 1 );
+
+    assertEquals( onDeactivateHook1.getCallCount(), 1 );
+    assertEquals( onDeactivateHook2.getCallCount(), 1 );
+    assertEquals( onDeactivateHook3.getCallCount(), 1 );
+  }
+
+  @Test
+  public void registerOnDeactivationHook_nullKey()
+  {
+    final ArezContext context = Arez.context();
+
+    final ComputableValue<Integer> computable =
+      context.computable( () -> {
+        observeADependency();
+        assertInvariantFailure( () -> context.registerHook( null, new NoopProcedure(), new NoopProcedure() ),
+                                "Arez-0125: registerHook() invoked with a null key." );
+        return 0;
+      } );
+
+    assertEquals( computable.getObserver().getHooks().size(), 0 );
+
+    context.observer( () -> assertEquals( computable.get(), (Integer) 0 ) );
+
+    assertEquals( computable.getObserver().getHooks().size(), 0 );
+  }
+
+  @Test
+  public void registerOnDeactivationHook_nullCallbacks()
+  {
+    final ArezContext context = Arez.context();
+
+    final ComputableValue<Integer> computable =
+      context.computable( () -> {
+        observeADependency();
+        assertInvariantFailure( () -> context.registerHook( "X", null, null ),
+                                "Arez-0124: registerHook() invoked with null onActivate and onDeactivate callbacks." );
+        return 0;
+      } );
+
+    assertEquals( computable.getObserver().getHooks().size(), 0 );
+
+    context.observer( () -> assertEquals( computable.get(), (Integer) 0 ) );
+
+    assertEquals( computable.getObserver().getHooks().size(), 0 );
+  }
+
+  @Test
+  public void registerOnDeactivationHook_outsideTransaction()
+  {
+    final ArezContext context = Arez.context();
+
+    assertInvariantFailure( () -> context.registerHook( "X", new NoopProcedure(), new NoopProcedure() ),
+                            "Arez-0098: registerHook() invoked outside of a transaction." );
   }
 
   @SuppressWarnings( "unused" )
@@ -793,7 +1027,7 @@ public final class ArezContextTest
         observableValue.reportObserved();
 
         // Tracking so state updated
-        final List<ObservableValue<?>> observableValues = transaction.getObservableValues();
+        final FastList<ObservableValue<?>> observableValues = transaction.getObservableValues();
         assertNotNull( observableValues );
         assertEquals( observableValues.size(), 1 );
         assertEquals( observableValue.getObservers().size(), 0 );
@@ -1177,7 +1411,7 @@ public final class ArezContextTest
         observableValue.reportObserved();
 
         // Tracking so state updated
-        final List<ObservableValue<?>> observableValues = transaction.getObservableValues();
+        final FastList<ObservableValue<?>> observableValues = transaction.getObservableValues();
         assertNotNull( observableValues );
         assertEquals( observableValues.size(), 1 );
         assertEquals( observableValue.getObservers().size(), 0 );
@@ -1343,7 +1577,7 @@ public final class ArezContextTest
       observableValue.reportObserved();
 
       // Tracking so state updated
-      final List<ObservableValue<?>> observableValues = transaction.getObservableValues();
+      final FastList<ObservableValue<?>> observableValues = transaction.getObservableValues();
       assertNotNull( observableValues );
       assertEquals( observableValues.size(), 1 );
       assertEquals( observableValue.getObservers().size(), 0 );
@@ -1462,7 +1696,7 @@ public final class ArezContextTest
       observableValue.reportObserved();
 
       // Tracking so state updated
-      final List<ObservableValue<?>> observableValues = transaction.getObservableValues();
+      final FastList<ObservableValue<?>> observableValues = transaction.getObservableValues();
       assertNotNull( observableValues );
       assertEquals( observableValues.size(), 1 );
       assertEquals( observableValue.getObservers().size(), 0 );
@@ -2006,13 +2240,10 @@ public final class ArezContextTest
       return "";
     };
     final Procedure onActivate = ValueUtil::randomString;
-    final Procedure onDeactivate = ValueUtil::randomString;
     final ComputableValue<String> computableValue =
       context.computable( null,
                           name,
                           function,
-                          onActivate,
-                          onDeactivate,
                           ComputableValue.Flags.PRIORITY_HIGH );
 
     assertEquals( computableValue.getName(), name );
@@ -2020,8 +2251,6 @@ public final class ArezContextTest
     assertFalse( computableValue.getObserver().isKeepAlive() );
     assertTrue( computableValue.getObserver().areArezDependenciesRequired() );
     assertEquals( computableValue.getObservableValue().getName(), name );
-    assertEquals( computableValue.getOnActivate(), onActivate );
-    assertEquals( computableValue.getOnDeactivate(), onDeactivate );
     assertEquals( computableValue.getObserver().getName(), name );
     assertEquals( computableValue.getObserver().getTask().getPriority(), Priority.HIGH );
     assertFalse( computableValue.getObserver().canObserveLowerPriorityDependencies() );
@@ -2071,8 +2300,7 @@ public final class ArezContextTest
       context.component( ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString() );
 
     final String name = ValueUtil.randomString();
-    final ComputableValue<String> computableValue =
-      context.computable( component, name, () -> "", null, null );
+    final ComputableValue<String> computableValue = context.computable( component, name, () -> "" );
 
     assertEquals( computableValue.getName(), name );
     assertEquals( computableValue.getComponent(), component );
@@ -2155,8 +2383,6 @@ public final class ArezContextTest
     assertEquals( computableValue.getContext(), context );
     assertEquals( computableValue.getObserver().getName(), name );
     assertEquals( computableValue.getObservableValue().getName(), name );
-    assertNull( computableValue.getOnActivate() );
-    assertNull( computableValue.getOnDeactivate() );
     assertEquals( computableValue.getObserver().getTask().getPriority(), Priority.NORMAL );
   }
 
@@ -2177,8 +2403,6 @@ public final class ArezContextTest
     assertEquals( computableValue.getContext(), context );
     assertEquals( computableValue.getObserver().getName(), name );
     assertEquals( computableValue.getObservableValue().getName(), name );
-    assertNull( computableValue.getOnActivate() );
-    assertNull( computableValue.getOnDeactivate() );
     assertEquals( computableValue.getObserver().getTask().getPriority(), Priority.NORMAL );
     assertFalse( computableValue.getObserver().canObserveLowerPriorityDependencies() );
   }

@@ -101,5 +101,6 @@ public final class ActionCompleteEvent
     map.put( "parameters", getParameters() );
     map.put( "returnsResult", returnsResult() );
     map.put( "result", getResult() );
+    SpyEventUtil.maybeAddZone( map );
   }
 }
