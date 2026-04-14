@@ -67,11 +67,6 @@ complete as there is too much un-said.
 * Maybe when the spy events are over a channel the puller can decide when parameters/results are sent across
   channel and when not.
 
-* Add hit-ratios for `ComputableValue` instances that can be compiled out. The hit ratio indicates the number of times
-  re-calculated versus number of actual changes. This will help us determine which `ComputableValue` instances
-  are not useful. We should also include the average amount of time it took to calculate the value? See the
-  `ComputableValueMetrics` branch for the begining of this.
-
 * Add annotation processor to code for following
 
 `
