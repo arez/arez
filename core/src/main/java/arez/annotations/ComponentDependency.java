@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
  * <p>It should be noted that it is preferable for the field that defines the dependency is marked
  * with this annotation rather than the method accessor. The reason is that the annotation processor
  * will issue a warning if a field that the processor identifies as a potential dependency if it is
- * not annotated with {@link ComponentDependency} or {@link CascadeDispose}.</p>
+ * not annotated with {@link AutoObserve}, {@link CascadeDispose} or {@link ComponentDependency}.</p>
  *
  * <p>If the element annotated is a method then the method must comply with the additional constraints:</p>
  * <ul>
