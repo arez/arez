@@ -1070,11 +1070,10 @@ public final class ArezProcessor
         null != typeElement ?
         AnnotationsUtil.findAnnotationByType( typeElement, Constants.COMPONENT_CLASSNAME ) :
         null;
-      if ( null == value || !isDisposableTrackableRequired( typeElement ) )
+      if ( null == value )
       {
         throw new ProcessorException( "@CascadeDispose target must be assignable to " +
-                                      Constants.DISPOSABLE_CLASSNAME + " or a type annotated with the @ArezComponent " +
-                                      "annotation where the disposeNotifier does not resolve to DISABLE",
+                                      Constants.DISPOSABLE_CLASSNAME + " or a type annotated with @ArezComponent",
                                       field );
       }
     }
@@ -1188,7 +1187,7 @@ public final class ArezProcessor
         null != typeElement ?
         AnnotationsUtil.findAnnotationByType( typeElement, Constants.COMPONENT_CLASSNAME ) :
         null;
-      if ( null == value || !isDisposableTrackableRequired( typeElement ) )
+      if ( null == value )
       {
         //The type of the field must implement {@link arez.Disposable} or must be annotated by {@link ArezComponent}
         throw new ProcessorException( "@CascadeDispose target must return a type assignable to " +

@@ -1,0 +1,113 @@
+meta:
+  project: arez-cascade-dispose-parameterized-target
+  last_updated: 2026-04-14
+  required_full_gates:
+    - bundle exec buildr test
+  statuses:
+    - pending
+    - in_progress
+    - completed
+    - cancelled
+
+current_focus: T03
+
+tasks:
+  - id: PLAN-APPROVAL
+    title: Review and accept structured delivery artifacts
+    status: completed
+    priority: high
+    depends_on: []
+    acceptance_criteria:
+      - User has reviewed the plan and either accepted the default decision or requested adjustments.
+      - The final decision for `Q-01` is recorded in the planning artifacts.
+    files_touched:
+      - plans/cascade-dispose-parameterized-target/*
+    evidence:
+      - command: user decision in thread
+        result: accepted default to allow all `@ArezComponent` `@CascadeDispose` targets
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T01
+    title: Update shared cascade-dispose compatibility logic
+    status: completed
+    priority: high
+    depends_on:
+      - PLAN-APPROVAL
+    acceptance_criteria:
+      - Shared `@CascadeDispose` validation accepts the resolved component-target cases.
+      - Field and method validation remain aligned.
+    files_touched:
+      - processor/src/main/java/arez/processor/ArezProcessor.java
+      - plans/cascade-dispose-parameterized-target/*
+    evidence:
+      - command: manual implementation
+        result: Removed the `disposeNotifier` restriction from shared `@CascadeDispose` type compatibility checks and aligned the field error message with the accepted contract.
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T02
+    title: Add regression fixtures and processor coverage
+    status: completed
+    priority: high
+    depends_on:
+      - T01
+    acceptance_criteria:
+      - A fixture matching the reported parameterized component case compiles.
+      - Existing invalid `@CascadeDispose` bad-type cases remain covered.
+    files_touched:
+      - processor/src/test/java/arez/processor/ArezProcessorTest.java
+      - processor/src/test/fixtures/**
+      - plans/cascade-dispose-parameterized-target/*
+    evidence:
+      - command: JAVA_OPTS='-Darez.output_fixture_data=true' bundle exec buildr arez:processor:test
+        result: pass; generated expected fixtures for the parameterized `@CascadeDispose` component case
+      - command: bundle exec buildr arez:processor:test
+        result: pass
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T03
+    title: Update changelog and run verification gates
+    status: completed
+    priority: medium
+    depends_on:
+      - T02
+    acceptance_criteria:
+      - `CHANGELOG.md` includes the bug fix.
+      - Targeted processor tests pass.
+      - Full gate is run or any blocker is documented.
+    files_touched:
+      - CHANGELOG.md
+      - plans/cascade-dispose-parameterized-target/*
+    evidence:
+      - command: manual implementation
+        result: Updated `CHANGELOG.md` for the `@CascadeDispose` parameterized component compatibility fix.
+      - command: bundle exec buildr arez:processor:test
+        result: pass
+      - command: bundle exec buildr test
+        result: failed_in_arez_downstream-test_with_missing_archive_symbolMaps_directory_at_target/arez_downstream-test/deploy_test/workdir/archive/arez.after/assets/WEB-INF/deploy/todomvc/symbolMaps
+    commit:
+      hash: not_required
+      message: not_required
+
+history:
+  - timestamp: 2026-04-14
+    task: PLAN-APPROVAL
+    commit: not_required
+    note: User approved the default decision to accept all `@ArezComponent` targets for `@CascadeDispose`.
+  - timestamp: 2026-04-14
+    task: T01
+    commit: not_required
+    note: Shared `@CascadeDispose` compatibility now accepts any `@ArezComponent` target instead of gating on `disposeNotifier`.
+  - timestamp: 2026-04-14
+    task: T02
+    commit: not_required
+    note: Added a successful compile regression for the parameterized nested component case and generated its expected outputs.
+  - timestamp: 2026-04-14
+    task: T03
+    commit: not_required
+    note: Processor gate passed; full repo gate still fails in downstream deploy-test because the archived `symbolMaps` directory is missing.
