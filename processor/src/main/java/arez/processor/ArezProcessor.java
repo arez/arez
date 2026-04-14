@@ -40,6 +40,7 @@ import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
+import javax.lang.model.util.ElementFilter;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 import org.realityforge.proton.AbstractStandardProcessor;
@@ -234,22 +235,6 @@ public final class ArezProcessor
 
     final ObservableDescriptor observable = component.findOrCreateObservable( name );
     final String equalityComparatorClassName = equalityComparator.toString();
-    final String existingComparator = observable.getEqualityComparator();
-    final boolean existingComparatorIsDefault =
-      Constants.OBJECTS_EQUALS_COMPARATOR_CLASSNAME.equals( existingComparator );
-    final boolean comparatorIsDefault =
-      Constants.OBJECTS_EQUALS_COMPARATOR_CLASSNAME.equals( equalityComparatorClassName );
-    if ( existingComparatorIsDefault )
-    {
-      observable.setEqualityComparator( equalityComparatorClassName );
-    }
-    else if ( !comparatorIsDefault && !existingComparator.equals( equalityComparatorClassName ) )
-    {
-      throw new ProcessorException( "@Observable target specified equalityComparator of type '" +
-                                    equalityComparatorClassName + "' but the paired accessor has already specified " +
-                                    "equalityComparator of type '" + existingComparator + "'.",
-                                    method );
-    }
 
     observable.setReadOutsideTransaction( readOutsideTransaction.getSimpleName().toString() );
     observable.setWriteOutsideTransaction( writeOutsideTransaction.getSimpleName().toString() );
@@ -272,6 +257,7 @@ public final class ArezProcessor
     }
     if ( setter )
     {
+      observable.setSetterDeclaredEqualityComparator( equalityComparatorClassName );
       if ( observable.hasSetter() )
       {
         throw new ProcessorException( "Method annotated with @Observable defines duplicate setter for " +
@@ -286,6 +272,7 @@ public final class ArezProcessor
     }
     else
     {
+      observable.setGetterDeclaredEqualityComparator( equalityComparatorClassName );
       if ( observable.hasGetter() )
       {
         throw new ProcessorException( "Method annotated with @Observable defines duplicate getter for " +
@@ -1536,7 +1523,11 @@ public final class ArezProcessor
                                                       observeLowerPriorityDependencies,
                                                       readOutsideTransaction.getSimpleName().toString(),
                                                       depTypeAsString,
-                                                      equalityComparator.toString() );
+                                                      resolveEffectiveEqualityComparator( component.getElement(),
+                                                                                         Constants.MEMOIZE_CLASSNAME,
+                                                                                         method,
+                                                                                         methodType.getReturnType(),
+                                                                                         equalityComparator.toString() ) );
   }
 
   @Nonnull
@@ -2648,9 +2639,9 @@ public final class ArezProcessor
 
     for ( final ObservableDescriptor observable : descriptor.getObservables().values() )
     {
+      final TypeMirror returnType = observable.getGetterType().getReturnType();
       if ( observable.expectSetter() )
       {
-        final TypeMirror returnType = observable.getGetterType().getReturnType();
         final TypeMirror parameterType = observable.getSetterType().getParameterTypes().get( 0 );
         if ( !processingEnv.getTypeUtils().isSameType( parameterType, returnType ) &&
              !parameterType.toString().equals( returnType.toString() ) )
@@ -2660,6 +2651,28 @@ public final class ArezProcessor
                                         observable.getGetter() );
         }
       }
+      final String getterDeclaredComparator = observable.getGetterDeclaredEqualityComparator();
+      final String setterDeclaredComparator = observable.getSetterDeclaredEqualityComparator();
+      final boolean getterExplicit = !Constants.EQUALITY_COMPARATOR_CLASSNAME.equals( getterDeclaredComparator );
+      final boolean setterExplicit = !Constants.EQUALITY_COMPARATOR_CLASSNAME.equals( setterDeclaredComparator );
+      if ( getterExplicit && setterExplicit && !getterDeclaredComparator.equals( setterDeclaredComparator ) )
+      {
+        throw new ProcessorException( "@Observable target specified equalityComparator of type '" +
+                                      setterDeclaredComparator + "' but the paired accessor has already specified " +
+                                      "equalityComparator of type '" + getterDeclaredComparator + "'.",
+                                      observable.getSetter() );
+      }
+      final Element comparatorElement =
+        getterExplicit ? observable.getGetter() : setterExplicit ? observable.getSetter() : observable.getDefiner();
+      final String comparatorClassName =
+        getterExplicit ? getterDeclaredComparator :
+        setterExplicit ? setterDeclaredComparator :
+        Constants.EQUALITY_COMPARATOR_CLASSNAME;
+      observable.setEqualityComparator( resolveEffectiveEqualityComparator( descriptor.getElement(),
+                                                                           Constants.OBSERVABLE_CLASSNAME,
+                                                                           comparatorElement,
+                                                                           returnType,
+                                                                           comparatorClassName ) );
     }
 
     final boolean idRequired = isIdRequired( arezComponent );
@@ -3915,6 +3928,147 @@ public final class ArezProcessor
   private boolean isAssignable( @Nonnull final TypeMirror type, @Nonnull final TypeElement typeElement )
   {
     return processingEnv.getTypeUtils().isAssignable( type, typeElement.asType() );
+  }
+
+  @Nonnull
+  private String resolveEffectiveEqualityComparator( @Nonnull final TypeElement componentType,
+                                                     @Nonnull final String annotationName,
+                                                     @Nonnull final Element element,
+                                                     @Nonnull final TypeMirror valueType,
+                                                     @Nonnull final String comparatorClassName )
+  {
+    final String effectiveComparator =
+      Constants.EQUALITY_COMPARATOR_CLASSNAME.equals( comparatorClassName ) ?
+      deriveDefaultEqualityComparator( valueType ) :
+      comparatorClassName;
+    verifyValidEqualityComparator( componentType, annotationName, effectiveComparator, element );
+    return effectiveComparator;
+  }
+
+  @Nonnull
+  private String deriveDefaultEqualityComparator( @Nonnull final TypeMirror valueType )
+  {
+    if ( TypeKind.DECLARED == valueType.getKind() )
+    {
+      final Element typeElement = ( (DeclaredType) valueType ).asElement();
+      final AnnotationMirror annotation =
+        AnnotationsUtil.findAnnotationByType( typeElement, Constants.DEFAULT_EQUALITY_COMPARATOR_CLASSNAME );
+      if ( null != annotation )
+      {
+        final TypeMirror comparatorType = AnnotationsUtil.getAnnotationValueValue( annotation, "value" );
+        return comparatorType.toString();
+      }
+    }
+    return Constants.OBJECTS_EQUALS_COMPARATOR_CLASSNAME;
+  }
+
+  private void verifyValidEqualityComparator( @Nonnull final TypeElement componentType,
+                                              @Nonnull final String annotationName,
+                                              @Nonnull final String comparatorClassName,
+                                              @Nonnull final Element element )
+  {
+    final TypeElement comparatorType = getTypeElement( comparatorClassName );
+    if ( ElementKind.CLASS != comparatorType.getKind() )
+    {
+      throw new ProcessorException( annotationName + " resolved equalityComparator of type '" +
+                                    comparatorClassName + "' but the comparator must be a class.",
+                                    element );
+    }
+    if ( comparatorType.getModifiers().contains( Modifier.ABSTRACT ) )
+    {
+      throw new ProcessorException( annotationName + " resolved equalityComparator of type '" +
+                                    comparatorClassName + "' but the comparator must not be abstract.",
+                                    element );
+    }
+    if ( isNonStaticNestedType( comparatorType ) )
+    {
+      throw new ProcessorException( annotationName + " resolved equalityComparator of type '" +
+                                    comparatorClassName + "' but the comparator must be static if nested.",
+                                    element );
+    }
+    if ( !isTypeAccessibleFromComponent( componentType, comparatorType ) )
+    {
+      throw new ProcessorException( annotationName + " resolved equalityComparator of type '" +
+                                    comparatorClassName + "' but the comparator is not accessible from the " +
+                                    "generated component.",
+                                    element );
+    }
+    if ( !hasAccessibleNoArgConstructor( componentType, comparatorType ) )
+    {
+      throw new ProcessorException( annotationName + " resolved equalityComparator of type '" +
+                                    comparatorClassName + "' but the comparator must define an accessible " +
+                                    "no-arg constructor.",
+                                    element );
+    }
+  }
+
+  private boolean hasAccessibleNoArgConstructor( @Nonnull final TypeElement componentType,
+                                                 @Nonnull final TypeElement comparatorType )
+  {
+    final List<ExecutableElement> constructors = ElementFilter.constructorsIn( comparatorType.getEnclosedElements() );
+    if ( constructors.isEmpty() )
+    {
+      return true;
+    }
+    for ( final ExecutableElement constructor : constructors )
+    {
+      if ( constructor.getParameters().isEmpty() && isElementAccessibleFromComponent( componentType, constructor ) )
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private boolean isTypeAccessibleFromComponent( @Nonnull final TypeElement componentType,
+                                                 @Nonnull final TypeElement typeElement )
+  {
+    if ( !isElementAccessibleFromComponent( componentType, typeElement ) )
+    {
+      return false;
+    }
+
+    Element enclosing = typeElement.getEnclosingElement();
+    while ( null != enclosing && ElementKind.PACKAGE != enclosing.getKind() )
+    {
+      if ( enclosing instanceof final TypeElement enclosingType &&
+           !isElementAccessibleFromComponent( componentType, enclosingType ) )
+      {
+        return false;
+      }
+      enclosing = enclosing.getEnclosingElement();
+    }
+    return true;
+  }
+
+  private boolean isElementAccessibleFromComponent( @Nonnull final TypeElement componentType,
+                                                    @Nonnull final Element element )
+  {
+    final Set<Modifier> modifiers = element.getModifiers();
+    if ( modifiers.contains( Modifier.PRIVATE ) )
+    {
+      return false;
+    }
+
+    final TypeElement owningType = getOwningType( element );
+    return !ElementsUtil.areTypesInDifferentPackage( owningType, componentType ) || modifiers.contains( Modifier.PUBLIC );
+  }
+
+  @Nonnull
+  private TypeElement getOwningType( @Nonnull final Element element )
+  {
+    Element current = element;
+    while ( !( current instanceof TypeElement ) )
+    {
+      current = current.getEnclosingElement();
+    }
+    return (TypeElement) current;
+  }
+
+  private boolean isNonStaticNestedType( @Nonnull final TypeElement typeElement )
+  {
+    final Element enclosing = typeElement.getEnclosingElement();
+    return ElementKind.PACKAGE != enclosing.getKind() && !typeElement.getModifiers().contains( Modifier.STATIC );
   }
 
   private boolean isMethodAProtectedOverride( @Nonnull final TypeElement typeElement,

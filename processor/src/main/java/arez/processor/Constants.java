@@ -47,6 +47,8 @@ final class Constants
   @Nonnull
   static final String MEMOIZE_CONTEXT_PARAMETER_CLASSNAME = "arez.annotations.MemoizeContextParameter";
   @Nonnull
+  static final String DEFAULT_EQUALITY_COMPARATOR_CLASSNAME = "arez.annotations.DefaultEqualityComparator";
+  @Nonnull
   static final String OBSERVABLE_CLASSNAME = "arez.annotations.Observable";
   @Nonnull
   static final String OBSERVABLE_INITIAL_CLASSNAME = "arez.annotations.ObservableInitial";
@@ -74,6 +76,8 @@ final class Constants
   static final String COMPUTABLE_VALUE_CLASSNAME = "arez.ComputableValue";
   @Nonnull
   static final String OBSERVER_CLASSNAME = "arez.Observer";
+  @Nonnull
+  static final String EQUALITY_COMPARATOR_CLASSNAME = "arez.EqualityComparator";
   @Nonnull
   static final String COMPONENT_OBSERVABLE_CLASSNAME = "arez.component.ComponentObservable";
   @Nonnull

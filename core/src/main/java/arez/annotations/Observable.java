@@ -2,7 +2,6 @@ package arez.annotations;
 
 import arez.EqualityComparator;
 import arez.ObservableValue;
-import arez.ObjectsEqualsComparator;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
@@ -117,9 +116,17 @@ public @interface Observable
 
   /**
    * Return the strategy used to compare values when checking whether the observable has changed.
+   * If this parameter is left as {@link EqualityComparator} then the annotation processor will
+   * derive the comparator from the exact declared observable type when that type is annotated
+   * with {@link DefaultEqualityComparator}. If no type-level default is present then
+   * {@link arez.ObjectsEqualsComparator} will be used.
+   *
+   * <p>Explicitly specifying a comparator on the annotation overrides any type-level default.
+   * Type-level defaults are not derived for arrays, type-use annotations, or supertypes and
+   * interfaces other than the exact declared type.</p>
    *
    * @return the comparator type used when checking whether values are equal.
    */
   @Nonnull
-  Class<? extends EqualityComparator> equalityComparator() default ObjectsEqualsComparator.class;
+  Class<? extends EqualityComparator> equalityComparator() default EqualityComparator.class;
 }

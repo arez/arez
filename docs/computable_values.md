@@ -57,7 +57,10 @@ re-computed the computable value. If the computable value is equal to the cached
 will be marked as unchanged and no downstream observers or computable values will be scheduled. Equality is
 tested using an {@link: arez.EqualityComparator}. Computable values generated for
 {@link: arez.annotations.Memoize @Memoize} methods use the comparator configured by the
-annotation and default to {@link: arez.ObjectsEqualsComparator}.
+annotation and default to {@link: arez.ObjectsEqualsComparator}. If the exact declared return
+type is annotated with {@link: arez.annotations.DefaultEqualityComparator @DefaultEqualityComparator}
+then that comparator is used unless the {@link: arez.annotations.Memoize @Memoize} annotation
+explicitly specifies a comparator.
 
 ## Error Handling
 

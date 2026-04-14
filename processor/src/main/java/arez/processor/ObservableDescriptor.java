@@ -36,7 +36,11 @@ final class ObservableDescriptor
   @Nonnull
   private String _writeOutsideTransaction = "AUTODETECT";
   @Nonnull
-  private String _equalityComparator = Constants.OBJECTS_EQUALS_COMPARATOR_CLASSNAME;
+  private String _equalityComparator = Constants.EQUALITY_COMPARATOR_CLASSNAME;
+  @Nonnull
+  private String _getterDeclaredEqualityComparator = Constants.EQUALITY_COMPARATOR_CLASSNAME;
+  @Nonnull
+  private String _setterDeclaredEqualityComparator = Constants.EQUALITY_COMPARATOR_CLASSNAME;
   private boolean _setterAlwaysMutates;
   private Boolean _initializer;
   @Nullable
@@ -153,6 +157,28 @@ final class ObservableDescriptor
   void setEqualityComparator( @Nonnull final String equalityComparator )
   {
     _equalityComparator = Objects.requireNonNull( equalityComparator );
+  }
+
+  void setGetterDeclaredEqualityComparator( @Nonnull final String equalityComparator )
+  {
+    _getterDeclaredEqualityComparator = Objects.requireNonNull( equalityComparator );
+  }
+
+  @Nonnull
+  String getGetterDeclaredEqualityComparator()
+  {
+    return _getterDeclaredEqualityComparator;
+  }
+
+  void setSetterDeclaredEqualityComparator( @Nonnull final String equalityComparator )
+  {
+    _setterDeclaredEqualityComparator = Objects.requireNonNull( equalityComparator );
+  }
+
+  @Nonnull
+  String getSetterDeclaredEqualityComparator()
+  {
+    return _setterDeclaredEqualityComparator;
   }
 
   @Nonnull

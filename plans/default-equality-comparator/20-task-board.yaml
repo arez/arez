@@ -1,0 +1,171 @@
+meta:
+  project: arez-default-equality-comparator
+  last_updated: 2026-04-14
+  required_full_gates:
+    - bundle exec buildr test
+    - bundle exec buildr test_api_diff
+    - bundle exec buildr site:build
+  statuses:
+    - pending
+    - in_progress
+    - completed
+    - cancelled
+
+current_focus: T06
+
+tasks:
+  - id: PLAN-APPROVAL
+    title: Review and accept structured delivery artifacts
+    status: completed
+    priority: high
+    depends_on: []
+    acceptance_criteria:
+      - User has approved the implementation plan in-thread.
+    files_touched:
+      - plans/default-equality-comparator/*
+    evidence:
+      - command: user request in thread
+        result: pass
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T01
+    title: Add public annotation API and default sentinel changes
+    status: completed
+    priority: high
+    depends_on:
+      - PLAN-APPROVAL
+    acceptance_criteria:
+      - `@DefaultEqualityComparator` exists with final Javadocs.
+      - `@Observable` and `@Memoize` use `EqualityComparator.class` as the derive-default sentinel.
+      - Public docs and changelog are updated for the API behavior.
+    files_touched:
+      - core/src/main/java/arez/annotations/*
+      - CHANGELOG.md
+      - plans/default-equality-comparator/*
+    evidence:
+      - command: manual implementation
+        result: Added `@DefaultEqualityComparator`, changed `@Observable`/`@Memoize` defaults to `EqualityComparator.class`, and updated docs/changelog.
+    commit:
+      hash: pending
+      message: Add default equality comparator annotation API
+
+  - id: T02
+    title: Implement processor resolution and comparator validation
+    status: completed
+    priority: high
+    depends_on:
+      - T01
+    acceptance_criteria:
+      - Processor derives effective comparators from explicit configuration or annotated exact types.
+      - Fallback remains `ObjectsEqualsComparator`.
+      - Invalid comparator classes fail with targeted diagnostics.
+    files_touched:
+      - processor/src/main/java/arez/processor/*
+    evidence:
+      - command: manual implementation
+        result: Added exact-type default resolution, explicit override precedence, fallback to `ObjectsEqualsComparator`, and comparator validity checks.
+    commit:
+      hash: pending
+      message: Implement comparator default resolution in processor
+
+  - id: T03
+    title: Add processor fixtures and expected generated output coverage
+    status: completed
+    priority: high
+    depends_on:
+      - T02
+    acceptance_criteria:
+      - Positive fixtures cover memoize, observable, override, interface-declared, and fallback scenarios.
+      - Negative fixtures cover conflicts and invalid comparator classes.
+      - Expected generated files assert comparator construction is emitted only when required.
+    files_touched:
+      - processor/src/test/java/arez/processor/ArezProcessorTest.java
+      - processor/src/test/fixtures/**
+    evidence:
+      - command: bundle exec buildr arez:processor:test
+        result: pass
+      - command: JAVA_OPTS='-Darez.output_fixture_data=true' bundle exec buildr arez:processor:test
+        result: pass
+    commit:
+      hash: pending
+      message: Add processor coverage for default equality comparators
+
+  - id: T04
+    title: Add integration tests for derived type-level comparators
+    status: completed
+    priority: high
+    depends_on:
+      - T02
+    acceptance_criteria:
+      - Integration tests cover observable and memoize derivation plus explicit override.
+      - Existing explicit comparator paths remain covered.
+    files_touched:
+      - integration-tests/src/test/java/**
+    evidence:
+      - command: bundle exec buildr arez:integration-tests:test
+        result: pass
+    commit:
+      hash: pending
+      message: Add integration tests for type-level equality comparators
+
+  - id: T05
+    title: Update docs/examples and API compatibility baseline
+    status: completed
+    priority: medium
+    depends_on:
+      - T02
+    acceptance_criteria:
+      - Docs explain precedence, exact-type lookup, and v1 limitations.
+      - Doc examples show a reusable annotated value type.
+      - API diff baseline includes the new annotation and changed defaults.
+    files_touched:
+      - docs/**
+      - doc-examples/src/main/java/**
+      - api-test/*
+      - README.md
+    evidence:
+      - command: bundle exec buildr update_api_diff
+        result: partial_pass_generated_file_then_failed_on_internal_git_add_due_to_sandbox
+      - command: bundle exec buildr test_api_diff
+        result: pass
+      - command: bundle exec buildr site:build
+        result: pass_with_escalation
+    commit:
+      hash: pending
+      message: Document default equality comparator behavior
+
+  - id: T06
+    title: Run full gates and close out
+    status: completed
+    priority: high
+    depends_on:
+      - T03
+      - T04
+      - T05
+    acceptance_criteria:
+      - Required full gates pass or failures are documented with root cause.
+      - Task board evidence and commit metadata are updated.
+    files_touched:
+      - plans/default-equality-comparator/*
+    evidence:
+      - command: bundle exec buildr test
+        result: failed_downstream_test_missing_symbol_maps_archive_path_after_network_issue_was_resolved
+      - command: bundle exec buildr test_api_diff
+        result: pass
+      - command: bundle exec buildr site:build
+        result: pass_with_escalation
+    commit:
+      hash: not_required
+      message: not_required
+
+history:
+  - timestamp: 2026-04-14
+    task: PLAN-APPROVAL
+    commit: not_required
+    note: User requested implementation of the approved plan.
+  - timestamp: 2026-04-14
+    task: T06
+    commit: not_required
+    note: Relevant processor, integration, API diff, and site gates passed. Full `bundle exec buildr test` failed in downstream-test due a missing archived `symbolMaps` directory after the downstream build completed.

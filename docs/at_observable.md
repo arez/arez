@@ -56,6 +56,19 @@ Common options include:
 * {@link: arez.ObjectsDeepEqualsComparator}
 * A custom implementation of {@link: arez.EqualityComparator}
 
+If the observable type is reused in multiple places, annotate the exact declared type with
+{@link: arez.annotations.DefaultEqualityComparator @DefaultEqualityComparator} and leave the
+`equalityComparator` parameter unset. The processor will derive the comparator from the declared
+type and reuse it for both {@link: arez.annotations.Observable @Observable} and
+{@link: arez.annotations.Memoize @Memoize} methods.
+
+For example:
+
+{@file_content: file=arez/doc/examples/at_default_equality_comparator/MyModel.java start_line=@ArezComponent "end_line=^}"}
+
+The type-level default only applies to the exact declared type. Arrays, JDK types, third-party
+types, and unannotated supertypes still require an explicit `equalityComparator`.
+
 ## Custom change propagation
 
 Sometimes you want to integrate Arez into systems that have existing change propagation mechanisms. For

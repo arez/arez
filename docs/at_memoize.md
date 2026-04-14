@@ -40,6 +40,17 @@ from the previously cached value. By default this comparison uses
 Common options include {@link: arez.ObjectsDeepEqualsComparator} or a custom
 {@link: arez.EqualityComparator} implementation.
 
+If the memoized return type is reused across multiple memoized or observable values, annotate
+that exact declared type with {@link: arez.annotations.DefaultEqualityComparator @DefaultEqualityComparator}
+and leave `equalityComparator` unset on the individual methods.
+
+For example:
+
+{@file_content: file=arez/doc/examples/at_default_equality_comparator/MyModel.java start_line=@ArezComponent "end_line=^}"}
+
+Type-level defaults are only derived from the exact declared return type. Arrays, JDK types,
+third-party types, and unannotated supertypes still require an explicit comparator.
+
 ## Lifecycle Hooks
 
 The component model also supports the definition of callback methods as described in the

@@ -1,0 +1,55 @@
+[
+  {
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "@interface arez.annotations.DefaultEqualityComparator",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.DefaultEqualityComparator",
+      "classSimpleName": "DefaultEqualityComparator",
+      "elementKind": "@interface",
+      "package": "arez.annotations"
+    }
+  },
+  {
+    "code": "java.method.defaultValueChanged",
+    "description": "Default value of attribute 'equalityComparator' of annotation 'arez.annotations.Memoize' changed value from 'arez.ObjectsEqualsComparator.class' to 'arez.EqualityComparator.class'.",
+    "element": "method java.lang.Class<? extends arez.EqualityComparator> arez.annotations.Memoize::equalityComparator()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.Memoize",
+      "classSimpleName": "Memoize",
+      "elementKind": "method",
+      "methodName": "equalityComparator",
+      "newValue": "arez.EqualityComparator.class",
+      "oldValue": "arez.ObjectsEqualsComparator.class",
+      "package": "arez.annotations"
+    }
+  },
+  {
+    "code": "java.method.defaultValueChanged",
+    "description": "Default value of attribute 'equalityComparator' of annotation 'arez.annotations.Observable' changed value from 'arez.ObjectsEqualsComparator.class' to 'arez.EqualityComparator.class'.",
+    "element": "method java.lang.Class<? extends arez.EqualityComparator> arez.annotations.Observable::equalityComparator()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.Observable",
+      "classSimpleName": "Observable",
+      "elementKind": "method",
+      "methodName": "equalityComparator",
+      "newValue": "arez.EqualityComparator.class",
+      "oldValue": "arez.ObjectsEqualsComparator.class",
+      "package": "arez.annotations"
+    }
+  }
+]
