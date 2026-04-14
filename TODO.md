@@ -22,9 +22,6 @@ complete as there is too much un-said.
 * Add to build process so that every published packaged is attempted to be built using bazel to
   ensure it's dependencies align.
 
-* Remove the need for enhanced component classes to ever be public by generating a sidecar public class for
-  inverse references.
-
 * Support multiple instances of `@OnDepsChange`
 
 * `@ComponentDependency`/`@CascadeDispose` fields should not be public or protected and in same class
