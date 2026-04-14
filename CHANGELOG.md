@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.233](https://github.com/arez/arez/tree/v0.233) (2026-04-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.232...v0.233)
+
+Changes in this release:
 
 * Replace hook storage in `Observer` and `Transaction` with a specialized insertion-ordered map to reduce transpiled JavaScript size while preserving hook behavior.
 * Add suppressable `Arez:PublicField` and `Arez:ProtectedField` warnings for `@AutoObserve`, `@CascadeDispose`, and `@ComponentDependency` field targets when access levels are broader than necessary.
