@@ -145,6 +145,7 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.memoize.LowestPriorityModel" },
         new Object[]{ "com.example.memoize.LowPriorityModel" },
         new Object[]{ "com.example.memoize.NonArezDependenciesModel" },
+        new Object[]{ "com.example.memoize.NonArezDependenciesWithOnActivateParamModel" },
         new Object[]{ "com.example.memoize.NoReportResultModel" },
         new Object[]{ "com.example.memoize.WithHooksModel" },
         new Object[]{ "com.example.memoize.KeepAliveModel" },

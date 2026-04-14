@@ -1,0 +1,139 @@
+meta:
+  project: arez-memoize-on-activate-computable-value
+  last_updated: 2026-04-14
+  required_full_gates:
+    - bundle exec buildr arez:processor:test
+    - bundle exec buildr arez:integration-tests
+    - bundle exec buildr test
+  statuses:
+    - pending
+    - in_progress
+    - completed
+    - cancelled
+
+current_focus: T04
+
+tasks:
+  - id: PLAN-APPROVAL
+    title: Review and accept structured delivery artifacts
+    status: completed
+    priority: high
+    depends_on: []
+    acceptance_criteria:
+      - The plan matches the user-requested memoize/on-activate processor fix.
+    files_touched:
+      - plans/memoize-on-activate-computable-value/*
+    evidence:
+      - command: user request in thread
+        result: pass
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T01
+    title: Relax memoize validation for OnActivate computable-value access
+    status: completed
+    priority: high
+    depends_on:
+      - PLAN-APPROVAL
+    acceptance_criteria:
+      - `AREZ_OR_EXTERNAL` no longer requires `@ComputableValueRef` when `@OnActivate` already receives the computable value.
+      - Missing-ref validation remains in place for memoize entries that expose no computable-value access path.
+    files_touched:
+      - processor/src/main/java/arez/processor/MemoizeDescriptor.java
+      - plans/memoize-on-activate-computable-value/*
+    evidence:
+      - command: manual implementation
+        result: Updated memoize validation to treat `@OnActivate(ComputableValue...)` as a valid computable-value access path.
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T02
+    title: Align generated activation hook wiring and regression fixtures
+    status: completed
+    priority: high
+    depends_on:
+      - T01
+    acceptance_criteria:
+      - Generated memoize hook wiring passes the memoize field into parameterized activation hooks.
+      - Processor fixtures cover the accepted `AREZ_OR_EXTERNAL` plus `@OnActivate(ComputableValue)` pattern.
+      - `CHANGELOG.md` records the behavior change.
+    files_touched:
+      - processor/src/main/java/arez/processor/ComponentGenerator.java
+      - processor/src/test/java/arez/processor/ArezProcessorTest.java
+      - processor/src/test/fixtures/input/com/example/memoize/*
+      - processor/src/test/fixtures/expected/com/example/memoize/*
+      - CHANGELOG.md
+      - plans/memoize-on-activate-computable-value/*
+    evidence:
+      - command: manual implementation
+        result: Added wrapper-based activation hook wiring, a new memoize fixture, and an unreleased changelog entry.
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T03
+    title: Run targeted processor verification and close out
+    status: completed
+    priority: high
+    depends_on:
+      - T02
+    acceptance_criteria:
+      - `bundle exec buildr arez:processor:test` passes.
+      - `bundle exec buildr test` passes or the failure is documented.
+      - Task evidence records the final verification result.
+    files_touched:
+      - plans/memoize-on-activate-computable-value/*
+    evidence:
+      - command: bundle exec buildr arez:processor:test
+        result: pass
+      - command: bundle exec buildr test
+        result: fail - unrelated downstream failure in `arez.downstream.BuildOutputTest.arezProduction` due missing `target/arez_downstream-test/deploy_test/workdir/archive/arez.after/assets/WEB-INF/deploy/todomvc/symbolMaps`
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T04
+    title: Add integration coverage for OnActivate-delivered computable values
+    status: completed
+    priority: high
+    depends_on:
+      - T03
+    acceptance_criteria:
+      - An integration test exercises `@Memoize( depType = DepType.AREZ_OR_EXTERNAL )` with `@OnActivate(ComputableValue<T>)` and no `@ComputableValueRef`.
+      - The scenario uses the hook-delivered `ComputableValue` to call `reportPossiblyChanged()` after an external state update.
+      - `bundle exec buildr arez:integration-tests` passes or the failure is documented.
+    files_touched:
+      - integration-tests/src/test/java/arez/integration/memoize/*
+      - plans/memoize-on-activate-computable-value/*
+    evidence:
+      - command: manual implementation
+        result: Added runtime coverage proving the `@OnActivate`-delivered `ComputableValue` can drive `reportPossiblyChanged()` without a paired `@ComputableValueRef`.
+      - command: bundle exec buildr arez:integration-tests:test
+        result: pass
+    commit:
+      hash: not_required
+      message: not_required
+
+history:
+  - timestamp: 2026-04-14
+    task: PLAN-APPROVAL
+    commit: not_required
+    note: User requested the memoize/on-activate fix and explicitly asked to use the structured delivery workflow.
+  - timestamp: 2026-04-14
+    task: T01
+    commit: not_required
+    note: Relaxed the missing `@ComputableValueRef` rule when `@OnActivate` already exposes the memoized computable value.
+  - timestamp: 2026-04-14
+    task: T02
+    commit: not_required
+    note: Routed parameterized activation hooks through the wrapper path and added a compile regression fixture plus changelog entry.
+  - timestamp: 2026-04-14
+    task: T03
+    commit: not_required
+    note: `bundle exec buildr arez:processor:test` passed; the broader `bundle exec buildr test` run failed later in unrelated downstream output verification due a missing `symbolMaps` directory.
+  - timestamp: 2026-04-14
+    task: T04
+    commit: not_required
+    note: Added runtime integration coverage for the `@OnActivate(ComputableValue)` path and verified it with `bundle exec buildr arez:integration-tests:test`.

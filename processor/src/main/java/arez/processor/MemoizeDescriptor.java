@@ -168,7 +168,7 @@ final class MemoizeDescriptor
 
   boolean shouldGenerateActivateWrapperHook()
   {
-    return isCollectionType() && hasNoParameters();
+    return hasOnActivateWithComputableValueParameter() || ( isCollectionType() && hasNoParameters() );
   }
 
   boolean shouldGenerateDeactivateWrapperHook()
@@ -370,11 +370,27 @@ final class MemoizeDescriptor
                                       "target do not have the same parameters.", _method );
       }
     }
-    if ( _refMethods.isEmpty() && getDepType().equals( "AREZ_OR_EXTERNAL" ) )
+    if ( _refMethods.isEmpty() &&
+         !hasOnActivateWithComputableValueParameter() &&
+         getDepType().equals( "AREZ_OR_EXTERNAL" ) )
     {
       assert null != _method;
       throw new ProcessorException( "@Memoize target specified depType = AREZ_OR_EXTERNAL but " +
                                     "there is no associated @ComputableValueRef method.", _method );
+    }
+  }
+
+  private boolean hasOnActivateWithComputableValueParameter()
+  {
+    if ( null == _onActivate )
+    {
+      return false;
+    }
+    else
+    {
+      final var parameters = _onActivate.getParameters();
+      return 1 == parameters.size() &&
+             parameters.get( 0 ).asType().toString().startsWith( Constants.COMPUTABLE_VALUE_CLASSNAME );
     }
   }
 

@@ -39,8 +39,8 @@ import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
-import javax.lang.model.util.Elements;
 import javax.lang.model.util.ElementFilter;
+import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 import org.realityforge.proton.AbstractStandardProcessor;
@@ -440,16 +440,7 @@ public final class ArezProcessor
                       ON_ACTIVATE_PATTERN,
                       "Activate",
                       AnnotationsUtil.getAnnotationValueValue( annotation, "name" ) );
-    MemberChecks.mustBeLifecycleHook( component.getElement(),
-                                      Constants.COMPONENT_CLASSNAME,
-                                      Constants.ON_ACTIVATE_CLASSNAME,
-                                      method );
-    shouldBeInternalHookMethod( processingEnv,
-                                component,
-                                method,
-                                Constants.ON_ACTIVATE_CLASSNAME );
-
-    component.findOrCreateMemoize( name ).setOnActivate( method );
+    setOnActivate( component, component.findOrCreateMemoize( name ), method );
   }
 
   private void addOnDeactivate( @Nonnull final ComponentDescriptor component,
@@ -796,6 +787,35 @@ public final class ArezProcessor
                                 method,
                                 Constants.ON_DEPS_CHANGE_CLASSNAME );
     observe.setOnDepsChange( method );
+  }
+
+  private void setOnActivate( @Nonnull final ComponentDescriptor component,
+                              @Nonnull final MemoizeDescriptor memoize,
+                              @Nonnull final ExecutableElement method )
+    throws ProcessorException
+  {
+    MemberChecks.mustNotBeAbstract( Constants.ON_ACTIVATE_CLASSNAME, method );
+    MemberChecks.mustBeSubclassCallable( component.getElement(),
+                                         Constants.COMPONENT_CLASSNAME,
+                                         Constants.ON_ACTIVATE_CLASSNAME,
+                                         method );
+
+    final var parameters = method.getParameters();
+    if ( !parameters.isEmpty() &&
+         !( 1 == parameters.size() &&
+            parameters.get( 0 ).asType().toString().startsWith( Constants.COMPUTABLE_VALUE_CLASSNAME ) ) )
+    {
+      MemberChecks.mustNotHaveAnyParameters( Constants.ON_ACTIVATE_CLASSNAME, method );
+    }
+
+    MemberChecks.mustNotReturnAnyValue( Constants.ON_ACTIVATE_CLASSNAME, method );
+    MemberChecks.mustNotThrowAnyExceptions( Constants.ON_ACTIVATE_CLASSNAME, method );
+    shouldBeInternalHookMethod( processingEnv,
+                                component,
+                                method,
+                                Constants.ON_ACTIVATE_CLASSNAME );
+
+    memoize.setOnActivate( method );
   }
 
   private void verifyNoDuplicateAnnotations( @Nonnull final ExecutableElement method )
@@ -1525,10 +1545,10 @@ public final class ArezProcessor
                                                       readOutsideTransaction.getSimpleName().toString(),
                                                       depTypeAsString,
                                                       resolveEffectiveEqualityComparator( component.getElement(),
-                                                                                         Constants.MEMOIZE_CLASSNAME,
-                                                                                         method,
-                                                                                         methodType.getReturnType(),
-                                                                                         equalityComparator.toString() ) );
+                                                                                          Constants.MEMOIZE_CLASSNAME,
+                                                                                          method,
+                                                                                          methodType.getReturnType(),
+                                                                                          equalityComparator.toString() ) );
   }
 
   @Nonnull
@@ -2671,10 +2691,10 @@ public final class ArezProcessor
         setterExplicit ? setterDeclaredComparator :
         Constants.EQUALITY_COMPARATOR_CLASSNAME;
       observable.setEqualityComparator( resolveEffectiveEqualityComparator( descriptor.getElement(),
-                                                                           Constants.OBSERVABLE_CLASSNAME,
-                                                                           comparatorElement,
-                                                                           returnType,
-                                                                           comparatorClassName ) );
+                                                                            Constants.OBSERVABLE_CLASSNAME,
+                                                                            comparatorElement,
+                                                                            returnType,
+                                                                            comparatorClassName ) );
     }
 
     final boolean idRequired = isIdRequired( arezComponent );
@@ -4096,7 +4116,8 @@ public final class ArezProcessor
     }
 
     final TypeElement owningType = getOwningType( element );
-    return !ElementsUtil.areTypesInDifferentPackage( owningType, componentType ) || modifiers.contains( Modifier.PUBLIC );
+    return !ElementsUtil.areTypesInDifferentPackage( owningType, componentType ) ||
+           modifiers.contains( Modifier.PUBLIC );
   }
 
   private boolean isProtectedFieldOnInheritedTypeInDifferentPackage( @Nonnull final TypeElement componentType,

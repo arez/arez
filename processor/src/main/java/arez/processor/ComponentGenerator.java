@@ -2415,8 +2415,7 @@ final class ComponentGenerator
     if ( memoize.hasNoParameters() )
     {
       builder.addMethod( buildMemoizeWithoutParams( processingEnv, memoize ) );
-      final ExecutableElement onActivate = memoize.getOnActivate();
-      if ( ( null != onActivate && !onActivate.getParameters().isEmpty() ) || memoize.isCollectionType() )
+      if ( memoize.shouldGenerateActivateWrapperHook() )
       {
         builder.addMethod( buildOnActivateWrapperHook( memoize ) );
       }
@@ -2445,6 +2444,7 @@ final class ComponentGenerator
   private static MethodSpec buildOnActivateWrapperHook( @Nonnull final MemoizeDescriptor memoize )
     throws ProcessorException
   {
+    assert memoize.shouldGenerateActivateWrapperHook();
     final MethodSpec.Builder builder = MethodSpec.methodBuilder( getOnActivateHookMethodName( memoize ) );
     builder.addModifiers( Modifier.PRIVATE );
 
