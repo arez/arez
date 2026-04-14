@@ -10,9 +10,6 @@ complete as there is too much un-said.
 
 * We should gracefully handle multiple dependencies from the same component to another component as sometimes it is not easy to statically determine that there will be a duplicate.
 
-* `final EventDrivenValue<HTMLDocument, Object> _documentVisibility` can not have `@CascadeDispose` annotation.
-  Because type parameter confuses annotation processor?
-
 * Change `@ArezComponent.service` to `@ArezComponent.kind` and give it possible values of `SERVICE`, `ENTITY` and `COMPONENT` which change the defaults on the component. Alternatively support alternative annotations such as `@Component`, `@Entity` and `@Service`
 
 * Add to build process so that every published packaged is attempted to be built using bazel to
