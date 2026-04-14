@@ -57,9 +57,6 @@ complete as there is too much un-said.
 * Add `ObservableMap`, `ObservableList` and `ObservableSet` implementations that implement reactivity as a
   wrapper around underling collections.
 
-* Add ability to explicitly activate/deactivate non `ComputableValue` observers. Perhaps we should return an
-  `ActivationLock` that is disposed when no longer care for Observer to be activated.
-
 * Consider adding flags to `Observable` object to move the configuration of `readOutsideTransaction`
   and `writeOutsideTransaction` into this field. This will hopefully result in a smaller API surface
   and reduced code size. `@Observable(writeOutsideTransaction=ENABLE)` should also work when invoking
