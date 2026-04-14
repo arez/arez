@@ -32,9 +32,6 @@ complete as there is too much un-said.
 * Add integration test that verifies the sequencing of all the calls when multiple lifecycle steps present.
   Particularly when some are from parent classes and/or types.
 
-* Consider moving `@SuppressArezWarnings` to a separate package and renaming it and replacing usages of
-  `@SuppressReact4jWarnings`, `@SuppressSpritzWarnings`, etc with this common annotation.
-
 * Remove `BuildOutputTest` by pushing the grim tests into downstream projects that always verify they meet
   expectations. This is easier to maintain and makes it possible to verify each variant we build with all
   grim-compatible libraries. We could easily add a test to arez that just built `raw` branch of `react4j-todomvc`
