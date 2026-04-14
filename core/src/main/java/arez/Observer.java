@@ -8,8 +8,6 @@ import arez.spy.ObserverCreateEvent;
 import arez.spy.ObserverDisposeEvent;
 import arez.spy.ObserverInfo;
 import grim.annotations.OmitSymbol;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
@@ -48,11 +46,11 @@ public final class Observer
   /**
    * The list of hooks that this observer that will be invoked when it deactivates or
    * has already been invoked as part of the register/activate process.
-   * These correspond to the hooks that were registered in the last
-   * transaction that this observer was tracking.
-   */
+  * These correspond to the hooks that were registered in the last
+  * transaction that this observer was tracking.
+  */
   @Nonnull
-  private Map<String, Hook> _hooks = new LinkedHashMap<>();
+  private HookMap _hooks = new HookMap();
   /**
    * Observe function to invoke if any.
    * This may be null if external executor is responsible for executing the observe function via
@@ -491,13 +489,11 @@ public final class Observer
         {
           getComputableValue().completeDeactivate();
         }
-        final Map<String, Hook> hooks = getHooks();
-        hooks
-          .values()
-          .stream()
-          .map( Hook::getOnDeactivate )
-          .filter( Objects::nonNull )
-          .forEach( hook -> runHook( hook, ObserverError.ON_DEACTIVATE_ERROR ) );
+        final HookMap hooks = getHooks();
+        for ( int i = 0, size = hooks.size(); i < size; i++ )
+        {
+          runHook( hooks.valueAt( i ).getOnDeactivate(), ObserverError.ON_DEACTIVATE_ERROR );
+        }
         hooks.clear();
         clearDependencies();
       }
@@ -786,21 +782,21 @@ public final class Observer
 
   /**
    * Return the hooks.
-   *
-   * @return the hooks.
-   */
+  *
+  * @return the hooks.
+  */
   @Nonnull
-  Map<String, Hook> getHooks()
+  HookMap getHooks()
   {
     return _hooks;
   }
 
   /**
    * Replace the current set of hooks with the supplied hooks.
-   *
-   * @param hooks the new set of hooks.
-   */
-  void replaceHooks( @Nonnull final Map<String, Hook> hooks )
+  *
+  * @param hooks the new set of hooks.
+  */
+  void replaceHooks( @Nonnull final HookMap hooks )
   {
     _hooks = Objects.requireNonNull( hooks );
   }

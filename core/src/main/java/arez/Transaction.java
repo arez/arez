@@ -6,9 +6,7 @@ import arez.spy.TransactionInfo;
 import arez.spy.TransactionStartEvent;
 import grim.annotations.OmitSymbol;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -166,7 +164,7 @@ final class Transaction
    * The map of hooks that have been registered during tracking.
    */
   @Nullable
-  private Map<String, Hook> _hooks;
+  private HookMap _hooks;
   /**
    * The flag set if transaction interacts with Arez resources.
    * This should only be accessed when {@link Arez#shouldCheckInvariants()} returns true.
@@ -632,12 +630,12 @@ final class Transaction
                  () -> "Arez-0045: registerHook() invoked outside of a tracking transaction." );
     }
 
-    final Map<String, Hook> hooks = safeGetHooks();
+    final HookMap hooks = safeGetHooks();
     if ( !hooks.containsKey( key ) )
     {
       final Observer tracker = getTracker();
       assert null != tracker;
-      final Map<String, Hook> trackerHooks = tracker.getHooks();
+      final HookMap trackerHooks = tracker.getHooks();
       final Hook existing = trackerHooks.get( key );
       if ( null != existing )
       {
@@ -1061,12 +1059,13 @@ final class Transaction
       }
     }
 
-    final Map<String, Hook> hooks = safeGetHooks();
-    for ( final Map.Entry<String, Hook> entry : _tracker.getHooks().entrySet() )
+    final HookMap hooks = safeGetHooks();
+    final HookMap trackerHooks = _tracker.getHooks();
+    for ( int i = 0, size = trackerHooks.size(); i < size; i++ )
     {
-      if ( !hooks.containsKey( entry.getKey() ) )
+      if ( !hooks.containsKey( trackerHooks.keyAt( i ) ) )
       {
-        final Procedure onDeactivate = entry.getValue().getOnDeactivate();
+        final Procedure onDeactivate = trackerHooks.valueAt( i ).getOnDeactivate();
         if ( null != onDeactivate )
         {
           _tracker.runHook( onDeactivate, ObserverError.ON_DEACTIVATE_ERROR );
@@ -1108,7 +1107,7 @@ final class Transaction
   }
 
   @Nullable
-  Map<String, Hook> getHooks()
+  HookMap getHooks()
   {
     return _hooks;
   }
@@ -1160,11 +1159,11 @@ final class Transaction
    * Return the hooks associated with the current transaction, initializing the field if necessary.
    */
   @Nonnull
-  Map<String, Hook> safeGetHooks()
+  HookMap safeGetHooks()
   {
     if ( null == _hooks )
     {
-      _hooks = new LinkedHashMap<>();
+      _hooks = new HookMap();
     }
     return _hooks;
   }

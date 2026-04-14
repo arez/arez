@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Replace hook storage in `Observer` and `Transaction` with a specialized insertion-ordered map to reduce transpiled JavaScript size while preserving hook behavior.
 * Add suppressable `Arez:PublicField` and `Arez:ProtectedField` warnings for `@AutoObserve`, `@CascadeDispose`, and `@ComponentDependency` field targets when access levels are broader than necessary.
 * Accept parameterized `@ArezComponent` types as valid `@CascadeDispose` targets, including components configured with `disposeNotifier = Feature.DISABLE`.
 * Accept `@Memoize( depType = DepType.AREZ_OR_EXTERNAL )` without a paired `@ComputableValueRef` when the associated `@OnActivate` hook already receives the `ComputableValue`.

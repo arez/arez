@@ -1,0 +1,140 @@
+meta:
+  project: arez-specialized-hook-map
+  last_updated: 2026-04-14
+  required_full_gates:
+    - bundle exec buildr test
+    - buildr test_downstream_build_stats
+  statuses:
+    - pending
+    - in_progress
+    - completed
+    - cancelled
+
+current_focus: completed
+
+tasks:
+  - id: PLAN-APPROVAL
+    title: Review and accept structured delivery artifacts
+    status: completed
+    priority: high
+    depends_on: []
+    acceptance_criteria:
+      - User has approved the implementation plan in-thread.
+    files_touched:
+      - plans/specialized-hook-map/*
+    evidence:
+      - command: user request in thread
+        result: pass
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T01
+    title: Create workflow artifacts and initialize tracked delivery
+    status: completed
+    priority: high
+    depends_on:
+      - PLAN-APPROVAL
+    acceptance_criteria:
+      - Requirements, implementation plan, and task board exist for this feature.
+      - Resolved user decisions are captured in the artifacts.
+    files_touched:
+      - plans/specialized-hook-map/*
+    evidence:
+      - command: create plans/specialized-hook-map/{00-requirements.md,10-implementation-plan.md,20-task-board.yaml}
+        result: pass
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T02
+    title: Replace hook storage with package-private HookMap
+    status: completed
+    priority: high
+    depends_on:
+      - T01
+    acceptance_criteria:
+      - `HookMap` exists with the planned API.
+      - `Observer` and `Transaction` use `HookMap` instead of `LinkedHashMap`.
+      - Hook iteration no longer depends on `Map.Entry`, `values()`, or stream pipelines.
+    files_touched:
+      - core/src/main/java/arez/HookMap.java
+      - core/src/main/java/arez/Observer.java
+      - core/src/main/java/arez/Transaction.java
+      - plans/specialized-hook-map/*
+    evidence:
+      - command: rg -n "HookMap|LinkedHashMap|entrySet\\(|values\\(" core/src/main/java/arez/{HookMap.java,Observer.java,Transaction.java}
+        result: pass
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T03
+    title: Add HookMap coverage and update hook behavior tests
+    status: completed
+    priority: high
+    depends_on:
+      - T02
+    acceptance_criteria:
+      - Dedicated `HookMapTest` covers order, replacement, miss, clear, and growth behavior.
+      - Existing hook-related tests use the specialized API and still validate behavior parity.
+    files_touched:
+      - core/src/test/java/arez/HookMapTest.java
+      - core/src/test/java/arez/ArezContextTest.java
+      - core/src/test/java/arez/ComputableValueTest.java
+      - core/src/test/java/arez/ObserverTest.java
+      - core/src/test/java/arez/TransactionTest.java
+      - plans/specialized-hook-map/*
+    evidence:
+      - command: bundle exec buildr arez:core:test
+        result: pass
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T04
+    title: Update changelog and run verification gates
+    status: completed
+    priority: high
+    depends_on:
+      - T03
+    acceptance_criteria:
+      - `CHANGELOG.md` records the specialized hook map optimization.
+      - `bundle exec buildr arez:core:test` passes.
+      - `bundle exec buildr test` passes or the failure is documented.
+      - `buildr test_downstream_build_stats` passes or the failure is documented.
+    files_touched:
+      - CHANGELOG.md
+      - plans/specialized-hook-map/*
+    evidence:
+      - command: bundle exec buildr test
+        result: pass
+      - command: bundle exec buildr update_downstream_build_stats
+        result: pass
+      - command: bundle exec buildr test_downstream_build_stats
+        result: pass
+    commit:
+      hash: not_required
+      message: not_required
+
+history:
+  - timestamp: 2026-04-14
+    task: PLAN-APPROVAL
+    commit: not_required
+    note: User requested implementation of the approved specialized-hook-map plan.
+  - timestamp: 2026-04-14
+    task: T01
+    commit: not_required
+    note: Added requirements, implementation plan, and task board artifacts for the specialized hook map delivery.
+  - timestamp: 2026-04-14
+    task: T02
+    commit: not_required
+    note: Replaced Observer and Transaction hook storage with the package-private HookMap implementation.
+  - timestamp: 2026-04-14
+    task: T03
+    commit: not_required
+    note: Added HookMap unit coverage and updated hook-related tests to use the specialized API.
+  - timestamp: 2026-04-14
+    task: T04
+    commit: not_required
+    note: Updated CHANGELOG and passed core, full, and downstream build-size verification gates after refreshing fixtures.

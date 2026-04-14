@@ -11,7 +11,6 @@ import arez.spy.ObserveScheduleEvent;
 import arez.spy.Priority;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -222,11 +221,11 @@ public final class ComputableValueTest
     assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
 
     // The hooks should have been registered with the transaction
-    final Map<String, Hook> hooks = Transaction.current().getHooks();
+    final HookMap hooks = Transaction.current().getHooks();
     assertNotNull( hooks );
     assertEquals( hooks.size(), 2 );
-    assertTrue( hooks.values().stream().anyMatch( e -> e.getOnDeactivate() == onDeactivateHook1 ) );
-    assertTrue( hooks.values().stream().anyMatch( e -> e.getOnDeactivate() == onDeactivateHook2 ) );
+    assertTrue( containsOnDeactivateHook( hooks, onDeactivateHook1 ) );
+    assertTrue( containsOnDeactivateHook( hooks, onDeactivateHook2 ) );
 
     // The hooks will not be updated until transaction completes
     assertEquals( computableValue.getObserver().getHooks().size(), 0 );
@@ -266,6 +265,18 @@ public final class ComputableValueTest
     assertEquals( computableValue.getValue(), value2 );
     assertNull( computableValue.getError() );
     assertEquals( observer.getState(), Observer.Flags.STATE_STALE );
+  }
+
+  private static boolean containsOnDeactivateHook( final HookMap hooks, final Procedure hook )
+  {
+    for ( int i = 0; i < hooks.size(); i++ )
+    {
+      if ( hooks.valueAt( i ).getOnDeactivate() == hook )
+      {
+        return true;
+      }
+    }
+    return false;
   }
 
   @Test

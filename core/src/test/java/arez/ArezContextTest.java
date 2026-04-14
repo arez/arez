@@ -26,7 +26,6 @@ import arez.spy.TransactionStartEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
@@ -261,7 +260,7 @@ public final class ArezContextTest
 
     final Observer observer = context.observer( () -> assertEquals( computable.get(), (Integer) 0 ) );
 
-    final Map<String, Hook> hooks = computable.getObserver().getHooks();
+    final HookMap hooks = computable.getObserver().getHooks();
     assertEquals( hooks.size(), 3 );
 
     assertHookOrder( hooks, "3,2,1" );
@@ -294,11 +293,18 @@ public final class ArezContextTest
   }
 
   @SuppressWarnings( "SameParameterValue" )
-  private static void assertHookOrder( @Nonnull final Map<String, Hook> hooks, @Nonnull final String expected )
+  private static void assertHookOrder( @Nonnull final HookMap hooks, @Nonnull final String expected )
   {
-    @SuppressWarnings( { "NonJREEmulationClassesInClientCode", "SimplifyStreamApiCallChains" } )
-    final List<String> list = hooks.entrySet().stream().map( Map.Entry::getKey ).toList();
-    assertEquals( String.join( ",", list ), expected );
+    final StringBuilder sb = new StringBuilder();
+    for ( int i = 0; i < hooks.size(); i++ )
+    {
+      if ( 0 != i )
+      {
+        sb.append( ',' );
+      }
+      sb.append( hooks.keyAt( i ) );
+    }
+    assertEquals( sb.toString(), expected );
   }
 
   @Test
@@ -336,7 +342,7 @@ public final class ArezContextTest
 
     final Observer observer = context.observer( () -> assertEquals( computable.get(), (Integer) 0 ) );
 
-    final Map<String, Hook> hooks = computable.getObserver().getHooks();
+    final HookMap hooks = computable.getObserver().getHooks();
     assertEquals( hooks.size(), 3 );
     assertHookOrder( hooks, "3,2,1" );
     assertEquals( hooks.get( "3" ).getOnActivate(), onActivateHook1 );
