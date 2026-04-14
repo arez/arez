@@ -444,8 +444,6 @@ define 'arez' do
                         project('arez:persist:core').package(:jar),
                         project('arez:persist:core').compile.dependencies
 
-      test.compile.options[:processor] = true
-
       package(:jar)
       package(:sources)
       package(:javadoc)
@@ -466,8 +464,6 @@ define 'arez' do
       test.compile.with :guiceyloops
 
       iml.test_source_directories << _('src/test/fixtures/input')
-      iml.test_source_directories << _('src/test/fixtures/expected')
-      iml.test_source_directories << _('src/test/fixtures/bad_input')
     end
 
     desc 'Arez Persist Integration Tests'
