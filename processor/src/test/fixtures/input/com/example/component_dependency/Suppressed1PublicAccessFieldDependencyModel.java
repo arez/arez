@@ -5,8 +5,9 @@ import arez.annotations.ComponentDependency;
 import arez.component.DisposeNotifier;
 
 @ArezComponent
-abstract class CascadeFieldDependencyModel
+abstract class Suppressed1PublicAccessFieldDependencyModel
 {
-  @ComponentDependency( action = ComponentDependency.Action.CASCADE )
-  final DisposeNotifier time = null;
+  @SuppressWarnings( "Arez:PublicField" )
+  @ComponentDependency
+  public final DisposeNotifier time = null;
 }

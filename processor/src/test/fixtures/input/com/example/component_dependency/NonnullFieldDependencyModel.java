@@ -11,7 +11,7 @@ abstract class NonnullFieldDependencyModel
 {
   @Nonnull
   @ComponentDependency( action = ComponentDependency.Action.CASCADE )
-  public final DisposeNotifier time = new DisposeNotifier()
+  final DisposeNotifier time = new DisposeNotifier()
   {
     @Override
     public void addOnDisposeListener( @Nonnull final Object key,

@@ -5,8 +5,8 @@ import arez.annotations.ArezComponent;
 import arez.annotations.CascadeDispose;
 
 @ArezComponent
-abstract class DisposableCascadeDisposeModel
+abstract class ProtectedAccessFieldCascadeDisposeModel
 {
   @CascadeDispose
-  Disposable _myElement;
+  protected Disposable _myElement;
 }

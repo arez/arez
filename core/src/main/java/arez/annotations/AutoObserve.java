@@ -40,6 +40,12 @@ import java.lang.annotation.Target;
  * <li>Must be compatible with {@link ComponentObservable}, unless {@link #validateTypeAtRuntime()} is
  *     <code>true</code></li>
  * <li>Must be accessible to the class annotated by the {@link ArezComponent} annotation.</li>
+ * <li>Should not be public. A warning will be generated but can be suppressed by the {@link SuppressWarnings} or {@link SuppressArezWarnings} annotations with a key "Arez:PublicField".</li>
+ * <li>
+ *   Should not be protected if in the class annotated with the {@link ArezComponent} annotation as the field is not
+ *   expected to be accessed outside the component. A warning will be generated but can be suppressed by the
+ *   {@link SuppressWarnings} or {@link SuppressArezWarnings} annotations with a key "Arez:ProtectedField".
+ * </li>
  * </ul>
  *
  * <p>If {@link #validateTypeAtRuntime()} is set to <code>true</code> then the declared type of the field or method

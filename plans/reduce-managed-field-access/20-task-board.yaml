@@ -1,0 +1,144 @@
+meta:
+  project: arez-reduce-managed-field-access
+  last_updated: 2026-04-14
+  required_full_gates:
+    - bundle exec buildr test
+  statuses:
+    - pending
+    - in_progress
+    - completed
+    - cancelled
+
+current_focus: T05
+
+tasks:
+  - id: PLAN-APPROVAL
+    title: Review and accept structured delivery artifacts
+    status: completed
+    priority: high
+    depends_on: []
+    acceptance_criteria:
+      - User has approved the implementation plan in-thread.
+    files_touched:
+      - plans/reduce-managed-field-access/*
+    evidence:
+      - command: user request in thread
+        result: pass
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T01
+    title: Create workflow artifacts and initialize tracked delivery
+    status: completed
+    priority: high
+    depends_on:
+      - PLAN-APPROVAL
+    acceptance_criteria:
+      - Requirements, implementation plan, and task board exist for this feature.
+      - Resolved user decisions are captured in the artifacts.
+    files_touched:
+      - plans/reduce-managed-field-access/*
+    evidence:
+      - command: manual implementation
+        result: Added requirements, implementation plan, and task board artifacts for the managed-field-access feature.
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T02
+    title: Add field visibility warnings for managed annotated fields
+    status: completed
+    priority: high
+    depends_on:
+      - T01
+    acceptance_criteria:
+      - `Arez:PublicField` and `Arez:ProtectedField` constants exist.
+      - `@AutoObserve`, `@CascadeDispose`, and `@ComponentDependency` field handling emits the correct warnings.
+      - Cross-package inherited protected fields remain warning-free.
+    files_touched:
+      - processor/src/main/java/arez/processor/*
+      - plans/reduce-managed-field-access/*
+    evidence:
+      - command: manual implementation
+        result: Added `Arez:PublicField` and `Arez:ProtectedField`, processor-local managed-field warning helpers, and field-entry hooks for `@AutoObserve`, `@CascadeDispose`, and `@ComponentDependency`.
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T03
+    title: Add fixture and processor test coverage for warning and suppression behavior
+    status: completed
+    priority: high
+    depends_on:
+      - T02
+    acceptance_criteria:
+      - Warning fixtures cover public and same-package protected fields for all three annotations.
+      - Suppression fixtures cover both new warning ids.
+      - Cross-package inherited protected field fixtures compile without warnings.
+    files_touched:
+      - processor/src/test/java/arez/processor/ArezProcessorTest.java
+      - processor/src/test/fixtures/**
+      - plans/reduce-managed-field-access/*
+    evidence:
+      - command: JAVA_OPTS='-Darez.output_fixture_data=true' bundle exec buildr arez:processor:test
+        result: pass
+      - command: bundle exec buildr arez:processor:test
+        result: pass
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T04
+    title: Normalize existing fixtures and update user-facing docs
+    status: completed
+    priority: medium
+    depends_on:
+      - T03
+    acceptance_criteria:
+      - Existing non-warning fixtures no longer rely on discouraged field visibility.
+      - `CHANGELOG.md` and the three annotation docs describe the new warning guidance.
+    files_touched:
+      - processor/src/test/fixtures/**
+      - docs/at_auto_observe.md
+      - docs/at_cascade_dispose.md
+      - docs/at_component_dependency.md
+      - CHANGELOG.md
+      - plans/reduce-managed-field-access/*
+    evidence:
+      - command: manual implementation
+        result: Normalized existing managed-field fixtures to package access where appropriate and updated docs plus changelog for the new warning guidance.
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T05
+    title: Run processor and full verification gates and close out
+    status: completed
+    priority: high
+    depends_on:
+      - T04
+    acceptance_criteria:
+      - Targeted processor tests pass.
+      - Full `bundle exec buildr test` gate passes or the failure is documented with cause.
+      - Task board evidence and status are fully updated.
+    files_touched:
+      - plans/reduce-managed-field-access/*
+    evidence:
+      - command: bundle exec buildr arez:processor:test
+        result: pass
+      - command: bundle exec buildr test
+        result: failed_in_arez_downstream_test_with_missing_archive_symbolMaps_directory_at_target/arez_downstream-test/deploy_test/workdir/archive/arez.after/assets/WEB-INF/deploy/todomvc/symbolMaps
+    commit:
+      hash: not_required
+      message: not_required
+
+history:
+  - timestamp: 2026-04-14
+    task: PLAN-APPROVAL
+    commit: not_required
+    note: User requested implementation of the approved plan.
+  - timestamp: 2026-04-14
+    task: T05
+    commit: not_required
+    note: Processor tests passed. Full `bundle exec buildr test` failed in `arez:downstream-test` because the archived `symbolMaps` directory was missing from the downstream deploy-test workspace.

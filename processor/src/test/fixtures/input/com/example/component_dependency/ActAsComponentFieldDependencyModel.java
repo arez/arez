@@ -8,7 +8,7 @@ import arez.annotations.ComponentDependency;
 abstract class ActAsComponentFieldDependencyModel
 {
   @ComponentDependency
-  public final MyType time = null;
+  final MyType time = null;
 
   @ActAsComponent
   public interface MyType

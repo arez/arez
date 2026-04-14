@@ -113,6 +113,10 @@ final class Constants
   @Nonnull
   static final String WARNING_PUBLIC_REF_METHOD = "Arez:PublicRefMethod";
   @Nonnull
+  static final String WARNING_PUBLIC_FIELD = "Arez:PublicField";
+  @Nonnull
+  static final String WARNING_PROTECTED_FIELD = "Arez:ProtectedField";
+  @Nonnull
   static final String WARNING_PROTECTED_METHOD = "Arez:ProtectedMethod";
   @Nonnull
   static final String WARNING_UNMANAGED_COMPONENT_REFERENCE = "Arez:UnmanagedComponentReference";

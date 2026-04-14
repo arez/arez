@@ -1017,6 +1017,7 @@ public final class ArezProcessor
                                          Constants.COMPONENT_CLASSNAME,
                                          Constants.CASCADE_DISPOSE_CLASSNAME,
                                          field );
+    emitWarningForManagedFieldAccess( component, field, Constants.CASCADE_DISPOSE_CLASSNAME );
     mustBeCascadeDisposeTypeCompatible( field );
     emitWarningForConflictingDisposeModel( field );
     component.addCascadeDispose( new CascadeDisposeDescriptor( field ) );
@@ -1030,6 +1031,7 @@ public final class ArezProcessor
                                          Constants.COMPONENT_CLASSNAME,
                                          Constants.AUTO_OBSERVE_CLASSNAME,
                                          field );
+    emitWarningForManagedFieldAccess( component, field, Constants.AUTO_OBSERVE_CLASSNAME );
     MemberChecks.mustBeFinal( Constants.AUTO_OBSERVE_CLASSNAME, field );
     final boolean validateTypeAtRuntime = isAutoObserveValidateTypeAtRuntime( field );
     mustBeAutoObserveTypeCompatible( component, validateTypeAtRuntime, field );
@@ -2404,6 +2406,7 @@ public final class ArezProcessor
                                          Constants.COMPONENT_CLASSNAME,
                                          Constants.COMPONENT_DEPENDENCY_CLASSNAME,
                                          field );
+    emitWarningForManagedFieldAccess( descriptor, field, Constants.COMPONENT_DEPENDENCY_CLASSNAME );
     MemberChecks.mustBeFinal( Constants.COMPONENT_DEPENDENCY_CLASSNAME, field );
 
     final boolean validateTypeAtRuntime = isComponentDependencyValidateTypeAtRuntime( field );
@@ -3323,6 +3326,49 @@ public final class ArezProcessor
     }
   }
 
+  private void emitWarningForManagedFieldAccess( @Nonnull final ComponentDescriptor descriptor,
+                                                 @Nonnull final VariableElement field,
+                                                 @Nonnull final String annotationClassname )
+  {
+    emitWarningForPublicManagedField( field, annotationClassname );
+    emitWarningForUnnecessaryProtectedManagedField( descriptor, field );
+  }
+
+  private void emitWarningForPublicManagedField( @Nonnull final VariableElement field,
+                                                 @Nonnull final String annotationClassname )
+  {
+    if ( field.getModifiers().contains( Modifier.PUBLIC ) &&
+         ElementsUtil.isWarningNotSuppressed( field,
+                                              Constants.WARNING_PUBLIC_FIELD,
+                                              Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) )
+    {
+      final String message =
+        MemberChecks.shouldNot( annotationClassname,
+                                "be public. " +
+                                MemberChecks.suppressedBy( Constants.WARNING_PUBLIC_FIELD,
+                                                           Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) );
+      processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message, field );
+    }
+  }
+
+  private void emitWarningForUnnecessaryProtectedManagedField( @Nonnull final ComponentDescriptor descriptor,
+                                                               @Nonnull final VariableElement field )
+  {
+    if ( field.getModifiers().contains( Modifier.PROTECTED ) &&
+         ElementsUtil.isWarningNotSuppressed( field,
+                                              Constants.WARNING_PROTECTED_FIELD,
+                                              Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) &&
+         !isProtectedFieldOnInheritedTypeInDifferentPackage( descriptor.getElement(), field ) )
+    {
+      final String message =
+        MemberChecks.shouldNot( Constants.COMPONENT_CLASSNAME,
+                                "declare a protected field. " +
+                                MemberChecks.suppressedBy( Constants.WARNING_PROTECTED_FIELD,
+                                                           Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) );
+      processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message, field );
+    }
+  }
+
   private void emitWarningForUnnecessaryFinalMethod( @Nonnull final ComponentDescriptor descriptor,
                                                      @Nonnull final ExecutableElement method )
   {
@@ -4052,6 +4098,14 @@ public final class ArezProcessor
 
     final TypeElement owningType = getOwningType( element );
     return !ElementsUtil.areTypesInDifferentPackage( owningType, componentType ) || modifiers.contains( Modifier.PUBLIC );
+  }
+
+  private boolean isProtectedFieldOnInheritedTypeInDifferentPackage( @Nonnull final TypeElement componentType,
+                                                                     @Nonnull final VariableElement field )
+  {
+    final TypeElement declaringType = getOwningType( field );
+    return !Objects.equals( declaringType, componentType ) &&
+           ElementsUtil.areTypesInDifferentPackage( declaringType, componentType );
   }
 
   @Nonnull

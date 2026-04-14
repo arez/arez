@@ -542,6 +542,48 @@ public final class ArezProcessorTest
   }
 
   @Test
+  public void validProtectedAccessFieldAutoObserve()
+    throws Exception
+  {
+    final String input1 =
+      "input/" + toFilename( "com.example.auto_observe.ProtectedAccessFromBaseFieldAutoObserveModel" );
+    final String input2 =
+      "input/" + toFilename( "com.example.auto_observe.other.BaseProtectedAccessFieldAutoObserveModel" );
+    final String output =
+      toFilename( "com.example.auto_observe.Arez_ProtectedAccessFromBaseFieldAutoObserveModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void validProtectedAccessFieldCascadeDispose()
+    throws Exception
+  {
+    final String input1 =
+      "input/" + toFilename( "com.example.cascade_dispose.ProtectedAccessFromBaseFieldCascadeDisposeModel" );
+    final String input2 =
+      "input/" + toFilename( "com.example.cascade_dispose.other.BaseProtectedAccessFieldCascadeDisposeModel" );
+    final String output =
+      toFilename( "com.example.cascade_dispose.Arez_ProtectedAccessFromBaseFieldCascadeDisposeModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void validProtectedAccessFieldComponentDependency()
+    throws Exception
+  {
+    final String input1 =
+      "input/" + toFilename( "com.example.component_dependency.ProtectedAccessFromBaseFieldDependencyModel" );
+    final String input2 =
+      "input/" + toFilename( "com.example.component_dependency.other.BaseProtectedAccessFieldDependencyModel" );
+    final String output =
+      toFilename( "com.example.component_dependency.Arez_ProtectedAccessFromBaseFieldDependencyModel" );
+    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+                             Collections.singletonList( output ) );
+  }
+
+  @Test
   public void validPublicAccessViaInterfaceComponentRef()
     throws Exception
   {
@@ -2201,6 +2243,18 @@ public final class ArezProcessorTest
                       "Method named 'myElement' is annotated with @arez.annotations.CascadeDispose but returns an Arez component configured with disposeOnDeactivate = true. Disposal should be managed either by liveness (i.e. disposeOnDeactivate = true) or explicitly (via @CascadeDispose or manual disposal), but not both. Please choose a single disposal model or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:ConflictingDisposeModel\" ) or @SuppressArezWarnings( \"Arez:ConflictingDisposeModel\" )" },
         new Object[]{ "com.example.cascade_dispose.DisposeOnDeactivateObservableCascadeDisposeModel",
                       "Method named 'getElement' is annotated with @arez.annotations.CascadeDispose but returns an Arez component configured with disposeOnDeactivate = true. Disposal should be managed either by liveness (i.e. disposeOnDeactivate = true) or explicitly (via @CascadeDispose or manual disposal), but not both. Please choose a single disposal model or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:ConflictingDisposeModel\" ) or @SuppressArezWarnings( \"Arez:ConflictingDisposeModel\" )" },
+        new Object[]{ "com.example.auto_observe.ProtectedAccessFieldAutoObserveModel",
+                      "@ArezComponent target should not declare a protected field. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedField\" ) or @SuppressArezWarnings( \"Arez:ProtectedField\" )" },
+        new Object[]{ "com.example.auto_observe.PublicAccessFieldAutoObserveModel",
+                      "@AutoObserve target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicField\" ) or @SuppressArezWarnings( \"Arez:PublicField\" )" },
+        new Object[]{ "com.example.cascade_dispose.ProtectedAccessFieldCascadeDisposeModel",
+                      "@ArezComponent target should not declare a protected field. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedField\" ) or @SuppressArezWarnings( \"Arez:ProtectedField\" )" },
+        new Object[]{ "com.example.cascade_dispose.PublicAccessFieldCascadeDisposeModel",
+                      "@CascadeDispose target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicField\" ) or @SuppressArezWarnings( \"Arez:PublicField\" )" },
+        new Object[]{ "com.example.component_dependency.ProtectedAccessFieldDependencyModel",
+                      "@ArezComponent target should not declare a protected field. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:ProtectedField\" ) or @SuppressArezWarnings( \"Arez:ProtectedField\" )" },
+        new Object[]{ "com.example.component_dependency.PublicAccessFieldDependencyModel",
+                      "@ComponentDependency target should not be public. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicField\" ) or @SuppressArezWarnings( \"Arez:PublicField\" )" },
         new Object[]{ "com.example.component.UnnecessaryDefaultPriorityPresentComponent",
                       "@ArezComponent target should not specify the defaultPriority parameter unless it contains methods annotated with either the @Memoize annotation or the @Observe annotation. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:UnnecessaryDefaultPriority\" ) or @SuppressArezWarnings( \"Arez:UnnecessaryDefaultPriority\" )" },
         new Object[]{ "com.example.component.UnnecessaryDefaultReadOutsideTransactionComponentModel",
@@ -2323,9 +2377,13 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.component.UnmanagedObservableComponentReferenceViaInheritanceSuppressedOnBaseClass" },
         new Object[]{ "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressedOnSetter" },
         new Object[]{ "com.example.component.UnmanagedObservableComponentReferenceToNonVerify" },
+        new Object[]{ "com.example.cascade_dispose.Suppressed1ProtectedAccessFieldCascadeDisposeModel" },
+        new Object[]{ "com.example.cascade_dispose.Suppressed2ProtectedAccessFieldCascadeDisposeModel" },
         new Object[]{ "com.example.component_name_ref.Suppressed1ProtectedAccessComponentNameRefModel" },
         new Object[]{ "com.example.component_name_ref.Suppressed1PublicAccessComponentNameRefModel" },
         new Object[]{ "com.example.component_name_ref.Suppressed2PublicAccessComponentNameRefModel" },
+        new Object[]{ "com.example.component_dependency.Suppressed1PublicAccessFieldDependencyModel" },
+        new Object[]{ "com.example.component_dependency.Suppressed2PublicAccessFieldDependencyModel" },
         new Object[]{ "com.example.component.Suppressed1ExtendsComponentModel" },
         new Object[]{ "com.example.component.Suppressed1ProtectedCtorModel" },
         new Object[]{ "com.example.component.Suppressed1UnnecessaryAllowEmptyPresentComponent" },

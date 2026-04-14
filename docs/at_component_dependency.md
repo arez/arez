@@ -20,6 +20,9 @@ property or on a non-observable property. The component will correctly monitor m
 properties, Arez assumes that the value returned from the method will never change and will cache the result
 of invoking that method until the component is disposed.
 
+For field targets, prefer package access. The annotation processor emits suppressable warnings for `public` fields and
+for `protected` fields unless the field is inherited from a parent class in a different package.
+
 It should be noted that only observable properties can be marked as a `SET_NULL` dependency as that is the
 only mechanism that Arez can use to trigger a re-evaluation of the condition function after a reference to
 a dependency has been set to null.

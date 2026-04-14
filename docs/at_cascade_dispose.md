@@ -32,6 +32,9 @@ and the annotation processor generates the code required for disposing the sub-c
 resulted in less time chasing down resource leaks and slightly less code to maintain. The only disadvantage
 was that the fields have to be made non-private so that the generated sub-class can access the field.
 
+For field visibility, prefer package access. The annotation processor emits suppressable warnings for `public` fields
+and for `protected` fields unless the field is inherited from a parent class in a different package.
+
 For example:
 
 {@file_content: file=arez/doc/examples/cascade_dispose2/MyService.java "start_line=@ArezComponent"}

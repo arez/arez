@@ -40,6 +40,12 @@ import javax.annotation.Nonnull;
  * <li>Must not be private</li>
  * <li>Must not be static</li>
  * <li>Must be accessible to the class annotated by the {@link ArezComponent} annotation.</li>
+ * <li>Should not be public. A warning will be generated but can be suppressed by the {@link SuppressWarnings} or {@link SuppressArezWarnings} annotations with a key "Arez:PublicField".</li>
+ * <li>
+ *   Should not be protected if in the class annotated with the {@link ArezComponent} annotation as the field is not
+ *   expected to be accessed outside the component. A warning will be generated but can be suppressed by the
+ *   {@link SuppressWarnings} or {@link SuppressArezWarnings} annotations with a key "Arez:ProtectedField".
+ * </li>
  * </ul>
  */
 @Documented

@@ -16,6 +16,9 @@ The annotation can be placed on:
 * an abstract {@link: arez.annotations.Observable @Observable} getter
 * an abstract {@link: arez.annotations.Reference @Reference} accessor
 
+For field targets, prefer package access. The annotation processor emits suppressable warnings for `public` fields and
+for `protected` fields unless the field is inherited from a parent class in a different package.
+
 When the target can return null, the generated auto-observer skips null values safely. When paired with
 {@link: arez.annotations.Reference @Reference}, auto-observation forces the reference to resolve, even for
 {@link: arez.annotations.LinkType#LAZY LAZY} references.

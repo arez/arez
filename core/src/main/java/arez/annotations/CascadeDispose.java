@@ -30,7 +30,13 @@ import java.lang.annotation.Target;
  * <li>Must not be private</li>
  * <li>Must not be static</li>
  * <li>The type of the field must implement {@link arez.Disposable} or must be annotated by {@link ArezComponent}</li>
- * <li>The field must be accessible to the component subclass which means it must be protected or package access if it is in the same package as the arez component.</li>
+ * <li>Must be accessible to the class annotated by the {@link ArezComponent} annotation.</li>
+ * <li>Should not be public. A warning will be generated but can be suppressed by the {@link SuppressWarnings} or {@link SuppressArezWarnings} annotations with a key "Arez:PublicField".</li>
+ * <li>
+ *   Should not be protected if in the class annotated with the {@link ArezComponent} annotation as the field is not
+ *   expected to be accessed outside the component. A warning will be generated but can be suppressed by the
+ *   {@link SuppressWarnings} or {@link SuppressArezWarnings} annotations with a key "Arez:ProtectedField".
+ * </li>
  * </ul>
  */
 @Documented

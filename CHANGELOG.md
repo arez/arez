@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Add suppressable `Arez:PublicField` and `Arez:ProtectedField` warnings for `@AutoObserve`, `@CascadeDispose`, and `@ComponentDependency` field targets when access levels are broader than necessary.
+
 ### [v0.232](https://github.com/arez/arez/tree/v0.232) (2026-04-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.231...v0.232) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.231&new=0.232)
 
 The release includes 3 non breaking API changes.

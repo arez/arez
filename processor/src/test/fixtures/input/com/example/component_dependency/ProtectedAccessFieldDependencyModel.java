@@ -5,8 +5,8 @@ import arez.annotations.ComponentDependency;
 import arez.component.DisposeNotifier;
 
 @ArezComponent
-abstract class CascadeFieldDependencyModel
+abstract class ProtectedAccessFieldDependencyModel
 {
-  @ComponentDependency( action = ComponentDependency.Action.CASCADE )
-  final DisposeNotifier time = null;
+  @ComponentDependency
+  protected final DisposeNotifier time = null;
 }
