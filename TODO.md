@@ -47,8 +47,6 @@ complete as there is too much un-said.
 * Refactor `AbstractRepository` so that rather than being a base class, it implements a `Repository` class that
   is composed in downstream repositories.
 
-* https://www.jetbrains.com/help/idea/template-variables.html#predefined_functions document and define them
-
 * Can inverse references be maps. The key would be the component id.
 
 * Add `ObservableMap`, `ObservableList` and `ObservableSet` implementations that implement reactivity as a
