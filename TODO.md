@@ -10,9 +10,6 @@ complete as there is too much un-said.
 
 * Change `@ArezComponent.service` to `@ArezComponent.kind` and give it possible values of `SERVICE`, `ENTITY` and `COMPONENT` which change the defaults on the component. Alternatively support alternative annotations such as `@Component`, `@Entity` and `@Service`
 
-* Add to build process so that every published packaged is attempted to be built using bazel to
-  ensure it's dependencies align.
-
 * Support multiple instances of `@OnDepsChange`
 
 * Remove `BuildOutputTest` by pushing the grim tests into downstream projects that always verify they meet
