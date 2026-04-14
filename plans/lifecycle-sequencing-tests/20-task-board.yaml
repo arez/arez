@@ -1,0 +1,105 @@
+meta:
+  project: arez-lifecycle-sequencing-tests
+  last_updated: 2026-04-14
+  required_full_gates:
+    - bundle exec buildr arez:integration-tests:test
+  statuses:
+    - pending
+    - in_progress
+    - completed
+    - cancelled
+
+current_focus: T03
+
+tasks:
+  - id: PLAN-APPROVAL
+    title: Review and accept structured delivery artifacts
+    status: completed
+    priority: high
+    depends_on: []
+    acceptance_criteria:
+      - User has requested the lifecycle sequencing work and the current plan matches that requested scope.
+    files_touched:
+      - plans/lifecycle-sequencing-tests/*
+    evidence:
+      - command: user request in thread
+        result: pass
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T01
+    title: Add duplicate-capable lifecycle sequencing integration coverage
+    status: completed
+    priority: high
+    depends_on:
+      - PLAN-APPROVAL
+    acceptance_criteria:
+      - One integration scenario covers `@PostConstruct`, `@PreDispose`, and `@PostDispose`.
+      - The scenario includes callbacks from parent/grandparent classes and inherited/direct interfaces.
+      - The assertion compares the full trace as a joined text block.
+    files_touched:
+      - integration-tests/src/test/java/arez/integration/lifecycle/*
+      - plans/lifecycle-sequencing-tests/*
+    evidence:
+      - command: manual implementation
+        result: Added `duplicateCapableCallbacksAcrossInheritanceChain` coverage in `LifecycleMethodOrderingIntegrationTest`.
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T02
+    title: Add observer-driven lifecycle sequencing integration coverage
+    status: completed
+    priority: high
+    depends_on:
+      - T01
+    acceptance_criteria:
+      - One integration scenario covers `@OnActivate`, `@OnDeactivate`, and `@OnDepsChange`.
+      - The scenario includes normal operational steps such as observation and mutation.
+      - The assertion compares the full trace as a joined text block.
+    files_touched:
+      - integration-tests/src/test/java/arez/integration/lifecycle/*
+      - plans/lifecycle-sequencing-tests/*
+    evidence:
+      - command: manual implementation
+        result: Added `observerLifecycleHooksSequenceAroundMutationAndDispose` coverage in `LifecycleMethodOrderingIntegrationTest`.
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T03
+    title: Run targeted integration verification and close out
+    status: completed
+    priority: high
+    depends_on:
+      - T02
+    acceptance_criteria:
+      - `bundle exec buildr arez:integration-tests:test` passes or the failure is documented.
+      - Task evidence reflects the final validation result.
+    files_touched:
+      - plans/lifecycle-sequencing-tests/*
+    evidence:
+      - command: bundle exec buildr arez:integration-tests:test
+        result: pass
+    commit:
+      hash: not_required
+      message: not_required
+
+history:
+  - timestamp: 2026-04-14
+    task: PLAN-APPROVAL
+    commit: not_required
+    note: User requested lifecycle sequencing coverage and asked to use the structured delivery workflow.
+  - timestamp: 2026-04-14
+    task: T01
+    commit: not_required
+    note: Added inheritance-heavy duplicate lifecycle ordering assertions using joined multiline traces.
+  - timestamp: 2026-04-14
+    task: T02
+    commit: not_required
+    note: Added observer-driven lifecycle ordering assertions for activate, deps-change, and deactivate hooks.
+  - timestamp: 2026-04-14
+    task: T03
+    commit: not_required
+    note: `bundle exec buildr arez:integration-tests:test` passed after aligning the observer-hook expectation with runtime sequencing.
