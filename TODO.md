@@ -95,11 +95,6 @@ complete as there is too much un-said.
       Currently the Arez API does not expose a flag indicating whether computableValues are observed and not possible
       to implement the first strategy even though it may seem to be the right one.
 
-## Process
-
-* Consider a tool that creates branches in downstream branches if it does not exist and the build fails. This would
-  make it easy to come along and update the branch as required.
-
 ## On Stable Release
 
 When we get to a stable release candidate we need to action the following items:
