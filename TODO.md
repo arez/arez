@@ -12,8 +12,6 @@ complete as there is too much un-said.
 
 * `@Memoize( depType = DepType.AREZ_OR_EXTERNAL )` requires paired `@ComputableValueRef` method even if `ComputableValue` passed into `@OnActivate` method.
 
-* Memoize should have writeOutsideTransaction which allows reportPossiblyChanged outside transaction
-
 * We should gracefully handle multiple dependencies from the same component to another component as sometimes it is not easy to statically determine that there will be a duplicate.
 
 * `final EventDrivenValue<HTMLDocument, Object> _documentVisibility` can not have `@CascadeDispose` annotation.
