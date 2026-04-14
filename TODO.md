@@ -14,8 +14,6 @@ complete as there is too much un-said.
 
 * Memoize should have writeOutsideTransaction which allows reportPossiblyChanged outside transaction
 
-* We should support both `@ComponentDependency` and `@CascadeDispose` on the same field/method as sometimes components are co-dependent and cascade disposes may come from dependencies in these components.
-
 * We should gracefully handle multiple dependencies from the same component to another component as sometimes it is not easy to statically determine that there will be a duplicate.
 
 * `final EventDrivenValue<HTMLDocument, Object> _documentVisibility` can not have `@CascadeDispose` annotation.
