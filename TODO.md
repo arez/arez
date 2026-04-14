@@ -41,9 +41,6 @@ complete as there is too much un-said.
   generate the constant file, the `ArezConfig`, `ArezTestUtil`, parts of `Arez.gwt.xml` and part of the `arez.js`
   from a single descriptor somewhere. Update `BuildOutputTest` to use constants.
 
-* Refactor `AbstractRepository` so that rather than being a base class, it implements a `Repository` class that
-  is composed in downstream repositories.
-
 * Can inverse references be maps. The key would be the component id.
 
 * Add `ObservableMap`, `ObservableList` and `ObservableSet` implementations that implement reactivity as a
