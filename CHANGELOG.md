@@ -1,6 +1,10 @@
 # Change Log
 
-### Unreleased
+### [v0.231](https://github.com/arez/arez/tree/v0.231) (2026-04-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.230...v0.231) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.230&new=0.231)
+
+The release includes 1 non breaking API change.
+
+Changes in this release:
 
 * Add `@AutoObserve` to keep referenced `ComponentObservable` values observed for the alive lifetime of a component.
 
