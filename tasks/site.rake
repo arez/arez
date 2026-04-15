@@ -48,6 +48,10 @@ task 'site:build' do
   task('site:favicons').invoke
 end
 
+task('clean') do
+  rm_rf "#{WORKSPACE_DIR}/website/static/api"
+end
+
 desc 'Check that the website does not have any broken links'
 task 'site:link_check' do
   require 'webrick'
