@@ -1,6 +1,10 @@
 # Change Log
 
-### Unreleased
+### [v0.234](https://github.com/arez/arez/tree/v0.234) (2026-04-15) · [Full Changelog](https://github.com/arez/arez/compare/v0.233...v0.234) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.233&new=0.234)
+
+The release includes 3 non breaking API changes and 1 breaking API change.
+
+Changes in this release:
 
 * Hard-rename the component-like validation marker annotation to `@ArezComponentLike` and update diagnostics, docs, and fixtures to use the new terminology.
 * Reject processor-consumed Arez annotations such as `@Action`, `@AutoObserve`, and `@SuppressArezWarnings` when they appear outside an `@ArezComponent` hierarchy or an `@ArezComponentLike` type, rather than silently ignoring them.
