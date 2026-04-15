@@ -17,6 +17,9 @@ import javax.annotation.Nonnull;
  * <li>Must not be abstract</li>
  * <li>Must be accessible to the class annotated by the {@link ArezComponent} annotation.</li>
  * </ul>
+ *
+ * <p>This annotation is only supported on methods contained within a type annotated by
+ * {@link ArezComponent} or {@link ActAsComponent}. Other usages will fail compilation.</p>
  */
 @Documented
 @Target( ElementType.METHOD )

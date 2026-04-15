@@ -51,6 +51,9 @@ import java.lang.annotation.Target;
  * <p>If {@link #validateTypeAtRuntime()} is set to <code>true</code> then the declared type of the field or method
  * must be annotated with {@link ActAsComponent}. In this mode, type compatibility is validated at runtime
  * rather than compile time.</p>
+ *
+ * <p>This annotation is only supported on elements contained within a type annotated by
+ * {@link ArezComponent} or {@link ActAsComponent}. Other usages will fail compilation.</p>
  */
 @Documented
 @Target( { ElementType.METHOD, ElementType.FIELD } )

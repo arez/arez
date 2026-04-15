@@ -1,0 +1,125 @@
+meta:
+  project: arez-misplaced-annotation-validation
+  last_updated: 2026-04-15
+  required_full_gates:
+    - bundle exec buildr test
+  statuses:
+    - pending
+    - in_progress
+    - completed
+    - cancelled
+
+current_focus: none
+
+tasks:
+  - id: PLAN-APPROVAL
+    title: Review and accept structured delivery artifacts
+    status: completed
+    priority: high
+    depends_on: []
+    acceptance_criteria:
+      - User has approved the implementation plan in-thread.
+    files_touched:
+      - plans/misplaced-annotation-validation/*
+    evidence:
+      - command: user request in thread
+        result: pass
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T01
+    title: Add processor misplaced-usage scan and discovery updates
+    status: completed
+    priority: high
+    depends_on:
+      - PLAN-APPROVAL
+    acceptance_criteria:
+      - The processor is invoked for the covered annotation set.
+      - Covered annotations outside `@ArezComponent`/`@ActAsComponent` fail with a consistent error.
+      - Existing component parsing/generation logic remains unchanged.
+    files_touched:
+      - processor/src/main/java/arez/processor/*
+      - plans/misplaced-annotation-validation/*
+    evidence:
+      - command: bundle exec buildr arez:processor:test
+        result: pass
+        note: Expanded processor suite passed with 1105 tests after adding full annotation-by-annotation misplaced-usage coverage.
+      - command: processor round validation scan
+        result: Added broad misplaced-usage detection ahead of component parsing and expanded supported annotation discovery to `arez.annotations.*`.
+      - command: processor type-level suppression refinement
+        result: Restricted type-level `@SuppressArezWarnings` to directly annotated `@ArezComponent`/`@ActAsComponent` types while preserving inherited-member support for real components.
+    commit:
+      hash: pending
+      message: Add misplaced Arez annotation validation
+
+  - id: T02
+    title: Add processor fixtures for misplaced and exempt usages
+    status: completed
+    priority: high
+    depends_on:
+      - T01
+    acceptance_criteria:
+      - Negative fixtures cover every covered annotation, including separate method/field variants where both placements are legal.
+      - Type-level `@SuppressArezWarnings` is covered for both direct-container and inherited-base scenarios.
+      - Positive fixtures prove covered annotations inside `@ActAsComponent` do not trigger the new error.
+    files_touched:
+      - processor/src/test/java/arez/processor/ArezProcessorTest.java
+      - processor/src/test/fixtures/**
+      - plans/misplaced-annotation-validation/*
+    evidence:
+      - command: bundle exec buildr arez:processor:test
+        result: pass
+        note: Verified separate misplaced-usage coverage for every covered annotation, including method/field variants where applicable.
+      - command: processor fixture coverage
+        result: Added a full misplaced-usage matrix covering every covered annotation plus explicit success coverage for type-level `@SuppressArezWarnings` on `@ArezComponent` and `@ActAsComponent`.
+    commit:
+      hash: pending
+      message: Add processor coverage for misplaced Arez annotations
+
+  - id: T03
+    title: Update docs and close out with verification evidence
+    status: completed
+    priority: medium
+    depends_on:
+      - T02
+    acceptance_criteria:
+      - `CHANGELOG.md` documents the new diagnostic behavior.
+      - Affected annotation Javadocs mention misplaced usage validation.
+      - Required gates are recorded in the task board.
+    files_touched:
+      - core/src/main/java/arez/annotations/*
+      - CHANGELOG.md
+      - doc-examples/src/main/java/arez/doc/examples/repository/*
+      - plans/misplaced-annotation-validation/*
+    evidence:
+      - command: bundle exec buildr test
+        result: blocked_unrelated
+        note: Build progressed through `arez:doc-examples` and failed later in `arez:downstream-test` with `java.nio.file.NoSuchFileException` for missing `symbolMaps` under the deploy-test archive.
+      - command: bundle exec buildr test
+        result: blocked_unrelated
+        note: Re-ran the full gate after expanding the processor matrix and Javadocs; the build again passed through `arez:doc-examples` and failed only in `arez:downstream-test` on the same missing `symbolMaps` deploy-test artifact.
+      - command: doc-examples audit
+        result: pass
+        note: Marked repository documentation examples with `@ActAsComponent` so strict misplaced-usage validation remains behavior-neutral but no longer breaks compiled docs.
+    commit:
+      hash: pending
+      message: Document misplaced Arez annotation validation
+
+history:
+  - timestamp: 2026-04-15
+    task: PLAN-APPROVAL
+    commit: not_required
+    note: User requested implementation of the approved plan.
+  - timestamp: 2026-04-15
+    task: T01
+    commit: pending
+    note: Implemented misplaced-annotation validation with an exemption for `@ActAsComponent` containers, preserved inherited-member support for real `@ArezComponent` hierarchies, and excluded type-level `@SuppressArezWarnings` from that inherited exemption.
+  - timestamp: 2026-04-15
+    task: T02
+    commit: pending
+    note: Added full annotation-by-annotation misplaced-usage coverage, including method/field variants and explicit `@SuppressArezWarnings` type semantics.
+  - timestamp: 2026-04-15
+    task: T03
+    commit: pending
+    note: Updated changelog/Javadocs across the affected annotations, adjusted compiled repository doc examples to use `@ActAsComponent`, and recorded the unrelated downstream-test gate failure.

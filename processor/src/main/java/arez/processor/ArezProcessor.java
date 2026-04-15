@@ -57,7 +57,7 @@ import static javax.tools.Diagnostic.Kind.*;
 /**
  * Annotation processor that analyzes Arez annotated source and generates models from the annotations.
  */
-@SupportedAnnotationTypes( Constants.COMPONENT_CLASSNAME )
+@SupportedAnnotationTypes( "arez.annotations.*" )
 @SupportedSourceVersion( SourceVersion.RELEASE_17 )
 @SupportedOptions( { "arez.defer.unresolved",
                      "arez.defer.errors",
@@ -87,6 +87,39 @@ public final class ArezProcessor
   @Nonnull
   private static final List<String> AREZ_SPECIAL_METHODS =
     Arrays.asList( "observe", "dispose", "isDisposed", "getArezId" );
+  @Nonnull
+  private static final List<String> MISPLACED_USAGE_ANNOTATION_CLASSNAMES =
+    Arrays.asList( Constants.ACTION_CLASSNAME,
+                   Constants.OBSERVE_CLASSNAME,
+                   Constants.OBSERVABLE_CLASSNAME,
+                   Constants.MEMOIZE_CLASSNAME,
+                   Constants.MEMOIZE_CONTEXT_PARAMETER_CLASSNAME,
+                   Constants.COMPONENT_ID_CLASSNAME,
+                   Constants.COMPONENT_ID_REF_CLASSNAME,
+                   Constants.COMPONENT_REF_CLASSNAME,
+                   Constants.COMPONENT_NAME_REF_CLASSNAME,
+                   Constants.COMPONENT_TYPE_NAME_REF_CLASSNAME,
+                   Constants.COMPONENT_STATE_REF_CLASSNAME,
+                   Constants.CONTEXT_REF_CLASSNAME,
+                   Constants.OBSERVABLE_VALUE_REF_CLASSNAME,
+                   Constants.COMPUTABLE_VALUE_REF_CLASSNAME,
+                   Constants.OBSERVER_REF_CLASSNAME,
+                   Constants.POST_CONSTRUCT_CLASSNAME,
+                   Constants.PRE_DISPOSE_CLASSNAME,
+                   Constants.POST_DISPOSE_CLASSNAME,
+                   Constants.ON_ACTIVATE_CLASSNAME,
+                   Constants.ON_DEACTIVATE_CLASSNAME,
+                   Constants.ON_DEPS_CHANGE_CLASSNAME,
+                   Constants.REFERENCE_CLASSNAME,
+                   Constants.REFERENCE_ID_CLASSNAME,
+                   Constants.INVERSE_CLASSNAME,
+                   Constants.PRE_INVERSE_REMOVE_CLASSNAME,
+                   Constants.POST_INVERSE_ADD_CLASSNAME,
+                   Constants.AUTO_OBSERVE_CLASSNAME,
+                   Constants.CASCADE_DISPOSE_CLASSNAME,
+                   Constants.COMPONENT_DEPENDENCY_CLASSNAME,
+                   Constants.OBSERVABLE_INITIAL_CLASSNAME,
+                   Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME );
   @Nonnull
   private static final Pattern ID_GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)Id$" );
   @Nonnull
@@ -139,6 +172,10 @@ public final class ArezProcessor
   {
     debugAnnotationProcessingRootElements( env );
     collectRootTypeNames( env );
+    if ( !env.processingOver() )
+    {
+      detectMisplacedArezAnnotations( env );
+    }
     processTypeElements( annotations,
                          env,
                          Constants.COMPONENT_CLASSNAME,
@@ -156,6 +193,88 @@ public final class ArezProcessor
   {
     final ComponentDescriptor descriptor = parse( element );
     emitTypeSpec( descriptor.getPackageName(), ComponentGenerator.buildType( processingEnv, descriptor ) );
+  }
+
+  private void detectMisplacedArezAnnotations( @Nonnull final RoundEnvironment env )
+  {
+    final var componentTypes = findComponentTypes( env );
+    for ( final var annotationClassname : MISPLACED_USAGE_ANNOTATION_CLASSNAMES )
+    {
+      final var annotationType = findTypeElement( annotationClassname );
+      if ( null == annotationType )
+      {
+        continue;
+      }
+
+      for ( final var element : env.getElementsAnnotatedWith( annotationType ) )
+      {
+        final var type = findNearestEnclosingType( element );
+        if ( null == type || !isValidArezAnnotationContainer( element, type, componentTypes ) )
+        {
+          final var message =
+            "@" + annotationType.getSimpleName() + " is only supported within a type annotated by " +
+            "@ArezComponent or @ActAsComponent";
+          processingEnv.getMessager().printMessage( ERROR, message, element );
+        }
+      }
+    }
+  }
+
+  @Nullable
+  private TypeElement findNearestEnclosingType( @Nonnull final Element element )
+  {
+    var current = element;
+    while ( null != current && !( current instanceof TypeElement ) )
+    {
+      current = current.getEnclosingElement();
+    }
+    return (TypeElement) current;
+  }
+
+  @Nonnull
+  private Set<TypeElement> findComponentTypes( @Nonnull final RoundEnvironment env )
+  {
+    final var annotationType = findTypeElement( Constants.COMPONENT_CLASSNAME );
+    if ( null == annotationType )
+    {
+      return Collections.emptySet();
+    }
+
+    final var componentTypes = new HashSet<TypeElement>();
+    for ( final var element : env.getElementsAnnotatedWith( annotationType ) )
+    {
+      if ( element instanceof TypeElement )
+      {
+        componentTypes.add( (TypeElement) element );
+      }
+    }
+    return componentTypes;
+  }
+
+  private boolean isValidArezAnnotationContainer( @Nonnull final Element element,
+                                                  @Nonnull final TypeElement type,
+                                                  @Nonnull final Set<TypeElement> componentTypes )
+  {
+    if ( AnnotationsUtil.hasAnnotationOfType( type, Constants.COMPONENT_CLASSNAME ) ||
+         AnnotationsUtil.hasAnnotationOfType( type, Constants.ACT_AS_COMPONENT_CLASSNAME ) )
+    {
+      return true;
+    }
+    else if ( element instanceof TypeElement )
+    {
+      return false;
+    }
+    else
+    {
+      final var containerType = processingEnv.getTypeUtils().erasure( type.asType() );
+      return
+        componentTypes
+          .stream()
+          .anyMatch( componentType ->
+                       !type.equals( componentType ) &&
+                       processingEnv.getTypeUtils()
+                         .isSubtype( processingEnv.getTypeUtils().erasure( componentType.asType() ), containerType ) );
+    }
   }
 
   @Nonnull

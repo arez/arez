@@ -1370,6 +1370,7 @@ public final class ArezProcessorTest
                              Collections.singletonList( output1 ) );
   }
 
+  @Nonnull
   @DataProvider( name = "failedCompiles" )
   public Object[][] failedCompiles()
   {
@@ -2206,6 +2207,100 @@ public final class ArezProcessorTest
   public void processFailedCompile( @Nonnull final String classname, @Nonnull final String messageFragment )
   {
     assertFailedCompile( classname, messageFragment );
+  }
+
+  @Nonnull
+  @DataProvider( name = "misplacedAnnotationFailures" )
+  public Object[][] misplacedAnnotationFailures()
+  {
+    return new Object[][]
+      {
+        new Object[]{ "com.example.misplaced_annotation.ActionOutsideArezTypeModel", "Action" },
+        new Object[]{ "com.example.misplaced_annotation.ObserveOutsideArezTypeModel", "Observe" },
+        new Object[]{ "com.example.misplaced_annotation.ObservableOutsideArezTypeModel", "Observable" },
+        new Object[]{ "com.example.misplaced_annotation.MemoizeOutsideArezTypeModel", "Memoize" },
+        new Object[]{ "com.example.misplaced_annotation.MemoizeContextParameterOutsideArezTypeModel",
+                      "MemoizeContextParameter" },
+        new Object[]{ "com.example.misplaced_annotation.ComponentIdOutsideArezTypeModel", "ComponentId" },
+        new Object[]{ "com.example.misplaced_annotation.ComponentIdRefOutsideArezTypeModel", "ComponentIdRef" },
+        new Object[]{ "com.example.misplaced_annotation.ComponentRefOutsideArezTypeModel", "ComponentRef" },
+        new Object[]{ "com.example.misplaced_annotation.ComponentNameRefOutsideArezTypeModel", "ComponentNameRef" },
+        new Object[]{ "com.example.misplaced_annotation.ComponentTypeNameRefOutsideArezTypeModel",
+                      "ComponentTypeNameRef" },
+        new Object[]{ "com.example.misplaced_annotation.ComponentStateRefOutsideArezTypeModel",
+                      "ComponentStateRef" },
+        new Object[]{ "com.example.misplaced_annotation.ContextRefOutsideArezTypeModel", "ContextRef" },
+        new Object[]{ "com.example.misplaced_annotation.ObservableValueRefOutsideArezTypeModel",
+                      "ObservableValueRef" },
+        new Object[]{ "com.example.misplaced_annotation.ComputableValueRefOutsideArezTypeModel",
+                      "ComputableValueRef" },
+        new Object[]{ "com.example.misplaced_annotation.ObserverRefOutsideArezTypeModel", "ObserverRef" },
+        new Object[]{ "com.example.misplaced_annotation.PostConstructOutsideArezTypeModel", "PostConstruct" },
+        new Object[]{ "com.example.misplaced_annotation.PreDisposeOutsideArezTypeModel", "PreDispose" },
+        new Object[]{ "com.example.misplaced_annotation.PostDisposeOutsideArezTypeModel", "PostDispose" },
+        new Object[]{ "com.example.misplaced_annotation.OnActivateOutsideArezTypeModel", "OnActivate" },
+        new Object[]{ "com.example.misplaced_annotation.OnDeactivateOutsideArezTypeModel", "OnDeactivate" },
+        new Object[]{ "com.example.misplaced_annotation.OnDepsChangeOutsideArezTypeModel", "OnDepsChange" },
+        new Object[]{ "com.example.misplaced_annotation.ReferenceOutsideArezTypeModel", "Reference" },
+        new Object[]{ "com.example.misplaced_annotation.ReferenceIdOutsideArezTypeModel", "ReferenceId" },
+        new Object[]{ "com.example.misplaced_annotation.InverseOutsideArezTypeModel", "Inverse" },
+        new Object[]{ "com.example.misplaced_annotation.PreInverseRemoveOutsideArezTypeModel",
+                      "PreInverseRemove" },
+        new Object[]{ "com.example.misplaced_annotation.PostInverseAddOutsideArezTypeModel", "PostInverseAdd" },
+        new Object[]{ "com.example.misplaced_annotation.AutoObserveMethodOutsideArezTypeModel", "AutoObserve" },
+        new Object[]{ "com.example.misplaced_annotation.AutoObserveFieldOutsideArezTypeModel", "AutoObserve" },
+        new Object[]{ "com.example.misplaced_annotation.CascadeDisposeMethodOutsideArezTypeModel",
+                      "CascadeDispose" },
+        new Object[]{ "com.example.misplaced_annotation.CascadeDisposeFieldOutsideArezTypeModel",
+                      "CascadeDispose" },
+        new Object[]{ "com.example.misplaced_annotation.ComponentDependencyMethodOutsideArezTypeModel",
+                      "ComponentDependency" },
+        new Object[]{ "com.example.misplaced_annotation.ComponentDependencyFieldOutsideArezTypeModel",
+                      "ComponentDependency" },
+        new Object[]{ "com.example.misplaced_annotation.ObservableInitialMethodOutsideArezTypeModel",
+                      "ObservableInitial" },
+        new Object[]{ "com.example.misplaced_annotation.ObservableInitialFieldOutsideArezTypeModel",
+                      "ObservableInitial" },
+        new Object[]{ "com.example.misplaced_annotation.SuppressArezWarningsMethodOutsideArezTypeModel",
+                      "SuppressArezWarnings" },
+        new Object[]{ "com.example.misplaced_annotation.SuppressArezWarningsFieldOutsideArezTypeModel",
+                      "SuppressArezWarnings" },
+        new Object[]{ "com.example.misplaced_annotation.TypeSuppressArezWarningsOutsideArezTypeModel",
+                      "SuppressArezWarnings" },
+        new Object[]{ "com.example.misplaced_annotation.TypeSuppressArezWarningsInheritedComponentOutsideArezTypeModel",
+                      "SuppressArezWarnings" }
+      };
+  }
+
+  @Test( dataProvider = "misplacedAnnotationFailures" )
+  public void processFailedCompileWhenAnnotationMisplaced( @Nonnull final String classname,
+                                                           @Nonnull final String annotation )
+  {
+    assertFailedCompile( classname,
+                         "@" + annotation + " is only supported within a type annotated by " +
+                         "@ArezComponent or @ActAsComponent" );
+  }
+
+  @Test
+  public void processSuccessfulCompileWhenCoveredAnnotationsAndTypeSuppressArezWarningsAppearInsideActAsComponent()
+    throws Exception
+  {
+    final JavaFileObject source = fixture( "input/com/example/misplaced_annotation/ActAsComponentUsageModel.java" );
+    final Compilation compilation =
+      CompileTestUtil.compile( Collections.singletonList( source ),
+                               getOptions(),
+                               Collections.singletonList( processor() ),
+                               Collections.emptyList() );
+    outputFilesIfEnabled( compilation,
+                          compilation.sourceOutputFilenames(),
+                          compilation.classOutputFilenames().stream().filter( this::emitGeneratedFile ).toList() );
+    assertCompilationSuccessful( compilation );
+  }
+
+  @Test
+  public void processSuccessfulCompileWhenTypeSuppressArezWarningsAppearsOnArezComponent()
+  {
+    assertCompilesWithoutWarnings( "com.example.component.Suppressed2UnnecessaryDefaultPriorityPresentComponent" );
   }
 
   @Nonnull

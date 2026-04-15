@@ -1,5 +1,6 @@
 package arez.doc.examples.repository;
 
+import arez.annotations.ActAsComponent;
 import arez.annotations.Action;
 import arez.component.NoResultException;
 import java.util.Comparator;
@@ -8,6 +9,7 @@ import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+@ActAsComponent
 public class MyComponentRepository
 {
   @Nonnull

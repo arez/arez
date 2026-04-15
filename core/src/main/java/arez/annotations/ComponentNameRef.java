@@ -31,6 +31,9 @@ import java.lang.annotation.Target;
  * </li>
  * </ul>
  *
+ * <p>This annotation is only supported on elements contained within a type annotated by
+ * {@link ArezComponent} or {@link ActAsComponent}. Other usages will fail compilation.</p>
+ *
  * @see ComponentId
  * @see ComponentTypeNameRef
  */

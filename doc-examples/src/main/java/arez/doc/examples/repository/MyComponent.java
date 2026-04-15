@@ -1,10 +1,12 @@
 package arez.doc.examples.repository;
 
+import arez.annotations.ActAsComponent;
 import arez.annotations.ComponentId;
 import arez.annotations.Observable;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 
+@ActAsComponent
 public class MyComponent
 {
   private final int _id;

@@ -34,6 +34,9 @@ import javax.annotation.Nonnull;
  * <p>If the annotated method has a parameter of type {@link arez.Observer} then the underlying {@link arez.Observer}
  * instance associated with the {@link Observe}/{@link OnDepsChange} annotated method is passed to the method when
  * dependencies change. This is extremely useful when implementing asynchronous callbacks.</p>
+ *
+ * <p>This annotation is only supported on elements contained within a type annotated by
+ * {@link ArezComponent} or {@link ActAsComponent}. Other usages will fail compilation.</p>
  */
 @Documented
 @Target( ElementType.METHOD )

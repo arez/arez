@@ -22,6 +22,10 @@ import java.lang.annotation.Target;
  * is passed compiled classes. The {@link SuppressWarnings} has a source retention
  * policy and is thus not available when the files are already compiled and is thus
  * not useful when attempting to suppress warnings in already compiled code.</p>
+ *
+ * <p>When suppressing Arez processor diagnostics, this annotation is only supported on elements
+ * contained within a type annotated by {@link ArezComponent} or {@link ActAsComponent} or on the
+ * type itself. Other usages will fail compilation.</p>
  */
 @Target( { ElementType.TYPE,
            ElementType.FIELD,

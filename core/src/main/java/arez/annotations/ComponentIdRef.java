@@ -15,6 +15,9 @@ import java.lang.annotation.Target;
  * <li>Must return a value that has the same type as returned by the method annotated by {@link ComponentId} or an <code>int</code>.</li>
  * <li>Must be accessible to the class annotated by the {@link ArezComponent} annotation.</li>
  * </ul>
+ *
+ * <p>This annotation is only supported on elements contained within a type annotated by
+ * {@link ArezComponent} or {@link ActAsComponent}. Other usages will fail compilation.</p>
  */
 @Documented
 @Target( ElementType.METHOD )

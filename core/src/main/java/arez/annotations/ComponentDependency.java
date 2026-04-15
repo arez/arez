@@ -47,6 +47,9 @@ import javax.annotation.Nonnull;
  *   {@link SuppressWarnings} or {@link SuppressArezWarnings} annotations with a key "Arez:ProtectedField".
  * </li>
  * </ul>
+ *
+ * <p>This annotation is only supported on elements contained within a type annotated by
+ * {@link ArezComponent} or {@link ActAsComponent}. Other usages will fail compilation.</p>
  */
 @Documented
 @Target( { ElementType.METHOD, ElementType.FIELD } )
