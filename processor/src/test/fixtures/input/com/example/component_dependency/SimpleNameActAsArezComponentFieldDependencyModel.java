@@ -7,22 +7,22 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Retention( RetentionPolicy.RUNTIME )
-@Target( ElementType.ANNOTATION_TYPE )
-@interface ActAsArezComponent
-{
-}
-
-@Retention( RetentionPolicy.RUNTIME )
-@Target( ElementType.TYPE )
-@ActAsArezComponent
-@interface FrameworkView
-{
-}
-
 @ArezComponent
 abstract class SimpleNameActAsArezComponentFieldDependencyModel
 {
+  @Retention( RetentionPolicy.RUNTIME )
+  @Target( ElementType.ANNOTATION_TYPE )
+  @interface ActAsArezComponent
+  {
+  }
+
+  @Retention( RetentionPolicy.RUNTIME )
+  @Target( ElementType.TYPE )
+  @ActAsArezComponent
+  @interface FrameworkView
+  {
+  }
+
   @ComponentDependency
   final MyType time = null;
 
