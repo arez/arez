@@ -1,5 +1,7 @@
 # Change Log
 
+### Unreleased
+
 ### [v0.234](https://github.com/arez/arez/tree/v0.234) (2026-04-15) · [Full Changelog](https://github.com/arez/arez/compare/v0.233...v0.234) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.233&new=0.234)
 
 The release includes 3 non breaking API changes and 1 breaking API change.
