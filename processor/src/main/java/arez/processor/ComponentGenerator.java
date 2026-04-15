@@ -1905,8 +1905,7 @@ final class ComponentGenerator
         .values()
         .stream()
         .filter( ao -> ao.isValidateTypeAtRuntime() && null != ao.getField() )
-        .collect(
-          Collectors.toUnmodifiableList() );
+        .toList();
     if ( !runtimeValidatedFieldAutoObserves.isEmpty() )
     {
       builder.beginControlFlow( "if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME );
