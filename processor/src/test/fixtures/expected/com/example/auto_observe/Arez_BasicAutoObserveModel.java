@@ -211,18 +211,12 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel implements 
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_$autoObserve' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     final BasicAutoObserveModel.MyComponent $$arezv$$_autoObserve_0 = this.current();
-    if ( null != $$arezv$$_autoObserve_0 ) {
-      ComponentObservable.observe( $$arezv$$_autoObserve_0 );
-    }
+    ComponentObservable.maybeObserve( $$arezv$$_autoObserve_0 );
     final BasicAutoObserveModel.MyComponent $$arezv$$_autoObserve_1 = this.getSelected();
-    if ( null != $$arezv$$_autoObserve_1 ) {
-      ComponentObservable.observe( $$arezv$$_autoObserve_1 );
-    }
+    ComponentObservable.maybeObserve( $$arezv$$_autoObserve_1 );
     this.$$arezi$$_link_entity();
     final BasicAutoObserveModel.MyEntity $$arezv$$_autoObserve_2 = this.getEntity();
-    if ( null != $$arezv$$_autoObserve_2 ) {
-      ComponentObservable.observe( $$arezv$$_autoObserve_2 );
-    }
+    ComponentObservable.maybeObserve( $$arezv$$_autoObserve_2 );
     final BasicAutoObserveModel.MyComponent $$arezv$$_autoObserve_3 = this._field;
     if ( null != $$arezv$$_autoObserve_3 ) {
       ComponentObservable.observe( $$arezv$$_autoObserve_3 );

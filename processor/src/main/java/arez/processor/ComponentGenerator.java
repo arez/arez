@@ -4822,9 +4822,7 @@ final class ComponentGenerator
                               reference.getMethod().getSimpleName().toString() );
         if ( reference.isNullable() )
         {
-          builder.beginControlFlow( "if ( null != $N )", varName );
-          builder.addStatement( "$T.observe( $N )", COMPONENT_OBSERVABLE_CLASSNAME, varName );
-          builder.endControlFlow();
+          builder.addStatement( "$T.maybeObserve( $N )", COMPONENT_OBSERVABLE_CLASSNAME, varName );
         }
         else
         {
@@ -4841,9 +4839,7 @@ final class ComponentGenerator
                               method.getSimpleName().toString() );
         if ( isNullable( method, method.getReturnType() ) )
         {
-          builder.beginControlFlow( "if ( null != $N )", varName );
-          builder.addStatement( "$T.observe( $N )", COMPONENT_OBSERVABLE_CLASSNAME, varName );
-          builder.endControlFlow();
+          builder.addStatement( "$T.maybeObserve( $N )", COMPONENT_OBSERVABLE_CLASSNAME, varName );
         }
         else
         {

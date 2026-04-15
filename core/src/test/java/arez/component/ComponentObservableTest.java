@@ -32,6 +32,14 @@ public final class ComponentObservableTest
   }
 
   @Test
+  public void maybeObserve()
+  {
+    assertTrue( ComponentObservable.maybeObserve( new TestElement( true ) ) );
+    assertFalse( ComponentObservable.maybeObserve( new TestElement( false ) ) );
+    assertFalse( ComponentObservable.maybeObserve( null ) );
+  }
+
+  @Test
   public void observe_notComponentObservable()
   {
     final Object element = new Object();

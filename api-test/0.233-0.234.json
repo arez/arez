@@ -30,6 +30,22 @@
     }
   },
   {
+    "code": "java.method.staticMethodAddedToInterface",
+    "description": "A default method has been added to the interface.",
+    "newElement": "method boolean arez.component.ComponentObservable::maybeObserve(java.lang.Object)",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.component.ComponentObservable",
+      "classSimpleName": "ComponentObservable",
+      "elementKind": "method",
+      "methodName": "maybeObserve",
+      "package": "arez.component"
+    }
+  },
+  {
     "code": "java.annotation.noLongerPresent",
     "description": "Old API referenced the annotation type but the new API version no longer does.",
     "oldElement": "@interface arez.annotations.ActAsComponent",

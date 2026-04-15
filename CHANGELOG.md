@@ -5,6 +5,7 @@
 * Hard-rename the component-like validation marker annotation to `@ArezComponentLike` and update diagnostics, docs, and fixtures to use the new terminology.
 * Reject processor-consumed Arez annotations such as `@Action`, `@AutoObserve`, and `@SuppressArezWarnings` when they appear outside an `@ArezComponent` hierarchy or an `@ArezComponentLike` type, rather than silently ignoring them.
 * Let frameworks mark their own annotations as Arez-compatible containers via `@ActAsArezComponent`, including a simple-name fallback for downstream package-access meta-annotations that avoid a direct Arez dependency.
+* Add `ComponentObservable.maybeObserve()` support method.
 
 ### [v0.233](https://github.com/arez/arez/tree/v0.233) (2026-04-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.232...v0.233)
 

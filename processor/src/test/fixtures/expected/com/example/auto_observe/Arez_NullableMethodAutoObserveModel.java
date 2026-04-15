@@ -109,9 +109,7 @@ final class Arez_NullableMethodAutoObserveModel extends NullableMethodAutoObserv
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_$autoObserve' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     final NullableMethodAutoObserveModel.MyType $$arezv$$_autoObserve_0 = this.current();
-    if ( null != $$arezv$$_autoObserve_0 ) {
-      ComponentObservable.observe( $$arezv$$_autoObserve_0 );
-    }
+    ComponentObservable.maybeObserve( $$arezv$$_autoObserve_0 );
   }
 
   @Override
