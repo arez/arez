@@ -1,0 +1,100 @@
+meta:
+  project: arez-act-as-arez-component-meta-annotation
+  last_updated: 2026-04-15
+  required_full_gates:
+    - bundle exec buildr test
+  statuses:
+    - pending
+    - in_progress
+    - completed
+    - cancelled
+
+current_focus: T01
+
+tasks:
+  - id: PLAN-APPROVAL
+    title: Review and accept structured delivery artifacts
+    status: completed
+    priority: high
+    depends_on: []
+    acceptance_criteria:
+      - User has reviewed the plan in-thread and confirmed no plan changes are needed before implementation starts.
+    files_touched:
+      - plans/act-as-arez-component-meta-annotation/*
+    evidence:
+      - command: planning artifact authoring
+        result: pass
+        note: Requirements, implementation plan, and task board created for the ActAsArezComponent compatibility change.
+      - command: user review request
+        result: pass
+        note: User approved proceeding with the plan in-thread.
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T01
+    title: Implement shared processor support for ActAsArezComponent meta-annotations
+    status: in_progress
+    priority: high
+    depends_on:
+      - PLAN-APPROVAL
+    acceptance_criteria:
+      - A shared helper recognizes direct `@ArezComponentLike` and framework meta-annotations named `ActAsArezComponent`.
+      - Misplaced-annotation validation and other processor component-like checks use the shared helper.
+      - Direct `@ArezComponent` processing semantics remain unchanged.
+    files_touched:
+      - processor/src/main/java/arez/processor/ArezProcessor.java
+      - processor/src/main/java/arez/processor/Constants.java
+      - plans/act-as-arez-component-meta-annotation/*
+    evidence: []
+    commit:
+      hash: pending
+      message: pending
+
+  - id: T02
+    title: Add processor fixtures covering direct and fallback component-like meta-annotations
+    status: pending
+    priority: high
+    depends_on:
+      - T01
+    acceptance_criteria:
+      - Successful compile coverage proves a type annotated by a framework annotation meta-annotated with Arez `@ActAsArezComponent` can host Arez annotations.
+      - Successful compile coverage proves the same pattern works with a package-access downstream marker annotation whose simple name is `ActAsArezComponent`.
+      - Existing direct `@ArezComponentLike` coverage remains green.
+    files_touched:
+      - processor/src/test/java/arez/processor/ArezProcessorTest.java
+      - processor/src/test/fixtures/**
+      - plans/act-as-arez-component-meta-annotation/*
+    evidence: []
+    commit:
+      hash: pending
+      message: pending
+
+  - id: T03
+    title: Align docs and verification evidence
+    status: pending
+    priority: medium
+    depends_on:
+      - T02
+    acceptance_criteria:
+      - `CHANGELOG.md` describes the new compatibility behavior.
+      - `@ActAsArezComponent` Javadocs clearly describe direct and fallback usage.
+      - Required verification commands are recorded in the task board.
+    files_touched:
+      - core/src/main/java/arez/annotations/ActAsArezComponent.java
+      - CHANGELOG.md
+      - plans/act-as-arez-component-meta-annotation/*
+    evidence: []
+    commit:
+      hash: pending
+      message: pending
+
+history:
+  - timestamp: 2026-04-15
+    task: PLAN-APPROVAL
+    commit: not_required
+    note: Created structured-delivery artifacts and captured the user's decision to accept any meta-annotation whose simple name is `ActAsArezComponent`.
+  - timestamp: 2026-04-15
+    task: PLAN-APPROVAL
+    commit: not_required
+    note: User reviewed the plan and approved proceeding without changes.

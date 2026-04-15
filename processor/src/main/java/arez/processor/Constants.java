@@ -11,6 +11,10 @@ final class Constants
   @Nonnull
   static final String COMPONENT_CLASSNAME = "arez.annotations.ArezComponent";
   @Nonnull
+  static final String ACT_AS_AREZ_COMPONENT_CLASSNAME = "arez.annotations.ActAsArezComponent";
+  @Nonnull
+  static final String ACT_AS_AREZ_COMPONENT_SIMPLE_NAME = "ActAsArezComponent";
+  @Nonnull
   static final String AREZ_COMPONENT_LIKE_CLASSNAME = "arez.annotations.ArezComponentLike";
   @Nonnull
   static final String OBSERVE_CLASSNAME = "arez.annotations.Observe";
