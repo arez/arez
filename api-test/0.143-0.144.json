@@ -2,14 +2,14 @@
   {
     "code": "java.class.added",
     "description": "Class was added.",
-    "newElement": "@interface arez.annotations.ActAsComponent",
+    "newElement": "@interface arez.annotations.ArezComponentLike",
     "classification": {
       "SOURCE": "NON_BREAKING",
       "BINARY": "NON_BREAKING"
     },
     "attachments": {
-      "classQualifiedName": "arez.annotations.ActAsComponent",
-      "classSimpleName": "ActAsComponent",
+      "classQualifiedName": "arez.annotations.ArezComponentLike",
+      "classSimpleName": "ArezComponentLike",
       "elementKind": "@interface",
       "package": "arez.annotations"
     }

@@ -1,6 +1,6 @@
 package com.example.auto_observe;
 
-import arez.annotations.ActAsComponent;
+import arez.annotations.ArezComponentLike;
 import arez.annotations.ArezComponent;
 import arez.annotations.AutoObserve;
 import arez.annotations.ComponentDependency;
@@ -12,7 +12,7 @@ abstract class ComponentDependencyAndAutoObserveModel
   @AutoObserve( validateTypeAtRuntime = true )
   final MyType _field = null;
 
-  @ActAsComponent
+  @ArezComponentLike
   interface MyType
   {
   }

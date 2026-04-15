@@ -14,20 +14,20 @@ import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_ActAsComponentMethodDependencyModel extends ActAsComponentMethodDependencyModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
+final class Arez_ArezComponentLikeMethodDependencyModel extends ArezComponentLikeMethodDependencyModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  Arez_ActAsComponentMethodDependencyModel() {
+  Arez_ArezComponentLikeMethodDependencyModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ++$$arezi$$_nextId;
-    final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_component_dependency_ActAsComponentMethodDependencyModel." + $$arezv$$_id : null;
-    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_component_dependency_ActAsComponentMethodDependencyModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
+    final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_component_dependency_ArezComponentLikeMethodDependencyModel." + $$arezv$$_id : null;
+    final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_component_dependency_ArezComponentLikeMethodDependencyModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, null, null, true, false, false );
-    final ActAsComponentMethodDependencyModel.MyType $$arezv$$_getTime_dependency = super.getTime();
+    final ArezComponentLikeMethodDependencyModel.MyType $$arezv$$_getTime_dependency = super.getTime();
     if ( null != $$arezv$$_getTime_dependency ) {
       DisposeNotifier.asDisposeNotifier( super.getTime() ).addOnDisposeListener( this, this::dispose );
     }
@@ -44,7 +44,7 @@ final class Arez_ActAsComponentMethodDependencyModel extends ActAsComponentMetho
   @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_component_dependency_ActAsComponentMethodDependencyModel'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_component_dependency_ArezComponentLikeMethodDependencyModel'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'getArezId' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
@@ -53,7 +53,7 @@ final class Arez_ActAsComponentMethodDependencyModel extends ActAsComponentMetho
   }
 
   private void $$arezi$$_preDispose() {
-    final ActAsComponentMethodDependencyModel.MyType $$arezv$$_getTime_dependency = super.getTime();
+    final ArezComponentLikeMethodDependencyModel.MyType $$arezv$$_getTime_dependency = super.getTime();
     if ( null != $$arezv$$_getTime_dependency ) {
       DisposeNotifier.asDisposeNotifier( $$arezv$$_getTime_dependency ).removeOnDisposeListener( this );
     }
@@ -68,7 +68,7 @@ final class Arez_ActAsComponentMethodDependencyModel extends ActAsComponentMetho
   public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_component_dependency_ActAsComponentMethodDependencyModel'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_component_dependency_ArezComponentLikeMethodDependencyModel'" );
     }
     this.$$arezi$$_kernel.addOnDisposeListener( key, action, errorIfDuplicate );
   }
@@ -76,7 +76,7 @@ final class Arez_ActAsComponentMethodDependencyModel extends ActAsComponentMetho
   @Override
   public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_component_dependency_ActAsComponentMethodDependencyModel'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_component_dependency_ArezComponentLikeMethodDependencyModel'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
@@ -87,7 +87,7 @@ final class Arez_ActAsComponentMethodDependencyModel extends ActAsComponentMetho
   @Override
   public boolean isDisposed() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'isDisposed' invoked on uninitialized component of type 'com_example_component_dependency_ActAsComponentMethodDependencyModel'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'isDisposed' invoked on uninitialized component of type 'com_example_component_dependency_ArezComponentLikeMethodDependencyModel'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'isDisposed' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
@@ -98,7 +98,7 @@ final class Arez_ActAsComponentMethodDependencyModel extends ActAsComponentMetho
   @Override
   public void dispose() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'dispose' invoked on uninitialized component of type 'com_example_component_dependency_ActAsComponentMethodDependencyModel'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'dispose' invoked on uninitialized component of type 'com_example_component_dependency_ArezComponentLikeMethodDependencyModel'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'dispose' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );

@@ -4,7 +4,7 @@ import arez.annotations.ArezComponent;
 import arez.annotations.AutoObserve;
 
 @ArezComponent
-abstract class RuntimeValidateWithoutActAsComponentFieldAutoObserveModel
+abstract class RuntimeValidateWithoutArezComponentLikeFieldAutoObserveModel
 {
   @AutoObserve( validateTypeAtRuntime = true )
   final Object _field = null;

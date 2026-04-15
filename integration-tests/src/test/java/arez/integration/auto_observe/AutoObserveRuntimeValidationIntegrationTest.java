@@ -1,7 +1,7 @@
 package arez.integration.auto_observe;
 
 import arez.Disposable;
-import arez.annotations.ActAsComponent;
+import arez.annotations.ArezComponentLike;
 import arez.annotations.ArezComponent;
 import arez.annotations.AutoObserve;
 import arez.integration.AbstractArezIntegrationTest;
@@ -47,7 +47,7 @@ public final class AutoObserveRuntimeValidationIntegrationTest
     Disposable.dispose( owner );
   }
 
-  @ActAsComponent
+  @ArezComponentLike
   interface MyType
   {
   }

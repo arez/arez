@@ -188,8 +188,8 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.auto_observe.RuntimeTypeValidateFieldAutoObserveModel" },
 
         new Object[]{ "com.example.component_dependency.AbstractObservableDependency" },
-        new Object[]{ "com.example.component_dependency.ActAsComponentFieldDependencyModel" },
-        new Object[]{ "com.example.component_dependency.ActAsComponentMethodDependencyModel" },
+        new Object[]{ "com.example.component_dependency.ArezComponentLikeFieldDependencyModel" },
+        new Object[]{ "com.example.component_dependency.ArezComponentLikeMethodDependencyModel" },
         new Object[]{ "com.example.component_dependency.BasicDependencyModel" },
         new Object[]{ "com.example.component_dependency.BasicFieldDependencyModel" },
         new Object[]{ "com.example.component_dependency.CascadeDependencyModel" },
@@ -1605,15 +1605,15 @@ public final class ArezProcessorTest
                       "@AutoObserve target must be final" },
         new Object[]{ "com.example.auto_observe.PrimitiveReturnAutoObserveModel",
                       "@AutoObserve target must return a non-primitive value" },
-        new Object[]{ "com.example.auto_observe.RuntimeValidateWithoutActAsComponentFieldAutoObserveModel",
-                      "@AutoObserve target specified validateTypeAtRuntime = true but the declared type is not annotated with @ActAsComponent" },
+        new Object[]{ "com.example.auto_observe.RuntimeValidateWithoutArezComponentLikeFieldAutoObserveModel",
+                      "@AutoObserve target specified validateTypeAtRuntime = true but the declared type is not annotated with @ArezComponentLike" },
 
         new Object[]{ "com.example.component_dependency.AbstractDependency",
                       "@ArezComponent target has an abstract method not implemented by framework. The method is named getTime" },
         new Object[]{ "com.example.component_dependency.BadTypeDependency",
-                      "@ComponentDependency target must return an instance compatible with arez.component.DisposeNotifier or a type annotated with @ArezComponent(disposeNotifier=ENABLE) or @ActAsComponent" },
+                      "@ComponentDependency target must return an instance compatible with arez.component.DisposeNotifier or a type annotated with @ArezComponent(disposeNotifier=ENABLE) or @ArezComponentLike" },
         new Object[]{ "com.example.component_dependency.BadTypeFieldDependency",
-                      "@ComponentDependency target must be an instance compatible with arez.component.DisposeNotifier or a type annotated with @ArezComponent(disposeNotifier=ENABLE) or @ActAsComponent" },
+                      "@ComponentDependency target must be an instance compatible with arez.component.DisposeNotifier or a type annotated with @ArezComponent(disposeNotifier=ENABLE) or @ArezComponentLike" },
         new Object[]{ "com.example.component_dependency.CascadeDisposeAndFieldDependency",
                       "Method can not be annotated with both @ComponentDependency and @CascadeDispose" },
         new Object[]{ "com.example.component_dependency.MemoizeDependency",
@@ -2278,14 +2278,14 @@ public final class ArezProcessorTest
   {
     assertFailedCompile( classname,
                          "@" + annotation + " is only supported within a type annotated by " +
-                         "@ArezComponent or @ActAsComponent" );
+                         "@ArezComponent or @ArezComponentLike" );
   }
 
   @Test
-  public void processSuccessfulCompileWhenCoveredAnnotationsAndTypeSuppressArezWarningsAppearInsideActAsComponent()
+  public void processSuccessfulCompileWhenCoveredAnnotationsAndTypeSuppressArezWarningsAppearInsideArezComponentLike()
     throws Exception
   {
-    final JavaFileObject source = fixture( "input/com/example/misplaced_annotation/ActAsComponentUsageModel.java" );
+    final JavaFileObject source = fixture( "input/com/example/misplaced_annotation/ArezComponentLikeUsageModel.java" );
     final Compilation compilation =
       CompileTestUtil.compile( Collections.singletonList( source ),
                                getOptions(),
@@ -2318,8 +2318,8 @@ public final class ArezProcessorTest
                       "@ArezComponent target should not have a public constructor. It is recommended that a static create method be added to the component that is responsible for instantiating the arez implementation class. This warning can be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicConstructor\" ) or @SuppressArezWarnings( \"Arez:PublicConstructor\" )" },
         new Object[]{ "com.example.component.UnmanagedComponentReferencePassedInConstructor",
                       "Field named '_myComponent' has a type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency or @arez.annotations.AutoObserve and was not injected into the constructor. This scenario can cause errors if the value is disposed. Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
-        new Object[]{ "com.example.component.UnmanagedActAsComponentReference",
-                      "Field named '_myComponent' has a type that is annotated with @ActAsComponent but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency or @arez.annotations.AutoObserve and was not injected into the constructor. This scenario can cause errors if the value is disposed. Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
+        new Object[]{ "com.example.component.UnmanagedArezComponentLikeReference",
+                      "Field named '_myComponent' has a type that is annotated with @ArezComponentLike but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency or @arez.annotations.AutoObserve and was not injected into the constructor. This scenario can cause errors if the value is disposed. Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
         new Object[]{ "com.example.component.UnmanagedComponentReference",
                       "Field named '_myComponent' has a type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency or @arez.annotations.AutoObserve and was not injected into the constructor. This scenario can cause errors if the value is disposed. Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
         new Object[]{ "com.example.component.UnmanagedComponentReferenceViaInheritance",
@@ -2328,8 +2328,8 @@ public final class ArezProcessorTest
                       "Field named 'time' has a type that is an implementation of DisposeNotifier but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency or @arez.annotations.AutoObserve and was not injected into the constructor. This scenario can cause errors if the value is disposed. Please annotate the field as appropriate or suppress the warning by annotating the field with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
         new Object[]{ "com.example.component.UnmanagedObservableComponentReference",
                       "Method named 'getMyComponent' has a return type that is an Arez component but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency or @arez.annotations.AutoObserve. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
-        new Object[]{ "com.example.component.UnmanagedObservableActAsComponentReference",
-                      "Method named 'getMyComponent' has a return type that is annotated with @ActAsComponent but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency or @arez.annotations.AutoObserve. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
+        new Object[]{ "com.example.component.UnmanagedObservableArezComponentLikeReference",
+                      "Method named 'getMyComponent' has a return type that is annotated with @ArezComponentLike but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency or @arez.annotations.AutoObserve. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
         new Object[]{ "com.example.component.UnmanagedObservableDisposeNotifierReference",
                       "Method named 'getMyComponent' has a return type that is an implementation of DisposeNotifier but is not annotated with @arez.annotations.CascadeDispose or @arez.annotations.ComponentDependency or @arez.annotations.AutoObserve. This scenario can cause errors. Please annotate the method as appropriate or suppress the warning by annotating the method with @SuppressWarnings( \"Arez:UnmanagedComponentReference\" ) or @SuppressArezWarnings( \"Arez:UnmanagedComponentReference\" )" },
         new Object[]{ "com.example.component.UnmanagedObservableComponentReferenceViaInheritance",
@@ -2463,16 +2463,16 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.component.UnmanagedComponentReferenceSuppressedAtClass" },
         new Object[]{ "com.example.component.UnmanagedComponentReferenceToNonDisposeNotifier" },
         new Object[]{ "com.example.component.UnmanagedComponentReferenceToNonVerify" },
-        new Object[]{ "com.example.component.ManagedAutoObserveActAsComponentReference" },
-        new Object[]{ "com.example.component.ManagedObservableAutoObserveActAsComponentReference" },
+        new Object[]{ "com.example.component.ManagedAutoObserveArezComponentLikeReference" },
+        new Object[]{ "com.example.component.ManagedObservableAutoObserveArezComponentLikeReference" },
         new Object[]{ "com.example.cascade_dispose.Suppressed1DisposeOnDeactivateCascadeDisposeFieldModel" },
         new Object[]{ "com.example.cascade_dispose.Suppressed2DisposeOnDeactivateCascadeDisposeMethodModel" },
         new Object[]{ "com.example.cascade_dispose.DisposeOnDeactivateCascadeDisposeSuppressedAtClassModel" },
-        new Object[]{ "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressed" },
-        new Object[]{ "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressedOnClass" },
+        new Object[]{ "com.example.component.UnmanagedObservableArezComponentLikeReferenceSuppressed" },
+        new Object[]{ "com.example.component.UnmanagedObservableArezComponentLikeReferenceSuppressedOnClass" },
         new Object[]{ "com.example.component.UnmanagedObservableComponentReferenceViaInheritanceSuppressed" },
         new Object[]{ "com.example.component.UnmanagedObservableComponentReferenceViaInheritanceSuppressedOnBaseClass" },
-        new Object[]{ "com.example.component.UnmanagedObservableActAsComponentReferenceSuppressedOnSetter" },
+        new Object[]{ "com.example.component.UnmanagedObservableArezComponentLikeReferenceSuppressedOnSetter" },
         new Object[]{ "com.example.component.UnmanagedObservableComponentReferenceToNonVerify" },
         new Object[]{ "com.example.cascade_dispose.Suppressed1ProtectedAccessFieldCascadeDisposeModel" },
         new Object[]{ "com.example.cascade_dispose.Suppressed2ProtectedAccessFieldCascadeDisposeModel" },

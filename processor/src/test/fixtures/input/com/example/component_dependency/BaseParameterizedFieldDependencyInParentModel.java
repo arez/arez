@@ -1,9 +1,9 @@
 package com.example.component_dependency;
 
-import arez.annotations.ActAsComponent;
+import arez.annotations.ArezComponentLike;
 import arez.annotations.ComponentDependency;
 
-@ActAsComponent
+@ArezComponentLike
 abstract class BaseParameterizedFieldDependencyInParentModel<T>
 {
   @ComponentDependency

@@ -1,16 +1,16 @@
 package com.example.component;
 
-import arez.annotations.ActAsComponent;
+import arez.annotations.ArezComponentLike;
 import arez.annotations.ArezComponent;
 import arez.annotations.AutoObserve;
 
 @ArezComponent
-abstract class ManagedAutoObserveActAsComponentReference
+abstract class ManagedAutoObserveArezComponentLikeReference
 {
   @AutoObserve( validateTypeAtRuntime = true )
   final MyComponent _myComponent = null;
 
-  @ActAsComponent
+  @ArezComponentLike
   public interface MyComponent
   {
   }

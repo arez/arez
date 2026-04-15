@@ -78,7 +78,7 @@ public final class ArezPersistProcessorTest
         new Object[]{ "com.example.persist_id.PersistPersistIdModel",
                       "@PersistId target must not also be annotated with the @Persist annotation" },
         new Object[]{ "com.example.persist_id.UnclaimedPersistIdModel",
-                      "@PersistId target must be enclosed within a type annotated by either the arez.annotations.ArezComponent annotation or the arez.annotations.ActAsComponent annotation" },
+                      "@PersistId target must be enclosed within a type annotated by either the arez.annotations.ArezComponent annotation or the arez.annotations.ArezComponentLike annotation" },
 
         new Object[]{ "com.example.persist_id.parent_type.AbstractPersistIdModel",
                       "@PersistId target must not be abstract" },

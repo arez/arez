@@ -33,7 +33,7 @@
   - Mitigation: implement target-specific generation paths and add dedicated processor fixtures plus integration coverage for retargeting and lazy-reference resolution.
 - Risk 3: runtime-validation path becomes broader than intended.
   - Impact: arbitrary interface-typed targets compile and fail unpredictably at runtime.
-  - Mitigation: reject `validateTypeAtRuntime = true` unless the declared type is annotated with `@ActAsComponent`, and add negative fixtures for disallowed variants.
+  - Mitigation: reject `validateTypeAtRuntime = true` unless the declared type is annotated with `@ArezComponentLike`, and add negative fixtures for disallowed variants.
 
 ## Required Full Gates
 
@@ -46,7 +46,7 @@
 | Q-01 | generate one owner-lifetime observer instead of activate/deactivate hooks |
 | Q-02 | emit null guards in generated observe method |
 | Q-03 | support fields, plain methods, `@Reference`, and `@Observable` getters |
-| Q-04 | add `validateTypeAtRuntime` with `@ActAsComponent`-only validation rule |
+| Q-04 | add `validateTypeAtRuntime` with `@ArezComponentLike`-only validation rule |
 | Q-05 | add processor errors for coexistence with dependency and dispose annotations |
 | Q-06 | enforce final fields |
 | Q-07 | force reference resolution in generated auto-observe code |

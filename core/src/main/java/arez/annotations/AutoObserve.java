@@ -49,11 +49,11 @@ import java.lang.annotation.Target;
  * </ul>
  *
  * <p>If {@link #validateTypeAtRuntime()} is set to <code>true</code> then the declared type of the field or method
- * must be annotated with {@link ActAsComponent}. In this mode, type compatibility is validated at runtime
- * rather than compile time.</p>
+ * must be annotated with {@link ArezComponentLike}. In this mode, type compatibility is validated at runtime
+ * rather than compile time while still treating the declared type as component-like for validation only.</p>
  *
  * <p>This annotation is only supported on elements contained within a type annotated by
- * {@link ArezComponent} or {@link ActAsComponent}. Other usages will fail compilation.</p>
+ * {@link ArezComponent} or {@link ArezComponentLike}. Other usages will fail compilation.</p>
  */
 @Documented
 @Target( { ElementType.METHOD, ElementType.FIELD } )
@@ -61,8 +61,8 @@ public @interface AutoObserve
 {
   /**
    * Return true and the value of the annotated field or method will be validated at runtime rather than compile time.
-   * This is useful when the declared type is annotated with {@link ActAsComponent} but the runtime value is known
-   * to implement {@link ComponentObservable}.
+   * This is useful when the declared type is annotated with {@link ArezComponentLike} but the runtime value is
+   * known to implement {@link ComponentObservable}.
    *
    * @return true to defer validation of types until runtime.
    */

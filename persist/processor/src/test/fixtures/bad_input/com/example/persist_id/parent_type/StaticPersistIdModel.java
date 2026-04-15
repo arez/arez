@@ -1,9 +1,9 @@
 package com.example.persist_id.parent_type;
 
-import arez.annotations.ActAsComponent;
+import arez.annotations.ArezComponentLike;
 import arez.persist.PersistId;
 
-@ActAsComponent
+@ArezComponentLike
 abstract class StaticPersistIdModel
 {
   @PersistId

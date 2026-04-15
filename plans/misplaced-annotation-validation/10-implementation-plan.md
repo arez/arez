@@ -19,8 +19,8 @@
 
 - Risk 1: the processor may not run for source sets that only contain misplaced annotations.
   - Mitigation: expand supported annotation types to include the full covered set and add a test with no `@ArezComponent` in the compilation unit.
-- Risk 2: the scan may incorrectly reject valid use inside nested members of `@ArezComponent` or `@ActAsComponent` types.
-  - Mitigation: resolve the nearest enclosing type via parent traversal and add positive fixtures for `@ActAsComponent`.
+- Risk 2: the scan may incorrectly reject valid use inside nested members of `@ArezComponent` or `@ArezComponentLike` types.
+  - Mitigation: resolve the nearest enclosing type via parent traversal and add positive fixtures for `@ArezComponentLike`.
 - Risk 3: inherited-member exemptions may accidentally allow type-level `@SuppressArezWarnings` on non-component supertypes.
   - Mitigation: distinguish between annotated types and annotated members when validating the enclosing container.
 - Risk 3: the covered-annotation list may drift from actual processor handling.
@@ -34,15 +34,15 @@
 
 | question | concrete plan change |
 | --- | --- |
-| Q-01 | allow covered annotations inside `@ActAsComponent` types without making those types processable components |
-| Q-02 | do not add `@ReferenceTarget` or deprecate `@ActAsComponent` in this change |
-| Q-03 | scan the broad processor-consumed annotation set, include `@SuppressArezWarnings`, and exclude `@ArezComponent`, `@ActAsComponent`, and `@DefaultEqualityComparator` |
+| Q-01 | allow covered annotations inside `@ArezComponentLike` types without making those types processable components |
+| Q-02 | do not add `@ReferenceTarget` or expand `@ArezComponentLike` semantics in this change |
+| Q-03 | scan the broad processor-consumed annotation set, include `@SuppressArezWarnings`, and exclude `@ArezComponent`, `@ArezComponentLike`, and `@DefaultEqualityComparator` |
 
 ## Completion Criteria
 
 - Misplaced covered annotations fail compilation with a consistent error message.
 - Every covered annotation has processor-test coverage, with separate method/field fixtures where both placements are supported.
 - Existing `@ArezComponent` behavior remains unchanged.
-- Type-level `@SuppressArezWarnings` is accepted only on directly annotated `@ArezComponent`/`@ActAsComponent` types.
-- `@ActAsComponent` fixtures do not trigger the new misplaced-usage error.
+- Type-level `@SuppressArezWarnings` is accepted only on directly annotated `@ArezComponent`/`@ArezComponentLike` types.
+- `@ArezComponentLike` fixtures do not trigger the new misplaced-usage error.
 - Changelog and affected Javadocs describe the new validation behavior.

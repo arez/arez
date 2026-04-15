@@ -1,0 +1,134 @@
+meta:
+  project: arez-component-like-rename
+  last_updated: 2026-04-15
+  required_full_gates:
+    - bundle exec buildr test
+  statuses:
+    - pending
+    - in_progress
+    - completed
+    - cancelled
+
+current_focus: none
+
+tasks:
+  - id: PLAN-APPROVAL
+    title: Review and accept structured delivery artifacts
+    status: pending
+    priority: high
+    depends_on: []
+    acceptance_criteria:
+      - User has reviewed the latest plan artifacts and requested any needed updates.
+    files_touched:
+      - plans/arez-component-like-rename/*
+    evidence: []
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: PLAN-SETUP
+    title: Create rename requirements, plan, and task tracking artifacts
+    status: completed
+    priority: high
+    depends_on: []
+    acceptance_criteria:
+      - Requirements, implementation plan, and task board exist under `plans/arez-component-like-rename/`.
+      - Locked rename semantics and verification commands are captured.
+    files_touched:
+      - plans/arez-component-like-rename/*
+    evidence:
+      - command: workflow artifact setup
+        result: pass
+        note: Added dedicated requirements, implementation plan, and task board artifacts for the hard rename to `@ArezComponentLike`.
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T01
+    title: Rename the public annotation and processor terminology
+    status: completed
+    priority: high
+    depends_on:
+      - PLAN-SETUP
+    acceptance_criteria:
+      - Public annotation/source file and processor terminology use `ArezComponentLike`.
+      - Diagnostics and helper names use component-like terminology consistently.
+      - Validation-only behavior is preserved.
+    files_touched:
+      - core/src/main/java/arez/annotations/*
+      - processor/src/main/java/arez/processor/*
+      - persist/processor/src/main/java/arez/persist/processor/*
+      - plans/arez-component-like-rename/*
+    evidence:
+      - command: repository rename audit
+        result: pass
+        note: Renamed the public annotation/source file to `ArezComponentLike`, updated processor and persist-processor constants/helpers/diagnostics, and preserved component-like validation semantics.
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T02
+    title: Rename tests, fixtures, expected outputs, and docs
+    status: completed
+    priority: high
+    depends_on:
+      - T01
+    acceptance_criteria:
+      - Tests, fixture names, expected outputs, and doc examples use `ArezComponentLike`.
+      - Javadocs, changelog, api-test metadata, and active workflow artifacts accurately describe the renamed component-like marker.
+    files_touched:
+      - processor/src/test/**
+      - persist/processor/src/test/**
+      - integration-tests/src/test/**
+      - doc-examples/src/main/java/**
+      - api-test/*
+      - CHANGELOG.md
+      - plans/*
+    evidence:
+      - command: repository terminology audit
+        result: pass
+        note: Renamed impacted tests, fixtures, expected outputs, doc examples, api-diff metadata, and active workflow artifacts; the former annotation name remains only in historical changelog entries.
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T03
+    title: Verify the rename and capture evidence
+    status: completed
+    priority: high
+    depends_on:
+      - T02
+    acceptance_criteria:
+      - `bundle exec buildr arez:processor:test` passes.
+      - `bundle exec buildr test` is run and its result is recorded.
+      - Any unrelated full-gate failures are documented separately.
+    files_touched:
+      - plans/arez-component-like-rename/*
+    evidence:
+      - command: bundle exec buildr arez:processor:test
+        result: pass
+        note: Passed with 1102 processor tests after the hard rename to `@ArezComponentLike`.
+      - command: bundle exec buildr test
+        result: blocked_unrelated
+        note: Build progressed through core, processor, doc-examples, and other modules before failing in `arez:downstream-test` with `java.nio.file.NoSuchFileException` for missing `target/arez_downstream-test/deploy_test/workdir/archive/arez.after/assets/WEB-INF/deploy/todomvc/symbolMaps`.
+    commit:
+      hash: not_required
+      message: not_required
+
+history:
+  - timestamp: 2026-04-15
+    task: PLAN-SETUP
+    commit: not_required
+    note: Created structured-delivery artifacts covering the hard rename scope, semantics, and verification gates.
+  - timestamp: 2026-04-15
+    task: T01
+    commit: not_required
+    note: Renamed the public annotation to `@ArezComponentLike` and updated processor terminology without changing the validation-only behavior.
+  - timestamp: 2026-04-15
+    task: T02
+    commit: not_required
+    note: Renamed impacted tests, fixtures, expected outputs, doc examples, changelog text, api metadata, and active workflow artifacts.
+  - timestamp: 2026-04-15
+    task: T03
+    commit: not_required
+    note: Verified the rename with `bundle exec buildr arez:processor:test` and recorded the unrelated downstream full-gate failure in `arez.downstream.BuildOutputTest`.

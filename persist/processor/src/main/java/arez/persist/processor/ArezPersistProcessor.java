@@ -390,13 +390,13 @@ public final class ArezPersistProcessor
     assert ElementKind.METHOD == element.getKind();
     final Element type = element.getEnclosingElement();
     if ( !AnnotationsUtil.hasAnnotationOfType( type, Constants.AREZ_COMPONENT_CLASSNAME ) &&
-         !AnnotationsUtil.hasAnnotationOfType( type, Constants.ACT_AS_COMPONENT_CLASSNAME ) )
+         !AnnotationsUtil.hasAnnotationOfType( type, Constants.AREZ_COMPONENT_LIKE_CLASSNAME ) )
     {
       reportError( env,
                    MemberChecks.must( Constants.PERSIST_ID_CLASSNAME,
                                       "be enclosed within a type annotated by either the " +
                                       Constants.AREZ_COMPONENT_CLASSNAME + " annotation or the " +
-                                      Constants.ACT_AS_COMPONENT_CLASSNAME + " annotation" ),
+                                      Constants.AREZ_COMPONENT_LIKE_CLASSNAME + " annotation" ),
                    element );
     }
 

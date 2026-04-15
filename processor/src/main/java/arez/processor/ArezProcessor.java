@@ -213,7 +213,7 @@ public final class ArezProcessor
         {
           final var message =
             "@" + annotationType.getSimpleName() + " is only supported within a type annotated by " +
-            "@ArezComponent or @ActAsComponent";
+            "@ArezComponent or @ArezComponentLike";
           processingEnv.getMessager().printMessage( ERROR, message, element );
         }
       }
@@ -256,7 +256,7 @@ public final class ArezProcessor
                                                   @Nonnull final Set<TypeElement> componentTypes )
   {
     if ( AnnotationsUtil.hasAnnotationOfType( type, Constants.COMPONENT_CLASSNAME ) ||
-         AnnotationsUtil.hasAnnotationOfType( type, Constants.ACT_AS_COMPONENT_CLASSNAME ) )
+         AnnotationsUtil.hasAnnotationOfType( type, Constants.AREZ_COMPONENT_LIKE_CLASSNAME ) )
     {
       return true;
     }
@@ -1230,10 +1230,10 @@ public final class ArezProcessor
     if ( validateTypeAtRuntime )
     {
       final Element element = processingEnv.getTypeUtils().asElement( type );
-      if ( !( element instanceof TypeElement ) || !isActAsComponentAnnotated( (TypeElement) element ) )
+      if ( !( element instanceof TypeElement ) || !isArezComponentLikeAnnotated( (TypeElement) element ) )
       {
         throw new ProcessorException( "@AutoObserve target specified validateTypeAtRuntime = true but the " +
-                                      "declared type is not annotated with @ActAsComponent", field );
+                                      "declared type is not annotated with @ArezComponentLike", field );
       }
     }
     else if ( !isAutoObserveCompileTimeCompatible( type ) )
@@ -1347,10 +1347,10 @@ public final class ArezProcessor
     if ( validateTypeAtRuntime )
     {
       final Element element = processingEnv.getTypeUtils().asElement( type );
-      if ( !( element instanceof TypeElement ) || !isActAsComponentAnnotated( (TypeElement) element ) )
+      if ( !( element instanceof TypeElement ) || !isArezComponentLikeAnnotated( (TypeElement) element ) )
       {
         throw new ProcessorException( "@AutoObserve target specified validateTypeAtRuntime = true but the " +
-                                      "declared return type is not annotated with @ActAsComponent", method );
+                                      "declared return type is not annotated with @ArezComponentLike", method );
       }
     }
     else if ( !isAutoObserveCompileTimeCompatible( type ) )
@@ -2514,11 +2514,11 @@ public final class ArezProcessor
       if ( !processingEnv.getTypeUtils().isAssignable( type, disposeNotifier.asType() ) )
       {
         final TypeElement typeElement = (TypeElement) processingEnv.getTypeUtils().asElement( type );
-        if ( !isActAsComponentAnnotated( typeElement ) && !isDisposeTrackableComponent( typeElement ) )
+        if ( !isArezComponentLikeAnnotated( typeElement ) && !isDisposeTrackableComponent( typeElement ) )
         {
           throw new ProcessorException( "@ComponentDependency target must return an instance compatible with " +
                                         Constants.DISPOSE_NOTIFIER_CLASSNAME + " or a type annotated " +
-                                        "with @ArezComponent(disposeNotifier=ENABLE) or @ActAsComponent", method );
+                                        "with @ArezComponent(disposeNotifier=ENABLE) or @ArezComponentLike", method );
         }
       }
     }
@@ -2560,12 +2560,12 @@ public final class ArezProcessor
       {
         final Element element = processingEnv.getTypeUtils().asElement( type );
         if ( !( element instanceof TypeElement ) ||
-             !isActAsComponentAnnotated( (TypeElement) element ) &&
+             !isArezComponentLikeAnnotated( (TypeElement) element ) &&
              !isDisposeTrackableComponent( (TypeElement) element ) )
         {
           throw new ProcessorException( "@ComponentDependency target must be an instance compatible with " +
                                         Constants.DISPOSE_NOTIFIER_CLASSNAME + " or a type annotated " +
-                                        "with @ArezComponent(disposeNotifier=ENABLE) or @ActAsComponent", field );
+                                        "with @ArezComponent(disposeNotifier=ENABLE) or @ArezComponentLike", field );
         }
       }
     }
@@ -2590,9 +2590,9 @@ public final class ArezProcessor
   }
 
   @SuppressWarnings( "BooleanMethodIsAlwaysInverted" )
-  private boolean isActAsComponentAnnotated( @Nonnull final TypeElement typeElement )
+  private boolean isArezComponentLikeAnnotated( @Nonnull final TypeElement typeElement )
   {
-    return AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.ACT_AS_COMPONENT_CLASSNAME );
+    return AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.AREZ_COMPONENT_LIKE_CLASSNAME );
   }
 
   @SuppressWarnings( "BooleanMethodIsAlwaysInverted" )
@@ -3851,11 +3851,11 @@ public final class ArezProcessor
           final boolean isDisposeNotifier = isAssignable( parameter.asType(), disposeNotifier );
           final boolean isTypeAnnotatedByComponentAnnotation =
             !isDisposeNotifier && isTypeAnnotatedByComponentAnnotation( parameter );
-          final boolean isTypeAnnotatedActAsComponent =
+          final boolean isTypeAnnotatedArezComponentLike =
             !isDisposeNotifier &&
             !isTypeAnnotatedByComponentAnnotation &&
-            isTypeAnnotatedByActAsComponentAnnotation( parameter );
-          if ( isDisposeNotifier || isTypeAnnotatedByComponentAnnotation || isTypeAnnotatedActAsComponent )
+            isTypeAnnotatedByArezComponentLikeAnnotation( parameter );
+          if ( isDisposeNotifier || isTypeAnnotatedByComponentAnnotation || isTypeAnnotatedArezComponentLike )
           {
             injectedTypes.add( parameter.asType().toString() );
           }
@@ -3871,23 +3871,23 @@ public final class ArezProcessor
         final boolean isDisposeNotifier = isAssignable( field.asType(), disposeNotifier );
         final boolean isTypeAnnotatedByComponentAnnotation =
           !isDisposeNotifier && isTypeAnnotatedByComponentAnnotation( field );
-        final boolean isTypeAnnotatedActAsComponent =
+        final boolean isTypeAnnotatedArezComponentLike =
           !isDisposeNotifier &&
           !isTypeAnnotatedByComponentAnnotation &&
-          isTypeAnnotatedByActAsComponentAnnotation( field );
-        if ( isDisposeNotifier || isTypeAnnotatedByComponentAnnotation || isTypeAnnotatedActAsComponent )
+          isTypeAnnotatedByArezComponentLikeAnnotation( field );
+        if ( isDisposeNotifier || isTypeAnnotatedByComponentAnnotation || isTypeAnnotatedArezComponentLike )
         {
           if ( !descriptor.isDependencyDefined( field ) &&
                !descriptor.isCascadeDisposeDefined( field ) &&
                !descriptor.isAutoObserveDefined( field ) &&
-               ( isDisposeNotifier || isTypeAnnotatedActAsComponent || verifyReferencesToComponent( field ) ) &&
+               ( isDisposeNotifier || isTypeAnnotatedArezComponentLike || verifyReferencesToComponent( field ) ) &&
                isUnmanagedComponentReferenceNotSuppressed( field ) &&
                !injectedTypes.contains( field.asType().toString() ) )
           {
             final String label =
               isDisposeNotifier ? "an implementation of DisposeNotifier" :
               isTypeAnnotatedByComponentAnnotation ? "an Arez component" :
-              "annotated with @ActAsComponent";
+              "annotated with @ArezComponentLike";
             final String message =
               "Field named '" + field.getSimpleName() + "' has a type that is " + label +
               " but is not annotated with @" + Constants.CASCADE_DISPOSE_CLASSNAME + " or " +
@@ -3915,17 +3915,17 @@ public final class ArezProcessor
           final boolean isDisposeNotifier = isAssignable( returnType, disposeNotifier );
           final boolean isTypeAnnotatedByComponentAnnotation =
             !isDisposeNotifier && isElementAnnotatedBy( returnElement, Constants.COMPONENT_CLASSNAME );
-          final boolean isTypeAnnotatedActAsComponent =
+          final boolean isTypeAnnotatedArezComponentLike =
             !isDisposeNotifier &&
             !isTypeAnnotatedByComponentAnnotation &&
-            isElementAnnotatedBy( returnElement, Constants.ACT_AS_COMPONENT_CLASSNAME );
-          if ( isDisposeNotifier || isTypeAnnotatedByComponentAnnotation || isTypeAnnotatedActAsComponent )
+            isElementAnnotatedBy( returnElement, Constants.AREZ_COMPONENT_LIKE_CLASSNAME );
+          if ( isDisposeNotifier || isTypeAnnotatedByComponentAnnotation || isTypeAnnotatedArezComponentLike )
           {
             if ( !descriptor.isDependencyDefined( getter ) &&
                  !descriptor.isCascadeDisposeDefined( getter ) &&
                  !descriptor.isAutoObserveDefined( getter ) &&
                  ( isDisposeNotifier ||
-                   isTypeAnnotatedActAsComponent ||
+                   isTypeAnnotatedArezComponentLike ||
                    verifyReferencesToComponent( (TypeElement) returnElement ) ) &&
                  isUnmanagedComponentReferenceNotSuppressed( getter ) &&
                  ( observable.hasSetter() && isUnmanagedComponentReferenceNotSuppressed( observable.getSetter() ) ) )
@@ -3933,7 +3933,7 @@ public final class ArezProcessor
               final String label =
                 isDisposeNotifier ? "an implementation of DisposeNotifier" :
                 isTypeAnnotatedByComponentAnnotation ? "an Arez component" :
-                "annotated with @ActAsComponent";
+                "annotated with @ArezComponentLike";
               final String message =
                 "Method named '" + getter.getSimpleName() + "' has a return type that is " + label +
                 " but is not annotated with @" + Constants.CASCADE_DISPOSE_CLASSNAME + " or " +
@@ -3978,10 +3978,10 @@ public final class ArezProcessor
                                               Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME );
   }
 
-  private boolean isTypeAnnotatedByActAsComponentAnnotation( @Nonnull final VariableElement field )
+  private boolean isTypeAnnotatedByArezComponentLikeAnnotation( @Nonnull final VariableElement field )
   {
     final Element element = processingEnv.getTypeUtils().asElement( field.asType() );
-    return isElementAnnotatedBy( element, Constants.ACT_AS_COMPONENT_CLASSNAME );
+    return isElementAnnotatedBy( element, Constants.AREZ_COMPONENT_LIKE_CLASSNAME );
   }
 
   private boolean isTypeAnnotatedByComponentAnnotation( @Nonnull final VariableElement field )

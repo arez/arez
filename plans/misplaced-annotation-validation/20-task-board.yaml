@@ -36,7 +36,7 @@ tasks:
       - PLAN-APPROVAL
     acceptance_criteria:
       - The processor is invoked for the covered annotation set.
-      - Covered annotations outside `@ArezComponent`/`@ActAsComponent` fail with a consistent error.
+      - Covered annotations outside `@ArezComponent`/`@ArezComponentLike` fail with a consistent error.
       - Existing component parsing/generation logic remains unchanged.
     files_touched:
       - processor/src/main/java/arez/processor/*
@@ -48,7 +48,7 @@ tasks:
       - command: processor round validation scan
         result: Added broad misplaced-usage detection ahead of component parsing and expanded supported annotation discovery to `arez.annotations.*`.
       - command: processor type-level suppression refinement
-        result: Restricted type-level `@SuppressArezWarnings` to directly annotated `@ArezComponent`/`@ActAsComponent` types while preserving inherited-member support for real components.
+        result: Restricted type-level `@SuppressArezWarnings` to directly annotated `@ArezComponent`/`@ArezComponentLike` types while preserving inherited-member support for real components.
     commit:
       hash: pending
       message: Add misplaced Arez annotation validation
@@ -62,7 +62,7 @@ tasks:
     acceptance_criteria:
       - Negative fixtures cover every covered annotation, including separate method/field variants where both placements are legal.
       - Type-level `@SuppressArezWarnings` is covered for both direct-container and inherited-base scenarios.
-      - Positive fixtures prove covered annotations inside `@ActAsComponent` do not trigger the new error.
+      - Positive fixtures prove covered annotations inside `@ArezComponentLike` do not trigger the new error.
     files_touched:
       - processor/src/test/java/arez/processor/ArezProcessorTest.java
       - processor/src/test/fixtures/**
@@ -72,7 +72,7 @@ tasks:
         result: pass
         note: Verified separate misplaced-usage coverage for every covered annotation, including method/field variants where applicable.
       - command: processor fixture coverage
-        result: Added a full misplaced-usage matrix covering every covered annotation plus explicit success coverage for type-level `@SuppressArezWarnings` on `@ArezComponent` and `@ActAsComponent`.
+        result: Added a full misplaced-usage matrix covering every covered annotation plus explicit success coverage for type-level `@SuppressArezWarnings` on `@ArezComponent` and `@ArezComponentLike`.
     commit:
       hash: pending
       message: Add processor coverage for misplaced Arez annotations
@@ -101,7 +101,7 @@ tasks:
         note: Re-ran the full gate after expanding the processor matrix and Javadocs; the build again passed through `arez:doc-examples` and failed only in `arez:downstream-test` on the same missing `symbolMaps` deploy-test artifact.
       - command: doc-examples audit
         result: pass
-        note: Marked repository documentation examples with `@ActAsComponent` so strict misplaced-usage validation remains behavior-neutral but no longer breaks compiled docs.
+        note: Marked repository documentation examples with `@ArezComponentLike` so strict misplaced-usage validation remains behavior-neutral but no longer breaks compiled docs.
     commit:
       hash: pending
       message: Document misplaced Arez annotation validation
@@ -114,7 +114,7 @@ history:
   - timestamp: 2026-04-15
     task: T01
     commit: pending
-    note: Implemented misplaced-annotation validation with an exemption for `@ActAsComponent` containers, preserved inherited-member support for real `@ArezComponent` hierarchies, and excluded type-level `@SuppressArezWarnings` from that inherited exemption.
+    note: Implemented misplaced-annotation validation with an exemption for `@ArezComponentLike` containers, preserved inherited-member support for real `@ArezComponent` hierarchies, and excluded type-level `@SuppressArezWarnings` from that inherited exemption.
   - timestamp: 2026-04-15
     task: T02
     commit: pending
@@ -122,4 +122,4 @@ history:
   - timestamp: 2026-04-15
     task: T03
     commit: pending
-    note: Updated changelog/Javadocs across the affected annotations, adjusted compiled repository doc examples to use `@ActAsComponent`, and recorded the unrelated downstream-test gate failure.
+    note: Updated changelog/Javadocs across the affected annotations, adjusted compiled repository doc examples to use `@ArezComponentLike`, and recorded the unrelated downstream-test gate failure.

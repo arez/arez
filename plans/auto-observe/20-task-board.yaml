@@ -117,7 +117,7 @@ tasks:
       - T03
     acceptance_criteria:
       - Integration tests prove a live owner keeps a `disposeOnDeactivate` target alive.
-      - Tests cover nullable retargeting, `@Observable` getter retargeting, lazy `@Reference` resolution, and `@ActAsComponent` runtime validation.
+      - Tests cover nullable retargeting, `@Observable` getter retargeting, lazy `@Reference` resolution, and `@ArezComponentLike` runtime validation.
       - Scenario fixtures are updated where spy output is asserted.
     files_touched:
       - integration-tests/src/test/java/**

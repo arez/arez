@@ -1,19 +1,20 @@
 package com.example.component;
 
-import arez.annotations.ActAsComponent;
+import arez.annotations.ArezComponentLike;
 import arez.annotations.ArezComponent;
+import arez.annotations.AutoObserve;
 import arez.annotations.Observable;
 
 @ArezComponent
-abstract class UnmanagedObservableActAsComponentReferenceSuppressed
+abstract class ManagedObservableAutoObserveArezComponentLikeReference
 {
-  @SuppressWarnings( "Arez:UnmanagedComponentReference" )
+  @AutoObserve( validateTypeAtRuntime = true )
   @Observable
   abstract MyComponent getMyComponent();
 
   abstract void setMyComponent( MyComponent component );
 
-  @ActAsComponent
+  @ArezComponentLike
   public interface MyComponent
   {
   }

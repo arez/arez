@@ -1,6 +1,6 @@
 package com.example.auto_observe;
 
-import arez.annotations.ActAsComponent;
+import arez.annotations.ArezComponentLike;
 import arez.annotations.ArezComponent;
 import arez.annotations.AutoObserve;
 import javax.annotation.Nullable;
@@ -12,7 +12,7 @@ abstract class NullableRuntimeTypeValidateFieldAutoObserveModel
   @Nullable
   final MyType _field = null;
 
-  @ActAsComponent
+  @ArezComponentLike
   interface MyType
   {
   }

@@ -36,7 +36,7 @@ import javax.annotation.Nonnull;
  * dependencies change. This is extremely useful when implementing asynchronous callbacks.</p>
  *
  * <p>This annotation is only supported on elements contained within a type annotated by
- * {@link ArezComponent} or {@link ActAsComponent}. Other usages will fail compilation.</p>
+ * {@link ArezComponent} or {@link ArezComponentLike}. Other usages will fail compilation.</p>
  */
 @Documented
 @Target( ElementType.METHOD )

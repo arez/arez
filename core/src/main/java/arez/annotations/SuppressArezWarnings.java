@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
  * not useful when attempting to suppress warnings in already compiled code.</p>
  *
  * <p>When suppressing Arez processor diagnostics, this annotation is only supported on elements
- * contained within a type annotated by {@link ArezComponent} or {@link ActAsComponent} or on the
+ * contained within a type annotated by {@link ArezComponent} or {@link ArezComponentLike} or on the
  * type itself. Other usages will fail compilation.</p>
  */
 @Target( { ElementType.TYPE,

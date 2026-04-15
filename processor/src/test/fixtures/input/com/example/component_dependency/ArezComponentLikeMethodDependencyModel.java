@@ -1,16 +1,19 @@
 package com.example.component_dependency;
 
-import arez.annotations.ActAsComponent;
+import arez.annotations.ArezComponentLike;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 
 @ArezComponent
-abstract class ActAsComponentFieldDependencyModel
+abstract class ArezComponentLikeMethodDependencyModel
 {
   @ComponentDependency
-  final MyType time = null;
+  public MyType getTime()
+  {
+    return null;
+  }
 
-  @ActAsComponent
+  @ArezComponentLike
   public interface MyType
   {
   }

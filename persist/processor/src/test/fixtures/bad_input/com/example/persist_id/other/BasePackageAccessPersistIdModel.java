@@ -1,9 +1,9 @@
 package com.example.persist_id.other;
 
-import arez.annotations.ActAsComponent;
+import arez.annotations.ArezComponentLike;
 import arez.persist.PersistId;
 
-@ActAsComponent
+@ArezComponentLike
 public abstract class BasePackageAccessPersistIdModel
 {
   @PersistId
