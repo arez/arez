@@ -125,6 +125,8 @@ final class Constants
   @Nonnull
   static final String WARNING_UNMANAGED_COMPONENT_REFERENCE = "Arez:UnmanagedComponentReference";
   @Nonnull
+  static final String WARNING_NON_PRIVATE_SERVICE_FIELD = "Arez:NonPrivateServiceField";
+  @Nonnull
   static final String WARNING_CONFLICTING_DISPOSE_MODEL = "Arez:ConflictingDisposeModel";
   @Nonnull
   static final String WARNING_UNNECESSARY_DEFAULT_PRIORITY = "Arez:UnnecessaryDefaultPriority";

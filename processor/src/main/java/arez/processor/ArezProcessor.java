@@ -3894,49 +3894,33 @@ public final class ArezProcessor
   {
     final var disposeNotifier = getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
 
-    final var injectedTypes = new HashSet<String>();
-    if ( descriptor.isStingEnabled() )
-    {
-      for ( final var constructor : ElementsUtil.getConstructors( descriptor.getElement() ) )
-      {
-        final var parameters = constructor.getParameters();
-        for ( final var parameter : parameters )
-        {
-          final var isDisposeNotifier = isAssignable( parameter.asType(), disposeNotifier );
-          final var isTypeAnnotatedByComponentAnnotation =
-            !isDisposeNotifier && isTypeAnnotatedByComponentAnnotation( parameter );
-          final var isTypeAnnotatedArezComponentLike =
-            !isDisposeNotifier &&
-            !isTypeAnnotatedByComponentAnnotation &&
-            isArezComponentLikeType( parameter.asType() );
-          if ( isDisposeNotifier || isTypeAnnotatedByComponentAnnotation || isTypeAnnotatedArezComponentLike )
-          {
-            injectedTypes.add( parameter.asType().toString() );
-          }
-        }
-      }
-    }
-
     for ( final var field : fields )
     {
       if ( !field.getModifiers().contains( Modifier.STATIC ) &&
            SuperficialValidation.validateElement( processingEnv, field ) )
       {
-        final var isDisposeNotifier = isAssignable( field.asType(), disposeNotifier );
+        final var fieldType = getEffectiveFieldType( descriptor, field );
+        final var fieldTypeElement = asTypeElement( fieldType );
+        final var isDisposeNotifier = isAssignable( fieldType, disposeNotifier );
         final var isTypeAnnotatedByComponentAnnotation =
-          !isDisposeNotifier && isTypeAnnotatedByComponentAnnotation( field );
+          !isDisposeNotifier && null != fieldTypeElement && isArezComponentAnnotated( fieldTypeElement );
         final var isTypeAnnotatedArezComponentLike =
           !isDisposeNotifier &&
           !isTypeAnnotatedByComponentAnnotation &&
-          isArezComponentLikeType( field.asType() );
+          isArezComponentLikeType( fieldType );
+        if ( isTypeAnnotatedByComponentAnnotation && null != fieldTypeElement )
+        {
+          emitWarningForNonPrivateServiceField( field, fieldTypeElement );
+        }
         if ( isDisposeNotifier || isTypeAnnotatedByComponentAnnotation || isTypeAnnotatedArezComponentLike )
         {
           if ( !descriptor.isDependencyDefined( field ) &&
                !descriptor.isCascadeDisposeDefined( field ) &&
                !descriptor.isAutoObserveDefined( field ) &&
-               ( isDisposeNotifier || isTypeAnnotatedArezComponentLike || verifyReferencesToComponent( field ) ) &&
-               isUnmanagedComponentReferenceNotSuppressed( field ) &&
-               !injectedTypes.contains( field.asType().toString() ) )
+               ( isDisposeNotifier ||
+                 isTypeAnnotatedArezComponentLike ||
+                 null != fieldTypeElement && verifyReferencesToComponent( fieldTypeElement ) ) &&
+               isUnmanagedComponentReferenceNotSuppressed( field ) )
           {
             final var label =
               isDisposeNotifier ? "an implementation of DisposeNotifier" :
@@ -3946,8 +3930,7 @@ public final class ArezProcessor
               "Field named '" + field.getSimpleName() + "' has a type that is " + label +
               " but is not annotated with @" + Constants.CASCADE_DISPOSE_CLASSNAME + " or " +
               "@" + Constants.COMPONENT_DEPENDENCY_CLASSNAME + " or @" + Constants.AUTO_OBSERVE_CLASSNAME +
-              " and was not injected into the " +
-              "constructor. This scenario can cause errors if the value is disposed. Please " +
+              ". This scenario can cause errors if the value is disposed. Please " +
               "annotate the field as appropriate or suppress the warning by annotating the field with " +
               "@SuppressWarnings( \"" + Constants.WARNING_UNMANAGED_COMPONENT_REFERENCE + "\" ) or " +
               "@SuppressArezWarnings( \"" + Constants.WARNING_UNMANAGED_COMPONENT_REFERENCE + "\" )";
@@ -4004,16 +3987,25 @@ public final class ArezProcessor
     }
   }
 
-  private boolean verifyReferencesToComponent( @Nonnull final VariableElement field )
+  @Nonnull
+  private TypeMirror getEffectiveFieldType( @Nonnull final ComponentDescriptor descriptor,
+                                            @Nonnull final VariableElement field )
   {
-    return verifyReferencesToComponent( (TypeElement) processingEnv.getTypeUtils().asElement( field.asType() ) );
+    return processingEnv.getTypeUtils().asMemberOf( descriptor.asDeclaredType(), field );
+  }
+
+  @Nullable
+  private TypeElement asTypeElement( @Nonnull final TypeMirror type )
+  {
+    final var element = processingEnv.getTypeUtils().asElement( type );
+    return element instanceof TypeElement ? (TypeElement) element : null;
   }
 
   private boolean verifyReferencesToComponent( @Nonnull final TypeElement element )
   {
     assert SuperficialValidation.validateElement( processingEnv, element );
 
-    final String verifyReferencesToComponent =
+    final var verifyReferencesToComponent =
       AnnotationsUtil.getEnumAnnotationParameter( element,
                                                   Constants.COMPONENT_CLASSNAME,
                                                   "verifyReferencesToComponent" );
@@ -4032,10 +4024,22 @@ public final class ArezProcessor
                                               Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME );
   }
 
-  private boolean isTypeAnnotatedByComponentAnnotation( @Nonnull final VariableElement field )
+  private void emitWarningForNonPrivateServiceField( @Nonnull final VariableElement field,
+                                                     @Nonnull final TypeElement typeElement )
   {
-    final Element element = processingEnv.getTypeUtils().asElement( field.asType() );
-    return isElementAnnotatedBy( element, Constants.COMPONENT_CLASSNAME );
+    if ( !field.getModifiers().contains( Modifier.PRIVATE ) &&
+         isService( typeElement ) &&
+         ElementsUtil.isWarningNotSuppressed( field,
+                                              Constants.WARNING_NON_PRIVATE_SERVICE_FIELD,
+                                              Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) )
+    {
+      final var message =
+        "Field named '" + field.getSimpleName() + "' has a type annotated with @" +
+        Constants.COMPONENT_CLASSNAME + "(service = ENABLE) and should be private. " +
+        MemberChecks.suppressedBy( Constants.WARNING_NON_PRIVATE_SERVICE_FIELD,
+                                   Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME );
+      processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message, field );
+    }
   }
 
   @SuppressWarnings( "SameParameterValue" )
@@ -4048,7 +4052,7 @@ public final class ArezProcessor
 
   private boolean isService( @Nonnull final TypeElement typeElement )
   {
-    final String service =
+    final var service =
       AnnotationsUtil.getEnumAnnotationParameter( typeElement, Constants.COMPONENT_CLASSNAME, "service" );
     return switch ( service )
     {
@@ -4133,7 +4137,7 @@ public final class ArezProcessor
 
   private boolean isDisposableTrackableRequired( @Nonnull final TypeElement element )
   {
-    final String disposeNotifier =
+    final var disposeNotifier =
       AnnotationsUtil.getEnumAnnotationParameter( element, Constants.COMPONENT_CLASSNAME, "disposeNotifier" );
     return switch ( disposeNotifier )
     {

@@ -1,0 +1,113 @@
+meta:
+  project: arez-unmanaged-service-reference-warnings
+  last_updated: 2026-04-21
+  required_full_gates:
+    - bundle exec buildr test
+  statuses:
+    - pending
+    - in_progress
+    - completed
+    - cancelled
+
+current_focus: none
+
+tasks:
+  - id: PLAN-APPROVAL
+    title: Review and accept structured delivery artifacts
+    status: completed
+    priority: high
+    depends_on: []
+    acceptance_criteria:
+      - User has reviewed the latest plan decisions and requested implementation.
+      - All resolved `Q-*` decisions are reflected in the planning artifacts.
+    files_touched:
+      - plans/unmanaged-service-reference-warnings/*
+    evidence:
+      - command: user decision in thread
+        result: user reviewed the design decisions one-by-one and requested implementation using the structured-delivery workflow
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T01
+    title: Refactor processor warning logic for unmanaged and service field references
+    status: completed
+    priority: high
+    depends_on:
+      - PLAN-APPROVAL
+    acceptance_criteria:
+      - Constructor injection no longer suppresses unmanaged field-reference warnings.
+      - Effective `disposeNotifier = DISABLE` component fields skip unmanaged-reference warnings.
+      - Non-`private` `@ArezComponent(service = ENABLE)` fields emit `Arez:NonPrivateServiceField`.
+    files_touched:
+      - processor/src/main/java/arez/processor/ArezProcessor.java
+      - processor/src/main/java/arez/processor/Constants.java
+      - plans/unmanaged-service-reference-warnings/*
+    evidence:
+      - command: manual implementation
+        result: Removed the constructor-injection exemption from unmanaged field-reference warnings, switched field classification to effective member types, and added `Arez:NonPrivateServiceField` for non-`private` service-component fields.
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T02
+    title: Add processor fixtures and warning expectations
+    status: completed
+    priority: high
+    depends_on:
+      - T01
+    acceptance_criteria:
+      - Updated warning expectations cover the removed injection wording and Sting-injected warning case.
+      - New fixtures cover non-private service fields, private service fields, lifecycle-managed service fields, and suppression.
+    files_touched:
+      - processor/src/test/java/arez/processor/ArezProcessorTest.java
+      - processor/src/test/fixtures/**
+      - plans/unmanaged-service-reference-warnings/*
+    evidence:
+      - command: bundle exec buildr arez:processor:test
+        result: pass
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T03
+    title: Update changelog and run verification gates
+    status: completed
+    priority: medium
+    depends_on:
+      - T02
+    acceptance_criteria:
+      - `CHANGELOG.md` documents the warning changes.
+      - Targeted processor tests pass.
+      - Full gate is run or any blocker is documented.
+    files_touched:
+      - CHANGELOG.md
+      - plans/unmanaged-service-reference-warnings/*
+    evidence:
+      - command: manual implementation
+        result: Updated `CHANGELOG.md` for the unmanaged/service field warning behavior changes.
+      - command: bundle exec buildr arez:processor:test
+        result: pass
+      - command: bundle exec buildr test
+        result: failed_in_arez_downstream-test_with_missing_archive_symbolMaps_directory_at_target/arez_downstream-test/deploy_test/workdir/archive/arez.after/assets/WEB-INF/deploy/todomvc/symbolMaps
+    commit:
+      hash: not_required
+      message: not_required
+
+history:
+  - timestamp: 2026-04-21
+    task: PLAN-APPROVAL
+    commit: not_required
+    note: User resolved the design tree and requested implementation using the structured-delivery workflow.
+  - timestamp: 2026-04-21
+    task: T01
+    commit: not_required
+    note: Processor field-reference warnings now use effective field types, no longer special-case constructor injection, and emit `Arez:NonPrivateServiceField` for service-component fields.
+  - timestamp: 2026-04-21
+    task: T02
+    commit: not_required
+    note: Added processor warning fixtures for Sting-injected unmanaged references and non-private service fields, including suppression coverage.
+  - timestamp: 2026-04-21
+    task: T03
+    commit: not_required
+    note: Processor gate passed; full repo gate still fails in downstream deploy-test because the archived `symbolMaps` directory is missing.
