@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 /**
  * Identifies method that will be invoked when the dependencies of the paired {@link Observe} annotated method are changed.
  *
- * <p>The method that is annotated with this annotation must comply with the additional constraints:</p>
+ * <p>The method annotated with this annotation must comply with the additional constraints:</p>
  * <ul>
  * <li>Must not be annotated with any other arez annotation</li>
  * <li>Must not be private</li>
