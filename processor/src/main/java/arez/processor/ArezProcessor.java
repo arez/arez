@@ -1598,6 +1598,7 @@ public final class ArezProcessor
     }
   }
 
+  @Nonnull
   private String deriveMemoizeContextParameterName( @Nonnull final ExecutableElement method,
                                                     @Nonnull final AnnotationMirror annotation,
                                                     @Nonnull final MemoizeContextParameterMethodType mcpMethodType )
@@ -3891,20 +3892,20 @@ public final class ArezProcessor
   private void warnOnUnmanagedComponentReferences( @Nonnull final ComponentDescriptor descriptor,
                                                    @Nonnull final List<VariableElement> fields )
   {
-    final TypeElement disposeNotifier = getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
+    final var disposeNotifier = getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
 
-    final Set<String> injectedTypes = new HashSet<>();
+    final var injectedTypes = new HashSet<String>();
     if ( descriptor.isStingEnabled() )
     {
-      for ( final ExecutableElement constructor : ElementsUtil.getConstructors( descriptor.getElement() ) )
+      for ( final var constructor : ElementsUtil.getConstructors( descriptor.getElement() ) )
       {
-        final List<? extends VariableElement> parameters = constructor.getParameters();
-        for ( final VariableElement parameter : parameters )
+        final var parameters = constructor.getParameters();
+        for ( final var parameter : parameters )
         {
-          final boolean isDisposeNotifier = isAssignable( parameter.asType(), disposeNotifier );
-          final boolean isTypeAnnotatedByComponentAnnotation =
+          final var isDisposeNotifier = isAssignable( parameter.asType(), disposeNotifier );
+          final var isTypeAnnotatedByComponentAnnotation =
             !isDisposeNotifier && isTypeAnnotatedByComponentAnnotation( parameter );
-          final boolean isTypeAnnotatedArezComponentLike =
+          final var isTypeAnnotatedArezComponentLike =
             !isDisposeNotifier &&
             !isTypeAnnotatedByComponentAnnotation &&
             isArezComponentLikeType( parameter.asType() );
@@ -3916,15 +3917,15 @@ public final class ArezProcessor
       }
     }
 
-    for ( final VariableElement field : fields )
+    for ( final var field : fields )
     {
       if ( !field.getModifiers().contains( Modifier.STATIC ) &&
            SuperficialValidation.validateElement( processingEnv, field ) )
       {
-        final boolean isDisposeNotifier = isAssignable( field.asType(), disposeNotifier );
-        final boolean isTypeAnnotatedByComponentAnnotation =
+        final var isDisposeNotifier = isAssignable( field.asType(), disposeNotifier );
+        final var isTypeAnnotatedByComponentAnnotation =
           !isDisposeNotifier && isTypeAnnotatedByComponentAnnotation( field );
-        final boolean isTypeAnnotatedArezComponentLike =
+        final var isTypeAnnotatedArezComponentLike =
           !isDisposeNotifier &&
           !isTypeAnnotatedByComponentAnnotation &&
           isArezComponentLikeType( field.asType() );
@@ -3937,11 +3938,11 @@ public final class ArezProcessor
                isUnmanagedComponentReferenceNotSuppressed( field ) &&
                !injectedTypes.contains( field.asType().toString() ) )
           {
-            final String label =
+            final var label =
               isDisposeNotifier ? "an implementation of DisposeNotifier" :
               isTypeAnnotatedByComponentAnnotation ? "an Arez component" :
               AREZ_COMPONENT_LIKE_TYPE_DESCRIPTION;
-            final String message =
+            final var message =
               "Field named '" + field.getSimpleName() + "' has a type that is " + label +
               " but is not annotated with @" + Constants.CASCADE_DISPOSE_CLASSNAME + " or " +
               "@" + Constants.COMPONENT_DEPENDENCY_CLASSNAME + " or @" + Constants.AUTO_OBSERVE_CLASSNAME +
@@ -3956,19 +3957,19 @@ public final class ArezProcessor
       }
     }
 
-    for ( final ObservableDescriptor observable : descriptor.getObservables().values() )
+    for ( final var observable : descriptor.getObservables().values() )
     {
       if ( observable.isAbstract() )
       {
-        final ExecutableElement getter = observable.getGetter();
+        final var getter = observable.getGetter();
         if ( SuperficialValidation.validateElement( processingEnv, getter ) )
         {
-          final TypeMirror returnType = getter.getReturnType();
-          final Element returnElement = processingEnv.getTypeUtils().asElement( returnType );
-          final boolean isDisposeNotifier = isAssignable( returnType, disposeNotifier );
-          final boolean isTypeAnnotatedByComponentAnnotation =
+          final var returnType = getter.getReturnType();
+          final var returnElement = processingEnv.getTypeUtils().asElement( returnType );
+          final var isDisposeNotifier = isAssignable( returnType, disposeNotifier );
+          final var isTypeAnnotatedByComponentAnnotation =
             !isDisposeNotifier && isElementAnnotatedBy( returnElement, Constants.COMPONENT_CLASSNAME );
-          final boolean isTypeAnnotatedArezComponentLike =
+          final var isTypeAnnotatedArezComponentLike =
             !isDisposeNotifier &&
             !isTypeAnnotatedByComponentAnnotation &&
             returnElement instanceof TypeElement && isArezComponentLikeAnnotated( (TypeElement) returnElement );
@@ -3983,11 +3984,11 @@ public final class ArezProcessor
                  isUnmanagedComponentReferenceNotSuppressed( getter ) &&
                  ( observable.hasSetter() && isUnmanagedComponentReferenceNotSuppressed( observable.getSetter() ) ) )
             {
-              final String label =
+              final var label =
                 isDisposeNotifier ? "an implementation of DisposeNotifier" :
                 isTypeAnnotatedByComponentAnnotation ? "an Arez component" :
                 AREZ_COMPONENT_LIKE_TYPE_DESCRIPTION;
-              final String message =
+              final var message =
                 "Method named '" + getter.getSimpleName() + "' has a return type that is " + label +
                 " but is not annotated with @" + Constants.CASCADE_DISPOSE_CLASSNAME + " or " +
                 "@" + Constants.COMPONENT_DEPENDENCY_CLASSNAME + " or @" + Constants.AUTO_OBSERVE_CLASSNAME +
@@ -4037,6 +4038,7 @@ public final class ArezProcessor
     return isElementAnnotatedBy( element, Constants.COMPONENT_CLASSNAME );
   }
 
+  @SuppressWarnings( "SameParameterValue" )
   private boolean isElementAnnotatedBy( @Nullable final Element element, @Nonnull final String annotation )
   {
     return null != element &&
