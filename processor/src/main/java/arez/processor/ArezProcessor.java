@@ -2695,20 +2695,20 @@ public final class ArezProcessor
     ensureNoMethodInjections( typeElement );
     final boolean sting = isStingIntegrationEnabled( arezComponent, service );
 
-    final AnnotationValue defaultReadOutsideTransaction =
+    final var defaultReadOutsideTransaction =
       AnnotationsUtil.findAnnotationValueNoDefaults( arezComponent, "defaultReadOutsideTransaction" );
-    final AnnotationValue defaultWriteOutsideTransaction =
+    final var defaultWriteOutsideTransaction =
       AnnotationsUtil.findAnnotationValueNoDefaults( arezComponent, "defaultWriteOutsideTransaction" );
 
-    final boolean requireEquals = isEqualsRequired( arezComponent );
-    final boolean requireVerify = isVerifyRequired( arezComponent, typeElement );
+    final var requireEquals = isEqualsRequired( arezComponent );
+    final var requireVerify = isVerifyRequired( arezComponent, typeElement );
 
     if ( !typeElement.getModifiers().contains( Modifier.ABSTRACT ) )
     {
       throw new ProcessorException( "@ArezComponent target must be abstract", typeElement );
     }
 
-    final String name =
+    final var name =
       Constants.SENTINEL.equals( declaredName ) ?
       typeElement.getQualifiedName().toString().replace( ".", "_" ) :
       declaredName;
@@ -2732,36 +2732,35 @@ public final class ArezProcessor
                                                           "enable sting integration and be a parameterized type" ),
                                     typeElement );
     }
-    if ( !sting && AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_EAGER ) )
+    else if ( !sting && AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_EAGER ) )
     {
       throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
                                                           "disable sting integration and be annotated with " +
                                                           Constants.STING_EAGER ),
                                     typeElement );
     }
-    if ( !sting && AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_TYPED ) )
+    else if ( !sting && AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_TYPED ) )
     {
       throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
                                                           "disable sting integration and be annotated with " +
                                                           Constants.STING_TYPED ),
                                     typeElement );
     }
-    if ( !sting && AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_NAMED ) )
+    else if ( !sting && AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_NAMED ) )
     {
       throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
                                                           "disable sting integration and be annotated with " +
                                                           Constants.STING_NAMED ),
                                     typeElement );
     }
-    if ( !sting && AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_CONTRIBUTE_TO ) )
+    else if ( !sting && AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_CONTRIBUTE_TO ) )
     {
       throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
                                                           "disable sting integration and be annotated with " +
                                                           Constants.STING_CONTRIBUTE_TO ),
                                     typeElement );
     }
-
-    if ( !observableFlag && disposeOnDeactivate )
+    else if ( !observableFlag && disposeOnDeactivate )
     {
       throw new ProcessorException( "@ArezComponent target has specified observable = DISABLE and " +
                                     "disposeOnDeactivate = true which is not a valid combination", typeElement );
@@ -2769,17 +2768,17 @@ public final class ArezProcessor
 
     if ( isWarningNotSuppressed( typeElement, Constants.WARNING_EXTENDS_COMPONENT ) )
     {
-      TypeMirror parent = typeElement.getSuperclass();
+      var parent = typeElement.getSuperclass();
       while ( null != parent )
       {
-        final Element parentElement = processingEnv.getTypeUtils().asElement( parent );
-        final TypeElement parentTypeElement =
+        final var parentElement = processingEnv.getTypeUtils().asElement( parent );
+        final var parentTypeElement =
           null != parentElement && ElementKind.CLASS == parentElement.getKind() ? (TypeElement) parentElement : null;
 
         if ( null != parentTypeElement &&
              AnnotationsUtil.hasAnnotationOfType( parentTypeElement, Constants.COMPONENT_CLASSNAME ) )
         {
-          final String message =
+          final var message =
             MemberChecks.shouldNot( Constants.COMPONENT_CLASSNAME,
                                     "extend a class annotated with the " + Constants.COMPONENT_CLASSNAME +
                                     " annotation. " + suppressedBy( Constants.WARNING_EXTENDS_COMPONENT ) );
@@ -2789,9 +2788,9 @@ public final class ArezProcessor
       }
     }
 
-    final List<ExecutableElement> methods =
+    final var methods =
       ElementsUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils(), true );
-    final boolean generateToString = methods.stream().
+    final var generateToString = methods.stream().
       noneMatch( m -> m.getSimpleName().toString().equals( "toString" ) &&
                       m.getParameters().isEmpty() &&
                       !( m.getEnclosingElement().getSimpleName().toString().equals( "Object" ) &&
@@ -2801,20 +2800,20 @@ public final class ArezProcessor
                                                .getQualifiedName()
                                                .toString() ) ) );
 
-    final String priority = getDefaultPriority( arezComponent );
-    final Priority defaultPriority =
+    final var priority = getDefaultPriority( arezComponent );
+    final var defaultPriority =
       null == priority ? null : "DEFAULT".equals( priority ) ? Priority.NORMAL : Priority.valueOf( priority );
 
-    final String defaultReadOutsideTransactionValue =
+    final var defaultReadOutsideTransactionValue =
       null == defaultReadOutsideTransaction ?
       null :
       ( (VariableElement) defaultReadOutsideTransaction.getValue() ).getSimpleName().toString();
-    final String defaultWriteOutsideTransactionValue =
+    final var defaultWriteOutsideTransactionValue =
       null == defaultWriteOutsideTransaction ?
       null :
       ( (VariableElement) defaultWriteOutsideTransaction.getValue() ).getSimpleName().toString();
 
-    final ComponentDescriptor descriptor =
+    final var descriptor =
       new ComponentDescriptor( name,
                                defaultPriority,
                                observableFlag,
@@ -2834,10 +2833,10 @@ public final class ArezProcessor
 
     for ( final ObservableDescriptor observable : descriptor.getObservables().values() )
     {
-      final TypeMirror returnType = observable.getGetterType().getReturnType();
+      final var returnType = observable.getGetterType().getReturnType();
       if ( observable.expectSetter() )
       {
-        final TypeMirror parameterType = observable.getSetterType().getParameterTypes().get( 0 );
+        final var parameterType = observable.getSetterType().getParameterTypes().get( 0 );
         if ( !processingEnv.getTypeUtils().isSameType( parameterType, returnType ) &&
              !parameterType.toString().equals( returnType.toString() ) )
         {
@@ -2846,10 +2845,10 @@ public final class ArezProcessor
                                         observable.getGetter() );
         }
       }
-      final String getterDeclaredComparator = observable.getGetterDeclaredEqualityComparator();
-      final String setterDeclaredComparator = observable.getSetterDeclaredEqualityComparator();
-      final boolean getterExplicit = !Constants.EQUALITY_COMPARATOR_CLASSNAME.equals( getterDeclaredComparator );
-      final boolean setterExplicit = !Constants.EQUALITY_COMPARATOR_CLASSNAME.equals( setterDeclaredComparator );
+      final var getterDeclaredComparator = observable.getGetterDeclaredEqualityComparator();
+      final var setterDeclaredComparator = observable.getSetterDeclaredEqualityComparator();
+      final var getterExplicit = !Constants.EQUALITY_COMPARATOR_CLASSNAME.equals( getterDeclaredComparator );
+      final var setterExplicit = !Constants.EQUALITY_COMPARATOR_CLASSNAME.equals( setterDeclaredComparator );
       if ( getterExplicit && setterExplicit && !getterDeclaredComparator.equals( setterDeclaredComparator ) )
       {
         throw new ProcessorException( "@Observable target specified equalityComparator of type '" +
@@ -2857,9 +2856,9 @@ public final class ArezProcessor
                                       "equalityComparator of type '" + getterDeclaredComparator + "'.",
                                       observable.getSetter() );
       }
-      final Element comparatorElement =
+      final var comparatorElement =
         getterExplicit ? observable.getGetter() : setterExplicit ? observable.getSetter() : observable.getDefiner();
-      final String comparatorClassName =
+      final var comparatorClassName =
         getterExplicit ? getterDeclaredComparator :
         setterExplicit ? setterDeclaredComparator :
         Constants.EQUALITY_COMPARATOR_CLASSNAME;
@@ -2870,7 +2869,7 @@ public final class ArezProcessor
                                                                             comparatorClassName ) );
     }
 
-    final boolean idRequired = isIdRequired( arezComponent );
+    final var idRequired = isIdRequired( arezComponent );
     descriptor.setIdRequired( idRequired );
     if ( !idRequired )
     {
@@ -2902,7 +2901,7 @@ public final class ArezProcessor
   private boolean isStingIntegrationEnabled( @Nonnull final AnnotationMirror arezComponent, final boolean service )
   {
     final VariableElement parameter = getAnnotationParameter( arezComponent, "sting" );
-    final String value = parameter.getSimpleName().toString();
+    final var value = parameter.getSimpleName().toString();
     return "ENABLE".equals( value ) ||
            ( "AUTODETECT".equals( value ) &&
              service &&
@@ -2911,23 +2910,20 @@ public final class ArezProcessor
 
   private void verifyConstructors( @Nonnull final TypeElement typeElement, final boolean sting )
   {
-    final List<ExecutableElement> constructors = ElementsUtil.getConstructors( typeElement );
-    if ( constructors.size() > 1 )
+    final var constructors = ElementsUtil.getConstructors( typeElement );
+    if ( constructors.size() > 1 && sting )
     {
-      if ( sting )
-      {
-        throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
-                                                            "enable sting integration and have multiple constructors" ),
-                                      typeElement );
-      }
+      throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
+                                                          "enable sting integration and have multiple constructors" ),
+                                    typeElement );
     }
 
-    for ( final ExecutableElement constructor : constructors )
+    for ( final var constructor : constructors )
     {
       if ( constructor.getModifiers().contains( Modifier.PROTECTED ) &&
            isWarningNotSuppressed( constructor, Constants.WARNING_PROTECTED_CONSTRUCTOR ) )
       {
-        final String message =
+        final var message =
           MemberChecks.should( Constants.COMPONENT_CLASSNAME,
                                "have a package access constructor. " +
                                suppressedBy( Constants.WARNING_PROTECTED_CONSTRUCTOR ) );
@@ -2939,9 +2935,9 @@ public final class ArezProcessor
 
   private void verifyConstructorParameters( @Nonnull final ExecutableElement constructor, final boolean sting )
   {
-    for ( final VariableElement parameter : constructor.getParameters() )
+    for ( final var parameter : constructor.getParameters() )
     {
-      final TypeMirror type = parameter.asType();
+      final var type = parameter.asType();
       if ( sting && TypesUtil.containsArrayType( type ) )
       {
         throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
@@ -2978,7 +2974,7 @@ public final class ArezProcessor
 
   private void ensureNoFieldInjections( @Nonnull final List<VariableElement> fields )
   {
-    for ( final VariableElement field : fields )
+    for ( final var field : fields )
     {
       if ( hasInjectAnnotation( field ) )
       {
@@ -2993,9 +2989,9 @@ public final class ArezProcessor
 
   private void ensureNoMethodInjections( @Nonnull final TypeElement typeElement )
   {
-    final List<ExecutableElement> methods =
+    final var methods =
       ElementsUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() );
-    for ( final ExecutableElement method : methods )
+    for ( final var method : methods )
     {
       if ( hasInjectAnnotation( method ) )
       {
@@ -3013,9 +3009,9 @@ public final class ArezProcessor
                                         @Nonnull final Types typeUtils )
     throws ProcessorException
   {
-    for ( final ExecutableElement method : methods )
+    for ( final var method : methods )
     {
-      final String methodName = method.getSimpleName().toString();
+      final var methodName = method.getSimpleName().toString();
       if ( AREZ_SPECIAL_METHODS.contains( methodName ) && method.getParameters().isEmpty() )
       {
         throw new ProcessorException( "Method defined on a class annotated by @ArezComponent uses a name " +
@@ -3030,16 +3026,16 @@ public final class ArezProcessor
                                       "with a prefix reserved by Arez", method );
       }
     }
-    final Map<String, CandidateMethod> getters = new HashMap<>();
-    final Map<String, CandidateMethod> captures = new HashMap<>();
-    final Map<String, CandidateMethod> pushes = new HashMap<>();
-    final Map<String, CandidateMethod> pops = new HashMap<>();
-    final Map<String, CandidateMethod> setters = new HashMap<>();
-    final Map<String, CandidateMethod> observes = new HashMap<>();
-    final Map<String, CandidateMethod> onDepsChanges = new HashMap<>();
+    final var getters = new HashMap<String, CandidateMethod>();
+    final var captures = new HashMap<String, CandidateMethod>();
+    final var pushes = new HashMap<String, CandidateMethod>();
+    final var pops = new HashMap<String, CandidateMethod>();
+    final var setters = new HashMap<String, CandidateMethod>();
+    final var observes = new HashMap<String, CandidateMethod>();
+    final var onDepsChanges = new HashMap<String, CandidateMethod>();
     for ( final ExecutableElement method : methods )
     {
-      final ExecutableType methodType =
+      final var methodType =
         (ExecutableType) typeUtils.asMemberOf( (DeclaredType) componentDescriptor.getElement().asType(), method );
       if ( !analyzeMethod( componentDescriptor, method, methodType ) )
       {
@@ -3052,9 +3048,9 @@ public final class ArezProcessor
           continue;
         }
 
-        final CandidateMethod candidateMethod = new CandidateMethod( method, methodType );
-        final boolean voidReturn = method.getReturnType().getKind() == TypeKind.VOID;
-        final int parameterCount = method.getParameters().size();
+        final var candidateMethod = new CandidateMethod( method, methodType );
+        final var voidReturn = method.getReturnType().getKind() == TypeKind.VOID;
+        final var parameterCount = method.getParameters().size();
         String name;
 
         name = deriveName( method, PUSH_PATTERN, Constants.SENTINEL );
@@ -3112,7 +3108,7 @@ public final class ArezProcessor
           }
         }
 
-        final String methodName = method.getSimpleName().toString();
+        final var methodName = method.getSimpleName().toString();
         if ( !OBJECT_METHODS.contains( methodName ) )
         {
           observes.put( methodName, candidateMethod );
@@ -3133,7 +3129,7 @@ public final class ArezProcessor
     // CascadeDispose returned false but it was actually processed so lets remove them from getters set
 
     componentDescriptor.getCascadeDisposes().keySet().forEach( method -> {
-      for ( final Map.Entry<String, CandidateMethod> entry : new HashMap<>( getters ).entrySet() )
+      for ( final var entry : new HashMap<>( getters ).entrySet() )
       {
         if ( method.equals( entry.getValue().getMethod() ) )
         {
@@ -3186,7 +3182,7 @@ public final class ArezProcessor
     {
       if ( !parameter.hasCapture() )
       {
-        final CandidateMethod capture = captures.remove( parameter.getName() );
+        final var capture = captures.remove( parameter.getName() );
         if ( null != capture )
         {
           parameter.linkUnAnnotatedCapture( capture.getMethod(), capture.getMethodType() );
@@ -3194,7 +3190,7 @@ public final class ArezProcessor
       }
       if ( !parameter.hasPop() )
       {
-        final CandidateMethod pop = pops.remove( parameter.getName() );
+        final var pop = pops.remove( parameter.getName() );
         if ( null != pop )
         {
           parameter.linkUnAnnotatedPop( pop.getMethod(), pop.getMethodType() );
@@ -3202,7 +3198,7 @@ public final class ArezProcessor
       }
       if ( !parameter.hasPush() )
       {
-        final CandidateMethod push = pushes.remove( parameter.getName() );
+        final var push = pushes.remove( parameter.getName() );
         if ( null != push )
         {
           parameter.linkUnAnnotatedPush( push.getMethod(), push.getMethodType() );
@@ -3234,70 +3230,43 @@ public final class ArezProcessor
     emitWarningForUnnecessaryFinalMethod( descriptor, method );
     verifyNoDuplicateAnnotations( method );
 
-    final AnnotationMirror action =
-      AnnotationsUtil.findAnnotationByType( method, Constants.ACTION_CLASSNAME );
-    final AnnotationMirror jaxWsAction =
-      AnnotationsUtil.findAnnotationByType( method, Constants.JAX_WS_ACTION_CLASSNAME );
-    final AnnotationMirror observed =
-      AnnotationsUtil.findAnnotationByType( method, Constants.OBSERVE_CLASSNAME );
-    final AnnotationMirror observable =
-      AnnotationsUtil.findAnnotationByType( method, Constants.OBSERVABLE_CLASSNAME );
-    final AnnotationMirror observableInitial =
+    final var action = AnnotationsUtil.findAnnotationByType( method, Constants.ACTION_CLASSNAME );
+    final var jaxWsAction = AnnotationsUtil.findAnnotationByType( method, Constants.JAX_WS_ACTION_CLASSNAME );
+    final var observed = AnnotationsUtil.findAnnotationByType( method, Constants.OBSERVE_CLASSNAME );
+    final var observable = AnnotationsUtil.findAnnotationByType( method, Constants.OBSERVABLE_CLASSNAME );
+    final var observableInitial =
       AnnotationsUtil.findAnnotationByType( method, Constants.OBSERVABLE_INITIAL_CLASSNAME );
-    final AnnotationMirror observableValueRef =
+    final var observableValueRef =
       AnnotationsUtil.findAnnotationByType( method, Constants.OBSERVABLE_VALUE_REF_CLASSNAME );
-    final AnnotationMirror memoize =
-      AnnotationsUtil.findAnnotationByType( method, Constants.MEMOIZE_CLASSNAME );
-    final AnnotationMirror memoizeContextParameter =
+    final var memoize = AnnotationsUtil.findAnnotationByType( method, Constants.MEMOIZE_CLASSNAME );
+    final var memoizeContextParameter =
       AnnotationsUtil.findAnnotationByType( method, Constants.MEMOIZE_CONTEXT_PARAMETER_CLASSNAME );
-    final AnnotationMirror computableValueRef =
+    final var computableValueRef =
       AnnotationsUtil.findAnnotationByType( method, Constants.COMPUTABLE_VALUE_REF_CLASSNAME );
-    final AnnotationMirror contextRef =
-      AnnotationsUtil.findAnnotationByType( method, Constants.CONTEXT_REF_CLASSNAME );
-    final AnnotationMirror stateRef =
-      AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_STATE_REF_CLASSNAME );
-    final AnnotationMirror componentRef =
-      AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_REF_CLASSNAME );
-    final AnnotationMirror componentId =
-      AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_ID_CLASSNAME );
-    final AnnotationMirror componentIdRef =
-      AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_ID_REF_CLASSNAME );
-    final AnnotationMirror componentTypeName =
+    final var contextRef = AnnotationsUtil.findAnnotationByType( method, Constants.CONTEXT_REF_CLASSNAME );
+    final var stateRef = AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_STATE_REF_CLASSNAME );
+    final var componentRef = AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_REF_CLASSNAME );
+    final var componentId = AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_ID_CLASSNAME );
+    final var componentIdRef = AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_ID_REF_CLASSNAME );
+    final var componentTypeName =
       AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_TYPE_NAME_REF_CLASSNAME );
-    final AnnotationMirror componentNameRef =
-      AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_NAME_REF_CLASSNAME );
-    final AnnotationMirror postConstruct =
-      AnnotationsUtil.findAnnotationByType( method, Constants.POST_CONSTRUCT_CLASSNAME );
-    final AnnotationMirror ejbPostConstruct =
-      AnnotationsUtil.findAnnotationByType( method, Constants.EJB_POST_CONSTRUCT_CLASSNAME );
-    final AnnotationMirror preDispose =
-      AnnotationsUtil.findAnnotationByType( method, Constants.PRE_DISPOSE_CLASSNAME );
-    final AnnotationMirror postDispose =
-      AnnotationsUtil.findAnnotationByType( method, Constants.POST_DISPOSE_CLASSNAME );
-    final AnnotationMirror onActivate =
-      AnnotationsUtil.findAnnotationByType( method, Constants.ON_ACTIVATE_CLASSNAME );
-    final AnnotationMirror onDeactivate =
-      AnnotationsUtil.findAnnotationByType( method, Constants.ON_DEACTIVATE_CLASSNAME );
-    final AnnotationMirror onDepsChange =
-      AnnotationsUtil.findAnnotationByType( method, Constants.ON_DEPS_CHANGE_CLASSNAME );
-    final AnnotationMirror observerRef =
-      AnnotationsUtil.findAnnotationByType( method, Constants.OBSERVER_REF_CLASSNAME );
-    final AnnotationMirror dependency =
-      AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_DEPENDENCY_CLASSNAME );
-    final AnnotationMirror autoObserve =
-      AnnotationsUtil.findAnnotationByType( method, Constants.AUTO_OBSERVE_CLASSNAME );
-    final AnnotationMirror reference =
-      AnnotationsUtil.findAnnotationByType( method, Constants.REFERENCE_CLASSNAME );
-    final AnnotationMirror referenceId =
-      AnnotationsUtil.findAnnotationByType( method, Constants.REFERENCE_ID_CLASSNAME );
-    final AnnotationMirror inverse =
-      AnnotationsUtil.findAnnotationByType( method, Constants.INVERSE_CLASSNAME );
-    final AnnotationMirror preInverseRemove =
-      AnnotationsUtil.findAnnotationByType( method, Constants.PRE_INVERSE_REMOVE_CLASSNAME );
-    final AnnotationMirror postInverseAdd =
-      AnnotationsUtil.findAnnotationByType( method, Constants.POST_INVERSE_ADD_CLASSNAME );
-    final AnnotationMirror cascadeDispose =
-      AnnotationsUtil.findAnnotationByType( method, Constants.CASCADE_DISPOSE_CLASSNAME );
+    final var componentNameRef = AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_NAME_REF_CLASSNAME );
+    final var postConstruct = AnnotationsUtil.findAnnotationByType( method, Constants.POST_CONSTRUCT_CLASSNAME );
+    final var ejbPostConstruct = AnnotationsUtil.findAnnotationByType( method, Constants.EJB_POST_CONSTRUCT_CLASSNAME );
+    final var preDispose = AnnotationsUtil.findAnnotationByType( method, Constants.PRE_DISPOSE_CLASSNAME );
+    final var postDispose = AnnotationsUtil.findAnnotationByType( method, Constants.POST_DISPOSE_CLASSNAME );
+    final var onActivate = AnnotationsUtil.findAnnotationByType( method, Constants.ON_ACTIVATE_CLASSNAME );
+    final var onDeactivate = AnnotationsUtil.findAnnotationByType( method, Constants.ON_DEACTIVATE_CLASSNAME );
+    final var onDepsChange = AnnotationsUtil.findAnnotationByType( method, Constants.ON_DEPS_CHANGE_CLASSNAME );
+    final var observerRef = AnnotationsUtil.findAnnotationByType( method, Constants.OBSERVER_REF_CLASSNAME );
+    final var dependency = AnnotationsUtil.findAnnotationByType( method, Constants.COMPONENT_DEPENDENCY_CLASSNAME );
+    final var autoObserve = AnnotationsUtil.findAnnotationByType( method, Constants.AUTO_OBSERVE_CLASSNAME );
+    final var reference = AnnotationsUtil.findAnnotationByType( method, Constants.REFERENCE_CLASSNAME );
+    final var referenceId = AnnotationsUtil.findAnnotationByType( method, Constants.REFERENCE_ID_CLASSNAME );
+    final var inverse = AnnotationsUtil.findAnnotationByType( method, Constants.INVERSE_CLASSNAME );
+    final var preInverseRemove = AnnotationsUtil.findAnnotationByType( method, Constants.PRE_INVERSE_REMOVE_CLASSNAME );
+    final var postInverseAdd = AnnotationsUtil.findAnnotationByType( method, Constants.POST_INVERSE_ADD_CLASSNAME );
+    final var cascadeDispose = AnnotationsUtil.findAnnotationByType( method, Constants.CASCADE_DISPOSE_CLASSNAME );
 
     if ( null != observable )
     {
@@ -3509,7 +3478,7 @@ public final class ArezProcessor
                                               Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) &&
          !isMethodAProtectedOverride( descriptor.getElement(), method ) )
     {
-      final String message =
+      final var message =
         MemberChecks.shouldNot( Constants.COMPONENT_CLASSNAME,
                                 "declare a protected method. " +
                                 MemberChecks.suppressedBy( Constants.WARNING_PROTECTED_METHOD,
@@ -3534,7 +3503,7 @@ public final class ArezProcessor
                                               Constants.WARNING_PUBLIC_FIELD,
                                               Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) )
     {
-      final String message =
+      final var message =
         MemberChecks.shouldNot( annotationClassname,
                                 "be public. " +
                                 MemberChecks.suppressedBy( Constants.WARNING_PUBLIC_FIELD,
@@ -3552,7 +3521,7 @@ public final class ArezProcessor
                                               Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) &&
          !isProtectedFieldOnInheritedTypeInDifferentPackage( descriptor.getElement(), field ) )
     {
-      final String message =
+      final var message =
         MemberChecks.shouldNot( Constants.COMPONENT_CLASSNAME,
                                 "declare a protected field. " +
                                 MemberChecks.suppressedBy( Constants.WARNING_PROTECTED_FIELD,
@@ -3570,7 +3539,7 @@ public final class ArezProcessor
                                               Constants.WARNING_FINAL_METHOD,
                                               Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) )
     {
-      final String message =
+      final var message =
         MemberChecks.shouldNot( Constants.COMPONENT_CLASSNAME,
                                 "declare a final method. " +
                                 MemberChecks.suppressedBy( Constants.WARNING_FINAL_METHOD,
@@ -3592,7 +3561,7 @@ public final class ArezProcessor
     MemberChecks.mustNotThrowAnyExceptions( Constants.REFERENCE_ID_CLASSNAME, method );
     MemberChecks.mustReturnAValue( Constants.REFERENCE_ID_CLASSNAME, method );
 
-    final String name = getReferenceIdName( annotation, method );
+    final var name = getReferenceIdName( annotation, method );
     descriptor.findOrCreateReference( name ).setObservable( observable );
   }
 
@@ -3608,7 +3577,7 @@ public final class ArezProcessor
     MemberChecks.mustNotThrowAnyExceptions( Constants.REFERENCE_ID_CLASSNAME, method );
     MemberChecks.mustReturnAValue( Constants.REFERENCE_ID_CLASSNAME, method );
 
-    final String name = getReferenceIdName( annotation, method );
+    final var name = getReferenceIdName( annotation, method );
     descriptor.findOrCreateReference( name ).setIdMethod( method );
   }
 
@@ -3620,7 +3589,7 @@ public final class ArezProcessor
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
-      final String candidate = deriveName( method, ID_GETTER_PATTERN, declaredName );
+      final var candidate = deriveName( method, ID_GETTER_PATTERN, declaredName );
       if ( null == candidate )
       {
         final String candidate2 = deriveName( method, RAW_ID_GETTER_PATTERN, declaredName );
@@ -3673,9 +3642,11 @@ public final class ArezProcessor
       throw new ProcessorException( MemberChecks.must( Constants.PRE_INVERSE_REMOVE_CLASSNAME,
                                                        "have exactly 1 parameter" ), method );
     }
-
-    final String name = getPreInverseRemoveName( annotation, method );
-    findOrCreateInverseDescriptor( component, name ).addPreInverseRemoveHook( method );
+    else
+    {
+      final var name = getPreInverseRemoveName( annotation, method );
+      findOrCreateInverseDescriptor( component, name ).addPreInverseRemoveHook( method );
+    }
   }
 
   @Nonnull
@@ -3685,7 +3656,7 @@ public final class ArezProcessor
     final String name = AnnotationsUtil.getAnnotationValueValue( annotation, "name" );
     if ( Constants.SENTINEL.equals( name ) )
     {
-      final String candidate = deriveName( method, PRE_INVERSE_REMOVE_PATTERN, name );
+      final var candidate = deriveName( method, PRE_INVERSE_REMOVE_PATTERN, name );
       if ( null == candidate )
       {
         throw new ProcessorException( "@PreInverseRemove target has not specified a name and does not follow " +
@@ -3729,8 +3700,11 @@ public final class ArezProcessor
       throw new ProcessorException( MemberChecks.must( Constants.POST_INVERSE_ADD_CLASSNAME,
                                                        "have exactly 1 parameter" ), method );
     }
-    final String name = getPostInverseAddName( annotation, method );
-    findOrCreateInverseDescriptor( component, name ).addPostInverseAddHook( method );
+    else
+    {
+      final var name = getPostInverseAddName( annotation, method );
+      findOrCreateInverseDescriptor( component, name ).addPostInverseAddHook( method );
+    }
   }
 
   @Nonnull
@@ -3740,7 +3714,7 @@ public final class ArezProcessor
     final String name = AnnotationsUtil.getAnnotationValueValue( annotation, "name" );
     if ( Constants.SENTINEL.equals( name ) )
     {
-      final String candidate = deriveName( method, POST_INVERSE_ADD_PATTERN, name );
+      final var candidate = deriveName( method, POST_INVERSE_ADD_PATTERN, name );
       if ( null == candidate )
       {
         throw new ProcessorException( "@PostInverseAdd target has not specified a name and does not follow " +
@@ -3781,8 +3755,8 @@ public final class ArezProcessor
     MemberChecks.mustReturnAValue( Constants.INVERSE_CLASSNAME, method );
     MemberChecks.mustBeAbstract( Constants.INVERSE_CLASSNAME, method );
 
-    final String name = getInverseName( annotation, method );
-    final ObservableDescriptor observable = descriptor.findOrCreateObservable( name );
+    final var name = getInverseName( annotation, method );
+    final var observable = descriptor.findOrCreateObservable( name );
     observable.setGetter( method, methodType );
 
     addInverse( descriptor, annotation, observable, method );
@@ -3802,8 +3776,8 @@ public final class ArezProcessor
     MemberChecks.mustReturnAValue( Constants.INVERSE_CLASSNAME, method );
     MemberChecks.mustBeAbstract( Constants.INVERSE_CLASSNAME, method );
 
-    final String name = getInverseName( annotation, method );
-    final InverseDescriptor existing = descriptor.getInverses().get( name );
+    final var name = getInverseName( annotation, method );
+    final var existing = descriptor.getInverses().get( name );
     if ( null != existing && existing.hasObservable() )
     {
       throw new ProcessorException( "@Inverse target defines duplicate inverse for name '" + name +
@@ -3812,10 +3786,10 @@ public final class ArezProcessor
     }
     else
     {
-      final TypeMirror type = method.getReturnType();
+      final var type = method.getReturnType();
 
       final Multiplicity multiplicity;
-      TypeElement targetType = getInverseManyTypeTarget( method );
+      var targetType = getInverseManyTypeTarget( method );
       if ( null != targetType )
       {
         multiplicity = Multiplicity.MANY;
@@ -3845,10 +3819,9 @@ public final class ArezProcessor
                                         AnnotationsUtil.NONNULL_CLASSNAME, method );
         }
       }
-      final String referenceName = getInverseReferenceNameParameter( descriptor, method );
-
-      final InverseDescriptor inverse = findOrCreateInverseDescriptor( descriptor, name );
-      final String otherName = firstCharacterToLowerCase( targetType.getSimpleName().toString() );
+      final var referenceName = getInverseReferenceNameParameter( descriptor, method );
+      final var inverse = findOrCreateInverseDescriptor( descriptor, name );
+      final var otherName = firstCharacterToLowerCase( targetType.getSimpleName().toString() );
       inverse.setInverse( observable, referenceName, multiplicity, targetType, otherName );
       verifyMultiplicityOfAssociatedReferenceMethod( descriptor, inverse );
     }
@@ -3869,7 +3842,7 @@ public final class ArezProcessor
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
-      final String candidate = deriveName( method, GETTER_PATTERN, declaredName );
+      final var candidate = deriveName( method, GETTER_PATTERN, declaredName );
       name = null == candidate ? method.getSimpleName().toString() : candidate;
     }
     else
@@ -3908,7 +3881,7 @@ public final class ArezProcessor
           !isDisposeNotifier &&
           !isTypeAnnotatedByComponentAnnotation &&
           isArezComponentLikeType( fieldType );
-        if ( isTypeAnnotatedByComponentAnnotation && null != fieldTypeElement )
+        if ( isTypeAnnotatedByComponentAnnotation )
         {
           emitWarningForNonPrivateServiceField( field, fieldTypeElement );
         }
@@ -3919,7 +3892,7 @@ public final class ArezProcessor
                !descriptor.isAutoObserveDefined( field ) &&
                ( isDisposeNotifier ||
                  isTypeAnnotatedArezComponentLike ||
-                 null != fieldTypeElement && verifyReferencesToComponent( fieldTypeElement ) ) &&
+                 verifyReferencesToComponent( fieldTypeElement ) ) &&
                isUnmanagedComponentReferenceNotSuppressed( field ) )
           {
             final var label =
@@ -4151,7 +4124,7 @@ public final class ArezProcessor
   @Nonnull
   private TypeElement getTypeElement( @Nonnull final String classname )
   {
-    final TypeElement typeElement = findTypeElement( classname );
+    final var typeElement = findTypeElement( classname );
     assert null != typeElement;
     return typeElement;
   }
@@ -4174,7 +4147,7 @@ public final class ArezProcessor
                                                      @Nonnull final TypeMirror valueType,
                                                      @Nonnull final String comparatorClassName )
   {
-    final String effectiveComparator =
+    final var effectiveComparator =
       Constants.EQUALITY_COMPARATOR_CLASSNAME.equals( comparatorClassName ) ?
       deriveDefaultEqualityComparator( valueType ) :
       comparatorClassName;
@@ -4187,8 +4160,8 @@ public final class ArezProcessor
   {
     if ( TypeKind.DECLARED == valueType.getKind() )
     {
-      final Element typeElement = ( (DeclaredType) valueType ).asElement();
-      final AnnotationMirror annotation =
+      final var typeElement = ( (DeclaredType) valueType ).asElement();
+      final var annotation =
         AnnotationsUtil.findAnnotationByType( typeElement, Constants.DEFAULT_EQUALITY_COMPARATOR_CLASSNAME );
       if ( null != annotation )
       {
@@ -4204,33 +4177,33 @@ public final class ArezProcessor
                                               @Nonnull final String comparatorClassName,
                                               @Nonnull final Element element )
   {
-    final TypeElement comparatorType = getTypeElement( comparatorClassName );
+    final var comparatorType = getTypeElement( comparatorClassName );
     if ( ElementKind.CLASS != comparatorType.getKind() )
     {
       throw new ProcessorException( annotationName + " resolved equalityComparator of type '" +
                                     comparatorClassName + "' but the comparator must be a class.",
                                     element );
     }
-    if ( comparatorType.getModifiers().contains( Modifier.ABSTRACT ) )
+    else if ( comparatorType.getModifiers().contains( Modifier.ABSTRACT ) )
     {
       throw new ProcessorException( annotationName + " resolved equalityComparator of type '" +
                                     comparatorClassName + "' but the comparator must not be abstract.",
                                     element );
     }
-    if ( isNonStaticNestedType( comparatorType ) )
+    else if ( isNonStaticNestedType( comparatorType ) )
     {
       throw new ProcessorException( annotationName + " resolved equalityComparator of type '" +
                                     comparatorClassName + "' but the comparator must be static if nested.",
                                     element );
     }
-    if ( !isTypeAccessibleFromComponent( componentType, comparatorType ) )
+    else if ( !isTypeAccessibleFromComponent( componentType, comparatorType ) )
     {
       throw new ProcessorException( annotationName + " resolved equalityComparator of type '" +
                                     comparatorClassName + "' but the comparator is not accessible from the " +
                                     "generated component.",
                                     element );
     }
-    if ( !hasAccessibleNoArgConstructor( componentType, comparatorType ) )
+    else if ( !hasAccessibleNoArgConstructor( componentType, comparatorType ) )
     {
       throw new ProcessorException( annotationName + " resolved equalityComparator of type '" +
                                     comparatorClassName + "' but the comparator must define an accessible " +
@@ -4242,60 +4215,67 @@ public final class ArezProcessor
   private boolean hasAccessibleNoArgConstructor( @Nonnull final TypeElement componentType,
                                                  @Nonnull final TypeElement comparatorType )
   {
-    final List<ExecutableElement> constructors = ElementFilter.constructorsIn( comparatorType.getEnclosedElements() );
+    final var constructors = ElementFilter.constructorsIn( comparatorType.getEnclosedElements() );
     if ( constructors.isEmpty() )
     {
       return true;
     }
-    for ( final ExecutableElement constructor : constructors )
+    else
     {
-      if ( constructor.getParameters().isEmpty() && isElementAccessibleFromComponent( componentType, constructor ) )
+      for ( final var constructor : constructors )
       {
-        return true;
+        if ( constructor.getParameters().isEmpty() && isElementAccessibleFromComponent( componentType, constructor ) )
+        {
+          return true;
+        }
       }
+      return false;
     }
-    return false;
   }
 
   private boolean isTypeAccessibleFromComponent( @Nonnull final TypeElement componentType,
                                                  @Nonnull final TypeElement typeElement )
   {
-    if ( !isElementAccessibleFromComponent( componentType, typeElement ) )
+    if ( isElementAccessibleFromComponent( componentType, typeElement ) )
+    {
+      var enclosing = typeElement.getEnclosingElement();
+      while ( null != enclosing && ElementKind.PACKAGE != enclosing.getKind() )
+      {
+        if ( enclosing instanceof final TypeElement enclosingType &&
+             !isElementAccessibleFromComponent( componentType, enclosingType ) )
+        {
+          return false;
+        }
+        enclosing = enclosing.getEnclosingElement();
+      }
+      return true;
+    }
+    else
     {
       return false;
     }
-
-    Element enclosing = typeElement.getEnclosingElement();
-    while ( null != enclosing && ElementKind.PACKAGE != enclosing.getKind() )
-    {
-      if ( enclosing instanceof final TypeElement enclosingType &&
-           !isElementAccessibleFromComponent( componentType, enclosingType ) )
-      {
-        return false;
-      }
-      enclosing = enclosing.getEnclosingElement();
-    }
-    return true;
   }
 
   private boolean isElementAccessibleFromComponent( @Nonnull final TypeElement componentType,
                                                     @Nonnull final Element element )
   {
-    final Set<Modifier> modifiers = element.getModifiers();
+    final var modifiers = element.getModifiers();
     if ( modifiers.contains( Modifier.PRIVATE ) )
     {
       return false;
     }
-
-    final TypeElement owningType = getOwningType( element );
-    return !ElementsUtil.areTypesInDifferentPackage( owningType, componentType ) ||
-           modifiers.contains( Modifier.PUBLIC );
+    else
+    {
+      final var owningType = getOwningType( element );
+      return !ElementsUtil.areTypesInDifferentPackage( owningType, componentType ) ||
+             modifiers.contains( Modifier.PUBLIC );
+    }
   }
 
   private boolean isProtectedFieldOnInheritedTypeInDifferentPackage( @Nonnull final TypeElement componentType,
                                                                      @Nonnull final VariableElement field )
   {
-    final TypeElement declaringType = getOwningType( field );
+    final var declaringType = getOwningType( field );
     return !Objects.equals( declaringType, componentType ) &&
            ElementsUtil.areTypesInDifferentPackage( declaringType, componentType );
   }
@@ -4303,7 +4283,7 @@ public final class ArezProcessor
   @Nonnull
   private TypeElement getOwningType( @Nonnull final Element element )
   {
-    Element current = element;
+    var current = element;
     while ( !( current instanceof TypeElement ) )
     {
       current = current.getEnclosingElement();
@@ -4320,7 +4300,7 @@ public final class ArezProcessor
   private boolean isMethodAProtectedOverride( @Nonnull final TypeElement typeElement,
                                               @Nonnull final ExecutableElement method )
   {
-    final ExecutableElement overriddenMethod = ElementsUtil.getOverriddenMethod( processingEnv, typeElement, method );
+    final var overriddenMethod = ElementsUtil.getOverriddenMethod( processingEnv, typeElement, method );
     return null != overriddenMethod && overriddenMethod.getModifiers().contains( Modifier.PROTECTED );
   }
 
@@ -4339,7 +4319,7 @@ public final class ArezProcessor
                                 @Nonnull final String annotationClassname )
   {
     MemberChecks.mustBeAbstract( annotationClassname, method );
-    final TypeElement typeElement = descriptor.getElement();
+    final var typeElement = descriptor.getElement();
     MemberChecks.mustNotBePackageAccessInDifferentPackage( typeElement,
                                                            Constants.COMPONENT_CLASSNAME,
                                                            annotationClassname,
@@ -4412,11 +4392,11 @@ public final class ArezProcessor
   {
     if ( Constants.SENTINEL.equals( name ) )
     {
-      final String methodName = method.getSimpleName().toString();
-      final Matcher matcher = pattern.matcher( methodName );
+      final var methodName = method.getSimpleName().toString();
+      final var matcher = pattern.matcher( methodName );
       if ( matcher.find() )
       {
-        final String candidate = matcher.group( 1 );
+        final var candidate = matcher.group( 1 );
         return firstCharacterToLowerCase( candidate );
       }
       else
