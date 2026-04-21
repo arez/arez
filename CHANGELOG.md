@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.235](https://github.com/arez/arez/tree/v0.235) (2026-04-21) · [Full Changelog](https://github.com/arez/arez/compare/v0.234...v0.235)
+
+Changes in this release:
 
 * Stop treating constructor injection as a reason to suppress unmanaged component-reference field warnings, skip those warnings for `@ArezComponent` field types whose effective `disposeNotifier` resolves to `DISABLE`, and add the suppressable `Arez:NonPrivateServiceField` warning for non-`private` `@ArezComponent(service = ENABLE)` field references.
 
