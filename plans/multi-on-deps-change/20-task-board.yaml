@@ -1,0 +1,133 @@
+meta:
+  project: arez-multi-on-deps-change
+  last_updated: 2026-04-22
+  required_full_gates:
+    - bundle exec buildr processor:test
+  statuses:
+    - pending
+    - in_progress
+    - completed
+    - cancelled
+
+current_focus: completed
+
+tasks:
+  - id: PLAN-APPROVAL
+    title: Review and accept structured delivery artifacts
+    status: completed
+    priority: high
+    depends_on: []
+    acceptance_criteria:
+      - User has approved the implementation direction in-thread and requested execution using the structured workflow.
+    files_touched:
+      - plans/multi-on-deps-change/*
+    evidence:
+      - command: user request in thread
+        result: pass
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T01
+    title: Create workflow artifacts and initialize tracked delivery
+    status: completed
+    priority: high
+    depends_on:
+      - PLAN-APPROVAL
+    acceptance_criteria:
+      - Requirements, implementation plan, and task board exist for this feature.
+      - All resolved user decisions are captured in the artifacts.
+    files_touched:
+      - plans/multi-on-deps-change/*
+    evidence:
+      - command: create plans/multi-on-deps-change/{00-requirements.md,10-implementation-plan.md,20-task-board.yaml}
+        result: pass
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T02
+    title: Implement ordered multi-hook OnDepsChange processor support
+    status: completed
+    priority: high
+    depends_on:
+      - T01
+    acceptance_criteria:
+      - `ObserveDescriptor` stores ordered `@OnDepsChange` hooks.
+      - Processor linking accepts multiple matched hooks and preserves encounter order.
+      - Internal-executor validation treats any observer source in the hook set as sufficient.
+    files_touched:
+      - processor/src/main/java/arez/processor/ObserveDescriptor.java
+      - processor/src/main/java/arez/processor/ArezProcessor.java
+      - processor/src/main/java/arez/processor/ComponentDescriptor.java
+      - plans/multi-on-deps-change/*
+    evidence:
+      - command: rg -n "getOnDepsChanges|hasMultipleOnDepsChanges|anyOnDepsChangeParameterIsObserver|getFirstOnDepsChange" processor/src/main/java/arez/processor/{ObserveDescriptor.java,ArezProcessor.java,ComponentDescriptor.java}
+        result: pass
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T03
+    title: Generate multi-hook dispatcher code and keep single-hook output stable
+    status: completed
+    priority: high
+    depends_on:
+      - T02
+    acceptance_criteria:
+      - Single-hook observes still generate the old direct output.
+      - Multi-hook observes generate one private dispatcher and call hooks in encounter order.
+      - Mixed parameterless and `Observer` hooks are supported.
+    files_touched:
+      - processor/src/main/java/arez/processor/ComponentGenerator.java
+      - plans/multi-on-deps-change/*
+    evidence:
+      - command: rg -n "shouldGenerateOnDepsChangeMethod|getGeneratedOnDepsChangeMethodName|buildGeneratedOnDepsChangeMethod|appendOnDepsChangeInvocation" processor/src/main/java/arez/processor/ComponentGenerator.java
+        result: pass
+    commit:
+      hash: not_required
+      message: not_required
+
+  - id: T04
+    title: Refresh fixtures, update changelog, and verify processor behavior
+    status: completed
+    priority: high
+    depends_on:
+      - T03
+    acceptance_criteria:
+      - Processor fixtures cover multi-hook success and unresolved-linkage failure cases.
+      - `CHANGELOG.md` documents the new behavior.
+      - `bundle exec buildr processor:test` passes.
+    files_touched:
+      - processor/src/test/fixtures/**
+      - processor/src/test/java/arez/processor/ArezProcessorTest.java
+      - CHANGELOG.md
+      - plans/multi-on-deps-change/*
+    evidence:
+      - command: bundle exec buildr arez:processor:test
+        result: pass
+    commit:
+      hash: not_required
+      message: not_required
+
+history:
+  - timestamp: 2026-04-22
+    task: PLAN-APPROVAL
+    commit: not_required
+    note: User requested implementation and explicitly directed use of the structured-delivery workflow.
+  - timestamp: 2026-04-22
+    task: T01
+    commit: not_required
+    note: Added requirements, implementation plan, and task board artifacts for multi-hook OnDepsChange support.
+  - timestamp: 2026-04-22
+    task: T02
+    commit: not_required
+    note: Refactored observe descriptor state and processor linking to support ordered multi-hook OnDepsChange lists.
+  - timestamp: 2026-04-22
+    task: T03
+    commit: not_required
+    note: Added generated multi-hook dispatcher support while preserving the existing single-hook codegen path.
+  - timestamp: 2026-04-22
+    task: T04
+    commit: not_required
+    note: Added multi-hook fixtures, updated CHANGELOG.md, and passed the processor verification gate.

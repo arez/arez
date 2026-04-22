@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+Changes in this release:
+
+* Allow multiple matched `@OnDepsChange` hooks for a single observe name, preserving deterministic encounter order and generating a dispatcher when multiple hooks or mixed `Observer`/parameterless signatures are present.
+
 ### [v0.235](https://github.com/arez/arez/tree/v0.235) (2026-04-21) · [Full Changelog](https://github.com/arez/arez/compare/v0.234...v0.235)
 
 Changes in this release:

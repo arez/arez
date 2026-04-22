@@ -33,8 +33,8 @@ final class ObserveDescriptor
   private ExecutableElement _method;
   @Nullable
   private ExecutableType _methodType;
-  @Nullable
-  private ExecutableElement _onDepsChange;
+  @Nonnull
+  private final List<ExecutableElement> _onDepsChanges = new ArrayList<>();
   @Nonnull
   private final List<ExecutableElement> _refMethods = new ArrayList<>();
 
@@ -162,27 +162,41 @@ final class ObserveDescriptor
   @Nonnull
   ExecutableElement getOnDepsChange()
   {
-    assert null != _onDepsChange;
-    return _onDepsChange;
+    assert 1 == _onDepsChanges.size();
+    return getFirstOnDepsChange();
+  }
+
+  @Nonnull
+  ExecutableElement getFirstOnDepsChange()
+  {
+    assert hasOnDepsChange();
+    return _onDepsChanges.get( 0 );
+  }
+
+  @Nonnull
+  List<ExecutableElement> getOnDepsChanges()
+  {
+    return _onDepsChanges;
   }
 
   boolean hasOnDepsChange()
   {
-    return null != _onDepsChange;
+    return !_onDepsChanges.isEmpty();
+  }
+
+  boolean hasMultipleOnDepsChanges()
+  {
+    return _onDepsChanges.size() > 1;
+  }
+
+  boolean anyOnDepsChangeParameterIsObserver()
+  {
+    return _onDepsChanges.stream().anyMatch( method -> !method.getParameters().isEmpty() );
   }
 
   void setOnDepsChange( @Nonnull final ExecutableElement method )
   {
-    if ( null != _onDepsChange )
-    {
-      throw new ProcessorException( "@OnDepsChange target duplicates existing method named " +
-                                    _onDepsChange.getSimpleName(), method );
-
-    }
-    else
-    {
-      _onDepsChange = Objects.requireNonNull( method );
-    }
+    _onDepsChanges.add( Objects.requireNonNull( method ) );
   }
 
   @Nonnull
@@ -196,7 +210,7 @@ final class ObserveDescriptor
     if ( isInternalExecutor() &&
          hasOnDepsChange() &&
          getRefMethods().isEmpty() &&
-         _onDepsChange.getParameters().isEmpty() )
+         !anyOnDepsChangeParameterIsObserver() )
     {
       assert hasObserve();
       throw new ProcessorException( "@Observe target with parameter executor=INTERNAL defined an @OnDepsChange " +

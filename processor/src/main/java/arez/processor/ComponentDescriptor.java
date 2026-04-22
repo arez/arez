@@ -169,8 +169,7 @@ final class ComponentDescriptor
                                getObserves().values()
                                  .stream()
                                  .anyMatch( e -> ( e.hasObserve() && isDeprecated( e.getMethod() ) ) ||
-                                                 ( e.hasOnDepsChange() &&
-                                                   isDeprecated( e.getOnDepsChange() ) ) );
+                                                 e.getOnDepsChanges().stream().anyMatch( this::isDeprecated ) );
     }
     return _hasDeprecatedElements;
   }

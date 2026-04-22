@@ -10,8 +10,6 @@ complete as there is too much un-said.
 
 * Change `@ArezComponent.service` to `@ArezComponent.kind` and give it possible values of `SERVICE`, `ENTITY` and `COMPONENT` which change the defaults on the component. Alternatively support alternative annotations such as `@Component`, `@Entity` and `@Service`
 
-* Support multiple instances of `@OnDepsChange`
-
 * Remove `BuildOutputTest` by pushing the grim tests into downstream projects that always verify they meet
   expectations. This is easier to maintain and makes it possible to verify each variant we build with all
   grim-compatible libraries. We could easily add a test to arez that just built `raw` branch of `react4j-todomvc`

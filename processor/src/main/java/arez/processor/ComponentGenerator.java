@@ -2271,19 +2271,20 @@ final class ComponentGenerator
     }
     if ( observe.hasOnDepsChange() )
     {
-      final ExecutableElement onDepsChange = observe.getOnDepsChange();
-      if ( !onDepsChange.getParameters().isEmpty() )
+      if ( shouldGenerateOnDepsChangeMethod( observe ) )
       {
         sb.append( "this::$N, " );
-        parameters.add( FRAMEWORK_PREFIX + onDepsChange.getSimpleName() );
+        parameters.add( getGeneratedOnDepsChangeMethodName( observe ) );
       }
       else if ( component.isClassType() )
       {
+        final var onDepsChange = observe.getOnDepsChange();
         sb.append( "() -> super.$N(), " );
         parameters.add( onDepsChange.getSimpleName().toString() );
       }
       else
       {
+        final var onDepsChange = observe.getOnDepsChange();
         sb.append( "() -> $T.super.$N(), " );
         parameters.add( component.getClassName() );
         parameters.add( onDepsChange.getSimpleName().toString() );
@@ -2315,19 +2316,20 @@ final class ComponentGenerator
     parameters.add( NAME_VAR_NAME );
     parameters.add( "." + observe.getName() );
 
-    final ExecutableElement onDepsChange = observe.getOnDepsChange();
-    if ( !onDepsChange.getParameters().isEmpty() )
+    if ( shouldGenerateOnDepsChangeMethod( observe ) )
     {
       sb.append( "this::$N, " );
-      parameters.add( FRAMEWORK_PREFIX + onDepsChange.getSimpleName() );
+      parameters.add( getGeneratedOnDepsChangeMethodName( observe ) );
     }
     else if ( component.isClassType() )
     {
+      final var onDepsChange = observe.getOnDepsChange();
       sb.append( "() -> super.$N(), " );
       parameters.add( onDepsChange.getSimpleName().toString() );
     }
     else
     {
+      final var onDepsChange = observe.getOnDepsChange();
       sb.append( "() -> $T.super.$N(), " );
       parameters.add( component.getClassName() );
       parameters.add( onDepsChange.getSimpleName().toString() );
@@ -4903,26 +4905,75 @@ final class ComponentGenerator
       generateNotDisposedInvariant( method, refMethod.getSimpleName().toString() );
       builder.addMethod( method.addStatement( "return $N", observe.getFieldName() ).build() );
     }
-    if ( observe.hasOnDepsChange() && !observe.getOnDepsChange().getParameters().isEmpty() )
+    if ( shouldGenerateOnDepsChangeMethod( observe ) )
     {
-      builder.addMethod( buildNativeOnDepsChangeMethod( observe ) );
+      builder.addMethod( buildGeneratedOnDepsChangeMethod( observe ) );
+    }
+  }
+
+  private static boolean shouldGenerateOnDepsChangeMethod( @Nonnull final ObserveDescriptor observe )
+  {
+    return observe.hasOnDepsChange() &&
+           ( observe.hasMultipleOnDepsChanges() || observe.anyOnDepsChangeParameterIsObserver() );
+  }
+
+  @Nonnull
+  private static String getGeneratedOnDepsChangeMethodName( @Nonnull final ObserveDescriptor observe )
+  {
+    if ( !observe.hasMultipleOnDepsChanges() )
+    {
+      return FRAMEWORK_PREFIX + observe.getOnDepsChange().getSimpleName();
+    }
+    else
+    {
+      return FRAMEWORK_PREFIX + "on" + firstCharacterToUpperCase( observe.getName() ) + "DepsChange";
     }
   }
 
   @Nonnull
-  private static MethodSpec buildNativeOnDepsChangeMethod( @Nonnull final ObserveDescriptor observe )
+  private static String firstCharacterToUpperCase( @Nonnull final String name )
+  {
+    return Character.toUpperCase( name.charAt( 0 ) ) + name.substring( 1 );
+  }
+
+  @Nonnull
+  private static MethodSpec buildGeneratedOnDepsChangeMethod( @Nonnull final ObserveDescriptor observe )
     throws ProcessorException
   {
-    final ExecutableElement onDepsChange = observe.getOnDepsChange();
-    final String methodName = FRAMEWORK_PREFIX + onDepsChange.getSimpleName();
-    final MethodSpec.Builder builder = MethodSpec.methodBuilder( methodName );
-    builder.addModifiers( Modifier.PRIVATE );
+    final var methodName = getGeneratedOnDepsChangeMethodName( observe );
+    final var builder =
+      MethodSpec
+        .methodBuilder( methodName )
+        .addModifiers( Modifier.PRIVATE );
 
     generateNotDisposedInvariant( builder, methodName );
+    for ( final var onDepsChange : observe.getOnDepsChanges() )
+    {
+      appendOnDepsChangeInvocation( builder, observe, onDepsChange );
+    }
+
+    return builder.build();
+  }
+
+  private static void appendOnDepsChangeInvocation( @Nonnull final MethodSpec.Builder builder,
+                                                    @Nonnull final ObserveDescriptor observe,
+                                                    @Nonnull final ExecutableElement onDepsChange )
+  {
     final ComponentDescriptor component = observe.getComponent();
     if ( component.isClassType() )
     {
-      builder.addStatement( "super.$N( $N )", onDepsChange.getSimpleName().toString(), observe.getFieldName() );
+      if ( onDepsChange.getParameters().isEmpty() )
+      {
+        builder.addStatement( "super.$N()", onDepsChange.getSimpleName().toString() );
+      }
+      else
+      {
+        builder.addStatement( "super.$N( $N )", onDepsChange.getSimpleName().toString(), observe.getFieldName() );
+      }
+    }
+    else if ( onDepsChange.getParameters().isEmpty() )
+    {
+      builder.addStatement( "$T.super.$N()", component.getClassName(), onDepsChange.getSimpleName().toString() );
     }
     else
     {
@@ -4931,8 +4982,6 @@ final class ComponentGenerator
                             onDepsChange.getSimpleName().toString(),
                             observe.getFieldName() );
     }
-
-    return builder.build();
   }
 
   @Nonnull

@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -844,7 +845,7 @@ public final class ArezProcessor
 
   private void linkUnAnnotatedObserves( @Nonnull final ComponentDescriptor component,
                                         @Nonnull final Map<String, CandidateMethod> observes,
-                                        @Nonnull final Map<String, CandidateMethod> onDepsChanges )
+                                        @Nonnull final Map<String, List<CandidateMethod>> onDepsChanges )
     throws ProcessorException
   {
     for ( final ObserveDescriptor observe : component.getObserves().values() )
@@ -868,13 +869,13 @@ public final class ArezProcessor
         else
         {
           throw new ProcessorException( "@OnDepsChange target has no corresponding @Observe that could " +
-                                        "be automatically determined", observe.getOnDepsChange() );
+                                        "be automatically determined", observe.getFirstOnDepsChange() );
         }
       }
-      else if ( !observe.hasOnDepsChange() )
+      final var candidates = onDepsChanges.remove( observe.getName() );
+      if ( null != candidates )
       {
-        final CandidateMethod candidate = onDepsChanges.remove( observe.getName() );
-        if ( null != candidate )
+        for ( final var candidate : candidates )
         {
           setOnDepsChange( component, observe, candidate.getMethod() );
         }
@@ -891,7 +892,7 @@ public final class ArezProcessor
                                          Constants.COMPONENT_CLASSNAME,
                                          Constants.ON_DEPS_CHANGE_CLASSNAME,
                                          method );
-    final List<? extends VariableElement> parameters = method.getParameters();
+    final var parameters = method.getParameters();
     if (
       !(
         parameters.isEmpty() ||
@@ -3032,7 +3033,7 @@ public final class ArezProcessor
     final var pops = new HashMap<String, CandidateMethod>();
     final var setters = new HashMap<String, CandidateMethod>();
     final var observes = new HashMap<String, CandidateMethod>();
-    final var onDepsChanges = new HashMap<String, CandidateMethod>();
+    final var onDepsChanges = new LinkedHashMap<String, List<CandidateMethod>>();
     for ( final ExecutableElement method : methods )
     {
       final var methodType =
@@ -3103,7 +3104,7 @@ public final class ArezProcessor
                )
           )
           {
-            onDepsChanges.put( name, candidateMethod );
+            onDepsChanges.computeIfAbsent( name, key -> new ArrayList<>() ).add( candidateMethod );
             continue;
           }
         }
@@ -3152,7 +3153,8 @@ public final class ArezProcessor
     ensureNoAbstractMethods( componentDescriptor, getters.values() );
     ensureNoAbstractMethods( componentDescriptor, setters.values() );
     ensureNoAbstractMethods( componentDescriptor, observes.values() );
-    ensureNoAbstractMethods( componentDescriptor, onDepsChanges.values() );
+    ensureNoAbstractMethods( componentDescriptor,
+                             onDepsChanges.values().stream().flatMap( List::stream ).toList() );
 
     processCascadeDisposeFields( componentDescriptor );
     processAutoObserveFields( componentDescriptor );

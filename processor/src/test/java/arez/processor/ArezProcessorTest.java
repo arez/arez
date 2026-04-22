@@ -335,6 +335,8 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.observe.NoReportParametersModel" },
         new Object[]{ "com.example.observe.NoReportResultModel" },
         new Object[]{ "com.example.observe.ObserveLowerPriorityTrackedModel" },
+        new Object[]{ "com.example.observe.MultiInternalOnDepsChangeModel" },
+        new Object[]{ "com.example.observe.MultiOnDepsChangeModel" },
         new Object[]{ "com.example.observe.TrackedAllTypesModel" },
         new Object[]{ "com.example.observe.TrackedAndSchedulableModel" },
         new Object[]{ "com.example.observe.TrackedImplicitOnDepsChangeAcceptsObserverModel" },
@@ -356,6 +358,7 @@ public final class ArezProcessorTest
 
         new Object[]{ "com.example.on_deps_change.BasicOnDepsChangeModel" },
         new Object[]{ "com.example.on_deps_change.DeriveOnDepsChangeModel" },
+        new Object[]{ "com.example.on_deps_change.OnDepsChangeDuplicatedModel" },
         new Object[]{ "com.example.on_deps_change.PackageAccessOnDepsChangeModel" },
 
         new Object[]{ "com.example.overloaded_names.OverloadedActions" },
@@ -1114,6 +1117,18 @@ public final class ArezProcessorTest
     final JavaFileObject source2 =
       fixture( "input/com/example/observe/other/BaseModelProtectedAccess.java" );
     final String output = "com/example/observe/Arez_InheritProtectedAccessTrackedModel.java";
+    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
+  }
+
+  @Test
+  public void processSuccessfulInheritedMultiOnDepsChangeModel()
+    throws Exception
+  {
+    final JavaFileObject source1 =
+      fixture( "input/com/example/on_deps_change/InheritedMultiOnDepsChangeModel.java" );
+    final JavaFileObject source2 =
+      fixture( "input/com/example/on_deps_change/other/BaseInheritedMultiOnDepsChangeModel.java" );
+    final String output = "com/example/on_deps_change/Arez_InheritedMultiOnDepsChangeModel.java";
     assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
   }
 
@@ -2045,8 +2060,6 @@ public final class ArezProcessorTest
 
         new Object[]{ "com.example.on_deps_change.OnDepsChangeNotAbstractModel",
                       "@OnDepsChange target must not be abstract" },
-        new Object[]{ "com.example.on_deps_change.OnDepsChangeDuplicatedModel",
-                      "@OnDepsChange target duplicates existing method named onRenderDepsChange" },
         new Object[]{ "com.example.on_deps_change.OnDepsChangeNotStaticModel",
                       "@OnDepsChange target must not be static" },
         new Object[]{ "com.example.on_deps_change.OnDepsChangeNotPrivateModel",
