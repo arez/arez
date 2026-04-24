@@ -380,7 +380,7 @@
     {
         "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.isDisposed",
         "type": "ObservableValueChange",
-        "value": false
+        "value": true
     },
     {
         "result": null,

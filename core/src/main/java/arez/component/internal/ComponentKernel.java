@@ -227,7 +227,7 @@ public final class ComponentKernel
   {
     return getContext().observable( Arez.areNativeComponentsEnabled() ? getComponent() : null,
                                     Arez.areNamesEnabled() ? getName() + ".isDisposed" : null,
-                                    Arez.arePropertyIntrospectorsEnabled() ? () -> _state > 0 : null );
+                                    Arez.arePropertyIntrospectorsEnabled() ? () -> _state < 0 : null );
   }
 
   @Override

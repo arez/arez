@@ -1,5 +1,7 @@
 # Change Log
 
+* Ensure that when a `@ArezComponent` annotated type has an `observable` parameter that resolves to `ENABLED` then the info `isDisposed` observable value reported in the spy framework returns true when disposed and false otherwise.
+
 ### Unreleased
 
 Changes in this release:
