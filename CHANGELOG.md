@@ -2,14 +2,11 @@
 
 ### Unreleased
 
-* Ensure that when a `@ArezComponent` annotated type has an `observable` parameter that resolves to `ENABLED` then the info `isDisposed` observable value reported in the spy framework returns true when disposed and false otherwise.
-
 ### [v0.236](https://github.com/arez/arez/tree/v0.236) (2026-04-27) · [Full Changelog](https://github.com/arez/arez/compare/v0.235...v0.236)
 
 Changes in this release:
 
-Changes in this release:
-
+* Ensure that when a `@ArezComponent` annotated type has an `observable` parameter that resolves to `ENABLED` then the info `isDisposed` observable value reported in the spy framework returns true when disposed and false otherwise.
 * Allow multiple matched `@OnDepsChange` hooks for a single observe name, preserving deterministic encounter order and generating a dispatcher when multiple hooks or mixed `Observer`/parameterless signatures are present.
 
 ### [v0.235](https://github.com/arez/arez/tree/v0.235) (2026-04-21) · [Full Changelog](https://github.com/arez/arez/compare/v0.234...v0.235)
