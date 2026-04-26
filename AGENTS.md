@@ -74,7 +74,7 @@ Prerequisites: JDK 17+, Ruby 2.7.x with Bundler, Node.js (for docs site) and Yar
 
 - Follow `CONTRIBUTING.md` and the Code of Conduct.
 - Commits: small, focused, imperative subject; reference issues where relevant; update `CHANGELOG.md` for user-visible changes.
-- Always update `CHANGELOG.md` for user-visible changes, even for small tweaks.
+- When updating `CHANGELOG.md`, add the message under the "Unreleased" section. DO NOT add a `Changes in this release:` header as that is added as part of the automation.
 - PRs: include a clear description, linked issues, tests for behavior, and docs updates if APIs change. Add screenshots or generated artifacts when helpful.
 
 ## Security & Configuration Tips (Optional)
