@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Rework `ComponentObservable.maybeObserve(...)` to return true if passed a null object. The intent is to return false if passed a disposed or disposing component that cannot be observed.
+
 ### [v0.236](https://github.com/arez/arez/tree/v0.236) (2026-04-27) · [Full Changelog](https://github.com/arez/arez/compare/v0.235...v0.236)
 
 Changes in this release:

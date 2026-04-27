@@ -36,7 +36,7 @@ public final class ComponentObservableTest
   {
     assertTrue( ComponentObservable.maybeObserve( new TestElement( true ) ) );
     assertFalse( ComponentObservable.maybeObserve( new TestElement( false ) ) );
-    assertFalse( ComponentObservable.maybeObserve( null ) );
+    assertTrue( ComponentObservable.maybeObserve( null ) );
   }
 
   @Test

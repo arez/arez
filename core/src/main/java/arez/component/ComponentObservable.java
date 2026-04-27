@@ -36,11 +36,11 @@ public interface ComponentObservable
    * Invoke {@link #observe()} on the supplied object if not null.
    *
    * @param object the object to observe if not null.
-   * @return true if the component is not null, disposing or disposed, false otherwise.
+   * @return true if the component is null or not disposing or disposed, false otherwise.
    */
   static boolean maybeObserve( @Nullable final Object object )
   {
-    return null != object && asComponentObservable( object ).observe();
+    return null == object || asComponentObservable( object ).observe();
   }
 
   /**
