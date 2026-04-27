@@ -65,7 +65,7 @@ class MyComponent
 }
 ```
 
-This would result in much less boilerplate when many services are currently passed just so we can create subobjects (ie the following only needs `scope`, `criteria` and `dateRange` to be passed in.) 
+This would result in much less boilerplate when many services are currently passed just so we can create subobjects (ie the following only needs `scope`, `criteria` and `dateRange` to be passed in.)
 
 ```java
  _advancedResourceSearchService =
