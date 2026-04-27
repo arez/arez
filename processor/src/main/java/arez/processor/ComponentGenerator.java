@@ -2223,23 +2223,18 @@ final class ComponentGenerator
 
   private static boolean autoObserveAlwaysTracksADependency( @Nonnull final AutoObserveDescriptor autoObserve )
   {
-    if ( null != autoObserve.getObservable() || null != autoObserve.getReference() )
+    final ReferenceDescriptor reference = autoObserve.getReference();
+    if ( null != autoObserve.getObservable() || ( null != reference && null != reference.getObservable() ) )
     {
       return true;
     }
     else
     {
-      final VariableElement field = autoObserve.getField();
-      if ( null != field )
-      {
-        return AnnotationsUtil.hasNonnullAnnotation( field );
-      }
-      else
-      {
-        final ExecutableElement method = autoObserve.getMethod();
-        assert null != method;
-        return !isNullable( method, method.getReturnType() );
-      }
+      // If we get here then the @AutoObserve is on a field or a method
+      // Thus we are not always tracking a dependency because the value that we are accessing may be null
+      // or being disposed and thus unobservable. Previously we returned true if the field or method had a
+      // Nonnull annotation but this turned out to be insufficent.
+      return false;
     }
   }
 
