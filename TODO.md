@@ -13,6 +13,80 @@ complete as there is too much un-said.
 * Add `@ArezComponent.defaultSkipIfDisposed`
   * Change react to set it to true for views, warn if explicitly set to true
 
+* Figure out how services and `@ComponentDependency` can be used together. Should services not be allowed to have `@ComponentDependency`s? (The reasoning is that the injector manages service lifecycle)
+
+* Add a compiler error if we have a service=true on non-private field? (Is this not done?)
+
+* Add compiler error if we have a value assigned to @CascadeDispose var that does not have nullability declared:
+```java
+@CascadeDispose
+@Nonnull final ObservableBoolean _committingRole = ObservableBoolean.create( false );
+```
+
+* Update sting/arez/react4j so that we auto-create factory objects. Constructor parameters are either "injected" (if they are services) or passed in (in which case they are part of generated factory class). We could potentially override injected/passed in decision with a new annotation. This would allow us to write a lot less boilerplate ala:
+
+```java
+class MyComponent
+{
+  @AutoFactory
+  MyComponent(SomeService someService, int someParameter) {...}
+}
+```
+
+which would create a factory class that would look like:
+```java
+@Injectable
+class MyComponentFactory
+{
+  MyComponentFactory(SomeService someService)
+  {
+    _someService = someService;
+  }
+
+  @Nonnull MyComponent create(int someParameter)
+  {
+    return new MyComponent(_someService, someParameter);
+  }
+}
+```
+
+We could also speccreate a factory interface like:
+
+```java
+class MyComponent
+{
+  @AutoFactory
+  MyComponent(SomeService someService, int someParameter) {...}
+
+  interface Factory
+  {
+    @Nonnull MyComponent create(int someParameter);
+  }
+}
+```
+
+This would result in much less boilerplate when many services are currently passed just so we can create subobjects (ie the following only needs `scope`, `criteria` and `dateRange` to be passed in.) 
+
+```java
+ _advancedResourceSearchService =
+    AdvancedResourceSearchService.create( scope,
+                                          authClientService,
+                                          inspectorService,
+                                          routerService,
+                                          attributePermissionClientService,
+                                          allowedAttributeTypeLikeClientService,
+                                          attributeLikeClientService,
+                                          resourceTypeRepository,
+                                          resourceClientService,
+                                          resourcesService,
+                                          resourceRepository,
+                                          messagingClientService,
+                                          iconOverlayClientService,
+                                          operationsClientService,
+                                          null,
+                                          dateRange() );
+```
+
 * Remove `BuildOutputTest` by pushing the grim tests into downstream projects that always verify they meet
   expectations. This is easier to maintain and makes it possible to verify each variant we build with all
   grim-compatible libraries. We could easily add a test to arez that just built `raw` branch of `react4j-todomvc`
