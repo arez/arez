@@ -1,16 +1,20 @@
-package com.example.auto_observe.other;
+package com.example.auto_observe;
 
+import arez.annotations.ArezComponent;
 import arez.annotations.AutoObserve;
 import arez.component.ComponentObservable;
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public abstract class BaseProtectedAccessFieldAutoObserveModel
+@ArezComponent
+abstract class ConflictingNullabilityFieldAutoObserveModel
 {
   @AutoObserve
   @Nullable
-  protected final MyType _field = null;
+  @Nonnull
+  final MyType _field = null;
 
-  public static final class MyType
+  static final class MyType
     implements ComponentObservable
   {
     @Override

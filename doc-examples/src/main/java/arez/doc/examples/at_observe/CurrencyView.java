@@ -5,11 +5,13 @@ import akasha.WindowGlobal;
 import arez.annotations.ArezComponent;
 import arez.annotations.CascadeDispose;
 import arez.annotations.Observe;
+import javax.annotation.Nonnull;
 
 @ArezComponent
 public abstract class CurrencyView
 {
   @CascadeDispose
+  @Nonnull
   final Currency bitcoin = new Arez_Currency();
 
   @Observe

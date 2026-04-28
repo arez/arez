@@ -30,6 +30,7 @@ public final class BasicCascadeDisposeIntegrationTest
   static abstract class Model1
   {
     @CascadeDispose
+    @Nonnull
     final Model2 _model2;
 
     @Nonnull

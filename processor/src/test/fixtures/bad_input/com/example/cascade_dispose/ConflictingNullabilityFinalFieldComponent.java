@@ -3,13 +3,14 @@ package com.example.cascade_dispose;
 import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.CascadeDispose;
-import arez.annotations.Feature;
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-@ArezComponent( disposeNotifier = Feature.DISABLE )
-abstract class DisposeNotifierDisabledCascadeDisposeModel
+@ArezComponent
+abstract class ConflictingNullabilityFinalFieldComponent
 {
   @CascadeDispose
   @Nullable
-  final Disposable _myObject = null;
+  @Nonnull
+  final Disposable _myElement = null;
 }

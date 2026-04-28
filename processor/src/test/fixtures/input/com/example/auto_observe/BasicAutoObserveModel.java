@@ -13,6 +13,7 @@ import javax.annotation.Nullable;
 abstract class BasicAutoObserveModel
 {
   @AutoObserve
+  @Nullable
   final MyComponent _field = null;
 
   @AutoObserve

@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Require explicit `javax.annotation.Nullable` or `javax.annotation.Nonnull` on `final` field targets annotated with `@CascadeDispose` and on field targets annotated with `@AutoObserve`, and reject contradictory dual-nullability annotations on those field targets.
+
 ### [v0.238](https://github.com/arez/arez/tree/v0.238) (2026-04-27) · [Full Changelog](https://github.com/arez/arez/compare/v0.237...v0.238)
 
 Changes in this release:

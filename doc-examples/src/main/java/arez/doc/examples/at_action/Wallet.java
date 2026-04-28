@@ -4,11 +4,13 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.CascadeDispose;
 import java.math.BigDecimal;
+import javax.annotation.Nonnull;
 
 @ArezComponent
 public abstract class Wallet
 {
   @CascadeDispose
+  @Nonnull
   final Currency aud = new Arez_Currency();
 
   // A read-write action that updates observable value

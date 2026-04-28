@@ -1164,6 +1164,10 @@ public final class ArezProcessor
     emitWarningForManagedFieldAccess( component, field, Constants.CASCADE_DISPOSE_CLASSNAME );
     mustBeCascadeDisposeTypeCompatible( field );
     emitWarningForConflictingDisposeModel( field );
+    if ( field.getModifiers().contains( Modifier.FINAL ) )
+    {
+      verifyFieldHasExplicitNullabilityAnnotation( field, Constants.CASCADE_DISPOSE_CLASSNAME );
+    }
     component.addCascadeDispose( new CascadeDisposeDescriptor( field ) );
   }
 
@@ -1179,7 +1183,30 @@ public final class ArezProcessor
     MemberChecks.mustBeFinal( Constants.AUTO_OBSERVE_CLASSNAME, field );
     final boolean validateTypeAtRuntime = isAutoObserveValidateTypeAtRuntime( field );
     mustBeAutoObserveTypeCompatible( component, validateTypeAtRuntime, field );
+    verifyFieldHasExplicitNullabilityAnnotation( field, Constants.AUTO_OBSERVE_CLASSNAME );
     component.addAutoObserve( new AutoObserveDescriptor( validateTypeAtRuntime, field ) );
+  }
+
+  private void verifyFieldHasExplicitNullabilityAnnotation( @Nonnull final VariableElement field,
+                                                            @Nonnull final String annotationClassname )
+  {
+    final boolean hasNonnullAnnotation = isElementAnnotatedBy( field, AnnotationsUtil.NONNULL_CLASSNAME );
+    final boolean hasNullableAnnotation = isElementAnnotatedBy( field, AnnotationsUtil.NULLABLE_CLASSNAME );
+    final String annotationName = annotationClassname.substring( annotationClassname.lastIndexOf( '.' ) + 1 );
+    if ( hasNonnullAnnotation && hasNullableAnnotation )
+    {
+      throw new ProcessorException( "@" + annotationName + " target must not be annotated with both " +
+                                    AnnotationsUtil.NULLABLE_CLASSNAME + " and " +
+                                    AnnotationsUtil.NONNULL_CLASSNAME,
+                                    field );
+    }
+    if ( !hasNonnullAnnotation && !hasNullableAnnotation )
+    {
+      throw new ProcessorException( "@" + annotationName + " target must be annotated with either " +
+                                    AnnotationsUtil.NULLABLE_CLASSNAME + " or " +
+                                    AnnotationsUtil.NONNULL_CLASSNAME,
+                                    field );
+    }
   }
 
   @Nonnull

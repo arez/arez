@@ -1,11 +1,12 @@
 package arez.integration.auto_observe;
 
 import arez.Disposable;
-import arez.annotations.ArezComponentLike;
 import arez.annotations.ArezComponent;
+import arez.annotations.ArezComponentLike;
 import arez.annotations.AutoObserve;
 import arez.integration.AbstractArezIntegrationTest;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -72,15 +73,16 @@ public final class AutoObserveRuntimeValidationIntegrationTest
   static abstract class Owner
   {
     @AutoObserve( validateTypeAtRuntime = true )
+    @Nullable
     final MyType _child;
 
     @Nonnull
-    static Owner create( final MyType child )
+    static Owner create( @Nullable final MyType child )
     {
       return new AutoObserveRuntimeValidationIntegrationTest_Arez_Owner( child );
     }
 
-    Owner( final MyType child )
+    Owner( @Nullable final MyType child )
     {
       _child = child;
     }
