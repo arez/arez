@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.239](https://github.com/arez/arez/tree/v0.239) (2026-04-28) · [Full Changelog](https://github.com/arez/arez/compare/v0.238...v0.239)
+
+Changes in this release:
 
 * Require explicit `javax.annotation.Nullable` or `javax.annotation.Nonnull` on `final` field targets annotated with `@CascadeDispose` and on field targets annotated with `@AutoObserve`, and reject contradictory dual-nullability annotations on those field targets.
 * Add the `-Aarez.warnings_as_errors=true` processor option so `ArezProcessor` promotes its warning diagnostics to errors.
