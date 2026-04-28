@@ -2504,6 +2504,24 @@ public final class ArezProcessorTest
     assertCompilesWithSingleWarning( classname, messageFragment );
   }
 
+  @Test
+  public void processCompileWithWarningsAsErrors()
+  {
+    final String messageFragment =
+      "@ArezComponent target has specified allowEmpty = true but has methods annotated with @Action, " +
+      "@AutoObserve, @CascadeDispose, @Memoize, @Observable, @Inverse, @Reference, @ComponentDependency or " +
+      "@Observe";
+    final Compilation compilation =
+      CompileTestUtil.compile( inputs( "com.example.component.AllowEmptyOnNonEmptyComponent" ),
+                               getOptionsWithWarningsAsErrors(),
+                               Collections.singletonList( processor() ),
+                               Collections.emptyList() );
+    assertCompilationUnsuccessful( compilation );
+    assertErrorDiagnostic( compilation, messageFragment );
+    assertDiagnosticCount( compilation, javax.tools.Diagnostic.Kind.ERROR, 1 );
+    assertDiagnosticCount( compilation, javax.tools.Diagnostic.Kind.WARNING, 0 );
+  }
+
   @DataProvider( name = "compileWithoutWarnings" )
   public Object[][] compileWithoutWarnings()
   {
@@ -2609,6 +2627,19 @@ public final class ArezProcessorTest
   public void processCompileWithoutWarnings( @Nonnull final String classname )
   {
     assertCompilesWithoutWarnings( classname );
+  }
+
+  @Test
+  public void processCompileWithoutWarningsWhenWarningsAsErrorsEnabled()
+  {
+    final Compilation compilation =
+      CompileTestUtil.compile( inputs( "com.example.component.Suppressed1UnnecessaryAllowEmptyPresentComponent" ),
+                               getOptionsWithWarningsAsErrors(),
+                               Collections.singletonList( processor() ),
+                               Collections.emptyList() );
+    assertCompilationSuccessful( compilation );
+    assertDiagnosticCount( compilation, javax.tools.Diagnostic.Kind.ERROR, 0 );
+    assertDiagnosticCount( compilation, javax.tools.Diagnostic.Kind.WARNING, 0 );
   }
 
   @DataProvider( name = "packageAccessElementInDifferentPackage" )
@@ -2736,6 +2767,14 @@ public final class ArezProcessorTest
     final List<String> expectedOutputs = new ArrayList<>();
     expectedOutputs.add( toFilename( classname, "Arez_", ".java" ) );
     return expectedOutputs.toArray( new String[ 0 ] );
+  }
+
+  @Nonnull
+  private List<String> getOptionsWithWarningsAsErrors()
+  {
+    final List<String> options = new ArrayList<>( getOptions() );
+    options.add( "-Aarez.warnings_as_errors=true" );
+    return options;
   }
 
   @Nonnull

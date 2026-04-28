@@ -64,10 +64,13 @@ import static javax.tools.Diagnostic.Kind.*;
                      "arez.defer.errors",
                      "arez.debug",
                      "arez.profile",
-                     "arez.verbose_out_of_round.errors" } )
+                     "arez.verbose_out_of_round.errors",
+                     "arez.warnings_as_errors" } )
 public final class ArezProcessor
   extends AbstractStandardProcessor
 {
+  @Nonnull
+  private static final String WARNINGS_AS_ERRORS_OPTION = "arez.warnings_as_errors";
   @Nonnull
   static final Pattern GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)$" );
   @Nonnull
@@ -171,6 +174,17 @@ public final class ArezProcessor
   protected void collectStopWatches( @Nonnull final Collection<StopWatch> stopWatches )
   {
     stopWatches.add( _analyzeComponentStopWatch );
+  }
+
+  @Nonnull
+  private Diagnostic.Kind warningKind()
+  {
+    return warningsAsErrors() ? ERROR : WARNING;
+  }
+
+  private boolean warningsAsErrors()
+  {
+    return "true".equalsIgnoreCase( processingEnv.getOptions().get( WARNINGS_AS_ERRORS_OPTION ) );
   }
 
   @Override
@@ -1053,7 +1067,7 @@ public final class ArezProcessor
         MemberChecks.toSimpleName( Constants.MEMOIZE_CLASSNAME ) + " annotation or the " +
         MemberChecks.toSimpleName( Constants.OBSERVE_CLASSNAME ) + " annotation. " +
         suppressedBy( Constants.WARNING_UNNECESSARY_DEFAULT_PRIORITY );
-      processingEnv.getMessager().printMessage( WARNING, message, element );
+      processingEnv.getMessager().printMessage( warningKind(), message, element );
     }
     if ( !allowEmpty && hasZeroReactiveElements )
     {
@@ -1070,7 +1084,7 @@ public final class ArezProcessor
         "annotated with @Action, @AutoObserve, @CascadeDispose, @Memoize, @Observable, @Inverse, " +
         "@Reference, @ComponentDependency or @Observe. " +
         suppressedBy( Constants.WARNING_UNNECESSARY_ALLOW_EMPTY );
-      processingEnv.getMessager().printMessage( WARNING, message, element );
+      processingEnv.getMessager().printMessage( warningKind(), message, element );
     }
 
     for ( final ExecutableElement componentIdRef : component.getComponentIdRefs() )
@@ -1111,7 +1125,7 @@ public final class ArezProcessor
                                   "have a public constructor. " + instruction +
                                   MemberChecks.suppressedBy( Constants.WARNING_PUBLIC_CONSTRUCTOR,
                                                              Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) );
-        processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message, constructor );
+        processingEnv.getMessager().printMessage( warningKind(), message, constructor );
       }
     }
     if ( null != component.getDeclaredDefaultReadOutsideTransaction() &&
@@ -1123,7 +1137,7 @@ public final class ArezProcessor
         "@ArezComponent target has specified a value for the defaultReadOutsideTransaction parameter but does not " +
         "contain any methods annotated with either @Memoize or @Observable. " +
         suppressedBy( Constants.WARNING_UNNECESSARY_DEFAULT );
-      processingEnv.getMessager().printMessage( WARNING, message, element );
+      processingEnv.getMessager().printMessage( warningKind(), message, element );
     }
     if ( null != component.getDeclaredDefaultWriteOutsideTransaction() &&
          component.getObservables().isEmpty() &&
@@ -1133,7 +1147,7 @@ public final class ArezProcessor
         "@ArezComponent target has specified a value for the defaultWriteOutsideTransaction parameter but does not " +
         "contain any methods annotated with @Observable. " +
         suppressedBy( Constants.WARNING_UNNECESSARY_DEFAULT );
-      processingEnv.getMessager().printMessage( WARNING, message, element );
+      processingEnv.getMessager().printMessage( warningKind(), message, element );
     }
   }
 
@@ -1328,7 +1342,7 @@ public final class ArezProcessor
         "or suppress the warning by annotating the field with @SuppressWarnings( \"" +
         Constants.WARNING_CONFLICTING_DISPOSE_MODEL + "\" ) or @SuppressArezWarnings( \"" +
         Constants.WARNING_CONFLICTING_DISPOSE_MODEL + "\" )";
-      processingEnv.getMessager().printMessage( WARNING, message, field );
+      processingEnv.getMessager().printMessage( warningKind(), message, field );
     }
   }
 
@@ -1344,7 +1358,7 @@ public final class ArezProcessor
         "disposal), but not both. Please choose a single disposal model or suppress the warning by annotating " +
         "the method with @SuppressWarnings( \"" + Constants.WARNING_CONFLICTING_DISPOSE_MODEL +
         "\" ) or @SuppressArezWarnings( \"" + Constants.WARNING_CONFLICTING_DISPOSE_MODEL + "\" )";
-      processingEnv.getMessager().printMessage( WARNING, message, method );
+      processingEnv.getMessager().printMessage( warningKind(), message, method );
     }
   }
 
@@ -2810,7 +2824,7 @@ public final class ArezProcessor
             MemberChecks.shouldNot( Constants.COMPONENT_CLASSNAME,
                                     "extend a class annotated with the " + Constants.COMPONENT_CLASSNAME +
                                     " annotation. " + suppressedBy( Constants.WARNING_EXTENDS_COMPONENT ) );
-          processingEnv.getMessager().printMessage( WARNING, message, typeElement );
+          processingEnv.getMessager().printMessage( warningKind(), message, typeElement );
         }
         parent = null != parentTypeElement ? parentTypeElement.getSuperclass() : null;
       }
@@ -2955,7 +2969,7 @@ public final class ArezProcessor
           MemberChecks.should( Constants.COMPONENT_CLASSNAME,
                                "have a package access constructor. " +
                                suppressedBy( Constants.WARNING_PROTECTED_CONSTRUCTOR ) );
-        processingEnv.getMessager().printMessage( WARNING, message, constructor );
+        processingEnv.getMessager().printMessage( warningKind(), message, constructor );
       }
       verifyConstructorParameters( constructor, sting );
     }
@@ -3512,7 +3526,7 @@ public final class ArezProcessor
                                 "declare a protected method. " +
                                 MemberChecks.suppressedBy( Constants.WARNING_PROTECTED_METHOD,
                                                            Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) );
-      processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message, method );
+      processingEnv.getMessager().printMessage( warningKind(), message, method );
     }
   }
 
@@ -3537,7 +3551,7 @@ public final class ArezProcessor
                                 "be public. " +
                                 MemberChecks.suppressedBy( Constants.WARNING_PUBLIC_FIELD,
                                                            Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) );
-      processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message, field );
+      processingEnv.getMessager().printMessage( warningKind(), message, field );
     }
   }
 
@@ -3555,7 +3569,7 @@ public final class ArezProcessor
                                 "declare a protected field. " +
                                 MemberChecks.suppressedBy( Constants.WARNING_PROTECTED_FIELD,
                                                            Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) );
-      processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message, field );
+      processingEnv.getMessager().printMessage( warningKind(), message, field );
     }
   }
 
@@ -3573,7 +3587,7 @@ public final class ArezProcessor
                                 "declare a final method. " +
                                 MemberChecks.suppressedBy( Constants.WARNING_FINAL_METHOD,
                                                            Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME ) );
-      processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message, method );
+      processingEnv.getMessager().printMessage( warningKind(), message, method );
     }
   }
 
@@ -3936,7 +3950,7 @@ public final class ArezProcessor
               "annotate the field as appropriate or suppress the warning by annotating the field with " +
               "@SuppressWarnings( \"" + Constants.WARNING_UNMANAGED_COMPONENT_REFERENCE + "\" ) or " +
               "@SuppressArezWarnings( \"" + Constants.WARNING_UNMANAGED_COMPONENT_REFERENCE + "\" )";
-            processingEnv.getMessager().printMessage( WARNING, message, field );
+            processingEnv.getMessager().printMessage( warningKind(), message, field );
           }
         }
       }
@@ -3981,7 +3995,7 @@ public final class ArezProcessor
                 "Please annotate the method as appropriate or suppress the warning by annotating the method with " +
                 "@SuppressWarnings( \"" + Constants.WARNING_UNMANAGED_COMPONENT_REFERENCE + "\" ) or " +
                 "@SuppressArezWarnings( \"" + Constants.WARNING_UNMANAGED_COMPONENT_REFERENCE + "\" )";
-              processingEnv.getMessager().printMessage( WARNING, message, getter );
+              processingEnv.getMessager().printMessage( warningKind(), message, getter );
             }
           }
         }
@@ -4040,7 +4054,7 @@ public final class ArezProcessor
         Constants.COMPONENT_CLASSNAME + "(service = ENABLE) and should be private. " +
         MemberChecks.suppressedBy( Constants.WARNING_NON_PRIVATE_SERVICE_FIELD,
                                    Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME );
-      processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message, field );
+      processingEnv.getMessager().printMessage( warningKind(), message, field );
     }
   }
 
