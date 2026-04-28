@@ -17,12 +17,6 @@ complete as there is too much un-said.
 
 * Add a compiler error if we have a service=true on non-private field? (Is this not done?)
 
-* Add compiler error if we have a value assigned to @CascadeDispose var that does not have nullability declared:
-```java
-@CascadeDispose
-@Nonnull final ObservableBoolean _committingRole = ObservableBoolean.create( false );
-```
-
 * Update sting/arez/react4j so that we auto-create factory objects. Constructor parameters are either "injected" (if they are services) or passed in (in which case they are part of generated factory class). We could potentially override injected/passed in decision with a new annotation. This would allow us to write a lot less boilerplate ala:
 
 ```java
