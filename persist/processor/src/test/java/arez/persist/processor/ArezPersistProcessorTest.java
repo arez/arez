@@ -15,6 +15,7 @@ public final class ArezPersistProcessorTest
   extends AbstractProcessorTest
 {
   @DataProvider( name = "successfulCompiles" )
+  @Nonnull
   public Object[][] successfulCompiles()
   {
     return new Object[][]
@@ -56,6 +57,7 @@ public final class ArezPersistProcessorTest
   }
 
   @DataProvider( name = "failedCompiles" )
+  @Nonnull
   public Object[][] failedCompiles()
   {
     return new Object[][]
@@ -126,6 +128,7 @@ public final class ArezPersistProcessorTest
   }
 
   @DataProvider( name = "compileWithWarnings" )
+  @Nonnull
   public Object[][] compileWithWarnings()
   {
     return new Object[][]
@@ -142,6 +145,7 @@ public final class ArezPersistProcessorTest
   }
 
   @DataProvider( name = "compileWithoutWarnings" )
+  @Nonnull
   public Object[][] compileWithoutWarnings()
   {
     return new Object[][]
