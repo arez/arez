@@ -23,7 +23,6 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
-import javax.tools.Diagnostic;
 import org.realityforge.proton.AbstractStandardProcessor;
 import org.realityforge.proton.AnnotationsUtil;
 import org.realityforge.proton.DeferredElementSet;
@@ -44,7 +43,8 @@ import org.realityforge.proton.StopWatch;
                      "arez.persist.defer.errors",
                      "arez.persist.debug",
                      "arez.persist.profile",
-                     "arez.persist.verbose_out_of_round" } )
+                     "arez.persist.verbose_out_of_round",
+                     "arez.persist.warnings_as_errors" } )
 public final class ArezPersistProcessor
   extends AbstractStandardProcessor
 {
@@ -343,7 +343,7 @@ public final class ArezPersistProcessor
                                   MemberChecks.toSimpleName( Constants.PERSIST_TYPE_CLASSNAME ) +
                                   " annotation on the enclosing type. " +
                                   MemberChecks.suppressedBy( Constants.WARNING_UNNECESSARY_STORE ) );
-        processingEnv.getMessager().printMessage( Diagnostic.Kind.WARNING, message, element );
+        warning( message, element );
       }
       return store;
     }
