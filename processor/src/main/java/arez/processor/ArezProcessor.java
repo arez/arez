@@ -1,7 +1,7 @@
 package arez.processor;
 
-import com.squareup.javapoet.ParameterizedTypeName;
-import com.squareup.javapoet.TypeName;
+import com.palantir.javapoet.ParameterizedTypeName;
+import com.palantir.javapoet.TypeName;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
