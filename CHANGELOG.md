@@ -2,7 +2,7 @@
 
 ### Unreleased
 
-* Upgrade the `org.realityforge.proton` artifact to version `0.68`.
+* Upgrade the `org.realityforge.proton` artifact to version `0.69`.
 * Migrate `javapoet` to `com.palantir.javapoet:javapoet:jar:0.14.0` which is still maintained.
 
 ### [v0.239](https://github.com/arez/arez/tree/v0.239) (2026-04-28) · [Full Changelog](https://github.com/arez/arez/compare/v0.238...v0.239)

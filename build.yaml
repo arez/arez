@@ -21,8 +21,8 @@ artifacts:
   javapoet: com.palantir.javapoet:javapoet:jar:0.14.0
   guava: com.google.guava:guava:jar:27.1-jre
 
-  proton_core: org.realityforge.proton:proton-core:jar:0.68
-  proton_qa: org.realityforge.proton:proton-qa:jar:0.68
+  proton_core: org.realityforge.proton:proton-core:jar:0.69
+  proton_qa: org.realityforge.proton:proton-qa:jar:0.69
 
   # GWT deps
   gwt_user: org.gwtproject:gwt-user:jar:2.11.0

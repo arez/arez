@@ -2501,7 +2501,7 @@ public final class ArezProcessorTest
   @Test( dataProvider = "compileWithWarnings" )
   public void processCompileWithWarnings( @Nonnull final String classname, @Nonnull final String messageFragment )
   {
-    assertCompilesWithSingleWarning( classname, messageFragment );
+    assertCompilesWithSingleWarningThatCanBeUpgradedToError( classname, messageFragment );
   }
 
   @Test
