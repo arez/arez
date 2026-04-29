@@ -2523,6 +2523,7 @@ public final class ArezProcessorTest
   }
 
   @DataProvider( name = "compileWithoutWarnings" )
+  @Nonnull
   public Object[][] compileWithoutWarnings()
   {
     return new Object[][]
