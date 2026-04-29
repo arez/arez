@@ -279,14 +279,7 @@ final class ObservableDescriptor
   @Nonnull
   ExecutableElement getDefiner()
   {
-    if ( null != _getter )
-    {
-      return _getter;
-    }
-    else
-    {
-      return Objects.requireNonNull( _setter );
-    }
+    return null != _getter ? _getter : Objects.requireNonNull( _setter );
   }
 
   void setDependencyDescriptor( @Nullable final DependencyDescriptor dependencyDescriptor )
