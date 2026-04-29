@@ -17,7 +17,11 @@ import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation extends MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier, Linkable {
+final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation extends MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation implements Disposable,
+    Identifiable<Integer>,
+    Verifiable,
+    DisposeNotifier,
+    Linkable {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable

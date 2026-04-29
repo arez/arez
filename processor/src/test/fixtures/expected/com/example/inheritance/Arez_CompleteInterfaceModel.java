@@ -30,7 +30,11 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel, Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
+public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel,
+    Disposable,
+    Identifiable<Integer>,
+    Verifiable,
+    DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable

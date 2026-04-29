@@ -18,7 +18,11 @@ import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObservableReferenceModel implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier, Linkable {
+final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObservableReferenceModel implements Disposable,
+    Identifiable<Integer>,
+    Verifiable,
+    DisposeNotifier,
+    Linkable {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable

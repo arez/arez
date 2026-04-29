@@ -22,7 +22,10 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
-final class Arez_DeprecationModel extends DeprecationModel implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
+final class Arez_DeprecationModel extends DeprecationModel implements Disposable,
+    Identifiable<Integer>,
+    Verifiable,
+    DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable

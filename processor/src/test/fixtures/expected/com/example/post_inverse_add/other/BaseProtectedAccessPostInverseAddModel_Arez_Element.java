@@ -18,7 +18,10 @@ import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class BaseProtectedAccessPostInverseAddModel_Arez_Element extends BaseProtectedAccessPostInverseAddModel.Element implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
+public final class BaseProtectedAccessPostInverseAddModel_Arez_Element extends BaseProtectedAccessPostInverseAddModel.Element implements Disposable,
+    Identifiable<Integer>,
+    Verifiable,
+    DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable

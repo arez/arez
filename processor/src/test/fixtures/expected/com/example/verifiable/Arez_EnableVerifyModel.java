@@ -15,7 +15,10 @@ import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class Arez_EnableVerifyModel extends EnableVerifyModel implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
+final class Arez_EnableVerifyModel extends EnableVerifyModel implements Disposable,
+    Identifiable<Integer>,
+    Verifiable,
+    DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable

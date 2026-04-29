@@ -16,7 +16,10 @@ import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-final class NonObservableNullableManyReferenceModel_Arez_Element extends NonObservableNullableManyReferenceModel.Element implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
+final class NonObservableNullableManyReferenceModel_Arez_Element extends NonObservableNullableManyReferenceModel.Element implements Disposable,
+    Identifiable<Integer>,
+    Verifiable,
+    DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable

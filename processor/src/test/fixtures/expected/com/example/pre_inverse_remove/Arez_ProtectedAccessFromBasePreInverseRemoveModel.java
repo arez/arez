@@ -23,7 +23,10 @@ import javax.annotation.processing.Generated;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-public final class Arez_ProtectedAccessFromBasePreInverseRemoveModel extends ProtectedAccessFromBasePreInverseRemoveModel implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
+public final class Arez_ProtectedAccessFromBasePreInverseRemoveModel extends ProtectedAccessFromBasePreInverseRemoveModel implements Disposable,
+    Identifiable<Integer>,
+    Verifiable,
+    DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable
