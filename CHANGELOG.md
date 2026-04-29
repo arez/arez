@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.240](https://github.com/arez/arez/tree/v0.240) (2026-04-29) · [Full Changelog](https://github.com/arez/arez/compare/v0.239...v0.240)
+
+Changes in this release:
 
 * Upgrade the `org.realityforge.proton` artifact to version `0.69`.
 * Migrate `javapoet` to `com.palantir.javapoet:javapoet:jar:0.14.0` which is still maintained.
