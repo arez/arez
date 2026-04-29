@@ -1,8 +1,8 @@
 package arez.processor;
 
-import com.squareup.javapoet.ParameterizedTypeName;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.WildcardTypeName;
+import com.palantir.javapoet.ParameterizedTypeName;
+import com.palantir.javapoet.TypeName;
+import com.palantir.javapoet.WildcardTypeName;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -313,7 +313,7 @@ final class MemoizeDescriptor
         final TypeName typeName = TypeName.get( parameters.get( 0 ).asType() );
         if ( typeName instanceof final ParameterizedTypeName parameterizedTypeName )
         {
-          final TypeName paramType = parameterizedTypeName.typeArguments.get( 0 );
+          final TypeName paramType = parameterizedTypeName.typeArguments().get( 0 );
           if ( !( paramType instanceof WildcardTypeName ) )
           {
             final TypeName actual = TypeName.get( _method.getReturnType() );
@@ -333,7 +333,7 @@ final class MemoizeDescriptor
       final TypeName typeName = TypeName.get( refMethod.getMethod().getReturnType() );
       if ( typeName instanceof final ParameterizedTypeName parameterizedTypeName )
       {
-        final TypeName expectedType = parameterizedTypeName.typeArguments.get( 0 );
+        final TypeName expectedType = parameterizedTypeName.typeArguments().get( 0 );
         if ( !( expectedType instanceof WildcardTypeName ) )
         {
           final TypeName actual = TypeName.get( _method.getReturnType() );

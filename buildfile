@@ -128,7 +128,7 @@ define 'arez' do
       jar.enhance do |f|
         Buildr::Shade.shade(f,
                             f,
-                            'com.squareup.javapoet' => 'arez.processor.vendor.javapoet',
+                            'com.palantir.javapoet' => 'arez.processor.vendor.javapoet',
                             'org.realityforge.proton' => 'arez.processor.vendor.proton')
       end
     end
@@ -454,7 +454,7 @@ define 'arez' do
         jar.enhance do |f|
           Buildr::Shade.shade(f,
                               f,
-                              'com.squareup.javapoet' => 'arez.persist.processor.vendor.javapoet',
+                              'com.palantir.javapoet' => 'arez.persist.processor.vendor.javapoet',
                               'org.realityforge.proton' => 'arez.persist.processor.vendor.proton')
         end
       end

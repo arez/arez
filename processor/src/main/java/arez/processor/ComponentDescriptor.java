@@ -1,7 +1,7 @@
 package arez.processor;
 
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.TypeName;
+import com.palantir.javapoet.ClassName;
+import com.palantir.javapoet.TypeName;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;

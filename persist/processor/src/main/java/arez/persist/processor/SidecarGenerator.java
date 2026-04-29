@@ -1,14 +1,14 @@
 package arez.persist.processor;
 
-import com.squareup.javapoet.AnnotationSpec;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.ParameterizedTypeName;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeSpec;
+import com.palantir.javapoet.AnnotationSpec;
+import com.palantir.javapoet.ClassName;
+import com.palantir.javapoet.CodeBlock;
+import com.palantir.javapoet.FieldSpec;
+import com.palantir.javapoet.MethodSpec;
+import com.palantir.javapoet.ParameterSpec;
+import com.palantir.javapoet.ParameterizedTypeName;
+import com.palantir.javapoet.TypeName;
+import com.palantir.javapoet.TypeSpec;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -28,6 +28,8 @@ import org.realityforge.proton.SuppressWarningsUtil;
 
 final class SidecarGenerator
 {
+  @Nonnull
+  private static final ClassName OBJECT = ClassName.get( "java.lang", "Object" );
   @Nonnull
   private static final ClassName AREZ_CLASSNAME = ClassName.get( "arez", "Arez" );
   @Nonnull
@@ -327,7 +329,7 @@ final class SidecarGenerator
       {
         final TypeName typeName = TypeName.get( property.getGetter().getReturnType() ).box();
         final String propName = "$prop$_" + property.getName();
-        if ( TypeName.OBJECT.equals( typeName ) )
+        if ( OBJECT.equals( typeName ) )
         {
           stateBlock.addStatement( "final $T $N = ( $T.$N )",
                                    typeName,

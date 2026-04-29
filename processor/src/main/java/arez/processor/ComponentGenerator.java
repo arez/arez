@@ -1,16 +1,16 @@
 package arez.processor;
 
-import com.squareup.javapoet.AnnotationSpec;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.ParameterizedTypeName;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.TypeVariableName;
-import com.squareup.javapoet.WildcardTypeName;
+import com.palantir.javapoet.AnnotationSpec;
+import com.palantir.javapoet.ClassName;
+import com.palantir.javapoet.CodeBlock;
+import com.palantir.javapoet.FieldSpec;
+import com.palantir.javapoet.MethodSpec;
+import com.palantir.javapoet.ParameterSpec;
+import com.palantir.javapoet.ParameterizedTypeName;
+import com.palantir.javapoet.TypeName;
+import com.palantir.javapoet.TypeSpec;
+import com.palantir.javapoet.TypeVariableName;
+import com.palantir.javapoet.WildcardTypeName;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -48,6 +48,7 @@ import org.realityforge.proton.TypesUtil;
 
 final class ComponentGenerator
 {
+  private static final ClassName OBJECT = ClassName.get( "java.lang", "Object" );
   private static final ClassName GUARDS_CLASSNAME = ClassName.get( "org.realityforge.braincheck", "Guards" );
   private static final ClassName AREZ_CLASSNAME = ClassName.get( "arez", "Arez" );
   private static final ClassName ACTION_FLAGS_CLASSNAME = ClassName.get( "arez", "ActionFlags" );
@@ -558,7 +559,7 @@ final class ComponentGenerator
     final TypeName typeName = TypeName.get( inverseDescriptor.getObservable().getGetter().getReturnType() );
     final ClassName other = typeName instanceof ClassName ?
                             (ClassName) typeName :
-                            (ClassName) ( (ParameterizedTypeName) typeName ).typeArguments.get( 0 );
+                            (ClassName) ( (ParameterizedTypeName) typeName ).typeArguments().get( 0 );
     final StringBuilder sb = new StringBuilder();
     final String packageName = other.packageName();
     if ( null != packageName )
@@ -1542,7 +1543,7 @@ final class ComponentGenerator
     final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
       addModifiers( Modifier.PUBLIC ).
       addAnnotation( Override.class ).
-      addParameter( ParameterSpec.builder( TypeName.OBJECT, "key", Modifier.FINAL )
+      addParameter( ParameterSpec.builder( OBJECT, "key", Modifier.FINAL )
                       .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
                       .build() ).
       addParameter( ParameterSpec.builder( SAFE_PROCEDURE_CLASSNAME, "action", Modifier.FINAL )
@@ -1565,7 +1566,7 @@ final class ComponentGenerator
     final MethodSpec.Builder method = MethodSpec.methodBuilder( methodName ).
       addModifiers( Modifier.PUBLIC ).
       addAnnotation( Override.class ).
-      addParameter( ParameterSpec.builder( TypeName.OBJECT, "key", Modifier.FINAL )
+      addParameter( ParameterSpec.builder( OBJECT, "key", Modifier.FINAL )
                       .addAnnotation( GeneratorUtil.NONNULL_CLASSNAME )
                       .build() ).
       addParameter( ParameterSpec.builder( TypeName.BOOLEAN, "errorIfMissing", Modifier.FINAL ).build() );
@@ -2947,7 +2948,7 @@ final class ComponentGenerator
     final ExecutableType methodType = memoize.getMethodType();
     final TypeName parameterType =
       method.getTypeParameters().isEmpty() ? TypeName.get( methodType.getReturnType() ).box() :
-      WildcardTypeName.subtypeOf( TypeName.OBJECT );
+      WildcardTypeName.subtypeOf( OBJECT );
     final ParameterizedTypeName typeName =
       ParameterizedTypeName.get( COMPUTABLE_VALUE_CLASSNAME, parameterType );
     final FieldSpec.Builder field =
@@ -2986,7 +2987,7 @@ final class ComponentGenerator
     final TypeName parameterType =
       memoize.getMethod().getTypeParameters().isEmpty() ?
       TypeName.get( memoize.getMethodType().getReturnType() ).box() :
-      WildcardTypeName.subtypeOf( TypeName.OBJECT );
+      WildcardTypeName.subtypeOf( OBJECT );
     final FieldSpec.Builder field =
       FieldSpec.builder( ParameterizedTypeName.get( MEMOIZE_CACHE_CLASSNAME, parameterType ),
                          getMemoizeFieldName( memoize ),
@@ -3161,7 +3162,7 @@ final class ComponentGenerator
       }
       first = false;
       final TypeName contextParameterJavaType = TypeName.get( contextParameter.initialValueType() );
-      if ( contextParameterJavaType.equals( TypeName.OBJECT ) )
+      if ( contextParameterJavaType.equals( OBJECT ) )
       {
         sb.append( "args[ " ).append( index ).append( " ]" );
       }
@@ -3179,7 +3180,7 @@ final class ComponentGenerator
         sb.append( ", " );
       }
       first = false;
-      if ( TypeName.get( arg ).equals( TypeName.OBJECT ) )
+      if ( TypeName.get( arg ).equals( OBJECT ) )
       {
         sb.append( "args[ " ).append( index ).append( " ]" );
       }
@@ -4375,7 +4376,7 @@ final class ComponentGenerator
       final ObservableDescriptor observable = inverse.getObservable();
       final ParameterizedTypeName typeName =
         (ParameterizedTypeName) TypeName.get( observable.getGetter().getReturnType() );
-      final boolean isList = List.class.getName().equals( typeName.rawType.toString() );
+      final boolean isList = List.class.getName().equals( typeName.rawType().toString() );
       builder.addStatement( "this.$N = new $T<>()",
                             observable.getDataFieldName(),
                             isList ? ArrayList.class : HashSet.class );

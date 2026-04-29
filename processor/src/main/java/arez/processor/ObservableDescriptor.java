@@ -1,8 +1,8 @@
 package arez.processor;
 
-import com.squareup.javapoet.ParameterizedTypeName;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.WildcardTypeName;
+import com.palantir.javapoet.ParameterizedTypeName;
+import com.palantir.javapoet.TypeName;
+import com.palantir.javapoet.WildcardTypeName;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -420,7 +420,7 @@ final class ObservableDescriptor
       final TypeName typeName = TypeName.get( refMethod.getMethodType().getReturnType() );
       if ( typeName instanceof final ParameterizedTypeName parameterizedTypeName )
       {
-        final TypeName expectedType = parameterizedTypeName.typeArguments.get( 0 );
+        final TypeName expectedType = parameterizedTypeName.typeArguments().get( 0 );
         if ( !( expectedType instanceof WildcardTypeName ) )
         {
           assert null != _getterType;
