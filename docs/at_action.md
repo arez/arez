@@ -10,7 +10,10 @@ is `true` or `false`. By default actions use read-write transactions.
 The annotation also defines parameters that control the name of the action and whether the methods parameters
 are logged during development mode. See the {@link: arez.annotations.Action @Action} API documentation for further details.
 Use {@link: arez.annotations.Action#skipIfDisposed @Action.skipIfDisposed} to skip an action when the owning component
-is disposing or disposed; the action must be void and the skip emits a spy event.
+is disposing or disposed; the action must be void and the skip emits a spy event. The parameter is of type
+{@link: arez.annotations.Feature Feature}. If it is left as `AUTODETECT` then it inherits from
+{@link: arez.annotations.ArezComponent#defaultSkipIfDisposed() @ArezComponent.defaultSkipIfDisposed}, and if the
+component default is also `AUTODETECT` then the effective behavior is `DISABLE`.
 
 Actions are usually invoked in response to an event in the system, whether that been in response to a user
 action or a network response.

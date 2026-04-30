@@ -10,9 +10,6 @@ complete as there is too much un-said.
 
 * Change `@ArezComponent.service` to `@ArezComponent.kind` and give it possible values of `SERVICE`, `ENTITY` and `COMPONENT` which change the defaults on the component. Alternatively support alternative annotations such as `@Component`, `@Entity` and `@Service`
 
-* Add `@ArezComponent.defaultSkipIfDisposed`
-  * Change react to set it to true for views, warn if explicitly set to true
-
 * Figure out how services and `@ComponentDependency` can be used together. Should services not be allowed to have `@ComponentDependency`s? (The reasoning is that the injector manages service lifecycle)
 
 * Add a compiler error if we have a service=true on non-private field? (Is this not done?)

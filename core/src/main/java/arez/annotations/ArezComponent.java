@@ -190,4 +190,14 @@ public @interface ArezComponent
    * @return The flag indicating whether the default is to allow writes outside a transaction or to require a transaction to write observables values.
    */
   Feature defaultWriteOutsideTransaction() default Feature.AUTODETECT;
+
+  /**
+   * The default value for the skipIfDisposed parameter of {@link Action} annotated methods.
+   * If an action has {@link Action#skipIfDisposed()} set to {@link Feature#AUTODETECT} then this parameter
+   * is consulted. If this parameter is also {@link Feature#AUTODETECT} then it is treated as
+   * {@link Feature#DISABLE}.
+   *
+   * @return The flag indicating whether the default is to skip actions after the owning component begins disposal.
+   */
+  Feature defaultSkipIfDisposed() default Feature.AUTODETECT;
 }

@@ -4,10 +4,10 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 
-@ArezComponent
-public abstract class SkipIfDisposedActionModel
+@ArezComponent( defaultSkipIfDisposed = Feature.ENABLE )
+public abstract class SkipIfDisposedDisabledOverrideActionModel
 {
-  @Action( skipIfDisposed = Feature.ENABLE )
+  @Action( skipIfDisposed = Feature.DISABLE )
   public void doStuff( final long time )
   {
   }

@@ -1135,6 +1135,16 @@ public final class ArezProcessor
         suppressedBy( Constants.WARNING_UNNECESSARY_DEFAULT );
       warning( message, element );
     }
+    if ( null != component.getDeclaredDefaultSkipIfDisposed() &&
+         component.getActions().isEmpty() &&
+         isWarningNotSuppressed( element, Constants.WARNING_UNNECESSARY_DEFAULT ) )
+    {
+      final String message =
+        "@ArezComponent target has specified a value for the defaultSkipIfDisposed parameter but does not " +
+        "contain any methods annotated with @Action. " +
+        suppressedBy( Constants.WARNING_UNNECESSARY_DEFAULT );
+      warning( message, element );
+    }
   }
 
   private void processCascadeDisposeFields( @Nonnull final ComponentDescriptor component )
@@ -1444,7 +1454,7 @@ public final class ArezProcessor
     final boolean reportParameters = AnnotationsUtil.getAnnotationValueValue( annotation, "reportParameters" );
     final boolean reportResult = AnnotationsUtil.getAnnotationValueValue( annotation, "reportResult" );
     final boolean verifyRequired = AnnotationsUtil.getAnnotationValueValue( annotation, "verifyRequired" );
-    final boolean skipIfDisposed = AnnotationsUtil.getAnnotationValueValue( annotation, "skipIfDisposed" );
+    final boolean skipIfDisposed = isSkipIfDisposed( component, annotation );
     if ( !reportParameters && method.getParameters().isEmpty() )
     {
       throw new ProcessorException( "@Action target must not specify reportParameters parameter " +
@@ -1452,7 +1462,8 @@ public final class ArezProcessor
     }
     if ( skipIfDisposed && TypeKind.VOID != methodType.getReturnType().getKind() )
     {
-      throw new ProcessorException( "@Action target must not return a value when skipIfDisposed=true", method );
+      throw new ProcessorException( "@Action target must not return a value when skipIfDisposed resolves to ENABLE",
+                                    method );
     }
     final ActionDescriptor action =
       new ActionDescriptor( component,
@@ -2727,6 +2738,8 @@ public final class ArezProcessor
       AnnotationsUtil.findAnnotationValueNoDefaults( arezComponent, "defaultReadOutsideTransaction" );
     final var defaultWriteOutsideTransaction =
       AnnotationsUtil.findAnnotationValueNoDefaults( arezComponent, "defaultWriteOutsideTransaction" );
+    final var defaultSkipIfDisposed =
+      AnnotationsUtil.findAnnotationValueNoDefaults( arezComponent, "defaultSkipIfDisposed" );
 
     final var requireEquals = isEqualsRequired( arezComponent );
     final var requireVerify = isVerifyRequired( arezComponent, typeElement );
@@ -2840,6 +2853,10 @@ public final class ArezProcessor
       null == defaultWriteOutsideTransaction ?
       null :
       ( (VariableElement) defaultWriteOutsideTransaction.getValue() ).getSimpleName().toString();
+    final var defaultSkipIfDisposedValue =
+      null == defaultSkipIfDisposed ?
+      null :
+      ( (VariableElement) defaultSkipIfDisposed.getValue() ).getSimpleName().toString();
 
     final var descriptor =
       new ComponentDescriptor( name,
@@ -2853,7 +2870,8 @@ public final class ArezProcessor
                                generateToString,
                                typeElement,
                                defaultReadOutsideTransactionValue,
-                               defaultWriteOutsideTransactionValue );
+                               defaultWriteOutsideTransactionValue,
+                               defaultSkipIfDisposedValue );
 
     processObservableInitialFields( descriptor, fields );
     analyzeCandidateMethods( descriptor, methods, processingEnv.getTypeUtils() );
@@ -4089,6 +4107,18 @@ public final class ArezProcessor
       case "DISABLE" -> false;
       default -> ElementsUtil.getMethods( typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils() ).
         stream().anyMatch( this::hasReferenceAnnotations );
+    };
+  }
+
+  private boolean isSkipIfDisposed( @Nonnull final ComponentDescriptor component,
+                                    @Nonnull final AnnotationMirror action )
+  {
+    final VariableElement parameter = getAnnotationParameter( action, "skipIfDisposed" );
+    return switch ( parameter.getSimpleName().toString() )
+    {
+      case "ENABLE" -> true;
+      case "DISABLE" -> false;
+      default -> component.defaultSkipIfDisposed();
     };
   }
 

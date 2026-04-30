@@ -95,6 +95,8 @@ final class ComponentDescriptor
   private final String _defaultReadOutsideTransaction;
   @Nullable
   private final String _defaultWriteOutsideTransaction;
+  @Nullable
+  private final String _defaultSkipIfDisposed;
 
   ComponentDescriptor( @Nonnull final String name,
                        @Nullable final Priority defaultPriority,
@@ -107,7 +109,8 @@ final class ComponentDescriptor
                        final boolean generateToString,
                        @Nonnull final TypeElement element,
                        @Nullable final String defaultReadOutsideTransaction,
-                       @Nullable final String defaultWriteOutsideTransaction )
+                       @Nullable final String defaultWriteOutsideTransaction,
+                       @Nullable final String defaultSkipIfDisposed )
   {
     _name = Objects.requireNonNull( name );
     _defaultPriority = defaultPriority;
@@ -121,6 +124,7 @@ final class ComponentDescriptor
     _element = Objects.requireNonNull( element );
     _defaultReadOutsideTransaction = defaultReadOutsideTransaction;
     _defaultWriteOutsideTransaction = defaultWriteOutsideTransaction;
+    _defaultSkipIfDisposed = defaultSkipIfDisposed;
   }
 
   @Nonnull
@@ -204,6 +208,11 @@ final class ComponentDescriptor
     return "ENABLE".equals( _defaultWriteOutsideTransaction );
   }
 
+  boolean defaultSkipIfDisposed()
+  {
+    return "ENABLE".equals( _defaultSkipIfDisposed );
+  }
+
   @Nullable
   String getDeclaredDefaultReadOutsideTransaction()
   {
@@ -214,6 +223,12 @@ final class ComponentDescriptor
   String getDeclaredDefaultWriteOutsideTransaction()
   {
     return _defaultWriteOutsideTransaction;
+  }
+
+  @Nullable
+  String getDeclaredDefaultSkipIfDisposed()
+  {
+    return _defaultSkipIfDisposed;
   }
 
   @Nonnull

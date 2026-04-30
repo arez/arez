@@ -2,6 +2,10 @@
 
 ### Unreleased
 
+* Add `@ArezComponent.defaultSkipIfDisposed` and change `@Action.skipIfDisposed` from `boolean` to `Feature`, with `@Action(skipIfDisposed = AUTODETECT)` inheriting the component default and `@ArezComponent(defaultSkipIfDisposed = AUTODETECT)` resolving to `DISABLE`.
+* Apply `skipIfDisposed` validation after resolving the effective value, including inherited component defaults, so actions that effectively enable skip-on-dispose must be `void`.
+* Warn when `@ArezComponent.defaultSkipIfDisposed` is specified on a component that declares no `@Action` methods.
+
 ### [v0.240](https://github.com/arez/arez/tree/v0.240) (2026-04-29) · [Full Changelog](https://github.com/arez/arez/compare/v0.239...v0.240)
 
 Changes in this release:

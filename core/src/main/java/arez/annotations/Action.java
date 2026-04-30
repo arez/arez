@@ -77,12 +77,13 @@ public @interface Action
   boolean verifyRequired() default true;
 
   /**
-   * True if the action will be skipped if the owning component is disposed. The default is false, in which case an
-   * invariant will verify that the action is not called on a disposed component. If this parameter is true, then
-   * the action must be a void method.
+   * Flag indicating whether the action will be skipped if the owning component is disposing or disposed.
+   * If set to {@link Feature#AUTODETECT} then the value is inherited from the
+   * {@link ArezComponent#defaultSkipIfDisposed()} parameter on the containing component. If that value is also
+   * {@link Feature#AUTODETECT} then the effective value is treated as {@link Feature#DISABLE}. If the effective
+   * value is {@link Feature#ENABLE} then the action must be a void method.
    *
-   * @return true if the action will be skipped if the owning component is disposed, false if the component must not
-   * be disposed.
+   * @return the flag indicating whether the action will be skipped if the owning component is disposing or disposed.
    */
-  boolean skipIfDisposed() default false;
+  Feature skipIfDisposed() default Feature.AUTODETECT;
 }

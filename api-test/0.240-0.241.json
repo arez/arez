@@ -1,0 +1,57 @@
+[
+  {
+    "code": "java.method.defaultValueChanged",
+    "description": "Default value of attribute 'skipIfDisposed' of annotation 'arez.annotations.Action' changed value from 'false' to 'arez.annotations.Feature.AUTODETECT'.",
+    "newElement": "method arez.annotations.Feature arez.annotations.Action::skipIfDisposed()",
+    "oldElement": "method boolean arez.annotations.Action::skipIfDisposed()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.Action",
+      "classSimpleName": "Action",
+      "elementKind": "method",
+      "methodName": "skipIfDisposed",
+      "newValue": "arez.annotations.Feature.AUTODETECT",
+      "oldValue": "false",
+      "package": "arez.annotations"
+    }
+  },
+  {
+    "code": "java.method.returnTypeChanged",
+    "description": "The return type changed from 'boolean' to  'arez.annotations.Feature'.",
+    "newElement": "method arez.annotations.Feature arez.annotations.Action::skipIfDisposed()",
+    "oldElement": "method boolean arez.annotations.Action::skipIfDisposed()",
+    "classification": {
+      "SOURCE": "POTENTIALLY_BREAKING",
+      "BINARY": "BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.Action",
+      "classSimpleName": "Action",
+      "elementKind": "method",
+      "methodName": "skipIfDisposed",
+      "newType": "arez.annotations.Feature",
+      "oldType": "boolean",
+      "package": "arez.annotations"
+    }
+  },
+  {
+    "code": "java.method.attributeWithDefaultAddedToAnnotationType",
+    "description": "The annotation has a new attribute with a default value.",
+    "newElement": "method arez.annotations.Feature arez.annotations.ArezComponent::defaultSkipIfDisposed()",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.ArezComponent",
+      "classSimpleName": "ArezComponent",
+      "elementKind": "method",
+      "methodName": "defaultSkipIfDisposed",
+      "package": "arez.annotations"
+    }
+  }
+]
