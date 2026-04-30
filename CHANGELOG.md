@@ -1,6 +1,10 @@
 # Change Log
 
-### Unreleased
+### [v0.241](https://github.com/arez/arez/tree/v0.241) (2026-04-30) · [Full Changelog](https://github.com/arez/arez/compare/v0.240...v0.241) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.240&new=0.241)
+
+The release includes 2 non breaking API changes and 1 potentially breaking API change.
+
+Changes in this release:
 
 * Add `@ArezComponent.defaultSkipIfDisposed` and change `@Action.skipIfDisposed` from `boolean` to `Feature`, with `@Action(skipIfDisposed = AUTODETECT)` inheriting the component default and `@ArezComponent(defaultSkipIfDisposed = AUTODETECT)` resolving to `DISABLE`.
 * Apply `skipIfDisposed` validation after resolving the effective value, including inherited component defaults, so actions that effectively enable skip-on-dispose must be `void`.
