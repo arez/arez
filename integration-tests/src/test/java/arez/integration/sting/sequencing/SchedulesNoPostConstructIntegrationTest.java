@@ -54,7 +54,7 @@ public final class SchedulesNoPostConstructIntegrationTest
     }
   }
 
-  @Injector( includes = MyComponent.class )
+  @Injector( includes = MyComponent.class, fragmentOnly = false )
   interface MyInjector
   {
     MyComponent component1();
@@ -70,7 +70,7 @@ public final class SchedulesNoPostConstructIntegrationTest
   {
     final MyInjector injector = MyInjector.create();
     assertEquals( String.join( "\n", _events ), "" );
-    injector.component1();
+    assertNotNull( injector.component1() );
     assertEquals( String.join( "\n", _events ),
                   "MyDependency()\n" +
                   "MyComponent()\n" +

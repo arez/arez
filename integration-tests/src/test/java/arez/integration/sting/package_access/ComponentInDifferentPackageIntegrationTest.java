@@ -9,7 +9,7 @@ import static org.testng.Assert.*;
 public final class ComponentInDifferentPackageIntegrationTest
   extends AbstractArezIntegrationTest
 {
-  @Injector( includes = TestComponent2.class )
+  @Injector( includes = TestComponent2.class, fragmentOnly = false )
   interface MyInjector
   {
     TestComponent2 getTestComponent2();

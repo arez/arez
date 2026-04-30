@@ -62,7 +62,7 @@ public final class SchedulesPostConstructIntegrationTest
     }
   }
 
-  @Injector( includes = MyComponent.class )
+  @Injector( includes = MyComponent.class, fragmentOnly = false )
   interface MyInjector
   {
     MyComponent component1();

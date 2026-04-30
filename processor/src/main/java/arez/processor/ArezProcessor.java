@@ -2794,13 +2794,6 @@ public final class ArezProcessor
                                                           Constants.STING_NAMED ),
                                     typeElement );
     }
-    else if ( !sting && AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_CONTRIBUTE_TO ) )
-    {
-      throw new ProcessorException( MemberChecks.mustNot( Constants.COMPONENT_CLASSNAME,
-                                                          "disable sting integration and be annotated with " +
-                                                          Constants.STING_CONTRIBUTE_TO ),
-                                    typeElement );
-    }
     else if ( !observableFlag && disposeOnDeactivate )
     {
       throw new ProcessorException( "@ArezComponent target has specified observable = DISABLE and " +
@@ -4078,8 +4071,7 @@ public final class ArezProcessor
     {
       case "ENABLE" -> true;
       case "DISABLE" -> false;
-      default -> AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_CONTRIBUTE_TO ) ||
-                 AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_TYPED ) ||
+      default -> AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_TYPED ) ||
                  AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_NAMED ) ||
                  AnnotationsUtil.hasAnnotationOfType( typeElement, Constants.STING_EAGER );
     };

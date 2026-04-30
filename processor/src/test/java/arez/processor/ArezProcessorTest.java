@@ -1262,44 +1262,6 @@ public final class ArezProcessorTest
   }
 
   @Test
-  public void processSuccessfulServiceViaContributeToStingModel()
-    throws Exception
-  {
-    final String pkg = "com.example.sting.autofragment";
-
-    final List<JavaFileObject> inputs =
-      inputs( pkg + ".ServiceViaContributeToStingModel",
-              pkg + ".MyAutoFragment",
-
-              // The following input exists so that the synthesizing processor has types to "process"
-              pkg + ".MyFramework",
-              pkg + ".MyFrameworkModel" );
-
-    // This one is just used to keep synthesizer running
-    final Processor synthesizingProcessor1 =
-      newSynthesizingProcessor( "input", pkg + ".MyFrameworkModelImpl", 1 );
-    // this synthesizer produces java file that we are using in test
-    final Processor synthesizingProcessor2 =
-      newSynthesizingProcessor( "input", pkg + ".OtherModel", 2 );
-
-    final Compilation compilation =
-      CompileTestUtil.compile( inputs,
-                               getOptions(),
-                               Arrays.asList( synthesizingProcessor1, synthesizingProcessor2, processor() ),
-                               Collections.emptyList() );
-    outputFilesIfEnabled( compilation,
-                          compilation
-                            .sourceOutputFilenames()
-                            .stream()
-                            .filter( f ->
-                                       !f.endsWith( "OtherModel.java" ) &&
-                                       !f.endsWith( "MyFrameworkModelImpl.java" ) )
-                            .toList(),
-                          compilation.classOutputFilenames().stream().filter( this::emitGeneratedFile ).toList() );
-    assertCompilationSuccessful( compilation );
-  }
-
-  @Test
   public void processSuccessfulNestedCompile()
     throws Exception
   {
@@ -2227,8 +2189,6 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.observable.ObservableInitialMissingNonnullMethodModel",
                       "@ObservableInitial target defined observable named 'name' but the initializer is not annotated with @javax.annotation.Nonnull" },
 
-        new Object[]{ "com.example.sting.ContributeToButNoStingModel",
-                      "@ArezComponent target must not disable sting integration and be annotated with sting.ContributeTo" },
         new Object[]{ "com.example.sting.EagerButNoStingModel",
                       "@ArezComponent target must not disable sting integration and be annotated with sting.Eager" },
         new Object[]{ "com.example.sting.NamedArgButNoStingModel",

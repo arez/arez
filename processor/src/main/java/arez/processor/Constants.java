@@ -101,8 +101,6 @@ final class Constants
   @Nonnull
   static final String STING_INJECTOR = "sting.Injector";
   @Nonnull
-  static final String STING_CONTRIBUTE_TO = "sting.ContributeTo";
-  @Nonnull
   static final String STING_NAMED = "sting.Named";
   @Nonnull
   static final String STING_EAGER = "sting.Eager";

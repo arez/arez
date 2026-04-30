@@ -24,7 +24,7 @@ public final class StingInjectorIntegrationTest
     abstract void setValue( String value );
   }
 
-  @Injector( includes = TestComponent.class )
+  @Injector( includes = TestComponent.class, fragmentOnly = false )
   interface MyInjector
   {
     TestComponent component();

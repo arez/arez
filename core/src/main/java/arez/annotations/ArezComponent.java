@@ -40,6 +40,8 @@ import javax.annotation.Nonnull;
 @Documented
 @Target( ElementType.TYPE )
 @StingProvider( "[FlatEnclosingName]Arez_[SimpleName]" )
+@ActAsStingConsumer
+@ActAsStingProvider
 public @interface ArezComponent
 {
   /**
