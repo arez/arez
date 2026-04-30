@@ -41,43 +41,6 @@ class MyComponentFactory
 }
 ```
 
-We could also speccreate a factory interface like:
-
-```java
-class MyComponent
-{
-  @AutoFactory
-  MyComponent(SomeService someService, int someParameter) {...}
-
-  interface Factory
-  {
-    @Nonnull MyComponent create(int someParameter);
-  }
-}
-```
-
-This would result in much less boilerplate when many services are currently passed just so we can create subobjects (ie the following only needs `scope`, `criteria` and `dateRange` to be passed in.)
-
-```java
- _advancedResourceSearchService =
-    AdvancedResourceSearchService.create( scope,
-                                          authClientService,
-                                          inspectorService,
-                                          routerService,
-                                          attributePermissionClientService,
-                                          allowedAttributeTypeLikeClientService,
-                                          attributeLikeClientService,
-                                          resourceTypeRepository,
-                                          resourceClientService,
-                                          resourcesService,
-                                          resourceRepository,
-                                          messagingClientService,
-                                          iconOverlayClientService,
-                                          operationsClientService,
-                                          null,
-                                          dateRange() );
-```
-
 * Remove `BuildOutputTest` by pushing the grim tests into downstream projects that always verify they meet
   expectations. This is easier to maintain and makes it possible to verify each variant we build with all
   grim-compatible libraries. We could easily add a test to arez that just built `raw` branch of `react4j-todomvc`
