@@ -10,11 +10,9 @@ complete as there is too much un-said.
 
 * Change `@ArezComponent.service` to `@ArezComponent.kind` and give it possible values of `SERVICE`, `ENTITY` and `COMPONENT` which change the defaults on the component. Alternatively support alternative annotations such as `@Component`, `@Entity` and `@Service`
 
-* Figure out how services and `@ComponentDependency` can be used together. Should services not be allowed to have `@ComponentDependency`s? (The reasoning is that the injector manages service lifecycle)
+* Should `@ComponentDependency` be omitted if the dependency is a service? (injector manages the service and expected to keep it alive for the duration of the component). If this is so then the field must also be private.
 
 * reportParameters = false should use Feature flag and class level defaults
-
-* Add a compiler error if we have a service=true on non-private field? (Is this not done?)
 
 * Update arez/react4j so that we auto-create factory objects. Constructor parameters are either "injected" (if they are services) or passed in (in which case they are part of generated factory class). We could potentially override injected/passed in decision with a new annotation. This would allow us to write a lot less boilerplate ala:
 
