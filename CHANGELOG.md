@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.243](https://github.com/arez/arez/tree/v0.243) (2026-05-06) · [Full Changelog](https://github.com/arez/arez/compare/v0.242...v0.243)
+
+Changes in this release:
 
 * Avoid checking non-declared type during unmanaged observable-reference analysis.
 * Update the `org.realityforge.proton` artifacts to version `0.70`.
