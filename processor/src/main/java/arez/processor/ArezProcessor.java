@@ -3961,14 +3961,15 @@ public final class ArezProcessor
         if ( SuperficialValidation.validateElement( processingEnv, getter ) )
         {
           final var returnType = getter.getReturnType();
-          final var returnElement = processingEnv.getTypeUtils().asElement( returnType );
+          final var returnElement = TypeKind.DECLARED == returnType.getKind() ? asTypeElement( returnType ) : null;
           final var isDisposeNotifier = isAssignable( returnType, disposeNotifier );
           final var isTypeAnnotatedByComponentAnnotation =
-            !isDisposeNotifier && isElementAnnotatedBy( returnElement, Constants.COMPONENT_CLASSNAME );
+            !isDisposeNotifier && null != returnElement && isArezComponentAnnotated( returnElement );
           final var isTypeAnnotatedArezComponentLike =
             !isDisposeNotifier &&
             !isTypeAnnotatedByComponentAnnotation &&
-            returnElement instanceof TypeElement && isArezComponentLikeAnnotated( (TypeElement) returnElement );
+            null != returnElement &&
+            isArezComponentLikeAnnotated( returnElement );
           if ( isDisposeNotifier || isTypeAnnotatedByComponentAnnotation || isTypeAnnotatedArezComponentLike )
           {
             if ( !descriptor.isDependencyDefined( getter ) &&
@@ -3976,7 +3977,7 @@ public final class ArezProcessor
                  !descriptor.isAutoObserveDefined( getter ) &&
                  ( isDisposeNotifier ||
                    isTypeAnnotatedArezComponentLike ||
-                   verifyReferencesToComponent( (TypeElement) returnElement ) ) &&
+                   verifyReferencesToComponent( returnElement ) ) &&
                  isUnmanagedComponentReferenceNotSuppressed( getter ) &&
                  ( observable.hasSetter() && isUnmanagedComponentReferenceNotSuppressed( observable.getSetter() ) ) )
             {

@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Avoid checking non-declared type during unmanaged observable-reference analysis.
+
 ### [v0.242](https://github.com/arez/arez/tree/v0.242) (2026-04-30) · [Full Changelog](https://github.com/arez/arez/compare/v0.241...v0.242) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.241&new=0.242)
 
 Changes in this release:
