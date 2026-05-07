@@ -334,6 +334,7 @@ final class ComponentGenerator
       builder.addMethod( buildAutoObserveMethod( component ) );
     }
     component.getActions().values().forEach( e -> builder.addMethod( buildAction( processingEnv, e ) ) );
+    component.getRequiresTransactions().forEach( e -> builder.addMethod( buildRequiresTransaction( processingEnv, e ) ) );
     component.getMemoizes().values().forEach( e -> buildMemoizeMethods( processingEnv, e, builder ) );
     component.getReferences().values().forEach( e -> buildReferenceMethods( processingEnv, e, builder ) );
     component.getInverses().values().forEach( e -> buildInverseMethods( e, builder ) );
@@ -794,6 +795,135 @@ final class ComponentGenerator
     {
       parameters.add( ACTION_FLAGS_CLASSNAME );
     }
+  }
+
+  @Nonnull
+  private static MethodSpec buildRequiresTransaction( @Nonnull final ProcessingEnvironment processingEnv,
+                                                      @Nonnull final RequiresTransactionDescriptor descriptor )
+    throws ProcessorException
+  {
+    final ExecutableElement executableElement = descriptor.getMethod();
+    final ComponentDescriptor component = descriptor.getComponent();
+    final MethodSpec.Builder method = overrideMethod( processingEnv, component.getElement(), executableElement );
+    final String methodName = executableElement.getSimpleName().toString();
+
+    generateNotDisposedInvariant( method, methodName );
+    generateRequiresTransactionInvariant( method, descriptor );
+
+    final StringBuilder statement = new StringBuilder();
+    final List<Object> parameters = new ArrayList<>();
+    if ( TypeKind.VOID != descriptor.getMethodType().getReturnType().getKind() )
+    {
+      statement.append( "return " );
+    }
+    if ( component.isClassType() )
+    {
+      statement.append( "super.$N(" );
+      parameters.add( executableElement.getSimpleName().toString() );
+    }
+    else
+    {
+      statement.append( "$T.super.$N(" );
+      parameters.add( component.getClassName() );
+      parameters.add( executableElement.getSimpleName().toString() );
+    }
+
+    boolean firstParam = true;
+    for ( final VariableElement parameter : executableElement.getParameters() )
+    {
+      if ( !firstParam )
+      {
+        statement.append( ", " );
+      }
+      firstParam = false;
+      statement.append( "$N" );
+      parameters.add( parameter.getSimpleName().toString() );
+    }
+    statement.append( ")" );
+
+    final List<? extends TypeMirror> thrownTypes = executableElement.getThrownTypes();
+    if ( thrownTypes.isEmpty() )
+    {
+      method.addStatement( statement.toString(), parameters.toArray() );
+    }
+    else
+    {
+      generateTryBlock( method, thrownTypes, b -> b.addStatement( statement.toString(), parameters.toArray() ) );
+    }
+    return method.build();
+  }
+
+  private static void generateRequiresTransactionInvariant( @Nonnull final MethodSpec.Builder builder,
+                                                            @Nonnull final RequiresTransactionDescriptor descriptor )
+  {
+    final String contextName = VARIABLE_PREFIX + "context";
+    final String methodName = descriptor.getMethod().getSimpleName().toString();
+    builder.beginControlFlow( "if ( $T.shouldCheckInvariants() )", AREZ_CLASSNAME );
+    builder.addStatement( "final $T $N = this.$N.getContext()", AREZ_CONTEXT_CLASSNAME, contextName, KERNEL_FIELD_NAME );
+    builder.addStatement(
+      "$T.invariant( $N::isTransactionActive, () -> \"Arez-0229: Method named '$N' invoked outside of a transaction on component type '$N'.\" )",
+      GUARDS_CLASSNAME,
+      contextName,
+      methodName,
+      descriptor.getComponent().getName() );
+    if ( !descriptor.isAnyMode() )
+    {
+      final String expectedMode = descriptor.getMode();
+      final String actualModeExpression =
+        "( " + contextName + ".isReadWriteTransactionActive() ? \"READ_WRITE\" : " +
+        contextName + ".isReadOnlyTransactionActive() ? \"READ_ONLY\" : \"UNKNOWN\" )";
+      if ( descriptor.isReadOnlyMode() )
+      {
+        builder.addStatement(
+          "$T.invariant( $N::isReadOnlyTransactionActive, () -> \"Arez-0230: Method named '$N' invoked with transaction mode \" + $L + \" but expected $L on component type '$N'.\" )",
+          GUARDS_CLASSNAME,
+          contextName,
+          methodName,
+          actualModeExpression,
+          expectedMode,
+          descriptor.getComponent().getName() );
+      }
+      else
+      {
+        builder.addStatement(
+          "$T.invariant( $N::isReadWriteTransactionActive, () -> \"Arez-0230: Method named '$N' invoked with transaction mode \" + $L + \" but expected $L on component type '$N'.\" )",
+          GUARDS_CLASSNAME,
+          contextName,
+          methodName,
+          actualModeExpression,
+          expectedMode,
+          descriptor.getComponent().getName() );
+      }
+    }
+    if ( !descriptor.isAnyTracking() )
+    {
+      final String expectedTracking = descriptor.getTracking();
+      final String actualTrackingExpression =
+        "( " + contextName + ".isTrackingTransactionActive() ? \"TRACKING\" : \"NON_TRACKING\" )";
+      if ( descriptor.isTrackingTransactionRequired() )
+      {
+        builder.addStatement(
+          "$T.invariant( $N::isTrackingTransactionActive, () -> \"Arez-0231: Method named '$N' invoked with transaction tracking state \" + $L + \" but expected $L on component type '$N'.\" )",
+          GUARDS_CLASSNAME,
+          contextName,
+          methodName,
+          actualTrackingExpression,
+          expectedTracking,
+          descriptor.getComponent().getName() );
+      }
+      else
+      {
+        builder.addStatement(
+          "$T.invariant( () -> !$N.isTrackingTransactionActive(), () -> \"Arez-0231: Method named '$N' invoked with transaction tracking state \" + $L + \" but expected $L on component type '$N'.\" )",
+          GUARDS_CLASSNAME,
+          contextName,
+          methodName,
+          actualTrackingExpression,
+          expectedTracking,
+          descriptor.getComponent().getName() );
+      }
+    }
+    builder.endControlFlow();
   }
 
   private static void buildCascadeDisposeDisposer( @Nonnull final CascadeDisposeDescriptor cascadeDisposable,
@@ -2224,6 +2354,7 @@ final class ComponentGenerator
   private static boolean autoObserveAlwaysTracksADependency( @Nonnull final AutoObserveDescriptor autoObserve )
   {
     final ReferenceDescriptor reference = autoObserve.getReference();
+    //noinspection RedundantIfStatement
     if ( null != autoObserve.getObservable() || ( null != reference && null != reference.getObservable() ) )
     {
       return true;

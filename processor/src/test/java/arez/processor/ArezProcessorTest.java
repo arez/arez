@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nonnull;
-import javax.annotation.processing.Processor;
 import javax.tools.JavaFileObject;
 import org.jetbrains.annotations.Contract;
 import org.realityforge.proton.qa.AbstractProcessorTest;
@@ -43,6 +42,8 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.action.ReadOnlyActionModel" },
         new Object[]{ "com.example.action.RequiresNewTxTypeActionModel" },
         new Object[]{ "com.example.action.RequiresTxTypeActionModel" },
+        new Object[]{ "com.example.requires_transaction.BasicRequiresTransactionModel" },
+        new Object[]{ "com.example.requires_transaction.ConstrainedRequiresTransactionModel" },
         new Object[]{ "com.example.action.BasicFunctionActionModel" },
         new Object[]{ "com.example.action.BasicActionModel" },
         new Object[]{ "com.example.cascade_dispose.ComponentCascadeDisposeModel" },
@@ -1286,6 +1287,31 @@ public final class ArezProcessorTest
   }
 
   @Test
+  public void processSuccessfulRequiresTransactionInheritedFromBaseClass()
+    throws Exception
+  {
+    final String classname = "com.example.requires_transaction.InheritedRequiresTransactionModel";
+    final String[] expectedOutputResources = deriveExpectedOutputs( classname );
+    final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
+    final JavaFileObject input2 =
+      fixture( "input/" + toFilename( "com.example.requires_transaction.BaseInheritedRequiresTransactionModel" ) );
+    assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
+  }
+
+  @Test
+  public void processSuccessfulRequiresTransactionSourcedFromInterfaceDefaultMethod()
+    throws Exception
+  {
+    final String classname = "com.example.requires_transaction.DefaultMethodRequiresTransactionModel";
+    final String[] expectedOutputResources = deriveExpectedOutputs( classname );
+    final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
+    final JavaFileObject input2 =
+      fixture( "input/" + toFilename( "com.example.requires_transaction.DefaultRequiresTransactionMethods" ) );
+    assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
+
+  }
+
+  @Test
   public void processSuccessfulWhereTypeResolvedInInheritanceHierarchy()
     throws Exception
   {
@@ -1399,6 +1425,22 @@ public final class ArezProcessorTest
                       "@Action target must not return a value when skipIfDisposed resolves to ENABLE" },
         new Object[]{ "com.example.action.SkipIfDisposedFromDefaultReturnsValueModel",
                       "@Action target must not return a value when skipIfDisposed resolves to ENABLE" },
+        new Object[]{ "com.example.requires_transaction.ActionAndRequiresTransactionModel",
+                      "Method can not be annotated with both @Action and @RequiresTransaction" },
+        new Object[]{ "com.example.requires_transaction.AbstractRequiresTransactionModel",
+                      "@RequiresTransaction target must not be abstract" },
+        new Object[]{ "com.example.requires_transaction.FinalRequiresTransactionModel",
+                      "@RequiresTransaction target must not be final" },
+        new Object[]{ "com.example.requires_transaction.ObserveAndRequiresTransactionModel",
+                      "Method can not be annotated with both @RequiresTransaction and @Observe" },
+        new Object[]{ "com.example.requires_transaction.MemoizeAndRequiresTransactionModel",
+                      "Method can not be annotated with both @RequiresTransaction and @Memoize" },
+        new Object[]{ "com.example.requires_transaction.PrivateRequiresTransactionModel",
+                      "@RequiresTransaction target must not be private" },
+        new Object[]{ "com.example.requires_transaction.PostConstructAndRequiresTransactionModel",
+                      "Method can not be annotated with both @RequiresTransaction and @PostConstruct" },
+        new Object[]{ "com.example.requires_transaction.StaticRequiresTransactionModel",
+                      "@RequiresTransaction target must not be static" },
 
         new Object[]{ "com.example.observe.ApplicationExecutorButNoOnDepsChangeModel",
                       "@Observe target defined parameter executor=EXTERNAL but does not specify an @OnDepsChange method." },
@@ -2244,6 +2286,8 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.misplaced_annotation.PreInverseRemoveOutsideArezTypeModel",
                       "PreInverseRemove" },
         new Object[]{ "com.example.misplaced_annotation.PostInverseAddOutsideArezTypeModel", "PostInverseAdd" },
+        new Object[]{ "com.example.misplaced_annotation.RequiresTransactionOutsideArezTypeModel",
+                      "RequiresTransaction" },
         new Object[]{ "com.example.misplaced_annotation.AutoObserveMethodOutsideArezTypeModel", "AutoObserve" },
         new Object[]{ "com.example.misplaced_annotation.AutoObserveFieldOutsideArezTypeModel", "AutoObserve" },
         new Object[]{ "com.example.misplaced_annotation.CascadeDisposeMethodOutsideArezTypeModel",
@@ -2586,7 +2630,8 @@ public final class ArezProcessorTest
         new Object[]{ "com.example.pre_inverse_remove.Suppressed1ProtectedAccessPreInverseRemoveModel" },
         new Object[]{ "com.example.pre_inverse_remove.Suppressed1PublicAccessPreInverseRemoveModel" },
         new Object[]{ "com.example.pre_inverse_remove.Suppressed2ProtectedAccessPreInverseRemoveModel" },
-        new Object[]{ "com.example.pre_inverse_remove.Suppressed2PublicAccessPreInverseRemoveModel" }
+        new Object[]{ "com.example.pre_inverse_remove.Suppressed2PublicAccessPreInverseRemoveModel" },
+        new Object[]{ "com.example.requires_transaction.AllowEmptyRequiresTransactionModel" }
       };
   }
 
@@ -2610,11 +2655,13 @@ public final class ArezProcessorTest
   }
 
   @DataProvider( name = "packageAccessElementInDifferentPackage" )
+  @Nonnull
   public Object[][] packageAccessElementInDifferentPackage()
   {
     return new Object[][]
       {
         new Object[]{ "Action", "Action" },
+        new Object[]{ "RequiresTransaction", "RequiresTransaction" },
         new Object[]{ "Observe", "Observe" },
         new Object[]{ "CascadeDispose", "CascadeDisposeMethod" },
         new Object[]{ "ComponentId", "ComponentId" },

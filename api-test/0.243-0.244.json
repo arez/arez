@@ -1,0 +1,47 @@
+[
+  {
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "@interface arez.annotations.RequiresTransaction",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.RequiresTransaction",
+      "classSimpleName": "RequiresTransaction",
+      "elementKind": "@interface",
+      "package": "arez.annotations"
+    }
+  },
+  {
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "enum arez.annotations.TrackingMode",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.TrackingMode",
+      "classSimpleName": "TrackingMode",
+      "elementKind": "enum",
+      "package": "arez.annotations"
+    }
+  },
+  {
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "enum arez.annotations.TransactionMode",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.annotations.TransactionMode",
+      "classSimpleName": "TransactionMode",
+      "elementKind": "enum",
+      "package": "arez.annotations"
+    }
+  }
+]

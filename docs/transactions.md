@@ -5,6 +5,8 @@ title: Transactions
 Transactions are a core component of an Arez application they are not directly exposed by the Arez API.
 Transactions are created when [actions](actions.md) are invoked, when [computable values](computable_values.md)
 are computed and when [observers](observers.md) are executed.
+Methods can also declare that they must be invoked from within an existing transaction via the
+[@RequiresTransaction](at_requires_transaction.md) annotation.
 
 ## Transaction Mode
 

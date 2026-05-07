@@ -96,6 +96,7 @@ public final class ArezProcessor
   @Nonnull
   private static final List<String> MISPLACED_USAGE_ANNOTATION_CLASSNAMES =
     Arrays.asList( Constants.ACTION_CLASSNAME,
+                   Constants.REQUIRES_TRANSACTION_CLASSNAME,
                    Constants.OBSERVE_CLASSNAME,
                    Constants.OBSERVABLE_CLASSNAME,
                    Constants.MEMOIZE_CLASSNAME,
@@ -126,6 +127,39 @@ public final class ArezProcessor
                    Constants.COMPONENT_DEPENDENCY_CLASSNAME,
                    Constants.OBSERVABLE_INITIAL_CLASSNAME,
                    Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME );
+  @Nonnull
+  private static final List<String> METHOD_ANNOTATIONS =
+    Arrays.asList( Constants.ACTION_CLASSNAME,
+                   Constants.REQUIRES_TRANSACTION_CLASSNAME,
+                   Constants.AUTO_OBSERVE_CLASSNAME,
+                   Constants.OBSERVE_CLASSNAME,
+                   Constants.ON_DEPS_CHANGE_CLASSNAME,
+                   Constants.OBSERVER_REF_CLASSNAME,
+                   Constants.OBSERVABLE_CLASSNAME,
+                   Constants.OBSERVABLE_INITIAL_CLASSNAME,
+                   Constants.OBSERVABLE_VALUE_REF_CLASSNAME,
+                   Constants.MEMOIZE_CLASSNAME,
+                   Constants.MEMOIZE_CONTEXT_PARAMETER_CLASSNAME,
+                   Constants.COMPUTABLE_VALUE_REF_CLASSNAME,
+                   Constants.COMPONENT_REF_CLASSNAME,
+                   Constants.COMPONENT_ID_CLASSNAME,
+                   Constants.COMPONENT_ID_REF_CLASSNAME,
+                   Constants.COMPONENT_NAME_REF_CLASSNAME,
+                   Constants.COMPONENT_TYPE_NAME_REF_CLASSNAME,
+                   Constants.COMPONENT_STATE_REF_CLASSNAME,
+                   Constants.CASCADE_DISPOSE_CLASSNAME,
+                   Constants.CONTEXT_REF_CLASSNAME,
+                   Constants.POST_CONSTRUCT_CLASSNAME,
+                   Constants.PRE_DISPOSE_CLASSNAME,
+                   Constants.POST_DISPOSE_CLASSNAME,
+                    Constants.REFERENCE_CLASSNAME,
+                    Constants.REFERENCE_ID_CLASSNAME,
+                   Constants.INVERSE_CLASSNAME,
+                   Constants.PRE_INVERSE_REMOVE_CLASSNAME,
+                   Constants.POST_INVERSE_ADD_CLASSNAME,
+                    Constants.ON_ACTIVATE_CLASSNAME,
+                    Constants.ON_DEACTIVATE_CLASSNAME,
+                    Constants.COMPONENT_DEPENDENCY_CLASSNAME );
   @Nonnull
   private static final Pattern ID_GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)Id$" );
   @Nonnull
@@ -945,45 +979,20 @@ public final class ArezProcessor
   private void verifyNoDuplicateAnnotations( @Nonnull final ExecutableElement method )
     throws ProcessorException
   {
-    final List<String> annotations =
-      Arrays.asList( Constants.ACTION_CLASSNAME,
-                     Constants.AUTO_OBSERVE_CLASSNAME,
-                     Constants.OBSERVE_CLASSNAME,
-                     Constants.ON_DEPS_CHANGE_CLASSNAME,
-                     Constants.OBSERVER_REF_CLASSNAME,
-                     Constants.OBSERVABLE_CLASSNAME,
-                     Constants.OBSERVABLE_INITIAL_CLASSNAME,
-                     Constants.OBSERVABLE_VALUE_REF_CLASSNAME,
-                     Constants.MEMOIZE_CLASSNAME,
-                     Constants.MEMOIZE_CONTEXT_PARAMETER_CLASSNAME,
-                     Constants.COMPUTABLE_VALUE_REF_CLASSNAME,
-                     Constants.COMPONENT_REF_CLASSNAME,
-                     Constants.COMPONENT_ID_CLASSNAME,
-                     Constants.COMPONENT_NAME_REF_CLASSNAME,
-                     Constants.COMPONENT_TYPE_NAME_REF_CLASSNAME,
-                     Constants.CASCADE_DISPOSE_CLASSNAME,
-                     Constants.CONTEXT_REF_CLASSNAME,
-                     Constants.POST_CONSTRUCT_CLASSNAME,
-                     Constants.PRE_DISPOSE_CLASSNAME,
-                     Constants.POST_DISPOSE_CLASSNAME,
-                     Constants.REFERENCE_CLASSNAME,
-                     Constants.REFERENCE_ID_CLASSNAME,
-                     Constants.ON_ACTIVATE_CLASSNAME,
-                     Constants.ON_DEACTIVATE_CLASSNAME,
-                     Constants.COMPONENT_DEPENDENCY_CLASSNAME );
     final Map<String, Collection<String>> exceptions = new HashMap<>();
     exceptions.put( Constants.OBSERVABLE_CLASSNAME,
                     Arrays.asList( Constants.COMPONENT_DEPENDENCY_CLASSNAME,
                                    Constants.CASCADE_DISPOSE_CLASSNAME,
                                    Constants.AUTO_OBSERVE_CLASSNAME,
-                                   Constants.REFERENCE_ID_CLASSNAME ) );
+                                   Constants.REFERENCE_ID_CLASSNAME,
+                                   Constants.INVERSE_CLASSNAME ) );
     exceptions.put( Constants.REFERENCE_CLASSNAME,
                     Arrays.asList( Constants.CASCADE_DISPOSE_CLASSNAME,
                                    Constants.AUTO_OBSERVE_CLASSNAME ) );
     exceptions.put( Constants.POST_CONSTRUCT_CLASSNAME,
                     Collections.singletonList( Constants.ACTION_CLASSNAME ) );
 
-    MemberChecks.verifyNoOverlappingAnnotations( method, annotations, exceptions );
+    MemberChecks.verifyNoOverlappingAnnotations( method, METHOD_ANNOTATIONS, exceptions );
   }
 
   private void verifyNoDuplicateAnnotations( @Nonnull final VariableElement field )
@@ -1477,6 +1486,26 @@ public final class ArezProcessor
                             method,
                             methodType );
     component.getActions().put( action.getName(), action );
+  }
+
+  private void addRequiresTransaction( @Nonnull final ComponentDescriptor component,
+                                       @Nonnull final AnnotationMirror annotation,
+                                       @Nonnull final ExecutableElement method,
+                                       @Nonnull final ExecutableType methodType )
+    throws ProcessorException
+  {
+    MemberChecks.mustBeWrappable( component.getElement(),
+                                  Constants.COMPONENT_CLASSNAME,
+                                  Constants.REQUIRES_TRANSACTION_CLASSNAME,
+                                  method );
+
+    final VariableElement mode = AnnotationsUtil.getAnnotationValueValue( annotation, "mode" );
+    final VariableElement tracking = AnnotationsUtil.getAnnotationValueValue( annotation, "tracking" );
+    component.getRequiresTransactions().add( new RequiresTransactionDescriptor( component,
+                                                                                mode.getSimpleName().toString(),
+                                                                                tracking.getSimpleName().toString(),
+                                                                                method,
+                                                                                methodType ) );
   }
 
   private void addObserve( @Nonnull final ComponentDescriptor component,
@@ -3271,6 +3300,8 @@ public final class ArezProcessor
     verifyNoDuplicateAnnotations( method );
 
     final var action = AnnotationsUtil.findAnnotationByType( method, Constants.ACTION_CLASSNAME );
+    final var requiresTransaction =
+      AnnotationsUtil.findAnnotationByType( method, Constants.REQUIRES_TRANSACTION_CLASSNAME );
     final var jaxWsAction = AnnotationsUtil.findAnnotationByType( method, Constants.JAX_WS_ACTION_CLASSNAME );
     final var observed = AnnotationsUtil.findAnnotationByType( method, Constants.OBSERVE_CLASSNAME );
     final var observable = AnnotationsUtil.findAnnotationByType( method, Constants.OBSERVABLE_CLASSNAME );
@@ -3347,6 +3378,11 @@ public final class ArezProcessor
         addPostConstruct( descriptor, method );
       }
       addAction( descriptor, action, method, methodType );
+      return true;
+    }
+    else if ( null != requiresTransaction )
+    {
+      addRequiresTransaction( descriptor, requiresTransaction, method, methodType );
       return true;
     }
     else if ( null != observed )

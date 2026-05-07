@@ -26,6 +26,7 @@
       "at_observable",
       "at_memoize",
       "at_action",
+      "at_requires_transaction",
       "at_observe",
       "at_component_dependency",
       "at_cascade_dispose",

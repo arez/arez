@@ -74,6 +74,8 @@ final class ComponentDescriptor
   @Nonnull
   private final Map<String, ActionDescriptor> _actions = new LinkedHashMap<>();
   @Nonnull
+  private final List<RequiresTransactionDescriptor> _requiresTransactions = new ArrayList<>();
+  @Nonnull
   private final Map<String, MemoizeContextParameterDescriptor> _memoizeContextParameters = new LinkedHashMap<>();
   @Nonnull
   private final Map<String, MemoizeDescriptor> _memoizes = new LinkedHashMap<>();
@@ -170,6 +172,7 @@ final class ComponentDescriptor
                                  .anyMatch( e -> ( null != e.getMethod() && isDeprecated( e.getMethod() ) ) ||
                                                  ( null != e.getField() && isDeprecated( e.getField() ) ) ) ||
                                getActions().values().stream().anyMatch( e -> isDeprecated( e.getAction() ) ) ||
+                               getRequiresTransactions().stream().anyMatch( e -> isDeprecated( e.getMethod() ) ) ||
                                getObserves().values()
                                  .stream()
                                  .anyMatch( e -> ( e.hasObserve() && isDeprecated( e.getMethod() ) ) ||
@@ -546,6 +549,12 @@ final class ComponentDescriptor
   Map<String, ActionDescriptor> getActions()
   {
     return _actions;
+  }
+
+  @Nonnull
+  List<RequiresTransactionDescriptor> getRequiresTransactions()
+  {
+    return _requiresTransactions;
   }
 
   @Nonnull

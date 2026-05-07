@@ -13,6 +13,8 @@ react to changes and produce side-effects.
 The {@link: arez.ArezContext#action(arez.Procedure) ArezContext.action(*)}
 methods are low-level primitives not designed to be directly used by Arez users and instead it is expected users
 will use constructs like the [@Action](at_action.md) annotation from the [component](components.md) framework.
+If you need a helper that must run inside an existing transaction but should not create or wrap one, use
+[@RequiresTransaction](at_requires_transaction.md) instead.
 
 There are four main variants of the action methods provided by Arez.
 

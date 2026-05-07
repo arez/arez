@@ -9,6 +9,8 @@ final class Constants
   @Nonnull
   static final String ACTION_CLASSNAME = "arez.annotations.Action";
   @Nonnull
+  static final String REQUIRES_TRANSACTION_CLASSNAME = "arez.annotations.RequiresTransaction";
+  @Nonnull
   static final String COMPONENT_CLASSNAME = "arez.annotations.ArezComponent";
   @Nonnull
   static final String ACT_AS_AREZ_COMPONENT_CLASSNAME = "arez.annotations.ActAsArezComponent";
