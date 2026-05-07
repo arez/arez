@@ -1128,20 +1128,5 @@
     "code": 228,
     "type": "INVARIANT",
     "messagePattern": "ArezContext.getTopLevelTasks() invoked when Arez.areRegistriesEnabled() returns false."
-  },
-  {
-    "code": 229,
-    "type": "INVARIANT",
-    "messagePattern": "Method named '%s' invoked outside of a transaction on component type '%s'."
-  },
-  {
-    "code": 230,
-    "type": "INVARIANT",
-    "messagePattern": "Method named '%s' invoked with transaction mode %s but expected %s on component type '%s'."
-  },
-  {
-    "code": 231,
-    "type": "INVARIANT",
-    "messagePattern": "Method named '%s' invoked with transaction tracking state %s but expected %s on component type '%s'."
   }
 ]
