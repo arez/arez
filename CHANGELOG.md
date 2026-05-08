@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.245](https://github.com/arez/arez/tree/v0.245) (2026-05-08) · [Full Changelog](https://github.com/arez/arez/compare/v0.244...v0.245)
+
+Changes in this release:
 
 * Ensure generated source is included in the `arez-persist-core` artifact.
 
