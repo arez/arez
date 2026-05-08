@@ -309,8 +309,6 @@ define 'arez' do
       pom.dependency_filter = Proc.new { |dep| deps.include?(dep[:artifact]) }
       project.doc.options.merge!('Xdoclint:all,-missing' => true)
 
-      compile.with deps
-
       compile.with deps,
                    project('processor').package(:jar),
                    project('processor').compile.dependencies
