@@ -1,9 +1,9 @@
 package arez.integration.requires_transaction;
 
+import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ArezTestUtil;
-import arez.ActionFlags;
 import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.RequiresTransaction;
@@ -22,7 +22,7 @@ import static org.testng.Assert.*;
 public final class RequiresTransactionIntegrationTest
   extends AbstractArezIntegrationTest
 {
-  @ArezComponent
+  @ArezComponent( allowEmpty = true )
   static abstract class NoTransactionComponent
   {
     int _callCount;
@@ -45,7 +45,7 @@ public final class RequiresTransactionIntegrationTest
     assertEquals( component._callCount, 0 );
   }
 
-  @ArezComponent
+  @ArezComponent( allowEmpty = true )
   static abstract class ReadOnlyComponent
   {
     int _callCount;
@@ -79,7 +79,7 @@ public final class RequiresTransactionIntegrationTest
     assertEquals( component._callCount, 1 );
   }
 
-  @ArezComponent
+  @ArezComponent( allowEmpty = true )
   static abstract class TrackingComponent
   {
     int _callCount;
@@ -109,13 +109,14 @@ public final class RequiresTransactionIntegrationTest
     final ArezContext context = Arez.context();
     final TrackingComponent component = new RequiresTransactionIntegrationTest_Arez_TrackingComponent();
     final Observer tracker =
-      context.tracker( "Tracker", () -> {}, Observer.Flags.AREZ_OR_NO_DEPENDENCIES );
+      context.tracker( "Tracker", () -> {
+      }, Observer.Flags.AREZ_OR_NO_DEPENDENCIES );
 
     assertEquals( context.observe( tracker, component::perform ).intValue(), 1 );
     assertEquals( component._callCount, 1 );
   }
 
-  @ArezComponent
+  @ArezComponent( allowEmpty = true )
   static abstract class SpyComponent
   {
     @RequiresTransaction
@@ -152,7 +153,7 @@ public final class RequiresTransactionIntegrationTest
     }
   }
 
-  @ArezComponent
+  @ArezComponent( allowEmpty = true )
   static abstract class InheritedComponent
     extends InheritedBase
   {
@@ -177,7 +178,7 @@ public final class RequiresTransactionIntegrationTest
     }
   }
 
-  @ArezComponent
+  @ArezComponent( allowEmpty = true )
   static abstract class DefaultMethodComponent
     implements DefaultRequiresTransactionMethods
   {
@@ -188,8 +189,8 @@ public final class RequiresTransactionIntegrationTest
   {
     final DefaultMethodComponent component = new RequiresTransactionIntegrationTest_Arez_DefaultMethodComponent();
     assertEquals( Arez.context()
-                       .safeAction( component::performDefault, ActionFlags.NO_VERIFY_ACTION_REQUIRED )
-                       .intValue(),
+                    .safeAction( component::performDefault, ActionFlags.NO_VERIFY_ACTION_REQUIRED )
+                    .intValue(),
                   7 );
   }
 }
