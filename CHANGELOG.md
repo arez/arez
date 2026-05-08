@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.246](https://github.com/arez/arez/tree/v0.246) (2026-05-08) · [Full Changelog](https://github.com/arez/arez/compare/v0.245...v0.246)
+
+Changes in this release:
 
 * Remove incorrect duplicate source packaging
 
