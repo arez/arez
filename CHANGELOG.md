@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Remove incorrect duplicate source packaging
+
 ### [v0.245](https://github.com/arez/arez/tree/v0.245) (2026-05-08) · [Full Changelog](https://github.com/arez/arez/compare/v0.244...v0.245)
 
 Changes in this release:

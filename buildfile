@@ -415,9 +415,7 @@ define 'arez' do
       gwt_enhance(project)
 
       package(:jar)
-      package(:sources).enhance do |jar|
-        jar.include(project._(:target, :generated, 'processors/main/java'))
-      end
+      package(:sources)
       package(:javadoc)
 
       test.using :testng
