@@ -402,6 +402,7 @@ define 'arez' do
                    project('arez:processor').compile.dependencies,
                    :grim_processor,
                    :javax_json
+      compile.options[:processor] = true
       test.compile.options[:processor] = true
 
       # The generators are configured to generate to here.
@@ -414,7 +415,9 @@ define 'arez' do
       gwt_enhance(project)
 
       package(:jar)
-      package(:sources)
+      package(:sources).enhance do |jar|
+        jar.include(project._(:target, :generated, 'processors/main/java'))
+      end
       package(:javadoc)
 
       test.using :testng
