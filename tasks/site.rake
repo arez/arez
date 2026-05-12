@@ -112,13 +112,7 @@ task 'site:deploy' => ['site:build'] do
   task('site:link_check').invoke
 
   # Only publish the site off the master branch if running out of Travis
-  if ENV['TRAVIS_BRANCH'].nil? || ENV['TRAVIS_BRANCH'] == 'master'
     origin_url = 'https://github.com/arez/arez.github.io.git'
-
-    travis_build_number = ENV['TRAVIS_BUILD_NUMBER']
-    if travis_build_number
-      origin_url = origin_url.gsub('https://github.com/', 'git@github.com:')
-    end
 
     local_dir = "#{WORKSPACE_DIR}/target/remote_site"
     rm_rf local_dir
@@ -129,15 +123,12 @@ task 'site:deploy' => ['site:build'] do
     excludes = []
 
     in_dir(local_dir) do
-      message = "Publish website#{travis_build_number.nil? ? '' : " - Travis build: #{travis_build_number}"}"
-
       rm_rf Dir["#{local_dir}/*"].select {|f| !excludes.include?(File.basename(f))}
       cp_r Dir["#{SITE_DIR}/*"], local_dir
       sh 'git add . -f'
       unless `git status -s`.strip.empty?
-        sh "git commit -m \"#{message}\""
+        sh "git commit -m \"Publish website\""
         sh 'git push -f origin master'
       end
-    end
   end
 end
