@@ -21,6 +21,22 @@ artifacts:
   javapoet: com.palantir.javapoet:javapoet:jar:0.14.0
   guava: com.google.guava:guava:jar:27.1-jre
 
+  palantir_java_format: com.palantir.javaformat:palantir-java-format:jar:2.92.0
+  palantir_java_format_spi: com.palantir.javaformat:palantir-java-format-spi:jar:2.92.0
+  palantir_java_format_guava: com.google.guava:guava:jar:33.6.0-jre
+  failureaccess: com.google.guava:failureaccess:jar:1.0.3
+  listenablefuture: com.google.guava:listenablefuture:jar:9999.0-empty-to-avoid-conflict-with-guava
+  jspecify: org.jspecify:jspecify:jar:1.0.0
+  error_prone_annotations: com.google.errorprone:error_prone_annotations:jar:2.49.0
+  j2objc_annotations: com.google.j2objc:j2objc-annotations:jar:3.1
+  functionaljava: org.functionaljava:functionaljava:jar:5.0
+  jackson_core: com.fasterxml.jackson.core:jackson-core:jar:2.21.1
+  jackson_databind: com.fasterxml.jackson.core:jackson-databind:jar:2.21.1
+  jackson_annotations: com.fasterxml.jackson.core:jackson-annotations:jar:2.21
+  jackson_datatype_jdk8: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:jar:2.21.1
+  jackson_datatype_guava: com.fasterxml.jackson.datatype:jackson-datatype-guava:jar:2.21.1
+  jackson_module_parameter_names: com.fasterxml.jackson.module:jackson-module-parameter-names:jar:2.21.1
+
   proton_core: org.realityforge.proton:proton-core:jar:0.70
   proton_qa: org.realityforge.proton:proton-qa:jar:0.70
 

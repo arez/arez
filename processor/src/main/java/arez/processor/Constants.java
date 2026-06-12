@@ -5,6 +5,10 @@ import javax.annotation.Nonnull;
 final class Constants
 {
   @Nonnull
+  static final String FORMAT_GENERATED_SOURCE_OPTION = "format_generated_source";
+  @Nonnull
+  static final String FORMAT_GENERATED_SOURCE_OPTION_KEY = "arez." + FORMAT_GENERATED_SOURCE_OPTION;
+  @Nonnull
   static final String SUPPRESS_AREZ_WARNINGS_CLASSNAME = "arez.annotations.SuppressArezWarnings";
   @Nonnull
   static final String ACTION_CLASSNAME = "arez.annotations.Action";

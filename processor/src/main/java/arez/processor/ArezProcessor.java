@@ -1,7 +1,10 @@
 package arez.processor;
 
+import com.palantir.javaformat.java.Formatter;
+import com.palantir.javapoet.JavaFile;
 import com.palantir.javapoet.ParameterizedTypeName;
 import com.palantir.javapoet.TypeName;
+import com.palantir.javapoet.TypeSpec;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,6 +65,7 @@ import static javax.tools.Diagnostic.Kind.*;
 @SupportedOptions( { "arez.defer.unresolved",
                      "arez.defer.errors",
                      "arez.debug",
+                     Constants.FORMAT_GENERATED_SOURCE_OPTION_KEY,
                      "arez.profile",
                      "arez.verbose_out_of_round.errors",
                      "arez.warnings_as_errors" } )
@@ -152,14 +156,14 @@ public final class ArezProcessor
                    Constants.POST_CONSTRUCT_CLASSNAME,
                    Constants.PRE_DISPOSE_CLASSNAME,
                    Constants.POST_DISPOSE_CLASSNAME,
-                    Constants.REFERENCE_CLASSNAME,
-                    Constants.REFERENCE_ID_CLASSNAME,
+                   Constants.REFERENCE_CLASSNAME,
+                   Constants.REFERENCE_ID_CLASSNAME,
                    Constants.INVERSE_CLASSNAME,
                    Constants.PRE_INVERSE_REMOVE_CLASSNAME,
                    Constants.POST_INVERSE_ADD_CLASSNAME,
-                    Constants.ON_ACTIVATE_CLASSNAME,
-                    Constants.ON_DEACTIVATE_CLASSNAME,
-                    Constants.COMPONENT_DEPENDENCY_CLASSNAME );
+                   Constants.ON_ACTIVATE_CLASSNAME,
+                   Constants.ON_DEACTIVATE_CLASSNAME,
+                   Constants.COMPONENT_DEPENDENCY_CLASSNAME );
   @Nonnull
   private static final Pattern ID_GETTER_PATTERN = Pattern.compile( "^get([A-Z].*)Id$" );
   @Nonnull
@@ -183,9 +187,27 @@ public final class ArezProcessor
   @Nonnull
   private static final Pattern PUSH_PATTERN = Pattern.compile( "^push([A-Z].*)" );
   @Nonnull
+  private static final String FORMAT_GENERATED_SOURCE_JDK_EXPORTS =
+    "--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED, " +
+    "--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED, " +
+    "--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED, " +
+    "--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED, " +
+    "--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED, " +
+    "--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED";
+  @Nonnull
   private final DeferredElementSet _deferredTypes = new DeferredElementSet();
   @Nonnull
   private final StopWatch _analyzeComponentStopWatch = new StopWatch( "Analyze Component" );
+  private boolean _formatGeneratedSource;
+  @Nullable
+  private Formatter _formatter;
+
+  @Override
+  public synchronized void init( @Nonnull final ProcessingEnvironment processingEnv )
+  {
+    super.init( processingEnv );
+    _formatGeneratedSource = readBooleanOption( Constants.FORMAT_GENERATED_SOURCE_OPTION, false );
+  }
 
   @Override
   @Nonnull
@@ -232,7 +254,92 @@ public final class ArezProcessor
     throws IOException, ProcessorException
   {
     final ComponentDescriptor descriptor = parse( element );
-    emitTypeSpec( descriptor.getPackageName(), ComponentGenerator.buildType( processingEnv, descriptor ) );
+    emitArezTypeSpec( descriptor.getPackageName(), ComponentGenerator.buildType( processingEnv, descriptor ) );
+  }
+
+  private void emitArezTypeSpec( @Nonnull final String packageName, @Nonnull final TypeSpec typeSpec )
+    throws IOException
+  {
+    final JavaFile javaFile =
+      JavaFile.builder( packageName, typeSpec ).
+        skipJavaLangImports( true ).
+        build();
+    if ( _formatGeneratedSource )
+    {
+      writeFormattedJavaFile( javaFile, formatSource( javaFile ) );
+    }
+    else
+    {
+      javaFile.writeTo( processingEnv.getFiler() );
+    }
+  }
+
+  @Nonnull
+  private String formatSource( @Nonnull final JavaFile javaFile )
+    throws IOException
+  {
+    try
+    {
+      return formatter().formatSource( javaFile.toString() );
+    }
+    catch ( final Throwable t )
+    {
+      throw newFormatterFailure( "format generated source", t );
+    }
+  }
+
+  @Nonnull
+  private Formatter formatter()
+    throws IOException
+  {
+    if ( null == _formatter )
+    {
+      try
+      {
+        _formatter = Formatter.create();
+      }
+      catch ( final Throwable t )
+      {
+        throw newFormatterFailure( "create source formatter", t );
+      }
+    }
+    return _formatter;
+  }
+
+  @Nonnull
+  private IOException newFormatterFailure( @Nonnull final String action, @Nonnull final Throwable cause )
+  {
+    return new IOException(
+      "Unable to " + action + " while " + Constants.FORMAT_GENERATED_SOURCE_OPTION_KEY + "=true. " +
+      "The opt-in formatter uses palantir-java-format and on JDK 16+ requires the JVM running javac " +
+      "and annotation processing to receive these module exports: " + FORMAT_GENERATED_SOURCE_JDK_EXPORTS + ".",
+      cause );
+  }
+
+  private void writeFormattedJavaFile( @Nonnull final JavaFile javaFile, @Nonnull final String formattedSource )
+    throws IOException
+  {
+    final var filer = processingEnv.getFiler();
+    final var typeSpec = javaFile.typeSpec();
+    final var packageName = javaFile.packageName();
+    final var fileName = packageName.isEmpty() ? typeSpec.name() : packageName + "." + typeSpec.name();
+    final var originatingElements = typeSpec.originatingElements();
+    final var filerSourceFile = filer.createSourceFile( fileName, originatingElements.toArray( new Element[ 0 ] ) );
+    try ( final var writer = filerSourceFile.openWriter() )
+    {
+      writer.write( formattedSource );
+    }
+    catch ( final Exception e )
+    {
+      try
+      {
+        filerSourceFile.delete();
+      }
+      catch ( final Exception ignored )
+      {
+      }
+      throw e;
+    }
   }
 
   private void detectMisplacedArezAnnotations( @Nonnull final RoundEnvironment env )

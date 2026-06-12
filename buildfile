@@ -9,6 +9,41 @@ Buildr::MavenCentral.define_publish_tasks(:profile_name => 'org.realityforge', :
 
 TEST_DEPS = [:guiceyloops]
 GWT_DEPS = [:akasha, :jsinterop_base]
+FORMATTER_DEPS =
+  [
+    :palantir_java_format,
+    :palantir_java_format_spi,
+    :palantir_java_format_guava,
+    :failureaccess,
+    :listenablefuture,
+    :jspecify,
+    :error_prone_annotations,
+    :j2objc_annotations,
+    :functionaljava,
+    :jackson_core,
+    :jackson_databind,
+    :jackson_annotations,
+    :jackson_datatype_jdk8,
+    :jackson_datatype_guava,
+    :jackson_module_parameter_names
+  ]
+FORMATTER_JDK_EXPORTS =
+  %w(
+    --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED
+    --add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED
+    --add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED
+    --add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED
+    --add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED
+    --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED
+  )
+
+def remove_jar_entries(jar, pattern)
+  Zip::File.open(jar.to_s) do |zip|
+    zip.entries.select { |entry| entry.name =~ pattern }.each do |entry|
+      zip.remove(entry)
+    end
+  end
+end
 
 # JDK options passed to test environment. Essentially turns assertions on.
 AREZ_TEST_OPTIONS =
@@ -107,7 +142,8 @@ define 'arez' do
 
     compile.with :javax_annotation,
                  :proton_core,
-                 :javapoet
+                 :javapoet,
+                 artifacts(*FORMATTER_DEPS)
 
     test.with :proton_qa,
               :sting_core,
@@ -125,20 +161,34 @@ define 'arez' do
     package(:jar).enhance do |jar|
       jar.merge(artifact(:javapoet))
       jar.merge(artifact(:proton_core))
+      artifacts(*FORMATTER_DEPS).each do |dependency|
+        jar.merge(dependency)
+      end
       jar.enhance do |f|
+        remove_jar_entries(f, %r{\AMETA-INF/versions/21(/|\z)})
         Buildr::Shade.shade(f,
                             f,
                             'com.palantir.javapoet' => 'arez.processor.vendor.javapoet',
-                            'org.realityforge.proton' => 'arez.processor.vendor.proton')
+                            'org.realityforge.proton' => 'arez.processor.vendor.proton',
+                            'com.palantir.javaformat' => 'arez.processor.vendor.javaformat',
+                            'com.google.common' => 'arez.processor.vendor.google.common',
+                            'com.google.thirdparty' => 'arez.processor.vendor.google.thirdparty',
+                            'com.google.errorprone' => 'arez.processor.vendor.google.errorprone',
+                            'com.google.j2objc' => 'arez.processor.vendor.google.j2objc',
+                            'org.jspecify' => 'arez.processor.vendor.jspecify',
+                            'fj' => 'arez.processor.vendor.fj',
+                            'com.fasterxml.jackson' => 'arez.processor.vendor.jackson')
       end
     end
 
     test.using :testng
     test.options[:properties] = { 'arez.fixture_dir' => _('src/test/fixtures') }
+    test.options[:java_args] = ['-ea'] + FORMATTER_JDK_EXPORTS
     test.compile.with TEST_DEPS
 
     iml.test_source_directories << _('src/test/fixtures/input')
     iml.test_source_directories << _('src/test/fixtures/expected')
+    iml.test_source_directories << _('src/test/fixtures/expectedFormatted')
     iml.test_source_directories << _('src/test/fixtures/bad_input')
   end
 
@@ -532,7 +582,7 @@ define 'arez' do
                                :jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=true -Darez.core.compile_target=../target/arez_core/idea/classes -Darez.check_diagnostic_messages=true -Darez.diagnostic_messages_file=src/test/java/arez/diagnostic_messages.json')
   ipr.add_testng_configuration('processor',
                                :module => 'processor',
-                               :jvm_args => '-ea -Darez.output_fixture_data=true -Darez.fixture_dir=src/test/fixtures')
+                               :jvm_args => "-ea #{FORMATTER_JDK_EXPORTS.join(' ')} -Darez.output_fixture_data=true -Darez.fixture_dir=src/test/fixtures")
   ipr.add_testng_configuration('integration-tests',
                                :module => 'integration-tests',
                                :jvm_args => '-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=true -Darez.integration_fixture_dir=src/test/resources')

@@ -62,6 +62,32 @@ snippet to configure the maven compiler plugin from within the `pom.xml`:
 </project>
 ```
 
+### Optional Generated Source Formatting
+
+By default, the Arez processor writes the standard JavaPoet generated source. To format generated
+Arez component source, pass the literal annotation processor option
+`-Aarez.format_generated_source=true`. Any other value, or omitting the option, leaves generated
+source unformatted.
+
+The formatter dependencies are shaded inside the `arez-processor` artifact, but the formatter uses
+JDK compiler internals. On JDK 16 and later, the JVM running `javac` and annotation processing must
+receive these exports when formatting is enabled:
+
+```text
+--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED
+--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED
+--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED
+--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED
+--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED
+--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED
+```
+
+For Maven, put the `--add-exports` flags in `.mvn/jvm.config` or `MAVEN_OPTS` so they reach the
+Maven JVM that runs annotation processing. If the compiler plugin forks `javac`, pass the same
+exports with `-J`, for example
+`-J--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED`, so they reach the forked
+compiler JVM.
+
 ## Configure your IDE
 
 It is expected that most Arez applications are developed from within an IDE. The configuration of the IDE

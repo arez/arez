@@ -1,8 +1,14 @@
 package arez.processor;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.tools.JavaFileObject;
@@ -12,10 +18,20 @@ import org.realityforge.proton.qa.Compilation;
 import org.realityforge.proton.qa.CompileTestUtil;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import static org.testng.Assert.*;
 
 public final class ArezProcessorTest
   extends AbstractProcessorTest
 {
+  @Nonnull
+  private static final List<String> FORMATTER_JDK_EXPORTS =
+    Arrays.asList( "--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED",
+                   "--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED",
+                   "--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED",
+                   "--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED",
+                   "--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED",
+                   "--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED" );
+
   @DataProvider( name = "successfulCompiles" )
   @Nonnull
   public Object[][] successfulCompiles()
@@ -448,7 +464,7 @@ public final class ArezProcessorTest
   public void processSuccessfulCompile( @Nonnull final String classname )
     throws Exception
   {
-    assertSuccessfulCompile( classname );
+    assertSuccessfulFixtureCompile( classname );
   }
 
   @Test
@@ -460,7 +476,7 @@ public final class ArezProcessorTest
     final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
     final JavaFileObject input2 =
       fixture( "input/" + toFilename( "com.example.memoize_context_parameter.inherit.subpkg.AbstractModel" ) );
-    assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
   }
 
   @Test
@@ -472,7 +488,7 @@ public final class ArezProcessorTest
     final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
     final JavaFileObject input2 =
       fixture( "input/" + toFilename( "com.example.memoize_context_parameter.intf.subpkg.MyInterfaceModelBase" ) );
-    assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
   }
 
   @Test
@@ -484,7 +500,7 @@ public final class ArezProcessorTest
     final String[] expectedOutputResources = deriveExpectedOutputs( classname );
     final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
     final JavaFileObject input2 = fixture( "input/" + toFilename( "com.example.deprecated.MyDeprecatedEntity" ) );
-    assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
   }
 
   @Test
@@ -496,7 +512,7 @@ public final class ArezProcessorTest
     final String[] expectedOutputResources = deriveExpectedOutputs( classname );
     final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
     final JavaFileObject input2 = fixture( "input/" + toFilename( "com.example.deprecated.MyDeprecatedEntity" ) );
-    assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
   }
 
   @Test
@@ -508,7 +524,7 @@ public final class ArezProcessorTest
     final String[] expectedOutputResources = deriveExpectedOutputs( classname );
     final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
     final JavaFileObject input2 = fixture( "input/" + toFilename( "com.example.deprecated.MyDeprecatedEntity" ) );
-    assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
   }
 
   @Test
@@ -521,7 +537,7 @@ public final class ArezProcessorTest
     final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
     final JavaFileObject input2 = fixture( "input/" + toFilename( "com.example.deprecated.DeprecatedInterface" ) );
     final JavaFileObject input3 = fixture( "input/" + toFilename( "com.example.deprecated.DeprecatedBaseInterface" ) );
-    assertSuccessfulCompile( Arrays.asList( input1, input2, input3 ), Arrays.asList( expectedOutputResources ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( input1, input2, input3 ), Arrays.asList( expectedOutputResources ) );
   }
 
   @Test
@@ -532,7 +548,7 @@ public final class ArezProcessorTest
     final String classname = "com.example.raw_types.RawTypesUsageModel";
     final String[] expectedOutputResources = deriveExpectedOutputs( classname );
     final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
-    assertSuccessfulCompile( Collections.singletonList( input1 ), Arrays.asList( expectedOutputResources ) );
+    assertSuccessfulFixtureCompile( Collections.singletonList( input1 ), Arrays.asList( expectedOutputResources ) );
   }
 
   @Test
@@ -545,7 +561,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.component_ref.other.BaseProtectedAccessComponentRefModel" );
     final String output =
       toFilename( "com.example.component_ref.Arez_ProtectedAccessFromBaseComponentRefModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -559,7 +575,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.auto_observe.other.BaseProtectedAccessFieldAutoObserveModel" );
     final String output =
       toFilename( "com.example.auto_observe.Arez_ProtectedAccessFromBaseFieldAutoObserveModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -573,7 +589,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.cascade_dispose.other.BaseProtectedAccessFieldCascadeDisposeModel" );
     final String output =
       toFilename( "com.example.cascade_dispose.Arez_ProtectedAccessFromBaseFieldCascadeDisposeModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -587,7 +603,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.component_dependency.other.BaseProtectedAccessFieldDependencyModel" );
     final String output =
       toFilename( "com.example.component_dependency.Arez_ProtectedAccessFromBaseFieldDependencyModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -613,7 +629,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.component_ref.ComponentRefInterface" );
     final String output =
       toFilename( "com.example.component_ref.Arez_PublicAccessViaInterfaceComponentRefModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -627,7 +643,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.component_name_ref.other.BaseProtectedAccessComponentNameRefModel" );
     final String output =
       toFilename( "com.example.component_name_ref.Arez_ProtectedAccessFromBaseComponentNameRefModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -641,7 +657,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.component_name_ref.ComponentNameRefInterface" );
     final String output =
       toFilename( "com.example.component_name_ref.Arez_PublicAccessViaInterfaceComponentNameRefModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -655,7 +671,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.component_state_ref.other.BaseProtectedAccessComponentStateRefModel" );
     final String output =
       toFilename( "com.example.component_state_ref.Arez_ProtectedAccessFromBaseComponentStateRefModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -669,7 +685,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.component_state_ref.ComponentStateRefInterface" );
     final String output =
       toFilename( "com.example.component_state_ref.Arez_PublicAccessViaInterfaceComponentStateRefModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -684,7 +700,7 @@ public final class ArezProcessorTest
     final String output =
       toFilename(
         "com.example.component_type_name_ref.Arez_ProtectedAccessFromBaseComponentTypeNameRefModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -699,7 +715,7 @@ public final class ArezProcessorTest
     final String output =
       toFilename(
         "com.example.component_type_name_ref.Arez_PublicAccessViaInterfaceComponentTypeNameRefModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -713,7 +729,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.computable_value_ref.other.BaseProtectedAccessComputableValueRefModel" );
     final String output =
       toFilename( "com.example.computable_value_ref.Arez_ProtectedAccessFromBaseComputableValueRefModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -727,7 +743,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.computable_value_ref.ComputableValueRefInterface" );
     final String output =
       toFilename( "com.example.computable_value_ref.Arez_PublicAccessViaInterfaceComputableValueRefModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -741,7 +757,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.context_ref.other.BaseProtectedAccessContextRefModel" );
     final String output =
       toFilename( "com.example.context_ref.Arez_ProtectedAccessFromBaseContextRefModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -755,7 +771,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.context_ref.ContextRefInterface" );
     final String output =
       toFilename( "com.example.context_ref.Arez_PublicAccessViaInterfaceContextRefModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -769,7 +785,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.observable_value_ref.other.BaseProtectedAccessObservableValueRefModel" );
     final String output =
       toFilename( "com.example.observable_value_ref.Arez_ProtectedAccessFromBaseObservableValueRefModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -783,7 +799,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.observable_value_ref.ObservableValueRefInterface" );
     final String output =
       toFilename( "com.example.observable_value_ref.Arez_PublicAccessViaInterfaceObservableValueRefModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -797,7 +813,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.observer_ref.other.BaseProtectedAccessObserverRefModel" );
     final String output =
       toFilename( "com.example.observer_ref.Arez_ProtectedAccessFromBaseObserverRefModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -811,7 +827,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.observer_ref.ObserverRefInterface" );
     final String output =
       toFilename( "com.example.observer_ref.Arez_PublicAccessViaInterfaceObserverRefModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -825,7 +841,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.on_activate.other.BaseProtectedAccessOnActivateModel" );
     final String output =
       toFilename( "com.example.on_activate.Arez_ProtectedAccessFromBaseOnActivateModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -839,7 +855,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.on_activate.OnActivateInterface" );
     final String output =
       toFilename( "com.example.on_activate.Arez_PublicAccessViaInterfaceOnActivateModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -853,7 +869,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.on_deactivate.other.BaseProtectedAccessOnDeactivateModel" );
     final String output =
       toFilename( "com.example.on_deactivate.Arez_ProtectedAccessFromBaseOnDeactivateModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -867,7 +883,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.on_deactivate.OnDeactivateInterface" );
     final String output =
       toFilename( "com.example.on_deactivate.Arez_PublicAccessViaInterfaceOnDeactivateModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -881,7 +897,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.on_deps_change.other.BaseProtectedAccessOnDepsChangeModel" );
     final String output =
       toFilename( "com.example.on_deps_change.Arez_ProtectedAccessFromBaseOnDepsChangeModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -895,7 +911,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.on_deps_change.OnDepsChangeInterface" );
     final String output =
       toFilename( "com.example.on_deps_change.Arez_PublicAccessViaInterfaceOnDepsChangeModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -909,7 +925,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.post_construct.other.BaseProtectedAccessPostConstructModel" );
     final String output =
       toFilename( "com.example.post_construct.Arez_ProtectedAccessFromBasePostConstructModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -923,7 +939,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.post_construct.PostConstructInterface" );
     final String output =
       toFilename( "com.example.post_construct.Arez_PublicAccessViaInterfacePostConstructModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -940,7 +956,7 @@ public final class ArezProcessorTest
     final String input6 = "input/" + toFilename( "com.example.post_construct.other.MultiModelInterface3" );
     final String output =
       toFilename( "com.example.post_construct.Arez_MultiViaInheritanceChainPostConstructModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ),
                                             fixture( input2 ),
                                             fixture( input3 ),
                                             fixture( input4 ),
@@ -959,7 +975,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.post_dispose.other.BaseProtectedAccessPostDisposeModel" );
     final String output =
       toFilename( "com.example.post_dispose.Arez_ProtectedAccessFromBasePostDisposeModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -973,7 +989,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.post_dispose.PostDisposeInterface" );
     final String output =
       toFilename( "com.example.post_dispose.Arez_PublicAccessViaInterfacePostDisposeModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -984,7 +1000,7 @@ public final class ArezProcessorTest
     final String pkg = "com.example.post_dispose";
     final String output =
       toFilename( pkg + ".Arez_MultiViaInheritanceChainPostDisposeModel" );
-    assertSuccessfulCompile( inputs( pkg + ".MultiViaInheritanceChainPostDisposeModel",
+    assertSuccessfulFixtureCompile( inputs( pkg + ".MultiViaInheritanceChainPostDisposeModel",
                                      pkg + ".other.AbstractMultiModel",
                                      pkg + ".other.MiddleMultiModel",
                                      pkg + ".other.MultiModelInterface1",
@@ -1003,7 +1019,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.post_inverse_add.other.BaseProtectedAccessPostInverseAddModel" );
     final String output =
       toFilename( "com.example.post_inverse_add.Arez_ProtectedAccessFromBasePostInverseAddModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -1017,7 +1033,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.post_inverse_add.PostInverseAddInterface" );
     final String output =
       toFilename( "com.example.post_inverse_add.Arez_PublicAccessViaInterfacePostInverseAddModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -1031,7 +1047,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.pre_dispose.other.BaseProtectedAccessPreDisposeModel" );
     final String output =
       toFilename( "com.example.pre_dispose.Arez_ProtectedAccessFromBasePreDisposeModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -1045,7 +1061,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.pre_dispose.PreDisposeInterface" );
     final String output =
       toFilename( "com.example.pre_dispose.Arez_PublicAccessViaInterfacePreDisposeModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -1062,7 +1078,7 @@ public final class ArezProcessorTest
     final String input6 = "input/" + toFilename( "com.example.pre_dispose.other.MultiModelInterface3" );
     final String output =
       toFilename( "com.example.pre_dispose.Arez_MultiViaInheritanceChainPreDisposeModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ),
                                             fixture( input2 ),
                                             fixture( input3 ),
                                             fixture( input4 ),
@@ -1081,7 +1097,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.pre_inverse_remove.other.BaseProtectedAccessPreInverseRemoveModel" );
     final String output =
       toFilename( "com.example.pre_inverse_remove.Arez_ProtectedAccessFromBasePreInverseRemoveModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -1095,7 +1111,7 @@ public final class ArezProcessorTest
       "input/" + toFilename( "com.example.pre_inverse_remove.PreInverseRemoveInterface" );
     final String output =
       toFilename( "com.example.pre_inverse_remove.Arez_PublicAccessViaInterfacePreInverseRemoveModel" );
-    assertSuccessfulCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
+    assertSuccessfulFixtureCompile( Arrays.asList( fixture( input1 ), fixture( input2 ) ),
                              Collections.singletonList( output ) );
   }
 
@@ -1108,7 +1124,7 @@ public final class ArezProcessorTest
     final String output1 = "com/example/inverse/MultipleReferenceWithInverseWithSameTarget_Arez_RoleType.java";
     final String output2 =
       "com/example/inverse/MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation.java";
-    assertSuccessfulCompile( Collections.singletonList( source1 ), Arrays.asList( output1, output2 ) );
+    assertSuccessfulFixtureCompile( Collections.singletonList( source1 ), Arrays.asList( output1, output2 ) );
   }
 
   @Test
@@ -1120,7 +1136,7 @@ public final class ArezProcessorTest
     final JavaFileObject source2 =
       fixture( "input/com/example/observe/other/BaseModelProtectedAccess.java" );
     final String output = "com/example/observe/Arez_InheritProtectedAccessTrackedModel.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
   }
 
   @Test
@@ -1132,7 +1148,7 @@ public final class ArezProcessorTest
     final JavaFileObject source2 =
       fixture( "input/com/example/on_deps_change/other/BaseInheritedMultiOnDepsChangeModel.java" );
     final String output = "com/example/on_deps_change/Arez_InheritedMultiOnDepsChangeModel.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
   }
 
   @Test
@@ -1145,7 +1161,7 @@ public final class ArezProcessorTest
       fixture( "input/com/example/component_dependency/MyDependentValue.java" );
     final String output =
       "com/example/component_dependency/Arez_TransitivelyDisposeTrackableDependencyModel.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
   }
 
   @Test
@@ -1154,7 +1170,7 @@ public final class ArezProcessorTest
   {
     final String pkg = "com.example.component_dependency";
     final String output = toFilename( pkg + ".Arez_ParameterizedFieldDependencyInParentModel" );
-    assertSuccessfulCompile( inputs( pkg + ".BaseParameterizedFieldDependencyInParentModel",
+    assertSuccessfulFixtureCompile( inputs( pkg + ".BaseParameterizedFieldDependencyInParentModel",
                                      pkg + ".ParameterizedFieldDependencyInParentModel" ),
                              Collections.singletonList( output ) );
   }
@@ -1166,7 +1182,7 @@ public final class ArezProcessorTest
     final String pkg = "com.example.component_dependency";
     final String output =
       toFilename( pkg + ".Arez_PartiallyResolvedParameterizedFieldDependencyInParentModel" );
-    assertSuccessfulCompile( inputs( pkg + ".BaseParameterizedFieldDependencyInParentModel",
+    assertSuccessfulFixtureCompile( inputs( pkg + ".BaseParameterizedFieldDependencyInParentModel",
                                      pkg + ".PartiallyResolvedParameterizedFieldDependencyInParentModel" ),
                              Collections.singletonList( output ) );
   }
@@ -1177,7 +1193,7 @@ public final class ArezProcessorTest
   {
     final String pkg = "com.example.component_dependency";
     final String output = toFilename( pkg + ".Arez_ParameterizedFieldDependencyModel" );
-    assertSuccessfulCompile( inputs( pkg + ".ParameterizedFieldDependencyModel" ),
+    assertSuccessfulFixtureCompile( inputs( pkg + ".ParameterizedFieldDependencyModel" ),
                              Collections.singletonList( output ) );
   }
 
@@ -1192,7 +1208,7 @@ public final class ArezProcessorTest
     final JavaFileObject source3 =
       fixture( "input/com/example/inheritance/other/OtherElement.java" );
     final String output = "com/example/inheritance/Arez_CompleteInterfaceModel.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2, source3 ), Collections.singletonList( output ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( source1, source2, source3 ), Collections.singletonList( output ) );
   }
 
   @Test
@@ -1206,7 +1222,7 @@ public final class ArezProcessorTest
     final JavaFileObject source3 =
       fixture( "input/com/example/inheritance/other/Element.java" );
     final String output = "com/example/inheritance/Arez_CompleteModel.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2, source3 ), Collections.singletonList( output ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( source1, source2, source3 ), Collections.singletonList( output ) );
   }
 
   @Test
@@ -1222,7 +1238,7 @@ public final class ArezProcessorTest
     final JavaFileObject source4 =
       fixture( "input/com/example/override_generics/MyArezReactComponent_.java" );
     final String output = "com/example/override_generics/Arez_MyArezReactComponent_.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2, source3, source4 ), Collections.singletonList( output ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( source1, source2, source3, source4 ), Collections.singletonList( output ) );
   }
 
   @Test
@@ -1236,7 +1252,7 @@ public final class ArezProcessorTest
     final JavaFileObject source3 =
       fixture( "input/com/example/override_generics/LeafModel.java" );
     final String output = "com/example/override_generics/Arez_LeafModel.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2, source3 ), Collections.singletonList( output ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( source1, source2, source3 ), Collections.singletonList( output ) );
   }
 
   @Test
@@ -1248,7 +1264,7 @@ public final class ArezProcessorTest
     final JavaFileObject source2 =
       fixture( "input/com/example/inverse/other/Element.java" );
     final String output = "com/example/inverse/Arez_PackageAccessWithDifferentPackageInverseModel.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
   }
 
   @Test
@@ -1259,21 +1275,21 @@ public final class ArezProcessorTest
       fixture( "input/com/example/to_string/ToStringPresentInParent.java" );
     final JavaFileObject source2 = fixture( "input/com/example/to_string/ParentType.java" );
     final String output = "com/example/to_string/Arez_ToStringPresentInParent.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output ) );
   }
 
   @Test
   public void processSuccessfulNestedCompile()
     throws Exception
   {
-    assertSuccessfulCompile( "NestedModel", "NestedModel_Arez_BasicActionModel.java" );
+    assertSuccessfulFixtureCompile( "NestedModel", "NestedModel_Arez_BasicActionModel.java" );
   }
 
   @Test
   public void processSuccessfulNestedNestedCompile()
     throws Exception
   {
-    assertSuccessfulCompile( "NestedNestedModel", "NestedNestedModel_Something_Arez_BasicActionModel.java" );
+    assertSuccessfulFixtureCompile( "NestedNestedModel", "NestedNestedModel_Something_Arez_BasicActionModel.java" );
   }
 
   @Test
@@ -1283,7 +1299,7 @@ public final class ArezProcessorTest
     final JavaFileObject source1 = fixture( "input/DefaultMethodsModel.java" );
     final JavaFileObject source2 = fixture( "input/MyAnnotatedInterface.java" );
     final String output1 = "Arez_DefaultMethodsModel.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output1 ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output1 ) );
   }
 
   @Test
@@ -1295,7 +1311,7 @@ public final class ArezProcessorTest
     final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
     final JavaFileObject input2 =
       fixture( "input/" + toFilename( "com.example.requires_transaction.BaseInheritedRequiresTransactionModel" ) );
-    assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
   }
 
   @Test
@@ -1307,7 +1323,7 @@ public final class ArezProcessorTest
     final JavaFileObject input1 = fixture( "input/" + toFilename( classname ) );
     final JavaFileObject input2 =
       fixture( "input/" + toFilename( "com.example.requires_transaction.DefaultRequiresTransactionMethods" ) );
-    assertSuccessfulCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( input1, input2 ), Arrays.asList( expectedOutputResources ) );
 
   }
 
@@ -1319,7 +1335,7 @@ public final class ArezProcessorTest
     final JavaFileObject source2 = fixture( "input/com/example/type_params/MiddleModel.java" );
     final JavaFileObject source3 = fixture( "input/com/example/type_params/ConcreteModel.java" );
     final String output1 = "com/example/type_params/Arez_ConcreteModel.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2, source3 ), Collections.singletonList( output1 ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( source1, source2, source3 ), Collections.singletonList( output1 ) );
   }
 
   @Test
@@ -1331,7 +1347,7 @@ public final class ArezProcessorTest
     final JavaFileObject source2 =
       fixture( "input/com/example/parameterized_type/ResolvedModel.java" );
     final String output1 = "com/example/parameterized_type/Arez_ResolvedModel.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output1 ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output1 ) );
   }
 
   @Test
@@ -1343,7 +1359,7 @@ public final class ArezProcessorTest
     final JavaFileObject source2 =
       fixture( "input/com/example/parameterized_type/UnresolvedModel.java" );
     final String output1 = "com/example/parameterized_type/Arez_UnresolvedModel.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output1 ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( source1, source2 ), Collections.singletonList( output1 ) );
   }
 
   @Test
@@ -1357,7 +1373,7 @@ public final class ArezProcessorTest
     final JavaFileObject source3 =
       fixture( "input/com/example/override_generics/GenericsModel.java" );
     final String output1 = "com/example/override_generics/Arez_GenericsModel.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2, source3 ), Collections.singletonList( output1 ) );
+    assertSuccessfulFixtureCompile( Arrays.asList( source1, source2, source3 ), Collections.singletonList( output1 ) );
   }
 
   @Test
@@ -1370,7 +1386,7 @@ public final class ArezProcessorTest
     final JavaFileObject source4 = fixture( "input/com/example/inheritance/MyInterface1.java" );
     final JavaFileObject source5 = fixture( "input/com/example/inheritance/MyInterface2.java" );
     final String output1 = "com/example/inheritance/Arez_MyModel.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2, source3, source4, source5 ),
+    assertSuccessfulFixtureCompile( Arrays.asList( source1, source2, source3, source4, source5 ),
                              Collections.singletonList( output1 ) );
   }
 
@@ -1383,7 +1399,7 @@ public final class ArezProcessorTest
     final JavaFileObject source2 = fixture( "input/com/example/inheritance/interface_inheritance/MyInterface.java" );
     final JavaFileObject source3 = fixture( "input/com/example/inheritance/interface_inheritance/MyModel.java" );
     final String output1 = "com/example/inheritance/interface_inheritance/Arez_MyModel.java";
-    assertSuccessfulCompile( Arrays.asList( source1, source2, source3 ),
+    assertSuccessfulFixtureCompile( Arrays.asList( source1, source2, source3 ),
                              Collections.singletonList( output1 ) );
   }
 
@@ -2769,10 +2785,152 @@ public final class ArezProcessorTest
                                                    Collections.emptyList() );
   }
 
-  private void assertSuccessfulCompile( @Nonnull final String classname )
+  @Test
+  public void formatGeneratedSourceFailsClearlyWithoutJdkExports()
     throws Exception
   {
-    assertSuccessfulCompile( classname, deriveExpectedOutputs( classname ) );
+    final Path source =
+      fixtureDir().resolve( "input" ).resolve( toFilename( "com.example.action.BasicActionModel" ) );
+    assertTrue( Files.exists( source ), "Expected smoke source to exist at " + source );
+
+    final Path classOutput = Files.createTempDirectory( "arez-format-no-exports-classes" );
+    final Path sourceOutput = Files.createTempDirectory( "arez-format-no-exports-sources" );
+    try
+    {
+      final Path javac = Path.of( System.getProperty( "java.home" ), "bin", "javac" );
+      assertTrue( Files.exists( javac ), "Expected javac to exist at " + javac );
+
+      final List<String> command = new ArrayList<>();
+      command.add( javac.toString() );
+      command.add( "-cp" );
+      command.add( System.getProperty( "java.class.path" ) );
+      command.add( "-processorpath" );
+      command.add( System.getProperty( "java.class.path" ) );
+      command.add( "-processor" );
+      command.add( ArezProcessor.class.getName() );
+      command.add( "-d" );
+      command.add( classOutput.toString() );
+      command.add( "-s" );
+      command.add( sourceOutput.toString() );
+      command.addAll( getOptions() );
+      command.add( "-A" + Constants.FORMAT_GENERATED_SOURCE_OPTION_KEY + "=true" );
+      command.add( source.toString() );
+
+      final Process process =
+        new ProcessBuilder( command ).
+          redirectErrorStream( true ).
+          start();
+      final String output = new String( process.getInputStream().readAllBytes(), StandardCharsets.UTF_8 );
+      final int exitCode = process.waitFor();
+
+      assertFalse( 0 == exitCode, "Expected javac to fail without formatter JDK exports. Output:\n" + output );
+      assertTrue( output.contains( Constants.FORMAT_GENERATED_SOURCE_OPTION_KEY ),
+                  "Expected diagnostic to mention " + Constants.FORMAT_GENERATED_SOURCE_OPTION_KEY +
+                  ". Output:\n" + output );
+      for ( final String export : FORMATTER_JDK_EXPORTS )
+      {
+        assertTrue( output.contains( export ),
+                    "Expected diagnostic to mention required export " + export + ". Output:\n" + output );
+      }
+    }
+    finally
+    {
+      deleteDir( sourceOutput );
+      deleteDir( classOutput );
+    }
+  }
+
+  private void assertSuccessfulFixtureCompile( @Nonnull final String classname )
+    throws Exception
+  {
+    assertSuccessfulFixtureCompile( classname, deriveExpectedOutputs( classname ) );
+  }
+
+  private void assertSuccessfulFixtureCompile( @Nonnull final String classname,
+                                               @Nonnull final String... expectedOutputResources )
+    throws Exception
+  {
+    assertSuccessfulFixtureCompile( inputs( classname ), Arrays.asList( expectedOutputResources ) );
+  }
+
+  private void assertSuccessfulFixtureCompile( @Nonnull final List<JavaFileObject> inputs,
+                                               @Nonnull final List<String> expectedOutputs )
+    throws Exception
+  {
+    assertSuccessfulFixtureCompile( inputs, expectedOutputs, "expected", getOptions() );
+
+    final List<String> options = new ArrayList<>( getOptions() );
+    options.add( "-A" + Constants.FORMAT_GENERATED_SOURCE_OPTION_KEY + "=true" );
+    assertSuccessfulFixtureCompile( inputs, expectedOutputs, "expectedFormatted", options );
+  }
+
+  private void assertSuccessfulFixtureCompile( @Nonnull final List<JavaFileObject> inputs,
+                                               @Nonnull final List<String> expectedOutputs,
+                                               @Nonnull final String expectedDirectory,
+                                               @Nonnull final List<String> options )
+    throws Exception
+  {
+    final Compilation compilation =
+      CompileTestUtil.compile( inputs, options, processors(), Collections.emptyList() );
+    try
+    {
+      assertCompilationSuccessful( compilation );
+      CompileTestUtil.assertNoErrors( compilation.diagnostics() );
+      CompileTestUtil.assertNoWarnings( compilation.diagnostics() );
+
+      outputFilesIfEnabled( compilation, expectedDirectory );
+
+      for ( final String expectedOutput : expectedOutputs )
+      {
+        final Path fixture = fixtureDir().resolve( expectedDirectory ).resolve( expectedOutput );
+        assertTrue( Files.exists( fixture ),
+                    "Expected fixture to exist for " + expectedOutput + " but no such fixture present" );
+        final Path sourceOutput = compilation.sourceOutput().resolve( expectedOutput );
+        final Path classOutput = compilation.classOutput().resolve( expectedOutput );
+        final Path output = Files.exists( sourceOutput ) ? sourceOutput : classOutput;
+        assertTrue( Files.exists( output ),
+                    "Expected output to exist for " + expectedOutput + " but no such output present" );
+        CompileTestUtil.assertSourceMatchesTarget( fixture, output );
+      }
+    }
+    finally
+    {
+      deleteDir( compilation.sourceOutput() );
+      deleteDir( compilation.classOutput() );
+    }
+  }
+
+  private void outputFilesIfEnabled( @Nonnull final Compilation compilation, @Nonnull final String expectedDirectory )
+    throws IOException
+  {
+    if ( outputFiles() )
+    {
+      final List<String> createdSourceFiles =
+        compilation.sourceOutputFilenames().stream().filter( this::emitGeneratedFile ).toList();
+      final List<String> createdOutputFiles =
+        compilation
+          .classOutputFilenames()
+          .stream()
+          .filter( p -> !p.endsWith( ".class" ) )
+          .filter( this::emitGeneratedFile )
+          .toList();
+      final Path targetDir = fixtureDir().resolve( expectedDirectory );
+      CompileTestUtil.outputFiles( createdSourceFiles, compilation.sourceOutput(), targetDir );
+      CompileTestUtil.outputFiles( createdOutputFiles, compilation.classOutput(), targetDir );
+    }
+  }
+
+  @SuppressWarnings( "ResultOfMethodCallIgnored" )
+  private void deleteDir( @Nonnull final Path directory )
+  {
+    try ( var paths = Files.walk( directory ) )
+    {
+      paths.sorted( Comparator.reverseOrder() ).map( Path::toFile ).forEach( File::delete );
+    }
+    catch ( final IOException e )
+    {
+      throw new IllegalStateException( "Failure to delete directory: " + directory, e );
+    }
   }
 
   @Nonnull
