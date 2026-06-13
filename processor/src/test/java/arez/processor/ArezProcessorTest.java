@@ -23,15 +23,6 @@ import static org.testng.Assert.*;
 public final class ArezProcessorTest
   extends AbstractProcessorTest
 {
-  @Nonnull
-  private static final List<String> FORMATTER_JDK_EXPORTS =
-    Arrays.asList( "--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED",
-                   "--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED",
-                   "--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED",
-                   "--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED",
-                   "--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED",
-                   "--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED" );
-
   @DataProvider( name = "successfulCompiles" )
   @Nonnull
   public Object[][] successfulCompiles()
@@ -2827,7 +2818,7 @@ public final class ArezProcessorTest
       assertTrue( output.contains( Constants.FORMAT_GENERATED_SOURCE_OPTION_KEY ),
                   "Expected diagnostic to mention " + Constants.FORMAT_GENERATED_SOURCE_OPTION_KEY +
                   ". Output:\n" + output );
-      for ( final String export : FORMATTER_JDK_EXPORTS )
+      for ( final String export : formatterJdkExports() )
       {
         assertTrue( output.contains( export ),
                     "Expected diagnostic to mention required export " + export + ". Output:\n" + output );
@@ -2843,81 +2834,21 @@ public final class ArezProcessorTest
   private void assertSuccessfulFixtureCompile( @Nonnull final String classname )
     throws Exception
   {
-    assertSuccessfulFixtureCompile( classname, deriveExpectedOutputs( classname ) );
+    assertSuccessfulCompile( classname, deriveExpectedOutputs( classname ) );
   }
 
   private void assertSuccessfulFixtureCompile( @Nonnull final String classname,
                                                @Nonnull final String... expectedOutputResources )
     throws Exception
   {
-    assertSuccessfulFixtureCompile( inputs( classname ), Arrays.asList( expectedOutputResources ) );
+    assertSuccessfulCompile( classname, expectedOutputResources );
   }
 
   private void assertSuccessfulFixtureCompile( @Nonnull final List<JavaFileObject> inputs,
                                                @Nonnull final List<String> expectedOutputs )
     throws Exception
   {
-    assertSuccessfulFixtureCompile( inputs, expectedOutputs, "expected", getOptions() );
-
-    final List<String> options = new ArrayList<>( getOptions() );
-    options.add( "-A" + Constants.FORMAT_GENERATED_SOURCE_OPTION_KEY + "=true" );
-    assertSuccessfulFixtureCompile( inputs, expectedOutputs, "expectedFormatted", options );
-  }
-
-  private void assertSuccessfulFixtureCompile( @Nonnull final List<JavaFileObject> inputs,
-                                               @Nonnull final List<String> expectedOutputs,
-                                               @Nonnull final String expectedDirectory,
-                                               @Nonnull final List<String> options )
-    throws Exception
-  {
-    final Compilation compilation =
-      CompileTestUtil.compile( inputs, options, processors(), Collections.emptyList() );
-    try
-    {
-      assertCompilationSuccessful( compilation );
-      CompileTestUtil.assertNoErrors( compilation.diagnostics() );
-      CompileTestUtil.assertNoWarnings( compilation.diagnostics() );
-
-      outputFilesIfEnabled( compilation, expectedDirectory );
-
-      for ( final String expectedOutput : expectedOutputs )
-      {
-        final Path fixture = fixtureDir().resolve( expectedDirectory ).resolve( expectedOutput );
-        assertTrue( Files.exists( fixture ),
-                    "Expected fixture to exist for " + expectedOutput + " but no such fixture present" );
-        final Path sourceOutput = compilation.sourceOutput().resolve( expectedOutput );
-        final Path classOutput = compilation.classOutput().resolve( expectedOutput );
-        final Path output = Files.exists( sourceOutput ) ? sourceOutput : classOutput;
-        assertTrue( Files.exists( output ),
-                    "Expected output to exist for " + expectedOutput + " but no such output present" );
-        CompileTestUtil.assertSourceMatchesTarget( fixture, output );
-      }
-    }
-    finally
-    {
-      deleteDir( compilation.sourceOutput() );
-      deleteDir( compilation.classOutput() );
-    }
-  }
-
-  private void outputFilesIfEnabled( @Nonnull final Compilation compilation, @Nonnull final String expectedDirectory )
-    throws IOException
-  {
-    if ( outputFiles() )
-    {
-      final List<String> createdSourceFiles =
-        compilation.sourceOutputFilenames().stream().filter( this::emitGeneratedFile ).toList();
-      final List<String> createdOutputFiles =
-        compilation
-          .classOutputFilenames()
-          .stream()
-          .filter( p -> !p.endsWith( ".class" ) )
-          .filter( this::emitGeneratedFile )
-          .toList();
-      final Path targetDir = fixtureDir().resolve( expectedDirectory );
-      CompileTestUtil.outputFiles( createdSourceFiles, compilation.sourceOutput(), targetDir );
-      CompileTestUtil.outputFiles( createdOutputFiles, compilation.classOutput(), targetDir );
-    }
+    assertSuccessfulCompile( inputs, expectedOutputs );
   }
 
   @SuppressWarnings( "ResultOfMethodCallIgnored" )

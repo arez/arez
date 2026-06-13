@@ -69,9 +69,11 @@ Arez component source, pass the literal annotation processor option
 `-Aarez.format_generated_source=true`. Any other value, or omitting the option, leaves generated
 source unformatted.
 
-The formatter dependencies are shaded inside the `arez-processor` artifact, but the formatter uses
-JDK compiler internals. On JDK 16 and later, the JVM running `javac` and annotation processing must
-receive these exports when formatting is enabled:
+The persist processor supports the same behavior via `-Aarez.persist.format_generated_source=true`.
+
+The formatter support is supplied by Proton and shaded inside the `arez-processor` artifact, but the
+formatter uses JDK compiler internals. On JDK 16 and later, the JVM running `javac` and annotation
+processing must receive these exports when formatting is enabled:
 
 ```text
 --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED

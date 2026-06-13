@@ -2,8 +2,8 @@
 
 ### Unreleased
 
-* Add the `-Aarez.format_generated_source=true` processor option to format generated Arez component source when the
-  required JDK compiler module exports are supplied.
+* Update the `org.realityforge.proton` artifacts to version `0.71` and use Proton's shaded generated-source
+  formatting support.
 
 ### [v0.246](https://github.com/arez/arez/tree/v0.246) (2026-05-08) · [Full Changelog](https://github.com/arez/arez/compare/v0.245...v0.246)
 
