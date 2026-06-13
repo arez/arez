@@ -18,6 +18,7 @@ FORMATTER_JDK_EXPORTS =
     --add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED
     --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED
   )
+FORMATTER_JAVAC_JVM_EXPORTS = FORMATTER_JDK_EXPORTS.map { |arg| "-J#{arg}" }
 
 # JDK options passed to test environment. Essentially turns assertions on.
 AREZ_TEST_OPTIONS =
@@ -169,6 +170,7 @@ define 'arez' do
                       project('processor').compile.dependencies,
                       :sting_processor
     test.compile.options[:processor] = true
+    test.compile.options.other = Array(test.compile.options.other) + FORMATTER_JAVAC_JVM_EXPORTS
 
     # The generators are configured to generate to here.
     iml.test_source_directories << _('generated/processors/test/java')
@@ -510,6 +512,7 @@ define 'arez' do
                  GWT_DEPS
 
     compile.options[:processor] = true
+    compile.options.other = Array(compile.options.other) + FORMATTER_JAVAC_JVM_EXPORTS
   end
 
   doc.from(projects(%w(core processor extras:promise extras:testng extras:dom persist:core persist:processor))).
