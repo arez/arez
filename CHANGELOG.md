@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.247](https://github.com/arez/arez/tree/v0.247) (2026-06-13) · [Full Changelog](https://github.com/arez/arez/compare/v0.246...v0.247)
+
+Changes in this release:
 
 * Update the `org.realityforge.proton` artifacts to version `0.71` and use Proton's shaded generated-source
   formatting support from the Arez and persist processors.
