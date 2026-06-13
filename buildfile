@@ -148,9 +148,6 @@ define 'arez' do
     test.compile.with TEST_DEPS
 
     iml.test_source_directories << _('src/test/fixtures/input')
-    iml.test_source_directories << _('src/test/fixtures/expected')
-    iml.test_source_directories << _('src/test/fixtures/expectedFormatted')
-    iml.test_source_directories << _('src/test/fixtures/bad_input')
   end
 
   desc 'Arez Integration Tests'
@@ -475,8 +472,6 @@ define 'arez' do
       test.compile.with :guiceyloops
 
       iml.test_source_directories << _('src/test/fixtures/input')
-      iml.test_source_directories << _('src/test/fixtures/expected')
-      iml.test_source_directories << _('src/test/fixtures/expectedFormatted')
     end
 
     desc 'Arez Persist Integration Tests'
