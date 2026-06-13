@@ -42,6 +42,7 @@ import org.realityforge.proton.StopWatch;
 @SupportedOptions( { "arez.persist.defer.unresolved",
                      "arez.persist.defer.errors",
                      "arez.persist.debug",
+                     "arez.persist.format_generated_source",
                      "arez.persist.profile",
                      "arez.persist.verbose_out_of_round",
                      "arez.persist.warnings_as_errors" } )

@@ -3,7 +3,7 @@
 ### Unreleased
 
 * Update the `org.realityforge.proton` artifacts to version `0.71` and use Proton's shaded generated-source
-  formatting support.
+  formatting support from the Arez and persist processors.
 
 ### [v0.246](https://github.com/arez/arez/tree/v0.246) (2026-05-08) · [Full Changelog](https://github.com/arez/arez/compare/v0.245...v0.246)
 
