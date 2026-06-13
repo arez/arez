@@ -178,7 +178,32 @@ final class WorkspaceUtil
   {
     try
     {
-      final String content = "repositories.remote.unshift('" + localRepositoryUrl + "')\n";
+      final String content =
+        "repositories.remote.unshift('" + localRepositoryUrl + "')\n" +
+        "\n" +
+        "AREZ_FORMATTER_JAVAC_JVM_EXPORTS =\n" +
+        "  %w(\n" +
+        "    --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED\n" +
+        "    --add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED\n" +
+        "    --add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED\n" +
+        "    --add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED\n" +
+        "    --add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED\n" +
+        "    --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED\n" +
+        "  ).map { |arg| \"-J#{arg}\" }\n" +
+        "\n" +
+        "module ArezFormatterJavacExports\n" +
+        "  include Buildr::Extension\n" +
+        "\n" +
+        "  after_define do |project|\n" +
+        "    options = Array(project.compile.options.other)\n" +
+        "    AREZ_FORMATTER_JAVAC_JVM_EXPORTS.each { |arg| options << arg unless options.include?(arg) }\n" +
+        "    project.compile.options.other = options\n" +
+        "  end\n" +
+        "end\n" +
+        "\n" +
+        "class Buildr::Project\n" +
+        "  include ArezFormatterJavacExports\n" +
+        "end\n";
       Files.write( appDirectory.resolve( "_buildr.rb" ), content.getBytes() );
     }
     catch ( final IOException ioe )

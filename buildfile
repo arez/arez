@@ -259,6 +259,7 @@ define 'arez' do
                    project('processor').compile.dependencies
 
       compile.options[:processor] = true
+      compile.options.other = Array(compile.options.other) + FORMATTER_JAVAC_JVM_EXPORTS
 
       gwt_enhance(project)
 
@@ -324,6 +325,7 @@ define 'arez' do
                    project('processor').compile.dependencies
 
       compile.options[:processor] = true
+      compile.options.other = Array(compile.options.other) + FORMATTER_JAVAC_JVM_EXPORTS
 
       gwt_enhance(project)
 
@@ -369,6 +371,7 @@ define 'arez' do
                    project('processor').compile.dependencies
 
       compile.options[:processor] = true
+      compile.options.other = Array(compile.options.other) + FORMATTER_JAVAC_JVM_EXPORTS
 
       gwt_enhance(project)
 
@@ -413,6 +416,7 @@ define 'arez' do
                    :grim_processor,
                    :javax_json
       compile.options[:processor] = true
+      compile.options.other = Array(compile.options.other) + FORMATTER_JAVAC_JVM_EXPORTS
       test.compile.options[:processor] = true
 
       # The generators are configured to generate to here.
@@ -494,6 +498,7 @@ define 'arez' do
                         project('arez:persist:processor').compile.dependencies
 
       test.compile.options[:processor] = true
+      test.compile.options.other = Array(test.compile.options.other) + FORMATTER_JAVAC_JVM_EXPORTS
 
       # The generators are configured to generate to here.
       iml.test_source_directories << _('generated/processors/test/java')
