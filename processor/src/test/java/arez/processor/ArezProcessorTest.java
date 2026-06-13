@@ -2804,7 +2804,7 @@ public final class ArezProcessorTest
       command.add( "-s" );
       command.add( sourceOutput.toString() );
       command.addAll( getOptions() );
-      command.add( "-A" + Constants.FORMAT_GENERATED_SOURCE_OPTION_KEY + "=true" );
+      command.add( "-Aarez.format_generated_source=true" );
       command.add( source.toString() );
 
       final Process process =
@@ -2814,10 +2814,9 @@ public final class ArezProcessorTest
       final String output = new String( process.getInputStream().readAllBytes(), StandardCharsets.UTF_8 );
       final int exitCode = process.waitFor();
 
-      assertFalse( 0 == exitCode, "Expected javac to fail without formatter JDK exports. Output:\n" + output );
-      assertTrue( output.contains( Constants.FORMAT_GENERATED_SOURCE_OPTION_KEY ),
-                  "Expected diagnostic to mention " + Constants.FORMAT_GENERATED_SOURCE_OPTION_KEY +
-                  ". Output:\n" + output );
+      assertNotEquals( exitCode, 0, "Expected javac to fail without formatter JDK exports. Output:\n" + output );
+      assertTrue( output.contains( "arez.format_generated_source" ),
+                  "Expected diagnostic to mention arez.format_generated_source. Output:\n" + output );
       for ( final String export : formatterJdkExports() )
       {
         assertTrue( output.contains( export ),

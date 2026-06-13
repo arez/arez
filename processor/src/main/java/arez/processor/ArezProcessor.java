@@ -2,7 +2,6 @@ package arez.processor;
 
 import com.palantir.javapoet.ParameterizedTypeName;
 import com.palantir.javapoet.TypeName;
-import com.palantir.javapoet.TypeSpec;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,7 +62,7 @@ import static javax.tools.Diagnostic.Kind.*;
 @SupportedOptions( { "arez.defer.unresolved",
                      "arez.defer.errors",
                      "arez.debug",
-                     Constants.FORMAT_GENERATED_SOURCE_OPTION_KEY,
+                     "arez.format_generated_source",
                      "arez.profile",
                      "arez.verbose_out_of_round.errors",
                      "arez.warnings_as_errors" } )
