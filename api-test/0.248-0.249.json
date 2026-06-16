@@ -1,0 +1,20 @@
+[
+  {
+    "code": "java.annotation.removed",
+    "description": "Element no longer annotated with 'arez.GwtIncompatible'.",
+    "element": "class arez.ArezTestUtil",
+    "classification": {
+      "SOURCE": "EQUIVALENT",
+      "BINARY": "EQUIVALENT",
+      "SEMANTIC": "POTENTIALLY_BREAKING"
+    },
+    "attachments": {
+      "annotation": "@arez.GwtIncompatible",
+      "annotationType": "arez.GwtIncompatible",
+      "classQualifiedName": "arez.ArezTestUtil",
+      "classSimpleName": "ArezTestUtil",
+      "elementKind": "class",
+      "package": "arez"
+    }
+  }
+]
