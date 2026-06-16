@@ -37,7 +37,7 @@ The simplest way to use the library;
             <path>
                <groupId>org.realityforge.arez.persist</groupId>
                <artifactId>arez-persist-processor</artifactId>
-              <version>0.248</version>
+              <version>0.249</version>
             </path>
           </annotationProcessorPaths>
         </configuration>
