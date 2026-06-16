@@ -51,9 +51,19 @@ final class ArezConfig
     return ENABLE_NAMES;
   }
 
+  static void setEnableNames( final boolean enableNames )
+  {
+    ENABLE_NAMES = enableNames;
+  }
+
   static boolean isVerifyEnabled()
   {
     return ENABLE_VERIFY;
+  }
+
+  static void setEnableVerify( final boolean enableVerify )
+  {
+    ENABLE_VERIFY = enableVerify;
   }
 
   static boolean arePropertyIntrospectorsEnabled()
@@ -61,9 +71,19 @@ final class ArezConfig
     return ENABLE_PROPERTY_INTROSPECTION;
   }
 
+  static void setEnablePropertyIntrospection( final boolean enablePropertyIntrospection )
+  {
+    ENABLE_PROPERTY_INTROSPECTION = enablePropertyIntrospection;
+  }
+
   static boolean areRegistriesEnabled()
   {
     return ENABLE_REGISTRIES;
+  }
+
+  static void setEnableRegistries( final boolean enableRegistries )
+  {
+    ENABLE_REGISTRIES = enableRegistries;
   }
 
   static boolean enforceTransactionType()
@@ -71,9 +91,19 @@ final class ArezConfig
     return ENFORCE_TRANSACTION_TYPE;
   }
 
+  static void setEnforceTransactionType( final boolean enforceTransactionType )
+  {
+    ENFORCE_TRANSACTION_TYPE = enforceTransactionType;
+  }
+
   static boolean purgeTasksWhenRunawayDetected()
   {
     return PURGE_ON_RUNAWAY;
+  }
+
+  static void setPurgeOnRunaway( final boolean purgeOnRunaway )
+  {
+    PURGE_ON_RUNAWAY = purgeOnRunaway;
   }
 
   static boolean areReferencesEnabled()
@@ -81,9 +111,19 @@ final class ArezConfig
     return ENABLE_REFERENCES;
   }
 
+  static void setEnableReferences( final boolean enableReferences )
+  {
+    ENABLE_REFERENCES = enableReferences;
+  }
+
   static boolean areSpiesEnabled()
   {
     return ENABLE_SPIES;
+  }
+
+  static void setEnableSpies( final boolean enableSpies )
+  {
+    ENABLE_SPIES = enableSpies;
   }
 
   static boolean areZonesEnabled()
@@ -91,9 +131,19 @@ final class ArezConfig
     return ENABLE_ZONES;
   }
 
+  static void setEnableZones( final boolean enableZones )
+  {
+    ENABLE_ZONES = enableZones;
+  }
+
   static boolean areCollectionsPropertiesUnmodifiable()
   {
     return COLLECTION_PROPERTIES_UNMODIFIABLE;
+  }
+
+  static void setCollectionPropertiesUnmodifiable( final boolean collectionPropertiesUnmodifiable )
+  {
+    COLLECTION_PROPERTIES_UNMODIFIABLE = collectionPropertiesUnmodifiable;
   }
 
   static boolean areNativeComponentsEnabled()
@@ -101,9 +151,19 @@ final class ArezConfig
     return ENABLE_NATIVE_COMPONENTS;
   }
 
+  static void setEnableNativeComponents( final boolean enableNativeComponents )
+  {
+    ENABLE_NATIVE_COMPONENTS = enableNativeComponents;
+  }
+
   static boolean areObserverErrorHandlersEnabled()
   {
     return ENABLE_OBSERVER_ERROR_HANDLERS;
+  }
+
+  static void setEnableObserverErrorHandlers( final boolean enableObserverErrorHandlers )
+  {
+    ENABLE_OBSERVER_ERROR_HANDLERS = enableObserverErrorHandlers;
   }
 
   static boolean isTaskInterceptorEnabled()
@@ -111,9 +171,19 @@ final class ArezConfig
     return ENABLE_TASK_INTERCEPTOR;
   }
 
+  static void setEnableTaskInterceptor( final boolean enableTaskInterceptor )
+  {
+    ENABLE_TASK_INTERCEPTOR = enableTaskInterceptor;
+  }
+
   static boolean checkInvariants()
   {
     return CHECK_INVARIANTS;
+  }
+
+  static void setCheckInvariants( final boolean checkInvariants )
+  {
+    CHECK_INVARIANTS = checkInvariants;
   }
 
   static boolean checkExpensiveInvariants()
@@ -121,9 +191,19 @@ final class ArezConfig
     return CHECK_EXPENSIVE_INVARIANTS;
   }
 
+  static void setCheckExpensiveInvariants( final boolean checkExpensiveInvariants )
+  {
+    CHECK_EXPENSIVE_INVARIANTS = checkExpensiveInvariants;
+  }
+
   static boolean checkApiInvariants()
   {
     return CHECK_API_INVARIANTS;
+  }
+
+  static void setCheckApiInvariants( final boolean checkApiInvariants )
+  {
+    CHECK_API_INVARIANTS = checkApiInvariants;
   }
 
   @Nonnull
@@ -132,6 +212,7 @@ final class ArezConfig
     return LOGGER_TYPE;
   }
 
+  @SuppressWarnings( "SimplifiableConditionalExpression" )
   private static final class ConfigProvider
     extends AbstractConfigProvider
   {

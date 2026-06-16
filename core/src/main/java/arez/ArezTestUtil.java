@@ -1,6 +1,5 @@
 package arez;
 
-import java.lang.reflect.Field;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -8,7 +7,6 @@ import javax.annotation.Nullable;
  * Utility class for interacting with Arez config settings in tests.
  */
 @SuppressWarnings( "WeakerAccess" )
-@GwtIncompatible
 public final class ArezTestUtil
 {
   private ArezTestUtil()
@@ -112,7 +110,7 @@ public final class ArezTestUtil
    */
   public static void enableNames()
   {
-    setEnableNames( true );
+    ArezConfig.setEnableNames( true );
   }
 
   /**
@@ -120,17 +118,7 @@ public final class ArezTestUtil
    */
   public static void disableNames()
   {
-    setEnableNames( false );
-  }
-
-  /**
-   * Configure the `arez.enable_names` setting.
-   *
-   * @param value the setting.
-   */
-  private static void setEnableNames( final boolean value )
-  {
-    setConstant( "ENABLE_NAMES", value );
+    ArezConfig.setEnableNames( false );
   }
 
   /**
@@ -138,7 +126,7 @@ public final class ArezTestUtil
    */
   public static void enableReferences()
   {
-    setEnableReferences( true );
+    ArezConfig.setEnableReferences( true );
   }
 
   /**
@@ -146,17 +134,7 @@ public final class ArezTestUtil
    */
   public static void disableReferences()
   {
-    setEnableReferences( false );
-  }
-
-  /**
-   * Configure the `arez.enable_references` setting.
-   *
-   * @param value the setting.
-   */
-  private static void setEnableReferences( final boolean value )
-  {
-    setConstant( "ENABLE_REFERENCES", value );
+    ArezConfig.setEnableReferences( false );
   }
 
   /**
@@ -164,7 +142,7 @@ public final class ArezTestUtil
    */
   public static void enableVerify()
   {
-    setEnableVerify( true );
+    ArezConfig.setEnableVerify( true );
   }
 
   /**
@@ -172,17 +150,7 @@ public final class ArezTestUtil
    */
   public static void disableVerify()
   {
-    setEnableVerify( false );
-  }
-
-  /**
-   * Configure the `arez.enable_verify` setting.
-   *
-   * @param value the setting.
-   */
-  private static void setEnableVerify( final boolean value )
-  {
-    setConstant( "ENABLE_VERIFY", value );
+    ArezConfig.setEnableVerify( false );
   }
 
   /**
@@ -190,7 +158,7 @@ public final class ArezTestUtil
    */
   public static void enablePropertyIntrospectors()
   {
-    setPropertyIntrospection( true );
+    ArezConfig.setEnablePropertyIntrospection( true );
   }
 
   /**
@@ -198,17 +166,7 @@ public final class ArezTestUtil
    */
   public static void disablePropertyIntrospectors()
   {
-    setPropertyIntrospection( false );
-  }
-
-  /**
-   * Configure the `arez.enable_property_introspection` setting.
-   *
-   * @param value the setting.
-   */
-  private static void setPropertyIntrospection( final boolean value )
-  {
-    setConstant( "ENABLE_PROPERTY_INTROSPECTION", value );
+    ArezConfig.setEnablePropertyIntrospection( false );
   }
 
   /**
@@ -216,7 +174,7 @@ public final class ArezTestUtil
    */
   public static void purgeTasksWhenRunawayDetected()
   {
-    setPurgeTasksWhenRunawayDetected( true );
+    ArezConfig.setPurgeOnRunaway( true );
   }
 
   /**
@@ -224,17 +182,7 @@ public final class ArezTestUtil
    */
   public static void noPurgeTasksWhenRunawayDetected()
   {
-    setPurgeTasksWhenRunawayDetected( false );
-  }
-
-  /**
-   * Configure the `arez.purge_tasks_when_runaway_detected` setting.
-   *
-   * @param value the setting.
-   */
-  private static void setPurgeTasksWhenRunawayDetected( final boolean value )
-  {
-    setConstant( "PURGE_ON_RUNAWAY", value );
+    ArezConfig.setPurgeOnRunaway( false );
   }
 
   /**
@@ -242,7 +190,7 @@ public final class ArezTestUtil
    */
   public static void enforceTransactionType()
   {
-    setEnforceTransactionType( true );
+    ArezConfig.setEnforceTransactionType( true );
   }
 
   /**
@@ -250,17 +198,7 @@ public final class ArezTestUtil
    */
   public static void noEnforceTransactionType()
   {
-    setEnforceTransactionType( false );
-  }
-
-  /**
-   * Configure the `arez.enforce_transaction_type` setting.
-   *
-   * @param value the setting.
-   */
-  private static void setEnforceTransactionType( final boolean value )
-  {
-    setConstant( "ENFORCE_TRANSACTION_TYPE", value );
+    ArezConfig.setEnforceTransactionType( false );
   }
 
   /**
@@ -268,7 +206,7 @@ public final class ArezTestUtil
    */
   public static void enableSpies()
   {
-    setEnableSpies( true );
+    ArezConfig.setEnableSpies( true );
     resetState();
   }
 
@@ -277,18 +215,8 @@ public final class ArezTestUtil
    */
   public static void disableSpies()
   {
-    setEnableSpies( false );
+    ArezConfig.setEnableSpies( false );
     resetState();
-  }
-
-  /**
-   * Configure the "arez.enable_spies" setting.
-   *
-   * @param value the setting.
-   */
-  private static void setEnableSpies( final boolean value )
-  {
-    setConstant( "ENABLE_SPIES", value );
   }
 
   /**
@@ -298,7 +226,7 @@ public final class ArezTestUtil
    */
   public static void enableZones()
   {
-    setEnableZones( true );
+    ArezConfig.setEnableZones( true );
     resetState();
   }
 
@@ -309,18 +237,8 @@ public final class ArezTestUtil
    */
   public static void disableZones()
   {
-    setEnableZones( false );
+    ArezConfig.setEnableZones( false );
     resetState();
-  }
-
-  /**
-   * Configure the `arez.enable_zones` setting.
-   *
-   * @param value the setting.
-   */
-  private static void setEnableZones( final boolean value )
-  {
-    setConstant( "ENABLE_ZONES", value );
   }
 
   /**
@@ -328,7 +246,7 @@ public final class ArezTestUtil
    */
   public static void makeCollectionPropertiesModifiable()
   {
-    setCollectionPropertiesUnmodifiable( false );
+    ArezConfig.setCollectionPropertiesUnmodifiable( false );
   }
 
   /**
@@ -336,17 +254,7 @@ public final class ArezTestUtil
    */
   public static void makeCollectionPropertiesUnmodifiable()
   {
-    setCollectionPropertiesUnmodifiable( true );
-  }
-
-  /**
-   * Configure the `arez.collections_properties_unmodifiable` setting.
-   *
-   * @param value the setting.
-   */
-  private static void setCollectionPropertiesUnmodifiable( final boolean value )
-  {
-    setConstant( "COLLECTION_PROPERTIES_UNMODIFIABLE", value );
+    ArezConfig.setCollectionPropertiesUnmodifiable( true );
   }
 
   /**
@@ -356,7 +264,7 @@ public final class ArezTestUtil
    */
   public static void enableNativeComponents()
   {
-    setEnableNativeComponents( true );
+    ArezConfig.setEnableNativeComponents( true );
     resetState();
   }
 
@@ -367,18 +275,8 @@ public final class ArezTestUtil
    */
   public static void disableNativeComponents()
   {
-    setEnableNativeComponents( false );
+    ArezConfig.setEnableNativeComponents( false );
     resetState();
-  }
-
-  /**
-   * Configure the `arez.enable_native_components` setting.
-   *
-   * @param value the setting.
-   */
-  private static void setEnableNativeComponents( final boolean value )
-  {
-    setConstant( "ENABLE_NATIVE_COMPONENTS", value );
   }
 
   /**
@@ -388,7 +286,7 @@ public final class ArezTestUtil
    */
   public static void enableRegistries()
   {
-    setEnableRegistries( true );
+    ArezConfig.setEnableRegistries( true );
     resetState();
   }
 
@@ -399,18 +297,8 @@ public final class ArezTestUtil
    */
   public static void disableRegistries()
   {
-    setEnableRegistries( false );
+    ArezConfig.setEnableRegistries( false );
     resetState();
-  }
-
-  /**
-   * Configure the `arez.enable_registries` setting.
-   *
-   * @param value the setting.
-   */
-  private static void setEnableRegistries( final boolean value )
-  {
-    setConstant( "ENABLE_REGISTRIES", value );
   }
 
   /**
@@ -418,7 +306,7 @@ public final class ArezTestUtil
    */
   public static void enableTaskInterceptor()
   {
-    setEnableTaskInterceptor( true );
+    ArezConfig.setEnableTaskInterceptor( true );
     resetState();
   }
 
@@ -427,18 +315,8 @@ public final class ArezTestUtil
    */
   public static void disableTaskInterceptor()
   {
-    setEnableTaskInterceptor( false );
+    ArezConfig.setEnableTaskInterceptor( false );
     resetState();
-  }
-
-  /**
-   * Configure the "arez.enable_task_interceptor" setting.
-   *
-   * @param value the setting.
-   */
-  private static void setEnableTaskInterceptor( final boolean value )
-  {
-    setConstant( "ENABLE_TASK_INTERCEPTOR", value );
   }
 
   /**
@@ -446,7 +324,7 @@ public final class ArezTestUtil
    */
   public static void enableObserverErrorHandlers()
   {
-    setEnableObserverErrorHandlers( true );
+    ArezConfig.setEnableObserverErrorHandlers( true );
   }
 
   /**
@@ -454,17 +332,7 @@ public final class ArezTestUtil
    */
   public static void disableObserverErrorHandlers()
   {
-    setEnableObserverErrorHandlers( false );
-  }
-
-  /**
-   * Configure the `arez.enable_observer_error_handlers` setting.
-   *
-   * @param value the setting.
-   */
-  private static void setEnableObserverErrorHandlers( final boolean value )
-  {
-    setConstant( "ENABLE_OBSERVER_ERROR_HANDLERS", value );
+    ArezConfig.setEnableObserverErrorHandlers( false );
   }
 
   /**
@@ -472,7 +340,7 @@ public final class ArezTestUtil
    */
   public static void checkInvariants()
   {
-    setCheckInvariants( true );
+    ArezConfig.setCheckInvariants( true );
   }
 
   /**
@@ -480,17 +348,7 @@ public final class ArezTestUtil
    */
   public static void noCheckInvariants()
   {
-    setCheckInvariants( false );
-  }
-
-  /**
-   * Configure the `arez.check_invariants` setting.
-   *
-   * @param checkInvariants the "check invariants" setting.
-   */
-  private static void setCheckInvariants( final boolean checkInvariants )
-  {
-    setConstant( "CHECK_INVARIANTS", checkInvariants );
+    ArezConfig.setCheckInvariants( false );
   }
 
   /**
@@ -498,7 +356,7 @@ public final class ArezTestUtil
    */
   public static void checkExpensiveInvariants()
   {
-    setCheckExpensiveInvariants( true );
+    ArezConfig.setCheckExpensiveInvariants( true );
   }
 
   /**
@@ -506,17 +364,7 @@ public final class ArezTestUtil
    */
   public static void noCheckExpensiveInvariants()
   {
-    setCheckExpensiveInvariants( false );
-  }
-
-  /**
-   * Configure the `arez.check_expensive_invariants` setting.
-   *
-   * @param checkExpensiveInvariants the "check expensive invariants" setting.
-   */
-  private static void setCheckExpensiveInvariants( final boolean checkExpensiveInvariants )
-  {
-    setConstant( "CHECK_EXPENSIVE_INVARIANTS", checkExpensiveInvariants );
+    ArezConfig.setCheckExpensiveInvariants( false );
   }
 
   /**
@@ -524,7 +372,7 @@ public final class ArezTestUtil
    */
   public static void checkApiInvariants()
   {
-    setCheckApiInvariants( true );
+    ArezConfig.setCheckApiInvariants( true );
   }
 
   /**
@@ -532,46 +380,6 @@ public final class ArezTestUtil
    */
   public static void noCheckApiInvariants()
   {
-    setCheckApiInvariants( false );
-  }
-
-  /**
-   * Configure the `arez.check_api_invariants` setting.
-   *
-   * @param checkApiInvariants the "check invariants" setting.
-   */
-  private static void setCheckApiInvariants( final boolean checkApiInvariants )
-  {
-    setConstant( "CHECK_API_INVARIANTS", checkApiInvariants );
-  }
-
-  /**
-   * Set the specified field name on ArezConfig.
-   */
-  @SuppressWarnings( "NonJREEmulationClassesInClientCode" )
-  private static void setConstant( @Nonnull final String fieldName, final boolean value )
-  {
-    if ( ArezConfig.isProductionEnvironment() )
-    {
-      /*
-       * This should really never happen but if it does add assertion (so code stops in debugger) or
-       * failing that throw an exception.
-       */
-      assert ArezConfig.isDevelopmentEnvironment();
-      throw new IllegalStateException( "Unable to change constant " + fieldName + " as Arez is in production mode" );
-    }
-    else
-    {
-      try
-      {
-        final Field field = ArezConfig.class.getDeclaredField( fieldName );
-        field.setAccessible( true );
-        field.set( null, value );
-      }
-      catch ( final NoSuchFieldException | IllegalAccessException e )
-      {
-        throw new IllegalStateException( "Unable to change constant " + fieldName, e );
-      }
-    }
+    ArezConfig.setCheckApiInvariants( false );
   }
 }
