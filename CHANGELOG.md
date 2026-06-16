@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the `org.realityforge.sting` artifacts to version `0.37`.
 * Update the `org.realityforge.braincheck` artifacts to version `1.33.0`.
 
 ### [v0.248](https://github.com/arez/arez/tree/v0.248) (2026-06-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.247...v0.248)
@@ -9,7 +10,6 @@
 Changes in this release:
 
 * Update the `org.realityforge.proton` artifacts to version `0.72`.
-
 * Update the `org.realityforge.sting` artifacts to version `0.36`.
 
 ### [v0.247](https://github.com/arez/arez/tree/v0.247) (2026-06-13) · [Full Changelog](https://github.com/arez/arez/compare/v0.246...v0.247)
