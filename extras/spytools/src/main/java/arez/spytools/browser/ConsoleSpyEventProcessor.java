@@ -25,6 +25,8 @@ import arez.spy.ObserveStartEvent;
 import arez.spy.ObserverCreateEvent;
 import arez.spy.ObserverDisposeEvent;
 import arez.spy.ObserverErrorEvent;
+import arez.spy.ReactionCycleCompleteEvent;
+import arez.spy.ReactionCycleStartEvent;
 import arez.spy.TaskCompleteEvent;
 import arez.spy.TaskStartEvent;
 import arez.spy.TransactionCompleteEvent;
@@ -100,6 +102,9 @@ public class ConsoleSpyEventProcessor
     on( ObserveStartEvent.class, this::onObserveStart );
     on( ObserveCompleteEvent.class, this::onObserveComplete );
 
+    on( ReactionCycleStartEvent.class, this::onReactionCycleStart );
+    on( ReactionCycleCompleteEvent.class, this::onReactionCycleComplete );
+
     on( TransactionStartEvent.class, this::TransactionStart );
     on( TransactionCompleteEvent.class, this::onTransactionComplete );
 
@@ -131,6 +136,30 @@ public class ConsoleSpyEventProcessor
   protected void onTaskComplete( @Nonnull final SpyUtil.NestingDelta d, @Nonnull final TaskCompleteEvent e )
   {
     log( d, "%cTask Complete " + e.getTask().getName(), TASK_COLOR );
+  }
+
+  /**
+   * Handle the ReactionCycleStartEvent.
+   *
+   * @param d the change in nesting level.
+   * @param e the event.
+   */
+  protected void onReactionCycleStart( @Nonnull final SpyUtil.NestingDelta d,
+                                       @Nonnull final ReactionCycleStartEvent e )
+  {
+    log( d, "%cReaction Cycle Start", REACTION_COLOR );
+  }
+
+  /**
+   * Handle the ReactionCycleCompleteEvent.
+   *
+   * @param d the change in nesting level.
+   * @param e the event.
+   */
+  protected void onReactionCycleComplete( @Nonnull final SpyUtil.NestingDelta d,
+                                          @Nonnull final ReactionCycleCompleteEvent e )
+  {
+    log( d, "%cReaction Cycle Complete [" + e.getDuration() + "]", REACTION_COLOR );
   }
 
   /**

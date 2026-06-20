@@ -71,6 +71,9 @@
         ]
     },
     {
+        "type": "ReactionCycleStart"
+    },
+    {
         "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "ComputeStart"
     },
@@ -408,6 +411,10 @@
         "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "errorMessage": null,
         "type": "ComputeComplete"
+    },
+    {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
     },
     {
         "name": "Action@2",
@@ -480,6 +487,9 @@
         ]
     },
     {
+        "type": "ReactionCycleStart"
+    },
+    {
         "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "ComputeStart"
     },
@@ -676,6 +686,10 @@
         "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "errorMessage": null,
         "type": "ComputeComplete"
+    },
+    {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
     },
     {
         "name": "Action@3",
@@ -748,6 +762,9 @@
         ]
     },
     {
+        "type": "ReactionCycleStart"
+    },
+    {
         "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "ComputeStart"
     },
@@ -1085,6 +1102,10 @@
         "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search1.2",
         "errorMessage": null,
         "type": "ComputeComplete"
+    },
+    {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
     },
     {
         "name": "Action@4",
@@ -1157,6 +1178,9 @@
         ]
     },
     {
+        "type": "ReactionCycleStart"
+    },
+    {
         "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "ComputeStart"
     },
@@ -1494,6 +1518,10 @@
         "name": "search1(r)",
         "errorMessage": null,
         "type": "ObserveComplete"
+    },
+    {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
     },
     {
         "name": "Action@5",
@@ -1566,6 +1594,9 @@
         ]
     },
     {
+        "type": "ReactionCycleStart"
+    },
+    {
         "name": "arez_integration_memoize_MemoizedPriorityIntegrationTest_Model.1.search2.0",
         "type": "ComputeStart"
     },
@@ -2185,5 +2216,9 @@
         "name": "search1(r)",
         "errorMessage": null,
         "type": "ObserveComplete"
+    },
+    {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
     }
 ]

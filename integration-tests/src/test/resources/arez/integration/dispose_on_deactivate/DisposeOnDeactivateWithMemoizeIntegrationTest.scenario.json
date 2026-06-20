@@ -37,6 +37,9 @@
         "type": "ComponentCreateComplete"
     },
     {
+        "type": "ReactionCycleStart"
+    },
+    {
         "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model2.1.someValue",
         "type": "ComputeStart"
     },
@@ -64,6 +67,10 @@
         "type": "ComputeComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1",
         "type": "ComponentCreateStart"
     },
@@ -78,6 +85,9 @@
     {
         "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1",
         "type": "ComponentCreateComplete"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
@@ -145,6 +155,10 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "MyAction",
         "tracked": false,
         "type": "ActionStart",
@@ -185,6 +199,9 @@
         "type": "ActionComplete",
         "parameters": [
         ]
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
@@ -453,5 +470,9 @@
         "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateWithMemoizeIntegrationTest_Model3.1.myAutorun",
         "errorMessage": null,
         "type": "ObserveComplete"
+    },
+    {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
     }
 ]

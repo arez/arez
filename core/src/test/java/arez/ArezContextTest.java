@@ -19,6 +19,8 @@ import arez.spy.ObserverInfo;
 import arez.spy.Priority;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
+import arez.spy.ReactionCycleCompleteEvent;
+import arez.spy.ReactionCycleStartEvent;
 import arez.spy.TaskCompleteEvent;
 import arez.spy.TaskStartEvent;
 import arez.spy.TransactionCompleteEvent;
@@ -93,6 +95,77 @@ public final class ArezContextTest
     context.triggerScheduler();
 
     assertEquals( callCount.get(), 1 );
+  }
+
+  @Test
+  public void triggerScheduler_generatesReactionCycleSpyEvents()
+  {
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> observableValue = context.observable();
+    final AtomicInteger callCount = new AtomicInteger();
+
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
+
+    context.observer( () -> {
+      observableValue.reportObserved();
+      callCount.incrementAndGet();
+    }, Observer.Flags.RUN_LATER );
+
+    assertEquals( callCount.get(), 0 );
+
+    handler.reset();
+
+    context.triggerScheduler();
+
+    assertEquals( callCount.get(), 1 );
+
+    handler.assertEventCount( 8 );
+    handler.assertNextEvent( ReactionCycleStartEvent.class );
+    handler.assertNextEvent( ObserveStartEvent.class );
+    handler.assertNextEvent( ActionStartEvent.class );
+    handler.assertNextEvent( TransactionStartEvent.class );
+    handler.assertNextEvent( TransactionCompleteEvent.class );
+    handler.assertNextEvent( ActionCompleteEvent.class );
+    handler.assertNextEvent( ObserveCompleteEvent.class );
+    handler.assertNextEvent( ReactionCycleCompleteEvent.class, e -> {
+      assertNull( e.getThrowable() );
+      assertTrue( e.getDuration() >= 0 );
+    } );
+  }
+
+  @Test
+  public void triggerScheduler_noReactionCycleSpyEventsWhenNoTasksPending()
+  {
+    final ArezContext context = Arez.context();
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
+
+    context.triggerScheduler();
+
+    handler.assertEventCount( 0 );
+  }
+
+  @Test
+  public void triggerScheduler_generatesReactionCycleCompleteSpyEventWhenInterceptorThrows()
+  {
+    final ArezContext context = Arez.context();
+    final RuntimeException error = new RuntimeException( "Boom!" );
+
+    context.setTaskInterceptor( a -> {
+      throw error;
+    } );
+
+    context.observer( () -> observeADependency(), Observer.Flags.RUN_LATER );
+
+    final TestSpyEventHandler handler = TestSpyEventHandler.subscribe( context );
+
+    assertSame( expectThrows( RuntimeException.class, context::triggerScheduler ), error );
+
+    handler.assertEventCount( 2 );
+    handler.assertNextEvent( ReactionCycleStartEvent.class );
+    handler.assertNextEvent( ReactionCycleCompleteEvent.class, e -> {
+      assertSame( e.getThrowable(), error );
+      assertTrue( e.getDuration() >= 0 );
+    } );
   }
 
   @Test
@@ -2553,11 +2626,13 @@ public final class ArezContextTest
     assertFalse( observer.isApplicationExecutor() );
     assertEquals( callCount.get(), 1 );
 
-    handler.assertEventCount( 8 );
+    handler.assertEventCount( 10 );
 
     handler.assertNextEvent( ObserverCreateEvent.class, e -> assertEquals( e.getObserver().getName(), name ) );
     handler.assertNextEvent( ObserveScheduleEvent.class, e -> assertEquals( e.getObserver().getName(), name ) );
+    handler.assertNextEvent( ReactionCycleStartEvent.class );
     assertObserverReaction( handler, name );
+    handler.assertNextEvent( ReactionCycleCompleteEvent.class );
   }
 
   @Test
@@ -2581,11 +2656,13 @@ public final class ArezContextTest
 
     schedulerLock.dispose();
 
-    handler.assertEventCount( 6 * 3 );
+    handler.assertEventCount( 2 + ( 6 * 3 ) );
 
+    handler.assertNextEvent( ReactionCycleStartEvent.class );
     assertObserverReaction( handler, observer2.getName() );
     assertObserverReaction( handler, observer1.getName() );
     assertObserverReaction( handler, observer3.getName() );
+    handler.assertNextEvent( ReactionCycleCompleteEvent.class );
   }
 
   private void assertObserverReaction( @Nonnull final TestSpyEventHandler handler, @Nonnull final String name )
@@ -3426,13 +3503,15 @@ public final class ArezContextTest
     assertFalse( task.isQueued() );
     assertFalse( task.isDisposed() );
 
-    handler.assertEventCount( 2 );
+    handler.assertEventCount( 4 );
 
+    handler.assertNextEvent( ReactionCycleStartEvent.class );
     handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
     handler.assertNextEvent( TaskCompleteEvent.class, e -> {
       assertEquals( e.getTask().getName(), name );
       assertNull( e.getThrowable() );
     } );
+    handler.assertNextEvent( ReactionCycleCompleteEvent.class );
 
     handler.reset();
 
@@ -3468,14 +3547,16 @@ public final class ArezContextTest
     assertFalse( task.isQueued() );
     assertFalse( task.isDisposed() );
 
-    handler.assertEventCount( 2 );
+    handler.assertEventCount( 4 );
 
+    handler.assertNextEvent( ReactionCycleStartEvent.class );
     handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
     handler.assertNextEvent( TaskCompleteEvent.class, e -> {
       assertEquals( e.getTask().getName(), name );
       assertNotNull( e.getThrowable() );
       assertEquals( e.getThrowable().getMessage(), errorMessage );
     } );
+    handler.assertNextEvent( ReactionCycleCompleteEvent.class );
   }
 
   @Test
@@ -3495,10 +3576,12 @@ public final class ArezContextTest
     assertFalse( task.isQueued() );
     assertFalse( task.isDisposed() );
 
-    handler.assertEventCount( 2 );
+    handler.assertEventCount( 4 );
 
+    handler.assertNextEvent( ReactionCycleStartEvent.class );
     handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
     handler.assertNextEvent( TaskCompleteEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
+    handler.assertNextEvent( ReactionCycleCompleteEvent.class );
   }
 
   @Test
@@ -3527,10 +3610,12 @@ public final class ArezContextTest
     assertFalse( task.isQueued() );
     assertFalse( task.isDisposed() );
 
-    handler.assertEventCount( 2 );
+    handler.assertEventCount( 4 );
 
+    handler.assertNextEvent( ReactionCycleStartEvent.class );
     handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
     handler.assertNextEvent( TaskCompleteEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
+    handler.assertNextEvent( ReactionCycleCompleteEvent.class );
   }
 
   @Test

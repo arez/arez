@@ -9,6 +9,8 @@ import arez.spy.ComputeStartEvent;
 import arez.spy.ObservableValueChangeEvent;
 import arez.spy.ObserveScheduleEvent;
 import arez.spy.Priority;
+import arez.spy.ReactionCycleCompleteEvent;
+import arez.spy.ReactionCycleStartEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -907,13 +909,15 @@ public final class ComputableValueTest
     assertTrue( computableValue.getObserver().isActive() );
     assertEquals( computableValue.getKeepAliveRefCount(), 1 );
 
-    handler.assertEventCount( 6 );
+    handler.assertEventCount( 8 );
     handler.assertNextEvent( ObserveScheduleEvent.class );
+    handler.assertNextEvent( ReactionCycleStartEvent.class );
     handler.assertNextEvent( ComputeStartEvent.class );
     handler.assertNextEvent( TransactionStartEvent.class );
     handler.assertNextEvent( ObservableValueChangeEvent.class );
     handler.assertNextEvent( TransactionCompleteEvent.class );
     handler.assertNextEvent( ComputeCompleteEvent.class );
+    handler.assertNextEvent( ReactionCycleCompleteEvent.class );
 
     handler.reset();
 
@@ -1029,13 +1033,15 @@ public final class ComputableValueTest
 
     assertEquals( calls.get(), 1 );
 
-    handler.assertEventCount( 6 );
+    handler.assertEventCount( 8 );
     handler.assertNextEvent( ObserveScheduleEvent.class );
+    handler.assertNextEvent( ReactionCycleStartEvent.class );
     handler.assertNextEvent( ComputeStartEvent.class );
     handler.assertNextEvent( TransactionStartEvent.class );
     handler.assertNextEvent( ObservableValueChangeEvent.class );
     handler.assertNextEvent( TransactionCompleteEvent.class );
     handler.assertNextEvent( ComputeCompleteEvent.class );
+    handler.assertNextEvent( ReactionCycleCompleteEvent.class );
 
     handler.reset();
 
@@ -1135,7 +1141,7 @@ public final class ComputableValueTest
     value.set( 2 );
 
     context.safeAction( computable1::reportPossiblyChanged );
-    handler.assertEventCount( 17 );
+    handler.assertEventCount( 19 );
 
     handler.assertNextEvent( ActionStartEvent.class );
     handler.assertNextEvent( TransactionStartEvent.class );
@@ -1146,6 +1152,7 @@ public final class ComputableValueTest
     handler.assertNextEvent( TransactionCompleteEvent.class );
     handler.assertNextEvent( ActionCompleteEvent.class );
 
+    handler.assertNextEvent( ReactionCycleStartEvent.class );
     handler.assertNextEvent( ComputeStartEvent.class,
                              e -> assertEquals( e.getComputableValue().getName(), computable2.getName() ) );
     handler.assertNextEvent( TransactionStartEvent.class, e -> assertEquals( e.getName(), computable2.getName() ) );
@@ -1164,5 +1171,6 @@ public final class ComputableValueTest
                              e -> assertEquals( e.getComputableValue().getName(), computable1.getName() ) );
     handler.assertNextEvent( ComputeCompleteEvent.class,
                              e -> assertEquals( e.getComputableValue().getName(), computable1.getName() ) );
+    handler.assertNextEvent( ReactionCycleCompleteEvent.class );
   }
 }

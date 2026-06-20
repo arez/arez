@@ -8,6 +8,8 @@ import arez.spy.ObserveScheduleEvent;
 import arez.spy.ObserverErrorEvent;
 import arez.spy.PropertyAccessor;
 import arez.spy.PropertyMutator;
+import arez.spy.ReactionCycleCompleteEvent;
+import arez.spy.ReactionCycleStartEvent;
 import arez.spy.Spy;
 import grim.annotations.OmitSymbol;
 import java.util.Collection;
@@ -1217,9 +1219,17 @@ public final class ArezContext
       // most invocation of runPendingTasks will handle scheduling
       if ( !_schedulerActive )
       {
+        final boolean pendingTasksPresent = willPropagateSpyEvents() && _executor.getPendingTaskCount() > 0;
+        long startedAt = 0L;
+        Throwable throwable = null;
         _schedulerActive = true;
         try
         {
+          if ( willPropagateSpyEvents() && pendingTasksPresent )
+          {
+            startedAt = System.currentTimeMillis();
+            getSpy().reportSpyEvent( new ReactionCycleStartEvent() );
+          }
           if ( Arez.isTaskInterceptorEnabled() && null != _taskInterceptor )
           {
             assert null != _taskExecuteAction;
@@ -1233,8 +1243,21 @@ public final class ArezContext
             _executor.runTasks();
           }
         }
+        catch ( final Throwable t )
+        {
+          if ( willPropagateSpyEvents() && pendingTasksPresent )
+          {
+            throwable = t;
+          }
+          throw t;
+        }
         finally
         {
+          if ( willPropagateSpyEvents() && pendingTasksPresent )
+          {
+            final int duration = Math.max( 0, (int) ( System.currentTimeMillis() - startedAt ) );
+            getSpy().reportSpyEvent( new ReactionCycleCompleteEvent( throwable, duration ) );
+          }
           _schedulerActive = false;
         }
       }

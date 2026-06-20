@@ -25,6 +25,9 @@
         "type": "ObserveSchedule"
     },
     {
+        "type": "ReactionCycleStart"
+    },
+    {
         "name": "FullNamePrinterC1",
         "type": "ObserveStart"
     },
@@ -98,12 +101,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "FullNamePrinterC2",
         "type": "ObserverCreate"
     },
     {
         "name": "FullNamePrinterC2",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "FullNamePrinterC2",
@@ -179,6 +189,10 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "First Name Update",
         "tracked": false,
         "type": "ActionStart",
@@ -219,6 +233,9 @@
         "type": "ActionComplete",
         "parameters": [
         ]
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
@@ -367,6 +384,10 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Second Name Update that does nothing",
         "tracked": false,
         "type": "ActionStart",
@@ -414,6 +435,9 @@
         ]
     },
     {
+        "type": "ReactionCycleStart"
+    },
+    {
         "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
         "type": "ComputeStart"
     },
@@ -458,6 +482,10 @@
         "type": "ComputeComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Last Name Update",
         "tracked": false,
         "type": "ActionStart",
@@ -498,6 +526,9 @@
         "type": "ActionComplete",
         "parameters": [
         ]
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0",
@@ -646,6 +677,10 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "FullNamePrinterC1.dispose",
         "tracked": false,
         "type": "ActionStart",
@@ -673,6 +708,9 @@
         "type": "ActionComplete",
         "parameters": [
         ]
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.0.dispose",
@@ -769,6 +807,10 @@
         "type": "ActionComplete",
         "parameters": [
         ]
+    },
+    {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
     },
     {
         "name": "FullNamePrinterC1",
@@ -804,6 +846,9 @@
         ]
     },
     {
+        "type": "ReactionCycleStart"
+    },
+    {
         "name": "arez_integration_memoize_context_parameter_MemoizeSingleContextParameterIntegrationTest_PersonModel.1.fullName.1.dispose",
         "tracked": false,
         "type": "ActionStart",
@@ -898,6 +943,10 @@
         "type": "ActionComplete",
         "parameters": [
         ]
+    },
+    {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
     },
     {
         "name": "FullNamePrinterC2",

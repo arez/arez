@@ -18,6 +18,8 @@ import arez.spy.ComputeCompleteEvent;
 import arez.spy.ComputeStartEvent;
 import arez.spy.ObservableValueChangeEvent;
 import arez.spy.ObserveScheduleEvent;
+import arez.spy.ReactionCycleCompleteEvent;
+import arez.spy.ReactionCycleStartEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import java.util.ArrayList;
@@ -282,13 +284,15 @@ public final class ComputableValueApiTest
 
     final Disposable keepAliveLock = computableValue.keepAlive();
 
-    handler.assertEventCount( 6 );
+    handler.assertEventCount( 8 );
     handler.assertNextEvent( ObserveScheduleEvent.class );
+    handler.assertNextEvent( ReactionCycleStartEvent.class );
     handler.assertNextEvent( ComputeStartEvent.class );
     handler.assertNextEvent( TransactionStartEvent.class );
     handler.assertNextEvent( ObservableValueChangeEvent.class );
     handler.assertNextEvent( TransactionCompleteEvent.class );
     handler.assertNextEvent( ComputeCompleteEvent.class );
+    handler.assertNextEvent( ReactionCycleCompleteEvent.class );
 
     handler.reset();
 

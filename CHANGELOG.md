@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Add `ReactionCycleStartEvent` and `ReactionCycleCompleteEvent` spy events around scheduler reaction cycles.
+
 ### [v0.249](https://github.com/arez/arez/tree/v0.249) (2026-06-16) · [Full Changelog](https://github.com/arez/arez/compare/v0.248...v0.249) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.248&new=0.249)
 
 Changes in this release:

@@ -91,6 +91,9 @@
         ]
     },
     {
+        "type": "ReactionCycleStart"
+    },
+    {
         "name": "AR6",
         "type": "ObserveStart"
     },
@@ -355,5 +358,9 @@
         "name": "AR1",
         "errorMessage": null,
         "type": "ObserveComplete"
+    },
+    {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
     }
 ]

@@ -22,6 +22,8 @@ import arez.spy.ObserveStartEvent;
 import arez.spy.ObserverCreateEvent;
 import arez.spy.ObserverDisposeEvent;
 import arez.spy.ObserverErrorEvent;
+import arez.spy.ReactionCycleCompleteEvent;
+import arez.spy.ReactionCycleStartEvent;
 import arez.spy.TaskCompleteEvent;
 import arez.spy.TaskStartEvent;
 import arez.spy.TransactionCompleteEvent;
@@ -67,6 +69,7 @@ public final class SpyUtil
          ObserveStartEvent.class == type ||
          TransactionStartEvent.class == type ||
          ComputeStartEvent.class == type ||
+         ReactionCycleStartEvent.class == type ||
          TaskStartEvent.class == type ||
          ActionStartEvent.class == type )
     {
@@ -77,6 +80,7 @@ public final class SpyUtil
               ObserveCompleteEvent.class == type ||
               TransactionCompleteEvent.class == type ||
               ComputeCompleteEvent.class == type ||
+              ReactionCycleCompleteEvent.class == type ||
               TaskCompleteEvent.class == type ||
               ActionCompleteEvent.class == type )
     {

@@ -1,0 +1,32 @@
+[
+  {
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "class arez.spy.ReactionCycleCompleteEvent",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.spy.ReactionCycleCompleteEvent",
+      "classSimpleName": "ReactionCycleCompleteEvent",
+      "elementKind": "class",
+      "package": "arez.spy"
+    }
+  },
+  {
+    "code": "java.class.added",
+    "description": "Class was added.",
+    "newElement": "class arez.spy.ReactionCycleStartEvent",
+    "classification": {
+      "SOURCE": "NON_BREAKING",
+      "BINARY": "NON_BREAKING"
+    },
+    "attachments": {
+      "classQualifiedName": "arez.spy.ReactionCycleStartEvent",
+      "classSimpleName": "ReactionCycleStartEvent",
+      "elementKind": "class",
+      "package": "arez.spy"
+    }
+  }
+]

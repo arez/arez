@@ -341,6 +341,9 @@
         "type": "ObserveSchedule"
     },
     {
+        "type": "ReactionCycleStart"
+    },
+    {
         "name": "Observer@1",
         "type": "ObserveStart"
     },
@@ -464,12 +467,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Observer@3",
         "type": "ObserverCreate"
     },
     {
         "name": "Observer@3",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "Observer@3",
@@ -514,12 +524,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Observer@5",
         "type": "ObserverCreate"
     },
     {
         "name": "Observer@5",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "Observer@5",
@@ -564,12 +581,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Observer@7",
         "type": "ObserverCreate"
     },
     {
         "name": "Observer@7",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "Observer@7",
@@ -641,12 +665,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Observer@9",
         "type": "ObserverCreate"
     },
     {
         "name": "Observer@9",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "Observer@9",
@@ -718,12 +749,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Observer@11",
         "type": "ObserverCreate"
     },
     {
         "name": "Observer@11",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "Observer@11",
@@ -795,12 +833,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Observer@13",
         "type": "ObserverCreate"
     },
     {
         "name": "Observer@13",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "Observer@13",
@@ -953,12 +998,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Observer@15",
         "type": "ObserverCreate"
     },
     {
         "name": "Observer@15",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "Observer@15",
@@ -1003,12 +1055,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Observer@17",
         "type": "ObserverCreate"
     },
     {
         "name": "Observer@17",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "Observer@17",
@@ -1053,12 +1112,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Observer@19",
         "type": "ObserverCreate"
     },
     {
         "name": "Observer@19",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "Observer@19",
@@ -1103,12 +1169,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Observer@21",
         "type": "ObserverCreate"
     },
     {
         "name": "Observer@21",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "Observer@21",
@@ -1180,12 +1253,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Observer@23",
         "type": "ObserverCreate"
     },
     {
         "name": "Observer@23",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "Observer@23",
@@ -1257,12 +1337,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Observer@25",
         "type": "ObserverCreate"
     },
     {
         "name": "Observer@25",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "Observer@25",
@@ -1388,12 +1475,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Observer@27",
         "type": "ObserverCreate"
     },
     {
         "name": "Observer@27",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "Observer@27",
@@ -1438,12 +1532,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Observer@29",
         "type": "ObserverCreate"
     },
     {
         "name": "Observer@29",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "Observer@29",
@@ -1488,12 +1589,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Observer@31",
         "type": "ObserverCreate"
     },
     {
         "name": "Observer@31",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "Observer@31",
@@ -1565,12 +1673,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Observer@33",
         "type": "ObserverCreate"
     },
     {
         "name": "Observer@33",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "Observer@33",
@@ -1642,12 +1757,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Observer@35",
         "type": "ObserverCreate"
     },
     {
         "name": "Observer@35",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "Observer@35",
@@ -1746,12 +1868,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Observer@37",
         "type": "ObserverCreate"
     },
     {
         "name": "Observer@37",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "Observer@37",
@@ -1796,12 +1925,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Observer@39",
         "type": "ObserverCreate"
     },
     {
         "name": "Observer@39",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "Observer@39",
@@ -1871,6 +2007,10 @@
         "name": "Observer@39",
         "errorMessage": null,
         "type": "ObserveComplete"
+    },
+    {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
     },
     {
         "name": "Action@41",
@@ -1985,6 +2125,9 @@
         "type": "ActionComplete",
         "parameters": [
         ]
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
@@ -3027,6 +3170,10 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Action@52",
         "tracked": false,
         "type": "ActionStart",
@@ -3139,6 +3286,9 @@
         "type": "ActionComplete",
         "parameters": [
         ]
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
@@ -4058,6 +4208,10 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Action@60",
         "tracked": false,
         "type": "ActionStart",
@@ -4170,6 +4324,9 @@
         "type": "ActionComplete",
         "parameters": [
         ]
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
@@ -4895,6 +5052,10 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Action@64",
         "tracked": false,
         "type": "ActionStart",
@@ -5007,6 +5168,9 @@
         "type": "ActionComplete",
         "parameters": [
         ]
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "arez_integration_NestedComputableValueIntegrationTest_Node.1.visible",
@@ -5700,5 +5864,9 @@
         "name": "Observer@1",
         "errorMessage": null,
         "type": "ObserveComplete"
+    },
+    {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
     }
 ]

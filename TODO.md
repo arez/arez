@@ -60,8 +60,6 @@ class MyComponentFactory
   and reduced code size. `@Observable(writeOutsideTransaction=ENABLE)` should also work when invoking
   `ObservableValue.reportChanged()` directly.
 
-* Add hook at end of scheduling so framework can do stuff (like batching spy message sent to DevTools)
-
 * Maybe when the spy events are over a channel the puller can decide when parameters/results are sent across
   channel and when not.
 

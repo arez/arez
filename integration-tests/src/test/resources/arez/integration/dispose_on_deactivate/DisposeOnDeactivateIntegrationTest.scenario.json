@@ -25,6 +25,9 @@
         "type": "ObserveSchedule"
     },
     {
+        "type": "ReactionCycleStart"
+    },
+    {
         "name": "Observer@1",
         "type": "ObserveStart"
     },
@@ -94,6 +97,10 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Observer@1.dispose",
         "tracked": false,
         "type": "ActionStart",
@@ -121,6 +128,9 @@
         "type": "ActionComplete",
         "parameters": [
         ]
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateIntegrationTest_Model1.1",
@@ -244,6 +254,10 @@
     {
         "name": "arez_integration_dispose_on_deactivate_DisposeOnDeactivateIntegrationTest_Model1.1",
         "type": "ComponentDisposeComplete"
+    },
+    {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
     },
     {
         "name": "Observer@1",

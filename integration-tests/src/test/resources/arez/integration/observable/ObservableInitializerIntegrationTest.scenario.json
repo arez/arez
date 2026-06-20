@@ -29,6 +29,9 @@
         "type": "ObserveSchedule"
     },
     {
+        "type": "ReactionCycleStart"
+    },
+    {
         "name": "FirstNamePrinter",
         "type": "ObserveStart"
     },
@@ -75,12 +78,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "FullNamePrinter",
         "type": "ObserverCreate"
     },
     {
         "name": "FullNamePrinter",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "FullNamePrinter",
@@ -156,6 +166,10 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "First Name Update",
         "tracked": false,
         "type": "ActionStart",
@@ -196,6 +210,9 @@
         "type": "ActionComplete",
         "parameters": [
         ]
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "FirstNamePrinter",
@@ -321,6 +338,10 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Last Name Update",
         "tracked": false,
         "type": "ActionStart",
@@ -357,6 +378,9 @@
         "type": "ActionComplete",
         "parameters": [
         ]
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "arez_integration_observable_ObservableInitializerIntegrationTest_PersonModel.1.fullName",
@@ -434,5 +458,9 @@
         "name": "FullNamePrinter",
         "errorMessage": null,
         "type": "ObserveComplete"
+    },
+    {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
     }
 ]

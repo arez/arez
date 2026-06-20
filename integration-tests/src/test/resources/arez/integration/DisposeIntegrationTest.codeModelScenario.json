@@ -33,6 +33,9 @@
         "type": "ObserveSchedule"
     },
     {
+        "type": "ReactionCycleStart"
+    },
+    {
         "name": "Printer",
         "type": "ObserveStart"
     },
@@ -106,6 +109,10 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Specific Qualified Name",
         "tracked": false,
         "type": "ActionStart",
@@ -142,6 +149,9 @@
         "type": "ActionComplete",
         "parameters": [
         ]
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
@@ -221,6 +231,10 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Reset Qualified Name to default",
         "tracked": false,
         "type": "ActionStart",
@@ -257,6 +271,9 @@
         "type": "ActionComplete",
         "parameters": [
         ]
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
@@ -336,6 +353,10 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Change Local Name",
         "tracked": false,
         "type": "ActionStart",
@@ -372,6 +393,9 @@
         "type": "ActionComplete",
         "parameters": [
         ]
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "arez_integration_DisposeIntegrationTest_CodeModel.1.qualifiedName",
@@ -449,6 +473,10 @@
         "name": "Printer",
         "errorMessage": null,
         "type": "ObserveComplete"
+    },
+    {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
     },
     {
         "name": "Printer.dispose",

@@ -14,6 +14,8 @@ import arez.spy.ObserverDisposeEvent;
 import arez.spy.ObserverErrorEvent;
 import arez.spy.ObserverInfo;
 import arez.spy.Priority;
+import arez.spy.ReactionCycleCompleteEvent;
+import arez.spy.ReactionCycleStartEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -1145,12 +1147,13 @@ public final class ObserverTest
 
     context.triggerScheduler();
 
-    handler.assertEventCount( 8 );
+    handler.assertEventCount( 10 );
 
     handler.assertNextEvent( ObserverCreateEvent.class,
                              e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
     handler.assertNextEvent( ObserveScheduleEvent.class,
                              e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
+    handler.assertNextEvent( ReactionCycleStartEvent.class );
     handler.assertNextEvent( ObserveStartEvent.class,
                              e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
     handler.assertNextEvent( ActionStartEvent.class, e -> assertEquals( e.getName(), observer.getName() ) );
@@ -1162,6 +1165,7 @@ public final class ObserverTest
       assertNull( e.getThrowable() );
       assertTrue( e.getDuration() > 0 );
     } );
+    handler.assertNextEvent( ReactionCycleCompleteEvent.class );
   }
 
   @Test
@@ -1321,8 +1325,9 @@ public final class ObserverTest
     assertEquals( observed.getCallCount(), 1 );
     assertEquals( errorCount.get(), 1 );
 
-    handler.assertEventCount( 7 );
+    handler.assertEventCount( 9 );
 
+    handler.assertNextEvent( ReactionCycleStartEvent.class );
     handler.assertNextEvent( ObserveStartEvent.class,
                              e -> assertEquals( e.getObserver().getName(), observer.getName() ) );
 
@@ -1342,6 +1347,7 @@ public final class ObserverTest
       assertEquals( e.getThrowable(), exception );
       assertTrue( e.getDuration() >= 0 );
     } );
+    handler.assertNextEvent( ReactionCycleCompleteEvent.class );
   }
 
   @Test

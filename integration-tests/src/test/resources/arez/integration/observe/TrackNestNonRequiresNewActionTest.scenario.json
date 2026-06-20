@@ -105,6 +105,9 @@
         ]
     },
     {
+        "type": "ReactionCycleStart"
+    },
+    {
         "name": "arez_integration_observe_TrackNestNonRequiresNewActionTest_TestComponent1.1.render",
         "type": "ObserveStart"
     },
@@ -112,5 +115,9 @@
         "name": "arez_integration_observe_TrackNestNonRequiresNewActionTest_TestComponent1.1.render",
         "errorMessage": null,
         "type": "ObserveComplete"
+    },
+    {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
     }
 ]

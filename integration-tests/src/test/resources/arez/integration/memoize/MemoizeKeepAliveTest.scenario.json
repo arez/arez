@@ -25,6 +25,9 @@
         "type": "ComponentCreateComplete"
     },
     {
+        "type": "ReactionCycleStart"
+    },
+    {
         "name": "arez_integration_memoize_MemoizeKeepAliveTest_PersonModel.1.fullName",
         "type": "ComputeStart"
     },
@@ -50,6 +53,10 @@
         "name": "arez_integration_memoize_MemoizeKeepAliveTest_PersonModel.1.fullName",
         "errorMessage": null,
         "type": "ComputeComplete"
+    },
+    {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
     },
     {
         "name": "First Name Update",
@@ -90,6 +97,9 @@
         ]
     },
     {
+        "type": "ReactionCycleStart"
+    },
+    {
         "name": "arez_integration_memoize_MemoizeKeepAliveTest_PersonModel.1.fullName",
         "type": "ComputeStart"
     },
@@ -115,6 +125,10 @@
         "name": "arez_integration_memoize_MemoizeKeepAliveTest_PersonModel.1.fullName",
         "errorMessage": null,
         "type": "ComputeComplete"
+    },
+    {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
     },
     {
         "name": "Last Name Update",
@@ -155,6 +169,9 @@
         ]
     },
     {
+        "type": "ReactionCycleStart"
+    },
+    {
         "name": "arez_integration_memoize_MemoizeKeepAliveTest_PersonModel.1.fullName",
         "type": "ComputeStart"
     },
@@ -180,5 +197,9 @@
         "name": "arez_integration_memoize_MemoizeKeepAliveTest_PersonModel.1.fullName",
         "errorMessage": null,
         "type": "ComputeComplete"
+    },
+    {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
     }
 ]

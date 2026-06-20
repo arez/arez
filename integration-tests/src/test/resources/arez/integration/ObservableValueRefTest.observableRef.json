@@ -9,6 +9,9 @@
         "type": "ObserveSchedule"
     },
     {
+        "type": "ReactionCycleStart"
+    },
+    {
         "name": "TransportType",
         "type": "ObserveStart"
     },
@@ -55,12 +58,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "ResolvedType",
         "type": "ObserverCreate"
     },
     {
         "name": "ResolvedType",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "ResolvedType",
@@ -109,6 +119,10 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "ID Update",
         "tracked": false,
         "type": "ActionStart",
@@ -149,6 +163,9 @@
         "type": "ActionComplete",
         "parameters": [
         ]
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "TransportType",
@@ -241,5 +258,9 @@
         "name": "ResolvedType",
         "errorMessage": null,
         "type": "ObserveComplete"
+    },
+    {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
     }
 ]

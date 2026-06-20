@@ -25,6 +25,9 @@
         "type": "ObserveSchedule"
     },
     {
+        "type": "ReactionCycleStart"
+    },
+    {
         "name": "AR1",
         "type": "ObserveStart"
     },
@@ -94,12 +97,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "AR4",
         "type": "ObserverCreate"
     },
     {
         "name": "AR4",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "AR4",
@@ -221,12 +231,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "AR3",
         "type": "ObserverCreate"
     },
     {
         "name": "AR3",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "AR3",
@@ -265,5 +282,9 @@
         "name": "AR3",
         "errorMessage": null,
         "type": "ObserveComplete"
+    },
+    {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
     }
 ]

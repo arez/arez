@@ -49,6 +49,9 @@
         "type": "ObserveSchedule"
     },
     {
+        "type": "ReactionCycleStart"
+    },
+    {
         "name": "FirstNamePrinter1",
         "type": "ObserveStart"
     },
@@ -95,12 +98,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "FirstNamePrinter2",
         "type": "ObserverCreate"
     },
     {
         "name": "FirstNamePrinter2",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "FirstNamePrinter2",
@@ -149,12 +159,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "FullNamePrinter1",
         "type": "ObserverCreate"
     },
     {
         "name": "FullNamePrinter1",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "FullNamePrinter1",
@@ -230,12 +247,19 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "FullNamePrinter2",
         "type": "ObserverCreate"
     },
     {
         "name": "FullNamePrinter2",
         "type": "ObserveSchedule"
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "FullNamePrinter2",
@@ -311,6 +335,10 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "First Name Update1",
         "tracked": false,
         "type": "ActionStart",
@@ -351,6 +379,9 @@
         "type": "ActionComplete",
         "parameters": [
         ]
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "FirstNamePrinter1",
@@ -476,6 +507,10 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Last Name Update1",
         "tracked": false,
         "type": "ActionStart",
@@ -512,6 +547,9 @@
         "type": "ActionComplete",
         "parameters": [
         ]
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.1.fullName",
@@ -591,6 +629,10 @@
         "type": "ObserveComplete"
     },
     {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
+    },
+    {
         "name": "Last Name Update2",
         "tracked": false,
         "type": "ActionStart",
@@ -627,6 +669,9 @@
         "type": "ActionComplete",
         "parameters": [
         ]
+    },
+    {
+        "type": "ReactionCycleStart"
     },
     {
         "name": "arez_integration_MultiZoneIntegrationTest_PersonModel.2.fullName",
@@ -704,5 +749,9 @@
         "name": "FullNamePrinter2",
         "errorMessage": null,
         "type": "ObserveComplete"
+    },
+    {
+        "errorMessage": null,
+        "type": "ReactionCycleComplete"
     }
 ]

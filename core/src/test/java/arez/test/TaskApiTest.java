@@ -7,6 +7,8 @@ import arez.Observer;
 import arez.SchedulerLock;
 import arez.Task;
 import arez.TestSpyEventHandler;
+import arez.spy.ReactionCycleCompleteEvent;
+import arez.spy.ReactionCycleStartEvent;
 import arez.spy.TaskCompleteEvent;
 import arez.spy.TaskStartEvent;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -34,13 +36,15 @@ public final class TaskApiTest
     assertNotNull( task );
     assertFalse( task.isDisposed() );
 
-    handler.assertEventCount( 2 );
+    handler.assertEventCount( 4 );
+    handler.assertNextEvent( ReactionCycleStartEvent.class );
     handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
     handler.assertNextEvent( TaskCompleteEvent.class, e -> {
       assertEquals( e.getTask().getName(), name );
       assertNull( e.getThrowable() );
       assertTrue( e.getDuration() >= 0 );
     } );
+    handler.assertNextEvent( ReactionCycleCompleteEvent.class );
   }
 
   @Test
@@ -64,7 +68,8 @@ public final class TaskApiTest
 
     handler.unsubscribe();
 
-    handler.assertEventCount( 2 );
+    handler.assertEventCount( 4 );
+    handler.assertNextEvent( ReactionCycleStartEvent.class );
     handler.assertNextEvent( TaskStartEvent.class, e -> assertEquals( e.getTask().getName(), name ) );
     handler.assertNextEvent( TaskCompleteEvent.class, e -> {
       assertEquals( e.getTask().getName(), name );
@@ -72,6 +77,7 @@ public final class TaskApiTest
       assertEquals( e.getThrowable().getMessage(), "Foo" );
       assertTrue( e.getDuration() >= 0 );
     } );
+    handler.assertNextEvent( ReactionCycleCompleteEvent.class );
   }
 
   @Test
