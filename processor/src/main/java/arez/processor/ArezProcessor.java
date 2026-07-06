@@ -40,7 +40,6 @@ import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
-import javax.lang.model.util.ElementFilter;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import org.realityforge.proton.AbstractStandardProcessor;
@@ -48,6 +47,7 @@ import org.realityforge.proton.AnnotationsUtil;
 import org.realityforge.proton.DeferredElementSet;
 import org.realityforge.proton.ElementsUtil;
 import org.realityforge.proton.MemberChecks;
+import org.realityforge.proton.NamesUtil;
 import org.realityforge.proton.ProcessorException;
 import org.realityforge.proton.StopWatch;
 import org.realityforge.proton.SuperficialValidation;
@@ -216,6 +216,7 @@ public final class ArezProcessor
     if ( !env.processingOver() )
     {
       detectMisplacedArezAnnotations( env );
+      warnOnPublicConstructorsInArezComponentLikeTypes( env );
     }
     processTypeElements( annotations,
                          env,
@@ -234,6 +235,54 @@ public final class ArezProcessor
   {
     final ComponentDescriptor descriptor = parse( element );
     emitTypeSpec( descriptor.getPackageName(), ComponentGenerator.buildType( processingEnv, descriptor ) );
+  }
+
+  private void warnOnPublicConstructorsInArezComponentLikeTypes( @Nonnull final RoundEnvironment env )
+  {
+    final var visited = new HashSet<TypeElement>();
+    for ( final var rootElement : env.getRootElements() )
+    {
+      warnOnPublicConstructorsInArezComponentLikeTypes( rootElement, visited );
+    }
+  }
+
+  private void warnOnPublicConstructorsInArezComponentLikeTypes( @Nonnull final Element element,
+                                                                 @Nonnull final Set<TypeElement> visited )
+  {
+    if ( element instanceof final TypeElement typeElement )
+    {
+      if ( visited.add( typeElement ) )
+      {
+        warnOnPublicConstructorsInArezComponentLikeType( typeElement );
+        for ( final var enclosedElement : typeElement.getEnclosedElements() )
+        {
+          if ( enclosedElement instanceof TypeElement )
+          {
+            warnOnPublicConstructorsInArezComponentLikeTypes( enclosedElement, visited );
+          }
+        }
+      }
+    }
+  }
+
+  private void warnOnPublicConstructorsInArezComponentLikeType( @Nonnull final TypeElement typeElement )
+  {
+    if ( !isArezComponentAnnotated( typeElement ) && isArezComponentLikeAnnotated( typeElement ) )
+    {
+      for ( final var constructor : ElementsUtil.getConstructors( typeElement ) )
+      {
+        if ( Elements.Origin.EXPLICIT == processingEnv.getElementUtils().getOrigin( constructor ) &&
+             constructor.getModifiers().contains( Modifier.PUBLIC ) &&
+             isWarningNotSuppressed( constructor, Constants.WARNING_PUBLIC_CONSTRUCTOR ) )
+        {
+          final var message =
+            "Arez component-like target should not have a public constructor. The type should have a package-access " +
+            "constructor so instantiation is controlled by the framework. " +
+            suppressedBy( Constants.WARNING_PUBLIC_CONSTRUCTOR );
+          warning( message, constructor );
+        }
+      }
+    }
   }
 
   private void detectMisplacedArezAnnotations( @Nonnull final RoundEnvironment env )
@@ -367,7 +416,12 @@ public final class ArezProcessor
       {
         throw new ProcessorException( "@Observable target should be a setter or getter", method );
       }
-      name = getPropertyAccessorName( method, declaredName );
+      name =
+        NamesUtil.getPropertyAccessorName( method,
+                                           GETTER_PATTERN,
+                                           ISSER_PATTERN,
+                                           declaredName,
+                                           Constants.SENTINEL );
     }
     // Override name if supplied by user
     if ( !Constants.SENTINEL.equals( declaredName ) )
@@ -570,7 +624,11 @@ public final class ArezProcessor
     final String name = AnnotationsUtil.getAnnotationValueValue( annotation, "name" );
     if ( Constants.SENTINEL.equals( name ) )
     {
-      return getPropertyAccessorName( method, name );
+      return NamesUtil.getPropertyAccessorName( method,
+                                                GETTER_PATTERN,
+                                                ISSER_PATTERN,
+                                                name,
+                                                Constants.SENTINEL );
     }
     else
     {
@@ -1007,26 +1065,6 @@ public final class ArezProcessor
                                                  Collections.emptyMap() );
   }
 
-  @Nonnull
-  private String getPropertyAccessorName( @Nonnull final ExecutableElement method, @Nonnull final String specifiedName )
-    throws ProcessorException
-  {
-    String name = deriveName( method, GETTER_PATTERN, specifiedName );
-    if ( null != name )
-    {
-      return name;
-    }
-    if ( method.getReturnType().getKind() == TypeKind.BOOLEAN )
-    {
-      name = deriveName( method, ISSER_PATTERN, specifiedName );
-      if ( null != name )
-      {
-        return name;
-      }
-    }
-    return method.getSimpleName().toString();
-  }
-
   private void validate( final boolean allowEmpty, @Nonnull final ComponentDescriptor component )
     throws ProcessorException
   {
@@ -1254,7 +1292,7 @@ public final class ArezProcessor
   private void mustBeCascadeDisposeTypeCompatible( @Nonnull final VariableElement field )
   {
     final TypeMirror typeMirror = field.asType();
-    if ( !isAssignable( typeMirror, getDisposableTypeElement() ) )
+    if ( !ElementsUtil.isAssignableTo( processingEnv, typeMirror, getDisposableTypeElement() ) )
     {
       final TypeElement typeElement = (TypeElement) processingEnv.getTypeUtils().asElement( typeMirror );
       final AnnotationMirror value =
@@ -1371,7 +1409,7 @@ public final class ArezProcessor
   private void mustBeCascadeDisposeTypeCompatible( @Nonnull final ExecutableElement method )
   {
     final TypeMirror typeMirror = method.getReturnType();
-    if ( !isAssignable( typeMirror, getDisposableTypeElement() ) )
+    if ( !ElementsUtil.isAssignableTo( processingEnv, typeMirror, getDisposableTypeElement() ) )
     {
       final TypeElement typeElement = (TypeElement) processingEnv.getTypeUtils().asElement( typeMirror );
       final AnnotationMirror value =
@@ -1416,7 +1454,9 @@ public final class ArezProcessor
   @SuppressWarnings( "BooleanMethodIsAlwaysInverted" )
   private boolean isAutoObserveCompileTimeCompatible( @Nonnull final TypeMirror type )
   {
-    if ( isAssignable( type, getTypeElement( Constants.COMPONENT_OBSERVABLE_CLASSNAME ) ) )
+    if ( ElementsUtil.isAssignableTo( processingEnv,
+                                      type,
+                                      getTypeElement( Constants.COMPONENT_OBSERVABLE_CLASSNAME ) ) )
     {
       return true;
     }
@@ -2586,7 +2626,7 @@ public final class ArezProcessor
     if ( !validateTypeAtRuntime )
     {
       final TypeElement disposeNotifier = getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
-      if ( !processingEnv.getTypeUtils().isAssignable( type, disposeNotifier.asType() ) )
+      if ( !ElementsUtil.isAssignableTo( processingEnv, type, disposeNotifier ) )
       {
         final TypeElement typeElement = (TypeElement) processingEnv.getTypeUtils().asElement( type );
         if ( !isArezComponentLikeAnnotated( typeElement ) && !isDisposeTrackableComponent( typeElement ) )
@@ -2632,7 +2672,7 @@ public final class ArezProcessor
     if ( !validateTypeAtRuntime )
     {
       final TypeElement disposeNotifier = getTypeElement( Constants.DISPOSE_NOTIFIER_CLASSNAME );
-      if ( !processingEnv.getTypeUtils().isAssignable( type, disposeNotifier.asType() ) )
+      if ( !ElementsUtil.isAssignableTo( processingEnv, type, disposeNotifier ) )
       {
         final Element element = processingEnv.getTypeUtils().asElement( type );
         if ( !( element instanceof TypeElement ) ||
@@ -2739,18 +2779,12 @@ public final class ArezProcessor
   private ComponentDescriptor parse( @Nonnull final TypeElement typeElement )
     throws ProcessorException
   {
-    if ( ElementKind.CLASS != typeElement.getKind() && ElementKind.INTERFACE != typeElement.getKind() )
-    {
-      throw new ProcessorException( "@ArezComponent target must be a class or an interface", typeElement );
-    }
-    else if ( typeElement.getModifiers().contains( Modifier.FINAL ) )
+    MemberChecks.mustBeClassOrInterface( Constants.COMPONENT_CLASSNAME, typeElement );
+    if ( typeElement.getModifiers().contains( Modifier.FINAL ) )
     {
       throw new ProcessorException( "@ArezComponent target must not be final", typeElement );
     }
-    else if ( ElementsUtil.isNonStaticNestedClass( typeElement ) )
-    {
-      throw new ProcessorException( "@ArezComponent target must not be a non-static nested class", typeElement );
-    }
+    MemberChecks.mustNotBeNonStaticNestedType( Constants.COMPONENT_CLASSNAME, typeElement );
     final AnnotationMirror arezComponent =
       AnnotationsUtil.getAnnotationByType( typeElement, Constants.COMPONENT_CLASSNAME );
     final String declaredName = getAnnotationParameter( arezComponent, "name" );
@@ -3950,8 +3984,8 @@ public final class ArezProcessor
            SuperficialValidation.validateElement( processingEnv, field ) )
       {
         final var fieldType = getEffectiveFieldType( descriptor, field );
-        final var fieldTypeElement = asTypeElement( fieldType );
-        final var isDisposeNotifier = isAssignable( fieldType, disposeNotifier );
+        final var fieldTypeElement = ElementsUtil.asTypeElement( processingEnv, fieldType );
+        final var isDisposeNotifier = ElementsUtil.isAssignableTo( processingEnv, fieldType, disposeNotifier );
         final var isTypeAnnotatedByComponentAnnotation =
           !isDisposeNotifier && null != fieldTypeElement && isArezComponentAnnotated( fieldTypeElement );
         final var isTypeAnnotatedArezComponentLike =
@@ -3998,8 +4032,11 @@ public final class ArezProcessor
         if ( SuperficialValidation.validateElement( processingEnv, getter ) )
         {
           final var returnType = getter.getReturnType();
-          final var returnElement = TypeKind.DECLARED == returnType.getKind() ? asTypeElement( returnType ) : null;
-          final var isDisposeNotifier = isAssignable( returnType, disposeNotifier );
+          final var returnElement =
+            TypeKind.DECLARED == returnType.getKind() ?
+            ElementsUtil.asTypeElement( processingEnv, returnType ) :
+            null;
+          final var isDisposeNotifier = ElementsUtil.isAssignableTo( processingEnv, returnType, disposeNotifier );
           final var isTypeAnnotatedByComponentAnnotation =
             !isDisposeNotifier && null != returnElement && isArezComponentAnnotated( returnElement );
           final var isTypeAnnotatedArezComponentLike =
@@ -4043,13 +4080,6 @@ public final class ArezProcessor
                                             @Nonnull final VariableElement field )
   {
     return processingEnv.getTypeUtils().asMemberOf( descriptor.asDeclaredType(), field );
-  }
-
-  @Nullable
-  private TypeElement asTypeElement( @Nonnull final TypeMirror type )
-  {
-    final var element = processingEnv.getTypeUtils().asElement( type );
-    return element instanceof TypeElement ? (TypeElement) element : null;
   }
 
   private boolean verifyReferencesToComponent( @Nonnull final TypeElement element )
@@ -4224,11 +4254,6 @@ public final class ArezProcessor
     return processingEnv.getElementUtils().getTypeElement( classname );
   }
 
-  private boolean isAssignable( @Nonnull final TypeMirror type, @Nonnull final TypeElement typeElement )
-  {
-    return processingEnv.getTypeUtils().isAssignable( type, typeElement.asType() );
-  }
-
   @Nonnull
   private String resolveEffectiveEqualityComparator( @Nonnull final TypeElement componentType,
                                                      @Nonnull final String annotationName,
@@ -4279,20 +4304,20 @@ public final class ArezProcessor
                                     comparatorClassName + "' but the comparator must not be abstract.",
                                     element );
     }
-    else if ( isNonStaticNestedType( comparatorType ) )
+    else if ( ElementsUtil.isNonStaticNestedType( comparatorType ) )
     {
       throw new ProcessorException( annotationName + " resolved equalityComparator of type '" +
                                     comparatorClassName + "' but the comparator must be static if nested.",
                                     element );
     }
-    else if ( !isTypeAccessibleFromComponent( componentType, comparatorType ) )
+    else if ( !ElementsUtil.isTypeAccessibleFrom( componentType, comparatorType ) )
     {
       throw new ProcessorException( annotationName + " resolved equalityComparator of type '" +
                                     comparatorClassName + "' but the comparator is not accessible from the " +
                                     "generated component.",
                                     element );
     }
-    else if ( !hasAccessibleNoArgConstructor( componentType, comparatorType ) )
+    else if ( !ElementsUtil.hasAccessibleNoArgConstructor( componentType, comparatorType ) )
     {
       throw new ProcessorException( annotationName + " resolved equalityComparator of type '" +
                                     comparatorClassName + "' but the comparator must define an accessible " +
@@ -4301,89 +4326,12 @@ public final class ArezProcessor
     }
   }
 
-  private boolean hasAccessibleNoArgConstructor( @Nonnull final TypeElement componentType,
-                                                 @Nonnull final TypeElement comparatorType )
-  {
-    final var constructors = ElementFilter.constructorsIn( comparatorType.getEnclosedElements() );
-    if ( constructors.isEmpty() )
-    {
-      return true;
-    }
-    else
-    {
-      for ( final var constructor : constructors )
-      {
-        if ( constructor.getParameters().isEmpty() && isElementAccessibleFromComponent( componentType, constructor ) )
-        {
-          return true;
-        }
-      }
-      return false;
-    }
-  }
-
-  private boolean isTypeAccessibleFromComponent( @Nonnull final TypeElement componentType,
-                                                 @Nonnull final TypeElement typeElement )
-  {
-    if ( isElementAccessibleFromComponent( componentType, typeElement ) )
-    {
-      var enclosing = typeElement.getEnclosingElement();
-      while ( null != enclosing && ElementKind.PACKAGE != enclosing.getKind() )
-      {
-        if ( enclosing instanceof final TypeElement enclosingType &&
-             !isElementAccessibleFromComponent( componentType, enclosingType ) )
-        {
-          return false;
-        }
-        enclosing = enclosing.getEnclosingElement();
-      }
-      return true;
-    }
-    else
-    {
-      return false;
-    }
-  }
-
-  private boolean isElementAccessibleFromComponent( @Nonnull final TypeElement componentType,
-                                                    @Nonnull final Element element )
-  {
-    final var modifiers = element.getModifiers();
-    if ( modifiers.contains( Modifier.PRIVATE ) )
-    {
-      return false;
-    }
-    else
-    {
-      final var owningType = getOwningType( element );
-      return !ElementsUtil.areTypesInDifferentPackage( owningType, componentType ) ||
-             modifiers.contains( Modifier.PUBLIC );
-    }
-  }
-
   private boolean isProtectedFieldOnInheritedTypeInDifferentPackage( @Nonnull final TypeElement componentType,
                                                                      @Nonnull final VariableElement field )
   {
-    final var declaringType = getOwningType( field );
+    final var declaringType = ElementsUtil.getOwningType( field );
     return !Objects.equals( declaringType, componentType ) &&
            ElementsUtil.areTypesInDifferentPackage( declaringType, componentType );
-  }
-
-  @Nonnull
-  private TypeElement getOwningType( @Nonnull final Element element )
-  {
-    var current = element;
-    while ( !( current instanceof TypeElement ) )
-    {
-      current = current.getEnclosingElement();
-    }
-    return (TypeElement) current;
-  }
-
-  private boolean isNonStaticNestedType( @Nonnull final TypeElement typeElement )
-  {
-    final Element enclosing = typeElement.getEnclosingElement();
-    return ElementKind.PACKAGE != enclosing.getKind() && !typeElement.getModifiers().contains( Modifier.STATIC );
   }
 
   private boolean isMethodAProtectedOverride( @Nonnull final TypeElement typeElement,
@@ -4482,24 +4430,7 @@ public final class ArezProcessor
                              @Nonnull final String name )
     throws ProcessorException
   {
-    if ( Constants.SENTINEL.equals( name ) )
-    {
-      final var methodName = method.getSimpleName().toString();
-      final var matcher = pattern.matcher( methodName );
-      if ( matcher.find() )
-      {
-        final var candidate = matcher.group( 1 );
-        return firstCharacterToLowerCase( candidate );
-      }
-      else
-      {
-        return null;
-      }
-    }
-    else
-    {
-      return name;
-    }
+    return NamesUtil.deriveName( method, pattern, name, Constants.SENTINEL );
   }
 
   @Nonnull

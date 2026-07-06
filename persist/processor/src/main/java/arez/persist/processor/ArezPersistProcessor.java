@@ -7,10 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedOptions;
@@ -29,6 +27,7 @@ import org.realityforge.proton.DeferredElementSet;
 import org.realityforge.proton.ElementsUtil;
 import org.realityforge.proton.GeneratorUtil;
 import org.realityforge.proton.MemberChecks;
+import org.realityforge.proton.NamesUtil;
 import org.realityforge.proton.ProcessorException;
 import org.realityforge.proton.StopWatch;
 
@@ -306,7 +305,12 @@ public final class ArezPersistProcessor
                                      @Nonnull final AnnotationMirror annotation )
   {
     final String declaredValue = AnnotationsUtil.getAnnotationValueValue( annotation, "name" );
-    final String value = getPropertyAccessorName( method, declaredValue );
+    final String value =
+      NamesUtil.getPropertyAccessorName( method,
+                                         GETTER_PATTERN,
+                                         ISSER_PATTERN,
+                                         declaredValue,
+                                         DEFAULT_SENTINEL );
     if ( SourceVersion.isIdentifier( value ) )
     {
       return value;
@@ -421,59 +425,6 @@ public final class ArezPersistProcessor
   {
     final String packageName = GeneratorUtil.getQualifiedPackageName( type.getElement() );
     emitTypeSpec( packageName, SidecarGenerator.buildType( processingEnv, type ) );
-  }
-
-  @SuppressWarnings( "SameParameterValue" )
-  @Nonnull
-  private String getPropertyAccessorName( @Nonnull final ExecutableElement method, @Nonnull final String specifiedName )
-    throws ProcessorException
-  {
-    String name = deriveName( method, GETTER_PATTERN, specifiedName );
-    if ( null != name )
-    {
-      return name;
-    }
-    if ( method.getReturnType().getKind() == TypeKind.BOOLEAN )
-    {
-      name = deriveName( method, ISSER_PATTERN, specifiedName );
-      if ( null != name )
-      {
-        return name;
-      }
-    }
-    return method.getSimpleName().toString();
-  }
-
-  @Nullable
-  private String deriveName( @Nonnull final ExecutableElement method,
-                             @Nonnull final Pattern pattern,
-                             @Nonnull final String name )
-    throws ProcessorException
-  {
-    if ( DEFAULT_SENTINEL.equals( name ) )
-    {
-      final String methodName = method.getSimpleName().toString();
-      final Matcher matcher = pattern.matcher( methodName );
-      if ( matcher.find() )
-      {
-        final String candidate = matcher.group( 1 );
-        return firstCharacterToLowerCase( candidate );
-      }
-      else
-      {
-        return null;
-      }
-    }
-    else
-    {
-      return name;
-    }
-  }
-
-  @Nonnull
-  private String firstCharacterToLowerCase( @Nonnull final String name )
-  {
-    return Character.toLowerCase( name.charAt( 0 ) ) + name.substring( 1 );
   }
 
   @Nonnull

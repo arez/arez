@@ -100,8 +100,6 @@ When we get to a stable release candidate we need to action the following items:
 
 ## Documentation
 
-* Link to [javadoc.io](https://javadoc.io/doc/org.realityforge.arez/arez-core/latest/index.html) site for arez docs?
-
 * Generate documentation for each invariant error that can occur driven by `diagnostic_messages.json`. The
   expectation is that the error could be linked to via code ala https://arez.github.io/errors.html#Arez-0022
   The documentation would cross-link to the place(s) where the invariant is generated in source code. This may
