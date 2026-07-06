@@ -216,6 +216,7 @@ public final class ArezProcessor
     if ( !env.processingOver() )
     {
       detectMisplacedArezAnnotations( env );
+      warnOnPublicConstructorsInArezComponentLikeTypes( env );
     }
     processTypeElements( annotations,
                          env,
@@ -234,6 +235,54 @@ public final class ArezProcessor
   {
     final ComponentDescriptor descriptor = parse( element );
     emitTypeSpec( descriptor.getPackageName(), ComponentGenerator.buildType( processingEnv, descriptor ) );
+  }
+
+  private void warnOnPublicConstructorsInArezComponentLikeTypes( @Nonnull final RoundEnvironment env )
+  {
+    final var visited = new HashSet<TypeElement>();
+    for ( final var rootElement : env.getRootElements() )
+    {
+      warnOnPublicConstructorsInArezComponentLikeTypes( rootElement, visited );
+    }
+  }
+
+  private void warnOnPublicConstructorsInArezComponentLikeTypes( @Nonnull final Element element,
+                                                                 @Nonnull final Set<TypeElement> visited )
+  {
+    if ( element instanceof final TypeElement typeElement )
+    {
+      if ( visited.add( typeElement ) )
+      {
+        warnOnPublicConstructorsInArezComponentLikeType( typeElement );
+        for ( final var enclosedElement : typeElement.getEnclosedElements() )
+        {
+          if ( enclosedElement instanceof TypeElement )
+          {
+            warnOnPublicConstructorsInArezComponentLikeTypes( enclosedElement, visited );
+          }
+        }
+      }
+    }
+  }
+
+  private void warnOnPublicConstructorsInArezComponentLikeType( @Nonnull final TypeElement typeElement )
+  {
+    if ( !isArezComponentAnnotated( typeElement ) && isArezComponentLikeAnnotated( typeElement ) )
+    {
+      for ( final var constructor : ElementsUtil.getConstructors( typeElement ) )
+      {
+        if ( Elements.Origin.EXPLICIT == processingEnv.getElementUtils().getOrigin( constructor ) &&
+             constructor.getModifiers().contains( Modifier.PUBLIC ) &&
+             isWarningNotSuppressed( constructor, Constants.WARNING_PUBLIC_CONSTRUCTOR ) )
+        {
+          final var message =
+            "Arez component-like target should not have a public constructor. The type should have a package-access " +
+            "constructor so instantiation is controlled by the framework. " +
+            suppressedBy( Constants.WARNING_PUBLIC_CONSTRUCTOR );
+          warning( message, constructor );
+        }
+      }
+    }
   }
 
   private void detectMisplacedArezAnnotations( @Nonnull final RoundEnvironment env )
