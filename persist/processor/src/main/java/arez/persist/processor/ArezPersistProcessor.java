@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
-import javax.annotation.processing.SupportedOptions;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
@@ -38,13 +37,6 @@ import org.realityforge.proton.StopWatch;
                              Constants.PERSIST_ID_CLASSNAME,
                              Constants.PERSIST_CLASSNAME } )
 @SupportedSourceVersion( SourceVersion.RELEASE_17 )
-@SupportedOptions( { "arez.persist.defer.unresolved",
-                     "arez.persist.defer.errors",
-                     "arez.persist.debug",
-                     "arez.persist.format_generated_source",
-                     "arez.persist.profile",
-                     "arez.persist.verbose_out_of_round",
-                     "arez.persist.warnings_as_errors" } )
 public final class ArezPersistProcessor
   extends AbstractStandardProcessor
 {

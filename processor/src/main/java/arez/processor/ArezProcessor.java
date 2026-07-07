@@ -24,7 +24,6 @@ import javax.annotation.Nullable;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
-import javax.annotation.processing.SupportedOptions;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.AnnotatedConstruct;
 import javax.lang.model.SourceVersion;
@@ -59,13 +58,6 @@ import static javax.tools.Diagnostic.Kind.*;
  */
 @SupportedAnnotationTypes( "arez.annotations.*" )
 @SupportedSourceVersion( SourceVersion.RELEASE_17 )
-@SupportedOptions( { "arez.defer.unresolved",
-                     "arez.defer.errors",
-                     "arez.debug",
-                     "arez.format_generated_source",
-                     "arez.profile",
-                     "arez.verbose_out_of_round.errors",
-                     "arez.warnings_as_errors" } )
 public final class ArezProcessor
   extends AbstractStandardProcessor
 {

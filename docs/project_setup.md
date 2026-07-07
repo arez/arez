@@ -64,16 +64,15 @@ snippet to configure the maven compiler plugin from within the `pom.xml`:
 
 ### Optional Generated Source Formatting
 
-By default, the Arez processor writes the standard JavaPoet generated source. To format generated
-Arez component source, pass the literal annotation processor option
-`-Aarez.format_generated_source=true`. Any other value, or omitting the option, leaves generated
-source unformatted.
+By default, the Arez processor formats generated Java source before writing it. To disable generated
+Arez component source formatting, pass the literal annotation processor option
+`-Aarez.format_generated_source=false`.
 
-The persist processor supports the same behavior via `-Aarez.persist.format_generated_source=true`.
+The persist processor supports the same behavior via `-Aarez.persist.format_generated_source=false`.
 
 The formatter support is supplied by Proton and shaded inside the `arez-processor` artifact, but the
 formatter uses JDK compiler internals. On JDK 16 and later, the JVM running `javac` and annotation
-processing must receive these exports when formatting is enabled:
+processing must receive these exports unless generated source formatting is disabled:
 
 ```text
 --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED
