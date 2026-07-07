@@ -1716,8 +1716,7 @@ public final class ArezProcessor
       final Matcher matcher = pattern.matcher( methodName );
       if ( matcher.find() )
       {
-        final String candidate = matcher.group( 1 );
-        return firstCharacterToLowerCase( candidate );
+        return NamesUtil.firstCharacterToLowerCase( matcher.group( 1 ) );
       }
       else
       {
@@ -1865,7 +1864,7 @@ public final class ArezProcessor
     final String name;
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
-      name = firstCharacterToLowerCase( component.getElement().getSimpleName().toString() );
+      name = NamesUtil.firstCharacterToLowerCase( component.getElement().getSimpleName().toString() );
     }
     else
     {
@@ -2496,7 +2495,7 @@ public final class ArezProcessor
     if ( Constants.SENTINEL.equals( declaredName ) )
     {
       final String baseName = component.getElement().getSimpleName().toString();
-      return firstCharacterToLowerCase( baseName ) + ( Multiplicity.MANY == multiplicity ? "s" : "" );
+      return NamesUtil.firstCharacterToLowerCase( baseName ) + ( Multiplicity.MANY == multiplicity ? "s" : "" );
     }
     else
     {
@@ -2532,10 +2531,11 @@ public final class ArezProcessor
   {
     final TypeElement element =
       (TypeElement) processingEnv.getTypeUtils().asElement( descriptor.getMethod().getReturnType() );
-    final String defaultInverseName =
-      descriptor.hasInverse() ?
-      null :
-      firstCharacterToLowerCase( component.getElement().getSimpleName().toString() ) + "s";
+    final String defaultInverseName = descriptor.hasInverse() ?
+                                      null :
+                                      NamesUtil.firstCharacterToLowerCase( component.getElement()
+                                                                             .getSimpleName()
+                                                                             .toString() ) + "s";
     final Multiplicity multiplicity =
       ElementsUtil
         .getMethods( element, processingEnv.getElementUtils(), processingEnv.getTypeUtils() )
@@ -3924,7 +3924,7 @@ public final class ArezProcessor
       }
       final var referenceName = getInverseReferenceNameParameter( descriptor, method );
       final var inverse = findOrCreateInverseDescriptor( descriptor, name );
-      final var otherName = firstCharacterToLowerCase( targetType.getSimpleName().toString() );
+      final var otherName = NamesUtil.firstCharacterToLowerCase( targetType.getSimpleName().toString() );
       inverse.setInverse( observable, referenceName, multiplicity, targetType, otherName );
       verifyMultiplicityOfAssociatedReferenceMethod( descriptor, inverse );
     }
@@ -4423,11 +4423,5 @@ public final class ArezProcessor
     throws ProcessorException
   {
     return NamesUtil.deriveName( method, pattern, name, Constants.SENTINEL );
-  }
-
-  @Nonnull
-  private String firstCharacterToLowerCase( @Nonnull final String name )
-  {
-    return Character.toLowerCase( name.charAt( 0 ) ) + name.substring( 1 );
   }
 }
