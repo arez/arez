@@ -4,7 +4,7 @@ public class StingExample
 {
   public static void main( String[] args )
   {
-    final ExampleStingInjector component = new Sting_ExampleStingInjector();
+    final ExampleStingInjector component = ExampleStingInjector.create();
     component.getExampleConsumer().performSomeAction( 42 );
   }
 }

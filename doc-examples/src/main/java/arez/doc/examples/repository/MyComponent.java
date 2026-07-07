@@ -14,7 +14,7 @@ public class MyComponent
   private String _name;
   private boolean _active;
 
-  public MyComponent( final int id, @Nonnull final String name )
+  MyComponent( final int id, @Nonnull final String name )
   {
     _id = id;
     _name = Objects.requireNonNull( name );

@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the `org.realityforge.proton` artifacts to version `0.75`.
 * Add `ReactionCycleStartEvent` and `ReactionCycleCompleteEvent` spy events around scheduler reaction cycles.
 * Warn when Arez component-like types declare explicit public constructors.
 * Rely on Proton to declare common annotation processor options and stop advertising the stale
