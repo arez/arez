@@ -1,6 +1,10 @@
 # Change Log
 
-### Unreleased
+### [v0.250](https://github.com/arez/arez/tree/v0.250) (2026-07-09) · [Full Changelog](https://github.com/arez/arez/compare/v0.249...v0.250) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.249&new=0.250)
+
+The release includes 2 non breaking API changes.
+
+Changes in this release:
 
 * Update the `org.realityforge.sting` artifacts to version `0.40`.
 * Update the `org.realityforge.proton` artifacts to version `0.75`.
