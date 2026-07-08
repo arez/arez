@@ -7,12 +7,14 @@ import arez.spy.ObservableValueInfo;
 import arez.spy.ObserverInfo;
 import arez.spy.Spy;
 import arez.spy.TransactionInfo;
+import grim.annotations.OmitType;
 import java.util.List;
 import javax.annotation.Nonnull;
 
 /**
  * A very simple utility that describes why an observer or computed value runs.
  */
+@OmitType( unless = "arez.enable_spies" )
 public final class WhyRun
 {
   private WhyRun()
@@ -21,13 +23,16 @@ public final class WhyRun
 
   public static void log()
   {
-    Console.log( whyRun() );
+    if ( Arez.areSpiesEnabled() )
+    {
+      Console.log( whyRun() );
+    }
   }
 
   @Nonnull
   public static String whyRun()
   {
-    return whyRun( Arez.context().getSpy() );
+    return Arez.areSpiesEnabled() ? whyRun( Arez.context().getSpy() ) : "";
   }
 
   /**
