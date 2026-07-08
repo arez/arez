@@ -13,6 +13,7 @@ import arez.spy.ReactionCycleCompleteEvent;
 import arez.spy.ReactionCycleStartEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -525,7 +526,7 @@ public final class ComputableValueTest
 
     final ObservableValue<Object> observableValue = context.observable( "Y" );
 
-    assertInvariantFailure( () -> context.action( "X", (Procedure) observableValue::dispose, ActionFlags.READ_ONLY ),
+    assertInvariantFailure( () -> context.action( "X", observableValue::dispose, ActionFlags.READ_ONLY ),
                             "Arez-0119: Attempting to create READ_WRITE transaction named 'Y.dispose' but it is nested in transaction named 'X' with mode READ_ONLY which is not equal to READ_WRITE." );
   }
 
@@ -1118,6 +1119,463 @@ public final class ComputableValueTest
   }
 
   @Test
+  public void lazyValidationDoesNotTrackTransitiveComputableDependencies()
+  {
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> source = context.observable();
+    final AtomicInteger sourceValue = new AtomicInteger( 1 );
+
+    final ComputableValue<Integer> leaf = context.computable( () -> {
+      source.reportObserved();
+      return sourceValue.get();
+    } );
+    final ComputableValue<Integer> middle = context.computable( leaf::get );
+    final ComputableValue<Integer> upstream = context.computable( middle::get );
+    final ComputableValue<Integer> downstream = context.computable( upstream::get );
+
+    context.observer( () -> assertEquals( downstream.get(), (Integer) 1 ) );
+
+    assertDependencies( downstream, upstream.getObservableValue() );
+    assertDependencies( upstream, middle.getObservableValue() );
+    assertDependencies( middle, leaf.getObservableValue() );
+    assertDependencies( leaf, source );
+
+    context.safeAction( source::reportChanged );
+
+    assertDependencies( downstream, upstream.getObservableValue() );
+    assertDependencies( upstream, middle.getObservableValue() );
+    assertDependencies( middle, leaf.getObservableValue() );
+    assertDependencies( leaf, source );
+    assertNotObserver( middle, downstream );
+    assertNotObserver( leaf, downstream );
+  }
+
+  @Test
+  public void lazyValidationSuppressionDoesNotHideLaterDirectReadInSameTransaction()
+  {
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> source = context.observable();
+    final AtomicInteger sourceValue = new AtomicInteger( 1 );
+
+    final ComputableValue<Integer> leaf = context.computable( () -> {
+      source.reportObserved();
+      return sourceValue.get();
+    } );
+    final ComputableValue<Integer> middle = context.computable( leaf::get );
+    final ComputableValue<Integer> upstream = context.computable( middle::get );
+    final ComputableValue<Integer> downstream = context.computable( () -> upstream.get() + leaf.get() );
+
+    context.observer( () -> assertEquals( downstream.get(), (Integer) 2 ) );
+
+    assertDependencies( downstream, upstream.getObservableValue(), leaf.getObservableValue() );
+    assertDependencies( upstream, middle.getObservableValue() );
+    assertDependencies( middle, leaf.getObservableValue() );
+    assertDependencies( leaf, source );
+
+    context.safeAction( source::reportChanged );
+
+    assertDependencies( downstream, upstream.getObservableValue(), leaf.getObservableValue() );
+    assertDependencies( upstream, middle.getObservableValue() );
+    assertDependencies( middle, leaf.getObservableValue() );
+    assertDependencies( leaf, source );
+    assertNotObserver( middle, downstream );
+  }
+
+  @Test
+  public void lazyValidationChangeStillPropagatesThroughImmediateEdges()
+  {
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> source = context.observable();
+    final AtomicInteger sourceValue = new AtomicInteger( 1 );
+    final AtomicInteger expectedValue = new AtomicInteger( 1 );
+    final AtomicInteger observerCallCount = new AtomicInteger();
+
+    final ComputableValue<Integer> leaf = context.computable( () -> {
+      source.reportObserved();
+      return sourceValue.get();
+    } );
+    final ComputableValue<Integer> middle = context.computable( leaf::get );
+    final ComputableValue<Integer> upstream = context.computable( middle::get );
+    final ComputableValue<Integer> downstream = context.computable( upstream::get );
+
+    context.observer( () -> {
+      observerCallCount.incrementAndGet();
+      assertEquals( downstream.get(), (Integer) expectedValue.get() );
+    } );
+
+    sourceValue.set( 2 );
+    expectedValue.set( 2 );
+    context.safeAction( source::reportChanged );
+
+    assertEquals( observerCallCount.get(), 2 );
+    assertDependencies( downstream, upstream.getObservableValue() );
+    assertDependencies( upstream, middle.getObservableValue() );
+    assertDependencies( middle, leaf.getObservableValue() );
+    assertDependencies( leaf, source );
+    assertNotObserver( middle, downstream );
+    assertNotObserver( leaf, downstream );
+  }
+
+  @Test
+  public void lazyValidationEqualityComparatorNoChangeDoesNotTrackTransitiveComputableDependencies()
+  {
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> source = context.observable();
+    final AtomicInteger sourceValue = new AtomicInteger( 1 );
+    final AtomicInteger observerCallCount = new AtomicInteger();
+    final EqualityComparator comparator =
+      ( oldValue, newValue ) -> null != oldValue && null != newValue && (int) oldValue % 2 == (int) newValue % 2;
+
+    final ComputableValue<Integer> leaf = context.computable( () -> {
+      source.reportObserved();
+      return sourceValue.get();
+    } );
+    final ComputableValue<Integer> middle = context.computable( null, null, leaf::get, 0, comparator );
+    final ComputableValue<Integer> downstream = context.computable( middle::get );
+
+    context.observer( () -> {
+      observerCallCount.incrementAndGet();
+      assertEquals( downstream.get(), (Integer) 1 );
+    } );
+
+    sourceValue.set( 3 );
+    context.safeAction( source::reportChanged );
+
+    assertEquals( observerCallCount.get(), 1 );
+    assertEquals( middle.getValue(), (Integer) 1 );
+    assertEquals( leaf.getValue(), (Integer) 3 );
+    assertDependencies( downstream, middle.getObservableValue() );
+    assertDependencies( middle, leaf.getObservableValue() );
+    assertDependencies( leaf, source );
+    assertNotObserver( leaf, downstream );
+  }
+
+  @Test
+  public void lazyValidationStopsAfterFirstChangedDependencyWithoutTrackingTransitiveComputableDependencies()
+  {
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> source1 = context.observable();
+    final ObservableValue<Object> source2 = context.observable();
+    final AtomicInteger source1Value = new AtomicInteger( 1 );
+    final AtomicInteger source2Value = new AtomicInteger( 1 );
+    final AtomicInteger secondComputeCallCount = new AtomicInteger();
+
+    final ComputableValue<Integer> first = context.computable( () -> {
+      source1.reportObserved();
+      return source1Value.get();
+    } );
+    final ComputableValue<Integer> second = context.computable( () -> {
+      secondComputeCallCount.incrementAndGet();
+      source2.reportObserved();
+      return source2Value.get();
+    } );
+    final ComputableValue<Integer> downstream = context.computable( () -> first.get() + second.get() );
+
+    context.observer( () -> assertEquals( downstream.get(), (Integer) 2 ) );
+
+    assertEquals( secondComputeCallCount.get(), 1 );
+    assertDependencies( downstream, first.getObservableValue(), second.getObservableValue() );
+    assertDependencies( first, source1 );
+    assertDependencies( second, source2 );
+
+    final SchedulerLock schedulerLock = context.pauseScheduler();
+    try
+    {
+      source1Value.set( 2 );
+      source2Value.set( 2 );
+      context.safeAction( () -> {
+        source1.reportChanged();
+        source2.reportChanged();
+      } );
+
+      assertEquals( secondComputeCallCount.get(), 1 );
+
+      setCurrentTransaction( downstream.getObserver() );
+      try
+      {
+        assertTrue( downstream.getObserver().shouldCompute() );
+      }
+      finally
+      {
+        Transaction.setTransaction( null );
+      }
+
+      assertEquals( secondComputeCallCount.get(), 1 );
+      assertEquals( downstream.getObserver().getState(), Observer.Flags.STATE_STALE );
+      assertDependencies( downstream, first.getObservableValue(), second.getObservableValue() );
+      assertDependencies( first, source1 );
+      assertDependencies( second, source2 );
+      assertFalse( source1.getObservers().contains( downstream.getObserver() ) );
+      assertFalse( source2.getObservers().contains( downstream.getObserver() ) );
+    }
+    finally
+    {
+      schedulerLock.dispose();
+    }
+  }
+
+  @Test
+  public void lazyValidationRefreshesDynamicDependenciesWithoutTrackingThemOnOuterComputable()
+  {
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> source1 = context.observable();
+    final ObservableValue<Object> source2 = context.observable();
+    final AtomicBoolean useSource1 = new AtomicBoolean( true );
+
+    final ComputableValue<Integer> leaf = context.computable( () -> {
+      if ( useSource1.get() )
+      {
+        source1.reportObserved();
+      }
+      else
+      {
+        source2.reportObserved();
+      }
+      return 1;
+    } );
+    final ComputableValue<Integer> middle = context.computable( leaf::get );
+    final ComputableValue<Integer> downstream = context.computable( middle::get );
+
+    context.observer( () -> assertEquals( downstream.get(), (Integer) 1 ) );
+
+    assertDependencies( downstream, middle.getObservableValue() );
+    assertDependencies( middle, leaf.getObservableValue() );
+    assertDependencies( leaf, source1 );
+
+    useSource1.set( false );
+    context.safeAction( source1::reportChanged );
+
+    assertDependencies( downstream, middle.getObservableValue() );
+    assertDependencies( middle, leaf.getObservableValue() );
+    assertDependencies( leaf, source2 );
+    assertFalse( source1.getObservers().contains( leaf.getObserver() ) );
+    assertFalse( source2.getObservers().contains( downstream.getObserver() ) );
+    assertNotObserver( leaf, downstream );
+  }
+
+  @Test
+  public void lazyValidationSuppressesReadOutsideTransactionDependencyObservation()
+  {
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> source = context.observable();
+    final AtomicInteger sourceValue = new AtomicInteger( 1 );
+
+    final ComputableValue<Integer> leaf =
+      context.computable( () -> {
+                            source.reportObserved();
+                            return sourceValue.get();
+                          },
+                          ComputableValue.Flags.READ_OUTSIDE_TRANSACTION );
+    final ComputableValue<Integer> middle = context.computable( leaf::get );
+    final ComputableValue<Integer> downstream = context.computable( middle::get );
+
+    context.observer( () -> assertEquals( downstream.get(), (Integer) 1 ) );
+
+    assertDependencies( downstream, middle.getObservableValue() );
+    assertDependencies( middle, leaf.getObservableValue() );
+    assertDependencies( leaf, source );
+
+    context.safeAction( source::reportChanged );
+
+    assertDependencies( downstream, middle.getObservableValue() );
+    assertDependencies( middle, leaf.getObservableValue() );
+    assertDependencies( leaf, source );
+    assertNotObserver( leaf, downstream );
+  }
+
+  @Test
+  public void lazyValidationExceptionDoesNotTrackTransitiveComputableDependencies()
+  {
+    ignoreObserverErrors();
+
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> source = context.observable();
+    final AtomicBoolean throwException = new AtomicBoolean();
+    final AtomicInteger observerCallCount = new AtomicInteger();
+
+    final ComputableValue<Integer> leaf = context.computable( () -> {
+      source.reportObserved();
+      if ( throwException.get() )
+      {
+        throw new IllegalStateException();
+      }
+      return 1;
+    } );
+    final ComputableValue<Integer> middle = context.computable( leaf::get );
+    final ComputableValue<Integer> downstream = context.computable( middle::get );
+
+    context.observer( () -> {
+      observerCallCount.incrementAndGet();
+      if ( throwException.get() )
+      {
+        expectThrows( IllegalStateException.class, downstream::get );
+      }
+      else
+      {
+        assertEquals( downstream.get(), (Integer) 1 );
+      }
+    } );
+
+    assertDependencies( downstream, middle.getObservableValue() );
+    assertDependencies( middle, leaf.getObservableValue() );
+    assertDependencies( leaf, source );
+
+    throwException.set( true );
+    context.safeAction( source::reportChanged );
+
+    assertEquals( observerCallCount.get(), 2 );
+    assertDependencies( downstream, middle.getObservableValue() );
+    assertDependencies( middle, leaf.getObservableValue() );
+    assertDependencies( leaf, source );
+    assertNotObserver( leaf, downstream );
+  }
+
+  @Test
+  public void lazyValidationCachedExceptionDoesNotTrackTransitiveComputableDependencies()
+  {
+    ignoreObserverErrors();
+
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> source = context.observable();
+    final AtomicInteger observerCallCount = new AtomicInteger();
+
+    final ComputableValue<Integer> leaf = context.computable( () -> {
+      source.reportObserved();
+      throw new IllegalStateException();
+    } );
+    final ComputableValue<Integer> middle = context.computable( leaf::get );
+    final ComputableValue<Integer> downstream = context.computable( middle::get );
+
+    context.observer( () -> {
+      observerCallCount.incrementAndGet();
+      expectThrows( IllegalStateException.class, downstream::get );
+    } );
+
+    assertEquals( observerCallCount.get(), 1 );
+    assertDependencies( downstream, middle.getObservableValue() );
+    assertDependencies( middle, leaf.getObservableValue() );
+    assertDependencies( leaf, source );
+
+    context.safeAction( source::reportChanged );
+
+    assertEquals( observerCallCount.get(), 1 );
+    assertDependencies( downstream, middle.getObservableValue() );
+    assertDependencies( middle, leaf.getObservableValue() );
+    assertDependencies( leaf, source );
+    assertNotObserver( leaf, downstream );
+  }
+
+  @Test
+  public void lazyValidationDoesNotMoveDependencyHooksToOuterComputable()
+  {
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> source = context.observable();
+    final AtomicInteger sourceValue = new AtomicInteger( 1 );
+    final TestProcedure leafOnActivate = new TestProcedure();
+    final TestProcedure leafOnDeactivate = new TestProcedure();
+    final TestProcedure downstreamOnActivate = new TestProcedure();
+    final TestProcedure downstreamOnDeactivate = new TestProcedure();
+
+    final ComputableValue<Integer> leaf = context.computable( () -> {
+      source.reportObserved();
+      context.registerHook( "leaf", leafOnActivate, leafOnDeactivate );
+      return sourceValue.get();
+    } );
+    final ComputableValue<Integer> middle = context.computable( leaf::get );
+    final ComputableValue<Integer> downstream = context.computable( () -> {
+      context.registerHook( "downstream", downstreamOnActivate, downstreamOnDeactivate );
+      return middle.get();
+    } );
+
+    context.observer( () -> assertEquals( downstream.get(), (Integer) 1 ) );
+
+    assertEquals( leafOnActivate.getCalls(), 1 );
+    assertEquals( downstreamOnActivate.getCalls(), 1 );
+    assertTrue( containsOnDeactivateHook( leaf.getObserver().getHooks(), leafOnDeactivate ) );
+    assertTrue( containsOnDeactivateHook( downstream.getObserver().getHooks(), downstreamOnDeactivate ) );
+
+    context.safeAction( source::reportChanged );
+
+    assertEquals( leafOnActivate.getCalls(), 1 );
+    assertEquals( downstreamOnActivate.getCalls(), 1 );
+    assertTrue( containsOnDeactivateHook( leaf.getObserver().getHooks(), leafOnDeactivate ) );
+    assertTrue( containsOnDeactivateHook( downstream.getObserver().getHooks(), downstreamOnDeactivate ) );
+    assertFalse( containsOnDeactivateHook( downstream.getObserver().getHooks(), leafOnDeactivate ) );
+    assertDependencies( downstream, middle.getObservableValue() );
+    assertDependencies( middle, leaf.getObservableValue() );
+    assertDependencies( leaf, source );
+    assertNotObserver( leaf, downstream );
+  }
+
+  @Test
+  public void lazyValidationWithLowerPriorityDependencyDoesNotTrackTransitiveComputableDependencies()
+  {
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> source = context.observable();
+    final AtomicInteger sourceValue = new AtomicInteger( 1 );
+
+    final ComputableValue<Integer> leaf = context.computable( () -> {
+      source.reportObserved();
+      return sourceValue.get();
+    } );
+    final ComputableValue<Integer> middle =
+      context.computable( null,
+                          null,
+                          leaf::get,
+                          ComputableValue.Flags.PRIORITY_HIGH |
+                          ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES );
+    final ComputableValue<Integer> downstream =
+      context.computable( null, null, middle::get, ComputableValue.Flags.PRIORITY_HIGH );
+
+    context.observer( () -> assertEquals( downstream.get(), (Integer) 1 ) );
+
+    assertDependencies( downstream, middle.getObservableValue() );
+    assertDependencies( middle, leaf.getObservableValue() );
+    assertDependencies( leaf, source );
+
+    context.safeAction( source::reportChanged );
+
+    assertDependencies( downstream, middle.getObservableValue() );
+    assertDependencies( middle, leaf.getObservableValue() );
+    assertDependencies( leaf, source );
+    assertNotObserver( leaf, downstream );
+  }
+
+  @Test
+  public void lazyValidationDoesNotKeepTransitiveComputableDependenciesActiveAfterDeactivation()
+  {
+    final ArezContext context = Arez.context();
+    final ObservableValue<Object> source = context.observable();
+    final ObservableValue<Object> branch = context.observable();
+    final AtomicBoolean useMiddle = new AtomicBoolean( true );
+
+    final ComputableValue<Integer> leaf = context.computable( () -> {
+      source.reportObserved();
+      return 1;
+    } );
+    final ComputableValue<Integer> middle = context.computable( leaf::get );
+    final ComputableValue<Integer> downstream = context.computable( () -> {
+      branch.reportObserved();
+      return useMiddle.get() ? middle.get() : 0;
+    } );
+
+    context.observer( () -> assertEquals( downstream.get(), (Integer) ( useMiddle.get() ? 1 : 0 ) ) );
+
+    assertDependencies( downstream, branch, middle.getObservableValue() );
+    assertDependencies( middle, leaf.getObservableValue() );
+    assertDependencies( leaf, source );
+
+    useMiddle.set( false );
+    context.safeAction( branch::reportChanged );
+
+    assertDependencies( downstream, branch );
+    assertEquals( middle.getObserver().getState(), Observer.Flags.STATE_INACTIVE );
+    assertEquals( leaf.getObserver().getState(), Observer.Flags.STATE_INACTIVE );
+    assertFalse( middle.getObservableValue().getObservers().contains( downstream.getObserver() ) );
+    assertNotObserver( leaf, downstream );
+  }
+
+  @Test
   public void leastStaleObserverStateMaintainedCorrectly()
   {
     final ArezContext context = Arez.context();
@@ -1172,5 +1630,24 @@ public final class ComputableValueTest
     handler.assertNextEvent( ComputeCompleteEvent.class,
                              e -> assertEquals( e.getComputableValue().getName(), computable1.getName() ) );
     handler.assertNextEvent( ReactionCycleCompleteEvent.class );
+  }
+
+  private static void assertDependencies( final ComputableValue<?> computableValue,
+                                          final ObservableValue<?>... dependencies )
+  {
+    final FastList<ObservableValue<?>> actual = computableValue.getObserver().getDependencies();
+    assertEquals( actual.size(), dependencies.length );
+    for ( int i = 0; i < dependencies.length; i++ )
+    {
+      assertSame( actual.get( i ), dependencies[ i ] );
+      assertTrue( dependencies[ i ].getObservers().contains( computableValue.getObserver() ) );
+    }
+  }
+
+  private static void assertNotObserver( final ComputableValue<?> observable,
+                                         final ComputableValue<?> observer )
+  {
+    assertFalse( observable.getObservableValue().getObservers().contains( observer.getObserver() ) );
+    assertFalse( observer.getObserver().getDependencies().contains( observable.getObservableValue() ) );
   }
 }

@@ -6,6 +6,7 @@
 * Update the `org.realityforge.proton` artifacts to version `0.75`.
 * Add `ReactionCycleStartEvent` and `ReactionCycleCompleteEvent` spy events around scheduler reaction cycles.
 * Warn when Arez component-like types declare explicit public constructors.
+* Preserve direct computable dependency graphs during lazy validation by avoiding transitive observation tracking.
 * Rely on Proton to declare common annotation processor options and stop advertising the stale
   `arez.persist.verbose_out_of_round` option; use `arez.persist.verbose_out_of_round.errors` instead.
 * Correct the generated source formatting documentation to describe the default enabled behavior.

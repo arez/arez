@@ -752,7 +752,16 @@ public final class Observer
             final ComputableValue<?> computableValue = owner.getComputableValue();
             try
             {
-              computableValue.get();
+              final Transaction transaction = Transaction.current();
+              transaction.suppressObservations();
+              try
+              {
+                computableValue.get();
+              }
+              finally
+              {
+                transaction.restoreObservations();
+              }
             }
             catch ( final Throwable ignored )
             {

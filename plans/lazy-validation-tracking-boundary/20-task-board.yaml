@@ -1,0 +1,314 @@
+plan:
+  id: lazy-validation-tracking-boundary
+  status: completed
+  current_phase: complete
+  status_authority: "This plan.status field is authoritative; markdown Status headers mirror it."
+  approval_outcome: accepted
+  review_round_limit: 5
+  review_rounds_completed: 3
+  implementation_review_round_limit: 5
+  implementation_review_rounds_completed: 2
+  review_completion_rule: "After every completed round, increment review_rounds_completed and record evidence; set PLAN-REVIEW to completed only after no actionable findings remain or the round limit is reached."
+  required_full_gate: "bundle exec buildr ci J2CL=no"
+  notes:
+    - "Implementation approved by user request: Implement."
+    - "Bundler/Buildr validation is available; targeted and full gates passed during implementation."
+    - "Implementation-review round 1 accepted one valid finding and added missing graph-focused matrix coverage."
+
+tasks:
+  - id: PLAN-DRAFT
+    title: "Create structured design artifacts"
+    status: completed
+    priority: high
+    depends_on: []
+    acceptance_criteria:
+      - "Requirements capture mission, scope, locked decisions, gates, and open-question register."
+      - "Implementation plan captures phases, risks, full gate, and decision log."
+      - "Test strategy captures comprehensive graph-focused regression matrix."
+    files:
+      - "plans/lazy-validation-tracking-boundary/00-requirements.md"
+      - "plans/lazy-validation-tracking-boundary/10-implementation-plan.md"
+      - "plans/lazy-validation-tracking-boundary/40-test-strategy.md"
+      - "plans/lazy-validation-tracking-boundary/20-task-board.yaml"
+    evidence:
+      - command: "ruby -e 'require \"yaml\"; YAML.load_file(\"plans/lazy-validation-tracking-boundary/20-task-board.yaml\"); puts \"YAML OK\"'"
+        result: "passed: YAML OK"
+      - command: "git diff --check"
+        result: "passed: no whitespace errors"
+      - command: "find plans/lazy-validation-tracking-boundary -maxdepth 1 -type f -print | sort"
+        result: "passed: four planning artifacts present"
+    commit:
+      hash: not_required
+      message: "Planning artifact creation only; user did not request a commit."
+
+  - id: PLAN-REVIEW
+    title: "Iteratively review and tighten design plan"
+    status: completed
+    priority: high
+    depends_on:
+      - PLAN-DRAFT
+    acceptance_criteria:
+      - "Plan review runs in a subagent using the plan-review skill."
+      - "Valid or partially valid review findings are assessed and incorporated."
+      - "Rejected findings are recorded with evidence."
+      - "Review loop stops when no actionable findings remain or five rounds have run."
+      - "plan.review_rounds_completed increments after each completed review round."
+      - "Each review round appends evidence or history for the finding outcome."
+      - "PLAN-REVIEW.status changes to completed when the stop condition is reached."
+      - "Edited artifacts pass YAML and whitespace validation where applicable."
+    files:
+      - "plans/lazy-validation-tracking-boundary/00-requirements.md"
+      - "plans/lazy-validation-tracking-boundary/10-implementation-plan.md"
+      - "plans/lazy-validation-tracking-boundary/20-task-board.yaml"
+      - "plans/lazy-validation-tracking-boundary/40-test-strategy.md"
+    evidence:
+      - review_round: 1
+        result: "three findings accepted as valid and incorporated into the plan."
+      - review_round: 2
+        result: "two findings accepted as valid: graph-audit path correction and review-loop closeout rules."
+      - review_round: 3
+        result: "no actionable findings; review loop completed before the five-round limit."
+    commit:
+      hash: not_required
+      message: "Design review artifact updates only; user did not request a commit."
+
+  - id: PLAN-APPROVAL
+    title: "Request and record user review"
+    status: completed
+    priority: high
+    depends_on:
+      - PLAN-REVIEW
+    acceptance_criteria:
+      - "User has been asked to review the latest plan."
+      - "User feedback is incorporated or explicitly deferred."
+      - "Approval outcome is recorded in plan.approval_outcome."
+      - "Plan status is changed to accepted, deferred, or rejected only after explicit user direction."
+      - "Markdown Status headers are updated to mirror plan.status."
+    files:
+      - "plans/lazy-validation-tracking-boundary/00-requirements.md"
+      - "plans/lazy-validation-tracking-boundary/10-implementation-plan.md"
+      - "plans/lazy-validation-tracking-boundary/20-task-board.yaml"
+      - "plans/lazy-validation-tracking-boundary/40-test-strategy.md"
+    evidence:
+      - user_request: "Implement"
+        result: "accepted: user explicitly approved moving from design to implementation."
+    commit:
+      hash: not_required
+      message: "Plan approval metadata only; user did not request a commit."
+
+  - id: IMPL-CHARACTERIZE
+    title: "Add failing graph-shape characterization tests"
+    status: completed
+    priority: high
+    depends_on:
+      - PLAN-APPROVAL
+    acceptance_criteria:
+      - "Tests expose lazy validation dependency flattening."
+      - "Tests assert direct dependency and observer backlinks."
+      - "Tests fail before production fix for the primary graph leak."
+      - "Suppressed-then-direct-read case fails before the fix if suppression mutates duplicate-detection state."
+    files:
+      - "core/src/test/java/arez/ObserverTest.java"
+      - "core/src/test/java/arez/ComputableValueTest.java"
+      - "integration-tests/src/test/java/arez/integration/**/*.java"
+    evidence:
+      - command: "bundle exec buildr arez:core:test"
+        result: "failed as expected before production fix: lazyValidationDoesNotTrackTransitiveComputableDependencies expected 1 dependency but saw 3; lazyValidationSuppressionDoesNotHideLaterDirectReadInSameTransaction expected 2 dependencies but saw 3."
+    commit:
+      hash: not_required
+      message: "Characterization test changes are part of this uncommitted implementation."
+
+  - id: IMPL-SUPPRESSION
+    title: "Implement recursive validation observation suppression"
+    status: completed
+    priority: high
+    depends_on:
+      - IMPL-CHARACTERIZE
+    acceptance_criteria:
+      - "Immediate dependency observations are preserved."
+      - "Recursive validation observations are not recorded on the outer tracker."
+      - "Suppressed observations do not update last-tracker transaction state or equivalent duplicate-detection markers."
+      - "Actual recomputation tracking remains normal."
+      - "Nested suppression restores state with try/finally."
+    files:
+      - "core/src/main/java/arez/ComputableValue.java"
+      - "core/src/main/java/arez/Observer.java"
+      - "core/src/main/java/arez/Transaction.java"
+      - "core/src/main/java/arez/ObservableValue.java"
+    evidence:
+      - command: "bundle exec buildr arez:core:test"
+        result: "passed after implementation: 843 tests, 0 failures, 0 skips."
+    commit:
+      hash: not_required
+      message: "Uncommitted implementation; user did not request a commit."
+
+  - id: IMPL-GRAPH-AUDIT
+    title: "Audit existing graph-facing spy assertions and fixtures"
+    status: completed
+    priority: high
+    depends_on:
+      - IMPL-SUPPRESSION
+    acceptance_criteria:
+      - "Search for existing graph assertions with rg over getDependencies, getObservers, asComputableValueInfo, and asObserverInfo."
+      - "Review identified core and integration tests for expectations that depended on leaked transitive validation edges."
+      - "Update only expectations caused by the graph cleanup; leave unrelated spy behavior unchanged."
+    files:
+      - "core/src/test/java/arez/ComputableValueInfoImplTest.java"
+      - "core/src/test/java/arez/ObserverInfoImplTest.java"
+      - "core/src/test/java/arez/TransactionTest.java"
+      - "core/src/test/java/arez/ObserverTest.java"
+      - "core/src/test/java/arez/ComputableValueTest.java"
+      - "core/src/test/java/arez/ObservableValueTest.java"
+      - "core/src/test/java/arez/ArezContextTest.java"
+      - "integration-tests/src/test/java/arez/integration/component_observable/ComponentObservableTest.java"
+      - "integration-tests/src/test/java/arez/integration/observe/ObserveArezOrNoDependenciesTest.java"
+      - "integration-tests/src/test/java/arez/integration/**/*.java"
+    evidence:
+      - command: "rg -n \"getDependencies|getObservers|asComputableValueInfo|asObserverInfo\" core/src/test integration-tests/src/test"
+        result: "completed: graph-facing core and integration tests reviewed; no existing fixture or event-count updates were required."
+    commit:
+      hash: not_required
+      message: "Uncommitted implementation; user did not request a commit."
+
+  - id: IMPL-MATRIX
+    title: "Complete regression matrix"
+    status: completed
+    priority: high
+    depends_on:
+      - IMPL-GRAPH-AUDIT
+    acceptance_criteria:
+      - "No-change, changed, equality, dynamic dependency, exception, deactivation, hook, priority, and read-outside-transaction cases pass."
+      - "Memoize no-arg and parameterized paths are covered."
+      - "Intentional fixture or event-count changes are reviewed."
+    files:
+      - "core/src/test/java/arez/**/*.java"
+      - "integration-tests/src/test/java/arez/integration/**/*.java"
+      - "integration-tests/src/test/resources/**/*"
+    evidence:
+      - command: "bundle exec buildr arez:core:test"
+        result: "passed: 843 tests, 0 failures, 0 skips."
+      - command: "bundle exec buildr arez:integration-tests:test"
+        result: "passed: 191 tests, 0 failures, 0 skips."
+      - note: "Regression coverage added for no-change lazy validation, changed propagation, dynamic dependencies, exception paths, hook ownership, read-outside-transaction, no-arg memoize, and parameterized memoize."
+      - note: "Implementation-review round 1 added graph-focused coverage for custom equality no-change, multi-dependency short-circuit on first changed dependency, cached exception rethrow, lower-priority dependencies, and deactivation of transitive computables."
+    commit:
+      hash: not_required
+      message: "Uncommitted implementation; user did not request a commit."
+
+  - id: IMPL-DOCS
+    title: "Update release notes and run gates"
+    status: completed
+    priority: medium
+    depends_on:
+      - IMPL-MATRIX
+    acceptance_criteria:
+      - "CHANGELOG.md has an Unreleased entry for user-visible graph/scheduling/debug semantics."
+      - "Targeted tests pass."
+      - "Full gate passes or blockers are documented."
+    files:
+      - "CHANGELOG.md"
+      - "docs/**/*.md"
+    evidence:
+      - file: "CHANGELOG.md"
+        result: "Unreleased entry added for preserving direct computable dependency graphs during lazy validation."
+      - command: "bundle exec buildr update_downstream_build_stats PRODUCT_VERSION=0.250 PREVIOUS_PRODUCT_VERSION=0.249"
+        result: "passed: updated 0.250 downstream size baselines for the accepted size delta."
+      - command: "bundle exec buildr arez:downstream-test:test PRODUCT_VERSION=0.250 PREVIOUS_PRODUCT_VERSION=0.249"
+        result: "passed: 8 tests, 0 failures, 0 skips."
+      - command: "bundle exec buildr ci J2CL=no"
+        result: "passed: completed in 12m22.314s after implementation-review round 1 fixes; includes project site:deploy step."
+      - command: "git diff --check"
+        result: "passed: no whitespace errors."
+      - command: "ruby -e 'require \"yaml\"; YAML.load_file(\"plans/lazy-validation-tracking-boundary/20-task-board.yaml\"); puts \"task board yaml ok\"'"
+        result: "passed: task board yaml ok."
+    commit:
+      hash: not_required
+      message: "Uncommitted implementation; user did not request a commit."
+
+  - id: IMPL-REVIEW
+    title: "Run iterative plan implementation review"
+    status: completed
+    priority: high
+    depends_on:
+      - IMPL-DOCS
+    acceptance_criteria:
+      - "Implementation review runs in a subagent using the plan-implementation-review skill."
+      - "Valid review findings are fixed or explicitly rejected with evidence."
+      - "Review loop stops when no actionable findings remain or five rounds have run."
+      - "Subagent is closed after the review loop completes."
+    files:
+      - "plans/lazy-validation-tracking-boundary/00-requirements.md"
+      - "plans/lazy-validation-tracking-boundary/10-implementation-plan.md"
+      - "plans/lazy-validation-tracking-boundary/20-task-board.yaml"
+      - "plans/lazy-validation-tracking-boundary/40-test-strategy.md"
+      - "core/src/main/java/arez/Observer.java"
+      - "core/src/main/java/arez/Transaction.java"
+      - "core/src/test/java/arez/ComputableValueTest.java"
+      - "integration-tests/src/test/java/arez/integration/memoize/MemoizeMultipleParamsNonArezDependenciesComponentTest.java"
+      - "integration-tests/src/test/java/arez/integration/memoize/MemoizeNonArezDependenciesComponentTest.java"
+    evidence:
+      - review_round: 1
+        result: "one valid finding accepted: matrix evidence lacked several promised graph-focused cases; added direct graph assertions for equality/custom comparator, multi-dependency short-circuit, cached exception rethrow, lower-priority dependency validation, and deactivation."
+      - command: "bundle exec buildr arez:core:test"
+        result: "passed after round 1 fixes: 843 tests, 0 failures, 0 skips."
+      - command: "bundle exec buildr ci J2CL=no"
+        result: "passed after round 1 fixes: completed in 12m22.314s."
+      - review_round: 2
+        result: "no actionable findings; review loop completed before the five-round limit."
+      - command: "ruby -e 'require \"yaml\"; YAML.load_file(\"plans/lazy-validation-tracking-boundary/20-task-board.yaml\"); puts \"task board yaml ok\"'"
+        result: "passed after round 1 evidence updates: task board yaml ok."
+      - command: "git diff --check"
+        result: "passed after round 1 evidence updates: no whitespace errors."
+    commit:
+      hash: not_required
+      message: "Implementation review updates are uncommitted; user did not request a commit."
+
+history:
+  - task: PLAN-DRAFT
+    status: in_progress
+    note: "Initial structured design artifacts created for user review."
+  - task: PLAN-DRAFT
+    status: completed
+    note: "Planning artifacts validated with YAML parse and git diff whitespace check."
+  - task: PLAN-REVIEW
+    status: in_progress
+    note: "Round 1 findings accepted: dedupe bookkeeping suppression, graph assertion audit, and authoritative approval-state recording."
+  - task: PLAN-REVIEW
+    status: in_progress
+    note: "Round 2 findings accepted: corrected graph-audit paths and added review-loop closeout state rules."
+  - task: PLAN-REVIEW
+    status: completed
+    note: "Round 3 reported no actionable findings; PLAN-APPROVAL remains pending explicit user direction."
+  - task: PLAN-APPROVAL
+    status: completed
+    note: "User approved implementation by saying: Implement."
+  - task: IMPL-CHARACTERIZE
+    status: in_progress
+    note: "Starting test-first implementation against accepted graph-boundary design."
+  - task: IMPL-CHARACTERIZE
+    status: completed
+    note: "Core tests failed as expected on graph flattening before production fix."
+  - task: IMPL-SUPPRESSION
+    status: in_progress
+    note: "Implementing transaction-local observation suppression for recursive POSSIBLY_STALE validation."
+  - task: IMPL-SUPPRESSION
+    status: completed
+    note: "Recursive validation observations are suppressed with try/finally restoration; core tests pass."
+  - task: IMPL-GRAPH-AUDIT
+    status: completed
+    note: "Existing graph-facing assertions and fixtures audited; no fixture updates required."
+  - task: IMPL-MATRIX
+    status: completed
+    note: "Core and integration regression matrix passes with direct graph assertions."
+  - task: IMPL-DOCS
+    status: in_progress
+    note: "Changelog entry added; running final gates."
+  - task: IMPL-DOCS
+    status: completed
+    note: "Release note, downstream size baselines, targeted gates, and full ci J2CL=no gate completed."
+  - task: IMPL-REVIEW
+    status: in_progress
+    note: "Round 1 accepted a valid matrix evidence gap; additional graph-focused tests were added and full ci J2CL=no passed."
+  - task: IMPL-REVIEW
+    status: completed
+    note: "Round 2 reported no actionable findings; implementation-review loop completed before the five-round limit."
