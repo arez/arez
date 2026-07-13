@@ -32,7 +32,8 @@ final class Arez_DefaultMultiplicityInverseModel extends DefaultMultiplicityInve
   private final ObservableValue<Collection<DefaultMultiplicityInverseModel.Element>>
       $$arez$$_elements;
 
-  private Collection<DefaultMultiplicityInverseModel.Element> $$arezd$$_elements;
+  @Nonnull
+  private final Collection<DefaultMultiplicityInverseModel.Element> $$arezd$$_elements;
 
   @Nullable
   private Collection<DefaultMultiplicityInverseModel.Element> $$arezd$$_$$cache$$_elements;
@@ -62,6 +63,8 @@ final class Arez_DefaultMultiplicityInverseModel extends DefaultMultiplicityInve
         true,
         false,
         false);
+    this.$$arezd$$_elements = new HashSet<>();
+    this.$$arezd$$_$$cache$$_elements = null;
     this.$$arez$$_elements = $$arezv$$_context.observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".elements" : null,
@@ -69,8 +72,6 @@ final class Arez_DefaultMultiplicityInverseModel extends DefaultMultiplicityInve
             ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_elements)
             : null,
         null);
-    this.$$arezd$$_elements = new HashSet<>();
-    this.$$arezd$$_$$cache$$_elements = null;
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }

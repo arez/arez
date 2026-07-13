@@ -51,7 +51,8 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   @Nonnull
   private final ObservableValue<List<Element>> $$arez$$_elements;
 
-  private List<Element> $$arezd$$_elements;
+  @Nonnull
+  private final List<Element> $$arezd$$_elements;
 
   @Nullable
   private List<Element> $$arezd$$_$$cache$$_elements;
@@ -101,6 +102,8 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_inheritance_CompleteModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_inheritance_CompleteModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose,  () -> super.postDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, 0, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, Arez.areNativeComponentsEnabled() ? null : () -> super.postDispose(), true, false, false );
+    this.$$arezd$$_elements = new ArrayList<>();
+    this.$$arezd$$_$$cache$$_elements = null;
     this.$$arez$$_myValue = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myValue" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_myValue ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myValue = v : null );
     this.$$arez$$_myPrimitiveValue = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myPrimitiveValue" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : super.getMyPrimitiveValue() ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setMyPrimitiveValue( v ) : null );
     this.$$arez$$_myStringValue = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myStringValue" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : super.getMyStringValue() ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setMyStringValue( v ) : null );
@@ -112,8 +115,6 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     this.$$arez$$_calcCollectionStuff = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".calcCollectionStuff" : null, args -> super.calcCollectionStuff((int) args[ 0 ]), 1, ComputableValue.Flags.AREZ_DEPENDENCIES );
     this.$$arez$$_myWatcher = $$arezv$$_context.observer( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myWatcher" : null, () -> super.myWatcher(), Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
     this.$$arez$$_render = $$arezv$$_context.tracker( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".render" : null, () -> super.onRenderDepsChange(), Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
-    this.$$arezd$$_elements = new ArrayList<>();
-    this.$$arezd$$_$$cache$$_elements = null;
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_link_myEntity();
     super.postConstruct();

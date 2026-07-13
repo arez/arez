@@ -31,7 +31,8 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel
   @Nonnull
   private final ObservableValue<Collection<CustomNamesInverseModel.Element>> $$arez$$_zap;
 
-  private Collection<CustomNamesInverseModel.Element> $$arezd$$_zap;
+  @Nonnull
+  private final Collection<CustomNamesInverseModel.Element> $$arezd$$_zap;
 
   @Nullable
   private Collection<CustomNamesInverseModel.Element> $$arezd$$_$$cache$$_zap;
@@ -61,6 +62,8 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel
         true,
         false,
         false);
+    this.$$arezd$$_zap = new HashSet<>();
+    this.$$arezd$$_$$cache$$_zap = null;
     this.$$arez$$_zap = $$arezv$$_context.observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".zap" : null,
@@ -68,8 +71,6 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel
             ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_zap)
             : null,
         null);
-    this.$$arezd$$_zap = new HashSet<>();
-    this.$$arezd$$_$$cache$$_zap = null;
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }

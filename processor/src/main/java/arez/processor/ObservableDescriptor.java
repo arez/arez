@@ -300,6 +300,11 @@ final class ObservableDescriptor
     setExpectSetter( false );
   }
 
+  boolean isManyInverse()
+  {
+    return null != _inverseDescriptor && Multiplicity.MANY == _inverseDescriptor.getMultiplicity();
+  }
+
   @Nullable
   CascadeDisposeDescriptor getCascadeDisposeDescriptor()
   {

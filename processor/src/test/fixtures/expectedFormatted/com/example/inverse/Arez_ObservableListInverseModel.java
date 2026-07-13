@@ -30,7 +30,8 @@ final class Arez_ObservableListInverseModel extends ObservableListInverseModel
   @Nonnull
   private final ObservableValue<List<ObservableListInverseModel.Element>> $$arez$$_elements;
 
-  private List<ObservableListInverseModel.Element> $$arezd$$_elements;
+  @Nonnull
+  private final List<ObservableListInverseModel.Element> $$arezd$$_elements;
 
   @Nullable
   private List<ObservableListInverseModel.Element> $$arezd$$_$$cache$$_elements;
@@ -60,6 +61,8 @@ final class Arez_ObservableListInverseModel extends ObservableListInverseModel
         true,
         false,
         false);
+    this.$$arezd$$_elements = new ArrayList<>();
+    this.$$arezd$$_$$cache$$_elements = null;
     this.$$arez$$_elements = $$arezv$$_context.observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".elements" : null,
@@ -67,8 +70,6 @@ final class Arez_ObservableListInverseModel extends ObservableListInverseModel
             ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_elements)
             : null,
         null);
-    this.$$arezd$$_elements = new ArrayList<>();
-    this.$$arezd$$_$$cache$$_elements = null;
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }

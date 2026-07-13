@@ -33,7 +33,8 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel
   @Nonnull
   private final ObservableValue<List<Element>> $$arez$$_elements;
 
-  private List<Element> $$arezd$$_elements;
+  @Nonnull
+  private final List<Element> $$arezd$$_elements;
 
   @Nullable
   private List<Element> $$arezd$$_$$cache$$_elements;
@@ -63,6 +64,8 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel
         true,
         false,
         false);
+    this.$$arezd$$_elements = new ArrayList<>();
+    this.$$arezd$$_$$cache$$_elements = null;
     this.$$arez$$_elements = $$arezv$$_context.observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".elements" : null,
@@ -70,8 +73,6 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel
             ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_elements)
             : null,
         null);
-    this.$$arezd$$_elements = new ArrayList<>();
-    this.$$arezd$$_$$cache$$_elements = null;
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }

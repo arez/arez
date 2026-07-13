@@ -73,7 +73,8 @@ public final class Arez_CompleteInterfaceModel
   @Nonnull
   private final ObservableValue<List<OtherElement>> $$arez$$_otherElements;
 
-  private List<OtherElement> $$arezd$$_otherElements;
+  @Nonnull
+  private final List<OtherElement> $$arezd$$_otherElements;
 
   @Nullable
   private List<OtherElement> $$arezd$$_$$cache$$_otherElements;
@@ -148,6 +149,8 @@ public final class Arez_CompleteInterfaceModel
         true,
         false,
         false);
+    this.$$arezd$$_otherElements = new ArrayList<>();
+    this.$$arezd$$_$$cache$$_otherElements = null;
     this.$$arez$$_parentGeneralisation = $$arezv$$_context.observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".parentGeneralisation" : null,
@@ -280,8 +283,6 @@ public final class Arez_CompleteInterfaceModel
         Observer.Flags.RUN_LATER
             | Observer.Flags.NESTED_ACTIONS_DISALLOWED
             | Observer.Flags.AREZ_DEPENDENCIES);
-    this.$$arezd$$_otherElements = new ArrayList<>();
-    this.$$arezd$$_$$cache$$_otherElements = null;
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_link_myEntity();
     CompleteInterfaceModel.super.postConstruct();

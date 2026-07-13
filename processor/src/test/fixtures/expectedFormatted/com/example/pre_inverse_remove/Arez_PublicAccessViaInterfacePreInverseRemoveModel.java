@@ -33,7 +33,9 @@ final class Arez_PublicAccessViaInterfacePreInverseRemoveModel
   private final ObservableValue<Collection<PublicAccessViaInterfacePreInverseRemoveModel.Element>>
       $$arez$$_elements;
 
-  private Collection<PublicAccessViaInterfacePreInverseRemoveModel.Element> $$arezd$$_elements;
+  @Nonnull
+  private final Collection<PublicAccessViaInterfacePreInverseRemoveModel.Element>
+      $$arezd$$_elements;
 
   @Nullable
   private Collection<PublicAccessViaInterfacePreInverseRemoveModel.Element>
@@ -65,6 +67,8 @@ final class Arez_PublicAccessViaInterfacePreInverseRemoveModel
         true,
         false,
         false);
+    this.$$arezd$$_elements = new HashSet<>();
+    this.$$arezd$$_$$cache$$_elements = null;
     this.$$arez$$_elements = $$arezv$$_context.observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".elements" : null,
@@ -72,8 +76,6 @@ final class Arez_PublicAccessViaInterfacePreInverseRemoveModel
             ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_elements)
             : null,
         null);
-    this.$$arezd$$_elements = new HashSet<>();
-    this.$$arezd$$_$$cache$$_elements = null;
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }

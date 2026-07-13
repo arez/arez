@@ -31,7 +31,8 @@ final class Arez_NonGetterInverseModel extends NonGetterInverseModel
   @Nonnull
   private final ObservableValue<Set<NonGetterInverseModel.Element>> $$arez$$_elements;
 
-  private Set<NonGetterInverseModel.Element> $$arezd$$_elements;
+  @Nonnull
+  private final Set<NonGetterInverseModel.Element> $$arezd$$_elements;
 
   @Nullable
   private Set<NonGetterInverseModel.Element> $$arezd$$_$$cache$$_elements;
@@ -60,6 +61,8 @@ final class Arez_NonGetterInverseModel extends NonGetterInverseModel
         true,
         false,
         false);
+    this.$$arezd$$_elements = new HashSet<>();
+    this.$$arezd$$_$$cache$$_elements = null;
     this.$$arez$$_elements = $$arezv$$_context.observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".elements" : null,
@@ -67,8 +70,6 @@ final class Arez_NonGetterInverseModel extends NonGetterInverseModel
             ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_elements)
             : null,
         null);
-    this.$$arezd$$_elements = new HashSet<>();
-    this.$$arezd$$_$$cache$$_elements = null;
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }

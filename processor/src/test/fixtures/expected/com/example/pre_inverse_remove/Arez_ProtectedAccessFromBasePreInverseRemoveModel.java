@@ -35,7 +35,8 @@ public final class Arez_ProtectedAccessFromBasePreInverseRemoveModel extends Pro
   @Nonnull
   private final ObservableValue<Collection<BaseProtectedAccessPreInverseRemoveModel.Element>> $$arez$$_elements;
 
-  private Collection<BaseProtectedAccessPreInverseRemoveModel.Element> $$arezd$$_elements;
+  @Nonnull
+  private final Collection<BaseProtectedAccessPreInverseRemoveModel.Element> $$arezd$$_elements;
 
   @Nullable
   private Collection<BaseProtectedAccessPreInverseRemoveModel.Element> $$arezd$$_$$cache$$_elements;
@@ -47,9 +48,9 @@ public final class Arez_ProtectedAccessFromBasePreInverseRemoveModel extends Pro
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_pre_inverse_remove_ProtectedAccessFromBasePreInverseRemoveModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_pre_inverse_remove_ProtectedAccessFromBasePreInverseRemoveModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_elements = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".elements" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_elements ) : null, null );
     this.$$arezd$$_elements = new HashSet<>();
     this.$$arezd$$_$$cache$$_elements = null;
+    this.$$arez$$_elements = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".elements" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_elements ) : null, null );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }

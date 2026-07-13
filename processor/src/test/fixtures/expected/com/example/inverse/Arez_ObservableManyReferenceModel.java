@@ -32,7 +32,8 @@ final class Arez_ObservableManyReferenceModel extends ObservableManyReferenceMod
   @Nonnull
   private final ObservableValue<List<ObservableManyReferenceModel.Element>> $$arez$$_elements;
 
-  private List<ObservableManyReferenceModel.Element> $$arezd$$_elements;
+  @Nonnull
+  private final List<ObservableManyReferenceModel.Element> $$arezd$$_elements;
 
   @Nullable
   private List<ObservableManyReferenceModel.Element> $$arezd$$_$$cache$$_elements;
@@ -44,9 +45,9 @@ final class Arez_ObservableManyReferenceModel extends ObservableManyReferenceMod
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_inverse_ObservableManyReferenceModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_inverse_ObservableManyReferenceModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_elements = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".elements" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_elements ) : null, null );
     this.$$arezd$$_elements = new ArrayList<>();
     this.$$arezd$$_$$cache$$_elements = null;
+    this.$$arez$$_elements = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".elements" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_elements ) : null, null );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }

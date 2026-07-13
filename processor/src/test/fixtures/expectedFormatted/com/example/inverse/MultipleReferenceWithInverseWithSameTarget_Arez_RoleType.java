@@ -33,7 +33,8 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType
           List<MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation>>
       $$arez$$_childGeneralisations;
 
-  private List<MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation>
+  @Nonnull
+  private final List<MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation>
       $$arezd$$_childGeneralisations;
 
   @Nullable
@@ -73,6 +74,8 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType
         true,
         false,
         false);
+    this.$$arezd$$_childGeneralisations = new ArrayList<>();
+    this.$$arezd$$_$$cache$$_childGeneralisations = null;
     this.$$arez$$_childGeneralisations = $$arezv$$_context.observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".childGeneralisations" : null,
@@ -89,8 +92,6 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType
                 (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_parentGeneralisation)
             : null,
         null);
-    this.$$arezd$$_childGeneralisations = new ArrayList<>();
-    this.$$arezd$$_$$cache$$_childGeneralisations = null;
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }

@@ -72,7 +72,8 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   @Nonnull
   private final ObservableValue<List<OtherElement>> $$arez$$_otherElements;
 
-  private List<OtherElement> $$arezd$$_otherElements;
+  @Nonnull
+  private final List<OtherElement> $$arezd$$_otherElements;
 
   @Nullable
   private List<OtherElement> $$arezd$$_$$cache$$_otherElements;
@@ -125,6 +126,8 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_inheritance_CompleteInterfaceModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_inheritance_CompleteInterfaceModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose,  () -> CompleteInterfaceModel.super.postDispose() ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, Arez.areNativeComponentsEnabled() ? null : () -> CompleteInterfaceModel.super.postDispose(), true, false, false );
+    this.$$arezd$$_otherElements = new ArrayList<>();
+    this.$$arezd$$_$$cache$$_otherElements = null;
     this.$$arez$$_parentGeneralisation = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".parentGeneralisation" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_parentGeneralisation ) : null, null );
     this.$$arez$$_myValue = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myValue" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_myValue ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myValue = v : null );
     this.$$arez$$_myCollectionValue = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myCollectionValue" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : CompleteInterfaceModel.super.getMyCollectionValue() ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> CompleteInterfaceModel.super.setMyCollectionValue( v ) : null );
@@ -141,8 +144,6 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
     this.$$arez$$_render2 = $$arezv$$_context.tracker( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".render2" : null, this::$$arezi$$_onRender2DepsChange, Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
     this.$$arez$$_render3 = $$arezv$$_context.observer( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".render3" : null, () -> CompleteInterfaceModel.super.render3(), this::$$arezi$$_onRender3DepsChange, Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
     this.$$arez$$_render4 = $$arezv$$_context.tracker( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".render4" : null, () -> CompleteInterfaceModel.super.onRender4DepsChange(), Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
-    this.$$arezd$$_otherElements = new ArrayList<>();
-    this.$$arezd$$_$$cache$$_otherElements = null;
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_link_myEntity();
     CompleteInterfaceModel.super.postConstruct();

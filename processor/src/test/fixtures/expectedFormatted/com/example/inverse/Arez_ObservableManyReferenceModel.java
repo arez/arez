@@ -30,7 +30,8 @@ final class Arez_ObservableManyReferenceModel extends ObservableManyReferenceMod
   @Nonnull
   private final ObservableValue<List<ObservableManyReferenceModel.Element>> $$arez$$_elements;
 
-  private List<ObservableManyReferenceModel.Element> $$arezd$$_elements;
+  @Nonnull
+  private final List<ObservableManyReferenceModel.Element> $$arezd$$_elements;
 
   @Nullable
   private List<ObservableManyReferenceModel.Element> $$arezd$$_$$cache$$_elements;
@@ -60,6 +61,8 @@ final class Arez_ObservableManyReferenceModel extends ObservableManyReferenceMod
         true,
         false,
         false);
+    this.$$arezd$$_elements = new ArrayList<>();
+    this.$$arezd$$_$$cache$$_elements = null;
     this.$$arez$$_elements = $$arezv$$_context.observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".elements" : null,
@@ -67,8 +70,6 @@ final class Arez_ObservableManyReferenceModel extends ObservableManyReferenceMod
             ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_elements)
             : null,
         null);
-    this.$$arezd$$_elements = new ArrayList<>();
-    this.$$arezd$$_$$cache$$_elements = null;
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }

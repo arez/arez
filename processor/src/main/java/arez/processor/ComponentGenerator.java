@@ -2057,6 +2057,7 @@ final class ComponentGenerator
     }
 
     buildComponentKernel( processingEnv, component, builder );
+    component.getInverses().values().forEach( e -> buildInverseInitializer( e, builder ) );
 
     for ( final ObservableDescriptor observable : initializers )
     {
@@ -2124,7 +2125,6 @@ final class ComponentGenerator
     {
       buildAutoObserveInitializer( component, builder );
     }
-    component.getInverses().values().forEach( e -> buildInverseInitializer( e, builder ) );
     component.getDependencies().values().forEach( e -> buildDependencyKeyInitializer( e, builder ) );
     component.getDependencies().values().forEach( e -> buildDependencyInitializer( e, builder ) );
 
@@ -3514,7 +3514,12 @@ final class ComponentGenerator
         FieldSpec.builder( TypeName.get( getterType.getReturnType() ),
                            observable.getDataFieldName(),
                            Modifier.PRIVATE );
-      if ( observable.isGetterNonnull() && observable.isSetterNonnull() && observable.requireInitializer() )
+      if ( observable.isManyInverse() )
+      {
+        dataField.addModifiers( Modifier.FINAL );
+        dataField.addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
+      }
+      else if ( observable.isGetterNonnull() && observable.isSetterNonnull() && observable.requireInitializer() )
       {
         dataField.addAnnotation( GeneratorUtil.NONNULL_CLASSNAME );
       }

@@ -49,7 +49,8 @@ public final class Arez_CompleteModel extends CompleteModel
   @Nonnull
   private final ObservableValue<List<Element>> $$arez$$_elements;
 
-  private List<Element> $$arezd$$_elements;
+  @Nonnull
+  private final List<Element> $$arezd$$_elements;
 
   @Nullable
   private List<Element> $$arezd$$_$$cache$$_elements;
@@ -120,6 +121,8 @@ public final class Arez_CompleteModel extends CompleteModel
         true,
         false,
         false);
+    this.$$arezd$$_elements = new ArrayList<>();
+    this.$$arezd$$_$$cache$$_elements = null;
     this.$$arez$$_myValue = $$arezv$$_context.observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".myValue" : null,
@@ -200,8 +203,6 @@ public final class Arez_CompleteModel extends CompleteModel
         Observer.Flags.RUN_LATER
             | Observer.Flags.NESTED_ACTIONS_DISALLOWED
             | Observer.Flags.AREZ_DEPENDENCIES);
-    this.$$arezd$$_elements = new ArrayList<>();
-    this.$$arezd$$_$$cache$$_elements = null;
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_link_myEntity();
     super.postConstruct();

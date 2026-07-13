@@ -31,7 +31,8 @@ final class Arez_MultiPostInverseAddModel extends MultiPostInverseAddModel
   @Nonnull
   private final ObservableValue<Collection<MultiPostInverseAddModel.Element>> $$arez$$_elements;
 
-  private Collection<MultiPostInverseAddModel.Element> $$arezd$$_elements;
+  @Nonnull
+  private final Collection<MultiPostInverseAddModel.Element> $$arezd$$_elements;
 
   @Nullable
   private Collection<MultiPostInverseAddModel.Element> $$arezd$$_$$cache$$_elements;
@@ -61,6 +62,8 @@ final class Arez_MultiPostInverseAddModel extends MultiPostInverseAddModel
         true,
         false,
         false);
+    this.$$arezd$$_elements = new HashSet<>();
+    this.$$arezd$$_$$cache$$_elements = null;
     this.$$arez$$_elements = $$arezv$$_context.observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".elements" : null,
@@ -68,8 +71,6 @@ final class Arez_MultiPostInverseAddModel extends MultiPostInverseAddModel
             ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_elements)
             : null,
         null);
-    this.$$arezd$$_elements = new HashSet<>();
-    this.$$arezd$$_$$cache$$_elements = null;
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }

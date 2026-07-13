@@ -33,7 +33,8 @@ final class Arez_PublicAccessViaInterfacePostInverseAddModel
   private final ObservableValue<Collection<PublicAccessViaInterfacePostInverseAddModel.Element>>
       $$arez$$_elements;
 
-  private Collection<PublicAccessViaInterfacePostInverseAddModel.Element> $$arezd$$_elements;
+  @Nonnull
+  private final Collection<PublicAccessViaInterfacePostInverseAddModel.Element> $$arezd$$_elements;
 
   @Nullable
   private Collection<PublicAccessViaInterfacePostInverseAddModel.Element>
@@ -64,6 +65,8 @@ final class Arez_PublicAccessViaInterfacePostInverseAddModel
         true,
         false,
         false);
+    this.$$arezd$$_elements = new HashSet<>();
+    this.$$arezd$$_$$cache$$_elements = null;
     this.$$arez$$_elements = $$arezv$$_context.observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".elements" : null,
@@ -71,8 +74,6 @@ final class Arez_PublicAccessViaInterfacePostInverseAddModel
             ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_elements)
             : null,
         null);
-    this.$$arezd$$_elements = new HashSet<>();
-    this.$$arezd$$_$$cache$$_elements = null;
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }
