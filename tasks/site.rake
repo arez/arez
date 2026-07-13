@@ -87,6 +87,7 @@ task 'site:link_check' do
     excludes << 'https://github.com/arez/arez/compare/'
     excludes << 'https://github.com/arez/arez.github.io/settings'
     excludes << 'https://docs.oracle.com/javase/8/docs/api'
+    excludes << 'http://www.gwtproject.org/javadoc/latest'
     excludes << 'https://buildr.apache.org'
     excludes << 'https://maven.apache.org'
     excludes << 'https://www.youtube.com'
