@@ -35,6 +35,7 @@ final class Arez_PackageAccessPostInverseAddModel extends PackageAccessPostInver
 
   private Collection<PackageAccessPostInverseAddModel.Element> $$arezd$$_elements;
 
+  @Nullable
   private Collection<PackageAccessPostInverseAddModel.Element> $$arezd$$_$$cache$$_elements;
 
   Arez_PackageAccessPostInverseAddModel() {

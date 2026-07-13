@@ -35,6 +35,7 @@ final class Arez_PublicAccessViaInterfacePostInverseAddModel extends PublicAcces
 
   private Collection<PublicAccessViaInterfacePostInverseAddModel.Element> $$arezd$$_elements;
 
+  @Nullable
   private Collection<PublicAccessViaInterfacePostInverseAddModel.Element> $$arezd$$_$$cache$$_elements;
 
   Arez_PublicAccessViaInterfacePostInverseAddModel() {

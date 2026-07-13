@@ -37,6 +37,7 @@ public final class Arez_ProtectedAccessFromBasePreInverseRemoveModel extends Pro
 
   private Collection<BaseProtectedAccessPreInverseRemoveModel.Element> $$arezd$$_elements;
 
+  @Nullable
   private Collection<BaseProtectedAccessPreInverseRemoveModel.Element> $$arezd$$_$$cache$$_elements;
 
   public Arez_ProtectedAccessFromBasePreInverseRemoveModel() {

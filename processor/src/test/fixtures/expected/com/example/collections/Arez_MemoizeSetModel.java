@@ -27,8 +27,10 @@ final class Arez_MemoizeSetModel extends MemoizeSetModel implements Disposable, 
   @Nonnull
   private final ComputableValue<Set<String>> $$arez$$_myValue;
 
+  @Nullable
   private Set<String> $$arezd$$_$$cache$$_myValue;
 
+  @Nullable
   private Set<String> $$arezd$$_$$unmodifiable_cache$$_myValue;
 
   private boolean $$arezd$$_$$cache_active$$_myValue;

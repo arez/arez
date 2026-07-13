@@ -34,6 +34,7 @@ final class Arez_ObservableManyReferenceModel extends ObservableManyReferenceMod
 
   private List<ObservableManyReferenceModel.Element> $$arezd$$_elements;
 
+  @Nullable
   private List<ObservableManyReferenceModel.Element> $$arezd$$_$$cache$$_elements;
 
   Arez_ObservableManyReferenceModel() {

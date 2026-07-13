@@ -35,6 +35,7 @@ final class Arez_DefaultMultiplicityInverseModel extends DefaultMultiplicityInve
 
   private Collection<DefaultMultiplicityInverseModel.Element> $$arezd$$_elements;
 
+  @Nullable
   private Collection<DefaultMultiplicityInverseModel.Element> $$arezd$$_$$cache$$_elements;
 
   Arez_DefaultMultiplicityInverseModel() {

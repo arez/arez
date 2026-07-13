@@ -33,6 +33,7 @@ final class Arez_BasicPreInverseRemoveModel extends BasicPreInverseRemoveModel
 
   private Collection<BasicPreInverseRemoveModel.Element> $$arezd$$_elements;
 
+  @Nullable
   private Collection<BasicPreInverseRemoveModel.Element> $$arezd$$_$$cache$$_elements;
 
   Arez_BasicPreInverseRemoveModel() {

@@ -34,6 +34,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType extends Mul
 
   private List<MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation> $$arezd$$_childGeneralisations;
 
+  @Nullable
   private List<MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation> $$arezd$$_$$cache$$_childGeneralisations;
 
   @Nonnull

@@ -27,6 +27,7 @@ final class Arez_ObservableListModel extends ObservableListModel implements Disp
   @Nonnull
   private final ObservableValue<List<String>> $$arez$$_myValue;
 
+  @Nullable
   private List<String> $$arezd$$_$$cache$$_myValue;
 
   Arez_ObservableListModel() {

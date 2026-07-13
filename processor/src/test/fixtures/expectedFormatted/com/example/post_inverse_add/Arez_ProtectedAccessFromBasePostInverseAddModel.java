@@ -37,6 +37,7 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel
 
   private Collection<BaseProtectedAccessPostInverseAddModel.Element> $$arezd$$_elements;
 
+  @Nullable
   private Collection<BaseProtectedAccessPostInverseAddModel.Element> $$arezd$$_$$cache$$_elements;
 
   public Arez_ProtectedAccessFromBasePostInverseAddModel() {

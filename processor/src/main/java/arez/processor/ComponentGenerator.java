@@ -3091,14 +3091,16 @@ final class ComponentGenerator
       final FieldSpec.Builder cacheField =
         FieldSpec.builder( TypeName.get( methodType.getReturnType() ),
                            getMemoizeCollectionCacheDataFieldName( memoize ),
-                           Modifier.PRIVATE );
+                           Modifier.PRIVATE ).
+          addAnnotation( GeneratorUtil.NULLABLE_CLASSNAME );
       SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, cacheField, methodType.getReturnType() );
       builder.addField( cacheField.build() );
 
       final FieldSpec.Builder unmodifiableCacheField =
         FieldSpec.builder( TypeName.get( methodType.getReturnType() ),
                            getMemoizeCollectionUnmodifiableCacheDataFieldName( memoize ),
-                           Modifier.PRIVATE );
+                           Modifier.PRIVATE ).
+          addAnnotation( GeneratorUtil.NULLABLE_CLASSNAME );
       SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv,
                                                           unmodifiableCacheField,
                                                           methodType.getReturnType() );
@@ -3528,7 +3530,8 @@ final class ComponentGenerator
       final FieldSpec.Builder dataField =
         FieldSpec.builder( TypeName.get( getterType.getReturnType() ),
                            observable.getCollectionCacheDataFieldName(),
-                           Modifier.PRIVATE );
+                           Modifier.PRIVATE ).
+          addAnnotation( GeneratorUtil.NULLABLE_CLASSNAME );
       SuppressWarningsUtil.addSuppressWarningsIfRequired( processingEnv, dataField, getterType.getReturnType() );
       builder.addField( dataField.build() );
     }

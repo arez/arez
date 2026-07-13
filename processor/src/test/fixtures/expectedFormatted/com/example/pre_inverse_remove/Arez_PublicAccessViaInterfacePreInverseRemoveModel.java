@@ -35,6 +35,7 @@ final class Arez_PublicAccessViaInterfacePreInverseRemoveModel
 
   private Collection<PublicAccessViaInterfacePreInverseRemoveModel.Element> $$arezd$$_elements;
 
+  @Nullable
   private Collection<PublicAccessViaInterfacePreInverseRemoveModel.Element>
       $$arezd$$_$$cache$$_elements;
 

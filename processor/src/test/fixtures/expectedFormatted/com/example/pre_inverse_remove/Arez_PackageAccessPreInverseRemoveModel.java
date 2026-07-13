@@ -34,6 +34,7 @@ final class Arez_PackageAccessPreInverseRemoveModel extends PackageAccessPreInve
 
   private Collection<PackageAccessPreInverseRemoveModel.Element> $$arezd$$_elements;
 
+  @Nullable
   private Collection<PackageAccessPreInverseRemoveModel.Element> $$arezd$$_$$cache$$_elements;
 
   Arez_PackageAccessPreInverseRemoveModel() {

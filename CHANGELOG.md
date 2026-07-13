@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Annotate generated internal collection cache fields as nullable.
+
 ### [v0.250](https://github.com/arez/arez/tree/v0.250) (2026-07-09) · [Full Changelog](https://github.com/arez/arez/compare/v0.249...v0.250) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.249&new=0.250)
 
 The release includes 2 non breaking API changes.

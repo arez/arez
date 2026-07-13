@@ -34,6 +34,7 @@ final class Arez_ObservableReferenceInverseModel extends ObservableReferenceInve
 
   private Collection<ObservableReferenceInverseModel.Element> $$arezd$$_elements;
 
+  @Nullable
   private Collection<ObservableReferenceInverseModel.Element> $$arezd$$_$$cache$$_elements;
 
   Arez_ObservableReferenceInverseModel() {

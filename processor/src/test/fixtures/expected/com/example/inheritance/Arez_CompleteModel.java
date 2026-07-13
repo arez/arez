@@ -53,6 +53,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
 
   private List<Element> $$arezd$$_elements;
 
+  @Nullable
   private List<Element> $$arezd$$_$$cache$$_elements;
 
   @Nonnull
@@ -70,8 +71,10 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   @Nonnull
   private final ComputableValue<Collection<Long>> $$arez$$_collectionTime;
 
+  @Nullable
   private Collection<Long> $$arezd$$_$$cache$$_collectionTime;
 
+  @Nullable
   private Collection<Long> $$arezd$$_$$unmodifiable_cache$$_collectionTime;
 
   private boolean $$arezd$$_$$cache_active$$_collectionTime;

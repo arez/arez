@@ -35,6 +35,7 @@ final class Arez_NonGetterInverseModel extends NonGetterInverseModel implements 
 
   private Set<NonGetterInverseModel.Element> $$arezd$$_elements;
 
+  @Nullable
   private Set<NonGetterInverseModel.Element> $$arezd$$_$$cache$$_elements;
 
   Arez_NonGetterInverseModel() {

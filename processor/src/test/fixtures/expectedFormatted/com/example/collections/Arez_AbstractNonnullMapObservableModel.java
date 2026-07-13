@@ -30,6 +30,7 @@ final class Arez_AbstractNonnullMapObservableModel extends AbstractNonnullMapObs
 
   private Map<String, String> $$arezd$$_myValue;
 
+  @Nullable
   private Map<String, String> $$arezd$$_$$cache$$_myValue;
 
   Arez_AbstractNonnullMapObservableModel() {

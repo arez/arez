@@ -35,6 +35,7 @@ final class Arez_ObservableSetInverseModel extends ObservableSetInverseModel imp
 
   private Set<ObservableSetInverseModel.Element> $$arezd$$_elements;
 
+  @Nullable
   private Set<ObservableSetInverseModel.Element> $$arezd$$_$$cache$$_elements;
 
   Arez_ObservableSetInverseModel() {

@@ -49,6 +49,7 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel implements Dispos
   @SuppressWarnings("rawtypes")
   private List<Callable> $$arezd$$_myCallableList;
 
+  @Nullable
   @SuppressWarnings("rawtypes")
   private List<Callable> $$arezd$$_$$cache$$_myCallableList;
 

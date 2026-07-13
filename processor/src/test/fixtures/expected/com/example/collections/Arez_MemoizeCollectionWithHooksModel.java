@@ -27,8 +27,10 @@ final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectionWithHo
   @Nonnull
   private final ComputableValue<Collection<Long>> $$arez$$_time;
 
+  @Nullable
   private Collection<Long> $$arezd$$_$$cache$$_time;
 
+  @Nullable
   private Collection<Long> $$arezd$$_$$unmodifiable_cache$$_time;
 
   private boolean $$arezd$$_$$cache_active$$_time;

@@ -32,6 +32,7 @@ final class Arez_RawCollectionObservableModel extends RawCollectionObservableMod
   @SuppressWarnings("rawtypes")
   private List $$arezd$$_myValue;
 
+  @Nullable
   @SuppressWarnings("rawtypes")
   private List $$arezd$$_$$cache$$_myValue;
 

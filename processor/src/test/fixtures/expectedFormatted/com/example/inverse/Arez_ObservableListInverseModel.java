@@ -32,6 +32,7 @@ final class Arez_ObservableListInverseModel extends ObservableListInverseModel
 
   private List<ObservableListInverseModel.Element> $$arezd$$_elements;
 
+  @Nullable
   private List<ObservableListInverseModel.Element> $$arezd$$_$$cache$$_elements;
 
   Arez_ObservableListInverseModel() {

@@ -35,6 +35,7 @@ final class Arez_MultiPostInverseAddModel extends MultiPostInverseAddModel imple
 
   private Collection<MultiPostInverseAddModel.Element> $$arezd$$_elements;
 
+  @Nullable
   private Collection<MultiPostInverseAddModel.Element> $$arezd$$_$$cache$$_elements;
 
   Arez_MultiPostInverseAddModel() {

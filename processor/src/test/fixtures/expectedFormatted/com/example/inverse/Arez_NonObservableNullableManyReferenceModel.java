@@ -34,6 +34,7 @@ final class Arez_NonObservableNullableManyReferenceModel
 
   private List<NonObservableNullableManyReferenceModel.Element> $$arezd$$_elements;
 
+  @Nullable
   private List<NonObservableNullableManyReferenceModel.Element> $$arezd$$_$$cache$$_elements;
 
   Arez_NonObservableNullableManyReferenceModel() {

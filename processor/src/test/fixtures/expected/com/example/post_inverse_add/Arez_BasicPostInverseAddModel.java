@@ -35,6 +35,7 @@ final class Arez_BasicPostInverseAddModel extends BasicPostInverseAddModel imple
 
   private Collection<BasicPostInverseAddModel.Element> $$arezd$$_elements;
 
+  @Nullable
   private Collection<BasicPostInverseAddModel.Element> $$arezd$$_$$cache$$_elements;
 
   Arez_BasicPostInverseAddModel() {

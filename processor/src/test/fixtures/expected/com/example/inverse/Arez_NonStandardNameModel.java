@@ -35,6 +35,7 @@ final class Arez_NonStandardNameModel extends NonStandardNameModel implements Di
 
   private Collection<NonStandardNameModel.Element> $$arezd$$_zap;
 
+  @Nullable
   private Collection<NonStandardNameModel.Element> $$arezd$$_$$cache$$_zap;
 
   Arez_NonStandardNameModel() {

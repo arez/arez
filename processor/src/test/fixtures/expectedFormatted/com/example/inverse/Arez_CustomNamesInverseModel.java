@@ -33,6 +33,7 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel
 
   private Collection<CustomNamesInverseModel.Element> $$arezd$$_zap;
 
+  @Nullable
   private Collection<CustomNamesInverseModel.Element> $$arezd$$_$$cache$$_zap;
 
   Arez_CustomNamesInverseModel() {

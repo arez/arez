@@ -27,8 +27,10 @@ final class Arez_MemoizeNonnullMapModel extends MemoizeNonnullMapModel implement
   @Nonnull
   private final ComputableValue<Map<String, String>> $$arez$$_myValue;
 
+  @Nullable
   private Map<String, String> $$arezd$$_$$cache$$_myValue;
 
+  @Nullable
   private Map<String, String> $$arezd$$_$$unmodifiable_cache$$_myValue;
 
   private boolean $$arezd$$_$$cache_active$$_myValue;

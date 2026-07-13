@@ -35,6 +35,7 @@ final class Arez_MultiPreInverseRemoveModel extends MultiPreInverseRemoveModel i
 
   private Collection<MultiPreInverseRemoveModel.Element> $$arezd$$_elements;
 
+  @Nullable
   private Collection<MultiPreInverseRemoveModel.Element> $$arezd$$_$$cache$$_elements;
 
   Arez_MultiPreInverseRemoveModel() {

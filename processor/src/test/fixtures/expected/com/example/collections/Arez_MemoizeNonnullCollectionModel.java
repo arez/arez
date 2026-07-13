@@ -27,8 +27,10 @@ final class Arez_MemoizeNonnullCollectionModel extends MemoizeNonnullCollectionM
   @Nonnull
   private final ComputableValue<Collection<String>> $$arez$$_myValue;
 
+  @Nullable
   private Collection<String> $$arezd$$_$$cache$$_myValue;
 
+  @Nullable
   private Collection<String> $$arezd$$_$$unmodifiable_cache$$_myValue;
 
   private boolean $$arezd$$_$$cache_active$$_myValue;

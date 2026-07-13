@@ -54,11 +54,13 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   @Nonnull
   private final ObservableValue<List<String>> $$arez$$_myCollectionValue;
 
+  @Nullable
   private List<String> $$arezd$$_$$cache$$_myCollectionValue;
 
   @Nonnull
   private final ObservableValue<List<String>> $$arez$$_myNonnullCollectionValue;
 
+  @Nullable
   private List<String> $$arezd$$_$$cache$$_myNonnullCollectionValue;
 
   @Nonnull
@@ -72,6 +74,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
 
   private List<OtherElement> $$arezd$$_otherElements;
 
+  @Nullable
   private List<OtherElement> $$arezd$$_$$cache$$_otherElements;
 
   @Nonnull
@@ -83,8 +86,10 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   @Nonnull
   private final ComputableValue<Collection<Long>> $$arez$$_collectionTime;
 
+  @Nullable
   private Collection<Long> $$arezd$$_$$cache$$_collectionTime;
 
+  @Nullable
   private Collection<Long> $$arezd$$_$$unmodifiable_cache$$_collectionTime;
 
   private boolean $$arezd$$_$$cache_active$$_collectionTime;

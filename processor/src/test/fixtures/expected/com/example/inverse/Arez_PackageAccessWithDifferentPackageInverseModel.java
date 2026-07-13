@@ -36,6 +36,7 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel extends Pa
 
   private List<Element> $$arezd$$_elements;
 
+  @Nullable
   private List<Element> $$arezd$$_$$cache$$_elements;
 
   public Arez_PackageAccessWithDifferentPackageInverseModel() {

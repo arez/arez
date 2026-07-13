@@ -28,8 +28,10 @@ final class Arez_MemoizeListModel extends MemoizeListModel
   @Nonnull
   private final ComputableValue<List<String>> $$arez$$_myValue;
 
+  @Nullable
   private List<String> $$arezd$$_$$cache$$_myValue;
 
+  @Nullable
   private List<String> $$arezd$$_$$unmodifiable_cache$$_myValue;
 
   private boolean $$arezd$$_$$cache_active$$_myValue;

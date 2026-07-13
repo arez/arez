@@ -35,6 +35,7 @@ final class Arez_NonObservableCollectionInverseModel extends NonObservableCollec
 
   private Collection<NonObservableCollectionInverseModel.Element> $$arezd$$_elements;
 
+  @Nullable
   private Collection<NonObservableCollectionInverseModel.Element> $$arezd$$_$$cache$$_elements;
 
   Arez_NonObservableCollectionInverseModel() {

@@ -27,6 +27,7 @@ final class Arez_ObservableNonnullSetModel extends ObservableNonnullSetModel imp
   @Nonnull
   private final ObservableValue<Set<String>> $$arez$$_myValue;
 
+  @Nullable
   private Set<String> $$arezd$$_$$cache$$_myValue;
 
   Arez_ObservableNonnullSetModel() {

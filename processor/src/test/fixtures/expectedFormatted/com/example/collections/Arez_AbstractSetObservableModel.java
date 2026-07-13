@@ -30,6 +30,7 @@ final class Arez_AbstractSetObservableModel extends AbstractSetObservableModel
 
   private Set<String> $$arezd$$_myValue;
 
+  @Nullable
   private Set<String> $$arezd$$_$$cache$$_myValue;
 
   Arez_AbstractSetObservableModel() {

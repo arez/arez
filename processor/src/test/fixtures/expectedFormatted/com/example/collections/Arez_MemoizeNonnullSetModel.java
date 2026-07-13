@@ -28,8 +28,10 @@ final class Arez_MemoizeNonnullSetModel extends MemoizeNonnullSetModel
   @Nonnull
   private final ComputableValue<Set<String>> $$arez$$_myValue;
 
+  @Nullable
   private Set<String> $$arezd$$_$$cache$$_myValue;
 
+  @Nullable
   private Set<String> $$arezd$$_$$unmodifiable_cache$$_myValue;
 
   private boolean $$arezd$$_$$cache_active$$_myValue;

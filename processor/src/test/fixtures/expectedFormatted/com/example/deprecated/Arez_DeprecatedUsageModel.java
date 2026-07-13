@@ -49,6 +49,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel
   @SuppressWarnings("deprecation")
   private List<MyDeprecatedEntity> $$arezd$$_myEntityList;
 
+  @Nullable
   @SuppressWarnings("deprecation")
   private List<MyDeprecatedEntity> $$arezd$$_$$cache$$_myEntityList;
 

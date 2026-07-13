@@ -27,6 +27,7 @@ final class Arez_ObservableSetModel extends ObservableSetModel implements Dispos
   @Nonnull
   private final ObservableValue<Set<String>> $$arez$$_myValue;
 
+  @Nullable
   private Set<String> $$arezd$$_$$cache$$_myValue;
 
   Arez_ObservableSetModel() {

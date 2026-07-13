@@ -27,6 +27,7 @@ final class Arez_ObservableNonnullListModel extends ObservableNonnullListModel i
   @Nonnull
   private final ObservableValue<List<String>> $$arez$$_myValue;
 
+  @Nullable
   private List<String> $$arezd$$_$$cache$$_myValue;
 
   Arez_ObservableNonnullListModel() {

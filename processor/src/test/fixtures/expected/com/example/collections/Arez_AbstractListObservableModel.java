@@ -29,6 +29,7 @@ final class Arez_AbstractListObservableModel extends AbstractListObservableModel
 
   private List<String> $$arezd$$_myValue;
 
+  @Nullable
   private List<String> $$arezd$$_$$cache$$_myValue;
 
   Arez_AbstractListObservableModel() {

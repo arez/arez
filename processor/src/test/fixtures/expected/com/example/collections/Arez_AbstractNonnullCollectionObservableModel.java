@@ -29,6 +29,7 @@ final class Arez_AbstractNonnullCollectionObservableModel extends AbstractNonnul
 
   private Collection<String> $$arezd$$_myValue;
 
+  @Nullable
   private Collection<String> $$arezd$$_$$cache$$_myValue;
 
   Arez_AbstractNonnullCollectionObservableModel() {
