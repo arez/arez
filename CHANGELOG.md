@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Correctly reference the J2CL `jre` module when registering configuration definitions as system properties.
+
 ### [v0.253](https://github.com/arez/arez/tree/v0.253) (2026-07-23) · [Full Changelog](https://github.com/arez/arez/compare/v0.252...v0.253)
 
 Changes in this release:
