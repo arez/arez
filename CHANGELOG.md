@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Register Arez core configuration definitions as J2CL system properties.
+
 ### [v0.252](https://github.com/arez/arez/tree/v0.252) (2026-07-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.251...v0.252)
 
 Changes in this release:
