@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.253](https://github.com/arez/arez/tree/v0.253) (2026-07-23) · [Full Changelog](https://github.com/arez/arez/compare/v0.252...v0.253)
+
+Changes in this release:
 
 * Register Arez core configuration definitions as J2CL system properties.
 * Register Arez Persist core configuration definitions as J2CL system properties.
