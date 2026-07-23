@@ -57,7 +57,7 @@ define 'arez' do
 
   desc 'Arez Core'
   define 'core' do
-    deps = artifacts(:javax_annotation, :jsinterop_annotations, :jetbrains_annotations, :braincheck_core, :grim_annotations)
+    deps = artifacts(:javax_annotation, :jsinterop_annotations, :jetbrains_annotations, :jspecify, :braincheck_core, :grim_annotations)
     pom.include_transitive_dependencies << deps
     pom.dependency_filter = Proc.new { |dep| dep[:scope].to_s != 'test' && deps.include?(dep[:artifact]) }
     project.doc.options.merge!('Xdoclint:all,-missing' => true)
@@ -71,7 +71,7 @@ define 'arez' do
                               'arez.diagnostic_messages_file' => _('src/test/java/arez/diagnostic_messages.json'))
     test.options[:java_args] = ['-ea']
 
-    gwt_enhance(project)
+    gwt_enhance(project, :extra_deps => [_(:source, :main, :gwt)])
 
     package(:jar)
     package(:sources)
@@ -146,7 +146,7 @@ define 'arez' do
     test.using :testng
     test.options[:properties] = { 'arez.fixture_dir' => _('src/test/fixtures') }
     test.options[:java_args] = ['-ea'] + FORMATTER_JDK_EXPORTS
-    test.compile.with TEST_DEPS
+    test.compile.with TEST_DEPS, :jspecify
 
     iml.test_source_directories << _('src/test/fixtures/input')
   end

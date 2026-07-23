@@ -1,4 +1,5 @@
 <module>
+  <inherits name='org.jspecify.annotations.Annotations'/>
   <inherits name='org.realityforge.braincheck.BrainCheck'/>
 
   <source path='' includes='*.java'/>
