@@ -81,35 +81,6 @@ define 'arez' do
     test.compile.with TEST_DEPS, :braincheck_testng, :jdepend, :javax_json
   end
 
-  desc 'API Test'
-  define 'api-test' do
-    test.compile.with :javax_annotation,
-                      :javax_json,
-                      :gir
-
-    test.options[:properties] =
-      {
-        'arez.api_test.store_api_diff' => ENV['STORE_API_DIFF'] == 'true',
-        'arez.prev.version' => ENV['PREVIOUS_PRODUCT_VERSION'],
-        'arez.prev.jar' => artifact("org.realityforge.arez:arez-core:jar:#{ENV['PREVIOUS_PRODUCT_VERSION'] || project.version}").to_s,
-        'arez.next.version' => ENV['PRODUCT_VERSION'],
-        'arez.next.jar' => project('core').package(:jar).to_s,
-        'arez.api_test.fixture_dir' => _('src/test/resources/fixtures').to_s,
-        'arez.revapi.jar' => artifact(:revapi_diff).to_s
-      }
-    test.options[:java_args] = ['-ea']
-    test.using :testng
-
-    test.compile.enhance do
-      mkdir_p _('src/test/resources/fixtures')
-      artifact("org.realityforge.arez:arez-core:jar:#{ENV['PREVIOUS_PRODUCT_VERSION']}").invoke
-      project('core').package(:jar).invoke
-      artifact(:revapi_diff).invoke
-    end unless ENV['TEST'] == 'no' || ENV['PRODUCT_VERSION'].nil? || ENV['PREVIOUS_PRODUCT_VERSION'].nil?
-
-    test.exclude '*ApiDiffTest' if ENV['PRODUCT_VERSION'].nil? || ENV['PREVIOUS_PRODUCT_VERSION'].nil?
-  end
-
   desc 'Arez Annotation processor'
   define 'processor' do
     pom.dependency_filter = Proc.new { |_| false }
@@ -538,7 +509,7 @@ define 'arez' do
   iml.excluded_directories << project._('node_modules')
   iml.excluded_directories << project._('tmp')
 
-  ipr.add_default_testng_configuration(:jvm_args => "-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=false -Darez.persist.environment=development -Darez.persist.output_fixture_data=false -Darez.persist.fixture_dir=persist/processor/src/test/resources -Darez.persist.core.compile_target=target/arez_persist_core/idea/classes -Darez.deploy_test.build_before=true -Darez.fixture_dir=processor/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources -Darez.api_test.fixture_dir=api-test/src/test/resources/fixtures -Darez.deploy_test.fixture_dir=downstream-test/src/test/resources/fixtures -Darez.deploy_test.work_dir=target/arez_downstream-test/deploy_test/workdir -Darez.prev.version=X -Darez.prev.jar=#{artifact("org.realityforge.arez:arez-core:jar:#{ENV['PREVIOUS_PRODUCT_VERSION'] || project.version}")} -Darez.next.version=X -Darez.next.jar=#{project('core').package(:jar)} -Darez.core.compile_target=target/arez_core/idea/classes -Darez.revapi.jar=#{artifact(:revapi_diff)} -Darez.diagnostic_messages_file=core/src/test/java/arez/diagnostic_messages.json -Darez.check_diagnostic_messages=false")
+  ipr.add_default_testng_configuration(:jvm_args => "-ea -Dbraincheck.environment=development -Darez.environment=development -Darez.output_fixture_data=false -Darez.persist.environment=development -Darez.persist.output_fixture_data=false -Darez.persist.fixture_dir=persist/processor/src/test/resources -Darez.persist.core.compile_target=target/arez_persist_core/idea/classes -Darez.deploy_test.build_before=true -Darez.fixture_dir=processor/src/test/resources -Darez.integration_fixture_dir=integration-tests/src/test/resources -Darez.deploy_test.fixture_dir=downstream-test/src/test/resources/fixtures -Darez.deploy_test.work_dir=target/arez_downstream-test/deploy_test/workdir -Darez.prev.version=X -Darez.prev.jar=#{artifact("org.realityforge.arez:arez-core:jar:#{ENV['PREVIOUS_PRODUCT_VERSION'] || project.version}")} -Darez.next.version=X -Darez.next.jar=#{project('core').package(:jar)} -Darez.core.compile_target=target/arez_core/idea/classes -Darez.diagnostic_messages_file=core/src/test/java/arez/diagnostic_messages.json -Darez.check_diagnostic_messages=false")
 
   ipr.add_testng_configuration('core',
                                :module => 'core',

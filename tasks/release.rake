@@ -6,7 +6,7 @@ Buildr::ReleaseTool.define_release_task do |t|
   t.zapwhite
   t.ensure_git_clean
   t.verify_no_todo
-  t.build(:additional_tasks => "do_test_api_diff J2CL=#{ENV['J2CL']} STAGE_RELEASE=true")
+  t.build(:additional_tasks => "J2CL=#{ENV['J2CL']} STAGE_RELEASE=true")
   t.stage('ArchiveDownstream', 'Archive downstream projects that may need changes pushed') do
     unless ENV['DOWNSTREAM'] == 'no'
       FileUtils.rm_rf 'archive'
@@ -14,9 +14,7 @@ Buildr::ReleaseTool.define_release_task do |t|
       mv 'target/arez_downstream-test/deploy_test/workdir', 'archive/downstream'
     end
   end
-  t.patch_changelog('arez/arez',
-                    :api_diff_directory => "#{WORKSPACE_DIR}/api-test",
-                    :api_diff_website => 'https://arez.github.io/api-diff?key=arez&')
+  t.patch_changelog('arez/arez')
   t.stage('PatchWebsite', 'Update the website with a post announcing release') do
     setup_filename = 'docs/project_setup.md'
     IO.write(setup_filename, IO.read(setup_filename).

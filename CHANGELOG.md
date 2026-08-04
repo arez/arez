@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Remove the obsolete API differences viewer and report infrastructure.
+
 ### [v0.255](https://github.com/arez/arez/tree/v0.255) (2026-08-04) · [Full Changelog](https://github.com/arez/arez/compare/v0.254...v0.255)
 
 Changes in this release:
@@ -33,7 +35,7 @@ Changes in this release:
 
 * Annotate generated internal collection cache fields as nullable.
 
-### [v0.250](https://github.com/arez/arez/tree/v0.250) (2026-07-09) · [Full Changelog](https://github.com/arez/arez/compare/v0.249...v0.250) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.249&new=0.250)
+### [v0.250](https://github.com/arez/arez/tree/v0.250) (2026-07-09) · [Full Changelog](https://github.com/arez/arez/compare/v0.249...v0.250)
 
 The release includes 2 non breaking API changes.
 
@@ -49,7 +51,7 @@ Changes in this release:
 * Correct the generated source formatting documentation to describe the default enabled behavior.
 * Make `WhyRun` no-op when spies are disabled so accidental production calls are optimized away.
 
-### [v0.249](https://github.com/arez/arez/tree/v0.249) (2026-06-16) · [Full Changelog](https://github.com/arez/arez/compare/v0.248...v0.249) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.248&new=0.249)
+### [v0.249](https://github.com/arez/arez/tree/v0.249) (2026-06-16) · [Full Changelog](https://github.com/arez/arez/compare/v0.248...v0.249)
 
 Changes in this release:
 
@@ -82,7 +84,7 @@ Changes in this release:
 
 * Ensure generated source is included in the `arez-persist-core` artifact.
 
-### [v0.244](https://github.com/arez/arez/tree/v0.244) (2026-05-08) · [Full Changelog](https://github.com/arez/arez/compare/v0.243...v0.244) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.243&new=0.244)
+### [v0.244](https://github.com/arez/arez/tree/v0.244) (2026-05-08) · [Full Changelog](https://github.com/arez/arez/compare/v0.243...v0.244)
 
 The release includes 3 non breaking API changes.
 
@@ -97,13 +99,13 @@ Changes in this release:
 * Avoid checking non-declared type during unmanaged observable-reference analysis.
 * Update the `org.realityforge.proton` artifacts to version `0.70`.
 
-### [v0.242](https://github.com/arez/arez/tree/v0.242) (2026-04-30) · [Full Changelog](https://github.com/arez/arez/compare/v0.241...v0.242) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.241&new=0.242)
+### [v0.242](https://github.com/arez/arez/tree/v0.242) (2026-04-30) · [Full Changelog](https://github.com/arez/arez/compare/v0.241...v0.242)
 
 Changes in this release:
 
 * Update the `org.realityforge.sting` artifacts to version `0.34`.
 
-### [v0.241](https://github.com/arez/arez/tree/v0.241) (2026-04-30) · [Full Changelog](https://github.com/arez/arez/compare/v0.240...v0.241) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.240&new=0.241)
+### [v0.241](https://github.com/arez/arez/tree/v0.241) (2026-04-30) · [Full Changelog](https://github.com/arez/arez/compare/v0.240...v0.241)
 
 The release includes 2 non breaking API changes and 1 potentially breaking API change.
 
@@ -153,7 +155,7 @@ Changes in this release:
 
 * Stop treating constructor injection as a reason to suppress unmanaged component-reference field warnings, skip those warnings for `@ArezComponent` field types whose effective `disposeNotifier` resolves to `DISABLE`, and add the suppressable `Arez:NonPrivateServiceField` warning for non-`private` `@ArezComponent(service = ENABLE)` field references.
 
-### [v0.234](https://github.com/arez/arez/tree/v0.234) (2026-04-15) · [Full Changelog](https://github.com/arez/arez/compare/v0.233...v0.234) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.233&new=0.234)
+### [v0.234](https://github.com/arez/arez/tree/v0.234) (2026-04-15) · [Full Changelog](https://github.com/arez/arez/compare/v0.233...v0.234)
 
 The release includes 3 non breaking API changes and 1 breaking API change.
 
@@ -173,7 +175,7 @@ Changes in this release:
 * Accept parameterized `@ArezComponent` types as valid `@CascadeDispose` targets, including components configured with `disposeNotifier = Feature.DISABLE`.
 * Accept `@Memoize( depType = DepType.AREZ_OR_EXTERNAL )` without a paired `@ComputableValueRef` when the associated `@OnActivate` hook already receives the `ComputableValue`.
 
-### [v0.232](https://github.com/arez/arez/tree/v0.232) (2026-04-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.231...v0.232) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.231&new=0.232)
+### [v0.232](https://github.com/arez/arez/tree/v0.232) (2026-04-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.231...v0.232)
 
 The release includes 3 non breaking API changes.
 
@@ -181,7 +183,7 @@ Changes in this release:
 
 * Add `@DefaultEqualityComparator` so `@Observable` and `@Memoize` can derive an equality comparator from the exact declared value type when `equalityComparator` is left unset.
 
-### [v0.231](https://github.com/arez/arez/tree/v0.231) (2026-04-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.230...v0.231) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.230&new=0.231)
+### [v0.231](https://github.com/arez/arez/tree/v0.231) (2026-04-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.230...v0.231)
 
 The release includes 1 non breaking API change.
 
@@ -205,7 +207,7 @@ Changes in this release:
 
 Changes in this release:
 
-### [v0.227](https://github.com/arez/arez/tree/v0.227) (2026-04-08) · [Full Changelog](https://github.com/arez/arez/compare/v0.226...v0.227) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.226&new=0.227)
+### [v0.227](https://github.com/arez/arez/tree/v0.227) (2026-04-08) · [Full Changelog](https://github.com/arez/arez/compare/v0.226...v0.227)
 
 The release includes 2 non breaking API changes.
 
@@ -214,7 +216,7 @@ Changes in this release:
 * Correct the javadocs for `ComponentObservable.observe()` to reflect the actual implementation with respect to nullability etc.
 * Add simplified `DisposeNotifier` default methods and reuse it in generator.
 
-### [v0.226](https://github.com/arez/arez/tree/v0.226) (2026-02-11) · [Full Changelog](https://github.com/arez/arez/compare/v0.225...v0.226) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.225&new=0.226)
+### [v0.226](https://github.com/arez/arez/tree/v0.226) (2026-02-11) · [Full Changelog](https://github.com/arez/arez/compare/v0.225...v0.226)
 
 The release includes 7 non breaking API changes.
 
@@ -223,7 +225,7 @@ Changes in this release:
 * Add configurable equality comparison strategies for `@Observable` setters and `@Memoize` computations via `EqualityComparator`.
 * Add built-in comparators `ObjectsEqualsComparator` and `ObjectsDeepEqualsComparator`.
 
-### [v0.225](https://github.com/arez/arez/tree/v0.225) (2026-01-23) · [Full Changelog](https://github.com/arez/arez/compare/v0.224...v0.225) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.224&new=0.225)
+### [v0.225](https://github.com/arez/arez/tree/v0.225) (2026-01-23) · [Full Changelog](https://github.com/arez/arez/compare/v0.224...v0.225)
 
 The release includes 1 non breaking API change.
 
@@ -232,7 +234,7 @@ Changes in this release:
 * Reject `@Action(reportParameters = false)` when the action method has no parameters.
 * Add `@ObservableInitial` to provide initial values for abstract observables.
 
-### [v0.224](https://github.com/arez/arez/tree/v0.224) (2026-01-21) · [Full Changelog](https://github.com/arez/arez/compare/v0.223...v0.224) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.223&new=0.224)
+### [v0.224](https://github.com/arez/arez/tree/v0.224) (2026-01-21) · [Full Changelog](https://github.com/arez/arez/compare/v0.223...v0.224)
 
 The release includes 4 non breaking API changes.
 
@@ -274,7 +276,7 @@ Changes in this release:
 
 * Fix bug where `errorIfMissing` parameter was not passed through when generating `removeOnDisposeListener` on components.
 
-### [v0.218](https://github.com/arez/arez/tree/v0.218) (2025-03-31) · [Full Changelog](https://github.com/arez/arez/compare/v0.217...v0.218) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.217&new=0.218)
+### [v0.218](https://github.com/arez/arez/tree/v0.218) (2025-03-31) · [Full Changelog](https://github.com/arez/arez/compare/v0.217...v0.218)
 
 The release includes 2 non breaking API changes and 2 breaking API changes.
 
@@ -293,7 +295,7 @@ Changes in this release:
 
 * Update `MemoizeCache` so that if a parameters is used that is a `DisposeNotifier`, and it gets disposed then it will also dispose the associated `ComputableValue`.
 
-### [v0.215](https://github.com/arez/arez/tree/v0.215) (2025-02-21) · [Full Changelog](https://github.com/arez/arez/compare/v0.214...v0.215) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.214&new=0.215)
+### [v0.215](https://github.com/arez/arez/tree/v0.215) (2025-02-21) · [Full Changelog](https://github.com/arez/arez/compare/v0.214...v0.215)
 
 The release includes 3 non breaking API changes.
 
@@ -302,7 +304,7 @@ Changes in this release:
 * Add some additional dev-only assertions in generated Arez classes when accessing kernel to highlight issues earlier.
 * Move some more expensive invariant checking to be guarded by the compile time property `arez.check_expensive_invariants`.
 
-### [v0.214](https://github.com/arez/arez/tree/v0.214) (2025-01-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.213...v0.214) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.213&new=0.214)
+### [v0.214](https://github.com/arez/arez/tree/v0.214) (2025-01-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.213...v0.214)
 
 The release includes 2 non breaking API changes and 4 breaking API changes.
 
@@ -323,7 +325,7 @@ Changes in this release:
   make sure the annotation is copied to the override even when no parameter or return value is marked as deprecated.
   This will avoid the scenario that generates a deprecation warning when the method is implementing a deprecated interface.
 
-### [v0.212](https://github.com/arez/arez/tree/v0.212) (2024-09-20) · [Full Changelog](https://github.com/arez/arez/compare/v0.211...v0.212) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.211&new=0.212)
+### [v0.212](https://github.com/arez/arez/tree/v0.212) (2024-09-20) · [Full Changelog](https://github.com/arez/arez/compare/v0.211...v0.212)
 
 The release includes 1 non breaking API change.
 
@@ -336,7 +338,7 @@ Changes in this release:
 
 Changes in this release:
 
-### [v0.210](https://github.com/arez/arez/tree/v0.210) (2024-08-02) · [Full Changelog](https://github.com/arez/arez/compare/v0.209...v0.210) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.209&new=0.210)
+### [v0.210](https://github.com/arez/arez/tree/v0.210) (2024-08-02) · [Full Changelog](https://github.com/arez/arez/compare/v0.209...v0.210)
 
 The release includes 1 non breaking API change.
 
@@ -381,7 +383,7 @@ Changes in this release:
 * Update the `org.realityforge.sting` artifacts to version `0.27`.
 * Update the `org.realityforge.proton` artifacts to version `0.58`.
 
-### [v0.204](https://github.com/arez/arez/tree/v0.204) (2022-04-28) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.203...v0.204) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.203&new=0.204)
+### [v0.204](https://github.com/arez/arez/tree/v0.204) (2022-04-28) · [Full Changelog](https://github.com/spritz/spritz/compare/v0.203...v0.204)
 
 The release includes 1 non breaking API change and 1 breaking API change.
 
@@ -484,7 +486,7 @@ Changes in this release:
 * Upgrade the `org.realityforge.org.jetbrains.annotations` artifact to version `1.7.0`.
 * Generate a suppressable warning when a component reference within a component is not annotated with `@ComponentDependency` or `@CascadeDispose`, is passed in as a constructor argument but not via sting or dagger injection.
 
-### [v0.191](https://github.com/arez/arez/tree/v0.191) (2020-08-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.190...v0.191) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.190&new=0.191)
+### [v0.191](https://github.com/arez/arez/tree/v0.191) (2020-08-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.190...v0.191)
 
 The release includes 1 breaking API change.
 
@@ -504,7 +506,7 @@ Changes in this release:
 
 * If a task interceptor generates new tasks after the scheduler completes then re-trigger the task scheduler to execute the new tasks. This maintains the expectation that after the `triggerScheduler()` completes there is no tasks pending.
 
-### [v0.188](https://github.com/arez/arez/tree/v0.188) (2020-08-03) · [Full Changelog](https://github.com/arez/arez/compare/v0.187...v0.188) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.187&new=0.188)
+### [v0.188](https://github.com/arez/arez/tree/v0.188) (2020-08-03) · [Full Changelog](https://github.com/arez/arez/compare/v0.187...v0.188)
 
 The release includes 5 non breaking API changes.
 
@@ -512,7 +514,7 @@ Changes in this release:
 
 * Add the ability to supply a `TaskInterceptor` to the `ArezContext` that provides a mechanism for application code to perform an action before and/or after task scheduler is triggered. This is a re-instatement of the (roughly) equivalent `Environment` functionality that was removed `0.119`. The functionality was removed to simplify the Arez codebase under the assumption that react would make infrastructure changes that would eliminate the need for manual batching. The changes to react did not eventuate and we need to re-add manual batching of view updates to improve application performance which requires task interception mechanisms.
 
-### [v0.187](https://github.com/arez/arez/tree/v0.187) (2020-07-31) · [Full Changelog](https://github.com/arez/arez/compare/v0.186...v0.187) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.186&new=0.187)
+### [v0.187](https://github.com/arez/arez/tree/v0.187) (2020-07-31) · [Full Changelog](https://github.com/arez/arez/compare/v0.186...v0.187)
 
 The release includes 1 potentially breaking API change and 4 breaking API changes.
 
@@ -612,7 +614,7 @@ Changes in this release:
   - `org.jetbrains.annotations.Annotations`
   - `grim.annotations.Annotations`
 
-### [v0.175](https://github.com/arez/arez/tree/v0.175) (2020-04-29) · [Full Changelog](https://github.com/arez/arez/compare/v0.174...v0.175) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.174&new=0.175)
+### [v0.175](https://github.com/arez/arez/tree/v0.175) (2020-04-29) · [Full Changelog](https://github.com/arez/arez/compare/v0.174...v0.175)
 
 The release includes 1 non breaking API change and 1 breaking API change.
 
@@ -621,7 +623,7 @@ Changes in this release:
 * Change the type parameter of the `AbstractRepository.getEntitiesObservableValue()` method a wildcard. This simplifies usage in some downstream libraries.
 * Change the `AbstractRepository.entities()` method implementation so that it checks `reportRead()` method before reporting read to transaction.
 
-### [v0.174](https://github.com/arez/arez/tree/v0.174) (2020-04-28) · [Full Changelog](https://github.com/arez/arez/compare/v0.173...v0.174) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.173&new=0.174)
+### [v0.174](https://github.com/arez/arez/tree/v0.174) (2020-04-28) · [Full Changelog](https://github.com/arez/arez/compare/v0.173...v0.174)
 
 The release includes 1 breaking API change.
 
@@ -632,7 +634,7 @@ Changes in this release:
 * Remove the `@Repository` annotation. Downstream projects are expected to explicitly define the repository when they are needed. This eliminates a log of the magic where some parameters were copied from `@ArezComponent`, some were derived from `@Repository` and some were assumed to be fixed values. This will also allow us to change the Arez annotation processor to being a non-api annotation processor in Bazel.
 * Upgrade the `org.realityforge.sting` artifacts to version `0.15`.
 
-### [v0.173](https://github.com/arez/arez/tree/v0.173) (2020-04-07) · [Full Changelog](https://github.com/arez/arez/compare/v0.172...v0.173) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.172&new=0.173)
+### [v0.173](https://github.com/arez/arez/tree/v0.173) (2020-04-07) · [Full Changelog](https://github.com/arez/arez/compare/v0.172...v0.173)
 
 Changes in this release:
 
@@ -644,7 +646,7 @@ Changes in this release:
 * Stop copying daggers scope annotation (if present) to the generated component class as it is not used by dagger and it causes a compile error when Sting is present. (Dagger uses the scope annotation by copying it from the component definition class to the generated dagger module).
 * Enhance sting integration by copying the `sting.ContributeTo` annotation from the component class to the generated component sub-class.
 
-### [v0.172](https://github.com/arez/arez/tree/v0.172) (2020-03-20) · [Full Changelog](https://github.com/arez/arez/compare/v0.171...v0.172) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.171&new=0.172)
+### [v0.172](https://github.com/arez/arez/tree/v0.172) (2020-03-20) · [Full Changelog](https://github.com/arez/arez/compare/v0.171...v0.172)
 
 The release includes 1 breaking API change.
 
@@ -674,7 +676,7 @@ Changes in this release:
 * Upgrade the `org.realityforge.org.jetbrains.annotations` artifact to version `1.5.0`.
 * Fix the bug where nullablity annotations are not being copied when overriding the `@Memoize` methods when the `@Memoize` method has multiple parameters.
 
-### [v0.169](https://github.com/arez/arez/tree/v0.169) (2020-02-18) · [Full Changelog](https://github.com/arez/arez/compare/v0.168...v0.169) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.168&new=0.169)
+### [v0.169](https://github.com/arez/arez/tree/v0.169) (2020-02-18) · [Full Changelog](https://github.com/arez/arez/compare/v0.168...v0.169)
 
 The release includes 2 non breaking API changes and 2 breaking API changes.
 
@@ -688,7 +690,7 @@ Changes in this release:
 * Fix several bugs that could manifest if `@ArezComponent` is attached to an interface.
 * Add initial integration with the [Sting](https://sting-ioc.github.io/) dependency injection framework. This involved the `@ArezComponent.sting` and `@Repository.sting` parameters that control whether the integration is enabled. Arez will also detect several sting annotations such as `sting.Eager`, `sting.Typed` and `sting.Named` and copy them to the generated classes as appropriate. The integration uses the sting provider architecture so that adding an Arez component to the set of potential bindings for an injector is as simple as adding the class literal for the component to the appropriate `@Fragment.includes` or `@Injector.includes` parameter. The Sting integration is expected to be improved over time and streamlined and will likely replace Dagger in most applications.
 
-### [v0.168](https://github.com/arez/arez/tree/v0.168) (2020-02-16) · [Full Changelog](https://github.com/arez/arez/compare/v0.167...v0.168) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.167&new=0.168)
+### [v0.168](https://github.com/arez/arez/tree/v0.168) (2020-02-16) · [Full Changelog](https://github.com/arez/arez/compare/v0.167...v0.168)
 
 The release includes 3 non breaking API changes and 3 breaking API changes.
 
@@ -732,7 +734,7 @@ Changes in this release:
 * Change the annotation processor so that the method annotated with `@PostConstruct` can also be annotated with `@Action`.
 * Update the annotation processor to generate an error if the annotation `javax.xml.ws.Action` is ever applied to a class annotated with `@ArezComponent`. This can occur when auto-import in IDEs select this annotation rather than `arez.annotations.Action` which can cause confusion for downstream users.
 
-### [v0.165](https://github.com/arez/arez/tree/v0.165) (2020-01-10) · [Full Changelog](https://github.com/arez/arez/compare/v0.164...v0.165) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.164&new=0.165)
+### [v0.165](https://github.com/arez/arez/tree/v0.165) (2020-01-10) · [Full Changelog](https://github.com/arez/arez/compare/v0.164...v0.165)
 
 The release includes 8 non breaking API changes and 3 breaking API changes.
 
@@ -776,7 +778,7 @@ Changes in this release:
 * Stop copying the scope annotation to the generated class when the generated class is not directly injected but is exposed via a factory class.
 * Extract the non-Arez specific annotation processor utility methods into a separate project `org.realityforge.proton:proton-processor-pack`. These were previously copy-paste shared between several projects. This is the first step towards sharing the code directly. The code is relocated as part of the build process to potential code eliminate conflicts.
 
-### [v0.160](https://github.com/arez/arez/tree/v0.160) (2019-12-18) · [Full Changelog](https://github.com/arez/arez/compare/v0.159...v0.160) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.159&new=0.160)
+### [v0.160](https://github.com/arez/arez/tree/v0.160) (2019-12-18) · [Full Changelog](https://github.com/arez/arez/compare/v0.159...v0.160)
 
 The release includes 2 non breaking API changes.
 
@@ -785,7 +787,7 @@ Changes in this release:
 * Add two new hook methods that are invoked after an `@Inverse` reference is added to a component or before an `@Inverse` reference is removed from a component. These hook methods are designated using the new annotations `@PreInverseRemove` and `@PostInverseAdd`. See the javadocs for full details on how to use the annotations.
 * Generate a suppressible warning if a protected constructor appears on an Arez component. The constructor should be either package access or public.
 
-### [v0.159](https://github.com/arez/arez/tree/v0.159) (2019-12-17) · [Full Changelog](https://github.com/arez/arez/compare/v0.158...v0.159) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.158&new=0.159)
+### [v0.159](https://github.com/arez/arez/tree/v0.159) (2019-12-17) · [Full Changelog](https://github.com/arez/arez/compare/v0.158...v0.159)
 
 The release includes 5 non breaking API changes, 3 potentially breaking API changes and 2 breaking API changes.
 
@@ -826,7 +828,7 @@ Changes in this release:
 * Suppress deprecated warning if a `@ComponentIdRef` method is also annotated `@Deprecated`.
 * Suppress deprecated warning if a `@ComponentStateRef` method is also annotated `@Deprecated`.
 
-### [v0.157](https://github.com/arez/arez/tree/v0.157) (2019-11-28) · [Full Changelog](https://github.com/arez/arez/compare/v0.156...v0.157) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.156&new=0.157)
+### [v0.157](https://github.com/arez/arez/tree/v0.157) (2019-11-28) · [Full Changelog](https://github.com/arez/arez/compare/v0.156...v0.157)
 
 The release includes 1 breaking API change.
 
@@ -844,7 +846,7 @@ Changes in this release:
 * Remove the `@OnStale` annotation. It has never been used in any downstream library or application.
 * Add the ability to suppress the warning if the `allowEmpty=true` is specified on the `@ArezComponent` annotation but there are reactive components present. Previously this scenario was an error and only suppressible by if the component was also marked as `@Generated`.
 
-### [v0.156](https://github.com/arez/arez/tree/v0.156) (2019-11-21) · [Full Changelog](https://github.com/arez/arez/compare/v0.155...v0.156) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.155&new=0.156)
+### [v0.156](https://github.com/arez/arez/tree/v0.156) (2019-11-21) · [Full Changelog](https://github.com/arez/arez/compare/v0.155...v0.156)
 
 The release includes 1 breaking API change.
 
@@ -852,7 +854,7 @@ Changes in this release:
 
 * Remove the `@PriorityOverride` annotation as the functionality has been replaced by the `defaultPriority` parameter on the `@ArezComponent` annotation.
 
-### [v0.155](https://github.com/arez/arez/tree/v0.155) (2019-11-20) · [Full Changelog](https://github.com/arez/arez/compare/v0.154...v0.155) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.154&new=0.155)
+### [v0.155](https://github.com/arez/arez/tree/v0.155) (2019-11-20) · [Full Changelog](https://github.com/arez/arez/compare/v0.154...v0.155)
 
 The release includes 4 non breaking API changes and 1 breaking API change.
 
@@ -907,7 +909,7 @@ Changes in this release:
 * Copy whitelisted annotations from types to generated subtype and from the constructors to the paired constructor in the generated subtype. This makes it possible to suppress certain type errors in generated subclasses.
 * Re-enable compilation against j2cl to ensure that the library stays compatible going forward.
 
-### [v0.151](https://github.com/arez/arez/tree/v0.151) (2019-10-18) · [Full Changelog](https://github.com/arez/arez/compare/v0.150...v0.151) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.150&new=0.151)
+### [v0.151](https://github.com/arez/arez/tree/v0.151) (2019-10-18) · [Full Changelog](https://github.com/arez/arez/compare/v0.150...v0.151)
 
 The release includes 1 breaking API change.
 
@@ -931,7 +933,7 @@ Changes in this release:
 * Stop using external annotations in the `core` artifact as IntelliJ no longer seems to detect `@MagicConstant` problems when the annotations are stored externally. This resulted in IDE specific annotations being added to the Arez source which means that downstream applications MUST have these annotations present during GWT and J2CL compiles which is an unfortunate side-effect. The `core` module will no longer ship an `annotations` classifier artifact containing external annotations. This change had the positive side-effect that it detected several places in the source example source code where the incorrect approach was being demonstrated.
 * Upgrade the `org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:jar` artifact to version `1.1.0`.
 
-### [v0.148](https://github.com/arez/arez/tree/v0.148) (2019-10-15) · [Full Changelog](https://github.com/arez/arez/compare/v0.147...v0.148) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.147&new=0.148)
+### [v0.148](https://github.com/arez/arez/tree/v0.148) (2019-10-15) · [Full Changelog](https://github.com/arez/arez/compare/v0.147...v0.148)
 
 Changes in this release:
 
@@ -940,7 +942,7 @@ Changes in this release:
 * Upgrade the `org.realityforge.gwt.symbolmap` artifact to version `0.09`.
 * Use the `org.realityforge.grim` library to perform validation that output emitted by the GWT compiler has stripped the symbols that are not expected to be present. This annotating the symbols in the `core` module that should be omitted in different contexts and removing the `gwt-output-qa` module. The `core` module now ships with the required grim rules/metadata as part of the jar. See the `META-INF/grim/*` files included in the `arez-core` archive for more details.
 
-### [v0.147](https://github.com/arez/arez/tree/v0.147) (2019-10-10) · [Full Changelog](https://github.com/arez/arez/compare/v0.146...v0.147) · [API Differences](https://arez.github.io/api-diff?key=arez&old=0.146&new=0.147)
+### [v0.147](https://github.com/arez/arez/tree/v0.147) (2019-10-10) · [Full Changelog](https://github.com/arez/arez/compare/v0.146...v0.147)
 
 The release includes 2 breaking API changes.
 
@@ -960,7 +962,7 @@ Changes in this release:
 * Explicitly lint warnings in `core` library.
 * Support `@CascadeDispose` on abstract `@Observable` properties.
 
-### [v0.146](https://github.com/arez/arez/tree/v0.146) (2019-10-02) · [Full Changelog](https://github.com/arez/arez/compare/v0.145...v0.146) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.145&new=0.146)
+### [v0.146](https://github.com/arez/arez/tree/v0.146) (2019-10-02) · [Full Changelog](https://github.com/arez/arez/compare/v0.145...v0.146)
 
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.23.0`.
 * Ensure that the default value for the `arez.enable_observer_error_handlers` compile time configuration setting is the same value (i.e. `true`) in J2CL compiled code, GWT compiled code and in the JRE environment.
@@ -970,7 +972,7 @@ Changes in this release:
 
 * Avoid issuing a warning when the `@ComponentDependency` annotation is applied to a field with a type annotated by `@ActAsComponent` or to a method with a return type annotated by `@ActAsComponent`.
 
-### [v0.144](https://github.com/arez/arez/tree/v0.144) (2019-09-16) · [Full Changelog](https://github.com/arez/arez/compare/v0.143...v0.144) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.143&new=0.144)
+### [v0.144](https://github.com/arez/arez/tree/v0.144) (2019-09-16) · [Full Changelog](https://github.com/arez/arez/compare/v0.143...v0.144)
 
 * Upgrade the `org.realityforge.javax.annotation` artifact to version `1.0.1`.
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `2.25`.
@@ -985,20 +987,20 @@ Changes in this release:
 * Fixed a code generation compilation error where a component contains a `@PostDispose` annotated method, no `@PreDispose` annotated method and is annotated with `@ArezComponent( disposeNotifier = Feature.DISABLE )`.
 * Upgrade the `org.realityforge.guiceyloops` artifact to version `0.102`.
 
-### [v0.142](https://github.com/arez/arez/tree/v0.142) (2019-07-15) · [Full Changelog](https://github.com/arez/arez/compare/v0.141...v0.142) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.141&new=0.142)
+### [v0.142](https://github.com/arez/arez/tree/v0.142) (2019-07-15) · [Full Changelog](https://github.com/arez/arez/compare/v0.141...v0.142)
 
 * Introduce `arez.ActionFlags`, `arez.ComputableValue.Flags`, `arez.Observer.Flags` and , `arez.Task.Flags` classes and move or copy flags from `arez.Flags` that are relevant to relevant elements to their respective flags class. The intent is to make it easier for end users to understand which flags can be used when invoking actions or creating various reactive elements.
 * Generate an additional artifact with classifier `annotations` for the core module. This artifact contains the [external annotations](https://www.jetbrains.com/help/idea/external-annotations.html) compatible with Intellij IDEA. The annotations specify which flag constants are compatible with which method parameters. This makes it possible for IDEA to generate a warning or an error if incompatible flags are passed to a method. i.e. Passing `ComputableValue.Flags.PRIORITY_LOW` rather than `Observer.Flags.PRIORITY_LOW` to an `ArezContext.observe(...)` method.
 * Upgrade the `au.com.stocksoftware.idea.codestyle` artifact to version `1.14`.
 * Introduce `arez.ActionFlags`, `arez.ComputableValue.Flags`, `arez.Observer.Flags` and , `arez.Task.Flags` classes and move or copy flags from `arez.Flags` that are relevant to relevent elements to their respective flags class. The intent is to make it easier for end users to understand which flags can be used when invoking actions or creating various reactive elements.
 
-### [v0.141](https://github.com/arez/arez/tree/v0.141) (2019-07-08) · [Full Changelog](https://github.com/arez/arez/compare/v0.140...v0.141) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.140&new=0.141)
+### [v0.141](https://github.com/arez/arez/tree/v0.141) (2019-07-08) · [Full Changelog](https://github.com/arez/arez/compare/v0.140...v0.141)
 
 * Upgrade the `org.realityforge.braincheck` artifact to version `1.20.0`.
 * Add a parameter named `readOutsideTransaction` to the `@Memoize` annotation that controls whether it is valid to read the memoized value outside of an existing transaction.
 * Add the `@PriorityOverride` annotation that allows a component to override the priority of either an `@Observe` annotated method or a `@Memoize` annotated method when constructing the components. This is (very occasionally) useful when creating components where the priority is dependent on the context but it provides a useful hook for downstream frameworks such as [React4j](https://react4j.github.io/) that need to manipulate priorities to interact with external scheduling constraints.
 
-### [v0.140](https://github.com/arez/arez/tree/v0.140) (2019-07-01) · [Full Changelog](https://github.com/arez/arez/compare/v0.139...v0.140) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.139&new=0.140)
+### [v0.140](https://github.com/arez/arez/tree/v0.140) (2019-07-01) · [Full Changelog](https://github.com/arez/arez/compare/v0.139...v0.140)
 
 * Remove `arez.Guards` and replace with the equivalent functionality in the `org.realityforge.braincheck:braincheck:jar` artifact. The dependency was originally used by Arez but was inlined in version `0.96` so that the behaviour could customized for Arez. Now that these customizations have been back-ported to `braincheck` there is no longer any valid reason to keep them. Removing the code also means that the `j2cl_library` definition in Bazel can be simplified as it no longer needs to suppress the `checkDebuggerStatement` warning.
 
@@ -1008,7 +1010,7 @@ Changes in this release:
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `2.24`.
 * Decouple from the `com.google.jsinterop:base` artifact, re-add dependency on `com.google.jsinterop:jsinterop-annotations` and implement the `debugger` javascript statement locally. This reduces the number of upstream dependencies for the project.
 
-### [v0.138](https://github.com/arez/arez/tree/v0.138) (2019-04-27) · [Full Changelog](https://github.com/arez/arez/compare/v0.137...v0.138) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.137&new=0.138)
+### [v0.138](https://github.com/arez/arez/tree/v0.138) (2019-04-27) · [Full Changelog](https://github.com/arez/arez/compare/v0.137...v0.138)
 
 * Change nullability annotation on the `object` parameter in `Identifiable.getArezId(object)` to `@Nullable` as the code already handles null scenario.
 
@@ -1039,7 +1041,7 @@ Changes in this release:
 * Use `Js.debugger()` from the `com.google.jsinterop:base` artifact. This avoids the need to explicitly
   allow the `debugger` statement when compiled by closure compiler pass after transpiling via J2CL.
 
-### [v0.133](https://github.com/arez/arez/tree/v0.133) (2019-03-19) · [Full Changelog](https://github.com/arez/arez/compare/v0.132...v0.133) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.132&new=0.133)
+### [v0.133](https://github.com/arez/arez/tree/v0.133) (2019-03-19) · [Full Changelog](https://github.com/arez/arez/compare/v0.132...v0.133)
 
 * Remove references to `arez-ticker` as it has been deprecated.
 * Remove references to `arez-timeddisposer` as it has been deprecated.
@@ -1060,7 +1062,7 @@ Changes in this release:
   as `@Nullable` rather than `@Nonnull` as the code already supports passing null parameters. This eliminates
   unnecessary checks in caller that are not always optimized out.
 
-### [v0.132](https://github.com/arez/arez/tree/v0.132) (2019-02-28) · [Full Changelog](https://github.com/arez/arez/compare/v0.131...v0.132) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.131&new=0.132)
+### [v0.132](https://github.com/arez/arez/tree/v0.132) (2019-02-28) · [Full Changelog](https://github.com/arez/arez/compare/v0.131...v0.132)
 
 * Remove the `org.realityforge.braincheck:braincheck:jar` dependency by reimplementing the invariant
   checking code in `arez.Guards`. The dependency has been inlined so it can be adapted to specific
@@ -1077,7 +1079,7 @@ Changes in this release:
   groupId `org.realityforge.com.google.jsinterop`.
 * Upgrade the `org.realityforge.com.google.elemental2` artifacts to version `1.0.0-b18-f3472e7`.
 
-### [v0.130](https://github.com/arez/arez/tree/v0.130) (2019-02-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.129...v0.130) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.129&new=0.130)
+### [v0.130](https://github.com/arez/arez/tree/v0.130) (2019-02-14) · [Full Changelog](https://github.com/arez/arez/compare/v0.129...v0.130)
 
 * Add the `react4j-drumloop` sample application into set off used to track code size changes over time.
 * Upgrade the `org.realityforge.com.google.elemental2:*` libraries to version `1.0.0-b16-6897368`.
@@ -1094,7 +1096,7 @@ Changes in this release:
 * **\[core\]** Rename the `disposeTrackable` parameter to `disposeNotifier` on the `ArezComponent` annotation.
 * **\[core\]** Rename the `DisposeTrackable` interface to `DisposeNotifier`.
 
-### [v0.129](https://github.com/arez/arez/tree/v0.129) (2019-02-11) · [Full Changelog](https://github.com/arez/arez/compare/v0.128...v0.129) · [API Differences](https://arez.github.io/api-diff/?key=arez&old=0.128&new=0.129)
+### [v0.129](https://github.com/arez/arez/tree/v0.129) (2019-02-11) · [Full Changelog](https://github.com/arez/arez/compare/v0.128...v0.129)
 
 * **\[core\]** Fix bug where the `onActivate` callback for `ComputableValue` instances was when disposing
   the `ComputableValue` instance while it was in an `INACTIVE` state.

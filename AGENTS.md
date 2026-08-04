@@ -19,7 +19,6 @@ reasonable alternatives.
   - `extras/testng` (TestNG support infrastructure)
 - Tests and verification modules:
   - `integration-tests/` (integration tests)
-  - `api-test/` (public API compatibility tests)
   - `downstream-test/` (validate Arez against downstream projects)
 - Source code used in documentation: `doc-examples/`.
 - Docs and site: `docs/`, `website/` (Docusaurus v1), `assets/`.
