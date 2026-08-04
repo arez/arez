@@ -80,7 +80,7 @@ final class LogUtil
   }
 
   @OmitType( unless = "arez.persist.logger=console" )
-  @JsType( isNative = true, name = "window.console", namespace = JsPackage.GLOBAL )
+  @JsType( isNative = true, name = "globalThis.console", namespace = JsPackage.GLOBAL )
   private static final class NativeJsLoggerUtil
   {
     @JsMethod

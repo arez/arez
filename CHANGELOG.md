@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Use the global `console` object for J2CL logging so core and persist core can run outside a browser window.
+
 ### [v0.254](https://github.com/arez/arez/tree/v0.254) (2026-07-23) · [Full Changelog](https://github.com/arez/arez/compare/v0.253...v0.254)
 
 Changes in this release:
