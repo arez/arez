@@ -3,7 +3,6 @@ require 'buildr/release_tool'
 
 Buildr::ReleaseTool.define_release_task do |t|
   t.extract_version_from_changelog
-  t.zapwhite
   t.ensure_git_clean
   t.verify_no_todo
   t.build(:additional_tasks => "J2CL=#{ENV['J2CL']} STAGE_RELEASE=true")
@@ -22,11 +21,6 @@ Buildr::ReleaseTool.define_release_task do |t|
     persist_filename = 'persist/README.md'
     IO.write(persist_filename, IO.read(persist_filename).
       gsub("<version>#{ENV['PREVIOUS_PRODUCT_VERSION']}</version>", "<version>#{ENV['PRODUCT_VERSION']}</version>"))
-    sh 'git reset 2>&1 1> /dev/null'
-    sh "git add #{setup_filename} #{persist_filename}"
-    # Zapwhite only runs against files added to git so we have to do this dance after adding files
-    `bundle exec zapwhite`
-    sh 'git reset 2>&1 1> /dev/null'
     sh "git add #{setup_filename} #{persist_filename}"
     sh "git commit -m \"Update documentation to reflect the #{ENV['PRODUCT_VERSION']} release\""
   end
@@ -44,7 +38,18 @@ Buildr::ReleaseTool.define_release_task do |t|
     task('arez:doc-examples:compile').invoke
     task('site:deploy').invoke
   end
-  t.patch_changelog_post_release
+  t.stage('PatchChangelogPostRelease', 'Patch the changelog post release to prepare for next development iteration') do
+    changelog = IO.read('CHANGELOG.md')
+    changelog = changelog.gsub("# Change Log\n", <<HEADER)
+# Change Log
+
+### Unreleased
+HEADER
+    IO.write('CHANGELOG.md', changelog)
+
+    sh 'git add CHANGELOG.md'
+    sh 'git commit -m "Update CHANGELOG.md in preparation for next development iteration"'
+  end
   t.stage('PatchStatisticsPostRelease', 'Copy the statistics forward to prepare for next development iteration') do
     filename = 'downstream-test/src/test/resources/fixtures/statistics.properties'
     current_version = ENV['PRODUCT_VERSION']

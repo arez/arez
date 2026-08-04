@@ -51,7 +51,6 @@ Prerequisites: JDK 17+, Ruby 2.7.x with Bundler, Node.js (for docs site) and Yar
 - Bootstrap once: `bundle install` and `yarn install`.
 - Build all modules: `bundle exec buildr clean package`.
 - Run tests: `bundle exec buildr test`.
-- CI-equivalent locally: `bundle exec buildr ci J2CL=no`.
 - Docs site (optional): `bundle exec buildr site:serve` (dev), `bundle exec buildr site:build` (static output under `reports/site`).
 
 ## Coding Style & Naming Conventions
@@ -80,5 +79,5 @@ Prerequisites: JDK 17+, Ruby 2.7.x with Bundler, Node.js (for docs site) and Yar
 
 ## Security & Configuration Tips (Optional)
 
-- Never commit secrets. CI uses encrypted `etc/secrets`; maintainers handle deployment keys.
+- Never commit secrets.
 - Release-related env vars: `PRODUCT_VERSION`, `PREVIOUS_PRODUCT_VERSION`; for quicker local cycles set `J2CL=no`.

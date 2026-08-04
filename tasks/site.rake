@@ -99,24 +99,23 @@ task 'site:deploy' => ['site:build'] do
   # Verify the site is valid first
   task('site:link_check').invoke
 
-  # Only publish the site off the master branch if running out of Travis
-    origin_url = 'https://github.com/arez/arez.github.io.git'
+  origin_url = 'https://github.com/arez/arez.github.io.git'
 
-    local_dir = "#{WORKSPACE_DIR}/target/remote_site"
-    rm_rf local_dir
+  local_dir = "#{WORKSPACE_DIR}/target/remote_site"
+  rm_rf local_dir
 
-    sh "git clone -b master --depth 1 #{origin_url} #{local_dir}"
+  sh "git clone -b master --depth 1 #{origin_url} #{local_dir}"
 
-    # This is the list of directories controlled by other processes that should be left alone
-    excludes = []
+  # This is the list of directories controlled by other processes that should be left alone
+  excludes = []
 
-    in_dir(local_dir) do
-      rm_rf Dir["#{local_dir}/*"].select {|f| !excludes.include?(File.basename(f))}
-      cp_r Dir["#{SITE_DIR}/*"], local_dir
-      sh 'git add . -f'
-      unless `git status -s`.strip.empty?
-        sh "git commit -m \"Publish website\""
-        sh 'git push -f origin master'
-      end
+  in_dir(local_dir) do
+    rm_rf Dir["#{local_dir}/*"].select {|f| !excludes.include?(File.basename(f))}
+    cp_r Dir["#{SITE_DIR}/*"], local_dir
+    sh 'git add . -f'
+    unless `git status -s`.strip.empty?
+      sh "git commit -m \"Publish website\""
+      sh 'git push -f origin master'
+    end
   end
 end
