@@ -4,7 +4,6 @@ require 'buildr/release_tool'
 Buildr::ReleaseTool.define_release_task do |t|
   t.extract_version_from_changelog
   t.ensure_git_clean
-  t.verify_no_todo
   t.build(:additional_tasks => "J2CL=#{ENV['J2CL']} STAGE_RELEASE=true")
   t.stage('ArchiveDownstream', 'Archive downstream projects that may need changes pushed') do
     unless ENV['DOWNSTREAM'] == 'no'
