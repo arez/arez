@@ -1,6 +1,5 @@
 package arez.dom;
 
-import akasha.Global;
 import akasha.HashChangeEvent;
 import akasha.HashChangeEventListener;
 import akasha.Location;
