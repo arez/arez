@@ -1,6 +1,8 @@
 # Change Log
 
-### Unreleased
+### [v0.256](https://github.com/arez/arez/tree/v0.256) (2026-08-25) · [Full Changelog](https://github.com/arez/arez/compare/v0.255...v0.256)
+
+Changes in this release:
 
 * Remove the dependency on Akasha and replace the exposed browser types with minimal component-local facades.
 * Remove the obsolete API differences viewer and report infrastructure.
