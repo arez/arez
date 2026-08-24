@@ -1,10 +1,11 @@
 package arez.dom;
 
-import akasha.Document;
-import akasha.WindowGlobal;
 import arez.Disposable;
 import java.util.Objects;
 import javax.annotation.Nonnull;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * Exposes {@code document.visibilityState} as an observable property for specified documents.
@@ -14,7 +15,6 @@ import javax.annotation.Nonnull;
  * import arez.Arez;
  * import arez.dom.DocumentVisibility;
  * import com.google.gwt.core.client.EntryPoint;
- * import akasha.Console;
  *
  * public class DocumentVisibilityExample
  *   implements EntryPoint
@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
  *   public void onModuleLoad()
  *   {
  *     final DocumentVisibility v = DocumentVisibility.create();
- *     Arez.context().observer( () -> Console.log( "Document Visibility: " + v.getVisibility() ) );
+ *     Arez.context().observer( () -> System.out.println( "Document Visibility: " + v.getVisibility() ) );
  *   }
  * }
  * }</pre>
@@ -30,6 +30,21 @@ import javax.annotation.Nonnull;
 public final class DocumentVisibility
   implements Disposable
 {
+  /**
+   * Minimal facade for the browser document visibility API.
+   */
+  @JsType( isNative = true, name = "Document", namespace = JsPackage.GLOBAL )
+  public static class Document
+    extends EventDrivenValue.EventTarget
+  {
+    protected Document()
+    {
+    }
+
+    @JsProperty( name = "visibilityState" )
+    native String visibilityState();
+  }
+
   /**
    * The visibility state of the document.
    */
@@ -62,7 +77,7 @@ public final class DocumentVisibility
   @Nonnull
   public static DocumentVisibility create()
   {
-    return create( WindowGlobal.document() );
+    return create( document() );
   }
 
   /**
@@ -180,4 +195,7 @@ public final class DocumentVisibility
       return Visibility.PRERENDER;
     }
   }
+
+  @JsProperty( name = "document", namespace = JsPackage.GLOBAL )
+  private static native Document document();
 }

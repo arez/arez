@@ -1,7 +1,5 @@
 package arez.dom;
 
-import akasha.EventListener;
-import akasha.WindowGlobal;
 import arez.ComputableValue;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
@@ -14,6 +12,11 @@ import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
 import java.util.Date;
 import javax.annotation.Nonnull;
+import jsinterop.annotations.JsFunction;
+import jsinterop.annotations.JsMethod;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * An observable model that declares state that tracks when the user is "online".
@@ -26,8 +29,6 @@ import javax.annotation.Nonnull;
  * <p>A very simple example</p>
  * <pre>{@code
  * import com.google.gwt.core.client.EntryPoint;
- * import akasha.Global;
- * import akasha.Console;
  * import arez.Arez;
  * import arez.networkstatus.NetworkStatus;
  *
@@ -38,10 +39,10 @@ import javax.annotation.Nonnull;
  *   {
  *     final NetworkStatus networkStatus = NetworkStatus.create();
  *     Arez.context().observer( () -> {
- *       Console.log( "Network Status: " + ( networkStatus.isOnLine() ? "Online" : "Offline" ) );
+ *       System.out.println( "Network Status: " + ( networkStatus.isOnLine() ? "Online" : "Offline" ) );
  *       if ( networkStatus.isOffLine() )
  *       {
- *         Console.log( "Offline since: " + networkStatus.getLastChangedAt() );
+ *         System.out.println( "Offline since: " + networkStatus.getLastChangedAt() );
  *       }
  *     } );
  *   }
@@ -51,6 +52,19 @@ import javax.annotation.Nonnull;
 @ArezComponent( requireId = Feature.DISABLE )
 public abstract class NetworkStatus
 {
+  @JsFunction
+  private interface EventListener
+  {
+    void handleEvent( Object event );
+  }
+
+  @JsType( isNative = true, name = "Navigator", namespace = JsPackage.GLOBAL )
+  private static class Navigator
+  {
+    @JsProperty( name = "onLine" )
+    native boolean onLine();
+  }
+
   @Nonnull
   private final EventListener _listener = e -> updateOnlineStatus( getOnLineComputableValue() );
 
@@ -87,7 +101,7 @@ public abstract class NetworkStatus
   @Memoize( depType = DepType.AREZ_OR_EXTERNAL )
   public boolean isOnLine()
   {
-    return WindowGlobal.navigator().onLine();
+    return navigator().onLine();
   }
 
   /**
@@ -109,15 +123,15 @@ public abstract class NetworkStatus
   @OnActivate
   void onOnLineActivate()
   {
-    WindowGlobal.addOnlineListener( _listener );
-    WindowGlobal.addOfflineListener( _listener );
+    addEventListener( "online", _listener );
+    addEventListener( "offline", _listener );
   }
 
   @OnDeactivate
   void onOnLineDeactivate()
   {
-    WindowGlobal.removeOnlineListener( _listener );
-    WindowGlobal.removeOfflineListener( _listener );
+    removeEventListener( "online", _listener );
+    removeEventListener( "offline", _listener );
   }
 
   @Action
@@ -126,4 +140,13 @@ public abstract class NetworkStatus
     computableValue.reportPossiblyChanged();
     setLastChangedAt( new Date() );
   }
+
+  @JsProperty( name = "navigator", namespace = JsPackage.GLOBAL )
+  private static native Navigator navigator();
+
+  @JsMethod( name = "addEventListener", namespace = JsPackage.GLOBAL )
+  private static native void addEventListener( String type, EventListener listener );
+
+  @JsMethod( name = "removeEventListener", namespace = JsPackage.GLOBAL )
+  private static native void removeEventListener( String type, EventListener listener );
 }

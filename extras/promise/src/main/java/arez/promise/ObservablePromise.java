@@ -1,6 +1,5 @@
 package arez.promise;
 
-import akasha.promise.Promise;
 import arez.Arez;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
@@ -8,6 +7,10 @@ import arez.annotations.Feature;
 import arez.annotations.Observable;
 import java.util.Objects;
 import javax.annotation.Nonnull;
+import jsinterop.annotations.JsFunction;
+import jsinterop.annotations.JsMethod;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
 import jsinterop.base.Js;
 import static org.realityforge.braincheck.Guards.*;
 
@@ -19,12 +22,9 @@ import static org.realityforge.braincheck.Guards.*;
  *
  * <p>A very simple example</p>
  * <pre>{@code
- * import akasha.Console;
- * import akasha.Response;
- * import akasha.WindowGlobal;
- * import akasha.promise.Promise;
  * import arez.Arez;
  * import arez.promise.ObservablePromise;
+ * import arez.promise.ObservablePromise.Promise;
  * import com.google.gwt.core.client.EntryPoint;
  *
  * public class Example
@@ -32,9 +32,9 @@ import static org.realityforge.braincheck.Guards.*;
  * {
  *   public void onModuleLoad()
  *   {
- *     final Promise<Response> fetch = WindowGlobal.fetch( "https://example.com/" );
+ *     final Promise<Response> promise = fetch( "https://example.com/" );
  *     final ObservablePromise<Response, Object> observablePromise = ObservablePromise.create( promise );
- *     Arez.context().observer( () -> Console.log( "Promise Status: " + observablePromise.getState() ) );
+ *     Arez.context().observer( () -> System.out.println( "Promise Status: " + observablePromise.getState() ) );
  *   }
  * }
  * }</pre>
@@ -45,6 +45,43 @@ import static org.realityforge.braincheck.Guards.*;
 @ArezComponent( requireId = Feature.DISABLE )
 public abstract class ObservablePromise<T, E>
 {
+  /**
+   * Minimal facade for a JavaScript promise.
+   *
+   * @param <T> the type of value produced by the promise.
+   */
+  @JsType( isNative = true, name = "Promise", namespace = JsPackage.GLOBAL )
+  public static class Promise<T>
+  {
+    protected Promise()
+    {
+    }
+
+    @JsMethod
+    static native <V> Promise<V> resolve( V value );
+
+    @JsMethod
+    static native <V> Promise<V> reject( Object error );
+
+    @JsMethod
+    native <V> Promise<V> then( OnFulfilledCallback<? super T, V> callback );
+
+    @JsMethod( name = "catch" )
+    native <V> Promise<V> catch_( OnRejectedCallback<V> callback );
+  }
+
+  @JsFunction
+  private interface OnFulfilledCallback<T, V>
+  {
+    Promise<V> onFulfilled( T value );
+  }
+
+  @JsFunction
+  private interface OnRejectedCallback<V>
+  {
+    Promise<V> onRejected( Object error );
+  }
+
   /**
    * The state of the promise.
    */

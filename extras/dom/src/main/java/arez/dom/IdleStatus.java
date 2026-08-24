@@ -1,9 +1,5 @@
 package arez.dom;
 
-import akasha.AddEventListenerOptions;
-import akasha.EventListener;
-import akasha.TimerHandler;
-import akasha.WindowGlobal;
 import arez.ArezContext;
 import arez.Disposable;
 import arez.Task;
@@ -21,6 +17,11 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.Nonnull;
+import jsinterop.annotations.JsFunction;
+import jsinterop.annotations.JsMethod;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * An Arez browser component that tracks when the user is idle. A user is considered idle if they have not
@@ -43,7 +44,6 @@ import javax.annotation.Nonnull;
  * <p>A very simple example</p>
  * <pre>{@code
  * import com.google.gwt.core.client.EntryPoint;
- * import akasha.Console;
  * import arez.Arez;
  * import arez.dom.IdleStatus;
  *
@@ -55,7 +55,7 @@ import javax.annotation.Nonnull;
  *     final IdleStatus idleStatus = IdleStatus.create();
  *     Arez.context().autorun( () -> {
  *       final String message = "Interaction Status: " + ( idleStatus.isIdle() ? "Idle" : "Active" );
- *       Console.log( message );
+ *       System.out.println( message );
  *     } );
  *   }
  * }
@@ -64,6 +64,29 @@ import javax.annotation.Nonnull;
 @ArezComponent( requireId = Feature.DISABLE )
 public abstract class IdleStatus
 {
+  @JsFunction
+  private interface TimerHandler
+  {
+    void onInvoke();
+  }
+
+  @JsFunction
+  private interface EventListener
+  {
+    void handleEvent( Object event );
+  }
+
+  @JsType( isNative = true, name = "Object", namespace = JsPackage.GLOBAL )
+  private static class AddEventListenerOptions
+  {
+    AddEventListenerOptions()
+    {
+    }
+
+    @JsProperty
+    native void setPassive( boolean passive );
+  }
+
   private static final long DEFAULT_TIMEOUT = 2000L;
   @Nonnull
   private final TimerHandler _timeoutCallback = this::onTimeout;
@@ -157,14 +180,16 @@ public abstract class IdleStatus
   void onIdleActivate()
   {
     _active = true;
-    _events.forEach( e -> WindowGlobal.addEventListener( e, _listener, AddEventListenerOptions.of().passive( true ) ) );
+    final AddEventListenerOptions options = new AddEventListenerOptions();
+    options.setPassive( true );
+    _events.forEach( e -> addEventListener( e, _listener, options ) );
   }
 
   @OnDeactivate
   void onIdleDeactivate()
   {
     _active = false;
-    _events.forEach( e -> WindowGlobal.removeEventListener( e, _listener ) );
+    _events.forEach( e -> removeEventListener( e, _listener ) );
   }
 
   /**
@@ -225,11 +250,11 @@ public abstract class IdleStatus
       //Remove any old events
       oldEvents.stream().
         filter( e -> !_events.contains( e ) ).
-        forEach( e -> WindowGlobal.removeEventListener( e, _listener ) );
+        forEach( e -> removeEventListener( e, _listener ) );
       // Add any new events
       _events.stream().
         filter( e -> !oldEvents.contains( e ) ).
-        forEach( e -> WindowGlobal.addEventListener( e, _listener ) );
+        forEach( e -> addEventListener( e, _listener ) );
     }
   }
 
@@ -250,13 +275,13 @@ public abstract class IdleStatus
 
   private void cancelTimeout()
   {
-    WindowGlobal.clearTimeout( _timeoutId );
+    clearTimeout( _timeoutId );
     _timeoutId = 0;
   }
 
   private void scheduleTimeout( final int timeToWait )
   {
-    _timeoutId = WindowGlobal.setTimeout( _timeoutCallback, timeToWait );
+    _timeoutId = setTimeout( _timeoutCallback, timeToWait );
   }
 
   @Action
@@ -305,4 +330,21 @@ public abstract class IdleStatus
     setRawIdle( false );
     setLastActivityAt( System.currentTimeMillis() );
   }
+
+  @JsMethod( name = "addEventListener", namespace = JsPackage.GLOBAL )
+  private static native void addEventListener( String type, EventListener listener );
+
+  @JsMethod( name = "addEventListener", namespace = JsPackage.GLOBAL )
+  private static native void addEventListener( String type,
+                                               EventListener listener,
+                                               AddEventListenerOptions options );
+
+  @JsMethod( name = "removeEventListener", namespace = JsPackage.GLOBAL )
+  private static native void removeEventListener( String type, EventListener listener );
+
+  @JsMethod( name = "clearTimeout", namespace = JsPackage.GLOBAL )
+  private static native void clearTimeout( int timeoutId );
+
+  @JsMethod( name = "setTimeout", namespace = JsPackage.GLOBAL )
+  private static native int setTimeout( TimerHandler callback, int delay );
 }

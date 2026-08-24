@@ -1,9 +1,5 @@
 package arez.dom;
 
-import akasha.EventListener;
-import akasha.MediaQueryList;
-import akasha.Window;
-import akasha.WindowGlobal;
 import arez.ComputableValue;
 import arez.Disposable;
 import arez.annotations.Action;
@@ -17,6 +13,11 @@ import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
 import java.util.Objects;
 import javax.annotation.Nonnull;
+import jsinterop.annotations.JsFunction;
+import jsinterop.annotations.JsMethod;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * An observable model that indicates whether a window matches a CSS media query.
@@ -24,9 +25,8 @@ import javax.annotation.Nonnull;
  * <p>A very simple example</p>
  * <pre>{@code
  * import arez.Arez;
- * import arez.mediaquery.MediaQuery;
+ * import arez.dom.MediaQuery;
  * import com.google.gwt.core.client.EntryPoint;
- * import akasha.Console;
  *
  * public class MediaQueryExample
  *   implements EntryPoint
@@ -35,8 +35,8 @@ import javax.annotation.Nonnull;
  *   {
  *     final MediaQuery mediaQuery = MediaQuery.create( "(max-width: 600px)" );
  *     Arez.context().observer( () ->
- *                                DomGlobal.document.querySelector( "#status" ).textContent =
- *                                  "Screen size Status: " + ( mediaQuery.matches() ? "Narrow" : "Wide" ) );
+ *                                System.out.println( "Screen size Status: " +
+ *                                                    ( mediaQuery.matches() ? "Narrow" : "Wide" ) ) );
  *   }
  * }
  * }</pre>
@@ -44,6 +44,42 @@ import javax.annotation.Nonnull;
 @ArezComponent( requireId = Feature.DISABLE )
 public abstract class MediaQuery
 {
+  /**
+   * Minimal facade for the browser window media-query API.
+   */
+  @JsType( isNative = true, name = "Window", namespace = JsPackage.GLOBAL )
+  public static class Window
+  {
+    protected Window()
+    {
+    }
+
+    @JsMethod
+    native MediaQueryList matchMedia( String query );
+  }
+
+  @JsFunction
+  private interface EventListener
+  {
+    void handleEvent( Object event );
+  }
+
+  @JsType( isNative = true, name = "MediaQueryList", namespace = JsPackage.GLOBAL )
+  private static class MediaQueryList
+  {
+    @JsProperty( name = "media" )
+    native String media();
+
+    @JsProperty( name = "matches" )
+    native boolean matches();
+
+    @JsMethod
+    native void addListener( EventListener listener );
+
+    @JsMethod
+    native void removeListener( EventListener listener );
+  }
+
   @Nonnull
   private final EventListener _listener = e -> notifyOnMatchChange();
   @Nonnull
@@ -61,7 +97,7 @@ public abstract class MediaQuery
   @Nonnull
   public static MediaQuery create( @Nonnull final String query )
   {
-    return create( WindowGlobal.window(), query );
+    return create( window(), query );
   }
 
   /**
@@ -178,4 +214,7 @@ public abstract class MediaQuery
   {
     _mediaQueryList.removeListener( _listener );
   }
+
+  @JsProperty( name = "window", namespace = JsPackage.GLOBAL )
+  private static native Window window();
 }

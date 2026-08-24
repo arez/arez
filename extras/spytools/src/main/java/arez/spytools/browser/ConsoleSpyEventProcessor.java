@@ -1,7 +1,5 @@
 package arez.spytools.browser;
 
-import akasha.Console;
-import akasha.core.JSON;
 import arez.Arez;
 import arez.spy.ActionCompleteEvent;
 import arez.spy.ActionSkippedEvent;
@@ -35,6 +33,10 @@ import arez.spytools.AbstractSpyEventProcessor;
 import arez.spytools.SpyUtil;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import jsinterop.annotations.JsFunction;
+import jsinterop.annotations.JsMethod;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
 import jsinterop.base.Js;
 
 /**
@@ -45,6 +47,38 @@ import jsinterop.base.Js;
 public class ConsoleSpyEventProcessor
   extends AbstractSpyEventProcessor
 {
+  @JsFunction
+  private interface StringifyReplacerCallback
+  {
+    Object replace( String key, Object value );
+  }
+
+  @JsType( isNative = true, name = "JSON", namespace = JsPackage.GLOBAL )
+  private static final class NativeJSON
+  {
+    @JsMethod
+    private static native String stringify( Object value, StringifyReplacerCallback replacer );
+  }
+
+  @JsType( isNative = true, name = "globalThis.console", namespace = JsPackage.GLOBAL )
+  private static final class NativeConsole
+  {
+    @JsMethod
+    private static native void groupCollapsed( Object message, Object styling );
+
+    @JsMethod
+    private static native void groupEnd();
+
+    @JsMethod
+    private static native void log( Object message );
+
+    @JsMethod
+    private static native void log( Object message, Object styling );
+
+    @JsMethod
+    private static native void log( Object message, Object styling, Object value );
+  }
+
   /*
    * The SVG icons for REACTION_SCHEDULED_COLOR and COMPUTED_COLOR were adjusted variants from the mobx dev tools at https://github.com/andykog/mobx-devtools/blob/master/src/frontend/TabChanges/icons.jsx
    * They were then converted to base64 via http://base64online.org/encode/
@@ -512,7 +546,7 @@ public class ConsoleSpyEventProcessor
         {
           requireComma = true;
         }
-        sb.append( JSON.stringify( parameter, ( k, value ) -> filter.handleValue( Js.asAny( value ) ) ) );
+        sb.append( NativeJSON.stringify( parameter, ( k, value ) -> filter.handleValue( Js.asAny( value ) ) ) );
       }
       sb.append( ")" );
       return sb.toString();
@@ -544,16 +578,16 @@ public class ConsoleSpyEventProcessor
   {
     if ( SpyUtil.NestingDelta.INCREASE == delta )
     {
-      Console.groupCollapsed( message, styling );
+      NativeConsole.groupCollapsed( message, styling );
     }
     else if ( SpyUtil.NestingDelta.DECREASE == delta )
     {
-      Console.log( message, styling );
-      Console.groupEnd();
+      NativeConsole.log( message, styling );
+      NativeConsole.groupEnd();
     }
     else
     {
-      Console.log( message, styling );
+      NativeConsole.log( message, styling );
     }
   }
 
@@ -573,22 +607,22 @@ public class ConsoleSpyEventProcessor
   {
     if ( SpyUtil.NestingDelta.INCREASE == delta )
     {
-      Console.groupCollapsed( message, styling );
+      NativeConsole.groupCollapsed( message, styling );
     }
     else if ( SpyUtil.NestingDelta.DECREASE == delta )
     {
-      Console.log( message, styling );
-      Console.groupEnd();
+      NativeConsole.log( message, styling );
+      NativeConsole.groupEnd();
     }
     else
     {
-      Console.log( message, styling, value );
+      NativeConsole.log( message, styling, value );
     }
   }
 
   @Override
   protected void handleUnhandledEvent( @Nonnull final Object event )
   {
-    Console.log( event );
+    NativeConsole.log( event );
   }
 }

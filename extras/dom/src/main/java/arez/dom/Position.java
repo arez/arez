@@ -5,7 +5,7 @@ import javaemul.internal.annotations.DoNotAutobox;
 import javax.annotation.Nullable;
 
 /**
- * An immutable variant of {@link akasha.GeolocationCoordinates}.
+ * An immutable representation of coordinates returned by the Web Geolocation API.
  */
 public final class Position
 {

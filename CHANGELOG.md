@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Remove the dependency on Akasha and replace the exposed browser types with minimal component-local facades.
 * Remove the obsolete API differences viewer and report infrastructure.
 
 ### [v0.255](https://github.com/arez/arez/tree/v0.255) (2026-08-04) · [Full Changelog](https://github.com/arez/arez/compare/v0.254...v0.255)

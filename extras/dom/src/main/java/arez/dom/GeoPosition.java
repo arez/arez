@@ -1,8 +1,5 @@
 package arez.dom;
 
-import akasha.GeolocationCoordinates;
-import akasha.GeolocationPositionError;
-import akasha.WindowGlobal;
 import arez.Arez;
 import arez.ArezContext;
 import arez.ComputableValue;
@@ -20,6 +17,11 @@ import arez.annotations.OnDeactivate;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import jsinterop.annotations.JsFunction;
+import jsinterop.annotations.JsMethod;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * A component that exposes the current geo position as an observable property. This component relies on the
@@ -28,18 +30,81 @@ import javax.annotation.Nullable;
  * and it asks user permission before providing data.).
  *
  * <pre>{@code
- * EventDrivenValue<Window, Integer> innerWidth = EventDrivenValue.create( window, "resize", () -> window.innerWidth )
+ * final GeoPosition geoPosition = GeoPosition.create();
+ * Arez.context().observer( () -> consumePosition( geoPosition.getPosition() ) );
  * }</pre>
- *
- * <p>It is important that the code not add a listener to the underlying event source until there is an
- * observer accessing the <code>"value"</code> observable defined by the EventDrivenValue class. The first
- * observer that observes the observable will result in an event listener being added to the event source
- * and this listener will not be removed until there is no observers left observing the value. This means
- * that a component that is not being used has very little overhead.</p>
  */
 @ArezComponent( requireId = Feature.DISABLE, disposeNotifier = Feature.DISABLE )
 public abstract class GeoPosition
 {
+  @JsFunction
+  private interface PositionCallback
+  {
+    void onPosition( GeolocationPosition position );
+  }
+
+  @JsFunction
+  private interface PositionErrorCallback
+  {
+    void onError( GeolocationPositionError error );
+  }
+
+  @JsType( isNative = true, name = "GeolocationPosition", namespace = JsPackage.GLOBAL )
+  private static class GeolocationPosition
+  {
+    @JsProperty( name = "coords" )
+    native GeolocationCoordinates coords();
+  }
+
+  @JsType( isNative = true, name = "GeolocationCoordinates", namespace = JsPackage.GLOBAL )
+  static class GeolocationCoordinates
+  {
+    @JsProperty( name = "accuracy" )
+    native double accuracy();
+
+    @JsProperty( name = "altitude" )
+    native Double altitude();
+
+    @JsProperty( name = "heading" )
+    native Double heading();
+
+    @JsProperty( name = "latitude" )
+    native double latitude();
+
+    @JsProperty( name = "longitude" )
+    native double longitude();
+
+    @JsProperty( name = "speed" )
+    native Double speed();
+  }
+
+  @JsType( isNative = true, name = "GeolocationPositionError", namespace = JsPackage.GLOBAL )
+  static class GeolocationPositionError
+  {
+    @JsProperty( name = "code" )
+    native int code();
+
+    @JsProperty( name = "message" )
+    native String message();
+  }
+
+  @JsType( isNative = true, name = "Geolocation", namespace = JsPackage.GLOBAL )
+  private static class Geolocation
+  {
+    @JsMethod
+    native int watchPosition( PositionCallback successCallback, PositionErrorCallback errorCallback );
+
+    @JsMethod
+    native void clearWatch( int watchId );
+  }
+
+  @JsType( isNative = true, name = "Navigator", namespace = JsPackage.GLOBAL )
+  private static class Navigator
+  {
+    @JsProperty( name = "geolocation" )
+    native Geolocation geolocation();
+  }
+
   @SuppressWarnings( "unused" )
   public static final class Status
   {
@@ -58,15 +123,15 @@ public abstract class GeoPosition
     /**
      * The acquisition of the geolocation information failed because the page didn't have the permission to do it.
      */
-    public static final int PERMISSION_DENIED = GeolocationPositionError.PERMISSION_DENIED;
+    public static final int PERMISSION_DENIED = 1;
     /**
      * The acquisition of the geolocation failed because at least one internal source of position returned an internal error.
      */
-    public static final int POSITION_UNAVAILABLE = GeolocationPositionError.POSITION_UNAVAILABLE;
+    public static final int POSITION_UNAVAILABLE = 2;
     /**
      * The time allowed to acquire the geolocation, defined by PositionOptions.timeout information was reached before the information was obtained.
      */
-    public static final int TIMEOUT = GeolocationPositionError.TIMEOUT;
+    public static final int TIMEOUT = 3;
 
     private Status()
     {
@@ -187,7 +252,7 @@ public abstract class GeoPosition
       context().task( Arez.areNamesEnabled() ? componentName() + ".setLoadingStatus" : null,
                       () -> setStatus( Status.LOADING ),
                       Task.Flags.DISPOSE_ON_COMPLETE );
-      _watcherId = WindowGlobal.navigator().geolocation().watchPosition( e -> onSuccess( e.coords() ), this::onFailure );
+      _watcherId = navigator().geolocation().watchPosition( e -> onSuccess( e.coords() ), this::onFailure );
     }
     _activateCount++;
   }
@@ -198,7 +263,7 @@ public abstract class GeoPosition
     if ( 0 == _activateCount )
     {
       setStatus( Status.INITIAL );
-      WindowGlobal.navigator().geolocation().clearWatch( _watcherId );
+      navigator().geolocation().clearWatch( _watcherId );
       _watcherId = 0;
     }
   }
@@ -249,4 +314,7 @@ public abstract class GeoPosition
 
   @ContextRef
   abstract ArezContext context();
+
+  @JsProperty( name = "navigator", namespace = JsPackage.GLOBAL )
+  private static native Navigator navigator();
 }

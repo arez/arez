@@ -8,7 +8,6 @@ require 'buildr/shade'
 Buildr::MavenCentral.define_publish_tasks(:profile_name => 'org.realityforge', :username => 'realityforge')
 
 TEST_DEPS = [:guiceyloops]
-GWT_DEPS = [:akasha, :jsinterop_base]
 FORMATTER_JDK_EXPORTS =
   %w(
     --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED
@@ -131,7 +130,6 @@ define 'arez' do
     test.compile.with TEST_DEPS,
                       :javax_inject,
                       :sting_core,
-                      GWT_DEPS,
                       :javax_json,
                       :jsonassert,
                       :android_json,
@@ -220,7 +218,7 @@ define 'arez' do
 
   define 'extras' do
     define 'promise' do
-      deps = artifacts(:javax_annotation, :jsinterop_annotations, :jsinterop_base, :jetbrains_annotations, :braincheck_core, :grim_annotations, :akasha) + [project('core').package(:jar)]
+      deps = artifacts(:javax_annotation, :jsinterop_annotations, :jsinterop_base, :jetbrains_annotations, :braincheck_core, :grim_annotations) + [project('core').package(:jar)]
       pom.include_transitive_dependencies << deps
       pom.dependency_filter = Proc.new { |dep| deps.include?(dep[:artifact]) }
       project.doc.options.merge!('Xdoclint:all,-missing' => true)
@@ -285,8 +283,7 @@ define 'arez' do
                        :javaemul_internal_annotations,
                        :grim_annotations,
                        :jsinterop_base,
-                       :jsinterop_annotations,
-                       :akasha) + [project('core').package(:jar)]
+                       :jsinterop_annotations) + [project('core').package(:jar)]
       pom.include_transitive_dependencies << deps
       pom.dependency_filter = Proc.new { |dep| deps.include?(dep[:artifact]) }
       project.doc.options.merge!('Xdoclint:all,-missing' => true)
@@ -332,7 +329,7 @@ define 'arez' do
 
     desc 'SpyTools: Arez utilities that enhance the spy capabilities'
     define 'spytools' do
-      deps = artifacts(:javax_annotation, :jsinterop_annotations, :jsinterop_base, :jetbrains_annotations, :braincheck_core, :grim_annotations, :akasha) + [project('core').package(:jar)]
+      deps = artifacts(:javax_annotation, :jsinterop_annotations, :jsinterop_base, :jetbrains_annotations, :braincheck_core, :grim_annotations) + [project('core').package(:jar)]
       pom.include_transitive_dependencies << deps
       pom.dependency_filter = Proc.new { |dep| deps.include?(dep[:artifact]) }
       project.doc.options.merge!('Xdoclint:all,-missing' => true)
@@ -375,7 +372,6 @@ define 'arez' do
                        :braincheck_core,
                        project('arez:core').package(:jar),
                        :jetbrains_annotations,
-                       :akasha,
                        :jsinterop_base,
                        :jsinterop_annotations)
       pom.include_transitive_dependencies << deps
@@ -484,8 +480,7 @@ define 'arez' do
                  project('processor').compile.dependencies,
                  :sting_processor,
                  :gwt_user,
-                 :sting_core,
-                 GWT_DEPS
+                 :sting_core
 
     compile.options[:processor] = true
     compile.options.other = Array(compile.options.other) + FORMATTER_JAVAC_JVM_EXPORTS

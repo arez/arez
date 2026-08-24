@@ -1,9 +1,10 @@
 package arez.spytools.browser;
 
-import akasha.core.JsObject;
-import akasha.lang.JsArray;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import jsinterop.annotations.JsMethod;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
 import jsinterop.base.Any;
 import jsinterop.base.Js;
 import jsinterop.base.JsArrayLike;
@@ -15,8 +16,20 @@ import jsinterop.base.JsPropertyMap;
  */
 public class StringifyReplacer
 {
+  @JsType( isNative = true, name = "Array", namespace = JsPackage.GLOBAL )
+  private static final class NativeArray
+  {
+  }
+
+  @JsType( isNative = true, name = "Object", namespace = JsPackage.GLOBAL )
+  private static final class NativeObject
+  {
+    @JsMethod
+    private static native JsArrayLike<String> getOwnPropertyNames( Object value );
+  }
+
   @Nonnull
-  private final JsArrayLike<Object> _array = new JsArray<>();
+  private final JsArrayLike<Object> _array = Js.uncheckedCast( new NativeArray() );
 
   /**
    * Return the transformed value for key-value pair.
@@ -65,13 +78,15 @@ public class StringifyReplacer
           }
           _array.setAt( _array.getLength(), value );
 
-          final JsArray<String> names = JsObject.getOwnPropertyNames( value );
-          final String[] propertyNames = names.asArray( new String[ names.length ] );
+          final JsArrayLike<String> propertyNames = NativeObject.getOwnPropertyNames( value );
           final JsPropertyMap<Object> map = JsPropertyMap.of();
-          for ( final String propertyName : propertyNames )
+          for ( int i = 0; i < propertyNames.getLength(); i++ )
           {
-            if( includeProperty(value, propertyName) )
-            map.set( propertyName, Js.asPropertyMap( value ).getAsAny( propertyName ) );
+            final String propertyName = propertyNames.getAt( i );
+            if ( includeProperty( value, propertyName ) )
+            {
+              map.set( propertyName, Js.asPropertyMap( value ).getAsAny( propertyName ) );
+            }
           }
           return Js.asAny( map );
         }

@@ -1,7 +1,9 @@
 package arez.dom;
 
-import akasha.Window;
 import javax.annotation.Nonnull;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /**
  * Factory for getting observable models that sizing of windows.
@@ -11,26 +13,54 @@ import javax.annotation.Nonnull;
  * import arez.Arez;
  * import arez.dom.EventDrivenValue;
  * import arez.dom.WindowSize;
+ * import arez.dom.WindowSize.Window;
  * import com.google.gwt.core.client.EntryPoint;
- * import akasha.Global;
- * import akasha.Window;
+ * import jsinterop.annotations.JsPackage;
+ * import jsinterop.annotations.JsProperty;
  *
  * public class WindowSizeExample
  *   implements EntryPoint
  * {
  *   public void onModuleLoad()
  *   {
- *     final EventDrivenValue<Window, Integer> innerHeight = WindowSize.innerHeight( Global.window() );
- *     final EventDrivenValue<Window, Integer> innerWidth = WindowSize.innerWidth( Global.window() );
+ *     final EventDrivenValue<Window, Integer> innerHeight = WindowSize.innerHeight( window() );
+ *     final EventDrivenValue<Window, Integer> innerWidth = WindowSize.innerWidth( window() );
  *
- *     Arez.context().observer( () -> Global.document().querySelector( "#status" ).textContent =
- *       "Screen size: " + innerWidth.getValue() + " x " + innerHeight.getValue() );
+ *     Arez.context().observer( () -> System.out.println(
+ *       "Screen size: " + innerWidth.getValue() + " x " + innerHeight.getValue() ) );
  *   }
+ *
+ *   {@literal @}JsProperty( name = "window", namespace = JsPackage.GLOBAL )
+ *   private static native Window window();
  * }
  * }</pre>
  */
 public final class WindowSize
 {
+  /**
+   * Minimal facade for the browser window sizing API.
+   */
+  @JsType( isNative = true, name = "Window", namespace = JsPackage.GLOBAL )
+  public static class Window
+    extends EventDrivenValue.EventTarget
+  {
+    protected Window()
+    {
+    }
+
+    @JsProperty( name = "innerHeight" )
+    native int innerHeight();
+
+    @JsProperty( name = "innerWidth" )
+    native int innerWidth();
+
+    @JsProperty( name = "outerHeight" )
+    native int outerHeight();
+
+    @JsProperty( name = "outerWidth" )
+    native int outerWidth();
+  }
+
   private WindowSize()
   {
   }

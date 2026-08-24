@@ -1,11 +1,5 @@
 package arez.persist.runtime.browser;
 
-import akasha.BeforeUnloadEventListener;
-import akasha.Storage;
-import akasha.WindowGlobal;
-import akasha.core.JSON;
-import akasha.core.JsObject;
-import akasha.lang.JsArray;
 import arez.SafeProcedure;
 import arez.persist.runtime.ArezPersist;
 import arez.persist.runtime.Scope;
@@ -17,8 +11,14 @@ import java.util.Objects;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import jsinterop.annotations.JsFunction;
+import jsinterop.annotations.JsMethod;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 import jsinterop.base.Any;
 import jsinterop.base.Js;
+import jsinterop.base.JsArrayLike;
 import jsinterop.base.JsPropertyMap;
 
 /**
@@ -27,6 +27,48 @@ import jsinterop.base.JsPropertyMap;
 final class WebStorageService
   implements StorageService
 {
+  @JsFunction
+  private interface BeforeUnloadEventListener
+  {
+    void handleEvent( Object event );
+  }
+
+  @JsFunction
+  private interface IdleRequestCallback
+  {
+    void onInvoke( Object deadline );
+  }
+
+  @JsType( isNative = true, name = "Storage", namespace = JsPackage.GLOBAL )
+  private static class Storage
+  {
+    @JsMethod
+    native String getItem( String key );
+
+    @JsMethod
+    native void setItem( String key, String value );
+
+    @JsMethod
+    native void removeItem( String key );
+  }
+
+  @JsType( isNative = true, name = "JSON", namespace = JsPackage.GLOBAL )
+  private static final class NativeJSON
+  {
+    @JsMethod
+    private static native Any parse( String value );
+
+    @JsMethod
+    private static native String stringify( Object value );
+  }
+
+  @JsType( isNative = true, name = "Object", namespace = JsPackage.GLOBAL )
+  private static final class NativeObject
+  {
+    @JsMethod
+    private static native JsArrayLike<String> keys( Object value );
+  }
+
   /**
    * A reference to the "beforeunload" listener so that the listener can be removed on disposed.
    */
@@ -52,13 +94,13 @@ final class WebStorageService
   @Nonnull
   static WebStorageService createSessionStorageService( @Nonnull final String persistenceKey )
   {
-    return new WebStorageService( WindowGlobal.sessionStorage(), persistenceKey );
+    return new WebStorageService( sessionStorage(), persistenceKey );
   }
 
   @Nonnull
   static WebStorageService createLocalStorageService( @Nonnull final String persistenceKey )
   {
-    return new WebStorageService( WindowGlobal.localStorage(), persistenceKey );
+    return new WebStorageService( localStorage(), persistenceKey );
   }
 
   private WebStorageService( @Nonnull final Storage storage, @Nonnull final String address )
@@ -66,7 +108,7 @@ final class WebStorageService
     _storage = Objects.requireNonNull( storage );
     _address = Objects.requireNonNull( address );
     // It should be noted that we don't
-    WindowGlobal.addBeforeunloadListener( _beforeUnloadListener );
+    addEventListener( "beforeunload", _beforeUnloadListener );
   }
 
   @Override
@@ -74,10 +116,10 @@ final class WebStorageService
   {
     if ( 0 != _idleCallbackId )
     {
-      WindowGlobal.cancelIdleCallback( _idleCallbackId );
+      cancelIdleCallback( _idleCallbackId );
       _idleCallbackId = 0;
     }
-    WindowGlobal.removeBeforeunloadListener(  _beforeUnloadListener );
+    removeEventListener( "beforeunload", _beforeUnloadListener );
   }
 
   @Override
@@ -87,7 +129,7 @@ final class WebStorageService
     // An alternative strategy is to send a message to a WebWorker containing the
     // state to save and performing the save in the other thread but we have yet
     // to see a scenario where performance requirements would warrant the extra complexity
-    _idleCallbackId = WindowGlobal.requestIdleCallback( t -> commitTriggerAction.call() );
+    _idleCallbackId = requestIdleCallback( t -> commitTriggerAction.call() );
   }
 
   @Override
@@ -113,13 +155,13 @@ final class WebStorageService
         data.set( scopeEntry.getKey().getQualifiedName(), scope );
       }
     }
-    if ( 0 == JsObject.keys( data ).length )
+    if ( 0 == NativeObject.keys( data ).getLength() )
     {
       _storage.removeItem( _address );
     }
     else
     {
-      _storage.setItem( _address, JSON.stringify( data ) );
+      _storage.setItem( _address, NativeJSON.stringify( data ) );
     }
   }
 
@@ -142,8 +184,8 @@ final class WebStorageService
   {
     final JsPropertyMap<Object> propertyMap = Js.cast( encoded );
     final Map<String, Object> data = new HashMap<>();
-    final JsArray<String> keys = JsObject.keys( encoded );
-    final int keyCount = keys.length;
+    final JsArrayLike<String> keys = NativeObject.keys( encoded );
+    final int keyCount = keys.getLength();
     for ( int i = 0; i < keyCount; i++ )
     {
       final String key = keys.getAt( i );
@@ -158,11 +200,11 @@ final class WebStorageService
     final String item = _storage.getItem( _address );
     if ( null != item )
     {
-      final Any value = JSON.parse( item );
+      final Any value = NativeJSON.parse( item );
       assert null != value;
       final JsPropertyMap<Object> scopes = value.cast();
-      final JsArray<String> scopeNames = JsObject.keys( scopes );
-      final int scopeCount = scopeNames.length;
+      final JsArrayLike<String> scopeNames = NativeObject.keys( scopes );
+      final int scopeCount = scopeNames.getLength();
       for ( int s = 0; s < scopeCount; s++ )
       {
         final String scopeName = scopeNames.getAt( s );
@@ -175,8 +217,8 @@ final class WebStorageService
                              @Nonnull final String scopeName,
                              @Nonnull final JsPropertyMap<Object> types )
   {
-    final JsArray<String> typeNames = JsObject.keys( types );
-    final int typeCount = typeNames.length;
+    final JsArrayLike<String> typeNames = NativeObject.keys( types );
+    final int typeCount = typeNames.getLength();
     for ( int i = 0; i < typeCount; i++ )
     {
       final String typeName = typeNames.getAt( i );
@@ -191,8 +233,8 @@ final class WebStorageService
   {
     final Scope scope = ArezPersist.findOrCreateScope( scopeName );
     final Map<String, Entry> entryMap = new HashMap<>();
-    final JsArray<String> ids = JsObject.keys( idMap );
-    final int idCount = ids.length;
+    final JsArrayLike<String> ids = NativeObject.keys( idMap );
+    final int idCount = ids.getLength();
     for ( int j = 0; j < idCount; j++ )
     {
       final String id = ids.getAt( j );
@@ -212,4 +254,22 @@ final class WebStorageService
       _commitTriggerAction.call();
     }
   }
+
+  @JsProperty( name = "sessionStorage", namespace = JsPackage.GLOBAL )
+  private static native Storage sessionStorage();
+
+  @JsProperty( name = "localStorage", namespace = JsPackage.GLOBAL )
+  private static native Storage localStorage();
+
+  @JsMethod( name = "addEventListener", namespace = JsPackage.GLOBAL )
+  private static native void addEventListener( String type, BeforeUnloadEventListener listener );
+
+  @JsMethod( name = "removeEventListener", namespace = JsPackage.GLOBAL )
+  private static native void removeEventListener( String type, BeforeUnloadEventListener listener );
+
+  @JsMethod( name = "requestIdleCallback", namespace = JsPackage.GLOBAL )
+  private static native int requestIdleCallback( IdleRequestCallback callback );
+
+  @JsMethod( name = "cancelIdleCallback", namespace = JsPackage.GLOBAL )
+  private static native void cancelIdleCallback( int callbackId );
 }

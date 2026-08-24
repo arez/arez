@@ -1,6 +1,5 @@
 package arez.spytools;
 
-import akasha.Console;
 import arez.Arez;
 import arez.spy.ComputableValueInfo;
 import arez.spy.ObservableValueInfo;
@@ -10,6 +9,9 @@ import arez.spy.TransactionInfo;
 import grim.annotations.OmitType;
 import java.util.List;
 import javax.annotation.Nonnull;
+import jsinterop.annotations.JsMethod;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
 
 /**
  * A very simple utility that describes why an observer or computed value runs.
@@ -17,6 +19,13 @@ import javax.annotation.Nonnull;
 @OmitType( unless = "arez.enable_spies" )
 public final class WhyRun
 {
+  @JsType( isNative = true, name = "globalThis.console", namespace = JsPackage.GLOBAL )
+  private static final class NativeConsole
+  {
+    @JsMethod
+    private static native void log( Object message );
+  }
+
   private WhyRun()
   {
   }
@@ -25,7 +34,7 @@ public final class WhyRun
   {
     if ( Arez.areSpiesEnabled() )
     {
-      Console.log( whyRun() );
+      NativeConsole.log( whyRun() );
     }
   }
 

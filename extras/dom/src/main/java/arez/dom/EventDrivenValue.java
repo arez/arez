@@ -1,7 +1,5 @@
 package arez.dom;
 
-import akasha.EventListener;
-import akasha.EventTarget;
 import arez.ComputableValue;
 import arez.Disposable;
 import arez.annotations.Action;
@@ -16,6 +14,9 @@ import arez.annotations.OnDeactivate;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import jsinterop.annotations.JsFunction;
+import jsinterop.annotations.JsMethod;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
 
 /**
  * Generic component that exposes a property as observable where changes to the variable are signalled
@@ -24,7 +25,8 @@ import jsinterop.annotations.JsFunction;
  * as:
  *
  * <pre>{@code
- * EventDrivenValue<Window, Integer> innerWidth = EventDrivenValue.create( window, "resize", () -> window.innerWidth )
+ * EventDrivenValue<EventDrivenValue.EventTarget, Integer> value =
+ *   EventDrivenValue.create( source, "change", ignored -> readValue() );
  * }</pre>
  *
  * <p>It is important that the code not add a listener to the underlying event source until there is an
@@ -37,8 +39,31 @@ import jsinterop.annotations.JsFunction;
  * @param <ValueType>  the type of the value returned by the "value" observable.
  */
 @ArezComponent( requireId = Feature.DISABLE, disposeNotifier = Feature.DISABLE )
-public abstract class EventDrivenValue<SourceType extends EventTarget, ValueType>
+public abstract class EventDrivenValue<SourceType extends EventDrivenValue.EventTarget, ValueType>
 {
+  /**
+   * Minimal facade for a browser object that dispatches events.
+   */
+  @JsType( isNative = true, name = "EventTarget", namespace = JsPackage.GLOBAL )
+  public static class EventTarget
+  {
+    protected EventTarget()
+    {
+    }
+
+    @JsMethod
+    native void addEventListener( String type, EventListener listener );
+
+    @JsMethod
+    native void removeEventListener( String type, EventListener listener );
+  }
+
+  @JsFunction
+  interface EventListener
+  {
+    void handleEvent( Object event );
+  }
+
   /**
    * The functional interface defining accessor.
    *

@@ -2,9 +2,6 @@ package arez.dom;
 
 import arez.Arez;
 import arez.Observer;
-import arez.dom.util.TestEventTarget;
-import akasha.Event;
-import akasha.EventListener;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -46,12 +43,12 @@ public class EventDrivenValueTest
     assertEquals( observerCallCount.get(), 1 );
     assertEquals( memoizeCallCount.get(), 1 );
 
-    final EventListener eventListener = source.getEventListenersByType( "click" ).get( 0 );
+    final EventDrivenValue.EventListener eventListener = source.getEventListenersByType( "click" ).get( 0 );
 
     // Event should not be null but as it has native methods it can not be instantiated
     // in JRE without some significant magic. However we do not use the event so passing
     // null actually works in this test
-    final Event evt = null;
+    final Object evt = null;
     eventListener.handleEvent( evt );
 
     assertEquals( source.getEventListenersByType( "click" ).size(), 1 );
@@ -110,7 +107,7 @@ public class EventDrivenValueTest
     assertEquals( observerCallCount.get(), 1 );
     assertEquals( memoizeCallCount.get(), 1 );
 
-    final EventListener eventListener1 = source1.getEventListenersByType( "click" ).get( 0 );
+    final EventDrivenValue.EventListener eventListener1 = source1.getEventListenersByType( "click" ).get( 0 );
 
     Arez.context().safeAction( () -> eventDrivenValue.setSource( source2 ) );
 
@@ -119,7 +116,7 @@ public class EventDrivenValueTest
     assertEquals( observerCallCount.get(), 1 );
     assertEquals( memoizeCallCount.get(), 2 );
 
-    final EventListener eventListener2 = source2.getEventListenersByType( "click" ).get( 0 );
+    final EventDrivenValue.EventListener eventListener2 = source2.getEventListenersByType( "click" ).get( 0 );
 
     assertSame( eventListener1, eventListener2 );
   }
