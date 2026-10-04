@@ -1,0 +1,17 @@
+version = 1
+name = "arez"
+
+[setup]
+script = ""
+
+[cleanup]
+script = '''
+for workspace in target/arez_extras_promise/bazel_workspace target/arez_extras_spytools/bazel_workspace; do
+  [ -f "$workspace/WORKSPACE" ] || continue
+  (
+    cd "$workspace" || exit
+    bazel clean --expunge_async
+    bazel shutdown
+  )
+done
+'''
