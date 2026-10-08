@@ -1,0 +1,48 @@
+diff --git a/java/jsinterop/base/BUILD b/java/jsinterop/base/BUILD
+--- a/java/jsinterop/base/BUILD
++++ b/java/jsinterop/base/BUILD
+@@ -4 +4,2 @@
+-load("@com_google_j2cl//build_defs:rules.bzl", "j2cl_library")
++load("@j2cl//build_defs:rules.bzl", "j2cl_library")
++load("@rules_java//java:defs.bzl", "java_library")
+diff --git a/third_party/BUILD b/third_party/BUILD
+--- a/third_party/BUILD
++++ b/third_party/BUILD
+@@ -7,2 +6,0 @@
+-load("@com_google_j2cl//build_defs:rules.bzl", "j2cl_import")
+-
+@@ -11 +9 @@
+-    actual = "@com_google_j2cl//:jsinterop-annotations",
++    actual = "@j2cl//:jsinterop-annotations",
+@@ -16 +14 @@
+-    actual = "@com_google_j2cl//:jsinterop-annotations-j2cl",
++    actual = "@j2cl//:jsinterop-annotations-j2cl",
+@@ -19 +17 @@
+-java_library(
++alias(
+@@ -21 +19 @@
+-    exports = ["@org_gwtproject_gwt//user:gwt-javaemul-internal-annotations"],
++    actual = "@j2cl//jre/java:javaemul_internal_annotations",
+@@ -24 +22 @@
+-j2cl_import(
++alias(
+@@ -26 +24 @@
+-    jar = "@org_gwtproject_gwt//user:gwt-javaemul-internal-annotations",
++    actual = "@j2cl//jre/java:javaemul_internal_annotations-j2cl",
+diff --git a/java/jsinterop/base/InternalJsUtil.native.js b/java/jsinterop/base/InternalJsUtil.native.js
+--- a/java/jsinterop/base/InternalJsUtil.native.js
++++ b/java/jsinterop/base/InternalJsUtil.native.js
+@@ -91 +91 @@
+-const $Long_ = goog.require('nativebootstrap.Long');
++const $Long_ = goog.require('goog.math.Long');
+diff --git a/java/jsinterop/base/jsinterop.js b/java/jsinterop/base/jsinterop.js
+--- a/java/jsinterop/base/jsinterop.js
++++ b/java/jsinterop/base/jsinterop.js
+@@ -23 +23,2 @@
+-goog.provide('jsinterop');
++goog.provide('jsinterop');
++goog.require('jre');
+@@ -28 +29,2 @@
+-jsinterop.checks = goog.define('jsinterop.checks', 'DISABLED');
++jsinterop.checks = goog.define('jsinterop.checks', 'DISABLED');
++goog.module.get('jre').addSystemPropertyFromGoogDefine('jsinterop.checks', jsinterop.checks);

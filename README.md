@@ -26,6 +26,12 @@ Arez was released as open source so others could benefit from the project. We ar
 contributions from the community. A [Code of Conduct](CODE_OF_CONDUCT.md) has been put in place and
 a [Contributing](CONTRIBUTING.md) document is under development.
 
+The J2CL verification tasks use Bazel 9.3.0 through Bazelisk. With the Buildr prerequisites installed,
+run `bundle exec buildr arez:extras:promise:bazel_j2cl_test arez:extras:spytools:bazel_j2cl_test GWT=no BUILD_STATS=no`
+to generate the Bazel modules and compile both test applications. Bazel downloads the Java 21 toolchains
+required by J2CL; Buildr itself uses Java 17. The [Bazel J2CL workflow](.github/workflows/bazel-j2cl.yml)
+also runs the JVM tests, with GWT compilation and historical downstream build statistics disabled.
+
 # License
 
 Arez is licensed under [Apache License, Version 2.0](LICENSE).
