@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
@@ -29,6 +29,16 @@ jobs:
       - name: Verify Bazel version
         run: test "$(bazel --version)" = "bazel 9.3.0"
       - name: Run JVM tests
-        run: bundle exec buildr test GWT=no BUILD_STATS=no
+        run: >-
+          bundle exec buildr
+          arez:core:test
+          arez:processor:test
+          arez:extras:dom:test
+          arez:extras:spytools:test
+          arez:integration-tests:test
+          arez:persist:core:test
+          arez:persist:processor:test
+          arez:persist:integration-tests:test
+          GWT=no BUILD_STATS=no
       - name: Compile J2CL applications
         run: bundle exec buildr arez:extras:promise:bazel_j2cl_test arez:extras:spytools:bazel_j2cl_test GWT=no BUILD_STATS=no
