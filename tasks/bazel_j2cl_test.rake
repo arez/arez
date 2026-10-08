@@ -23,6 +23,8 @@ module Buildr
         install_artifacts_into_local_cache(cache_dir, [root_project] + projects)
 
         FileUtils.mkdir_p bazel_workspace_dir
+        FileUtils.cp File.join(WORKSPACE_DIR, '.bazelversion'), bazel_workspace_dir
+        FileUtils.cp File.join(WORKSPACE_DIR, 'tasks/jsinterop-base-bazel9.patch'), bazel_workspace_dir
         write_bazelrc(bazel_workspace_dir)
         write_workspace(bazel_workspace_dir)
         FileUtils.cp test_module_file, "#{bazel_workspace_dir}/src.js"
@@ -40,40 +42,54 @@ module Buildr
 build --incompatible_strict_action_env
 build --strict_system_includes
 build --spawn_strategy=local
+build --java_language_version=21
+build --java_runtime_version=21
+build --tool_java_language_version=21
+build --tool_java_runtime_version=21
 TEXT
       end
 
       def write_workspace(dir)
-        File.write("#{dir}/WORKSPACE", <<TEXT)
-workspace(name = "bazel_test")
+        File.write("#{dir}/MODULE.bazel", <<TEXT)
+module(name = "bazel_test")
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-
-http_archive(
-    name = "com_google_j2cl",
-    strip_prefix = "j2cl-master",
-    url = "https://github.com/google/j2cl/archive/master.zip",
+# Register the Apple toolchain before transitive generic C++ toolchains.
+bazel_dep(name = "apple_support", version = "2.5.2")
+bazel_dep(name = "j2cl")
+archive_override(
+    module_name = "j2cl",
+    sha256 = "91fb0be8eb719386c9ce198e2dff1e41c840b559a7c36dd8727bd94e5a1fba59",
+    strip_prefix = "j2cl-d4fef7485be3b4318b207ac40d2f0e94349c7741",
+    urls = ["https://github.com/google/j2cl/archive/d4fef7485be3b4318b207ac40d2f0e94349c7741.zip"],
 )
+bazel_dep(name = "rules_closure", version = "0.17.0")
+bazel_dep(name = "rules_java", version = "9.1.0")
+# Older transitive Go rules still use C++ providers removed in Bazel 9.
+bazel_dep(name = "rules_go", version = "0.59.0")
+# Load proto_library from Protobuf instead of the removed native rule.
+bazel_dep(name = "bazel_worker_api", version = "0.0.6")
+bazel_dep(name = "rules_jvm_external", version = "6.7")
 
-load("@com_google_j2cl//build_defs:repository.bzl", "load_j2cl_repo_deps")
+# Resolve the combined compiler dependencies rather than Protobuf's private lockfile.
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+maven.install(repositories = ["https://repo.maven.apache.org/maven2"])
+use_repo(maven, "maven")
 
-load_j2cl_repo_deps()
-
-load("@com_google_j2cl//build_defs:rules.bzl", "setup_j2cl_workspace")
-
-setup_j2cl_workspace()
-
-load("//:dependencies.bzl", "generate_workspace_rules")
-
-generate_workspace_rules()
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 # Required for jsinterop-base dependencies
 _JSINTEROP_BASE_VERSION = "a2b98ca84a4daa04d69d90dce49bc74108ad733c"
 http_archive(
     name = "com_google_jsinterop_base",
+    sha256 = "3af2c0aa45d30644f5bf1a9a8da33a60cea8bcb9f4bb3d60f13f697083ba7f0f",
     strip_prefix = "jsinterop-base-%s" % _JSINTEROP_BASE_VERSION,
     url = "https://github.com/google/jsinterop-base/archive/%s.zip" % _JSINTEROP_BASE_VERSION,
+    patches = ["//:jsinterop-base-bazel9.patch"],
+    patch_args = ["-p1"],
 )
+
+# --- depgen-generated repository rules start ---
+# --- depgen-generated repository rules end ---
 TEXT
       end
 
@@ -81,15 +97,15 @@ TEXT
         content = <<TEXT
 package(default_visibility = ["//visibility:public"])
 
-alias( name = "jsinterop_annotations-j2cl", actual = "@com_google_j2cl//:jsinterop-annotations-j2cl", visibility = ["//visibility:public"],)
+alias( name = "jsinterop_annotations-j2cl", actual = "@j2cl//:jsinterop-annotations-j2cl", visibility = ["//visibility:public"],)
 
 alias( name = "jsinterop_base-j2cl", actual = "@com_google_jsinterop_base//:jsinterop-base-j2cl", )
 
-load("@com_google_j2cl//build_defs:rules.bzl", "j2cl_import", "j2cl_application")
+load("@j2cl//build_defs:rules.bzl", "j2cl_application")
 
-load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_library")
+load("@rules_closure//closure:defs.bzl", "closure_js_library")
 
-j2cl_import( name = "javaemul_internal_annotations-j2cl", jar = "@org_gwtproject_gwt//user:gwt-javaemul-internal-annotations", )
+alias( name = "javaemul_internal_annotations-j2cl", actual = "@j2cl//jre/java:javaemul_internal_annotations-j2cl", )
 
 load("//:dependencies.bzl", "generate_targets")
 
@@ -102,7 +118,7 @@ TEXT
 
 closure_js_library( name = "#{name}-closure", srcs = ["src.js"], deps = [":#{name}-j2cl"], )
 
-j2cl_application( name = "#{name}-app", entry_points = ["#{test_module}"], extra_production_args = ["--env=CUSTOM"], deps = [":#{name}-closure"], )
+j2cl_application( name = "#{name}-app", entry_points = ["#{test_module}"], deps = [":#{name}-closure"], )
 TEXT
         end
         File.write("#{dir}/BUILD.bazel", content)
@@ -117,9 +133,12 @@ repositories:
     url: https://repo.maven.apache.org/maven2
 options:
   workspaceDirectory: .
-  aliasStrategy: ArtifactId
+  nameStrategy: ArtifactId
+  repositoryRuleGenerationStrategy: module
   verifyConfigSha256: false
   defaultNature: J2cl
+  j2cl:
+    jspecifyMode: Autodetect
 replacements:
   - coord: com.google.jsinterop:jsinterop-annotations
     targets:
@@ -155,11 +174,18 @@ TEXT
 TEXT
         end
 
+        # JSpecify's MODULE annotation target is absent from J2CL's emulated JRE.
+        content += <<TEXT
+  - coord: org.jspecify:jspecify
+    j2cl:
+      mode: Import
+TEXT
+
         File.write("#{dir}/dependencies.yml", content)
       end
 
       def write_dependency_bzl(bazel_workspace_dir, depgen_cache_dir)
-        depgen = Buildr.artifact('org.realityforge.bazel.depgen:bazel-depgen:jar:all:0.13')
+        depgen = Buildr.artifact('org.realityforge.bazel.depgen:bazel-depgen:jar:all:0.29')
         depgen.invoke
 
         args = []

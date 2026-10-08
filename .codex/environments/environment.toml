@@ -7,7 +7,7 @@ script = ""
 [cleanup]
 script = '''
 for workspace in target/arez_extras_promise/bazel_workspace target/arez_extras_spytools/bazel_workspace; do
-  [ -f "$workspace/WORKSPACE" ] || continue
+  [ -f "$workspace/MODULE.bazel" ] || continue
   (
     cd "$workspace" || exit
     bazel clean --expunge_async

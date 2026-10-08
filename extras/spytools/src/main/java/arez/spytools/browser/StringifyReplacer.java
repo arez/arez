@@ -25,7 +25,7 @@ public class StringifyReplacer
   private static final class NativeObject
   {
     @JsMethod
-    private static native JsArrayLike<String> getOwnPropertyNames( Object value );
+    private static native JsArrayLike<String> getOwnPropertyNames( JsPropertyMap<?> value );
   }
 
   @Nonnull
@@ -78,7 +78,7 @@ public class StringifyReplacer
           }
           _array.setAt( _array.getLength(), value );
 
-          final JsArrayLike<String> propertyNames = NativeObject.getOwnPropertyNames( value );
+          final JsArrayLike<String> propertyNames = NativeObject.getOwnPropertyNames( Js.asPropertyMap( value ) );
           final JsPropertyMap<Object> map = JsPropertyMap.of();
           for ( int i = 0; i < propertyNames.getLength(); i++ )
           {
