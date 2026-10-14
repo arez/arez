@@ -47,6 +47,8 @@
 
 - Closeout readiness: all 27 tasks, required local validation, five-round implementation review, knowledge promotion and committed plan/implementation history are verified. Hosted Linux CI and live operations remain unexecuted. The local PR draft is `/tmp/arez-bazel-migration-pr.md`. Logs are retained under ignored `reports/verification/arez-bazel-migration/`; earlier execution paths in evidence identify where those logs originated. Plan deletion/its final commit and remote PR publication await explicit Git-push authority under the commit skill.
 
+- Local cleanup passed: independent T27 checkout/output base and T16 output base were shut down and removed, including known T16/T17 temporary symlinks. Read-only cache directories were made owner-writable solely for removal. Known review logs and the final PR draft are preserved under ignored `reports/verification/arez-bazel-migration/`. No tracked debug/scratch changes or unrelated worktree changes remain; final plan/domain/whitespace validation passes.
+
 ## Tasks
 
 | ID | Task | Status | Blocked by |
