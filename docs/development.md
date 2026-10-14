@@ -155,3 +155,19 @@ driver are checksum-pinned by rules_webtesting 0.4.1's browser manifest 0.3.4.
 Browser execution runs outside the Bazel sandbox for its native launcher and
 loopback server; its compilation remains sandboxed. The Ahab exceptions name
 only that test action and its generated root-relative HTML argument.
+
+The location, window-size and media-query examples use the same commands under
+`//extras/dom-example`:
+
+| Example | Preview target | Browser test |
+| --- | --- | --- |
+| Browser location | `:location_app` | `:location_browser_test` |
+| Window size | `:size_app` | `:size_browser_test` |
+| Media query | `:media_app` | `:media_browser_test` |
+
+For example, run `python3 tools/browser/preview.py //extras/dom-example:location_app`.
+Build `//extras/dom-example:java` for the complete strict Java 17 source gate.
+Those checked source archives are also the J2CL inputs. `//:browser_tests` collects
+the browser suites as they land. Location tests cover route buttons, hash events,
+invalid-route reset and the empty-hash bootstrap. Size/media tests drive explicit
+events and query responses; all three verify that disposal removes subscriptions.

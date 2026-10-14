@@ -2,55 +2,53 @@ package arez.dom.example;
 
 import arez.Arez;
 import arez.ArezContext;
+import arez.Disposable;
+import arez.Observer;
 import arez.dom.MediaQuery;
-import com.google.gwt.core.client.EntryPoint;
-import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsMethod;
-import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsProperty;
-import jsinterop.annotations.JsType;
+import org.jspecify.annotations.NullMarked;
 
-public class MediaQueryExample implements EntryPoint {
-    @JsFunction
-    private interface EventListener {
-        void handleEvent(Object event);
-    }
+@NullMarked
+public final class MediaQueryExample {
+    private final MediaQuery _query = MediaQuery.create("(max-width: 600px)");
+    private final Observer _statusObserver;
+    private final Observer _queryObserver;
+    private final Runnable _removeButton;
 
-    @JsType(isNative = true, name = "Element", namespace = JsPackage.GLOBAL)
-    private static class Element {
-        @JsMethod
-        native void addEventListener(String type, EventListener listener);
-
-        @JsProperty
-        native void setTextContent(String text);
-    }
-
-    @JsType(isNative = true, name = "Document", namespace = JsPackage.GLOBAL)
-    private static class Document {
-        @JsMethod
-        native Element querySelector(String selector);
-    }
-
-    @Override
-    public void onModuleLoad() {
-        final Element statusElement = document().querySelector("#status");
-        final Element queryElement = document().querySelector("#query");
-        final MediaQuery mediaQuery = MediaQuery.create("(max-width: 600px)");
+    private MediaQueryExample() {
+        final ExampleDom.Element statusElement = ExampleDom.element("#status");
+        final ExampleDom.Element queryElement = ExampleDom.element("#query");
         final ArezContext context = Arez.context();
-        context.observer(
-                () -> statusElement.setTextContent("Screen size: " + (mediaQuery.matches() ? "Narrow" : "Wide")));
-        context.observer(() -> queryElement.setTextContent(mediaQuery.getQuery()));
-        document().querySelector("#change-query").addEventListener("click", e -> {
-            context.safeAction(() -> {
-                if (mediaQuery.getQuery().equals("(max-width: 600px)")) {
-                    mediaQuery.setQuery("(max-width: 1200px)");
-                } else {
-                    mediaQuery.setQuery("(max-width: 600px)");
-                }
-            });
-        });
+        _statusObserver = context.observer(
+                () -> statusElement.setTextContent("Screen size: " + (_query.matches() ? "Narrow" : "Wide")));
+        _queryObserver = context.observer(() -> queryElement.setTextContent(_query.getQuery()));
+        _removeButton = ExampleDom.listen(
+                "#change-query",
+                "click",
+                e -> context.safeAction(() -> {
+                    if (_query.getQuery().equals("(max-width: 600px)")) {
+                        _query.setQuery("(max-width: 1200px)");
+                    } else {
+                        _query.setQuery("(max-width: 600px)");
+                    }
+                }));
     }
 
-    @JsProperty(name = "document", namespace = JsPackage.GLOBAL)
-    private static native Document document();
+    @JsMethod
+    public static MediaQueryExample bootstrap() {
+        return new MediaQueryExample();
+    }
+
+    @JsMethod
+    public void dispose() {
+        _removeButton.run();
+        _statusObserver.dispose();
+        _queryObserver.dispose();
+        Disposable.dispose(_query);
+    }
+
+    @JsMethod
+    public boolean isDisposed() {
+        return _statusObserver.isDisposed() && _queryObserver.isDisposed() && Disposable.isDisposed(_query);
+    }
 }

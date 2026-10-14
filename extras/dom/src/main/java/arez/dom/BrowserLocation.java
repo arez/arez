@@ -35,11 +35,11 @@ import jsinterop.annotations.JsType;
 public abstract class BrowserLocation {
     @JsFunction
     private interface HashChangeEventListener {
-        void handleEvent(HashChangeEvent event);
+        void handleEvent(Event event);
     }
 
-    @JsType(isNative = true, name = "HashChangeEvent", namespace = JsPackage.GLOBAL)
-    private static class HashChangeEvent {
+    @JsType(isNative = true, name = "Event", namespace = JsPackage.GLOBAL)
+    private static class Event {
         @JsMethod
         native void preventDefault();
     }
@@ -69,6 +69,15 @@ public abstract class BrowserLocation {
     private static class Document {
         @JsProperty(name = "title")
         native String title();
+    }
+
+    @JsType(isNative = true, name = "Window", namespace = JsPackage.GLOBAL)
+    private static class Window {
+        @JsMethod
+        native void addEventListener(String type, HashChangeEventListener listener, boolean capture);
+
+        @JsMethod
+        native void removeEventListener(String type, HashChangeEventListener listener, boolean capture);
     }
 
     private final HashChangeEventListener _listener = this::onHashChangeEvent;
@@ -167,12 +176,12 @@ public abstract class BrowserLocation {
 
     @OnActivate
     void onBrowserLocationActivate() {
-        addEventListener("hashchange", _listener, false);
+        window().addEventListener("hashchange", _listener, false);
     }
 
     @OnDeactivate
     void onBrowserLocationDeactivate() {
-        removeEventListener("hashchange", _listener, false);
+        window().removeEventListener("hashchange", _listener, false);
     }
 
     @ComputableValueRef
@@ -187,7 +196,7 @@ public abstract class BrowserLocation {
         }
     }
 
-    private void onHashChangeEvent(final HashChangeEvent e) {
+    private void onHashChangeEvent(final Event e) {
         if (_preventDefault) {
             e.preventDefault();
         }
@@ -195,7 +204,8 @@ public abstract class BrowserLocation {
     }
 
     private String getHash() {
-        return location().hash().substring(1);
+        final String hash = location().hash();
+        return hash.isEmpty() ? "" : hash.substring(1);
     }
 
     private void setHash(final String hash) {
@@ -211,11 +221,8 @@ public abstract class BrowserLocation {
         }
     }
 
-    @JsMethod(name = "addEventListener", namespace = JsPackage.GLOBAL)
-    private static native void addEventListener(String type, HashChangeEventListener listener, boolean capture);
-
-    @JsMethod(name = "removeEventListener", namespace = JsPackage.GLOBAL)
-    private static native void removeEventListener(String type, HashChangeEventListener listener, boolean capture);
+    @JsProperty(name = "window", namespace = JsPackage.GLOBAL)
+    private static native Window window();
 
     @JsProperty(name = "location", namespace = JsPackage.GLOBAL)
     private static native Location location();

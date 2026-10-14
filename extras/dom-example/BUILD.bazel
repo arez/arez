@@ -1,0 +1,202 @@
+load("@j2cl//build_defs:rules.bzl", "j2cl_library")
+load("@rules_closure//closure:defs.bzl", "closure_js_library")
+load("//third_party/java:rules.bzl", "java_library")
+load("//tools/browser:rules.bzl", "browser_application", "browser_test")
+load("//tools/release:release.bzl", "release_source_jar")
+
+package(default_visibility = ["//visibility:public"])
+
+java_library(
+    name = "common_java",
+    srcs = ["//extras/dom-example/src/main/java/arez/dom/example:common_java_sources"],
+    deps = ["//third_party/java:jsinterop_annotations"],
+)
+
+release_source_jar(
+    name = "common_sources",
+    out = "common-sources.jar",
+    java_targets = [":common_java"],
+)
+
+j2cl_library(
+    name = "common",
+    srcs = [":common_sources"],
+    experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
+    deps = [
+        "//third_party/java:jsinterop_annotations-j2cl",
+        "//third_party/java:jspecify-j2cl",
+    ],
+)
+
+java_library(
+    name = "java",
+    testonly = True,
+    exports = [
+        ":location_java",
+        ":media_java",
+        ":size_java",
+        "//tools/browser:test_support_java",
+    ],
+)
+
+java_library(
+    name = "location_java",
+    srcs = ["//extras/dom-example/src/main/java/arez/dom/example:location_java_sources"],
+    deps = [
+        ":common_java",
+        "//:core",
+        "//:dom",
+        "//third_party/java:jsinterop_annotations",
+    ],
+)
+
+release_source_jar(
+    name = "location_sources",
+    out = "location-sources.jar",
+    java_targets = [":location_java"],
+)
+
+j2cl_library(
+    name = "location",
+    srcs = [":location_sources"],
+    experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
+    deps = [
+        ":common",
+        "//:core-j2cl",
+        "//:dom-j2cl",
+        "//third_party/java:jsinterop_annotations-j2cl",
+        "//third_party/java:jspecify-j2cl",
+    ],
+)
+
+closure_js_library(
+    name = "location_entry",
+    srcs = ["src/main/js/location/entry.js"],
+    deps = [":location"],
+)
+
+browser_application(
+    name = "location_app",
+    entry_point = "arez.dom.example.BrowserLocationExampleEntry",
+    html = "//extras/dom-example/src/main/java/arez/dom/example:public/BrowserLocationExample.html",
+    deps = [":location_entry"],
+)
+
+browser_test(
+    name = "location_browser_test",
+    srcs = ["src/test/js/location_test.js"],
+    entry_point = "arez.dom.example.BrowserLocationExampleTest",
+    deps = [
+        ":location",
+        "//tools/browser:fixtures",
+        "//tools/browser:test_support",
+    ],
+)
+
+java_library(
+    name = "size_java",
+    srcs = ["//extras/dom-example/src/main/java/arez/dom/example:size_java_sources"],
+    deps = [
+        ":common_java",
+        "//:core",
+        "//:dom",
+        "//third_party/java:jsinterop_annotations",
+    ],
+)
+
+release_source_jar(
+    name = "size_sources",
+    out = "size-sources.jar",
+    java_targets = [":size_java"],
+)
+
+j2cl_library(
+    name = "size",
+    srcs = [":size_sources"],
+    experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
+    deps = [
+        ":common",
+        "//:core-j2cl",
+        "//:dom-j2cl",
+        "//third_party/java:jsinterop_annotations-j2cl",
+        "//third_party/java:jspecify-j2cl",
+    ],
+)
+
+closure_js_library(
+    name = "size_entry",
+    srcs = ["src/main/js/size/entry.js"],
+    deps = [":size"],
+)
+
+browser_application(
+    name = "size_app",
+    entry_point = "arez.dom.example.WindowSizeExampleEntry",
+    html = "//extras/dom-example/src/main/java/arez/dom/example:public/WindowSizeExample.html",
+    deps = [":size_entry"],
+)
+
+browser_test(
+    name = "size_browser_test",
+    srcs = ["src/test/js/size_test.js"],
+    entry_point = "arez.dom.example.WindowSizeExampleTest",
+    deps = [
+        ":size",
+        "//tools/browser:fixtures",
+        "//tools/browser:test_support",
+    ],
+)
+
+java_library(
+    name = "media_java",
+    srcs = ["//extras/dom-example/src/main/java/arez/dom/example:media_java_sources"],
+    deps = [
+        ":common_java",
+        "//:core",
+        "//:dom",
+        "//third_party/java:jsinterop_annotations",
+    ],
+)
+
+release_source_jar(
+    name = "media_sources",
+    out = "media-sources.jar",
+    java_targets = [":media_java"],
+)
+
+j2cl_library(
+    name = "media",
+    srcs = [":media_sources"],
+    experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
+    deps = [
+        ":common",
+        "//:core-j2cl",
+        "//:dom-j2cl",
+        "//third_party/java:jsinterop_annotations-j2cl",
+        "//third_party/java:jspecify-j2cl",
+    ],
+)
+
+closure_js_library(
+    name = "media_entry",
+    srcs = ["src/main/js/media/entry.js"],
+    deps = [":media"],
+)
+
+browser_application(
+    name = "media_app",
+    entry_point = "arez.dom.example.MediaQueryExampleEntry",
+    html = "//extras/dom-example/src/main/java/arez/dom/example:public/MediaQueryExample.html",
+    deps = [":media_entry"],
+)
+
+browser_test(
+    name = "media_browser_test",
+    srcs = ["src/test/js/media_test.js"],
+    entry_point = "arez.dom.example.MediaQueryExampleTest",
+    deps = [
+        ":media",
+        "//tools/browser:fixtures",
+        "//tools/browser:test_support",
+    ],
+)

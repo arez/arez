@@ -2,88 +2,76 @@ package arez.dom.example;
 
 import arez.Arez;
 import arez.ArezContext;
+import arez.Disposable;
 import arez.Observer;
 import arez.dom.BrowserLocation;
-import com.google.gwt.core.client.EntryPoint;
-import javax.annotation.Nonnull;
-import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsMethod;
-import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsProperty;
-import jsinterop.annotations.JsType;
+import org.jspecify.annotations.NullMarked;
 
-public class BrowserLocationExample implements EntryPoint {
-    @JsFunction
-    private interface EventListener {
-        void handleEvent(Object event);
-    }
+@NullMarked
+public final class BrowserLocationExample {
+    private final BrowserLocation _location = BrowserLocation.create();
+    private final Observer _cleanObserver;
+    private final Observer _printObserver;
+    private final Runnable _removeBase;
+    private final Runnable _removeSlash;
+    private final Runnable _removeEvent;
+    private final Runnable _removeOther;
 
-    @JsType(isNative = true, name = "Element", namespace = JsPackage.GLOBAL)
-    private static class Element {
-        @JsMethod
-        native void addEventListener(String type, EventListener listener);
-
-        @JsProperty
-        native void setTextContent(String text);
-    }
-
-    @JsType(isNative = true, name = "Document", namespace = JsPackage.GLOBAL)
-    private static class Document {
-        @JsMethod
-        native Element querySelector(String selector);
-    }
-
-    @JsType(isNative = true, name = "globalThis.console", namespace = JsPackage.GLOBAL)
-    private static final class NativeConsole {
-        @JsMethod
-        private static native void log(Object message);
-    }
-
-    @Override
-    public void onModuleLoad() {
-        final BrowserLocation browserLocation = BrowserLocation.create();
-
+    private BrowserLocationExample() {
         final ArezContext context = Arez.context();
-        context.observer(
-                () -> cleanLocation(browserLocation),
-                Observer.Flags.READ_WRITE | Observer.Flags.NESTED_ACTIONS_ALLOWED);
-        context.observer(() -> printBrowserLocation(browserLocation));
-
-        document().querySelector("#route_base").addEventListener("click", e -> browserLocation.changeLocation(""));
-        document().querySelector("#route_slash").addEventListener("click", e -> browserLocation.changeLocation("/"));
-        document()
-                .querySelector("#route_event")
-                .addEventListener("click", e -> browserLocation.changeLocation("/event"));
-        document()
-                .querySelector("#route_other")
-                .addEventListener("click", e -> browserLocation.changeLocation("/other"));
+        _cleanObserver = context.observer(
+                () -> cleanLocation(_location), Observer.Flags.READ_WRITE | Observer.Flags.NESTED_ACTIONS_ALLOWED);
+        _printObserver = context.observer(() -> printBrowserLocation(_location));
+        _removeBase = ExampleDom.listen("#route_base", "click", e -> _location.changeLocation(""));
+        _removeSlash = ExampleDom.listen("#route_slash", "click", e -> _location.changeLocation("/"));
+        _removeEvent = ExampleDom.listen("#route_event", "click", e -> _location.changeLocation("/event"));
+        _removeOther = ExampleDom.listen("#route_other", "click", e -> _location.changeLocation("/other"));
     }
 
-    private void cleanLocation(@Nonnull final BrowserLocation l) {
-        final String browserLocation = l.getBrowserLocation();
+    @JsMethod
+    public static BrowserLocationExample bootstrap() {
+        return new BrowserLocationExample();
+    }
+
+    @JsMethod
+    public void dispose() {
+        _removeBase.run();
+        _removeSlash.run();
+        _removeEvent.run();
+        _removeOther.run();
+        _cleanObserver.dispose();
+        _printObserver.dispose();
+        Disposable.dispose(_location);
+    }
+
+    @JsMethod
+    public boolean isDisposed() {
+        return _cleanObserver.isDisposed() && _printObserver.isDisposed() && Disposable.isDisposed(_location);
+    }
+
+    private static void cleanLocation(final BrowserLocation location) {
+        final String browserLocation = location.getBrowserLocation();
         if (isValid(browserLocation)) {
-            l.changeLocation(browserLocation);
-        } else if (isValid(l.getLocation())) {
-            l.resetBrowserLocation();
+            location.changeLocation(browserLocation);
+        } else if (isValid(location.getLocation())) {
+            location.resetBrowserLocation();
         } else {
-            l.changeLocation("");
+            location.changeLocation("");
         }
     }
 
-    private boolean isValid(@Nonnull final String location) {
+    private static boolean isValid(final String location) {
         return "/event".equals(location) || "/other".equals(location) || "/".equals(location) || "".equals(location);
     }
 
-    private void printBrowserLocation(@Nonnull final BrowserLocation browserLocation) {
-        emitLocation("#browser_location", "Browser Location: " + browserLocation.getBrowserLocation());
-        emitLocation("#app_location", "Application Location: " + browserLocation.getLocation());
+    private static void printBrowserLocation(final BrowserLocation location) {
+        emitLocation("#browser_location", "Browser Location: " + location.getBrowserLocation());
+        emitLocation("#app_location", "Application Location: " + location.getLocation());
     }
 
-    private void emitLocation(@Nonnull final String selector, @Nonnull final String message) {
-        document().querySelector(selector).setTextContent(message);
-        NativeConsole.log(message);
+    private static void emitLocation(final String selector, final String message) {
+        ExampleDom.element(selector).setTextContent(message);
+        ExampleDom.log(message);
     }
-
-    @JsProperty(name = "document", namespace = JsPackage.GLOBAL)
-    private static native Document document();
 }

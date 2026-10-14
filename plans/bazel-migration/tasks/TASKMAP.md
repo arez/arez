@@ -2,7 +2,7 @@
 
 - Spec: [SPEC.md](../SPEC.md)
 - Status: implementing
-- Current frontier: T21, T22, T23
+- Current frontier: T22, T23
 - Planning reviewer: /root/planning_reviewer (2/3 rounds; passed, Findings: none)
 - Plan checkpoint: human-review (approved)
 - Checkpoint basis: the user said "Proceed" after the reviewed spec/task map and
@@ -27,7 +27,7 @@
 - Artifact reproducibility: independent-output-base hash comparisons, including
   binary, source, Javadoc and POM outputs; cached reruns alone are insufficient.
 - Final evidence: pending
-- Current milestone: T20 promise preview works in both modes and its five deterministic Chromium cases pass under development and ADVANCED production settings. Browser inputs depend on strict Java 17 compilations. The basic DOM examples are next.
+- Current milestone: T21 location, size and media-query examples preview and pass development/ADVANCED tests, strict Java 17 source gates and disposal checks. The four-suite browser matrix and independently rebuilt 32 publication artifacts pass. The remaining controlled DOM examples are next.
 
 ## Tasks
 
@@ -53,7 +53,7 @@
 | T18 | [Expose and test packaged JVM consumer targets](T18-packaged-jvm-consumers.md) | complete | T17 |
 | T19 | [Compile public browser libraries from release sources](T19-packaged-j2cl-libraries.md) | complete | T18 |
 | T20 | [Run and test the promise J2CL example](T20-promise-browser-example.md) | complete | T19 |
-| T21 | [Run location, size and media-query examples](T21-dom-basic-examples.md) | pending | T20 |
+| T21 | [Run location, size and media-query examples](T21-dom-basic-examples.md) | complete | T20 |
 | T22 | [Run visibility, geolocation, idle and network examples](T22-dom-controlled-examples.md) | pending | T20 |
 | T23 | [Generate and preview the website with Java](T23-java-website.md) | pending | T17, T18 |
 | T24 | [Replace manual release and deployment commands](T24-release-orchestration.md) | pending | T18, T23 |

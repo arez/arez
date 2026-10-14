@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Handle an empty browser hash without taking an out-of-range substring and bind location listeners through `window`, so BrowserLocation initializes and compiles in optimized J2CL builds.
+
 * Resolve inherited generic Persist property and setter types in the concrete component context, including compiled bases, so generated converters and save/restore code use the substituted type.
 
 * Enforce the reference Error Prone policy and JSpecify-mode NullAway on runtime builds. Lookup callbacks and erased spy property access preserve their nullable results and inputs; assertions establish existing internal invariants.

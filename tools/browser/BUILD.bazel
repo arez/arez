@@ -13,6 +13,12 @@ closure_js_library(
     srcs = ["mode.js"],
 )
 
+closure_js_library(
+    name = "fixtures",
+    testonly = True,
+    srcs = ["fixtures.js"],
+)
+
 config_setting(
     name = "production",
     values = {"compilation_mode": "opt"},

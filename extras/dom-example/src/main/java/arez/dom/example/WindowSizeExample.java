@@ -1,42 +1,45 @@
 package arez.dom.example;
 
 import arez.Arez;
+import arez.Disposable;
+import arez.Observer;
 import arez.dom.Dimension;
 import arez.dom.EventDrivenValue;
 import arez.dom.WindowSize;
-import com.google.gwt.core.client.EntryPoint;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
-import jsinterop.annotations.JsType;
+import org.jspecify.annotations.NullMarked;
 
-public class WindowSizeExample implements EntryPoint {
-    @JsType(isNative = true, name = "Element", namespace = JsPackage.GLOBAL)
-    private static class Element {
-        @JsProperty
-        native void setTextContent(String text);
-    }
+@NullMarked
+public final class WindowSizeExample {
+    private final EventDrivenValue<WindowSize.Window, Dimension> _inner = WindowSize.inner(window());
+    private final Observer _observer;
 
-    @JsType(isNative = true, name = "Document", namespace = JsPackage.GLOBAL)
-    private static class Document {
-        @JsMethod
-        native Element querySelector(String selector);
-    }
-
-    public void onModuleLoad() {
-        final EventDrivenValue<WindowSize.Window, Dimension> inner = WindowSize.inner(window());
-
-        Arez.context().observer(() -> {
-            final Dimension dimension = inner.getValue();
-            document()
-                    .querySelector("#status")
+    private WindowSizeExample() {
+        _observer = Arez.context().observer(() -> {
+            final Dimension dimension = _inner.getValue();
+            ExampleDom.element("#status")
                     .setTextContent("Screen size: " + dimension.getWidth() + " x " + dimension.getHeight());
         });
     }
 
+    @JsMethod
+    public static WindowSizeExample bootstrap() {
+        return new WindowSizeExample();
+    }
+
+    @JsMethod
+    public void dispose() {
+        _observer.dispose();
+        Disposable.dispose(_inner);
+    }
+
+    @JsMethod
+    public boolean isDisposed() {
+        return _observer.isDisposed() && Disposable.isDisposed(_inner);
+    }
+
     @JsProperty(name = "window", namespace = JsPackage.GLOBAL)
     private static native WindowSize.Window window();
-
-    @JsProperty(name = "document", namespace = JsPackage.GLOBAL)
-    private static native Document document();
 }

@@ -1,0 +1,38 @@
+filegroup(
+    name = "common_java_sources",
+    srcs = ["ExampleDom.java"],
+    visibility = ["//extras/dom-example:__pkg__"],
+)
+
+filegroup(
+    name = "location_java_sources",
+    srcs = ["BrowserLocationExample.java"],
+    visibility = ["//extras/dom-example:__pkg__"],
+)
+
+exports_files(
+    ["public/BrowserLocationExample.html"],
+    visibility = ["//extras/dom-example:__pkg__"],
+)
+
+filegroup(
+    name = "size_java_sources",
+    srcs = ["WindowSizeExample.java"],
+    visibility = ["//extras/dom-example:__pkg__"],
+)
+
+exports_files(
+    ["public/WindowSizeExample.html"],
+    visibility = ["//extras/dom-example:__pkg__"],
+)
+
+filegroup(
+    name = "media_java_sources",
+    srcs = ["MediaQueryExample.java"],
+    visibility = ["//extras/dom-example:__pkg__"],
+)
+
+exports_files(
+    ["public/MediaQueryExample.html"],
+    visibility = ["//extras/dom-example:__pkg__"],
+)

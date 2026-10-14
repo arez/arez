@@ -13,6 +13,48 @@
       "mnemonic": "TestRunner",
       "target": "//extras/promise-example:browser_test",
       "path": "/gen_html_browser_test.html"
+    },
+    {
+      "reason": "Chromium needs its native process launcher outside Bazel's sandbox; compilation remains sandboxed",
+      "kind": "execution_requirement",
+      "mnemonic": "TestRunner",
+      "target": "//extras/dom-example:location_browser_test",
+      "requirement": "no-sandbox"
+    },
+    {
+      "reason": "The runner argument is a root-relative HTTP path served from declared runfiles",
+      "kind": "absolute_path",
+      "mnemonic": "TestRunner",
+      "target": "//extras/dom-example:location_browser_test",
+      "path": "/gen_html_location_browser_test.html"
+    },
+    {
+      "reason": "Chromium needs its native process launcher outside Bazel's sandbox; compilation remains sandboxed",
+      "kind": "execution_requirement",
+      "mnemonic": "TestRunner",
+      "target": "//extras/dom-example:size_browser_test",
+      "requirement": "no-sandbox"
+    },
+    {
+      "reason": "The runner argument is a root-relative HTTP path served from declared runfiles",
+      "kind": "absolute_path",
+      "mnemonic": "TestRunner",
+      "target": "//extras/dom-example:size_browser_test",
+      "path": "/gen_html_size_browser_test.html"
+    },
+    {
+      "reason": "Chromium needs its native process launcher outside Bazel's sandbox; compilation remains sandboxed",
+      "kind": "execution_requirement",
+      "mnemonic": "TestRunner",
+      "target": "//extras/dom-example:media_browser_test",
+      "requirement": "no-sandbox"
+    },
+    {
+      "reason": "The runner argument is a root-relative HTTP path served from declared runfiles",
+      "kind": "absolute_path",
+      "mnemonic": "TestRunner",
+      "target": "//extras/dom-example:media_browser_test",
+      "path": "/gen_html_media_browser_test.html"
     }
   ]
 }

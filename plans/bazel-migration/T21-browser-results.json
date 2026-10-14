@@ -1,0 +1,38 @@
+{
+  "location": {
+    "development": "4 of 4 tests run in 32 ms.\n4 passed, 0 failed.",
+    "production": "4 of 4 tests run in 9 ms.\n4 passed, 0 failed.",
+    "preview": {
+      "command": "python3 tools/browser/preview.py //extras/dom-example:location_app --port 0",
+      "observed": "Browser Location: ; Application Location: ; all four route buttons present",
+      "console_errors": 0,
+      "console_warnings": 0
+    }
+  },
+  "size": {
+    "development": "2 of 2 tests run in 18 ms.\n2 passed, 0 failed.",
+    "production": "2 of 2 tests run in 4 ms.\n2 passed, 0 failed.",
+    "preview": {
+      "command": "python3 tools/browser/preview.py //extras/dom-example:size_app --port 0",
+      "observed": "Screen size: 1280 x 720",
+      "console_errors": 0,
+      "console_warnings": 0
+    }
+  },
+  "media": {
+    "development": "3 of 3 tests run in 22 ms.\n3 passed, 0 failed.",
+    "production": "3 of 3 tests run in 5 ms.\n3 passed, 0 failed.",
+    "preview": {
+      "command": "python3 tools/browser/preview.py //extras/dom-example:media_app --port 0",
+      "observed": "Screen size: Wide; Change Query from (max-width: 600px)",
+      "console_errors": 0,
+      "console_warnings": 0
+    }
+  },
+  "inventory": [
+    "//extras/dom-example:location_browser_test",
+    "//extras/dom-example:media_browser_test",
+    "//extras/dom-example:size_browser_test",
+    "//extras/promise-example:browser_test"
+  ]
+}
