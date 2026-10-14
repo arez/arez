@@ -1,0 +1,12 @@
+package(default_visibility = ["//core:__subpackages__"])
+
+filegroup(
+    name = "sources",
+    srcs = [
+        "AbstractRepository.java",
+        "CollectionsUtil.java",
+        "ComponentKernel.java",
+        "MemoizeCache.java",
+        "package-info.java",
+    ],
+)

@@ -1,0 +1,29 @@
+# DO NOT EDIT GENERATED BUILD CONTENT: run tools/update_java_deps.sh after editing this file.
+repositories:
+  - name: central
+    url: https://repo.maven.apache.org/maven2
+options:
+  workspaceDirectory: ../..
+  nameStrategy: ArtifactId
+  repositoryNameStrategy: ArtifactId
+  repositoryRuleGenerationStrategy: module
+  targetGenerationStrategy: build
+  targetRuleLoadSymbols:
+    java_test: false
+  failOnMissingPom: false
+artifacts:
+  - coord: org.realityforge.braincheck:braincheck-core:1.35.0
+  - coord: org.realityforge.braincheck:braincheck-testng:1.35.0
+  - coord: org.realityforge.grim:grim-annotations:0.09
+  - coord: org.realityforge.grim:grim-processor:0.09
+  - coord: org.realityforge.javax.annotation:javax.annotation:1.1.1
+  - coord: org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0
+  - coord: com.google.jsinterop:jsinterop-annotations:2.0.0
+  - coord: org.jspecify:jspecify:1.0.0
+  - coord: org.realityforge.guiceyloops:guiceyloops:0.113
+    # Only the JDK-only shared.ValueUtil is used; omit embedded server/test stacks.
+    excludes:
+      - "*:*"
+  - coord: org.glassfish:javax.json:1.1
+  - coord: org.testng:testng:7.10.2
+  - coord: guru.nidi:jdepend:2.9.5

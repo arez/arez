@@ -1,0 +1,292 @@
+module(name = "arez")
+
+bazel_dep(name = "rules_java", version = "9.9.0")
+single_version_override(
+    module_name = "rules_java",
+    patch_strip = 1,
+    patches = ["//third_party/bazel/patches:rules_java_exclude_build_data.patch"],
+    version = "9.9.0",
+)
+
+bazel_dep(name = "buildifier_prebuilt", version = "10.0.1", dev_dependency = True)
+
+# --- depgen-generated repository rules start ---
+
+# DO NOT EDIT: Content is auto-generated from //third_party/java:dependencies.yml by https://github.com/realityforge/bazel-depgen version 0.26
+
+_http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+_http_file(
+    name = "jcommander",
+    downloaded_file_path = "com/beust/jcommander/1.82/jcommander-1.82.jar",
+    sha256 = "deeac157c8de6822878d85d0c7bc8467a19cc8484d37788f7804f039dde280b1",
+    urls = ["https://repo.maven.apache.org/maven2/com/beust/jcommander/1.82/jcommander-1.82.jar"],
+)
+
+_http_file(
+    name = "jcommander__sources",
+    downloaded_file_path = "com/beust/jcommander/1.82/jcommander-1.82-sources.jar",
+    sha256 = "cc39d22f3cf29c2033fb526e5600ae8fec36e316274b0c07fa14c1a4a38eca3b",
+    urls = ["https://repo.maven.apache.org/maven2/com/beust/jcommander/1.82/jcommander-1.82-sources.jar"],
+)
+
+_http_file(
+    name = "guice",
+    downloaded_file_path = "com/google/inject/guice/5.1.0/guice-5.1.0.jar",
+    sha256 = "4130e50bfac48099c860f0d903b91860c81a249c90f38245f8fed58fc817bc26",
+    urls = ["https://repo.maven.apache.org/maven2/com/google/inject/guice/5.1.0/guice-5.1.0.jar"],
+)
+
+_http_file(
+    name = "guice__sources",
+    downloaded_file_path = "com/google/inject/guice/5.1.0/guice-5.1.0-sources.jar",
+    sha256 = "79484227656350f8ea315198ed2ebdc8583e7ba42ecd90d367d66a7e491de52e",
+    urls = ["https://repo.maven.apache.org/maven2/com/google/inject/guice/5.1.0/guice-5.1.0-sources.jar"],
+)
+
+_http_file(
+    name = "jsinterop_annotations",
+    downloaded_file_path = "com/google/jsinterop/jsinterop-annotations/2.0.0/jsinterop-annotations-2.0.0.jar",
+    sha256 = "ce01f48439240e46521b99cc4c889dcb6793f7a0b0a3e238a38359093f457b49",
+    urls = ["https://repo.maven.apache.org/maven2/com/google/jsinterop/jsinterop-annotations/2.0.0/jsinterop-annotations-2.0.0.jar"],
+)
+
+_http_file(
+    name = "jsinterop_annotations__sources",
+    downloaded_file_path = "com/google/jsinterop/jsinterop-annotations/2.0.0/jsinterop-annotations-2.0.0-sources.jar",
+    sha256 = "27fd725393e1129dc9ca7c3712cb7ae9716ac613e82b00753139aa4b2325a67b",
+    urls = ["https://repo.maven.apache.org/maven2/com/google/jsinterop/jsinterop-annotations/2.0.0/jsinterop-annotations-2.0.0-sources.jar"],
+)
+
+_http_file(
+    name = "jdepend",
+    downloaded_file_path = "guru/nidi/jdepend/2.9.5/jdepend-2.9.5.jar",
+    sha256 = "d84be387b62501eb9505cf2517500d76c20cf76f11feace1f3ef109773c6707a",
+    urls = ["https://repo.maven.apache.org/maven2/guru/nidi/jdepend/2.9.5/jdepend-2.9.5.jar"],
+)
+
+_http_file(
+    name = "jdepend__sources",
+    downloaded_file_path = "guru/nidi/jdepend/2.9.5/jdepend-2.9.5-sources.jar",
+    sha256 = "3eaa6a67fd885d82de842b355dc0fdbeff2e9383e3e639d92ece1a4a3a6b501f",
+    urls = ["https://repo.maven.apache.org/maven2/guru/nidi/jdepend/2.9.5/jdepend-2.9.5-sources.jar"],
+)
+
+_http_file(
+    name = "javax_json_api",
+    downloaded_file_path = "javax/json/javax.json-api/1.1/javax.json-api-1.1.jar",
+    sha256 = "208746be8ab088e6c4b17e8ecdb07ff7a6f7e62bb2b88bb09b993335ea17c615",
+    urls = ["https://repo.maven.apache.org/maven2/javax/json/javax.json-api/1.1/javax.json-api-1.1.jar"],
+)
+
+_http_file(
+    name = "javax_json_api__sources",
+    downloaded_file_path = "javax/json/javax.json-api/1.1/javax.json-api-1.1-sources.jar",
+    sha256 = "e510cc6b5982d373ef329eec7af3e4cde958909f99dc49812ce895227988ad2a",
+    urls = ["https://repo.maven.apache.org/maven2/javax/json/javax.json-api/1.1/javax.json-api-1.1-sources.jar"],
+)
+
+_http_file(
+    name = "javax_json",
+    downloaded_file_path = "org/glassfish/javax.json/1.1/javax.json-1.1.jar",
+    sha256 = "4b1f21bc50b728aaae5f44ff550383182b58b67647362959e31004e4522ee24f",
+    urls = ["https://repo.maven.apache.org/maven2/org/glassfish/javax.json/1.1/javax.json-1.1.jar"],
+)
+
+_http_file(
+    name = "javax_json__sources",
+    downloaded_file_path = "org/glassfish/javax.json/1.1/javax.json-1.1-sources.jar",
+    sha256 = "2766ebfa95ca7499149d480d2c475874e2c573109a145d6f93b4495187d7469c",
+    urls = ["https://repo.maven.apache.org/maven2/org/glassfish/javax.json/1.1/javax.json-1.1-sources.jar"],
+)
+
+_http_file(
+    name = "hamcrest_core",
+    downloaded_file_path = "org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar",
+    sha256 = "66fdef91e9739348df7a096aa384a5685f4e875584cce89386a7a47251c4d8e9",
+    urls = ["https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"],
+)
+
+_http_file(
+    name = "hamcrest_core__sources",
+    downloaded_file_path = "org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3-sources.jar",
+    sha256 = "e223d2d8fbafd66057a8848cc94222d63c3cedd652cc48eddc0ab5c39c0f84df",
+    urls = ["https://repo.maven.apache.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3-sources.jar"],
+)
+
+_http_file(
+    name = "jspecify",
+    downloaded_file_path = "org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar",
+    sha256 = "1fad6e6be7557781e4d33729d49ae1cdc8fdda6fe477bb0cc68ce351eafdfbab",
+    urls = ["https://repo.maven.apache.org/maven2/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar"],
+)
+
+_http_file(
+    name = "jspecify__sources",
+    downloaded_file_path = "org/jspecify/jspecify/1.0.0/jspecify-1.0.0-sources.jar",
+    sha256 = "adf0898191d55937fb3192ba971826f4f294292c4a960740f3c27310e7b70296",
+    urls = ["https://repo.maven.apache.org/maven2/org/jspecify/jspecify/1.0.0/jspecify-1.0.0-sources.jar"],
+)
+
+_http_file(
+    name = "bazel_depgen",
+    downloaded_file_path = "org/realityforge/bazel/depgen/bazel-depgen/0.26/bazel-depgen-0.26-all.jar",
+    sha256 = "217987b5d60162bf6afe78a838b64818abef511852e39b094824e0b01a9bbd8c",
+    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/bazel/depgen/bazel-depgen/0.26/bazel-depgen-0.26-all.jar"],
+)
+
+_http_file(
+    name = "braincheck_core",
+    downloaded_file_path = "org/realityforge/braincheck/braincheck-core/1.35.0/braincheck-core-1.35.0.jar",
+    sha256 = "6d37351d8be23c2dd5b0c06a75cf6d1eaf70a8cad9300ce4bcf2d2d92de74b94",
+    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/braincheck/braincheck-core/1.35.0/braincheck-core-1.35.0.jar"],
+)
+
+_http_file(
+    name = "braincheck_core__sources",
+    downloaded_file_path = "org/realityforge/braincheck/braincheck-core/1.35.0/braincheck-core-1.35.0-sources.jar",
+    sha256 = "2111c57c8b83e4e0e75dfe6f00b13dedd7c8484a91f8331fbd00c657cc9ed9d2",
+    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/braincheck/braincheck-core/1.35.0/braincheck-core-1.35.0-sources.jar"],
+)
+
+_http_file(
+    name = "braincheck_testng",
+    downloaded_file_path = "org/realityforge/braincheck/braincheck-testng/1.35.0/braincheck-testng-1.35.0.jar",
+    sha256 = "927179a7588ab3c5f9411e4dd6f6cd98efba5177cd0c0e1489cb633f9145bbb2",
+    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/braincheck/braincheck-testng/1.35.0/braincheck-testng-1.35.0.jar"],
+)
+
+_http_file(
+    name = "braincheck_testng__sources",
+    downloaded_file_path = "org/realityforge/braincheck/braincheck-testng/1.35.0/braincheck-testng-1.35.0-sources.jar",
+    sha256 = "ec75ee71c935a231ac6c20a23eb28485b2e864e45cd9582facab62aa89d32172",
+    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/braincheck/braincheck-testng/1.35.0/braincheck-testng-1.35.0-sources.jar"],
+)
+
+_http_file(
+    name = "grim_annotations",
+    downloaded_file_path = "org/realityforge/grim/grim-annotations/0.09/grim-annotations-0.09.jar",
+    sha256 = "b1968ada2e5693cf513627510d271d8f6e21e4a69dd381c747a0ecafbbbe8c7c",
+    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/grim/grim-annotations/0.09/grim-annotations-0.09.jar"],
+)
+
+_http_file(
+    name = "grim_annotations__sources",
+    downloaded_file_path = "org/realityforge/grim/grim-annotations/0.09/grim-annotations-0.09-sources.jar",
+    sha256 = "5d43534f24e17981dc2249f90e31ca65be44f8884b978602f43f0e26783cb956",
+    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/grim/grim-annotations/0.09/grim-annotations-0.09-sources.jar"],
+)
+
+_http_file(
+    name = "grim_processor",
+    downloaded_file_path = "org/realityforge/grim/grim-processor/0.09/grim-processor-0.09.jar",
+    sha256 = "3afa824af7dadb4e57d575c019b1069429ffd1dd45af0f34389a01f5b2de386c",
+    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/grim/grim-processor/0.09/grim-processor-0.09.jar"],
+)
+
+_http_file(
+    name = "grim_processor__sources",
+    downloaded_file_path = "org/realityforge/grim/grim-processor/0.09/grim-processor-0.09-sources.jar",
+    sha256 = "20a3596daf2d1ccaf64560dd88c937db3125d66e32b256609b40305db31acfc1",
+    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/grim/grim-processor/0.09/grim-processor-0.09-sources.jar"],
+)
+
+_http_file(
+    name = "guiceyloops",
+    downloaded_file_path = "org/realityforge/guiceyloops/guiceyloops/0.113/guiceyloops-0.113.jar",
+    sha256 = "b9695819ca72148ba3622949f767575c9d25be2188ca3824ffbf9292f76d6692",
+    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/guiceyloops/guiceyloops/0.113/guiceyloops-0.113.jar"],
+)
+
+_http_file(
+    name = "guiceyloops__sources",
+    downloaded_file_path = "org/realityforge/guiceyloops/guiceyloops/0.113/guiceyloops-0.113-sources.jar",
+    sha256 = "1c257bf3eb0e4e2c4cd6351338e49233a1270a707650529f0cde179e0033e74f",
+    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/guiceyloops/guiceyloops/0.113/guiceyloops-0.113-sources.jar"],
+)
+
+_http_file(
+    name = "javax_annotation",
+    downloaded_file_path = "org/realityforge/javax/annotation/javax.annotation/1.1.1/javax.annotation-1.1.1.jar",
+    sha256 = "147d086711cd48670097ac626bfe1ed137786144c2a2c46b2aa1bb7292adc77b",
+    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/javax/annotation/javax.annotation/1.1.1/javax.annotation-1.1.1.jar"],
+)
+
+_http_file(
+    name = "javax_annotation__sources",
+    downloaded_file_path = "org/realityforge/javax/annotation/javax.annotation/1.1.1/javax.annotation-1.1.1-sources.jar",
+    sha256 = "1c1af94b554daa452a2b2bc8c3df1dd0d847bb4f20b9ec5cc9c7a1d41e03c39e",
+    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/javax/annotation/javax.annotation/1.1.1/javax.annotation-1.1.1-sources.jar"],
+)
+
+_http_file(
+    name = "org_jetbrains_annotations",
+    downloaded_file_path = "org/realityforge/org/jetbrains/annotations/org.jetbrains.annotations/1.7.0/org.jetbrains.annotations-1.7.0.jar",
+    sha256 = "b08893fbc83611432a8b5e692be6d513a7cad94d83d328d9deec5265917a7f81",
+    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/org/jetbrains/annotations/org.jetbrains.annotations/1.7.0/org.jetbrains.annotations-1.7.0.jar"],
+)
+
+_http_file(
+    name = "org_jetbrains_annotations__sources",
+    downloaded_file_path = "org/realityforge/org/jetbrains/annotations/org.jetbrains.annotations/1.7.0/org.jetbrains.annotations-1.7.0-sources.jar",
+    sha256 = "51b7fe38ce0c21d53eb236f911d109923459c5625c6e62a4d02b95c71bfaec22",
+    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/org/jetbrains/annotations/org.jetbrains.annotations/1.7.0/org.jetbrains.annotations-1.7.0-sources.jar"],
+)
+
+_http_file(
+    name = "slf4j_api",
+    downloaded_file_path = "org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar",
+    sha256 = "d3ef575e3e4979678dc01bf1dcce51021493b4d11fb7f1be8ad982877c16a1c0",
+    urls = ["https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar"],
+)
+
+_http_file(
+    name = "slf4j_api__sources",
+    downloaded_file_path = "org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36-sources.jar",
+    sha256 = "15bc04357a3725b7a5153f132db71379f95e83b7b8590a86cc6d4ad77bfc150a",
+    urls = ["https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36-sources.jar"],
+)
+
+_http_file(
+    name = "testng",
+    downloaded_file_path = "org/testng/testng/7.10.2/testng-7.10.2.jar",
+    sha256 = "225fd56447f2e5e439db3b483a79cd9f294fad9f357f8352b12ee6a3411ebb15",
+    urls = ["https://repo.maven.apache.org/maven2/org/testng/testng/7.10.2/testng-7.10.2.jar"],
+)
+
+_http_file(
+    name = "testng__sources",
+    downloaded_file_path = "org/testng/testng/7.10.2/testng-7.10.2-sources.jar",
+    sha256 = "9cf959063f8403144d0606c36884adfe97e57129caac92aec8bbe4d9cb618bc3",
+    urls = ["https://repo.maven.apache.org/maven2/org/testng/testng/7.10.2/testng-7.10.2-sources.jar"],
+)
+
+_http_file(
+    name = "jquery",
+    downloaded_file_path = "org/webjars/jquery/3.7.1/jquery-3.7.1.jar",
+    sha256 = "262016dd3a559df87aefbe392804e9bf620787c9204c0ab8522d4c231ea65097",
+    urls = ["https://repo.maven.apache.org/maven2/org/webjars/jquery/3.7.1/jquery-3.7.1.jar"],
+)
+
+_http_file(
+    name = "jquery__sources",
+    downloaded_file_path = "org/webjars/jquery/3.7.1/jquery-3.7.1-sources.jar",
+    sha256 = "2592cd2978413c51f53b3a915fe8cad1d017250afcb54223a3a56485e084c845",
+    urls = ["https://repo.maven.apache.org/maven2/org/webjars/jquery/3.7.1/jquery-3.7.1-sources.jar"],
+)
+
+_http_file(
+    name = "snakeyaml",
+    downloaded_file_path = "org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar",
+    sha256 = "1467931448a0817696ae2805b7b8b20bfb082652bf9c4efaed528930dc49389b",
+    urls = ["https://repo.maven.apache.org/maven2/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar"],
+)
+
+_http_file(
+    name = "snakeyaml__sources",
+    downloaded_file_path = "org/yaml/snakeyaml/2.2/snakeyaml-2.2-sources.jar",
+    sha256 = "8f7cf911cf63db55fd980a926d155bd846317737351a2f48ef1c1088c414538a",
+    urls = ["https://repo.maven.apache.org/maven2/org/yaml/snakeyaml/2.2/snakeyaml-2.2-sources.jar"],
+)
+
+# --- depgen-generated repository rules end ---

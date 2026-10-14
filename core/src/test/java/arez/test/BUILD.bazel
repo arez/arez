@@ -1,0 +1,12 @@
+package(default_visibility = ["//core:__subpackages__"])
+
+filegroup(
+    name = "sources",
+    srcs = [
+        "ComputableValueApiTest.java",
+        "ExternalApiTest.java",
+        "JDependTest.java",
+        "ObserverApiTest.java",
+        "TaskApiTest.java",
+    ],
+)

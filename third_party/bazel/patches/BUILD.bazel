@@ -1,0 +1,1 @@
+exports_files(["rules_java_exclude_build_data.patch"])

@@ -18,3 +18,7 @@
 /website/node_modules
 /website/i18n
 /website/static/api
+/bazel-*
+/.bazelrc.local
+/dist
+/.bazelbsp

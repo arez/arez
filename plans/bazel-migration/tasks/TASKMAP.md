@@ -1,15 +1,15 @@
 # Task Map
 
 - Spec: [SPEC.md](../SPEC.md)
-- Status: planned
-- Current frontier: T01
+- Status: implementing
+- Current frontier: T02
 - Planning reviewer: /root/planning_reviewer (2/3 rounds; passed, Findings: none)
 - Plan checkpoint: human-review (approved)
 - Checkpoint basis: the user said "Proceed" after the reviewed spec/task map and
   explicit plan-approval request on 2026-10-14. Planning review passed in two rounds.
 - Implementation reviewer: pending (0/5 rounds)
 - Active tree: plans/bazel-migration
-- Plan commit: initial approved-plan snapshot (this commit; hash recorded at T01)
+- Plan commit: 3ce61e840aeb6d9fd6cc15dd193a201736a499ed
 - Author preflight: passed — exact tree/link/acyclic graph and non-final-task
   R/AC coverage validator passed; task boundaries, staged failure accounting,
   release-source consumer sequencing, confirmed decisions and full-gate ownership
@@ -27,13 +27,13 @@
 - Artifact reproducibility: independent-output-base hash comparisons, including
   binary, source, Javadoc and POM outputs; cached reruns alone are insufficient.
 - Final evidence: pending
-- Current milestone: plan only; no implementation/build/test claims.
+- Current milestone: T01 core build/test parity passed; remaining delivery tasks pending.
 
 ## Tasks
 
 | ID | Task | Status | Blocked by |
 | --- | --- | --- | --- |
-| T01 | [Build and test core with Bazel](T01-bazel-core.md) | pending | None |
+| T01 | [Build and test core with Bazel](T01-bazel-core.md) | complete | None |
 | T02 | [Run Arez processor regressions through Bazel](T02-processor-parity.md) | pending | T01 |
 | T03 | [Compile generated integrations and documentation examples](T03-integration-doc-parity.md) | pending | T02 |
 | T04 | [Build extras and run their JVM tests](T04-extras-parity.md) | pending | T03 |

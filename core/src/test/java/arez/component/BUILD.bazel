@@ -1,0 +1,14 @@
+package(default_visibility = ["//core:__subpackages__"])
+
+filegroup(
+    name = "sources",
+    srcs = [
+        "ComponentObservableTest.java",
+        "DisposeNotifierTest.java",
+        "IdentifiableTest.java",
+        "LinkableTest.java",
+        "NoSuchEntityExceptionTest.java",
+        "TypeBasedLocatorTest.java",
+        "VerifiableTest.java",
+    ],
+)
