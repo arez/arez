@@ -1,8 +1,7 @@
 package arez.spy;
 
 import java.util.Map;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Notification when a reaction cycle completes.
@@ -29,7 +28,7 @@ public final class ReactionCycleCompleteEvent implements SerializableEvent {
     }
 
     @Override
-    public void toMap(@Nonnull final Map<String, Object> map) {
+    public void toMap(final Map<String, @Nullable Object> map) {
         map.put("type", "ReactionCycleComplete");
         map.put("duration", getDuration());
         final Throwable throwable = getThrowable();

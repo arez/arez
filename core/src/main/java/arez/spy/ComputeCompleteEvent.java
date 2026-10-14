@@ -2,14 +2,13 @@ package arez.spy;
 
 import java.util.Map;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Notification when Computation completes.
  */
 public final class ComputeCompleteEvent implements SerializableEvent {
-    @Nonnull
+
     private final ComputableValueInfo _computableValue;
 
     @Nullable
@@ -21,7 +20,7 @@ public final class ComputeCompleteEvent implements SerializableEvent {
     private final int _duration;
 
     public ComputeCompleteEvent(
-            @Nonnull final ComputableValueInfo computableValue,
+            final ComputableValueInfo computableValue,
             @Nullable final Object result,
             @Nullable final Throwable throwable,
             final int duration) {
@@ -33,7 +32,6 @@ public final class ComputeCompleteEvent implements SerializableEvent {
         _duration = duration;
     }
 
-    @Nonnull
     public ComputableValueInfo getComputableValue() {
         return _computableValue;
     }
@@ -53,7 +51,7 @@ public final class ComputeCompleteEvent implements SerializableEvent {
     }
 
     @Override
-    public void toMap(@Nonnull final Map<String, Object> map) {
+    public void toMap(final Map<String, @Nullable Object> map) {
         map.put("type", "ComputeComplete");
         map.put("name", getComputableValue().getName());
         map.put("duration", getDuration());

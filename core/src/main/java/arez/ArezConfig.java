@@ -1,7 +1,6 @@
 package arez;
 
 import grim.annotations.OmitType;
-import javax.annotation.Nonnull;
 
 /**
  * Location of all compile time configuration settings for framework.
@@ -9,7 +8,7 @@ import javax.annotation.Nonnull;
 @SuppressWarnings("FieldMayBeFinal")
 @OmitType
 final class ArezConfig {
-    @Nonnull
+
     private static final ConfigProvider PROVIDER = new ConfigProvider();
 
     private static final boolean PRODUCTION_ENVIRONMENT = PROVIDER.isProductionEnvironment();
@@ -30,7 +29,6 @@ final class ArezConfig {
     private static boolean CHECK_EXPENSIVE_INVARIANTS = PROVIDER.checkExpensiveInvariants();
     private static boolean CHECK_API_INVARIANTS = PROVIDER.checkApiInvariants();
 
-    @Nonnull
     private static final String LOGGER_TYPE = PROVIDER.loggerType();
 
     private ArezConfig() {}
@@ -171,7 +169,6 @@ final class ArezConfig {
         CHECK_API_INVARIANTS = checkApiInvariants;
     }
 
-    @Nonnull
     static String loggerType() {
         return LOGGER_TYPE;
     }
@@ -296,7 +293,6 @@ final class ArezConfig {
 
         @GwtIncompatible
         @Override
-        @Nonnull
         String loggerType() {
             return System.getProperty("arez.logger", isProductionEnvironment() ? "basic" : "proxy");
         }
@@ -372,7 +368,6 @@ final class ArezConfig {
             return "true" == System.getProperty("arez.check_api_invariants");
         }
 
-        @Nonnull
         String loggerType() {
             /*
              * Valid values are: "none", "console" and "proxy" (for testing)

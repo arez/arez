@@ -3,7 +3,6 @@ package arez.annotations;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import javax.annotation.Nonnull;
 
 /**
  * Identifies a method that will be invoked after an inverse reference is added to a component.
@@ -49,6 +48,5 @@ public @interface PostInverseAdd {
      *
      * @return the name of the Inverse.
      */
-    @Nonnull
     String name() default "<default>";
 }

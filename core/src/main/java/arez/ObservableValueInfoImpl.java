@@ -14,33 +14,28 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A implementation of {@link ObservableValueInfo} that proxies to a {@link ObservableValue}.
  */
 @OmitType(unless = "arez.enable_spies")
 final class ObservableValueInfoImpl implements ObservableValueInfo {
-    @Nonnull
+
     private final ObservableValue<?> _observableValue;
 
-    ObservableValueInfoImpl(@Nonnull final ObservableValue<?> observableValue) {
+    ObservableValueInfoImpl(final ObservableValue<?> observableValue) {
         _observableValue = Objects.requireNonNull(observableValue);
     }
 
-    @Nonnull
-    private static List<ObservableValueInfo> asInfos(@Nonnull final Collection<ObservableValue<?>> observableValues) {
+    private static List<ObservableValueInfo> asInfos(final Collection<ObservableValue<?>> observableValues) {
         return observableValues.stream().map(ObservableValue::asInfo).collect(Collectors.toList());
     }
 
-    @Nonnull
-    static List<ObservableValueInfo> asUnmodifiableInfos(
-            @Nonnull final Collection<ObservableValue<?>> observableValues) {
+    static List<ObservableValueInfo> asUnmodifiableInfos(final Collection<ObservableValue<?>> observableValues) {
         return Collections.unmodifiableList(asInfos(observableValues));
     }
 
-    @Nonnull
     @Override
     public String getName() {
         return _observableValue.getName();
@@ -56,7 +51,6 @@ final class ObservableValueInfoImpl implements ObservableValueInfo {
         return _observableValue.getObserver().getComputableValue().asInfo();
     }
 
-    @Nonnull
     @Override
     public List<ObserverInfo> getObservers() {
         return ObserverInfoImpl.asUnmodifiableInfos(

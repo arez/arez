@@ -32,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -358,7 +357,7 @@ public final class ArezContextTest extends AbstractTest {
     }
 
     @SuppressWarnings("SameParameterValue")
-    private static void assertHookOrder(@Nonnull final HookMap hooks, @Nonnull final String expected) {
+    private static void assertHookOrder(final HookMap hooks, final String expected) {
         final StringBuilder sb = new StringBuilder();
         for (int i = 0; i < hooks.size(); i++) {
             if (0 != i) {
@@ -2643,7 +2642,7 @@ public final class ArezContextTest extends AbstractTest {
         handler.assertNextEvent(ReactionCycleCompleteEvent.class);
     }
 
-    private void assertObserverReaction(@Nonnull final TestSpyEventHandler handler, @Nonnull final String name) {
+    private void assertObserverReaction(final TestSpyEventHandler handler, final String name) {
         handler.assertNextEvent(
                 ObserveStartEvent.class, e -> assertEquals(e.getObserver().getName(), name));
         handler.assertNextEvent(ActionStartEvent.class, e -> assertEquals(e.getName(), name));

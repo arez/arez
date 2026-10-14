@@ -8,8 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A queue of "pending" or "scheduled" tasks that supports priority based queuing of tasks.
@@ -18,7 +17,6 @@ final class TaskQueue {
     /**
      * A buffer per priority containing tasks that have been scheduled but are not executing.
      */
-    @Nonnull
     private final CircularBuffer<Task>[] _buffers;
 
     /**
@@ -81,7 +79,7 @@ final class TaskQueue {
      *
      * @param task the task.
      */
-    void queueTask(@Nonnull final Task task) {
+    void queueTask(final Task task) {
         queueTask(task.getPriorityIndex(), task);
     }
 
@@ -92,7 +90,7 @@ final class TaskQueue {
      * @param priority the task priority.
      * @param task     the task.
      */
-    void queueTask(final int priority, @Nonnull final Task task) {
+    void queueTask(final int priority, final Task task) {
         if (Arez.shouldCheckInvariants()) {
             invariant(
                     () -> Arrays.stream(_buffers).noneMatch(b -> b.contains(task)),
@@ -133,7 +131,6 @@ final class TaskQueue {
      *
      * @return tasks removed from the queue.
      */
-    @Nonnull
     Collection<Task> clear() {
         final List<Task> tasks = new ArrayList<>();
         //noinspection ForLoopReplaceableByForEach
@@ -155,13 +152,11 @@ final class TaskQueue {
      *
      * @return a stream containing tasks ordered as they would be executed.
      */
-    @Nonnull
     Stream<Task> getOrderedTasks() {
         assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
         return Stream.of(_buffers).flatMap(CircularBuffer::stream);
     }
 
-    @Nonnull
     CircularBuffer<Task> getBufferByPriority(final int priority) {
         return _buffers[priority];
     }

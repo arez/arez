@@ -4,7 +4,6 @@ import arez.ObservableValue;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import javax.annotation.Nonnull;
 
 /**
  * Marks a template method that returns the {@link ObservableValue} instance for
@@ -49,6 +48,5 @@ public @interface ObservableValueRef {
      *
      * @return the name of the associated ObservableValue.
      */
-    @Nonnull
     String name() default "<default>";
 }

@@ -3,8 +3,7 @@ package arez.spy;
 import arez.Arez;
 import arez.ComputableValue;
 import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A representation of a observer instance exposed to spy framework.
@@ -53,7 +52,6 @@ public interface ObserverInfo extends ElementInfo {
      *
      * @return the priority of the Observer.
      */
-    @Nonnull
     Priority getPriority();
 
     /**
@@ -73,7 +71,6 @@ public interface ObserverInfo extends ElementInfo {
      *
      * @return the list of dependencies for the Observer.
      */
-    @Nonnull
     List<ObservableValueInfo> getDependencies();
 
     /**

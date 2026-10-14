@@ -1,7 +1,5 @@
 package arez.spy;
 
-import javax.annotation.Nonnull;
-
 /**
  * Interface for receiving spy events.
  */
@@ -12,5 +10,5 @@ public interface SpyEventHandler {
      *
      * @param event the event that occurred.
      */
-    void onSpyEvent(@Nonnull Object event);
+    void onSpyEvent(Object event);
 }

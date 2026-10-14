@@ -5,8 +5,7 @@ import static org.realityforge.braincheck.Guards.*;
 import grim.annotations.OmitSymbol;
 import grim.annotations.OmitType;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * An isolated Arez context.
@@ -29,7 +28,6 @@ public final class Zone {
      *
      * @return the context for the zone.
      */
-    @Nonnull
     public ArezContext getContext() {
         return _context;
     }
@@ -71,7 +69,7 @@ public final class Zone {
      * @param action the function to execute.
      * @return the value returned from function.
      */
-    public <T> T safeRun(@Nonnull final SafeFunction<T> action) {
+    public <T> T safeRun(final SafeFunction<T> action) {
         Arez.activateZone(this);
         try {
             return action.call();
@@ -89,7 +87,7 @@ public final class Zone {
      * @return the value returned from function.
      * @throws Throwable if the function throws an exception.
      */
-    public <T> T run(@Nonnull final Function<T> action) throws Throwable {
+    public <T> T run(final Function<T> action) throws Throwable {
         Arez.activateZone(this);
         try {
             return action.call();
@@ -104,7 +102,7 @@ public final class Zone {
      *
      * @param action the procedure to execute.
      */
-    public void safeRun(@Nonnull final SafeProcedure action) {
+    public void safeRun(final SafeProcedure action) {
         Arez.activateZone(this);
         try {
             action.call();
@@ -120,7 +118,7 @@ public final class Zone {
      * @param action the procedure to execute.
      * @throws Throwable if the procedure throws an exception.
      */
-    public void run(@Nonnull final Procedure action) throws Throwable {
+    public void run(final Procedure action) throws Throwable {
         Arez.activateZone(this);
         try {
             action.call();

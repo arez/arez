@@ -5,7 +5,6 @@ import static org.realityforge.braincheck.Guards.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
 
 /**
  * This executor runs tasks in rounds.
@@ -18,7 +17,6 @@ final class RoundBasedTaskExecutor {
     /**
      * The task queue.
      */
-    @Nonnull
     private final TaskQueue _taskQueue;
     /**
      * The maximum number of iterations that can be triggered in sequence without triggering an error. Set this
@@ -34,7 +32,7 @@ final class RoundBasedTaskExecutor {
      */
     private int _remainingTasksInCurrentRound;
 
-    RoundBasedTaskExecutor(@Nonnull final TaskQueue taskQueue, final int maxRounds) {
+    RoundBasedTaskExecutor(final TaskQueue taskQueue, final int maxRounds) {
         assert maxRounds > 0;
         _taskQueue = Objects.requireNonNull(taskQueue);
         _maxRounds = maxRounds;

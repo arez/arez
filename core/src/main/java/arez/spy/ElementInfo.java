@@ -1,7 +1,5 @@
 package arez.spy;
 
-import javax.annotation.Nonnull;
-
 /**
  * A representation of an element exposed to spy framework.
  */
@@ -11,7 +9,6 @@ public interface ElementInfo {
      *
      * @return the name of the element.
      */
-    @Nonnull
     String getName();
 
     /**

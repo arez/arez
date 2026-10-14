@@ -8,31 +8,27 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
 
 /**
  * A implementation of {@link TaskInfo} that proxies to a {@link Task}.
  */
 @OmitType(unless = "arez.enable_spies")
 final class TaskInfoImpl implements TaskInfo {
-    @Nonnull
+
     private final Task _task;
 
-    TaskInfoImpl(@Nonnull final Task task) {
+    TaskInfoImpl(final Task task) {
         _task = Objects.requireNonNull(task);
     }
 
-    @Nonnull
-    private static List<TaskInfo> asInfos(@Nonnull final Collection<Task> tasks) {
+    private static List<TaskInfo> asInfos(final Collection<Task> tasks) {
         return tasks.stream().map(Task::asInfo).collect(Collectors.toList());
     }
 
-    @Nonnull
-    static List<TaskInfo> asUnmodifiableInfos(@Nonnull final Collection<Task> tasks) {
+    static List<TaskInfo> asUnmodifiableInfos(final Collection<Task> tasks) {
         return Collections.unmodifiableList(asInfos(tasks));
     }
 
-    @Nonnull
     @Override
     public String getName() {
         return _task.getName();
@@ -48,7 +44,6 @@ final class TaskInfoImpl implements TaskInfo {
         return _task.isQueued();
     }
 
-    @Nonnull
     @Override
     public Priority getPriority() {
         return _task.getPriority();

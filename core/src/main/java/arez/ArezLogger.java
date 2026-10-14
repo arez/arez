@@ -2,11 +2,10 @@ package arez;
 
 import grim.annotations.OmitSymbol;
 import grim.annotations.OmitType;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Log abstraction for framework.
@@ -21,12 +20,11 @@ final class ArezLogger {
     /**
      * Log a message with an optional exception.
      */
-    static void log(@Nonnull final String message, @Nullable final Throwable throwable) {
+    static void log(final String message, @Nullable final Throwable throwable) {
         c_logger.log(message, throwable);
     }
 
     @OmitSymbol
-    @Nonnull
     static Logger getLogger() {
         return c_logger;
     }
@@ -37,7 +35,7 @@ final class ArezLogger {
      * compiler phases and thus allow elimination of code during production variants of the runtime.
      */
     interface Logger {
-        void log(@Nonnull String message, @Nullable Throwable throwable);
+        void log(String message, @Nullable Throwable throwable);
     }
 
     /**
@@ -46,7 +44,7 @@ final class ArezLogger {
     @OmitType
     private static final class NoopLogger implements Logger {
         @Override
-        public void log(@Nonnull final String message, @Nullable final Throwable throwable) {}
+        public void log(final String message, @Nullable final Throwable throwable) {}
     }
 
     /**
@@ -56,7 +54,7 @@ final class ArezLogger {
     private static final class ConsoleLogger extends AbstractConsoleLogger {
         @GwtIncompatible
         @Override
-        public void log(@Nonnull final String message, @Nullable final Throwable throwable) {
+        public void log(final String message, @Nullable final Throwable throwable) {
             System.out.println(message);
             if (null != throwable) {
                 throwable.printStackTrace(System.out);
@@ -77,7 +75,7 @@ final class ArezLogger {
     @OmitType(unless = "arez.logger=console")
     private abstract static class AbstractConsoleLogger implements Logger {
         @Override
-        public void log(@Nonnull final String message, @Nullable final Throwable throwable) {
+        public void log(final String message, @Nullable final Throwable throwable) {
             NativeJsLoggerUtil.log(message);
             if (null != throwable) {
                 NativeJsLoggerUtil.log(throwable);
@@ -98,7 +96,7 @@ final class ArezLogger {
         }
 
         @Override
-        public void log(@Nonnull final String message, @Nullable final Throwable throwable) {
+        public void log(final String message, @Nullable final Throwable throwable) {
             if (null != _logger) {
                 _logger.log(message, throwable);
             }

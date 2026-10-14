@@ -3,8 +3,7 @@ package arez.component;
 import static org.realityforge.braincheck.Guards.*;
 
 import arez.Arez;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Interface implemented by components so that observers can observe the component without
@@ -27,7 +26,7 @@ public interface ComponentObservable {
      * @param object the object to observe.
      * @return true if the component is not disposing or disposed, false otherwise.
      */
-    static boolean observe(@Nonnull final Object object) {
+    static boolean observe(final Object object) {
         return asComponentObservable(object).observe();
     }
 
@@ -47,7 +46,7 @@ public interface ComponentObservable {
      * @param object the object to observe if any.
      * @return true if {@link #observe(Object)} returns false for the same parameter, false otherwise.
      */
-    static boolean notObserved(@Nonnull final Object object) {
+    static boolean notObserved(final Object object) {
         return !observe(object);
     }
 
@@ -58,8 +57,7 @@ public interface ComponentObservable {
      * @param object the object.
      * @return the object cast to ComponentObservable.
      */
-    @Nonnull
-    static ComponentObservable asComponentObservable(@Nonnull final Object object) {
+    static ComponentObservable asComponentObservable(final Object object) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> object instanceof ComponentObservable,

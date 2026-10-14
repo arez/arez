@@ -8,8 +8,7 @@ import arez.spy.TaskInfo;
 import arez.spy.TaskStartEvent;
 import grim.annotations.OmitSymbol;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A task represents an executable element that can be run by the task executor.
@@ -18,7 +17,6 @@ public final class Task extends Node {
     /**
      * The code to invoke when task is executed.
      */
-    @Nonnull
     private final SafeProcedure _work;
     /**
      * State of the task.
@@ -32,11 +30,7 @@ public final class Task extends Node {
     @Nullable
     private TaskInfo _info;
 
-    Task(
-            @Nullable final ArezContext context,
-            @Nullable final String name,
-            @Nonnull final SafeProcedure work,
-            final int flags) {
+    Task(@Nullable final ArezContext context, @Nullable final String name, final SafeProcedure work, final int flags) {
         super(context, name);
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
@@ -98,7 +92,6 @@ public final class Task extends Node {
      *
      * @return the priority.
      */
-    @Nonnull
     Priority getPriority() {
         return Priority.values()[getPriorityIndex()];
     }
@@ -108,7 +101,6 @@ public final class Task extends Node {
      *
      * @return the task.
      */
-    @Nonnull
     SafeProcedure getWork() {
         return _work;
     }
@@ -182,7 +174,6 @@ public final class Task extends Node {
      */
     @SuppressWarnings("ConstantConditions")
     @OmitSymbol(unless = "arez.enable_spies")
-    @Nonnull
     TaskInfo asInfo() {
         if (Arez.shouldCheckInvariants()) {
             invariant(

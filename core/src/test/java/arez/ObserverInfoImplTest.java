@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -231,7 +230,7 @@ public final class ObserverInfoImplTest extends AbstractTest {
         assertEquals(info2.hashCode(), observer2.hashCode());
     }
 
-    private <T> void assertUnmodifiable(@Nonnull final Collection<T> collection) {
+    private <T> void assertUnmodifiable(final Collection<T> collection) {
         assertThrows(
                 UnsupportedOperationException.class,
                 () -> collection.remove(collection.iterator().next()));

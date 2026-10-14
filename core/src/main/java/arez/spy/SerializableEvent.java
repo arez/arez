@@ -1,7 +1,7 @@
 package arez.spy;
 
 import java.util.Map;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Interface used to serialize events.
@@ -13,5 +13,5 @@ public interface SerializableEvent {
      *
      * @param map the map in which to serialize values.
      */
-    void toMap(@Nonnull final Map<String, Object> map);
+    void toMap(final Map<String, @Nullable Object> map);
 }

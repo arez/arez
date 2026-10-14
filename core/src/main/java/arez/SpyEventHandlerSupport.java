@@ -6,7 +6,6 @@ import arez.spy.SpyEventHandler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.annotation.Nonnull;
 
 /**
  * Class supporting the propagation of events to SpyEventHandler callbacks.
@@ -15,10 +14,9 @@ final class SpyEventHandlerSupport {
     /**
      * The list of spy handlers to call when an event is received.
      */
-    @Nonnull
     private final List<SpyEventHandler> _spyEventHandlers = new ArrayList<>();
 
-    void addSpyEventHandler(@Nonnull final SpyEventHandler handler) {
+    void addSpyEventHandler(final SpyEventHandler handler) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> !_spyEventHandlers.contains(handler),
@@ -28,7 +26,7 @@ final class SpyEventHandlerSupport {
         _spyEventHandlers.add(Objects.requireNonNull(handler));
     }
 
-    void removeSpyEventHandler(@Nonnull final SpyEventHandler handler) {
+    void removeSpyEventHandler(final SpyEventHandler handler) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> _spyEventHandlers.contains(handler),
@@ -38,7 +36,7 @@ final class SpyEventHandlerSupport {
         _spyEventHandlers.remove(Objects.requireNonNull(handler));
     }
 
-    void reportSpyEvent(@Nonnull final Object event) {
+    void reportSpyEvent(final Object event) {
         if (Arez.shouldCheckInvariants()) {
             invariant(
                     this::willPropagateSpyEvents,
@@ -60,7 +58,6 @@ final class SpyEventHandlerSupport {
         return Arez.areSpiesEnabled() && !getSpyEventHandlers().isEmpty();
     }
 
-    @Nonnull
     List<SpyEventHandler> getSpyEventHandlers() {
         return _spyEventHandlers;
     }

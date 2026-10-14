@@ -7,7 +7,6 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 
 public final class ActionFlagsTest extends AbstractTest {
@@ -65,7 +64,6 @@ public final class ActionFlagsTest extends AbstractTest {
         }
     }
 
-    @Nonnull
     private HashMap<String, Integer> extractFlags() throws IllegalAccessException {
         final HashMap<String, Integer> flags = new HashMap<>();
         for (final Field field : ActionFlags.class.getDeclaredFields()) {

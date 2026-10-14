@@ -3,7 +3,6 @@ package arez.annotations;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import javax.annotation.Nonnull;
 
 /**
  * Annotate the method that will be overridden to return true if the component is in the specified state.
@@ -43,6 +42,5 @@ public @interface ComponentStateRef {
      *
      * @return the component state which will cause annotated method to return true.
      */
-    @Nonnull
     State value() default State.READY;
 }

@@ -17,7 +17,6 @@ import java.util.Comparator;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 
 public final class RepositoryTest extends AbstractTest {
@@ -346,13 +345,12 @@ public final class RepositoryTest extends AbstractTest {
         }
 
         @Override
-        public void addOnDisposeListener(
-                @Nonnull final Object key, @Nonnull final SafeProcedure action, final boolean errorIfDuplicate) {
+        public void addOnDisposeListener(final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
             _kernel.addOnDisposeListener(key, action, errorIfDuplicate);
         }
 
         @Override
-        public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+        public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
             _kernel.removeOnDisposeListener(key, errorIfMissing);
         }
 
@@ -372,7 +370,6 @@ public final class RepositoryTest extends AbstractTest {
             return _kernel.isDisposed();
         }
 
-        @Nonnull
         @Override
         public Integer getArezId() {
             return _arezId;
@@ -387,13 +384,11 @@ public final class RepositoryTest extends AbstractTest {
             return new MyRepository();
         }
 
-        @Nonnull
         @Override
         protected ObservableValue<?> getEntitiesObservableValue() {
             return _observableValue;
         }
 
-        @Nonnull
         @Override
         public Stream<MyEntity> entities() {
             _observableValue.reportObserved();

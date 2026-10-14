@@ -5,7 +5,6 @@ import arez.Observer;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import javax.annotation.Nonnull;
 
 /**
  * Annotation that marks a method as observed.
@@ -49,7 +48,6 @@ public @interface Observe {
      *
      * @return the name of the Observer relative to the component.
      */
-    @Nonnull
     String name() default "<default>";
 
     /**
@@ -130,6 +128,5 @@ public @interface Observe {
      *
      * @return the type of dependencies allowed in the observed method.
      */
-    @Nonnull
     DepType depType() default DepType.AREZ;
 }

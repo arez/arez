@@ -7,7 +7,6 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 
 public final class FlagsTest extends AbstractTest {
@@ -58,7 +57,7 @@ public final class FlagsTest extends AbstractTest {
         flagsAreUnique(ActionFlags.class);
     }
 
-    private void flagsAreUnique(@Nonnull final Class<?> type) throws Exception {
+    private void flagsAreUnique(final Class<?> type) throws Exception {
         final HashMap<String, Integer> flags = extractFlags(type);
         final ArrayList<Map.Entry<String, Integer>> entries = new ArrayList<>(flags.entrySet());
         final int size = entries.size();
@@ -87,7 +86,7 @@ public final class FlagsTest extends AbstractTest {
         flagsNoOverlap(ActionFlags.class);
     }
 
-    private void flagsNoOverlap(@Nonnull final Class<?> type) throws Exception {
+    private void flagsNoOverlap(final Class<?> type) throws Exception {
         final ArrayList<String> exceptions = new ArrayList<>();
         exceptions.add("PRIORITY_COUNT");
 
@@ -130,7 +129,7 @@ public final class FlagsTest extends AbstractTest {
         flagsAreCoveredByMasks(ActionFlags.class, ActionFlags.CONFIG_FLAGS_MASK);
     }
 
-    private void flagsAreCoveredByMasks(@Nonnull final Class<?> type, final int mask) throws Exception {
+    private void flagsAreCoveredByMasks(final Class<?> type, final int mask) throws Exception {
         for (final Map.Entry<String, Integer> entry :
                 new ArrayList<>(extractFlags(type).entrySet())) {
             final String name = entry.getKey();
@@ -142,8 +141,7 @@ public final class FlagsTest extends AbstractTest {
         }
     }
 
-    @Nonnull
-    private HashMap<String, Integer> extractFlags(@Nonnull final Class<?> type) throws IllegalAccessException {
+    private HashMap<String, Integer> extractFlags(final Class<?> type) throws IllegalAccessException {
         final HashMap<String, Integer> flags = new HashMap<>();
         for (final Field field : type.getDeclaredFields()) {
             final String name = field.getName();

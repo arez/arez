@@ -6,8 +6,7 @@ import grim.annotations.OmitSymbol;
 import grim.annotations.OmitType;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A utility class that contains reference to zone data when zones are enabled.
@@ -45,7 +44,6 @@ final class ZoneHolder {
      * @param name the optional name.
      * @return the new zone instance.
      */
-    @Nonnull
     static Zone createZone(@Nullable final String name) {
         assert Arez.areZonesEnabled();
         return new Zone(Arez.areNamesEnabled() ? null != name ? name : "Zone@" + c_nextZoneId++ : null);
@@ -56,7 +54,6 @@ final class ZoneHolder {
      *
      * @return the ArezContext.
      */
-    @Nonnull
     static ArezContext context() {
         assert null != c_zone;
         return c_zone.getContext();
@@ -66,7 +63,7 @@ final class ZoneHolder {
      * Save the old zone and make the specified zone the current zone.
      */
     @SuppressWarnings("ConstantConditions")
-    static void activateZone(@Nonnull final Zone zone) {
+    static void activateZone(final Zone zone) {
         if (Arez.shouldCheckInvariants()) {
             invariant(Arez::areZonesEnabled, () -> "Arez-0002: Invoked Arez.activateZone() but zones are not enabled.");
         }
@@ -81,7 +78,7 @@ final class ZoneHolder {
      * This takes the zone that was current when {@link #activateZone(Zone)} was called for the active zone
      * and restores it to being the current zone.
      */
-    static void deactivateZone(@Nonnull final Zone zone) {
+    static void deactivateZone(final Zone zone) {
         if (Arez.shouldCheckInvariants()) {
             invariant(
                     Arez::areZonesEnabled, () -> "Arez-0003: Invoked Arez.deactivateZone() but zones are not enabled.");
@@ -98,7 +95,6 @@ final class ZoneHolder {
      *
      * @return the current zone.
      */
-    @Nonnull
     static Zone currentZone() {
         if (Arez.shouldCheckInvariants()) {
             invariant(Arez::areZonesEnabled, () -> "Arez-0005: Invoked Arez.currentZone() but zones are not enabled.");
@@ -120,14 +116,12 @@ final class ZoneHolder {
     }
 
     @OmitSymbol
-    @Nonnull
     static Zone getDefaultZone() {
         assert null != c_defaultZone;
         return c_defaultZone;
     }
 
     @OmitSymbol
-    @Nonnull
     static List<Zone> getZoneStack() {
         assert null != c_zoneStack;
         return c_zoneStack;

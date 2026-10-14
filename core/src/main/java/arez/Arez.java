@@ -5,8 +5,7 @@ import static org.realityforge.braincheck.Guards.*;
 import arez.component.Verifiable;
 import grim.annotations.OmitClinit;
 import grim.annotations.OmitSymbol;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.BrainCheckConfig;
 
 /**
@@ -187,7 +186,6 @@ public final class Arez {
      *
      * @return the ArezContext.
      */
-    @Nonnull
     public static ArezContext context() {
         return areZonesEnabled() ? ZoneHolder.context() : ArezContextHolder.context();
     }
@@ -199,7 +197,6 @@ public final class Arez {
      * @return the new zone.
      */
     @OmitSymbol(unless = "arez.enable_zones")
-    @Nonnull
     public static Zone createZone() {
         return createZone(null);
     }
@@ -212,7 +209,6 @@ public final class Arez {
      * @return the new zone.
      */
     @OmitSymbol(unless = "arez.enable_zones")
-    @Nonnull
     public static Zone createZone(@Nullable final String name) {
         if (shouldCheckApiInvariants()) {
             apiInvariant(
@@ -225,7 +221,7 @@ public final class Arez {
      * Save the old zone and make the specified zone the current zone.
      */
     @OmitSymbol(unless = "arez.enable_zones")
-    static void activateZone(@Nonnull final Zone zone) {
+    static void activateZone(final Zone zone) {
         ZoneHolder.activateZone(zone);
     }
 
@@ -235,7 +231,7 @@ public final class Arez {
      * and restores it to being the current zone.
      */
     @OmitSymbol(unless = "arez.enable_zones")
-    static void deactivateZone(@Nonnull final Zone zone) {
+    static void deactivateZone(final Zone zone) {
         ZoneHolder.deactivateZone(zone);
     }
 
@@ -245,7 +241,6 @@ public final class Arez {
      * @return the current zone.
      */
     @OmitSymbol(unless = "arez.enable_zones")
-    @Nonnull
     public static Zone currentZone() {
         return ZoneHolder.currentZone();
     }

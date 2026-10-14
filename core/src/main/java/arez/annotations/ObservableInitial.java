@@ -3,7 +3,6 @@ package arez.annotations;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import javax.annotation.Nonnull;
 
 /**
  * Annotation applied to a static field or static method that supplies the initial value for an
@@ -13,8 +12,9 @@ import javax.annotation.Nonnull;
  * The annotated element must be a static, final field or a static method. The initial value will be used
  * when constructing the generated component and removes the need to pass the value via the constructor.</p>
  *
- * <p>If the associated {@link Observable} getter is annotated with {@link Nonnull} then
- * the annotated field or method should also be annotated with {@link Nonnull}.</p>
+ * <p>If the associated {@link Observable} getter has a non-null JSpecify contract, the
+ * annotated field or method must also have a non-null contract. A marked scope supplies
+ * that default; {@link org.jspecify.annotations.Nullable} makes a type nullable.</p>
  *
  * <p>This annotation is only supported on elements contained within a type annotated by
  * {@link ArezComponent} or {@link ArezComponentLike}. Other usages will fail compilation.</p>
@@ -33,6 +33,5 @@ public @interface ObservableInitial {
      *
      * @return the name of the Observable.
      */
-    @Nonnull
     String name() default "<default>";
 }

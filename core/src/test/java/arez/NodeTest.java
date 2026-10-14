@@ -2,7 +2,7 @@ package arez;
 
 import static org.testng.Assert.*;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 

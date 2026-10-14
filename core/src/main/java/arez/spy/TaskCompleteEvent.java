@@ -2,14 +2,13 @@ package arez.spy;
 
 import java.util.Map;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Notification that task has completed execution.
  */
 public final class TaskCompleteEvent implements SerializableEvent {
-    @Nonnull
+
     private final TaskInfo _task;
 
     @Nullable
@@ -17,14 +16,13 @@ public final class TaskCompleteEvent implements SerializableEvent {
 
     private final int _duration;
 
-    public TaskCompleteEvent(@Nonnull final TaskInfo task, @Nullable final Throwable throwable, final int duration) {
+    public TaskCompleteEvent(final TaskInfo task, @Nullable final Throwable throwable, final int duration) {
         assert duration >= 0;
         _task = Objects.requireNonNull(task);
         _throwable = throwable;
         _duration = duration;
     }
 
-    @Nonnull
     public TaskInfo getTask() {
         return _task;
     }
@@ -39,7 +37,7 @@ public final class TaskCompleteEvent implements SerializableEvent {
     }
 
     @Override
-    public void toMap(@Nonnull final Map<String, Object> map) {
+    public void toMap(final Map<String, @Nullable Object> map) {
         map.put("type", "TaskComplete");
         map.put("name", getTask().getName());
         map.put("duration", getDuration());

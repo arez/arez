@@ -2,7 +2,7 @@
 
 - Spec: [SPEC.md](../SPEC.md)
 - Status: implementing
-- Current frontier: T08
+- Current frontier: T09
 - Planning reviewer: /root/planning_reviewer (2/3 rounds; passed, Findings: none)
 - Plan checkpoint: human-review (approved)
 - Checkpoint basis: the user said "Proceed" after the reviewed spec/task map and
@@ -27,7 +27,7 @@
 - Artifact reproducibility: independent-output-base hash comparisons, including
   binary, source, Javadoc and POM outputs; cached reruns alone are insufficient.
 - Final evidence: pending
-- Current milestone: T01–T05 full JVM parity passed: all eight retained suites, 2,271 TestNG cases, zero skips/failures.
+- Current milestone: JVM baseline/grouped goldens/formatting complete; T08 core JSpecify passed with all 2,273 cases still green before the T09 processor cut.
 
 ## Tasks
 
@@ -40,7 +40,7 @@
 | T05 | [Run the complete Persist JVM slice](T05-persist-parity.md) | complete | T04 |
 | T06 | [Select and regenerate focused golden families](T06-focused-goldens.md) | complete | T05 |
 | T07 | [Apply and check Palantir formatting](T07-java-format.md) | complete | T06 |
-| T08 | [Migrate core API and runtime contracts to JSpecify](T08-core-jspecify.md) | pending | T07 |
+| T08 | [Migrate core API and runtime contracts to JSpecify](T08-core-jspecify.md) | complete | T07 |
 | T09 | [Cut both processors to the pinned Proton and JSpecify API](T09-processor-jspecify-cut.md) | pending | T08 |
 | T10 | [Migrate component, observable and lifecycle scenarios](T10-arez-basic-fixtures.md) | pending | T09 |
 | T11 | [Migrate relationships, generics and remaining Arez scenarios](T11-arez-relationship-fixtures.md) | pending | T09 |

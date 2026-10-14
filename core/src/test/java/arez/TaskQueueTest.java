@@ -4,7 +4,6 @@ import static org.testng.Assert.*;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -137,14 +136,13 @@ public final class TaskQueueTest extends AbstractTest {
         assertEquals(tasks.stream().map(Task::getName).collect(Collectors.joining(",")), "A,B,F,E,C,D");
     }
 
-    private void assertDequeue(@Nonnull final TaskQueue queue, @Nonnull final String name) {
+    private void assertDequeue(final TaskQueue queue, final String name) {
         final Task task = queue.dequeueTask();
         assertNotNull(task);
         assertEquals(task.getName(), name);
     }
 
-    @Nonnull
-    private Task getTask(@Nonnull final TaskQueue queue, final int priority, final int index) {
+    private Task getTask(final TaskQueue queue, final int priority, final int index) {
         final Task task = queue.getBufferByPriority(priority).get(index);
         assertNotNull(task);
         return task;

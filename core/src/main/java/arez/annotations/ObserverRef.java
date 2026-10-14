@@ -3,7 +3,6 @@ package arez.annotations;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import javax.annotation.Nonnull;
 
 /**
  * Marks a template method that returns the {@link arez.Observer} instance for
@@ -42,6 +41,5 @@ public @interface ObserverRef {
      *
      * @return the name of the associated Observer.
      */
-    @Nonnull
     String name() default "<default>";
 }

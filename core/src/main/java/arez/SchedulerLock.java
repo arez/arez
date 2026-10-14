@@ -4,8 +4,7 @@ import static org.realityforge.braincheck.Guards.*;
 
 import grim.annotations.OmitSymbol;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A lock that stops the scheduler from running tasks until the lock is released.
@@ -41,7 +40,6 @@ public final class SchedulerLock implements Disposable {
         return _released;
     }
 
-    @Nonnull
     private ArezContext getContext() {
         return Arez.areZonesEnabled() ? Objects.requireNonNull(_context) : Arez.context();
     }

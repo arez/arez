@@ -14,13 +14,13 @@ public enum Multiplicity {
     /**
      * The inverse is related to exactly one reference. The type of the inverse must be
      * compatible with the class containing the method annotated with the {@link Reference}
-     * annotation. The inverse MUST be annotated with {@link javax.annotation.Nonnull}
+     * annotation. The inverse must have a non-null JSpecify contract.
      */
     ONE,
     /**
      * The inverse is related to one or no reference. The type of the inverse must be
      * compatible with the class containing the method annotated with the {@link Reference}
-     * annotation. The inverse MUST be annotated with {@link javax.annotation.Nullable}
+     * annotation. The inverse must have a nullable JSpecify contract.
      */
     ZERO_OR_ONE
 }

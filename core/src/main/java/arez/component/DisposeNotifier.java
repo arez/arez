@@ -6,7 +6,6 @@ import arez.Arez;
 import arez.Disposable;
 import arez.SafeProcedure;
 import arez.annotations.CascadeDispose;
-import javax.annotation.Nonnull;
 
 /**
  * Interface implemented by a component if it supports notifying listeners
@@ -31,7 +30,7 @@ public interface DisposeNotifier {
      * @param action           the listener callback.
      * @param errorIfDuplicate generate an assertion error if duplicate key inserted.
      */
-    void addOnDisposeListener(@Nonnull Object key, @Nonnull SafeProcedure action, boolean errorIfDuplicate);
+    void addOnDisposeListener(Object key, SafeProcedure action, boolean errorIfDuplicate);
 
     /**
      * Add the listener to the notify list under key.
@@ -46,7 +45,7 @@ public interface DisposeNotifier {
      * @param key    the key to uniquely identify listener.
      * @param action the listener callback.
      */
-    default void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action) {
+    default void addOnDisposeListener(final Object key, final SafeProcedure action) {
         addOnDisposeListener(key, action, true);
     }
 
@@ -59,7 +58,7 @@ public interface DisposeNotifier {
      * @param key            the key under which the listener was previously added.
      * @param errorIfMissing generate an assertion error if no such key exists.
      */
-    void removeOnDisposeListener(@Nonnull Object key, boolean errorIfMissing);
+    void removeOnDisposeListener(Object key, boolean errorIfMissing);
 
     /**
      * Remove the listener with the specified key from the notify list.
@@ -69,7 +68,7 @@ public interface DisposeNotifier {
      *
      * @param key the key under which the listener was previously added.
      */
-    default void removeOnDisposeListener(@Nonnull final Object key) {
+    default void removeOnDisposeListener(final Object key) {
         removeOnDisposeListener(key, true);
     }
 
@@ -80,8 +79,7 @@ public interface DisposeNotifier {
      * @param object the object.
      * @return the object cast to DisposeNotifier.
      */
-    @Nonnull
-    static DisposeNotifier asDisposeNotifier(@Nonnull final Object object) {
+    static DisposeNotifier asDisposeNotifier(final Object object) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> object instanceof DisposeNotifier,

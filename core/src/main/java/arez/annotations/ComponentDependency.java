@@ -4,7 +4,6 @@ import arez.component.DisposeNotifier;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import javax.annotation.Nonnull;
 
 /**
  * Methods and fields marked with this annotation are dependencies of the component.
@@ -73,11 +72,10 @@ public @interface ComponentDependency {
      * A {@link Action#CASCADE} value indicates that the component should be deleted, while a
      * {@link Action#SET_NULL} value indicates that the observable field should be set to null.
      * The {@link Action#SET_NULL} is only valid on {@link Observable} properties that have an
-     * associated setter and are not annotated with {@link javax.annotation.Nonnull}.
+     * associated setter and have a nullable JSpecify contract.
      *
      * @return the action to take when the dependency is disposed.
      */
-    @Nonnull
     Action action() default Action.CASCADE;
 
     /**

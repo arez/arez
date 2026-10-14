@@ -1,6 +1,7 @@
 package arez.spy;
 
 import grim.annotations.OmitType;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Returning the value of an ObservableValue.
@@ -9,7 +10,7 @@ import grim.annotations.OmitType;
  */
 @OmitType(unless = "arez.enable_property_introspection")
 @FunctionalInterface
-public interface PropertyAccessor<T> {
+public interface PropertyAccessor<T extends @Nullable Object> {
     /**
      * Return the value of an ObservableValue.
      *

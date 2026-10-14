@@ -6,7 +6,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
 import jdepend.framework.DependencyConstraint;
 import jdepend.framework.JDepend;
 import jdepend.framework.JavaPackage;
@@ -25,10 +24,17 @@ public final class JDependTest {
         final JavaPackage arez = constraint.addPackage("arez");
         final JavaPackage braincheck = constraint.addPackage("org.realityforge.braincheck");
         final JavaPackage spy = constraint.addPackage("arez.spy");
-        constraint.addPackage("arez.annotations");
+        final JavaPackage annotations = constraint.addPackage("arez.annotations");
         final JavaPackage component = constraint.addPackage("arez.component");
         final JavaPackage internal = constraint.addPackage("arez.component.internal");
         final JavaPackage jsinterop = constraint.addPackage("jsinterop.annotations");
+        final JavaPackage jspecify = constraint.addPackage("org.jspecify.annotations");
+
+        arez.dependsUpon(jspecify);
+        annotations.dependsUpon(jspecify);
+        component.dependsUpon(jspecify);
+        internal.dependsUpon(jspecify);
+        spy.dependsUpon(jspecify);
 
         arez.dependsUpon(jsinterop);
         arez.dependsUpon(braincheck);
@@ -105,7 +111,6 @@ public final class JDependTest {
         }
     }
 
-    @Nonnull
     private String compileTargetDir() {
         final String fixtureDir = System.getProperty("arez.core.compile_target");
         assertNotNull(fixtureDir, "Expected System.getProperty( \"arez.core.compile_target\" ) to return directory");

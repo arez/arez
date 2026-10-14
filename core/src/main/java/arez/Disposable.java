@@ -2,8 +2,7 @@ package arez;
 
 import static org.realityforge.braincheck.Guards.*;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Interface that allows caller to release any resources associated with element.
@@ -70,8 +69,7 @@ public interface Disposable {
      * @param object the object to cast to Disposable.
      * @return the object cast to Disposable.
      */
-    @Nonnull
-    static Disposable asDisposable(@Nonnull final Object object) {
+    static Disposable asDisposable(final Object object) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> object instanceof Disposable,

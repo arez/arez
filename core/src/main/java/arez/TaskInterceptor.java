@@ -1,7 +1,6 @@
 package arez;
 
 import grim.annotations.OmitType;
-import javax.annotation.Nonnull;
 
 /**
  * An interceptor that intercepts the execution of tasks.
@@ -15,5 +14,5 @@ public interface TaskInterceptor {
      *
      * @param executeAction action to invoke to execute tasks.
      */
-    void executeTasks(@Nonnull SafeProcedure executeAction);
+    void executeTasks(SafeProcedure executeAction);
 }

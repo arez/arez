@@ -4,7 +4,6 @@ import arez.Locator;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import javax.annotation.Nonnull;
 
 /**
  * A Reference annotation is placed on an abstract method that will resolve to a referenced object.
@@ -39,7 +38,6 @@ public @interface Reference {
      *
      * @return the name of the reference relative to the component.
      */
-    @Nonnull
     String name() default "<default>";
 
     /**
@@ -47,7 +45,6 @@ public @interface Reference {
      *
      * @return the strategy for resolving reference.
      */
-    @Nonnull
     LinkType load() default LinkType.EAGER;
 
     /**
@@ -59,7 +56,6 @@ public @interface Reference {
      *
      * @return the enum controlling whether there is an inverse for reference
      */
-    @Nonnull
     Feature inverse() default Feature.AUTODETECT;
 
     /**
@@ -70,7 +66,6 @@ public @interface Reference {
      *
      * @return the name of the reference relative to the component.
      */
-    @Nonnull
     String inverseName() default "<default>";
 
     /**
@@ -78,6 +73,5 @@ public @interface Reference {
      *
      * @return the expected multiplicity of the inverse associated with the reference.
      */
-    @Nonnull
     Multiplicity inverseMultiplicity() default Multiplicity.MANY;
 }

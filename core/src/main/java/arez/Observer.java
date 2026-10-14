@@ -12,8 +12,7 @@ import arez.spy.ObserverInfo;
 import grim.annotations.OmitSymbol;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A node within Arez that is notified of changes in 0 or more Observables.
@@ -40,7 +39,6 @@ public final class Observer extends Node {
      *
      * <p>This list should contain no duplicates.</p>
      */
-    @Nonnull
     private FastList<ObservableValue<?>> _dependencies = new FastList<>();
     /**
      * The list of hooks that this observer that will be invoked when it deactivates or
@@ -48,7 +46,6 @@ public final class Observer extends Node {
      * These correspond to the hooks that were registered in the last
      * transaction that this observer was tracking.
      */
-    @Nonnull
     private HookMap _hooks = new HookMap();
     /**
      * Observe function to invoke if any.
@@ -80,10 +77,9 @@ public final class Observer extends Node {
      */
     private int _flags;
 
-    @Nonnull
     private final Task _task;
 
-    Observer(@Nonnull final ComputableValue<?> computableValue, final int flags) {
+    Observer(final ComputableValue<?> computableValue, final int flags) {
         this(
                 Arez.areZonesEnabled() ? computableValue.getContext() : null,
                 null,
@@ -473,7 +469,7 @@ public final class Observer extends Node {
      *
      * @param hook the hook to run.
      */
-    void runHook(@Nullable final Procedure hook, @Nonnull final ObserverError error) {
+    void runHook(@Nullable final Procedure hook, final ObserverError error) {
         if (null != hook) {
             try {
                 hook.call();
@@ -502,7 +498,6 @@ public final class Observer extends Node {
      *
      * @return the task associated with the observer.
      */
-    @Nonnull
     Task getTask() {
         return _task;
     }
@@ -708,7 +703,6 @@ public final class Observer extends Node {
      *
      * @return the hooks.
      */
-    @Nonnull
     HookMap getHooks() {
         return _hooks;
     }
@@ -718,7 +712,7 @@ public final class Observer extends Node {
      *
      * @param hooks the new set of hooks.
      */
-    void replaceHooks(@Nonnull final HookMap hooks) {
+    void replaceHooks(final HookMap hooks) {
         _hooks = Objects.requireNonNull(hooks);
     }
 
@@ -727,7 +721,6 @@ public final class Observer extends Node {
      *
      * @return the dependencies.
      */
-    @Nonnull
     FastList<ObservableValue<?>> getDependencies() {
         return _dependencies;
     }
@@ -738,7 +731,7 @@ public final class Observer extends Node {
      *
      * @param dependencies the new set of dependencies.
      */
-    void replaceDependencies(@Nonnull final FastList<ObservableValue<?>> dependencies) {
+    void replaceDependencies(final FastList<ObservableValue<?>> dependencies) {
         if (Arez.shouldCheckInvariants()) {
             invariantDependenciesUnique("Pre replaceDependencies");
         }
@@ -756,7 +749,7 @@ public final class Observer extends Node {
      *
      * @param context some useful debugging context used in invariant checks.
      */
-    void invariantDependenciesUnique(@Nonnull final String context) {
+    void invariantDependenciesUnique(final String context) {
         if (Arez.shouldCheckExpensiveInvariants()) {
             invariant(
                     () -> getDependencies().size()
@@ -776,7 +769,7 @@ public final class Observer extends Node {
      *
      * @param context some useful debugging context used in invariant checks.
      */
-    void invariantDependenciesBackLink(@Nonnull final String context) {
+    void invariantDependenciesBackLink(final String context) {
         if (Arez.shouldCheckExpensiveInvariants()) {
             getDependencies()
                     .forEach(observable -> invariant(
@@ -847,7 +840,6 @@ public final class Observer extends Node {
      *
      * @return the associated ComputableValue.
      */
-    @Nonnull
     ComputableValue<?> getComputableValue() {
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -871,7 +863,6 @@ public final class Observer extends Node {
      */
     @SuppressWarnings("ConstantConditions")
     @OmitSymbol(unless = "arez.enable_spies")
-    @Nonnull
     ObserverInfo asInfo() {
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -1180,7 +1171,6 @@ public final class Observer extends Node {
          * @param state the state value. One of the STATE_* constants
          * @return the string describing state.
          */
-        @Nonnull
         static String getStateName(final int state) {
             assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
             //noinspection EnhancedSwitchMigration

@@ -1,12 +1,14 @@
 package arez;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Functional interface for returning a value.
  *
  * @param <T> The type of the returned value.
  */
 @FunctionalInterface
-public interface Function<T> {
+public interface Function<T extends @Nullable Object> {
     /**
      * Return a value.
      *

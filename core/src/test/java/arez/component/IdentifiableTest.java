@@ -3,12 +3,11 @@ package arez.component;
 import static org.testng.Assert.*;
 
 import arez.AbstractTest;
-import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 
 public final class IdentifiableTest extends AbstractTest {
     static class TestElement implements Identifiable<String> {
-        @Nonnull
+
         @Override
         public String getArezId() {
             return "X";

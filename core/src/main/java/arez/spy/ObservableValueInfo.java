@@ -4,8 +4,7 @@ import arez.Arez;
 import arez.ObservableValue;
 import grim.annotations.OmitSymbol;
 import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A representation of an ObservableValue instance exposed to spy framework.
@@ -32,7 +31,6 @@ public interface ObservableValueInfo extends ElementInfo {
      *
      * @return the list of observers for Observable.
      */
-    @Nonnull
     List<ObserverInfo> getObservers();
 
     /**

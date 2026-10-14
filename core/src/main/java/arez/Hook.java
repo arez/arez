@@ -1,6 +1,6 @@
 package arez;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Hook that can be registered for the current observer.

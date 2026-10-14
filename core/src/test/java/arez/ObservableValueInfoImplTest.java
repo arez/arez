@@ -7,7 +7,6 @@ import arez.spy.ObservableValueInfo;
 import arez.spy.Spy;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReference;
-import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -133,7 +132,7 @@ public final class ObservableValueInfoImplTest extends AbstractTest {
         assertEquals(info2.hashCode(), observableValue2.hashCode());
     }
 
-    private <T> void assertUnmodifiable(@Nonnull final Collection<T> collection) {
+    private <T> void assertUnmodifiable(final Collection<T> collection) {
         assertThrows(
                 UnsupportedOperationException.class,
                 () -> collection.remove(collection.iterator().next()));

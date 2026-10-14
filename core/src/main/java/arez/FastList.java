@@ -7,8 +7,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A utility class to make it easy to do fast existence checks when there are large lists.
@@ -16,13 +15,12 @@ import javax.annotation.Nullable;
  * @param <T> The element type
  */
 final class FastList<T> {
-    @Nonnull
+
     private final List<T> _values = new ArrayList<>();
 
-    @Nonnull
     private final Set<T> _set = new HashSet<>();
 
-    void forEach(@Nonnull Consumer<? super T> action) {
+    void forEach(Consumer<? super T> action) {
         _values.forEach(v -> {
             if (null != v) {
                 action.accept(v);
@@ -38,7 +36,6 @@ final class FastList<T> {
         return 0 == size();
     }
 
-    @Nonnull
     Stream<T> stream() {
         return _values.stream().filter(Objects::nonNull);
     }
@@ -49,7 +46,7 @@ final class FastList<T> {
     }
 
     @SuppressWarnings("SuspiciousMethodCalls")
-    boolean contains(@Nonnull final Object o) {
+    boolean contains(final Object o) {
         return _set.contains(o);
     }
 
@@ -58,7 +55,7 @@ final class FastList<T> {
         return _values.get(index);
     }
 
-    void set(final int index, @Nonnull final T element) {
+    void set(final int index, final T element) {
         if (_set.contains(element)) {
             _values.remove(element);
         }
@@ -73,13 +70,13 @@ final class FastList<T> {
         }
     }
 
-    void remove(@Nonnull final T element) {
+    void remove(final T element) {
         if (_set.remove(element)) {
             _values.remove(element);
         }
     }
 
-    void add(@Nonnull final T element) {
+    void add(final T element) {
         if (!_set.contains(element)) {
             _values.add(element);
             _set.add(element);

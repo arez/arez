@@ -3,7 +3,6 @@ package arez.annotations;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import javax.annotation.Nonnull;
 
 /**
  * This annotation designates the method used to retrieve the id of the reference. It can be placed
@@ -34,6 +33,5 @@ public @interface ReferenceId {
      *
      * @return the name of the reference relative to the component.
      */
-    @Nonnull
     String name() default "<default>";
 }

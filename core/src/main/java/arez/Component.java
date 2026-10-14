@@ -11,8 +11,7 @@ import grim.annotations.OmitType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The component is an abstraction representation of a reactive component within Arez.
@@ -31,12 +30,10 @@ public final class Component implements Disposable {
      * A opaque string describing the type of the component.
      * It corresponds to @ArezComponent.name parameter if this component was built using the annotation processor.
      */
-    @Nonnull
     private final String _type;
     /**
      * The id of the component.
      */
-    @Nonnull
     private final Object _id;
     /**
      * A human consumable name for node. It should be non-null if {@link Arez#areNamesEnabled()} returns
@@ -46,13 +43,10 @@ public final class Component implements Disposable {
     @OmitSymbol(unless = "arez.enable_names")
     private final String _name;
 
-    @Nonnull
     private final List<ObservableValue<?>> _observableValues = new ArrayList<>();
 
-    @Nonnull
     private final List<Observer> _observers = new ArrayList<>();
 
-    @Nonnull
     private final List<ComputableValue<?>> _computableValues = new ArrayList<>();
     /**
      * Hook action called just before the Component is disposed.
@@ -78,8 +72,8 @@ public final class Component implements Disposable {
 
     Component(
             @Nullable final ArezContext context,
-            @Nonnull final String type,
-            @Nonnull final Object id,
+            final String type,
+            final Object id,
             @Nullable final String name,
             @Nullable final SafeProcedure preDispose,
             @Nullable final SafeProcedure postDispose) {
@@ -105,7 +99,6 @@ public final class Component implements Disposable {
      *
      * @return the component type.
      */
-    @Nonnull
     public String getType() {
         return _type;
     }
@@ -116,7 +109,6 @@ public final class Component implements Disposable {
      *
      * @return the unique id of the component.
      */
-    @Nonnull
     public Object getId() {
         return _id;
     }
@@ -126,7 +118,6 @@ public final class Component implements Disposable {
      *
      * @return the name of the component.
      */
-    @Nonnull
     public String getName() {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
@@ -137,7 +128,6 @@ public final class Component implements Disposable {
         return _name;
     }
 
-    @Nonnull
     ArezContext getContext() {
         return Arez.areZonesEnabled() ? Objects.requireNonNull(_context) : Arez.context();
     }
@@ -184,7 +174,6 @@ public final class Component implements Disposable {
         return _disposed;
     }
 
-    @Nonnull
     @Override
     public String toString() {
         if (Arez.areNamesEnabled()) {
@@ -225,7 +214,6 @@ public final class Component implements Disposable {
      */
     @SuppressWarnings("ConstantConditions")
     @OmitSymbol(unless = "arez.enable_spies")
-    @Nonnull
     ComponentInfo asInfo() {
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -243,7 +231,6 @@ public final class Component implements Disposable {
      *
      * @return the observers associated with the component.
      */
-    @Nonnull
     List<Observer> getObservers() {
         return _observers;
     }
@@ -254,7 +241,7 @@ public final class Component implements Disposable {
      *
      * @param observer the observer.
      */
-    void addObserver(@Nonnull final Observer observer) {
+    void addObserver(final Observer observer) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> !_observers.contains(observer),
@@ -271,7 +258,7 @@ public final class Component implements Disposable {
      *
      * @param observer the observer.
      */
-    void removeObserver(@Nonnull final Observer observer) {
+    void removeObserver(final Observer observer) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> _observers.contains(observer),
@@ -287,7 +274,6 @@ public final class Component implements Disposable {
      *
      * @return the observables associated with the component.
      */
-    @Nonnull
     List<ObservableValue<?>> getObservableValues() {
         return _observableValues;
     }
@@ -298,7 +284,7 @@ public final class Component implements Disposable {
      *
      * @param observableValue the observableValue.
      */
-    void addObservableValue(@Nonnull final ObservableValue<?> observableValue) {
+    void addObservableValue(final ObservableValue<?> observableValue) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> !_complete,
@@ -326,7 +312,7 @@ public final class Component implements Disposable {
      *
      * @param observableValue the observableValue.
      */
-    void removeObservableValue(@Nonnull final ObservableValue<?> observableValue) {
+    void removeObservableValue(final ObservableValue<?> observableValue) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> _observableValues.contains(observableValue),
@@ -345,7 +331,6 @@ public final class Component implements Disposable {
      *
      * @return the {@link ComputableValue} instances associated with the component.
      */
-    @Nonnull
     List<ComputableValue<?>> getComputableValues() {
         return _computableValues;
     }
@@ -356,7 +341,7 @@ public final class Component implements Disposable {
      *
      * @param computableValue the computableValue.
      */
-    void addComputableValue(@Nonnull final ComputableValue<?> computableValue) {
+    void addComputableValue(final ComputableValue<?> computableValue) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> !_computableValues.contains(computableValue),
@@ -373,7 +358,7 @@ public final class Component implements Disposable {
      *
      * @param computableValue the computableValue.
      */
-    void removeComputableValue(@Nonnull final ComputableValue<?> computableValue) {
+    void removeComputableValue(final ComputableValue<?> computableValue) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> _computableValues.contains(computableValue),

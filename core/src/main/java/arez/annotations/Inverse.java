@@ -3,7 +3,6 @@ package arez.annotations;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import javax.annotation.Nonnull;
 
 /**
  * The Inverse annotation is used to annotate the reverse direction of the relationship annotated
@@ -12,7 +11,9 @@ import javax.annotation.Nonnull;
  * the {@link ArezComponent} annotation or a {@link java.util.Collection}, a {@link java.util.List} or a
  * {@link java.util.Set} where the type parameter refers to a class annotated with the
  * {@link ArezComponent} annotation. If the method returns a non-collection type then the type
- * must also be annotated with either {@link Nonnull} or {@link javax.annotation.Nullable}.
+ * must have definite JSpecify nullness. A non-null type in a marked scope or an explicit
+ * {@link org.jspecify.annotations.NonNull} contract implies exactly one reference;
+ * {@link org.jspecify.annotations.Nullable} implies zero or one reference.
  *
  * <p>The method must also conform to the following constraints:</p>
  * <ul>
@@ -37,7 +38,6 @@ public @interface Inverse {
      *
      * @return the name of the inverse relative to the component.
      */
-    @Nonnull
     String name() default "<default>";
 
     /**
@@ -49,6 +49,5 @@ public @interface Inverse {
      *
      * @return the name of the reference relative to the component.
      */
-    @Nonnull
     String referenceName() default "<default>";
 }

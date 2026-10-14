@@ -7,5 +7,6 @@ filegroup(
         "ComponentKernelTest.java",
         "MemoizeCacheTest.java",
         "RepositoryTest.java",
+        "package-info.java",
     ],
 )

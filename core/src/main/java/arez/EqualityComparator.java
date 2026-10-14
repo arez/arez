@@ -1,6 +1,6 @@
 package arez;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Strategy interface used to determine whether two values are equal.

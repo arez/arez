@@ -2,14 +2,13 @@ package arez.spy;
 
 import java.util.Map;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Notification when Transaction completes.
  */
 public final class TransactionCompleteEvent implements SerializableEvent {
-    @Nonnull
+
     private final String _name;
 
     private final boolean _mutation;
@@ -20,10 +19,7 @@ public final class TransactionCompleteEvent implements SerializableEvent {
     private final int _duration;
 
     public TransactionCompleteEvent(
-            @Nonnull final String name,
-            final boolean mutation,
-            @Nullable final ObserverInfo tracker,
-            final int duration) {
+            final String name, final boolean mutation, @Nullable final ObserverInfo tracker, final int duration) {
         assert duration >= 0;
         _name = Objects.requireNonNull(name);
         _mutation = mutation;
@@ -31,7 +27,6 @@ public final class TransactionCompleteEvent implements SerializableEvent {
         _duration = duration;
     }
 
-    @Nonnull
     public String getName() {
         return _name;
     }
@@ -50,7 +45,7 @@ public final class TransactionCompleteEvent implements SerializableEvent {
     }
 
     @Override
-    public void toMap(@Nonnull final Map<String, Object> map) {
+    public void toMap(final Map<String, @Nullable Object> map) {
         map.put("type", "TransactionComplete");
         map.put("name", getName());
         map.put("mutation", isMutation());

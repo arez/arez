@@ -15,8 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A implementation of {@link ComputableValueInfo} that proxies to a {@link ComputableValue}.
@@ -25,22 +24,18 @@ import javax.annotation.Nullable;
 final class ComputableValueInfoImpl implements ComputableValueInfo {
     private final ComputableValue<?> _computableValue;
 
-    ComputableValueInfoImpl(@Nonnull final ComputableValue<?> computableValue) {
+    ComputableValueInfoImpl(final ComputableValue<?> computableValue) {
         _computableValue = Objects.requireNonNull(computableValue);
     }
 
-    @Nonnull
-    private static List<ComputableValueInfo> asInfos(@Nonnull final Collection<ComputableValue<?>> computableValues) {
+    private static List<ComputableValueInfo> asInfos(final Collection<ComputableValue<?>> computableValues) {
         return computableValues.stream().map(ComputableValue::asInfo).collect(Collectors.toList());
     }
 
-    @Nonnull
-    static List<ComputableValueInfo> asUnmodifiableInfos(
-            @Nonnull final Collection<ComputableValue<?>> computableValues) {
+    static List<ComputableValueInfo> asUnmodifiableInfos(final Collection<ComputableValue<?>> computableValues) {
         return Collections.unmodifiableList(asInfos(computableValues));
     }
 
-    @Nonnull
     @Override
     public String getName() {
         return _computableValue.getName();
@@ -51,7 +46,6 @@ final class ComputableValueInfoImpl implements ComputableValueInfo {
         return _computableValue.isComputing();
     }
 
-    @Nonnull
     @Override
     public Priority getPriority() {
         return _computableValue.getObserver().getTask().getPriority();
@@ -62,7 +56,6 @@ final class ComputableValueInfoImpl implements ComputableValueInfo {
         return _computableValue.getObserver().isActive();
     }
 
-    @Nonnull
     @Override
     public List<ObservableValueInfo> getDependencies() {
         if (_computableValue.isComputing()) {
@@ -82,7 +75,6 @@ final class ComputableValueInfoImpl implements ComputableValueInfo {
         }
     }
 
-    @Nonnull
     @Override
     public List<ObserverInfo> getObservers() {
         return ObserverInfoImpl.asUnmodifiableInfos(
@@ -146,7 +138,6 @@ final class ComputableValueInfoImpl implements ComputableValueInfo {
     /**
      * Return the transaction that is computing specified ComputableValue.
      */
-    @Nonnull
     Transaction getTransactionComputing() {
         assert _computableValue.isComputing();
         final Transaction transaction = getTrackerTransaction(_computableValue.getObserver());
@@ -164,7 +155,7 @@ final class ComputableValueInfoImpl implements ComputableValueInfo {
      * Get transaction with specified observer as tracker.
      */
     @Nullable
-    private Transaction getTrackerTransaction(@Nonnull final Observer observer) {
+    private Transaction getTrackerTransaction(final Observer observer) {
         Transaction t = _computableValue.getContext().getTransaction();
         while (null != t && t.getTracker() != observer) {
             t = t.getPrevious();

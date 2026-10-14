@@ -12,13 +12,12 @@ import arez.spy.PropertyMutator;
 import grim.annotations.OmitSymbol;
 import java.util.Comparator;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The observable represents state that can be observed within the system.
  */
-public final class ObservableValue<T> extends Node {
+public final class ObservableValue<T extends @Nullable Object> extends Node {
     /**
      * The value of _workState when the ObservableValue is should longer be used.
      */
@@ -245,7 +244,6 @@ public final class ObservableValue<T> extends Node {
         _workState = NOT_IN_CURRENT_TRACKING;
     }
 
-    @Nonnull
     Observer getObserver() {
         assert null != _observer;
         return _observer;
@@ -344,7 +342,6 @@ public final class ObservableValue<T> extends Node {
         }
     }
 
-    @Nonnull
     FastList<Observer> getObservers() {
         return _observers;
     }
@@ -353,11 +350,11 @@ public final class ObservableValue<T> extends Node {
         return !getObservers().isEmpty();
     }
 
-    boolean hasObserver(@Nonnull final Observer observer) {
+    boolean hasObserver(final Observer observer) {
         return getObservers().contains(observer);
     }
 
-    void addObserver(@Nonnull final Observer observer) {
+    void addObserver(final Observer observer) {
         if (Arez.shouldCheckInvariants()) {
             invariant(
                     () -> getContext().isTransactionActive(),
@@ -398,7 +395,7 @@ public final class ObservableValue<T> extends Node {
         rawAddObserver(observer);
     }
 
-    void rawAddObserver(@Nonnull final Observer observer) {
+    void rawAddObserver(final Observer observer) {
         getObservers().add(observer);
 
         final int state = observer.getLeastStaleObserverState();
@@ -407,7 +404,7 @@ public final class ObservableValue<T> extends Node {
         }
     }
 
-    void removeObserver(@Nonnull final Observer observer) {
+    void removeObserver(final Observer observer) {
         if (Arez.shouldCheckInvariants()) {
             invariant(
                     () -> getContext().isTransactionActive(),
@@ -543,7 +540,6 @@ public final class ObservableValue<T> extends Node {
      */
     @SuppressWarnings("ConstantConditions")
     @OmitSymbol(unless = "arez.enable_spies")
-    @Nonnull
     ObservableValueInfo asInfo() {
         if (Arez.shouldCheckInvariants()) {
             invariant(

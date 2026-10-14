@@ -14,36 +14,31 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A implementation of {@link ObserverInfo} that proxies to a {@link Observer}.
  */
 @OmitType(unless = "arez.enable_spies")
 final class ObserverInfoImpl implements ObserverInfo {
-    @Nonnull
+
     private final Spy _spy;
 
-    @Nonnull
     private final Observer _observer;
 
-    ObserverInfoImpl(@Nonnull final Spy spy, @Nonnull final Observer observer) {
+    ObserverInfoImpl(final Spy spy, final Observer observer) {
         _spy = Objects.requireNonNull(spy);
         _observer = Objects.requireNonNull(observer);
     }
 
-    @Nonnull
-    private static List<ObserverInfo> asInfos(@Nonnull final Collection<Observer> observers) {
+    private static List<ObserverInfo> asInfos(final Collection<Observer> observers) {
         return observers.stream().map(Observer::asInfo).collect(Collectors.toList());
     }
 
-    @Nonnull
-    static List<ObserverInfo> asUnmodifiableInfos(@Nonnull final Collection<Observer> observers) {
+    static List<ObserverInfo> asUnmodifiableInfos(final Collection<Observer> observers) {
         return Collections.unmodifiableList(asInfos(observers));
     }
 
-    @Nonnull
     @Override
     public String getName() {
         return _observer.getName();
@@ -74,19 +69,16 @@ final class ObserverInfoImpl implements ObserverInfo {
         return Arez.shouldEnforceTransactionType() && !_observer.isMutation();
     }
 
-    @Nonnull
     @Override
     public Priority getPriority() {
         return _observer.getTask().getPriority();
     }
 
-    @Nonnull
     @Override
     public ComputableValueInfo asComputableValue() {
         return _observer.getComputableValue().asInfo();
     }
 
-    @Nonnull
     @Override
     public List<ObservableValueInfo> getDependencies() {
         final Transaction transaction = _spy.isTransactionActive() ? getTrackerTransaction() : null;

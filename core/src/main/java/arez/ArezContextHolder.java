@@ -2,8 +2,7 @@ package arez;
 
 import grim.annotations.OmitSymbol;
 import grim.annotations.OmitType;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A utility class that contains reference to singleton context when zones are disabled.
@@ -22,7 +21,6 @@ final class ArezContextHolder {
      *
      * @return the ArezContext.
      */
-    @Nonnull
     static ArezContext context() {
         assert null != c_context;
         return c_context;

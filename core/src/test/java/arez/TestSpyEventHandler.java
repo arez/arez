@@ -11,32 +11,28 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 @SuppressWarnings("NonJREEmulationClassesInClientCode")
 public final class TestSpyEventHandler implements SpyEventHandler {
-    @Nonnull
+
     private final ArezContext _context;
 
-    @Nonnull
     private final List<Object> _events = new ArrayList<>();
     /**
      * When using assertNextEvent this tracks the index that we are up to.
      */
     private int _currentAssertIndex;
 
-    TestSpyEventHandler(@Nonnull final ArezContext context) {
+    TestSpyEventHandler(final ArezContext context) {
         _context = Objects.requireNonNull(context);
     }
 
-    @Nonnull
     public static TestSpyEventHandler subscribe() {
         return subscribe(Arez.context());
     }
 
-    @Nonnull
-    static TestSpyEventHandler subscribe(@Nonnull final ArezContext context) {
+    static TestSpyEventHandler subscribe(final ArezContext context) {
         final TestSpyEventHandler handler = new TestSpyEventHandler(context);
         context.getSpy().addSpyEventHandler(handler);
         return handler;
@@ -47,7 +43,7 @@ public final class TestSpyEventHandler implements SpyEventHandler {
     }
 
     @Override
-    public void onSpyEvent(@Nonnull final Object event) {
+    public void onSpyEvent(final Object event) {
         _events.add(event);
     }
 
@@ -55,7 +51,6 @@ public final class TestSpyEventHandler implements SpyEventHandler {
         assertEquals(_events.size(), count, "Actual events:\n" + eventsDebug());
     }
 
-    @Nonnull
     private String eventsDebug() {
         final AtomicInteger counter = new AtomicInteger(0);
         return _events.stream()
@@ -64,8 +59,7 @@ public final class TestSpyEventHandler implements SpyEventHandler {
                 .collect(Collectors.joining("\n"));
     }
 
-    @Nonnull
-    private String convertEventToString(@Nonnull final Object event) {
+    private String convertEventToString(final Object event) {
         return (event instanceof SerializableEvent se)
                 ? SpyEventTestUtil.toJsonObject(se, false).toString()
                 : event.toString();
@@ -75,7 +69,7 @@ public final class TestSpyEventHandler implements SpyEventHandler {
      * Assert "next" Event is of specific type.
      * Increment the next counter.
      */
-    public <T> void assertNextEvent(@Nonnull final Class<T> type) {
+    public <T> void assertNextEvent(final Class<T> type) {
         assertEvent(type, null);
     }
 
@@ -83,7 +77,7 @@ public final class TestSpyEventHandler implements SpyEventHandler {
      * Assert "next" Event is of specific type.
      * Increment the next counter, run action.
      */
-    public <T> void assertNextEvent(@Nonnull final Class<T> type, @Nonnull final Consumer<T> action) {
+    public <T> void assertNextEvent(final Class<T> type, final Consumer<T> action) {
         assertEvent(type, action);
     }
 
@@ -92,7 +86,7 @@ public final class TestSpyEventHandler implements SpyEventHandler {
         _currentAssertIndex = 0;
     }
 
-    private <T> void assertEvent(@Nonnull final Class<T> type, @Nullable final Consumer<T> action) {
+    private <T> void assertEvent(final Class<T> type, @Nullable final Consumer<T> action) {
         assertTrue(_events.size() > _currentAssertIndex);
         final Object e = _events.get(_currentAssertIndex);
         assertTrue(

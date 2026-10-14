@@ -1,12 +1,14 @@
 package arez.spy;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * Changing the value of an ObservableValue.
  *
  * @param <T> The type of the ObservableValue value.
  */
 @FunctionalInterface
-public interface PropertyMutator<T> {
+public interface PropertyMutator<T extends @Nullable Object> {
     /**
      * Change the value of an ObservableValue to specified value.
      *

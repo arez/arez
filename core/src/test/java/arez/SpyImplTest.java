@@ -11,7 +11,6 @@ import arez.spy.SpyEventHandler;
 import arez.spy.TaskInfo;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -355,7 +354,7 @@ public final class SpyImplTest extends AbstractTest {
         assertEquals(info.getName(), computableValue.getName());
     }
 
-    private <T> void assertUnmodifiable(@Nonnull final Collection<T> list) {
+    private <T> void assertUnmodifiable(final Collection<T> list) {
         assertThrows(
                 UnsupportedOperationException.class,
                 () -> list.remove(list.iterator().next()));

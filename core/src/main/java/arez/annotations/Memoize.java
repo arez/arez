@@ -5,7 +5,6 @@ import arez.EqualityComparator;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import javax.annotation.Nonnull;
 
 /**
  * Methods marked with this annotation are <a href="https://en.wikipedia.org/wiki/Memoization">memoized</a> while
@@ -54,7 +53,6 @@ public @interface Memoize {
      *
      * @return the root name of the element relative to the component.
      */
-    @Nonnull
     String name() default "<default>";
 
     /**
@@ -97,7 +95,6 @@ public @interface Memoize {
      *
      * @return the types of dependencies allowed on the computable.
      */
-    @Nonnull
     DepType depType() default DepType.AREZ;
 
     /**
@@ -132,6 +129,5 @@ public @interface Memoize {
      *
      * @return the comparator type used when checking whether values are equal.
      */
-    @Nonnull
     Class<? extends EqualityComparator> equalityComparator() default EqualityComparator.class;
 }

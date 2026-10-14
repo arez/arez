@@ -5,6 +5,7 @@
  * typically compile out everything in this package when spies are disabled.
  */
 @OmitPattern(unless = "arez.enable_spies")
+@org.jspecify.annotations.NullMarked
 package arez.spy;
 
 import grim.annotations.OmitPattern;

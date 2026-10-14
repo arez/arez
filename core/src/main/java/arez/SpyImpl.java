@@ -17,8 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Class supporting the propagation of events to SpyEventHandler callbacks.
@@ -34,7 +33,6 @@ final class SpyImpl implements Spy {
     /**
      * Support infrastructure for interacting with spy event handlers..
      */
-    @Nonnull
     private final SpyEventHandlerSupport _spyEventHandlerSupport = new SpyEventHandlerSupport();
 
     SpyImpl(@Nullable final ArezContext context) {
@@ -47,17 +45,17 @@ final class SpyImpl implements Spy {
     }
 
     @Override
-    public void addSpyEventHandler(@Nonnull final SpyEventHandler handler) {
+    public void addSpyEventHandler(final SpyEventHandler handler) {
         _spyEventHandlerSupport.addSpyEventHandler(handler);
     }
 
     @Override
-    public void removeSpyEventHandler(@Nonnull final SpyEventHandler handler) {
+    public void removeSpyEventHandler(final SpyEventHandler handler) {
         _spyEventHandlerSupport.removeSpyEventHandler(handler);
     }
 
     @Override
-    public void reportSpyEvent(@Nonnull final Object event) {
+    public void reportSpyEvent(final Object event) {
         _spyEventHandlerSupport.reportSpyEvent(event);
     }
 
@@ -66,7 +64,6 @@ final class SpyImpl implements Spy {
         return _spyEventHandlerSupport.willPropagateSpyEvents();
     }
 
-    @Nonnull
     private ArezContext getContext() {
         return Arez.areZonesEnabled() ? Objects.requireNonNull(_context) : Arez.context();
     }
@@ -76,7 +73,6 @@ final class SpyImpl implements Spy {
         return getContext().isTransactionActive();
     }
 
-    @Nonnull
     @Override
     public TransactionInfo getTransaction() {
         if (Arez.shouldCheckApiInvariants()) {
@@ -89,80 +85,71 @@ final class SpyImpl implements Spy {
 
     @Nullable
     @Override
-    public ComponentInfo findComponent(@Nonnull final String type, @Nonnull final Object id) {
+    public ComponentInfo findComponent(final String type, final Object id) {
         final Component component = getContext().findComponent(type, id);
         return null != component ? component.asInfo() : null;
     }
 
-    @Nonnull
     @Override
-    public Collection<ComponentInfo> findAllComponentsByType(@Nonnull final String type) {
+    public Collection<ComponentInfo> findAllComponentsByType(final String type) {
         final List<ComponentInfo> infos = getContext().findAllComponentsByType(type).stream()
                 .map(Component::asInfo)
                 .collect(Collectors.toList());
         return Collections.unmodifiableCollection(infos);
     }
 
-    @Nonnull
     @Override
     public Collection<String> findAllComponentTypes() {
         return Collections.unmodifiableCollection(getContext().findAllComponentTypes());
     }
 
-    @Nonnull
     @Override
     public Collection<ObservableValueInfo> findAllTopLevelObservableValues() {
         return ObservableValueInfoImpl.asUnmodifiableInfos(
                 getContext().getTopLevelObservables().values());
     }
 
-    @Nonnull
     @Override
     public Collection<ObserverInfo> findAllTopLevelObservers() {
         return ObserverInfoImpl.asUnmodifiableInfos(
                 getContext().getTopLevelObservers().values());
     }
 
-    @Nonnull
     @Override
     public Collection<ComputableValueInfo> findAllTopLevelComputableValues() {
         return ComputableValueInfoImpl.asUnmodifiableInfos(
                 getContext().getTopLevelComputableValues().values());
     }
 
-    @Nonnull
     @Override
     public Collection<TaskInfo> findAllTopLevelTasks() {
         return TaskInfoImpl.asUnmodifiableInfos(getContext().getTopLevelTasks().values());
     }
 
-    @Nonnull
     @Override
-    public ComponentInfo asComponentInfo(@Nonnull final Component component) {
+    public ComponentInfo asComponentInfo(final Component component) {
         return component.asInfo();
     }
 
-    @Nonnull
     @Override
-    public ObserverInfo asObserverInfo(@Nonnull final Observer observer) {
+    public ObserverInfo asObserverInfo(final Observer observer) {
         return observer.asInfo();
     }
 
-    @Nonnull
     @Override
-    public <T> ObservableValueInfo asObservableValueInfo(@Nonnull final ObservableValue<T> observableValue) {
+    public <T extends @Nullable Object> ObservableValueInfo asObservableValueInfo(
+            final ObservableValue<T> observableValue) {
         return observableValue.asInfo();
     }
 
-    @Nonnull
     @Override
-    public <T> ComputableValueInfo asComputableValueInfo(@Nonnull final ComputableValue<T> computableValue) {
+    public <T extends @Nullable Object> ComputableValueInfo asComputableValueInfo(
+            final ComputableValue<T> computableValue) {
         return computableValue.asInfo();
     }
 
-    @Nonnull
     @Override
-    public TaskInfo asTaskInfo(@Nonnull final Task task) {
+    public TaskInfo asTaskInfo(final Task task) {
         return task.asInfo();
     }
 }

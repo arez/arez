@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
-import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -81,9 +80,7 @@ public final class CollectionsUtilTest extends AbstractTest {
     }
 
     private void assertCollectionModifiableVariant(
-            @Nonnull final Collection<MyEntity> input,
-            @Nonnull final MyEntity entity,
-            @Nonnull final Collection<MyEntity> output) {
+            final Collection<MyEntity> input, final MyEntity entity, final Collection<MyEntity> output) {
         //noinspection SimplifiableAssertion
         assertTrue(output == input);
 
@@ -104,7 +101,7 @@ public final class CollectionsUtilTest extends AbstractTest {
         assertEquals(output.get(0), entity);
     }
 
-    private <T> void assertUnmodifiable(@Nonnull final Collection<T> list, @Nonnull final Supplier<T> creator) {
+    private <T> void assertUnmodifiable(final Collection<T> list, final Supplier<T> creator) {
         assertNotNull(list.iterator().next());
         assertThrows(UnsupportedOperationException.class, () -> list.add(creator.get()));
     }

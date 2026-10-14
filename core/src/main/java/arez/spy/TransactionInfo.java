@@ -1,7 +1,6 @@
 package arez.spy;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Spy interface into transaction data.
@@ -13,7 +12,6 @@ public interface TransactionInfo {
      *
      * @return the name of the transaction.
      */
-    @Nonnull
     String getName();
 
     /**
@@ -45,6 +43,5 @@ public interface TransactionInfo {
      *
      * @return the Observer that is tracker for this transaction.
      */
-    @Nonnull
     ObserverInfo getTracker();
 }

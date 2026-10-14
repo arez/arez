@@ -7,8 +7,7 @@ import arez.ObservableValue;
 import arez.Observer;
 import arez.Task;
 import java.util.Collection;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Interface for interacting with spy system.
@@ -20,7 +19,7 @@ public interface Spy {
      *
      * @param handler the spy handler.
      */
-    void addSpyEventHandler(@Nonnull SpyEventHandler handler);
+    void addSpyEventHandler(SpyEventHandler handler);
 
     /**
      * Remove spy handler from list of existing handlers.
@@ -28,7 +27,7 @@ public interface Spy {
      *
      * @param handler the spy handler.
      */
-    void removeSpyEventHandler(@Nonnull SpyEventHandler handler);
+    void removeSpyEventHandler(SpyEventHandler handler);
 
     /**
      * Return true if spy events will be propagated.
@@ -43,7 +42,7 @@ public interface Spy {
      *
      * @param event the event that occurred.
      */
-    void reportSpyEvent(@Nonnull Object event);
+    void reportSpyEvent(Object event);
 
     /**
      * Return true if there is a transaction active.
@@ -58,7 +57,6 @@ public interface Spy {
      *
      * @return the current transaction.
      */
-    @Nonnull
     TransactionInfo getTransaction();
 
     /**
@@ -69,7 +67,7 @@ public interface Spy {
      * @return the component descriptor matching the specified type and id.
      */
     @Nullable
-    ComponentInfo findComponent(@Nonnull String type, @Nonnull Object id);
+    ComponentInfo findComponent(String type, Object id);
 
     /**
      * Find all the components identified by the specified type.
@@ -78,8 +76,7 @@ public interface Spy {
      * @param type the component type.
      * @return the collection of component descriptors of specified type.
      */
-    @Nonnull
-    Collection<ComponentInfo> findAllComponentsByType(@Nonnull String type);
+    Collection<ComponentInfo> findAllComponentsByType(String type);
 
     /**
      * Find all the component types in the system.
@@ -88,7 +85,6 @@ public interface Spy {
      *
      * @return the collection of component types.
      */
-    @Nonnull
     Collection<String> findAllComponentTypes();
 
     /**
@@ -98,7 +94,6 @@ public interface Spy {
      *
      * @return the collection of observables not contained by a native component.
      */
-    @Nonnull
     Collection<ObservableValueInfo> findAllTopLevelObservableValues();
 
     /**
@@ -108,7 +103,6 @@ public interface Spy {
      *
      * @return the collection of observers not contained by a native component.
      */
-    @Nonnull
     Collection<ObserverInfo> findAllTopLevelObservers();
 
     /**
@@ -118,7 +112,6 @@ public interface Spy {
      *
      * @return the collection of computable values not contained by a native component.
      */
-    @Nonnull
     Collection<ComputableValueInfo> findAllTopLevelComputableValues();
 
     /**
@@ -129,7 +122,6 @@ public interface Spy {
      *
      * @return the collection of tasks defined by the context.
      */
-    @Nonnull
     Collection<TaskInfo> findAllTopLevelTasks();
 
     /**
@@ -138,8 +130,7 @@ public interface Spy {
      * @param component the Component.
      * @return the ComponentInfo.
      */
-    @Nonnull
-    ComponentInfo asComponentInfo(@Nonnull Component component);
+    ComponentInfo asComponentInfo(Component component);
 
     /**
      * Convert the specified observer into an ObserverInfo.
@@ -147,8 +138,7 @@ public interface Spy {
      * @param observer the Observer.
      * @return the ObserverInfo.
      */
-    @Nonnull
-    ObserverInfo asObserverInfo(@Nonnull Observer observer);
+    ObserverInfo asObserverInfo(Observer observer);
 
     /**
      * Convert the specified observableValue into an ObservableValueInfo.
@@ -157,8 +147,7 @@ public interface Spy {
      * @param observableValue the ObservableValue.
      * @return the ObservableValueInfo wrapping observableValue.
      */
-    @Nonnull
-    <T> ObservableValueInfo asObservableValueInfo(@Nonnull ObservableValue<T> observableValue);
+    <T extends @Nullable Object> ObservableValueInfo asObservableValueInfo(ObservableValue<T> observableValue);
 
     /**
      * Convert the specified ComputableValue into an ComputableValueInfo.
@@ -167,8 +156,7 @@ public interface Spy {
      * @param computableValue the ComputableValue.
      * @return the ComputableValueInfo wrapping the ComputableValue.
      */
-    @Nonnull
-    <T> ComputableValueInfo asComputableValueInfo(@Nonnull ComputableValue<T> computableValue);
+    <T extends @Nullable Object> ComputableValueInfo asComputableValueInfo(ComputableValue<T> computableValue);
 
     /**
      * Convert the specified task into an TaskInfo.
@@ -176,6 +164,5 @@ public interface Spy {
      * @param task the Task.
      * @return the TaskInfo.
      */
-    @Nonnull
-    TaskInfo asTaskInfo(@Nonnull Task task);
+    TaskInfo asTaskInfo(Task task);
 }

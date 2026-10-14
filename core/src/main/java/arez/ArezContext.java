@@ -19,9 +19,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import org.intellij.lang.annotations.MagicConstant;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The ArezContext defines the top level container of interconnected observables and observers.
@@ -50,12 +49,10 @@ public final class ArezContext {
     /**
      * Tasks scheduled but yet to be run.
      */
-    @Nonnull
     private final TaskQueue _taskQueue = new TaskQueue(Task.Flags.PRIORITY_COUNT, 100);
     /**
      * Executor responsible for executing tasks.
      */
-    @Nonnull
     private final RoundBasedTaskExecutor _executor = new RoundBasedTaskExecutor(_taskQueue, 100);
     /**
      * Support infrastructure for propagating observer errors.
@@ -151,8 +148,7 @@ public final class ArezContext {
      * @param type the component type.
      * @return the map for components of specified type.
      */
-    @Nonnull
-    private Map<Object, Component> getComponentByTypeMap(@Nonnull final String type) {
+    private Map<Object, Component> getComponentByTypeMap(final String type) {
         assert null != _components;
         return _components.computeIfAbsent(type, t -> new HashMap<>());
     }
@@ -165,7 +161,7 @@ public final class ArezContext {
      * @return true if component is defined in context.
      */
     @OmitSymbol(unless = "arez.enable_native_components")
-    public boolean isComponentPresent(@Nonnull final String type, @Nonnull final Object id) {
+    public boolean isComponentPresent(final String type, final Object id) {
         apiInvariant(
                 Arez::areNativeComponentsEnabled,
                 () -> "Arez-0135: ArezContext.isComponentPresent() invoked when Arez.areNativeComponentsEnabled()"
@@ -185,8 +181,7 @@ public final class ArezContext {
      * @return the created component.
      */
     @OmitSymbol(unless = "arez.enable_native_components")
-    @Nonnull
-    public Component component(@Nonnull final String type, @Nonnull final Object id) {
+    public Component component(final String type, final Object id) {
         return component(type, id, Arez.areNamesEnabled() ? type + "@" + id : null);
     }
 
@@ -203,8 +198,7 @@ public final class ArezContext {
      * @return the created component.
      */
     @OmitSymbol(unless = "arez.enable_native_components")
-    @Nonnull
-    public Component component(@Nonnull final String type, @Nonnull final Object id, @Nullable final String name) {
+    public Component component(final String type, final Object id, @Nullable final String name) {
         return component(type, id, name, null);
     }
 
@@ -222,12 +216,8 @@ public final class ArezContext {
      * @return the created component.
      */
     @OmitSymbol(unless = "arez.enable_native_components")
-    @Nonnull
     public Component component(
-            @Nonnull final String type,
-            @Nonnull final Object id,
-            @Nullable final String name,
-            @Nullable final SafeProcedure preDispose) {
+            final String type, final Object id, @Nullable final String name, @Nullable final SafeProcedure preDispose) {
         return component(type, id, name, preDispose, null);
     }
 
@@ -246,10 +236,9 @@ public final class ArezContext {
      * @return the created component.
      */
     @OmitSymbol(unless = "arez.enable_native_components")
-    @Nonnull
     public Component component(
-            @Nonnull final String type,
-            @Nonnull final Object id,
+            final String type,
+            final Object id,
             @Nullable final String name,
             @Nullable final SafeProcedure preDispose,
             @Nullable final SafeProcedure postDispose) {
@@ -281,7 +270,7 @@ public final class ArezContext {
      * @param component the component.
      */
     @OmitSymbol(unless = "arez.enable_native_components")
-    void deregisterComponent(@Nonnull final Component component) {
+    void deregisterComponent(final Component component) {
         if (Arez.shouldCheckInvariants()) {
             invariant(
                     Arez::areNativeComponentsEnabled,
@@ -313,7 +302,7 @@ public final class ArezContext {
      */
     @OmitSymbol(unless = "arez.enable_native_components")
     @Nullable
-    Component findComponent(@Nonnull final String type, @Nonnull final Object id) {
+    Component findComponent(final String type, final Object id) {
         if (Arez.shouldCheckInvariants()) {
             invariant(
                     Arez::areNativeComponentsEnabled,
@@ -336,8 +325,7 @@ public final class ArezContext {
      * @return the components for type.
      */
     @OmitSymbol(unless = "arez.enable_native_components")
-    @Nonnull
-    Collection<Component> findAllComponentsByType(@Nonnull final String type) {
+    Collection<Component> findAllComponentsByType(final String type) {
         if (Arez.shouldCheckInvariants()) {
             invariant(
                     Arez::areNativeComponentsEnabled,
@@ -359,7 +347,6 @@ public final class ArezContext {
      * @return the component types.
      */
     @OmitSymbol(unless = "arez.enable_native_components")
-    @Nonnull
     Collection<String> findAllComponentTypes() {
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -378,8 +365,7 @@ public final class ArezContext {
      * @param function the function that computes the value.
      * @return the ComputableValue instance.
      */
-    @Nonnull
-    public <T> ComputableValue<T> computable(@Nonnull final SafeFunction<T> function) {
+    public <T extends @Nullable Object> ComputableValue<T> computable(final SafeFunction<T> function) {
         return computable(function, 0);
     }
 
@@ -391,9 +377,8 @@ public final class ArezContext {
      * @param flags    the flags used to create the ComputableValue. The acceptable flags are defined in {@link ComputableValue.Flags}.
      * @return the ComputableValue instance.
      */
-    @Nonnull
-    public <T> ComputableValue<T> computable(
-            @Nonnull final SafeFunction<T> function,
+    public <T extends @Nullable Object> ComputableValue<T> computable(
+            final SafeFunction<T> function,
             @MagicConstant(flagsFromClass = ComputableValue.Flags.class) final int flags) {
         return computable(null, function, flags);
     }
@@ -406,8 +391,8 @@ public final class ArezContext {
      * @param function the function that computes the value.
      * @return the ComputableValue instance.
      */
-    @Nonnull
-    public <T> ComputableValue<T> computable(@Nullable final String name, @Nonnull final SafeFunction<T> function) {
+    public <T extends @Nullable Object> ComputableValue<T> computable(
+            @Nullable final String name, final SafeFunction<T> function) {
         return computable(name, function, 0);
     }
 
@@ -420,10 +405,9 @@ public final class ArezContext {
      * @param flags    the flags used to create the ComputableValue. The acceptable flags are defined in {@link ComputableValue.Flags}.
      * @return the ComputableValue instance.
      */
-    @Nonnull
-    public <T> ComputableValue<T> computable(
+    public <T extends @Nullable Object> ComputableValue<T> computable(
             @Nullable final String name,
-            @Nonnull final SafeFunction<T> function,
+            final SafeFunction<T> function,
             @MagicConstant(flagsFromClass = ComputableValue.Flags.class) final int flags) {
         return computable(null, name, function, flags);
     }
@@ -437,9 +421,8 @@ public final class ArezContext {
      * @param function  the function that computes the value.
      * @return the ComputableValue instance.
      */
-    @Nonnull
-    public <T> ComputableValue<T> computable(
-            @Nullable final Component component, @Nullable final String name, @Nonnull final SafeFunction<T> function) {
+    public <T extends @Nullable Object> ComputableValue<T> computable(
+            @Nullable final Component component, @Nullable final String name, final SafeFunction<T> function) {
         return computable(component, name, function, 0);
     }
 
@@ -453,11 +436,10 @@ public final class ArezContext {
      * @param flags     the flags used to create the ComputableValue. The acceptable flags are defined in {@link ComputableValue.Flags}.
      * @return the ComputableValue instance.
      */
-    @Nonnull
-    public <T> ComputableValue<T> computable(
+    public <T extends @Nullable Object> ComputableValue<T> computable(
             @Nullable final Component component,
             @Nullable final String name,
-            @Nonnull final SafeFunction<T> function,
+            final SafeFunction<T> function,
             @MagicConstant(flagsFromClass = ComputableValue.Flags.class) final int flags) {
         return computable(component, name, function, flags, new ObjectsEqualsComparator());
     }
@@ -473,13 +455,12 @@ public final class ArezContext {
      * @param equalityComparator strategy used to compare old and new computed values.
      * @return the ComputableValue instance.
      */
-    @Nonnull
-    public <T> ComputableValue<T> computable(
+    public <T extends @Nullable Object> ComputableValue<T> computable(
             @Nullable final Component component,
             @Nullable final String name,
-            @Nonnull final SafeFunction<T> function,
+            final SafeFunction<T> function,
             @MagicConstant(flagsFromClass = ComputableValue.Flags.class) final int flags,
-            @Nonnull final EqualityComparator equalityComparator) {
+            final EqualityComparator equalityComparator) {
         return new ComputableValue<>(
                 Arez.areZonesEnabled() ? this : null,
                 component,
@@ -499,7 +480,7 @@ public final class ArezContext {
      * @return the name.
      */
     @Nullable
-    String generateName(@Nonnull final String prefix, @Nullable final String name) {
+    String generateName(final String prefix, @Nullable final String name) {
         return Arez.areNamesEnabled() ? null != name ? name : prefix + "@" + _nextNodeId++ : null;
     }
 
@@ -509,8 +490,7 @@ public final class ArezContext {
      * @param observe the executable observed by the observer.
      * @return the new Observer.
      */
-    @Nonnull
-    public Observer observer(@Nonnull final Procedure observe) {
+    public Observer observer(final Procedure observe) {
         return observer(observe, 0);
     }
 
@@ -521,9 +501,8 @@ public final class ArezContext {
      * @param flags   the flags used to create the observer. The acceptable flags are defined in {@link Observer.Flags}.
      * @return the new Observer.
      */
-    @Nonnull
     public Observer observer(
-            @Nonnull final Procedure observe, @MagicConstant(flagsFromClass = Observer.Flags.class) final int flags) {
+            final Procedure observe, @MagicConstant(flagsFromClass = Observer.Flags.class) final int flags) {
         return observer((String) null, observe, flags);
     }
 
@@ -534,8 +513,7 @@ public final class ArezContext {
      * @param observe the executable observed by the observer.
      * @return the new Observer.
      */
-    @Nonnull
-    public Observer observer(@Nullable final String name, @Nonnull final Procedure observe) {
+    public Observer observer(@Nullable final String name, final Procedure observe) {
         return observer(name, observe, 0);
     }
 
@@ -547,10 +525,9 @@ public final class ArezContext {
      * @param flags   the flags used to create the observer. The acceptable flags are defined in {@link Observer.Flags}.
      * @return the new Observer.
      */
-    @Nonnull
     public Observer observer(
             @Nullable final String name,
-            @Nonnull final Procedure observe,
+            final Procedure observe,
             @MagicConstant(flagsFromClass = Observer.Flags.class) final int flags) {
         return observer(null, name, observe, flags);
     }
@@ -563,9 +540,8 @@ public final class ArezContext {
      * @param observe   the executable observed by the observer.
      * @return the new Observer.
      */
-    @Nonnull
     public Observer observer(
-            @Nullable final Component component, @Nullable final String name, @Nonnull final Procedure observe) {
+            @Nullable final Component component, @Nullable final String name, final Procedure observe) {
         return observer(component, name, observe, 0);
     }
 
@@ -578,11 +554,10 @@ public final class ArezContext {
      * @param flags     the flags used to create the observer. The acceptable flags are defined in {@link Observer.Flags}.
      * @return the new Observer.
      */
-    @Nonnull
     public Observer observer(
             @Nullable final Component component,
             @Nullable final String name,
-            @Nonnull final Procedure observe,
+            final Procedure observe,
             @MagicConstant(flagsFromClass = Observer.Flags.class) final int flags) {
         return observer(component, name, Objects.requireNonNull(observe), null, flags);
     }
@@ -597,7 +572,6 @@ public final class ArezContext {
      * @param onDepsChange the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
      * @return the new Observer.
      */
-    @Nonnull
     public Observer observer(
             @Nullable final Component component,
             @Nullable final String name,
@@ -614,7 +588,6 @@ public final class ArezContext {
      * @param onDepsChange the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
      * @return the new Observer.
      */
-    @Nonnull
     public Observer observer(@Nullable final Procedure observe, @Nullable final Procedure onDepsChange) {
         return observer(observe, onDepsChange, 0);
     }
@@ -628,7 +601,6 @@ public final class ArezContext {
      * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Observer.Flags}.
      * @return the new Observer.
      */
-    @Nonnull
     public Observer observer(
             @Nullable final Procedure observe,
             @Nullable final Procedure onDepsChange,
@@ -645,7 +617,6 @@ public final class ArezContext {
      * @param onDepsChange the hook invoked when dependencies changed. If this is non-null then it is expected that hook will manually schedule the observer by calling {@link Observer#schedule()} at some point.
      * @return the new Observer.
      */
-    @Nonnull
     public Observer observer(
             @Nullable final String name, @Nullable final Procedure observe, @Nullable final Procedure onDepsChange) {
         return observer(name, observe, onDepsChange, 0);
@@ -661,7 +632,6 @@ public final class ArezContext {
      * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Observer.Flags}.
      * @return the new Observer.
      */
-    @Nonnull
     public Observer observer(
             @Nullable final String name,
             @Nullable final Procedure observe,
@@ -681,7 +651,6 @@ public final class ArezContext {
      * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Observer.Flags}.
      * @return the new Observer.
      */
-    @Nonnull
     public Observer observer(
             @Nullable final Component component,
             @Nullable final String name,
@@ -705,8 +674,7 @@ public final class ArezContext {
      * @param onDepsChange the hook invoked when dependencies changed.
      * @return the new Observer.
      */
-    @Nonnull
-    public Observer tracker(@Nonnull final Procedure onDepsChange) {
+    public Observer tracker(final Procedure onDepsChange) {
         return tracker(onDepsChange, 0);
     }
 
@@ -719,10 +687,8 @@ public final class ArezContext {
      * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Observer.Flags}.
      * @return the new Observer.
      */
-    @Nonnull
     public Observer tracker(
-            @Nonnull final Procedure onDepsChange,
-            @MagicConstant(flagsFromClass = Observer.Flags.class) final int flags) {
+            final Procedure onDepsChange, @MagicConstant(flagsFromClass = Observer.Flags.class) final int flags) {
         return tracker(null, onDepsChange, flags);
     }
 
@@ -735,8 +701,7 @@ public final class ArezContext {
      * @param onDepsChange the hook invoked when dependencies changed.
      * @return the new Observer.
      */
-    @Nonnull
-    public Observer tracker(@Nullable final String name, @Nonnull final Procedure onDepsChange) {
+    public Observer tracker(@Nullable final String name, final Procedure onDepsChange) {
         return tracker(name, onDepsChange, 0);
     }
 
@@ -750,10 +715,9 @@ public final class ArezContext {
      * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Observer.Flags}.
      * @return the new Observer.
      */
-    @Nonnull
     public Observer tracker(
             @Nullable final String name,
-            @Nonnull final Procedure onDepsChange,
+            final Procedure onDepsChange,
             @MagicConstant(flagsFromClass = Observer.Flags.class) final int flags) {
         return tracker(null, name, onDepsChange, flags);
     }
@@ -768,9 +732,8 @@ public final class ArezContext {
      * @param onDepsChange the hook invoked when dependencies changed.
      * @return the new Observer.
      */
-    @Nonnull
     public Observer tracker(
-            @Nullable final Component component, @Nullable final String name, @Nonnull final Procedure onDepsChange) {
+            @Nullable final Component component, @Nullable final String name, final Procedure onDepsChange) {
         return tracker(component, name, onDepsChange, 0);
     }
 
@@ -785,11 +748,10 @@ public final class ArezContext {
      * @param flags        the flags used to create the observer. The acceptable flags are defined in {@link Observer.Flags}.
      * @return the new Observer.
      */
-    @Nonnull
     public Observer tracker(
             @Nullable final Component component,
             @Nullable final String name,
-            @Nonnull final Procedure onDepsChange,
+            final Procedure onDepsChange,
             @MagicConstant(flagsFromClass = Observer.Flags.class) final int flags) {
         return observer(component, name, null, Objects.requireNonNull(onDepsChange), flags);
     }
@@ -800,8 +762,7 @@ public final class ArezContext {
      * @param <T> the type of observable.
      * @return the new ObservableValue.
      */
-    @Nonnull
-    public <T> ObservableValue<T> observable() {
+    public <T extends @Nullable Object> ObservableValue<T> observable() {
         return observable(null);
     }
 
@@ -812,8 +773,7 @@ public final class ArezContext {
      * @param <T>  the type of observable.
      * @return the new ObservableValue.
      */
-    @Nonnull
-    public <T> ObservableValue<T> observable(@Nullable final String name) {
+    public <T extends @Nullable Object> ObservableValue<T> observable(@Nullable final String name) {
         return observable(name, null, null);
     }
 
@@ -826,8 +786,7 @@ public final class ArezContext {
      * @param <T>      the type of observable.
      * @return the new ObservableValue.
      */
-    @Nonnull
-    public <T> ObservableValue<T> observable(
+    public <T extends @Nullable Object> ObservableValue<T> observable(
             @Nullable final String name,
             @Nullable final PropertyAccessor<T> accessor,
             @Nullable final PropertyMutator<T> mutator) {
@@ -842,8 +801,8 @@ public final class ArezContext {
      * @param name      the name of the observable. Should be non-null if {@link Arez#areNamesEnabled()} returns true, null otherwise.
      * @return the new ObservableValue.
      */
-    @Nonnull
-    public <T> ObservableValue<T> observable(@Nullable final Component component, @Nullable final String name) {
+    public <T extends @Nullable Object> ObservableValue<T> observable(
+            @Nullable final Component component, @Nullable final String name) {
         return observable(component, name, null);
     }
 
@@ -856,8 +815,7 @@ public final class ArezContext {
      * @param accessor  the accessor for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
      * @return the new ObservableValue.
      */
-    @Nonnull
-    public <T> ObservableValue<T> observable(
+    public <T extends @Nullable Object> ObservableValue<T> observable(
             @Nullable final Component component,
             @Nullable final String name,
             @Nullable final PropertyAccessor<T> accessor) {
@@ -874,8 +832,7 @@ public final class ArezContext {
      * @param mutator   the mutator for observable. Should be null if {@link Arez#arePropertyIntrospectorsEnabled()} returns false, may be non-null otherwise.
      * @return the new ObservableValue.
      */
-    @Nonnull
-    public <T> ObservableValue<T> observable(
+    public <T extends @Nullable Object> ObservableValue<T> observable(
             @Nullable final Component component,
             @Nullable final String name,
             @Nullable final PropertyAccessor<T> accessor,
@@ -899,7 +856,7 @@ public final class ArezContext {
      *
      * @param observer the reaction to schedule.
      */
-    void scheduleReaction(@Nonnull final Observer observer) {
+    void scheduleReaction(final Observer observer) {
         if (willPropagateSpyEvents()) {
             getSpy().reportSpyEvent(new ObserveScheduleEvent(observer.asInfo()));
         }
@@ -925,8 +882,7 @@ public final class ArezContext {
      * @param work the representation of the task to execute.
      * @return the new task.
      */
-    @Nonnull
-    public Task task(@Nonnull final SafeProcedure work) {
+    public Task task(final SafeProcedure work) {
         return task(null, work);
     }
 
@@ -938,8 +894,7 @@ public final class ArezContext {
      * @param work the representation of the task to execute.
      * @return the new task.
      */
-    @Nonnull
-    public Task task(@Nullable final String name, @Nonnull final SafeProcedure work) {
+    public Task task(@Nullable final String name, final SafeProcedure work) {
         return task(name, work, Task.Flags.STATE_IDLE);
     }
 
@@ -952,9 +907,7 @@ public final class ArezContext {
      * @param flags the flags to configure the task. Valid flags include PRIORITY_* flags, DISPOSE_ON_COMPLETE and RUN_* flags.
      * @return the new task.
      */
-    @Nonnull
-    public Task task(
-            @Nonnull final SafeProcedure work, @MagicConstant(flagsFromClass = Task.Flags.class) final int flags) {
+    public Task task(final SafeProcedure work, @MagicConstant(flagsFromClass = Task.Flags.class) final int flags) {
         return task(null, work, flags);
     }
 
@@ -968,10 +921,9 @@ public final class ArezContext {
      * @param flags the flags to configure task. Valid flags include PRIORITY_* flags, DISPOSE_ON_COMPLETE and RUN_* flags.
      * @return the new task.
      */
-    @Nonnull
     public Task task(
             @Nullable final String name,
-            @Nonnull final SafeProcedure work,
+            final SafeProcedure work,
             @MagicConstant(flagsFromClass = Task.Flags.class) final int flags) {
         final Task task = new Task(Arez.areZonesEnabled() ? this : null, generateName("Task", name), work, flags);
         task.initialSchedule();
@@ -1052,7 +1004,6 @@ public final class ArezContext {
      *
      * @return the current transaction.
      */
-    @Nonnull
     Transaction getTransaction() {
         final Transaction current = Transaction.current();
         if (Arez.shouldCheckInvariants()) {
@@ -1133,7 +1084,6 @@ public final class ArezContext {
      *
      * @return a lock on scheduler.
      */
-    @Nonnull
     public SchedulerLock pauseScheduler() {
         _schedulerLockCount++;
         return new SchedulerLock(Arez.areZonesEnabled() ? this : null);
@@ -1217,7 +1167,7 @@ public final class ArezContext {
      * @param onDeactivate a lambda that is invoked when the hook deregisters, or the observer deactivates.
      */
     public void registerHook(
-            @Nonnull final String key, @Nullable final Procedure onActivate, @Nullable final Procedure onDeactivate) {
+            final String key, @Nullable final Procedure onActivate, @Nullable final Procedure onDeactivate) {
         if (Arez.shouldCheckInvariants()) {
             //noinspection ConstantValue
             invariant(() -> null != key, () -> "Arez-0125: registerHook() invoked with a null key.");
@@ -1238,7 +1188,7 @@ public final class ArezContext {
      * @return the value returned from the executable.
      * @throws Exception if the executable throws an exception.
      */
-    public <T> T action(@Nonnull final Function<T> executable) throws Throwable {
+    public <T extends @Nullable Object> T action(final Function<T> executable) throws Throwable {
         return action(executable, 0);
     }
 
@@ -1252,8 +1202,8 @@ public final class ArezContext {
      * @return the value returned from the executable.
      * @throws Exception if the executable throws an exception.
      */
-    public <T> T action(
-            @Nonnull final Function<T> executable, @MagicConstant(flagsFromClass = ActionFlags.class) final int flags)
+    public <T extends @Nullable Object> T action(
+            final Function<T> executable, @MagicConstant(flagsFromClass = ActionFlags.class) final int flags)
             throws Throwable {
         return action(null, executable, flags);
     }
@@ -1268,7 +1218,8 @@ public final class ArezContext {
      * @return the value returned from the executable.
      * @throws Exception if the executable throws an exception.
      */
-    public <T> T action(@Nullable final String name, @Nonnull final Function<T> executable) throws Throwable {
+    public <T extends @Nullable Object> T action(@Nullable final String name, final Function<T> executable)
+            throws Throwable {
         return action(name, executable, 0);
     }
 
@@ -1283,9 +1234,9 @@ public final class ArezContext {
      * @return the value returned from the executable.
      * @throws Exception if the executable throws an exception.
      */
-    public <T> T action(
+    public <T extends @Nullable Object> T action(
             @Nullable final String name,
-            @Nonnull final Function<T> executable,
+            final Function<T> executable,
             @MagicConstant(flagsFromClass = ActionFlags.class) final int flags)
             throws Throwable {
         return action(name, executable, flags, null);
@@ -1303,11 +1254,11 @@ public final class ArezContext {
      * @return the value returned from the executable.
      * @throws Exception if the executable throws an exception.
      */
-    public <T> T action(
+    public <T extends @Nullable Object> T action(
             @Nullable final String name,
-            @Nonnull final Function<T> executable,
+            final Function<T> executable,
             @MagicConstant(flagsFromClass = ActionFlags.class) final int flags,
-            @Nullable final Object[] parameters)
+            final @Nullable Object @Nullable [] parameters)
             throws Throwable {
         return _action(name, executable, flags, null, parameters, true);
     }
@@ -1323,7 +1274,7 @@ public final class ArezContext {
      * @return the value returned from the observe function.
      * @throws Exception if the observe function throws an exception.
      */
-    public <T> T observe(@Nonnull final Observer observer, @Nonnull final Function<T> observe) throws Throwable {
+    public <T extends @Nullable Object> T observe(final Observer observer, final Function<T> observe) throws Throwable {
         return observe(observer, observe, null);
     }
 
@@ -1339,8 +1290,8 @@ public final class ArezContext {
      * @return the value returned from the observe function.
      * @throws Exception if the observe function throws an exception.
      */
-    public <T> T observe(
-            @Nonnull final Observer observer, @Nonnull final Function<T> observe, @Nullable final Object[] parameters)
+    public <T extends @Nullable Object> T observe(
+            final Observer observer, final Function<T> observe, final @Nullable Object @Nullable [] parameters)
             throws Throwable {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
@@ -1359,7 +1310,7 @@ public final class ArezContext {
      * @param executable the executable.
      * @return the value returned from the executable.
      */
-    public <T> T safeAction(@Nonnull final SafeFunction<T> executable) {
+    public <T extends @Nullable Object> T safeAction(final SafeFunction<T> executable) {
         return safeAction(executable, 0);
     }
 
@@ -1372,9 +1323,8 @@ public final class ArezContext {
      * @param flags      the flags for the action.
      * @return the value returned from the executable.
      */
-    public <T> T safeAction(
-            @Nonnull final SafeFunction<T> executable,
-            @MagicConstant(flagsFromClass = ActionFlags.class) final int flags) {
+    public <T extends @Nullable Object> T safeAction(
+            final SafeFunction<T> executable, @MagicConstant(flagsFromClass = ActionFlags.class) final int flags) {
         return safeAction(null, executable, flags);
     }
 
@@ -1387,7 +1337,7 @@ public final class ArezContext {
      * @param executable the executable.
      * @return the value returned from the executable.
      */
-    public <T> T safeAction(@Nullable final String name, @Nonnull final SafeFunction<T> executable) {
+    public <T extends @Nullable Object> T safeAction(@Nullable final String name, final SafeFunction<T> executable) {
         return safeAction(name, executable, 0);
     }
 
@@ -1401,9 +1351,9 @@ public final class ArezContext {
      * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
      * @return the value returned from the executable.
      */
-    public <T> T safeAction(
+    public <T extends @Nullable Object> T safeAction(
             @Nullable final String name,
-            @Nonnull final SafeFunction<T> executable,
+            final SafeFunction<T> executable,
             @MagicConstant(flagsFromClass = ActionFlags.class) final int flags) {
         return safeAction(name, executable, flags, null);
     }
@@ -1419,11 +1369,11 @@ public final class ArezContext {
      * @param parameters the parameters if any. The parameters are only used to generate a spy event.
      * @return the value returned from the executable.
      */
-    public <T> T safeAction(
+    public <T extends @Nullable Object> T safeAction(
             @Nullable final String name,
-            @Nonnull final SafeFunction<T> executable,
+            final SafeFunction<T> executable,
             @MagicConstant(flagsFromClass = ActionFlags.class) final int flags,
-            @Nullable final Object[] parameters) {
+            final @Nullable Object @Nullable [] parameters) {
         return _safeAction(name, executable, flags, null, parameters, true, true);
     }
 
@@ -1437,7 +1387,7 @@ public final class ArezContext {
      * @param observe  the observe function.
      * @return the value returned from the observe function.
      */
-    public <T> T safeObserve(@Nonnull final Observer observer, @Nonnull final SafeFunction<T> observe) {
+    public <T extends @Nullable Object> T safeObserve(final Observer observer, final SafeFunction<T> observe) {
         return safeObserve(observer, observe, null);
     }
 
@@ -1452,10 +1402,8 @@ public final class ArezContext {
      * @param parameters the parameters if any. The parameters are only used to generate a spy event.
      * @return the value returned from the observe function.
      */
-    public <T> T safeObserve(
-            @Nonnull final Observer observer,
-            @Nonnull final SafeFunction<T> observe,
-            @Nullable final Object[] parameters) {
+    public <T extends @Nullable Object> T safeObserve(
+            final Observer observer, final SafeFunction<T> observe, final @Nullable Object @Nullable [] parameters) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     observer::isApplicationExecutor,
@@ -1473,7 +1421,7 @@ public final class ArezContext {
      * @param executable the executable.
      * @throws Throwable if the procedure throws an exception.
      */
-    public void action(@Nonnull final Procedure executable) throws Throwable {
+    public void action(final Procedure executable) throws Throwable {
         action(executable, 0);
     }
 
@@ -1485,8 +1433,7 @@ public final class ArezContext {
      * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
      * @throws Throwable if the procedure throws an exception.
      */
-    public void action(
-            @Nonnull final Procedure executable, @MagicConstant(flagsFromClass = ActionFlags.class) final int flags)
+    public void action(final Procedure executable, @MagicConstant(flagsFromClass = ActionFlags.class) final int flags)
             throws Throwable {
         action(null, executable, flags);
     }
@@ -1499,7 +1446,7 @@ public final class ArezContext {
      * @param executable the executable.
      * @throws Throwable if the procedure throws an exception.
      */
-    public void action(@Nullable final String name, @Nonnull final Procedure executable) throws Throwable {
+    public void action(@Nullable final String name, final Procedure executable) throws Throwable {
         action(name, executable, 0);
     }
 
@@ -1514,7 +1461,7 @@ public final class ArezContext {
      */
     public void action(
             @Nullable final String name,
-            @Nonnull final Procedure executable,
+            final Procedure executable,
             @MagicConstant(flagsFromClass = ActionFlags.class) final int flags)
             throws Throwable {
         action(name, executable, flags, null);
@@ -1532,9 +1479,9 @@ public final class ArezContext {
      */
     public void action(
             @Nullable final String name,
-            @Nonnull final Procedure executable,
+            final Procedure executable,
             @MagicConstant(flagsFromClass = ActionFlags.class) final int flags,
-            @Nullable final Object[] parameters)
+            final @Nullable Object @Nullable [] parameters)
             throws Throwable {
         _action(name, procedureToFunction(executable), flags, null, parameters, false);
     }
@@ -1548,7 +1495,7 @@ public final class ArezContext {
      * @param observe  the observe function.
      * @throws Exception if the observe function throws an exception.
      */
-    public void observe(@Nonnull final Observer observer, @Nonnull final Procedure observe) throws Throwable {
+    public void observe(final Observer observer, final Procedure observe) throws Throwable {
         observe(observer, observe, null);
     }
 
@@ -1563,7 +1510,7 @@ public final class ArezContext {
      * @throws Exception if the observe function throws an exception.
      */
     public void observe(
-            @Nonnull final Observer observer, @Nonnull final Procedure observe, @Nullable final Object[] parameters)
+            final Observer observer, final Procedure observe, final @Nullable Object @Nullable [] parameters)
             throws Throwable {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
@@ -1574,8 +1521,7 @@ public final class ArezContext {
         rawObserve(observer, observe, parameters);
     }
 
-    void rawObserve(
-            @Nonnull final Observer observer, @Nonnull final Procedure observe, @Nullable final Object[] parameters)
+    void rawObserve(final Observer observer, final Procedure observe, final @Nullable Object @Nullable [] parameters)
             throws Throwable {
         _action(
                 observerToName(observer),
@@ -1586,7 +1532,7 @@ public final class ArezContext {
                 false);
     }
 
-    <T> T rawCompute(@Nonnull final ComputableValue<T> computableValue, @Nonnull final SafeFunction<T> action) {
+    <T extends @Nullable Object> T rawCompute(final ComputableValue<T> computableValue, final SafeFunction<T> action) {
         return _safeAction(
                 Arez.areNamesEnabled() ? computableValue.getName() + ".wrapper" : null,
                 action,
@@ -1604,8 +1550,7 @@ public final class ArezContext {
      * @param procedure the procedure.
      * @return the function.
      */
-    @Nonnull
-    private SafeFunction<Object> safeProcedureToFunction(@Nonnull final SafeProcedure procedure) {
+    private SafeFunction<Object> safeProcedureToFunction(final SafeProcedure procedure) {
         return () -> {
             procedure.call();
             return null;
@@ -1619,8 +1564,7 @@ public final class ArezContext {
      * @param procedure the procedure.
      * @return the function.
      */
-    @Nonnull
-    private Function<Object> procedureToFunction(@Nonnull final Procedure procedure) {
+    private Function<Object> procedureToFunction(final Procedure procedure) {
         return () -> {
             procedure.call();
             return null;
@@ -1632,7 +1576,7 @@ public final class ArezContext {
      *
      * @param executable the executable.
      */
-    public void safeAction(@Nonnull final SafeProcedure executable) {
+    public void safeAction(final SafeProcedure executable) {
         safeAction(executable, 0);
     }
 
@@ -1643,8 +1587,7 @@ public final class ArezContext {
      * @param flags      the flags for the action. The acceptable flags are defined in {@link ActionFlags}.
      */
     public void safeAction(
-            @Nonnull final SafeProcedure executable,
-            @MagicConstant(flagsFromClass = ActionFlags.class) final int flags) {
+            final SafeProcedure executable, @MagicConstant(flagsFromClass = ActionFlags.class) final int flags) {
         safeAction(null, executable, flags);
     }
 
@@ -1654,7 +1597,7 @@ public final class ArezContext {
      * @param name       the name of the action.
      * @param executable the executable.
      */
-    public void safeAction(@Nullable final String name, @Nonnull final SafeProcedure executable) {
+    public void safeAction(@Nullable final String name, final SafeProcedure executable) {
         safeAction(name, executable, 0);
     }
 
@@ -1667,7 +1610,7 @@ public final class ArezContext {
      */
     public void safeAction(
             @Nullable final String name,
-            @Nonnull final SafeProcedure executable,
+            final SafeProcedure executable,
             @MagicConstant(flagsFromClass = ActionFlags.class) final int flags) {
         safeAction(name, executable, flags, null);
     }
@@ -1682,9 +1625,9 @@ public final class ArezContext {
      */
     public void safeAction(
             @Nullable final String name,
-            @Nonnull final SafeProcedure executable,
+            final SafeProcedure executable,
             @MagicConstant(flagsFromClass = ActionFlags.class) final int flags,
-            @Nullable final Object[] parameters) {
+            final @Nullable Object @Nullable [] parameters) {
         _safeAction(name, safeProcedureToFunction(executable), flags, null, parameters, false, true);
     }
 
@@ -1696,7 +1639,7 @@ public final class ArezContext {
      * @param observer the Observer.
      * @param observe  the observe function.
      */
-    public void safeObserve(@Nonnull final Observer observer, @Nonnull final SafeProcedure observe) {
+    public void safeObserve(final Observer observer, final SafeProcedure observe) {
         safeObserve(observer, observe, null);
     }
 
@@ -1710,9 +1653,7 @@ public final class ArezContext {
      * @param parameters the parameters if any. The parameters are only used to generate a spy event.
      */
     public void safeObserve(
-            @Nonnull final Observer observer,
-            @Nonnull final SafeProcedure observe,
-            @Nullable final Object[] parameters) {
+            final Observer observer, final SafeProcedure observe, final @Nullable Object @Nullable [] parameters) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     observer::isApplicationExecutor,
@@ -1729,12 +1670,12 @@ public final class ArezContext {
                 true);
     }
 
-    private <T> T _safeAction(
+    private <T extends @Nullable Object> T _safeAction(
             @Nullable final String specifiedName,
-            @Nonnull final SafeFunction<T> executable,
+            final SafeFunction<T> executable,
             final int flags,
             @Nullable final Observer observer,
-            @Nullable final Object[] parameters,
+            final @Nullable Object @Nullable [] parameters,
             final boolean expectResult,
             final boolean generateActionEvents) {
         final String name = generateName("Action", specifiedName);
@@ -1785,12 +1726,12 @@ public final class ArezContext {
         }
     }
 
-    private <T> T _action(
+    private <T extends @Nullable Object> T _action(
             @Nullable final String specifiedName,
-            @Nonnull final Function<T> executable,
+            final Function<T> executable,
             final int flags,
             @Nullable final Observer observer,
-            @Nullable final Object[] parameters,
+            final @Nullable Object @Nullable [] parameters,
             final boolean expectResult)
             throws Throwable {
         final String name = generateName("Action", specifiedName);
@@ -1864,7 +1805,7 @@ public final class ArezContext {
             @Nullable final String name,
             @Nullable final Observer observer,
             final int flags,
-            @Nonnull final Transaction transaction) {
+            final Transaction transaction) {
         if (Arez.shouldCheckInvariants()) {
             if (null == observer) {
                 verifyActionRequired(transaction, flags);
@@ -1881,7 +1822,7 @@ public final class ArezContext {
         }
     }
 
-    private void verifyActionRequired(@Nonnull final Transaction transaction, final int flags) {
+    private void verifyActionRequired(final Transaction transaction, final int flags) {
         if (Arez.shouldCheckInvariants()
                 && ActionFlags.NO_VERIFY_ACTION_REQUIRED != (flags & ActionFlags.NO_VERIFY_ACTION_REQUIRED)) {
             invariant(
@@ -1893,7 +1834,6 @@ public final class ArezContext {
         }
     }
 
-    @Nonnull
     private Transaction newTransaction(
             @Nullable final String name, final int flags, @Nullable final Observer observer) {
         final boolean mutation = Arez.shouldEnforceTransactionType() && 0 == (flags & Transaction.Flags.READ_ONLY);
@@ -1946,8 +1886,7 @@ public final class ArezContext {
      * @return the disposable to dispose to deregister locator.
      */
     @OmitSymbol(unless = "arez.enable_references")
-    @Nonnull
-    public Disposable registerLocator(@Nonnull final Locator locator) {
+    public Disposable registerLocator(final Locator locator) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     Arez::areReferencesEnabled,
@@ -1965,7 +1904,6 @@ public final class ArezContext {
      * @return the Locator.
      */
     @OmitSymbol(unless = "arez.enable_references")
-    @Nonnull
     public Locator locator() {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
@@ -1984,7 +1922,7 @@ public final class ArezContext {
      * @param handler the error handler.
      */
     @OmitSymbol(unless = "arez.enable_observer_error_handlers")
-    public void addObserverErrorHandler(@Nonnull final ObserverErrorHandler handler) {
+    public void addObserverErrorHandler(final ObserverErrorHandler handler) {
         if (Arez.shouldCheckInvariants()) {
             invariant(
                     Arez::areObserverErrorHandlersEnabled,
@@ -2002,7 +1940,7 @@ public final class ArezContext {
      * @param handler the error handler.
      */
     @OmitSymbol(unless = "arez.enable_observer_error_handlers")
-    public void removeObserverErrorHandler(@Nonnull final ObserverErrorHandler handler) {
+    public void removeObserverErrorHandler(final ObserverErrorHandler handler) {
         if (Arez.shouldCheckInvariants()) {
             invariant(
                     Arez::areObserverErrorHandlersEnabled,
@@ -2019,8 +1957,7 @@ public final class ArezContext {
      * @param error     the type of the error.
      * @param throwable the exception that caused error if any.
      */
-    void reportObserverError(
-            @Nonnull final Observer observer, @Nonnull final ObserverError error, @Nullable final Throwable throwable) {
+    void reportObserverError(final Observer observer, final ObserverError error, @Nullable final Throwable throwable) {
         if (willPropagateSpyEvents()) {
             getSpy().reportSpyEvent(new ObserverErrorEvent(observer.asInfo(), error, throwable));
         }
@@ -2045,7 +1982,6 @@ public final class ArezContext {
      *
      * @return the spy associated with context.
      */
-    @Nonnull
     public Spy getSpy() {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(Arez::areSpiesEnabled, () -> "Arez-0021: Attempting to get Spy but spies are not enabled.");
@@ -2059,13 +1995,12 @@ public final class ArezContext {
      *
      * @return the task queue associated with the context.
      */
-    @Nonnull
     TaskQueue getTaskQueue() {
         return _taskQueue;
     }
 
     @OmitSymbol(unless = "arez.enable_registries")
-    void registerObservableValue(@Nonnull final ObservableValue<?> observableValue) {
+    void registerObservableValue(final ObservableValue<?> observableValue) {
         final String name = observableValue.getName();
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -2083,7 +2018,7 @@ public final class ArezContext {
     }
 
     @OmitSymbol(unless = "arez.enable_registries")
-    void deregisterObservableValue(@Nonnull final ObservableValue<?> observableValue) {
+    void deregisterObservableValue(final ObservableValue<?> observableValue) {
         final String name = observableValue.getName();
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -2101,7 +2036,6 @@ public final class ArezContext {
     }
 
     @OmitSymbol(unless = "arez.enable_registries")
-    @Nonnull
     Map<String, ObservableValue<?>> getTopLevelObservables() {
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -2114,7 +2048,7 @@ public final class ArezContext {
     }
 
     @OmitSymbol(unless = "arez.enable_registries")
-    void registerObserver(@Nonnull final Observer observer) {
+    void registerObserver(final Observer observer) {
         final String name = observer.getName();
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -2132,7 +2066,7 @@ public final class ArezContext {
     }
 
     @OmitSymbol(unless = "arez.enable_registries")
-    void deregisterObserver(@Nonnull final Observer observer) {
+    void deregisterObserver(final Observer observer) {
         final String name = observer.getName();
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -2150,7 +2084,6 @@ public final class ArezContext {
     }
 
     @OmitSymbol(unless = "arez.enable_registries")
-    @Nonnull
     Map<String, Observer> getTopLevelObservers() {
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -2163,7 +2096,7 @@ public final class ArezContext {
     }
 
     @OmitSymbol(unless = "arez.enable_registries")
-    void registerComputableValue(@Nonnull final ComputableValue<?> computableValue) {
+    void registerComputableValue(final ComputableValue<?> computableValue) {
         final String name = computableValue.getName();
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -2181,7 +2114,7 @@ public final class ArezContext {
     }
 
     @OmitSymbol(unless = "arez.enable_registries")
-    void deregisterComputableValue(@Nonnull final ComputableValue<?> computableValue) {
+    void deregisterComputableValue(final ComputableValue<?> computableValue) {
         final String name = computableValue.getName();
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -2199,7 +2132,6 @@ public final class ArezContext {
     }
 
     @OmitSymbol(unless = "arez.enable_registries")
-    @Nonnull
     Map<String, ComputableValue<?>> getTopLevelComputableValues() {
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -2212,7 +2144,7 @@ public final class ArezContext {
     }
 
     @OmitSymbol(unless = "arez.enable_registries")
-    void registerTask(@Nonnull final Task task) {
+    void registerTask(final Task task) {
         final String name = task.getName();
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -2230,7 +2162,7 @@ public final class ArezContext {
     }
 
     @OmitSymbol(unless = "arez.enable_registries")
-    void deregisterTask(@Nonnull final Task task) {
+    void deregisterTask(final Task task) {
         final String name = task.getName();
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -2248,7 +2180,6 @@ public final class ArezContext {
     }
 
     @OmitSymbol(unless = "arez.enable_registries")
-    @Nonnull
     Map<String, Task> getTopLevelTasks() {
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -2260,25 +2191,23 @@ public final class ArezContext {
         return _tasks;
     }
 
-    @Nonnull
     Zone getZone() {
         assert null != _zone;
         return _zone;
     }
 
     @OmitSymbol(unless = "arez.enable_observer_error_handlers")
-    @Nonnull
     ObserverErrorHandlerSupport getObserverErrorHandlerSupport() {
         assert null != _observerErrorHandlerSupport;
         return _observerErrorHandlerSupport;
     }
 
     @Nullable
-    private String observerToName(@Nonnull final Observer observer) {
+    private String observerToName(final Observer observer) {
         return Arez.areNamesEnabled() ? observer.getName() : null;
     }
 
-    private int trackerObserveFlags(@Nonnull final Observer observer) {
+    private int trackerObserveFlags(final Observer observer) {
         return Transaction.Flags.REQUIRE_NEW_TRANSACTION
                 | (Arez.shouldCheckInvariants()
                         ? observer.areArezDependenciesRequired()
@@ -2292,15 +2221,15 @@ public final class ArezContext {
     }
 
     private void reportActionStarted(
-            @Nullable final String name, @Nullable final Object[] parameters, final boolean observed) {
+            @Nullable final String name, final @Nullable Object @Nullable [] parameters, final boolean observed) {
         assert null != name;
-        final Object[] params = null == parameters ? new Object[0] : parameters;
+        final @Nullable Object[] params = null == parameters ? new Object[0] : parameters;
         getSpy().reportSpyEvent(new ActionStartEvent(name, observed, params));
     }
 
     private void reportActionCompleted(
             @Nullable final String name,
-            @Nullable final Object[] parameters,
+            final @Nullable Object @Nullable [] parameters,
             final boolean observed,
             final Throwable t,
             final long startedAt,
@@ -2308,7 +2237,7 @@ public final class ArezContext {
             final Object result) {
         final int duration = Math.max(0, (int) (System.currentTimeMillis() - startedAt));
         assert null != name;
-        final Object[] params = null == parameters ? new Object[0] : parameters;
+        final @Nullable Object[] params = null == parameters ? new Object[0] : parameters;
         getSpy().reportSpyEvent(new ActionCompleteEvent(name, observed, params, returnsResult, result, t, duration));
     }
 

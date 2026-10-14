@@ -3,7 +3,6 @@ package arez.annotations;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import javax.annotation.Nonnull;
 
 /**
  * Identifies a method that will be invoked before an inverse reference is removed from a component.
@@ -49,6 +48,5 @@ public @interface PreInverseRemove {
      *
      * @return the name of the Inverse.
      */
-    @Nonnull
     String name() default "<default>";
 }

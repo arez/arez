@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -111,38 +110,33 @@ public final class MemoizeCacheTest extends AbstractTest {
     }
 
     static final class MyElement implements DisposeNotifier, Disposable {
-        @Nonnull
+
         private final List<Object> _onDisposeListenersAdded = new ArrayList<>();
 
-        @Nonnull
         private final List<Object> _onDisposeListenersRemoved = new ArrayList<>();
 
-        @Nonnull
         private final Map<Object, SafeProcedure> _onDisposeListeners = new HashMap<>();
 
-        @Nonnull
         private final String _value;
 
         private boolean _disposed;
 
-        MyElement(@Nonnull final String value) {
+        MyElement(final String value) {
             _value = Objects.requireNonNull(value);
         }
 
-        @Nonnull
         String getValue() {
             return _value;
         }
 
         @Override
-        public void addOnDisposeListener(
-                @Nonnull final Object key, @Nonnull final SafeProcedure action, final boolean errorIfDuplicate) {
+        public void addOnDisposeListener(final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
             _onDisposeListenersAdded.add(key);
             _onDisposeListeners.put(key, action);
         }
 
         @Override
-        public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+        public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
             _onDisposeListenersRemoved.add(key);
             _onDisposeListeners.remove(key);
         }

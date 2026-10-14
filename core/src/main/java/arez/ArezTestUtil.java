@@ -1,7 +1,6 @@
 package arez;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Utility class for interacting with Arez config settings in tests.
@@ -14,7 +13,7 @@ public final class ArezTestUtil {
      * Interface to intercept log messages emitted by Arez runtime.
      */
     public interface Logger {
-        void log(@Nonnull String message, @Nullable Throwable throwable);
+        void log(String message, @Nullable Throwable throwable);
     }
 
     /**

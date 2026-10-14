@@ -3,7 +3,6 @@ package arez.annotations;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import javax.annotation.Nonnull;
 
 /**
  * Identifies method that will be invoked when the dependencies of the paired {@link Observe} annotated method are changed.
@@ -49,6 +48,5 @@ public @interface OnDepsChange {
      *
      * @return the name of the paired {@link Observe} annotated method relative to the component.
      */
-    @Nonnull
     String name() default "<default>";
 }

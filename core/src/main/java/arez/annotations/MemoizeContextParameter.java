@@ -3,7 +3,6 @@ package arez.annotations;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import javax.annotation.Nonnull;
 import org.intellij.lang.annotations.Language;
 
 /**
@@ -96,7 +95,6 @@ public @interface MemoizeContextParameter {
      *
      * @return the name of the context parameter.
      */
-    @Nonnull
     String name() default "<default>";
 
     /**
@@ -104,7 +102,6 @@ public @interface MemoizeContextParameter {
      *
      * @return a regular expression for matching arez name of memoized methods.
      */
-    @Nonnull
     @Language("RegExp")
     String pattern() default ".*";
 

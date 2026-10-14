@@ -6,22 +6,20 @@ import arez.spy.ObserverInfo;
 import arez.spy.TransactionInfo;
 import grim.annotations.OmitType;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Adapter of Transaction to TransactionInfo for spy capabilities.
  */
 @OmitType(unless = "arez.enable_spies")
 final class TransactionInfoImpl implements TransactionInfo {
-    @Nonnull
+
     private final Transaction _transaction;
 
-    TransactionInfoImpl(@Nonnull final Transaction transaction) {
+    TransactionInfoImpl(final Transaction transaction) {
         _transaction = Objects.requireNonNull(transaction);
     }
 
-    @Nonnull
     @Override
     public String getName() {
         return getTransaction().getName();
@@ -44,7 +42,6 @@ final class TransactionInfoImpl implements TransactionInfo {
         return null != getTransaction().getTracker();
     }
 
-    @Nonnull
     @Override
     public ObserverInfo getTracker() {
         final Observer tracker = getTransaction().getTracker();
@@ -55,7 +52,6 @@ final class TransactionInfoImpl implements TransactionInfo {
         return tracker.asInfo();
     }
 
-    @Nonnull
     Transaction getTransaction() {
         return _transaction;
     }

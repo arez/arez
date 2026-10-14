@@ -8,5 +8,6 @@ filegroup(
         "JDependTest.java",
         "ObserverApiTest.java",
         "TaskApiTest.java",
+        "package-info.java",
     ],
 )

@@ -4,7 +4,6 @@ import arez.EqualityComparator;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import javax.annotation.Nonnull;
 
 /**
  * Annotation applied to a type to declare the default {@link EqualityComparator} used by
@@ -26,6 +25,5 @@ public @interface DefaultEqualityComparator {
      *
      * @return the comparator type.
      */
-    @Nonnull
     Class<? extends EqualityComparator> value();
 }

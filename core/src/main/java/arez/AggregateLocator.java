@@ -6,8 +6,7 @@ import grim.annotations.OmitType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * An Locator implementation that delegates queries to a list of other Locator implementations.
@@ -19,7 +18,6 @@ final class AggregateLocator implements Locator {
     /**
      * A list of Locator instances.
      */
-    @Nonnull
     private final List<Locator> _locators = new ArrayList<>();
 
     /**
@@ -29,8 +27,7 @@ final class AggregateLocator implements Locator {
      * @param locator the Locator to register.
      * @return the disposable to dispose to deregister locator.
      */
-    @Nonnull
-    Disposable registerLocator(@Nonnull final Locator locator) {
+    Disposable registerLocator(final Locator locator) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> !_locators.contains(locator),
@@ -43,7 +40,7 @@ final class AggregateLocator implements Locator {
 
     @Nullable
     @Override
-    public <T> T findById(@Nonnull final Class<T> type, @Nonnull final Object id) {
+    public <T> T findById(final Class<T> type, final Object id) {
         for (final Locator locator : _locators) {
             final T entity = locator.findById(type, id);
             if (null != entity) {
@@ -53,18 +50,17 @@ final class AggregateLocator implements Locator {
         return null;
     }
 
-    @Nonnull
     List<Locator> getLocators() {
         return _locators;
     }
 
     private class LocatorEntry implements Disposable {
-        @Nonnull
+
         private final Locator _locator;
 
         private boolean _disposed;
 
-        LocatorEntry(@Nonnull final Locator locator) {
+        LocatorEntry(final Locator locator) {
             _locator = Objects.requireNonNull(locator);
         }
 

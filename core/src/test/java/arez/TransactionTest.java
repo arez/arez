@@ -5,7 +5,6 @@ import static org.testng.Assert.*;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import java.util.List;
-import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -2672,8 +2671,7 @@ public final class TransactionTest extends AbstractTest {
     }
 
     @SuppressWarnings("UnusedReturnValue")
-    @Nonnull
-    private Observer ensureDerivationHasObserver(@Nonnull final Observer observer) {
+    private Observer ensureDerivationHasObserver(final Observer observer) {
         Transaction.setTransaction(null);
         final Observer randomObserver = observer.getContext().observer(new CountAndObserveProcedure());
         setupReadWriteTransaction();

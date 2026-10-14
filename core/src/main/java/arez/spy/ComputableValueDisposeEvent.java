@@ -2,26 +2,25 @@ package arez.spy;
 
 import java.util.Map;
 import java.util.Objects;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * ComputableValue has been disposed.
  */
 public final class ComputableValueDisposeEvent implements SerializableEvent {
-    @Nonnull
+
     private final ComputableValueInfo _computableValue;
 
-    public ComputableValueDisposeEvent(@Nonnull final ComputableValueInfo computableValue) {
+    public ComputableValueDisposeEvent(final ComputableValueInfo computableValue) {
         _computableValue = Objects.requireNonNull(computableValue);
     }
 
-    @Nonnull
     public ComputableValueInfo getComputableValue() {
         return _computableValue;
     }
 
     @Override
-    public void toMap(@Nonnull final Map<String, Object> map) {
+    public void toMap(final Map<String, @Nullable Object> map) {
         map.put("type", "ComputableValueDispose");
         map.put("name", getComputableValue().getName());
         SpyEventUtil.maybeAddZone(map);

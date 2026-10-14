@@ -7,8 +7,7 @@ import arez.spy.ComputableValueDisposeEvent;
 import arez.spy.ComputableValueInfo;
 import grim.annotations.OmitSymbol;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The ComputableValue represents an ObservableValue derived from other ObservableValues within
@@ -19,7 +18,7 @@ import javax.annotation.Nullable;
  * an Observer. The id's of each of these nodes differ, but they share the name and
  * thus while debugging appears to be a single element.</p>
  */
-public final class ComputableValue<T> extends Node {
+public final class ComputableValue<T extends @Nullable Object> extends Node {
     /**
      * The component that this ComputableValue is contained within.
      * This should only be set if {@link Arez#areNativeComponentsEnabled()} is true but may also be null if
@@ -39,12 +38,10 @@ public final class ComputableValue<T> extends Node {
     /**
      * The associated observable value.
      */
-    @Nonnull
     private final ObservableValue<T> _observableValue;
     /**
      * Strategy used to compare old and new computed values.
      */
-    @Nonnull
     private final EqualityComparator _equalityComparator;
     /**
      * Flag set to true if computable value can be read outside a transaction.
@@ -53,14 +50,14 @@ public final class ComputableValue<T> extends Node {
     /**
      * The cached value of the computation.
      */
-    private T _value;
+    private @Nullable T _value;
     /**
      * The error that was thrown the last time that this ComputableValue was derived.
      * If this value is non-null then {@link #_value} should be null. This exception
      * is rethrown every time {@link #get()} is called until the computable value is
      * recalculated.
      */
-    private Throwable _error;
+    private @Nullable Throwable _error;
     /**
      * A flag indicating whether computation is active. Used when checking
      * invariants to detect when the derivation of the ComputableValue ultimately
@@ -88,7 +85,7 @@ public final class ComputableValue<T> extends Node {
             @Nullable final ArezContext context,
             @Nullable final Component component,
             @Nullable final String name,
-            @Nonnull final SafeFunction<T> function,
+            final SafeFunction<T> function,
             final int flags) {
         this(context, component, name, function, flags, new ObjectsEqualsComparator());
     }
@@ -97,9 +94,9 @@ public final class ComputableValue<T> extends Node {
             @Nullable final ArezContext context,
             @Nullable final Component component,
             @Nullable final String name,
-            @Nonnull final SafeFunction<T> function,
+            final SafeFunction<T> function,
             final int flags,
-            @Nonnull final EqualityComparator equalityComparator) {
+            final EqualityComparator equalityComparator) {
         super(context, name);
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -265,7 +262,6 @@ public final class ComputableValue<T> extends Node {
      *
      * @return the object to dispose when no longer need to keep alive.
      */
-    @Nonnull
     public Disposable keepAlive() {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
@@ -357,7 +353,6 @@ public final class ComputableValue<T> extends Node {
      *
      * @return the Observer created to represent the ComputableValue.
      */
-    @Nonnull
     Observer getObserver() {
         return _observer;
     }
@@ -367,7 +362,6 @@ public final class ComputableValue<T> extends Node {
      *
      * @return the observable for the derived value.
      */
-    @Nonnull
     ObservableValue<T> getObservableValue() {
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -441,7 +435,6 @@ public final class ComputableValue<T> extends Node {
      */
     @SuppressWarnings("ConstantConditions")
     @OmitSymbol(unless = "arez.enable_spies")
-    @Nonnull
     ComputableValueInfo asInfo() {
         if (Arez.shouldCheckInvariants()) {
             invariant(

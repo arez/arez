@@ -3,26 +3,23 @@ package arez.spy;
 import arez.Arez;
 import java.util.Map;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Notification when ObservableValue has changed.
  */
 public final class ObservableValueChangeEvent implements SerializableEvent {
-    @Nonnull
+
     private final ObservableValueInfo _observableValue;
 
     @Nullable
     private final Object _value;
 
-    public ObservableValueChangeEvent(
-            @Nonnull final ObservableValueInfo observableValue, @Nullable final Object value) {
+    public ObservableValueChangeEvent(final ObservableValueInfo observableValue, @Nullable final Object value) {
         _observableValue = Objects.requireNonNull(observableValue);
         _value = value;
     }
 
-    @Nonnull
     public ObservableValueInfo getObservableValue() {
         return _observableValue;
     }
@@ -33,7 +30,7 @@ public final class ObservableValueChangeEvent implements SerializableEvent {
     }
 
     @Override
-    public void toMap(@Nonnull final Map<String, Object> map) {
+    public void toMap(final Map<String, @Nullable Object> map) {
         map.put("type", "ObservableValueChange");
         map.put("name", getObservableValue().getName());
         if (Arez.arePropertyIntrospectorsEnabled()) {

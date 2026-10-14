@@ -4,8 +4,7 @@ import arez.Arez;
 import arez.ComputableValue;
 import grim.annotations.OmitSymbol;
 import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A representation of a ComputableValue instance exposed to spy framework.
@@ -25,7 +24,6 @@ public interface ComputableValueInfo extends ElementInfo {
      *
      * @return the priority of the ComputableValue.
      */
-    @Nonnull
     Priority getPriority();
 
     /**
@@ -42,7 +40,6 @@ public interface ComputableValueInfo extends ElementInfo {
      *
      * @return the list of observers for ComputableValue.
      */
-    @Nonnull
     List<ObserverInfo> getObservers();
 
     /**
@@ -54,7 +51,6 @@ public interface ComputableValueInfo extends ElementInfo {
      *
      * @return the list of dependencies for ComputableValue.
      */
-    @Nonnull
     List<ObservableValueInfo> getDependencies();
 
     /**

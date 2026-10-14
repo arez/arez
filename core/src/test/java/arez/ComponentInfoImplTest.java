@@ -4,7 +4,6 @@ import static org.testng.Assert.*;
 
 import arez.spy.ComponentInfo;
 import java.util.Collection;
-import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -79,7 +78,7 @@ public final class ComponentInfoImplTest extends AbstractTest {
         assertEquals(info2.hashCode(), component2.hashCode());
     }
 
-    private <T> void assertUnmodifiable(@Nonnull final Collection<T> collection) {
+    private <T> void assertUnmodifiable(final Collection<T> collection) {
         assertThrows(
                 UnsupportedOperationException.class,
                 () -> collection.remove(collection.iterator().next()));

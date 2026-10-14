@@ -10,5 +10,6 @@ filegroup(
         "NoSuchEntityExceptionTest.java",
         "TypeBasedLocatorTest.java",
         "VerifiableTest.java",
+        "package-info.java",
     ],
 )

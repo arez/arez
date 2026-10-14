@@ -4,8 +4,7 @@ import static org.realityforge.braincheck.Guards.*;
 
 import arez.Arez;
 import arez.Disposable;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Interface implemented by components so that the underlying identifier can be exposed.
@@ -24,7 +23,6 @@ public interface Identifiable<K> {
      *
      * @return the unique id of the component.
      */
-    @Nonnull
     K getArezId();
 
     /**
@@ -51,8 +49,7 @@ public interface Identifiable<K> {
      * @param object the object.
      * @return the object cast to Identifiable.
      */
-    @Nonnull
-    static <K> Identifiable<K> asIdentifiable(@Nonnull final Object object) {
+    static <K> Identifiable<K> asIdentifiable(final Object object) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> object instanceof Identifiable,

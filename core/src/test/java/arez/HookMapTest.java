@@ -2,7 +2,6 @@ package arez;
 
 import static org.testng.Assert.*;
 
-import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 
 public final class HookMapTest extends AbstractTest {
@@ -87,12 +86,11 @@ public final class HookMapTest extends AbstractTest {
         assertNull(map.get("Missing"));
     }
 
-    @Nonnull
     private static Hook hook() {
         return new Hook(new NoopProcedure(), new NoopProcedure());
     }
 
-    private static void assertOrder(@Nonnull final HookMap map, @Nonnull final String expected) {
+    private static void assertOrder(final HookMap map, final String expected) {
         final StringBuilder sb = new StringBuilder();
         for (int i = 0; i < map.size(); i++) {
             if (0 != i) {

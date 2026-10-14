@@ -2,7 +2,6 @@ package arez.spy;
 
 import arez.ComputableValue;
 import java.util.List;
-import javax.annotation.Nonnull;
 
 /**
  * A representation of a component instance exposed to spy framework.
@@ -14,7 +13,6 @@ public interface ComponentInfo extends ElementInfo {
      *
      * @return the component type.
      */
-    @Nonnull
     String getType();
 
     /**
@@ -23,7 +21,6 @@ public interface ComponentInfo extends ElementInfo {
      *
      * @return the unique id of the component.
      */
-    @Nonnull
     Object getId();
 
     /**

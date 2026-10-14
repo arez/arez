@@ -4,7 +4,6 @@ import arez.ComputableValue;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import javax.annotation.Nonnull;
 
 /**
  * Marks a template method that returns the {@link ComputableValue} instance for
@@ -46,6 +45,5 @@ public @interface ComputableValueRef {
      *
      * @return the name of the associated ComputableValue.
      */
-    @Nonnull
     String name() default "<default>";
 }

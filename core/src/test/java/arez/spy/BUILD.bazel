@@ -32,5 +32,6 @@ filegroup(
         "TaskStartEventTest.java",
         "TransactionCompleteEventTest.java",
         "TransactionStartEventTest.java",
+        "package-info.java",
     ],
 )

@@ -19,8 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Abstract base class for repositories that contain Arez components.
@@ -37,14 +36,13 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
     /**
      * A map of all the entities ArezId to entity.
      */
-    @Nonnull
     private final Map<K, T> _entities = new HashMap<>();
 
     protected final boolean shouldDisposeEntryOnDispose() {
         return true;
     }
 
-    public boolean contains(@Nonnull final T entity) {
+    public boolean contains(final T entity) {
         if (reportRead()) {
             getEntitiesObservableValue().reportObserved();
         }
@@ -56,7 +54,6 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      *
      * @return all the entities.
      */
-    @Nonnull
     public final List<T> findAll() {
         return CollectionsUtil.asList(entities());
     }
@@ -67,8 +64,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      * @param sorter the comparator used to sort entities.
      * @return the entity list result.
      */
-    @Nonnull
-    public final List<T> findAll(@Nonnull final Comparator<T> sorter) {
+    public final List<T> findAll(final Comparator<T> sorter) {
         return CollectionsUtil.asList(entities().sorted(sorter));
     }
 
@@ -78,8 +74,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      * @param query the predicate used to select entities.
      * @return the entity list result.
      */
-    @Nonnull
-    public final List<T> findAllByQuery(@Nonnull final Predicate<T> query) {
+    public final List<T> findAllByQuery(final Predicate<T> query) {
         return CollectionsUtil.asList(entities().filter(query));
     }
 
@@ -90,8 +85,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      * @param sorter the comparator used to sort entities.
      * @return the entity list result.
      */
-    @Nonnull
-    public final List<T> findAllByQuery(@Nonnull final Predicate<T> query, @Nonnull final Comparator<T> sorter) {
+    public final List<T> findAllByQuery(final Predicate<T> query, final Comparator<T> sorter) {
         return CollectionsUtil.asList(entities().filter(query).sorted(sorter));
     }
 
@@ -102,7 +96,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      * @return the entity or null if unable to locate matching entity.
      */
     @Nullable
-    public final T findByQuery(@Nonnull final Predicate<T> query) {
+    public final T findByQuery(final Predicate<T> query) {
         return entities().filter(query).findFirst().orElse(null);
     }
 
@@ -113,8 +107,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      * @return the entity.
      * @throws NoResultException if unable to locate matching entity.
      */
-    @Nonnull
-    public final T getByQuery(@Nonnull final Predicate<T> query) throws NoResultException {
+    public final T getByQuery(final Predicate<T> query) throws NoResultException {
         final T entity = findByQuery(query);
         if (null == entity) {
             throw new NoResultException();
@@ -123,7 +116,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
     }
 
     @Nullable
-    public final T findByArezId(@Nonnull final K arezId) {
+    public final T findByArezId(final K arezId) {
         final T entity = _entities.get(arezId);
         if (null != entity) {
             if (reportRead()) {
@@ -137,8 +130,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
         return null;
     }
 
-    @Nonnull
-    public final T getByArezId(@Nonnull final K arezId) throws NoSuchEntityException {
+    public final T getByArezId(final K arezId) throws NoSuchEntityException {
         final T entity = findByArezId(arezId);
         if (null == entity) {
             throw new NoSuchEntityException(arezId);
@@ -152,7 +144,6 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      * @return the repository instance.
      */
     @SuppressWarnings("unchecked")
-    @Nonnull
     public final R self() {
         return (R) this;
     }
@@ -164,7 +155,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      * @param entity the entity to register.
      */
     @SuppressWarnings("SuspiciousMethodCalls")
-    protected void attach(@Nonnull final T entity) {
+    protected void attach(final T entity) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> Disposable.isNotDisposed(entity),
@@ -195,7 +186,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      *
      * @param entity the entity to destroy.
      */
-    protected void destroy(@Nonnull final T entity) {
+    protected void destroy(final T entity) {
         detach(entity, true);
     }
 
@@ -205,7 +196,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      *
      * @param entity the entity to detach.
      */
-    protected void detach(@Nonnull final T entity) {
+    protected void detach(final T entity) {
         detach(entity, false);
     }
 
@@ -215,7 +206,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      *
      * @param entity the entity to detach.
      */
-    private void detach(@Nonnull final T entity, final boolean disposeEntity) {
+    private void detach(final T entity, final boolean disposeEntity) {
         // This method has been extracted to try and avoid GWT inlining into invoker
         final T removed = _entities.remove(Identifiable.<K>getArezId(entity));
         if (null != removed) {
@@ -240,7 +231,6 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      * @return the Arez observable associated with entities observable property.
      */
     @ObservableValueRef
-    @Nonnull
     protected abstract ObservableValue<?> getEntitiesObservableValue();
 
     /**
@@ -248,7 +238,6 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      *
      * @return the underlying entities.
      */
-    @Nonnull
     public Stream<T> entities() {
         if (reportRead()) {
             getEntitiesObservableValue().reportObserved();
@@ -262,17 +251,15 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      * @return the underlying entities.
      */
     @Observable(name = "entities", expectSetter = false)
-    @Nonnull
     protected Stream<T> entitiesValue() {
         return entityStream();
     }
 
-    @Nonnull
     private Stream<T> entityStream() {
         return _entities.values().stream();
     }
 
-    private void attachEntity(@Nonnull final T entity) {
+    private void attachEntity(final T entity) {
         DisposeNotifier.asDisposeNotifier(entity)
                 .addOnDisposeListener(
                         this,
@@ -284,7 +271,7 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
                         true);
     }
 
-    private void detachEntity(@Nonnull final T entity, final boolean disposeOnDetach) {
+    private void detachEntity(final T entity, final boolean disposeOnDetach) {
         DisposeNotifier.asDisposeNotifier(entity).removeOnDisposeListener(this, true);
         if (disposeOnDetach) {
             Disposable.dispose(entity);

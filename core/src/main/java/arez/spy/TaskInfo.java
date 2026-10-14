@@ -1,7 +1,5 @@
 package arez.spy;
 
-import javax.annotation.Nonnull;
-
 /**
  * A representation of a task instance exposed to spy framework.
  */
@@ -25,6 +23,5 @@ public interface TaskInfo extends ElementInfo {
      *
      * @return the priority of the task.
      */
-    @Nonnull
     Priority getPriority();
 }

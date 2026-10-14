@@ -7,8 +7,7 @@ import grim.annotations.OmitType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Class supporting the propagation of errors for ObserverErrorHandler callback to multiple error handlers.
@@ -18,7 +17,6 @@ final class ObserverErrorHandlerSupport implements ObserverErrorHandler {
     /**
      * The list of error handlers to call when an error is received.
      */
-    @Nonnull
     private final List<ObserverErrorHandler> _handlers = new ArrayList<>();
 
     /**
@@ -27,7 +25,7 @@ final class ObserverErrorHandlerSupport implements ObserverErrorHandler {
      *
      * @param handler the error handler.
      */
-    void addObserverErrorHandler(@Nonnull final ObserverErrorHandler handler) {
+    void addObserverErrorHandler(final ObserverErrorHandler handler) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> !_handlers.contains(handler),
@@ -43,7 +41,7 @@ final class ObserverErrorHandlerSupport implements ObserverErrorHandler {
      *
      * @param handler the error handler.
      */
-    void removeObserverErrorHandler(@Nonnull final ObserverErrorHandler handler) {
+    void removeObserverErrorHandler(final ObserverErrorHandler handler) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> _handlers.contains(handler),
@@ -55,7 +53,7 @@ final class ObserverErrorHandlerSupport implements ObserverErrorHandler {
 
     @Override
     public void onObserverError(
-            @Nonnull final Observer observer, @Nonnull final ObserverError error, @Nullable final Throwable throwable) {
+            final Observer observer, final ObserverError error, @Nullable final Throwable throwable) {
         for (final ObserverErrorHandler errorHandler : _handlers) {
             try {
                 errorHandler.onObserverError(observer, error, throwable);
@@ -73,7 +71,6 @@ final class ObserverErrorHandlerSupport implements ObserverErrorHandler {
     }
 
     @OmitSymbol
-    @Nonnull
     List<ObserverErrorHandler> getHandlers() {
         return _handlers;
     }

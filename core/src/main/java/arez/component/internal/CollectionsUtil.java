@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Utility methods used when returning results from repositories.
@@ -27,8 +27,7 @@ public final class CollectionsUtil {
      * @param collection the input collection.
      * @return the output collection.
      */
-    @Nonnull
-    public static <T> Collection<T> wrap(@Nonnull final Collection<T> collection) {
+    public static <T extends @Nullable Object> Collection<T> wrap(final Collection<T> collection) {
         return Arez.areCollectionsPropertiesUnmodifiable()
                 ? Collections.unmodifiableCollection(collection)
                 : collection;
@@ -43,8 +42,7 @@ public final class CollectionsUtil {
      * @param set the input set.
      * @return the output set.
      */
-    @Nonnull
-    public static <T> Set<T> wrap(@Nonnull final Set<T> set) {
+    public static <T extends @Nullable Object> Set<T> wrap(final Set<T> set) {
         return Arez.areCollectionsPropertiesUnmodifiable() ? Collections.unmodifiableSet(set) : set;
     }
 
@@ -58,8 +56,7 @@ public final class CollectionsUtil {
      * @param map the input map.
      * @return the output map.
      */
-    @Nonnull
-    public static <K, V> Map<K, V> wrap(@Nonnull final Map<K, V> map) {
+    public static <K extends @Nullable Object, V extends @Nullable Object> Map<K, V> wrap(final Map<K, V> map) {
         return Arez.areCollectionsPropertiesUnmodifiable() ? Collections.unmodifiableMap(map) : map;
     }
 
@@ -72,8 +69,7 @@ public final class CollectionsUtil {
      * @param list the input collection.
      * @return the output collection.
      */
-    @Nonnull
-    public static <T> List<T> wrap(@Nonnull final List<T> list) {
+    public static <T extends @Nullable Object> List<T> wrap(final List<T> list) {
         return Arez.areCollectionsPropertiesUnmodifiable() ? Collections.unmodifiableList(list) : list;
     }
 
@@ -85,8 +81,7 @@ public final class CollectionsUtil {
      * @param stream the input stream.
      * @return the output list
      */
-    @Nonnull
-    public static <T> List<T> asList(@Nonnull final Stream<T> stream) {
+    public static <T extends @Nullable Object> List<T> asList(final Stream<T> stream) {
         return wrap(stream.collect(Collectors.toList()));
     }
 }

@@ -10,8 +10,7 @@ import grim.annotations.OmitSymbol;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Representation of transactions within an Arez system.
@@ -65,7 +64,6 @@ final class Transaction {
          * @param flags the flags.
          * @return the name of transaction mode.
          */
-        @Nonnull
         static String getTransactionModeName(final int flags) {
             assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
             if (0 != (flags & READ_ONLY)) {
@@ -184,7 +182,7 @@ final class Transaction {
      *
      * @return true if there is a transaction for specified context in progress.
      */
-    static boolean isTransactionActive(@Nonnull final ArezContext context) {
+    static boolean isTransactionActive(final ArezContext context) {
         return null != c_transaction && (!Arez.areZonesEnabled() || c_transaction.getContext() == context);
     }
 
@@ -195,7 +193,6 @@ final class Transaction {
      *
      * @return the current transaction.
      */
-    @Nonnull
     static Transaction current() {
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -216,7 +213,7 @@ final class Transaction {
      * @return the new transaction.
      */
     static Transaction begin(
-            @Nonnull final ArezContext context,
+            final ArezContext context,
             @Nullable final String name,
             final boolean mutation,
             @Nullable final Observer tracker) {
@@ -284,7 +281,7 @@ final class Transaction {
      *
      * @param transaction the transaction.
      */
-    static void commit(@Nonnull final Transaction transaction) {
+    static void commit(final Transaction transaction) {
         if (Arez.shouldCheckInvariants()) {
             invariant(
                     () -> null != c_transaction,
@@ -383,7 +380,6 @@ final class Transaction {
      *
      * @return the name of the transaction.
      */
-    @Nonnull
     String getName() {
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -394,7 +390,6 @@ final class Transaction {
         return _name;
     }
 
-    @Nonnull
     ArezContext getContext() {
         return Arez.areZonesEnabled() ? Objects.requireNonNull(_context) : Arez.context();
     }
@@ -408,7 +403,6 @@ final class Transaction {
         return _startedAt;
     }
 
-    @Nonnull
     @Override
     public String toString() {
         return Arez.areNamesEnabled() ? getName() : super.toString();
@@ -507,7 +501,7 @@ final class Transaction {
         }
     }
 
-    void queueForDeactivation(@Nonnull final ObservableValue<?> observableValue) {
+    void queueForDeactivation(final ObservableValue<?> observableValue) {
         if (Arez.shouldCheckInvariants()) {
             invariant(
                     observableValue::canDeactivateNow,
@@ -540,7 +534,7 @@ final class Transaction {
         _pendingDeactivations.add(Objects.requireNonNull(observableValue));
     }
 
-    void observe(@Nonnull final ObservableValue<?> observableValue) {
+    void observe(final ObservableValue<?> observableValue) {
         if (Arez.shouldCheckInvariants()) {
             markTransactionAsUsed();
             invariant(
@@ -586,8 +580,7 @@ final class Transaction {
         _observationSuppressionDepth--;
     }
 
-    void registerHook(
-            @Nonnull final String key, @Nullable final Procedure onActivate, @Nullable final Procedure onDeactivate) {
+    void registerHook(final String key, @Nullable final Procedure onActivate, @Nullable final Procedure onDeactivate) {
         //noinspection ConstantValue
         assert null != key;
         assert null != onActivate || null != onDeactivate;
@@ -629,7 +622,7 @@ final class Transaction {
      *
      * @param disposable the element being disposed.
      */
-    void reportDispose(@Nonnull final Disposable disposable) {
+    void reportDispose(final Disposable disposable) {
         if (Arez.shouldCheckInvariants()) {
             invariant(
                     disposable::isNotDisposed,
@@ -647,7 +640,7 @@ final class Transaction {
      * This will check preconditions such as verifying observableValue is not disposed and observableValue
      * is writeable in transaction.
      */
-    void preReportChanged(@Nonnull final ObservableValue<?> observableValue) {
+    void preReportChanged(final ObservableValue<?> observableValue) {
         if (Arez.shouldCheckInvariants()) {
             markTransactionAsUsed();
             invariant(
@@ -664,7 +657,7 @@ final class Transaction {
      * This is called when the observableValue has definitely changed and should
      * not be called for derived values that may have changed.
      */
-    void reportChanged(@Nonnull final ObservableValue<?> observableValue) {
+    void reportChanged(final ObservableValue<?> observableValue) {
         preReportChanged(observableValue);
         if (Arez.shouldCheckInvariants()) {
             markTransactionAsUsed();
@@ -703,7 +696,7 @@ final class Transaction {
      * recalculate the value during normal reaction cycle or when accessed from within
      * the scope of a transaction and will update the state of the observableValue at that time.
      */
-    void reportPossiblyChanged(@Nonnull final ObservableValue<?> observableValue) {
+    void reportPossiblyChanged(final ObservableValue<?> observableValue) {
         if (Arez.shouldCheckInvariants()) {
             markTransactionAsUsed();
             invariant(
@@ -749,7 +742,7 @@ final class Transaction {
      * changed. This is determined after the value is recalculated and converts
      * a UPTODATE or POSSIBLY_STALE state to STALE.
      */
-    void reportChangeConfirmed(@Nonnull final ObservableValue<?> observableValue) {
+    void reportChangeConfirmed(final ObservableValue<?> observableValue) {
         if (Arez.shouldCheckInvariants()) {
             invariant(
                     observableValue::isNotDisposed,
@@ -819,8 +812,7 @@ final class Transaction {
      * @param observableValue the observableValue which the observer is observing. Used when constructing the invariant message.
      * @param observer        the observer.
      */
-    void invariantObserverIsTracker(
-            @Nonnull final ObservableValue<?> observableValue, @Nonnull final Observer observer) {
+    void invariantObserverIsTracker(final ObservableValue<?> observableValue, final Observer observer) {
         if (Arez.shouldCheckInvariants()) {
             boolean found = false;
             Transaction t = this;
@@ -844,7 +836,7 @@ final class Transaction {
         }
     }
 
-    void verifyWriteAllowed(@Nonnull final ObservableValue<?> observableValue) {
+    void verifyWriteAllowed(final ObservableValue<?> observableValue) {
         if (Arez.shouldEnforceTransactionType() && Arez.shouldCheckInvariants()) {
             if (isComputableValueTracker()) {
                 invariant(
@@ -1038,7 +1030,6 @@ final class Transaction {
         return Arez.areZonesEnabled() ? null == _previousInSameContext : null == _previous;
     }
 
-    @Nonnull
     Transaction getRootTransaction() {
         if (isRootTransaction()) {
             return this;
@@ -1054,7 +1045,6 @@ final class Transaction {
     /**
      * Return the observables, initializing the array if necessary.
      */
-    @Nonnull
     FastList<ObservableValue<?>> safeGetObservables() {
         if (null == _observableValues) {
             _observableValues = new FastList<>();
@@ -1065,7 +1055,6 @@ final class Transaction {
     /**
      * Return the hooks associated with the current transaction, initializing the field if necessary.
      */
-    @Nonnull
     HookMap safeGetHooks() {
         if (null == _hooks) {
             _hooks = new HookMap();
@@ -1096,7 +1085,6 @@ final class Transaction {
      */
     @SuppressWarnings("ConstantConditions")
     @OmitSymbol(unless = "arez.enable_spies")
-    @Nonnull
     TransactionInfo asInfo() {
         if (Arez.shouldCheckInvariants()) {
             invariant(

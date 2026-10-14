@@ -19,6 +19,7 @@
 @OmitPattern(symbol = "^\\$clinit$")
 @KeepPattern(type = "^arez\\.ArezContextHolder$", symbol = "^\\$clinit$", unless = "arez.enable_zones")
 @KeepPattern(type = "^arez\\.ZoneHolder$", symbol = "^\\$clinit$", when = "arez.enable_zones")
+@org.jspecify.annotations.NullMarked
 package arez;
 
 import grim.annotations.KeepPattern;

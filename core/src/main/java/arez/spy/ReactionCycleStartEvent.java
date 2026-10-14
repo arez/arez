@@ -1,14 +1,14 @@
 package arez.spy;
 
 import java.util.Map;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Notification when a reaction cycle starts.
  */
 public final class ReactionCycleStartEvent implements SerializableEvent {
     @Override
-    public void toMap(@Nonnull final Map<String, Object> map) {
+    public void toMap(final Map<String, @Nullable Object> map) {
         map.put("type", "ReactionCycleStart");
         SpyEventUtil.maybeAddZone(map);
     }

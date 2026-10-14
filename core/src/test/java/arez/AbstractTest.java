@@ -5,8 +5,7 @@ import static org.testng.Assert.*;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.BrainCheckTestUtil;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.Assert;
@@ -16,10 +15,9 @@ import org.testng.annotations.Listeners;
 
 @Listeners(MessageCollector.class)
 public abstract class AbstractTest {
-    @Nonnull
+
     private final TestLogger _logger = new TestLogger();
 
-    @Nonnull
     private final List<String> _observerErrors = new ArrayList<>();
 
     private boolean _ignoreObserverErrors;
@@ -45,13 +43,11 @@ public abstract class AbstractTest {
         }
     }
 
-    @Nonnull
     final TestLogger getTestLogger() {
         return _logger;
     }
 
-    @Nonnull
-    private Field getField(@Nonnull final Class<?> type, @Nonnull final String fieldName) {
+    private Field getField(final Class<?> type, final String fieldName) {
         Class<?> clazz = type;
         while (null != clazz && Object.class != clazz) {
             try {
@@ -68,13 +64,12 @@ public abstract class AbstractTest {
     }
 
     @SuppressWarnings("SameParameterValue")
-    final void setField(@Nonnull final Object object, @Nonnull final String fieldName, @Nullable final Object value)
+    final void setField(final Object object, final String fieldName, @Nullable final Object value)
             throws IllegalAccessException {
         getField(object.getClass(), fieldName).set(object, value);
     }
 
-    @Nonnull
-    final Observer newReadWriteObserver(@Nonnull final ArezContext context) {
+    final Observer newReadWriteObserver(final ArezContext context) {
         return context.observer(new CountAndObserveProcedure(), Observer.Flags.READ_WRITE);
     }
 
@@ -82,7 +77,7 @@ public abstract class AbstractTest {
         setupReadOnlyTransaction(Arez.context());
     }
 
-    final void setupReadOnlyTransaction(@Nonnull final ArezContext context) {
+    final void setupReadOnlyTransaction(final ArezContext context) {
         Transaction.setTransaction(null);
         setCurrentTransaction(context.observer(new CountAndObserveProcedure()));
     }
@@ -91,12 +86,12 @@ public abstract class AbstractTest {
         setupReadWriteTransaction(Arez.context());
     }
 
-    private void setupReadWriteTransaction(@Nonnull final ArezContext context) {
+    private void setupReadWriteTransaction(final ArezContext context) {
         Transaction.setTransaction(null);
         setCurrentTransaction(newReadWriteObserver(context));
     }
 
-    final void setCurrentTransaction(@Nonnull final Observer observer) {
+    final void setCurrentTransaction(final Observer observer) {
         Transaction.setTransaction(null);
         final ArezContext context = observer.getContext();
         Transaction.setTransaction(
@@ -107,12 +102,11 @@ public abstract class AbstractTest {
         _ignoreObserverErrors = true;
     }
 
-    protected static void assertInvariantFailure(
-            @Nonnull final ThrowingRunnable throwingRunnable, @Nonnull final String message) {
+    protected static void assertInvariantFailure(final ThrowingRunnable throwingRunnable, final String message) {
         assertEquals(expectThrows(IllegalStateException.class, throwingRunnable).getMessage(), message);
     }
 
-    protected final void assertDefaultToString(@Nonnull final Object object) {
+    protected final void assertDefaultToString(final Object object) {
         assertEquals(object.toString(), object.getClass().getName() + "@" + Integer.toHexString(object.hashCode()));
     }
 
@@ -121,7 +115,7 @@ public abstract class AbstractTest {
     }
 
     private void onObserverError(
-            @Nonnull final Observer observer, @Nonnull final ObserverError error, @Nullable final Throwable throwable) {
+            final Observer observer, final ObserverError error, @Nullable final Throwable throwable) {
         final String message = "Observer: " + observer.getName() + " Error: " + error + " " + throwable;
         _observerErrors.add(message);
         if (!_ignoreObserverErrors) {
@@ -132,7 +126,6 @@ public abstract class AbstractTest {
         }
     }
 
-    @Nonnull
     final List<String> getObserverErrors() {
         return _observerErrors;
     }

@@ -2,7 +2,7 @@ package arez.spy;
 
 import arez.Arez;
 import java.util.Map;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Utility methods to assist spy event serialization.
@@ -15,7 +15,7 @@ final class SpyEventUtil {
      *
      * @param map the map to populate.
      */
-    static void maybeAddZone(@Nonnull final Map<String, Object> map) {
+    static void maybeAddZone(final Map<String, @Nullable Object> map) {
         if (Arez.areZonesEnabled()) {
             map.put("zone", Arez.currentZone().getName());
         }

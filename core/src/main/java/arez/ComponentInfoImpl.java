@@ -8,7 +8,6 @@ import grim.annotations.OmitType;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import javax.annotation.Nonnull;
 
 /**
  * A implementation of {@link ComponentInfo} that proxies to a {@link Component}.
@@ -20,25 +19,22 @@ final class ComponentInfoImpl implements ComponentInfo {
     private final List<ObservableValue<?>> _observableValues;
     private final List<ComputableValue<?>> _computableValues;
 
-    ComponentInfoImpl(@Nonnull final Component component) {
+    ComponentInfoImpl(final Component component) {
         _component = Objects.requireNonNull(component);
         _observableValues = Collections.unmodifiableList(_component.getObservableValues());
         _computableValues = Collections.unmodifiableList(_component.getComputableValues());
     }
 
-    @Nonnull
     @Override
     public String getType() {
         return _component.getType();
     }
 
-    @Nonnull
     @Override
     public Object getId() {
         return _component.getId();
     }
 
-    @Nonnull
     @Override
     public String getName() {
         return _component.getName();

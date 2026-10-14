@@ -3,7 +3,6 @@ package arez.annotations;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import javax.annotation.Nonnull;
 
 /**
  * Annotation that marks a method as requiring an existing Arez transaction.
@@ -32,7 +31,6 @@ public @interface RequiresTransaction {
      *
      * @return the required mode of the existing transaction.
      */
-    @Nonnull
     TransactionMode mode() default TransactionMode.ANY;
 
     /**
@@ -40,6 +38,5 @@ public @interface RequiresTransaction {
      *
      * @return the required tracking state of the existing transaction.
      */
-    @Nonnull
     TrackingMode tracking() default TrackingMode.ANY;
 }

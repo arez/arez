@@ -2,22 +2,20 @@ package arez.spy;
 
 import java.util.Map;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Notification when Action completes.
  */
 public final class ActionCompleteEvent implements SerializableEvent {
-    @Nonnull
+
     private final String _name;
     /**
      * Is the action a "tracking" action.
      */
     private final boolean _tracked;
 
-    @Nonnull
-    private final Object[] _parameters;
+    private final @Nullable Object[] _parameters;
     /**
      * True if the action returns a result during normal completion.
      */
@@ -32,9 +30,9 @@ public final class ActionCompleteEvent implements SerializableEvent {
     private final int _duration;
 
     public ActionCompleteEvent(
-            @Nonnull final String name,
+            final String name,
             final boolean tracked,
-            @Nonnull final Object[] parameters,
+            final @Nullable Object[] parameters,
             final boolean returnsResult,
             @Nullable final Object result,
             @Nullable final Throwable throwable,
@@ -50,7 +48,6 @@ public final class ActionCompleteEvent implements SerializableEvent {
         _duration = duration;
     }
 
-    @Nonnull
     public String getName() {
         return _name;
     }
@@ -59,8 +56,7 @@ public final class ActionCompleteEvent implements SerializableEvent {
         return _tracked;
     }
 
-    @Nonnull
-    public Object[] getParameters() {
+    public @Nullable Object[] getParameters() {
         return _parameters;
     }
 
@@ -83,7 +79,7 @@ public final class ActionCompleteEvent implements SerializableEvent {
     }
 
     @Override
-    public void toMap(@Nonnull final Map<String, Object> map) {
+    public void toMap(final Map<String, @Nullable Object> map) {
         map.put("type", "ActionComplete");
         map.put("name", getName());
         map.put("tracked", isTracked());

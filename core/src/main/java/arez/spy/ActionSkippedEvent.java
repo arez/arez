@@ -2,29 +2,27 @@ package arez.spy;
 
 import java.util.Map;
 import java.util.Objects;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Notification when Action is skipped.
  */
 public final class ActionSkippedEvent implements SerializableEvent {
-    @Nonnull
+
     private final String _name;
     /**
      * Is the action a "tracking" action.
      */
     private final boolean _tracked;
 
-    @Nonnull
-    private final Object[] _parameters;
+    private final @Nullable Object[] _parameters;
 
-    public ActionSkippedEvent(@Nonnull final String name, final boolean tracked, @Nonnull final Object[] parameters) {
+    public ActionSkippedEvent(final String name, final boolean tracked, final @Nullable Object[] parameters) {
         _name = Objects.requireNonNull(name);
         _tracked = tracked;
         _parameters = Objects.requireNonNull(parameters);
     }
 
-    @Nonnull
     public String getName() {
         return _name;
     }
@@ -33,13 +31,12 @@ public final class ActionSkippedEvent implements SerializableEvent {
         return _tracked;
     }
 
-    @Nonnull
-    public Object[] getParameters() {
+    public @Nullable Object[] getParameters() {
         return _parameters;
     }
 
     @Override
-    public void toMap(@Nonnull final Map<String, Object> map) {
+    public void toMap(final Map<String, @Nullable Object> map) {
         map.put("type", "ActionSkipped");
         map.put("name", getName());
         map.put("tracked", isTracked());

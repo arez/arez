@@ -1,8 +1,7 @@
 package arez;
 
 import grim.annotations.OmitType;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The interface used to look up components by type and id.
@@ -19,5 +18,5 @@ public interface Locator {
      * @return the entity or null if no such entity.
      */
     @Nullable
-    <T> T findById(@Nonnull Class<T> type, @Nonnull Object id);
+    <T> T findById(Class<T> type, Object id);
 }

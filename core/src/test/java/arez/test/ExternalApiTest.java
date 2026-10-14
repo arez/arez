@@ -18,7 +18,6 @@ import arez.Zone;
 import arez.spy.SpyEventHandler;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
-import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -615,8 +614,7 @@ public final class ExternalApiTest extends AbstractTest {
     /**
      * Test we are in a transaction by trying to observe an observableValue.
      */
-    private void assertInTransaction(
-            @Nonnull final ArezContext context, @Nonnull final ObservableValue<?> observableValue) {
+    private void assertInTransaction(final ArezContext context, final ObservableValue<?> observableValue) {
         assertTrue(context.isTransactionActive());
         observableValue.reportObserved();
     }
@@ -624,8 +622,7 @@ public final class ExternalApiTest extends AbstractTest {
     /**
      * Test we are not in a transaction by trying to observe an observableValue.
      */
-    private void assertNotInTransaction(
-            @Nonnull final ArezContext context, @Nonnull final ObservableValue<?> observableValue) {
+    private void assertNotInTransaction(final ArezContext context, final ObservableValue<?> observableValue) {
         assertFalse(context.isTransactionActive());
         assertThrows(observableValue::reportObserved);
     }

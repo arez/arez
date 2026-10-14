@@ -2,7 +2,6 @@ package arez;
 
 import static org.testng.Assert.*;
 
-import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 
 public final class FastListTest {
@@ -130,7 +129,7 @@ public final class FastListTest {
         assertToString(list, "");
     }
 
-    private static void assertToString(@Nonnull final FastList<Object> list, @Nonnull final String expected) {
+    private static void assertToString(final FastList<Object> list, final String expected) {
         {
             final var sb = new StringBuilder();
             list.forEach(sb::append);

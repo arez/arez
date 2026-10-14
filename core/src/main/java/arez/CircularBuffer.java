@@ -2,8 +2,7 @@ package arez;
 
 import java.util.Objects;
 import java.util.stream.Stream;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A circular buffer implementation.
@@ -12,7 +11,7 @@ final class CircularBuffer<T> {
     /**
      * The underlying object array.
      */
-    private T[] _elements;
+    private @Nullable T[] _elements;
     /**
      * The pointer to first element.
      */
@@ -34,7 +33,7 @@ final class CircularBuffer<T> {
     @SuppressWarnings("unchecked")
     CircularBuffer(final int initialCapacity) {
         assert initialCapacity > 0;
-        _elements = (T[]) new Object[initialCapacity];
+        _elements = (@Nullable T[]) new Object[initialCapacity];
     }
 
     void clear() {
@@ -61,7 +60,7 @@ final class CircularBuffer<T> {
         }
     }
 
-    void add(@Nonnull final T object) {
+    void add(final T object) {
         tryGrowBeforeAdd();
         insertLast(Objects.requireNonNull(object));
     }
@@ -71,7 +70,7 @@ final class CircularBuffer<T> {
         if (currentSize + 1 > _elements.length) {
             final int newSize = ((_elements.length - 1) * 2) + 1;
             @SuppressWarnings("unchecked")
-            final T[] elements = (T[]) new Object[newSize];
+            final @Nullable T[] elements = (@Nullable T[]) new Object[newSize];
             int j = 0;
             for (int i = 0; i < currentSize; i++) {
                 final int index = (_head + i) % _elements.length;
@@ -102,7 +101,7 @@ final class CircularBuffer<T> {
         if (isEmpty()) {
             return null;
         }
-        final T result = _elements[_head];
+        final @Nullable T result = _elements[_head];
         _elements[_head] = null;
 
         _head++;
@@ -127,7 +126,7 @@ final class CircularBuffer<T> {
      *
      * @param object the object.
      */
-    private void insertLast(@Nonnull final T object) {
+    private void insertLast(final T object) {
         _elements[_tail] = object;
         _tail++;
         if (_tail >= _elements.length) {
@@ -156,7 +155,7 @@ final class CircularBuffer<T> {
         assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
         final int size = size();
         @SuppressWarnings("unchecked")
-        final T[] elements = (T[]) new Object[size];
+        final @Nullable T[] elements = (@Nullable T[]) new Object[size];
         for (int i = 0; i < size; i++) {
             elements[i] = get(i);
         }

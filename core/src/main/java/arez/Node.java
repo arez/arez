@@ -5,8 +5,7 @@ import static org.realityforge.braincheck.Guards.*;
 import arez.spy.Spy;
 import grim.annotations.OmitSymbol;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A node within an Arez dependency graph.
@@ -51,7 +50,6 @@ public abstract class Node implements Disposable {
      *
      * @return the name of the node.
      */
-    @Nonnull
     public final String getName() {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
@@ -67,12 +65,10 @@ public abstract class Node implements Disposable {
      *
      * @return the associated ArezContext.
      */
-    @Nonnull
     public final ArezContext getContext() {
         return Arez.areZonesEnabled() ? Objects.requireNonNull(_context) : Arez.context();
     }
 
-    @Nonnull
     @Override
     public final String toString() {
         if (Arez.areNamesEnabled()) {
@@ -98,7 +94,6 @@ public abstract class Node implements Disposable {
      *
      * @return the spy associated with context.
      */
-    @Nonnull
     final Spy getSpy() {
         return getContext().getSpy();
     }
@@ -108,7 +103,7 @@ public abstract class Node implements Disposable {
      *
      * @param event the event that occurred.
      */
-    final void reportSpyEvent(@Nonnull final Object event) {
+    final void reportSpyEvent(final Object event) {
         getSpy().reportSpyEvent(event);
     }
 }

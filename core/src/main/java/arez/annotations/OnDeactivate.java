@@ -3,7 +3,6 @@ package arez.annotations;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import javax.annotation.Nonnull;
 
 /**
  * Identifies method that is called when the {@link arez.ComputableValue} changes to the INACTIVE state from
@@ -50,6 +49,5 @@ public @interface OnDeactivate {
      *
      * @return the name of the ComputableValue.
      */
-    @Nonnull
     String name() default "<default>";
 }

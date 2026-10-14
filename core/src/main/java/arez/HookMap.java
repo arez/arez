@@ -1,17 +1,15 @@
 package arez;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A compact insertion-ordered map specialized for hook storage.
  */
 final class HookMap {
-    @Nonnull
-    private String[] _keys = new String[1];
 
-    @Nonnull
-    private Hook[] _values = new Hook[1];
+    private @Nullable String[] _keys = new String[1];
+
+    private @Nullable Hook[] _values = new Hook[1];
 
     private int _size;
 
@@ -31,17 +29,17 @@ final class HookMap {
         _size = 0;
     }
 
-    boolean containsKey(@Nonnull final String key) {
+    boolean containsKey(final String key) {
         return -1 != findKeyIndex(key);
     }
 
     @Nullable
-    Hook get(@Nonnull final String key) {
+    Hook get(final String key) {
         final int index = findKeyIndex(key);
         return -1 == index ? null : _values[index];
     }
 
-    void put(@Nonnull final String key, @Nonnull final Hook value) {
+    void put(final String key, final Hook value) {
         final int index = findKeyIndex(key);
         if (-1 != index) {
             _values[index] = value;
@@ -53,12 +51,10 @@ final class HookMap {
         }
     }
 
-    @Nonnull
     String keyAt(final int index) {
         return _keys[index];
     }
 
-    @Nonnull
     Hook valueAt(final int index) {
         return _values[index];
     }
@@ -66,8 +62,8 @@ final class HookMap {
     private void ensureCapacity() {
         if (_size == _keys.length) {
             final int length = (_size * 2) + 1;
-            final String[] keys = new String[length];
-            final Hook[] values = new Hook[length];
+            final @Nullable String[] keys = new String[length];
+            final @Nullable Hook[] values = new Hook[length];
             for (int i = 0; i < _size; i++) {
                 keys[i] = _keys[i];
                 values[i] = _values[i];
@@ -77,7 +73,7 @@ final class HookMap {
         }
     }
 
-    private int findKeyIndex(@Nonnull final String key) {
+    private int findKeyIndex(final String key) {
         for (int i = 0; i < _size; i++) {
             if (key.equals(_keys[i])) {
                 return i;
