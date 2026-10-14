@@ -1,0 +1,14 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_BasicOnDepsChangeModel.java",
+        "Arez_DeriveOnDepsChangeModel.java",
+        "Arez_InheritedMultiOnDepsChangeModel.java",
+        "Arez_OnDepsChangeDuplicatedModel.java",
+        "Arez_PackageAccessOnDepsChangeModel.java",
+        "Arez_ProtectedAccessFromBaseOnDepsChangeModel.java",
+        "Arez_PublicAccessViaInterfaceOnDepsChangeModel.java",
+    ],
+)

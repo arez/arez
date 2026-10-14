@@ -1,0 +1,28 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "CustomNamesInverseModel.java",
+        "DefaultMultiplicityInverseModel.java",
+        "DisableInverseModel.java",
+        "MultipleReferenceWithInverseWithSameTarget.java",
+        "NonGetterInverseModel.java",
+        "NonObservableCollectionInverseModel.java",
+        "NonObservableNullableManyReferenceModel.java",
+        "NonObservableNullableOneReferenceModel.java",
+        "NonObservableNullableZeroOrOneReferenceModel.java",
+        "NonStandardNameModel.java",
+        "ObservableCollectionInverseModel.java",
+        "ObservableListInverseModel.java",
+        "ObservableManyReferenceModel.java",
+        "ObservableOneReferenceModel.java",
+        "ObservableReferenceInverseModel.java",
+        "ObservableSetInverseModel.java",
+        "ObservableZeroOrOneReferenceModel.java",
+        "OneMultiplicityInverseModel.java",
+        "PackageAccessWithDifferentPackageInverseModel.java",
+        "ZeroOrOneMultiplicityInverseModel.java",
+        "//processor/src/test/fixtures/input/com/example/inverse/other:all",
+    ],
+)

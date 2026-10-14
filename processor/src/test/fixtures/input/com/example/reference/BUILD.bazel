@@ -1,0 +1,24 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "CascadeDisposeReferenceModel.java",
+        "CustomNameReferenceModel.java",
+        "CustomNameReferenceModel2.java",
+        "EagerLoadNulableObservableReferenceModel.java",
+        "EagerLoadObservableReferenceModel.java",
+        "EagerLoadReferenceModel.java",
+        "EagerObservableReadOutsideTransactionReferenceModel.java",
+        "ExplicitLoadObservableReferenceModel.java",
+        "ExplicitLoadReferenceModel.java",
+        "LazyLoadObservableReferenceModel.java",
+        "LazyLoadReferenceModel.java",
+        "LazyObservableReadOutsideTransactionReferenceModel.java",
+        "NonJavabeanNameReferenceModel.java",
+        "NonObservableReferenceModel.java",
+        "NonnullLazyLoadReferenceModel.java",
+        "NullableLazyLoadReferenceModel.java",
+        "ObservableReferenceModel.java",
+    ],
+)

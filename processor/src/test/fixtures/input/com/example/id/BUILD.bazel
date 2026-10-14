@@ -1,0 +1,11 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ComponentIdExample.java",
+        "NonStandardNameModel.java",
+        "RequireIdDisable.java",
+        "RequireIdEnable.java",
+    ],
+)

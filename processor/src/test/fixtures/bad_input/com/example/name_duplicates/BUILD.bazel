@@ -1,0 +1,32 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ActionAndContainerIdMethodModel.java",
+        "ActionAndMemoizeMethodModel.java",
+        "ActionAndMemoizeSameNameModel.java",
+        "ActionAndObservableSameNameModel.java",
+        "ActionAndObservableSameNameNoGetterYetModel.java",
+        "ActionAndObserveMethodModel.java",
+        "ActionAndOnActivateMethodModel.java",
+        "ActionAndOnDeactivateMethodModel.java",
+        "ActionAndPostDisposeMethodModel.java",
+        "ActionAndPreDisposeMethodModel.java",
+        "ActionDuplicatesObservableNameModel.java",
+        "MemoizeAndContainerIdMethodModel.java",
+        "MemoizeAndObservableSameNameModel.java",
+        "MemoizeAndObserveMethodModel.java",
+        "MemoizeAndOnActivateMethodModel.java",
+        "MemoizeAndOnDeactivateMethodModel.java",
+        "MemoizeAndPostDisposeMethodModel.java",
+        "MemoizeAndPreDisposeMethodModel.java",
+        "ObservableAndActionMethodModel.java",
+        "ObservableAndContainerIdMethodModel.java",
+        "ObservableAndMemoizeMethodModel.java",
+        "ObservableAndOnActivateMethodModel.java",
+        "ObservableAndOnDeactivateMethodModel.java",
+        "ObservableAndPostDisposeMethodModel.java",
+        "ObservableAndPreDisposeMethodModel.java",
+    ],
+)

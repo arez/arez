@@ -27,3 +27,14 @@ artifacts:
   - coord: org.glassfish:javax.json:1.1
   - coord: org.testng:testng:7.10.2
   - coord: guru.nidi:jdepend:2.9.5
+  - coord: org.realityforge.proton:proton-core:0.75
+  - coord: org.realityforge.proton:proton-qa:0.75
+  - coord: com.palantir.javapoet:javapoet:0.14.0
+    excludes:
+      - com.palantir.javapoet:javapoet-root
+  - coord: org.realityforge.sting:sting-core:0.40
+  - coord: org.realityforge.sting:sting-processor:0.40
+  - coord: javax.xml.ws:jaxws-api:2.3.0
+  - coord: javax.annotation:javax.annotation-api:1.3.2
+  - coord: com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
+    includeSource: false

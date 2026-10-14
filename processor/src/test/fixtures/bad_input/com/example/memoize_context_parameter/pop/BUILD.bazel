@@ -1,0 +1,15 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "AbstractPopModel.java",
+        "BadTypePopModel.java",
+        "MultipleParameterPopModel.java",
+        "PrivatePopModel.java",
+        "ReturningPopModel.java",
+        "StaticPopModel.java",
+        "ThrowsPopModel.java",
+        "TypeParamPopModel.java",
+    ],
+)

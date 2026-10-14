@@ -1,0 +1,11 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "NoToStringPresent.java",
+        "ParentType.java",
+        "ToStringPresent.java",
+        "ToStringPresentInParent.java",
+    ],
+)

@@ -1,0 +1,16 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_CompleteComponentStateRefModel.java",
+        "Arez_ConstructedComponentStateRefModel.java",
+        "Arez_DefaultComponentStateRefModel.java",
+        "Arez_DisposingComponentStateRefModel.java",
+        "Arez_MultipleComponentStateRefModel.java",
+        "Arez_PackageAccessComponentStateRefModel.java",
+        "Arez_ProtectedAccessFromBaseComponentStateRefModel.java",
+        "Arez_PublicAccessViaInterfaceComponentStateRefModel.java",
+        "Arez_ReadyComponentStateRefModel.java",
+    ],
+)

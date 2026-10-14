@@ -1,0 +1,17 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "OnDepsChangeBadName.java",
+        "OnDepsChangeBadName2.java",
+        "OnDepsChangeBadName3.java",
+        "OnDepsChangeMustNotHaveParametersModel.java",
+        "OnDepsChangeMustNotReturnValueModel.java",
+        "OnDepsChangeNoTracked.java",
+        "OnDepsChangeNotAbstractModel.java",
+        "OnDepsChangeNotPrivateModel.java",
+        "OnDepsChangeNotStaticModel.java",
+        "OnDepsChangeThrowsExceptionModel.java",
+    ],
+)

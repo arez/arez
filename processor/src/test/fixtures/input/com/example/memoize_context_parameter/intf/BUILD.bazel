@@ -1,0 +1,9 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ConcreteModel.java",
+        "//processor/src/test/fixtures/input/com/example/memoize_context_parameter/intf/subpkg:all",
+    ],
+)

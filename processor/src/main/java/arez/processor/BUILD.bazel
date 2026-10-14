@@ -1,0 +1,44 @@
+load("//third_party/java:rules.bzl", "java_library", "java_plugin")
+
+package(default_visibility = ["//visibility:public"])
+
+java_library(
+    name = "processor",
+    srcs = [
+        "ActionDescriptor.java",
+        "ArezProcessor.java",
+        "AutoObserveDescriptor.java",
+        "CandidateMethod.java",
+        "CascadeDisposeDescriptor.java",
+        "ComponentDescriptor.java",
+        "ComponentGenerator.java",
+        "ComponentStateRefDescriptor.java",
+        "Constants.java",
+        "DependencyDescriptor.java",
+        "InverseDescriptor.java",
+        "MemoizeContextParameterDescriptor.java",
+        "MemoizeContextParameterMethodType.java",
+        "MemoizeDescriptor.java",
+        "Multiplicity.java",
+        "ObservableDescriptor.java",
+        "ObservableInitialDescriptor.java",
+        "ObserveDescriptor.java",
+        "Priority.java",
+        "ReferenceDescriptor.java",
+        "RequiresTransactionDescriptor.java",
+        "package-info.java",
+    ],
+    resources = ["//processor/src/main/resources/META-INF/services:javax.annotation.processing.Processor"],
+    deps = [
+        "//third_party/java:javapoet",
+        "//third_party/java:javax_annotation",
+        "//third_party/java:proton_core",
+    ],
+)
+
+java_plugin(
+    name = "plugin",
+    generates_api = True,
+    processor_class = "arez.processor.ArezProcessor",
+    deps = [":processor"],
+)

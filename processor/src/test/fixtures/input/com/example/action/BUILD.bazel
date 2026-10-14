@@ -1,0 +1,28 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ActionTypeParametersModel.java",
+        "BasicActionModel.java",
+        "BasicFunctionActionModel.java",
+        "FunctionActionThrowsRuntimeExceptionModel.java",
+        "FunctionActionThrowsThrowableModel.java",
+        "MultiThrowAction.java",
+        "NewTypeParametersModel.java",
+        "NoReportParametersModel.java",
+        "NoReportResultActionModel.java",
+        "NoVerifyActionModel.java",
+        "NonStandardNameActionModel.java",
+        "ReadOnlyActionModel.java",
+        "RequiresNewTxTypeActionModel.java",
+        "RequiresTxTypeActionModel.java",
+        "SkipIfDisposedActionModel.java",
+        "SkipIfDisposedDisabledOverrideActionModel.java",
+        "SkipIfDisposedFromDefaultActionModel.java",
+        "UnsafeFunctionActionModel.java",
+        "UnsafeProcedureActionModel.java",
+        "UnsafeSpecificFunctionActionModel.java",
+        "UnsafeSpecificProcedureActionModel.java",
+    ],
+)

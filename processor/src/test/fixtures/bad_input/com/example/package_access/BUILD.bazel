@@ -1,0 +1,30 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ActionModel.java",
+        "CascadeDisposeMethodModel.java",
+        "CascadeDisposeModel.java",
+        "ComponentDependencyModel.java",
+        "ComponentIdModel.java",
+        "ComponentNameRefModel.java",
+        "ComponentRefModel.java",
+        "ComputableValueRefModel.java",
+        "ContextRefModel.java",
+        "MemoizeModel.java",
+        "Observable2Model.java",
+        "Observable3Model.java",
+        "ObservableModel.java",
+        "ObservableValueRefModel.java",
+        "ObserveModel.java",
+        "ObserverRefModel.java",
+        "OnActivateModel.java",
+        "OnDeactivateModel.java",
+        "OnDepsChangeModel.java",
+        "OnStaleModel.java",
+        "PostConstructModel.java",
+        "RequiresTransactionModel.java",
+        "//processor/src/test/fixtures/bad_input/com/example/package_access/other:all",
+    ],
+)

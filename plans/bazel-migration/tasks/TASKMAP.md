@@ -2,7 +2,7 @@
 
 - Spec: [SPEC.md](../SPEC.md)
 - Status: implementing
-- Current frontier: T02
+- Current frontier: T03
 - Planning reviewer: /root/planning_reviewer (2/3 rounds; passed, Findings: none)
 - Plan checkpoint: human-review (approved)
 - Checkpoint basis: the user said "Proceed" after the reviewed spec/task map and
@@ -27,14 +27,14 @@
 - Artifact reproducibility: independent-output-base hash comparisons, including
   binary, source, Javadoc and POM outputs; cached reruns alone are insufficient.
 - Final evidence: pending
-- Current milestone: T01 core build/test parity passed; remaining delivery tasks pending.
+- Current milestone: T01 core and T02 processor baseline passed; remaining delivery tasks pending.
 
 ## Tasks
 
 | ID | Task | Status | Blocked by |
 | --- | --- | --- | --- |
 | T01 | [Build and test core with Bazel](T01-bazel-core.md) | complete | None |
-| T02 | [Run Arez processor regressions through Bazel](T02-processor-parity.md) | pending | T01 |
+| T02 | [Run Arez processor regressions through Bazel](T02-processor-parity.md) | complete | T01 |
 | T03 | [Compile generated integrations and documentation examples](T03-integration-doc-parity.md) | pending | T02 |
 | T04 | [Build extras and run their JVM tests](T04-extras-parity.md) | pending | T03 |
 | T05 | [Run the complete Persist JVM slice](T05-persist-parity.md) | pending | T04 |

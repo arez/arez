@@ -1,0 +1,23 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "AbstractDefaultEqualityComparatorModel.java",
+        "AbstractModel.java",
+        "BadName1Model.java",
+        "BadName2Model.java",
+        "BadStreamTypeModel.java",
+        "DuplicateModel.java",
+        "FinalModel.java",
+        "InaccessibleDefaultEqualityComparatorModel.java",
+        "KeepAliveWithContextParametersModel.java",
+        "KeepAliveWithParametersModel.java",
+        "MissingComputableValueRefModel.java",
+        "NoArgConstructorDefaultEqualityComparatorModel.java",
+        "PrivateModel.java",
+        "ReturnVoidModel.java",
+        "StaticModel.java",
+        "ThrowsExceptionModel.java",
+    ],
+)

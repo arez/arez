@@ -1,0 +1,22 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BasicOnDepsChangeModel.java",
+        "DeriveOnDepsChangeModel.java",
+        "InheritedMultiOnDepsChangeModel.java",
+        "OnDepsChangeDuplicatedModel.java",
+        "OnDepsChangeInterface.java",
+        "PackageAccessOnDepsChangeModel.java",
+        "ProtectedAccessFromBaseOnDepsChangeModel.java",
+        "ProtectedAccessOnDepsChangeModel.java",
+        "PublicAccessOnDepsChangeModel.java",
+        "PublicAccessViaInterfaceOnDepsChangeModel.java",
+        "Suppressed1ProtectedAccessOnDepsChangeModel.java",
+        "Suppressed1PublicAccessOnDepsChangeModel.java",
+        "Suppressed2ProtectedAccessOnDepsChangeModel.java",
+        "Suppressed2PublicAccessOnDepsChangeModel.java",
+        "//processor/src/test/fixtures/input/com/example/on_deps_change/other:all",
+    ],
+)

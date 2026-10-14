@@ -1,0 +1,12 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_DeprecatedModel.java",
+        "Arez_DisposeOnDeactivateModel.java",
+        "Arez_NoRequireEqualsModel.java",
+        "Arez_NotObservableModel.java",
+        "Arez_ObservableModel.java",
+    ],
+)

@@ -1,0 +1,12 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_BasicContextRefModel.java",
+        "Arez_MultiContextRefModel.java",
+        "Arez_NonStandardMethodNameContextRefModel.java",
+        "Arez_ProtectedAccessFromBaseContextRefModel.java",
+        "Arez_PublicAccessViaInterfaceContextRefModel.java",
+    ],
+)

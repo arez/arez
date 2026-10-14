@@ -1,0 +1,27 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "DeprecatedActionModel.java",
+        "DeprecatedBaseInterface.java",
+        "DeprecatedInterface.java",
+        "DeprecatedMemoize5Model.java",
+        "DeprecatedMemoizeModel1.java",
+        "DeprecatedMemoizeModel2.java",
+        "DeprecatedMemoizeModel3.java",
+        "DeprecatedObservableModel1.java",
+        "DeprecatedObservableModel2.java",
+        "DeprecatedObserveModel.java",
+        "DeprecatedObserveModel1.java",
+        "DeprecatedObserveModel2.java",
+        "DeprecatedObserveModel3.java",
+        "DeprecatedObserveModel4.java",
+        "DeprecatedParameterModel.java",
+        "DeprecatedPostConstructModel.java",
+        "DeprecatedTypeParameterModel.java",
+        "DeprecatedUsageModel.java",
+        "DeprecatedViaInterfaceModel.java",
+        "MyDeprecatedEntity.java",
+    ],
+)

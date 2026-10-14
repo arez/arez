@@ -1,0 +1,10 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_GenericsModel.java",
+        "Arez_LeafModel.java",
+        "Arez_MyArezReactComponent_.java",
+    ],
+)

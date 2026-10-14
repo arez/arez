@@ -1,0 +1,13 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "AbstractMultiModel.java",
+        "BaseProtectedAccessPreDisposeModel.java",
+        "MiddleMultiModel.java",
+        "MultiModelInterface1.java",
+        "MultiModelInterface2.java",
+        "MultiModelInterface3.java",
+    ],
+)

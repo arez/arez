@@ -1,0 +1,15 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_BasicAutoObserveModel.java",
+        "Arez_NonnullFieldAutoObserveModel.java",
+        "Arez_NonnullRuntimeTypeValidateFieldAutoObserveModel.java",
+        "Arez_NullableFieldAutoObserveModel.java",
+        "Arez_NullableMethodAutoObserveModel.java",
+        "Arez_NullableRuntimeTypeValidateFieldAutoObserveModel.java",
+        "Arez_ProtectedAccessFromBaseFieldAutoObserveModel.java",
+        "Arez_RuntimeTypeValidateFieldAutoObserveModel.java",
+    ],
+)

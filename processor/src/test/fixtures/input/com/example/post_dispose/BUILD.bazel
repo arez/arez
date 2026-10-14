@@ -1,0 +1,22 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BasicPostDisposeModel.java",
+        "MultiPostDisposeModel.java",
+        "MultiViaInheritanceChainPostDisposeModel.java",
+        "PackageAccessPostDisposeModel.java",
+        "PostDisposeInterface.java",
+        "PostDisposeWithDisabledDisposeNotifierModel.java",
+        "ProtectedAccessFromBasePostDisposeModel.java",
+        "ProtectedAccessPostDisposeModel.java",
+        "PublicAccessPostDisposeModel.java",
+        "PublicAccessViaInterfacePostDisposeModel.java",
+        "Suppressed1ProtectedAccessPostDisposeModel.java",
+        "Suppressed1PublicAccessPostDisposeModel.java",
+        "Suppressed2ProtectedAccessPostDisposeModel.java",
+        "Suppressed2PublicAccessPostDisposeModel.java",
+        "//processor/src/test/fixtures/input/com/example/post_dispose/other:all",
+    ],
+)

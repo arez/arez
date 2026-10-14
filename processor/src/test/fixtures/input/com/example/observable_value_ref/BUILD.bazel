@@ -1,0 +1,25 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BasicObservableValueRefModel.java",
+        "GenericObservableValueRefModel.java",
+        "MultiObservableValueRefModel.java",
+        "NonStandardMethodName1ObservableValueRefModel.java",
+        "NonStandardMethodName2ObservableValueRefModel.java",
+        "ObservableValueRefInterface.java",
+        "PackageAccessObservableValueRefModel.java",
+        "ProtectedAccessFromBaseObservableValueRefModel.java",
+        "ProtectedAccessObservableValueRefModel.java",
+        "PublicAccessObservableValueRefModel.java",
+        "PublicAccessViaInterfaceObservableValueRefModel.java",
+        "RawObservableValueRefModel.java",
+        "Suppressed1ProtectedAccessObservableValueRefModel.java",
+        "Suppressed1PublicAccessObservableValueRefModel.java",
+        "Suppressed2ProtectedAccessObservableValueRefModel.java",
+        "Suppressed2PublicAccessObservableValueRefModel.java",
+        "WildcardObservableValueRefModel.java",
+        "//processor/src/test/fixtures/input/com/example/observable_value_ref/other:all",
+    ],
+)

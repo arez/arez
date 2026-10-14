@@ -1401,12 +1401,10 @@ public final class ArezProcessorDiagnosticTest
     assertFailedCompileResource( inputs,
                                  "ArezProcessor unable to process com.example.component.UnresolvedComponent because not all of its dependencies could be resolved. Check for compilation errors or a circular dependency with generated code." );
 
-    final String optionPrefix = getOptionPrefix();
+    final List<String> options = new ArrayList<>( getOptions() );
+    options.add( "-A" + getOptionPrefix() + ".defer.unresolved=false" );
     CompileTestUtil.assertCompilesWithoutWarnings( inputs,
-                                                   Arrays.asList( "-Xlint:all,-processing",
-                                                                  "-implicit:none",
-                                                                  "-A" + optionPrefix + ".defer.errors=false",
-                                                                  "-A" + optionPrefix + ".defer.unresolved=false" ),
+                                                   options,
                                                    List.of( processor() ),
                                                    Collections.emptyList() );
   }

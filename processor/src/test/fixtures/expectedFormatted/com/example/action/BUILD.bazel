@@ -1,0 +1,28 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_ActionTypeParametersModel.java",
+        "Arez_BasicActionModel.java",
+        "Arez_BasicFunctionActionModel.java",
+        "Arez_FunctionActionThrowsRuntimeExceptionModel.java",
+        "Arez_FunctionActionThrowsThrowableModel.java",
+        "Arez_MultiThrowAction.java",
+        "Arez_NewTypeParametersModel.java",
+        "Arez_NoReportParametersModel.java",
+        "Arez_NoReportResultActionModel.java",
+        "Arez_NoVerifyActionModel.java",
+        "Arez_NonStandardNameActionModel.java",
+        "Arez_ReadOnlyActionModel.java",
+        "Arez_RequiresNewTxTypeActionModel.java",
+        "Arez_RequiresTxTypeActionModel.java",
+        "Arez_SkipIfDisposedActionModel.java",
+        "Arez_SkipIfDisposedDisabledOverrideActionModel.java",
+        "Arez_SkipIfDisposedFromDefaultActionModel.java",
+        "Arez_UnsafeFunctionActionModel.java",
+        "Arez_UnsafeProcedureActionModel.java",
+        "Arez_UnsafeSpecificFunctionActionModel.java",
+        "Arez_UnsafeSpecificProcedureActionModel.java",
+    ],
+)

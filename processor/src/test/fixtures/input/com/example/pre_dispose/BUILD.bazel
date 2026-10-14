@@ -1,0 +1,22 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BasicPreDisposeModel.java",
+        "MultiPreDisposeModel.java",
+        "MultiPreDisposeNotDisposeNotifierModel.java",
+        "MultiViaInheritanceChainPreDisposeModel.java",
+        "PackageAccessPreDisposeModel.java",
+        "PreDisposeInterface.java",
+        "ProtectedAccessFromBasePreDisposeModel.java",
+        "ProtectedAccessPreDisposeModel.java",
+        "PublicAccessPreDisposeModel.java",
+        "PublicAccessViaInterfacePreDisposeModel.java",
+        "Suppressed1ProtectedAccessPreDisposeModel.java",
+        "Suppressed1PublicAccessPreDisposeModel.java",
+        "Suppressed2ProtectedAccessPreDisposeModel.java",
+        "Suppressed2PublicAccessPreDisposeModel.java",
+        "//processor/src/test/fixtures/input/com/example/pre_dispose/other:all",
+    ],
+)

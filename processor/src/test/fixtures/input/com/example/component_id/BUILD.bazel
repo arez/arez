@@ -1,0 +1,27 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BooleanComponentId.java",
+        "BooleanComponentIdRequireEquals.java",
+        "ByteComponentId.java",
+        "ByteComponentIdRequireEquals.java",
+        "CharComponentId.java",
+        "CharComponentIdRequireEquals.java",
+        "ComponentIdOnModel.java",
+        "DoubleComponentId.java",
+        "DoubleComponentIdRequireEquals.java",
+        "FloatComponentId.java",
+        "FloatComponentIdRequireEquals.java",
+        "IntComponentId.java",
+        "IntComponentIdRequireEquals.java",
+        "LongComponentId.java",
+        "LongComponentIdRequireEquals.java",
+        "NonStandardNameComponentId.java",
+        "ObjectComponentId.java",
+        "ObjectComponentIdRequireEquals.java",
+        "ShortComponentId.java",
+        "ShortComponentIdRequireEquals.java",
+    ],
+)

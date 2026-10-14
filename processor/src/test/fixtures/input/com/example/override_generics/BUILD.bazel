@@ -1,0 +1,17 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ArezReactComponent.java",
+        "BaseModel.java",
+        "BaseReactComponent.java",
+        "GenericsBaseModel.java",
+        "GenericsMiddleModel.java",
+        "GenericsModel.java",
+        "LeafModel.java",
+        "MiddleModel.java",
+        "MyArezReactComponent.java",
+        "MyArezReactComponent_.java",
+    ],
+)

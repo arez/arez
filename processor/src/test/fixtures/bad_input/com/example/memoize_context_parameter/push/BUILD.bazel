@@ -1,0 +1,15 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "AbstractPushModel.java",
+        "BadTypePushModel.java",
+        "MultipleParameterPushModel.java",
+        "PrivatePushModel.java",
+        "ReturningPushModel.java",
+        "StaticPushModel.java",
+        "ThrowsPushModel.java",
+        "TypeParamPushModel.java",
+    ],
+)

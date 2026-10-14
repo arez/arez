@@ -1,0 +1,14 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BadReturnTypeComponentTypeNameRefModel.java",
+        "FinalComponentTypeNameRefModel.java",
+        "ParameterizedComponentTypeNameRefModel.java",
+        "PrivateComponentTypeNameRefModel.java",
+        "StaticComponentTypeNameRefModel.java",
+        "ThrowsComponentTypeNameRefModel.java",
+        "VoidComponentTypeNameRefModel.java",
+    ],
+)

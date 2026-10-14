@@ -1,0 +1,14 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_BasicPreDisposeModel.java",
+        "Arez_MultiPreDisposeModel.java",
+        "Arez_MultiPreDisposeNotDisposeNotifierModel.java",
+        "Arez_MultiViaInheritanceChainPreDisposeModel.java",
+        "Arez_PackageAccessPreDisposeModel.java",
+        "Arez_ProtectedAccessFromBasePreDisposeModel.java",
+        "Arez_PublicAccessViaInterfacePreDisposeModel.java",
+    ],
+)

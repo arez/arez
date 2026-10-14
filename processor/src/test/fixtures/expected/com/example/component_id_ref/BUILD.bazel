@@ -1,0 +1,15 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_BasicComponentIdRefModel.java",
+        "Arez_ComponentIdPresentComponentIdRefModel.java",
+        "Arez_MultiComponentIdRefModel.java",
+        "Arez_NonIntTypeComponentIdRefModel.java",
+        "Arez_NonStandardNameComponentIdRefModel.java",
+        "Arez_PackageAccessComponentIdRefModel.java",
+        "Arez_PublicAccessComponentIdRefModel.java",
+        "Arez_RawTypeComponentIdRefModel.java",
+    ],
+)

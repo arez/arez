@@ -1,0 +1,10 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ParentModel.java",
+        "ResolvedModel.java",
+        "UnresolvedModel.java",
+    ],
+)

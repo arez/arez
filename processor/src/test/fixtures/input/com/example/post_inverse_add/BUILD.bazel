@@ -1,0 +1,21 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BasicPostInverseAddModel.java",
+        "MultiPostInverseAddModel.java",
+        "PackageAccessPostInverseAddModel.java",
+        "PostInverseAddInterface.java",
+        "ProtectedAccessFromBasePostInverseAddModel.java",
+        "ProtectedAccessPostInverseAddModel.java",
+        "PublicAccessPostInverseAddModel.java",
+        "PublicAccessViaInterfacePostInverseAddModel.java",
+        "SingularInversePostInverseAddModel.java",
+        "Suppressed1ProtectedAccessPostInverseAddModel.java",
+        "Suppressed1PublicAccessPostInverseAddModel.java",
+        "Suppressed2ProtectedAccessPostInverseAddModel.java",
+        "Suppressed2PublicAccessPostInverseAddModel.java",
+        "//processor/src/test/fixtures/input/com/example/post_inverse_add/other:all",
+    ],
+)

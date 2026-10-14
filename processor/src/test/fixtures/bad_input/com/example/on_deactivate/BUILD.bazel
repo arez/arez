@@ -1,0 +1,21 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "MemoizeHasContextParametersModel.java",
+        "MemoizeHasParametersModel.java",
+        "OnDeactivateAbstractModel.java",
+        "OnDeactivateBadNameModel.java",
+        "OnDeactivateBadNameModel2.java",
+        "OnDeactivateBadNameModel3.java",
+        "OnDeactivateDuplicateModel.java",
+        "OnDeactivateKeepAliveModel.java",
+        "OnDeactivateNoMemoizeModel.java",
+        "OnDeactivateParametersModel.java",
+        "OnDeactivatePrivateModel.java",
+        "OnDeactivateReturnValueModel.java",
+        "OnDeactivateStaticModel.java",
+        "OnDeactivateThrowsExceptionModel.java",
+    ],
+)

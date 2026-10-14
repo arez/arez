@@ -1,0 +1,25 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "AbstractDependency.java",
+        "BadTypeDependency.java",
+        "BadTypeFieldDependency.java",
+        "CascadeDisposeAndFieldDependency.java",
+        "MemoizeDependency.java",
+        "NonFinalFieldDependency.java",
+        "ParametersDependency.java",
+        "PrimitiveFieldDependency.java",
+        "PrimitiveReturnDependency.java",
+        "PrivateDependency.java",
+        "SetNullBasicDependency.java",
+        "SetNullFieldDependency.java",
+        "SetNullObservableNoSetterDependency.java",
+        "SetNullOnNonnullDependency.java",
+        "StaticDependency.java",
+        "StaticFieldDependency.java",
+        "ThrowsDependency.java",
+        "VoidReturnDependency.java",
+    ],
+)

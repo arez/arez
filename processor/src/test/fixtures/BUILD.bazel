@@ -1,0 +1,12 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "//processor/src/test/fixtures/bad_input:all",
+        "//processor/src/test/fixtures/expected:all",
+        "//processor/src/test/fixtures/expectedFormatted:all",
+        "//processor/src/test/fixtures/input:all",
+        "//processor/src/test/fixtures/unresolved:all",
+    ],
+)

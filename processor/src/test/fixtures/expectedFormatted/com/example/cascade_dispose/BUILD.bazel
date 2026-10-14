@@ -1,0 +1,21 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_ComponentCascadeDisposeMethodModel.java",
+        "Arez_ComponentCascadeDisposeModel.java",
+        "Arez_DisposableCascadeDisposeMethodModel.java",
+        "Arez_DisposableCascadeDisposeModel.java",
+        "Arez_DisposeNotifierDisabledCascadeDisposeModel.java",
+        "Arez_NonStandardNameCascadeDisposeMethodModel.java",
+        "Arez_NonStandardNameDisposableCascadeDisposeModel.java",
+        "Arez_ObservableCascadeDisposeModel.java",
+        "Arez_ParameterizedComponentCascadeDisposeMethodModel.java",
+        "Arez_ProtectedAccessFromBaseFieldCascadeDisposeModel.java",
+        "ComponentCascadeDisposeMethodModel_Arez_MyComponent.java",
+        "ComponentCascadeDisposeModel_Arez_MyComponent.java",
+        "ObservableCascadeDisposeModel_Arez_MyComponent.java",
+        "ParameterizedComponentCascadeDisposeMethodModel_Arez_EventDrivenValue.java",
+    ],
+)

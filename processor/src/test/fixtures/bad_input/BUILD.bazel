@@ -1,0 +1,9 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "PackageAccessActionModel.java",
+        "//processor/src/test/fixtures/bad_input/com:all",
+    ],
+)

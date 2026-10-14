@@ -1,0 +1,19 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BasicOnDeactivateModel.java",
+        "OnDeactivateInterface.java",
+        "PackageAccessOnDeactivateModel.java",
+        "ProtectedAccessFromBaseOnDeactivateModel.java",
+        "ProtectedAccessOnDeactivateModel.java",
+        "PublicAccessOnDeactivateModel.java",
+        "PublicAccessViaInterfaceOnDeactivateModel.java",
+        "Suppressed1ProtectedAccessOnDeactivateModel.java",
+        "Suppressed1PublicAccessOnDeactivateModel.java",
+        "Suppressed2ProtectedAccessOnDeactivateModel.java",
+        "Suppressed2PublicAccessOnDeactivateModel.java",
+        "//processor/src/test/fixtures/input/com/example/on_deactivate/other:all",
+    ],
+)

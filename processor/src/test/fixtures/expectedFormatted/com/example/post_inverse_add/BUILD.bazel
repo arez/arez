@@ -1,0 +1,19 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_BasicPostInverseAddModel.java",
+        "Arez_MultiPostInverseAddModel.java",
+        "Arez_PackageAccessPostInverseAddModel.java",
+        "Arez_ProtectedAccessFromBasePostInverseAddModel.java",
+        "Arez_PublicAccessViaInterfacePostInverseAddModel.java",
+        "Arez_SingularInversePostInverseAddModel.java",
+        "BasicPostInverseAddModel_Arez_Element.java",
+        "MultiPostInverseAddModel_Arez_Element.java",
+        "PackageAccessPostInverseAddModel_Arez_Element.java",
+        "PublicAccessViaInterfacePostInverseAddModel_Arez_Element.java",
+        "SingularInversePostInverseAddModel_Arez_Element.java",
+        "//processor/src/test/fixtures/expectedFormatted/com/example/post_inverse_add/other:all",
+    ],
+)

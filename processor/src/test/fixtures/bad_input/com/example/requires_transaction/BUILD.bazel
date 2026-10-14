@@ -1,0 +1,15 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "AbstractRequiresTransactionModel.java",
+        "ActionAndRequiresTransactionModel.java",
+        "FinalRequiresTransactionModel.java",
+        "MemoizeAndRequiresTransactionModel.java",
+        "ObserveAndRequiresTransactionModel.java",
+        "PostConstructAndRequiresTransactionModel.java",
+        "PrivateRequiresTransactionModel.java",
+        "StaticRequiresTransactionModel.java",
+    ],
+)

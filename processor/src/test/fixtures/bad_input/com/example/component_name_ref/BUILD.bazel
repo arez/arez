@@ -1,0 +1,13 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ComponentNameRefFinalModel.java",
+        "ComponentNameRefMustNotHaveParametersModel.java",
+        "ComponentNameRefMustReturnValueModel.java",
+        "ComponentNameRefPrivateModel.java",
+        "ComponentNameRefStaticModel.java",
+        "ComponentNameRefThrowsExceptionModel.java",
+    ],
+)

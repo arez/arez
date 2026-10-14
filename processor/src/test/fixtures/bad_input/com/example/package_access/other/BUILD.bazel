@@ -1,0 +1,29 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BaseActionModel.java",
+        "BaseCascadeDisposeMethodModel.java",
+        "BaseCascadeDisposeModel.java",
+        "BaseComponentDependencyModel.java",
+        "BaseComponentIdModel.java",
+        "BaseComponentNameRefModel.java",
+        "BaseComponentRefModel.java",
+        "BaseComputableValueRefModel.java",
+        "BaseContextRefModel.java",
+        "BaseMemoizeModel.java",
+        "BaseObservable2Model.java",
+        "BaseObservable3Model.java",
+        "BaseObservableModel.java",
+        "BaseObservableValueRefModel.java",
+        "BaseObserveModel.java",
+        "BaseObserverRefModel.java",
+        "BaseOnActivateModel.java",
+        "BaseOnDeactivateModel.java",
+        "BaseOnDepsChangeModel.java",
+        "BaseOnStaleModel.java",
+        "BasePostConstructModel.java",
+        "BaseRequiresTransactionModel.java",
+    ],
+)

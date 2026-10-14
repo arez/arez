@@ -1,0 +1,15 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_ActionPostConstructModel.java",
+        "Arez_BasicPostConstructModel.java",
+        "Arez_MultiPostConstructModel.java",
+        "Arez_MultiViaInheritanceChainPostConstructModel.java",
+        "Arez_NonStandardNamePostConstructModel.java",
+        "Arez_PackageAccessPostConstructModel.java",
+        "Arez_ProtectedAccessFromBasePostConstructModel.java",
+        "Arez_PublicAccessViaInterfacePostConstructModel.java",
+    ],
+)

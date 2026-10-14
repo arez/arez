@@ -1,0 +1,18 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BasicStingModel.java",
+        "EagerStingModel.java",
+        "EmptyTypedStingModel.java",
+        "MultipleArgsStingModel.java",
+        "NamedArgStingModel.java",
+        "NamedStingModel.java",
+        "PublicCtorStingModel.java",
+        "ServiceViaEagerStingModel.java",
+        "ServiceViaNamedStingModel.java",
+        "ServiceViaTypedStingModel.java",
+        "TypedStingModel.java",
+    ],
+)

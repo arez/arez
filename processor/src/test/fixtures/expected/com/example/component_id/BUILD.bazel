@@ -1,0 +1,27 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_BooleanComponentId.java",
+        "Arez_BooleanComponentIdRequireEquals.java",
+        "Arez_ByteComponentId.java",
+        "Arez_ByteComponentIdRequireEquals.java",
+        "Arez_CharComponentId.java",
+        "Arez_CharComponentIdRequireEquals.java",
+        "Arez_ComponentIdOnModel.java",
+        "Arez_DoubleComponentId.java",
+        "Arez_DoubleComponentIdRequireEquals.java",
+        "Arez_FloatComponentId.java",
+        "Arez_FloatComponentIdRequireEquals.java",
+        "Arez_IntComponentId.java",
+        "Arez_IntComponentIdRequireEquals.java",
+        "Arez_LongComponentId.java",
+        "Arez_LongComponentIdRequireEquals.java",
+        "Arez_NonStandardNameComponentId.java",
+        "Arez_ObjectComponentId.java",
+        "Arez_ObjectComponentIdRequireEquals.java",
+        "Arez_ShortComponentId.java",
+        "Arez_ShortComponentIdRequireEquals.java",
+    ],
+)

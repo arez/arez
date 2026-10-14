@@ -1,0 +1,24 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_DeprecatedActionModel.java",
+        "Arez_DeprecatedMemoize5Model.java",
+        "Arez_DeprecatedMemoizeModel1.java",
+        "Arez_DeprecatedMemoizeModel2.java",
+        "Arez_DeprecatedMemoizeModel3.java",
+        "Arez_DeprecatedObservableModel1.java",
+        "Arez_DeprecatedObservableModel2.java",
+        "Arez_DeprecatedObserveModel.java",
+        "Arez_DeprecatedObserveModel1.java",
+        "Arez_DeprecatedObserveModel2.java",
+        "Arez_DeprecatedObserveModel3.java",
+        "Arez_DeprecatedObserveModel4.java",
+        "Arez_DeprecatedParameterModel.java",
+        "Arez_DeprecatedPostConstructModel.java",
+        "Arez_DeprecatedTypeParameterModel.java",
+        "Arez_DeprecatedUsageModel.java",
+        "Arez_DeprecatedViaInterfaceModel.java",
+    ],
+)

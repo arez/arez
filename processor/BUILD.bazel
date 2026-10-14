@@ -1,0 +1,18 @@
+load("//third_party/java:rules.bzl", "java_library")
+
+package(default_visibility = ["//visibility:public"])
+
+java_library(
+    name = "processor",
+    exports = ["//processor/src/main/java/arez/processor"],
+)
+
+alias(
+    name = "plugin",
+    actual = "//processor/src/main/java/arez/processor:plugin",
+)
+
+test_suite(
+    name = "all_tests",
+    tests = ["//processor/src/test/java/arez/processor:all_tests"],
+)

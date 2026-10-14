@@ -1,0 +1,11 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_BasicRequiresTransactionModel.java",
+        "Arez_ConstrainedRequiresTransactionModel.java",
+        "Arez_DefaultMethodRequiresTransactionModel.java",
+        "Arez_InheritedRequiresTransactionModel.java",
+    ],
+)

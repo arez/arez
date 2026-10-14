@@ -1,0 +1,21 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BasicContextRefModel.java",
+        "ContextRefInterface.java",
+        "MultiContextRefModel.java",
+        "NonStandardMethodNameContextRefModel.java",
+        "PackageAccessBasicContextRefModel.java",
+        "ProtectedAccessContextRefModel.java",
+        "ProtectedAccessFromBaseContextRefModel.java",
+        "PublicAccessContextRefModel.java",
+        "PublicAccessViaInterfaceContextRefModel.java",
+        "Suppressed1ProtectedAccessContextRefModel.java",
+        "Suppressed1PublicAccessContextRefModel.java",
+        "Suppressed2ProtectedAccessContextRefModel.java",
+        "Suppressed2PublicAccessContextRefModel.java",
+        "//processor/src/test/fixtures/input/com/example/context_ref/other:all",
+    ],
+)

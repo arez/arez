@@ -1,0 +1,24 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "CompleteComponentStateRefModel.java",
+        "ComponentStateRefInterface.java",
+        "ConstructedComponentStateRefModel.java",
+        "DefaultComponentStateRefModel.java",
+        "DisposingComponentStateRefModel.java",
+        "MultipleComponentStateRefModel.java",
+        "PackageAccessComponentStateRefModel.java",
+        "ProtectedAccessComponentStateRefModel.java",
+        "ProtectedAccessFromBaseComponentStateRefModel.java",
+        "PublicAccessComponentStateRefModel.java",
+        "PublicAccessViaInterfaceComponentStateRefModel.java",
+        "ReadyComponentStateRefModel.java",
+        "Suppressed1ProtectedAccessComponentStateRefModel.java",
+        "Suppressed1PublicAccessComponentStateRefModel.java",
+        "Suppressed2ProtectedAccessComponentStateRefModel.java",
+        "Suppressed2PublicAccessComponentStateRefModel.java",
+        "//processor/src/test/fixtures/input/com/example/component_state_ref/other:all",
+    ],
+)

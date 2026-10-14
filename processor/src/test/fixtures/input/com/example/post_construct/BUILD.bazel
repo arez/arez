@@ -1,0 +1,23 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ActionPostConstructModel.java",
+        "BasicPostConstructModel.java",
+        "MultiPostConstructModel.java",
+        "MultiViaInheritanceChainPostConstructModel.java",
+        "NonStandardNamePostConstructModel.java",
+        "PackageAccessPostConstructModel.java",
+        "PostConstructInterface.java",
+        "ProtectedAccessFromBasePostConstructModel.java",
+        "ProtectedAccessPostConstructModel.java",
+        "PublicAccessPostConstructModel.java",
+        "PublicAccessViaInterfacePostConstructModel.java",
+        "Suppressed1ProtectedAccessPostConstructModel.java",
+        "Suppressed1PublicAccessPostConstructModel.java",
+        "Suppressed2ProtectedAccessPostConstructModel.java",
+        "Suppressed2PublicAccessPostConstructModel.java",
+        "//processor/src/test/fixtures/input/com/example/post_construct/other:all",
+    ],
+)

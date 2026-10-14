@@ -1,0 +1,13 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "EjbPostConstructModel.java",
+        "PostConstructAbstractModel.java",
+        "PostConstructMustNotHaveParametersModel.java",
+        "PostConstructMustNotReturnValueModel.java",
+        "PostConstructNotPrivateModel.java",
+        "PostConstructNotStaticModel.java",
+    ],
+)

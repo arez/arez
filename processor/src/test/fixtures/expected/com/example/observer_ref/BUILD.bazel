@@ -1,0 +1,15 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_BasicObserverRefModel.java",
+        "Arez_CustomNameObserverRefModel.java",
+        "Arez_ExternalObserveObserverRefModel.java",
+        "Arez_MultiObserverRefModel.java",
+        "Arez_NonStandardMethodNameObserverRefModel.java",
+        "Arez_PackageAccessObserverRefModel.java",
+        "Arez_ProtectedAccessFromBaseObserverRefModel.java",
+        "Arez_PublicAccessViaInterfaceObserverRefModel.java",
+    ],
+)

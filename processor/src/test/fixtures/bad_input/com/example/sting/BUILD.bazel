@@ -1,0 +1,18 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "EagerButNoStingModel.java",
+        "InjectArrayTypeStingModel.java",
+        "InjectParameterizedTypeStingModel.java",
+        "InjectRawTypeStingModel.java",
+        "InjectWildcardTypeStingModel.java",
+        "MultipleConstructorsModel.java",
+        "NamedArgButNoStingModel.java",
+        "NamedButNoStingModel.java",
+        "ParameterizedTypeStingModel.java",
+        "StingNamedConstructorParameterNonStingModel.java",
+        "TypedButNoStingModel.java",
+    ],
+)

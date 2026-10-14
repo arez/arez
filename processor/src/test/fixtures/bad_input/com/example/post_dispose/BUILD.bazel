@@ -1,0 +1,13 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "PostDisposeAbstractModel.java",
+        "PostDisposeParametersModel.java",
+        "PostDisposePrivateModel.java",
+        "PostDisposeReturnValueModel.java",
+        "PostDisposeStaticModel.java",
+        "PostDisposeThrowsExceptionModel.java",
+    ],
+)

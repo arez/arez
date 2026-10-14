@@ -45,7 +45,7 @@ def java_testng(name, srcs, test_classes = [], test_class = None, test_methods =
         srcs = srcs,
         use_testrunner = False,
         main_class = "org.testng.TestNG",
-        args = ["-testclass", ",".join(test_classes)] + (["-methods", ",".join(test_methods)] if test_methods else []),
+        args = ["-testclass", ",".join(test_classes), "-verbose", "2"] + (["-methods", ",".join(test_methods)] if test_methods else []),
         deps = ["//third_party/java:testng"] + deps if srcs else [],
         runtime_deps = runtime_deps + (["//third_party/java:testng"] + deps if not srcs else []),
         javacopts = javacopts,

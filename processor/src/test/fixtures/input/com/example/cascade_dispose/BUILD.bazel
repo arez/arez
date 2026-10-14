@@ -1,0 +1,29 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ComponentCascadeDisposeMethodModel.java",
+        "ComponentCascadeDisposeModel.java",
+        "DisposableCascadeDisposeMethodModel.java",
+        "DisposableCascadeDisposeModel.java",
+        "DisposeNotifierDisabledCascadeDisposeModel.java",
+        "DisposeOnDeactivateCascadeDisposeFieldModel.java",
+        "DisposeOnDeactivateCascadeDisposeMethodModel.java",
+        "DisposeOnDeactivateCascadeDisposeSuppressedAtClassModel.java",
+        "DisposeOnDeactivateObservableCascadeDisposeModel.java",
+        "NonStandardNameCascadeDisposeMethodModel.java",
+        "NonStandardNameDisposableCascadeDisposeModel.java",
+        "Observable2CascadeDisposeModel.java",
+        "ObservableCascadeDisposeModel.java",
+        "ParameterizedComponentCascadeDisposeMethodModel.java",
+        "ProtectedAccessFieldCascadeDisposeModel.java",
+        "ProtectedAccessFromBaseFieldCascadeDisposeModel.java",
+        "PublicAccessFieldCascadeDisposeModel.java",
+        "Suppressed1DisposeOnDeactivateCascadeDisposeFieldModel.java",
+        "Suppressed1ProtectedAccessFieldCascadeDisposeModel.java",
+        "Suppressed2DisposeOnDeactivateCascadeDisposeMethodModel.java",
+        "Suppressed2ProtectedAccessFieldCascadeDisposeModel.java",
+        "//processor/src/test/fixtures/input/com/example/cascade_dispose/other:all",
+    ],
+)

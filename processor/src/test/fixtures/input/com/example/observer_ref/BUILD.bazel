@@ -1,0 +1,23 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BasicObserverRefModel.java",
+        "CustomNameObserverRefModel.java",
+        "ExternalObserveObserverRefModel.java",
+        "MultiObserverRefModel.java",
+        "NonStandardMethodNameObserverRefModel.java",
+        "ObserverRefInterface.java",
+        "PackageAccessObserverRefModel.java",
+        "ProtectedAccessFromBaseObserverRefModel.java",
+        "ProtectedAccessObserverRefModel.java",
+        "PublicAccessObserverRefModel.java",
+        "PublicAccessViaInterfaceObserverRefModel.java",
+        "Suppressed1ProtectedAccessObserverRefModel.java",
+        "Suppressed1PublicAccessObserverRefModel.java",
+        "Suppressed2ProtectedAccessObserverRefModel.java",
+        "Suppressed2PublicAccessObserverRefModel.java",
+        "//processor/src/test/fixtures/input/com/example/observer_ref/other:all",
+    ],
+)

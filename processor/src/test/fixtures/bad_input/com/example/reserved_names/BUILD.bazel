@@ -1,0 +1,14 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "DataPrefixReservedNameModel.java",
+        "DisposeReservedNameModel.java",
+        "FieldPrefixReservedNameModel.java",
+        "FrameworkPrefixReservedNameModel.java",
+        "GetArezIdReservedNameModel.java",
+        "IsDisposedReservedNameModel.java",
+        "ObserveReservedNameModel.java",
+    ],
+)

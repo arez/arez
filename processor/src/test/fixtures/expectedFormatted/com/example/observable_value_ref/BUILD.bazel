@@ -1,0 +1,17 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_BasicObservableValueRefModel.java",
+        "Arez_GenericObservableValueRefModel.java",
+        "Arez_MultiObservableValueRefModel.java",
+        "Arez_NonStandardMethodName1ObservableValueRefModel.java",
+        "Arez_NonStandardMethodName2ObservableValueRefModel.java",
+        "Arez_PackageAccessObservableValueRefModel.java",
+        "Arez_ProtectedAccessFromBaseObservableValueRefModel.java",
+        "Arez_PublicAccessViaInterfaceObservableValueRefModel.java",
+        "Arez_RawObservableValueRefModel.java",
+        "Arez_WildcardObservableValueRefModel.java",
+    ],
+)

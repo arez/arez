@@ -1,0 +1,11 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_BasicOnDeactivateModel.java",
+        "Arez_PackageAccessOnDeactivateModel.java",
+        "Arez_ProtectedAccessFromBaseOnDeactivateModel.java",
+        "Arez_PublicAccessViaInterfaceOnDeactivateModel.java",
+    ],
+)

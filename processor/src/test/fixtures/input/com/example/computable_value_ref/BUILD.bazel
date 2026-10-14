@@ -1,0 +1,26 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BasicComputableValueRefModel.java",
+        "ComputableValueRefInterface.java",
+        "MultiComputableValueRefModel.java",
+        "NonStandardName1ComputableValueRefModel.java",
+        "NonStandardName2ComputableValueRefModel.java",
+        "PackageAccessComputableValueRefModel.java",
+        "ParametersComputableValueRefModel.java",
+        "ProtectedAccessComputableValueRefModel.java",
+        "ProtectedAccessFromBaseComputableValueRefModel.java",
+        "PublicAccessComputableValueRefModel.java",
+        "PublicAccessViaInterfaceComputableValueRefModel.java",
+        "RawComputableValueRefModel.java",
+        "RawWithParamsComputableValueRefModel.java",
+        "Suppressed1ProtectedAccessComputableValueRefModel.java",
+        "Suppressed1PublicAccessComputableValueRefModel.java",
+        "Suppressed2ProtectedAccessComputableValueRefModel.java",
+        "Suppressed2PublicAccessComputableValueRefModel.java",
+        "WildcardComputableValueRefModel.java",
+        "//processor/src/test/fixtures/input/com/example/computable_value_ref/other:all",
+    ],
+)

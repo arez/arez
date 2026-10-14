@@ -1,0 +1,18 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_BasicComputableValueRefModel.java",
+        "Arez_MultiComputableValueRefModel.java",
+        "Arez_NonStandardName1ComputableValueRefModel.java",
+        "Arez_NonStandardName2ComputableValueRefModel.java",
+        "Arez_PackageAccessComputableValueRefModel.java",
+        "Arez_ParametersComputableValueRefModel.java",
+        "Arez_ProtectedAccessFromBaseComputableValueRefModel.java",
+        "Arez_PublicAccessViaInterfaceComputableValueRefModel.java",
+        "Arez_RawComputableValueRefModel.java",
+        "Arez_RawWithParamsComputableValueRefModel.java",
+        "Arez_WildcardComputableValueRefModel.java",
+    ],
+)

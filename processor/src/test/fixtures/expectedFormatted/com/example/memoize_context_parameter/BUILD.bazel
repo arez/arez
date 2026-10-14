@@ -1,0 +1,16 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_AllowEmptyModel.java",
+        "Arez_BasicModel.java",
+        "Arez_FinalMethodsModel.java",
+        "Arez_FullyAnnotatedBasicModel.java",
+        "Arez_ManyTypesModel.java",
+        "Arez_NoCapturePrefixModel.java",
+        "Arez_OverrideNameModel.java",
+        "//processor/src/test/fixtures/expectedFormatted/com/example/memoize_context_parameter/inherit:all",
+        "//processor/src/test/fixtures/expectedFormatted/com/example/memoize_context_parameter/intf:all",
+    ],
+)

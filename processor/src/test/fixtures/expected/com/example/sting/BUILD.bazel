@@ -1,0 +1,17 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_BasicStingModel.java",
+        "Arez_EagerStingModel.java",
+        "Arez_EmptyTypedStingModel.java",
+        "Arez_MultipleArgsStingModel.java",
+        "Arez_NamedArgStingModel.java",
+        "Arez_NamedStingModel.java",
+        "Arez_ServiceViaEagerStingModel.java",
+        "Arez_ServiceViaNamedStingModel.java",
+        "Arez_ServiceViaTypedStingModel.java",
+        "Arez_TypedStingModel.java",
+    ],
+)

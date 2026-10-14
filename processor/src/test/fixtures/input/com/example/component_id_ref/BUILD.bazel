@@ -1,0 +1,15 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BasicComponentIdRefModel.java",
+        "ComponentIdPresentComponentIdRefModel.java",
+        "MultiComponentIdRefModel.java",
+        "NonIntTypeComponentIdRefModel.java",
+        "NonStandardNameComponentIdRefModel.java",
+        "PackageAccessComponentIdRefModel.java",
+        "PublicAccessComponentIdRefModel.java",
+        "RawTypeComponentIdRefModel.java",
+    ],
+)

@@ -1,0 +1,23 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "AbstractMethodComponent.java",
+        "BadType1Component.java",
+        "BadType1MethodComponent.java",
+        "BadType2Component.java",
+        "BadType2MethodComponent.java",
+        "BadType3Component.java",
+        "BadType3MethodComponent.java",
+        "ConcreteObservableMethodComponent.java",
+        "ConflictingNullabilityFinalFieldComponent.java",
+        "MissingNullabilityFinalFieldComponent.java",
+        "ParametersMethodComponent.java",
+        "PrivateComponent.java",
+        "PrivateMethodComponent.java",
+        "StaticComponent.java",
+        "StaticMethodComponent.java",
+        "ThrowsMethodComponent.java",
+    ],
+)

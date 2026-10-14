@@ -1,0 +1,17 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BadTypeComponent.java",
+        "BadTypeComponent2.java",
+        "ConcreteComponent.java",
+        "EmptyComponent.java",
+        "EmptyTypeComponent.java",
+        "EnumModel.java",
+        "FinalModel.java",
+        "ModelWithAbstractMethod.java",
+        "NonObservableWithDisposeOnDeactivateModel.java",
+        "NonStaticNestedModel.java",
+    ],
+)

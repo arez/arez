@@ -1,0 +1,12 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_CompleteInterfaceModel.java",
+        "Arez_CompleteModel.java",
+        "Arez_MyModel.java",
+        "//processor/src/test/fixtures/expected/com/example/inheritance/interface_inheritance:all",
+        "//processor/src/test/fixtures/expected/com/example/inheritance/other:all",
+    ],
+)

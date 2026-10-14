@@ -1,0 +1,21 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BasicPreInverseRemoveModel.java",
+        "MultiPreInverseRemoveModel.java",
+        "PackageAccessPreInverseRemoveModel.java",
+        "PreInverseRemoveInterface.java",
+        "ProtectedAccessFromBasePreInverseRemoveModel.java",
+        "ProtectedAccessPreInverseRemoveModel.java",
+        "PublicAccessPreInverseRemoveModel.java",
+        "PublicAccessViaInterfacePreInverseRemoveModel.java",
+        "SingularInversePreInverseRemoveModel.java",
+        "Suppressed1ProtectedAccessPreInverseRemoveModel.java",
+        "Suppressed1PublicAccessPreInverseRemoveModel.java",
+        "Suppressed2ProtectedAccessPreInverseRemoveModel.java",
+        "Suppressed2PublicAccessPreInverseRemoveModel.java",
+        "//processor/src/test/fixtures/input/com/example/pre_inverse_remove/other:all",
+    ],
+)

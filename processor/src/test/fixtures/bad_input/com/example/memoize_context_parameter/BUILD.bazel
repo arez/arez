@@ -1,0 +1,15 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BadName1Model.java",
+        "BadName2Model.java",
+        "EmptyButNotAllowedModel.java",
+        "MissingPopModel.java",
+        "MissingPushModel.java",
+        "//processor/src/test/fixtures/bad_input/com/example/memoize_context_parameter/capture:all",
+        "//processor/src/test/fixtures/bad_input/com/example/memoize_context_parameter/pop:all",
+        "//processor/src/test/fixtures/bad_input/com/example/memoize_context_parameter/push:all",
+    ],
+)

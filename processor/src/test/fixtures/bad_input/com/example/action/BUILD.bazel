@@ -1,0 +1,17 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "AbstractActionModel.java",
+        "BadActionName1Model.java",
+        "BadActionName2Model.java",
+        "DuplicateActionModel.java",
+        "JaxWsActionModel.java",
+        "PrivateActionModel.java",
+        "ReportParametersWithNoParametersActionModel.java",
+        "SkipIfDisposedFromDefaultReturnsValueModel.java",
+        "SkipIfDisposedReturnsValueModel.java",
+        "StaticActionModel.java",
+    ],
+)

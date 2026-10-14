@@ -1,0 +1,21 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BasicComponentNameRefModel.java",
+        "ComponentNameRefInterface.java",
+        "MultiComponentNameRefModel.java",
+        "NonStandardMethodNameComponentNameRefModel.java",
+        "PackageAccessComponentNameRefModel.java",
+        "ProtectedAccessComponentNameRefModel.java",
+        "ProtectedAccessFromBaseComponentNameRefModel.java",
+        "PublicAccessComponentNameRefModel.java",
+        "PublicAccessViaInterfaceComponentNameRefModel.java",
+        "Suppressed1ProtectedAccessComponentNameRefModel.java",
+        "Suppressed1PublicAccessComponentNameRefModel.java",
+        "Suppressed2ProtectedAccessComponentNameRefModel.java",
+        "Suppressed2PublicAccessComponentNameRefModel.java",
+        "//processor/src/test/fixtures/input/com/example/component_name_ref/other:all",
+    ],
+)

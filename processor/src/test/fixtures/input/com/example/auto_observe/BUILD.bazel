@@ -1,0 +1,18 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BasicAutoObserveModel.java",
+        "NonnullFieldAutoObserveModel.java",
+        "NonnullRuntimeTypeValidateFieldAutoObserveModel.java",
+        "NullableFieldAutoObserveModel.java",
+        "NullableMethodAutoObserveModel.java",
+        "NullableRuntimeTypeValidateFieldAutoObserveModel.java",
+        "ProtectedAccessFieldAutoObserveModel.java",
+        "ProtectedAccessFromBaseFieldAutoObserveModel.java",
+        "PublicAccessFieldAutoObserveModel.java",
+        "RuntimeTypeValidateFieldAutoObserveModel.java",
+        "//processor/src/test/fixtures/input/com/example/auto_observe/other:all",
+    ],
+)

@@ -1,0 +1,19 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "AbstractPostInverseAddModel.java",
+        "BadName1PostInverseAddModel.java",
+        "BadName2PostInverseAddModel.java",
+        "BadName3PostInverseAddModel.java",
+        "BadParamCount1PostInverseAddModel.java",
+        "BadParamCount2PostInverseAddModel.java",
+        "BadParamTypePostInverseAddModel.java",
+        "MissingInversePostInverseAddModel.java",
+        "PrivatePostInverseAddModel.java",
+        "ReturnsPostInverseAddModel.java",
+        "StaticPostInverseAddModel.java",
+        "ThrowsPostInverseAddModel.java",
+    ],
+)

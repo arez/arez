@@ -1,0 +1,9 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_DisposeNotifierModel.java",
+        "Arez_NoDisposeNotifierModel.java",
+    ],
+)

@@ -1,0 +1,28 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "AnnotationsOnModel.java",
+        "BasicModelWithDifferentAccessLevels.java",
+        "BasicObservableModel.java",
+        "DefaultMethodsModel.java",
+        "DifferentObservableTypesModel.java",
+        "DisposingModel.java",
+        "EmptyModel.java",
+        "MyAnnotatedInterface.java",
+        "NestedModel.java",
+        "NestedNestedModel.java",
+        "ObservableGuessingModel.java",
+        "ObservableModelWithUnconventionalNames.java",
+        "ObservableTypeParametersModel.java",
+        "ObservableWithAnnotatedCtorModel.java",
+        "ObservableWithCtorModel.java",
+        "ObservableWithExceptingCtorModel.java",
+        "ObservableWithExceptionModel.java",
+        "ObservableWithSpecificExceptionModel.java",
+        "OverrideNamesInModel.java",
+        "TypeParametersOnModel.java",
+        "//processor/src/test/fixtures/input/com:all",
+    ],
+)

@@ -1,0 +1,18 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BadNameModel.java",
+        "BadNameModel2.java",
+        "BadReturnTypeModel.java",
+        "ExceptionModel.java",
+        "FinalModel.java",
+        "NoNameModel.java",
+        "ParametersModel.java",
+        "PrivateModel.java",
+        "RefOnNeitherModel.java",
+        "StaticModel.java",
+        "VoidReturnModel.java",
+    ],
+)

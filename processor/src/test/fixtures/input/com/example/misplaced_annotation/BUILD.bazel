@@ -1,0 +1,14 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ActAsArezComponentUsageModel.java",
+        "ArezComponentLikeUsageModel.java",
+        "NestedPublicCtorSimpleNameActAsArezComponentModel.java",
+        "PublicCtorActAsArezComponentModel.java",
+        "PublicCtorArezComponentLikeModel.java",
+        "SimpleNameActAsArezComponentUsageModel.java",
+        "SuppressedPublicCtorArezComponentLikeModel.java",
+    ],
+)

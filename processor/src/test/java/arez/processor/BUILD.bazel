@@ -1,0 +1,78 @@
+load("//third_party/java:rules.bzl", "FORMATTER_JVM_FLAGS", "java_library", "java_testng")
+
+package(default_visibility = ["//visibility:public"])
+
+java_library(
+    name = "test_classes",
+    testonly = True,
+    srcs = [
+        "ArezProcessorDiagnosticTest.java",
+        "ArezProcessorGeneratedOutputTest.java",
+        "ArezProcessorJavacTest.java",
+        "ArezProcessorTestSupport.java",
+    ],
+    deps = [
+        "//core",
+        "//processor",
+        "//third_party/java:javax_annotation",
+        "//third_party/java:org_jetbrains_annotations",
+        "//third_party/java:proton_core",
+        "//third_party/java:proton_qa",
+        "//third_party/java:testng",
+    ],
+)
+
+_JVM_FLAGS = [
+    "-Darez.fixture_dir=processor/src/test/fixtures",
+    "-Xmx1024m",
+] + FORMATTER_JVM_FLAGS
+
+_RUNTIME_DEPS = [
+    ":test_classes",
+    "//core",
+    "//processor",
+    "//third_party/java:sting_core",
+    "//third_party/java:sting_processor_runtime",
+    "//third_party/java:grim_annotations",
+    "//third_party/java:jaxws_api",
+    "//third_party/java:javax_annotation_api",
+    "//third_party/java:jspecify",
+]
+
+java_testng(
+    name = "generated_output",
+    size = "large",
+    srcs = [],
+    data = ["//processor/src/test/fixtures:all"],
+    jvm_flags = _JVM_FLAGS,
+    test_class = "arez.processor.ArezProcessorGeneratedOutputTest",
+    deps = _RUNTIME_DEPS,
+)
+
+java_testng(
+    name = "diagnostics",
+    size = "large",
+    srcs = [],
+    data = ["//processor/src/test/fixtures:all"],
+    jvm_flags = _JVM_FLAGS,
+    test_class = "arez.processor.ArezProcessorDiagnosticTest",
+    deps = _RUNTIME_DEPS,
+)
+
+java_testng(
+    name = "forked_javac",
+    srcs = [],
+    data = ["//processor/src/test/fixtures:all"],
+    jvm_flags = _JVM_FLAGS,
+    test_class = "arez.processor.ArezProcessorJavacTest",
+    deps = _RUNTIME_DEPS,
+)
+
+test_suite(
+    name = "all_tests",
+    tests = [
+        ":diagnostics",
+        ":forked_javac",
+        ":generated_output",
+    ],
+)

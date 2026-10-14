@@ -1,0 +1,27 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_AnnotationsOnModel.java",
+        "Arez_BasicModelWithDifferentAccessLevels.java",
+        "Arez_BasicObservableModel.java",
+        "Arez_DefaultMethodsModel.java",
+        "Arez_DifferentObservableTypesModel.java",
+        "Arez_DisposingModel.java",
+        "Arez_EmptyModel.java",
+        "Arez_ObservableGuessingModel.java",
+        "Arez_ObservableModelWithUnconventionalNames.java",
+        "Arez_ObservableTypeParametersModel.java",
+        "Arez_ObservableWithAnnotatedCtorModel.java",
+        "Arez_ObservableWithCtorModel.java",
+        "Arez_ObservableWithExceptingCtorModel.java",
+        "Arez_ObservableWithExceptionModel.java",
+        "Arez_ObservableWithSpecificExceptionModel.java",
+        "Arez_OverrideNamesInModel.java",
+        "Arez_TypeParametersOnModel.java",
+        "NestedModel_Arez_BasicActionModel.java",
+        "NestedNestedModel_Something_Arez_BasicActionModel.java",
+        "//processor/src/test/fixtures/expectedFormatted/com:all",
+    ],
+)

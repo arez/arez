@@ -3,12 +3,17 @@ load(":rules.bzl", _java_test = "java_test")
 
 package(default_visibility = ["//visibility:public"])
 
+alias(
+    name = "sting_processor_runtime",
+    actual = ":sting_processor__plugin_library",
+)
+
 # --- depgen-generated targets start ---
 
 # DO NOT EDIT: Content is auto-generated from //third_party/java:dependencies.yml by https://github.com/realityforge/bazel-depgen version 0.26
 
 # SHA256 of the configuration content that generated this content
-_CONFIG_SHA256 = "DCDD19DEEAEEBD7D25CAFDEC22C4B73DCCDA6D1229A40760AEBBE0DD12D6B7C7"
+_CONFIG_SHA256 = "63A0C73B91D5E982D0DAAFADDE86FC7B26272CC6575535BA57C1A60DA5E71076"
 
 exports_files(["dependencies.yml"])
 
@@ -39,8 +44,38 @@ exports_files(["dependencies.yml"])
 # |  +- org.webjars:jquery:jar:3.7.1 [runtime]
 # |  +- com.google.inject:guice:jar:5.1.0 [compile, optional]
 # |  \- org.yaml:snakeyaml:jar:2.2 [runtime, optional]
-# \- guru.nidi:jdepend:jar:2.9.5 [compile]
-#    \- org.hamcrest:hamcrest-core:jar:1.3 [compile, optional]
+# +- guru.nidi:jdepend:jar:2.9.5 [compile]
+# |  \- org.hamcrest:hamcrest-core:jar:1.3 [compile, optional]
+# +- org.realityforge.proton:proton-core:jar:0.75 [compile]
+# |  +- org.realityforge.javax.annotation:javax.annotation:jar:1.1.1 [compile]
+# |  +- org.glassfish:javax.json:jar:1.1 [compile]
+# |  +- com.palantir.javapoet:javapoet:jar:0.14.0 [compile]
+# |  +- com.google.guava:guava:jar:27.1-jre [compile]
+# |  |  +- com.google.guava:failureaccess:jar:1.0.1 [compile]
+# |  |  +- com.google.guava:listenablefuture:jar:9999.0-empty-to-avoid-conflict-with-guava [compile]
+# |  |  +- com.google.code.findbugs:jsr305:jar:3.0.2 [compile]
+# |  |  +- org.checkerframework:checker-qual:jar:2.5.2 [compile]
+# |  |  +- com.google.errorprone:error_prone_annotations:jar:2.2.0 [compile]
+# |  |  +- com.google.j2objc:j2objc-annotations:jar:1.1 [compile]
+# |  |  \- org.codehaus.mojo:animal-sniffer-annotations:jar:1.17 [compile]
+# |  \- org.jspecify:jspecify:jar:1.0.0 [compile]
+# +- org.realityforge.proton:proton-qa:jar:0.75 [compile]
+# |  +- org.realityforge.proton:proton-core:jar:0.75 [compile]
+# |  +- org.realityforge.javax.annotation:javax.annotation:jar:1.1.1 [compile]
+# |  +- org.glassfish:javax.json:jar:1.1 [compile]
+# |  +- com.palantir.javapoet:javapoet:jar:0.14.0 [compile]
+# |  +- com.google.guava:guava:jar:27.1-jre [compile]
+# |  +- org.jspecify:jspecify:jar:1.0.0 [compile]
+# |  \- org.testng:testng:jar:6.8 [compile] (conflicts with 7.10.2)
+# +- com.palantir.javapoet:javapoet:jar:0.14.0 [compile]
+# +- org.realityforge.sting:sting-core:jar:0.40 [compile]
+# |  \- org.realityforge.javax.annotation:javax.annotation:jar:1.1.1 [compile]
+# +- org.realityforge.sting:sting-processor:jar:0.40 [compile]
+# +- javax.xml.ws:jaxws-api:jar:2.3.0 [compile]
+# |  +- javax.xml.bind:jaxb-api:jar:2.3.0 [compile]
+# |  \- javax.xml.soap:javax.xml.soap-api:jar:1.4.0 [compile]
+# +- javax.annotation:javax.annotation-api:jar:1.3.2 [compile]
+# \- com.google.guava:listenablefuture:jar:9999.0-empty-to-avoid-conflict-with-guava [compile]
 
 _java_test(
     name = "verify_config_sha256",
@@ -90,10 +125,65 @@ _java_import(
 )
 
 _java_import(
+    name = "jsr305",
+    jars = ["@jsr305//file"],
+    srcjar = "@jsr305__sources//file",
+    tags = ["maven_coordinates=com.google.code.findbugs:jsr305:3.0.2"],
+    visibility = ["//visibility:private"],
+)
+
+_java_import(
+    name = "error_prone_annotations",
+    jars = ["@error_prone_annotations//file"],
+    srcjar = "@error_prone_annotations__sources//file",
+    tags = ["maven_coordinates=com.google.errorprone:error_prone_annotations:2.2.0"],
+    visibility = ["//visibility:private"],
+)
+
+_java_import(
+    name = "failureaccess",
+    jars = ["@failureaccess//file"],
+    srcjar = "@failureaccess__sources//file",
+    tags = ["maven_coordinates=com.google.guava:failureaccess:1.0.1"],
+    visibility = ["//visibility:private"],
+)
+
+_java_import(
+    name = "guava",
+    jars = ["@guava//file"],
+    srcjar = "@guava__sources//file",
+    tags = ["maven_coordinates=com.google.guava:guava:27.1-jre"],
+    visibility = ["//visibility:private"],
+    deps = [
+        ":animal_sniffer_annotations",
+        ":checker_qual",
+        ":error_prone_annotations",
+        ":failureaccess",
+        ":j2objc_annotations",
+        ":jsr305",
+        ":listenablefuture",
+    ],
+)
+
+_java_import(
+    name = "listenablefuture",
+    jars = ["@listenablefuture//file"],
+    tags = ["maven_coordinates=com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava"],
+)
+
+_java_import(
     name = "guice",
     jars = ["@guice//file"],
     srcjar = "@guice__sources//file",
     tags = ["maven_coordinates=com.google.inject:guice:5.1.0"],
+    visibility = ["//visibility:private"],
+)
+
+_java_import(
+    name = "j2objc_annotations",
+    jars = ["@j2objc_annotations//file"],
+    srcjar = "@j2objc_annotations__sources//file",
+    tags = ["maven_coordinates=com.google.j2objc:j2objc-annotations:1.1"],
     visibility = ["//visibility:private"],
 )
 
@@ -105,6 +195,13 @@ _java_import(
 )
 
 _java_import(
+    name = "javapoet",
+    jars = ["@javapoet//file"],
+    srcjar = "@javapoet__sources//file",
+    tags = ["maven_coordinates=com.palantir.javapoet:javapoet:0.14.0"],
+)
+
+_java_import(
     name = "jdepend",
     jars = ["@jdepend//file"],
     srcjar = "@jdepend__sources//file",
@@ -112,10 +209,60 @@ _java_import(
 )
 
 _java_import(
+    name = "javax_annotation_api",
+    jars = ["@javax_annotation_api//file"],
+    srcjar = "@javax_annotation_api__sources//file",
+    tags = ["maven_coordinates=javax.annotation:javax.annotation-api:1.3.2"],
+)
+
+_java_import(
     name = "javax_json_api",
     jars = ["@javax_json_api//file"],
     srcjar = "@javax_json_api__sources//file",
     tags = ["maven_coordinates=javax.json:javax.json-api:1.1"],
+    visibility = ["//visibility:private"],
+)
+
+_java_import(
+    name = "jaxb_api",
+    jars = ["@jaxb_api//file"],
+    srcjar = "@jaxb_api__sources//file",
+    tags = ["maven_coordinates=javax.xml.bind:jaxb-api:2.3.0"],
+    visibility = ["//visibility:private"],
+)
+
+_java_import(
+    name = "javax_xml_soap_api",
+    jars = ["@javax_xml_soap_api//file"],
+    srcjar = "@javax_xml_soap_api__sources//file",
+    tags = ["maven_coordinates=javax.xml.soap:javax.xml.soap-api:1.4.0"],
+    visibility = ["//visibility:private"],
+)
+
+_java_import(
+    name = "jaxws_api",
+    jars = ["@jaxws_api//file"],
+    srcjar = "@jaxws_api__sources//file",
+    tags = ["maven_coordinates=javax.xml.ws:jaxws-api:2.3.0"],
+    deps = [
+        ":javax_xml_soap_api",
+        ":jaxb_api",
+    ],
+)
+
+_java_import(
+    name = "checker_qual",
+    jars = ["@checker_qual//file"],
+    srcjar = "@checker_qual__sources//file",
+    tags = ["maven_coordinates=org.checkerframework:checker-qual:2.5.2"],
+    visibility = ["//visibility:private"],
+)
+
+_java_import(
+    name = "animal_sniffer_annotations",
+    jars = ["@animal_sniffer_annotations//file"],
+    srcjar = "@animal_sniffer_annotations__sources//file",
+    tags = ["maven_coordinates=org.codehaus.mojo:animal-sniffer-annotations:1.17"],
     visibility = ["//visibility:private"],
 )
 
@@ -222,6 +369,64 @@ _java_import(
     jars = ["@org_jetbrains_annotations//file"],
     srcjar = "@org_jetbrains_annotations__sources//file",
     tags = ["maven_coordinates=org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0"],
+)
+
+_java_import(
+    name = "proton_core",
+    jars = ["@proton_core//file"],
+    srcjar = "@proton_core__sources//file",
+    tags = ["maven_coordinates=org.realityforge.proton:proton-core:0.75"],
+    deps = [
+        ":guava",
+        ":javapoet",
+        ":javax_annotation",
+        ":javax_json",
+        ":jspecify",
+    ],
+)
+
+_java_import(
+    name = "proton_qa",
+    jars = ["@proton_qa//file"],
+    srcjar = "@proton_qa__sources//file",
+    tags = ["maven_coordinates=org.realityforge.proton:proton-qa:0.75"],
+    deps = [
+        ":guava",
+        ":javapoet",
+        ":javax_annotation",
+        ":javax_json",
+        ":jspecify",
+        ":proton_core",
+        ":testng",
+    ],
+)
+
+_java_import(
+    name = "sting_core",
+    jars = ["@sting_core//file"],
+    srcjar = "@sting_core__sources//file",
+    tags = ["maven_coordinates=org.realityforge.sting:sting-core:0.40"],
+    deps = [":javax_annotation"],
+)
+
+_java_import(
+    name = "sting_processor__plugin_library",
+    jars = ["@sting_processor//file"],
+    srcjar = "@sting_processor__sources//file",
+    tags = ["maven_coordinates=org.realityforge.sting:sting-processor:0.40"],
+)
+
+_java_plugin(
+    name = "sting_processor__sting_processor_stingprocessor__plugin",
+    generates_api = True,
+    processor_class = "sting.processor.StingProcessor",
+    visibility = ["//visibility:private"],
+    deps = [":sting_processor__plugin_library"],
+)
+
+_java_library(
+    name = "sting_processor",
+    exported_plugins = ["sting_processor__sting_processor_stingprocessor__plugin"],
 )
 
 _java_import(

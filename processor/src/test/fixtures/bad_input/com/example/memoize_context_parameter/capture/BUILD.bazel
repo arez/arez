@@ -1,0 +1,14 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "AbstractCaptureModel.java",
+        "BadTypeCaptureModel.java",
+        "PrivateCaptureModel.java",
+        "StaticCaptureModel.java",
+        "ThrowsCaptureModel.java",
+        "TypeParamCaptureModel.java",
+        "VoidCaptureModel.java",
+    ],
+)

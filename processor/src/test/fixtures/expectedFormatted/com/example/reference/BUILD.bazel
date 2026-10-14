@@ -1,0 +1,25 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_CascadeDisposeReferenceModel.java",
+        "Arez_CustomNameReferenceModel.java",
+        "Arez_CustomNameReferenceModel2.java",
+        "Arez_EagerLoadNulableObservableReferenceModel.java",
+        "Arez_EagerLoadObservableReferenceModel.java",
+        "Arez_EagerLoadReferenceModel.java",
+        "Arez_EagerObservableReadOutsideTransactionReferenceModel.java",
+        "Arez_ExplicitLoadObservableReferenceModel.java",
+        "Arez_ExplicitLoadReferenceModel.java",
+        "Arez_LazyLoadObservableReferenceModel.java",
+        "Arez_LazyLoadReferenceModel.java",
+        "Arez_LazyObservableReadOutsideTransactionReferenceModel.java",
+        "Arez_NonJavabeanNameReferenceModel.java",
+        "Arez_NonObservableReferenceModel.java",
+        "Arez_NonnullLazyLoadReferenceModel.java",
+        "Arez_NullableLazyLoadReferenceModel.java",
+        "Arez_ObservableReferenceModel.java",
+        "CascadeDisposeReferenceModel_Arez_MyEntity.java",
+    ],
+)

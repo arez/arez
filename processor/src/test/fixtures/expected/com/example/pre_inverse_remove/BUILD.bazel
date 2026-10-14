@@ -1,0 +1,20 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_BasicPreInverseRemoveModel.java",
+        "Arez_MultiPreInverseRemoveModel.java",
+        "Arez_PackageAccessPreInverseRemoveModel.java",
+        "Arez_ProtectedAccessFromBasePreInverseRemoveModel.java",
+        "Arez_PublicAccessViaInterfacePreInverseRemoveModel.java",
+        "Arez_SingularInversePreInverseRemoveModel.java",
+        "BasicPreInverseRemoveModel_Arez_Element.java",
+        "MultiPreInverseRemoveModel_Arez_Element.java",
+        "PackageAccessPreInverseRemoveModel_Arez_Element.java",
+        "PublicAccessViaInterfacePreInverseRemoveModel_Arez_Element.java",
+        "SingularInversePreInverseRemoveModel_Arez_Element.java",
+        "//processor/src/test/fixtures/expected/com/example/pre_inverse_remove/fail:all",
+        "//processor/src/test/fixtures/expected/com/example/pre_inverse_remove/other:all",
+    ],
+)

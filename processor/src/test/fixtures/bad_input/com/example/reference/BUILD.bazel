@@ -1,0 +1,27 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BadExpectSetterObservableReferenceModel.java",
+        "BadName2ReferenceIdModel.java",
+        "BadName2ReferenceModel.java",
+        "BadName3ReferenceIdModel.java",
+        "BadNameReferenceIdModel.java",
+        "BadNameReferenceModel.java",
+        "ConcreteReferenceModel.java",
+        "MissingReferenceIdReferenceModel.java",
+        "MissingReferenceReferenceIdModel.java",
+        "NoReturnReferenceIdModel.java",
+        "NoReturnReferenceModel.java",
+        "NoSetterObservableReferenceModel.java",
+        "ParameterReferenceIdModel.java",
+        "ParameterReferenceModel.java",
+        "PrivateReferenceIdModel.java",
+        "PrivateReferenceModel.java",
+        "StaticReferenceIdModel.java",
+        "StaticReferenceModel.java",
+        "ThrowsReferenceIdModel.java",
+        "ThrowsReferenceModel.java",
+    ],
+)
