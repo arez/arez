@@ -1,0 +1,8 @@
+package(default_visibility = ["//extras/promise:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ObservablePromise.java",
+    ],
+)

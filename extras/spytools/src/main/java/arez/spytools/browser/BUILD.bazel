@@ -1,0 +1,13 @@
+package(default_visibility = ["//extras/spytools:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BrowserSpyUtil.java",
+        "ConsoleSpyEventProcessor.java",
+        "CssRules.java",
+        "StringifyReplacer.java",
+        "package-info.java",
+        "//extras/spytools/src/main/java/arez/spytools/browser/react4j:all",
+    ],
+)

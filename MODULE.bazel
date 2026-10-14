@@ -122,6 +122,20 @@ _http_file(
 )
 
 _http_file(
+    name = "base",
+    downloaded_file_path = "com/google/jsinterop/base/1.0.0/base-1.0.0.jar",
+    sha256 = "603635c26a384f601b19fa79c04208bd2f52da7af54650a3abced5b813ca4412",
+    urls = ["https://repo.maven.apache.org/maven2/com/google/jsinterop/base/1.0.0/base-1.0.0.jar"],
+)
+
+_http_file(
+    name = "base__sources",
+    downloaded_file_path = "com/google/jsinterop/base/1.0.0/base-1.0.0-sources.jar",
+    sha256 = "733f02f18b225ffb24e927f23ca12ea91fec7b560665a8720a62ab95013cf5ea",
+    urls = ["https://repo.maven.apache.org/maven2/com/google/jsinterop/base/1.0.0/base-1.0.0-sources.jar"],
+)
+
+_http_file(
     name = "jsinterop_annotations",
     downloaded_file_path = "com/google/jsinterop/jsinterop-annotations/2.0.0/jsinterop-annotations-2.0.0.jar",
     sha256 = "ce01f48439240e46521b99cc4c889dcb6793f7a0b0a3e238a38359093f457b49",
@@ -392,6 +406,20 @@ _http_file(
     downloaded_file_path = "org/realityforge/guiceyloops/guiceyloops/0.113/guiceyloops-0.113-sources.jar",
     sha256 = "1c257bf3eb0e4e2c4cd6351338e49233a1270a707650529f0cde179e0033e74f",
     urls = ["https://repo.maven.apache.org/maven2/org/realityforge/guiceyloops/guiceyloops/0.113/guiceyloops-0.113-sources.jar"],
+)
+
+_http_file(
+    name = "javaemul_internal_annotations",
+    downloaded_file_path = "org/realityforge/javaemul/internal/annotations/javaemul.internal.annotations/0.01/javaemul.internal.annotations-0.01.jar",
+    sha256 = "220413df4d2e0e606d8d89d4c0694649cad68267815e0ed18c475cc9a4d628e5",
+    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/javaemul/internal/annotations/javaemul.internal.annotations/0.01/javaemul.internal.annotations-0.01.jar"],
+)
+
+_http_file(
+    name = "javaemul_internal_annotations__sources",
+    downloaded_file_path = "org/realityforge/javaemul/internal/annotations/javaemul.internal.annotations/0.01/javaemul.internal.annotations-0.01-sources.jar",
+    sha256 = "0969e9b9a3fe398868826fab43754fed7817f98c168281c0f783465f798ec319",
+    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/javaemul/internal/annotations/javaemul.internal.annotations/0.01/javaemul.internal.annotations-0.01-sources.jar"],
 )
 
 _http_file(

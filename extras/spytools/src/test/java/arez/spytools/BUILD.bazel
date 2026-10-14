@@ -1,0 +1,11 @@
+package(default_visibility = ["//extras/spytools:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "AbstractSpyToolsTest.java",
+        "SpyEventProcessorTest.java",
+        "SpyUtilTest.java",
+        "WhyRunTest.java",
+    ],
+)

@@ -1,0 +1,15 @@
+load("//third_party/java:rules.bzl", "java_library")
+
+package(default_visibility = ["//visibility:public"])
+
+java_library(
+    name = "testng",
+    srcs = ["//extras/testng/src/main/java/arez/testng:all"],
+    deps = [
+        "//core",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:javax_annotation",
+        "//third_party/java:testng",
+    ],
+)

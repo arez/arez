@@ -1,0 +1,17 @@
+package(default_visibility = ["//extras/dom:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BrowserLocation.java",
+        "Dimension.java",
+        "DocumentVisibility.java",
+        "EventDrivenValue.java",
+        "GeoPosition.java",
+        "IdleStatus.java",
+        "MediaQuery.java",
+        "NetworkStatus.java",
+        "Position.java",
+        "WindowSize.java",
+    ],
+)

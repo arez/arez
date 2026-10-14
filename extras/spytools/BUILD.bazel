@@ -1,0 +1,39 @@
+load("//third_party/java:rules.bzl", "java_library", "java_testng")
+
+package(default_visibility = ["//visibility:public"])
+
+java_library(
+    name = "spytools",
+    srcs = ["//extras/spytools/src/main/java/arez/spytools:all"],
+    plugins = ["//processor:plugin"],
+    deps = [
+        "//core",
+        "//third_party/java:base",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:javax_annotation",
+        "//third_party/java:jsinterop_annotations",
+        "//third_party/java:org_jetbrains_annotations",
+    ],
+)
+
+java_testng(
+    name = "tests",
+    srcs = ["//extras/spytools/src/test/java/arez/spytools:all"],
+    jvm_flags = [
+        "-Darez.environment=development",
+        "-Dbraincheck.environment=development",
+    ],
+    test_classes = [
+        "arez.spytools.SpyEventProcessorTest",
+        "arez.spytools.SpyUtilTest",
+        "arez.spytools.WhyRunTest",
+    ],
+    deps = [
+        ":spytools",
+        "//core",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:guiceyloops",
+        "//third_party/java:javax_annotation",
+    ],
+)

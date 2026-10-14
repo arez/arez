@@ -2,7 +2,7 @@
 
 - Spec: [SPEC.md](../SPEC.md)
 - Status: implementing
-- Current frontier: T04
+- Current frontier: T05
 - Planning reviewer: /root/planning_reviewer (2/3 rounds; passed, Findings: none)
 - Plan checkpoint: human-review (approved)
 - Checkpoint basis: the user said "Proceed" after the reviewed spec/task map and
@@ -27,7 +27,7 @@
 - Artifact reproducibility: independent-output-base hash comparisons, including
   binary, source, Javadoc and POM outputs; cached reruns alone are insufficient.
 - Final evidence: pending
-- Current milestone: T01–T03 baseline passed; core/processor/integrations/documentation retained.
+- Current milestone: T01–T04 baseline passed; Persist remains before full JVM parity.
 
 ## Tasks
 
@@ -36,7 +36,7 @@
 | T01 | [Build and test core with Bazel](T01-bazel-core.md) | complete | None |
 | T02 | [Run Arez processor regressions through Bazel](T02-processor-parity.md) | complete | T01 |
 | T03 | [Compile generated integrations and documentation examples](T03-integration-doc-parity.md) | complete | T02 |
-| T04 | [Build extras and run their JVM tests](T04-extras-parity.md) | pending | T03 |
+| T04 | [Build extras and run their JVM tests](T04-extras-parity.md) | complete | T03 |
 | T05 | [Run the complete Persist JVM slice](T05-persist-parity.md) | pending | T04 |
 | T06 | [Select and regenerate focused golden families](T06-focused-goldens.md) | pending | T05 |
 | T07 | [Apply and check Palantir formatting](T07-java-format.md) | pending | T06 |

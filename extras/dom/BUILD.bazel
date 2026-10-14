@@ -1,0 +1,38 @@
+load("//third_party/java:rules.bzl", "java_library", "java_testng")
+
+package(default_visibility = ["//visibility:public"])
+
+java_library(
+    name = "dom",
+    srcs = ["//extras/dom/src/main/java/arez/dom:all"],
+    plugins = ["//processor:plugin"],
+    deps = [
+        "//core",
+        "//third_party/java:base",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:javaemul_internal_annotations",
+        "//third_party/java:javax_annotation",
+        "//third_party/java:jsinterop_annotations",
+        "//third_party/java:org_jetbrains_annotations",
+    ],
+)
+
+java_testng(
+    name = "tests",
+    srcs = ["//extras/dom/src/test/java/arez/dom:all"],
+    jvm_flags = [
+        "-Darez.environment=development",
+        "-Dbraincheck.environment=development",
+    ],
+    test_classes = [
+        "arez.dom.EventDrivenValueTest",
+    ],
+    deps = [
+        ":dom",
+        "//core",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:guiceyloops",
+        "//third_party/java:javax_annotation",
+    ],
+)

@@ -19,6 +19,8 @@ artifacts:
   - coord: org.realityforge.javax.annotation:javax.annotation:1.1.1
   - coord: org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0
   - coord: com.google.jsinterop:jsinterop-annotations:2.0.0
+  - coord: com.google.jsinterop:base:1.0.0
+  - coord: org.realityforge.javaemul.internal.annotations:javaemul.internal.annotations:0.01
   - coord: org.jspecify:jspecify:1.0.0
   - coord: org.realityforge.guiceyloops:guiceyloops:0.113
     # Only the JDK-only shared.ValueUtil is used; omit embedded server/test stacks.

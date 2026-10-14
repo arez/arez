@@ -1,0 +1,10 @@
+package(default_visibility = ["//extras/spytools:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ReactArezConsoleSpyEventProcessor.java",
+        "ReactArezSpyUtil.java",
+        "package-info.java",
+    ],
+)

@@ -1,0 +1,71 @@
+{
+  "dom": {
+    "sources": {
+      "extras/dom/src/main/java/arez/dom/BrowserLocation.java": "930b3d1fa16ba46481dd5edaabc7085ea0e18c231b0bd79719ae2b0cd883797b",
+      "extras/dom/src/main/java/arez/dom/Dimension.java": "268e9f5af760ca70678199b6295babc1cfda15363032b505af32f2ba38de3116",
+      "extras/dom/src/main/java/arez/dom/DocumentVisibility.java": "baa71c8a7c290fd2f8601f3a6bd70c5030915d21e8a5336c759b6989c743d15e",
+      "extras/dom/src/main/java/arez/dom/EventDrivenValue.java": "ebe8ae4dd1e2d530d0118d58a32cbaf0d3e21d0eebb0c4206479d38beeda4b9d",
+      "extras/dom/src/main/java/arez/dom/GeoPosition.java": "7a4c0143e8ff6e2d06e7e8a55482420779a194fb1d5a2350e871cb9568262ba2",
+      "extras/dom/src/main/java/arez/dom/IdleStatus.java": "26f8324368270d85489ba1a9438b476eca6e5a413cadbf8b8c03f97b8ed32180",
+      "extras/dom/src/main/java/arez/dom/MediaQuery.java": "313f7cb055612d27504a735d77c8a1d25c01dfd901c6c16399f5397c6847c516",
+      "extras/dom/src/main/java/arez/dom/NetworkStatus.java": "7c035e3eefc83865b4710aef738b0d6ca351e9578efd66dbaa31d3901087bfb5",
+      "extras/dom/src/main/java/arez/dom/Position.java": "69d7346b4243277354fbdfdda3924ea04cabdfd52f9013f2ac901dac55edb02f",
+      "extras/dom/src/main/java/arez/dom/WindowSize.java": "cc87f94b4965c2dcdcee0122906f2d6d94b1724e8358e3882174a62e081f421b"
+    },
+    "test_sources": {
+      "extras/dom/src/test/java/arez/dom/AbstractTest.java": "bc84744e1973e7ca7fe20afb1c4ceaba26b19207445f4c0d8d9309b1069b6931",
+      "extras/dom/src/test/java/arez/dom/EventDrivenValueTest.java": "f99f5bc56282b1b46dce2df57dff03cc16ec2aa100dbfc48575be1a78addb992",
+      "extras/dom/src/test/java/arez/dom/TestEventTarget.java": "02b4db8ba8d91da437a5951f18b33332602b52615f5907e4ba1a89cf88687cfa"
+    },
+    "test_classes": [
+      "arez.dom.EventDrivenValueTest"
+    ],
+    "executed_tests": 2
+  },
+  "promise": {
+    "sources": {
+      "extras/promise/src/main/java/arez/promise/ObservablePromise.java": "222b12e6eba81740546624e2c9117bb3a387366e8f9adbd3f2f6163f20d9e5bb"
+    },
+    "test_sources": {},
+    "test_classes": []
+  },
+  "spytools": {
+    "sources": {
+      "extras/spytools/src/main/java/arez/spytools/AbstractSpyEventProcessor.java": "aa1044ebb729221fa6fd5d06ea11cae625ab6c790027b8daba7aa01b3a32cd3b",
+      "extras/spytools/src/main/java/arez/spytools/SpyUtil.java": "564591331a161b5584d92a08d7c02c6eb06d956642027faf70cde07518e037cf",
+      "extras/spytools/src/main/java/arez/spytools/WhyRun.java": "f206fc6d54f9665581bcb02df3ed396d28921100b21ad174a91dbb7d2031dd4a",
+      "extras/spytools/src/main/java/arez/spytools/browser/BrowserSpyUtil.java": "08b55dc97e67be3dc6115bde4184f75c22460cb50fe69afef48bb345e9dccfb5",
+      "extras/spytools/src/main/java/arez/spytools/browser/ConsoleSpyEventProcessor.java": "1bedc7774a958aecb720991219bc6b296fffe3d3f0dda360215ff2d7336d85ab",
+      "extras/spytools/src/main/java/arez/spytools/browser/CssRules.java": "a04146a02b11db964d95f2d9f4019bf2e70b3715da11a8e1588a1d7ba258b76a",
+      "extras/spytools/src/main/java/arez/spytools/browser/StringifyReplacer.java": "b1d72e25bb818b1e7ab4a284ee8fb63ff93a31a7efcc23e2061547c01e2a9eb2",
+      "extras/spytools/src/main/java/arez/spytools/browser/package-info.java": "419f533ebb6266b1763e79d8afbdaa005ea45e4d361995daaca025241d701bc3",
+      "extras/spytools/src/main/java/arez/spytools/browser/react4j/ReactArezConsoleSpyEventProcessor.java": "9dd00f01114e99704f097743c606d053a94282ce189c972104d8fc710ccc9ea9",
+      "extras/spytools/src/main/java/arez/spytools/browser/react4j/ReactArezSpyUtil.java": "69b82c8a2316db85a627dd6884d376b53ed0925f266dd22de4aa15d5cf94ef59",
+      "extras/spytools/src/main/java/arez/spytools/browser/react4j/package-info.java": "6479cc180ce644a9f36204dcd995b81806a9647da73337ec3a0b53dffef75490",
+      "extras/spytools/src/main/java/arez/spytools/package-info.java": "4d7a8003a275cef95b83e681d4d68aa1faf8659681ac4c277d13aa35fe5cfab0"
+    },
+    "test_sources": {
+      "extras/spytools/src/test/java/arez/spytools/AbstractSpyToolsTest.java": "296f4d1c8b602303236523ebe0cef485ee208d4f6ef812c65c375e1d7aee887f",
+      "extras/spytools/src/test/java/arez/spytools/SpyEventProcessorTest.java": "0ff3f240f050f773abf5579e712c4d289dc3e4fba69cc668a931ffd119987d9c",
+      "extras/spytools/src/test/java/arez/spytools/SpyUtilTest.java": "f6cf56230942be83141d38c9f838a70e1b9ee1761607981fe0e0d1bb734cca38",
+      "extras/spytools/src/test/java/arez/spytools/WhyRunTest.java": "e8bd7db8af4e10c0d1e4a90308133ea66ff75182867c31e3082b4000088dc6e5"
+    },
+    "test_classes": [
+      "arez.spytools.SpyEventProcessorTest",
+      "arez.spytools.SpyUtilTest",
+      "arez.spytools.WhyRunTest"
+    ],
+    "executed_tests": 9
+  },
+  "testng": {
+    "sources": {
+      "extras/testng/src/main/java/arez/testng/ActionWrapper.java": "6cf676e0f5d9984887bc48140f5759e66da567ae036ebcc595c67ca3e32a6141",
+      "extras/testng/src/main/java/arez/testng/ArezTestHook.java": "541e7c6a2100135e1b6cc8c3676318a541a7fa793a6e87db6199122628359567",
+      "extras/testng/src/main/java/arez/testng/ArezTestSupport.java": "cbdb26aec330913b08d83a06cd7ded631611f417ab997e39f8d7b206ceec0027",
+      "extras/testng/src/main/java/arez/testng/CollectObserverErrors.java": "af411c621f3c8b836f1bb3fbab04f85a5d4a29bab87e5c24b0e541cb6336a5cd",
+      "extras/testng/src/main/java/arez/testng/ObserverErrorCollector.java": "dbafb6fc19d33e14c196a9e1e4d6f6412b810905ab46b5ebae56e2d2f358120b"
+    },
+    "test_sources": {},
+    "test_classes": []
+  }
+}

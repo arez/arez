@@ -1,0 +1,12 @@
+package(default_visibility = ["//extras/spytools:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "AbstractSpyEventProcessor.java",
+        "SpyUtil.java",
+        "WhyRun.java",
+        "package-info.java",
+        "//extras/spytools/src/main/java/arez/spytools/browser:all",
+    ],
+)

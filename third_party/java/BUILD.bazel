@@ -13,7 +13,7 @@ alias(
 # DO NOT EDIT: Content is auto-generated from //third_party/java:dependencies.yml by https://github.com/realityforge/bazel-depgen version 0.26
 
 # SHA256 of the configuration content that generated this content
-_CONFIG_SHA256 = "0F6066E6887A77629CCE9C1934654C73BF4DF7A28D3578568C4A4A54522031E0"
+_CONFIG_SHA256 = "9178A9F1148D088C2F0BFBFA616AB1F59108698584E20C8FFE8EE3775348B00D"
 
 exports_files(["dependencies.yml"])
 
@@ -34,6 +34,9 @@ exports_files(["dependencies.yml"])
 # +- org.realityforge.javax.annotation:javax.annotation:jar:1.1.1 [compile]
 # +- org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:jar:1.7.0 [compile]
 # +- com.google.jsinterop:jsinterop-annotations:jar:2.0.0 [compile]
+# +- com.google.jsinterop:base:jar:1.0.0 [compile]
+# |  \- com.google.jsinterop:jsinterop-annotations:jar:1.0.2 [compile] (conflicts with 2.0.0)
+# +- org.realityforge.javaemul.internal.annotations:javaemul.internal.annotations:jar:0.01 [compile]
 # +- org.jspecify:jspecify:jar:1.0.0 [compile]
 # +- org.realityforge.guiceyloops:guiceyloops:jar:0.113 [compile]
 # +- org.glassfish:javax.json:jar:1.1 [compile]
@@ -188,6 +191,14 @@ _java_import(
     srcjar = "@j2objc_annotations__sources//file",
     tags = ["maven_coordinates=com.google.j2objc:j2objc-annotations:1.1"],
     visibility = ["//visibility:private"],
+)
+
+_java_import(
+    name = "base",
+    jars = ["@base//file"],
+    srcjar = "@base__sources//file",
+    tags = ["maven_coordinates=com.google.jsinterop:base:1.0.0"],
+    deps = [":jsinterop_annotations"],
 )
 
 _java_import(
@@ -365,6 +376,13 @@ _java_import(
     jars = ["@guiceyloops//file"],
     srcjar = "@guiceyloops__sources//file",
     tags = ["maven_coordinates=org.realityforge.guiceyloops:guiceyloops:0.113"],
+)
+
+_java_import(
+    name = "javaemul_internal_annotations",
+    jars = ["@javaemul_internal_annotations//file"],
+    srcjar = "@javaemul_internal_annotations__sources//file",
+    tags = ["maven_coordinates=org.realityforge.javaemul.internal.annotations:javaemul.internal.annotations:0.01"],
 )
 
 _java_import(

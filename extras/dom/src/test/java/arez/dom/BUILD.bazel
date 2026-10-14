@@ -1,0 +1,10 @@
+package(default_visibility = ["//extras/dom:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "AbstractTest.java",
+        "EventDrivenValueTest.java",
+        "TestEventTarget.java",
+    ],
+)

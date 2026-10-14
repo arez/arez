@@ -1,0 +1,12 @@
+package(default_visibility = ["//extras/testng:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ActionWrapper.java",
+        "ArezTestHook.java",
+        "ArezTestSupport.java",
+        "CollectObserverErrors.java",
+        "ObserverErrorCollector.java",
+    ],
+)
