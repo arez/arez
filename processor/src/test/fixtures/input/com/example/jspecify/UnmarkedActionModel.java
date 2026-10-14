@@ -1,5 +1,6 @@
 package com.example.jspecify;
 
+import arez.ArezContext;
 import arez.annotations.*;
 import org.jspecify.annotations.*;
 
@@ -19,8 +20,30 @@ abstract class UnmarkedActionModel extends UnmarkedActionBase {
   }
 
   @NullMarked
+  static class Owner<T> {
+    class Inner<U> {}
+    class Plain {}
+  }
+
+  @NullMarked
   @ArezComponent(sting = Feature.DISABLE)
-  abstract static class Nested extends NestedBase {
+  abstract static class Nested<T extends @NonNull Object> extends NestedBase {
+    @NullUnmarked
+    @ContextRef
+    abstract @NonNull ArezContext context();
+
+    @Observable abstract T getItem();
+    abstract void setItem(T item);
+
+    @Observable abstract java.util.List<?> getAny();
+    abstract void setAny(java.util.List<?> any);
+
+    @Observable abstract Owner<String>.Inner<String> getInner();
+    abstract void setInner(Owner<String>.Inner<String> inner);
+
+    @Observable abstract Owner<String>.Plain getPlain();
+    abstract void setPlain(Owner<String>.Plain plain);
+
     @NullUnmarked
     Nested(String incoming) {}
 

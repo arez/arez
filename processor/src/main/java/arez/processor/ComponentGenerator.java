@@ -35,10 +35,13 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.TypeParameterElement;
 import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.ArrayType;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
+import javax.lang.model.type.TypeVariable;
+import javax.lang.model.type.WildcardType;
 import org.jspecify.annotations.Nullable;
 import org.realityforge.proton.AnnotationsUtil;
 import org.realityforge.proton.ElementsUtil;
@@ -1742,7 +1745,8 @@ final class ComponentGenerator {
             final TypeName initializerType = observableTypeName(processingEnv, observable);
             final ParameterSpec.Builder param = ParameterSpec.builder(
                     unmarkedConstructor && Nullability.isMarked(observable.getGetter())
-                            ? explicitMarkedType(initializerType)
+                            ? explicitMarkedType(
+                                    initializerType, observable.getGetterType().getReturnType())
                             : initializerType,
                     name,
                     Modifier.FINAL);
@@ -2385,7 +2389,7 @@ final class ComponentGenerator {
                         typeElement,
                         executableElement,
                         getAdditionalSuppressions(executableElement),
-                        false));
+                        !Nullability.isMarked(executableElement)));
 
         return method;
     }
@@ -2412,33 +2416,45 @@ final class ComponentGenerator {
         return method;
     }
 
-    private static TypeName explicitMarkedType(final TypeName type) {
+    private static TypeName explicitMarkedType(final TypeName type, final TypeMirror mirror) {
         final TypeName explicit;
         if (type instanceof ArrayTypeName array) {
-            explicit =
-                    ArrayTypeName.of(explicitMarkedType(array.componentType())).annotated(type.annotations());
+            explicit = ArrayTypeName.of(
+                            explicitMarkedType(array.componentType(), ((ArrayType) mirror).getComponentType()))
+                    .annotated(type.annotations());
         } else if (type instanceof ParameterizedTypeName parameterized) {
-            explicit = ParameterizedTypeName.get(
-                            parameterized.rawType(),
-                            parameterized.typeArguments().stream()
-                                    .map(ComponentGenerator::explicitMarkedType)
-                                    .toArray(TypeName[]::new))
+            final var declared = (DeclaredType) mirror;
+            final List<TypeName> arguments = IntStream.range(
+                            0, parameterized.typeArguments().size())
+                    .mapToObj(i -> explicitMarkedType(
+                            parameterized.typeArguments().get(i),
+                            declared.getTypeArguments().get(i)))
+                    .toList();
+            final ParameterizedTypeName enclosing = parameterized.enclosingType();
+            explicit = (enclosing != null
+                            ? ((ParameterizedTypeName) explicitMarkedType(enclosing, declared.getEnclosingType())
+                                            .withoutAnnotations())
+                                    .nestedClass(parameterized.rawType().simpleName(), arguments)
+                            : ParameterizedTypeName.get(parameterized.rawType(), arguments.toArray(TypeName[]::new)))
                     .annotated(type.annotations());
         } else if (type instanceof WildcardTypeName wildcard) {
-            explicit =
-                    wildcard.lowerBounds().isEmpty() && wildcard.upperBounds().equals(List.of(OBJECT))
-                            ? wildcard
-                            : (!wildcard.lowerBounds().isEmpty()
-                                            ? WildcardTypeName.supertypeOf(explicitMarkedType(
-                                                    wildcard.lowerBounds().get(0)))
-                                            : WildcardTypeName.subtypeOf(explicitMarkedType(
-                                                    wildcard.upperBounds().get(0))))
-                                    .annotated(type.annotations());
+            final var bound = (WildcardType) mirror;
+            final TypeMirror lower = bound.getSuperBound();
+            final TypeMirror upper = bound.getExtendsBound();
+            explicit = (lower != null
+                            ? WildcardTypeName.supertypeOf(
+                                    explicitMarkedType(wildcard.lowerBounds().get(0), lower))
+                            : WildcardTypeName.subtypeOf(
+                                    upper == null
+                                            ? nullable(OBJECT)
+                                            : explicitMarkedType(
+                                                    wildcard.upperBounds().get(0), upper)))
+                    .annotated(type.annotations());
         } else {
             explicit = type;
         }
         return explicit.isPrimitive()
-                        || explicit instanceof TypeVariableName
+                        || (mirror instanceof TypeVariable variable && !Nullability.hasNonNullBound(variable))
                         || explicit instanceof WildcardTypeName
                         || !explicit.annotations().isEmpty()
                 ? explicit

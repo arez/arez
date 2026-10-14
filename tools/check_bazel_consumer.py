@@ -2,6 +2,7 @@
 """Compile and run a separate Bazel workspace using only public Arez labels."""
 
 import json
+import re
 import subprocess
 import tempfile
 from pathlib import Path
@@ -44,7 +45,8 @@ import org.jspecify.annotations.*;
 public final class Consumer {
   private Consumer() {}
   public static void main(String[] args) {
-    var model = new Arez_Model(null, "initial");
+    var model = new Arez_Model(null, java.util.List.of("item"), "initial");
+    if (model.context() != Arez.context()) throw new AssertionError("nonnull context reference");
     var calls = new int[1];
     var observer = Arez.context().observer(() -> { model.getValue(); calls[0]++; });
     Arez.context().safeAction(() -> model.setValue("updated"));
@@ -69,6 +71,7 @@ public final class Consumer {
 ''')
         (workspace / "Model.java").write_text('''\
 package consumer;
+import arez.ArezContext;
 import arez.annotations.*;
 import org.jspecify.annotations.*;
 @NullMarked
@@ -77,6 +80,9 @@ import org.jspecify.annotations.*;
 abstract class Model {
   @ComponentId String getId() { return "one"; }
   @NullUnmarked Model(String incoming) {}
+  @NullUnmarked @ContextRef abstract @NonNull ArezContext context();
+  @Observable abstract java.util.List<?> getItems();
+  abstract void setItems(java.util.List<?> items);
   @arez.persist.Persist @Observable abstract String getValue();
   abstract void setValue(String value);
   @NullUnmarked @Action String echo(String value) { return value; }
@@ -86,6 +92,9 @@ abstract class Model {
         try:
             subprocess.run(command + ["run", "//:consumer", "--noshow_progress"],
                            cwd=workspace, check=True)
+            generated = (workspace / "bazel-bin/_javac/consumer/consumer_sources/consumer/Arez_Model.java").read_text()
+            assert re.search(r"@NullUnmarked\s+@NonNull\s+ArezContext context\(", generated), generated
+            assert "@NonNull List<? extends @Nullable Object> items" in generated, generated
         finally:
             subprocess.run(command + ["shutdown"], cwd=workspace, check=True)
 

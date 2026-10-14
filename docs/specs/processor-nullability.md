@@ -14,8 +14,9 @@ components and generating reactive or persistent state.
    compiled dependencies. Reading an equivalent source or compiled declaration
    must produce equivalent validation and generated behavior.
 3. Distinguish nullable arrays from nullable elements, and nullable containers
-   from nullable type arguments. Type-variable bounds and explicit nullness
-   qualify the substituted value; a bare type variable is not automatically
+   from nullable type arguments. Preserve enclosing type arguments and wildcard
+   bounds when moving a contract between scopes. Type-variable bounds and explicit
+   nullness qualify the substituted value; a bare type variable is not automatically
    forced to a non-null value.
 4. Ignore legacy javax and JetBrains nullability annotations. Their presence
    neither specifies a JSpecify contract nor causes a special rejection.
@@ -34,3 +35,5 @@ components and generating reactive or persistent state.
 
 See [project setup](../project_setup.md) for compiler/runtime prerequisites and
 [development](../development.md) for the regression and golden workflow.
+The [JSpecify specification](https://jspecify.dev/docs/spec/)
+defines how an unbounded wildcard's implicit bound depends on its nullness scope.

@@ -4,6 +4,8 @@
 
 * Preserve original unmarked scopes on generated overrides and constructor inputs, including inherited declarations, without changing generated observable initializer contracts.
 
+* Preserve enclosing generic types, wildcard bounds, definite non-null type variables and explicit reference return qualifiers when generating mixed-nullness contracts.
+
 * Replace Buildr/Ruby/Yarn/Node project tooling and Docusaurus with Bazel builds, a Java site generator, explicit release commands and the shared CI check gate. Remove downstream repository builds and GWT compiler/modules/bootstraps.
 
 * Run all seven DOM examples and the promise example through J2CL with local previews and deterministic Chromium tests in development and optimized production.

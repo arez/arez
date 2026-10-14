@@ -165,6 +165,10 @@ final class Nullability {
         return Nullness.NONNULL;
     }
 
+    static boolean hasNonNullBound(final TypeVariable variable) {
+        return nonNullBound(variable, new HashSet<>());
+    }
+
     private static boolean nonNullBound(final TypeVariable variable, final Set<Element> visited) {
         if (!visited.add(variable.asElement())) {
             return false;
