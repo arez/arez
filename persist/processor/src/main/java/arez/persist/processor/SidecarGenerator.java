@@ -345,7 +345,7 @@ final class SidecarGenerator {
             for (final PropertyDescriptor property : descriptor.getPropertiesByStore(storeName)) {
                 final ExecutableElement getter = property.getGetter();
                 final String propName = "$prop$_" + property.getName();
-                final TypeMirror returnType = getter.getReturnType();
+                final TypeMirror returnType = property.getType();
                 block.addStatement(
                         "final $T $N = _peer.$N()",
                         GeneratorUtil.overrideMethod(processingEnv, descriptor.getElement(), getter)
@@ -460,7 +460,7 @@ final class SidecarGenerator {
                 .build());
 
         final List<TypeName> typesToConvert = descriptor.getProperties().stream()
-                .map(p -> TypeName.get(p.getGetter().getReturnType()))
+                .map(p -> TypeName.get(p.getType()))
                 .sorted(Comparator.comparing(TypeName::toString))
                 .distinct()
                 .collect(Collectors.toList());
@@ -489,9 +489,7 @@ final class SidecarGenerator {
                 HashMap.class);
         for (final PropertyDescriptor property : descriptor.getProperties()) {
             method.addStatement(
-                    "converters.put( $S, $N )",
-                    property.getName(),
-                    converterName(TypeName.get(property.getGetter().getReturnType())));
+                    "converters.put( $S, $N )", property.getName(), converterName(TypeName.get(property.getType())));
         }
         method.addStatement("return new $T( converters )", TYPE_CONVERTER_CLASSNAME);
         builder.addMethod(method.build());

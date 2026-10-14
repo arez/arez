@@ -32,3 +32,5 @@ Persist runtime models, its processor fixtures and its integration-generated cod
 - Repeated both golden updaters; all 48 expected files kept identical hashes. Java formatting, Buildifier, whitespace, plan validation and documentation links pass. Direct product/test javax nullability dependencies are replaced with JSpecify; unrelated third-party tool metadata remains for T13's full audit.
 
 - Known pre-existing issue for T26 knowledge classification: `SidecarGenerator.buildRestoreStateMethod` emits the property-key expression rather than `state.get(key)` for Object properties. The baseline Object golden proves this predates the migration. Preserve the existing branch here; a separate follow-up should add an Object round-trip regression and repair it. Nullable string storage/restore is verified by this task.
+
+- T18 follow-up: its isolated compiled-generic consumer exposed original type-variable use in Persist storage/converter generation. T18 resolves member types in the concrete component context and adds paired source/compiled generic goldens; the original 25 invocations are retained.

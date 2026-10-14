@@ -1,4 +1,7 @@
+load("@rules_java//java:defs.bzl", "java_import", "java_plugin")
 load("@rules_palantir_java_format//:defs.bzl", "java_format_check")
+
+package(default_visibility = ["//visibility:public"])
 
 exports_files(["LICENSE"])
 
@@ -34,4 +37,116 @@ java_format_check(
         "//tools/release:jar_builder",
         "//tools/release:javadoc_jar_builder",
     ],
+)
+
+java_import(
+    name = "core",
+    jars = ["//tools/release:core_jar"],
+    srcjar = "//tools/release:core_sources",
+    deps = [
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:jsinterop_annotations",
+        "//third_party/java:jspecify",
+        "//third_party/java:org_jetbrains_annotations",
+    ],
+)
+
+java_import(
+    name = "processor",
+    jars = ["//tools/release:processor_jar"],
+    srcjar = "//tools/release:processor_sources",
+    deps = [],
+)
+
+java_import(
+    name = "dom",
+    jars = ["//tools/release:dom_jar"],
+    srcjar = "//tools/release:dom_sources",
+    deps = [
+        ":core",
+        "//third_party/java:base",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:javaemul_internal_annotations",
+        "//third_party/java:jsinterop_annotations",
+        "//third_party/java:jspecify",
+    ],
+)
+
+java_import(
+    name = "promise",
+    jars = ["//tools/release:promise_jar"],
+    srcjar = "//tools/release:promise_sources",
+    deps = [
+        ":core",
+        "//third_party/java:base",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:jsinterop_annotations",
+        "//third_party/java:jspecify",
+    ],
+)
+
+java_import(
+    name = "spytools",
+    jars = ["//tools/release:spytools_jar"],
+    srcjar = "//tools/release:spytools_sources",
+    deps = [
+        ":core",
+        "//third_party/java:base",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:jsinterop_annotations",
+        "//third_party/java:jspecify",
+        "//third_party/java:org_jetbrains_annotations",
+    ],
+)
+
+java_import(
+    name = "testng",
+    jars = ["//tools/release:testng_jar"],
+    srcjar = "//tools/release:testng_sources",
+    deps = [
+        ":core",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:jspecify",
+        "//third_party/java:testng",
+    ],
+)
+
+java_import(
+    name = "persist_core",
+    jars = ["//tools/release:persist_core_jar"],
+    srcjar = "//tools/release:persist_core_sources",
+    deps = [
+        ":core",
+        "//third_party/java:base",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:jsinterop_annotations",
+        "//third_party/java:jspecify",
+    ],
+)
+
+java_import(
+    name = "persist_processor",
+    jars = ["//tools/release:persist_processor_jar"],
+    srcjar = "//tools/release:persist_processor_sources",
+    deps = [],
+)
+
+java_plugin(
+    name = "arez_processor_plugin",
+    generates_api = True,
+    processor_class = "arez.processor.ArezProcessor",
+    deps = [":processor"],
+)
+
+java_plugin(
+    name = "arez_persist_processor_plugin",
+    generates_api = True,
+    processor_class = "arez.persist.processor.ArezPersistProcessor",
+    deps = [":persist_processor"],
 )

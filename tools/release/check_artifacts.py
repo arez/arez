@@ -162,48 +162,150 @@ def check_isolated_processors(workspace: Path, root: Path) -> None:
             "Isolated processors must run on Java 21")
     dependencies = []
     for name in ["jspecify", "braincheck_core", "grim_annotations", "jsinterop_annotations",
-                 "org_jetbrains_annotations", "base"]:
+                 "org_jetbrains_annotations", "base", "testng", "javaemul_internal_annotations"]:
         paths = run(["bazel", "cquery", f"@{name}//file", "--output=files"], workspace).splitlines()
         require(len(paths) == 1, f"Expected one declared dependency jar: {name}")
         dependencies.append(execution_root / paths[0])
     with tempfile.TemporaryDirectory(prefix="arez-isolated-processors-") as directory:
         work = Path(directory)
-        source = work / "Model.java"
+        source = work / "Consumer.java"
         source.write_text(textwrap.dedent("""\
             package isolated;
+            import arez.*;
             import arez.annotations.*;
             import arez.persist.*;
+            import arez.persist.runtime.*;
+            import arez.spytools.SpyUtil;
+            import java.util.Map;
+            import java.util.HashMap;
+            import org.jspecify.annotations.*;
+            @NullMarked
+            public final class Consumer {
+              private Consumer() {}
+              public static void main(String[] args) {
+                var memory = new MemoryStore();
+                ArezPersist.registerStore("memory", memory);
+                var model = new Arez_Model();
+                Model_PersistSidecar.attach(ArezPersist.getRootScope(), model);
+                var calls = new int[1];
+                var observer = Arez.context().observer(() -> {
+                  model.getValue();
+                  calls[0]++;
+                });
+                if (calls[0] != 1) throw new AssertionError("initial observation");
+                Arez.context().safeAction(() -> model.setValue("updated"));
+                if (calls[0] != 2) throw new AssertionError("change propagation");
+                if (!"updated".equals(memory.saved.get(ArezPersist.getRootScope()).get("Model")
+                    .get("one").getData().get("value"))) throw new AssertionError("persistence");
+                Arez.context().safeAction(() -> {
+                  if (!"updated".equals(model.getValue())) throw new AssertionError("value");
+                  if (!"updated".equals(model.echo(new String[] {"updated", null}).get(0)))
+                    throw new AssertionError("compiled array/element contract");
+                  model.setValue(null);
+                });
+                if (calls[0] != 3) throw new AssertionError("nullable propagation");
+                if (memory.saved.get(ArezPersist.getRootScope()).get("Model").containsKey("one"))
+                  throw new AssertionError("skip null persisted value");
+                var position = new arez.dom.Position(1, null, null, 2, 3, null);
+                if (position.getLatitude() != 2 || position.getAltitude() != null)
+                  throw new AssertionError("DOM value API");
+                if (new arez.testng.ArezTestSupport() {}.context() != Arez.context())
+                  throw new AssertionError("TestNG support API");
+                if (SpyUtil.getNestingDelta(arez.spy.ActionStartEvent.class) != SpyUtil.NestingDelta.INCREASE)
+                  throw new AssertionError("spytools");
+                if (arez.promise.ObservablePromise.State.PENDING.ordinal() != 0
+                    || arez.dom.Position.class.getDeclaredMethods().length == 0
+                    || arez.testng.ArezTestSupport.class.getDeclaredMethods().length == 0)
+                  throw new AssertionError("packaged extras APIs");
+                if (Disposable.isDisposed(ArezPersist.getRootScope())) throw new AssertionError("Persist runtime");
+                if (Scope.class.getDeclaredMethods().length == 0) throw new AssertionError("Persist source");
+                observer.dispose();
+                Disposable.dispose(model);
+                if (!Disposable.isDisposed(model)) throw new AssertionError("disposal");
+              }
+              private static final class MemoryStore implements StorageService {
+                final Map<Scope, Map<String, Map<String, Entry>>> saved = new HashMap<>();
+                public void dispose() {}
+                public void scheduleCommit(SafeProcedure action) { action.call(); }
+                public void restore(Map<Scope, Map<String, Map<String, Entry>>> state) { state.clear(); }
+                public void commit(Map<Scope, Map<String, Map<String, Entry>>> state) {
+                  saved.clear(); saved.putAll(state);
+                }
+                public Object encodeState(Map<String, @Nullable Object> state, TypeConverter converter) {
+                  return state;
+                }
+                @SuppressWarnings("unchecked")
+                public Map<String, @Nullable Object> decodeState(Object state, TypeConverter converter) {
+                  return (Map<String, @Nullable Object>) state;
+                }
+              }
+            }
+            """))
+        model = work / "Model.java"
+        model.write_text(textwrap.dedent("""\
+            package isolated;
+            import arez.annotations.*;
+            import arez.persist.PersistType;
             import org.jspecify.annotations.*;
             @NullMarked
             @ArezComponent(sting = Feature.DISABLE)
-            @PersistType
-            abstract class Model {
+            @PersistType(defaultStore = "memory")
+            abstract class Model extends Parent<@Nullable String> {
               @ComponentId String getId() { return "one"; }
-              @Persist @Observable abstract int getValue();
-              abstract void setValue(int value);
             }
             """))
         classes, generated = work / "classes", work / "generated"
         classes.mkdir()
         generated.mkdir()
         classpath = os.pathsep.join(str(p.resolve()) for p in
-                                   [root / "arez-core.jar", root / "arez-persist-core.jar", *dependencies])
+                                   [root / f"{artifact}.jar" for artifact in ARTIFACTS if artifact not in PROCESSORS] + dependencies + [classes])
         processorpath = os.pathsep.join(str((root / f"{name}.jar").resolve()) for name in PROCESSORS)
         exports = [f"-J--add-exports=jdk.compiler/com.sun.tools.javac.{name}=ALL-UNNAMED"
                    for name in ["api", "code", "file", "parser", "tree", "util"]]
+        parent = work / "Parent.java"
+        parent.write_text(textwrap.dedent("""\
+            package isolated;
+            import arez.annotations.*;
+            import arez.persist.Persist;
+            import java.util.List;
+            import java.util.Collections;
+            import java.util.Arrays;
+            import org.jspecify.annotations.*;
+            @NullMarked
+            public abstract class Parent<T extends @Nullable Object> {
+              @Persist @Observable public abstract T getValue();
+              public abstract void setValue(T value);
+              @Action public List<@Nullable String> echo(@Nullable String @Nullable [] values) {
+                return values == null ? Collections.singletonList(null) : Arrays.asList(values);
+              }
+            }
+            """))
+        run([str(java_home / "bin/javac"), "--release", "17", "-parameters", "-Werror",
+             "-Xlint:all,-processing,-serial", "-sourcepath", "", "-implicit:none",
+             "-XDaddTypeAnnotationsToSymbol=true", "-proc:none", "-classpath", classpath,
+             "-d", str(classes), str(parent)], workspace)
         run([str(java_home / "bin/javac"), "--release", "17", "-Werror", "-Xlint:all,-processing,-serial",
              "-XDaddTypeAnnotationsToSymbol=true", "-sourcepath", "", "-implicit:none", *exports, "-classpath", classpath,
              "-processorpath", processorpath, "-processor", ",".join(PROCESSORS.values()),
              "-Aarez.format_generated_source=true", "-Aarez.persist.format_generated_source=true",
-             "-d", str(classes), "-s", str(generated), str(source)], workspace)
+             "-d", str(classes), "-s", str(generated), str(source), str(model)], workspace)
         names = {p.relative_to(generated).as_posix() for p in generated.rglob("*.java")}
-        require("isolated/Arez_Model.java" in names and "isolated/Model_PersistSidecar.java" in names
+        require("isolated/Arez_Model.java" in names
+                and "isolated/Model_PersistSidecar.java" in names
                 and "isolated/Arez_Model_PersistSidecar.java" in names,
                 f"Both packaged processors must generate and compile complete outputs: {names}")
+        generated_model = (generated / "isolated/Arez_Model.java").read_text()
+        require("List<@Nullable String>" in generated_model
+                and "@Nullable String @Nullable []" in generated_model
+                and "@Nullable String getValue()" in generated_model,
+                "Packaged processor lost compiled inherited/generic/array JSpecify contracts")
+        run([str(java_home / "bin/java"), "-ea", "-Darez.environment=development",
+             "-Dbraincheck.environment=development", "-Darez.persist.environment=development",
+             "-classpath", classpath, "isolated.Consumer"], workspace)
         for path in classes.rglob("*.class"):
             require(int.from_bytes(path.read_bytes()[6:8], "big") == 61,
                     f"Isolated generated class must target Java 17: {path.name}")
-    print("Both shaded processors compile formatted generated output on an isolated Java 21 processorpath")
+    print("Compiled inherited JSpecify contracts with both isolated Java 21 processors and ran all packaged JVM APIs")
 
 
 def main() -> None:

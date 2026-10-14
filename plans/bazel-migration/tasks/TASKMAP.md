@@ -2,7 +2,7 @@
 
 - Spec: [SPEC.md](../SPEC.md)
 - Status: implementing
-- Current frontier: T18
+- Current frontier: T19, T23
 - Planning reviewer: /root/planning_reviewer (2/3 rounds; passed, Findings: none)
 - Plan checkpoint: human-review (approved)
 - Checkpoint basis: the user said "Proceed" after the reviewed spec/task map and
@@ -27,7 +27,7 @@
 - Artifact reproducibility: independent-output-base hash comparisons, including
   binary, source, Javadoc and POM outputs; cached reruns alone are insufficient.
 - Final evidence: pending
-- Current milestone: T17 verifies all 32 Maven artifacts and aggregate API docs, independent hashes and isolated Java 21 processors; packaged JVM consumers are next.
+- Current milestone: T18 public packaged imports/plugins and isolated compiled-contract/runtime consumers pass; the full JVM inventory is 2,301 invocations with two added Persist generic regressions. J2CL libraries are next.
 
 ## Tasks
 
@@ -50,7 +50,7 @@
 | T15 | [Enforce strict checking on processors and generated output](T15-processor-strict-checks.md) | complete | T14 |
 | T16 | [Build deterministic binary and complete source archives](T16-release-binaries-sources.md) | complete | T15 |
 | T17 | [Complete POM, Javadoc and artifact verification](T17-complete-release-artifacts.md) | complete | T16 |
-| T18 | [Expose and test packaged JVM consumer targets](T18-packaged-jvm-consumers.md) | pending | T17 |
+| T18 | [Expose and test packaged JVM consumer targets](T18-packaged-jvm-consumers.md) | complete | T17 |
 | T19 | [Compile public browser libraries from release sources](T19-packaged-j2cl-libraries.md) | pending | T18 |
 | T20 | [Run and test the promise J2CL example](T20-promise-browser-example.md) | pending | T19 |
 | T21 | [Run location, size and media-query examples](T21-dom-basic-examples.md) | pending | T20 |

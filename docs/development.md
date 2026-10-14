@@ -59,3 +59,60 @@ reasons about the existing Java assertions; Bazel JVM tests enable assertions.
 A valid runtime call must satisfy those internal invariants even when production
 assertions are disabled. Spy-only methods and initialized generic caches have
 small documented exceptions where their lifecycle contract supplies the proof.
+
+
+## Packaged downstream targets
+
+The root labels import the assembled release jars and attach their complete source
+archives. They match the inputs published to Maven Central:
+
+| Bazel label | Maven artifact |
+| --- | --- |
+| `@arez//:core` | `arez-core` |
+| `@arez//:processor` | `arez-processor` |
+| `@arez//:dom` | `arez-extras-dom` |
+| `@arez//:promise` | `arez-extras-promise` |
+| `@arez//:spytools` | `arez-extras-spytools` |
+| `@arez//:testng` | `arez-extras-testng` |
+| `@arez//:persist_core` | `arez-persist-core` |
+| `@arez//:persist_processor` | `arez-persist-processor` |
+
+Use `@arez//:arez_processor_plugin` and
+`@arez//:arez_persist_processor_plugin` in the consumer's `plugins` list.
+Both plugins load the assembled shaded processor jars. Internal labels such as
+`//core` and `//processor:plugin` remain repository implementation targets.
+
+A downstream MODULE file can declare `bazel_dep(name = "arez")` and use
+`git_override(module_name = "arez", remote = "https://github.com/arez/arez.git",
+commit = "<full approved commit SHA>")`. Replace the placeholder with an
+immutable revision available in the remote. For local development, use
+`local_path_override(module_name = "arez", path = "/absolute/path/to/arez")`
+in the downstream workspace. The Arez checkout itself uses remotely pinned
+Proton/Sting modules without local overrides.
+
+Runtime and generated classes target Java 17. Processors require Java 21 or newer.
+When compiling against inherited classes, retain parameter names with
+`-parameters` and use `-XDaddTypeAnnotationsToSymbol=true` so javac exposes
+compiled type-use annotations to processors. Declare JSpecify on the application
+classpath. The processorpath needs only the assembled Arez/Persist processor jars;
+Proton, Javapoet and the formatter runtime are shaded into those jars.
+
+Standalone javac formatting requires the six exports below (Bazel's Java compiler
+already exposes these internals):
+
+```text
+-J--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED
+-J--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED
+-J--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED
+-J--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED
+-J--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED
+-J--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED
+```
+
+Build the distribution with `bazel build //tools/release:maven_artifacts` and run
+`python3 tools/release/check_artifacts.py`. The checker compiles an inherited
+JSpecify base separately, then compiles and runs a tiny consumer with the
+published runtime jars and isolated Java 21 processorpaths. It checks reactive
+updates, nullable generic/array contracts, persisted state and null removal,
+disposal, and the JVM-compatible extras APIs. Browser-native behavior is checked
+by the J2CL browser suites.

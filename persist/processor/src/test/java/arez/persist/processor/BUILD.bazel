@@ -58,6 +58,8 @@ java_testng(
         "arez.persist.processor.ArezPersistProcessorGeneratedOutputTest.processModelCompile",
         "arez.persist.processor.ArezPersistProcessorGeneratedOutputTest.inheritedNullableProperty",
         "arez.persist.processor.ArezPersistProcessorGeneratedOutputTest.compiledInheritedNullableProperty",
+        "arez.persist.processor.ArezPersistProcessorGeneratedOutputTest.genericNullableProperty",
+        "arez.persist.processor.ArezPersistProcessorGeneratedOutputTest.compiledGenericNullableProperty",
     ],
     deps = _RUNTIME_DEPS,
 )

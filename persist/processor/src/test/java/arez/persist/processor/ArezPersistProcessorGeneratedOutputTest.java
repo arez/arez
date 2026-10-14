@@ -98,6 +98,37 @@ public final class ArezPersistProcessorGeneratedOutputTest extends ArezPersistPr
         }
     }
 
+    @Test
+    public void genericNullableProperty() throws Exception {
+        assertSuccessfulFixtureCompile(
+                inputs("com.example.persist.GenericPropertyBase", "com.example.persist.GenericNullablePersistModel"),
+                List.of("com/example/persist/GenericNullablePersistModel_PersistSidecar.java"));
+    }
+
+    @Test
+    public void compiledGenericNullableProperty() throws Exception {
+        final List<String> baseOptions = new ArrayList<>(getOptions());
+        baseOptions.add("-proc:none");
+        baseOptions.add("-parameters");
+        final Compilation base = CompileTestUtil.assertCompilesWithoutWarnings(
+                inputs("com.example.persist.GenericPropertyBase"),
+                baseOptions,
+                Collections.emptyList(),
+                Collections.emptyList());
+        try {
+            final List<String> options = new ArrayList<>(getOptions());
+            options.add("-classpath");
+            options.add(System.getProperty("java.class.path") + File.pathSeparator + base.classOutput());
+            assertSuccessfulFixtureCompile(
+                    inputs("com.example.persist.GenericNullablePersistModel"),
+                    List.of("com/example/persist/GenericNullablePersistModel_PersistSidecar.java"),
+                    options);
+        } finally {
+            deleteDir(base.classOutput());
+            deleteDir(base.sourceOutput());
+        }
+    }
+
     private void assertSuccessfulFixtureCompile(final String classname) throws Exception {
         assertSuccessfulFixtureCompile(
                 inputs(classname), Collections.singletonList(toFilename(classname, "", "_PersistSidecar.java")));

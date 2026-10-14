@@ -18,6 +18,8 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import org.realityforge.proton.AbstractStandardProcessor;
@@ -183,7 +185,9 @@ public final class ArezPersistProcessor extends AbstractStandardProcessor {
             final List<ExecutableElement> methods,
             final String defaultStore,
             final Map<String, PropertyDescriptor> properties) {
-        final TypeMirror returnType = method.getReturnType();
+        final TypeMirror returnType = ((ExecutableType)
+                        processingEnv.getTypeUtils().asMemberOf((DeclaredType) element.asType(), method))
+                .getReturnType();
         if (TypeKind.VOID == returnType.getKind()) {
             throw new ProcessorException(
                     MemberChecks.must(
@@ -204,7 +208,13 @@ public final class ArezPersistProcessor extends AbstractStandardProcessor {
                         && 1 == m.getParameters().size()
                         && processingEnv
                                 .getTypeUtils()
-                                .isSameType(m.getParameters().get(0).asType(), returnType))
+                                .isSameType(
+                                        ((ExecutableType) processingEnv
+                                                        .getTypeUtils()
+                                                        .asMemberOf((DeclaredType) element.asType(), m))
+                                                .getParameterTypes()
+                                                .get(0),
+                                        returnType))
                 .findAny()
                 .orElse(null);
         if (null == setter) {
@@ -224,7 +234,7 @@ public final class ArezPersistProcessor extends AbstractStandardProcessor {
                                     + existing.getGetter().getSimpleName()),
                     method);
         } else {
-            properties.put(persistName, new PropertyDescriptor(persistName, persistStore, method, setter));
+            properties.put(persistName, new PropertyDescriptor(persistName, persistStore, method, setter, returnType));
         }
     }
 

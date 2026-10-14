@@ -1,0 +1,145 @@
+{
+  "arez-core": {
+    "owned_java_17_classes": 171,
+    "shaded_java_21_compatible_classes": 0,
+    "source_entries": 158,
+    "binary_sha256": "3bd8bf15958285a3674de07d8870c47474dcb50d75e6555b09675a18d9f2b77e",
+    "sources_sha256": "98c4ae73061f95831af605a2a7a0b4595cbb980236d5575b4f70307d9ee521fb",
+    "javadoc_sha256": "ad93df970e87da36c319e9a6d04910099bad71a8c6bcff8a8c2a2ff19f6c283c",
+    "pom_sha256": "dd724b0eaa8e1f3719dab59cb83da4da0e38ba0738721aee6f94dacc56a84698",
+    "pom_dependencies": [
+      "com.google.jsinterop:jsinterop-annotations:2.0.0",
+      "org.jspecify:jspecify:1.0.0",
+      "org.realityforge.braincheck:braincheck-core:1.35.0",
+      "org.realityforge.grim:grim-annotations:0.09",
+      "org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0"
+    ]
+  },
+  "arez-processor": {
+    "owned_java_17_classes": 25,
+    "shaded_java_21_compatible_classes": 2700,
+    "source_entries": 26,
+    "binary_sha256": "b49ec3f2864612a9ea8f57d3955fdd52b3ee75855b1dbcc4d3821ec6dffedcb0",
+    "sources_sha256": "02e2949eccbbc472d4382db0320077f67d28ae9210a44883fb531ef0aa5af24c",
+    "javadoc_sha256": "0de6a57124876cca8cd0c240357f20038abf7d110acb37de703509957c49846d",
+    "pom_sha256": "d04f96e82ccc3c69dd196c961c767ee253cd16a52949ac677a459311ecb91c31",
+    "pom_dependencies": []
+  },
+  "arez-extras-dom": {
+    "owned_java_17_classes": 44,
+    "shaded_java_21_compatible_classes": 0,
+    "source_entries": 19,
+    "binary_sha256": "1c301c6220a8c920adced7fa9fe38525451e100268fb54ce78fd15d9e779fdb4",
+    "sources_sha256": "c58a5938f309c11d47566da3d91a0822d97bfe954074ca54bb82213986fa83d7",
+    "javadoc_sha256": "c4bd3aef8bb528f4cfb8210c05a8f256caefa33c5dff82af490dacae3567c0e5",
+    "pom_sha256": "94e1a38b6196b610ca99777d7463298e9f869659e547818567ce0578446f0f19",
+    "pom_dependencies": [
+      "com.google.jsinterop:base:1.0.0",
+      "com.google.jsinterop:jsinterop-annotations:2.0.0",
+      "org.jspecify:jspecify:1.0.0",
+      "org.realityforge.arez:arez-core:0.0.0-SNAPSHOT",
+      "org.realityforge.braincheck:braincheck-core:1.35.0",
+      "org.realityforge.grim:grim-annotations:0.09",
+      "org.realityforge.javaemul.internal.annotations:javaemul.internal.annotations:0.01"
+    ]
+  },
+  "arez-extras-promise": {
+    "owned_java_17_classes": 7,
+    "shaded_java_21_compatible_classes": 0,
+    "source_entries": 5,
+    "binary_sha256": "d7084e0f6681b80b02f7e88da65c8407ff3defa3e6795c109262ef04aee3ba13",
+    "sources_sha256": "9c4ba100e2442844a4ba7503d8844b946d39b7acb059cb327a9042ce36221bff",
+    "javadoc_sha256": "5c33f5e04524a9e01641b95d2afb7e01be4366535732ba4ec1cf55a7eed39317",
+    "pom_sha256": "d20b011f05cb3b9cfbbf7272ef1210c3421602667be23146f79a66ea493f316e",
+    "pom_dependencies": [
+      "com.google.jsinterop:base:1.0.0",
+      "com.google.jsinterop:jsinterop-annotations:2.0.0",
+      "org.jspecify:jspecify:1.0.0",
+      "org.realityforge.arez:arez-core:0.0.0-SNAPSHOT",
+      "org.realityforge.braincheck:braincheck-core:1.35.0",
+      "org.realityforge.grim:grim-annotations:0.09"
+    ]
+  },
+  "arez-extras-spytools": {
+    "owned_java_17_classes": 20,
+    "shaded_java_21_compatible_classes": 0,
+    "source_entries": 14,
+    "binary_sha256": "3141add4ffbbc1529898b36f24627fc9e033521b435549a5478ca11f62d2ad54",
+    "sources_sha256": "4f018ffb6976fc629115b716b12f9feb1eb4772929d2760e38f7264f1fecc1c2",
+    "javadoc_sha256": "54a62fde4bad84035a41bdc7b0b98656b69aff5cf50b8cb343b7619e6d3c56c1",
+    "pom_sha256": "b35bda92a34252e12f6f6863cc26d49a59525bef3d212cbad85586fef2526c74",
+    "pom_dependencies": [
+      "com.google.jsinterop:base:1.0.0",
+      "com.google.jsinterop:jsinterop-annotations:2.0.0",
+      "org.jspecify:jspecify:1.0.0",
+      "org.realityforge.arez:arez-core:0.0.0-SNAPSHOT",
+      "org.realityforge.braincheck:braincheck-core:1.35.0",
+      "org.realityforge.grim:grim-annotations:0.09",
+      "org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0"
+    ]
+  },
+  "arez-extras-testng": {
+    "owned_java_17_classes": 6,
+    "shaded_java_21_compatible_classes": 0,
+    "source_entries": 8,
+    "binary_sha256": "869de42824a598e7f8ca68e606dee84c2310e2265b7c3ebb4c34ab7790599a5d",
+    "sources_sha256": "ee3aaa0fd5737c4f5d6b2e02a358133bc9b3c10cde3804b51ab6d72c9ad1a56c",
+    "javadoc_sha256": "9928ab44e29ebcbbe3284a8fbb070e39e62d047ee362bbf6d40174032be58539",
+    "pom_sha256": "10dd4996838682ba61fe808895e0f3ad0ed211c6cd0442a5d8f2ee70b8732d07",
+    "pom_dependencies": [
+      "org.jspecify:jspecify:1.0.0",
+      "org.realityforge.arez:arez-core:0.0.0-SNAPSHOT",
+      "org.realityforge.braincheck:braincheck-core:1.35.0",
+      "org.realityforge.grim:grim-annotations:0.09",
+      "org.testng:testng:7.10.2"
+    ]
+  },
+  "arez-persist-core": {
+    "owned_java_17_classes": 45,
+    "shaded_java_21_compatible_classes": 0,
+    "source_entries": 33,
+    "binary_sha256": "ff35aad3dfceb9c2dcd66ae2e2705ffc092ae668cd7558f493006ae5c1c1784b",
+    "sources_sha256": "567052e78452bed965fc0feee3e8990ad310980a62fa9701627c8c39a8b70b9a",
+    "javadoc_sha256": "747ccaf77be8dd5f34e9a74854a5410cc6a3fe617f5a62d97729973c598ea3ac",
+    "pom_sha256": "d68abd1122f6e0be3b008b7c11e32610d72fe3c45381718ed4fe325e02ed0b9e",
+    "pom_dependencies": [
+      "com.google.jsinterop:base:1.0.0",
+      "com.google.jsinterop:jsinterop-annotations:2.0.0",
+      "org.jspecify:jspecify:1.0.0",
+      "org.realityforge.arez:arez-core:0.0.0-SNAPSHOT",
+      "org.realityforge.braincheck:braincheck-core:1.35.0",
+      "org.realityforge.grim:grim-annotations:0.09"
+    ]
+  },
+  "arez-persist-processor": {
+    "owned_java_17_classes": 6,
+    "shaded_java_21_compatible_classes": 2700,
+    "source_entries": 9,
+    "binary_sha256": "fcd18f452ea9629aa591170125ef61c762274efaeb8b4dea5e1e31575dc2a486",
+    "sources_sha256": "955872fe94c881be780fcd5658fc9c920e14ebb7cd1ace925ca7106527ac4c93",
+    "javadoc_sha256": "625ff776b918adcf7165b35fb2472aab41b4c8b9e704c7ab8c7d5835b4fdb9c3",
+    "pom_sha256": "17537448da784833a11756a93cc16144987414f8c290d9dea37f94b998e6cf98",
+    "pom_dependencies": []
+  },
+  "_consumer": {
+    "public_imports_built": 8,
+    "public_packaged_plugins_built": 2,
+    "isolated_processor_jars": [
+      "arez-processor.jar",
+      "arez-persist-processor.jar"
+    ],
+    "compiler_runtime": "declared Java 21",
+    "language_and_generated_bytecode": "Java 17",
+    "compiled_parent": "Parent<T extends @Nullable Object>, Model extends Parent<@Nullable String>; nullable array and nullable List elements",
+    "behavior": [
+      "reactive initial/update/null propagation",
+      "Persist value storage and null removal",
+      "disposal",
+      "DOM immutable Position",
+      "SpyUtil nesting",
+      "TestNG default context",
+      "Promise enum/API availability"
+    ],
+    "independent_artifact_hashes_match": true
+  }
+}
