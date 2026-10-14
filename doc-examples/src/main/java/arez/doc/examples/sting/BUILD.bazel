@@ -1,0 +1,11 @@
+package(default_visibility = ["//doc-examples:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ExampleConsumer.java",
+        "ExampleStingInjector.java",
+        "MyService.java",
+        "StingExample.java",
+    ],
+)

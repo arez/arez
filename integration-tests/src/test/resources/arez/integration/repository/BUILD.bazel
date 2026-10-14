@@ -1,0 +1,10 @@
+package(default_visibility = ["//integration-tests:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BasicRepositoryIntegrationTest.scenario.json",
+        "DisposeEntityInRepositoryIntegrationTest.scenario.json",
+        "DisposeRepositoryIntegrationTest.scenario.json",
+    ],
+)

@@ -1,0 +1,20 @@
+package(default_visibility = ["//integration-tests:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "DisposeManyInverseIntegrationTest.java",
+        "DisposeOneInverseIntegrationTest.java",
+        "DisposeZeroOrOneInverseIntegrationTest.java",
+        "InverseHooksIntegrationTest.java",
+        "ManyMultiplicityExplicitLoadInverseIntegrationTest.java",
+        "ManyMultiplicityInverseIntegrationTest.java",
+        "ManyMultiplicityLazyLoadInverseIntegrationTest.java",
+        "OneMultiplicityExplicitLoadInverseIntegrationTest.java",
+        "OneMultiplicityInverseIntegrationTest.java",
+        "OneMultiplicityLazyLoadInverseIntegrationTest.java",
+        "ZeroOrOneMultiplicityExplicitLoadInverseIntegrationTest.java",
+        "ZeroOrOneMultiplicityInverseIntegrationTest.java",
+        "ZeroOrOneMultiplicityLazyLoadInverseIntegrationTest.java",
+    ],
+)

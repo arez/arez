@@ -1,0 +1,9 @@
+package(default_visibility = ["//integration-tests:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ComponentInDifferentPackageIntegrationTest.java",
+        "//integration-tests/src/test/java/arez/integration/sting/package_access/other:all",
+    ],
+)

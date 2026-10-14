@@ -1,0 +1,14 @@
+package(default_visibility = ["//integration-tests:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "CascadeOnDisposeIntegrationTest.java",
+        "ComplexComponentDependencyIntegrationTest.java",
+        "ComponentDependencyFieldIntegrationTest.java",
+        "ComponentDependencyRuntimeValidationIntegrationTest.java",
+        "DualDisposedDependenciesIntegrationTest.java",
+        "MultiComponentDependencyIntegrationTest.java",
+        "SetNullOnDisposeIntegrationTest.java",
+    ],
+)

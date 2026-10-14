@@ -1,0 +1,24 @@
+package(default_visibility = ["//integration-tests:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "DisposeIntegrationTest.codeModelScenario.json",
+        "MultiZoneIntegrationTest.multiZoneScenario.json",
+        "NativeComponentsIntegrationTest.inspectComponentViaSpy.json",
+        "NestedComputableValueIntegrationTest.scenario.json",
+        "NestedComputableValueIntegrationTest.scenarioWithActions.json",
+        "NonTransactionEnforcingIntegrationTest.personScenario.json",
+        "ObservableValueRefNoSetterTest.observableRef.json",
+        "ObservableValueRefTest.observableRef.json",
+        "//integration-tests/src/test/resources/arez/integration/component_dependency:all",
+        "//integration-tests/src/test/resources/arez/integration/dispose_on_deactivate:all",
+        "//integration-tests/src/test/resources/arez/integration/memoize:all",
+        "//integration-tests/src/test/resources/arez/integration/memoize_context_parameter:all",
+        "//integration-tests/src/test/resources/arez/integration/observable:all",
+        "//integration-tests/src/test/resources/arez/integration/observe:all",
+        "//integration-tests/src/test/resources/arez/integration/priority:all",
+        "//integration-tests/src/test/resources/arez/integration/repository:all",
+        "//integration-tests/src/test/resources/arez/integration/scheduler:all",
+    ],
+)

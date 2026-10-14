@@ -1,0 +1,20 @@
+package(default_visibility = ["//integration-tests:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "DefaultEqualityComparatorObservableIntegrationTest.java",
+        "NonnullObservableIntegrationTest.java",
+        "NormalizingSetterIntegrationTest.java",
+        "NullableInitializerIntegrationTest.java",
+        "ObservableCustomEqualityComparatorIntegrationTest.java",
+        "ObservableDeepEqualsComparatorIntegrationTest.java",
+        "ObservableDefaultReadAndWriteOutsideTransactionTest.java",
+        "ObservableInitialIntegrationTest.java",
+        "ObservableInitializerIntegrationTest.java",
+        "ObservableOutsideTransactionTest.java",
+        "ObservableWriteOutsideTransactionTest.java",
+        "UnannotatedObservablesIntegrationTest.java",
+        "WriteOutsideTransactionAndNotAlwaysMutateTest.java",
+    ],
+)

@@ -1,0 +1,13 @@
+package(default_visibility = ["//integration-tests:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "CascadeOnDisposeIntegrationTest.scenario.json",
+        "ComplexComponentDependencyIntegrationTest.scenario.json",
+        "ComponentDependencyFieldIntegrationTest.scenario.json",
+        "DualDisposedDependenciesIntegrationTest.scenario.json",
+        "MultiComponentDependencyIntegrationTest.scenario.json",
+        "SetNullOnDisposeIntegrationTest.scenario.json",
+    ],
+)

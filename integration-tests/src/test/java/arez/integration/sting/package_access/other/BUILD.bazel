@@ -1,0 +1,11 @@
+package(default_visibility = ["//integration-tests:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "MyDependency.java",
+        "MyDependency2.java",
+        "TestComponent.java",
+        "TestComponent2.java",
+    ],
+)

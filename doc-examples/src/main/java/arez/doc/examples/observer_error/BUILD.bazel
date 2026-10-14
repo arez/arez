@@ -1,0 +1,8 @@
+package(default_visibility = ["//doc-examples:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ObserverErrorHandlerExample.java",
+    ],
+)

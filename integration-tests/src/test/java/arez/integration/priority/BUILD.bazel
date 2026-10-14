@@ -1,0 +1,10 @@
+package(default_visibility = ["//integration-tests:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "CoreCanNotObserveLowerPriorityIntegrationTest.java",
+        "CoreCanObserveLowerPriorityIntegrationTest.java",
+        "PriorityOrderingIntegrationTest.java",
+    ],
+)

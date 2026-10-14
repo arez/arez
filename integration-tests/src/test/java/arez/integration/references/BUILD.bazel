@@ -1,0 +1,21 @@
+package(default_visibility = ["//integration-tests:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "NonnullImmutableEagerReferenceIntegrationTest.java",
+        "NonnullImmutableExplicitReferenceIntegrationTest.java",
+        "NonnullImmutableLazyReferenceIntegrationTest.java",
+        "NonnullObservableEagerReferenceIntegrationTest.java",
+        "NonnullObservableExplicitReferenceIntegrationTest.java",
+        "NonnullObservableLazyReferenceIntegrationTest.java",
+        "NullableObservableEagerReferenceIntegrationTest.java",
+        "NullableObservableExplicitReferenceIntegrationTest.java",
+        "NullableObservableLazyReferenceIntegrationTest.java",
+        "NullablelImmutableEagerReferenceIntegrationTest.java",
+        "NullablelImmutableExplicitReferenceIntegrationTest.java",
+        "NullablelImmutableLazyReferenceIntegrationTest.java",
+        "ReferenceNotFoundIntegrationTest.java",
+        "ReferenceOutsideTransactionIntegrationTest.java",
+    ],
+)

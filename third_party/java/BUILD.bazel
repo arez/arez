@@ -13,7 +13,7 @@ alias(
 # DO NOT EDIT: Content is auto-generated from //third_party/java:dependencies.yml by https://github.com/realityforge/bazel-depgen version 0.26
 
 # SHA256 of the configuration content that generated this content
-_CONFIG_SHA256 = "63A0C73B91D5E982D0DAAFADDE86FC7B26272CC6575535BA57C1A60DA5E71076"
+_CONFIG_SHA256 = "0F6066E6887A77629CCE9C1934654C73BF4DF7A28D3578568C4A4A54522031E0"
 
 exports_files(["dependencies.yml"])
 
@@ -38,6 +38,9 @@ exports_files(["dependencies.yml"])
 # +- org.realityforge.guiceyloops:guiceyloops:jar:0.113 [compile]
 # +- org.glassfish:javax.json:jar:1.1 [compile]
 # |  \- javax.json:javax.json-api:jar:1.1 [compile, optional]
+# +- org.skyscreamer:jsonassert:jar:1.5.0 [compile]
+# |  \- com.vaadin.external.google:android-json:jar:0.0.20131108.vaadin1 [compile]
+# +- com.vaadin.external.google:android-json:jar:0.0.20131108.vaadin1 [compile]
 # +- org.testng:testng:jar:7.10.2 [compile]
 # |  +- org.slf4j:slf4j-api:jar:1.7.36 [compile]
 # |  +- com.beust:jcommander:jar:1.82 [compile]
@@ -199,6 +202,13 @@ _java_import(
     jars = ["@javapoet//file"],
     srcjar = "@javapoet__sources//file",
     tags = ["maven_coordinates=com.palantir.javapoet:javapoet:0.14.0"],
+)
+
+_java_import(
+    name = "android_json",
+    jars = ["@android_json//file"],
+    srcjar = "@android_json__sources//file",
+    tags = ["maven_coordinates=com.vaadin.external.google:android-json:0.0.20131108.vaadin1"],
 )
 
 _java_import(
@@ -427,6 +437,14 @@ _java_plugin(
 _java_library(
     name = "sting_processor",
     exported_plugins = ["sting_processor__sting_processor_stingprocessor__plugin"],
+)
+
+_java_import(
+    name = "jsonassert",
+    jars = ["@jsonassert//file"],
+    srcjar = "@jsonassert__sources//file",
+    tags = ["maven_coordinates=org.skyscreamer:jsonassert:1.5.0"],
+    deps = [":android_json"],
 )
 
 _java_import(

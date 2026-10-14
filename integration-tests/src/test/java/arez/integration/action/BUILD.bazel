@@ -1,0 +1,11 @@
+package(default_visibility = ["//integration-tests:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "NoReportResultTest.java",
+        "RequiresNewTransactionTest.java",
+        "RequiresTransactionTest.java",
+        "SkipIfDisposedIntegrationTest.java",
+    ],
+)

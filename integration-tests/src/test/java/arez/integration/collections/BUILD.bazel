@@ -1,0 +1,10 @@
+package(default_visibility = ["//integration-tests:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "UnmodifiableCollectionsIntegrationTest.java",
+        "UnmodifiableMemoizeCollectionsIntegrationTest.java",
+        "UnmodifiableSetterlessCollectionsIntegrationTest.java",
+    ],
+)

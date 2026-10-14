@@ -1,0 +1,13 @@
+package(default_visibility = ["//doc-examples:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Group.java",
+        "GroupRepository.java",
+        "Permission.java",
+        "PermissionRepository.java",
+        "User.java",
+        "UserRepository.java",
+    ],
+)

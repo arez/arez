@@ -1,0 +1,11 @@
+package(default_visibility = ["//integration-tests:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "AutoObserveFieldIntegrationTest.java",
+        "AutoObserveLazyReferenceIntegrationTest.java",
+        "AutoObserveObservableIntegrationTest.java",
+        "AutoObserveRuntimeValidationIntegrationTest.java",
+    ],
+)

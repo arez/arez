@@ -1,0 +1,14 @@
+package(default_visibility = ["//integration-tests:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "MemoizeKeepAliveTest.scenario.json",
+        "MemoizeNoParamIntegrationTest.personScenario.json",
+        "MemoizedIntegrationTest.scenario.json",
+        "MemoizedIntegrationTest.scenario_actionOnly.json",
+        "MemoizedIntegrationTest.scenario_disposeNoNativeComponentsEnabled.json",
+        "MemoizedIntegrationTest.scenario_disposeWithoutDeactivate.json",
+        "MemoizedPriorityIntegrationTest.scenario.json",
+    ],
+)

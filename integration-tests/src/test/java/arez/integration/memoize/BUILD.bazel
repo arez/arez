@@ -1,0 +1,21 @@
+package(default_visibility = ["//integration-tests:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "DefaultEqualityComparatorMemoizeIntegrationTest.java",
+        "MemoizeArezOrNoneDependenciesTest.java",
+        "MemoizeCustomEqualityComparatorIntegrationTest.java",
+        "MemoizeDepTypeTest.java",
+        "MemoizeKeepAliveTest.java",
+        "MemoizeMultipleParamsNonArezDependenciesComponentTest.java",
+        "MemoizeNoParamIntegrationTest.java",
+        "MemoizeNoReportResultTest.java",
+        "MemoizeNonArezDependenciesComponentTest.java",
+        "MemoizeNonArezDependenciesOnActivateComputableValueIntegrationTest.java",
+        "MemoizeReadOutsideTransactionTest.java",
+        "MemoizedIntegrationTest.java",
+        "MemoizedObservesLowerPriorityIntegrationTest.java",
+        "MemoizedPriorityIntegrationTest.java",
+    ],
+)

@@ -1,0 +1,11 @@
+package(default_visibility = ["//doc-examples:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ActionExample.java",
+        "ActionExample2.java",
+        "ActionExample3.java",
+        "ActionExample4.java",
+    ],
+)

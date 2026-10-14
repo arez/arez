@@ -25,6 +25,8 @@ artifacts:
     excludes:
       - "*:*"
   - coord: org.glassfish:javax.json:1.1
+  - coord: org.skyscreamer:jsonassert:1.5.0
+  - coord: com.vaadin.external.google:android-json:0.0.20131108.vaadin1
   - coord: org.testng:testng:7.10.2
   - coord: guru.nidi:jdepend:2.9.5
   - coord: org.realityforge.proton:proton-core:0.75

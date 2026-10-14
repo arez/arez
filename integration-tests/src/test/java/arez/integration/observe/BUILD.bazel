@@ -1,0 +1,24 @@
+package(default_visibility = ["//integration-tests:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ApplicationExecutorNoDepsAllowedTest.java",
+        "ApplicationExecutorNoDepsDisallowedTest.java",
+        "ObserveArezDependenciesOnlyTest.java",
+        "ObserveArezOrNoDependenciesTest.java",
+        "ObserveManualScheduleDisallowedTest.java",
+        "ObserveManualScheduleTest.java",
+        "ObserveNestedActionAllowedTest.java",
+        "ObserveNestedActionDisallowedTest.java",
+        "ObserveNoInvokeTest.java",
+        "ObserveNonArezDependenciesTest.java",
+        "TrackButNoSchedulableTest.java",
+        "TrackCanNestActionTest.java",
+        "TrackCanNotBeNestedInActionTest.java",
+        "TrackNestNonRequiresNewActionTest.java",
+        "TrackNoNestActionTest.java",
+        "TrackNoReportResultTest.java",
+        "TrackWithSchedulableTest.java",
+    ],
+)
