@@ -6,7 +6,10 @@ import arez.annotations.Executor;
 import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 import arez.annotations.OnDepsChange;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class NonStandardMethodNameObserverRefModel
 {
@@ -21,5 +24,5 @@ abstract class NonStandardMethodNameObserverRefModel
   }
 
   @ObserverRef( name = "render" )
-  abstract Observer observe$$$r();
+  abstract @Nullable Observer observe$$$r();
 }

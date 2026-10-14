@@ -4,7 +4,9 @@ import arez.annotations.ArezComponent;
 import arez.annotations.RequiresTransaction;
 import arez.annotations.TrackingMode;
 import arez.annotations.TransactionMode;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent( allowEmpty = true )
 abstract class ConstrainedRequiresTransactionModel
 {

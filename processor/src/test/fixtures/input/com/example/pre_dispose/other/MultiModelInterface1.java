@@ -1,7 +1,9 @@
 package com.example.pre_dispose.other;
 
 import arez.annotations.PreDispose;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public interface MultiModelInterface1
 {
   @PreDispose

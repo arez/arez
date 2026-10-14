@@ -10,13 +10,14 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import arez.component.internal.MemoizeCache;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
+@NullMarked
 final class Arez_BasicModel extends BasicModel
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -24,10 +25,8 @@ final class Arez_BasicModel extends BasicModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
   private final MemoizeCache<Long> $$arez$$_time;
 
-  @Nonnull
   private final MemoizeCache<Long> $$arez$$_count;
 
   Arez_BasicModel() {
@@ -59,14 +58,15 @@ final class Arez_BasicModel extends BasicModel
         Arez.areZonesEnabled() ? $$arezv$$_context : null,
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null,
-        args -> $$arezi$$_memoize_time((String) args[0]),
+        args -> $$arezi$$_memoize_time((@Nullable String) args[0]),
         1,
         ComputableValue.Flags.AREZ_DEPENDENCIES);
     this.$$arez$$_count = new MemoizeCache<>(
         Arez.areZonesEnabled() ? $$arezv$$_context : null,
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".count" : null,
-        args -> $$arezi$$_memoize_count((String) args[0], (long) args[1], (float) args[2]),
+        args ->
+            $$arezi$$_memoize_count((@Nullable String) args[0], (long) args[1], (float) args[2]),
         3,
         ComputableValue.Flags.AREZ_DEPENDENCIES);
     this.$$arezi$$_kernel.componentConstructed();
@@ -79,7 +79,6 @@ final class Arez_BasicModel extends BasicModel
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -102,9 +101,7 @@ final class Arez_BasicModel extends BasicModel
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -115,7 +112,7 @@ final class Arez_BasicModel extends BasicModel
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -170,7 +167,7 @@ final class Arez_BasicModel extends BasicModel
     this.$$arez$$_count.dispose();
   }
 
-  private long $$arezi$$_memoize_time(final String $$arezi$$_myContextVar) {
+  private long $$arezi$$_memoize_time(final @Nullable String $$arezi$$_myContextVar) {
     try {
       pushMyContextVar($$arezi$$_myContextVar);
       return super.getTime();
@@ -191,7 +188,9 @@ final class Arez_BasicModel extends BasicModel
   }
 
   private long $$arezi$$_memoize_count(
-      final String $$arezi$$_myContextVar, final long time, final float someOtherParameter) {
+      final @Nullable String $$arezi$$_myContextVar,
+      final long time,
+      final float someOtherParameter) {
     try {
       pushMyContextVar($$arezi$$_myContextVar);
       return super.count(time, someOtherParameter);

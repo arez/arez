@@ -5,8 +5,11 @@ import arez.annotations.Memoize;
 import arez.annotations.MemoizeContextParameter;
 import java.util.Collections;
 import java.util.List;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class ManyTypesModel
 {
@@ -16,14 +19,14 @@ abstract class ManyTypesModel
     return 0;
   }
 
-  @Nonnull
+  @NonNull
   @Memoize
   public String getText()
   {
     return "";
   }
 
-  @Nonnull
+  @NonNull
   public List<String> getTextCollection()
   {
     return Collections.singletonList( "" );
@@ -35,18 +38,18 @@ abstract class ManyTypesModel
     return time;
   }
 
-  @Nonnull
+  @NonNull
   @MemoizeContextParameter
   String captureMyContextVar()
   {
     return "";
   }
 
-  void pushMyContextVar( String var )
+  void pushMyContextVar( @Nullable String var )
   {
   }
 
-  void popMyContextVar( String var )
+  void popMyContextVar( @Nullable String var )
   {
   }
 

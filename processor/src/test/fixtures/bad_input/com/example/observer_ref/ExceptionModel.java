@@ -4,7 +4,10 @@ import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class ExceptionModel
 {
@@ -15,6 +18,6 @@ public abstract class ExceptionModel
 
   @SuppressWarnings( { "RedundantThrows", "RedundantSuppression" } )
   @ObserverRef
-  abstract Observer getDoStuffObserver()
+  abstract @Nullable Observer getDoStuffObserver()
     throws Exception;
 }

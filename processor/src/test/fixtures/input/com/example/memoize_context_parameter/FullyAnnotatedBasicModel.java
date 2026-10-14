@@ -3,7 +3,10 @@ package com.example.memoize_context_parameter;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.MemoizeContextParameter;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class FullyAnnotatedBasicModel
 {
@@ -26,18 +29,18 @@ abstract class FullyAnnotatedBasicModel
   }
 
   @MemoizeContextParameter( name = "CV", pattern = "count|getTime" )
-  String someMethod()
+  @Nullable String someMethod()
   {
     return "";
   }
 
   @MemoizeContextParameter( name = "CV", pattern = "count|getTime" )
-  void pushSomeOtherMethod( String var )
+  void pushSomeOtherMethod( @Nullable String var )
   {
   }
 
   @MemoizeContextParameter( name = "CV", pattern = "count|getTime" )
-  void popSomeThirdMethod( String var )
+  void popSomeThirdMethod( @Nullable String var )
   {
   }
 }

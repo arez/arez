@@ -10,26 +10,24 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import arez.component.internal.MemoizeCache;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
+@NullMarked
 final class Arez_ConcreteModel extends ConcreteModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
   private final MemoizeCache<Long> $$arez$$_countFromAbstract;
 
-  @Nonnull
   private final MemoizeCache<Long> $$arez$$_time;
 
-  @Nonnull
   private final MemoizeCache<Long> $$arez$$_countFromConcrete;
 
   Arez_ConcreteModel() {
@@ -39,9 +37,9 @@ final class Arez_ConcreteModel extends ConcreteModel implements Disposable, Iden
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_memoize_context_parameter_inherit_ConcreteModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_memoize_context_parameter_inherit_ConcreteModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_countFromAbstract = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".countFromAbstract" : null, args -> $$arezi$$_memoize_countFromAbstract((String) args[ 0 ], (long) args[ 1 ], (float) args[ 2 ]), 3, ComputableValue.Flags.AREZ_DEPENDENCIES );
-    this.$$arez$$_time = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, args -> $$arezi$$_memoize_time((String) args[ 0 ]), 1, ComputableValue.Flags.AREZ_DEPENDENCIES );
-    this.$$arez$$_countFromConcrete = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".countFromConcrete" : null, args -> $$arezi$$_memoize_countFromConcrete((String) args[ 0 ], (long) args[ 1 ], (float) args[ 2 ]), 3, ComputableValue.Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_countFromAbstract = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".countFromAbstract" : null, args -> $$arezi$$_memoize_countFromAbstract((@Nullable String) args[ 0 ], (long) args[ 1 ], (float) args[ 2 ]), 3, ComputableValue.Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_time = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, args -> $$arezi$$_memoize_time((@Nullable String) args[ 0 ]), 1, ComputableValue.Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_countFromConcrete = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".countFromConcrete" : null, args -> $$arezi$$_memoize_countFromConcrete((@Nullable String) args[ 0 ], (long) args[ 1 ], (float) args[ 2 ]), 3, ComputableValue.Flags.AREZ_DEPENDENCIES );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }
@@ -52,7 +50,6 @@ final class Arez_ConcreteModel extends ConcreteModel implements Disposable, Iden
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_memoize_context_parameter_inherit_ConcreteModel'" );
@@ -68,7 +65,7 @@ final class Arez_ConcreteModel extends ConcreteModel implements Disposable, Iden
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_memoize_context_parameter_inherit_ConcreteModel'" );
@@ -77,7 +74,7 @@ final class Arez_ConcreteModel extends ConcreteModel implements Disposable, Iden
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_memoize_context_parameter_inherit_ConcreteModel'" );
     }
@@ -115,7 +112,7 @@ final class Arez_ConcreteModel extends ConcreteModel implements Disposable, Iden
     this.$$arez$$_countFromConcrete.dispose();
   }
 
-  private long $$arezi$$_memoize_countFromAbstract(final String $$arezi$$_myContextVar,
+  private long $$arezi$$_memoize_countFromAbstract(final @Nullable String $$arezi$$_myContextVar,
       final long time, final float someOtherParameter) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );
@@ -133,7 +130,7 @@ final class Arez_ConcreteModel extends ConcreteModel implements Disposable, Iden
     return this.$$arez$$_countFromAbstract.get( captureMyContextVar(), time, someOtherParameter );
   }
 
-  private long $$arezi$$_memoize_time(final String $$arezi$$_myContextVar) {
+  private long $$arezi$$_memoize_time(final @Nullable String $$arezi$$_myContextVar) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );
       return super.getTime();
@@ -150,7 +147,7 @@ final class Arez_ConcreteModel extends ConcreteModel implements Disposable, Iden
     return this.$$arez$$_time.get( captureMyContextVar() );
   }
 
-  private long $$arezi$$_memoize_countFromConcrete(final String $$arezi$$_myContextVar,
+  private long $$arezi$$_memoize_countFromConcrete(final @Nullable String $$arezi$$_myContextVar,
       final long time, final float someOtherParameter) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );

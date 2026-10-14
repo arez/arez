@@ -12,23 +12,23 @@ import arez.component.internal.CollectionsUtil;
 import arez.component.internal.ComponentKernel;
 import java.util.List;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_ObservableNonnullListModel extends ObservableNonnullListModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<List<String>> $$arez$$_myValue;
+  private final ObservableValue<@NonNull List<String>> $$arez$$_myValue;
 
-  @Nullable
-  private List<String> $$arezd$$_$$cache$$_myValue;
+  private @Nullable List<String> $$arezd$$_$$cache$$_myValue;
 
   Arez_ObservableNonnullListModel() {
     super();
@@ -48,7 +48,6 @@ final class Arez_ObservableNonnullListModel extends ObservableNonnullListModel i
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_collections_ObservableNonnullListModel'" );
@@ -64,7 +63,7 @@ final class Arez_ObservableNonnullListModel extends ObservableNonnullListModel i
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_collections_ObservableNonnullListModel'" );
@@ -73,7 +72,7 @@ final class Arez_ObservableNonnullListModel extends ObservableNonnullListModel i
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_collections_ObservableNonnullListModel'" );
     }
@@ -110,8 +109,7 @@ final class Arez_ObservableNonnullListModel extends ObservableNonnullListModel i
   }
 
   @Override
-  @Nonnull
-  public List<String> getMyValue() {
+  public @NonNull List<String> getMyValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -127,12 +125,12 @@ final class Arez_ObservableNonnullListModel extends ObservableNonnullListModel i
   }
 
   @Override
-  public void setMyValue(final List<String> value) {
+  public void setMyValue(final @Nullable List<String> value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     this.$$arez$$_myValue.preReportChanged();
-    final List<String> $$arezv$$_currentValue = super.getMyValue();
+    final @Nullable List<String> $$arezv$$_currentValue = super.getMyValue();
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
       this.$$arezd$$_$$cache$$_myValue = null;
     }

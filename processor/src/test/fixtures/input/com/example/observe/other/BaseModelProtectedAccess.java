@@ -3,7 +3,9 @@ package com.example.observe.other;
 import arez.annotations.Executor;
 import arez.annotations.Observe;
 import arez.annotations.OnDepsChange;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class BaseModelProtectedAccess
 {
   @Observe( executor = Executor.EXTERNAL )

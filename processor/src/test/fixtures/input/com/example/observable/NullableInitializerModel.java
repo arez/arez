@@ -4,8 +4,10 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import arez.annotations.Observable;
 import java.util.Date;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class NullableInitializerModel
 {
@@ -13,5 +15,5 @@ abstract class NullableInitializerModel
   @Nullable
   public abstract Date getTime();
 
-  public abstract void setTime( Date value );
+  public abstract void setTime( @Nullable Date value );
 }

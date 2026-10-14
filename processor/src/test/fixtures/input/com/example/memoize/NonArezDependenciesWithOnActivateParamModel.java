@@ -5,7 +5,10 @@ import arez.annotations.ArezComponent;
 import arez.annotations.DepType;
 import arez.annotations.Memoize;
 import arez.annotations.OnActivate;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class NonArezDependenciesWithOnActivateParamModel
 {
@@ -16,7 +19,7 @@ abstract class NonArezDependenciesWithOnActivateParamModel
   }
 
   @OnActivate
-  void onTimeActivate( final ComputableValue<Long> computableValue )
+  void onTimeActivate( final @Nullable ComputableValue<Long> computableValue )
   {
   }
 }

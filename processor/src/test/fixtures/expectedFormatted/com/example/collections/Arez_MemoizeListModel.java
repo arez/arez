@@ -11,13 +11,14 @@ import arez.component.Identifiable;
 import arez.component.internal.CollectionsUtil;
 import arez.component.internal.ComponentKernel;
 import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
+@NullMarked
 final class Arez_MemoizeListModel extends MemoizeListModel
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -25,14 +26,11 @@ final class Arez_MemoizeListModel extends MemoizeListModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ComputableValue<List<String>> $$arez$$_myValue;
+  private final ComputableValue<@Nullable List<String>> $$arez$$_myValue;
 
-  @Nullable
-  private List<String> $$arezd$$_$$cache$$_myValue;
+  private @Nullable List<String> $$arezd$$_$$cache$$_myValue;
 
-  @Nullable
-  private List<String> $$arezd$$_$$unmodifiable_cache$$_myValue;
+  private @Nullable List<String> $$arezd$$_$$unmodifiable_cache$$_myValue;
 
   private boolean $$arezd$$_$$cache_active$$_myValue;
 
@@ -81,7 +79,6 @@ final class Arez_MemoizeListModel extends MemoizeListModel
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -104,9 +101,7 @@ final class Arez_MemoizeListModel extends MemoizeListModel
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -117,7 +112,7 @@ final class Arez_MemoizeListModel extends MemoizeListModel
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -171,7 +166,7 @@ final class Arez_MemoizeListModel extends MemoizeListModel
     this.$$arez$$_myValue.dispose();
   }
 
-  private List<String> $$arezi$$_memoize_myValue() {
+  private @Nullable List<String> $$arezi$$_memoize_myValue() {
     this.$$arezi$$_kernel
         .getContext()
         .registerHook(
@@ -188,7 +183,7 @@ final class Arez_MemoizeListModel extends MemoizeListModel
   }
 
   @Override
-  public List<String> getMyValue() {
+  public @Nullable List<String> getMyValue() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -196,7 +191,7 @@ final class Arez_MemoizeListModel extends MemoizeListModel
               + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final List<String> $$ar$$_result = this.$$arez$$_myValue.get();
+      final @Nullable List<String> $$ar$$_result = this.$$arez$$_myValue.get();
       if (this.$$arezd$$_$$cache$$_myValue != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_myValue = $$ar$$_result;
         this.$$arezd$$_$$unmodifiable_cache$$_myValue =

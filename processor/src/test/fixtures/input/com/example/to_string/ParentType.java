@@ -1,9 +1,13 @@
 package com.example.to_string;
 
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
+
+@NullMarked
 abstract class ParentType
 {
   @Override
-  public String toString()
+  public @Nullable String toString()
   {
     return super.toString();
   }

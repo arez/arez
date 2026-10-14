@@ -5,7 +5,9 @@ import arez.annotations.Executor;
 import arez.annotations.Observe;
 import arez.annotations.OnDepsChange;
 import java.text.ParseException;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class TrackedAllTypesModel
 {

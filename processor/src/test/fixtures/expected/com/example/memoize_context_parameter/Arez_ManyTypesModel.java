@@ -10,26 +10,25 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import arez.component.internal.MemoizeCache;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
+@NullMarked
 final class Arez_ManyTypesModel extends ManyTypesModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
   private final MemoizeCache<Long> $$arez$$_time;
 
-  @Nonnull
-  private final MemoizeCache<String> $$arez$$_text;
+  private final MemoizeCache<@NonNull String> $$arez$$_text;
 
-  @Nonnull
   private final MemoizeCache<Long> $$arez$$_count;
 
   Arez_ManyTypesModel() {
@@ -39,9 +38,9 @@ final class Arez_ManyTypesModel extends ManyTypesModel implements Disposable, Id
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_memoize_context_parameter_ManyTypesModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_memoize_context_parameter_ManyTypesModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_time = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, args -> $$arezi$$_memoize_time((String) args[ 0 ], (int) args[ 1 ]), 2, ComputableValue.Flags.AREZ_DEPENDENCIES );
-    this.$$arez$$_text = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".text" : null, args -> $$arezi$$_memoize_text((String) args[ 0 ], (int) args[ 1 ]), 2, ComputableValue.Flags.AREZ_DEPENDENCIES );
-    this.$$arez$$_count = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".count" : null, args -> $$arezi$$_memoize_count((String) args[ 0 ], (int) args[ 1 ], (long) args[ 2 ], (float) args[ 3 ]), 4, ComputableValue.Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_time = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, args -> $$arezi$$_memoize_time((@NonNull String) args[ 0 ], (int) args[ 1 ]), 2, ComputableValue.Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_text = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".text" : null, args -> $$arezi$$_memoize_text((@NonNull String) args[ 0 ], (int) args[ 1 ]), 2, ComputableValue.Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_count = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".count" : null, args -> $$arezi$$_memoize_count((@NonNull String) args[ 0 ], (int) args[ 1 ], (long) args[ 2 ], (float) args[ 3 ]), 4, ComputableValue.Flags.AREZ_DEPENDENCIES );
     this.$$arezi$$_kernel.componentConstructed();
     this.$$arezi$$_kernel.componentReady();
   }
@@ -52,7 +51,6 @@ final class Arez_ManyTypesModel extends ManyTypesModel implements Disposable, Id
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_memoize_context_parameter_ManyTypesModel'" );
@@ -68,7 +66,7 @@ final class Arez_ManyTypesModel extends ManyTypesModel implements Disposable, Id
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_memoize_context_parameter_ManyTypesModel'" );
@@ -77,7 +75,7 @@ final class Arez_ManyTypesModel extends ManyTypesModel implements Disposable, Id
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_memoize_context_parameter_ManyTypesModel'" );
     }
@@ -115,7 +113,7 @@ final class Arez_ManyTypesModel extends ManyTypesModel implements Disposable, Id
     this.$$arez$$_count.dispose();
   }
 
-  private long $$arezi$$_memoize_time(@Nonnull final String $$arezi$$_myContextVar,
+  private long $$arezi$$_memoize_time(final @NonNull String $$arezi$$_myContextVar,
       final int $$arezi$$_myContextVar2) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );
@@ -138,8 +136,7 @@ final class Arez_ManyTypesModel extends ManyTypesModel implements Disposable, Id
     return this.$$arez$$_time.get( captureMyContextVar(), captureMyContextVar2() );
   }
 
-  @Nonnull
-  private String $$arezi$$_memoize_text(@Nonnull final String $$arezi$$_myContextVar,
+  private @NonNull String $$arezi$$_memoize_text(final @NonNull String $$arezi$$_myContextVar,
       final int $$arezi$$_myContextVar2) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );
@@ -155,15 +152,14 @@ final class Arez_ManyTypesModel extends ManyTypesModel implements Disposable, Id
   }
 
   @Override
-  @Nonnull
-  public String getText() {
+  public @NonNull String getText() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getText' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     return this.$$arez$$_text.get( captureMyContextVar(), captureMyContextVar2() );
   }
 
-  private long $$arezi$$_memoize_count(@Nonnull final String $$arezi$$_myContextVar,
+  private long $$arezi$$_memoize_count(final @NonNull String $$arezi$$_myContextVar,
       final int $$arezi$$_myContextVar2, final long time, final float someOtherParameter) {
     try {
       pushMyContextVar( $$arezi$$_myContextVar );

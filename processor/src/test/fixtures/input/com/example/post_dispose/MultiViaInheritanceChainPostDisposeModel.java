@@ -5,7 +5,9 @@ import arez.annotations.PostDispose;
 import com.example.post_dispose.other.MiddleMultiModel;
 import com.example.post_dispose.other.MultiModelInterface2;
 import com.example.post_dispose.other.MultiModelInterface3;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent( allowEmpty = true )
 abstract class MultiViaInheritanceChainPostDisposeModel
   extends MiddleMultiModel

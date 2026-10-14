@@ -3,7 +3,10 @@ package com.example.memoize_context_parameter;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.MemoizeContextParameter;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class OverrideNameModel
 {
@@ -20,16 +23,16 @@ abstract class OverrideNameModel
   }
 
   @MemoizeContextParameter(name = "foo")
-  String captureSomeVar()
+  @Nullable String captureSomeVar()
   {
     return "";
   }
 
-  void pushFoo( String var )
+  void pushFoo( @Nullable String var )
   {
   }
 
-  void popFoo( String var )
+  void popFoo( @Nullable String var )
   {
   }
 }

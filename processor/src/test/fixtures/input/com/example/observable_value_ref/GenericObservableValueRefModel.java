@@ -4,21 +4,25 @@ import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.ObservableValueRef;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class GenericObservableValueRefModel
 {
-  interface MyValue<T>
+  @NullMarked
+  interface MyValue<T extends @Nullable Object>
   {
   }
 
   @Observable
-  public abstract MyValue<String> getMyValue();
+  public abstract @Nullable MyValue<String> getMyValue();
 
-  public abstract void setMyValue( MyValue<String> time );
+  public abstract void setMyValue( @Nullable MyValue<String> time );
 
-  @Nonnull
+  @NonNull
   @ObservableValueRef
   abstract ObservableValue<MyValue<String>> getMyValueObservableValue();
 }

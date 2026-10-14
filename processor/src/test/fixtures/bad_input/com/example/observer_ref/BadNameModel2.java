@@ -4,7 +4,10 @@ import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class BadNameModel2
 {
@@ -14,5 +17,5 @@ public abstract class BadNameModel2
   }
 
   @ObserverRef( name = "int" )
-  abstract Observer getDoStuffObserver();
+  abstract @Nullable Observer getDoStuffObserver();
 }

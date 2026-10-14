@@ -3,14 +3,16 @@ package com.example.observable;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import java.util.Date;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class AbstractNonPrimitiveNonnullObservablesModel
 {
   @Observable
-  @Nonnull
+  @NonNull
   public abstract Date getTime();
 
-  public abstract void setTime( @Nonnull Date value );
+  public abstract void setTime( @NonNull Date value );
 }

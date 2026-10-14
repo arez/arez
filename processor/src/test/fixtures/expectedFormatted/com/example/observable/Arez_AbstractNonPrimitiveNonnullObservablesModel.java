@@ -11,12 +11,14 @@ import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.Date;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_AbstractNonPrimitiveNonnullObservablesModel
     extends AbstractNonPrimitiveNonnullObservablesModel
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
@@ -25,13 +27,11 @@ final class Arez_AbstractNonPrimitiveNonnullObservablesModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<Date> $$arez$$_time;
+  private final ObservableValue<@NonNull Date> $$arez$$_time;
 
-  @Nonnull
-  private Date $$arezd$$_time;
+  private @NonNull Date $$arezd$$_time;
 
-  Arez_AbstractNonPrimitiveNonnullObservablesModel(@Nonnull final Date time) {
+  Arez_AbstractNonPrimitiveNonnullObservablesModel(final @NonNull Date time) {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ++$$arezi$$_nextId;
@@ -74,7 +74,6 @@ final class Arez_AbstractNonPrimitiveNonnullObservablesModel
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -97,9 +96,7 @@ final class Arez_AbstractNonPrimitiveNonnullObservablesModel
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -110,7 +107,7 @@ final class Arez_AbstractNonPrimitiveNonnullObservablesModel
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -165,8 +162,7 @@ final class Arez_AbstractNonPrimitiveNonnullObservablesModel
   }
 
   @Override
-  @Nonnull
-  public Date getTime() {
+  public @NonNull Date getTime() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -178,7 +174,7 @@ final class Arez_AbstractNonPrimitiveNonnullObservablesModel
   }
 
   @Override
-  public void setTime(@Nonnull final Date value) {
+  public void setTime(final @NonNull Date value) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -186,7 +182,7 @@ final class Arez_AbstractNonPrimitiveNonnullObservablesModel
               + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     this.$$arez$$_time.preReportChanged();
-    final Date $$arezv$$_currentValue = this.$$arezd$$_time;
+    final @NonNull Date $$arezv$$_currentValue = this.$$arezd$$_time;
     assert null != value;
     if (!Objects.equals(value, $$arezv$$_currentValue)) {
       this.$$arezd$$_time = value;

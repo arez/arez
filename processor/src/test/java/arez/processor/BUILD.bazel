@@ -55,6 +55,19 @@ java_testng(
 )
 
 java_testng(
+    name = "basic_component_goldens",
+    size = "large",
+    srcs = [],
+    data = ["//processor/src/test/fixtures:component_goldens"],
+    jvm_flags = _JVM_FLAGS,
+    test_class = "arez.processor.ArezProcessorGeneratedOutputTest",
+    test_methods = [
+        "arez.processor.ArezProcessorGeneratedOutputTest.processComponentCompileBasic",
+    ],
+    deps = _RUNTIME_DEPS,
+)
+
+java_testng(
     name = "action_goldens",
     size = "large",
     srcs = [],
@@ -63,6 +76,19 @@ java_testng(
     test_class = "arez.processor.ArezProcessorGeneratedOutputTest",
     test_methods = [
         "arez.processor.ArezProcessorGeneratedOutputTest.processActionCompile",
+    ],
+    deps = _RUNTIME_DEPS,
+)
+
+java_testng(
+    name = "basic_action_goldens",
+    size = "large",
+    srcs = [],
+    data = ["//processor/src/test/fixtures:action_goldens"],
+    jvm_flags = _JVM_FLAGS,
+    test_class = "arez.processor.ArezProcessorGeneratedOutputTest",
+    test_methods = [
+        "arez.processor.ArezProcessorGeneratedOutputTest.processActionCompileBasic",
     ],
     deps = _RUNTIME_DEPS,
 )
@@ -107,6 +133,19 @@ java_testng(
 )
 
 java_testng(
+    name = "basic_observe_goldens",
+    size = "large",
+    srcs = [],
+    data = ["//processor/src/test/fixtures:observe_goldens"],
+    jvm_flags = _JVM_FLAGS,
+    test_class = "arez.processor.ArezProcessorGeneratedOutputTest",
+    test_methods = [
+        "arez.processor.ArezProcessorGeneratedOutputTest.processObserveCompileBasic",
+    ],
+    deps = _RUNTIME_DEPS,
+)
+
+java_testng(
     name = "lifecycle_goldens",
     size = "large",
     srcs = [],
@@ -115,6 +154,19 @@ java_testng(
     test_class = "arez.processor.ArezProcessorGeneratedOutputTest",
     test_methods = [
         "arez.processor.ArezProcessorGeneratedOutputTest.processLifecycleCompile",
+    ],
+    deps = _RUNTIME_DEPS,
+)
+
+java_testng(
+    name = "basic_lifecycle_goldens",
+    size = "large",
+    srcs = [],
+    data = ["//processor/src/test/fixtures:lifecycle_goldens"],
+    jvm_flags = _JVM_FLAGS,
+    test_class = "arez.processor.ArezProcessorGeneratedOutputTest",
+    test_methods = [
+        "arez.processor.ArezProcessorGeneratedOutputTest.processLifecycleCompileBasic",
     ],
     deps = _RUNTIME_DEPS,
 )
@@ -146,6 +198,19 @@ java_testng(
 )
 
 java_testng(
+    name = "basic_metadata_goldens",
+    size = "large",
+    srcs = [],
+    data = ["//processor/src/test/fixtures:metadata_goldens"],
+    jvm_flags = _JVM_FLAGS,
+    test_class = "arez.processor.ArezProcessorGeneratedOutputTest",
+    test_methods = [
+        "arez.processor.ArezProcessorGeneratedOutputTest.processMetadataCompileBasic",
+    ],
+    deps = _RUNTIME_DEPS,
+)
+
+java_testng(
     name = "interop_goldens",
     size = "large",
     srcs = [],
@@ -166,8 +231,6 @@ java_testng(
     jvm_flags = _JVM_FLAGS,
     test_class = "arez.processor.ArezProcessorGeneratedOutputTest",
     test_methods = [
-        "arez.processor.ArezProcessorGeneratedOutputTest.memoizeContextParameterInherit",
-        "arez.processor.ArezProcessorGeneratedOutputTest.memoizeContextParameterInterface",
         "arez.processor.ArezProcessorGeneratedOutputTest.deprecatedUsageModel",
         "arez.processor.ArezProcessorGeneratedOutputTest.deprecatedTypeParameterModel",
         "arez.processor.ArezProcessorGeneratedOutputTest.deprecatedParameterModelModel",
@@ -184,31 +247,11 @@ java_testng(
         "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfaceComponentStateRef",
         "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessComponentTypeNameRef",
         "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfaceComponentTypeNameRef",
-        "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessComputableValueRef",
-        "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfaceComputableValueRef",
         "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessContextRef",
         "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfaceContextRef",
-        "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessObservableValueRef",
-        "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfaceObservableValueRef",
-        "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessObserverRef",
-        "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfaceObserverRef",
-        "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessOnActivate",
-        "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfaceOnActivate",
-        "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessOnDeactivate",
-        "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfaceOnDeactivate",
-        "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessOnDepsChange",
-        "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfaceOnDepsChange",
-        "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessPostConstruct",
-        "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfacePostConstruct",
-        "arez.processor.ArezProcessorGeneratedOutputTest.multiViaInheritancePostConstruct",
-        "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessPostDispose",
-        "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfacePostDispose",
         "arez.processor.ArezProcessorGeneratedOutputTest.multiViaInheritancePostDispose",
         "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessPostInverseAdd",
         "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfacePostInverseAdd",
-        "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessPreDispose",
-        "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfacePreDispose",
-        "arez.processor.ArezProcessorGeneratedOutputTest.multiViaInheritancePreDispose",
         "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessPreInverseRemove",
         "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfacePreInverseRemove",
         "arez.processor.ArezProcessorGeneratedOutputTest.processSuccessfulMultipleInverseWithSameTarget",
@@ -224,11 +267,7 @@ java_testng(
         "arez.processor.ArezProcessorGeneratedOutputTest.processSuccessfulWhereAbstractMethodWithGenericParameterIsRefinedInMiddleComponent",
         "arez.processor.ArezProcessorGeneratedOutputTest.processSuccessfulInverseInDifferentPackage",
         "arez.processor.ArezProcessorGeneratedOutputTest.processSuccessfulToStringInPresent",
-        "arez.processor.ArezProcessorGeneratedOutputTest.processSuccessfulNestedCompile",
-        "arez.processor.ArezProcessorGeneratedOutputTest.processSuccessfulNestedNestedCompile",
         "arez.processor.ArezProcessorGeneratedOutputTest.processSuccessfulWhereAnnotationsSourcedFromInterface",
-        "arez.processor.ArezProcessorGeneratedOutputTest.processSuccessfulRequiresTransactionInheritedFromBaseClass",
-        "arez.processor.ArezProcessorGeneratedOutputTest.processSuccessfulRequiresTransactionSourcedFromInterfaceDefaultMethod",
         "arez.processor.ArezProcessorGeneratedOutputTest.processSuccessfulWhereTypeResolvedInInheritanceHierarchy",
         "arez.processor.ArezProcessorGeneratedOutputTest.processResolvedParameterizedType",
         "arez.processor.ArezProcessorGeneratedOutputTest.processUnresolvedParameterizedType",
@@ -239,10 +278,54 @@ java_testng(
     deps = _RUNTIME_DEPS,
 )
 
+java_testng(
+    name = "basic_scenarios_goldens",
+    size = "large",
+    srcs = [],
+    data = ["//processor/src/test/fixtures:all"],
+    jvm_flags = _JVM_FLAGS,
+    test_class = "arez.processor.ArezProcessorGeneratedOutputTest",
+    test_methods = [
+        "arez.processor.ArezProcessorGeneratedOutputTest.memoizeContextParameterInherit",
+        "arez.processor.ArezProcessorGeneratedOutputTest.memoizeContextParameterInterface",
+        "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessComputableValueRef",
+        "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfaceComputableValueRef",
+        "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessObservableValueRef",
+        "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfaceObservableValueRef",
+        "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessObserverRef",
+        "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfaceObserverRef",
+        "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessOnActivate",
+        "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfaceOnActivate",
+        "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessOnDeactivate",
+        "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfaceOnDeactivate",
+        "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessOnDepsChange",
+        "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfaceOnDepsChange",
+        "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessPostConstruct",
+        "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfacePostConstruct",
+        "arez.processor.ArezProcessorGeneratedOutputTest.multiViaInheritancePostConstruct",
+        "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessPostDispose",
+        "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfacePostDispose",
+        "arez.processor.ArezProcessorGeneratedOutputTest.validProtectedAccessPreDispose",
+        "arez.processor.ArezProcessorGeneratedOutputTest.validPublicAccessViaInterfacePreDispose",
+        "arez.processor.ArezProcessorGeneratedOutputTest.multiViaInheritancePreDispose",
+        "arez.processor.ArezProcessorGeneratedOutputTest.processSuccessfulNestedCompile",
+        "arez.processor.ArezProcessorGeneratedOutputTest.processSuccessfulNestedNestedCompile",
+        "arez.processor.ArezProcessorGeneratedOutputTest.processSuccessfulRequiresTransactionInheritedFromBaseClass",
+        "arez.processor.ArezProcessorGeneratedOutputTest.processSuccessfulRequiresTransactionSourcedFromInterfaceDefaultMethod",
+    ],
+    deps = _RUNTIME_DEPS,
+)
+
 test_suite(
     name = "generated_output",
     tests = [
         ":action_goldens",
+        ":basic_action_goldens",
+        ":basic_component_goldens",
+        ":basic_lifecycle_goldens",
+        ":basic_metadata_goldens",
+        ":basic_observe_goldens",
+        ":basic_scenarios_goldens",
         ":component_goldens",
         ":interop_goldens",
         ":lifecycle_goldens",
@@ -256,13 +339,55 @@ test_suite(
 )
 
 java_testng(
-    name = "diagnostics",
+    name = "basic_diagnostics",
     size = "large",
     srcs = [],
     data = ["//processor/src/test/fixtures:all"],
     jvm_flags = _JVM_FLAGS,
     test_class = "arez.processor.ArezProcessorDiagnosticTest",
+    test_methods = [
+        "arez.processor.ArezProcessorDiagnosticTest.processFailedCompileBasic",
+        "arez.processor.ArezProcessorDiagnosticTest.processCompileWithWarningsBasic",
+        "arez.processor.ArezProcessorDiagnosticTest.processCompileWithoutWarningsBasic",
+        "arez.processor.ArezProcessorDiagnosticTest.processCompileWithWarningsAsErrors",
+        "arez.processor.ArezProcessorDiagnosticTest.processCompileWithoutWarningsWhenWarningsAsErrorsEnabled",
+        "arez.processor.ArezProcessorDiagnosticTest.unresolvedComponent",
+    ],
     deps = _RUNTIME_DEPS,
+)
+
+java_testng(
+    name = "remaining_diagnostics",
+    size = "large",
+    srcs = [],
+    data = ["//processor/src/test/fixtures:all"],
+    jvm_flags = _JVM_FLAGS,
+    test_class = "arez.processor.ArezProcessorDiagnosticTest",
+    test_methods = [
+        "arez.processor.ArezProcessorDiagnosticTest.processFailedCompile",
+        "arez.processor.ArezProcessorDiagnosticTest.processCompileWithWarnings",
+        "arez.processor.ArezProcessorDiagnosticTest.processCompileWithoutWarnings",
+        "arez.processor.ArezProcessorDiagnosticTest.processSuccessfulCompileWhenComponentDependencyTargetsActAsArezComponentType",
+        "arez.processor.ArezProcessorDiagnosticTest.processSuccessfulCompileWhenComponentDependencyTargetsSimpleNameActAsArezComponentType",
+        "arez.processor.ArezProcessorDiagnosticTest.processFailedCompileWhenAnnotationMisplaced",
+        "arez.processor.ArezProcessorDiagnosticTest.processSuccessfulCompileWhenCoveredAnnotationsAppearInsideActAsArezComponentType",
+        "arez.processor.ArezProcessorDiagnosticTest.processSuccessfulCompileWhenCoveredAnnotationsAppearInsideSimpleNameActAsArezComponentType",
+        "arez.processor.ArezProcessorDiagnosticTest.processSuccessfulCompileWhenCoveredAnnotationsAndTypeSuppressArezWarningsAppearInsideArezComponentLike",
+        "arez.processor.ArezProcessorDiagnosticTest.processFailedCompileInheritedPackageAccessInDifferentPackage",
+        "arez.processor.ArezProcessorDiagnosticTest.processFailedCompileInheritedPackageAccessFieldInDifferentPackage",
+        "arez.processor.ArezProcessorDiagnosticTest.processFailedCompileInheritedPackageAccessInDifferentPackageWhenInRoot",
+        "arez.processor.ArezProcessorDiagnosticTest.processFailedCompileInheritedPackageAccessInDifferentPackageObservable_Setter",
+        "arez.processor.ArezProcessorDiagnosticTest.processFailedCompileInheritedPackageAccessInDifferentPackageObservable_Getter",
+    ],
+    deps = _RUNTIME_DEPS,
+)
+
+test_suite(
+    name = "diagnostics",
+    tests = [
+        ":basic_diagnostics",
+        ":remaining_diagnostics",
+    ],
 )
 
 java_testng(

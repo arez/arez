@@ -10,12 +10,13 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparatorModel
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -23,24 +24,23 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<DefaultEqualityComparatorModel.LabelView> $$arez$$_derived;
+  private final ObservableValue<DefaultEqualityComparatorModel.@Nullable LabelView>
+      $$arez$$_derived;
 
   private final DefaultEqualityComparatorModel.IgnoreCaseComparator
       $$arez$$_equalityComparator_derived =
           new DefaultEqualityComparatorModel.IgnoreCaseComparator();
 
-  @Nonnull
-  private final ObservableValue<DefaultEqualityComparatorModel.LabelView> $$arez$$_explicit;
+  private final ObservableValue<DefaultEqualityComparatorModel.@Nullable LabelView>
+      $$arez$$_explicit;
 
   private final DefaultEqualityComparatorModel.ExactComparator
       $$arez$$_equalityComparator_explicit = new DefaultEqualityComparatorModel.ExactComparator();
 
-  @Nonnull
-  private final ObservableValue<String> $$arez$$_fallback;
+  private final ObservableValue<@Nullable String> $$arez$$_fallback;
 
-  @Nonnull
-  private final ObservableValue<DefaultEqualityComparatorModel.DerivedLabel> $$arez$$_exactTypeOnly;
+  private final ObservableValue<DefaultEqualityComparatorModel.@Nullable DerivedLabel>
+      $$arez$$_exactTypeOnly;
 
   private final DefaultEqualityComparatorModel.IgnoreCaseComparator
       $$arez$$_equalityComparator_exactTypeOnly =
@@ -109,7 +109,6 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -132,9 +131,7 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -145,7 +142,7 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -203,7 +200,7 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
   }
 
   @Override
-  DefaultEqualityComparatorModel.LabelView getDerived() {
+  DefaultEqualityComparatorModel.@Nullable LabelView getDerived() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -215,7 +212,7 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
   }
 
   @Override
-  void setDerived(final DefaultEqualityComparatorModel.LabelView derived) {
+  void setDerived(final DefaultEqualityComparatorModel.@Nullable LabelView derived) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -223,7 +220,8 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
               + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     this.$$arez$$_derived.preReportChanged();
-    final DefaultEqualityComparatorModel.LabelView $$arezv$$_currentValue = super.getDerived();
+    final DefaultEqualityComparatorModel.@Nullable LabelView $$arezv$$_currentValue =
+        super.getDerived();
     if (!this.$$arez$$_equalityComparator_derived.areEqual(derived, $$arezv$$_currentValue)) {
       super.setDerived(derived);
       if (!this.$$arez$$_equalityComparator_derived.areEqual(
@@ -234,7 +232,7 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
   }
 
   @Override
-  DefaultEqualityComparatorModel.LabelView getExplicit() {
+  DefaultEqualityComparatorModel.@Nullable LabelView getExplicit() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -246,7 +244,7 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
   }
 
   @Override
-  void setExplicit(final DefaultEqualityComparatorModel.LabelView explicit) {
+  void setExplicit(final DefaultEqualityComparatorModel.@Nullable LabelView explicit) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -254,7 +252,8 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
               + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     this.$$arez$$_explicit.preReportChanged();
-    final DefaultEqualityComparatorModel.LabelView $$arezv$$_currentValue = super.getExplicit();
+    final DefaultEqualityComparatorModel.@Nullable LabelView $$arezv$$_currentValue =
+        super.getExplicit();
     if (!this.$$arez$$_equalityComparator_explicit.areEqual(explicit, $$arezv$$_currentValue)) {
       super.setExplicit(explicit);
       if (!this.$$arez$$_equalityComparator_explicit.areEqual(
@@ -265,6 +264,7 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
   }
 
   @Override
+  @Nullable
   String getFallback() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -277,7 +277,7 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
   }
 
   @Override
-  void setFallback(final String fallback) {
+  void setFallback(final @Nullable String fallback) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -285,7 +285,7 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
               + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     this.$$arez$$_fallback.preReportChanged();
-    final String $$arezv$$_currentValue = super.getFallback();
+    final @Nullable String $$arezv$$_currentValue = super.getFallback();
     if (!Objects.equals(fallback, $$arezv$$_currentValue)) {
       super.setFallback(fallback);
       if (!Objects.equals($$arezv$$_currentValue, super.getFallback())) {
@@ -295,7 +295,7 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
   }
 
   @Override
-  DefaultEqualityComparatorModel.DerivedLabel getExactTypeOnly() {
+  DefaultEqualityComparatorModel.@Nullable DerivedLabel getExactTypeOnly() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -308,7 +308,7 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
   }
 
   @Override
-  void setExactTypeOnly(final DefaultEqualityComparatorModel.DerivedLabel exactTypeOnly) {
+  void setExactTypeOnly(final DefaultEqualityComparatorModel.@Nullable DerivedLabel exactTypeOnly) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -317,7 +317,7 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
                   + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     this.$$arez$$_exactTypeOnly.preReportChanged();
-    final DefaultEqualityComparatorModel.DerivedLabel $$arezv$$_currentValue =
+    final DefaultEqualityComparatorModel.@Nullable DerivedLabel $$arezv$$_currentValue =
         super.getExactTypeOnly();
     if (!this.$$arez$$_equalityComparator_exactTypeOnly.areEqual(
         exactTypeOnly, $$arezv$$_currentValue)) {

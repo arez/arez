@@ -2,7 +2,10 @@ package com.example.memoize;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class NameVariationsModel
 {
@@ -19,13 +22,13 @@ abstract class NameVariationsModel
   }
 
   @Memoize
-  public String helper()
+  public @Nullable String helper()
   {
     return "";
   }
 
   @Memoize( name = "foo" )
-  public String myFooHelperMethod()
+  public @Nullable String myFooHelperMethod()
   {
     return "";
   }

@@ -3,14 +3,17 @@ package com.example.observable;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.ObservableInitial;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class ObservableInitialTypeMismatchModel
 {
   @Observable
-  abstract String getName();
+  abstract @Nullable String getName();
 
-  abstract void setName( final String name );
+  abstract void setName( final @Nullable String name );
 
   @ObservableInitial
   static final int INITIAL_Name = 1;

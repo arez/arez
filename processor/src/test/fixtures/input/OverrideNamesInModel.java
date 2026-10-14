@@ -6,7 +6,9 @@ import arez.annotations.Observable;
 import arez.annotations.Observe;
 import arez.annotations.OnDepsChange;
 import java.text.ParseException;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent( name = "MyContainer" )
 public abstract class OverrideNamesInModel
 {

@@ -5,7 +5,10 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 import arez.annotations.SuppressArezWarnings;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class Suppressed2PublicAccessObserverRefModel
 {
@@ -17,5 +20,5 @@ abstract class Suppressed2PublicAccessObserverRefModel
   // This uses the CLASS retention suppression
   @SuppressArezWarnings( "Arez:PublicRefMethod" )
   @ObserverRef
-  public abstract Observer getDoStuffObserver();
+  public abstract @Nullable Observer getDoStuffObserver();
 }

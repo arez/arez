@@ -1,7 +1,10 @@
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class ObservableGuessingModel
 {
@@ -26,16 +29,16 @@ public abstract class ObservableGuessingModel
   }
 
   @Observable
-  public void setString( String v )
+  public void setString( @Nullable String v )
   {
   }
 
-  public String getString()
+  public @Nullable String getString()
   {
     return "";
   }
 
-  public String getString( @Nonnull String someParam )
+  public @Nullable String getString( @NonNull String someParam )
   {
     return "";
   }
@@ -45,11 +48,11 @@ public abstract class ObservableGuessingModel
   }
 
   //Neither setter not getter has @ObservableValue so should be ignored
-  public void setXString( String v )
+  public void setXString( @Nullable String v )
   {
   }
 
-  public String getXString()
+  public @Nullable String getXString()
   {
     return "";
   }

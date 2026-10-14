@@ -5,7 +5,10 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
 import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class ApplicationExecutorButNoOnDepsChangeModel
 {
@@ -15,5 +18,5 @@ public abstract class ApplicationExecutorButNoOnDepsChangeModel
   }
 
   @ObserverRef
-  abstract Observer getDoStuffObserver();
+  abstract @Nullable Observer getDoStuffObserver();
 }

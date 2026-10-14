@@ -10,12 +10,13 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_SetterAlwaysMutatesFalseObjectValue extends SetterAlwaysMutatesFalseObjectValue
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -23,8 +24,7 @@ final class Arez_SetterAlwaysMutatesFalseObjectValue extends SetterAlwaysMutates
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<String> $$arez$$_field;
+  private final ObservableValue<@Nullable String> $$arez$$_field;
 
   Arez_SetterAlwaysMutatesFalseObjectValue() {
     super();
@@ -68,7 +68,6 @@ final class Arez_SetterAlwaysMutatesFalseObjectValue extends SetterAlwaysMutates
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -91,9 +90,7 @@ final class Arez_SetterAlwaysMutatesFalseObjectValue extends SetterAlwaysMutates
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -104,7 +101,7 @@ final class Arez_SetterAlwaysMutatesFalseObjectValue extends SetterAlwaysMutates
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -159,7 +156,7 @@ final class Arez_SetterAlwaysMutatesFalseObjectValue extends SetterAlwaysMutates
   }
 
   @Override
-  public String getField() {
+  public @Nullable String getField() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -171,7 +168,7 @@ final class Arez_SetterAlwaysMutatesFalseObjectValue extends SetterAlwaysMutates
   }
 
   @Override
-  public void setField(final String field) {
+  public void setField(final @Nullable String field) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -179,7 +176,7 @@ final class Arez_SetterAlwaysMutatesFalseObjectValue extends SetterAlwaysMutates
               + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     this.$$arez$$_field.preReportChanged();
-    final String $$arezv$$_currentValue = super.getField();
+    final @Nullable String $$arezv$$_currentValue = super.getField();
     if (!Objects.equals(field, $$arezv$$_currentValue)) {
       super.setField(field);
       if (!Objects.equals($$arezv$$_currentValue, super.getField())) {

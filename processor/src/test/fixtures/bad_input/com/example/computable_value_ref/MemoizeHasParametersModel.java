@@ -4,7 +4,10 @@ import arez.ComputableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComputableValueRef;
 import arez.annotations.Memoize;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class MemoizeHasParametersModel
 {
@@ -15,5 +18,5 @@ public abstract class MemoizeHasParametersModel
   }
 
   @ComputableValueRef
-  abstract ComputableValue<Long> getTimeComputableValue();
+  abstract @Nullable ComputableValue<Long> getTimeComputableValue();
 }

@@ -9,30 +9,27 @@ import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
+@NullMarked
 final class Arez_NameVariationsModel extends NameVariationsModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
   private final ComputableValue<Long> $$arez$$_time;
 
-  @Nonnull
   private final ComputableValue<Boolean> $$arez$$_ready;
 
-  @Nonnull
-  private final ComputableValue<String> $$arez$$_helper;
+  private final ComputableValue<@Nullable String> $$arez$$_helper;
 
-  @Nonnull
-  private final ComputableValue<String> $$arez$$_foo;
+  private final ComputableValue<@Nullable String> $$arez$$_foo;
 
   Arez_NameVariationsModel() {
     super();
@@ -55,7 +52,6 @@ final class Arez_NameVariationsModel extends NameVariationsModel implements Disp
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_memoize_NameVariationsModel'" );
@@ -71,7 +67,7 @@ final class Arez_NameVariationsModel extends NameVariationsModel implements Disp
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_memoize_NameVariationsModel'" );
@@ -80,7 +76,7 @@ final class Arez_NameVariationsModel extends NameVariationsModel implements Disp
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_memoize_NameVariationsModel'" );
     }
@@ -136,7 +132,7 @@ final class Arez_NameVariationsModel extends NameVariationsModel implements Disp
   }
 
   @Override
-  public String helper() {
+  public @Nullable String helper() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'helper' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -144,7 +140,7 @@ final class Arez_NameVariationsModel extends NameVariationsModel implements Disp
   }
 
   @Override
-  public String myFooHelperMethod() {
+  public @Nullable String myFooHelperMethod() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'myFooHelperMethod' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }

@@ -4,7 +4,10 @@ import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.ObservableValueRef;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class ObservableWithNoSetter
 {
@@ -15,5 +18,5 @@ abstract class ObservableWithNoSetter
   }
 
   @ObservableValueRef
-  abstract ObservableValue<Long> getTimeObservableValue();
+  abstract @Nullable ObservableValue<Long> getTimeObservableValue();
 }

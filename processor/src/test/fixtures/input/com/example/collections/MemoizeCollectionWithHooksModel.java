@@ -6,12 +6,15 @@ import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
 import java.util.Collection;
 import java.util.Collections;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class MemoizeCollectionWithHooksModel
 {
   @Memoize
-  public Collection<Long> getTime()
+  public @Nullable Collection<Long> getTime()
   {
     return Collections.emptyList();
   }

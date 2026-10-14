@@ -1,6 +1,9 @@
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class DifferentObservableTypesModel
 {
@@ -12,7 +15,7 @@ public abstract class DifferentObservableTypesModel
   private long _v6;
   private float _v7;
   private double _v8;
-  private Object _v9;
+  private @Nullable Object _v9;
 
   @Observable
   public boolean isV1()
@@ -111,13 +114,13 @@ public abstract class DifferentObservableTypesModel
   }
 
   @Observable
-  public Object getV9()
+  public @Nullable Object getV9()
   {
     return _v9;
   }
 
   @Observable
-  public void setV9( final Object v9 )
+  public void setV9( final @Nullable Object v9 )
   {
     _v9 = v9;
   }

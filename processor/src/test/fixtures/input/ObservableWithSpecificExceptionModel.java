@@ -1,7 +1,9 @@
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import java.text.ParseException;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 public abstract class ObservableWithSpecificExceptionModel
 {

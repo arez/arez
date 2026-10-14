@@ -1,7 +1,10 @@
 package com.example.memoize_context_parameter.intf.subpkg;
 
 import arez.annotations.Memoize;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 public interface MyInterfaceModelBase
 {
   @Memoize
@@ -10,11 +13,11 @@ public interface MyInterfaceModelBase
     return time;
   }
 
-  default void pushMyContextVar( String var )
+  default void pushMyContextVar( @Nullable String var )
   {
   }
 
-  default  void popMyContextVar( String var )
+  default  void popMyContextVar( @Nullable String var )
   {
   }
 }

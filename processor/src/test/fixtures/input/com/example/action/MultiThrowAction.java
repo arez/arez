@@ -4,7 +4,9 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import java.io.IOException;
 import java.text.ParseException;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class MultiThrowAction
 {

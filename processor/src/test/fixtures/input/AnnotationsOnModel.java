@@ -2,17 +2,20 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 public abstract class AnnotationsOnModel
 {
+  @NullMarked
   public @interface DoNotCopyThisAnnotation
   {
   }
 
   @Observable
-  @Nonnull
+  @NonNull
   @DoNotCopyThisAnnotation
   public String getTime()
   {
@@ -21,18 +24,18 @@ public abstract class AnnotationsOnModel
 
   @Observable
   @DoNotCopyThisAnnotation
-  public void setTime( @Nonnull @DoNotCopyThisAnnotation final String time )
+  public void setTime( @NonNull @DoNotCopyThisAnnotation final String time )
   {
   }
 
   @Action
   @DoNotCopyThisAnnotation
-  public void doStuff( @Nonnull @DoNotCopyThisAnnotation final String time )
+  public void doStuff( @NonNull @DoNotCopyThisAnnotation final String time )
   {
   }
 
   @Memoize
-  @Nonnull
+  @NonNull
   @DoNotCopyThisAnnotation
   public Integer someValue()
   {

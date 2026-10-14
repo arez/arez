@@ -5,7 +5,10 @@ import arez.annotations.ArezComponent;
 import arez.annotations.DepType;
 import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class NonArezDependenciesModel
 {
@@ -15,5 +18,5 @@ abstract class NonArezDependenciesModel
   }
 
   @ObserverRef
-  abstract Observer getRenderObserver();
+  abstract @Nullable Observer getRenderObserver();
 }

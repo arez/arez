@@ -10,12 +10,13 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_GenericObservableModel extends GenericObservableModel
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -23,8 +24,7 @@ final class Arez_GenericObservableModel extends GenericObservableModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<GenericObservableModel.MyValue<String>> $$arez$$_myValue;
+  private final ObservableValue<GenericObservableModel.@Nullable MyValue<String>> $$arez$$_myValue;
 
   Arez_GenericObservableModel() {
     super();
@@ -68,7 +68,6 @@ final class Arez_GenericObservableModel extends GenericObservableModel
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -91,9 +90,7 @@ final class Arez_GenericObservableModel extends GenericObservableModel
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -104,7 +101,7 @@ final class Arez_GenericObservableModel extends GenericObservableModel
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -159,7 +156,7 @@ final class Arez_GenericObservableModel extends GenericObservableModel
   }
 
   @Override
-  public GenericObservableModel.MyValue<String> getMyValue() {
+  public GenericObservableModel.@Nullable MyValue<String> getMyValue() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -171,7 +168,7 @@ final class Arez_GenericObservableModel extends GenericObservableModel
   }
 
   @Override
-  public void setMyValue(final GenericObservableModel.MyValue<String> time) {
+  public void setMyValue(final GenericObservableModel.@Nullable MyValue<String> time) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -179,7 +176,8 @@ final class Arez_GenericObservableModel extends GenericObservableModel
               + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     this.$$arez$$_myValue.preReportChanged();
-    final GenericObservableModel.MyValue<String> $$arezv$$_currentValue = super.getMyValue();
+    final GenericObservableModel.@Nullable MyValue<String> $$arezv$$_currentValue =
+        super.getMyValue();
     if (!Objects.equals(time, $$arezv$$_currentValue)) {
       super.setMyValue(time);
       this.$$arez$$_myValue.reportChanged();

@@ -3,23 +3,25 @@ package com.example.observable;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.ObservableInitial;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class ObservableInitialModel
 {
   @Observable
-  @Nonnull
+  @NonNull
   abstract String getName();
 
-  abstract void setName( @Nonnull String name );
+  abstract void setName( @NonNull String name );
 
   @Observable
-  @Nonnull
+  @NonNull
   abstract String getFirstName();
 
-  abstract void setFirstName( @Nonnull String firstName );
+  abstract void setFirstName( @NonNull String firstName );
 
   @Observable
   abstract int getAge();
@@ -33,11 +35,11 @@ abstract class ObservableInitialModel
   abstract void setNickname( @Nullable String nickname );
 
   @ObservableInitial
-  @Nonnull
+  @NonNull
   static final String INITIAL_NAME = "Bob";
 
   @ObservableInitial
-  @Nonnull
+  @NonNull
   static final String INITIAL_FIRST_NAME = "Jane";
 
   @ObservableInitial
@@ -47,7 +49,7 @@ abstract class ObservableInitialModel
   }
 
   @ObservableInitial( name = "nickname" )
-  static String initialNickname()
+  static @Nullable String initialNickname()
   {
     return "Bobby";
   }

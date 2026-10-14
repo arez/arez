@@ -3,7 +3,10 @@ package com.example.memoize_context_parameter.pop;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.MemoizeContextParameter;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class MultipleParameterPopModel
 {
@@ -20,17 +23,17 @@ abstract class MultipleParameterPopModel
   }
 
   @MemoizeContextParameter
-  String captureMyContextVar()
+  @Nullable String captureMyContextVar()
   {
     return "";
   }
 
-  void pushMyContextVar( String var )
+  void pushMyContextVar( @Nullable String var )
   {
   }
 
   @MemoizeContextParameter
-  void popMyContextVar( String var, int i )
+  void popMyContextVar( @Nullable String var, int i )
   {
   }
 }

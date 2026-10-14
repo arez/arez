@@ -3,19 +3,22 @@ package com.example.observable;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.ObservableInitial;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class ObservableInitialMissingNonnullMethodModel
 {
   @Observable
-  @Nonnull
+  @NonNull
   abstract String getName();
 
-  abstract void setName( @Nonnull String name );
+  abstract void setName( @NonNull String name );
 
   @ObservableInitial
-  static String getInitialName()
+  static @Nullable String getInitialName()
   {
     return "Bob";
   }

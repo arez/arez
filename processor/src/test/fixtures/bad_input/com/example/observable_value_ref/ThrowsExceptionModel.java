@@ -5,8 +5,10 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.ObservableValueRef;
 import java.text.ParseException;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 public abstract class ThrowsExceptionModel
 {
@@ -21,7 +23,7 @@ public abstract class ThrowsExceptionModel
   }
 
   @SuppressWarnings( { "RedundantThrows", "RedundantSuppression" } )
-  @Nonnull
+  @NonNull
   @ObservableValueRef
   public abstract ObservableValue<Long> getTimeObservableValue()
     throws ParseException;

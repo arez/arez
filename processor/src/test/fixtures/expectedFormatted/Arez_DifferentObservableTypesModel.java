@@ -8,12 +8,13 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesModel
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -21,32 +22,23 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
   private final ObservableValue<Boolean> $$arez$$_v1;
 
-  @Nonnull
   private final ObservableValue<Byte> $$arez$$_v2;
 
-  @Nonnull
   private final ObservableValue<Character> $$arez$$_v3;
 
-  @Nonnull
   private final ObservableValue<Short> $$arez$$_v4;
 
-  @Nonnull
   private final ObservableValue<Integer> $$arez$$_v5;
 
-  @Nonnull
   private final ObservableValue<Long> $$arez$$_v6;
 
-  @Nonnull
   private final ObservableValue<Float> $$arez$$_v7;
 
-  @Nonnull
   private final ObservableValue<Double> $$arez$$_v8;
 
-  @Nonnull
-  private final ObservableValue<Object> $$arez$$_v9;
+  private final ObservableValue<@Nullable Object> $$arez$$_v9;
 
   Arez_DifferentObservableTypesModel() {
     super();
@@ -145,7 +137,6 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -168,9 +159,7 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -181,7 +170,7 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -468,7 +457,7 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
   }
 
   @Override
-  public Object getV9() {
+  public @Nullable Object getV9() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -480,7 +469,7 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
   }
 
   @Override
-  public void setV9(final Object v9) {
+  public void setV9(final @Nullable Object v9) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -488,7 +477,7 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
               + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     this.$$arez$$_v9.preReportChanged();
-    final Object $$arezv$$_currentValue = super.getV9();
+    final @Nullable Object $$arezv$$_currentValue = super.getV9();
     if (!Objects.equals(v9, $$arezv$$_currentValue)) {
       super.setV9(v9);
       this.$$arez$$_v9.reportChanged();

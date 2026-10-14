@@ -4,7 +4,9 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.OnActivate;
 import java.text.ParseException;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 public abstract class OnActivateThrowsExceptionModel
 {

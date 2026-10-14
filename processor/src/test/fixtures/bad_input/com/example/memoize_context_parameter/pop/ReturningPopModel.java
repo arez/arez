@@ -3,7 +3,10 @@ package com.example.memoize_context_parameter.pop;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.MemoizeContextParameter;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class ReturningPopModel
 {
@@ -19,18 +22,18 @@ abstract class ReturningPopModel
     return time;
   }
 
-  String captureMyContextVar()
+  @Nullable String captureMyContextVar()
   {
     return "";
   }
 
-  void pushMyContextVar( String var )
+  void pushMyContextVar( @Nullable String var )
   {
 
   }
 
   @MemoizeContextParameter
-  String popMyContextVar( String var )
+  @Nullable String popMyContextVar( @Nullable String var )
   {
     return "";
   }

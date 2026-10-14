@@ -4,8 +4,10 @@ import arez.ComputableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComputableValueRef;
 import arez.annotations.Memoize;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class PublicAccessViaInterfaceComputableValueRefModel
   implements ComputableValueRefInterface
@@ -17,7 +19,7 @@ abstract class PublicAccessViaInterfaceComputableValueRefModel
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ComputableValueRef
   public abstract ComputableValue<Long> getTimeComputableValue();
 }

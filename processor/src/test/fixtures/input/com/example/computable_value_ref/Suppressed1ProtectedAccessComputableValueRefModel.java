@@ -4,8 +4,10 @@ import arez.ComputableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComputableValueRef;
 import arez.annotations.Memoize;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class Suppressed1ProtectedAccessComputableValueRefModel
 {
@@ -17,7 +19,7 @@ abstract class Suppressed1ProtectedAccessComputableValueRefModel
 
   // This uses the SOURCE retention suppression
   @SuppressWarnings( "Arez:ProtectedMethod" )
-  @Nonnull
+  @NonNull
   @ComputableValueRef
   protected abstract ComputableValue<Long> getTimeComputableValue();
 }

@@ -5,7 +5,9 @@ import arez.annotations.Executor;
 import arez.annotations.Observe;
 import arez.annotations.OnDepsChange;
 import arez.annotations.SuppressArezWarnings;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class Suppressed2PublicAccessOnDepsChangeModel
 {

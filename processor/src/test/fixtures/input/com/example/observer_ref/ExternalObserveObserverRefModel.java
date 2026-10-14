@@ -6,7 +6,10 @@ import arez.annotations.Executor;
 import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 import arez.annotations.OnDepsChange;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class ExternalObserveObserverRefModel
 {
@@ -21,5 +24,5 @@ abstract class ExternalObserveObserverRefModel
   }
 
   @ObserverRef
-  abstract Observer getRenderObserver();
+  abstract @Nullable Observer getRenderObserver();
 }

@@ -3,7 +3,10 @@ package com.example.memoize_context_parameter;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.MemoizeContextParameter;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class AllowEmptyModel
 {
@@ -20,16 +23,16 @@ abstract class AllowEmptyModel
   }
 
   @MemoizeContextParameter( pattern = "NONE", allowEmpty = true )
-  String captureMyContextVar()
+  @Nullable String captureMyContextVar()
   {
     return "";
   }
 
-  void pushMyContextVar( String var )
+  void pushMyContextVar( @Nullable String var )
   {
   }
 
-  void popMyContextVar( String var )
+  void popMyContextVar( @Nullable String var )
   {
   }
 }

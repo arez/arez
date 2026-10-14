@@ -9,20 +9,20 @@ import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_SetterAlwaysMutatesFalseCustomObjectValue extends SetterAlwaysMutatesFalseCustomObjectValue implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<String> $$arez$$_field;
+  private final ObservableValue<@Nullable String> $$arez$$_field;
 
   private final SetterAlwaysMutatesFalseCustomObjectValue.ObservableCustomComparator $$arez$$_equalityComparator_field = new SetterAlwaysMutatesFalseCustomObjectValue.ObservableCustomComparator();
 
@@ -44,7 +44,6 @@ final class Arez_SetterAlwaysMutatesFalseCustomObjectValue extends SetterAlwaysM
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_observable_SetterAlwaysMutatesFalseCustomObjectValue'" );
@@ -60,7 +59,7 @@ final class Arez_SetterAlwaysMutatesFalseCustomObjectValue extends SetterAlwaysM
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_observable_SetterAlwaysMutatesFalseCustomObjectValue'" );
@@ -69,7 +68,7 @@ final class Arez_SetterAlwaysMutatesFalseCustomObjectValue extends SetterAlwaysM
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_observable_SetterAlwaysMutatesFalseCustomObjectValue'" );
     }
@@ -106,7 +105,7 @@ final class Arez_SetterAlwaysMutatesFalseCustomObjectValue extends SetterAlwaysM
   }
 
   @Override
-  String getField() {
+  @Nullable String getField() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getField' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -115,12 +114,12 @@ final class Arez_SetterAlwaysMutatesFalseCustomObjectValue extends SetterAlwaysM
   }
 
   @Override
-  void setField(final String field) {
+  void setField(final @Nullable String field) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setField' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     this.$$arez$$_field.preReportChanged();
-    final String $$arezv$$_currentValue = super.getField();
+    final @Nullable String $$arezv$$_currentValue = super.getField();
     if ( !this.$$arez$$_equalityComparator_field.areEqual( field, $$arezv$$_currentValue ) ) {
       super.setField( field );
       if ( !this.$$arez$$_equalityComparator_field.areEqual( $$arezv$$_currentValue, super.getField() ) ) {

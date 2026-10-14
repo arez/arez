@@ -4,7 +4,10 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.MemoizeContextParameter;
 import com.example.memoize_context_parameter.intf.subpkg.MyInterfaceModelBase;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class ConcreteModel
   implements MyInterfaceModelBase
@@ -22,7 +25,7 @@ abstract class ConcreteModel
   }
 
   @MemoizeContextParameter
-  String captureMyContextVar()
+  @Nullable String captureMyContextVar()
   {
     return "";
   }

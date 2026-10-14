@@ -10,13 +10,15 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import arez.component.internal.MemoizeCache;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
+@NullMarked
 final class Arez_AnnotatedModel extends AnnotatedModel
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -24,11 +26,9 @@ final class Arez_AnnotatedModel extends AnnotatedModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ComputableValue<String> $$arez$$_time;
+  private final ComputableValue<@NonNull String> $$arez$$_time;
 
-  @Nonnull
-  private final MemoizeCache<String> $$arez$$_count;
+  private final MemoizeCache<@Nullable String> $$arez$$_count;
 
   Arez_AnnotatedModel() {
     super();
@@ -76,7 +76,6 @@ final class Arez_AnnotatedModel extends AnnotatedModel
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -99,9 +98,7 @@ final class Arez_AnnotatedModel extends AnnotatedModel
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -112,7 +109,7 @@ final class Arez_AnnotatedModel extends AnnotatedModel
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -168,8 +165,7 @@ final class Arez_AnnotatedModel extends AnnotatedModel
   }
 
   @Override
-  @Nonnull
-  public String getTime() {
+  public @NonNull String getTime() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -180,8 +176,7 @@ final class Arez_AnnotatedModel extends AnnotatedModel
   }
 
   @Override
-  @Nullable
-  public String count(final long time, final float someOtherParameter) {
+  public @Nullable String count(final long time, final float someOtherParameter) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),

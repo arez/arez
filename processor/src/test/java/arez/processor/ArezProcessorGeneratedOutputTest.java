@@ -23,19 +23,25 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
     @DataProvider(name = "componentCompiles")
     public Object[][] componentCompiles() {
         return new Object[][] {
+            new Object[] {"com.example.inject.NoInjectModel"},
+            new Object[] {"com.example.reserved_names.NonReservedNameModel"},
+            new Object[] {"com.example.type_access_levels.ReduceAccessLevelModel"},
+            new Object[] {"com.example.verifiable.DisableVerifyModel"},
+            new Object[] {"com.example.verifiable.EnableVerifyModel"}
+        };
+    }
+
+    @DataProvider(name = "componentCompilesBasic")
+    public Object[][] componentCompilesBasic() {
+        return new Object[][] {
             new Object[] {"com.example.SubpackageModel"},
             new Object[] {"com.example.component.DeprecatedModel"},
             new Object[] {"com.example.component.DisposeOnDeactivateModel"},
             new Object[] {"com.example.component.NoRequireEqualsModel"},
             new Object[] {"com.example.component.NotObservableModel"},
             new Object[] {"com.example.component.ObservableModel"},
-            new Object[] {"com.example.inject.NoInjectModel"},
-            new Object[] {"com.example.reserved_names.NonReservedNameModel"},
             new Object[] {"com.example.to_string.NoToStringPresent"},
             new Object[] {"com.example.to_string.ToStringPresent"},
-            new Object[] {"com.example.type_access_levels.ReduceAccessLevelModel"},
-            new Object[] {"com.example.verifiable.DisableVerifyModel"},
-            new Object[] {"com.example.verifiable.EnableVerifyModel"},
             new Object[] {"DisposingModel"},
             new Object[] {"ObservableTypeParametersModel"},
             new Object[] {"TypeParametersOnModel"},
@@ -60,8 +66,18 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
         assertSuccessfulFixtureCompile(classname);
     }
 
+    @Test(dataProvider = "componentCompilesBasic")
+    public void processComponentCompileBasic(final String classname) throws Exception {
+        assertSuccessfulFixtureCompile(classname);
+    }
+
     @DataProvider(name = "actionCompiles")
     public Object[][] actionCompiles() {
+        return new Object[][] {new Object[] {"com.example.overloaded_names.OverloadedActions"}};
+    }
+
+    @DataProvider(name = "actionCompilesBasic")
+    public Object[][] actionCompilesBasic() {
         return new Object[][] {
             new Object[] {"com.example.action.ActionTypeParametersModel"},
             new Object[] {"com.example.action.NewTypeParametersModel"},
@@ -85,13 +101,17 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
             new Object[] {"com.example.requires_transaction.BasicRequiresTransactionModel"},
             new Object[] {"com.example.requires_transaction.ConstrainedRequiresTransactionModel"},
             new Object[] {"com.example.action.BasicFunctionActionModel"},
-            new Object[] {"com.example.action.BasicActionModel"},
-            new Object[] {"com.example.overloaded_names.OverloadedActions"}
+            new Object[] {"com.example.action.BasicActionModel"}
         };
     }
 
     @Test(dataProvider = "actionCompiles")
     public void processActionCompile(final String classname) throws Exception {
+        assertSuccessfulFixtureCompile(classname);
+    }
+
+    @Test(dataProvider = "actionCompilesBasic")
+    public void processActionCompileBasic(final String classname) throws Exception {
         assertSuccessfulFixtureCompile(classname);
     }
 
@@ -223,7 +243,13 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
             new Object[] {"com.example.auto_observe.NullableFieldAutoObserveModel"},
             new Object[] {"com.example.auto_observe.NullableMethodAutoObserveModel"},
             new Object[] {"com.example.auto_observe.NullableRuntimeTypeValidateFieldAutoObserveModel"},
-            new Object[] {"com.example.auto_observe.RuntimeTypeValidateFieldAutoObserveModel"},
+            new Object[] {"com.example.auto_observe.RuntimeTypeValidateFieldAutoObserveModel"}
+        };
+    }
+
+    @DataProvider(name = "observeCompilesBasic")
+    public Object[][] observeCompilesBasic() {
+        return new Object[][] {
             new Object[] {"com.example.observe.BasicObserveModel"},
             new Object[] {"com.example.observe.NestedActionsAllowedObserveModel"},
             new Object[] {"com.example.observe.HighestPriorityObserveModel"},
@@ -272,11 +298,22 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
         assertSuccessfulFixtureCompile(classname);
     }
 
+    @Test(dataProvider = "observeCompilesBasic")
+    public void processObserveCompileBasic(final String classname) throws Exception {
+        assertSuccessfulFixtureCompile(classname);
+    }
+
     @DataProvider(name = "lifecycleCompiles")
     public Object[][] lifecycleCompiles() {
         return new Object[][] {
             new Object[] {"com.example.dispose_notifier.DisposeNotifierModel"},
-            new Object[] {"com.example.dispose_notifier.NoDisposeNotifierModel"},
+            new Object[] {"com.example.dispose_notifier.NoDisposeNotifierModel"}
+        };
+    }
+
+    @DataProvider(name = "lifecycleCompilesBasic")
+    public Object[][] lifecycleCompilesBasic() {
+        return new Object[][] {
             new Object[] {"com.example.on_activate.BasicOnActivateModel"},
             new Object[] {"com.example.on_activate.PackageAccessOnActivateModel"},
             new Object[] {"com.example.on_deactivate.BasicOnDeactivateModel"},
@@ -299,6 +336,11 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
 
     @Test(dataProvider = "lifecycleCompiles")
     public void processLifecycleCompile(final String classname) throws Exception {
+        assertSuccessfulFixtureCompile(classname);
+    }
+
+    @Test(dataProvider = "lifecycleCompilesBasic")
+    public void processLifecycleCompileBasic(final String classname) throws Exception {
         assertSuccessfulFixtureCompile(classname);
     }
 
@@ -440,6 +482,19 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
             new Object[] {"com.example.component_type_name_ref.MultiComponentTypeNameRefModel"},
             new Object[] {"com.example.component_type_name_ref.NonStandardMethodNameComponentTypeNameRefModel"},
             new Object[] {"com.example.component_type_name_ref.PackageAccessComponentTypeNameRefModel"},
+            new Object[] {"com.example.context_ref.BasicContextRefModel"},
+            new Object[] {"com.example.context_ref.MultiContextRefModel"},
+            new Object[] {"com.example.context_ref.NonStandardMethodNameContextRefModel"},
+            new Object[] {"com.example.id.ComponentIdExample"},
+            new Object[] {"com.example.id.NonStandardNameModel"},
+            new Object[] {"com.example.id.RequireIdDisable"},
+            new Object[] {"com.example.id.RequireIdEnable"}
+        };
+    }
+
+    @DataProvider(name = "metadataCompilesBasic")
+    public Object[][] metadataCompilesBasic() {
+        return new Object[][] {
             new Object[] {"com.example.computable_value_ref.BasicComputableValueRefModel"},
             new Object[] {"com.example.computable_value_ref.MultiComputableValueRefModel"},
             new Object[] {"com.example.computable_value_ref.NonStandardName1ComputableValueRefModel"},
@@ -449,13 +504,6 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
             new Object[] {"com.example.computable_value_ref.RawComputableValueRefModel"},
             new Object[] {"com.example.computable_value_ref.RawWithParamsComputableValueRefModel"},
             new Object[] {"com.example.computable_value_ref.WildcardComputableValueRefModel"},
-            new Object[] {"com.example.context_ref.BasicContextRefModel"},
-            new Object[] {"com.example.context_ref.MultiContextRefModel"},
-            new Object[] {"com.example.context_ref.NonStandardMethodNameContextRefModel"},
-            new Object[] {"com.example.id.ComponentIdExample"},
-            new Object[] {"com.example.id.NonStandardNameModel"},
-            new Object[] {"com.example.id.RequireIdDisable"},
-            new Object[] {"com.example.id.RequireIdEnable"},
             new Object[] {"com.example.observable_value_ref.BasicObservableValueRefModel"},
             new Object[] {"com.example.observable_value_ref.MultiObservableValueRefModel"},
             new Object[] {"com.example.observable_value_ref.GenericObservableValueRefModel"},
@@ -475,6 +523,11 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
 
     @Test(dataProvider = "metadataCompiles")
     public void processMetadataCompile(final String classname) throws Exception {
+        assertSuccessfulFixtureCompile(classname);
+    }
+
+    @Test(dataProvider = "metadataCompilesBasic")
+    public void processMetadataCompileBasic(final String classname) throws Exception {
         assertSuccessfulFixtureCompile(classname);
     }
 

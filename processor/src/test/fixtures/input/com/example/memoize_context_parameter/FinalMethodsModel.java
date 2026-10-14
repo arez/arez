@@ -3,7 +3,10 @@ package com.example.memoize_context_parameter;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.MemoizeContextParameter;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class FinalMethodsModel
 {
@@ -21,18 +24,18 @@ abstract class FinalMethodsModel
 
   @SuppressWarnings( "Arez:FinalMethod" )
   @MemoizeContextParameter
-  final String captureMyContextVar()
+  final @Nullable String captureMyContextVar()
   {
     return "";
   }
 
   @SuppressWarnings( "Arez:FinalMethod" )
-  final void pushMyContextVar( String var )
+  final void pushMyContextVar( @Nullable String var )
   {
   }
 
   @SuppressWarnings( "Arez:FinalMethod" )
-  final void popMyContextVar( String var )
+  final void popMyContextVar( @Nullable String var )
   {
   }
 }

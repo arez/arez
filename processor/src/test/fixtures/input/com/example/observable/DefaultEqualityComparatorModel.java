@@ -4,30 +4,36 @@ import arez.EqualityComparator;
 import arez.annotations.ArezComponent;
 import arez.annotations.DefaultEqualityComparator;
 import arez.annotations.Observable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class DefaultEqualityComparatorModel
 {
+  @NullMarked
   @DefaultEqualityComparator( IgnoreCaseComparator.class )
   interface LabelView
   {
   }
 
+  @NullMarked
   @DefaultEqualityComparator( IgnoreCaseComparator.class )
   static final class DerivedLabel
   {
     @Override
-    public String toString()
+    public @Nullable String toString()
     {
       return "derived";
     }
   }
 
+  @NullMarked
   static final class IgnoreCaseComparator
     implements EqualityComparator
   {
     @Override
-    public boolean areEqual( final Object oldValue, final Object newValue )
+    public boolean areEqual( final @Nullable Object oldValue, final @Nullable Object newValue )
     {
       return null == oldValue || null == newValue ?
              oldValue == newValue :
@@ -35,11 +41,12 @@ abstract class DefaultEqualityComparatorModel
     }
   }
 
+  @NullMarked
   static final class ExactComparator
     implements EqualityComparator
   {
     @Override
-    public boolean areEqual( final Object oldValue, final Object newValue )
+    public boolean areEqual( final @Nullable Object oldValue, final @Nullable Object newValue )
     {
       return null == oldValue || null == newValue ?
              oldValue == newValue :
@@ -47,51 +54,51 @@ abstract class DefaultEqualityComparatorModel
     }
   }
 
-  private LabelView _derived;
-  private LabelView _explicit;
-  private String _fallback;
-  private DerivedLabel _exactTypeOnly;
+  private @Nullable LabelView _derived;
+  private @Nullable LabelView _explicit;
+  private @Nullable String _fallback;
+  private @Nullable DerivedLabel _exactTypeOnly;
 
-  LabelView getDerived()
+  @Nullable LabelView getDerived()
   {
     return _derived;
   }
 
   @Observable( setterAlwaysMutates = false )
-  void setDerived( final LabelView derived )
+  void setDerived( final @Nullable LabelView derived )
   {
     _derived = derived;
   }
 
-  LabelView getExplicit()
+  @Nullable LabelView getExplicit()
   {
     return _explicit;
   }
 
   @Observable( setterAlwaysMutates = false, equalityComparator = ExactComparator.class )
-  void setExplicit( final LabelView explicit )
+  void setExplicit( final @Nullable LabelView explicit )
   {
     _explicit = explicit;
   }
 
-  String getFallback()
+  @Nullable String getFallback()
   {
     return _fallback;
   }
 
   @Observable( setterAlwaysMutates = false )
-  void setFallback( final String fallback )
+  void setFallback( final @Nullable String fallback )
   {
     _fallback = fallback;
   }
 
-  DerivedLabel getExactTypeOnly()
+  @Nullable DerivedLabel getExactTypeOnly()
   {
     return _exactTypeOnly;
   }
 
   @Observable( setterAlwaysMutates = false )
-  void setExactTypeOnly( final DerivedLabel exactTypeOnly )
+  void setExactTypeOnly( final @Nullable DerivedLabel exactTypeOnly )
   {
     _exactTypeOnly = exactTypeOnly;
   }

@@ -12,12 +12,13 @@ import arez.component.internal.CollectionsUtil;
 import arez.component.internal.ComponentKernel;
 import java.util.List;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_ObservableListModel extends ObservableListModel
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -25,11 +26,9 @@ final class Arez_ObservableListModel extends ObservableListModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<List<String>> $$arez$$_myValue;
+  private final ObservableValue<@Nullable List<String>> $$arez$$_myValue;
 
-  @Nullable
-  private List<String> $$arezd$$_$$cache$$_myValue;
+  private @Nullable List<String> $$arezd$$_$$cache$$_myValue;
 
   Arez_ObservableListModel() {
     super();
@@ -73,7 +72,6 @@ final class Arez_ObservableListModel extends ObservableListModel
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -96,9 +94,7 @@ final class Arez_ObservableListModel extends ObservableListModel
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -109,7 +105,7 @@ final class Arez_ObservableListModel extends ObservableListModel
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -164,7 +160,7 @@ final class Arez_ObservableListModel extends ObservableListModel
   }
 
   @Override
-  public List<String> getMyValue() {
+  public @Nullable List<String> getMyValue() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -173,7 +169,7 @@ final class Arez_ObservableListModel extends ObservableListModel
     }
     this.$$arez$$_myValue.reportObserved();
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final List<String> $$ar$$_result = super.getMyValue();
+      final @Nullable List<String> $$ar$$_result = super.getMyValue();
       if (null == this.$$arezd$$_$$cache$$_myValue && null != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_myValue = CollectionsUtil.wrap($$ar$$_result);
       }
@@ -184,7 +180,7 @@ final class Arez_ObservableListModel extends ObservableListModel
   }
 
   @Override
-  public void setMyValue(final List<String> value) {
+  public void setMyValue(final @Nullable List<String> value) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -192,7 +188,7 @@ final class Arez_ObservableListModel extends ObservableListModel
               + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     this.$$arez$$_myValue.preReportChanged();
-    final List<String> $$arezv$$_currentValue = super.getMyValue();
+    final @Nullable List<String> $$arezv$$_currentValue = super.getMyValue();
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
       this.$$arezd$$_$$cache$$_myValue = null;
     }

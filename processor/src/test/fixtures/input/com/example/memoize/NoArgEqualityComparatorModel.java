@@ -4,34 +4,38 @@ import arez.EqualityComparator;
 import arez.ObjectsDeepEqualsComparator;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class NoArgEqualityComparatorModel
 {
+  @NullMarked
   static final class MemoizeNoArgCustomComparator
     implements EqualityComparator
   {
     @Override
-    public boolean areEqual( final Object oldValue, final Object newValue )
+    public boolean areEqual( final @Nullable Object oldValue, final @Nullable Object newValue )
     {
       return null != oldValue;
     }
   }
 
   @Memoize
-  int[] getDefaultValues()
+  int@Nullable [] getDefaultValues()
   {
     return new int[]{ 1, 2, 3 };
   }
 
   @Memoize( equalityComparator = ObjectsDeepEqualsComparator.class )
-  int[] getDeepValues()
+  int@Nullable [] getDeepValues()
   {
     return new int[]{ 1, 2, 3 };
   }
 
   @Memoize( equalityComparator = MemoizeNoArgCustomComparator.class )
-  int[] getCustomValues()
+  int@Nullable [] getCustomValues()
   {
     return new int[]{ 1, 2, 3 };
   }

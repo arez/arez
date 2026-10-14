@@ -4,12 +4,14 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import java.util.Collection;
 import java.util.HashSet;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class MemoizeNonnullCollectionModel
 {
-  @Nonnull
+  @NonNull
   @Memoize
   public Collection<String> getMyValue()
   {

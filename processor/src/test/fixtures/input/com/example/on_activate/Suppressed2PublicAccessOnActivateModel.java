@@ -4,7 +4,9 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.OnActivate;
 import arez.annotations.SuppressArezWarnings;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class Suppressed2PublicAccessOnActivateModel
 {

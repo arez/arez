@@ -1,11 +1,14 @@
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class BasicModelWithDifferentAccessLevels
 {
-  private String _value;
+  private @Nullable String _value;
   private long _time;
 
   BasicModelWithDifferentAccessLevels()
@@ -13,7 +16,7 @@ public abstract class BasicModelWithDifferentAccessLevels
   }
 
   @SuppressWarnings( "Arez:PublicConstructor" )
-  public BasicModelWithDifferentAccessLevels( final String value, final long time )
+  public BasicModelWithDifferentAccessLevels( final @Nullable String value, final long time )
   {
     _value = value;
     _time = time;
@@ -32,13 +35,13 @@ public abstract class BasicModelWithDifferentAccessLevels
   }
 
   @Observable
-  String getValue()
+  @Nullable String getValue()
   {
     return _value;
   }
 
   @Observable
-  public void setValue( final String value )
+  public void setValue( final @Nullable String value )
   {
     _value = value;
   }

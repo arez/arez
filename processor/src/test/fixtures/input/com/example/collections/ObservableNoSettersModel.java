@@ -11,43 +11,46 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class ObservableNoSettersModel
 {
   @Observable( expectSetter = false )
-  public Collection<String> getCollection()
+  public @Nullable Collection<String> getCollection()
   {
     return new HashSet<>();
   }
 
   @ObservableValueRef
-  abstract ObservableValue<Collection<String>> getCollectionObservableValue();
+  abstract @Nullable ObservableValue<Collection<String>> getCollectionObservableValue();
 
   @Observable( expectSetter = false )
-  public Set<String> getSet()
+  public @Nullable Set<String> getSet()
   {
     return new HashSet<>();
   }
 
   @ObservableValueRef
-  abstract ObservableValue<Set<String>> getSetObservableValue();
+  abstract @Nullable ObservableValue<Set<String>> getSetObservableValue();
 
   @Observable( expectSetter = false )
-  public List<String> getList()
+  public @Nullable List<String> getList()
   {
     return new ArrayList<>();
   }
 
   @ObservableValueRef
-  abstract ObservableValue<List<String>> getListObservableValue();
+  abstract @Nullable ObservableValue<List<String>> getListObservableValue();
 
   @Observable( expectSetter = false )
-  public Map<String, String> getMap()
+  public @Nullable Map<String, String> getMap()
   {
     return new HashMap<>();
   }
 
   @ObservableValueRef
-  abstract ObservableValue<Map<String, String>> getMapObservableValue();
+  abstract @Nullable ObservableValue<Map<String, String>> getMapObservableValue();
 }

@@ -4,8 +4,10 @@ import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.ObservableValueRef;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class Suppressed1PublicAccessObservableValueRefModel
 {
@@ -16,7 +18,7 @@ abstract class Suppressed1PublicAccessObservableValueRefModel
 
   // This uses the SOURCE retention suppression
   @SuppressWarnings( "Arez:PublicRefMethod" )
-  @Nonnull
+  @NonNull
   @ObservableValueRef
   public abstract ObservableValue<Long> getTimeObservableValue();
 }

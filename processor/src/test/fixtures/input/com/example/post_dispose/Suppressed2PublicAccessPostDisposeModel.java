@@ -3,7 +3,9 @@ package com.example.post_dispose;
 import arez.annotations.ArezComponent;
 import arez.annotations.PostDispose;
 import arez.annotations.SuppressArezWarnings;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent( allowEmpty = true )
 abstract class Suppressed2PublicAccessPostDisposeModel
 {

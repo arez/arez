@@ -5,7 +5,9 @@ import arez.annotations.PostConstruct;
 import com.example.post_construct.other.MiddleMultiModel;
 import com.example.post_construct.other.MultiModelInterface2;
 import com.example.post_construct.other.MultiModelInterface3;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent( allowEmpty = true )
 public abstract class MultiViaInheritanceChainPostConstructModel
   extends MiddleMultiModel

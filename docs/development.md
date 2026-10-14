@@ -11,14 +11,19 @@ Run all retained JVM tests with `bazel test //:jvm_tests`. The processor aggrega
 are `//processor:all_tests` and `//persist/processor:all_tests`. Each keeps plain
 javac diagnostics, warning promotion and forked-javac formatter checks separate
 from generated-output families. Inherited, multi-source and multi-output Arez
-scenarios stay together in `scenarios_goldens`; Persist also runs the Arez
+scenarios use `basic_scenarios_goldens` and `scenarios_goldens`; Persist also runs the Arez
 processor and excludes its outputs when comparing Persist goldens.
+
+The `basic_` families cover components, lifecycle hooks and runtime references.
+Their paired families cover configuration, auto-observation, disposal notifiers
+and identity references. Plain-javac diagnostics use `basic_diagnostics` and
+`remaining_diagnostics`; `diagnostics` aggregates both.
 
 Choose a family to run or update:
 
 | Processor | Families | Target prefix |
 | --- | --- | --- |
-| Arez | component, action, observable, memoize, observe, lifecycle, relationships, metadata, interop, scenarios, jspecify | `//processor/src/test/java/arez/processor:` |
+| Arez | component, action, observable, memoize, observe, lifecycle, relationships, metadata, interop, scenarios, jspecify; basic_component, basic_action, basic_observe, basic_lifecycle, basic_metadata, basic_scenarios | `//processor/src/test/java/arez/processor:` |
 | Persist | model, types | `//persist/processor/src/test/java/arez/persist/processor:` |
 
 Append `_goldens` to the family name for its target. For example:

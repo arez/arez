@@ -56,120 +56,6 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                 "com.example.reserved_names.ObserveReservedNameModel",
                 "Method defined on a class annotated by @ArezComponent uses a name reserved by Arez"
             },
-            new Object[] {"com.example.action.AbstractActionModel", "@Action target must not be abstract"},
-            new Object[] {
-                "com.example.action.BadActionName1Model",
-                "@Action target specified an invalid value 'assert' for the parameter name. The value must not be a"
-                        + " java keyword"
-            },
-            new Object[] {
-                "com.example.action.BadActionName2Model",
-                "@Action target specified an invalid value 'ace-' for the parameter name. The value must be a valid"
-                        + " java identifier"
-            },
-            new Object[] {
-                "com.example.action.DuplicateActionModel",
-                "Method annotated with @Action specified name ace that duplicates @Action defined by method setField"
-            },
-            new Object[] {
-                "com.example.action.JaxWsActionModel",
-                "@javax.xml.ws.Action annotation not supported in components annotated with @ArezComponent, use the"
-                        + " @arez.annotations.Action annotation instead."
-            },
-            new Object[] {"com.example.action.PrivateActionModel", "@Action target must not be private"},
-            new Object[] {"com.example.action.StaticActionModel", "@Action target must not be static"},
-            new Object[] {
-                "com.example.action.ReportParametersWithNoParametersActionModel",
-                "@Action target must not specify reportParameters parameter when no parameters are present"
-            },
-            new Object[] {
-                "com.example.action.SkipIfDisposedReturnsValueModel",
-                "@Action target must not return a value when skipIfDisposed resolves to ENABLE"
-            },
-            new Object[] {
-                "com.example.action.SkipIfDisposedFromDefaultReturnsValueModel",
-                "@Action target must not return a value when skipIfDisposed resolves to ENABLE"
-            },
-            new Object[] {
-                "com.example.requires_transaction.ActionAndRequiresTransactionModel",
-                "Method can not be annotated with both @Action and @RequiresTransaction"
-            },
-            new Object[] {
-                "com.example.requires_transaction.AbstractRequiresTransactionModel",
-                "@RequiresTransaction target must not be abstract"
-            },
-            new Object[] {
-                "com.example.requires_transaction.FinalRequiresTransactionModel",
-                "@RequiresTransaction target must not be final"
-            },
-            new Object[] {
-                "com.example.requires_transaction.ObserveAndRequiresTransactionModel",
-                "Method can not be annotated with both @RequiresTransaction and @Observe"
-            },
-            new Object[] {
-                "com.example.requires_transaction.MemoizeAndRequiresTransactionModel",
-                "Method can not be annotated with both @RequiresTransaction and @Memoize"
-            },
-            new Object[] {
-                "com.example.requires_transaction.PrivateRequiresTransactionModel",
-                "@RequiresTransaction target must not be private"
-            },
-            new Object[] {
-                "com.example.requires_transaction.PostConstructAndRequiresTransactionModel",
-                "Method can not be annotated with both @RequiresTransaction and @PostConstruct"
-            },
-            new Object[] {
-                "com.example.requires_transaction.StaticRequiresTransactionModel",
-                "@RequiresTransaction target must not be static"
-            },
-            new Object[] {
-                "com.example.observe.ApplicationExecutorButNoOnDepsChangeModel",
-                "@Observe target defined parameter executor=EXTERNAL but does not specify an @OnDepsChange method."
-            },
-            new Object[] {
-                "com.example.observe.ArezExecutorOnDepsChangeButNoObserverRefModel",
-                "@Observe target with parameter executor=INTERNAL defined an @OnDepsChange method but has not defined"
-                        + " an @ObserverRef method nor does the @OnDepsChange annotated method have an arez.Observer"
-                        + " parameter. This results in an impossible to schedule observer."
-            },
-            new Object[] {
-                "com.example.observe.NonArezDependenciesButNoObserverRefModel",
-                "@Observe target with parameter depType=AREZ_OR_EXTERNAL has not defined an @ObserverRef method and"
-                        + " thus can not invoke reportStale()."
-            },
-            new Object[] {"com.example.observe.ObserveAbstractModel", "@Observe target must not be abstract"},
-            new Object[] {
-                "com.example.observe.ObserveBadNameModel",
-                "@Observe target specified an invalid name '-ace'. The name must be a valid java identifier."
-            },
-            new Object[] {
-                "com.example.observe.ObserveBadNameModel2",
-                "@Observe target specified an invalid name 'float'. The name must not be a java keyword."
-            },
-            new Object[] {
-                "com.example.observe.ObserveDuplicateModel", "@Observe target duplicates existing method named foo"
-            },
-            new Object[] {
-                "com.example.observe.ObserveDuplicateModel2",
-                "Method annotated with @Memoize specified name doStuff that duplicates @Observe defined by method foo"
-            },
-            new Object[] {"com.example.observe.ObserveFinalModel", "@Observe target must not be final"},
-            new Object[] {"com.example.observe.ObserveParametersModel", "@Observe target must not have any parameters"},
-            new Object[] {"com.example.observe.ObservePrivateModel", "@Observe target must not be private"},
-            new Object[] {"com.example.observe.ObservePublicModel", "@Observe target must not be public"},
-            new Object[] {"com.example.observe.ObserveReturnsValueModel", "@Observe target must not return a value"},
-            new Object[] {"com.example.observe.ObserveStaticModel", "@Observe target must not be static"},
-            new Object[] {
-                "com.example.observe.ObserveThrowsExceptionModel", "@Observe target must not throw any exceptions"
-            },
-            new Object[] {
-                "com.example.observe.ReportResultArezExecutorModel",
-                "@Observe target must not specify reportResult parameter when executor=INTERNAL"
-            },
-            new Object[] {
-                "com.example.observe.ReportParametersArezExecutorModel",
-                "@Observe target must not specify reportParameters parameter when executor=INTERNAL"
-            },
             new Object[] {
                 "com.example.cascade_dispose.AbstractMethodComponent",
                 "@CascadeDispose target must not be abstract unless the method is also annotated with the @Observable"
@@ -232,40 +118,6 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
             new Object[] {
                 "com.example.cascade_dispose.ThrowsMethodComponent",
                 "@CascadeDispose target must not throw any exceptions"
-            },
-            new Object[] {"com.example.component.ConcreteComponent", "@ArezComponent target must be abstract"},
-            new Object[] {
-                "com.example.component.ModelWithAbstractMethod",
-                "@ArezComponent target has an abstract method not implemented by framework. The method is named"
-                        + " someMethod"
-            },
-            new Object[] {
-                "com.example.component.BadTypeComponent",
-                "@ArezComponent target specified an invalid name ''. The name must be a valid java identifier."
-            },
-            new Object[] {
-                "com.example.component.BadTypeComponent2",
-                "@ArezComponent target specified an invalid name 'long'. The name must not be a java keyword."
-            },
-            new Object[] {
-                "com.example.component.EmptyComponent",
-                "@ArezComponent target has no methods annotated with @Action, @AutoObserve, @CascadeDispose, @Memoize,"
-                        + " @Observable, @Inverse, @Reference, @ComponentDependency or @Observe"
-            },
-            new Object[] {
-                "com.example.component.EmptyTypeComponent",
-                "@ArezComponent target specified an invalid name ''. The name must be a valid java identifier."
-            },
-            new Object[] {"com.example.component.EnumModel", "@ArezComponent target must be a class or an interface"},
-            new Object[] {"com.example.component.FinalModel", "@ArezComponent target must not be final"},
-            new Object[] {
-                "com.example.component.NonObservableWithDisposeOnDeactivateModel",
-                "@ArezComponent target has specified observable = DISABLE and disposeOnDeactivate = true which is not"
-                        + " a valid combination"
-            },
-            new Object[] {
-                "com.example.component.NonStaticNestedModel",
-                "@ArezComponent target must not be a non-static nested class"
             },
             new Object[] {
                 "com.example.component_id.ComponentIdDuplicatedModel",
@@ -358,53 +210,6 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                 "com.example.component_name_ref.ComponentNameRefThrowsExceptionModel",
                 "@ComponentNameRef target must not throw any exceptions"
             },
-            new Object[] {"com.example.memoize.AbstractModel", "@Memoize target must not be abstract"},
-            new Object[] {
-                "com.example.memoize.BadName2Model",
-                "@Memoize target specified an invalid name 'public'. The name must not be a java keyword."
-            },
-            new Object[] {
-                "com.example.memoize.BadName1Model",
-                "@Memoize target specified an invalid name '-ace'. The name must be a valid java identifier."
-            },
-            new Object[] {
-                "com.example.memoize.BadStreamTypeModel",
-                "@Memoize target must not return a value of type java.util.stream.Stream as the type is single use and"
-                        + " thus does not make sense to cache as a computable value"
-            },
-            new Object[] {
-                "com.example.memoize.AbstractDefaultEqualityComparatorModel", "the comparator must not be abstract"
-            },
-            new Object[] {"com.example.memoize.ThrowsExceptionModel", "@Memoize target must not throw any exceptions"},
-            new Object[] {
-                "com.example.memoize.DuplicateModel",
-                "Method annotated with @Memoize specified name ace that duplicates @Memoize defined by method getX"
-            },
-            new Object[] {"com.example.memoize.FinalModel", "@Memoize target must not be final"},
-            new Object[] {
-                "com.example.memoize.InaccessibleDefaultEqualityComparatorModel",
-                "the comparator is not accessible from the generated component"
-            },
-            new Object[] {
-                "com.example.memoize.KeepAliveWithParametersModel",
-                "@Memoize target specified parameter keepAlive as true but has parameters."
-            },
-            new Object[] {
-                "com.example.memoize.KeepAliveWithContextParametersModel",
-                "@Memoize target specified parameter keepAlive as true but has matching context parameters."
-            },
-            new Object[] {
-                "com.example.memoize.MissingComputableValueRefModel",
-                "@Memoize target specified depType = AREZ_OR_EXTERNAL but there is no associated @ComputableValueRef"
-                        + " method."
-            },
-            new Object[] {
-                "com.example.memoize.NoArgConstructorDefaultEqualityComparatorModel",
-                "the comparator must define an accessible no-arg constructor"
-            },
-            new Object[] {"com.example.memoize.PrivateModel", "@Memoize target must not be private"},
-            new Object[] {"com.example.memoize.StaticModel", "@Memoize target must not be static"},
-            new Object[] {"com.example.memoize.ReturnVoidModel", "@Memoize target must return a value"},
             new Object[] {"com.example.component_ref.FinalModel", "@ComponentRef target must be abstract"},
             new Object[] {"com.example.component_ref.StaticModel", "@ComponentRef target must be abstract"},
             new Object[] {"com.example.component_ref.PrivateModel", "@ComponentRef target must be abstract"},
@@ -781,6 +586,481 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                         + " named 'getWheels' on type 'com.example.inverse.UnexpectedInverseForReferenceModel.Car'."
             },
             new Object[] {
+                "com.example.name_duplicates.ActionDuplicatesObservableNameModel",
+                "Method annotated with @Action specified name field that duplicates @Observable defined by method"
+                        + " getField"
+            },
+            new Object[] {
+                "com.example.post_inverse_add.AbstractPostInverseAddModel",
+                "@PostInverseAdd target must not be abstract"
+            },
+            new Object[] {
+                "com.example.post_inverse_add.BadName1PostInverseAddModel",
+                "@PostInverseAdd target has not specified a name and does not follow the convention \"post[Name]Add\""
+            },
+            new Object[] {
+                "com.example.post_inverse_add.BadName2PostInverseAddModel",
+                "@PostInverseAdd target specified an invalid name '-ace'. The name must be a valid java identifier"
+            },
+            new Object[] {
+                "com.example.post_inverse_add.BadName3PostInverseAddModel",
+                "@PostInverseAdd target specified an invalid name 'int'. The name must not be a java keyword"
+            },
+            new Object[] {
+                "com.example.post_inverse_add.BadParamCount1PostInverseAddModel",
+                "@PostInverseAdd target must have exactly 1 parameter"
+            },
+            new Object[] {
+                "com.example.post_inverse_add.BadParamCount2PostInverseAddModel",
+                "@PostInverseAdd target must have exactly 1 parameter"
+            },
+            new Object[] {
+                "com.example.post_inverse_add.BadParamTypePostInverseAddModel",
+                "@PostInverseAdd target has a parameter that is not the expected type. Actual type: java.lang.String"
+                        + " Expected Type: com.example.post_inverse_add.BadParamTypePostInverseAddModel.Element"
+            },
+            new Object[] {
+                "com.example.post_inverse_add.MissingInversePostInverseAddModel",
+                "@PostInverseAdd target with name 'element' is not associated an @Inverse annotated method with the"
+                        + " same name"
+            },
+            new Object[] {
+                "com.example.post_inverse_add.PrivatePostInverseAddModel", "@PostInverseAdd target must not be private"
+            },
+            new Object[] {
+                "com.example.post_inverse_add.ReturnsPostInverseAddModel",
+                "@PostInverseAdd target must not return a value"
+            },
+            new Object[] {
+                "com.example.post_inverse_add.StaticPostInverseAddModel", "@PostInverseAdd target must not be static"
+            },
+            new Object[] {
+                "com.example.post_inverse_add.ThrowsPostInverseAddModel",
+                "@PostInverseAdd target must not throw any exceptions"
+            },
+            new Object[] {
+                "com.example.pre_inverse_remove.AbstractPreInverseRemoveModel",
+                "@PreInverseRemove target must not be abstract"
+            },
+            new Object[] {
+                "com.example.pre_inverse_remove.BadName1PreInverseRemoveModel",
+                "@PreInverseRemove target specified an invalid name '-e-e-'. The name must be a valid java identifier"
+            },
+            new Object[] {
+                "com.example.pre_inverse_remove.BadName2PreInverseRemoveModel",
+                "@PreInverseRemove target specified an invalid name 'double'. The name must not be a java keyword"
+            },
+            new Object[] {
+                "com.example.pre_inverse_remove.BadName3PreInverseRemoveModel",
+                "@PreInverseRemove target has not specified a name and does not follow the convention"
+                        + " \"pre[Name]Remove\""
+            },
+            new Object[] {
+                "com.example.pre_inverse_remove.BadParamCount1PreInverseRemoveModel",
+                "@PreInverseRemove target must have exactly 1 parameter"
+            },
+            new Object[] {
+                "com.example.pre_inverse_remove.BadParamCount2PreInverseRemoveModel",
+                "@PreInverseRemove target must have exactly 1 parameter"
+            },
+            new Object[] {
+                "com.example.pre_inverse_remove.BadParamTypePreInverseRemoveModel",
+                "@PreInverseRemove target has a parameter that is not the expected type. Actual type: java.lang.String"
+                        + " Expected Type: com.example.pre_inverse_remove.BadParamTypePreInverseRemoveModel.Element"
+            },
+            new Object[] {
+                "com.example.pre_inverse_remove.MissingInversePreInverseRemoveModel",
+                "@PreInverseRemove target with name 'element' is not associated an @Inverse annotated method with the"
+                        + " same name"
+            },
+            new Object[] {
+                "com.example.pre_inverse_remove.PrivatePreInverseRemoveModel",
+                "@PreInverseRemove target must not be private"
+            },
+            new Object[] {
+                "com.example.pre_inverse_remove.ReturnsPreInverseRemoveModel",
+                "@PreInverseRemove target must not return a value"
+            },
+            new Object[] {
+                "com.example.pre_inverse_remove.StaticPreInverseRemoveModel",
+                "@PreInverseRemove target must not be static"
+            },
+            new Object[] {
+                "com.example.pre_inverse_remove.ThrowsPreInverseRemoveModel",
+                "@PreInverseRemove target must not throw any exceptions"
+            },
+            new Object[] {
+                "com.example.name_duplicates.ActionAndMemoizeSameNameModel",
+                "Method annotated with @Action specified name x that duplicates @Memoize defined by method m1"
+            },
+            new Object[] {
+                "com.example.name_duplicates.ActionAndObservableSameNameModel",
+                "Method annotated with @Observable specified name x that duplicates @Action defined by method m1"
+            },
+            new Object[] {
+                "com.example.name_duplicates.ActionAndObservableSameNameNoGetterYetModel",
+                "Method annotated with @Action specified name x that duplicates @Observable defined by method setTime"
+            },
+            new Object[] {
+                "com.example.name_duplicates.MemoizeAndObservableSameNameModel",
+                "Method annotated with @Observable specified name x that duplicates @Memoize defined by method m1"
+            },
+            new Object[] {
+                "com.example.reference.BadExpectSetterObservableReferenceModel",
+                "@ReferenceId added to @Observable method but expectSetter = false on property which is not compatible"
+                        + " with @ReferenceId"
+            },
+            new Object[] {
+                "com.example.reference.BadName2ReferenceIdModel",
+                "@ReferenceId target specified an invalid name 'long'. The name must not be a java keyword."
+            },
+            new Object[] {
+                "com.example.reference.BadNameReferenceIdModel",
+                "@ReferenceId target specified an invalid name '-hello'. The name must be a valid java identifier."
+            },
+            new Object[] {
+                "com.example.reference.BadName3ReferenceIdModel",
+                "@ReferenceId target has not specified a name and does not follow the convention \"get[Name]Id\" or"
+                        + " \"[name]Id\""
+            },
+            new Object[] {
+                "com.example.reference.BadName2ReferenceModel",
+                "@Reference target specified an invalid name 'short'. The name must not be a java keyword."
+            },
+            new Object[] {
+                "com.example.reference.BadNameReferenceModel",
+                "@Reference target specified an invalid name '-meep-'. The name must be a valid java identifier."
+            },
+            new Object[] {"com.example.reference.ConcreteReferenceModel", "@Reference target must be abstract"},
+            new Object[] {
+                "com.example.reference.MissingReferenceIdReferenceModel",
+                "@Reference exists but there is no corresponding @ReferenceId"
+            },
+            new Object[] {
+                "com.example.reference.MissingReferenceReferenceIdModel",
+                "@ReferenceId exists but there is no corresponding @Reference"
+            },
+            new Object[] {"com.example.reference.NoReturnReferenceIdModel", "@ReferenceId target must return a value"},
+            new Object[] {"com.example.reference.NoReturnReferenceModel", "@Reference target must return a value"},
+            new Object[] {
+                "com.example.reference.ParameterReferenceIdModel", "@ReferenceId target must not have any parameters"
+            },
+            new Object[] {
+                "com.example.reference.NoSetterObservableReferenceModel",
+                "@Reference exists but there is no corresponding @ReferenceId"
+            },
+            new Object[] {
+                "com.example.reference.ParameterReferenceModel", "@Reference target must not have any parameters"
+            },
+            new Object[] {"com.example.reference.PrivateReferenceIdModel", "@ReferenceId target must not be private"},
+            new Object[] {"com.example.reference.PrivateReferenceModel", "@Reference target must not be private"},
+            new Object[] {"com.example.reference.StaticReferenceIdModel", "@ReferenceId target must not be static"},
+            new Object[] {"com.example.reference.StaticReferenceModel", "@Reference target must not be static"},
+            new Object[] {
+                "com.example.reference.ThrowsReferenceIdModel", "@ReferenceId target must not throw any exceptions"
+            },
+            new Object[] {
+                "com.example.reference.ThrowsReferenceModel", "@Reference target must not throw any exceptions"
+            },
+            new Object[] {
+                "com.example.name_duplicates.ObservableAndActionMethodModel",
+                "Method can not be annotated with both @Action and @Observable"
+            },
+            new Object[] {
+                "com.example.name_duplicates.ObservableAndPreDisposeMethodModel",
+                "Method can not be annotated with both @Observable and @PreDispose"
+            },
+            new Object[] {
+                "com.example.name_duplicates.ObservableAndPostDisposeMethodModel",
+                "Method can not be annotated with both @Observable and @PostDispose"
+            },
+            new Object[] {
+                "com.example.name_duplicates.ObservableAndMemoizeMethodModel",
+                "Method can not be annotated with both @Observable and @Memoize"
+            },
+            new Object[] {
+                "com.example.name_duplicates.ObservableAndContainerIdMethodModel",
+                "Method can not be annotated with both @Observable and @ComponentId"
+            },
+            new Object[] {
+                "com.example.name_duplicates.ObservableAndOnActivateMethodModel",
+                "Method can not be annotated with both @Observable and @OnActivate"
+            },
+            new Object[] {
+                "com.example.name_duplicates.ObservableAndOnDeactivateMethodModel",
+                "Method can not be annotated with both @Observable and @OnDeactivate"
+            },
+            new Object[] {
+                "com.example.name_duplicates.ActionAndObserveMethodModel",
+                "Method can not be annotated with both @Action and @Observe"
+            },
+            new Object[] {
+                "com.example.name_duplicates.ActionAndMemoizeMethodModel",
+                "Method can not be annotated with both @Action and @Memoize"
+            },
+            new Object[] {
+                "com.example.name_duplicates.ActionAndPreDisposeMethodModel",
+                "Method can not be annotated with both @Action and @PreDispose"
+            },
+            new Object[] {
+                "com.example.name_duplicates.ActionAndPostDisposeMethodModel",
+                "Method can not be annotated with both @Action and @PostDispose"
+            },
+            new Object[] {
+                "com.example.name_duplicates.ActionAndContainerIdMethodModel",
+                "Method can not be annotated with both @Action and @ComponentId"
+            },
+            new Object[] {
+                "com.example.name_duplicates.ActionAndOnActivateMethodModel",
+                "Method can not be annotated with both @Action and @OnActivate"
+            },
+            new Object[] {
+                "com.example.name_duplicates.ActionAndOnDeactivateMethodModel",
+                "Method can not be annotated with both @Action and @OnDeactivate"
+            },
+            new Object[] {
+                "com.example.name_duplicates.MemoizeAndContainerIdMethodModel",
+                "Method can not be annotated with both @Memoize and @ComponentId"
+            },
+            new Object[] {
+                "com.example.name_duplicates.MemoizeAndPreDisposeMethodModel",
+                "Method can not be annotated with both @Memoize and @PreDispose"
+            },
+            new Object[] {
+                "com.example.name_duplicates.MemoizeAndObserveMethodModel",
+                "Method can not be annotated with both @Observe and @Memoize"
+            },
+            new Object[] {
+                "com.example.name_duplicates.MemoizeAndPostDisposeMethodModel",
+                "Method can not be annotated with both @Memoize and @PostDispose"
+            },
+            new Object[] {
+                "com.example.name_duplicates.MemoizeAndOnActivateMethodModel",
+                "Method can not be annotated with both @Memoize and @OnActivate"
+            },
+            new Object[] {
+                "com.example.name_duplicates.MemoizeAndOnDeactivateMethodModel",
+                "Method can not be annotated with both @Memoize and @OnDeactivate"
+            },
+            new Object[] {
+                "com.example.sting.EagerButNoStingModel",
+                "@ArezComponent target must not disable sting integration and be annotated with sting.Eager"
+            },
+            new Object[] {
+                "com.example.sting.NamedArgButNoStingModel",
+                "@ArezComponent target must not disable sting integration and contain a constructor with a parameter"
+                        + " that is annotated with the sting.Named annotation"
+            },
+            new Object[] {
+                "com.example.sting.NamedButNoStingModel",
+                "@ArezComponent target must not disable sting integration and be annotated with sting.Named"
+            },
+            new Object[] {
+                "com.example.sting.TypedButNoStingModel",
+                "@ArezComponent target must not disable sting integration and be annotated with sting.Typed"
+            }
+        };
+    }
+
+    @DataProvider(name = "failedCompilesBasic")
+    public Object[][] failedCompilesBasic() {
+        return new Object[][] {
+            new Object[] {"com.example.action.AbstractActionModel", "@Action target must not be abstract"},
+            new Object[] {
+                "com.example.action.BadActionName1Model",
+                "@Action target specified an invalid value 'assert' for the parameter name. The value must not be a"
+                        + " java keyword"
+            },
+            new Object[] {
+                "com.example.action.BadActionName2Model",
+                "@Action target specified an invalid value 'ace-' for the parameter name. The value must be a valid"
+                        + " java identifier"
+            },
+            new Object[] {
+                "com.example.action.DuplicateActionModel",
+                "Method annotated with @Action specified name ace that duplicates @Action defined by method setField"
+            },
+            new Object[] {
+                "com.example.action.JaxWsActionModel",
+                "@javax.xml.ws.Action annotation not supported in components annotated with @ArezComponent, use the"
+                        + " @arez.annotations.Action annotation instead."
+            },
+            new Object[] {"com.example.action.PrivateActionModel", "@Action target must not be private"},
+            new Object[] {"com.example.action.StaticActionModel", "@Action target must not be static"},
+            new Object[] {
+                "com.example.action.ReportParametersWithNoParametersActionModel",
+                "@Action target must not specify reportParameters parameter when no parameters are present"
+            },
+            new Object[] {
+                "com.example.action.SkipIfDisposedReturnsValueModel",
+                "@Action target must not return a value when skipIfDisposed resolves to ENABLE"
+            },
+            new Object[] {
+                "com.example.action.SkipIfDisposedFromDefaultReturnsValueModel",
+                "@Action target must not return a value when skipIfDisposed resolves to ENABLE"
+            },
+            new Object[] {
+                "com.example.requires_transaction.ActionAndRequiresTransactionModel",
+                "Method can not be annotated with both @Action and @RequiresTransaction"
+            },
+            new Object[] {
+                "com.example.requires_transaction.AbstractRequiresTransactionModel",
+                "@RequiresTransaction target must not be abstract"
+            },
+            new Object[] {
+                "com.example.requires_transaction.FinalRequiresTransactionModel",
+                "@RequiresTransaction target must not be final"
+            },
+            new Object[] {
+                "com.example.requires_transaction.ObserveAndRequiresTransactionModel",
+                "Method can not be annotated with both @RequiresTransaction and @Observe"
+            },
+            new Object[] {
+                "com.example.requires_transaction.MemoizeAndRequiresTransactionModel",
+                "Method can not be annotated with both @RequiresTransaction and @Memoize"
+            },
+            new Object[] {
+                "com.example.requires_transaction.PrivateRequiresTransactionModel",
+                "@RequiresTransaction target must not be private"
+            },
+            new Object[] {
+                "com.example.requires_transaction.PostConstructAndRequiresTransactionModel",
+                "Method can not be annotated with both @RequiresTransaction and @PostConstruct"
+            },
+            new Object[] {
+                "com.example.requires_transaction.StaticRequiresTransactionModel",
+                "@RequiresTransaction target must not be static"
+            },
+            new Object[] {
+                "com.example.observe.ApplicationExecutorButNoOnDepsChangeModel",
+                "@Observe target defined parameter executor=EXTERNAL but does not specify an @OnDepsChange method."
+            },
+            new Object[] {
+                "com.example.observe.ArezExecutorOnDepsChangeButNoObserverRefModel",
+                "@Observe target with parameter executor=INTERNAL defined an @OnDepsChange method but has not defined"
+                        + " an @ObserverRef method nor does the @OnDepsChange annotated method have an arez.Observer"
+                        + " parameter. This results in an impossible to schedule observer."
+            },
+            new Object[] {
+                "com.example.observe.NonArezDependenciesButNoObserverRefModel",
+                "@Observe target with parameter depType=AREZ_OR_EXTERNAL has not defined an @ObserverRef method and"
+                        + " thus can not invoke reportStale()."
+            },
+            new Object[] {"com.example.observe.ObserveAbstractModel", "@Observe target must not be abstract"},
+            new Object[] {
+                "com.example.observe.ObserveBadNameModel",
+                "@Observe target specified an invalid name '-ace'. The name must be a valid java identifier."
+            },
+            new Object[] {
+                "com.example.observe.ObserveBadNameModel2",
+                "@Observe target specified an invalid name 'float'. The name must not be a java keyword."
+            },
+            new Object[] {
+                "com.example.observe.ObserveDuplicateModel", "@Observe target duplicates existing method named foo"
+            },
+            new Object[] {
+                "com.example.observe.ObserveDuplicateModel2",
+                "Method annotated with @Memoize specified name doStuff that duplicates @Observe defined by method foo"
+            },
+            new Object[] {"com.example.observe.ObserveFinalModel", "@Observe target must not be final"},
+            new Object[] {"com.example.observe.ObserveParametersModel", "@Observe target must not have any parameters"},
+            new Object[] {"com.example.observe.ObservePrivateModel", "@Observe target must not be private"},
+            new Object[] {"com.example.observe.ObservePublicModel", "@Observe target must not be public"},
+            new Object[] {"com.example.observe.ObserveReturnsValueModel", "@Observe target must not return a value"},
+            new Object[] {"com.example.observe.ObserveStaticModel", "@Observe target must not be static"},
+            new Object[] {
+                "com.example.observe.ObserveThrowsExceptionModel", "@Observe target must not throw any exceptions"
+            },
+            new Object[] {
+                "com.example.observe.ReportResultArezExecutorModel",
+                "@Observe target must not specify reportResult parameter when executor=INTERNAL"
+            },
+            new Object[] {
+                "com.example.observe.ReportParametersArezExecutorModel",
+                "@Observe target must not specify reportParameters parameter when executor=INTERNAL"
+            },
+            new Object[] {"com.example.component.ConcreteComponent", "@ArezComponent target must be abstract"},
+            new Object[] {
+                "com.example.component.ModelWithAbstractMethod",
+                "@ArezComponent target has an abstract method not implemented by framework. The method is named"
+                        + " someMethod"
+            },
+            new Object[] {
+                "com.example.component.BadTypeComponent",
+                "@ArezComponent target specified an invalid name ''. The name must be a valid java identifier."
+            },
+            new Object[] {
+                "com.example.component.BadTypeComponent2",
+                "@ArezComponent target specified an invalid name 'long'. The name must not be a java keyword."
+            },
+            new Object[] {
+                "com.example.component.EmptyComponent",
+                "@ArezComponent target has no methods annotated with @Action, @AutoObserve, @CascadeDispose, @Memoize,"
+                        + " @Observable, @Inverse, @Reference, @ComponentDependency or @Observe"
+            },
+            new Object[] {
+                "com.example.component.EmptyTypeComponent",
+                "@ArezComponent target specified an invalid name ''. The name must be a valid java identifier."
+            },
+            new Object[] {"com.example.component.EnumModel", "@ArezComponent target must be a class or an interface"},
+            new Object[] {"com.example.component.FinalModel", "@ArezComponent target must not be final"},
+            new Object[] {
+                "com.example.component.NonObservableWithDisposeOnDeactivateModel",
+                "@ArezComponent target has specified observable = DISABLE and disposeOnDeactivate = true which is not"
+                        + " a valid combination"
+            },
+            new Object[] {
+                "com.example.component.NonStaticNestedModel",
+                "@ArezComponent target must not be a non-static nested class"
+            },
+            new Object[] {"com.example.memoize.AbstractModel", "@Memoize target must not be abstract"},
+            new Object[] {
+                "com.example.memoize.BadName2Model",
+                "@Memoize target specified an invalid name 'public'. The name must not be a java keyword."
+            },
+            new Object[] {
+                "com.example.memoize.BadName1Model",
+                "@Memoize target specified an invalid name '-ace'. The name must be a valid java identifier."
+            },
+            new Object[] {
+                "com.example.memoize.BadStreamTypeModel",
+                "@Memoize target must not return a value of type java.util.stream.Stream as the type is single use and"
+                        + " thus does not make sense to cache as a computable value"
+            },
+            new Object[] {
+                "com.example.memoize.AbstractDefaultEqualityComparatorModel", "the comparator must not be abstract"
+            },
+            new Object[] {"com.example.memoize.ThrowsExceptionModel", "@Memoize target must not throw any exceptions"},
+            new Object[] {
+                "com.example.memoize.DuplicateModel",
+                "Method annotated with @Memoize specified name ace that duplicates @Memoize defined by method getX"
+            },
+            new Object[] {"com.example.memoize.FinalModel", "@Memoize target must not be final"},
+            new Object[] {
+                "com.example.memoize.InaccessibleDefaultEqualityComparatorModel",
+                "the comparator is not accessible from the generated component"
+            },
+            new Object[] {
+                "com.example.memoize.KeepAliveWithParametersModel",
+                "@Memoize target specified parameter keepAlive as true but has parameters."
+            },
+            new Object[] {
+                "com.example.memoize.KeepAliveWithContextParametersModel",
+                "@Memoize target specified parameter keepAlive as true but has matching context parameters."
+            },
+            new Object[] {
+                "com.example.memoize.MissingComputableValueRefModel",
+                "@Memoize target specified depType = AREZ_OR_EXTERNAL but there is no associated @ComputableValueRef"
+                        + " method."
+            },
+            new Object[] {
+                "com.example.memoize.NoArgConstructorDefaultEqualityComparatorModel",
+                "the comparator must define an accessible no-arg constructor"
+            },
+            new Object[] {"com.example.memoize.PrivateModel", "@Memoize target must not be private"},
+            new Object[] {"com.example.memoize.StaticModel", "@Memoize target must not be static"},
+            new Object[] {"com.example.memoize.ReturnVoidModel", "@Memoize target must return a value"},
+            new Object[] {
                 "com.example.observable_value_ref.BadNameModel",
                 "@ObservableValueRef target specified an invalid name '-ace'. The name must be a valid java identifier."
             },
@@ -908,9 +1188,9 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
             },
             new Object[] {
                 "com.example.memoize_context_parameter.capture.BadTypeCaptureModel",
-                "@MemoizeContextParameter target defines a push method with a different type (java.lang.String) from"
-                        + " the matching @MemoizeContextParameter Capture method named captureMyContextVar that defines"
-                        + " the type int."
+                "@MemoizeContextParameter target defines a push method with a different type"
+                    + " (java.lang.@org.jspecify.annotations.Nullable String) from the matching"
+                    + " @MemoizeContextParameter Capture method named captureMyContextVar that defines the type int."
             },
             new Object[] {
                 "com.example.memoize_context_parameter.capture.PrivateCaptureModel",
@@ -940,7 +1220,7 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                 "com.example.memoize_context_parameter.pop.BadTypePopModel",
                 "@MemoizeContextParameter target defines a pop method with a different type (int) from the matching"
                         + " @MemoizeContextParameter Capture method named captureMyContextVar that defines the type"
-                        + " java.lang.String."
+                        + " java.lang.@org.jspecify.annotations.Nullable String."
             },
             new Object[] {
                 "com.example.memoize_context_parameter.pop.MultipleParameterPopModel",
@@ -974,7 +1254,7 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                 "com.example.memoize_context_parameter.push.BadTypePushModel",
                 "@MemoizeContextParameter target defines a push method with a different type (int) from the matching"
                         + " @MemoizeContextParameter Capture method named captureMyContextVar that defines the type"
-                        + " java.lang.String."
+                        + " java.lang.@org.jspecify.annotations.Nullable String."
             },
             new Object[] {
                 "com.example.memoize_context_parameter.push.MultipleParameterPushModel",
@@ -999,11 +1279,6 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
             new Object[] {
                 "com.example.memoize_context_parameter.push.TypeParamPushModel",
                 "@MemoizeContextParameter target must not have any type parameters"
-            },
-            new Object[] {
-                "com.example.name_duplicates.ActionDuplicatesObservableNameModel",
-                "Method annotated with @Action specified name field that duplicates @Observable defined by method"
-                        + " getField"
             },
             new Object[] {
                 "com.example.on_activate.MemoizeHasParametersModel",
@@ -1132,105 +1407,6 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                 "@PostDispose target must not throw any exceptions"
             },
             new Object[] {
-                "com.example.post_inverse_add.AbstractPostInverseAddModel",
-                "@PostInverseAdd target must not be abstract"
-            },
-            new Object[] {
-                "com.example.post_inverse_add.BadName1PostInverseAddModel",
-                "@PostInverseAdd target has not specified a name and does not follow the convention \"post[Name]Add\""
-            },
-            new Object[] {
-                "com.example.post_inverse_add.BadName2PostInverseAddModel",
-                "@PostInverseAdd target specified an invalid name '-ace'. The name must be a valid java identifier"
-            },
-            new Object[] {
-                "com.example.post_inverse_add.BadName3PostInverseAddModel",
-                "@PostInverseAdd target specified an invalid name 'int'. The name must not be a java keyword"
-            },
-            new Object[] {
-                "com.example.post_inverse_add.BadParamCount1PostInverseAddModel",
-                "@PostInverseAdd target must have exactly 1 parameter"
-            },
-            new Object[] {
-                "com.example.post_inverse_add.BadParamCount2PostInverseAddModel",
-                "@PostInverseAdd target must have exactly 1 parameter"
-            },
-            new Object[] {
-                "com.example.post_inverse_add.BadParamTypePostInverseAddModel",
-                "@PostInverseAdd target has a parameter that is not the expected type. Actual type: java.lang.String"
-                        + " Expected Type: com.example.post_inverse_add.BadParamTypePostInverseAddModel.Element"
-            },
-            new Object[] {
-                "com.example.post_inverse_add.MissingInversePostInverseAddModel",
-                "@PostInverseAdd target with name 'element' is not associated an @Inverse annotated method with the"
-                        + " same name"
-            },
-            new Object[] {
-                "com.example.post_inverse_add.PrivatePostInverseAddModel", "@PostInverseAdd target must not be private"
-            },
-            new Object[] {
-                "com.example.post_inverse_add.ReturnsPostInverseAddModel",
-                "@PostInverseAdd target must not return a value"
-            },
-            new Object[] {
-                "com.example.post_inverse_add.StaticPostInverseAddModel", "@PostInverseAdd target must not be static"
-            },
-            new Object[] {
-                "com.example.post_inverse_add.ThrowsPostInverseAddModel",
-                "@PostInverseAdd target must not throw any exceptions"
-            },
-            new Object[] {
-                "com.example.pre_inverse_remove.AbstractPreInverseRemoveModel",
-                "@PreInverseRemove target must not be abstract"
-            },
-            new Object[] {
-                "com.example.pre_inverse_remove.BadName1PreInverseRemoveModel",
-                "@PreInverseRemove target specified an invalid name '-e-e-'. The name must be a valid java identifier"
-            },
-            new Object[] {
-                "com.example.pre_inverse_remove.BadName2PreInverseRemoveModel",
-                "@PreInverseRemove target specified an invalid name 'double'. The name must not be a java keyword"
-            },
-            new Object[] {
-                "com.example.pre_inverse_remove.BadName3PreInverseRemoveModel",
-                "@PreInverseRemove target has not specified a name and does not follow the convention"
-                        + " \"pre[Name]Remove\""
-            },
-            new Object[] {
-                "com.example.pre_inverse_remove.BadParamCount1PreInverseRemoveModel",
-                "@PreInverseRemove target must have exactly 1 parameter"
-            },
-            new Object[] {
-                "com.example.pre_inverse_remove.BadParamCount2PreInverseRemoveModel",
-                "@PreInverseRemove target must have exactly 1 parameter"
-            },
-            new Object[] {
-                "com.example.pre_inverse_remove.BadParamTypePreInverseRemoveModel",
-                "@PreInverseRemove target has a parameter that is not the expected type. Actual type: java.lang.String"
-                        + " Expected Type: com.example.pre_inverse_remove.BadParamTypePreInverseRemoveModel.Element"
-            },
-            new Object[] {
-                "com.example.pre_inverse_remove.MissingInversePreInverseRemoveModel",
-                "@PreInverseRemove target with name 'element' is not associated an @Inverse annotated method with the"
-                        + " same name"
-            },
-            new Object[] {
-                "com.example.pre_inverse_remove.PrivatePreInverseRemoveModel",
-                "@PreInverseRemove target must not be private"
-            },
-            new Object[] {
-                "com.example.pre_inverse_remove.ReturnsPreInverseRemoveModel",
-                "@PreInverseRemove target must not return a value"
-            },
-            new Object[] {
-                "com.example.pre_inverse_remove.StaticPreInverseRemoveModel",
-                "@PreInverseRemove target must not be static"
-            },
-            new Object[] {
-                "com.example.pre_inverse_remove.ThrowsPreInverseRemoveModel",
-                "@PreInverseRemove target must not throw any exceptions"
-            },
-            new Object[] {
                 "com.example.observable.PrivateObservableGetterModel", "@Observable target must not be private"
             },
             new Object[] {
@@ -1255,79 +1431,6 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                 "com.example.observable.MissingObservableSetterModel",
                 "@Observable target defined getter but no setter was defined and no setter could be automatically"
                         + " determined"
-            },
-            new Object[] {
-                "com.example.name_duplicates.ActionAndMemoizeSameNameModel",
-                "Method annotated with @Action specified name x that duplicates @Memoize defined by method m1"
-            },
-            new Object[] {
-                "com.example.name_duplicates.ActionAndObservableSameNameModel",
-                "Method annotated with @Observable specified name x that duplicates @Action defined by method m1"
-            },
-            new Object[] {
-                "com.example.name_duplicates.ActionAndObservableSameNameNoGetterYetModel",
-                "Method annotated with @Action specified name x that duplicates @Observable defined by method setTime"
-            },
-            new Object[] {
-                "com.example.name_duplicates.MemoizeAndObservableSameNameModel",
-                "Method annotated with @Observable specified name x that duplicates @Memoize defined by method m1"
-            },
-            new Object[] {
-                "com.example.reference.BadExpectSetterObservableReferenceModel",
-                "@ReferenceId added to @Observable method but expectSetter = false on property which is not compatible"
-                        + " with @ReferenceId"
-            },
-            new Object[] {
-                "com.example.reference.BadName2ReferenceIdModel",
-                "@ReferenceId target specified an invalid name 'long'. The name must not be a java keyword."
-            },
-            new Object[] {
-                "com.example.reference.BadNameReferenceIdModel",
-                "@ReferenceId target specified an invalid name '-hello'. The name must be a valid java identifier."
-            },
-            new Object[] {
-                "com.example.reference.BadName3ReferenceIdModel",
-                "@ReferenceId target has not specified a name and does not follow the convention \"get[Name]Id\" or"
-                        + " \"[name]Id\""
-            },
-            new Object[] {
-                "com.example.reference.BadName2ReferenceModel",
-                "@Reference target specified an invalid name 'short'. The name must not be a java keyword."
-            },
-            new Object[] {
-                "com.example.reference.BadNameReferenceModel",
-                "@Reference target specified an invalid name '-meep-'. The name must be a valid java identifier."
-            },
-            new Object[] {"com.example.reference.ConcreteReferenceModel", "@Reference target must be abstract"},
-            new Object[] {
-                "com.example.reference.MissingReferenceIdReferenceModel",
-                "@Reference exists but there is no corresponding @ReferenceId"
-            },
-            new Object[] {
-                "com.example.reference.MissingReferenceReferenceIdModel",
-                "@ReferenceId exists but there is no corresponding @Reference"
-            },
-            new Object[] {"com.example.reference.NoReturnReferenceIdModel", "@ReferenceId target must return a value"},
-            new Object[] {"com.example.reference.NoReturnReferenceModel", "@Reference target must return a value"},
-            new Object[] {
-                "com.example.reference.ParameterReferenceIdModel", "@ReferenceId target must not have any parameters"
-            },
-            new Object[] {
-                "com.example.reference.NoSetterObservableReferenceModel",
-                "@Reference exists but there is no corresponding @ReferenceId"
-            },
-            new Object[] {
-                "com.example.reference.ParameterReferenceModel", "@Reference target must not have any parameters"
-            },
-            new Object[] {"com.example.reference.PrivateReferenceIdModel", "@ReferenceId target must not be private"},
-            new Object[] {"com.example.reference.PrivateReferenceModel", "@Reference target must not be private"},
-            new Object[] {"com.example.reference.StaticReferenceIdModel", "@ReferenceId target must not be static"},
-            new Object[] {"com.example.reference.StaticReferenceModel", "@Reference target must not be static"},
-            new Object[] {
-                "com.example.reference.ThrowsReferenceIdModel", "@ReferenceId target must not throw any exceptions"
-            },
-            new Object[] {
-                "com.example.reference.ThrowsReferenceModel", "@Reference target must not throw any exceptions"
             },
             new Object[] {
                 "com.example.on_deps_change.OnDepsChangeNotAbstractModel", "@OnDepsChange target must not be abstract"
@@ -1387,86 +1490,6 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
             },
             new Object[] {
                 "com.example.post_construct.PostConstructNotPrivateModel", "@PostConstruct target must not be private"
-            },
-            new Object[] {
-                "com.example.name_duplicates.ObservableAndActionMethodModel",
-                "Method can not be annotated with both @Action and @Observable"
-            },
-            new Object[] {
-                "com.example.name_duplicates.ObservableAndPreDisposeMethodModel",
-                "Method can not be annotated with both @Observable and @PreDispose"
-            },
-            new Object[] {
-                "com.example.name_duplicates.ObservableAndPostDisposeMethodModel",
-                "Method can not be annotated with both @Observable and @PostDispose"
-            },
-            new Object[] {
-                "com.example.name_duplicates.ObservableAndMemoizeMethodModel",
-                "Method can not be annotated with both @Observable and @Memoize"
-            },
-            new Object[] {
-                "com.example.name_duplicates.ObservableAndContainerIdMethodModel",
-                "Method can not be annotated with both @Observable and @ComponentId"
-            },
-            new Object[] {
-                "com.example.name_duplicates.ObservableAndOnActivateMethodModel",
-                "Method can not be annotated with both @Observable and @OnActivate"
-            },
-            new Object[] {
-                "com.example.name_duplicates.ObservableAndOnDeactivateMethodModel",
-                "Method can not be annotated with both @Observable and @OnDeactivate"
-            },
-            new Object[] {
-                "com.example.name_duplicates.ActionAndObserveMethodModel",
-                "Method can not be annotated with both @Action and @Observe"
-            },
-            new Object[] {
-                "com.example.name_duplicates.ActionAndMemoizeMethodModel",
-                "Method can not be annotated with both @Action and @Memoize"
-            },
-            new Object[] {
-                "com.example.name_duplicates.ActionAndPreDisposeMethodModel",
-                "Method can not be annotated with both @Action and @PreDispose"
-            },
-            new Object[] {
-                "com.example.name_duplicates.ActionAndPostDisposeMethodModel",
-                "Method can not be annotated with both @Action and @PostDispose"
-            },
-            new Object[] {
-                "com.example.name_duplicates.ActionAndContainerIdMethodModel",
-                "Method can not be annotated with both @Action and @ComponentId"
-            },
-            new Object[] {
-                "com.example.name_duplicates.ActionAndOnActivateMethodModel",
-                "Method can not be annotated with both @Action and @OnActivate"
-            },
-            new Object[] {
-                "com.example.name_duplicates.ActionAndOnDeactivateMethodModel",
-                "Method can not be annotated with both @Action and @OnDeactivate"
-            },
-            new Object[] {
-                "com.example.name_duplicates.MemoizeAndContainerIdMethodModel",
-                "Method can not be annotated with both @Memoize and @ComponentId"
-            },
-            new Object[] {
-                "com.example.name_duplicates.MemoizeAndPreDisposeMethodModel",
-                "Method can not be annotated with both @Memoize and @PreDispose"
-            },
-            new Object[] {
-                "com.example.name_duplicates.MemoizeAndObserveMethodModel",
-                "Method can not be annotated with both @Observe and @Memoize"
-            },
-            new Object[] {
-                "com.example.name_duplicates.MemoizeAndPostDisposeMethodModel",
-                "Method can not be annotated with both @Memoize and @PostDispose"
-            },
-            new Object[] {
-                "com.example.name_duplicates.MemoizeAndOnActivateMethodModel",
-                "Method can not be annotated with both @Memoize and @OnActivate"
-            },
-            new Object[] {
-                "com.example.name_duplicates.MemoizeAndOnDeactivateMethodModel",
-                "Method can not be annotated with both @Memoize and @OnDeactivate"
             },
             new Object[] {
                 "com.example.pre_dispose.PreDisposeAndPostDisposeMethodModel",
@@ -1635,36 +1658,24 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
             },
             new Object[] {
                 "com.example.observable.ObservableInitialMissingNonnullFieldModel",
-                "@ObservableInitial target defined observable named 'name' but the initializer is not annotated with"
-                        + " @javax.annotation.Nonnull"
+                "@ObservableInitial target defined observable named 'name' but the initializer does not have a"
+                        + " non-null JSpecify contract"
             },
             new Object[] {
                 "com.example.observable.ObservableInitialMissingNonnullMethodModel",
-                "@ObservableInitial target defined observable named 'name' but the initializer is not annotated with"
-                        + " @javax.annotation.Nonnull"
-            },
-            new Object[] {
-                "com.example.sting.EagerButNoStingModel",
-                "@ArezComponent target must not disable sting integration and be annotated with sting.Eager"
-            },
-            new Object[] {
-                "com.example.sting.NamedArgButNoStingModel",
-                "@ArezComponent target must not disable sting integration and contain a constructor with a parameter"
-                        + " that is annotated with the sting.Named annotation"
-            },
-            new Object[] {
-                "com.example.sting.NamedButNoStingModel",
-                "@ArezComponent target must not disable sting integration and be annotated with sting.Named"
-            },
-            new Object[] {
-                "com.example.sting.TypedButNoStingModel",
-                "@ArezComponent target must not disable sting integration and be annotated with sting.Typed"
+                "@ObservableInitial target defined observable named 'name' but the initializer does not have a"
+                        + " non-null JSpecify contract"
             }
         };
     }
 
     @Test(dataProvider = "failedCompiles")
     public void processFailedCompile(final String classname, final String messageFragment) {
+        assertFailedCompile(classname, messageFragment);
+    }
+
+    @Test(dataProvider = "failedCompilesBasic")
+    public void processFailedCompileBasic(final String classname, final String messageFragment) {
         assertFailedCompile(classname, messageFragment);
     }
 
@@ -1786,26 +1797,6 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
     public Object[][] compileWithWarnings() {
         return new Object[][] {
             new Object[] {
-                "com.example.component.AllowEmptyOnNonEmptyComponent",
-                "@ArezComponent target has specified allowEmpty = true but has methods annotated with @Action,"
-                        + " @AutoObserve, @CascadeDispose, @Memoize, @Observable, @Inverse, @Reference,"
-                        + " @ComponentDependency or @Observe"
-            },
-            new Object[] {
-                "com.example.component.PublicCtorModel",
-                "@ArezComponent target should not have a public constructor. It is recommended that a static create"
-                    + " method be added to the component that is responsible for instantiating the arez implementation"
-                    + " class. This warning can be suppressed by annotating the element with @SuppressWarnings("
-                    + " \"Arez:PublicConstructor\" ) or @SuppressArezWarnings( \"Arez:PublicConstructor\" )"
-            },
-            new Object[] {
-                "com.example.component.PublicCtorNonPublicModel",
-                "@ArezComponent target should not have a public constructor. It is recommended that a static create"
-                    + " method be added to the component that is responsible for instantiating the arez implementation"
-                    + " class. This warning can be suppressed by annotating the element with @SuppressWarnings("
-                    + " \"Arez:PublicConstructor\" ) or @SuppressArezWarnings( \"Arez:PublicConstructor\" )"
-            },
-            new Object[] {
                 "com.example.misplaced_annotation.PublicCtorArezComponentLikeModel",
                 "Arez component-like target should not have a public constructor. The type should have a"
                     + " package-access constructor so instantiation is controlled by the framework. This warning can"
@@ -1825,6 +1816,186 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                     + " package-access constructor so instantiation is controlled by the framework. This warning can"
                     + " be suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicConstructor\" )"
                     + " or @SuppressArezWarnings( \"Arez:PublicConstructor\" )"
+            },
+            new Object[] {
+                "com.example.cascade_dispose.DisposeOnDeactivateCascadeDisposeFieldModel",
+                "Field named '_myElement' is annotated with @arez.annotations.CascadeDispose but has a type that is an"
+                    + " Arez component configured with disposeOnDeactivate = true. Disposal should be managed either"
+                    + " by liveness (i.e. disposeOnDeactivate = true) or explicitly (via @CascadeDispose or manual"
+                    + " disposal), but not both. Please choose a single disposal model or suppress the warning by"
+                    + " annotating the field with @SuppressWarnings( \"Arez:ConflictingDisposeModel\" ) or"
+                    + " @SuppressArezWarnings( \"Arez:ConflictingDisposeModel\" )"
+            },
+            new Object[] {
+                "com.example.cascade_dispose.DisposeOnDeactivateCascadeDisposeMethodModel",
+                "Method named 'myElement' is annotated with @arez.annotations.CascadeDispose but returns an Arez"
+                        + " component configured with disposeOnDeactivate = true. Disposal should be managed either by"
+                        + " liveness (i.e. disposeOnDeactivate = true) or explicitly (via @CascadeDispose or manual"
+                        + " disposal), but not both. Please choose a single disposal model or suppress the warning by"
+                        + " annotating the method with @SuppressWarnings( \"Arez:ConflictingDisposeModel\" ) or"
+                        + " @SuppressArezWarnings( \"Arez:ConflictingDisposeModel\" )"
+            },
+            new Object[] {
+                "com.example.cascade_dispose.DisposeOnDeactivateObservableCascadeDisposeModel",
+                "Method named 'getElement' is annotated with @arez.annotations.CascadeDispose but returns an Arez"
+                        + " component configured with disposeOnDeactivate = true. Disposal should be managed either by"
+                        + " liveness (i.e. disposeOnDeactivate = true) or explicitly (via @CascadeDispose or manual"
+                        + " disposal), but not both. Please choose a single disposal model or suppress the warning by"
+                        + " annotating the method with @SuppressWarnings( \"Arez:ConflictingDisposeModel\" ) or"
+                        + " @SuppressArezWarnings( \"Arez:ConflictingDisposeModel\" )"
+            },
+            new Object[] {
+                "com.example.auto_observe.ProtectedAccessFieldAutoObserveModel",
+                "@ArezComponent target should not declare a protected field. This warning can be suppressed by"
+                        + " annotating the element with @SuppressWarnings( \"Arez:ProtectedField\" ) or"
+                        + " @SuppressArezWarnings( \"Arez:ProtectedField\" )"
+            },
+            new Object[] {
+                "com.example.auto_observe.PublicAccessFieldAutoObserveModel",
+                "@AutoObserve target should not be public. This warning can be suppressed by annotating the element"
+                    + " with @SuppressWarnings( \"Arez:PublicField\" ) or @SuppressArezWarnings( \"Arez:PublicField\""
+                    + " )"
+            },
+            new Object[] {
+                "com.example.cascade_dispose.ProtectedAccessFieldCascadeDisposeModel",
+                "@ArezComponent target should not declare a protected field. This warning can be suppressed by"
+                        + " annotating the element with @SuppressWarnings( \"Arez:ProtectedField\" ) or"
+                        + " @SuppressArezWarnings( \"Arez:ProtectedField\" )"
+            },
+            new Object[] {
+                "com.example.cascade_dispose.PublicAccessFieldCascadeDisposeModel",
+                "@CascadeDispose target should not be public. This warning can be suppressed by annotating the element"
+                    + " with @SuppressWarnings( \"Arez:PublicField\" ) or @SuppressArezWarnings( \"Arez:PublicField\""
+                    + " )"
+            },
+            new Object[] {
+                "com.example.component_dependency.ProtectedAccessFieldDependencyModel",
+                "@ArezComponent target should not declare a protected field. This warning can be suppressed by"
+                        + " annotating the element with @SuppressWarnings( \"Arez:ProtectedField\" ) or"
+                        + " @SuppressArezWarnings( \"Arez:ProtectedField\" )"
+            },
+            new Object[] {
+                "com.example.component_dependency.PublicAccessFieldDependencyModel",
+                "@ComponentDependency target should not be public. This warning can be suppressed by annotating the"
+                        + " element with @SuppressWarnings( \"Arez:PublicField\" ) or @SuppressArezWarnings("
+                        + " \"Arez:PublicField\" )"
+            },
+            new Object[] {
+                "com.example.component_ref.ProtectedAccessComponentRefModel",
+                "@ArezComponent target should not declare a protected method. This warning can be suppressed by"
+                        + " annotating the element with @SuppressWarnings( \"Arez:ProtectedMethod\" ) or"
+                        + " @SuppressArezWarnings( \"Arez:ProtectedMethod\" )"
+            },
+            new Object[] {
+                "com.example.component_ref.PublicAccessComponentRefModel",
+                "@ComponentRef target should not be public. This warning can be suppressed by annotating the element"
+                        + " with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings("
+                        + " \"Arez:PublicRefMethod\" )"
+            },
+            new Object[] {
+                "com.example.component_name_ref.ProtectedAccessComponentNameRefModel",
+                "@ArezComponent target should not declare a protected method. This warning can be suppressed by"
+                        + " annotating the element with @SuppressWarnings( \"Arez:ProtectedMethod\" ) or"
+                        + " @SuppressArezWarnings( \"Arez:ProtectedMethod\" )"
+            },
+            new Object[] {
+                "com.example.component_name_ref.PublicAccessComponentNameRefModel",
+                "@ComponentNameRef target should not be public. This warning can be suppressed by annotating the"
+                        + " element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings("
+                        + " \"Arez:PublicRefMethod\" )"
+            },
+            new Object[] {
+                "com.example.component_state_ref.ProtectedAccessComponentStateRefModel",
+                "@ArezComponent target should not declare a protected method. This warning can be suppressed by"
+                        + " annotating the element with @SuppressWarnings( \"Arez:ProtectedMethod\" ) or"
+                        + " @SuppressArezWarnings( \"Arez:ProtectedMethod\" )"
+            },
+            new Object[] {
+                "com.example.component_state_ref.PublicAccessComponentStateRefModel",
+                "@ComponentStateRef target should not be public. This warning can be suppressed by annotating the"
+                        + " element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings("
+                        + " \"Arez:PublicRefMethod\" )"
+            },
+            new Object[] {
+                "com.example.component_type_name_ref.ProtectedAccessComponentTypeNameRefModel",
+                "@ArezComponent target should not declare a protected method. This warning can be suppressed by"
+                        + " annotating the element with @SuppressWarnings( \"Arez:ProtectedMethod\" ) or"
+                        + " @SuppressArezWarnings( \"Arez:ProtectedMethod\" )"
+            },
+            new Object[] {
+                "com.example.component_type_name_ref.PublicAccessComponentTypeNameRefModel",
+                "@ComponentTypeNameRef target should not be public. This warning can be suppressed by annotating the"
+                        + " element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings("
+                        + " \"Arez:PublicRefMethod\" )"
+            },
+            new Object[] {
+                "com.example.context_ref.ProtectedAccessContextRefModel",
+                "@ArezComponent target should not declare a protected method. This warning can be suppressed by"
+                        + " annotating the element with @SuppressWarnings( \"Arez:ProtectedMethod\" ) or"
+                        + " @SuppressArezWarnings( \"Arez:ProtectedMethod\" )"
+            },
+            new Object[] {
+                "com.example.context_ref.PublicAccessContextRefModel",
+                "@ContextRef target should not be public. This warning can be suppressed by annotating the element"
+                        + " with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings("
+                        + " \"Arez:PublicRefMethod\" )"
+            },
+            new Object[] {
+                "com.example.post_inverse_add.ProtectedAccessPostInverseAddModel",
+                "@ArezComponent target should not declare a protected method. This warning can be suppressed by"
+                        + " annotating the element with @SuppressWarnings( \"Arez:ProtectedMethod\" ) or"
+                        + " @SuppressArezWarnings( \"Arez:ProtectedMethod\" )"
+            },
+            new Object[] {
+                "com.example.post_inverse_add.PublicAccessPostInverseAddModel",
+                "@PostInverseAdd target should not be public. This warning can be suppressed by annotating the element"
+                        + " with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings("
+                        + " \"Arez:PublicHookMethod\" )"
+            },
+            new Object[] {
+                "com.example.pre_inverse_remove.ProtectedAccessPreInverseRemoveModel",
+                "@ArezComponent target should not declare a protected method. This warning can be suppressed by"
+                        + " annotating the element with @SuppressWarnings( \"Arez:ProtectedMethod\" ) or"
+                        + " @SuppressArezWarnings( \"Arez:ProtectedMethod\" )"
+            },
+            new Object[] {
+                "com.example.pre_inverse_remove.PublicAccessPreInverseRemoveModel",
+                "@PreInverseRemove target should not be public. This warning can be suppressed by annotating the"
+                        + " element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings("
+                        + " \"Arez:PublicHookMethod\" )"
+            },
+            new Object[] {
+                "com.example.sting.PublicCtorStingModel",
+                "@ArezComponent target should not have a public constructor. The type is instantiated by the sting"
+                    + " injection framework and should have a package-access constructor. This warning can be"
+                    + " suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicConstructor\" ) or"
+                    + " @SuppressArezWarnings( \"Arez:PublicConstructor\" )"
+            }
+        };
+    }
+
+    @DataProvider(name = "compileWithWarningsBasic")
+    public Object[][] compileWithWarningsBasic() {
+        return new Object[][] {
+            new Object[] {
+                "com.example.component.AllowEmptyOnNonEmptyComponent",
+                "@ArezComponent target has specified allowEmpty = true but has methods annotated with @Action,"
+                        + " @AutoObserve, @CascadeDispose, @Memoize, @Observable, @Inverse, @Reference,"
+                        + " @ComponentDependency or @Observe"
+            },
+            new Object[] {
+                "com.example.component.PublicCtorModel",
+                "@ArezComponent target should not have a public constructor. It is recommended that a static create"
+                    + " method be added to the component that is responsible for instantiating the arez implementation"
+                    + " class. This warning can be suppressed by annotating the element with @SuppressWarnings("
+                    + " \"Arez:PublicConstructor\" ) or @SuppressArezWarnings( \"Arez:PublicConstructor\" )"
+            },
+            new Object[] {
+                "com.example.component.PublicCtorNonPublicModel",
+                "@ArezComponent target should not have a public constructor. It is recommended that a static create"
+                    + " method be added to the component that is responsible for instantiating the arez implementation"
+                    + " class. This warning can be suppressed by annotating the element with @SuppressWarnings("
+                    + " \"Arez:PublicConstructor\" ) or @SuppressArezWarnings( \"Arez:PublicConstructor\" )"
             },
             new Object[] {
                 "com.example.component.UnmanagedComponentReferencePassedInConstructor",
@@ -1917,69 +2088,6 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                     + " \"Arez:UnmanagedComponentReference\" )"
             },
             new Object[] {
-                "com.example.cascade_dispose.DisposeOnDeactivateCascadeDisposeFieldModel",
-                "Field named '_myElement' is annotated with @arez.annotations.CascadeDispose but has a type that is an"
-                    + " Arez component configured with disposeOnDeactivate = true. Disposal should be managed either"
-                    + " by liveness (i.e. disposeOnDeactivate = true) or explicitly (via @CascadeDispose or manual"
-                    + " disposal), but not both. Please choose a single disposal model or suppress the warning by"
-                    + " annotating the field with @SuppressWarnings( \"Arez:ConflictingDisposeModel\" ) or"
-                    + " @SuppressArezWarnings( \"Arez:ConflictingDisposeModel\" )"
-            },
-            new Object[] {
-                "com.example.cascade_dispose.DisposeOnDeactivateCascadeDisposeMethodModel",
-                "Method named 'myElement' is annotated with @arez.annotations.CascadeDispose but returns an Arez"
-                        + " component configured with disposeOnDeactivate = true. Disposal should be managed either by"
-                        + " liveness (i.e. disposeOnDeactivate = true) or explicitly (via @CascadeDispose or manual"
-                        + " disposal), but not both. Please choose a single disposal model or suppress the warning by"
-                        + " annotating the method with @SuppressWarnings( \"Arez:ConflictingDisposeModel\" ) or"
-                        + " @SuppressArezWarnings( \"Arez:ConflictingDisposeModel\" )"
-            },
-            new Object[] {
-                "com.example.cascade_dispose.DisposeOnDeactivateObservableCascadeDisposeModel",
-                "Method named 'getElement' is annotated with @arez.annotations.CascadeDispose but returns an Arez"
-                        + " component configured with disposeOnDeactivate = true. Disposal should be managed either by"
-                        + " liveness (i.e. disposeOnDeactivate = true) or explicitly (via @CascadeDispose or manual"
-                        + " disposal), but not both. Please choose a single disposal model or suppress the warning by"
-                        + " annotating the method with @SuppressWarnings( \"Arez:ConflictingDisposeModel\" ) or"
-                        + " @SuppressArezWarnings( \"Arez:ConflictingDisposeModel\" )"
-            },
-            new Object[] {
-                "com.example.auto_observe.ProtectedAccessFieldAutoObserveModel",
-                "@ArezComponent target should not declare a protected field. This warning can be suppressed by"
-                        + " annotating the element with @SuppressWarnings( \"Arez:ProtectedField\" ) or"
-                        + " @SuppressArezWarnings( \"Arez:ProtectedField\" )"
-            },
-            new Object[] {
-                "com.example.auto_observe.PublicAccessFieldAutoObserveModel",
-                "@AutoObserve target should not be public. This warning can be suppressed by annotating the element"
-                    + " with @SuppressWarnings( \"Arez:PublicField\" ) or @SuppressArezWarnings( \"Arez:PublicField\""
-                    + " )"
-            },
-            new Object[] {
-                "com.example.cascade_dispose.ProtectedAccessFieldCascadeDisposeModel",
-                "@ArezComponent target should not declare a protected field. This warning can be suppressed by"
-                        + " annotating the element with @SuppressWarnings( \"Arez:ProtectedField\" ) or"
-                        + " @SuppressArezWarnings( \"Arez:ProtectedField\" )"
-            },
-            new Object[] {
-                "com.example.cascade_dispose.PublicAccessFieldCascadeDisposeModel",
-                "@CascadeDispose target should not be public. This warning can be suppressed by annotating the element"
-                    + " with @SuppressWarnings( \"Arez:PublicField\" ) or @SuppressArezWarnings( \"Arez:PublicField\""
-                    + " )"
-            },
-            new Object[] {
-                "com.example.component_dependency.ProtectedAccessFieldDependencyModel",
-                "@ArezComponent target should not declare a protected field. This warning can be suppressed by"
-                        + " annotating the element with @SuppressWarnings( \"Arez:ProtectedField\" ) or"
-                        + " @SuppressArezWarnings( \"Arez:ProtectedField\" )"
-            },
-            new Object[] {
-                "com.example.component_dependency.PublicAccessFieldDependencyModel",
-                "@ComponentDependency target should not be public. This warning can be suppressed by annotating the"
-                        + " element with @SuppressWarnings( \"Arez:PublicField\" ) or @SuppressArezWarnings("
-                        + " \"Arez:PublicField\" )"
-            },
-            new Object[] {
                 "com.example.component.NonPrivateServiceField",
                 "Field named '_myService' has a type annotated with @arez.annotations.ArezComponent(service = ENABLE)"
                         + " and should be private. This warning can be suppressed by annotating the element with"
@@ -2035,54 +2143,6 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                     + " \"Arez:ExtendsComponent\" ) or @SuppressArezWarnings( \"Arez:ExtendsComponent\" )"
             },
             new Object[] {
-                "com.example.component_ref.ProtectedAccessComponentRefModel",
-                "@ArezComponent target should not declare a protected method. This warning can be suppressed by"
-                        + " annotating the element with @SuppressWarnings( \"Arez:ProtectedMethod\" ) or"
-                        + " @SuppressArezWarnings( \"Arez:ProtectedMethod\" )"
-            },
-            new Object[] {
-                "com.example.component_ref.PublicAccessComponentRefModel",
-                "@ComponentRef target should not be public. This warning can be suppressed by annotating the element"
-                        + " with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings("
-                        + " \"Arez:PublicRefMethod\" )"
-            },
-            new Object[] {
-                "com.example.component_name_ref.ProtectedAccessComponentNameRefModel",
-                "@ArezComponent target should not declare a protected method. This warning can be suppressed by"
-                        + " annotating the element with @SuppressWarnings( \"Arez:ProtectedMethod\" ) or"
-                        + " @SuppressArezWarnings( \"Arez:ProtectedMethod\" )"
-            },
-            new Object[] {
-                "com.example.component_name_ref.PublicAccessComponentNameRefModel",
-                "@ComponentNameRef target should not be public. This warning can be suppressed by annotating the"
-                        + " element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings("
-                        + " \"Arez:PublicRefMethod\" )"
-            },
-            new Object[] {
-                "com.example.component_state_ref.ProtectedAccessComponentStateRefModel",
-                "@ArezComponent target should not declare a protected method. This warning can be suppressed by"
-                        + " annotating the element with @SuppressWarnings( \"Arez:ProtectedMethod\" ) or"
-                        + " @SuppressArezWarnings( \"Arez:ProtectedMethod\" )"
-            },
-            new Object[] {
-                "com.example.component_state_ref.PublicAccessComponentStateRefModel",
-                "@ComponentStateRef target should not be public. This warning can be suppressed by annotating the"
-                        + " element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings("
-                        + " \"Arez:PublicRefMethod\" )"
-            },
-            new Object[] {
-                "com.example.component_type_name_ref.ProtectedAccessComponentTypeNameRefModel",
-                "@ArezComponent target should not declare a protected method. This warning can be suppressed by"
-                        + " annotating the element with @SuppressWarnings( \"Arez:ProtectedMethod\" ) or"
-                        + " @SuppressArezWarnings( \"Arez:ProtectedMethod\" )"
-            },
-            new Object[] {
-                "com.example.component_type_name_ref.PublicAccessComponentTypeNameRefModel",
-                "@ComponentTypeNameRef target should not be public. This warning can be suppressed by annotating the"
-                        + " element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings("
-                        + " \"Arez:PublicRefMethod\" )"
-            },
-            new Object[] {
                 "com.example.computable_value_ref.ProtectedAccessComputableValueRefModel",
                 "@ArezComponent target should not declare a protected method. This warning can be suppressed by"
                         + " annotating the element with @SuppressWarnings( \"Arez:ProtectedMethod\" ) or"
@@ -2092,18 +2152,6 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                 "com.example.computable_value_ref.PublicAccessComputableValueRefModel",
                 "@ComputableValueRef target should not be public. This warning can be suppressed by annotating the"
                         + " element with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings("
-                        + " \"Arez:PublicRefMethod\" )"
-            },
-            new Object[] {
-                "com.example.context_ref.ProtectedAccessContextRefModel",
-                "@ArezComponent target should not declare a protected method. This warning can be suppressed by"
-                        + " annotating the element with @SuppressWarnings( \"Arez:ProtectedMethod\" ) or"
-                        + " @SuppressArezWarnings( \"Arez:ProtectedMethod\" )"
-            },
-            new Object[] {
-                "com.example.context_ref.PublicAccessContextRefModel",
-                "@ContextRef target should not be public. This warning can be suppressed by annotating the element"
-                        + " with @SuppressWarnings( \"Arez:PublicRefMethod\" ) or @SuppressArezWarnings("
                         + " \"Arez:PublicRefMethod\" )"
             },
             new Object[] {
@@ -2191,18 +2239,6 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                         + " \"Arez:PublicLifecycleMethod\" )"
             },
             new Object[] {
-                "com.example.post_inverse_add.ProtectedAccessPostInverseAddModel",
-                "@ArezComponent target should not declare a protected method. This warning can be suppressed by"
-                        + " annotating the element with @SuppressWarnings( \"Arez:ProtectedMethod\" ) or"
-                        + " @SuppressArezWarnings( \"Arez:ProtectedMethod\" )"
-            },
-            new Object[] {
-                "com.example.post_inverse_add.PublicAccessPostInverseAddModel",
-                "@PostInverseAdd target should not be public. This warning can be suppressed by annotating the element"
-                        + " with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings("
-                        + " \"Arez:PublicHookMethod\" )"
-            },
-            new Object[] {
                 "com.example.pre_dispose.ProtectedAccessPreDisposeModel",
                 "@ArezComponent target should not declare a protected method. This warning can be suppressed by"
                         + " annotating the element with @SuppressWarnings( \"Arez:ProtectedMethod\" ) or"
@@ -2213,31 +2249,17 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                 "@PreDispose target should not be public. This warning can be suppressed by annotating the element"
                         + " with @SuppressWarnings( \"Arez:PublicLifecycleMethod\" ) or @SuppressArezWarnings("
                         + " \"Arez:PublicLifecycleMethod\" )"
-            },
-            new Object[] {
-                "com.example.pre_inverse_remove.ProtectedAccessPreInverseRemoveModel",
-                "@ArezComponent target should not declare a protected method. This warning can be suppressed by"
-                        + " annotating the element with @SuppressWarnings( \"Arez:ProtectedMethod\" ) or"
-                        + " @SuppressArezWarnings( \"Arez:ProtectedMethod\" )"
-            },
-            new Object[] {
-                "com.example.pre_inverse_remove.PublicAccessPreInverseRemoveModel",
-                "@PreInverseRemove target should not be public. This warning can be suppressed by annotating the"
-                        + " element with @SuppressWarnings( \"Arez:PublicHookMethod\" ) or @SuppressArezWarnings("
-                        + " \"Arez:PublicHookMethod\" )"
-            },
-            new Object[] {
-                "com.example.sting.PublicCtorStingModel",
-                "@ArezComponent target should not have a public constructor. The type is instantiated by the sting"
-                    + " injection framework and should have a package-access constructor. This warning can be"
-                    + " suppressed by annotating the element with @SuppressWarnings( \"Arez:PublicConstructor\" ) or"
-                    + " @SuppressArezWarnings( \"Arez:PublicConstructor\" )"
             }
         };
     }
 
     @Test(dataProvider = "compileWithWarnings")
     public void processCompileWithWarnings(final String classname, final String messageFragment) {
+        assertCompilesWithSingleWarningThatCanBeUpgradedToError(classname, messageFragment);
+    }
+
+    @Test(dataProvider = "compileWithWarningsBasic")
+    public void processCompileWithWarningsBasic(final String classname, final String messageFragment) {
         assertCompilesWithSingleWarningThatCanBeUpgradedToError(classname, messageFragment);
     }
 
@@ -2261,26 +2283,9 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
     @DataProvider(name = "compileWithoutWarnings")
     public Object[][] compileWithoutWarnings() {
         return new Object[][] {
-            new Object[] {"com.example.component.UnmanagedComponentReferenceSuppressed"},
-            new Object[] {"com.example.component.UnmanagedComponentReferenceSuppressedAtClass"},
-            new Object[] {"com.example.component.UnmanagedComponentReferenceToNonDisposeNotifier"},
-            new Object[] {"com.example.component.UnmanagedComponentReferenceToNonVerify"},
-            new Object[] {"com.example.component.PrivateServiceField"},
-            new Object[] {"com.example.component.Suppressed1NonPrivateServiceField"},
-            new Object[] {"com.example.component.Suppressed2NonPrivateServiceField"},
-            new Object[] {"com.example.component.ManagedAutoObserveArezComponentLikeReference"},
-            new Object[] {"com.example.component.ManagedObservableAutoObserveArezComponentLikeReference"},
             new Object[] {"com.example.cascade_dispose.Suppressed1DisposeOnDeactivateCascadeDisposeFieldModel"},
             new Object[] {"com.example.cascade_dispose.Suppressed2DisposeOnDeactivateCascadeDisposeMethodModel"},
             new Object[] {"com.example.cascade_dispose.DisposeOnDeactivateCascadeDisposeSuppressedAtClassModel"},
-            new Object[] {"com.example.component.UnmanagedObservableArezComponentLikeReferenceSuppressed"},
-            new Object[] {"com.example.component.UnmanagedObservableArezComponentLikeReferenceSuppressedOnClass"},
-            new Object[] {"com.example.component.UnmanagedObservableComponentReferenceViaInheritanceSuppressed"},
-            new Object[] {
-                "com.example.component.UnmanagedObservableComponentReferenceViaInheritanceSuppressedOnBaseClass"
-            },
-            new Object[] {"com.example.component.UnmanagedObservableArezComponentLikeReferenceSuppressedOnSetter"},
-            new Object[] {"com.example.component.UnmanagedObservableComponentReferenceToNonVerify"},
             new Object[] {"com.example.cascade_dispose.Suppressed1ProtectedAccessFieldCascadeDisposeModel"},
             new Object[] {"com.example.cascade_dispose.Suppressed2ProtectedAccessFieldCascadeDisposeModel"},
             new Object[] {"com.example.component_name_ref.Suppressed1ProtectedAccessComponentNameRefModel"},
@@ -2288,14 +2293,6 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
             new Object[] {"com.example.component_name_ref.Suppressed2PublicAccessComponentNameRefModel"},
             new Object[] {"com.example.component_dependency.Suppressed1PublicAccessFieldDependencyModel"},
             new Object[] {"com.example.component_dependency.Suppressed2PublicAccessFieldDependencyModel"},
-            new Object[] {"com.example.component.Suppressed1ExtendsComponentModel"},
-            new Object[] {"com.example.component.Suppressed1ProtectedCtorModel"},
-            new Object[] {"com.example.component.Suppressed1UnnecessaryAllowEmptyPresentComponent"},
-            new Object[] {"com.example.component.Suppressed1UnnecessaryDefaultPriorityPresentComponent"},
-            new Object[] {"com.example.component.Suppressed2ExtendsComponentModel"},
-            new Object[] {"com.example.component.Suppressed2ProtectedCtorModel"},
-            new Object[] {"com.example.component.Suppressed2UnnecessaryAllowEmptyPresentComponent"},
-            new Object[] {"com.example.component.Suppressed2UnnecessaryDefaultPriorityPresentComponent"},
             new Object[] {"com.example.misplaced_annotation.SuppressedPublicCtorArezComponentLikeModel"},
             new Object[] {"com.example.component_ref.Suppressed1ProtectedAccessComponentRefModel"},
             new Object[] {"com.example.component_ref.Suppressed1PublicAccessComponentRefModel"},
@@ -2309,14 +2306,53 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
             new Object[] {"com.example.component_type_name_ref.Suppressed1PublicAccessComponentTypeNameRefModel"},
             new Object[] {"com.example.component_type_name_ref.Suppressed2ProtectedAccessComponentTypeNameRefModel"},
             new Object[] {"com.example.component_type_name_ref.Suppressed2PublicAccessComponentTypeNameRefModel"},
-            new Object[] {"com.example.computable_value_ref.Suppressed1ProtectedAccessComputableValueRefModel"},
-            new Object[] {"com.example.computable_value_ref.Suppressed1PublicAccessComputableValueRefModel"},
-            new Object[] {"com.example.computable_value_ref.Suppressed2ProtectedAccessComputableValueRefModel"},
-            new Object[] {"com.example.computable_value_ref.Suppressed2PublicAccessComputableValueRefModel"},
             new Object[] {"com.example.context_ref.Suppressed1ProtectedAccessContextRefModel"},
             new Object[] {"com.example.context_ref.Suppressed1PublicAccessContextRefModel"},
             new Object[] {"com.example.context_ref.Suppressed2ProtectedAccessContextRefModel"},
             new Object[] {"com.example.context_ref.Suppressed2PublicAccessContextRefModel"},
+            new Object[] {"com.example.post_inverse_add.Suppressed1ProtectedAccessPostInverseAddModel"},
+            new Object[] {"com.example.post_inverse_add.Suppressed1PublicAccessPostInverseAddModel"},
+            new Object[] {"com.example.post_inverse_add.Suppressed2ProtectedAccessPostInverseAddModel"},
+            new Object[] {"com.example.post_inverse_add.Suppressed2PublicAccessPostInverseAddModel"},
+            new Object[] {"com.example.pre_inverse_remove.Suppressed1ProtectedAccessPreInverseRemoveModel"},
+            new Object[] {"com.example.pre_inverse_remove.Suppressed1PublicAccessPreInverseRemoveModel"},
+            new Object[] {"com.example.pre_inverse_remove.Suppressed2ProtectedAccessPreInverseRemoveModel"},
+            new Object[] {"com.example.pre_inverse_remove.Suppressed2PublicAccessPreInverseRemoveModel"}
+        };
+    }
+
+    @DataProvider(name = "compileWithoutWarningsBasic")
+    public Object[][] compileWithoutWarningsBasic() {
+        return new Object[][] {
+            new Object[] {"com.example.component.UnmanagedComponentReferenceSuppressed"},
+            new Object[] {"com.example.component.UnmanagedComponentReferenceSuppressedAtClass"},
+            new Object[] {"com.example.component.UnmanagedComponentReferenceToNonDisposeNotifier"},
+            new Object[] {"com.example.component.UnmanagedComponentReferenceToNonVerify"},
+            new Object[] {"com.example.component.PrivateServiceField"},
+            new Object[] {"com.example.component.Suppressed1NonPrivateServiceField"},
+            new Object[] {"com.example.component.Suppressed2NonPrivateServiceField"},
+            new Object[] {"com.example.component.ManagedAutoObserveArezComponentLikeReference"},
+            new Object[] {"com.example.component.ManagedObservableAutoObserveArezComponentLikeReference"},
+            new Object[] {"com.example.component.UnmanagedObservableArezComponentLikeReferenceSuppressed"},
+            new Object[] {"com.example.component.UnmanagedObservableArezComponentLikeReferenceSuppressedOnClass"},
+            new Object[] {"com.example.component.UnmanagedObservableComponentReferenceViaInheritanceSuppressed"},
+            new Object[] {
+                "com.example.component.UnmanagedObservableComponentReferenceViaInheritanceSuppressedOnBaseClass"
+            },
+            new Object[] {"com.example.component.UnmanagedObservableArezComponentLikeReferenceSuppressedOnSetter"},
+            new Object[] {"com.example.component.UnmanagedObservableComponentReferenceToNonVerify"},
+            new Object[] {"com.example.component.Suppressed1ExtendsComponentModel"},
+            new Object[] {"com.example.component.Suppressed1ProtectedCtorModel"},
+            new Object[] {"com.example.component.Suppressed1UnnecessaryAllowEmptyPresentComponent"},
+            new Object[] {"com.example.component.Suppressed1UnnecessaryDefaultPriorityPresentComponent"},
+            new Object[] {"com.example.component.Suppressed2ExtendsComponentModel"},
+            new Object[] {"com.example.component.Suppressed2ProtectedCtorModel"},
+            new Object[] {"com.example.component.Suppressed2UnnecessaryAllowEmptyPresentComponent"},
+            new Object[] {"com.example.component.Suppressed2UnnecessaryDefaultPriorityPresentComponent"},
+            new Object[] {"com.example.computable_value_ref.Suppressed1ProtectedAccessComputableValueRefModel"},
+            new Object[] {"com.example.computable_value_ref.Suppressed1PublicAccessComputableValueRefModel"},
+            new Object[] {"com.example.computable_value_ref.Suppressed2ProtectedAccessComputableValueRefModel"},
+            new Object[] {"com.example.computable_value_ref.Suppressed2PublicAccessComputableValueRefModel"},
             new Object[] {"com.example.observable_value_ref.Suppressed1ProtectedAccessObservableValueRefModel"},
             new Object[] {"com.example.observable_value_ref.Suppressed1PublicAccessObservableValueRefModel"},
             new Object[] {"com.example.observable_value_ref.Suppressed2ProtectedAccessObservableValueRefModel"},
@@ -2345,24 +2381,21 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
             new Object[] {"com.example.post_dispose.Suppressed1PublicAccessPostDisposeModel"},
             new Object[] {"com.example.post_dispose.Suppressed2ProtectedAccessPostDisposeModel"},
             new Object[] {"com.example.post_dispose.Suppressed2PublicAccessPostDisposeModel"},
-            new Object[] {"com.example.post_inverse_add.Suppressed1ProtectedAccessPostInverseAddModel"},
-            new Object[] {"com.example.post_inverse_add.Suppressed1PublicAccessPostInverseAddModel"},
-            new Object[] {"com.example.post_inverse_add.Suppressed2ProtectedAccessPostInverseAddModel"},
-            new Object[] {"com.example.post_inverse_add.Suppressed2PublicAccessPostInverseAddModel"},
             new Object[] {"com.example.pre_dispose.Suppressed1ProtectedAccessPreDisposeModel"},
             new Object[] {"com.example.pre_dispose.Suppressed1PublicAccessPreDisposeModel"},
             new Object[] {"com.example.pre_dispose.Suppressed2ProtectedAccessPreDisposeModel"},
             new Object[] {"com.example.pre_dispose.Suppressed2PublicAccessPreDisposeModel"},
-            new Object[] {"com.example.pre_inverse_remove.Suppressed1ProtectedAccessPreInverseRemoveModel"},
-            new Object[] {"com.example.pre_inverse_remove.Suppressed1PublicAccessPreInverseRemoveModel"},
-            new Object[] {"com.example.pre_inverse_remove.Suppressed2ProtectedAccessPreInverseRemoveModel"},
-            new Object[] {"com.example.pre_inverse_remove.Suppressed2PublicAccessPreInverseRemoveModel"},
             new Object[] {"com.example.requires_transaction.AllowEmptyRequiresTransactionModel"}
         };
     }
 
     @Test(dataProvider = "compileWithoutWarnings")
     public void processCompileWithoutWarnings(final String classname) {
+        assertCompilesWithoutWarnings(classname);
+    }
+
+    @Test(dataProvider = "compileWithoutWarningsBasic")
+    public void processCompileWithoutWarningsBasic(final String classname) {
         assertCompilesWithoutWarnings(classname);
     }
 

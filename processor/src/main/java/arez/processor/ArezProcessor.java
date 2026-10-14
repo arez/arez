@@ -825,8 +825,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         final var parameters = method.getParameters();
         if (!(parameters.isEmpty()
                 || (1 == parameters.size()
-                        && Constants.OBSERVER_CLASSNAME.equals(
-                                parameters.get(0).asType().toString())))) {
+                        && parameters.get(0).asType() instanceof DeclaredType declared
+                        && ((TypeElement) declared.asElement())
+                                .getQualifiedName()
+                                .contentEquals(Constants.OBSERVER_CLASSNAME)))) {
             throw new ProcessorException(
                     "@OnDepsChange target must not have any parameters or must have a single "
                             + "parameter of type arez.Observer",
@@ -849,7 +851,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         final var parameters = method.getParameters();
         if (!parameters.isEmpty()
                 && !(1 == parameters.size()
-                        && parameters.get(0).asType().toString().startsWith(Constants.COMPUTABLE_VALUE_CLASSNAME))) {
+                        && parameters.get(0).asType() instanceof DeclaredType declared
+                        && ((TypeElement) declared.asElement())
+                                .getQualifiedName()
+                                .contentEquals(Constants.COMPUTABLE_VALUE_CLASSNAME))) {
             MemberChecks.mustNotHaveAnyParameters(Constants.ON_ACTIVATE_CLASSNAME, method);
         }
 
@@ -2790,10 +2795,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
                 if (voidReturn && null != name) {
                     if (0 == parameterCount
                             || (1 == parameterCount
-                                    && Constants.OBSERVER_CLASSNAME.equals(method.getParameters()
-                                            .get(0)
-                                            .asType()
-                                            .toString()))) {
+                                    && method.getParameters().get(0).asType() instanceof DeclaredType declared
+                                    && ((TypeElement) declared.asElement())
+                                            .getQualifiedName()
+                                            .contentEquals(Constants.OBSERVER_CLASSNAME))) {
                         onDepsChanges
                                 .computeIfAbsent(name, key -> new ArrayList<>())
                                 .add(candidateMethod);

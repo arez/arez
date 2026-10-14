@@ -5,8 +5,10 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComputableValueRef;
 import arez.annotations.Memoize;
 import arez.annotations.DepType;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class NonArezDependenciesModel
 {
@@ -16,7 +18,7 @@ abstract class NonArezDependenciesModel
     return 0;
   }
 
-  @Nonnull
+  @NonNull
   @ComputableValueRef
   abstract ComputableValue<Long> getTimeComputableValue();
 }

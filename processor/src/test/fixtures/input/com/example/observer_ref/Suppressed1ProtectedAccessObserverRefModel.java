@@ -4,7 +4,10 @@ import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class Suppressed1ProtectedAccessObserverRefModel
 {
@@ -16,5 +19,5 @@ abstract class Suppressed1ProtectedAccessObserverRefModel
   // This uses the SOURCE retention suppression
   @SuppressWarnings( "Arez:ProtectedMethod" )
   @ObserverRef
-  protected abstract Observer getDoStuffObserver();
+  protected abstract @Nullable Observer getDoStuffObserver();
 }

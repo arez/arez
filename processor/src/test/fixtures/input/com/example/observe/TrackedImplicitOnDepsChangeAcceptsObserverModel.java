@@ -4,8 +4,10 @@ import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
 import arez.annotations.Observe;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class TrackedImplicitOnDepsChangeAcceptsObserverModel
 {
@@ -14,7 +16,7 @@ abstract class TrackedImplicitOnDepsChangeAcceptsObserverModel
   {
   }
 
-  void onRenderDepsChange( @Nonnull final Observer observer )
+  void onRenderDepsChange( @NonNull final Observer observer )
   {
   }
 }

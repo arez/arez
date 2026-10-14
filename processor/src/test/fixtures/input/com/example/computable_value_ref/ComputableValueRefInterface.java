@@ -3,8 +3,10 @@ package com.example.computable_value_ref;
 import arez.ComputableValue;
 import arez.annotations.ComputableValueRef;
 import arez.annotations.Memoize;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public interface ComputableValueRefInterface
 {
   @Memoize
@@ -13,7 +15,7 @@ public interface ComputableValueRefInterface
     return 0;
   }
 
-  @Nonnull
+  @NonNull
   @ComputableValueRef
   ComputableValue<Long> getTimeComputableValue();
 }

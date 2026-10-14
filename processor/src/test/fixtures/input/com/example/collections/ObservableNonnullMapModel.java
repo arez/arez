@@ -4,19 +4,22 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class ObservableNonnullMapModel
 {
-  @Nonnull
+  @NonNull
   @Observable
   public Map<String, String> getMyValue()
   {
     return new HashMap<>();
   }
 
-  public void setMyValue( final Map<String, String> value )
+  public void setMyValue( final @Nullable Map<String, String> value )
   {
   }
 }

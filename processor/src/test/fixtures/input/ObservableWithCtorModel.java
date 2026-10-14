@@ -1,6 +1,8 @@
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @SuppressWarnings( "WeakerAccess" )
 @ArezComponent
 public abstract class ObservableWithCtorModel

@@ -3,7 +3,9 @@ package com.example.observe;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.Observe;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 public abstract class ObserveDuplicateModel2
 {

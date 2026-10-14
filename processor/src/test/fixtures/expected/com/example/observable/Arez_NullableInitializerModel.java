@@ -11,25 +11,24 @@ import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.Date;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_NullableInitializerModel extends NullableInitializerModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<Date> $$arez$$_time;
+  private final ObservableValue<@Nullable Date> $$arez$$_time;
 
-  @Nullable
-  private Date $$arezd$$_time;
+  private @Nullable Date $$arezd$$_time;
 
-  Arez_NullableInitializerModel(@Nullable final Date time) {
+  Arez_NullableInitializerModel(final @Nullable Date time) {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ++$$arezi$$_nextId;
@@ -48,7 +47,6 @@ final class Arez_NullableInitializerModel extends NullableInitializerModel imple
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_observable_NullableInitializerModel'" );
@@ -64,7 +62,7 @@ final class Arez_NullableInitializerModel extends NullableInitializerModel imple
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_observable_NullableInitializerModel'" );
@@ -73,7 +71,7 @@ final class Arez_NullableInitializerModel extends NullableInitializerModel imple
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_observable_NullableInitializerModel'" );
     }
@@ -110,8 +108,7 @@ final class Arez_NullableInitializerModel extends NullableInitializerModel imple
   }
 
   @Override
-  @Nullable
-  public Date getTime() {
+  public @Nullable Date getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -120,12 +117,12 @@ final class Arez_NullableInitializerModel extends NullableInitializerModel imple
   }
 
   @Override
-  public void setTime(final Date value) {
+  public void setTime(final @Nullable Date value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     this.$$arez$$_time.preReportChanged();
-    final Date $$arezv$$_currentValue = this.$$arezd$$_time;
+    final @Nullable Date $$arezv$$_currentValue = this.$$arezd$$_time;
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
       this.$$arezd$$_time = value;
       this.$$arez$$_time.reportChanged();

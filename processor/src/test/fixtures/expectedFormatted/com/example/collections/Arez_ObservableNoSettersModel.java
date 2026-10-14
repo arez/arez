@@ -13,12 +13,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -26,17 +27,13 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<Collection<String>> $$arez$$_collection;
+  private final ObservableValue<@Nullable Collection<String>> $$arez$$_collection;
 
-  @Nonnull
-  private final ObservableValue<Set<String>> $$arez$$_set;
+  private final ObservableValue<@Nullable Set<String>> $$arez$$_set;
 
-  @Nonnull
-  private final ObservableValue<List<String>> $$arez$$_list;
+  private final ObservableValue<@Nullable List<String>> $$arez$$_list;
 
-  @Nonnull
-  private final ObservableValue<Map<String, String>> $$arez$$_map;
+  private final ObservableValue<@Nullable Map<String, String>> $$arez$$_map;
 
   Arez_ObservableNoSettersModel() {
     super();
@@ -101,7 +98,6 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -124,9 +120,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -137,7 +131,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -195,7 +189,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel
   }
 
   @Override
-  public Collection<String> getCollection() {
+  public @Nullable Collection<String> getCollection() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -207,7 +201,6 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel
   }
 
   @Override
-  @Nonnull
   ObservableValue<Collection<String>> getCollectionObservableValue() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -220,7 +213,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel
   }
 
   @Override
-  public Set<String> getSet() {
+  public @Nullable Set<String> getSet() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -232,7 +225,6 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel
   }
 
   @Override
-  @Nonnull
   ObservableValue<Set<String>> getSetObservableValue() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -245,7 +237,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel
   }
 
   @Override
-  public List<String> getList() {
+  public @Nullable List<String> getList() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -257,7 +249,6 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel
   }
 
   @Override
-  @Nonnull
   ObservableValue<List<String>> getListObservableValue() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -270,7 +261,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel
   }
 
   @Override
-  public Map<String, String> getMap() {
+  public @Nullable Map<String, String> getMap() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -282,7 +273,6 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel
   }
 
   @Override
-  @Nonnull
   ObservableValue<Map<String, String>> getMapObservableValue() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(

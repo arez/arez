@@ -1,7 +1,9 @@
 package com.example.post_construct.other;
 
 import arez.annotations.PostConstruct;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public interface MultiModelInterface1
 {
   @PostConstruct

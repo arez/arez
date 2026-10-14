@@ -4,8 +4,10 @@ import arez.ComputableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComputableValueRef;
 import arez.annotations.Memoize;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 public abstract class BadReturnType3Model
 {
@@ -15,7 +17,7 @@ public abstract class BadReturnType3Model
     return 0;
   }
 
-  @Nonnull
+  @NonNull
   @ComputableValueRef
   public abstract ComputableValue<String> getTimeComputableValue();
 }

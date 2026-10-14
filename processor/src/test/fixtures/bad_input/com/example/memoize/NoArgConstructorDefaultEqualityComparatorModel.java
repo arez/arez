@@ -4,31 +4,36 @@ import arez.EqualityComparator;
 import arez.annotations.ArezComponent;
 import arez.annotations.DefaultEqualityComparator;
 import arez.annotations.Memoize;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class NoArgConstructorDefaultEqualityComparatorModel
 {
+  @NullMarked
   static final class NoDefaultConstructorComparator
     implements EqualityComparator
   {
-    NoDefaultConstructorComparator( final String value )
+    NoDefaultConstructorComparator( final @Nullable String value )
     {
     }
 
     @Override
-    public boolean areEqual( final Object oldValue, final Object newValue )
+    public boolean areEqual( final @Nullable Object oldValue, final @Nullable Object newValue )
     {
       return oldValue == newValue;
     }
   }
 
+  @NullMarked
   @DefaultEqualityComparator( NoDefaultConstructorComparator.class )
   interface LabelView
   {
   }
 
   @Memoize
-  LabelView getValue()
+  @Nullable LabelView getValue()
   {
     return null;
   }

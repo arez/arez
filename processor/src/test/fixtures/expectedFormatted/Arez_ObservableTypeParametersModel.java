@@ -8,12 +8,13 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_ObservableTypeParametersModel<T extends Integer>
     extends ObservableTypeParametersModel<T>
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
@@ -22,8 +23,7 @@ final class Arez_ObservableTypeParametersModel<T extends Integer>
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<T> $$arez$$_time;
+  private final ObservableValue<@Nullable T> $$arez$$_time;
 
   Arez_ObservableTypeParametersModel() {
     super();
@@ -66,7 +66,6 @@ final class Arez_ObservableTypeParametersModel<T extends Integer>
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -89,9 +88,7 @@ final class Arez_ObservableTypeParametersModel<T extends Integer>
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -102,7 +99,7 @@ final class Arez_ObservableTypeParametersModel<T extends Integer>
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -157,7 +154,7 @@ final class Arez_ObservableTypeParametersModel<T extends Integer>
   }
 
   @Override
-  public T getTime() {
+  public @Nullable T getTime() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -169,7 +166,7 @@ final class Arez_ObservableTypeParametersModel<T extends Integer>
   }
 
   @Override
-  public void setTime(final T time) {
+  public void setTime(final @Nullable T time) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),

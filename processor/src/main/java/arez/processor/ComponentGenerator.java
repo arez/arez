@@ -2724,7 +2724,7 @@ final class ComponentGenerator {
             }
             first = false;
             final TypeName contextParameterJavaType = GeneratorUtil.getTypeName(contextParameter.initialValueType());
-            if (contextParameterJavaType.equals(OBJECT)) {
+            if (contextParameterJavaType.withoutAnnotations().equals(OBJECT)) {
                 sb.append("args[ ").append(index).append(" ]");
             } else {
                 sb.append("($T) args[ ").append(index).append(" ]");
@@ -2737,7 +2737,7 @@ final class ComponentGenerator {
                 sb.append(", ");
             }
             first = false;
-            if (GeneratorUtil.getTypeName(arg).equals(OBJECT)) {
+            if (GeneratorUtil.getTypeName(arg).withoutAnnotations().equals(OBJECT)) {
                 sb.append("args[ ").append(index).append(" ]");
             } else {
                 sb.append("($T) args[ ").append(index).append(" ]");

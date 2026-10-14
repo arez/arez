@@ -4,17 +4,20 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import java.util.HashMap;
 import java.util.Map;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class ObservableMapModel
 {
   @Observable
-  public Map<String, String> getMyValue()
+  public @Nullable Map<String, String> getMyValue()
   {
     return new HashMap<>();
   }
 
-  public void setMyValue( final Map<String, String> value )
+  public void setMyValue( final @Nullable Map<String, String> value )
   {
   }
 }

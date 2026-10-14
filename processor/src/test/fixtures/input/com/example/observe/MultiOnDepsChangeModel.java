@@ -5,8 +5,10 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
 import arez.annotations.Observe;
 import arez.annotations.OnDepsChange;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class MultiOnDepsChangeModel
 {
@@ -20,7 +22,7 @@ abstract class MultiOnDepsChangeModel
   }
 
   @OnDepsChange( name = "render" )
-  void onRenderDepsChange2( @Nonnull final Observer observer )
+  void onRenderDepsChange2( @NonNull final Observer observer )
   {
   }
 }

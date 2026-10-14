@@ -5,7 +5,10 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComputableValueRef;
 import arez.annotations.Memoize;
 import java.text.ParseException;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class ThrowsExceptionModel
 {
@@ -17,6 +20,6 @@ public abstract class ThrowsExceptionModel
 
   @SuppressWarnings( { "RedundantThrows", "RedundantSuppression" } )
   @ComputableValueRef
-  abstract ComputableValue<Long> getTimeComputableValue()
+  abstract @Nullable ComputableValue<Long> getTimeComputableValue()
     throws ParseException;
 }

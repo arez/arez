@@ -12,12 +12,14 @@ import arez.component.internal.CollectionsUtil;
 import arez.component.internal.ComponentKernel;
 import java.util.Objects;
 import java.util.Set;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_ObservableNonnullSetModel extends ObservableNonnullSetModel
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -25,11 +27,9 @@ final class Arez_ObservableNonnullSetModel extends ObservableNonnullSetModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<Set<String>> $$arez$$_myValue;
+  private final ObservableValue<@NonNull Set<String>> $$arez$$_myValue;
 
-  @Nullable
-  private Set<String> $$arezd$$_$$cache$$_myValue;
+  private @Nullable Set<String> $$arezd$$_$$cache$$_myValue;
 
   Arez_ObservableNonnullSetModel() {
     super();
@@ -73,7 +73,6 @@ final class Arez_ObservableNonnullSetModel extends ObservableNonnullSetModel
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -96,9 +95,7 @@ final class Arez_ObservableNonnullSetModel extends ObservableNonnullSetModel
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -109,7 +106,7 @@ final class Arez_ObservableNonnullSetModel extends ObservableNonnullSetModel
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -164,8 +161,7 @@ final class Arez_ObservableNonnullSetModel extends ObservableNonnullSetModel
   }
 
   @Override
-  @Nonnull
-  public Set<String> getMyValue() {
+  public @NonNull Set<String> getMyValue() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -184,7 +180,7 @@ final class Arez_ObservableNonnullSetModel extends ObservableNonnullSetModel
   }
 
   @Override
-  public void setMyValue(final Set<String> value) {
+  public void setMyValue(final @Nullable Set<String> value) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -192,7 +188,7 @@ final class Arez_ObservableNonnullSetModel extends ObservableNonnullSetModel
               + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     this.$$arez$$_myValue.preReportChanged();
-    final Set<String> $$arezv$$_currentValue = super.getMyValue();
+    final @Nullable Set<String> $$arezv$$_currentValue = super.getMyValue();
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
       this.$$arezd$$_$$cache$$_myValue = null;
     }

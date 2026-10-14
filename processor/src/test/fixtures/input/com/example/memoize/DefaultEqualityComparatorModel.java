@@ -4,47 +4,54 @@ import arez.EqualityComparator;
 import arez.annotations.ArezComponent;
 import arez.annotations.DefaultEqualityComparator;
 import arez.annotations.Memoize;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class DefaultEqualityComparatorModel
 {
+  @NullMarked
   @DefaultEqualityComparator( IgnoreCaseComparator.class )
   interface LabelView
   {
   }
 
+  @NullMarked
   @DefaultEqualityComparator( IgnoreCaseComparator.class )
   static final class DerivedLabel
   {
     @Override
-    public String toString()
+    public @Nullable String toString()
     {
       return "derived";
     }
   }
 
+  @NullMarked
   static final class Label
     implements LabelView
   {
-    private final String _value;
+    private final @Nullable String _value;
 
-    Label( final String value )
+    Label( final @Nullable String value )
     {
       _value = value;
     }
 
     @Override
-    public String toString()
+    public @Nullable String toString()
     {
       return _value;
     }
   }
 
+  @NullMarked
   static final class IgnoreCaseComparator
     implements EqualityComparator
   {
     @Override
-    public boolean areEqual( final Object oldValue, final Object newValue )
+    public boolean areEqual( final @Nullable Object oldValue, final @Nullable Object newValue )
     {
       return null == oldValue || null == newValue ?
              oldValue == newValue :
@@ -52,11 +59,12 @@ abstract class DefaultEqualityComparatorModel
     }
   }
 
+  @NullMarked
   static final class ExactComparator
     implements EqualityComparator
   {
     @Override
-    public boolean areEqual( final Object oldValue, final Object newValue )
+    public boolean areEqual( final @Nullable Object oldValue, final @Nullable Object newValue )
     {
       return null == oldValue || null == newValue ?
              oldValue == newValue :
@@ -65,31 +73,31 @@ abstract class DefaultEqualityComparatorModel
   }
 
   @Memoize
-  LabelView defaultLabel()
+  @Nullable LabelView defaultLabel()
   {
     return new Label( "Alpha" );
   }
 
   @Memoize
-  LabelView labelForSeed( final int seed )
+  @Nullable LabelView labelForSeed( final int seed )
   {
     return new Label( "Seed" + seed );
   }
 
   @Memoize( equalityComparator = ExactComparator.class )
-  LabelView explicitLabel()
+  @Nullable LabelView explicitLabel()
   {
     return new Label( "Explicit" );
   }
 
   @Memoize
-  String fallbackLabel()
+  @Nullable String fallbackLabel()
   {
     return "Fallback";
   }
 
   @Memoize
-  Object exactTypeOnlyLabel()
+  @Nullable Object exactTypeOnlyLabel()
   {
     return new DerivedLabel();
   }

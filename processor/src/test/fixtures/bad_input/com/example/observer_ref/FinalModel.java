@@ -4,7 +4,10 @@ import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class FinalModel
 {
@@ -14,7 +17,7 @@ public abstract class FinalModel
   }
 
   @ObserverRef
-  final Observer getDoStuffObserver()
+  final @Nullable Observer getDoStuffObserver()
   {
     throw new IllegalStateException();
   }

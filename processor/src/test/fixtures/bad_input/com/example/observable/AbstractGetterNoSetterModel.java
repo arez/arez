@@ -4,15 +4,17 @@ import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.ObservableValueRef;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 public abstract class AbstractGetterNoSetterModel
 {
   @Observable( expectSetter = false )
   public abstract long getField();
 
-  @Nonnull
+  @NonNull
   @ObservableValueRef
   public abstract ObservableValue<Long> getFieldObservableValue();
 }

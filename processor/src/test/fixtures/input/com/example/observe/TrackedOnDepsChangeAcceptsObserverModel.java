@@ -5,8 +5,10 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
 import arez.annotations.Observe;
 import arez.annotations.OnDepsChange;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class TrackedOnDepsChangeAcceptsObserverModel
 {
@@ -16,7 +18,7 @@ abstract class TrackedOnDepsChangeAcceptsObserverModel
   }
 
   @OnDepsChange
-  void onRenderDepsChange( @Nonnull final Observer observer )
+  void onRenderDepsChange( @NonNull final Observer observer )
   {
   }
 }

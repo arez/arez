@@ -4,7 +4,10 @@ import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class MultiObserverRefModel
 {
@@ -14,8 +17,8 @@ abstract class MultiObserverRefModel
   }
 
   @ObserverRef( name = "doStuff" )
-  abstract Observer obs1();
+  abstract @Nullable Observer obs1();
 
   @ObserverRef( name = "doStuff" )
-  abstract Observer obs2();
+  abstract @Nullable Observer obs2();
 }

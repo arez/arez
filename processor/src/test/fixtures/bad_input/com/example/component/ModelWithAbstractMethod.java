@@ -2,7 +2,9 @@ package com.example.component;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 public abstract class ModelWithAbstractMethod
 {

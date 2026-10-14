@@ -10,24 +10,24 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_RawObservableModel extends RawObservableModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
   @SuppressWarnings("rawtypes")
-  private final ObservableValue<RawObservableModel.MyValue> $$arez$$_myValue;
+  private final ObservableValue<RawObservableModel. @Nullable MyValue> $$arez$$_myValue;
 
   @SuppressWarnings("rawtypes")
-  private RawObservableModel.MyValue $$arezd$$_myValue;
+  private RawObservableModel. @Nullable MyValue $$arezd$$_myValue;
 
   Arez_RawObservableModel() {
     super();
@@ -47,7 +47,6 @@ final class Arez_RawObservableModel extends RawObservableModel implements Dispos
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_observable_RawObservableModel'" );
@@ -63,7 +62,7 @@ final class Arez_RawObservableModel extends RawObservableModel implements Dispos
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_observable_RawObservableModel'" );
@@ -72,7 +71,7 @@ final class Arez_RawObservableModel extends RawObservableModel implements Dispos
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_observable_RawObservableModel'" );
     }
@@ -110,7 +109,7 @@ final class Arez_RawObservableModel extends RawObservableModel implements Dispos
 
   @Override
   @SuppressWarnings("rawtypes")
-  public RawObservableModel.MyValue getMyValue() {
+  public RawObservableModel. @Nullable MyValue getMyValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -120,12 +119,12 @@ final class Arez_RawObservableModel extends RawObservableModel implements Dispos
 
   @Override
   @SuppressWarnings("rawtypes")
-  public void setMyValue(final RawObservableModel.MyValue time) {
+  public void setMyValue(final RawObservableModel. @Nullable MyValue time) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     this.$$arez$$_myValue.preReportChanged();
-    final RawObservableModel.MyValue $$arezv$$_currentValue = this.$$arezd$$_myValue;
+    final RawObservableModel. @Nullable MyValue $$arezv$$_currentValue = this.$$arezd$$_myValue;
     if ( !Objects.equals( time, $$arezv$$_currentValue ) ) {
       this.$$arezd$$_myValue = time;
       this.$$arez$$_myValue.reportChanged();

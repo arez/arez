@@ -8,26 +8,24 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_ObservableGuessingModel extends ObservableGuessingModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
   private final ObservableValue<Long> $$arez$$_time;
 
-  @Nonnull
   private final ObservableValue<Boolean> $$arez$$_foo;
 
-  @Nonnull
-  private final ObservableValue<String> $$arez$$_string;
+  private final ObservableValue<@Nullable String> $$arez$$_string;
 
   Arez_ObservableGuessingModel() {
     super();
@@ -49,7 +47,6 @@ final class Arez_ObservableGuessingModel extends ObservableGuessingModel impleme
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'ObservableGuessingModel'" );
@@ -65,7 +62,7 @@ final class Arez_ObservableGuessingModel extends ObservableGuessingModel impleme
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'ObservableGuessingModel'" );
@@ -74,7 +71,7 @@ final class Arez_ObservableGuessingModel extends ObservableGuessingModel impleme
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'ObservableGuessingModel'" );
     }
@@ -157,7 +154,7 @@ final class Arez_ObservableGuessingModel extends ObservableGuessingModel impleme
   }
 
   @Override
-  public String getString() {
+  public @Nullable String getString() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getString' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -166,12 +163,12 @@ final class Arez_ObservableGuessingModel extends ObservableGuessingModel impleme
   }
 
   @Override
-  public void setString(final String v) {
+  public void setString(final @Nullable String v) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setString' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     this.$$arez$$_string.preReportChanged();
-    final String $$arezv$$_currentValue = super.getString();
+    final @Nullable String $$arezv$$_currentValue = super.getString();
     if ( !Objects.equals( v, $$arezv$$_currentValue ) ) {
       super.setString( v );
       this.$$arez$$_string.reportChanged();

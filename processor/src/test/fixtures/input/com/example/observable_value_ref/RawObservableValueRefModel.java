@@ -4,8 +4,10 @@ import arez.ObservableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.ObservableValueRef;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class RawObservableValueRefModel
 {
@@ -15,7 +17,7 @@ abstract class RawObservableValueRefModel
   public abstract void setTime( long time );
 
   @SuppressWarnings( "rawtypes" )
-  @Nonnull
+  @NonNull
   @ObservableValueRef
   abstract ObservableValue getTimeObservableValue();
 }

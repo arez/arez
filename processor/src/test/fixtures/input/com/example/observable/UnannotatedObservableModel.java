@@ -1,7 +1,9 @@
 package com.example.observable;
 
 import arez.annotations.ArezComponent;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class UnannotatedObservableModel
 {

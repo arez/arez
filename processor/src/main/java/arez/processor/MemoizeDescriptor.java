@@ -9,7 +9,9 @@ import java.util.Objects;
 import java.util.stream.Stream;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeMirror;
 import org.jspecify.annotations.Nullable;
@@ -333,7 +335,10 @@ final class MemoizeDescriptor {
         } else {
             final var parameters = _onActivate.getParameters();
             return 1 == parameters.size()
-                    && parameters.get(0).asType().toString().startsWith(Constants.COMPUTABLE_VALUE_CLASSNAME);
+                    && parameters.get(0).asType() instanceof DeclaredType declared
+                    && ((TypeElement) declared.asElement())
+                            .getQualifiedName()
+                            .contentEquals(Constants.COMPUTABLE_VALUE_CLASSNAME);
         }
     }
 

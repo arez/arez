@@ -2,9 +2,12 @@ package com.example.component;
 
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public final class Suppressed1ExtendsComponentModel
 {
+  @NullMarked
   @ArezComponent
   public static abstract class MyBaseComponent
   {
@@ -14,6 +17,7 @@ public final class Suppressed1ExtendsComponentModel
     }
   }
 
+  @NullMarked
   @SuppressWarnings( "Arez:ExtendsComponent" )
   @ArezComponent
   public static abstract class MyComponent

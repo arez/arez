@@ -4,8 +4,11 @@ import arez.ComputableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComputableValueRef;
 import arez.annotations.Memoize;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class MultiComputableValueRefModel
 {
@@ -15,10 +18,10 @@ public abstract class MultiComputableValueRefModel
     return 0;
   }
 
-  @Nonnull
+  @NonNull
   @ComputableValueRef
   abstract ComputableValue<Long> getTimeComputableValue();
 
   @ComputableValueRef( name = "time" )
-  abstract ComputableValue<Long> getTimeComputableValue2();
+  abstract @Nullable ComputableValue<Long> getTimeComputableValue2();
 }

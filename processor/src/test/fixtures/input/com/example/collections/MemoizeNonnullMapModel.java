@@ -4,12 +4,14 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class MemoizeNonnullMapModel
 {
-  @Nonnull
+  @NonNull
   @Memoize
   public Map<String, String> getMyValue()
   {

@@ -3,7 +3,9 @@ package com.example.component;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import arez.annotations.Observable;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent( observable = Feature.DISABLE, disposeOnDeactivate = true )
 public abstract class NonObservableWithDisposeOnDeactivateModel
 {
