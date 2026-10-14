@@ -11,6 +11,7 @@ public final class ArezProcessorJSpecifyDiagnosticTest extends ArezProcessorTest
             {"UnmarkedModel", "Unspecified JSpecify nullness"},
             {"UnmarkedMethodModel", "Unspecified JSpecify nullness"},
             {"ParametricInitializerModel", "Parametric JSpecify nullness"},
+            {"ParametricMixedConstructorModel", "Parametric JSpecify nullness cannot be preserved"},
             {"ConflictingModel", "Conflicting JSpecify"}
         };
     }

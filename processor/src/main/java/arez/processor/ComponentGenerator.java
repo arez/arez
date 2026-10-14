@@ -1746,7 +1746,7 @@ final class ComponentGenerator {
             final ParameterSpec.Builder param = ParameterSpec.builder(
                     unmarkedConstructor && Nullability.isMarked(observable.getGetter())
                             ? explicitMarkedType(
-                                    initializerType, observable.getGetterType().getReturnType())
+                                    initializerType, observable.getGetterType().getReturnType(), observable.getGetter())
                             : initializerType,
                     name,
                     Modifier.FINAL);
@@ -2416,11 +2416,12 @@ final class ComponentGenerator {
         return method;
     }
 
-    private static TypeName explicitMarkedType(final TypeName type, final TypeMirror mirror) {
+    private static TypeName explicitMarkedType(
+            final TypeName type, final TypeMirror mirror, final ExecutableElement declaration) {
         final TypeName explicit;
         if (type instanceof ArrayTypeName array) {
-            explicit = ArrayTypeName.of(
-                            explicitMarkedType(array.componentType(), ((ArrayType) mirror).getComponentType()))
+            explicit = ArrayTypeName.of(explicitMarkedType(
+                            array.componentType(), ((ArrayType) mirror).getComponentType(), declaration))
                     .annotated(type.annotations());
         } else if (type instanceof ParameterizedTypeName parameterized) {
             final var declared = (DeclaredType) mirror;
@@ -2428,12 +2429,14 @@ final class ComponentGenerator {
                             0, parameterized.typeArguments().size())
                     .mapToObj(i -> explicitMarkedType(
                             parameterized.typeArguments().get(i),
-                            declared.getTypeArguments().get(i)))
+                            declared.getTypeArguments().get(i),
+                            declaration))
                     .toList();
             final ParameterizedTypeName enclosing = parameterized.enclosingType();
             explicit = (enclosing != null
-                            ? ((ParameterizedTypeName) explicitMarkedType(enclosing, declared.getEnclosingType())
-                                            .withoutAnnotations())
+                            ? ((ParameterizedTypeName)
+                                            explicitMarkedType(enclosing, declared.getEnclosingType(), declaration)
+                                                    .withoutAnnotations())
                                     .nestedClass(parameterized.rawType().simpleName(), arguments)
                             : ParameterizedTypeName.get(parameterized.rawType(), arguments.toArray(TypeName[]::new)))
                     .annotated(type.annotations());
@@ -2443,18 +2446,27 @@ final class ComponentGenerator {
             final TypeMirror upper = bound.getExtendsBound();
             explicit = (lower != null
                             ? WildcardTypeName.supertypeOf(
-                                    explicitMarkedType(wildcard.lowerBounds().get(0), lower))
+                                    explicitMarkedType(wildcard.lowerBounds().get(0), lower, declaration))
                             : WildcardTypeName.subtypeOf(
                                     upper == null
                                             ? nullable(OBJECT)
                                             : explicitMarkedType(
-                                                    wildcard.upperBounds().get(0), upper)))
+                                                    wildcard.upperBounds().get(0), upper, declaration)))
                     .annotated(type.annotations());
         } else {
             explicit = type;
         }
+        if (explicit instanceof TypeVariableName
+                && explicit.annotations().isEmpty()
+                && mirror instanceof TypeVariable variable
+                && !Nullability.hasNonNullBound(variable)) {
+            throw new ProcessorException(
+                    "Parametric JSpecify nullness cannot be preserved in an unmarked generated constructor: "
+                            + "mark the original constructor @NullMarked or explicitly qualify the initializer's "
+                            + "type-variable usage with @Nullable or @NonNull",
+                    declaration);
+        }
         return explicit.isPrimitive()
-                        || (mirror instanceof TypeVariable variable && !Nullability.hasNonNullBound(variable))
                         || explicit instanceof WildcardTypeName
                         || !explicit.annotations().isEmpty()
                 ? explicit
@@ -3169,7 +3181,7 @@ final class ComponentGenerator {
                 });
             }
         } else {
-            buildObservableSetterImpl(observable, method);
+            buildObservableSetterImpl(processingEnv, observable, method);
         }
 
         return method.build();
@@ -3189,7 +3201,7 @@ final class ComponentGenerator {
         GeneratorUtil.copyTypeParameters(setterType, builder);
         SuppressWarningsUtil.addSuppressWarningsIfRequired(processingEnv, builder, setterType);
         GeneratorUtil.copyWhitelistedAnnotations(setter, builder);
-        buildObservableSetterImpl(observable, builder);
+        buildObservableSetterImpl(processingEnv, observable, builder);
         final VariableElement element = setter.getParameters().get(0);
         final ParameterSpec.Builder param = ParameterSpec.builder(
                 GeneratorUtil.getTypeName(
@@ -3203,7 +3215,9 @@ final class ComponentGenerator {
     }
 
     private static void buildObservableSetterImpl(
-            final ObservableDescriptor observable, final MethodSpec.Builder builder) {
+            final ProcessingEnvironment processingEnv,
+            final ObservableDescriptor observable,
+            final MethodSpec.Builder builder) {
         final ExecutableElement setter = observable.getSetter();
         final ExecutableElement getter = observable.getGetter();
         final String methodName = setter.getSimpleName().toString();
@@ -3220,7 +3234,13 @@ final class ComponentGenerator {
                 observable.getSetterType().getParameterTypes().get(0);
         final VariableElement element = setter.getParameters().get(0);
         final String paramName = element.getSimpleName().toString();
-        final TypeName type = GeneratorUtil.getTypeName(parameterType).withoutAnnotations();
+        final ComponentDescriptor component = observable.getComponent();
+        final TypeName type = overrideMethod(processingEnv, component.getElement(), setter)
+                .build()
+                .parameters()
+                .get(0)
+                .type()
+                .withoutAnnotations();
         if ((isMethodReturnType(getter, Collection.class) || isMethodReturnType(getter, Date.class))
                 && !observable.hasObjectsDeepEqualsComparator()
                 && !observable.hasCustomEqualityComparator()) {
@@ -3246,7 +3266,6 @@ final class ComponentGenerator {
 
         final CodeBlock.Builder codeBlock = CodeBlock.builder();
         final boolean abstractObservables = observable.isAbstract();
-        final ComponentDescriptor component = observable.getComponent();
         if (abstractObservables) {
             builder.addStatement("final $T $N = this.$N", type, varName, observable.getDataFieldName());
         } else {

@@ -4,6 +4,7 @@ filegroup(
     name = "all",
     srcs = [
         "Arez_ArrayModel.java",
+        "Arez_ExplicitParametricContainerModel.java",
         "Arez_InheritedMarkedBindingModel.java",
         "Arez_InheritedNonNullModel.java",
         "Arez_InheritedNonNullReferenceModel.java",
@@ -14,6 +15,7 @@ filegroup(
         "Arez_NestedScopeModel.java",
         "Arez_NonNullOperatorModel.java",
         "Arez_NullableModel.java",
+        "Arez_ParametricContainerModel.java",
         "Arez_PrimitiveUnmarkedModel.java",
         "Arez_TypeVariableModel.java",
         "Arez_UnmarkedActionModel.java",

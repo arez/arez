@@ -6,6 +6,7 @@ filegroup(
         "ConflictingModel.java",
         "InheritedUnmarkedModel.java",
         "ParametricInitializerModel.java",
+        "ParametricMixedConstructorModel.java",
         "UnmarkedArgumentModel.java",
         "UnmarkedBase.java",
         "UnmarkedMethodModel.java",

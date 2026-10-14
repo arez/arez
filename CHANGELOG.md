@@ -6,6 +6,8 @@
 
 * Preserve enclosing generic types, wildcard bounds, definite non-null type variables and explicit reference return qualifiers when generating mixed-nullness contracts.
 
+* Diagnose parametric initializer components that cannot retain their conditional nullness in an unmarked constructor. Mark the original constructor or explicitly qualify the nested type-variable usage; marked constructors and explicit nullable/non-null components remain supported.
+
 * Replace Buildr/Ruby/Yarn/Node project tooling and Docusaurus with Bazel builds, a Java site generator, explicit release commands and the shared CI check gate. Remove downstream repository builds and GWT compiler/modules/bootstraps.
 
 * Run all seven DOM examples and the promise example through J2CL with local previews and deterministic Chromium tests in development and optimized production.

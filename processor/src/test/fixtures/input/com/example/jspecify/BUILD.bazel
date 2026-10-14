@@ -4,6 +4,7 @@ filegroup(
     name = "all",
     srcs = [
         "ArrayModel.java",
+        "ExplicitParametricContainerModel.java",
         "GenericBase.java",
         "InheritedMarkedBindingModel.java",
         "InheritedNonNullModel.java",
@@ -17,6 +18,7 @@ filegroup(
         "NonNullGenericBase.java",
         "NonNullOperatorModel.java",
         "NullableModel.java",
+        "ParametricContainerModel.java",
         "PrimitiveUnmarkedModel.java",
         "ReferenceBase.java",
         "TypeVariableModel.java",

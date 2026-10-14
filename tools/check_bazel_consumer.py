@@ -25,7 +25,7 @@ def main() -> None:
         rc = (arez / ".bazelrc").read_text().split("try-import", 1)[0]
         (workspace / ".bazelrc").write_text(rc)
         (workspace / "BUILD.bazel").write_text('''\
-load("@rules_java//java:defs.bzl", "java_binary")
+load("@rules_java//java:defs.bzl", "java_binary", "java_library")
 java_binary(
     name = "consumer",
     srcs = ["Consumer.java", "Model.java"],
@@ -34,6 +34,12 @@ java_binary(
     plugins = ["@arez//:arez_processor_plugin", "@arez//:arez_persist_processor_plugin"],
     deps = ["@arez//:core", "@arez//:dom", "@arez//:promise", "@arez//:spytools",
             "@arez//:testng", "@arez//:persist_core", "@arez//third_party/java:jspecify"],
+)
+java_library(
+    name = "invalid_consumer",
+    srcs = ["InvalidModel.java"],
+    plugins = ["@arez//:arez_processor_plugin"],
+    deps = ["@arez//:core", "@arez//third_party/java:jspecify"],
 )
 ''')
         (workspace / "Consumer.java").write_text('''\
@@ -88,6 +94,18 @@ abstract class Model {
   @NullUnmarked @Action String echo(String value) { return value; }
 }
 ''')
+        (workspace / "InvalidModel.java").write_text('''\
+package consumer;
+import arez.annotations.*;
+import org.jspecify.annotations.*;
+@NullMarked
+@ArezComponent(sting = Feature.DISABLE)
+abstract class InvalidModel<T extends @Nullable Object> {
+  @NullUnmarked InvalidModel(String incoming) {}
+  @Observable abstract java.util.List<T> getValues();
+  abstract void setValues(java.util.List<T> values);
+}
+''')
         command = ["bazel", "--nosystem_rc", "--nohome_rc", f"--output_base={root / 'output-base'}"]
         try:
             subprocess.run(command + ["run", "//:consumer", "--noshow_progress"],
@@ -95,6 +113,12 @@ abstract class Model {
             generated = (workspace / "bazel-bin/_javac/consumer/consumer_sources/consumer/Arez_Model.java").read_text()
             assert re.search(r"@NullUnmarked\s+@NonNull\s+ArezContext context\(", generated), generated
             assert "@NonNull List<? extends @Nullable Object> items" in generated, generated
+            invalid = subprocess.run(command + ["build", "//:invalid_consumer", "--noshow_progress"],
+                                     cwd=workspace, text=True, capture_output=True)
+            diagnostic = invalid.stdout + invalid.stderr
+            assert invalid.returncode != 0 and "Parametric JSpecify nullness cannot be preserved" in diagnostic, diagnostic
+            assert "mark the original constructor @NullMarked" in diagnostic, diagnostic
+            print("Verified packaged mixed-constructor diagnostic")
         finally:
             subprocess.run(command + ["shutdown"], cwd=workspace, check=True)
 

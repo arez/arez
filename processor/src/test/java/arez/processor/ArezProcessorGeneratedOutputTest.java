@@ -1303,7 +1303,9 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
             {"com.example.jspecify.ArrayModel"},
             {"com.example.jspecify.LegacyDecoratedModel"},
             {"com.example.jspecify.NestedScopeModel"},
-            {"com.example.jspecify.TypeVariableModel"}
+            {"com.example.jspecify.TypeVariableModel"},
+            {"com.example.jspecify.ParametricContainerModel"},
+            {"com.example.jspecify.ExplicitParametricContainerModel"}
         };
     }
 

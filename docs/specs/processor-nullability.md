@@ -23,7 +23,11 @@ components and generating reactive or persistent state.
 5. Diagnose unspecified nullness when initialization or relationship generation
    requires a specified contract. Explicit nullable/non-null contracts determine
    constructor inputs, initializer validation, setter guards and inverse
-   multiplicity.
+   multiplicity. Diagnose a parametric initializer component that cannot retain
+   its conditional nullness in an unmarked generated constructor. A marked
+   constructor or an explicit nullable/non-null qualifier at that component
+   supplies a representable contract; do not force parametric values non-null or
+   unconditionally nullable.
 6. Generate JSpecify contracts that preserve the component's declared nullness
    and lifecycle behavior. Internal construction state must not change declared
    inverse cardinality. Preserve unmarked scopes on overrides and original
