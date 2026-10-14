@@ -21,8 +21,6 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
@@ -43,10 +41,12 @@ import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.proton.AbstractStandardProcessor;
 import org.realityforge.proton.AnnotationsUtil;
 import org.realityforge.proton.DeferredElementSet;
 import org.realityforge.proton.ElementsUtil;
+import org.realityforge.proton.GeneratorUtil;
 import org.realityforge.proton.MemberChecks;
 import org.realityforge.proton.NamesUtil;
 import org.realityforge.proton.ProcessorException;
@@ -60,43 +60,32 @@ import org.realityforge.proton.TypesUtil;
 @SupportedAnnotationTypes("arez.annotations.*")
 @SupportedSourceVersion(SourceVersion.RELEASE_17)
 public final class ArezProcessor extends AbstractStandardProcessor {
-    @Nonnull
+
     static final Pattern GETTER_PATTERN = Pattern.compile("^get([A-Z].*)$");
 
-    @Nonnull
     private static final Pattern ON_ACTIVATE_PATTERN = Pattern.compile("^on([A-Z].*)Activate$");
 
-    @Nonnull
     private static final Pattern ON_DEACTIVATE_PATTERN = Pattern.compile("^on([A-Z].*)Deactivate$");
 
-    @Nonnull
     private static final Pattern SETTER_PATTERN = Pattern.compile("^set([A-Z].*)$");
 
-    @Nonnull
     private static final Pattern ISSER_PATTERN = Pattern.compile("^is([A-Z].*)$");
 
-    @Nonnull
     private static final Pattern OBSERVABLE_INITIAL_METHOD_PATTERN = Pattern.compile("^getInitial([A-Z].*)$");
 
-    @Nonnull
     private static final Pattern OBSERVABLE_INITIAL_FIELD_PATTERN = Pattern.compile("^INITIAL_([A-Z].*)$");
 
-    @Nonnull
     private static final List<String> OBJECT_METHODS = Arrays.asList(
             "hashCode", "equals", "clone", "toString", "finalize", "getClass", "wait", "notifyAll", "notify");
 
-    @Nonnull
     private static final List<String> AREZ_SPECIAL_METHODS =
             Arrays.asList("observe", "dispose", "isDisposed", "getArezId");
 
-    @Nonnull
     private static final String AREZ_COMPONENT_LIKE_DESCRIPTION =
             "@ArezComponentLike or an annotation annotated by @ActAsArezComponent";
 
-    @Nonnull
     private static final String AREZ_COMPONENT_LIKE_TYPE_DESCRIPTION = "an Arez component-like type";
 
-    @Nonnull
     private static final List<String> MISPLACED_USAGE_ANNOTATION_CLASSNAMES = Arrays.asList(
             Constants.ACTION_CLASSNAME,
             Constants.REQUIRES_TRANSACTION_CLASSNAME,
@@ -131,7 +120,6 @@ public final class ArezProcessor extends AbstractStandardProcessor {
             Constants.OBSERVABLE_INITIAL_CLASSNAME,
             Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME);
 
-    @Nonnull
     private static final List<String> METHOD_ANNOTATIONS = Arrays.asList(
             Constants.ACTION_CLASSNAME,
             Constants.REQUIRES_TRANSACTION_CLASSNAME,
@@ -165,64 +153,49 @@ public final class ArezProcessor extends AbstractStandardProcessor {
             Constants.ON_DEACTIVATE_CLASSNAME,
             Constants.COMPONENT_DEPENDENCY_CLASSNAME);
 
-    @Nonnull
     private static final Pattern ID_GETTER_PATTERN = Pattern.compile("^get([A-Z].*)Id$");
 
-    @Nonnull
     private static final Pattern RAW_ID_GETTER_PATTERN = Pattern.compile("^(.*)Id$");
 
-    @Nonnull
     private static final Pattern OBSERVABLE_REF_PATTERN = Pattern.compile("^get([A-Z].*)ObservableValue$");
 
-    @Nonnull
     private static final Pattern COMPUTABLE_VALUE_REF_PATTERN = Pattern.compile("^get([A-Z].*)ComputableValue$");
 
-    @Nonnull
     private static final Pattern OBSERVER_REF_PATTERN = Pattern.compile("^get([A-Z].*)Observer$");
 
-    @Nonnull
     private static final Pattern ON_DEPS_CHANGE_PATTERN = Pattern.compile("^on([A-Z].*)DepsChange");
 
-    @Nonnull
     private static final Pattern PRE_INVERSE_REMOVE_PATTERN = Pattern.compile("^pre([A-Z].*)Remove");
 
-    @Nonnull
     private static final Pattern POST_INVERSE_ADD_PATTERN = Pattern.compile("^post([A-Z].*)Add");
 
-    @Nonnull
     private static final Pattern CAPTURE_PATTERN = Pattern.compile("^capture([A-Z].*)");
 
-    @Nonnull
     private static final Pattern POP_PATTERN = Pattern.compile("^pop([A-Z].*)");
 
-    @Nonnull
     private static final Pattern PUSH_PATTERN = Pattern.compile("^push([A-Z].*)");
 
-    @Nonnull
     private final DeferredElementSet _deferredTypes = new DeferredElementSet();
 
-    @Nonnull
     private final StopWatch _analyzeComponentStopWatch = new StopWatch("Analyze Component");
 
     @Override
-    @Nonnull
     protected String getIssueTrackerURL() {
         return "https://github.com/arez/arez/issues";
     }
 
-    @Nonnull
     @Override
     protected String getOptionPrefix() {
         return "arez";
     }
 
     @Override
-    protected void collectStopWatches(@Nonnull final Collection<StopWatch> stopWatches) {
+    protected void collectStopWatches(final Collection<StopWatch> stopWatches) {
         stopWatches.add(_analyzeComponentStopWatch);
     }
 
     @Override
-    public boolean process(@Nonnull final Set<? extends TypeElement> annotations, @Nonnull final RoundEnvironment env) {
+    public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment env) {
         debugAnnotationProcessingRootElements(env);
         collectRootTypeNames(env);
         if (!env.processingOver()) {
@@ -242,12 +215,12 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         return true;
     }
 
-    private void process(@Nonnull final TypeElement element) throws IOException, ProcessorException {
+    private void process(final TypeElement element) throws IOException, ProcessorException {
         final ComponentDescriptor descriptor = parse(element);
         emitTypeSpec(descriptor.getPackageName(), ComponentGenerator.buildType(processingEnv, descriptor));
     }
 
-    private void warnOnPublicConstructorsInArezComponentLikeTypes(@Nonnull final RoundEnvironment env) {
+    private void warnOnPublicConstructorsInArezComponentLikeTypes(final RoundEnvironment env) {
         final var visited = new HashSet<TypeElement>();
         for (final var rootElement : env.getRootElements()) {
             warnOnPublicConstructorsInArezComponentLikeTypes(rootElement, visited);
@@ -255,7 +228,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void warnOnPublicConstructorsInArezComponentLikeTypes(
-            @Nonnull final Element element, @Nonnull final Set<TypeElement> visited) {
+            final Element element, final Set<TypeElement> visited) {
         if (element instanceof final TypeElement typeElement) {
             if (visited.add(typeElement)) {
                 warnOnPublicConstructorsInArezComponentLikeType(typeElement);
@@ -268,7 +241,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    private void warnOnPublicConstructorsInArezComponentLikeType(@Nonnull final TypeElement typeElement) {
+    private void warnOnPublicConstructorsInArezComponentLikeType(final TypeElement typeElement) {
         if (!isArezComponentAnnotated(typeElement) && isArezComponentLikeAnnotated(typeElement)) {
             for (final var constructor : ElementsUtil.getConstructors(typeElement)) {
                 if (Elements.Origin.EXPLICIT == processingEnv.getElementUtils().getOrigin(constructor)
@@ -284,7 +257,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    private void detectMisplacedArezAnnotations(@Nonnull final RoundEnvironment env) {
+    private void detectMisplacedArezAnnotations(final RoundEnvironment env) {
         final var componentTypes = findComponentTypes(env);
         for (final var annotationClassname : MISPLACED_USAGE_ANNOTATION_CLASSNAMES) {
             final var annotationType = findTypeElement(annotationClassname);
@@ -305,7 +278,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     @Nullable
-    private TypeElement findNearestEnclosingType(@Nonnull final Element element) {
+    private TypeElement findNearestEnclosingType(final Element element) {
         var current = element;
         while (null != current && !(current instanceof TypeElement)) {
             current = current.getEnclosingElement();
@@ -313,8 +286,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         return (TypeElement) current;
     }
 
-    @Nonnull
-    private Set<TypeElement> findComponentTypes(@Nonnull final RoundEnvironment env) {
+    private Set<TypeElement> findComponentTypes(final RoundEnvironment env) {
         final var annotationType = findTypeElement(Constants.COMPONENT_CLASSNAME);
         if (null == annotationType) {
             return Collections.emptySet();
@@ -330,9 +302,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private boolean isValidArezAnnotationContainer(
-            @Nonnull final Element element,
-            @Nonnull final TypeElement type,
-            @Nonnull final Set<TypeElement> componentTypes) {
+            final Element element, final TypeElement type, final Set<TypeElement> componentTypes) {
         if (isArezComponentAnnotated(type) || isArezComponentLikeAnnotated(type)) {
             return true;
         } else if (element instanceof TypeElement) {
@@ -349,12 +319,11 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    @Nonnull
     private ObservableDescriptor addObservable(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final ExecutableType methodType)
+            final ComponentDescriptor component,
+            final AnnotationMirror annotation,
+            final ExecutableElement method,
+            final ExecutableType methodType)
             throws ProcessorException {
         MemberChecks.mustBeOverridable(
                 component.getElement(), Constants.COMPONENT_CLASSNAME, Constants.OBSERVABLE_CLASSNAME, method);
@@ -482,10 +451,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addObservableValueRef(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final ExecutableType methodType)
+            final ComponentDescriptor component,
+            final AnnotationMirror annotation,
+            final ExecutableElement method,
+            final ExecutableType methodType)
             throws ProcessorException {
         mustBeStandardRefMethod(processingEnv, component, method, Constants.OBSERVABLE_VALUE_REF_CLASSNAME);
 
@@ -526,10 +495,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addComputableValueRef(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final ExecutableType methodType)
+            final ComponentDescriptor component,
+            final AnnotationMirror annotation,
+            final ExecutableElement method,
+            final ExecutableType methodType)
             throws ProcessorException {
         mustBeRefMethod(component, method, Constants.COMPUTABLE_VALUE_REF_CLASSNAME);
         shouldBeInternalRefMethod(processingEnv, component, method, Constants.COMPUTABLE_VALUE_REF_CLASSNAME);
@@ -576,9 +545,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         component.findOrCreateMemoize(name).addRefMethod(method, methodType);
     }
 
-    @Nonnull
-    private String deriveMemoizeName(
-            @Nonnull final ExecutableElement method, @Nonnull final AnnotationMirror annotation)
+    private String deriveMemoizeName(final ExecutableElement method, final AnnotationMirror annotation)
             throws ProcessorException {
         final String name = AnnotationsUtil.getAnnotationValueValue(annotation, "name");
         if (Constants.SENTINEL.equals(name)) {
@@ -600,9 +567,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addOnActivate(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ExecutableElement method)
+            final ComponentDescriptor component, final AnnotationMirror annotation, final ExecutableElement method)
             throws ProcessorException {
         final String name = deriveHookName(
                 component,
@@ -614,9 +579,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addOnDeactivate(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ExecutableElement method)
+            final ComponentDescriptor component, final AnnotationMirror annotation, final ExecutableElement method)
             throws ProcessorException {
         final String name = deriveHookName(
                 component,
@@ -630,13 +593,12 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         component.findOrCreateMemoize(name).setOnDeactivate(method);
     }
 
-    @Nonnull
     private String deriveHookName(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final Pattern pattern,
-            @Nonnull final String type,
-            @Nonnull final String name)
+            final ComponentDescriptor component,
+            final ExecutableElement method,
+            final Pattern pattern,
+            final String type,
+            final String name)
             throws ProcessorException {
         final String value = deriveName(method, pattern, name);
         if (null == value) {
@@ -660,9 +622,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addComponentStateRef(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ExecutableElement method)
+            final ComponentDescriptor component, final AnnotationMirror annotation, final ExecutableElement method)
             throws ProcessorException {
         mustBeStandardRefMethod(processingEnv, component, method, Constants.COMPONENT_STATE_REF_CLASSNAME);
 
@@ -677,7 +637,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         component.getComponentStateRefs().add(new ComponentStateRefDescriptor(method, state));
     }
 
-    private void addContextRef(@Nonnull final ComponentDescriptor component, @Nonnull final ExecutableElement method)
+    private void addContextRef(final ComponentDescriptor component, final ExecutableElement method)
             throws ProcessorException {
         mustBeStandardRefMethod(processingEnv, component, method, Constants.CONTEXT_REF_CLASSNAME);
         MemberChecks.mustReturnAnInstanceOf(
@@ -685,14 +645,13 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         component.getContextRefs().add(method);
     }
 
-    private void addComponentIdRef(
-            @Nonnull final ComponentDescriptor component, @Nonnull final ExecutableElement method) {
+    private void addComponentIdRef(final ComponentDescriptor component, final ExecutableElement method) {
         mustBeRefMethod(component, method, Constants.COMPONENT_ID_REF_CLASSNAME);
         MemberChecks.mustNotHaveAnyParameters(Constants.COMPONENT_ID_REF_CLASSNAME, method);
         component.getComponentIdRefs().add(method);
     }
 
-    private void addComponentRef(@Nonnull final ComponentDescriptor component, @Nonnull final ExecutableElement method)
+    private void addComponentRef(final ComponentDescriptor component, final ExecutableElement method)
             throws ProcessorException {
         mustBeStandardRefMethod(processingEnv, component, method, Constants.COMPONENT_REF_CLASSNAME);
         MemberChecks.mustReturnAnInstanceOf(processingEnv, method, Constants.COMPONENT_REF_CLASSNAME, "arez.Component");
@@ -700,9 +659,9 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void setComponentId(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final ExecutableElement componentId,
-            @Nonnull final ExecutableType componentIdMethodType)
+            final ComponentDescriptor component,
+            final ExecutableElement componentId,
+            final ExecutableType componentIdMethodType)
             throws ProcessorException {
         MemberChecks.mustNotBeAbstract(Constants.COMPONENT_ID_CLASSNAME, componentId);
         MemberChecks.mustBeSubclassCallable(
@@ -722,8 +681,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    private void setComponentTypeNameRef(
-            @Nonnull final ComponentDescriptor component, @Nonnull final ExecutableElement method)
+    private void setComponentTypeNameRef(final ComponentDescriptor component, final ExecutableElement method)
             throws ProcessorException {
         mustBeStandardRefMethod(processingEnv, component, method, Constants.COMPONENT_TYPE_NAME_REF_CLASSNAME);
         MemberChecks.mustReturnAnInstanceOf(
@@ -731,8 +689,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         component.getComponentTypeNameRefs().add(method);
     }
 
-    private void addComponentNameRef(
-            @Nonnull final ComponentDescriptor component, @Nonnull final ExecutableElement method)
+    private void addComponentNameRef(final ComponentDescriptor component, final ExecutableElement method)
             throws ProcessorException {
         mustBeStandardRefMethod(processingEnv, component, method, Constants.COMPONENT_NAME_REF_CLASSNAME);
         MemberChecks.mustReturnAnInstanceOf(
@@ -740,7 +697,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         component.getComponentNameRefs().add(method);
     }
 
-    private void addPostConstruct(@Nonnull final ComponentDescriptor component, @Nonnull final ExecutableElement method)
+    private void addPostConstruct(final ComponentDescriptor component, final ExecutableElement method)
             throws ProcessorException {
         MemberChecks.mustBeLifecycleHook(
                 component.getElement(), Constants.COMPONENT_CLASSNAME, Constants.POST_CONSTRUCT_CLASSNAME, method);
@@ -748,7 +705,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         component.getPostConstructs().add(method);
     }
 
-    private void addPreDispose(@Nonnull final ComponentDescriptor component, @Nonnull final ExecutableElement method)
+    private void addPreDispose(final ComponentDescriptor component, final ExecutableElement method)
             throws ProcessorException {
         MemberChecks.mustBeLifecycleHook(
                 component.getElement(), Constants.COMPONENT_CLASSNAME, Constants.PRE_DISPOSE_CLASSNAME, method);
@@ -756,7 +713,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         component.getPreDisposes().add(method);
     }
 
-    private void addPostDispose(@Nonnull final ComponentDescriptor component, @Nonnull final ExecutableElement method)
+    private void addPostDispose(final ComponentDescriptor component, final ExecutableElement method)
             throws ProcessorException {
         MemberChecks.mustBeLifecycleHook(
                 component.getElement(), Constants.COMPONENT_CLASSNAME, Constants.POST_DISPOSE_CLASSNAME, method);
@@ -765,9 +722,9 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void linkUnAnnotatedObservables(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final Map<String, CandidateMethod> getters,
-            @Nonnull final Map<String, CandidateMethod> setters)
+            final ComponentDescriptor component,
+            final Map<String, CandidateMethod> getters,
+            final Map<String, CandidateMethod> setters)
             throws ProcessorException {
         for (final ObservableDescriptor observable : component.getObservables().values()) {
             if (!observable.hasSetter() && !observable.hasGetter()) {
@@ -825,9 +782,9 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void linkUnAnnotatedObserves(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final Map<String, CandidateMethod> observes,
-            @Nonnull final Map<String, List<CandidateMethod>> onDepsChanges)
+            final ComponentDescriptor component,
+            final Map<String, CandidateMethod> observes,
+            final Map<String, List<CandidateMethod>> onDepsChanges)
             throws ProcessorException {
         for (final ObserveDescriptor observe : component.getObserves().values()) {
             if (!observe.hasObserve()) {
@@ -861,9 +818,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void setOnDepsChange(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final ObserveDescriptor observe,
-            @Nonnull final ExecutableElement method) {
+            final ComponentDescriptor component, final ObserveDescriptor observe, final ExecutableElement method) {
         MemberChecks.mustNotBeAbstract(Constants.ON_DEPS_CHANGE_CLASSNAME, method);
         MemberChecks.mustBeSubclassCallable(
                 component.getElement(), Constants.COMPONENT_CLASSNAME, Constants.ON_DEPS_CHANGE_CLASSNAME, method);
@@ -885,9 +840,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void setOnActivate(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final MemoizeDescriptor memoize,
-            @Nonnull final ExecutableElement method)
+            final ComponentDescriptor component, final MemoizeDescriptor memoize, final ExecutableElement method)
             throws ProcessorException {
         MemberChecks.mustNotBeAbstract(Constants.ON_ACTIVATE_CLASSNAME, method);
         MemberChecks.mustBeSubclassCallable(
@@ -907,7 +860,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         memoize.setOnActivate(method);
     }
 
-    private void verifyNoDuplicateAnnotations(@Nonnull final ExecutableElement method) throws ProcessorException {
+    private void verifyNoDuplicateAnnotations(final ExecutableElement method) throws ProcessorException {
         final Map<String, Collection<String>> exceptions = new HashMap<>();
         exceptions.put(
                 Constants.OBSERVABLE_CLASSNAME,
@@ -925,7 +878,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         MemberChecks.verifyNoOverlappingAnnotations(method, METHOD_ANNOTATIONS, exceptions);
     }
 
-    private void verifyNoDuplicateAnnotations(@Nonnull final VariableElement field) throws ProcessorException {
+    private void verifyNoDuplicateAnnotations(final VariableElement field) throws ProcessorException {
         MemberChecks.verifyNoOverlappingAnnotations(
                 field,
                 Arrays.asList(
@@ -936,8 +889,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
                 Collections.emptyMap());
     }
 
-    private void validate(final boolean allowEmpty, @Nonnull final ComponentDescriptor component)
-            throws ProcessorException {
+    private void validate(final boolean allowEmpty, final ComponentDescriptor component) throws ProcessorException {
         component.getCascadeDisposes().values().forEach(CascadeDisposeDescriptor::validate);
         component.getAutoObserves().values().forEach(AutoObserveDescriptor::validate);
         component.getObservables().values().forEach(ObservableDescriptor::validate);
@@ -1060,20 +1012,19 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    private void processCascadeDisposeFields(@Nonnull final ComponentDescriptor component) {
+    private void processCascadeDisposeFields(final ComponentDescriptor component) {
         ElementsUtil.getFields(component.getElement()).stream()
                 .filter(f -> AnnotationsUtil.hasAnnotationOfType(f, Constants.CASCADE_DISPOSE_CLASSNAME))
                 .forEach(field -> processCascadeDisposeField(component, field));
     }
 
-    private void processAutoObserveFields(@Nonnull final ComponentDescriptor component) {
+    private void processAutoObserveFields(final ComponentDescriptor component) {
         ElementsUtil.getFields(component.getElement()).stream()
                 .filter(f -> AnnotationsUtil.hasAnnotationOfType(f, Constants.AUTO_OBSERVE_CLASSNAME))
                 .forEach(field -> processAutoObserveField(component, field));
     }
 
-    private void processCascadeDisposeField(
-            @Nonnull final ComponentDescriptor component, @Nonnull final VariableElement field) {
+    private void processCascadeDisposeField(final ComponentDescriptor component, final VariableElement field) {
         verifyNoDuplicateAnnotations(field);
         MemberChecks.mustBeSubclassCallable(
                 component.getElement(), Constants.COMPONENT_CLASSNAME, Constants.CASCADE_DISPOSE_CLASSNAME, field);
@@ -1081,13 +1032,12 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         mustBeCascadeDisposeTypeCompatible(field);
         emitWarningForConflictingDisposeModel(field);
         if (field.getModifiers().contains(Modifier.FINAL)) {
-            verifyFieldHasExplicitNullabilityAnnotation(field, Constants.CASCADE_DISPOSE_CLASSNAME);
+            Nullability.requireDefinite(field, field.asType());
         }
         component.addCascadeDispose(new CascadeDisposeDescriptor(field));
     }
 
-    private void processAutoObserveField(
-            @Nonnull final ComponentDescriptor component, @Nonnull final VariableElement field) {
+    private void processAutoObserveField(final ComponentDescriptor component, final VariableElement field) {
         verifyNoDuplicateAnnotations(field);
         MemberChecks.mustBeSubclassCallable(
                 component.getElement(), Constants.COMPONENT_CLASSNAME, Constants.AUTO_OBSERVE_CLASSNAME, field);
@@ -1095,49 +1045,27 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         MemberChecks.mustBeFinal(Constants.AUTO_OBSERVE_CLASSNAME, field);
         final boolean validateTypeAtRuntime = isAutoObserveValidateTypeAtRuntime(field);
         mustBeAutoObserveTypeCompatible(component, validateTypeAtRuntime, field);
-        verifyFieldHasExplicitNullabilityAnnotation(field, Constants.AUTO_OBSERVE_CLASSNAME);
+        Nullability.requireDefinite(field, field.asType());
         component.addAutoObserve(new AutoObserveDescriptor(validateTypeAtRuntime, field));
     }
 
-    private void verifyFieldHasExplicitNullabilityAnnotation(
-            @Nonnull final VariableElement field, @Nonnull final String annotationClassname) {
-        final boolean hasNonnullAnnotation = isElementAnnotatedBy(field, AnnotationsUtil.NONNULL_CLASSNAME);
-        final boolean hasNullableAnnotation = isElementAnnotatedBy(field, AnnotationsUtil.NULLABLE_CLASSNAME);
-        final String annotationName = annotationClassname.substring(annotationClassname.lastIndexOf('.') + 1);
-        if (hasNonnullAnnotation && hasNullableAnnotation) {
-            throw new ProcessorException(
-                    "@" + annotationName + " target must not be annotated with both "
-                            + AnnotationsUtil.NULLABLE_CLASSNAME
-                            + " and " + AnnotationsUtil.NONNULL_CLASSNAME,
-                    field);
-        }
-        if (!hasNonnullAnnotation && !hasNullableAnnotation) {
-            throw new ProcessorException(
-                    "@" + annotationName + " target must be annotated with either " + AnnotationsUtil.NULLABLE_CLASSNAME
-                            + " or " + AnnotationsUtil.NONNULL_CLASSNAME,
-                    field);
-        }
-    }
-
-    @Nonnull
-    private String suppressedBy(@Nonnull final String warning) {
+    private String suppressedBy(final String warning) {
         return MemberChecks.suppressedBy(warning, Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME);
     }
 
-    private boolean isWarningNotSuppressed(@Nonnull final Element element, @Nonnull final String warning) {
+    private boolean isWarningNotSuppressed(final Element element, final String warning) {
         return !ElementsUtil.isWarningSuppressed(element, warning, Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME);
     }
 
     @SuppressWarnings("SameParameterValue")
-    @Nonnull
     private String extractName(
-            @Nonnull final ExecutableElement method,
-            @Nonnull final Function<ExecutableElement, String> function,
-            @Nonnull final String annotationClassname) {
+            final ExecutableElement method,
+            final Function<ExecutableElement, String> function,
+            final String annotationClassname) {
         return AnnotationsUtil.extractName(method, function, annotationClassname, "name", Constants.SENTINEL);
     }
 
-    private void mustBeCascadeDisposeTypeCompatible(@Nonnull final VariableElement field) {
+    private void mustBeCascadeDisposeTypeCompatible(final VariableElement field) {
         final TypeMirror typeMirror = field.asType();
         if (!ElementsUtil.isAssignableTo(processingEnv, typeMirror, getDisposableTypeElement())) {
             final TypeElement typeElement =
@@ -1155,9 +1083,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void mustBeAutoObserveTypeCompatible(
-            @Nonnull final ComponentDescriptor component,
-            final boolean validateTypeAtRuntime,
-            @Nonnull final VariableElement field) {
+            final ComponentDescriptor component, final boolean validateTypeAtRuntime, final VariableElement field) {
         final TypeMirror type = processingEnv.getTypeUtils().asMemberOf(component.asDeclaredType(), field);
         if (TypeKind.TYPEVAR != type.getKind() && TypeKind.DECLARED != type.getKind()) {
             throw new ProcessorException("@AutoObserve target must be a non-primitive value", field);
@@ -1179,8 +1105,8 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addCascadeDisposeMethod(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final ExecutableElement method,
+            final ComponentDescriptor component,
+            final ExecutableElement method,
             @Nullable final ObservableDescriptor observable) {
         MemberChecks.mustNotHaveAnyParameters(Constants.CASCADE_DISPOSE_CLASSNAME, method);
         MemberChecks.mustNotThrowAnyExceptions(Constants.CASCADE_DISPOSE_CLASSNAME, method);
@@ -1192,8 +1118,8 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addAutoObserveMethod(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final ExecutableElement method,
+            final ComponentDescriptor component,
+            final ExecutableElement method,
             @Nullable final ObservableDescriptor observable) {
         MemberChecks.mustNotHaveAnyParameters(Constants.AUTO_OBSERVE_CLASSNAME, method);
         MemberChecks.mustNotThrowAnyExceptions(Constants.AUTO_OBSERVE_CLASSNAME, method);
@@ -1205,13 +1131,13 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         component.addAutoObserve(new AutoObserveDescriptor(validateTypeAtRuntime, method, observable));
     }
 
-    private static boolean isAutoObserveValidateTypeAtRuntime(@Nonnull final AnnotatedConstruct annotatedConstruct) {
+    private static boolean isAutoObserveValidateTypeAtRuntime(final AnnotatedConstruct annotatedConstruct) {
         return Boolean.TRUE.equals(AnnotationsUtil.getAnnotationValue(
                         annotatedConstruct, Constants.AUTO_OBSERVE_CLASSNAME, "validateTypeAtRuntime")
                 .getValue());
     }
 
-    private void emitWarningForConflictingDisposeModel(@Nonnull final VariableElement field) {
+    private void emitWarningForConflictingDisposeModel(final VariableElement field) {
         if (isWarningNotSuppressed(field, Constants.WARNING_CONFLICTING_DISPOSE_MODEL)
                 && isLivenessDisposedArezComponent(field.asType())) {
             final String message = "Field named '" + field.getSimpleName() + "' is annotated with @"
@@ -1227,7 +1153,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    private void emitWarningForConflictingDisposeModel(@Nonnull final ExecutableElement method) {
+    private void emitWarningForConflictingDisposeModel(final ExecutableElement method) {
         if (isWarningNotSuppressed(method, Constants.WARNING_CONFLICTING_DISPOSE_MODEL)
                 && isLivenessDisposedArezComponent(method.getReturnType())) {
             final String message = "Method named '" + method.getSimpleName() + "' is annotated with @"
@@ -1242,7 +1168,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    private void mustBeCascadeDisposeTypeCompatible(@Nonnull final ExecutableElement method) {
+    private void mustBeCascadeDisposeTypeCompatible(final ExecutableElement method) {
         final TypeMirror typeMirror = method.getReturnType();
         if (!ElementsUtil.isAssignableTo(processingEnv, typeMirror, getDisposableTypeElement())) {
             final TypeElement typeElement =
@@ -1261,8 +1187,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    private void mustBeAutoObserveTypeCompatible(
-            final boolean validateTypeAtRuntime, @Nonnull final ExecutableElement method) {
+    private void mustBeAutoObserveTypeCompatible(final boolean validateTypeAtRuntime, final ExecutableElement method) {
         final TypeMirror type = method.getReturnType();
         if (TypeKind.TYPEVAR != type.getKind() && TypeKind.DECLARED != type.getKind()) {
             throw new ProcessorException("@AutoObserve target must return a non-primitive value", method);
@@ -1284,7 +1209,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    private boolean isAutoObserveCompileTimeCompatible(@Nonnull final TypeMirror type) {
+    private boolean isAutoObserveCompileTimeCompatible(final TypeMirror type) {
         if (ElementsUtil.isAssignableTo(
                 processingEnv, type, getTypeElement(Constants.COMPONENT_OBSERVABLE_CLASSNAME))) {
             return true;
@@ -1303,9 +1228,9 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addOrUpdateDependency(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final ObservableDescriptor observable) {
+            final ComponentDescriptor component,
+            final ExecutableElement method,
+            final ObservableDescriptor observable) {
         final DependencyDescriptor dependencyDescriptor = component
                 .getDependencies()
                 .computeIfAbsent(method, m -> createMethodDependencyDescriptor(component, method));
@@ -1313,10 +1238,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addAction(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final ExecutableType methodType)
+            final ComponentDescriptor component,
+            final AnnotationMirror annotation,
+            final ExecutableElement method,
+            final ExecutableType methodType)
             throws ProcessorException {
         MemberChecks.mustBeWrappable(
                 component.getElement(), Constants.COMPONENT_CLASSNAME, Constants.ACTION_CLASSNAME, method);
@@ -1354,10 +1279,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addRequiresTransaction(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final ExecutableType methodType)
+            final ComponentDescriptor component,
+            final AnnotationMirror annotation,
+            final ExecutableElement method,
+            final ExecutableType methodType)
             throws ProcessorException {
         MemberChecks.mustBeWrappable(
                 component.getElement(),
@@ -1378,10 +1303,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addObserve(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final ExecutableType methodType)
+            final ComponentDescriptor component,
+            final AnnotationMirror annotation,
+            final ExecutableElement method,
+            final ExecutableType methodType)
             throws ProcessorException {
         final String name = deriveObserveName(method, annotation);
         checkNameUnique(component, name, method, Constants.OBSERVE_CLASSNAME);
@@ -1411,9 +1336,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
                         methodType);
     }
 
-    @Nonnull
-    private String deriveObserveName(
-            @Nonnull final ExecutableElement method, @Nonnull final AnnotationMirror annotation)
+    private String deriveObserveName(final ExecutableElement method, final AnnotationMirror annotation)
             throws ProcessorException {
         final String name = AnnotationsUtil.getAnnotationValueValue(annotation, "name");
         if (Constants.SENTINEL.equals(name)) {
@@ -1435,9 +1358,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addOnDepsChange(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ExecutableElement method)
+            final ComponentDescriptor component, final AnnotationMirror annotation, final ExecutableElement method)
             throws ProcessorException {
         final String name = deriveHookName(
                 component,
@@ -1449,10 +1370,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addObserverRef(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final ExecutableType methodType)
+            final ComponentDescriptor component,
+            final AnnotationMirror annotation,
+            final ExecutableElement method,
+            final ExecutableType methodType)
             throws ProcessorException {
         mustBeStandardRefMethod(processingEnv, component, method, Constants.OBSERVER_REF_CLASSNAME);
         MemberChecks.mustReturnAnInstanceOf(
@@ -1489,10 +1410,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addMemoizeContextParameter(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final ExecutableType methodType)
+            final ComponentDescriptor component,
+            final AnnotationMirror annotation,
+            final ExecutableElement method,
+            final ExecutableType methodType)
             throws ProcessorException {
         final String methodName = method.getSimpleName().toString();
         final MemoizeContextParameterMethodType mcpMethodType =
@@ -1528,11 +1449,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    @Nonnull
     private String deriveMemoizeContextParameterName(
-            @Nonnull final ExecutableElement method,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final MemoizeContextParameterMethodType mcpMethodType)
+            final ExecutableElement method,
+            final AnnotationMirror annotation,
+            final MemoizeContextParameterMethodType mcpMethodType)
             throws ProcessorException {
         final String name = AnnotationsUtil.getAnnotationValueValue(annotation, "name");
         if (Constants.SENTINEL.equals(name)) {
@@ -1564,10 +1484,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addMemoize(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final ExecutableType methodType)
+            final ComponentDescriptor component,
+            final AnnotationMirror annotation,
+            final ExecutableElement method,
+            final ExecutableType methodType)
             throws ProcessorException {
         final String name = deriveMemoizeName(method, annotation);
         checkNameUnique(component, name, method, Constants.MEMOIZE_CLASSNAME);
@@ -1601,37 +1521,45 @@ public final class ArezProcessor extends AbstractStandardProcessor {
                                 equalityComparator.toString()));
     }
 
-    @Nonnull
-    private Priority toPriority(
-            @Nullable final Priority defaultPriority, @Nonnull final VariableElement priorityElement) {
+    private Priority toPriority(@Nullable final Priority defaultPriority, final VariableElement priorityElement) {
         final String priorityName = priorityElement.getSimpleName().toString();
         return "DEFAULT".equals(priorityName)
                 ? null != defaultPriority ? defaultPriority : Priority.NORMAL
                 : Priority.valueOf(priorityName);
     }
 
-    private void autodetectObservableInitializers(@Nonnull final ComponentDescriptor component) {
+    private void autodetectObservableInitializers(final ComponentDescriptor component) {
         for (final ObservableDescriptor observable : component.getObservables().values()) {
             if (null == observable.getInitializer() && observable.hasGetter()) {
                 if (observable.hasSetter()) {
-                    final boolean initializer = autodetectInitializer(observable.getGetter())
-                            && autodetectInitializer(observable.getSetter());
+                    final boolean initializer = autodetectInitializer(
+                                    observable.getGetter(),
+                                    observable.getGetterType().getReturnType(),
+                                    component.getElement())
+                            && autodetectInitializer(
+                                    observable.getSetter(),
+                                    observable
+                                            .getSetterType()
+                                            .getParameterTypes()
+                                            .get(0),
+                                    component.getElement());
                     observable.setInitializer(initializer);
                 } else {
-                    observable.setInitializer(autodetectInitializer(observable.getGetter()));
+                    observable.setInitializer(autodetectInitializer(
+                            observable.getGetter(),
+                            observable.getGetterType().getReturnType(),
+                            component.getElement()));
                 }
             }
         }
     }
 
-    private boolean hasDependencyAnnotation(@Nonnull final ExecutableElement method) {
+    private boolean hasDependencyAnnotation(final ExecutableElement method) {
         return AnnotationsUtil.hasAnnotationOfType(method, Constants.COMPONENT_DEPENDENCY_CLASSNAME);
     }
 
     private void ensureTargetTypeAligns(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final InverseDescriptor descriptor,
-            @Nonnull final TypeMirror target) {
+            final ComponentDescriptor component, final InverseDescriptor descriptor, final TypeMirror target) {
         if (!processingEnv
                 .getTypeUtils()
                 .isSameType(target, component.getElement().asType())) {
@@ -1645,8 +1573,8 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     @Nullable
-    private TypeElement getInverseManyTypeTarget(@Nonnull final ExecutableElement method) {
-        final TypeName typeName = TypeName.get(method.getReturnType());
+    private TypeElement getInverseManyTypeTarget(final ExecutableElement method) {
+        final TypeName typeName = GeneratorUtil.getTypeName(method.getReturnType());
         if (typeName instanceof final ParameterizedTypeName type) {
             if (isSupportedInverseCollectionType(type.rawType().toString())
                     && !type.typeArguments().isEmpty()) {
@@ -1664,15 +1592,14 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         return null;
     }
 
-    private boolean isSupportedInverseCollectionType(@Nonnull final String typeClassname) {
+    private boolean isSupportedInverseCollectionType(final String typeClassname) {
         return Collection.class.getName().equals(typeClassname)
                 || Set.class.getName().equals(typeClassname)
                 || List.class.getName().equals(typeClassname);
     }
 
-    @Nonnull
     private String getInverseReferenceNameParameter(
-            @Nonnull final ComponentDescriptor component, @Nonnull final ExecutableElement method) {
+            final ComponentDescriptor component, final ExecutableElement method) {
         final String declaredName =
                 (String) AnnotationsUtil.getAnnotationValue(method, Constants.INVERSE_CLASSNAME, "referenceName")
                         .getValue();
@@ -1697,8 +1624,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         return name;
     }
 
-    private void linkDependencies(
-            @Nonnull final ComponentDescriptor component, @Nonnull final Collection<CandidateMethod> candidates) {
+    private void linkDependencies(final ComponentDescriptor component, final Collection<CandidateMethod> candidates) {
         component.getObservables().values().stream()
                 .filter(ObservableDescriptor::hasGetter)
                 .filter(o -> hasDependencyAnnotation(o.getGetter()))
@@ -1716,7 +1642,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
                 .forEach(method -> component.addDependency(createMethodDependencyDescriptor(component, method)));
     }
 
-    private void linkCascadeDisposeObservables(@Nonnull final ComponentDescriptor component) {
+    private void linkCascadeDisposeObservables(final ComponentDescriptor component) {
         for (final ObservableDescriptor observable : component.getObservables().values()) {
             final CascadeDisposeDescriptor cascadeDisposeDescriptor = observable.getCascadeDisposeDescriptor();
             if (null == cascadeDisposeDescriptor) {
@@ -1731,7 +1657,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    private void linkCascadeDisposeReferences(@Nonnull final ComponentDescriptor component) {
+    private void linkCascadeDisposeReferences(final ComponentDescriptor component) {
         for (final ReferenceDescriptor reference : component.getReferences().values()) {
             final CascadeDisposeDescriptor cascadeDisposeDescriptor = reference.getCascadeDisposeDescriptor();
             if (null == cascadeDisposeDescriptor && reference.hasMethod()) {
@@ -1744,7 +1670,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    private void linkAutoObserveObservables(@Nonnull final ComponentDescriptor component) {
+    private void linkAutoObserveObservables(final ComponentDescriptor component) {
         for (final ObservableDescriptor observable : component.getObservables().values()) {
             final AutoObserveDescriptor autoObserveDescriptor = observable.getAutoObserveDescriptor();
             if (null == autoObserveDescriptor) {
@@ -1757,7 +1683,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    private void linkAutoObserveReferences(@Nonnull final ComponentDescriptor component) {
+    private void linkAutoObserveReferences(final ComponentDescriptor component) {
         for (final ReferenceDescriptor reference : component.getReferences().values()) {
             final AutoObserveDescriptor autoObserveDescriptor = reference.getAutoObserveDescriptor();
             if (null == autoObserveDescriptor && reference.hasMethod()) {
@@ -1770,7 +1696,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    private void linkObserverRefs(@Nonnull final ComponentDescriptor component) {
+    private void linkObserverRefs(final ComponentDescriptor component) {
         for (final Map.Entry<String, List<CandidateMethod>> entry :
                 component.getObserverRefs().entrySet()) {
             final String key = entry.getKey();
@@ -1787,7 +1713,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    private void linkObservableInitials(@Nonnull final ComponentDescriptor component) {
+    private void linkObservableInitials(final ComponentDescriptor component) {
         for (final ObservableInitialDescriptor observableInitial :
                 component.getObservableInitials().values()) {
             final String name = observableInitial.getName();
@@ -1822,10 +1748,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
                                 + initialType + ".",
                         observableInitial.getElement());
             }
-            if (observable.isGetterNonnull() && !AnnotationsUtil.hasNonnullAnnotation(observableInitial.getElement())) {
+            if (observable.isGetterNonnull() && !Nullability.isNonNull(observableInitial.getElement())) {
                 throw new ProcessorException(
                         "@ObservableInitial target defined observable named '" + name + "' but "
-                                + "the initializer is not annotated with @" + AnnotationsUtil.NONNULL_CLASSNAME,
+                                + "the initializer does not have a non-null JSpecify contract",
                         observableInitial.getElement());
             }
 
@@ -1845,7 +1771,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     @Nullable
-    private Boolean isInitializerRequired(@Nonnull final ExecutableElement element) {
+    private Boolean isInitializerRequired(final ExecutableElement element) {
         final AnnotationMirror annotation =
                 AnnotationsUtil.findAnnotationByType(element, Constants.OBSERVABLE_CLASSNAME);
         final AnnotationValue v =
@@ -1860,25 +1786,25 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         };
     }
 
-    private boolean autodetectInitializer(@Nonnull final ExecutableElement element) {
-        return element.getModifiers().contains(Modifier.ABSTRACT)
-                && ((
-                        // Getter
-                        element.getReturnType().getKind() != TypeKind.VOID
-                                && AnnotationsUtil.hasNonnullAnnotation(element)
-                                && !AnnotationsUtil.hasAnnotationOfType(element, Constants.INVERSE_CLASSNAME))
-                        || (
-                        // Setter
-                        1 == element.getParameters().size()
-                                && AnnotationsUtil.hasNonnullAnnotation(
-                                        element.getParameters().get(0))));
+    private boolean autodetectInitializer(
+            final ExecutableElement element, final TypeMirror type, final TypeElement context) {
+        if (!element.getModifiers().contains(Modifier.ABSTRACT)
+                || type.getKind().isPrimitive()) {
+            return false;
+        }
+        final boolean getter = element.getReturnType().getKind() != TypeKind.VOID;
+        if (getter && AnnotationsUtil.hasAnnotationOfType(element, Constants.INVERSE_CLASSNAME)) {
+            return false;
+        }
+        final Element declaration = getter ? element : element.getParameters().get(0);
+        return Nullability.requireDefinite(declaration, type, context) == Nullability.Nullness.NONNULL;
     }
 
     private void checkNameUnique(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final String name,
-            @Nonnull final ExecutableElement sourceMethod,
-            @Nonnull final String sourceAnnotationName)
+            final ComponentDescriptor component,
+            final String name,
+            final ExecutableElement sourceMethod,
+            final String sourceAnnotationName)
             throws ProcessorException {
         final ActionDescriptor action = component.getActions().get(name);
         if (null != action) {
@@ -1911,13 +1837,12 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    @Nonnull
     private ProcessorException toException(
-            @Nonnull final String name,
-            @Nonnull final String sourceAnnotationName,
-            @Nonnull final ExecutableElement sourceMethod,
-            @Nonnull final String targetAnnotationName,
-            @Nonnull final ExecutableElement targetElement) {
+            final String name,
+            final String sourceAnnotationName,
+            final ExecutableElement sourceMethod,
+            final String targetAnnotationName,
+            final ExecutableElement targetElement) {
         return new ProcessorException(
                 "Method annotated with " + MemberChecks.toSimpleName(sourceAnnotationName) + " specified name "
                         + name + " that duplicates " + MemberChecks.toSimpleName(targetAnnotationName)
@@ -1925,29 +1850,27 @@ public final class ArezProcessor extends AbstractStandardProcessor {
                 sourceMethod);
     }
 
-    private void processComponentDependencyFields(@Nonnull final ComponentDescriptor component) {
+    private void processComponentDependencyFields(final ComponentDescriptor component) {
         ElementsUtil.getFields(component.getElement()).stream()
                 .filter(f -> AnnotationsUtil.hasAnnotationOfType(f, Constants.COMPONENT_DEPENDENCY_CLASSNAME))
                 .forEach(field -> processComponentDependencyField(component, field));
     }
 
     private void processObservableInitialFields(
-            @Nonnull final ComponentDescriptor component, @Nonnull final List<VariableElement> fields) {
+            final ComponentDescriptor component, final List<VariableElement> fields) {
         fields.stream()
                 .filter(f -> AnnotationsUtil.hasAnnotationOfType(f, Constants.OBSERVABLE_INITIAL_CLASSNAME))
                 .forEach(field -> processObservableInitialField(component, field));
     }
 
-    private void processComponentDependencyField(
-            @Nonnull final ComponentDescriptor component, @Nonnull final VariableElement field) {
+    private void processComponentDependencyField(final ComponentDescriptor component, final VariableElement field) {
         verifyNoDuplicateAnnotations(field);
         MemberChecks.mustBeSubclassCallable(
                 component.getElement(), Constants.COMPONENT_CLASSNAME, Constants.COMPONENT_DEPENDENCY_CLASSNAME, field);
         component.addDependency(createFieldDependencyDescriptor(component, field));
     }
 
-    private void processObservableInitialField(
-            @Nonnull final ComponentDescriptor component, @Nonnull final VariableElement field) {
+    private void processObservableInitialField(final ComponentDescriptor component, final VariableElement field) {
         verifyNoDuplicateAnnotations(field);
         if (!field.getModifiers().contains(Modifier.STATIC)) {
             throw new ProcessorException("@ObservableInitial target must be static", field);
@@ -1972,10 +1895,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addObservableInitialMethod(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final ExecutableType methodType) {
+            final ComponentDescriptor component,
+            final AnnotationMirror annotation,
+            final ExecutableElement method,
+            final ExecutableType methodType) {
         if (!method.getModifiers().contains(Modifier.STATIC)) {
             throw new ProcessorException("@ObservableInitial target must be static", method);
         }
@@ -2000,7 +1923,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addObservableInitial(
-            @Nonnull final ComponentDescriptor component, @Nonnull final ObservableInitialDescriptor descriptor) {
+            final ComponentDescriptor component, final ObservableInitialDescriptor descriptor) {
         final String name = descriptor.getName();
         if (component.getObservableInitials().containsKey(name)) {
             throw new ProcessorException(
@@ -2011,8 +1934,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     @Nullable
-    private String deriveObservableInitialName(
-            @Nonnull final ExecutableElement method, @Nonnull final String declaredName) {
+    private String deriveObservableInitialName(final ExecutableElement method, final String declaredName) {
         if (Constants.SENTINEL.equals(declaredName)) {
             return deriveName(method, OBSERVABLE_INITIAL_METHOD_PATTERN, declaredName);
         } else {
@@ -2032,8 +1954,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     @Nullable
-    private String deriveObservableInitialName(
-            @Nonnull final VariableElement field, @Nonnull final String declaredName) {
+    private String deriveObservableInitialName(final VariableElement field, final String declaredName) {
         if (Constants.SENTINEL.equals(declaredName)) {
             final String fieldName = field.getSimpleName().toString();
             final Matcher matcher = OBSERVABLE_INITIAL_FIELD_PATTERN.matcher(fieldName);
@@ -2058,8 +1979,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    @Nonnull
-    private String constantCaseToLowerCamel(@Nonnull final String name) {
+    private String constantCaseToLowerCamel(final String name) {
         final String[] parts = name.split("_");
         final StringBuilder sb = new StringBuilder();
         for (final String part : parts) {
@@ -2080,10 +2000,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addReference(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final ExecutableType methodType) {
+            final ComponentDescriptor component,
+            final AnnotationMirror annotation,
+            final ExecutableElement method,
+            final ExecutableType methodType) {
         MemberChecks.mustNotHaveAnyParameters(Constants.REFERENCE_CLASSNAME, method);
         MemberChecks.mustBeSubclassCallable(
                 component.getElement(), Constants.COMPONENT_CLASSNAME, Constants.REFERENCE_CLASSNAME, method);
@@ -2117,7 +2037,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         verifyMultiplicityOfAssociatedInverseMethod(component, descriptor);
     }
 
-    private boolean hasInverse(@Nonnull final AnnotationMirror annotation) {
+    private boolean hasInverse(final AnnotationMirror annotation) {
         final VariableElement variableElement = AnnotationsUtil.getAnnotationValueValue(annotation, "inverse");
         return switch (variableElement.getSimpleName().toString()) {
             case "ENABLE" -> true;
@@ -2129,7 +2049,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void verifyMultiplicityOfAssociatedReferenceMethod(
-            @Nonnull final ComponentDescriptor component, @Nonnull final InverseDescriptor descriptor) {
+            final ComponentDescriptor component, final InverseDescriptor descriptor) {
         final Multiplicity multiplicity = ElementsUtil.getMethods(
                         descriptor.getTargetType(), processingEnv.getElementUtils(), processingEnv.getTypeUtils())
                 .stream()
@@ -2174,14 +2094,11 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    @Nonnull
-    private String getLinkType(@Nonnull final ExecutableElement method) {
+    private String getLinkType(final ExecutableElement method) {
         return AnnotationsUtil.getEnumAnnotationParameter(method, Constants.REFERENCE_CLASSNAME, "load");
     }
 
-    @Nonnull
-    private String getReferenceName(
-            @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method) {
+    private String getReferenceName(final AnnotationMirror annotation, final ExecutableElement method) {
         final String declaredName = AnnotationsUtil.getAnnotationValueValue(annotation, "name");
         final String name;
         if (Constants.SENTINEL.equals(declaredName)) {
@@ -2208,8 +2125,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         return name;
     }
 
-    @Nonnull
-    private Multiplicity getReferenceInverseMultiplicity(@Nonnull final AnnotationMirror annotation) {
+    private Multiplicity getReferenceInverseMultiplicity(final AnnotationMirror annotation) {
         final VariableElement variableElement =
                 AnnotationsUtil.getAnnotationValueValue(annotation, "inverseMultiplicity");
         return switch (variableElement.getSimpleName().toString()) {
@@ -2219,12 +2135,11 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         };
     }
 
-    @Nonnull
     private String getReferenceInverseName(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final Multiplicity multiplicity) {
+            final ComponentDescriptor component,
+            final AnnotationMirror annotation,
+            final ExecutableElement method,
+            final Multiplicity multiplicity) {
         final String declaredName = AnnotationsUtil.getAnnotationValueValue(annotation, "inverseName");
         final String name;
         if (Constants.SENTINEL.equals(declaredName)) {
@@ -2248,9 +2163,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void ensureTargetTypeAligns(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final ReferenceDescriptor descriptor,
-            @Nonnull final TypeMirror target) {
+            final ComponentDescriptor component, final ReferenceDescriptor descriptor, final TypeMirror target) {
         if (!processingEnv
                 .getTypeUtils()
                 .isSameType(target, component.getElement().asType())) {
@@ -2264,7 +2177,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void verifyMultiplicityOfAssociatedInverseMethod(
-            @Nonnull final ComponentDescriptor component, @Nonnull final ReferenceDescriptor descriptor) {
+            final ComponentDescriptor component, final ReferenceDescriptor descriptor) {
         final TypeElement element = (TypeElement)
                 processingEnv.getTypeUtils().asElement(descriptor.getMethod().getReturnType());
         final String defaultInverseName = descriptor.hasInverse()
@@ -2295,9 +2208,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
                                     return Multiplicity.MANY;
                                 } else {
                                     ensureTargetTypeAligns(component, descriptor, m.getReturnType());
-                                    return AnnotationsUtil.hasNonnullAnnotation(m)
-                                            ? Multiplicity.ONE
-                                            : Multiplicity.ZERO_OR_ONE;
+                                    return Nullability.isNonNull(m) ? Multiplicity.ONE : Multiplicity.ZERO_OR_ONE;
                                 }
                             } else {
                                 return null;
@@ -2329,9 +2240,8 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    @Nonnull
     private DependencyDescriptor createMethodDependencyDescriptor(
-            @Nonnull final ComponentDescriptor descriptor, @Nonnull final ExecutableElement method) {
+            final ComponentDescriptor descriptor, final ExecutableElement method) {
         MemberChecks.mustNotHaveAnyParameters(Constants.COMPONENT_DEPENDENCY_CLASSNAME, method);
         MemberChecks.mustBeSubclassCallable(
                 descriptor.getElement(),
@@ -2366,16 +2276,14 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         return new DependencyDescriptor(descriptor, method, cascade);
     }
 
-    private static boolean isComponentDependencyValidateTypeAtRuntime(
-            @Nonnull final AnnotatedConstruct annotatedConstruct) {
+    private static boolean isComponentDependencyValidateTypeAtRuntime(final AnnotatedConstruct annotatedConstruct) {
         return Boolean.TRUE.equals(AnnotationsUtil.getAnnotationValue(
                         annotatedConstruct, Constants.COMPONENT_DEPENDENCY_CLASSNAME, "validateTypeAtRuntime")
                 .getValue());
     }
 
-    @Nonnull
     private DependencyDescriptor createFieldDependencyDescriptor(
-            @Nonnull final ComponentDescriptor descriptor, @Nonnull final VariableElement field) {
+            final ComponentDescriptor descriptor, final VariableElement field) {
         MemberChecks.mustBeSubclassCallable(
                 descriptor.getElement(),
                 Constants.COMPONENT_CLASSNAME,
@@ -2416,24 +2324,24 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         return new DependencyDescriptor(descriptor, field);
     }
 
-    private boolean isActionCascade(@Nonnull final Element method) {
+    private boolean isActionCascade(final Element method) {
         final String value =
                 AnnotationsUtil.getEnumAnnotationParameter(method, Constants.COMPONENT_DEPENDENCY_CLASSNAME, "action");
         return "CASCADE".equals(value);
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    private boolean isArezComponentAnnotated(@Nonnull final TypeElement typeElement) {
+    private boolean isArezComponentAnnotated(final TypeElement typeElement) {
         return AnnotationsUtil.hasAnnotationOfType(typeElement, Constants.COMPONENT_CLASSNAME);
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    private boolean isArezComponentLikeAnnotated(@Nonnull final TypeElement typeElement) {
+    private boolean isArezComponentLikeAnnotated(final TypeElement typeElement) {
         return AnnotationsUtil.hasAnnotationOfType(typeElement, Constants.AREZ_COMPONENT_LIKE_CLASSNAME)
                 || isAnnotatedByActAsArezComponent(typeElement);
     }
 
-    private boolean isAnnotatedByActAsArezComponent(@Nonnull final TypeElement typeElement) {
+    private boolean isAnnotatedByActAsArezComponent(final TypeElement typeElement) {
         for (final AnnotationMirror annotation : typeElement.getAnnotationMirrors()) {
             final Element annotationType = annotation.getAnnotationType().asElement();
             if (annotationType instanceof TypeElement && isActAsArezComponentAnnotated((TypeElement) annotationType)) {
@@ -2443,7 +2351,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         return false;
     }
 
-    private boolean isActAsArezComponentAnnotated(@Nonnull final TypeElement annotationType) {
+    private boolean isActAsArezComponentAnnotated(final TypeElement annotationType) {
         for (final AnnotationMirror annotation : annotationType.getAnnotationMirrors()) {
             final Element metaAnnotationType = annotation.getAnnotationType().asElement();
             if (metaAnnotationType instanceof TypeElement
@@ -2454,23 +2362,23 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         return false;
     }
 
-    private boolean isActAsArezComponentAnnotationType(@Nonnull final TypeElement annotationType) {
+    private boolean isActAsArezComponentAnnotationType(final TypeElement annotationType) {
         return Constants.ACT_AS_AREZ_COMPONENT_CLASSNAME.equals(
                         annotationType.getQualifiedName().toString())
                 || annotationType.getSimpleName().contentEquals(Constants.ACT_AS_AREZ_COMPONENT_SIMPLE_NAME);
     }
 
-    private boolean isArezComponentLikeType(@Nonnull final TypeMirror typeMirror) {
+    private boolean isArezComponentLikeType(final TypeMirror typeMirror) {
         final Element element = processingEnv.getTypeUtils().asElement(typeMirror);
         return element instanceof TypeElement && isArezComponentLikeAnnotated((TypeElement) element);
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    private boolean isDisposeTrackableComponent(@Nonnull final TypeElement typeElement) {
+    private boolean isDisposeTrackableComponent(final TypeElement typeElement) {
         return isArezComponentAnnotated(typeElement) && isDisposableTrackableRequired(typeElement);
     }
 
-    private boolean isLivenessDisposedArezComponent(@Nonnull final TypeMirror typeMirror) {
+    private boolean isLivenessDisposedArezComponent(final TypeMirror typeMirror) {
         final Element element = processingEnv.getTypeUtils().asElement(typeMirror);
         final AnnotationMirror arezComponent = element instanceof TypeElement
                 ? AnnotationsUtil.findAnnotationByType(element, Constants.COMPONENT_CLASSNAME)
@@ -2478,8 +2386,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         return null != arezComponent && this.<Boolean>getAnnotationParameter(arezComponent, "disposeOnDeactivate");
     }
 
-    @Nonnull
-    private ComponentDescriptor parse(@Nonnull final TypeElement typeElement) throws ProcessorException {
+    private ComponentDescriptor parse(final TypeElement typeElement) throws ProcessorException {
         MemberChecks.mustBeClassOrInterface(Constants.COMPONENT_CLASSNAME, typeElement);
         if (typeElement.getModifiers().contains(Modifier.FINAL)) {
             throw new ProcessorException("@ArezComponent target must not be final", typeElement);
@@ -2701,14 +2608,14 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         return descriptor;
     }
 
-    private boolean isStingIntegrationEnabled(@Nonnull final AnnotationMirror arezComponent, final boolean service) {
+    private boolean isStingIntegrationEnabled(final AnnotationMirror arezComponent, final boolean service) {
         final VariableElement parameter = getAnnotationParameter(arezComponent, "sting");
         final var value = parameter.getSimpleName().toString();
         return "ENABLE".equals(value)
                 || ("AUTODETECT".equals(value) && service && null != findTypeElement(Constants.STING_INJECTOR));
     }
 
-    private void verifyConstructors(@Nonnull final TypeElement typeElement, final boolean sting) {
+    private void verifyConstructors(final TypeElement typeElement, final boolean sting) {
         final var constructors = ElementsUtil.getConstructors(typeElement);
         if (constructors.size() > 1 && sting) {
             throw new ProcessorException(
@@ -2729,7 +2636,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    private void verifyConstructorParameters(@Nonnull final ExecutableElement constructor, final boolean sting) {
+    private void verifyConstructorParameters(final ExecutableElement constructor, final boolean sting) {
         for (final var parameter : constructor.getParameters()) {
             final var type = parameter.asType();
             if (sting && TypesUtil.containsArrayType(type)) {
@@ -2774,7 +2681,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    private void ensureNoFieldInjections(@Nonnull final List<VariableElement> fields) {
+    private void ensureNoFieldInjections(final List<VariableElement> fields) {
         for (final var field : fields) {
             if (hasInjectAnnotation(field)) {
                 throw new ProcessorException(
@@ -2787,7 +2694,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    private void ensureNoMethodInjections(@Nonnull final TypeElement typeElement) {
+    private void ensureNoMethodInjections(final TypeElement typeElement) {
         final var methods =
                 ElementsUtil.getMethods(typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils());
         for (final var method : methods) {
@@ -2803,9 +2710,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void analyzeCandidateMethods(
-            @Nonnull final ComponentDescriptor componentDescriptor,
-            @Nonnull final List<ExecutableElement> methods,
-            @Nonnull final Types typeUtils)
+            final ComponentDescriptor componentDescriptor, final List<ExecutableElement> methods, final Types typeUtils)
             throws ProcessorException {
         for (final var method : methods) {
             final var methodName = method.getSimpleName().toString();
@@ -2946,7 +2851,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         processComponentDependencyFields(componentDescriptor);
     }
 
-    private static void linkMemoizeContextParametersToMemoizes(final @Nonnull ComponentDescriptor componentDescriptor) {
+    private static void linkMemoizeContextParametersToMemoizes(final ComponentDescriptor componentDescriptor) {
         // Link MemoizeContextParameters to associated Memoize descriptors
         componentDescriptor
                 .getMemoizes()
@@ -2958,10 +2863,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void linkUnMemoizeContextParameters(
-            @Nonnull final ComponentDescriptor componentDescriptor,
-            @Nonnull final Map<String, CandidateMethod> captures,
-            @Nonnull final Map<String, CandidateMethod> pushes,
-            @Nonnull final Map<String, CandidateMethod> pops) {
+            final ComponentDescriptor componentDescriptor,
+            final Map<String, CandidateMethod> captures,
+            final Map<String, CandidateMethod> pushes,
+            final Map<String, CandidateMethod> pops) {
         final var parameters = componentDescriptor.getMemoizeContextParameters().values();
         for (final var parameter : parameters) {
             if (!parameter.hasCapture()) {
@@ -2986,8 +2891,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void ensureNoAbstractMethods(
-            @Nonnull final ComponentDescriptor componentDescriptor,
-            @Nonnull final Collection<CandidateMethod> candidateMethods) {
+            final ComponentDescriptor componentDescriptor, final Collection<CandidateMethod> candidateMethods) {
         candidateMethods.stream()
                 .map(CandidateMethod::getMethod)
                 .filter(m -> m.getModifiers().contains(Modifier.ABSTRACT))
@@ -3000,9 +2904,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private boolean analyzeMethod(
-            @Nonnull final ComponentDescriptor descriptor,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final ExecutableType methodType)
+            final ComponentDescriptor descriptor, final ExecutableElement method, final ExecutableType methodType)
             throws ProcessorException {
         emitWarningForUnnecessaryProtectedMethod(descriptor, method);
         emitWarningForUnnecessaryFinalMethod(descriptor, method);
@@ -3186,7 +3088,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void emitWarningForUnnecessaryProtectedMethod(
-            @Nonnull final ComponentDescriptor descriptor, @Nonnull final ExecutableElement method) {
+            final ComponentDescriptor descriptor, final ExecutableElement method) {
         if (method.getModifiers().contains(Modifier.PROTECTED)
                 && Objects.equals(method.getEnclosingElement(), descriptor.getElement())
                 && ElementsUtil.isWarningNotSuppressed(
@@ -3202,15 +3104,12 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void emitWarningForManagedFieldAccess(
-            @Nonnull final ComponentDescriptor descriptor,
-            @Nonnull final VariableElement field,
-            @Nonnull final String annotationClassname) {
+            final ComponentDescriptor descriptor, final VariableElement field, final String annotationClassname) {
         emitWarningForPublicManagedField(field, annotationClassname);
         emitWarningForUnnecessaryProtectedManagedField(descriptor, field);
     }
 
-    private void emitWarningForPublicManagedField(
-            @Nonnull final VariableElement field, @Nonnull final String annotationClassname) {
+    private void emitWarningForPublicManagedField(final VariableElement field, final String annotationClassname) {
         if (field.getModifiers().contains(Modifier.PUBLIC)
                 && ElementsUtil.isWarningNotSuppressed(
                         field, Constants.WARNING_PUBLIC_FIELD, Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME)) {
@@ -3224,7 +3123,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void emitWarningForUnnecessaryProtectedManagedField(
-            @Nonnull final ComponentDescriptor descriptor, @Nonnull final VariableElement field) {
+            final ComponentDescriptor descriptor, final VariableElement field) {
         if (field.getModifiers().contains(Modifier.PROTECTED)
                 && ElementsUtil.isWarningNotSuppressed(
                         field, Constants.WARNING_PROTECTED_FIELD, Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME)
@@ -3239,7 +3138,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void emitWarningForUnnecessaryFinalMethod(
-            @Nonnull final ComponentDescriptor descriptor, @Nonnull final ExecutableElement method) {
+            final ComponentDescriptor descriptor, final ExecutableElement method) {
         if (method.getModifiers().contains(Modifier.FINAL)
                 && Objects.equals(method.getEnclosingElement(), descriptor.getElement())
                 && ElementsUtil.isWarningNotSuppressed(
@@ -3254,10 +3153,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addReferenceId(
-            @Nonnull final ComponentDescriptor descriptor,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ObservableDescriptor observable,
-            @Nonnull final ExecutableElement method) {
+            final ComponentDescriptor descriptor,
+            final AnnotationMirror annotation,
+            final ObservableDescriptor observable,
+            final ExecutableElement method) {
         MemberChecks.mustNotHaveAnyParameters(Constants.REFERENCE_ID_CLASSNAME, method);
         MemberChecks.mustBeSubclassCallable(
                 descriptor.getElement(), Constants.COMPONENT_CLASSNAME, Constants.REFERENCE_ID_CLASSNAME, method);
@@ -3269,9 +3168,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addReferenceId(
-            @Nonnull final ComponentDescriptor descriptor,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ExecutableElement method) {
+            final ComponentDescriptor descriptor, final AnnotationMirror annotation, final ExecutableElement method) {
         MemberChecks.mustNotHaveAnyParameters(Constants.REFERENCE_ID_CLASSNAME, method);
         MemberChecks.mustBeSubclassCallable(
                 descriptor.getElement(), Constants.COMPONENT_CLASSNAME, Constants.REFERENCE_ID_CLASSNAME, method);
@@ -3282,9 +3179,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         descriptor.findOrCreateReference(name).setIdMethod(method);
     }
 
-    @Nonnull
-    private String getReferenceIdName(
-            @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method) {
+    private String getReferenceIdName(final AnnotationMirror annotation, final ExecutableElement method) {
         final String declaredName = AnnotationsUtil.getAnnotationValueValue(annotation, "name");
         final String name;
         if (Constants.SENTINEL.equals(declaredName)) {
@@ -3320,9 +3215,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addPreInverseRemove(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ExecutableElement method)
+            final ComponentDescriptor component, final AnnotationMirror annotation, final ExecutableElement method)
             throws ProcessorException {
         mustBeHookHook(component.getElement(), Constants.PRE_INVERSE_REMOVE_CLASSNAME, method);
         shouldBeInternalHookMethod(processingEnv, component, method, Constants.PRE_INVERSE_REMOVE_CLASSNAME);
@@ -3335,9 +3228,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    @Nonnull
-    private String getPreInverseRemoveName(
-            @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method) {
+    private String getPreInverseRemoveName(final AnnotationMirror annotation, final ExecutableElement method) {
         final String name = AnnotationsUtil.getAnnotationValueValue(annotation, "name");
         if (Constants.SENTINEL.equals(name)) {
             final var candidate = deriveName(method, PRE_INVERSE_REMOVE_PATTERN, name);
@@ -3366,9 +3257,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addPostInverseAdd(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ExecutableElement method)
+            final ComponentDescriptor component, final AnnotationMirror annotation, final ExecutableElement method)
             throws ProcessorException {
         mustBeHookHook(component.getElement(), Constants.POST_INVERSE_ADD_CLASSNAME, method);
         shouldBeInternalHookMethod(processingEnv, component, method, Constants.POST_INVERSE_ADD_CLASSNAME);
@@ -3381,9 +3270,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    @Nonnull
-    private String getPostInverseAddName(
-            @Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method) {
+    private String getPostInverseAddName(final AnnotationMirror annotation, final ExecutableElement method) {
         final String name = AnnotationsUtil.getAnnotationValueValue(annotation, "name");
         if (Constants.SENTINEL.equals(name)) {
             final var candidate = deriveName(method, POST_INVERSE_ADD_PATTERN, name);
@@ -3412,10 +3299,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addInverse(
-            @Nonnull final ComponentDescriptor descriptor,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final ExecutableType methodType) {
+            final ComponentDescriptor descriptor,
+            final AnnotationMirror annotation,
+            final ExecutableElement method,
+            final ExecutableType methodType) {
         MemberChecks.mustNotHaveAnyParameters(Constants.INVERSE_CLASSNAME, method);
         MemberChecks.mustBeSubclassCallable(
                 descriptor.getElement(), Constants.COMPONENT_CLASSNAME, Constants.INVERSE_CLASSNAME, method);
@@ -3431,10 +3318,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addInverse(
-            @Nonnull final ComponentDescriptor descriptor,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final ObservableDescriptor observable,
-            @Nonnull final ExecutableElement method) {
+            final ComponentDescriptor descriptor,
+            final AnnotationMirror annotation,
+            final ObservableDescriptor observable,
+            final ExecutableElement method) {
         MemberChecks.mustNotHaveAnyParameters(Constants.INVERSE_CLASSNAME, method);
         MemberChecks.mustBeSubclassCallable(
                 descriptor.getElement(), Constants.COMPONENT_CLASSNAME, Constants.INVERSE_CLASSNAME, method);
@@ -3465,14 +3352,14 @@ public final class ArezProcessor extends AbstractStandardProcessor {
                             method);
                 }
                 targetType = (TypeElement) ((DeclaredType) type).asElement();
-                if (AnnotationsUtil.hasNonnullAnnotation(method)) {
+                if (Nullability.isNonNull(method)) {
                     multiplicity = Multiplicity.ONE;
-                } else if (AnnotationsUtil.hasNullableAnnotation(method)) {
+                } else if (Nullability.isNullable(method)) {
                     multiplicity = Multiplicity.ZERO_OR_ONE;
                 } else {
                     throw new ProcessorException(
                             "@Inverse target expected to be annotated with either " + AnnotationsUtil.NULLABLE_CLASSNAME
-                                    + " or " + AnnotationsUtil.NONNULL_CLASSNAME,
+                                    + " or " + Constants.NONNULL_CLASSNAME,
                             method);
                 }
             }
@@ -3485,14 +3372,11 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    @Nonnull
-    private InverseDescriptor findOrCreateInverseDescriptor(
-            @Nonnull final ComponentDescriptor descriptor, @Nonnull final String name) {
+    private InverseDescriptor findOrCreateInverseDescriptor(final ComponentDescriptor descriptor, final String name) {
         return descriptor.getInverses().computeIfAbsent(name, n -> new InverseDescriptor(descriptor, name));
     }
 
-    @Nonnull
-    private String getInverseName(@Nonnull final AnnotationMirror annotation, @Nonnull final ExecutableElement method) {
+    private String getInverseName(final AnnotationMirror annotation, final ExecutableElement method) {
         final String declaredName = AnnotationsUtil.getAnnotationValueValue(annotation, "name");
         final String name;
         if (Constants.SENTINEL.equals(declaredName)) {
@@ -3516,7 +3400,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void warnOnUnmanagedComponentReferences(
-            @Nonnull final ComponentDescriptor descriptor, @Nonnull final List<VariableElement> fields) {
+            final ComponentDescriptor descriptor, final List<VariableElement> fields) {
         final var disposeNotifier = getTypeElement(Constants.DISPOSE_NOTIFIER_CLASSNAME);
 
         for (final var field : fields) {
@@ -3612,13 +3496,11 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    @Nonnull
-    private TypeMirror getEffectiveFieldType(
-            @Nonnull final ComponentDescriptor descriptor, @Nonnull final VariableElement field) {
+    private TypeMirror getEffectiveFieldType(final ComponentDescriptor descriptor, final VariableElement field) {
         return processingEnv.getTypeUtils().asMemberOf(descriptor.asDeclaredType(), field);
     }
 
-    private boolean verifyReferencesToComponent(@Nonnull final TypeElement element) {
+    private boolean verifyReferencesToComponent(final TypeElement element) {
         assert SuperficialValidation.validateElement(processingEnv, element);
 
         final var verifyReferencesToComponent = AnnotationsUtil.getEnumAnnotationParameter(
@@ -3630,13 +3512,12 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         };
     }
 
-    private boolean isUnmanagedComponentReferenceNotSuppressed(@Nonnull final Element element) {
+    private boolean isUnmanagedComponentReferenceNotSuppressed(final Element element) {
         return !ElementsUtil.isWarningSuppressed(
                 element, Constants.WARNING_UNMANAGED_COMPONENT_REFERENCE, Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME);
     }
 
-    private void emitWarningForNonPrivateServiceField(
-            @Nonnull final VariableElement field, @Nonnull final TypeElement typeElement) {
+    private void emitWarningForNonPrivateServiceField(final VariableElement field, final TypeElement typeElement) {
         if (!field.getModifiers().contains(Modifier.PRIVATE)
                 && isService(typeElement)
                 && ElementsUtil.isWarningNotSuppressed(
@@ -3653,13 +3534,13 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     @SuppressWarnings("SameParameterValue")
-    private boolean isElementAnnotatedBy(@Nullable final Element element, @Nonnull final String annotation) {
+    private boolean isElementAnnotatedBy(@Nullable final Element element, final String annotation) {
         return null != element
                 && SuperficialValidation.validateElement(processingEnv, element)
                 && AnnotationsUtil.hasAnnotationOfType(element, annotation);
     }
 
-    private boolean isService(@Nonnull final TypeElement typeElement) {
+    private boolean isService(final TypeElement typeElement) {
         final var service =
                 AnnotationsUtil.getEnumAnnotationParameter(typeElement, Constants.COMPONENT_CLASSNAME, "service");
         return switch (service) {
@@ -3673,7 +3554,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private boolean isComponentObservableRequired(
-            @Nonnull final AnnotationMirror arezComponent, final boolean disposeOnDeactivate) {
+            final AnnotationMirror arezComponent, final boolean disposeOnDeactivate) {
         final VariableElement variableElement = getAnnotationParameter(arezComponent, "observable");
         return switch (variableElement.getSimpleName().toString()) {
             case "ENABLE" -> true;
@@ -3682,8 +3563,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         };
     }
 
-    private boolean isVerifyRequired(
-            @Nonnull final AnnotationMirror arezComponent, @Nonnull final TypeElement typeElement) {
+    private boolean isVerifyRequired(final AnnotationMirror arezComponent, final TypeElement typeElement) {
         final VariableElement parameter = getAnnotationParameter(arezComponent, "verify");
         return switch (parameter.getSimpleName().toString()) {
             case "ENABLE" -> true;
@@ -3695,8 +3575,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         };
     }
 
-    private boolean isSkipIfDisposed(
-            @Nonnull final ComponentDescriptor component, @Nonnull final AnnotationMirror action) {
+    private boolean isSkipIfDisposed(final ComponentDescriptor component, final AnnotationMirror action) {
         final VariableElement parameter = getAnnotationParameter(action, "skipIfDisposed");
         return switch (parameter.getSimpleName().toString()) {
             case "ENABLE" -> true;
@@ -3705,46 +3584,43 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         };
     }
 
-    private boolean hasReferenceAnnotations(@Nonnull final Element method) {
+    private boolean hasReferenceAnnotations(final Element method) {
         return AnnotationsUtil.hasAnnotationOfType(method, Constants.REFERENCE_CLASSNAME)
                 || AnnotationsUtil.hasAnnotationOfType(method, Constants.REFERENCE_ID_CLASSNAME)
                 || AnnotationsUtil.hasAnnotationOfType(method, Constants.INVERSE_CLASSNAME);
     }
 
-    private boolean isEqualsRequired(@Nonnull final AnnotationMirror arezComponent) {
+    private boolean isEqualsRequired(final AnnotationMirror arezComponent) {
         final VariableElement injectParameter = getAnnotationParameter(arezComponent, "requireEquals");
         return "ENABLE".equals(injectParameter.getSimpleName().toString());
     }
 
     @Nullable
-    private String getDefaultPriority(@Nonnull final AnnotationMirror arezComponent) {
+    private String getDefaultPriority(final AnnotationMirror arezComponent) {
         final AnnotationValue value = AnnotationsUtil.findAnnotationValueNoDefaults(arezComponent, "defaultPriority");
         return null == value
                 ? null
                 : ((VariableElement) value.getValue()).getSimpleName().toString();
     }
 
-    private boolean isIdRequired(@Nonnull final AnnotationMirror arezComponent) {
+    private boolean isIdRequired(final AnnotationMirror arezComponent) {
         final VariableElement injectParameter = getAnnotationParameter(arezComponent, "requireId");
         return !"DISABLE".equals(injectParameter.getSimpleName().toString());
     }
 
-    private boolean hasInjectAnnotation(@Nonnull final Element method) {
+    private boolean hasInjectAnnotation(final Element method) {
         return AnnotationsUtil.hasAnnotationOfType(method, Constants.INJECT_CLASSNAME);
     }
 
-    @Nonnull
-    private <T> T getAnnotationParameter(
-            @Nonnull final AnnotationMirror annotation, @Nonnull final String parameterName) {
+    private <T> T getAnnotationParameter(final AnnotationMirror annotation, final String parameterName) {
         return AnnotationsUtil.getAnnotationValueValue(annotation, parameterName);
     }
 
-    @Nonnull
     private TypeElement getDisposableTypeElement() {
         return getTypeElement(Constants.DISPOSABLE_CLASSNAME);
     }
 
-    private boolean isDisposableTrackableRequired(@Nonnull final TypeElement element) {
+    private boolean isDisposableTrackableRequired(final TypeElement element) {
         final var disposeNotifier =
                 AnnotationsUtil.getEnumAnnotationParameter(element, Constants.COMPONENT_CLASSNAME, "disposeNotifier");
         return switch (disposeNotifier) {
@@ -3756,25 +3632,23 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         };
     }
 
-    @Nonnull
-    private TypeElement getTypeElement(@Nonnull final String classname) {
+    private TypeElement getTypeElement(final String classname) {
         final var typeElement = findTypeElement(classname);
         assert null != typeElement;
         return typeElement;
     }
 
     @Nullable
-    private TypeElement findTypeElement(@Nonnull final String classname) {
+    private TypeElement findTypeElement(final String classname) {
         return processingEnv.getElementUtils().getTypeElement(classname);
     }
 
-    @Nonnull
     private String resolveEffectiveEqualityComparator(
-            @Nonnull final TypeElement componentType,
-            @Nonnull final String annotationName,
-            @Nonnull final Element element,
-            @Nonnull final TypeMirror valueType,
-            @Nonnull final String comparatorClassName) {
+            final TypeElement componentType,
+            final String annotationName,
+            final Element element,
+            final TypeMirror valueType,
+            final String comparatorClassName) {
         final var effectiveComparator = Constants.EQUALITY_COMPARATOR_CLASSNAME.equals(comparatorClassName)
                 ? deriveDefaultEqualityComparator(valueType)
                 : comparatorClassName;
@@ -3782,8 +3656,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         return effectiveComparator;
     }
 
-    @Nonnull
-    private String deriveDefaultEqualityComparator(@Nonnull final TypeMirror valueType) {
+    private String deriveDefaultEqualityComparator(final TypeMirror valueType) {
         if (TypeKind.DECLARED == valueType.getKind()) {
             final var typeElement = ((DeclaredType) valueType).asElement();
             final var annotation =
@@ -3797,10 +3670,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void verifyValidEqualityComparator(
-            @Nonnull final TypeElement componentType,
-            @Nonnull final String annotationName,
-            @Nonnull final String comparatorClassName,
-            @Nonnull final Element element) {
+            final TypeElement componentType,
+            final String annotationName,
+            final String comparatorClassName,
+            final Element element) {
         final var comparatorType = getTypeElement(comparatorClassName);
         if (ElementKind.CLASS != comparatorType.getKind()) {
             throw new ProcessorException(
@@ -3831,32 +3704,29 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private boolean isProtectedFieldOnInheritedTypeInDifferentPackage(
-            @Nonnull final TypeElement componentType, @Nonnull final VariableElement field) {
+            final TypeElement componentType, final VariableElement field) {
         final var declaringType = ElementsUtil.getOwningType(field);
         return !Objects.equals(declaringType, componentType)
                 && ElementsUtil.areTypesInDifferentPackage(declaringType, componentType);
     }
 
-    private boolean isMethodAProtectedOverride(
-            @Nonnull final TypeElement typeElement, @Nonnull final ExecutableElement method) {
+    private boolean isMethodAProtectedOverride(final TypeElement typeElement, final ExecutableElement method) {
         final var overriddenMethod = ElementsUtil.getOverriddenMethod(processingEnv, typeElement, method);
         return null != overriddenMethod && overriddenMethod.getModifiers().contains(Modifier.PROTECTED);
     }
 
     private void mustBeStandardRefMethod(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final ComponentDescriptor descriptor,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final String annotationClassname) {
+            final ProcessingEnvironment processingEnv,
+            final ComponentDescriptor descriptor,
+            final ExecutableElement method,
+            final String annotationClassname) {
         mustBeRefMethod(descriptor, method, annotationClassname);
         MemberChecks.mustNotHaveAnyParameters(annotationClassname, method);
         shouldBeInternalRefMethod(processingEnv, descriptor, method, annotationClassname);
     }
 
     private void mustBeRefMethod(
-            @Nonnull final ComponentDescriptor descriptor,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final String annotationClassname) {
+            final ComponentDescriptor descriptor, final ExecutableElement method, final String annotationClassname) {
         MemberChecks.mustBeAbstract(annotationClassname, method);
         final var typeElement = descriptor.getElement();
         MemberChecks.mustNotBePackageAccessInDifferentPackage(
@@ -3866,9 +3736,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void mustBeHookHook(
-            @Nonnull final TypeElement targetType,
-            @Nonnull final String annotationName,
-            @Nonnull final ExecutableElement method)
+            final TypeElement targetType, final String annotationName, final ExecutableElement method)
             throws ProcessorException {
         MemberChecks.mustNotBeAbstract(annotationName, method);
         MemberChecks.mustBeSubclassCallable(targetType, Constants.COMPONENT_CLASSNAME, annotationName, method);
@@ -3877,10 +3745,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void shouldBeInternalRefMethod(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final ComponentDescriptor descriptor,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final String annotationClassname) {
+            final ProcessingEnvironment processingEnv,
+            final ComponentDescriptor descriptor,
+            final ExecutableElement method,
+            final String annotationClassname) {
         if (MemberChecks.doesMethodNotOverrideInterfaceMethod(processingEnv, descriptor.getElement(), method)) {
             MemberChecks.shouldNotBePublic(
                     processingEnv,
@@ -3893,10 +3761,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void shouldBeInternalLifecycleMethod(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final ComponentDescriptor descriptor,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final String annotationClassname) {
+            final ProcessingEnvironment processingEnv,
+            final ComponentDescriptor descriptor,
+            final ExecutableElement method,
+            final String annotationClassname) {
         if (MemberChecks.doesMethodNotOverrideInterfaceMethod(processingEnv, descriptor.getElement(), method)) {
             MemberChecks.shouldNotBePublic(
                     processingEnv,
@@ -3909,10 +3777,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void shouldBeInternalHookMethod(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final ComponentDescriptor descriptor,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final String annotationClassname) {
+            final ProcessingEnvironment processingEnv,
+            final ComponentDescriptor descriptor,
+            final ExecutableElement method,
+            final String annotationClassname) {
         if (MemberChecks.doesMethodNotOverrideInterfaceMethod(processingEnv, descriptor.getElement(), method)) {
             MemberChecks.shouldNotBePublic(
                     processingEnv,
@@ -3925,8 +3793,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     @Nullable
-    private String deriveName(
-            @Nonnull final ExecutableElement method, @Nonnull final Pattern pattern, @Nonnull final String name)
+    private String deriveName(final ExecutableElement method, final Pattern pattern, final String name)
             throws ProcessorException {
         return NamesUtil.deriveName(method, pattern, name, Constants.SENTINEL);
     }

@@ -25,6 +25,7 @@ filegroup(
         "//processor/src/test/fixtures/input/com/example/inheritance:all",
         "//processor/src/test/fixtures/input/com/example/inject:all",
         "//processor/src/test/fixtures/input/com/example/inverse:all",
+        "//processor/src/test/fixtures/input/com/example/jspecify:all",
         "//processor/src/test/fixtures/input/com/example/memoize:all",
         "//processor/src/test/fixtures/input/com/example/memoize_context_parameter:all",
         "//processor/src/test/fixtures/input/com/example/misplaced_annotation:all",

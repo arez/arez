@@ -18,7 +18,7 @@ Choose a family to run or update:
 
 | Processor | Families | Target prefix |
 | --- | --- | --- |
-| Arez | component, action, observable, memoize, observe, lifecycle, relationships, metadata, interop, scenarios | `//processor/src/test/java/arez/processor:` |
+| Arez | component, action, observable, memoize, observe, lifecycle, relationships, metadata, interop, scenarios, jspecify | `//processor/src/test/java/arez/processor:` |
 | Persist | model, types | `//persist/processor/src/test/java/arez/persist/processor:` |
 
 Append `_goldens` to the family name for its target. For example:

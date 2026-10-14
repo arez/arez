@@ -1,7 +1,6 @@
 package arez.processor;
 
 import java.util.Objects;
-import javax.annotation.Nonnull;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.type.ExecutableType;
 
@@ -10,27 +9,23 @@ import javax.lang.model.type.ExecutableType;
  * @ArezComponent annotated class.
  */
 final class RequiresTransactionDescriptor {
-    @Nonnull
+
     private final ComponentDescriptor _component;
 
-    @Nonnull
     private final String _mode;
 
-    @Nonnull
     private final String _tracking;
 
-    @Nonnull
     private final ExecutableElement _method;
 
-    @Nonnull
     private final ExecutableType _methodType;
 
     RequiresTransactionDescriptor(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final String mode,
-            @Nonnull final String tracking,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final ExecutableType methodType) {
+            final ComponentDescriptor component,
+            final String mode,
+            final String tracking,
+            final ExecutableElement method,
+            final ExecutableType methodType) {
         _component = Objects.requireNonNull(component);
         _mode = Objects.requireNonNull(mode);
         _tracking = Objects.requireNonNull(tracking);
@@ -38,12 +33,10 @@ final class RequiresTransactionDescriptor {
         _methodType = Objects.requireNonNull(methodType);
     }
 
-    @Nonnull
     ComponentDescriptor getComponent() {
         return _component;
     }
 
-    @Nonnull
     String getMode() {
         return _mode;
     }
@@ -56,7 +49,6 @@ final class RequiresTransactionDescriptor {
         return "READ_ONLY".equals(_mode);
     }
 
-    @Nonnull
     String getTracking() {
         return _tracking;
     }
@@ -69,12 +61,10 @@ final class RequiresTransactionDescriptor {
         return "TRACKING".equals(_tracking);
     }
 
-    @Nonnull
     ExecutableElement getMethod() {
         return _method;
     }
 
-    @Nonnull
     ExecutableType getMethodType() {
         return _methodType;
     }

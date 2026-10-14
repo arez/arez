@@ -1,12 +1,11 @@
 package arez.processor;
 
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.VariableElement;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.proton.ProcessorException;
 
 /**
@@ -27,7 +26,7 @@ final class AutoObserveDescriptor {
     @Nullable
     private ReferenceDescriptor _reference;
 
-    AutoObserveDescriptor(final boolean validateTypeAtRuntime, @Nonnull final VariableElement field) {
+    AutoObserveDescriptor(final boolean validateTypeAtRuntime, final VariableElement field) {
         _validateTypeAtRuntime = validateTypeAtRuntime;
         _method = null;
         _field = Objects.requireNonNull(field);
@@ -35,7 +34,7 @@ final class AutoObserveDescriptor {
 
     AutoObserveDescriptor(
             final boolean validateTypeAtRuntime,
-            @Nonnull final ExecutableElement method,
+            final ExecutableElement method,
             @Nullable final ObservableDescriptor observable) {
         _validateTypeAtRuntime = validateTypeAtRuntime;
         _method = Objects.requireNonNull(method);
@@ -45,18 +44,17 @@ final class AutoObserveDescriptor {
         }
     }
 
-    @Nonnull
     Element getElement() {
         final ExecutableElement method = getMethod();
         return null != method ? method : Objects.requireNonNull(getField());
     }
 
-    void setObservable(@Nonnull final ObservableDescriptor observable) {
+    void setObservable(final ObservableDescriptor observable) {
         _observable = Objects.requireNonNull(observable);
         observable.setAutoObserveDescriptor(this);
     }
 
-    void setReference(@Nonnull final ReferenceDescriptor reference) {
+    void setReference(final ReferenceDescriptor reference) {
         _reference = Objects.requireNonNull(reference);
         reference.setAutoObserveDescriptor(this);
     }

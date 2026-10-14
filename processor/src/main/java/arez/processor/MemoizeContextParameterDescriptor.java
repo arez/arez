@@ -4,20 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeMirror;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.proton.MemberChecks;
 import org.realityforge.proton.ProcessorException;
 
 final class MemoizeContextParameterDescriptor {
-    @Nonnull
+
     private final ComponentDescriptor _component;
 
-    @Nonnull
     private final String _name;
 
     @Nullable
@@ -55,31 +53,26 @@ final class MemoizeContextParameterDescriptor {
     @Nullable
     private ExecutableType _popType;
 
-    @Nonnull
     private final List<MemoizeDescriptor> _matchedMemoizeDescriptors = new ArrayList<>();
 
-    MemoizeContextParameterDescriptor(@Nonnull final ComponentDescriptor component, @Nonnull final String name) {
+    MemoizeContextParameterDescriptor(final ComponentDescriptor component, final String name) {
         _component = Objects.requireNonNull(component);
         _name = Objects.requireNonNull(name);
     }
 
-    @Nonnull
     ComponentDescriptor getComponent() {
         return _component;
     }
 
-    @Nonnull
     String getName() {
         return _name;
     }
 
-    @Nonnull
     Pattern pattern() {
         assert null != _pattern;
         return _pattern;
     }
 
-    @Nonnull
     String patternText() {
         assert null != _patternText;
         return _patternText;
@@ -89,25 +82,22 @@ final class MemoizeContextParameterDescriptor {
         return null != _initial;
     }
 
-    @Nonnull
     ExecutableElement initial() {
         assert null != _initial;
         return _initial;
     }
 
-    @Nonnull
     MemoizeContextParameterMethodType initialMethodType() {
         assert null != _initialMethodType;
         return _initialMethodType;
     }
 
-    @Nonnull
     TypeMirror initialValueType() {
         assert null != _initialValueType;
         return _initialValueType;
     }
 
-    void setPattern(@Nonnull final String patternText, @Nonnull final Pattern pattern) {
+    void setPattern(final String patternText, final Pattern pattern) {
         assert null == _pattern;
         assert null == _patternText;
         _patternText = Objects.requireNonNull(patternText);
@@ -122,12 +112,11 @@ final class MemoizeContextParameterDescriptor {
         return _allowEmpty;
     }
 
-    @Nonnull
     List<MemoizeDescriptor> getMatchedMemoizeDescriptors() {
         return _matchedMemoizeDescriptors;
     }
 
-    boolean tryMatchMemoizeDescriptor(@Nonnull final MemoizeDescriptor memoizeDescriptor) {
+    boolean tryMatchMemoizeDescriptor(final MemoizeDescriptor memoizeDescriptor) {
         if (_pattern.matcher(memoizeDescriptor.getName()).matches()) {
             _matchedMemoizeDescriptors.add(memoizeDescriptor);
             memoizeDescriptor.addContextParameter(this);
@@ -141,20 +130,17 @@ final class MemoizeContextParameterDescriptor {
         return null != _capture;
     }
 
-    @Nonnull
     ExecutableElement getCapture() throws ProcessorException {
         assert null != _capture;
         return _capture;
     }
 
-    @Nonnull
     ExecutableType getCaptureType() {
         assert null != _captureType;
         return _captureType;
     }
 
-    void compareInitial(
-            @Nonnull final ExecutableElement method, final boolean allowEmpty, @Nonnull final String patternText) {
+    void compareInitial(final ExecutableElement method, final boolean allowEmpty, final String patternText) {
         if (hasInitial()) {
             if (allowEmpty() != allowEmpty) {
                 throw new ProcessorException(
@@ -186,11 +172,11 @@ final class MemoizeContextParameterDescriptor {
     }
 
     void setCapture(
-            @Nonnull final ExecutableElement method,
-            @Nonnull final ExecutableType methodType,
+            final ExecutableElement method,
+            final ExecutableType methodType,
             final boolean allowEmpty,
-            @Nonnull final String patternText,
-            @Nonnull final Pattern pattern) {
+            final String patternText,
+            final Pattern pattern) {
         doSetCapture(method, methodType);
 
         final TypeMirror returnType = method.getReturnType();
@@ -205,11 +191,11 @@ final class MemoizeContextParameterDescriptor {
         }
     }
 
-    void linkUnAnnotatedCapture(@Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType) {
+    void linkUnAnnotatedCapture(final ExecutableElement method, final ExecutableType methodType) {
         doSetCapture(method, methodType);
     }
 
-    private void doSetCapture(final @Nonnull ExecutableElement method, final @Nonnull ExecutableType methodType) {
+    private void doSetCapture(final ExecutableElement method, final ExecutableType methodType) {
         MemberChecks.mustReturnAValue(Constants.MEMOIZE_CONTEXT_PARAMETER_CLASSNAME, method);
         MemberChecks.mustNotThrowAnyExceptions(Constants.MEMOIZE_CONTEXT_PARAMETER_CLASSNAME, method);
         MemberChecks.mustNotHaveAnyParameters(Constants.MEMOIZE_CONTEXT_PARAMETER_CLASSNAME, method);
@@ -228,28 +214,26 @@ final class MemoizeContextParameterDescriptor {
         return null != _push;
     }
 
-    @Nonnull
     ExecutableElement getPush() throws ProcessorException {
         assert null != _push;
         return _push;
     }
 
-    @Nonnull
     ExecutableType getPushType() {
         assert null != _pushType;
         return _pushType;
     }
 
-    void linkUnAnnotatedPush(@Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType) {
+    void linkUnAnnotatedPush(final ExecutableElement method, final ExecutableType methodType) {
         doSetPush(method, methodType);
     }
 
     void setPush(
-            @Nonnull final ExecutableElement method,
-            @Nonnull final ExecutableType methodType,
+            final ExecutableElement method,
+            final ExecutableType methodType,
             final boolean allowEmpty,
-            @Nonnull final String patternText,
-            @Nonnull final Pattern pattern) {
+            final String patternText,
+            final Pattern pattern) {
         doSetPush(method, methodType);
 
         final TypeMirror valueType = method.getParameters().get(0).asType();
@@ -264,7 +248,7 @@ final class MemoizeContextParameterDescriptor {
         }
     }
 
-    private void doSetPush(@Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType) {
+    private void doSetPush(final ExecutableElement method, final ExecutableType methodType) {
         MemberChecks.mustNotReturnAnyValue(Constants.MEMOIZE_CONTEXT_PARAMETER_CLASSNAME, method);
         MemberChecks.mustNotThrowAnyExceptions(Constants.MEMOIZE_CONTEXT_PARAMETER_CLASSNAME, method);
         MemberChecks.mustNotHaveAnyTypeParameters(Constants.MEMOIZE_CONTEXT_PARAMETER_CLASSNAME, method);
@@ -286,28 +270,26 @@ final class MemoizeContextParameterDescriptor {
         return null != _pop;
     }
 
-    @Nonnull
     ExecutableElement getPop() throws ProcessorException {
         assert null != _pop;
         return _pop;
     }
 
-    @Nonnull
     ExecutableType getPopType() {
         assert null != _popType;
         return _popType;
     }
 
-    void linkUnAnnotatedPop(@Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType) {
+    void linkUnAnnotatedPop(final ExecutableElement method, final ExecutableType methodType) {
         doSetPop(method, methodType);
     }
 
     void setPop(
-            @Nonnull final ExecutableElement method,
-            @Nonnull final ExecutableType methodType,
+            final ExecutableElement method,
+            final ExecutableType methodType,
             final boolean allowEmpty,
-            @Nonnull final String patternText,
-            @Nonnull final Pattern pattern) {
+            final String patternText,
+            final Pattern pattern) {
         doSetPop(method, methodType);
 
         final TypeMirror valueType = method.getParameters().get(0).asType();
@@ -322,7 +304,7 @@ final class MemoizeContextParameterDescriptor {
         }
     }
 
-    private void doSetPop(@Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType) {
+    private void doSetPop(final ExecutableElement method, final ExecutableType methodType) {
         MemberChecks.mustNotReturnAnyValue(Constants.MEMOIZE_CONTEXT_PARAMETER_CLASSNAME, method);
         MemberChecks.mustNotThrowAnyExceptions(Constants.MEMOIZE_CONTEXT_PARAMETER_CLASSNAME, method);
         MemberChecks.mustNotHaveAnyTypeParameters(Constants.MEMOIZE_CONTEXT_PARAMETER_CLASSNAME, method);
@@ -340,7 +322,7 @@ final class MemoizeContextParameterDescriptor {
         _popType = Objects.requireNonNull(methodType);
     }
 
-    void validate(@Nonnull final ProcessingEnvironment processingEnv) {
+    void validate(final ProcessingEnvironment processingEnv) {
         assert null != _initial;
         if (null == _capture) {
             throw new ProcessorException("@MemoizeContextParameter target has no associated capture method.", _initial);

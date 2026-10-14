@@ -3,29 +3,25 @@ package arez.processor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeMirror;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.proton.ProcessorException;
 
 /**
  * Declaration of an inverse.
  */
 final class InverseDescriptor {
-    @Nonnull
+
     private final ComponentDescriptor _component;
 
-    @Nonnull
     private final String _name;
 
-    @Nonnull
     private final List<ExecutableElement> _postInverseAddHooks = new ArrayList<>();
 
-    @Nonnull
     private final List<ExecutableElement> _preInverseRemoveHooks = new ArrayList<>();
 
     @Nullable
@@ -43,17 +39,15 @@ final class InverseDescriptor {
     @Nullable
     private String _otherName;
 
-    InverseDescriptor(@Nonnull final ComponentDescriptor component, @Nonnull final String name) {
+    InverseDescriptor(final ComponentDescriptor component, final String name) {
         _component = Objects.requireNonNull(component);
         _name = Objects.requireNonNull(name);
     }
 
-    @Nonnull
     ComponentDescriptor getComponent() {
         return _component;
     }
 
-    @Nonnull
     String getName() {
         return _name;
     }
@@ -62,42 +56,37 @@ final class InverseDescriptor {
         return null != _observable;
     }
 
-    @Nonnull
     ObservableDescriptor getObservable() {
         assert null != _observable;
         return _observable;
     }
 
-    @Nonnull
     String getReferenceName() {
         assert null != _referenceName;
         return _referenceName;
     }
 
-    @Nonnull
     Multiplicity getMultiplicity() {
         assert null != _multiplicity;
         return _multiplicity;
     }
 
-    @Nonnull
     TypeElement getTargetType() {
         assert null != _targetType;
         return _targetType;
     }
 
-    @Nonnull
     String getOtherName() {
         assert null != _otherName;
         return _otherName;
     }
 
     void setInverse(
-            @Nonnull final ObservableDescriptor observable,
-            @Nonnull final String referenceName,
-            @Nonnull final Multiplicity multiplicity,
-            @Nonnull final TypeElement targetType,
-            @Nonnull final String otherName) {
+            final ObservableDescriptor observable,
+            final String referenceName,
+            final Multiplicity multiplicity,
+            final TypeElement targetType,
+            final String otherName) {
         assert null == _observable;
         _observable = Objects.requireNonNull(observable);
         _referenceName = Objects.requireNonNull(referenceName);
@@ -107,25 +96,23 @@ final class InverseDescriptor {
         _otherName = Objects.requireNonNull(otherName);
     }
 
-    void addPostInverseAddHook(@Nonnull final ExecutableElement method) {
+    void addPostInverseAddHook(final ExecutableElement method) {
         _postInverseAddHooks.add(method);
     }
 
-    void addPreInverseRemoveHook(@Nonnull final ExecutableElement method) {
+    void addPreInverseRemoveHook(final ExecutableElement method) {
         _preInverseRemoveHooks.add(method);
     }
 
-    @Nonnull
     List<ExecutableElement> getPostInverseAddHooks() {
         return _postInverseAddHooks;
     }
 
-    @Nonnull
     List<ExecutableElement> getPreInverseRemoveHooks() {
         return _preInverseRemoveHooks;
     }
 
-    void validate(@Nonnull final ProcessingEnvironment processingEnv) {
+    void validate(final ProcessingEnvironment processingEnv) {
         if (null == _observable && !getPreInverseRemoveHooks().isEmpty()) {
             throw new ProcessorException(
                     "@PreInverseRemove target with name '" + getName() + "' is not associated "

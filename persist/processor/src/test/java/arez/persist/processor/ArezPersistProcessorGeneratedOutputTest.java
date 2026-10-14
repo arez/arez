@@ -12,7 +12,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
 import java.util.stream.Stream;
-import javax.annotation.Nonnull;
 import javax.tools.JavaFileObject;
 import org.realityforge.proton.qa.Compilation;
 import org.realityforge.proton.qa.CompileTestUtil;
@@ -21,7 +20,6 @@ import org.testng.annotations.Test;
 
 public final class ArezPersistProcessorGeneratedOutputTest extends ArezPersistProcessorTestSupport {
     @DataProvider(name = "modelCompiles")
-    @Nonnull
     public Object[][] modelCompiles() {
         return new Object[][] {
             new Object[] {"com.example.persist.BasicPersistModel"},
@@ -40,12 +38,11 @@ public final class ArezPersistProcessorGeneratedOutputTest extends ArezPersistPr
     }
 
     @Test(dataProvider = "modelCompiles")
-    public void processModelCompile(@Nonnull final String classname) throws Exception {
+    public void processModelCompile(final String classname) throws Exception {
         assertSuccessfulFixtureCompile(classname);
     }
 
     @DataProvider(name = "typesCompiles")
-    @Nonnull
     public Object[][] typesCompiles() {
         return new Object[][] {
             new Object[] {"com.example.persist.types.TypeBooleanPersistModel"},
@@ -63,17 +60,17 @@ public final class ArezPersistProcessorGeneratedOutputTest extends ArezPersistPr
     }
 
     @Test(dataProvider = "typesCompiles")
-    public void processTypesCompile(@Nonnull final String classname) throws Exception {
+    public void processTypesCompile(final String classname) throws Exception {
         assertSuccessfulFixtureCompile(classname);
     }
 
-    private void assertSuccessfulFixtureCompile(@Nonnull final String classname) throws Exception {
+    private void assertSuccessfulFixtureCompile(final String classname) throws Exception {
         assertSuccessfulFixtureCompile(
                 inputs(classname), Collections.singletonList(toFilename(classname, "", "_PersistSidecar.java")));
     }
 
-    private void assertSuccessfulFixtureCompile(
-            @Nonnull final List<JavaFileObject> inputs, @Nonnull final List<String> expectedOutputs) throws Exception {
+    private void assertSuccessfulFixtureCompile(final List<JavaFileObject> inputs, final List<String> expectedOutputs)
+            throws Exception {
         final List<String> unformattedOptions = new ArrayList<>(getOptions());
         unformattedOptions.add("-A" + getOptionPrefix() + ".format_generated_source=false");
         assertSuccessfulFixtureCompile(inputs, expectedOutputs, "expected", unformattedOptions);
@@ -81,10 +78,10 @@ public final class ArezPersistProcessorGeneratedOutputTest extends ArezPersistPr
     }
 
     private void assertSuccessfulFixtureCompile(
-            @Nonnull final List<JavaFileObject> inputs,
-            @Nonnull final List<String> expectedOutputs,
-            @Nonnull final String expectedDirectory,
-            @Nonnull final List<String> options)
+            final List<JavaFileObject> inputs,
+            final List<String> expectedOutputs,
+            final String expectedDirectory,
+            final List<String> options)
             throws Exception {
         final Compilation compilation =
                 CompileTestUtil.assertCompilesWithoutWarnings(inputs, options, processors(), Collections.emptyList());
@@ -127,13 +124,12 @@ public final class ArezPersistProcessorGeneratedOutputTest extends ArezPersistPr
         }
     }
 
-    @Nonnull
-    private String normalizeOutputPath(@Nonnull final String path) {
+    private String normalizeOutputPath(final String path) {
         return path.replace('\\', '/');
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private void deleteDir(@Nonnull final Path directory) {
+    private void deleteDir(final Path directory) {
         try (var paths = Files.walk(directory)) {
             paths.sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(File::delete);
         } catch (final IOException e) {

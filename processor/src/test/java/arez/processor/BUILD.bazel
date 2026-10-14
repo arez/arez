@@ -8,13 +8,15 @@ java_library(
     srcs = [
         "ArezProcessorDiagnosticTest.java",
         "ArezProcessorGeneratedOutputTest.java",
+        "ArezProcessorJSpecifyDiagnosticTest.java",
         "ArezProcessorJavacTest.java",
         "ArezProcessorTestSupport.java",
+        "package-info.java",
     ],
     deps = [
         "//core",
         "//processor",
-        "//third_party/java:javax_annotation",
+        "//third_party/java:jspecify",
         "//third_party/java:org_jetbrains_annotations",
         "//third_party/java:proton_core",
         "//third_party/java:proton_qa",
@@ -278,5 +280,43 @@ test_suite(
         ":diagnostics",
         ":forked_javac",
         ":generated_output",
+        ":jspecify_diagnostics",
+        ":jspecify_goldens",
     ],
+)
+
+java_testng(
+    name = "jspecify_goldens",
+    size = "large",
+    srcs = [],
+    data = [
+        "//processor/src/test/fixtures/expected/com/example/jspecify:all",
+        "//processor/src/test/fixtures/expectedFormatted/com/example/jspecify:all",
+        "//processor/src/test/fixtures/input/com/example/jspecify:all",
+    ],
+    jvm_flags = _JVM_FLAGS,
+    test_class = "arez.processor.ArezProcessorGeneratedOutputTest",
+    test_methods = [
+        "arez.processor.ArezProcessorGeneratedOutputTest.processJSpecifyCompile",
+        "arez.processor.ArezProcessorGeneratedOutputTest.jspecifyInheritedNonNull",
+        "arez.processor.ArezProcessorGeneratedOutputTest.jspecifyInheritedNullable",
+        "arez.processor.ArezProcessorGeneratedOutputTest.jspecifyNonNullOperator",
+        "arez.processor.ArezProcessorGeneratedOutputTest.jspecifyCompiledBase",
+        "arez.processor.ArezProcessorGeneratedOutputTest.jspecifyIntermediateBindingScope",
+        "arez.processor.ArezProcessorGeneratedOutputTest.jspecifyPackageScope",
+        "arez.processor.ArezProcessorGeneratedOutputTest.jspecifyPackageUnmarkedOverride",
+    ],
+    deps = _RUNTIME_DEPS,
+)
+
+java_testng(
+    name = "jspecify_diagnostics",
+    srcs = [],
+    data = [
+        "//processor/src/test/fixtures/bad_input/com/example/jspecify:all",
+        "//processor/src/test/fixtures/input/com/example/jspecify:all",
+    ],
+    jvm_flags = _JVM_FLAGS,
+    test_class = "arez.processor.ArezProcessorJSpecifyDiagnosticTest",
+    deps = _RUNTIME_DEPS,
 )

@@ -1,0 +1,22 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ArrayModel.java",
+        "GenericBase.java",
+        "InheritedMarkedBindingModel.java",
+        "InheritedNonNullModel.java",
+        "InheritedNullableModel.java",
+        "LegacyDecoratedModel.java",
+        "MarkedMiddle.java",
+        "MarkedModel.java",
+        "NestedScopeModel.java",
+        "NonNullGenericBase.java",
+        "NonNullOperatorModel.java",
+        "NullableModel.java",
+        "PrimitiveUnmarkedModel.java",
+        "TypeVariableModel.java",
+        "//processor/src/test/fixtures/input/com/example/jspecify/package_scope:all",
+    ],
+)

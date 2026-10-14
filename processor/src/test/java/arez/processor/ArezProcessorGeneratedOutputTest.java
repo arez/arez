@@ -13,7 +13,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
 import java.util.stream.Stream;
-import javax.annotation.Nonnull;
 import javax.tools.JavaFileObject;
 import org.realityforge.proton.qa.Compilation;
 import org.realityforge.proton.qa.CompileTestUtil;
@@ -22,7 +21,6 @@ import org.testng.annotations.Test;
 
 public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSupport {
     @DataProvider(name = "componentCompiles")
-    @Nonnull
     public Object[][] componentCompiles() {
         return new Object[][] {
             new Object[] {"com.example.SubpackageModel"},
@@ -58,12 +56,11 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
     }
 
     @Test(dataProvider = "componentCompiles")
-    public void processComponentCompile(@Nonnull final String classname) throws Exception {
+    public void processComponentCompile(final String classname) throws Exception {
         assertSuccessfulFixtureCompile(classname);
     }
 
     @DataProvider(name = "actionCompiles")
-    @Nonnull
     public Object[][] actionCompiles() {
         return new Object[][] {
             new Object[] {"com.example.action.ActionTypeParametersModel"},
@@ -94,12 +91,11 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
     }
 
     @Test(dataProvider = "actionCompiles")
-    public void processActionCompile(@Nonnull final String classname) throws Exception {
+    public void processActionCompile(final String classname) throws Exception {
         assertSuccessfulFixtureCompile(classname);
     }
 
     @DataProvider(name = "observableCompiles")
-    @Nonnull
     public Object[][] observableCompiles() {
         return new Object[][] {
             new Object[] {"com.example.collections.AbstractCollectionObservableModel"},
@@ -163,12 +159,11 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
     }
 
     @Test(dataProvider = "observableCompiles")
-    public void processObservableCompile(@Nonnull final String classname) throws Exception {
+    public void processObservableCompile(final String classname) throws Exception {
         assertSuccessfulFixtureCompile(classname);
     }
 
     @DataProvider(name = "memoizeCompiles")
-    @Nonnull
     public Object[][] memoizeCompiles() {
         return new Object[][] {
             new Object[] {"com.example.memoize.ArezOrNoneDependenciesModel"},
@@ -215,12 +210,11 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
     }
 
     @Test(dataProvider = "memoizeCompiles")
-    public void processMemoizeCompile(@Nonnull final String classname) throws Exception {
+    public void processMemoizeCompile(final String classname) throws Exception {
         assertSuccessfulFixtureCompile(classname);
     }
 
     @DataProvider(name = "observeCompiles")
-    @Nonnull
     public Object[][] observeCompiles() {
         return new Object[][] {
             new Object[] {"com.example.auto_observe.BasicAutoObserveModel"},
@@ -274,12 +268,11 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
     }
 
     @Test(dataProvider = "observeCompiles")
-    public void processObserveCompile(@Nonnull final String classname) throws Exception {
+    public void processObserveCompile(final String classname) throws Exception {
         assertSuccessfulFixtureCompile(classname);
     }
 
     @DataProvider(name = "lifecycleCompiles")
-    @Nonnull
     public Object[][] lifecycleCompiles() {
         return new Object[][] {
             new Object[] {"com.example.dispose_notifier.DisposeNotifierModel"},
@@ -305,12 +298,11 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
     }
 
     @Test(dataProvider = "lifecycleCompiles")
-    public void processLifecycleCompile(@Nonnull final String classname) throws Exception {
+    public void processLifecycleCompile(final String classname) throws Exception {
         assertSuccessfulFixtureCompile(classname);
     }
 
     @DataProvider(name = "relationshipsCompiles")
-    @Nonnull
     public Object[][] relationshipsCompiles() {
         return new Object[][] {
             new Object[] {"com.example.cascade_dispose.ComponentCascadeDisposeModel"},
@@ -394,12 +386,11 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
     }
 
     @Test(dataProvider = "relationshipsCompiles")
-    public void processRelationshipsCompile(@Nonnull final String classname) throws Exception {
+    public void processRelationshipsCompile(final String classname) throws Exception {
         assertSuccessfulFixtureCompile(classname);
     }
 
     @DataProvider(name = "metadataCompiles")
-    @Nonnull
     public Object[][] metadataCompiles() {
         return new Object[][] {
             new Object[] {"com.example.component_id.BooleanComponentId"},
@@ -483,12 +474,11 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
     }
 
     @Test(dataProvider = "metadataCompiles")
-    public void processMetadataCompile(@Nonnull final String classname) throws Exception {
+    public void processMetadataCompile(final String classname) throws Exception {
         assertSuccessfulFixtureCompile(classname);
     }
 
     @DataProvider(name = "interopCompiles")
-    @Nonnull
     public Object[][] interopCompiles() {
         return new Object[][] {
             new Object[] {"com.example.deprecated.DeprecatedActionModel"},
@@ -519,7 +509,7 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
     }
 
     @Test(dataProvider = "interopCompiles")
-    public void processInteropCompile(@Nonnull final String classname) throws Exception {
+    public void processInteropCompile(final String classname) throws Exception {
         assertSuccessfulFixtureCompile(classname);
     }
 
@@ -1250,28 +1240,126 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
         assertSuccessfulFixtureCompile(Arrays.asList(source1, source2, source3), Collections.singletonList(output1));
     }
 
-    private void assertSuccessfulFixtureCompile(@Nonnull final String classname) throws Exception {
+    @DataProvider(name = "jspecifyCompiles")
+    public Object[][] jspecifyCompiles() {
+        return new Object[][] {
+            {"com.example.jspecify.MarkedModel"},
+            {"com.example.jspecify.PrimitiveUnmarkedModel"},
+            {"com.example.jspecify.NullableModel"},
+            {"com.example.jspecify.ArrayModel"},
+            {"com.example.jspecify.LegacyDecoratedModel"},
+            {"com.example.jspecify.NestedScopeModel"},
+            {"com.example.jspecify.TypeVariableModel"}
+        };
+    }
+
+    @Test(dataProvider = "jspecifyCompiles")
+    public void processJSpecifyCompile(final String classname) throws Exception {
+        assertSuccessfulFixtureCompile(classname);
+    }
+
+    @Test
+    public void jspecifyInheritedNonNull() throws Exception {
+        assertSuccessfulFixtureCompile(
+                inputs("com.example.jspecify.GenericBase", "com.example.jspecify.InheritedNonNullModel"),
+                List.of("com/example/jspecify/Arez_InheritedNonNullModel.java"));
+    }
+
+    @Test
+    public void jspecifyInheritedNullable() throws Exception {
+        assertSuccessfulFixtureCompile(
+                inputs("com.example.jspecify.GenericBase", "com.example.jspecify.InheritedNullableModel"),
+                List.of("com/example/jspecify/Arez_InheritedNullableModel.java"));
+    }
+
+    @Test
+    public void jspecifyNonNullOperator() throws Exception {
+        assertSuccessfulFixtureCompile(
+                inputs("com.example.jspecify.NonNullGenericBase", "com.example.jspecify.NonNullOperatorModel"),
+                List.of("com/example/jspecify/Arez_NonNullOperatorModel.java"));
+    }
+
+    @Test
+    public void jspecifyPackageScope() throws Exception {
+        assertSuccessfulFixtureCompile(
+                inputs(
+                        "com.example.jspecify.package_scope.package-info",
+                        "com.example.jspecify.package_scope.PackageModel"),
+                List.of("com/example/jspecify/package_scope/Arez_PackageModel.java"));
+    }
+
+    @Test
+    public void jspecifyPackageUnmarkedOverride() throws Exception {
+        assertSuccessfulFixtureCompile(
+                inputs(
+                        "com.example.jspecify.package_scope.package-info",
+                        "com.example.jspecify.package_scope.UnmarkedOverrideModel"),
+                List.of("com/example/jspecify/package_scope/Arez_UnmarkedOverrideModel.java"));
+    }
+
+    @Test
+    public void jspecifyIntermediateBindingScope() throws Exception {
+        assertSuccessfulFixtureCompile(
+                inputs(
+                        "com.example.jspecify.GenericBase",
+                        "com.example.jspecify.MarkedMiddle",
+                        "com.example.jspecify.InheritedMarkedBindingModel"),
+                List.of("com/example/jspecify/Arez_InheritedMarkedBindingModel.java"));
+    }
+
+    @Test
+    public void jspecifyCompiledBase() throws Exception {
+        final List<String> baseOptions = new ArrayList<>(getOptions());
+        baseOptions.add("-proc:none");
+        baseOptions.add("-parameters");
+        final Compilation base = CompileTestUtil.assertCompilesWithoutWarnings(
+                inputs("com.example.jspecify.GenericBase"),
+                baseOptions,
+                Collections.emptyList(),
+                Collections.emptyList());
+        try {
+            final List<String> options = new ArrayList<>(getOptions());
+            options.add("-XDaddTypeAnnotationsToSymbol=true");
+            options.add("-classpath");
+            options.add(System.getProperty("java.class.path") + File.pathSeparator + base.classOutput());
+            assertSuccessfulFixtureCompile(
+                    inputs("com.example.jspecify.InheritedNullableModel"),
+                    List.of("com/example/jspecify/Arez_InheritedNullableModel.java"),
+                    options);
+        } finally {
+            deleteDir(base.classOutput());
+            deleteDir(base.sourceOutput());
+        }
+    }
+
+    private void assertSuccessfulFixtureCompile(final String classname) throws Exception {
         assertSuccessfulFixtureCompile(inputs(classname), Arrays.asList(deriveExpectedOutputs(classname)));
     }
 
-    private void assertSuccessfulFixtureCompile(
-            @Nonnull final String classname, @Nonnull final String... expectedOutputResources) throws Exception {
+    private void assertSuccessfulFixtureCompile(final String classname, final String... expectedOutputResources)
+            throws Exception {
         assertSuccessfulFixtureCompile(inputs(classname), Arrays.asList(expectedOutputResources));
     }
 
-    private void assertSuccessfulFixtureCompile(
-            @Nonnull final List<JavaFileObject> inputs, @Nonnull final List<String> expectedOutputs) throws Exception {
-        final List<String> unformattedOptions = new ArrayList<>(getOptions());
-        unformattedOptions.add("-A" + getOptionPrefix() + ".format_generated_source=false");
-        assertSuccessfulFixtureCompile(inputs, expectedOutputs, "expected", unformattedOptions);
-        assertSuccessfulFixtureCompile(inputs, expectedOutputs, "expectedFormatted", getOptions());
+    private void assertSuccessfulFixtureCompile(final List<JavaFileObject> inputs, final List<String> expectedOutputs)
+            throws Exception {
+        assertSuccessfulFixtureCompile(inputs, expectedOutputs, getOptions());
     }
 
     private void assertSuccessfulFixtureCompile(
-            @Nonnull final List<JavaFileObject> inputs,
-            @Nonnull final List<String> expectedOutputs,
-            @Nonnull final String expectedDirectory,
-            @Nonnull final List<String> options)
+            final List<JavaFileObject> inputs, final List<String> expectedOutputs, final List<String> options)
+            throws Exception {
+        final List<String> unformattedOptions = new ArrayList<>(options);
+        unformattedOptions.add("-A" + getOptionPrefix() + ".format_generated_source=false");
+        assertSuccessfulFixtureCompile(inputs, expectedOutputs, "expected", unformattedOptions);
+        assertSuccessfulFixtureCompile(inputs, expectedOutputs, "expectedFormatted", options);
+    }
+
+    private void assertSuccessfulFixtureCompile(
+            final List<JavaFileObject> inputs,
+            final List<String> expectedOutputs,
+            final String expectedDirectory,
+            final List<String> options)
             throws Exception {
         final Compilation compilation =
                 CompileTestUtil.assertCompilesWithoutWarnings(inputs, options, processors(), Collections.emptyList());
@@ -1314,13 +1402,12 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
         }
     }
 
-    @Nonnull
-    private String normalizeOutputPath(@Nonnull final String path) {
+    private String normalizeOutputPath(final String path) {
         return path.replace('\\', '/');
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private void deleteDir(@Nonnull final Path directory) {
+    private void deleteDir(final Path directory) {
         try (var paths = Files.walk(directory)) {
             paths.sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(File::delete);
         } catch (final IOException e) {
@@ -1328,8 +1415,7 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
         }
     }
 
-    @Nonnull
-    private String[] deriveExpectedOutputs(@Nonnull final String classname) {
+    private String[] deriveExpectedOutputs(final String classname) {
         final List<String> expectedOutputs = new ArrayList<>();
         expectedOutputs.add(toFilename(classname, "Arez_", ".java"));
         switch (classname) {

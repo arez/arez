@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
-import javax.annotation.Nonnull;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
@@ -37,46 +36,39 @@ import org.realityforge.proton.StopWatch;
 })
 @SupportedSourceVersion(SourceVersion.RELEASE_17)
 public final class ArezPersistProcessor extends AbstractStandardProcessor {
-    @Nonnull
+
     private static final Pattern GETTER_PATTERN = Pattern.compile("^get([A-Z].*)$");
 
-    @Nonnull
     private static final Pattern ISSER_PATTERN = Pattern.compile("^is([A-Z].*)$");
     /**
      * Sentinel value indicating the default value.
      */
-    @Nonnull
     private static final String DEFAULT_SENTINEL = "<default>";
 
-    @Nonnull
     private final DeferredElementSet _deferredTypes = new DeferredElementSet();
 
-    @Nonnull
     private final StopWatch _analyzePersistTypeStopWatch = new StopWatch("Analyze PersistType");
 
-    @Nonnull
     private final StopWatch _analyzePersistIdStopWatch = new StopWatch("Analyze PersistId");
 
     @Override
-    @Nonnull
     protected String getIssueTrackerURL() {
         return "https://github.com/arez/arez/issues";
     }
 
-    @Nonnull
     @Override
     protected String getOptionPrefix() {
         return "arez.persist";
     }
 
     @Override
-    protected void collectStopWatches(@Nonnull final Collection<StopWatch> stopWatches) {
+    protected void collectStopWatches(final Collection<StopWatch> stopWatches) {
         stopWatches.add(_analyzePersistTypeStopWatch);
         stopWatches.add(_analyzePersistIdStopWatch);
     }
 
     @Override
-    public boolean process(@Nonnull final Set<? extends TypeElement> annotations, @Nonnull final RoundEnvironment env) {
+    public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment env) {
         debugAnnotationProcessingRootElements(env);
         collectRootTypeNames(env);
         // Validate persist first so we don't have to perform validation inside type processing
@@ -110,7 +102,7 @@ public final class ArezPersistProcessor extends AbstractStandardProcessor {
         return true;
     }
 
-    private void process(@Nonnull final TypeElement element) throws Exception {
+    private void process(final TypeElement element) throws Exception {
         if (!AnnotationsUtil.hasAnnotationOfType(element, Constants.AREZ_COMPONENT_CLASSNAME)) {
             throw new ProcessorException(
                     MemberChecks.must(
@@ -184,12 +176,12 @@ public final class ArezPersistProcessor extends AbstractStandardProcessor {
     }
 
     private void processPersistAnnotation(
-            @Nonnull final TypeElement element,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final AnnotationMirror persistAnnotation,
-            @Nonnull final List<ExecutableElement> methods,
-            @Nonnull final String defaultStore,
-            @Nonnull final Map<String, PropertyDescriptor> properties) {
+            final TypeElement element,
+            final ExecutableElement method,
+            final AnnotationMirror persistAnnotation,
+            final List<ExecutableElement> methods,
+            final String defaultStore,
+            final Map<String, PropertyDescriptor> properties) {
         final TypeMirror returnType = method.getReturnType();
         if (TypeKind.VOID == returnType.getKind()) {
             throw new ProcessorException(
@@ -235,15 +227,12 @@ public final class ArezPersistProcessor extends AbstractStandardProcessor {
         }
     }
 
-    @Nonnull
-    private String extractSetterName(@Nonnull final AnnotationMirror annotation, @Nonnull final String persistName) {
+    private String extractSetterName(final AnnotationMirror annotation, final String persistName) {
         final String declaredValue = AnnotationsUtil.getAnnotationValueValue(annotation, "setterName");
         return "<default>".equals(declaredValue) ? "set" + firstCharacterToUpperCase(persistName) : declaredValue;
     }
 
-    @Nonnull
-    private String extractPersistTypeName(
-            @Nonnull final TypeElement element, @Nonnull final AnnotationMirror annotation) {
+    private String extractPersistTypeName(final TypeElement element, final AnnotationMirror annotation) {
         final String declaredValue = AnnotationsUtil.getAnnotationValueValue(annotation, "name");
         if (DEFAULT_SENTINEL.equals(declaredValue)) {
             return element.getSimpleName().toString();
@@ -259,8 +248,7 @@ public final class ArezPersistProcessor extends AbstractStandardProcessor {
         }
     }
 
-    @Nonnull
-    private String extractDefaultStore(@Nonnull final TypeElement element, @Nonnull final AnnotationMirror annotation) {
+    private String extractDefaultStore(final TypeElement element, final AnnotationMirror annotation) {
         final String defaultStore = AnnotationsUtil.getAnnotationValueValue(annotation, "defaultStore");
         if (!SourceVersion.isIdentifier(defaultStore)) {
             throw new ProcessorException(
@@ -273,9 +261,7 @@ public final class ArezPersistProcessor extends AbstractStandardProcessor {
         return defaultStore;
     }
 
-    @Nonnull
-    private String extractPersistName(
-            @Nonnull final ExecutableElement method, @Nonnull final AnnotationMirror annotation) {
+    private String extractPersistName(final ExecutableElement method, final AnnotationMirror annotation) {
         final String declaredValue = AnnotationsUtil.getAnnotationValueValue(annotation, "name");
         final String value = NamesUtil.getPropertyAccessorName(
                 method, GETTER_PATTERN, ISSER_PATTERN, declaredValue, DEFAULT_SENTINEL);
@@ -291,12 +277,11 @@ public final class ArezPersistProcessor extends AbstractStandardProcessor {
         }
     }
 
-    @Nonnull
     private String extractStore(
-            @Nonnull final TypeElement typeElement,
-            @Nonnull final ExecutableElement element,
-            @Nonnull final AnnotationMirror annotation,
-            @Nonnull final String defaultStore) {
+            final TypeElement typeElement,
+            final ExecutableElement element,
+            final AnnotationMirror annotation,
+            final String defaultStore) {
         final String store = AnnotationsUtil.getAnnotationValueValue(annotation, "store");
         if (DEFAULT_SENTINEL.equals(store)) {
             return defaultStore;
@@ -324,8 +309,7 @@ public final class ArezPersistProcessor extends AbstractStandardProcessor {
         }
     }
 
-    private void verifyPersistElements(
-            @Nonnull final RoundEnvironment env, @Nonnull final Set<? extends Element> elements) {
+    private void verifyPersistElements(final RoundEnvironment env, final Set<? extends Element> elements) {
         for (final Element element : elements) {
             assert ElementKind.METHOD == element.getKind();
             if (!AnnotationsUtil.hasAnnotationOfType(element, Constants.OBSERVABLE_CLASSNAME)) {
@@ -339,8 +323,7 @@ public final class ArezPersistProcessor extends AbstractStandardProcessor {
         }
     }
 
-    private void verifyPersistIdElements(
-            @Nonnull final RoundEnvironment env, @Nonnull final Set<? extends Element> elements) {
+    private void verifyPersistIdElements(final RoundEnvironment env, final Set<? extends Element> elements) {
         for (final Element element : elements) {
             performAction(
                     env,
@@ -351,7 +334,7 @@ public final class ArezPersistProcessor extends AbstractStandardProcessor {
         }
     }
 
-    private void verifyPersistIdElement(@Nonnull final RoundEnvironment env, @Nonnull final Element element) {
+    private void verifyPersistIdElement(final RoundEnvironment env, final Element element) {
         assert ElementKind.METHOD == element.getKind();
         final Element type = element.getEnclosingElement();
         if (!AnnotationsUtil.hasAnnotationOfType(type, Constants.AREZ_COMPONENT_CLASSNAME)
@@ -369,7 +352,7 @@ public final class ArezPersistProcessor extends AbstractStandardProcessor {
         validatePersisIdMethod((ExecutableElement) element);
     }
 
-    private void validatePersisIdMethod(@Nonnull final ExecutableElement method) {
+    private void validatePersisIdMethod(final ExecutableElement method) {
         MemberChecks.mustNotBeAbstract(Constants.PERSIST_ID_CLASSNAME, method);
         MemberChecks.mustNotThrowAnyExceptions(Constants.PERSIST_ID_CLASSNAME, method);
         MemberChecks.mustNotHaveAnyTypeParameters(Constants.PERSIST_ID_CLASSNAME, method);
@@ -380,13 +363,12 @@ public final class ArezPersistProcessor extends AbstractStandardProcessor {
         MemberChecks.mustNotBeProtected(Constants.PERSIST_ID_CLASSNAME, method);
     }
 
-    private void emitSidecar(@Nonnull final TypeDescriptor type) throws IOException {
+    private void emitSidecar(final TypeDescriptor type) throws IOException {
         final String packageName = GeneratorUtil.getQualifiedPackageName(type.getElement());
         emitTypeSpec(packageName, SidecarGenerator.buildType(processingEnv, type));
     }
 
-    @Nonnull
-    private String firstCharacterToUpperCase(@Nonnull final String name) {
+    private String firstCharacterToUpperCase(final String name) {
         return Character.toUpperCase(name.charAt(0)) + name.substring(1);
     }
 }

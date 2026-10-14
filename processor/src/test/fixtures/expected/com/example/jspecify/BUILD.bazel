@@ -1,0 +1,19 @@
+package(default_visibility = ["//processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_ArrayModel.java",
+        "Arez_InheritedMarkedBindingModel.java",
+        "Arez_InheritedNonNullModel.java",
+        "Arez_InheritedNullableModel.java",
+        "Arez_LegacyDecoratedModel.java",
+        "Arez_MarkedModel.java",
+        "Arez_NestedScopeModel.java",
+        "Arez_NonNullOperatorModel.java",
+        "Arez_NullableModel.java",
+        "Arez_PrimitiveUnmarkedModel.java",
+        "Arez_TypeVariableModel.java",
+        "//processor/src/test/fixtures/expected/com/example/jspecify/package_scope:all",
+    ],
+)

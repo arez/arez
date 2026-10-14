@@ -3,11 +3,9 @@ package arez.processor;
 import com.palantir.javapoet.ClassName;
 import com.palantir.javapoet.TypeName;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.type.ExecutableType;
-import org.realityforge.proton.AnnotationsUtil;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.proton.GeneratorUtil;
 import org.realityforge.proton.ProcessorException;
 
@@ -15,10 +13,9 @@ import org.realityforge.proton.ProcessorException;
  * Declaration of a reference.
  */
 final class ReferenceDescriptor {
-    @Nonnull
+
     private final ComponentDescriptor _component;
 
-    @Nonnull
     private final String _name;
 
     @Nullable
@@ -48,17 +45,17 @@ final class ReferenceDescriptor {
     @Nullable
     private AutoObserveDescriptor _autoObserveDescriptor;
 
-    ReferenceDescriptor(@Nonnull final ComponentDescriptor component, @Nonnull final String name) {
+    ReferenceDescriptor(final ComponentDescriptor component, final String name) {
         _component = Objects.requireNonNull(component);
         _name = Objects.requireNonNull(name);
     }
 
-    void setIdMethod(@Nonnull final ExecutableElement method) {
+    void setIdMethod(final ExecutableElement method) {
         assert null == _idMethod;
         _idMethod = Objects.requireNonNull(method);
     }
 
-    void setObservable(@Nonnull final ObservableDescriptor observable) {
+    void setObservable(final ObservableDescriptor observable) {
         setIdMethod(observable.getGetter());
         assert null == _observable;
         _observable = observable;
@@ -66,9 +63,9 @@ final class ReferenceDescriptor {
     }
 
     void setMethod(
-            @Nonnull final ExecutableElement method,
-            @Nonnull final ExecutableType methodType,
-            @Nonnull final String linkType,
+            final ExecutableElement method,
+            final ExecutableType methodType,
+            final String linkType,
             @Nullable final String inverseName,
             @Nullable final Multiplicity inverseMultiplicity) {
         assert null == _method;
@@ -85,7 +82,6 @@ final class ReferenceDescriptor {
         _inverseMultiplicity = inverseMultiplicity;
     }
 
-    @Nonnull
     String getLinkType() {
         assert null != _linkType;
         return _linkType;
@@ -96,7 +92,7 @@ final class ReferenceDescriptor {
         return _cascadeDisposeDescriptor;
     }
 
-    void setCascadeDisposeDescriptor(@Nonnull final CascadeDisposeDescriptor cascadeDisposeDescriptor) {
+    void setCascadeDisposeDescriptor(final CascadeDisposeDescriptor cascadeDisposeDescriptor) {
         _cascadeDisposeDescriptor = Objects.requireNonNull(cascadeDisposeDescriptor);
     }
 
@@ -105,21 +101,18 @@ final class ReferenceDescriptor {
         return _autoObserveDescriptor;
     }
 
-    void setAutoObserveDescriptor(@Nonnull final AutoObserveDescriptor autoObserveDescriptor) {
+    void setAutoObserveDescriptor(final AutoObserveDescriptor autoObserveDescriptor) {
         _autoObserveDescriptor = Objects.requireNonNull(autoObserveDescriptor);
     }
 
-    @Nonnull
     ComponentDescriptor getComponent() {
         return _component;
     }
 
-    @Nonnull
     String getName() {
         return _name;
     }
 
-    @Nonnull
     ExecutableType getMethodType() {
         assert null != _methodType;
         return _methodType;
@@ -134,29 +127,24 @@ final class ReferenceDescriptor {
         return null != _method;
     }
 
-    @Nonnull
     ExecutableElement getMethod() {
         assert null != _method;
         return _method;
     }
 
-    @Nonnull
     ExecutableElement getIdMethod() {
         assert null != _idMethod;
         return _idMethod;
     }
 
-    @Nonnull
     String getLinkMethodName() {
         return ComponentGenerator.getLinkMethodName(getName());
     }
 
-    @Nonnull
     String getDelinkMethodName() {
         return ComponentGenerator.getDelinkMethodName(getName());
     }
 
-    @Nonnull
     String getFieldName() {
         return ComponentGenerator.REFERENCE_FIELD_PREFIX + _name;
     }
@@ -165,24 +153,20 @@ final class ReferenceDescriptor {
         return null != _inverseName;
     }
 
-    @Nonnull
     String getInverseName() {
         assert null != _inverseName;
         return _inverseName;
     }
 
-    @Nonnull
     Multiplicity getInverseMultiplicity() {
         assert null != _inverseMultiplicity;
         return _inverseMultiplicity;
     }
 
     boolean isNullable() {
-        return !getIdMethod().getReturnType().getKind().isPrimitive()
-                && !AnnotationsUtil.hasNonnullAnnotation(getIdMethod());
+        return !getIdMethod().getReturnType().getKind().isPrimitive() && !Nullability.isNonNull(getIdMethod());
     }
 
-    @Nonnull
     ClassName getArezClassName() {
         final ClassName other = (ClassName) TypeName.get(getMethod().getReturnType());
         return GeneratorUtil.getGeneratedClassName(other, "Arez_", "");

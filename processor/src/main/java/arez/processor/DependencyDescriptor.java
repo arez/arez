@@ -1,12 +1,10 @@
 package arez.processor;
 
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
-import org.realityforge.proton.AnnotationsUtil;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.proton.ProcessorException;
 
 /**
@@ -14,7 +12,7 @@ import org.realityforge.proton.ProcessorException;
  * This dependency can be an <code>@Observable</code> method, a un-annotated getter method or a field.
  */
 final class DependencyDescriptor {
-    @Nonnull
+
     private final ComponentDescriptor _component;
 
     @Nullable
@@ -28,24 +26,20 @@ final class DependencyDescriptor {
     @Nullable
     private ObservableDescriptor _observable;
 
-    DependencyDescriptor(
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final ExecutableElement method,
-            final boolean cascade) {
+    DependencyDescriptor(final ComponentDescriptor component, final ExecutableElement method, final boolean cascade) {
         _component = Objects.requireNonNull(component);
         _method = Objects.requireNonNull(method);
         _field = null;
         _cascade = cascade;
     }
 
-    DependencyDescriptor(@Nonnull final ComponentDescriptor component, @Nonnull final VariableElement field) {
+    DependencyDescriptor(final ComponentDescriptor component, final VariableElement field) {
         _component = Objects.requireNonNull(component);
         _method = null;
         _field = Objects.requireNonNull(field);
         _cascade = true;
     }
 
-    @Nonnull
     ComponentDescriptor getComponent() {
         return _component;
     }
@@ -66,24 +60,21 @@ final class DependencyDescriptor {
         return null != _method;
     }
 
-    @Nonnull
     Element getElement() {
         return null != _method ? _method : Objects.requireNonNull(_field);
     }
 
-    @Nonnull
     ExecutableElement getMethod() {
         assert null != _method;
         return _method;
     }
 
-    @Nonnull
     VariableElement getField() {
         assert null != _field;
         return _field;
     }
 
-    void setObservable(@Nonnull final ObservableDescriptor observable) {
+    void setObservable(final ObservableDescriptor observable) {
         _observable = Objects.requireNonNull(observable);
         _observable.setDependencyDescriptor(this);
     }
@@ -92,7 +83,6 @@ final class DependencyDescriptor {
         return null == _observable;
     }
 
-    @Nonnull
     ObservableDescriptor getObservable() {
         assert null != _observable;
         return _observable;
@@ -113,11 +103,11 @@ final class DependencyDescriptor {
                                 + "dependency is an observable with no setter defined so the annotation "
                                 + "processor does not know how to set the value to null.",
                         getMethod());
-            } else if (AnnotationsUtil.hasNonnullAnnotation(
+            } else if (Nullability.isNonNull(
                     getObservable().getSetter().getParameters().get(0))) {
                 throw new ProcessorException(
                         "@ComponentDependency target defined an action of 'SET_NULL' but the "
-                                + "setter is annotated with @javax.annotation.Nonnull.",
+                                + "setter has a non-null JSpecify contract.",
                         getMethod());
             }
         }

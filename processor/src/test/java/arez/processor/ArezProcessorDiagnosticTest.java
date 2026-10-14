@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import javax.annotation.Nonnull;
 import javax.tools.JavaFileObject;
 import org.jetbrains.annotations.Contract;
 import org.realityforge.proton.qa.Compilation;
@@ -26,7 +25,6 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                 "com.example.component_dependency.SimpleNameActAsArezComponentFieldDependencyModel");
     }
 
-    @Nonnull
     @DataProvider(name = "failedCompiles")
     public Object[][] failedCompiles() {
         return new Object[][] {
@@ -1666,11 +1664,10 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
     }
 
     @Test(dataProvider = "failedCompiles")
-    public void processFailedCompile(@Nonnull final String classname, @Nonnull final String messageFragment) {
+    public void processFailedCompile(final String classname, final String messageFragment) {
         assertFailedCompile(classname, messageFragment);
     }
 
-    @Nonnull
     @DataProvider(name = "misplacedAnnotationFailures")
     public Object[][] misplacedAnnotationFailures() {
         return new Object[][] {
@@ -1748,8 +1745,7 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
     }
 
     @Test(dataProvider = "misplacedAnnotationFailures")
-    public void processFailedCompileWhenAnnotationMisplaced(
-            @Nonnull final String classname, @Nonnull final String annotation) {
+    public void processFailedCompileWhenAnnotationMisplaced(final String classname, final String annotation) {
         assertFailedCompile(
                 classname,
                 "@" + annotation + " is only supported within a type annotated by "
@@ -1785,7 +1781,6 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
         assertCompilationSuccessful(compilation);
     }
 
-    @Nonnull
     @Contract(value = " -> new", pure = true)
     @DataProvider(name = "compileWithWarnings")
     public Object[][] compileWithWarnings() {
@@ -2242,7 +2237,7 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
     }
 
     @Test(dataProvider = "compileWithWarnings")
-    public void processCompileWithWarnings(@Nonnull final String classname, @Nonnull final String messageFragment) {
+    public void processCompileWithWarnings(final String classname, final String messageFragment) {
         assertCompilesWithSingleWarningThatCanBeUpgradedToError(classname, messageFragment);
     }
 
@@ -2264,7 +2259,6 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
     }
 
     @DataProvider(name = "compileWithoutWarnings")
-    @Nonnull
     public Object[][] compileWithoutWarnings() {
         return new Object[][] {
             new Object[] {"com.example.component.UnmanagedComponentReferenceSuppressed"},
@@ -2368,7 +2362,7 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
     }
 
     @Test(dataProvider = "compileWithoutWarnings")
-    public void processCompileWithoutWarnings(@Nonnull final String classname) {
+    public void processCompileWithoutWarnings(final String classname) {
         assertCompilesWithoutWarnings(classname);
     }
 
@@ -2385,7 +2379,6 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
     }
 
     @DataProvider(name = "packageAccessElementInDifferentPackage")
-    @Nonnull
     public Object[][] packageAccessElementInDifferentPackage() {
         return new Object[][] {
             new Object[] {"Action", "Action"},
@@ -2411,7 +2404,7 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
 
     @Test(dataProvider = "packageAccessElementInDifferentPackage")
     public void processFailedCompileInheritedPackageAccessInDifferentPackage(
-            @Nonnull final String annotation, @Nonnull final String name) {
+            final String annotation, final String name) {
         final JavaFileObject source1 = fixture("bad_input/com/example/package_access/other/Base" + name + "Model.java");
         final JavaFileObject source2 = fixture("bad_input/com/example/package_access/" + name + "Model.java");
         assertFailedCompileResource(
@@ -2428,7 +2421,7 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
 
     @Test(dataProvider = "packageAccessFieldInDifferentPackage")
     public void processFailedCompileInheritedPackageAccessFieldInDifferentPackage(
-            @Nonnull final String annotation, @Nonnull final String name) {
+            final String annotation, final String name) {
         final JavaFileObject source1 = fixture("bad_input/com/example/package_access/other/Base" + name + "Model.java");
         final JavaFileObject source2 = fixture("bad_input/com/example/package_access/" + name + "Model.java");
         assertFailedCompileResource(
@@ -2486,7 +2479,6 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
         CompileTestUtil.assertCompilesWithoutWarnings(inputs, options, List.of(processor()), Collections.emptyList());
     }
 
-    @Nonnull
     private List<String> getOptionsWithWarningsAsErrors() {
         final List<String> options = new ArrayList<>(getOptions());
         options.add("-Aarez.warnings_as_errors=true");

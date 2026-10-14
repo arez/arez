@@ -1,5 +1,19 @@
 module(name = "arez")
 
+bazel_dep(name = "proton_project", repo_name = "proton")
+git_override(
+    module_name = "proton_project",
+    commit = "6d50db451021b7880097d0880907aa036a30a689",
+    remote = "https://github.com/realityforge/proton.git",
+)
+
+bazel_dep(name = "sting")
+git_override(
+    module_name = "sting",
+    commit = "fc89bc7c3f4450d3d1b75eaa58e63edfb37f1267",
+    remote = "https://github.com/sting-ioc/sting.git",
+)
+
 bazel_dep(name = "rules_java", version = "9.9.0")
 single_version_override(
     module_name = "rules_java",
@@ -39,62 +53,6 @@ _http_file(
 )
 
 _http_file(
-    name = "jsr305",
-    downloaded_file_path = "com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar",
-    sha256 = "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7",
-    urls = ["https://repo.maven.apache.org/maven2/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar"],
-)
-
-_http_file(
-    name = "jsr305__sources",
-    downloaded_file_path = "com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2-sources.jar",
-    sha256 = "1c9e85e272d0708c6a591dc74828c71603053b48cc75ae83cce56912a2aa063b",
-    urls = ["https://repo.maven.apache.org/maven2/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2-sources.jar"],
-)
-
-_http_file(
-    name = "error_prone_annotations",
-    downloaded_file_path = "com/google/errorprone/error_prone_annotations/2.2.0/error_prone_annotations-2.2.0.jar",
-    sha256 = "6ebd22ca1b9d8ec06d41de8d64e0596981d9607b42035f9ed374f9de271a481a",
-    urls = ["https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_annotations/2.2.0/error_prone_annotations-2.2.0.jar"],
-)
-
-_http_file(
-    name = "error_prone_annotations__sources",
-    downloaded_file_path = "com/google/errorprone/error_prone_annotations/2.2.0/error_prone_annotations-2.2.0-sources.jar",
-    sha256 = "626adccd4894bee72c3f9a0384812240dcc1282fb37a87a3f6cb94924a089496",
-    urls = ["https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_annotations/2.2.0/error_prone_annotations-2.2.0-sources.jar"],
-)
-
-_http_file(
-    name = "failureaccess",
-    downloaded_file_path = "com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar",
-    sha256 = "a171ee4c734dd2da837e4b16be9df4661afab72a41adaf31eb84dfdaf936ca26",
-    urls = ["https://repo.maven.apache.org/maven2/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar"],
-)
-
-_http_file(
-    name = "failureaccess__sources",
-    downloaded_file_path = "com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1-sources.jar",
-    sha256 = "092346eebbb1657b51aa7485a246bf602bb464cc0b0e2e1c7e7201fadce1e98f",
-    urls = ["https://repo.maven.apache.org/maven2/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1-sources.jar"],
-)
-
-_http_file(
-    name = "guava",
-    downloaded_file_path = "com/google/guava/guava/27.1-jre/guava-27.1-jre.jar",
-    sha256 = "4a5aa70cc968a4d137e599ad37553e5cfeed2265e8c193476d7119036c536fe7",
-    urls = ["https://repo.maven.apache.org/maven2/com/google/guava/guava/27.1-jre/guava-27.1-jre.jar"],
-)
-
-_http_file(
-    name = "guava__sources",
-    downloaded_file_path = "com/google/guava/guava/27.1-jre/guava-27.1-jre-sources.jar",
-    sha256 = "9de05c573971cedfcd53fb85fc7a58a5f453053026a9bf18594cffc79a1d6874",
-    urls = ["https://repo.maven.apache.org/maven2/com/google/guava/guava/27.1-jre/guava-27.1-jre-sources.jar"],
-)
-
-_http_file(
     name = "listenablefuture",
     downloaded_file_path = "com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar",
     sha256 = "b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99",
@@ -113,20 +71,6 @@ _http_file(
     downloaded_file_path = "com/google/inject/guice/5.1.0/guice-5.1.0-sources.jar",
     sha256 = "79484227656350f8ea315198ed2ebdc8583e7ba42ecd90d367d66a7e491de52e",
     urls = ["https://repo.maven.apache.org/maven2/com/google/inject/guice/5.1.0/guice-5.1.0-sources.jar"],
-)
-
-_http_file(
-    name = "j2objc_annotations",
-    downloaded_file_path = "com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1.jar",
-    sha256 = "2994a7eb78f2710bd3d3bfb639b2c94e219cedac0d4d084d516e78c16dddecf6",
-    urls = ["https://repo.maven.apache.org/maven2/com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1.jar"],
-)
-
-_http_file(
-    name = "j2objc_annotations__sources",
-    downloaded_file_path = "com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1-sources.jar",
-    sha256 = "2cd9022a77151d0b574887635cdfcdf3b78155b602abc89d7f8e62aba55cfb4f",
-    urls = ["https://repo.maven.apache.org/maven2/com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1-sources.jar"],
 )
 
 _http_file(
@@ -295,34 +239,6 @@ _http_file(
     downloaded_file_path = "net/bytebuddy/byte-buddy-agent/1.12.9/byte-buddy-agent-1.12.9-sources.jar",
     sha256 = "22a5d08ae9c72feb70ffa36383ff4a6f46856e1582edec0be6fc1ed10afba16e",
     urls = ["https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-agent/1.12.9/byte-buddy-agent-1.12.9-sources.jar"],
-)
-
-_http_file(
-    name = "checker_qual",
-    downloaded_file_path = "org/checkerframework/checker-qual/2.5.2/checker-qual-2.5.2.jar",
-    sha256 = "64b02691c8b9d4e7700f8ee2e742dce7ea2c6e81e662b7522c9ee3bf568c040a",
-    urls = ["https://repo.maven.apache.org/maven2/org/checkerframework/checker-qual/2.5.2/checker-qual-2.5.2.jar"],
-)
-
-_http_file(
-    name = "checker_qual__sources",
-    downloaded_file_path = "org/checkerframework/checker-qual/2.5.2/checker-qual-2.5.2-sources.jar",
-    sha256 = "821c5c63a6f156a3bb498c5bbb613580d9d8f4134131a5627d330fc4018669d2",
-    urls = ["https://repo.maven.apache.org/maven2/org/checkerframework/checker-qual/2.5.2/checker-qual-2.5.2-sources.jar"],
-)
-
-_http_file(
-    name = "animal_sniffer_annotations",
-    downloaded_file_path = "org/codehaus/mojo/animal-sniffer-annotations/1.17/animal-sniffer-annotations-1.17.jar",
-    sha256 = "92654f493ecfec52082e76354f0ebf87648dc3d5cec2e3c3cdb947c016747a53",
-    urls = ["https://repo.maven.apache.org/maven2/org/codehaus/mojo/animal-sniffer-annotations/1.17/animal-sniffer-annotations-1.17.jar"],
-)
-
-_http_file(
-    name = "animal_sniffer_annotations__sources",
-    downloaded_file_path = "org/codehaus/mojo/animal-sniffer-annotations/1.17/animal-sniffer-annotations-1.17-sources.jar",
-    sha256 = "2571474a676f775a8cdd15fb9b1da20c4c121ed7f42a5d93fca0e7b6e2015b40",
-    urls = ["https://repo.maven.apache.org/maven2/org/codehaus/mojo/animal-sniffer-annotations/1.17/animal-sniffer-annotations-1.17-sources.jar"],
 )
 
 _http_file(
@@ -512,62 +428,6 @@ _http_file(
     downloaded_file_path = "org/realityforge/org/jetbrains/annotations/org.jetbrains.annotations/1.7.0/org.jetbrains.annotations-1.7.0-sources.jar",
     sha256 = "51b7fe38ce0c21d53eb236f911d109923459c5625c6e62a4d02b95c71bfaec22",
     urls = ["https://repo.maven.apache.org/maven2/org/realityforge/org/jetbrains/annotations/org.jetbrains.annotations/1.7.0/org.jetbrains.annotations-1.7.0-sources.jar"],
-)
-
-_http_file(
-    name = "proton_core",
-    downloaded_file_path = "org/realityforge/proton/proton-core/0.75/proton-core-0.75.jar",
-    sha256 = "5aa909d0fa6ce437a6a70dad8f5eea7509b4c608da4e8fa41a1cef1a20c7d9ea",
-    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/proton/proton-core/0.75/proton-core-0.75.jar"],
-)
-
-_http_file(
-    name = "proton_core__sources",
-    downloaded_file_path = "org/realityforge/proton/proton-core/0.75/proton-core-0.75-sources.jar",
-    sha256 = "0fba608913ee1ea146da930583f11d70f57e423c6e6250655ab5901747065d4d",
-    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/proton/proton-core/0.75/proton-core-0.75-sources.jar"],
-)
-
-_http_file(
-    name = "proton_qa",
-    downloaded_file_path = "org/realityforge/proton/proton-qa/0.75/proton-qa-0.75.jar",
-    sha256 = "df882b5da1a6ef4e680af396a740fb578b71db5375369745774059c23c166e7c",
-    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/proton/proton-qa/0.75/proton-qa-0.75.jar"],
-)
-
-_http_file(
-    name = "proton_qa__sources",
-    downloaded_file_path = "org/realityforge/proton/proton-qa/0.75/proton-qa-0.75-sources.jar",
-    sha256 = "016bfb25bcdd8bbb7c6cb5ede9a4871e008c9b895188a1ea246d20ee37e984c2",
-    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/proton/proton-qa/0.75/proton-qa-0.75-sources.jar"],
-)
-
-_http_file(
-    name = "sting_core",
-    downloaded_file_path = "org/realityforge/sting/sting-core/0.40/sting-core-0.40.jar",
-    sha256 = "de9094eb49ff3fd0df982c32cbf937182dbe96a32ba182820b9a3dbf37c169da",
-    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/sting/sting-core/0.40/sting-core-0.40.jar"],
-)
-
-_http_file(
-    name = "sting_core__sources",
-    downloaded_file_path = "org/realityforge/sting/sting-core/0.40/sting-core-0.40-sources.jar",
-    sha256 = "623b70c05d4791e9543172fe5c612b47221462f8b3e74f14b1b019c8a0951859",
-    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/sting/sting-core/0.40/sting-core-0.40-sources.jar"],
-)
-
-_http_file(
-    name = "sting_processor",
-    downloaded_file_path = "org/realityforge/sting/sting-processor/0.40/sting-processor-0.40.jar",
-    sha256 = "42e147578ac7f72987b99fef114043846ec94b68ba061c0cd4c8b28ed112aa1f",
-    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/sting/sting-processor/0.40/sting-processor-0.40.jar"],
-)
-
-_http_file(
-    name = "sting_processor__sources",
-    downloaded_file_path = "org/realityforge/sting/sting-processor/0.40/sting-processor-0.40-sources.jar",
-    sha256 = "743b03fc1e8d4768f30884b2bfe5c28c44e0fd9eefa0c7dfb65c68f4e0f10a11",
-    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/sting/sting-processor/0.40/sting-processor-0.40-sources.jar"],
 )
 
 _http_file(

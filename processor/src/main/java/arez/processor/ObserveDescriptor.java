@@ -3,12 +3,11 @@ package arez.processor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.proton.MemberChecks;
 import org.realityforge.proton.ProcessorException;
 
@@ -16,10 +15,9 @@ import org.realityforge.proton.ProcessorException;
  * The class that represents the parsed state of @Observe methods on a @ArezComponent annotated class.
  */
 final class ObserveDescriptor {
-    @Nonnull
+
     private final ComponentDescriptor _component;
 
-    @Nonnull
     private final String _name;
 
     private boolean _mutation;
@@ -37,43 +35,36 @@ final class ObserveDescriptor {
     @Nullable
     private ExecutableType _methodType;
 
-    @Nonnull
     private final List<ExecutableElement> _onDepsChanges = new ArrayList<>();
 
-    @Nonnull
     private final List<ExecutableElement> _refMethods = new ArrayList<>();
 
-    ObserveDescriptor(@Nonnull final ComponentDescriptor component, @Nonnull final String name) {
+    ObserveDescriptor(final ComponentDescriptor component, final String name) {
         _component = Objects.requireNonNull(component);
         _name = Objects.requireNonNull(name);
     }
 
-    @Nonnull
     ComponentDescriptor getComponent() {
         return _component;
     }
 
-    @Nonnull
     String getName() {
         return _name;
     }
 
-    void addRefMethod(@Nonnull final ExecutableElement method) {
+    void addRefMethod(final ExecutableElement method) {
         getRefMethods().add(Objects.requireNonNull(method));
     }
 
-    @Nonnull
     List<ExecutableElement> getRefMethods() {
         return _refMethods;
     }
 
-    @Nonnull
     ExecutableElement getMethod() {
         assert null != _method;
         return _method;
     }
 
-    @Nonnull
     ExecutableType getMethodType() {
         assert null != _methodType;
         return _methodType;
@@ -85,15 +76,15 @@ final class ObserveDescriptor {
 
     void setObserveMethod(
             final boolean mutation,
-            @Nonnull final Priority priority,
+            final Priority priority,
             final boolean internalExecutor,
             final boolean reportParameters,
             final boolean reportResult,
-            @Nonnull final String depType,
+            final String depType,
             final boolean observeLowerPriorityDependencies,
             final boolean nestedActionsAllowed,
-            @Nonnull final ExecutableElement method,
-            @Nonnull final ExecutableType trackedMethodType) {
+            final ExecutableElement method,
+            final ExecutableType trackedMethodType) {
         MemberChecks.mustBeWrappable(
                 _component.getElement(), Constants.COMPONENT_CLASSNAME, Constants.OBSERVE_CLASSNAME, method);
 
@@ -146,19 +137,16 @@ final class ObserveDescriptor {
         return _internalExecutor;
     }
 
-    @Nonnull
     ExecutableElement getOnDepsChange() {
         assert 1 == _onDepsChanges.size();
         return getFirstOnDepsChange();
     }
 
-    @Nonnull
     ExecutableElement getFirstOnDepsChange() {
         assert hasOnDepsChange();
         return _onDepsChanges.get(0);
     }
 
-    @Nonnull
     List<ExecutableElement> getOnDepsChanges() {
         return _onDepsChanges;
     }
@@ -176,11 +164,10 @@ final class ObserveDescriptor {
                 .anyMatch(method -> !method.getParameters().isEmpty());
     }
 
-    void setOnDepsChange(@Nonnull final ExecutableElement method) {
+    void setOnDepsChange(final ExecutableElement method) {
         _onDepsChanges.add(Objects.requireNonNull(method));
     }
 
-    @Nonnull
     String getFieldName() {
         return ComponentGenerator.FIELD_PREFIX + getName();
     }

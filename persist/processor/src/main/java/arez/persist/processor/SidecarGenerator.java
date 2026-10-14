@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
@@ -27,66 +26,47 @@ import org.realityforge.proton.GeneratorUtil;
 import org.realityforge.proton.SuppressWarningsUtil;
 
 final class SidecarGenerator {
-    @Nonnull
+
     private static final ClassName OBJECT = ClassName.get("java.lang", "Object");
 
-    @Nonnull
     private static final ClassName AREZ_CLASSNAME = ClassName.get("arez", "Arez");
 
-    @Nonnull
     private static final ClassName DISPOSABLE_CLASSNAME = ClassName.get("arez", "Disposable");
 
-    @Nonnull
     private static final ClassName IDENTIFIABLE_CLASSNAME = ClassName.get("arez.component", "Identifiable");
 
-    @Nonnull
     private static final ClassName COMPONENT_DEPENDENCY_CLASSNAME =
             ClassName.get("arez.annotations", "ComponentDependency");
 
-    @Nonnull
     private static final ClassName AREZ_COMPONENT_CLASSNAME = ClassName.get("arez.annotations", "ArezComponent");
 
-    @Nonnull
     private static final ClassName FEATURE_CLASSNAME = ClassName.get("arez.annotations", "Feature");
 
-    @Nonnull
     private static final ClassName ACTION_CLASSNAME = ClassName.get("arez.annotations", "Action");
 
-    @Nonnull
     private static final ClassName OBSERVE_CLASSNAME = ClassName.get("arez.annotations", "Observe");
 
-    @Nonnull
     private static final ClassName POST_CONSTRUCT_CLASSNAME = ClassName.get("arez.annotations", "PostConstruct");
 
-    @Nonnull
     private static final ClassName PRE_DISPOSE_CLASSNAME = ClassName.get("arez.annotations", "PreDispose");
 
-    @Nonnull
     private static final ClassName PRIORITY_CLASSNAME = ClassName.get("arez.annotations", "Priority");
 
-    @Nonnull
     private static final ClassName DEP_TYPE_CLASSNAME = ClassName.get("arez.annotations", "DepType");
 
-    @Nonnull
     private static final ClassName AREZ_PERSIST_CLASSNAME = ClassName.get("arez.persist.runtime", "ArezPersist");
 
-    @Nonnull
     private static final ClassName CONVERTER_CLASSNAME = ClassName.get("arez.persist.runtime", "Converter");
 
-    @Nonnull
     private static final ClassName SCOPE_CLASSNAME = ClassName.get("arez.persist.runtime", "Scope");
 
-    @Nonnull
     private static final ClassName STORE_CLASSNAME = ClassName.get("arez.persist.runtime", "Store");
 
-    @Nonnull
     private static final ClassName TYPE_CONVERTER_CLASSNAME = ClassName.get("arez.persist.runtime", "TypeConverter");
 
     private SidecarGenerator() {}
 
-    @Nonnull
-    static TypeSpec buildType(
-            @Nonnull final ProcessingEnvironment processingEnv, @Nonnull final TypeDescriptor descriptor) {
+    static TypeSpec buildType(final ProcessingEnvironment processingEnv, final TypeDescriptor descriptor) {
         final TypeElement element = descriptor.getElement();
         final TypeSpec.Builder builder =
                 TypeSpec.classBuilder(getSidecarName(element)).addModifiers(Modifier.ABSTRACT);
@@ -160,12 +140,9 @@ final class SidecarGenerator {
         return builder.build();
     }
 
-    @Nonnull
-    private static MethodSpec buildGetComponentIdMethod(@Nonnull final TypeDescriptor descriptor) {
-        final MethodSpec.Builder method = MethodSpec.methodBuilder("getComponentId")
-                .returns(String.class)
-                .addModifiers(Modifier.PRIVATE)
-                .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME);
+    private static MethodSpec buildGetComponentIdMethod(final TypeDescriptor descriptor) {
+        final MethodSpec.Builder method =
+                MethodSpec.methodBuilder("getComponentId").returns(String.class).addModifiers(Modifier.PRIVATE);
 
         final ExecutableElement idMethod = descriptor.getIdMethod();
         if (null == idMethod) {
@@ -186,19 +163,15 @@ final class SidecarGenerator {
         return method.build();
     }
 
-    @Nonnull
-    private static MethodSpec buildAttachMethod(@Nonnull final TypeDescriptor descriptor) {
+    private static MethodSpec buildAttachMethod(final TypeDescriptor descriptor) {
         final TypeElement element = descriptor.getElement();
 
         final MethodSpec.Builder method = MethodSpec.methodBuilder("attach")
                 .addModifiers(Modifier.STATIC)
                 .returns(getSidecarName(element))
-                .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
                 .addParameter(ParameterSpec.builder(SCOPE_CLASSNAME, "scope", Modifier.FINAL)
-                        .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
                         .build())
                 .addParameter(ParameterSpec.builder(ClassName.get(element), "peer", Modifier.FINAL)
-                        .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
                         .build());
 
         method.addStatement("assert $T.isNotDisposed( scope )", DISPOSABLE_CLASSNAME);
@@ -219,8 +192,7 @@ final class SidecarGenerator {
         return method.build();
     }
 
-    @Nonnull
-    private static MethodSpec buildMaybeAttachMethod(@Nonnull final TypeDescriptor descriptor) {
+    private static MethodSpec buildMaybeAttachMethod(final TypeDescriptor descriptor) {
         final TypeElement element = descriptor.getElement();
 
         // This works around possible bug whee a scope or peer could be disposed before the arez task runs
@@ -228,10 +200,8 @@ final class SidecarGenerator {
         final MethodSpec.Builder method = MethodSpec.methodBuilder("maybeAttach")
                 .addModifiers(Modifier.PRIVATE, Modifier.STATIC)
                 .addParameter(ParameterSpec.builder(SCOPE_CLASSNAME, "scope", Modifier.FINAL)
-                        .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
                         .build())
                 .addParameter(ParameterSpec.builder(ClassName.get(element), "peer", Modifier.FINAL)
-                        .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
                         .build());
 
         final CodeBlock.Builder block = CodeBlock.builder();
@@ -246,18 +216,14 @@ final class SidecarGenerator {
         return method.build();
     }
 
-    @Nonnull
-    private static MethodSpec buildScheduleAttachMethod(@Nonnull final TypeDescriptor descriptor) {
+    private static MethodSpec buildScheduleAttachMethod(final TypeDescriptor descriptor) {
         final TypeElement element = descriptor.getElement();
 
         final MethodSpec.Builder method = MethodSpec.methodBuilder("scheduleAttach")
                 .addModifiers(Modifier.STATIC)
-                .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
                 .addParameter(ParameterSpec.builder(SCOPE_CLASSNAME, "scope", Modifier.FINAL)
-                        .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
                         .build())
                 .addParameter(ParameterSpec.builder(ClassName.get(element), "peer", Modifier.FINAL)
-                        .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
                         .build());
 
         method.addStatement("assert $T.isNotDisposed( scope )", DISPOSABLE_CLASSNAME);
@@ -273,19 +239,16 @@ final class SidecarGenerator {
         return method.build();
     }
 
-    @Nonnull
-    private static ClassName getArezSidecarName(@Nonnull final TypeElement element) {
+    private static ClassName getArezSidecarName(final TypeElement element) {
         return GeneratorUtil.getGeneratedClassName(element, "Arez_", "_PersistSidecar");
     }
 
-    @Nonnull
-    private static ClassName getSidecarName(@Nonnull final TypeElement element) {
+    private static ClassName getSidecarName(final TypeElement element) {
         return GeneratorUtil.getGeneratedClassName(element, "", "_PersistSidecar");
     }
 
-    @Nonnull
     private static MethodSpec buildRestoreStateMethod(
-            @Nonnull final ProcessingEnvironment processingEnv, @Nonnull final TypeDescriptor descriptor) {
+            final ProcessingEnvironment processingEnv, final TypeDescriptor descriptor) {
         final MethodSpec.Builder method = MethodSpec.methodBuilder("restoreState")
                 .addAnnotation(AnnotationSpec.builder(ACTION_CLASSNAME)
                         .addMember("verifyRequired", "false")
@@ -315,10 +278,11 @@ final class SidecarGenerator {
             stateBlock.beginControlFlow("if ( null != state )");
 
             for (final PropertyDescriptor property : descriptor.getPropertiesByStore(storeName)) {
-                final TypeName typeName =
-                        TypeName.get(property.getGetter().getReturnType()).box();
+                final TypeName typeName = GeneratorUtil.getTypeName(
+                                property.getGetter().getReturnType())
+                        .box();
                 final String propName = "$prop$_" + property.getName();
-                if (OBJECT.equals(typeName)) {
+                if (OBJECT.equals(typeName.withoutAnnotations())) {
                     stateBlock.addStatement(
                             "final $T $N = ( $T.$N )",
                             typeName,
@@ -350,9 +314,8 @@ final class SidecarGenerator {
         return method.build();
     }
 
-    @Nonnull
     private static MethodSpec buildPersistStateMethod(
-            @Nonnull final ProcessingEnvironment processingEnv, @Nonnull final TypeDescriptor descriptor) {
+            final ProcessingEnvironment processingEnv, final TypeDescriptor descriptor) {
         final MethodSpec.Builder method = MethodSpec.methodBuilder("persistState")
                 .addAnnotation(AnnotationSpec.builder(ACTION_CLASSNAME)
                         .addMember("mutation", "false")
@@ -416,37 +379,32 @@ final class SidecarGenerator {
         return method.build();
     }
 
-    private static void buildFieldAndConstructor(
-            @Nonnull final TypeDescriptor descriptor, @Nonnull final TypeSpec.Builder builder) {
+    private static void buildFieldAndConstructor(final TypeDescriptor descriptor, final TypeSpec.Builder builder) {
         final TypeElement element = descriptor.getElement();
         final MethodSpec.Builder ctor = MethodSpec.constructorBuilder();
         builder.addField(FieldSpec.builder(SCOPE_CLASSNAME, "_scope", Modifier.FINAL)
                 .addAnnotation(COMPONENT_DEPENDENCY_CLASSNAME)
-                .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
                 .build());
-        ctor.addParameter(ParameterSpec.builder(SCOPE_CLASSNAME, "scope", Modifier.FINAL)
-                .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
-                .build());
+        ctor.addParameter(
+                ParameterSpec.builder(SCOPE_CLASSNAME, "scope", Modifier.FINAL).build());
+
         ctor.addStatement("$N = $T.requireNonNull( $N )", "_scope", Objects.class, "scope");
 
         final ClassName peerType = ClassName.get(element);
         builder.addField(FieldSpec.builder(peerType, "_peer", Modifier.FINAL)
                 .addAnnotation(COMPONENT_DEPENDENCY_CLASSNAME)
-                .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
                 .build());
-        ctor.addParameter(ParameterSpec.builder(peerType, "peer", Modifier.FINAL)
-                .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
-                .build());
+        ctor.addParameter(
+                ParameterSpec.builder(peerType, "peer", Modifier.FINAL).build());
+
         ctor.addStatement("$N = $T.requireNonNull( $N )", "_peer", Objects.class, "peer");
 
         for (final String storeName : descriptor.getStoreNames()) {
             final String varName = storeVar(storeName);
             final String fieldName = "_" + varName;
             builder.addField(FieldSpec.builder(STORE_CLASSNAME, fieldName, Modifier.PRIVATE, Modifier.FINAL)
-                    .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
                     .build());
             ctor.addParameter(ParameterSpec.builder(STORE_CLASSNAME, varName, Modifier.FINAL)
-                    .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
                     .build());
             ctor.addStatement("$N = $T.requireNonNull( $N )", fieldName, Objects.class, varName);
         }
@@ -454,17 +412,14 @@ final class SidecarGenerator {
         builder.addMethod(ctor.build());
     }
 
-    @Nonnull
-    private static String storeVar(@Nonnull final String storeName) {
+    private static String storeVar(final String storeName) {
         return storeName + "Store";
     }
 
-    @Nonnull
-    private static TypeSpec buildKeysType(@Nonnull final TypeDescriptor descriptor) {
+    private static TypeSpec buildKeysType(final TypeDescriptor descriptor) {
         final TypeSpec.Builder keys = TypeSpec.classBuilder("Keys");
         keys.addModifiers(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL);
         keys.addField(FieldSpec.builder(String.class, "TYPE", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
-                .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
                 .initializer(
                         "$T.areNamesEnabled() ? $S : $T.class.getName()",
                         AREZ_CLASSNAME,
@@ -476,7 +431,6 @@ final class SidecarGenerator {
         for (final PropertyDescriptor property : descriptor.getProperties()) {
             keys.addField(FieldSpec.builder(
                             String.class, property.getConstantName(), Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
-                    .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
                     .initializer(
                             "$T.areNamesEnabled() ? $S : $S", AREZ_CLASSNAME, property.getName(), String.valueOf((char)
                                     ('a' + propertyIndex)))
@@ -486,8 +440,7 @@ final class SidecarGenerator {
         return keys.build();
     }
 
-    @Nonnull
-    private static TypeSpec buildConvertersType(@Nonnull final TypeDescriptor descriptor) {
+    private static TypeSpec buildConvertersType(final TypeDescriptor descriptor) {
         final TypeSpec.Builder builder = TypeSpec.classBuilder("Converters");
         builder.addModifiers(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL);
         builder.addAnnotation(AnnotationSpec.builder(SuppressWarnings.class)
@@ -507,20 +460,17 @@ final class SidecarGenerator {
                             Modifier.PRIVATE,
                             Modifier.STATIC,
                             Modifier.FINAL)
-                    .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
                     .initializer("$T.getConverter( $T.class )", AREZ_PERSIST_CLASSNAME, typeMirror)
                     .build());
         }
 
         builder.addField(FieldSpec.builder(
                         TYPE_CONVERTER_CLASSNAME, "TYPE_CONVERTER", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
-                .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
                 .initializer("createTypeConverter()")
                 .build());
 
         final MethodSpec.Builder method = MethodSpec.methodBuilder("createTypeConverter")
                 .addModifiers(Modifier.PRIVATE, Modifier.STATIC)
-                .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
                 .returns(TYPE_CONVERTER_CLASSNAME);
         method.addStatement(
                 "final $T converters = new $T<>()",
@@ -538,8 +488,7 @@ final class SidecarGenerator {
         return builder.build();
     }
 
-    @Nonnull
-    private static String converterName(@Nonnull final TypeMirror typeMirror) {
+    private static String converterName(final TypeMirror typeMirror) {
         return "CONVERTER_"
                 + typeMirror
                         .toString()

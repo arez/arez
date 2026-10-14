@@ -25,6 +25,7 @@ filegroup(
         "//processor/src/test/fixtures/expectedFormatted/com/example/inheritance:all",
         "//processor/src/test/fixtures/expectedFormatted/com/example/inject:all",
         "//processor/src/test/fixtures/expectedFormatted/com/example/inverse:all",
+        "//processor/src/test/fixtures/expectedFormatted/com/example/jspecify:all",
         "//processor/src/test/fixtures/expectedFormatted/com/example/memoize:all",
         "//processor/src/test/fixtures/expectedFormatted/com/example/memoize_context_parameter:all",
         "//processor/src/test/fixtures/expectedFormatted/com/example/observable:all",

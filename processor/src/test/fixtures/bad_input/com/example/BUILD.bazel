@@ -18,6 +18,7 @@ filegroup(
         "//processor/src/test/fixtures/bad_input/com/example/context_ref:all",
         "//processor/src/test/fixtures/bad_input/com/example/id:all",
         "//processor/src/test/fixtures/bad_input/com/example/inverse:all",
+        "//processor/src/test/fixtures/bad_input/com/example/jspecify:all",
         "//processor/src/test/fixtures/bad_input/com/example/memoize:all",
         "//processor/src/test/fixtures/bad_input/com/example/memoize_context_parameter:all",
         "//processor/src/test/fixtures/bad_input/com/example/misplaced_annotation:all",

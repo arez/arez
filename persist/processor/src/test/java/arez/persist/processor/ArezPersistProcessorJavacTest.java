@@ -11,7 +11,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 
 public final class ArezPersistProcessorJavacTest extends ArezPersistProcessorTestSupport {
@@ -63,7 +62,7 @@ public final class ArezPersistProcessorJavacTest extends ArezPersistProcessorTes
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private void deleteDir(@Nonnull final Path directory) {
+    private void deleteDir(final Path directory) {
         try (var paths = Files.walk(directory)) {
             paths.sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(File::delete);
         } catch (final IOException e) {

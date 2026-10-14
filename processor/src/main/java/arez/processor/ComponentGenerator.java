@@ -23,8 +23,6 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.AnnotatedConstruct;
 import javax.lang.model.element.AnnotationMirror;
@@ -39,6 +37,7 @@ import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.proton.AnnotationsUtil;
 import org.realityforge.proton.ElementsUtil;
 import org.realityforge.proton.GeneratorUtil;
@@ -130,9 +129,7 @@ final class ComponentGenerator {
      * Build the enhanced class for the component.
      */
     @SuppressWarnings("unchecked")
-    @Nonnull
-    static TypeSpec buildType(
-            @Nonnull final ProcessingEnvironment processingEnv, @Nonnull final ComponentDescriptor component)
+    static TypeSpec buildType(final ProcessingEnvironment processingEnv, final ComponentDescriptor component)
             throws ProcessorException {
         final TypeSpec.Builder builder = TypeSpec.classBuilder(
                         component.getEnhancedClassName().simpleName())
@@ -173,9 +170,10 @@ final class ComponentGenerator {
         }
 
         if (component.isClassType()) {
-            builder.superclass(TypeName.get(component.getElement().asType()));
+            builder.superclass(GeneratorUtil.getTypeName(component.getElement().asType()));
         } else {
-            builder.addSuperinterface(TypeName.get(component.getElement().asType()));
+            builder.addSuperinterface(
+                    GeneratorUtil.getTypeName(component.getElement().asType()));
         }
 
         GeneratorUtil.addGeneratedAnnotation(processingEnv, builder, ArezProcessor.class.getName());
@@ -313,53 +311,43 @@ final class ComponentGenerator {
         return builder.build();
     }
 
-    @Nonnull
-    private static String getInverseAddMethodName(@Nonnull final String name) {
+    private static String getInverseAddMethodName(final String name) {
         return INVERSE_REFERENCE_METHOD_PREFIX + name + "_add";
     }
 
-    @Nonnull
-    private static String getInverseRemoveMethodName(@Nonnull final String name) {
+    private static String getInverseRemoveMethodName(final String name) {
         return INVERSE_REFERENCE_METHOD_PREFIX + name + "_remove";
     }
 
-    @Nonnull
-    private static String getInverseSetMethodName(@Nonnull final String name) {
+    private static String getInverseSetMethodName(final String name) {
         return INVERSE_REFERENCE_METHOD_PREFIX + name + "_set";
     }
 
-    @Nonnull
-    private static String getInverseUnsetMethodName(@Nonnull final String name) {
+    private static String getInverseUnsetMethodName(final String name) {
         return INVERSE_REFERENCE_METHOD_PREFIX + name + "_unset";
     }
 
-    @Nonnull
-    private static String getInverseZSetMethodName(@Nonnull final String name) {
+    private static String getInverseZSetMethodName(final String name) {
         // Use different names for linking/unlinking if there is different multiplicities to
         // avoid scenario where classes that are not consistent will be able to be loaded
         // by the jvm
         return INVERSE_REFERENCE_METHOD_PREFIX + name + "_zset";
     }
 
-    @Nonnull
-    private static String getInverseZUnsetMethodName(@Nonnull final String name) {
+    private static String getInverseZUnsetMethodName(final String name) {
         return INVERSE_REFERENCE_METHOD_PREFIX + name + "_zunset";
     }
 
-    @Nonnull
-    static String getLinkMethodName(@Nonnull final String name) {
+    static String getLinkMethodName(final String name) {
         return FRAMEWORK_PREFIX + "link_" + name;
     }
 
-    @Nonnull
-    static String getDelinkMethodName(@Nonnull final String name) {
+    static String getDelinkMethodName(final String name) {
         return FRAMEWORK_PREFIX + "delink_" + name;
     }
 
     private static void generateNotInitializedInvariant(
-            @Nonnull final ComponentDescriptor descriptor,
-            @Nonnull final MethodSpec.Builder builder,
-            @Nonnull final String methodName) {
+            final ComponentDescriptor descriptor, final MethodSpec.Builder builder, final String methodName) {
         final CodeBlock.Builder block = CodeBlock.builder();
         block.beginControlFlow("if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME);
         block.addStatement(
@@ -375,8 +363,7 @@ final class ComponentGenerator {
         builder.addCode(block.build());
     }
 
-    private static void generateNotConstructedInvariant(
-            @Nonnull final MethodSpec.Builder builder, @Nonnull final String methodName) {
+    private static void generateNotConstructedInvariant(final MethodSpec.Builder builder, final String methodName) {
         final CodeBlock.Builder block = CodeBlock.builder();
         block.beginControlFlow("if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME);
         block.addStatement(
@@ -394,8 +381,7 @@ final class ComponentGenerator {
         builder.addCode(block.build());
     }
 
-    private static void generateNotCompleteInvariant(
-            @Nonnull final MethodSpec.Builder builder, @Nonnull final String methodName) {
+    private static void generateNotCompleteInvariant(final MethodSpec.Builder builder, final String methodName) {
         final CodeBlock.Builder block = CodeBlock.builder();
         block.beginControlFlow("if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME);
         block.addStatement(
@@ -413,8 +399,7 @@ final class ComponentGenerator {
         builder.addCode(block.build());
     }
 
-    private static void generateNotDisposedInvariant(
-            @Nonnull final MethodSpec.Builder builder, @Nonnull final String methodName) {
+    private static void generateNotDisposedInvariant(final MethodSpec.Builder builder, final String methodName) {
         final CodeBlock.Builder block = CodeBlock.builder();
         block.beginControlFlow("if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME);
         block.addStatement(
@@ -433,9 +418,9 @@ final class ComponentGenerator {
     }
 
     private static void generateTryBlock(
-            @Nonnull final MethodSpec.Builder builder,
-            @Nonnull final List<? extends TypeMirror> expectedThrowTypes,
-            @Nonnull final Consumer<CodeBlock.Builder> action) {
+            final MethodSpec.Builder builder,
+            final List<? extends TypeMirror> expectedThrowTypes,
+            final Consumer<CodeBlock.Builder> action) {
         final CodeBlock.Builder codeBlock = CodeBlock.builder();
         codeBlock.beginControlFlow("try");
 
@@ -475,8 +460,7 @@ final class ComponentGenerator {
         builder.addCode(codeBlock.build());
     }
 
-    private static void buildInverseDisposer(
-            @Nonnull final InverseDescriptor inverse, @Nonnull final MethodSpec.Builder builder) {
+    private static void buildInverseDisposer(final InverseDescriptor inverse, final MethodSpec.Builder builder) {
         final ObservableDescriptor observable = inverse.getObservable();
         final String delinkMethodName = getDelinkMethodName(inverse.getReferenceName());
         final ClassName arezClassName = getArezClassName(inverse);
@@ -496,10 +480,9 @@ final class ComponentGenerator {
         builder.addCode(block.build());
     }
 
-    @Nonnull
-    private static ClassName getArezClassName(@Nonnull final InverseDescriptor inverseDescriptor) {
-        final TypeName typeName =
-                TypeName.get(inverseDescriptor.getObservable().getGetter().getReturnType());
+    private static ClassName getArezClassName(final InverseDescriptor inverseDescriptor) {
+        final TypeName typeName = GeneratorUtil.getTypeName(
+                inverseDescriptor.getObservable().getGetter().getReturnType());
         final ClassName other = typeName instanceof ClassName
                 ? (ClassName) typeName
                 : (ClassName) ((ParameterizedTypeName) typeName).typeArguments().get(0);
@@ -521,9 +504,7 @@ final class ComponentGenerator {
         return ClassName.bestGuess(sb.toString());
     }
 
-    @Nonnull
-    private static MethodSpec buildAction(
-            @Nonnull final ProcessingEnvironment processingEnv, @Nonnull final ActionDescriptor action)
+    private static MethodSpec buildAction(final ProcessingEnvironment processingEnv, final ActionDescriptor action)
             throws ProcessorException {
         final String methodName = action.getAction().getSimpleName().toString();
         final ComponentDescriptor component = action.getComponent();
@@ -647,9 +628,8 @@ final class ComponentGenerator {
         return method.build();
     }
 
-    @Nonnull
     private static CodeBlock buildActionParametersExpression(
-            @Nonnull final ActionDescriptor action, @Nonnull final List<? extends VariableElement> parameters) {
+            final ActionDescriptor action, final List<? extends VariableElement> parameters) {
         if (action.isReportParameters() && !parameters.isEmpty()) {
             final CodeBlock.Builder builder = CodeBlock.builder();
             builder.add("new $T[] { ", Object.class);
@@ -669,9 +649,7 @@ final class ComponentGenerator {
     }
 
     private static void appendActionFlags(
-            @Nonnull final ActionDescriptor action,
-            @Nonnull final StringBuilder expression,
-            @Nonnull final List<Object> parameters) {
+            final ActionDescriptor action, final StringBuilder expression, final List<Object> parameters) {
         final List<String> flags = new ArrayList<>();
 
         if (action.isRequireNewTransaction()) {
@@ -697,9 +675,8 @@ final class ComponentGenerator {
         }
     }
 
-    @Nonnull
     private static MethodSpec buildRequiresTransaction(
-            @Nonnull final ProcessingEnvironment processingEnv, @Nonnull final RequiresTransactionDescriptor descriptor)
+            final ProcessingEnvironment processingEnv, final RequiresTransactionDescriptor descriptor)
             throws ProcessorException {
         final ExecutableElement executableElement = descriptor.getMethod();
         final ComponentDescriptor component = descriptor.getComponent();
@@ -744,7 +721,7 @@ final class ComponentGenerator {
     }
 
     private static void generateRequiresTransactionInvariant(
-            @Nonnull final MethodSpec.Builder builder, @Nonnull final RequiresTransactionDescriptor descriptor) {
+            final MethodSpec.Builder builder, final RequiresTransactionDescriptor descriptor) {
         final String contextName = VARIABLE_PREFIX + "context";
         final String methodName = descriptor.getMethod().getSimpleName().toString();
         builder.beginControlFlow("if ( $T.shouldCheckInvariants() )", AREZ_CLASSNAME);
@@ -816,7 +793,7 @@ final class ComponentGenerator {
     }
 
     private static void buildCascadeDisposeDisposer(
-            @Nonnull final CascadeDisposeDescriptor cascadeDisposable, @Nonnull final MethodSpec.Builder builder) {
+            final CascadeDisposeDescriptor cascadeDisposable, final MethodSpec.Builder builder) {
         if (null != cascadeDisposable.getField()) {
             builder.addStatement(
                     "$T.dispose( $N )",
@@ -843,8 +820,7 @@ final class ComponentGenerator {
         }
     }
 
-    @Nonnull
-    private static String getDependencyKey(@Nonnull final DependencyDescriptor dependency) {
+    private static String getDependencyKey(final DependencyDescriptor dependency) {
         return dependency.getComponent().getDependencies().size() > 1
                 ? dependency.hasNoObservable()
                         ? DEPENDENCY_KEY_PREFIX + dependency.getKeyName()
@@ -853,11 +829,11 @@ final class ComponentGenerator {
     }
 
     private static void buildDependencyInitializer(
-            @Nonnull final DependencyDescriptor dependency, @Nonnull final MethodSpec.Builder builder) {
+            final DependencyDescriptor dependency, final MethodSpec.Builder builder) {
         if (!dependency.isMethodDependency()) {
             assert dependency.shouldCascadeDispose();
             final String fieldName = dependency.getField().getSimpleName().toString();
-            if (AnnotationsUtil.hasNonnullAnnotation(dependency.getField())) {
+            if (Nullability.isNonNull(dependency.getField())) {
                 builder.addStatement(
                         "$T.asDisposeNotifier( this.$N ).addOnDisposeListener( $N, this::dispose )",
                         DISPOSE_TRACKABLE_CLASSNAME,
@@ -880,7 +856,7 @@ final class ComponentGenerator {
             final boolean abstractObservables = method.getModifiers().contains(Modifier.ABSTRACT);
             if (abstractObservables) {
                 final ObservableDescriptor observable = dependency.getObservable();
-                if (AnnotationsUtil.hasNonnullAnnotation(method)) {
+                if (Nullability.isNonNull(method)) {
                     assert dependency.shouldCascadeDispose();
                     builder.addStatement(
                             "$T.asDisposeNotifier( $N ).addOnDisposeListener( $N, this::dispose )",
@@ -917,7 +893,7 @@ final class ComponentGenerator {
                     builder.addCode(listenerBlock.build());
                 }
             } else {
-                if (AnnotationsUtil.hasNonnullAnnotation(method)) {
+                if (Nullability.isNonNull(method)) {
                     assert dependency.shouldCascadeDispose();
                     if (dependency.getComponent().isClassType()) {
                         builder.addStatement(
@@ -995,9 +971,7 @@ final class ComponentGenerator {
         }
     }
 
-    @Nonnull
-    private static MethodSpec buildToStringMethod(@Nonnull final ComponentDescriptor component)
-            throws ProcessorException {
+    private static MethodSpec buildToStringMethod(final ComponentDescriptor component) throws ProcessorException {
         assert component.isGenerateToString();
 
         final MethodSpec.Builder method = MethodSpec.methodBuilder("toString")
@@ -1019,9 +993,7 @@ final class ComponentGenerator {
         return method.build();
     }
 
-    @Nonnull
-    private static MethodSpec buildHashcodeMethod(@Nonnull final ComponentDescriptor component)
-            throws ProcessorException {
+    private static MethodSpec buildHashcodeMethod(final ComponentDescriptor component) throws ProcessorException {
         final String idMethod = component.getIdMethodName();
 
         final MethodSpec.Builder method = MethodSpec.methodBuilder("hashCode")
@@ -1060,12 +1032,9 @@ final class ComponentGenerator {
         return method.build();
     }
 
-    @Nonnull
-    private static MethodSpec buildLocatorRefMethod(@Nonnull final ComponentDescriptor component)
-            throws ProcessorException {
+    private static MethodSpec buildLocatorRefMethod(final ComponentDescriptor component) throws ProcessorException {
         final String methodName = LOCATOR_METHOD_NAME;
         final MethodSpec.Builder method = MethodSpec.methodBuilder(methodName)
-                .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
                 .addModifiers(Modifier.PRIVATE)
                 .returns(LOCATOR_CLASSNAME);
 
@@ -1075,11 +1044,10 @@ final class ComponentGenerator {
         return method.build();
     }
 
-    @Nonnull
     private static MethodSpec buildComponentRefMethod(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final ExecutableElement componentRef)
+            final ProcessingEnvironment processingEnv,
+            final ComponentDescriptor component,
+            final ExecutableElement componentRef)
             throws ProcessorException {
         final MethodSpec.Builder method = refMethod(processingEnv, component.getElement(), componentRef);
 
@@ -1105,14 +1073,11 @@ final class ComponentGenerator {
         return method.build();
     }
 
-    @Nonnull
     private static MethodSpec buildArezIdMethod(
-            @Nonnull final ProcessingEnvironment processingEnv, @Nonnull final ComponentDescriptor component)
-            throws ProcessorException {
+            final ProcessingEnvironment processingEnv, final ComponentDescriptor component) throws ProcessorException {
         final String methodName = "getArezId";
         final MethodSpec.Builder method = MethodSpec.methodBuilder(methodName)
                 .addAnnotation(Override.class)
-                .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
                 .addModifiers(Modifier.PUBLIC)
                 .returns(component.getIdType().box());
         generateNotInitializedInvariant(component, method, methodName);
@@ -1128,9 +1093,7 @@ final class ComponentGenerator {
         return method.build();
     }
 
-    @Nonnull
-    private static MethodSpec buildComponentIdMethod(@Nonnull final ComponentDescriptor component)
-            throws ProcessorException {
+    private static MethodSpec buildComponentIdMethod(final ComponentDescriptor component) throws ProcessorException {
         assert null == component.getComponentId();
 
         return MethodSpec.methodBuilder(ID_FIELD_NAME)
@@ -1141,8 +1104,7 @@ final class ComponentGenerator {
                 .build();
     }
 
-    @Nonnull
-    private static MethodSpec buildVerify(@Nonnull final ComponentDescriptor component) {
+    private static MethodSpec buildVerify(final ComponentDescriptor component) {
         final String methodName = "verify";
         final MethodSpec.Builder method = MethodSpec.methodBuilder(methodName)
                 .addModifiers(Modifier.PUBLIC)
@@ -1184,8 +1146,7 @@ final class ComponentGenerator {
         return method.build();
     }
 
-    @Nonnull
-    private static MethodSpec buildLink(@Nonnull final ComponentDescriptor component) {
+    private static MethodSpec buildLink(final ComponentDescriptor component) {
         final String methodName = "link";
         final MethodSpec.Builder method = MethodSpec.methodBuilder(methodName)
                 .addModifiers(Modifier.PUBLIC)
@@ -1208,8 +1169,7 @@ final class ComponentGenerator {
     /**
      * Generate the dispose method.
      */
-    @Nonnull
-    private static MethodSpec buildDispose(@Nonnull final ComponentDescriptor component) throws ProcessorException {
+    private static MethodSpec buildDispose(final ComponentDescriptor component) throws ProcessorException {
         final String methodName = "dispose";
         final MethodSpec.Builder method = MethodSpec.methodBuilder(methodName)
                 .addModifiers(Modifier.PUBLIC)
@@ -1223,8 +1183,7 @@ final class ComponentGenerator {
         return method.build();
     }
 
-    @Nonnull
-    private static MethodSpec buildInternalDispose(@Nonnull final ComponentDescriptor componentDescriptor)
+    private static MethodSpec buildInternalDispose(final ComponentDescriptor componentDescriptor)
             throws ProcessorException {
         final MethodSpec.Builder builder =
                 MethodSpec.methodBuilder(INTERNAL_DISPOSE_METHOD_NAME).addModifiers(Modifier.PRIVATE);
@@ -1242,7 +1201,7 @@ final class ComponentGenerator {
         return builder.build();
     }
 
-    private static boolean hasInternalPreDispose(@Nonnull final ComponentDescriptor component) {
+    private static boolean hasInternalPreDispose(final ComponentDescriptor component) {
         return component.getPreDisposes().size() > 1
                 || !component.getInverses().isEmpty()
                 || !component.getCascadeDisposes().isEmpty()
@@ -1254,8 +1213,7 @@ final class ComponentGenerator {
     /**
      * Generate the isDisposed method.
      */
-    @Nonnull
-    private static MethodSpec buildIsDisposed(@Nonnull final ComponentDescriptor component) throws ProcessorException {
+    private static MethodSpec buildIsDisposed(final ComponentDescriptor component) throws ProcessorException {
         final String methodName = "isDisposed";
         final MethodSpec.Builder method = MethodSpec.methodBuilder(methodName)
                 .addModifiers(Modifier.PUBLIC)
@@ -1272,8 +1230,7 @@ final class ComponentGenerator {
     /**
      * Generate the observe method.
      */
-    @Nonnull
-    private static MethodSpec buildObserve(@Nonnull final ComponentDescriptor component) throws ProcessorException {
+    private static MethodSpec buildObserve(final ComponentDescriptor component) throws ProcessorException {
         final String methodName = "observe";
         final MethodSpec.Builder method = MethodSpec.methodBuilder(methodName)
                 .addModifiers(Modifier.PUBLIC)
@@ -1289,8 +1246,7 @@ final class ComponentGenerator {
     /**
      * Generate the preDispose method only used when native components are enabled.
      */
-    @Nonnull
-    private static MethodSpec buildNativeComponentPreDispose(@Nonnull final ComponentDescriptor component)
+    private static MethodSpec buildNativeComponentPreDispose(final ComponentDescriptor component)
             throws ProcessorException {
         final MethodSpec.Builder builder = MethodSpec.methodBuilder(INTERNAL_NATIVE_COMPONENT_PRE_DISPOSE_METHOD_NAME)
                 .addModifiers(Modifier.PRIVATE);
@@ -1318,9 +1274,7 @@ final class ComponentGenerator {
     /**
      * Generate the preDispose method.
      */
-    @Nonnull
-    private static MethodSpec buildInternalPreDispose(@Nonnull final ComponentDescriptor component)
-            throws ProcessorException {
+    private static MethodSpec buildInternalPreDispose(final ComponentDescriptor component) throws ProcessorException {
         assert hasInternalPreDispose(component);
         final MethodSpec.Builder builder =
                 MethodSpec.methodBuilder(INTERNAL_PRE_DISPOSE_METHOD_NAME).addModifiers(Modifier.PRIVATE);
@@ -1345,7 +1299,7 @@ final class ComponentGenerator {
                 if (dependency.isMethodDependency()) {
                     final ExecutableElement method = dependency.getMethod();
                     final String methodName = method.getSimpleName().toString();
-                    if (AnnotationsUtil.hasNonnullAnnotation(element)) {
+                    if (Nullability.isNonNull(element)) {
                         final boolean abstractObservables =
                                 method.getModifiers().contains(Modifier.ABSTRACT);
                         if (abstractObservables) {
@@ -1397,7 +1351,7 @@ final class ComponentGenerator {
                 } else {
                     final VariableElement field = dependency.getField();
                     final String fieldName = field.getSimpleName().toString();
-                    if (AnnotationsUtil.hasNonnullAnnotation(element)) {
+                    if (Nullability.isNonNull(element)) {
                         builder.addStatement(
                                 "$T.asDisposeNotifier( this.$N ).removeOnDisposeListener( $N )",
                                 DISPOSE_TRACKABLE_CLASSNAME,
@@ -1421,9 +1375,7 @@ final class ComponentGenerator {
         return builder.build();
     }
 
-    @Nonnull
-    private static MethodSpec buildInternalPostDispose(@Nonnull final ComponentDescriptor component)
-            throws ProcessorException {
+    private static MethodSpec buildInternalPostDispose(final ComponentDescriptor component) throws ProcessorException {
         assert component.hasInternalPostDispose();
         final MethodSpec.Builder builder =
                 MethodSpec.methodBuilder(INTERNAL_POST_DISPOSE_METHOD_NAME).addModifiers(Modifier.PRIVATE);
@@ -1443,18 +1395,14 @@ final class ComponentGenerator {
     /**
      * Generate the addOnDisposeListener method.
      */
-    @Nonnull
-    private static MethodSpec buildAddOnDisposeListener(@Nonnull final ComponentDescriptor component)
-            throws ProcessorException {
+    private static MethodSpec buildAddOnDisposeListener(final ComponentDescriptor component) throws ProcessorException {
         final String methodName = "addOnDisposeListener";
         final MethodSpec.Builder method = MethodSpec.methodBuilder(methodName)
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(Override.class)
-                .addParameter(ParameterSpec.builder(OBJECT, "key", Modifier.FINAL)
-                        .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
-                        .build())
+                .addParameter(
+                        ParameterSpec.builder(OBJECT, "key", Modifier.FINAL).build())
                 .addParameter(ParameterSpec.builder(SAFE_PROCEDURE_CLASSNAME, "action", Modifier.FINAL)
-                        .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
                         .build())
                 .addParameter(ParameterSpec.builder(TypeName.BOOLEAN, "errorIfDuplicate", Modifier.FINAL)
                         .build());
@@ -1466,16 +1414,14 @@ final class ComponentGenerator {
     /**
      * Generate the removeOnDisposeListener method.
      */
-    @Nonnull
-    private static MethodSpec buildRemoveOnDisposeListener(@Nonnull final ComponentDescriptor component)
+    private static MethodSpec buildRemoveOnDisposeListener(final ComponentDescriptor component)
             throws ProcessorException {
         final String methodName = "removeOnDisposeListener";
         final MethodSpec.Builder method = MethodSpec.methodBuilder(methodName)
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(Override.class)
-                .addParameter(ParameterSpec.builder(OBJECT, "key", Modifier.FINAL)
-                        .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
-                        .build())
+                .addParameter(
+                        ParameterSpec.builder(OBJECT, "key", Modifier.FINAL).build())
                 .addParameter(ParameterSpec.builder(TypeName.BOOLEAN, "errorIfMissing", Modifier.FINAL)
                         .build());
         generateNotInitializedInvariant(component, method, methodName);
@@ -1485,9 +1431,9 @@ final class ComponentGenerator {
     }
 
     private static void buildComponentKernel(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final MethodSpec.Builder builder) {
+            final ProcessingEnvironment processingEnv,
+            final ComponentDescriptor component,
+            final MethodSpec.Builder builder) {
         buildContextVar(builder);
         buildSyntheticIdVarIfRequired(processingEnv, component, builder);
         buildNameVar(component, builder);
@@ -1568,12 +1514,11 @@ final class ComponentGenerator {
         builder.addStatement(sb.toString(), params.toArray());
     }
 
-    private static void buildContextVar(@Nonnull final MethodSpec.Builder builder) {
+    private static void buildContextVar(final MethodSpec.Builder builder) {
         builder.addStatement("final $T $N = $T.context()", AREZ_CONTEXT_CLASSNAME, CONTEXT_VAR_NAME, AREZ_CLASSNAME);
     }
 
-    private static void buildNameVar(
-            @Nonnull final ComponentDescriptor component, @Nonnull final MethodSpec.Builder builder) {
+    private static void buildNameVar(final ComponentDescriptor component, final MethodSpec.Builder builder) {
         builder.addStatement(
                 "final String $N = $T.areNamesEnabled() ? $S + $N : null",
                 NAME_VAR_NAME,
@@ -1583,9 +1528,9 @@ final class ComponentGenerator {
     }
 
     private static void buildSyntheticIdVarIfRequired(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final MethodSpec.Builder builder) {
+            final ProcessingEnvironment processingEnv,
+            final ComponentDescriptor component,
+            final MethodSpec.Builder builder) {
         if (null == component.getComponentId()) {
             if (component.isIdRequired()) {
                 builder.addStatement("final int $N = ++$N", ID_VAR_NAME, NEXT_ID_FIELD_NAME);
@@ -1611,8 +1556,7 @@ final class ComponentGenerator {
         }
     }
 
-    private static void buildNativeComponentVar(
-            @Nonnull final ComponentDescriptor component, @Nonnull final MethodSpec.Builder builder) {
+    private static void buildNativeComponentVar(final ComponentDescriptor component, final MethodSpec.Builder builder) {
         final StringBuilder sb = new StringBuilder();
         final List<Object> params = new ArrayList<>();
         sb.append("final $T $N = $T.areNativeComponentsEnabled() ? $N.component( $S, $N, $N");
@@ -1669,9 +1613,9 @@ final class ComponentGenerator {
      * Arez Observable fields are populated as required and parameters are passed up to superclass.
      */
     private static void buildConstructors(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final TypeSpec.Builder builder) {
+            final ProcessingEnvironment processingEnv,
+            final ComponentDescriptor component,
+            final TypeSpec.Builder builder) {
         for (final ExecutableElement constructor : ElementsUtil.getConstructors(component.getElement())) {
             final ExecutableType methodType = (ExecutableType) processingEnv
                     .getTypeUtils()
@@ -1683,10 +1627,9 @@ final class ComponentGenerator {
     /**
      * Build a constructor based on the supplied constructor.
      */
-    @Nonnull
     private static MethodSpec buildConstructor(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final ComponentDescriptor component,
+            final ProcessingEnvironment processingEnv,
+            final ComponentDescriptor component,
             @Nullable final ExecutableElement constructor,
             @Nullable final ExecutableType constructorType) {
         final MethodSpec.Builder builder = MethodSpec.constructorBuilder();
@@ -1725,7 +1668,9 @@ final class ComponentGenerator {
         if (null != constructor) {
             for (final VariableElement element : constructor.getParameters()) {
                 final ParameterSpec.Builder param = ParameterSpec.builder(
-                        TypeName.get(element.asType()), element.getSimpleName().toString(), Modifier.FINAL);
+                        GeneratorUtil.getTypeName(element.asType()),
+                        element.getSimpleName().toString(),
+                        Modifier.FINAL);
                 final ArrayList<String> whitelist = new ArrayList<>(GeneratorUtil.ANNOTATION_WHITELIST);
                 whitelist.add(Constants.STING_NAMED);
                 GeneratorUtil.copyWhitelistedAnnotations(element, param, whitelist);
@@ -1785,12 +1730,13 @@ final class ComponentGenerator {
             final String name = null != constructor && anyParametersNamed(constructor, candidateName)
                     ? INITIALIZER_PREFIX + candidateName
                     : candidateName;
-            final ParameterSpec.Builder param = ParameterSpec.builder(
-                    TypeName.get(observable.getGetterType().getReturnType()), name, Modifier.FINAL);
+            final ParameterSpec.Builder param =
+                    ParameterSpec.builder(observableTypeName(processingEnv, observable), name, Modifier.FINAL);
             GeneratorUtil.copyWhitelistedAnnotations(observable.getGetter(), param);
             builder.addParameter(param.build());
-            final boolean isPrimitive =
-                    TypeName.get(observable.getGetterType().getReturnType()).isPrimitive();
+            final boolean isPrimitive = GeneratorUtil.getTypeName(
+                            observable.getGetterType().getReturnType())
+                    .isPrimitive();
             if (isPrimitive) {
                 builder.addStatement("this.$N = $N", observable.getDataFieldName(), name);
             } else if (observable.isGetterNonnull()) {
@@ -1813,8 +1759,9 @@ final class ComponentGenerator {
                                 "$T.$N()",
                                 component.getClassName(),
                                 observableInitial.getMethod().getSimpleName());
-                final boolean isPrimitive =
-                        TypeName.get(observable.getGetterType().getReturnType()).isPrimitive();
+                final boolean isPrimitive = GeneratorUtil.getTypeName(
+                                observable.getGetterType().getReturnType())
+                        .isPrimitive();
                 if (isPrimitive) {
                     builder.addStatement("this.$N = $L", observable.getDataFieldName(), initializer);
                 } else if (observable.isGetterNonnull()) {
@@ -1883,9 +1830,9 @@ final class ComponentGenerator {
      * </ul>
      */
     private static void buildFields(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final ComponentDescriptor component,
-            @Nonnull final TypeSpec.Builder builder) {
+            final ProcessingEnvironment processingEnv,
+            final ComponentDescriptor component,
+            final TypeSpec.Builder builder) {
 
         final FieldSpec.Builder idField = FieldSpec.builder(
                         KERNEL_CLASSNAME, KERNEL_FIELD_NAME, Modifier.FINAL, Modifier.PRIVATE)
@@ -1912,9 +1859,7 @@ final class ComponentGenerator {
         component.getDependencies().values().forEach(e -> buildDependencyKeyField(e, builder));
     }
 
-    @Nonnull
-    private static MethodSpec buildEqualsMethod(@Nonnull final ComponentDescriptor component)
-            throws ProcessorException {
+    private static MethodSpec buildEqualsMethod(final ComponentDescriptor component) throws ProcessorException {
         final String idMethod = component.getIdMethodName();
 
         final MethodSpec.Builder method = MethodSpec.methodBuilder("equals")
@@ -1968,26 +1913,22 @@ final class ComponentGenerator {
     /**
      * Build any fields required by ObserveDescriptor.
      */
-    private static void buildObserveFields(
-            @Nonnull final ObserveDescriptor observe, @Nonnull final TypeSpec.Builder builder) {
-        final FieldSpec.Builder field = FieldSpec.builder(
-                        OBSERVER_CLASSNAME, observe.getFieldName(), Modifier.FINAL, Modifier.PRIVATE)
-                .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME);
+    private static void buildObserveFields(final ObserveDescriptor observe, final TypeSpec.Builder builder) {
+        final FieldSpec.Builder field =
+                FieldSpec.builder(OBSERVER_CLASSNAME, observe.getFieldName(), Modifier.FINAL, Modifier.PRIVATE);
         builder.addField(field.build());
     }
 
-    private static void buildAutoObserveField(@Nonnull final TypeSpec.Builder builder) {
-        final FieldSpec.Builder field = FieldSpec.builder(
-                        OBSERVER_CLASSNAME, AUTO_OBSERVE_FIELD_NAME, Modifier.FINAL, Modifier.PRIVATE)
-                .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME);
+    private static void buildAutoObserveField(final TypeSpec.Builder builder) {
+        final FieldSpec.Builder field =
+                FieldSpec.builder(OBSERVER_CLASSNAME, AUTO_OBSERVE_FIELD_NAME, Modifier.FINAL, Modifier.PRIVATE);
         builder.addField(field.build());
     }
 
     /**
      * Setup initial state of observed in constructor.
      */
-    private static void buildObserveInitializer(
-            @Nonnull final ObserveDescriptor observe, @Nonnull final MethodSpec.Builder builder) {
+    private static void buildObserveInitializer(final ObserveDescriptor observe, final MethodSpec.Builder builder) {
         if (observe.isInternalExecutor()) {
             buildObserverInitializer(observe, builder);
         } else {
@@ -1996,7 +1937,7 @@ final class ComponentGenerator {
     }
 
     private static void buildAutoObserveInitializer(
-            @Nonnull final ComponentDescriptor component, @Nonnull final MethodSpec.Builder builder) {
+            final ComponentDescriptor component, final MethodSpec.Builder builder) {
         final String dependencyFlags =
                 autoObserveCanRunWithoutDependencies(component) ? "$T.AREZ_OR_NO_DEPENDENCIES" : "$T.AREZ_DEPENDENCIES";
         builder.addStatement(
@@ -2017,12 +1958,12 @@ final class ComponentGenerator {
                 OBSERVER_FLAGS_CLASSNAME);
     }
 
-    private static boolean autoObserveCanRunWithoutDependencies(@Nonnull final ComponentDescriptor component) {
+    private static boolean autoObserveCanRunWithoutDependencies(final ComponentDescriptor component) {
         return component.getAutoObserves().values().stream()
                 .noneMatch(ComponentGenerator::autoObserveAlwaysTracksADependency);
     }
 
-    private static boolean autoObserveAlwaysTracksADependency(@Nonnull final AutoObserveDescriptor autoObserve) {
+    private static boolean autoObserveAlwaysTracksADependency(final AutoObserveDescriptor autoObserve) {
         final ReferenceDescriptor reference = autoObserve.getReference();
         //noinspection RedundantIfStatement
         if (null != autoObserve.getObservable() || (null != reference && null != reference.getObservable())) {
@@ -2036,8 +1977,7 @@ final class ComponentGenerator {
         }
     }
 
-    private static void buildObserverInitializer(
-            @Nonnull final ObserveDescriptor observe, @Nonnull final MethodSpec.Builder builder) {
+    private static void buildObserverInitializer(final ObserveDescriptor observe, final MethodSpec.Builder builder) {
         final ComponentDescriptor component = observe.getComponent();
         final List<Object> parameters = new ArrayList<>();
         final StringBuilder sb = new StringBuilder();
@@ -2081,8 +2021,7 @@ final class ComponentGenerator {
         builder.addStatement(sb.toString(), parameters.toArray());
     }
 
-    private static void buildTrackerInitializer(
-            @Nonnull final ObserveDescriptor observe, @Nonnull final MethodSpec.Builder builder) {
+    private static void buildTrackerInitializer(final ObserveDescriptor observe, final MethodSpec.Builder builder) {
         assert observe.hasOnDepsChange();
         final ComponentDescriptor component = observe.getComponent();
         final List<Object> parameters = new ArrayList<>();
@@ -2118,9 +2057,7 @@ final class ComponentGenerator {
     }
 
     private static void appendFlags(
-            @Nonnull final ObserveDescriptor observe,
-            @Nonnull final List<Object> parameters,
-            @Nonnull final StringBuilder expression) {
+            final ObserveDescriptor observe, final List<Object> parameters, final StringBuilder expression) {
         final List<String> flags = new ArrayList<>();
         flags.add("RUN_LATER");
 
@@ -2159,15 +2096,12 @@ final class ComponentGenerator {
         }
     }
 
-    private static void buildMemoizeDisposer(
-            @Nonnull final MemoizeDescriptor memoize, @Nonnull final MethodSpec.Builder codeBlock) {
+    private static void buildMemoizeDisposer(final MemoizeDescriptor memoize, final MethodSpec.Builder codeBlock) {
         codeBlock.addStatement("this.$N.dispose()", getMemoizeFieldName(memoize));
     }
 
     private static void buildMemoizeMethods(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final MemoizeDescriptor memoize,
-            @Nonnull final TypeSpec.Builder builder)
+            final ProcessingEnvironment processingEnv, final MemoizeDescriptor memoize, final TypeSpec.Builder builder)
             throws ProcessorException {
         if (memoize.shouldGenerateMemoizeWrapper()) {
             builder.addMethod(buildMemoizeAdapterMethod(processingEnv, memoize));
@@ -2198,9 +2132,7 @@ final class ComponentGenerator {
         }
     }
 
-    @Nonnull
-    private static MethodSpec buildOnActivateWrapperHook(@Nonnull final MemoizeDescriptor memoize)
-            throws ProcessorException {
+    private static MethodSpec buildOnActivateWrapperHook(final MemoizeDescriptor memoize) throws ProcessorException {
         assert memoize.shouldGenerateActivateWrapperHook();
         final MethodSpec.Builder builder = MethodSpec.methodBuilder(getOnActivateHookMethodName(memoize));
         builder.addModifiers(Modifier.PRIVATE);
@@ -2226,9 +2158,7 @@ final class ComponentGenerator {
         return builder.build();
     }
 
-    @Nonnull
-    private static MethodSpec buildOnDeactivateWrapperHook(@Nonnull final MemoizeDescriptor memoize)
-            throws ProcessorException {
+    private static MethodSpec buildOnDeactivateWrapperHook(final MemoizeDescriptor memoize) throws ProcessorException {
         assert memoize.shouldGenerateDeactivateWrapperHook();
         final MethodSpec.Builder builder = MethodSpec.methodBuilder(getOnDeactivateHookMethodName(memoize));
         builder.addModifiers(Modifier.PRIVATE);
@@ -2253,10 +2183,8 @@ final class ComponentGenerator {
     /**
      * Generate a wrapper around the Memoize method the setups up all the context parameters.
      */
-    @Nonnull
     private static MethodSpec buildMemoizeAdapterMethod(
-            @Nonnull final ProcessingEnvironment processingEnv, @Nonnull final MemoizeDescriptor memoize)
-            throws ProcessorException {
+            final ProcessingEnvironment processingEnv, final MemoizeDescriptor memoize) throws ProcessorException {
         assert memoize.shouldGenerateMemoizeWrapper();
 
         final ExecutableElement onActivate = memoize.getOnActivate();
@@ -2298,7 +2226,7 @@ final class ComponentGenerator {
         // Add context parameters
         for (final MemoizeContextParameterDescriptor contextParameter : memoize.getContextParameters()) {
             final String contextParameterName = FRAMEWORK_PREFIX + contextParameter.getName();
-            final TypeName typeName = TypeName.get(contextParameter.initialValueType());
+            final TypeName typeName = GeneratorUtil.getTypeName(contextParameter.initialValueType());
             final ParameterSpec.Builder parameter =
                     ParameterSpec.builder(typeName, contextParameterName, Modifier.FINAL);
             GeneratorUtil.copyWhitelistedAnnotations(contextParameter.getCapture(), parameter);
@@ -2310,7 +2238,7 @@ final class ComponentGenerator {
         GeneratorUtil.copyExceptions(executableType, method);
 
         // Copy return type
-        method.returns(TypeName.get(executableType.getReturnType()));
+        method.returns(GeneratorUtil.getTypeName(executableType.getReturnType()));
 
         // Register Hook
         if (memoize.hasHooks() || onActivateRequiresWrapper || onDeactivateRequiresWrapper) {
@@ -2383,7 +2311,8 @@ final class ComponentGenerator {
         sb.append("return ");
         if (!executableElement.getTypeParameters().isEmpty()) {
             sb.append("($T) ");
-            parameters.add(TypeName.get(memoize.getMethodType().getReturnType()).box());
+            parameters.add(GeneratorUtil.getTypeName(memoize.getMethodType().getReturnType())
+                    .box());
         } else if (component.isClassType()) {
             sb.append("super.$N(");
             parameters.add(memoize.getMethod().getSimpleName().toString());
@@ -2421,36 +2350,32 @@ final class ComponentGenerator {
         return method.build();
     }
 
-    @Nonnull
     private static MethodSpec.Builder refMethod(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final TypeElement typeElement,
-            @Nonnull final ExecutableElement executableElement) {
+            final ProcessingEnvironment processingEnv,
+            final TypeElement typeElement,
+            final ExecutableElement executableElement) {
         final MethodSpec.Builder method = GeneratorUtil.overrideMethod(
                 processingEnv, typeElement, executableElement, getAdditionalSuppressions(executableElement), false);
-        if (!executableElement.getReturnType().getKind().isPrimitive()) {
-            method.addAnnotation(GeneratorUtil.NONNULL_CLASSNAME);
-        }
+        if (!executableElement.getReturnType().getKind().isPrimitive()) {}
+
         return method;
     }
 
-    @Nonnull
     private static MethodSpec.Builder overrideMethod(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final TypeElement typeElement,
-            @Nonnull final ExecutableElement executableElement) {
+            final ProcessingEnvironment processingEnv,
+            final TypeElement typeElement,
+            final ExecutableElement executableElement) {
         return GeneratorUtil.overrideMethod(
                 processingEnv, typeElement, executableElement, getAdditionalSuppressions(executableElement), true);
     }
 
-    @Nonnull
-    private static List<String> getAdditionalSuppressions(@Nonnull final AnnotatedConstruct annotatedConstruct) {
+    private static List<String> getAdditionalSuppressions(final AnnotatedConstruct annotatedConstruct) {
         return hasSuppressWarningsDeprecation(annotatedConstruct)
                 ? Arrays.asList("RedundantSuppression", "deprecation")
                 : Collections.emptyList();
     }
 
-    private static boolean hasSuppressWarningsDeprecation(@Nonnull final AnnotatedConstruct annotatedConstruct) {
+    private static boolean hasSuppressWarningsDeprecation(final AnnotatedConstruct annotatedConstruct) {
         for (var annotationMirror : annotatedConstruct.getAnnotationMirrors()) {
             if (annotationMirror.getAnnotationType().toString().equals(SuppressWarnings.class.getCanonicalName())) {
                 for (var entry : annotationMirror.getElementValues().entrySet()) {
@@ -2475,15 +2400,14 @@ final class ComponentGenerator {
     /**
      * Generate the wrapper around Memoize method.
      */
-    @Nonnull
     private static MethodSpec buildMemoizeWithoutParams(
-            @Nonnull final ProcessingEnvironment processingEnv, @Nonnull final MemoizeDescriptor memoize)
-            throws ProcessorException {
+            final ProcessingEnvironment processingEnv, final MemoizeDescriptor memoize) throws ProcessorException {
         final ExecutableElement executableElement = memoize.getMethod();
         final ComponentDescriptor component = memoize.getComponent();
         final MethodSpec.Builder method = overrideMethod(processingEnv, component.getElement(), executableElement);
 
-        final TypeName returnType = TypeName.get(memoize.getMethodType().getReturnType());
+        final TypeName returnType =
+                GeneratorUtil.getTypeName(memoize.getMethodType().getReturnType());
         generateNotDisposedInvariant(method, executableElement.getSimpleName().toString());
 
         if (memoize.isCollectionType()) {
@@ -2496,7 +2420,7 @@ final class ComponentGenerator {
             guard.beginControlFlow("if ( this.$N != $N )", getMemoizeCollectionCacheDataFieldName(memoize), result);
             guard.addStatement("this.$N = $N", getMemoizeCollectionCacheDataFieldName(memoize), result);
 
-            if (AnnotationsUtil.hasNonnullAnnotation(memoize.getMethod())) {
+            if (Nullability.isNonNull(memoize.getMethod())) {
                 guard.addStatement(
                         "this.$N = $T.wrap( $N )",
                         getMemoizeCollectionUnmodifiableCacheDataFieldName(memoize),
@@ -2528,11 +2452,8 @@ final class ComponentGenerator {
         return method.build();
     }
 
-    @Nonnull
     private static MethodSpec buildMemoizeWithParamsComputableValueRef(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final MemoizeDescriptor memoize,
-            @Nonnull final CandidateMethod refMethod)
+            final ProcessingEnvironment processingEnv, final MemoizeDescriptor memoize, final CandidateMethod refMethod)
             throws ProcessorException {
         final MethodSpec.Builder method =
                 refMethod(processingEnv, memoize.getComponent().getElement(), refMethod.getMethod());
@@ -2559,10 +2480,8 @@ final class ComponentGenerator {
         return method.build();
     }
 
-    @Nonnull
     private static MethodSpec buildMemoizeWithParams(
-            @Nonnull final ProcessingEnvironment processingEnv, @Nonnull final MemoizeDescriptor memoize)
-            throws ProcessorException {
+            final ProcessingEnvironment processingEnv, final MemoizeDescriptor memoize) throws ProcessorException {
         final ExecutableElement executableElement = memoize.getMethod();
 
         final boolean hasTypeParameters = !executableElement.getTypeParameters().isEmpty();
@@ -2579,7 +2498,8 @@ final class ComponentGenerator {
         sb.append("return ");
         if (hasTypeParameters) {
             sb.append("($T) ");
-            parameters.add(TypeName.get(memoize.getMethodType().getReturnType()).box());
+            parameters.add(GeneratorUtil.getTypeName(memoize.getMethodType().getReturnType())
+                    .box());
         }
         sb.append("this.$N.get( ");
         parameters.add(getMemoizeFieldName(memoize));
@@ -2610,9 +2530,9 @@ final class ComponentGenerator {
     }
 
     private static void buildMemoizeFields(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final MemoizeDescriptor memoize,
-            @Nonnull final TypeSpec.Builder builder) {
+            final ProcessingEnvironment processingEnv,
+            final MemoizeDescriptor memoize,
+            final TypeSpec.Builder builder) {
         if (memoize.hasNoParameters()) {
             buildMemoizeWithNoParametersFields(processingEnv, memoize, builder);
         } else {
@@ -2621,34 +2541,31 @@ final class ComponentGenerator {
     }
 
     private static void buildMemoizeWithNoParametersFields(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final MemoizeDescriptor memoize,
-            @Nonnull final TypeSpec.Builder builder) {
+            final ProcessingEnvironment processingEnv,
+            final MemoizeDescriptor memoize,
+            final TypeSpec.Builder builder) {
         final ExecutableElement method = memoize.getMethod();
         final ExecutableType methodType = memoize.getMethodType();
         final TypeName parameterType = method.getTypeParameters().isEmpty()
-                ? TypeName.get(methodType.getReturnType()).box()
+                ? GeneratorUtil.getTypeName(methodType.getReturnType()).box()
                 : WildcardTypeName.subtypeOf(OBJECT);
         final ParameterizedTypeName typeName = ParameterizedTypeName.get(COMPUTABLE_VALUE_CLASSNAME, parameterType);
-        final FieldSpec.Builder field = FieldSpec.builder(
-                        typeName, getMemoizeFieldName(memoize), Modifier.FINAL, Modifier.PRIVATE)
-                .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME);
+        final FieldSpec.Builder field =
+                FieldSpec.builder(typeName, getMemoizeFieldName(memoize), Modifier.FINAL, Modifier.PRIVATE);
         SuppressWarningsUtil.addSuppressWarningsIfRequired(processingEnv, field, methodType.getReturnType());
         builder.addField(field.build());
         if (memoize.isCollectionType()) {
             final FieldSpec.Builder cacheField = FieldSpec.builder(
-                            TypeName.get(methodType.getReturnType()),
-                            getMemoizeCollectionCacheDataFieldName(memoize),
-                            Modifier.PRIVATE)
-                    .addAnnotation(GeneratorUtil.NULLABLE_CLASSNAME);
+                    nullable(GeneratorUtil.getTypeName(methodType.getReturnType())),
+                    getMemoizeCollectionCacheDataFieldName(memoize),
+                    Modifier.PRIVATE);
             SuppressWarningsUtil.addSuppressWarningsIfRequired(processingEnv, cacheField, methodType.getReturnType());
             builder.addField(cacheField.build());
 
             final FieldSpec.Builder unmodifiableCacheField = FieldSpec.builder(
-                            TypeName.get(methodType.getReturnType()),
-                            getMemoizeCollectionUnmodifiableCacheDataFieldName(memoize),
-                            Modifier.PRIVATE)
-                    .addAnnotation(GeneratorUtil.NULLABLE_CLASSNAME);
+                    nullable(GeneratorUtil.getTypeName(methodType.getReturnType())),
+                    getMemoizeCollectionUnmodifiableCacheDataFieldName(memoize),
+                    Modifier.PRIVATE);
             SuppressWarningsUtil.addSuppressWarningsIfRequired(
                     processingEnv, unmodifiableCacheField, methodType.getReturnType());
             builder.addField(unmodifiableCacheField.build());
@@ -2660,30 +2577,28 @@ final class ComponentGenerator {
     }
 
     private static void buildMemoizeWithParametersFields(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final MemoizeDescriptor memoize,
-            @Nonnull final TypeSpec.Builder builder) {
+            final ProcessingEnvironment processingEnv,
+            final MemoizeDescriptor memoize,
+            final TypeSpec.Builder builder) {
         final TypeName parameterType = memoize.getMethod().getTypeParameters().isEmpty()
-                ? TypeName.get(memoize.getMethodType().getReturnType()).box()
+                ? GeneratorUtil.getTypeName(memoize.getMethodType().getReturnType())
+                        .box()
                 : WildcardTypeName.subtypeOf(OBJECT);
         final FieldSpec.Builder field = FieldSpec.builder(
-                        ParameterizedTypeName.get(MEMOIZE_CACHE_CLASSNAME, parameterType),
-                        getMemoizeFieldName(memoize),
-                        Modifier.FINAL,
-                        Modifier.PRIVATE)
-                .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME);
+                ParameterizedTypeName.get(MEMOIZE_CACHE_CLASSNAME, parameterType),
+                getMemoizeFieldName(memoize),
+                Modifier.FINAL,
+                Modifier.PRIVATE);
         SuppressWarningsUtil.addSuppressWarningsIfRequired(
                 processingEnv, field, memoize.getMethodType().getReturnType());
         builder.addField(field.build());
     }
 
-    @Nonnull
-    private static String getMemoizeFieldName(@Nonnull final MemoizeDescriptor memoize) {
+    private static String getMemoizeFieldName(final MemoizeDescriptor memoize) {
         return FIELD_PREFIX + memoize.getName();
     }
 
-    private static void buildMemoizeInitializer(
-            @Nonnull final MemoizeDescriptor memoize, @Nonnull final MethodSpec.Builder builder) {
+    private static void buildMemoizeInitializer(final MemoizeDescriptor memoize, final MethodSpec.Builder builder) {
         if (memoize.hasNoParameters()) {
             buildMemoizeWithNoParameters(memoize, builder);
         } else {
@@ -2692,7 +2607,7 @@ final class ComponentGenerator {
     }
 
     private static void buildMemoizeWithNoParameters(
-            @Nonnull final MemoizeDescriptor memoize, @Nonnull final MethodSpec.Builder builder) {
+            final MemoizeDescriptor memoize, final MethodSpec.Builder builder) {
         final List<Object> parameters = new ArrayList<>();
         final StringBuilder sb = new StringBuilder();
 
@@ -2771,7 +2686,7 @@ final class ComponentGenerator {
     }
 
     private static void buildMemoizeWithParametersInitializer(
-            @Nonnull final MemoizeDescriptor memoize, @Nonnull final MethodSpec.Builder builder) {
+            final MemoizeDescriptor memoize, final MethodSpec.Builder builder) {
         final List<Object> parameters = new ArrayList<>();
         final StringBuilder sb = new StringBuilder();
         sb.append("this.$N = new $T<>( $T.areZonesEnabled() ? $N : null, "
@@ -2808,7 +2723,7 @@ final class ComponentGenerator {
                 sb.append(", ");
             }
             first = false;
-            final TypeName contextParameterJavaType = TypeName.get(contextParameter.initialValueType());
+            final TypeName contextParameterJavaType = GeneratorUtil.getTypeName(contextParameter.initialValueType());
             if (contextParameterJavaType.equals(OBJECT)) {
                 sb.append("args[ ").append(index).append(" ]");
             } else {
@@ -2822,7 +2737,7 @@ final class ComponentGenerator {
                 sb.append(", ");
             }
             first = false;
-            if (TypeName.get(arg).equals(OBJECT)) {
+            if (GeneratorUtil.getTypeName(arg).equals(OBJECT)) {
                 sb.append("args[ ").append(index).append(" ]");
             } else {
                 sb.append("($T) args[ ").append(index).append(" ]");
@@ -2849,9 +2764,7 @@ final class ComponentGenerator {
     }
 
     private static void appendInitializerSuffix(
-            @Nonnull final MemoizeDescriptor memoize,
-            @Nonnull final List<Object> parameters,
-            @Nonnull final StringBuilder sb) {
+            final MemoizeDescriptor memoize, final List<Object> parameters, final StringBuilder sb) {
         final List<String> flags = generateMemoizeFlags(memoize);
         flags.add("RUN_LATER");
         if (memoize.isKeepAlive()) {
@@ -2869,9 +2782,7 @@ final class ComponentGenerator {
     }
 
     private static void appendMemoizeEqualityComparatorArg(
-            @Nonnull final MemoizeDescriptor memoize,
-            @Nonnull final List<Object> parameters,
-            @Nonnull final StringBuilder sb) {
+            final MemoizeDescriptor memoize, final List<Object> parameters, final StringBuilder sb) {
         if (!memoize.hasObjectsEqualsComparator()) {
             sb.append(", ");
             if (memoize.hasObjectsDeepEqualsComparator()) {
@@ -2885,8 +2796,7 @@ final class ComponentGenerator {
         }
     }
 
-    @Nonnull
-    private static List<String> generateMemoizeFlags(@Nonnull final MemoizeDescriptor memoize) {
+    private static List<String> generateMemoizeFlags(final MemoizeDescriptor memoize) {
         final List<String> flags = new ArrayList<>();
         final Priority priority = memoize.getPriority();
         if (Priority.NORMAL != priority) {
@@ -2916,14 +2826,14 @@ final class ComponentGenerator {
         return flags;
     }
 
-    static boolean isCollectionType(@Nonnull final ExecutableElement method) {
+    static boolean isCollectionType(final ExecutableElement method) {
         return isMethodReturnType(method, Collection.class)
                 || isMethodReturnType(method, Set.class)
                 || isMethodReturnType(method, List.class)
                 || isMethodReturnType(method, Map.class);
     }
 
-    static boolean isMethodReturnType(@Nonnull final ExecutableElement method, @Nonnull final Class<?> type) {
+    static boolean isMethodReturnType(final ExecutableElement method, final Class<?> type) {
         final TypeMirror returnType = method.getReturnType();
         final TypeKind kind = returnType.getKind();
         if (TypeKind.DECLARED != kind) {
@@ -2935,87 +2845,82 @@ final class ComponentGenerator {
         }
     }
 
-    @Nonnull
-    private static String getMemoizeWrapperMethodName(@Nonnull final MemoizeDescriptor memoize) {
+    private static String getMemoizeWrapperMethodName(final MemoizeDescriptor memoize) {
         return FRAMEWORK_PREFIX + "memoize_" + memoize.getName();
     }
 
-    @Nonnull
-    private static String getOnActivateHookMethodName(@Nonnull final MemoizeDescriptor memoize) {
+    private static String getOnActivateHookMethodName(final MemoizeDescriptor memoize) {
         return FRAMEWORK_PREFIX + "onActivate_" + memoize.getName();
     }
 
-    @Nonnull
-    private static String getOnDeactivateHookMethodName(@Nonnull final MemoizeDescriptor memoize) {
+    private static String getOnDeactivateHookMethodName(final MemoizeDescriptor memoize) {
         return FRAMEWORK_PREFIX + "onDeactivate_" + memoize.getName();
     }
 
-    @Nonnull
-    private static String getMemoizeCollectionCacheDataActiveFieldName(@Nonnull final MemoizeDescriptor memoize) {
+    private static String getMemoizeCollectionCacheDataActiveFieldName(final MemoizeDescriptor memoize) {
         return OBSERVABLE_DATA_FIELD_PREFIX + "$$cache_active$$_" + memoize.getName();
     }
 
-    @Nonnull
-    private static String getMemoizeCollectionCacheDataFieldName(@Nonnull final MemoizeDescriptor memoize) {
+    private static String getMemoizeCollectionCacheDataFieldName(final MemoizeDescriptor memoize) {
         return OBSERVABLE_DATA_FIELD_PREFIX + "$$cache$$_" + memoize.getName();
     }
 
-    @Nonnull
-    private static String getMemoizeCollectionUnmodifiableCacheDataFieldName(@Nonnull final MemoizeDescriptor memoize) {
+    private static String getMemoizeCollectionUnmodifiableCacheDataFieldName(final MemoizeDescriptor memoize) {
         return OBSERVABLE_DATA_FIELD_PREFIX + "$$unmodifiable_cache$$_" + memoize.getName();
     }
 
     private static void buildObservableFields(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final ObservableDescriptor observable,
-            @Nonnull final TypeSpec.Builder builder) {
+            final ProcessingEnvironment processingEnv,
+            final ObservableDescriptor observable,
+            final TypeSpec.Builder builder) {
         final ExecutableType getterType = observable.getGetterType();
-        final ParameterizedTypeName typeName = ParameterizedTypeName.get(
-                OBSERVABLE_CLASSNAME, TypeName.get(getterType.getReturnType()).box());
-        final FieldSpec.Builder field = FieldSpec.builder(
-                        typeName, observable.getFieldName(), Modifier.FINAL, Modifier.PRIVATE)
-                .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME);
+        final TypeName valueType = observableTypeName(processingEnv, observable);
+        final ParameterizedTypeName typeName = ParameterizedTypeName.get(OBSERVABLE_CLASSNAME, valueType.box());
+        final FieldSpec.Builder field =
+                FieldSpec.builder(typeName, observable.getFieldName(), Modifier.FINAL, Modifier.PRIVATE);
         SuppressWarningsUtil.addSuppressWarningsIfRequired(processingEnv, field, getterType.getReturnType());
         builder.addField(field.build());
         if (observable.hasCustomEqualityComparator()) {
-            final ClassName equalityComparatorClassName = ClassName.bestGuess(observable.getEqualityComparator());
+            final ClassName comparator = ClassName.bestGuess(observable.getEqualityComparator());
             builder.addField(FieldSpec.builder(
-                            equalityComparatorClassName,
-                            observable.getEqualityComparatorFieldName(),
-                            Modifier.FINAL,
-                            Modifier.PRIVATE)
-                    .initializer("new $T()", equalityComparatorClassName)
+                            comparator, observable.getEqualityComparatorFieldName(), Modifier.FINAL, Modifier.PRIVATE)
+                    .initializer("new $T()", comparator)
                     .build());
         }
         if (observable.isAbstract()) {
-            final FieldSpec.Builder dataField = FieldSpec.builder(
-                    TypeName.get(getterType.getReturnType()), observable.getDataFieldName(), Modifier.PRIVATE);
+            final TypeName dataType = observable.isManyInverse() ? valueType.withoutAnnotations() : valueType;
+            final FieldSpec.Builder dataField =
+                    FieldSpec.builder(dataType, observable.getDataFieldName(), Modifier.PRIVATE);
             if (observable.isManyInverse()) {
                 dataField.addModifiers(Modifier.FINAL);
-                dataField.addAnnotation(GeneratorUtil.NONNULL_CLASSNAME);
-            } else if (observable.isGetterNonnull()
-                    && observable.isSetterNonnull()
-                    && observable.requireInitializer()) {
-                dataField.addAnnotation(GeneratorUtil.NONNULL_CLASSNAME);
-            } else if (AnnotationsUtil.hasNullableAnnotation(observable.getGetter())) {
-                dataField.addAnnotation(GeneratorUtil.NULLABLE_CLASSNAME);
             }
             SuppressWarningsUtil.addSuppressWarningsIfRequired(processingEnv, dataField, getterType.getReturnType());
             builder.addField(dataField.build());
         }
         if (observable.shouldGenerateUnmodifiableCollectionVariant()) {
-            final FieldSpec.Builder dataField = FieldSpec.builder(
-                            TypeName.get(getterType.getReturnType()),
-                            observable.getCollectionCacheDataFieldName(),
-                            Modifier.PRIVATE)
-                    .addAnnotation(GeneratorUtil.NULLABLE_CLASSNAME);
-            SuppressWarningsUtil.addSuppressWarningsIfRequired(processingEnv, dataField, getterType.getReturnType());
-            builder.addField(dataField.build());
+            final FieldSpec.Builder cache = FieldSpec.builder(
+                    nullable(valueType), observable.getCollectionCacheDataFieldName(), Modifier.PRIVATE);
+            SuppressWarningsUtil.addSuppressWarningsIfRequired(processingEnv, cache, getterType.getReturnType());
+            builder.addField(cache.build());
         }
     }
 
+    private static TypeName observableTypeName(
+            final ProcessingEnvironment processingEnv, final ObservableDescriptor observable) {
+        return GeneratorUtil.overrideMethod(
+                        processingEnv, observable.getComponent().getElement(), observable.getGetter())
+                .build()
+                .returnType();
+    }
+
+    private static TypeName nullable(final TypeName type) {
+        return type.withoutAnnotations()
+                .annotated(
+                        AnnotationSpec.builder(GeneratorUtil.NULLABLE_CLASSNAME).build());
+    }
+
     private static void buildObservableInitializer(
-            @Nonnull final ObservableDescriptor observable, @Nonnull final MethodSpec.Builder builder) {
+            final ObservableDescriptor observable, final MethodSpec.Builder builder) {
         final List<Object> parameters = new ArrayList<>();
         final StringBuilder sb = new StringBuilder();
         sb.append("this.$N = $N.observable( " + "$T.areNativeComponentsEnabled() ? $N : null, "
@@ -3070,18 +2975,18 @@ final class ComponentGenerator {
     }
 
     private static void buildObservableDisposer(
-            @Nonnull final ObservableDescriptor observable, @Nonnull final MethodSpec.Builder codeBlock) {
+            final ObservableDescriptor observable, final MethodSpec.Builder codeBlock) {
         codeBlock.addStatement("this.$N.dispose()", observable.getFieldName());
     }
 
-    private static void buildAutoObserveDisposer(@Nonnull final MethodSpec.Builder codeBlock) {
+    private static void buildAutoObserveDisposer(final MethodSpec.Builder codeBlock) {
         codeBlock.addStatement("this.$N.dispose()", AUTO_OBSERVE_FIELD_NAME);
     }
 
     private static void buildObservableMethods(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final ObservableDescriptor observable,
-            @Nonnull final TypeSpec.Builder builder)
+            final ProcessingEnvironment processingEnv,
+            final ObservableDescriptor observable,
+            final TypeSpec.Builder builder)
             throws ProcessorException {
         builder.addMethod(buildObservableGetter(processingEnv, observable));
         if (observable.expectSetter()) {
@@ -3102,9 +3007,8 @@ final class ComponentGenerator {
         }
     }
 
-    @Nonnull
     private static MethodSpec buildObservableSetter(
-            @Nonnull final ProcessingEnvironment processingEnv, @Nonnull final ObservableDescriptor observable)
+            final ProcessingEnvironment processingEnv, final ObservableDescriptor observable)
             throws ProcessorException {
         final ExecutableElement setter = observable.getSetter();
         final ExecutableType setterType = observable.getSetterType();
@@ -3150,9 +3054,8 @@ final class ComponentGenerator {
     /**
      * Generate the internal setter.
      */
-    @Nonnull
     private static MethodSpec buildObservableInternalSetter(
-            @Nonnull final ProcessingEnvironment processingEnv, @Nonnull final ObservableDescriptor observable)
+            final ProcessingEnvironment processingEnv, final ObservableDescriptor observable)
             throws ProcessorException {
         final ExecutableElement setter = observable.getSetter();
         final ExecutableType setterType = observable.getSetterType();
@@ -3165,7 +3068,8 @@ final class ComponentGenerator {
         buildObservableSetterImpl(observable, builder);
         final VariableElement element = setter.getParameters().get(0);
         final ParameterSpec.Builder param = ParameterSpec.builder(
-                TypeName.get(observable.getSetterType().getParameterTypes().get(0)),
+                GeneratorUtil.getTypeName(
+                        observable.getSetterType().getParameterTypes().get(0)),
                 element.getSimpleName().toString(),
                 Modifier.FINAL);
         GeneratorUtil.copyWhitelistedAnnotations(element, param);
@@ -3175,7 +3079,7 @@ final class ComponentGenerator {
     }
 
     private static void buildObservableSetterImpl(
-            @Nonnull final ObservableDescriptor observable, @Nonnull final MethodSpec.Builder builder) {
+            final ObservableDescriptor observable, final MethodSpec.Builder builder) {
         final ExecutableElement setter = observable.getSetter();
         final ExecutableElement getter = observable.getGetter();
         final String methodName = setter.getSimpleName().toString();
@@ -3192,7 +3096,7 @@ final class ComponentGenerator {
                 observable.getSetterType().getParameterTypes().get(0);
         final VariableElement element = setter.getParameters().get(0);
         final String paramName = element.getSimpleName().toString();
-        final TypeName type = TypeName.get(parameterType);
+        final TypeName type = GeneratorUtil.getTypeName(parameterType);
         generateNotDisposedInvariant(builder, methodName);
         builder.addStatement("this.$N.preReportChanged()", observable.getFieldName());
 
@@ -3432,9 +3336,8 @@ final class ComponentGenerator {
     /**
      * Generate the getter that ensures that the access is reported.
      */
-    @Nonnull
     private static MethodSpec buildObservableGetter(
-            @Nonnull final ProcessingEnvironment processingEnv, @Nonnull final ObservableDescriptor observable)
+            final ProcessingEnvironment processingEnv, final ObservableDescriptor observable)
             throws ProcessorException {
         final ComponentDescriptor component = observable.getComponent();
         final ExecutableElement getter = observable.getGetter();
@@ -3485,7 +3388,7 @@ final class ComponentGenerator {
                     final String result = "$$ar$$_result";
                     block.addStatement(
                             "final $T $N = this.$N",
-                            TypeName.get(observable.getGetterType().getReturnType()),
+                            GeneratorUtil.getTypeName(observable.getGetterType().getReturnType()),
                             result,
                             observable.getDataFieldName());
                     final CodeBlock.Builder guard = CodeBlock.builder();
@@ -3555,13 +3458,15 @@ final class ComponentGenerator {
                     if (component.isClassType()) {
                         block.addStatement(
                                 "final $T $N = super.$N()",
-                                TypeName.get(observable.getGetterType().getReturnType()),
+                                GeneratorUtil.getTypeName(
+                                        observable.getGetterType().getReturnType()),
                                 result,
                                 getter.getSimpleName());
                     } else {
                         block.addStatement(
                                 "final $T $N = $T.super.$N()",
-                                TypeName.get(observable.getGetterType().getReturnType()),
+                                GeneratorUtil.getTypeName(
+                                        observable.getGetterType().getReturnType()),
                                 result,
                                 component.getClassName(),
                                 getter.getSimpleName());
@@ -3603,10 +3508,10 @@ final class ComponentGenerator {
     }
 
     private static void buildComponentStateRefMethods(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final ComponentStateRefDescriptor componentStateRef,
-            @Nonnull final TypeElement typeElement,
-            @Nonnull final TypeSpec.Builder builder)
+            final ProcessingEnvironment processingEnv,
+            final ComponentStateRefDescriptor componentStateRef,
+            final TypeElement typeElement,
+            final TypeSpec.Builder builder)
             throws ProcessorException {
         final ComponentStateRefDescriptor.State state = componentStateRef.getState();
         final String stateMethodName = ComponentStateRefDescriptor.State.READY == state
@@ -3620,9 +3525,7 @@ final class ComponentGenerator {
                 .build());
     }
 
-    @Nonnull
-    private static MethodSpec buildInverseAddMethod(@Nonnull final InverseDescriptor inverse)
-            throws ProcessorException {
+    private static MethodSpec buildInverseAddMethod(final InverseDescriptor inverse) throws ProcessorException {
         final ObservableDescriptor observable = inverse.getObservable();
         final String methodName = getInverseAddMethodName(observable.getName());
         final MethodSpec.Builder builder = MethodSpec.methodBuilder(methodName);
@@ -3632,8 +3535,7 @@ final class ComponentGenerator {
         }
         final String otherName = inverse.getOtherName();
         final ParameterSpec parameter = ParameterSpec.builder(
-                        TypeName.get(inverse.getTargetType().asType()), otherName, Modifier.FINAL)
-                .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
+                        GeneratorUtil.getTypeName(inverse.getTargetType().asType()), otherName, Modifier.FINAL)
                 .build();
         builder.addParameter(parameter);
         generateNotDisposedInvariant(builder, methodName);
@@ -3670,9 +3572,7 @@ final class ComponentGenerator {
         return builder.build();
     }
 
-    @Nonnull
-    private static MethodSpec buildInverseRemoveMethod(@Nonnull final InverseDescriptor inverse)
-            throws ProcessorException {
+    private static MethodSpec buildInverseRemoveMethod(final InverseDescriptor inverse) throws ProcessorException {
         final ObservableDescriptor observable = inverse.getObservable();
         final String methodName = getInverseRemoveMethodName(observable.getName());
         final MethodSpec.Builder builder = MethodSpec.methodBuilder(methodName);
@@ -3682,8 +3582,7 @@ final class ComponentGenerator {
         }
         final String otherName = inverse.getOtherName();
         final ParameterSpec parameter = ParameterSpec.builder(
-                        TypeName.get(inverse.getTargetType().asType()), otherName, Modifier.FINAL)
-                .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
+                        GeneratorUtil.getTypeName(inverse.getTargetType().asType()), otherName, Modifier.FINAL)
                 .build();
         builder.addParameter(parameter);
         generateNotDisposedInvariant(builder, methodName);
@@ -3719,9 +3618,7 @@ final class ComponentGenerator {
         return builder.build();
     }
 
-    @Nonnull
-    private static MethodSpec buildInverseSetMethod(@Nonnull final InverseDescriptor inverse)
-            throws ProcessorException {
+    private static MethodSpec buildInverseSetMethod(final InverseDescriptor inverse) throws ProcessorException {
         final Multiplicity multiplicity = inverse.getMultiplicity();
         final ObservableDescriptor observable = inverse.getObservable();
         final String methodName = Multiplicity.ONE == multiplicity
@@ -3733,11 +3630,9 @@ final class ComponentGenerator {
             builder.addModifiers(Modifier.PUBLIC);
         }
         final String otherName = inverse.getOtherName();
-        final ParameterSpec.Builder parameter =
-                ParameterSpec.builder(TypeName.get(inverse.getTargetType().asType()), otherName, Modifier.FINAL);
-        if (Multiplicity.ONE == multiplicity) {
-            parameter.addAnnotation(GeneratorUtil.NONNULL_CLASSNAME);
-        } else {
+        final ParameterSpec.Builder parameter = ParameterSpec.builder(
+                GeneratorUtil.getTypeName(inverse.getTargetType().asType()), otherName, Modifier.FINAL);
+        if (Multiplicity.ONE != multiplicity) {
             parameter.addAnnotation(GeneratorUtil.NULLABLE_CLASSNAME);
         }
         builder.addParameter(parameter.build());
@@ -3754,9 +3649,7 @@ final class ComponentGenerator {
         return builder.build();
     }
 
-    @Nonnull
-    private static MethodSpec buildInverseUnsetMethod(@Nonnull final InverseDescriptor inverse)
-            throws ProcessorException {
+    private static MethodSpec buildInverseUnsetMethod(final InverseDescriptor inverse) throws ProcessorException {
         final ObservableDescriptor observable = inverse.getObservable();
         final String methodName = Multiplicity.ONE == inverse.getMultiplicity()
                 ? getInverseUnsetMethodName(observable.getName())
@@ -3768,8 +3661,7 @@ final class ComponentGenerator {
         }
         final String otherName = inverse.getOtherName();
         final ParameterSpec parameter = ParameterSpec.builder(
-                        TypeName.get(inverse.getTargetType().asType()), otherName, Modifier.FINAL)
-                .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME)
+                        GeneratorUtil.getTypeName(inverse.getTargetType().asType()), otherName, Modifier.FINAL)
                 .build();
         builder.addParameter(parameter);
         generateNotDisposedInvariant(builder, methodName);
@@ -3791,8 +3683,7 @@ final class ComponentGenerator {
         return builder.build();
     }
 
-    private static void buildInverseVerify(
-            @Nonnull final InverseDescriptor inverse, @Nonnull final CodeBlock.Builder code) {
+    private static void buildInverseVerify(final InverseDescriptor inverse, final CodeBlock.Builder code) {
         if (Multiplicity.MANY == inverse.getMultiplicity()) {
             buildInverseManyVerify(inverse, code);
         } else {
@@ -3800,8 +3691,7 @@ final class ComponentGenerator {
         }
     }
 
-    private static void buildInverseSingularVerify(
-            @Nonnull final InverseDescriptor inverse, @Nonnull final CodeBlock.Builder code) {
+    private static void buildInverseSingularVerify(final InverseDescriptor inverse, final CodeBlock.Builder code) {
         final CodeBlock.Builder builder = CodeBlock.builder();
         builder.beginControlFlow("if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME);
         final ObservableDescriptor observable = inverse.getObservable();
@@ -3819,8 +3709,7 @@ final class ComponentGenerator {
         code.add(builder.build());
     }
 
-    private static void buildInverseManyVerify(
-            @Nonnull final InverseDescriptor inverse, @Nonnull final CodeBlock.Builder code) {
+    private static void buildInverseManyVerify(final InverseDescriptor inverse, final CodeBlock.Builder code) {
         final CodeBlock.Builder builder = CodeBlock.builder();
         final ObservableDescriptor observable = inverse.getObservable();
         builder.beginControlFlow(
@@ -3843,12 +3732,11 @@ final class ComponentGenerator {
         code.add(builder.build());
     }
 
-    private static void buildInverseInitializer(
-            @Nonnull final InverseDescriptor inverse, @Nonnull final MethodSpec.Builder builder) {
+    private static void buildInverseInitializer(final InverseDescriptor inverse, final MethodSpec.Builder builder) {
         if (Multiplicity.MANY == inverse.getMultiplicity()) {
             final ObservableDescriptor observable = inverse.getObservable();
-            final ParameterizedTypeName typeName =
-                    (ParameterizedTypeName) TypeName.get(observable.getGetter().getReturnType());
+            final ParameterizedTypeName typeName = (ParameterizedTypeName)
+                    GeneratorUtil.getTypeName(observable.getGetter().getReturnType());
             final boolean isList =
                     List.class.getName().equals(typeName.rawType().toString());
             builder.addStatement(
@@ -3857,8 +3745,7 @@ final class ComponentGenerator {
         }
     }
 
-    private static void buildInverseMethods(
-            @Nonnull final InverseDescriptor inverse, @Nonnull final TypeSpec.Builder builder)
+    private static void buildInverseMethods(final InverseDescriptor inverse, final TypeSpec.Builder builder)
             throws ProcessorException {
         if (Multiplicity.MANY == inverse.getMultiplicity()) {
             builder.addMethod(buildInverseAddMethod(inverse));
@@ -3869,21 +3756,19 @@ final class ComponentGenerator {
         }
     }
 
-    private static void buildDependencyKeyField(
-            @Nonnull final DependencyDescriptor dependency, @Nonnull final TypeSpec.Builder builder) {
+    private static void buildDependencyKeyField(final DependencyDescriptor dependency, final TypeSpec.Builder builder) {
         if (dependency.needsKey()) {
             final FieldSpec.Builder field = FieldSpec.builder(
-                            TypeName.get(String.class),
-                            DEPENDENCY_KEY_PREFIX + dependency.getKeyName(),
-                            Modifier.FINAL,
-                            Modifier.PRIVATE)
-                    .addAnnotation(GeneratorUtil.NONNULL_CLASSNAME);
+                    TypeName.get(String.class),
+                    DEPENDENCY_KEY_PREFIX + dependency.getKeyName(),
+                    Modifier.FINAL,
+                    Modifier.PRIVATE);
             builder.addField(field.build());
         }
     }
 
     private static void buildDependencyKeyInitializer(
-            @Nonnull final DependencyDescriptor dependency, @Nonnull final MethodSpec.Builder builder) {
+            final DependencyDescriptor dependency, final MethodSpec.Builder builder) {
         if (dependency.needsKey()) {
             final ComponentDescriptor component = dependency.getComponent();
             builder.addStatement(
@@ -3895,18 +3780,18 @@ final class ComponentGenerator {
         }
     }
 
-    private static void buildReferenceFields(
-            @Nonnull final ReferenceDescriptor reference, @Nonnull final TypeSpec.Builder builder) {
+    private static void buildReferenceFields(final ReferenceDescriptor reference, final TypeSpec.Builder builder) {
         final FieldSpec.Builder field = FieldSpec.builder(
-                        TypeName.get(reference.getMethod().getReturnType()), reference.getFieldName(), Modifier.PRIVATE)
-                .addAnnotation(GeneratorUtil.NULLABLE_CLASSNAME);
+                nullable(GeneratorUtil.getTypeName(reference.getMethod().getReturnType())),
+                reference.getFieldName(),
+                Modifier.PRIVATE);
         builder.addField(field.build());
     }
 
     private static void buildReferenceMethods(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final ReferenceDescriptor reference,
-            @Nonnull final TypeSpec.Builder builder)
+            final ProcessingEnvironment processingEnv,
+            final ReferenceDescriptor reference,
+            final TypeSpec.Builder builder)
             throws ProcessorException {
         builder.addMethod(buildReferenceMethod(processingEnv, reference));
         builder.addMethod(buildReferenceLinkMethod(reference));
@@ -3915,10 +3800,8 @@ final class ComponentGenerator {
         }
     }
 
-    @Nonnull
     private static MethodSpec buildReferenceMethod(
-            @Nonnull final ProcessingEnvironment processingEnv, @Nonnull final ReferenceDescriptor reference)
-            throws ProcessorException {
+            final ProcessingEnvironment processingEnv, final ReferenceDescriptor reference) throws ProcessorException {
         final ExecutableElement method = reference.getMethod();
         final ExecutableElement idMethod = reference.getIdMethod();
 
@@ -3931,7 +3814,7 @@ final class ComponentGenerator {
         GeneratorUtil.copyWhitelistedAnnotations(method, builder);
 
         builder.addAnnotation(Override.class);
-        builder.returns(TypeName.get(method.getReturnType()));
+        builder.returns(GeneratorUtil.getTypeName(method.getReturnType()));
         generateNotDisposedInvariant(builder, methodName);
 
         final ObservableDescriptor observable = reference.getObservable();
@@ -3995,9 +3878,7 @@ final class ComponentGenerator {
         return builder.build();
     }
 
-    @Nonnull
-    private static MethodSpec buildReferenceLinkMethod(@Nonnull final ReferenceDescriptor reference)
-            throws ProcessorException {
+    private static MethodSpec buildReferenceLinkMethod(final ReferenceDescriptor reference) throws ProcessorException {
         final String methodName = reference.getLinkMethodName();
         final MethodSpec.Builder builder = MethodSpec.methodBuilder(methodName);
         builder.addModifiers(Modifier.PRIVATE);
@@ -4045,8 +3926,7 @@ final class ComponentGenerator {
         return builder.build();
     }
 
-    private static void buildReferenceLookup(
-            @Nonnull final ReferenceDescriptor reference, @Nonnull final MethodSpec.Builder builder) {
+    private static void buildReferenceLookup(final ReferenceDescriptor reference, final MethodSpec.Builder builder) {
         builder.addStatement(
                 "this.$N = this.$N().findById( $T.class, id )",
                 reference.getFieldName(),
@@ -4082,8 +3962,7 @@ final class ComponentGenerator {
         }
     }
 
-    private static void buildReferenceLookup(
-            @Nonnull final ReferenceDescriptor reference, @Nonnull final CodeBlock.Builder builder) {
+    private static void buildReferenceLookup(final ReferenceDescriptor reference, final CodeBlock.Builder builder) {
         builder.addStatement(
                 "this.$N = this.$N().findById( $T.class, id )",
                 reference.getFieldName(),
@@ -4119,17 +3998,14 @@ final class ComponentGenerator {
         }
     }
 
-    private static void buildReferenceDisposer(
-            @Nonnull final ReferenceDescriptor reference, @Nonnull final MethodSpec.Builder builder) {
+    private static void buildReferenceDisposer(final ReferenceDescriptor reference, final MethodSpec.Builder builder) {
         if (reference.hasInverse()) {
             builder.addStatement("this.$N()", reference.getDelinkMethodName());
         }
     }
 
-    @Nonnull
     private static MethodSpec buildReferenceDelinkMethod(
-            @Nonnull final ProcessingEnvironment processingEnv, @Nonnull final ReferenceDescriptor reference)
-            throws ProcessorException {
+            final ProcessingEnvironment processingEnv, final ReferenceDescriptor reference) throws ProcessorException {
         final String methodName = reference.getDelinkMethodName();
         final MethodSpec.Builder builder = MethodSpec.methodBuilder(methodName);
 
@@ -4169,8 +4045,7 @@ final class ComponentGenerator {
         return builder.build();
     }
 
-    private static void buildReferenceVerify(
-            @Nonnull final ReferenceDescriptor reference, @Nonnull final CodeBlock.Builder builder) {
+    private static void buildReferenceVerify(final ReferenceDescriptor reference, final CodeBlock.Builder builder) {
         final String name = reference.getName();
         final String idName = VARIABLE_PREFIX + name + "Id";
         final String refName = VARIABLE_PREFIX + name;
@@ -4189,10 +4064,10 @@ final class ComponentGenerator {
     }
 
     private static void buildReferenceVerify(
-            @Nonnull final ReferenceDescriptor reference,
-            @Nonnull final CodeBlock.Builder builder,
-            @Nonnull final String idName,
-            @Nonnull final String refName) {
+            final ReferenceDescriptor reference,
+            final CodeBlock.Builder builder,
+            final String idName,
+            final String refName) {
         builder.addStatement(
                 "final $T $N = this.$N().findById( $T.class, $N )",
                 reference.getMethod().getReturnType(),
@@ -4212,8 +4087,7 @@ final class ComponentGenerator {
                 reference.getIdMethod().getSimpleName());
     }
 
-    @Nonnull
-    private static MethodSpec buildAutoObserveMethod(@Nonnull final ComponentDescriptor component) {
+    private static MethodSpec buildAutoObserveMethod(final ComponentDescriptor component) {
         final MethodSpec.Builder builder =
                 MethodSpec.methodBuilder(AUTO_OBSERVE_METHOD_NAME).addModifiers(Modifier.PRIVATE);
 
@@ -4228,10 +4102,10 @@ final class ComponentGenerator {
                 final String varName = VARIABLE_PREFIX + "autoObserve_" + index++;
                 builder.addStatement(
                         "final $T $N = this.$N",
-                        TypeName.get(field.asType()),
+                        GeneratorUtil.getTypeName(field.asType()),
                         varName,
                         field.getSimpleName().toString());
-                if (AnnotationsUtil.hasNonnullAnnotation(field)) {
+                if (Nullability.isNonNull(field)) {
                     emitAutoObserve(builder, autoObserve, varName);
                 } else {
                     builder.beginControlFlow("if ( null != $N )", varName);
@@ -4243,7 +4117,7 @@ final class ComponentGenerator {
                 builder.addStatement("this.$N()", reference.getLinkMethodName());
                 builder.addStatement(
                         "final $T $N = this.$N()",
-                        TypeName.get(reference.getMethod().getReturnType()),
+                        GeneratorUtil.getTypeName(reference.getMethod().getReturnType()),
                         varName,
                         reference.getMethod().getSimpleName().toString());
                 if (reference.isNullable()) {
@@ -4256,7 +4130,7 @@ final class ComponentGenerator {
                 final String varName = VARIABLE_PREFIX + "autoObserve_" + index++;
                 builder.addStatement(
                         "final $T $N = this.$N()",
-                        TypeName.get(method.getReturnType()),
+                        GeneratorUtil.getTypeName(method.getReturnType()),
                         varName,
                         method.getSimpleName().toString());
                 if (isNullable(method, method.getReturnType())) {
@@ -4271,9 +4145,7 @@ final class ComponentGenerator {
     }
 
     private static void emitAutoObserve(
-            @Nonnull final MethodSpec.Builder builder,
-            @Nonnull final AutoObserveDescriptor autoObserve,
-            @Nonnull final String varName) {
+            final MethodSpec.Builder builder, final AutoObserveDescriptor autoObserve, final String varName) {
         if (autoObserve.isValidateTypeAtRuntime() && null != autoObserve.getMethod()) {
             builder.beginControlFlow("if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME);
             builder.addStatement(
@@ -4291,19 +4163,16 @@ final class ComponentGenerator {
         }
     }
 
-    private static boolean isNullable(@Nonnull final Element element, @Nonnull final TypeMirror type) {
-        return !type.getKind().isPrimitive() && !AnnotationsUtil.hasNonnullAnnotation(element);
+    private static boolean isNullable(final Element element, final TypeMirror type) {
+        return !type.getKind().isPrimitive() && !Nullability.isNonNull(element);
     }
 
-    private static void buildObserveDisposer(
-            @Nonnull final ObserveDescriptor observe, @Nonnull final MethodSpec.Builder codeBlock) {
+    private static void buildObserveDisposer(final ObserveDescriptor observe, final MethodSpec.Builder codeBlock) {
         codeBlock.addStatement("this.$N.dispose()", observe.getFieldName());
     }
 
     private static void buildObserveMethods(
-            @Nonnull final ProcessingEnvironment processingEnv,
-            @Nonnull final ObserveDescriptor observe,
-            @Nonnull final TypeSpec.Builder builder)
+            final ProcessingEnvironment processingEnv, final ObserveDescriptor observe, final TypeSpec.Builder builder)
             throws ProcessorException {
         if (observe.isInternalExecutor()) {
             builder.addMethod(buildObserve(processingEnv, observe));
@@ -4322,13 +4191,12 @@ final class ComponentGenerator {
         }
     }
 
-    private static boolean shouldGenerateOnDepsChangeMethod(@Nonnull final ObserveDescriptor observe) {
+    private static boolean shouldGenerateOnDepsChangeMethod(final ObserveDescriptor observe) {
         return observe.hasOnDepsChange()
                 && (observe.hasMultipleOnDepsChanges() || observe.anyOnDepsChangeParameterIsObserver());
     }
 
-    @Nonnull
-    private static String getGeneratedOnDepsChangeMethodName(@Nonnull final ObserveDescriptor observe) {
+    private static String getGeneratedOnDepsChangeMethodName(final ObserveDescriptor observe) {
         if (!observe.hasMultipleOnDepsChanges()) {
             return FRAMEWORK_PREFIX + observe.getOnDepsChange().getSimpleName();
         } else {
@@ -4336,13 +4204,11 @@ final class ComponentGenerator {
         }
     }
 
-    @Nonnull
-    private static String firstCharacterToUpperCase(@Nonnull final String name) {
+    private static String firstCharacterToUpperCase(final String name) {
         return Character.toUpperCase(name.charAt(0)) + name.substring(1);
     }
 
-    @Nonnull
-    private static MethodSpec buildGeneratedOnDepsChangeMethod(@Nonnull final ObserveDescriptor observe)
+    private static MethodSpec buildGeneratedOnDepsChangeMethod(final ObserveDescriptor observe)
             throws ProcessorException {
         final var methodName = getGeneratedOnDepsChangeMethodName(observe);
         final var builder = MethodSpec.methodBuilder(methodName).addModifiers(Modifier.PRIVATE);
@@ -4356,9 +4222,7 @@ final class ComponentGenerator {
     }
 
     private static void appendOnDepsChangeInvocation(
-            @Nonnull final MethodSpec.Builder builder,
-            @Nonnull final ObserveDescriptor observe,
-            @Nonnull final ExecutableElement onDepsChange) {
+            final MethodSpec.Builder builder, final ObserveDescriptor observe, final ExecutableElement onDepsChange) {
         final ComponentDescriptor component = observe.getComponent();
         if (component.isClassType()) {
             if (onDepsChange.getParameters().isEmpty()) {
@@ -4381,10 +4245,8 @@ final class ComponentGenerator {
         }
     }
 
-    @Nonnull
     private static MethodSpec buildObserveTrackWrapper(
-            @Nonnull final ProcessingEnvironment processingEnv, @Nonnull final ObserveDescriptor observe)
-            throws ProcessorException {
+            final ProcessingEnvironment processingEnv, final ObserveDescriptor observe) throws ProcessorException {
         assert observe.hasObserve();
         final ExecutableType methodType = observe.getMethodType();
         final ExecutableElement method = observe.getMethod();
@@ -4482,9 +4344,7 @@ final class ComponentGenerator {
      * Generate the observed wrapper.
      * This is wrapped to block user from directly invoking observed method.
      */
-    @Nonnull
-    private static MethodSpec buildObserve(
-            @Nonnull final ProcessingEnvironment processingEnv, @Nonnull final ObserveDescriptor observe)
+    private static MethodSpec buildObserve(final ProcessingEnvironment processingEnv, final ObserveDescriptor observe)
             throws ProcessorException {
         assert observe.hasObserve();
         final ComponentDescriptor component = observe.getComponent();
@@ -4516,7 +4376,7 @@ final class ComponentGenerator {
         return method.build();
     }
 
-    private static boolean anyParametersNamed(@Nonnull final ExecutableElement element, @Nonnull final String name) {
+    private static boolean anyParametersNamed(final ExecutableElement element, final String name) {
         return element.getParameters().stream()
                 .anyMatch(p -> p.getSimpleName().toString().equals(name));
     }

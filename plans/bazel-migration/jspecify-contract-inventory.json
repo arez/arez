@@ -1,0 +1,104 @@
+{
+  "counts": {
+    "jspecify_goldens": [
+      14,
+      14,
+      0,
+      0
+    ],
+    "jspecify_diagnostics": [
+      6,
+      6,
+      0,
+      0
+    ]
+  },
+  "positive_inputs": [
+    "processor/src/test/fixtures/input/com/example/jspecify/ArrayModel.java",
+    "processor/src/test/fixtures/input/com/example/jspecify/GenericBase.java",
+    "processor/src/test/fixtures/input/com/example/jspecify/InheritedMarkedBindingModel.java",
+    "processor/src/test/fixtures/input/com/example/jspecify/InheritedNonNullModel.java",
+    "processor/src/test/fixtures/input/com/example/jspecify/InheritedNullableModel.java",
+    "processor/src/test/fixtures/input/com/example/jspecify/LegacyDecoratedModel.java",
+    "processor/src/test/fixtures/input/com/example/jspecify/MarkedMiddle.java",
+    "processor/src/test/fixtures/input/com/example/jspecify/MarkedModel.java",
+    "processor/src/test/fixtures/input/com/example/jspecify/NestedScopeModel.java",
+    "processor/src/test/fixtures/input/com/example/jspecify/NonNullGenericBase.java",
+    "processor/src/test/fixtures/input/com/example/jspecify/NonNullOperatorModel.java",
+    "processor/src/test/fixtures/input/com/example/jspecify/NullableModel.java",
+    "processor/src/test/fixtures/input/com/example/jspecify/PrimitiveUnmarkedModel.java",
+    "processor/src/test/fixtures/input/com/example/jspecify/TypeVariableModel.java",
+    "processor/src/test/fixtures/input/com/example/jspecify/package_scope/PackageModel.java",
+    "processor/src/test/fixtures/input/com/example/jspecify/package_scope/UnmarkedOverrideModel.java",
+    "processor/src/test/fixtures/input/com/example/jspecify/package_scope/package-info.java"
+  ],
+  "negative_inputs": [
+    "processor/src/test/fixtures/bad_input/com/example/jspecify/ConflictingModel.java",
+    "processor/src/test/fixtures/bad_input/com/example/jspecify/InheritedUnmarkedModel.java",
+    "processor/src/test/fixtures/bad_input/com/example/jspecify/ParametricInitializerModel.java",
+    "processor/src/test/fixtures/bad_input/com/example/jspecify/UnmarkedArgumentModel.java",
+    "processor/src/test/fixtures/bad_input/com/example/jspecify/UnmarkedBase.java",
+    "processor/src/test/fixtures/bad_input/com/example/jspecify/UnmarkedMethodModel.java",
+    "processor/src/test/fixtures/bad_input/com/example/jspecify/UnmarkedModel.java"
+  ],
+  "goldens": {
+    "expected": [
+      "processor/src/test/fixtures/expected/com/example/jspecify/Arez_ArrayModel.java",
+      "processor/src/test/fixtures/expected/com/example/jspecify/Arez_InheritedMarkedBindingModel.java",
+      "processor/src/test/fixtures/expected/com/example/jspecify/Arez_InheritedNonNullModel.java",
+      "processor/src/test/fixtures/expected/com/example/jspecify/Arez_InheritedNullableModel.java",
+      "processor/src/test/fixtures/expected/com/example/jspecify/Arez_LegacyDecoratedModel.java",
+      "processor/src/test/fixtures/expected/com/example/jspecify/Arez_MarkedModel.java",
+      "processor/src/test/fixtures/expected/com/example/jspecify/Arez_NestedScopeModel.java",
+      "processor/src/test/fixtures/expected/com/example/jspecify/Arez_NonNullOperatorModel.java",
+      "processor/src/test/fixtures/expected/com/example/jspecify/Arez_NullableModel.java",
+      "processor/src/test/fixtures/expected/com/example/jspecify/Arez_PrimitiveUnmarkedModel.java",
+      "processor/src/test/fixtures/expected/com/example/jspecify/Arez_TypeVariableModel.java",
+      "processor/src/test/fixtures/expected/com/example/jspecify/package_scope/Arez_PackageModel.java",
+      "processor/src/test/fixtures/expected/com/example/jspecify/package_scope/Arez_UnmarkedOverrideModel.java"
+    ],
+    "expectedFormatted": [
+      "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_ArrayModel.java",
+      "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_InheritedMarkedBindingModel.java",
+      "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_InheritedNonNullModel.java",
+      "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_InheritedNullableModel.java",
+      "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_LegacyDecoratedModel.java",
+      "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_MarkedModel.java",
+      "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_NestedScopeModel.java",
+      "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_NonNullOperatorModel.java",
+      "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_NullableModel.java",
+      "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_PrimitiveUnmarkedModel.java",
+      "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_TypeVariableModel.java",
+      "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/package_scope/Arez_PackageModel.java",
+      "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/package_scope/Arez_UnmarkedOverrideModel.java"
+    ]
+  },
+  "golden_hashes": {
+    "processor/src/test/fixtures/expected/com/example/jspecify/Arez_InheritedNullableModel.java": "58e7df6b752d1e9b8d214f40216917750016b8ed975f1470a5bb61aa81d24386",
+    "processor/src/test/fixtures/expected/com/example/jspecify/Arez_NonNullOperatorModel.java": "2b106b658299e40eea826b6e1fcdcf483cb8fbc66813ca1ee46dc0fd7e6ad457",
+    "processor/src/test/fixtures/expected/com/example/jspecify/Arez_PrimitiveUnmarkedModel.java": "86a791292a9ed2a8c94ff77278f7a4af169a17913196abfe96ce3dc5daac1180",
+    "processor/src/test/fixtures/expected/com/example/jspecify/Arez_TypeVariableModel.java": "2446f7407194e4fac17e2671a0594c6623ddbdc463420a817e80029fd10ea66f",
+    "processor/src/test/fixtures/expected/com/example/jspecify/Arez_MarkedModel.java": "6a0faa20ee706d771727d097bbcba9688ab5fb724b967e2b44eee0fd36e64ba9",
+    "processor/src/test/fixtures/expected/com/example/jspecify/Arez_LegacyDecoratedModel.java": "db6aa498782a563ac285a4590c394f7d037f833165ef81db54dc5080ab1c21fe",
+    "processor/src/test/fixtures/expected/com/example/jspecify/Arez_NestedScopeModel.java": "c598f264eba9f4114d99336ab458fb60401aca2ef50c68b93cb42192bdb6e83a",
+    "processor/src/test/fixtures/expected/com/example/jspecify/Arez_InheritedMarkedBindingModel.java": "ea1256729e82e012df666fb88d5ca17f4b292c30f6d635ad0c3fec4fc46716a2",
+    "processor/src/test/fixtures/expected/com/example/jspecify/Arez_InheritedNonNullModel.java": "7d0de144a6afadebb175fb9c27432126ac648d78075ad514dd60da50310035fa",
+    "processor/src/test/fixtures/expected/com/example/jspecify/Arez_ArrayModel.java": "d5607fe0267eb7114ff9cb582926df7a26f86bbe14973d0b49a612d296f8530b",
+    "processor/src/test/fixtures/expected/com/example/jspecify/Arez_NullableModel.java": "7abf60d31ab7761008507b02c9b4852e71cafd18b717dda9dd59b80905b64f57",
+    "processor/src/test/fixtures/expected/com/example/jspecify/package_scope/Arez_PackageModel.java": "bf82a3fcd32bea13bd035ff2d389f3ccf23d3248e6183f1dd826363b509d1a70",
+    "processor/src/test/fixtures/expected/com/example/jspecify/package_scope/Arez_UnmarkedOverrideModel.java": "684b51dbe2e8e0e02acb4262690d1b45ae6b1559ff3a4b43071df7c98fc0c24e",
+    "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_InheritedNullableModel.java": "32d69cb5d6f85812996d2f6628a462a6d55eb79119a48ac12539deb4247b8b38",
+    "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_NonNullOperatorModel.java": "d891c93e4811f9f60fe506c614b2fda5a1a8b4f0092ceba60d536a4232718225",
+    "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_PrimitiveUnmarkedModel.java": "94d9467137a27d45f109a331af46ab1d87674e32c87e5da7704c9301c59249f9",
+    "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_TypeVariableModel.java": "cf2498bb83e6dfe71cb4056323d12d4a4a7ecef977ab582a7accc0b9288918f4",
+    "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_MarkedModel.java": "0fd04d5f7ba6c130602610ea2cb10368e8bd01b3f7f8262c209ac04bc7e6c7c1",
+    "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_LegacyDecoratedModel.java": "00d7af1e53c91daa21604037b6b42836b2124381c72db2cdd79127ca31c6a8ba",
+    "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_NestedScopeModel.java": "4ea9a253d69e1de4af2100a65f23343d4e4a0d1ec1098e18da0cbce59adb3cc4",
+    "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_InheritedMarkedBindingModel.java": "55cc4a7f79e00562b34b46b6833189f02c9ab2b1753ff014eebe7682b0b224e0",
+    "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_InheritedNonNullModel.java": "0551e31d93c2726d93d0bac413f81533abc042db4c8fbf58f71f49ee82dc8104",
+    "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_ArrayModel.java": "d39232aadb0639f565a2f84101614bcb3c16af6b927a332e5dba43e8f4105f7d",
+    "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/Arez_NullableModel.java": "95296939fee6ded0e7212fd7baacad1fe4ff9b8fc2caeb8a8d63360c741e6526",
+    "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/package_scope/Arez_PackageModel.java": "0a3fa66977f103dd1233017af515a8358addda32076b5befdb25b8637c565fea",
+    "processor/src/test/fixtures/expectedFormatted/com/example/jspecify/package_scope/Arez_UnmarkedOverrideModel.java": "ccf8c23085e7ca1d738e43b17b66ca8010687ac31b5354b118fd638a2f30de14"
+  }
+}

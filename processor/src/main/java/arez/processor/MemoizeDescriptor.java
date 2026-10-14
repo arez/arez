@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeMirror;
+import org.jspecify.annotations.Nullable;
+import org.realityforge.proton.GeneratorUtil;
 import org.realityforge.proton.MemberChecks;
 import org.realityforge.proton.ProcessorException;
 
@@ -21,10 +21,9 @@ import org.realityforge.proton.ProcessorException;
  * The class that represents the parsed state of @Memoize methods on a @ArezComponent annotated class.
  */
 final class MemoizeDescriptor {
-    @Nonnull
+
     private final ComponentDescriptor _component;
 
-    @Nonnull
     private final String _name;
 
     @Nullable
@@ -40,7 +39,6 @@ final class MemoizeDescriptor {
     private String _readOutsideTransaction;
     private String _depType;
 
-    @Nonnull
     private String _equalityComparator = Constants.OBJECTS_EQUALS_COMPARATOR_CLASSNAME;
 
     @Nullable
@@ -49,23 +47,19 @@ final class MemoizeDescriptor {
     @Nullable
     private ExecutableElement _onDeactivate;
 
-    @Nonnull
     private final List<CandidateMethod> _refMethods = new ArrayList<>();
 
-    @Nonnull
     private final List<MemoizeContextParameterDescriptor> _contextParameters = new ArrayList<>();
 
-    MemoizeDescriptor(@Nonnull final ComponentDescriptor component, @Nonnull final String name) {
+    MemoizeDescriptor(final ComponentDescriptor component, final String name) {
         _component = Objects.requireNonNull(component);
         _name = Objects.requireNonNull(name);
     }
 
-    @Nonnull
     ComponentDescriptor getComponent() {
         return _component;
     }
 
-    @Nonnull
     String getName() {
         return _name;
     }
@@ -78,17 +72,14 @@ final class MemoizeDescriptor {
         return _keepAlive;
     }
 
-    @Nonnull
     Priority getPriority() {
         return _priority;
     }
 
-    @Nonnull
     ExecutableElement getMethod() {
         return Objects.requireNonNull(_method);
     }
 
-    @Nonnull
     ExecutableType getMethodType() {
         return Objects.requireNonNull(_methodType);
     }
@@ -104,15 +95,15 @@ final class MemoizeDescriptor {
     }
 
     void setMemoize(
-            @Nonnull final ExecutableElement method,
-            @Nonnull final ExecutableType methodType,
+            final ExecutableElement method,
+            final ExecutableType methodType,
             final boolean keepAlive,
-            @Nonnull final Priority priority,
+            final Priority priority,
             final boolean reportResult,
             final boolean observeLowerPriorityDependencies,
-            @Nonnull final String readOutsideTransaction,
-            @Nonnull final String depType,
-            @Nonnull final String equalityComparator)
+            final String readOutsideTransaction,
+            final String depType,
+            final String equalityComparator)
             throws ProcessorException {
         // The caller already verified that no duplicate computable have been defined
         assert null == _method;
@@ -140,17 +131,15 @@ final class MemoizeDescriptor {
         }
     }
 
-    void addRefMethod(@Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType)
-            throws ProcessorException {
+    void addRefMethod(final ExecutableElement method, final ExecutableType methodType) throws ProcessorException {
         _refMethods.add(new CandidateMethod(method, methodType));
     }
 
-    @Nonnull
     List<CandidateMethod> getRefMethods() {
         return _refMethods;
     }
 
-    void addContextParameter(@Nonnull final MemoizeContextParameterDescriptor parameter) throws ProcessorException {
+    void addContextParameter(final MemoizeContextParameterDescriptor parameter) throws ProcessorException {
         _contextParameters.add(parameter);
     }
 
@@ -179,12 +168,11 @@ final class MemoizeDescriptor {
         return getMethod().getParameters().isEmpty() && getContextParameters().isEmpty();
     }
 
-    @Nonnull
     List<MemoizeContextParameterDescriptor> getContextParameters() {
         return _contextParameters;
     }
 
-    void setOnActivate(@Nonnull final ExecutableElement method) throws ProcessorException {
+    void setOnActivate(final ExecutableElement method) throws ProcessorException {
         if (null != _onActivate) {
             throw new ProcessorException(
                     "@OnActivate target duplicates existing method named " + _onActivate.getSimpleName(), method);
@@ -193,7 +181,7 @@ final class MemoizeDescriptor {
         }
     }
 
-    void setOnDeactivate(@Nonnull final ExecutableElement method) throws ProcessorException {
+    void setOnDeactivate(final ExecutableElement method) throws ProcessorException {
         if (null != _onDeactivate) {
             throw new ProcessorException(
                     "@OnDeactivate target duplicates existing method named " + _onDeactivate.getSimpleName(), method);
@@ -202,7 +190,7 @@ final class MemoizeDescriptor {
         }
     }
 
-    void validate(@Nonnull final ProcessingEnvironment processingEnv) throws ProcessorException {
+    void validate(final ProcessingEnvironment processingEnv) throws ProcessorException {
         if (null == _method) {
             if (null != _onActivate) {
                 throw new ProcessorException("@OnActivate exists but there is no corresponding @Memoize", _onActivate);
@@ -267,12 +255,13 @@ final class MemoizeDescriptor {
         if (null != _onActivate && null != _method) {
             final List<? extends VariableElement> parameters = _onActivate.getParameters();
             if (1 == parameters.size()) {
-                final TypeName typeName = TypeName.get(parameters.get(0).asType());
+                final TypeName typeName =
+                        GeneratorUtil.getTypeName(parameters.get(0).asType());
                 if (typeName instanceof final ParameterizedTypeName parameterizedTypeName) {
                     final TypeName paramType =
                             parameterizedTypeName.typeArguments().get(0);
                     if (!(paramType instanceof WildcardTypeName)) {
-                        final TypeName actual = TypeName.get(_method.getReturnType());
+                        final TypeName actual = GeneratorUtil.getTypeName(_method.getReturnType());
                         if (!actual.box().toString().equals(paramType.toString())) {
                             throw new ProcessorException(
                                     "@OnActivate target has a parameter of type ComputableValue with a "
@@ -287,12 +276,13 @@ final class MemoizeDescriptor {
         }
 
         for (final CandidateMethod refMethod : _refMethods) {
-            final TypeName typeName = TypeName.get(refMethod.getMethod().getReturnType());
+            final TypeName typeName =
+                    GeneratorUtil.getTypeName(refMethod.getMethod().getReturnType());
             if (typeName instanceof final ParameterizedTypeName parameterizedTypeName) {
                 final TypeName expectedType =
                         parameterizedTypeName.typeArguments().get(0);
                 if (!(expectedType instanceof WildcardTypeName)) {
-                    final TypeName actual = TypeName.get(_method.getReturnType());
+                    final TypeName actual = GeneratorUtil.getTypeName(_method.getReturnType());
                     if (!actual.box().toString().equals(expectedType.toString())) {
                         throw new ProcessorException(
                                 "@ComputableValueRef target has a type parameter of " + expectedType
@@ -369,7 +359,6 @@ final class MemoizeDescriptor {
         return _depType;
     }
 
-    @Nonnull
     String getEqualityComparator() {
         return _equalityComparator;
     }

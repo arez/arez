@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
@@ -18,34 +16,28 @@ import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
-import org.realityforge.proton.AnnotationsUtil;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.proton.ProcessorException;
 
 /**
  * The class that represents the parsed state of ObservableValue properties on a @ArezComponent annotated class.
  */
 final class ObservableDescriptor {
-    @Nonnull
+
     private final ComponentDescriptor _component;
 
-    @Nonnull
     private final String _name;
 
     private boolean _expectSetter;
 
-    @Nonnull
     private String _readOutsideTransaction = "AUTODETECT";
 
-    @Nonnull
     private String _writeOutsideTransaction = "AUTODETECT";
 
-    @Nonnull
     private String _equalityComparator = Constants.EQUALITY_COMPARATOR_CLASSNAME;
 
-    @Nonnull
     private String _getterDeclaredEqualityComparator = Constants.EQUALITY_COMPARATOR_CLASSNAME;
 
-    @Nonnull
     private String _setterDeclaredEqualityComparator = Constants.EQUALITY_COMPARATOR_CLASSNAME;
 
     private boolean _setterAlwaysMutates;
@@ -66,7 +58,6 @@ final class ObservableDescriptor {
     @Nullable
     private ExecutableType _setterType;
 
-    @Nonnull
     private final List<CandidateMethod> _refMethods = new ArrayList<>();
 
     @Nullable
@@ -84,19 +75,17 @@ final class ObservableDescriptor {
     @Nullable
     private AutoObserveDescriptor _autoObserveDescriptor;
 
-    ObservableDescriptor(@Nonnull final ComponentDescriptor component, @Nonnull final String name) {
+    ObservableDescriptor(final ComponentDescriptor component, final String name) {
         _component = Objects.requireNonNull(component);
         _name = Objects.requireNonNull(name);
         setExpectSetter(true);
         setSetterAlwaysMutates(true);
     }
 
-    @Nonnull
     ComponentDescriptor getComponent() {
         return _component;
     }
 
-    @Nonnull
     String getName() {
         return _name;
     }
@@ -111,7 +100,7 @@ final class ObservableDescriptor {
         return _initializer;
     }
 
-    void setInitializer(@Nonnull final Boolean initializer) {
+    void setInitializer(final Boolean initializer) {
         _initializer = Objects.requireNonNull(initializer);
     }
 
@@ -119,7 +108,7 @@ final class ObservableDescriptor {
         return null != _observableInitial;
     }
 
-    void setObservableInitial(@Nonnull final ObservableInitialDescriptor observableInitial) throws ProcessorException {
+    void setObservableInitial(final ObservableInitialDescriptor observableInitial) throws ProcessorException {
         if (null != _observableInitial) {
             throw new ProcessorException(
                     "@ObservableInitial target duplicates existing initializer for observable " + "named " + getName(),
@@ -128,7 +117,6 @@ final class ObservableDescriptor {
         _observableInitial = Objects.requireNonNull(observableInitial);
     }
 
-    @Nonnull
     ObservableInitialDescriptor getObservableInitial() {
         assert null != _observableInitial;
         return _observableInitial;
@@ -138,7 +126,7 @@ final class ObservableDescriptor {
         _setterAlwaysMutates = setterAlwaysMutates;
     }
 
-    void setReadOutsideTransaction(@Nonnull final String readOutsideTransaction) {
+    void setReadOutsideTransaction(final String readOutsideTransaction) {
         _readOutsideTransaction = readOutsideTransaction;
     }
 
@@ -154,33 +142,30 @@ final class ObservableDescriptor {
                         && getComponent().defaultWriteOutsideTransaction());
     }
 
-    void setWriteOutsideTransaction(@Nonnull final String writeOutsideTransaction) {
+    void setWriteOutsideTransaction(final String writeOutsideTransaction) {
         _writeOutsideTransaction = writeOutsideTransaction;
     }
 
-    void setEqualityComparator(@Nonnull final String equalityComparator) {
+    void setEqualityComparator(final String equalityComparator) {
         _equalityComparator = Objects.requireNonNull(equalityComparator);
     }
 
-    void setGetterDeclaredEqualityComparator(@Nonnull final String equalityComparator) {
+    void setGetterDeclaredEqualityComparator(final String equalityComparator) {
         _getterDeclaredEqualityComparator = Objects.requireNonNull(equalityComparator);
     }
 
-    @Nonnull
     String getGetterDeclaredEqualityComparator() {
         return _getterDeclaredEqualityComparator;
     }
 
-    void setSetterDeclaredEqualityComparator(@Nonnull final String equalityComparator) {
+    void setSetterDeclaredEqualityComparator(final String equalityComparator) {
         _setterDeclaredEqualityComparator = Objects.requireNonNull(equalityComparator);
     }
 
-    @Nonnull
     String getSetterDeclaredEqualityComparator() {
         return _setterDeclaredEqualityComparator;
     }
 
-    @Nonnull
     String getEqualityComparator() {
         return _equalityComparator;
     }
@@ -205,12 +190,11 @@ final class ObservableDescriptor {
         return _expectSetter;
     }
 
-    @Nonnull
     List<CandidateMethod> getRefMethods() {
         return _refMethods;
     }
 
-    void addRefMethod(@Nonnull final ExecutableElement method, @Nonnull final ExecutableType methodType) {
+    void addRefMethod(final ExecutableElement method, final ExecutableType methodType) {
         _refMethods.add(new CandidateMethod(method, methodType));
     }
 
@@ -218,19 +202,17 @@ final class ObservableDescriptor {
         return null != _getter;
     }
 
-    @Nonnull
     ExecutableElement getGetter() throws ProcessorException {
         assert null != _getter;
         return _getter;
     }
 
-    @Nonnull
     ExecutableType getGetterType() {
         assert null != _getterType;
         return _getterType;
     }
 
-    void setGetter(@Nonnull final ExecutableElement getter, @Nonnull final ExecutableType methodType) {
+    void setGetter(final ExecutableElement getter, final ExecutableType methodType) {
         _getter = Objects.requireNonNull(getter);
         _getterType = Objects.requireNonNull(methodType);
     }
@@ -239,25 +221,22 @@ final class ObservableDescriptor {
         return null != _setter;
     }
 
-    @Nonnull
     ExecutableElement getSetter() throws ProcessorException {
         assert null != _setter;
         return _setter;
     }
 
-    @Nonnull
     ExecutableType getSetterType() {
         assert null != _setterType;
         return _setterType;
     }
 
-    void setSetter(@Nonnull final ExecutableElement setter, @Nonnull final ExecutableType methodType) {
+    void setSetter(final ExecutableElement setter, final ExecutableType methodType) {
         assert _expectSetter;
         _setter = Objects.requireNonNull(setter);
         _setterType = Objects.requireNonNull(methodType);
     }
 
-    @Nonnull
     ExecutableElement getDefiner() {
         return null != _getter ? _getter : Objects.requireNonNull(_setter);
     }
@@ -286,7 +265,7 @@ final class ObservableDescriptor {
         return _cascadeDisposeDescriptor;
     }
 
-    void setCascadeDisposeDescriptor(@Nonnull final CascadeDisposeDescriptor cascadeDisposeDescriptor) {
+    void setCascadeDisposeDescriptor(final CascadeDisposeDescriptor cascadeDisposeDescriptor) {
         _cascadeDisposeDescriptor = Objects.requireNonNull(cascadeDisposeDescriptor);
     }
 
@@ -295,26 +274,22 @@ final class ObservableDescriptor {
         return _autoObserveDescriptor;
     }
 
-    void setAutoObserveDescriptor(@Nonnull final AutoObserveDescriptor autoObserveDescriptor) {
+    void setAutoObserveDescriptor(final AutoObserveDescriptor autoObserveDescriptor) {
         _autoObserveDescriptor = Objects.requireNonNull(autoObserveDescriptor);
     }
 
-    @Nonnull
     String getDataFieldName() {
         return ComponentGenerator.OBSERVABLE_DATA_FIELD_PREFIX + getName();
     }
 
-    @Nonnull
     String getCollectionCacheDataFieldName() {
         return ComponentGenerator.OBSERVABLE_DATA_FIELD_PREFIX + "$$cache$$_" + getName();
     }
 
-    @Nonnull
     String getFieldName() {
         return ComponentGenerator.FIELD_PREFIX + getName();
     }
 
-    @Nonnull
     String getEqualityComparatorFieldName() {
         return ComponentGenerator.FIELD_PREFIX + "equalityComparator_" + getName();
     }
@@ -334,7 +309,7 @@ final class ObservableDescriptor {
                 || isGetterUnparameterizedReturnType(Map.class);
     }
 
-    private boolean isGetterUnparameterizedReturnType(@Nonnull final Class<?> type) {
+    private boolean isGetterUnparameterizedReturnType(final Class<?> type) {
         final TypeMirror returnType = getGetterType().getReturnType();
         final TypeKind kind = returnType.getKind();
         if (TypeKind.DECLARED != kind) {
@@ -347,13 +322,16 @@ final class ObservableDescriptor {
     }
 
     boolean isGetterNonnull() {
-        return AnnotationsUtil.hasNonnullAnnotation(getGetter());
+        return Nullability.isNonNull(
+                getGetter(), getGetterType().getReturnType(), getComponent().getElement());
     }
 
     boolean isSetterNonnull() {
         return hasSetter()
-                && AnnotationsUtil.hasNonnullAnnotation(
-                        getSetter().getParameters().get(0));
+                && Nullability.isNonNull(
+                        getSetter().getParameters().get(0),
+                        getSetterType().getParameterTypes().get(0),
+                        getComponent().getElement());
     }
 
     void validate() {

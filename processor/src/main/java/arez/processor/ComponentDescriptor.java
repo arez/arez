@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
@@ -18,6 +16,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.proton.ElementsUtil;
 import org.realityforge.proton.GeneratorUtil;
 
@@ -25,7 +24,7 @@ import org.realityforge.proton.GeneratorUtil;
  * The class that represents the parsed state of ArezComponent annotated class.
  */
 final class ComponentDescriptor {
-    @Nonnull
+
     private final String _name;
 
     @Nullable
@@ -44,16 +43,12 @@ final class ComponentDescriptor {
     private final boolean _generateToString;
     private boolean _idRequired;
 
-    @Nonnull
     private final TypeElement _element;
 
-    @Nonnull
     private final List<ExecutableElement> _postConstructs = new ArrayList<>();
 
-    @Nonnull
     private final List<ExecutableElement> _postDisposes = new ArrayList<>();
 
-    @Nonnull
     private final List<ExecutableElement> _preDisposes = new ArrayList<>();
 
     @Nullable
@@ -62,61 +57,42 @@ final class ComponentDescriptor {
     @Nullable
     private ExecutableType _componentIdMethodType;
 
-    @Nonnull
     private final List<ExecutableElement> _componentIdRefs = new ArrayList<>();
 
-    @Nonnull
     private final List<ExecutableElement> _componentNameRefs = new ArrayList<>();
 
-    @Nonnull
     private final List<ExecutableElement> _componentRefs = new ArrayList<>();
 
-    @Nonnull
     private final List<ComponentStateRefDescriptor> _componentStateRefs = new ArrayList<>();
 
-    @Nonnull
     private final List<ExecutableElement> _componentTypeNameRefs = new ArrayList<>();
 
-    @Nonnull
     private final List<ExecutableElement> _contextRefs = new ArrayList<>();
 
-    @Nonnull
     private final Map<String, List<CandidateMethod>> _observerRefs = new LinkedHashMap<>();
 
-    @Nonnull
     private final Map<String, ObservableDescriptor> _observables = new LinkedHashMap<>();
 
-    @Nonnull
     private final Map<String, ObservableInitialDescriptor> _observableInitials = new LinkedHashMap<>();
 
-    @Nonnull
     private final Map<String, ActionDescriptor> _actions = new LinkedHashMap<>();
 
-    @Nonnull
     private final List<RequiresTransactionDescriptor> _requiresTransactions = new ArrayList<>();
 
-    @Nonnull
     private final Map<String, MemoizeContextParameterDescriptor> _memoizeContextParameters = new LinkedHashMap<>();
 
-    @Nonnull
     private final Map<String, MemoizeDescriptor> _memoizes = new LinkedHashMap<>();
 
-    @Nonnull
     private final Map<String, ObserveDescriptor> _observes = new LinkedHashMap<>();
 
-    @Nonnull
     private final Map<Element, DependencyDescriptor> _dependencies = new LinkedHashMap<>();
 
-    @Nonnull
     private final Map<Element, CascadeDisposeDescriptor> _cascadeDisposes = new LinkedHashMap<>();
 
-    @Nonnull
     private final Map<Element, AutoObserveDescriptor> _autoObserves = new LinkedHashMap<>();
 
-    @Nonnull
     private final Map<String, ReferenceDescriptor> _references = new LinkedHashMap<>();
 
-    @Nonnull
     private final Map<String, InverseDescriptor> _inverses = new LinkedHashMap<>();
 
     @Nullable
@@ -132,7 +108,7 @@ final class ComponentDescriptor {
     private final String _defaultSkipIfDisposed;
 
     ComponentDescriptor(
-            @Nonnull final String name,
+            final String name,
             @Nullable final Priority defaultPriority,
             final boolean observable,
             final boolean disposeNotifier,
@@ -141,7 +117,7 @@ final class ComponentDescriptor {
             final boolean requireEquals,
             final boolean verify,
             final boolean generateToString,
-            @Nonnull final TypeElement element,
+            final TypeElement element,
             @Nullable final String defaultReadOutsideTransaction,
             @Nullable final String defaultWriteOutsideTransaction,
             @Nullable final String defaultSkipIfDisposed) {
@@ -160,7 +136,6 @@ final class ComponentDescriptor {
         _defaultSkipIfDisposed = defaultSkipIfDisposed;
     }
 
-    @Nonnull
     ClassName getClassName() {
         return ClassName.get(getElement());
     }
@@ -245,27 +220,23 @@ final class ComponentDescriptor {
         return _defaultSkipIfDisposed;
     }
 
-    @Nonnull
     DeclaredType asDeclaredType() {
         return (DeclaredType) getElement().asType();
     }
 
-    @Nonnull
     TypeElement getElement() {
         return _element;
     }
 
-    @Nonnull
     String getName() {
         return _name;
     }
 
-    @Nonnull
     Map<String, ReferenceDescriptor> getReferences() {
         return _references;
     }
 
-    boolean hasReferenceWithInverseOutsidePackage(@Nonnull final ProcessingEnvironment processingEnv) {
+    boolean hasReferenceWithInverseOutsidePackage(final ProcessingEnvironment processingEnv) {
         return getReferences().values().stream()
                 .filter(ReferenceDescriptor::hasInverse)
                 .anyMatch(reference -> {
@@ -281,37 +252,30 @@ final class ComponentDescriptor {
                 .anyMatch(inverse -> ElementsUtil.areTypesInDifferentPackage(inverse.getTargetType(), getElement()));
     }
 
-    @Nonnull
-    ReferenceDescriptor findOrCreateReference(@Nonnull final String name) {
+    ReferenceDescriptor findOrCreateReference(final String name) {
         return getReferences().computeIfAbsent(name, n -> new ReferenceDescriptor(this, name));
     }
 
-    @Nonnull
-    ObservableDescriptor findOrCreateObservable(@Nonnull final String name) {
+    ObservableDescriptor findOrCreateObservable(final String name) {
         return getObservables().computeIfAbsent(name, n -> new ObservableDescriptor(this, n));
     }
 
-    @Nonnull
     Map<String, ObserveDescriptor> getObserves() {
         return _observes;
     }
 
-    @Nonnull
-    ObserveDescriptor findOrCreateObserve(@Nonnull final String name) {
+    ObserveDescriptor findOrCreateObserve(final String name) {
         return getObserves().computeIfAbsent(name, n -> new ObserveDescriptor(this, n));
     }
 
-    @Nonnull
-    MemoizeContextParameterDescriptor findOrCreateMemoizeContextParameter(@Nonnull final String name) {
+    MemoizeContextParameterDescriptor findOrCreateMemoizeContextParameter(final String name) {
         return getMemoizeContextParameters().computeIfAbsent(name, n -> new MemoizeContextParameterDescriptor(this, n));
     }
 
-    @Nonnull
-    MemoizeDescriptor findOrCreateMemoize(@Nonnull final String name) {
+    MemoizeDescriptor findOrCreateMemoize(final String name) {
         return getMemoizes().computeIfAbsent(name, n -> new MemoizeDescriptor(this, n));
     }
 
-    @Nonnull
     List<ExecutableElement> getComponentIdRefs() {
         return _componentIdRefs;
     }
@@ -320,12 +284,10 @@ final class ComponentDescriptor {
         return null != getComponentId();
     }
 
-    @Nonnull
     Map<String, ObservableDescriptor> getObservables() {
         return _observables;
     }
 
-    @Nonnull
     Map<String, ObservableInitialDescriptor> getObservableInitials() {
         return _observableInitials;
     }
@@ -337,50 +299,46 @@ final class ComponentDescriptor {
                 || getMemoizes().values().stream().anyMatch(MemoizeDescriptor::isKeepAlive);
     }
 
-    void addCascadeDispose(@Nonnull final CascadeDisposeDescriptor descriptor) {
+    void addCascadeDispose(final CascadeDisposeDescriptor descriptor) {
         getCascadeDisposes().put(descriptor.getElement(), descriptor);
     }
 
-    @Nonnull
     Map<Element, CascadeDisposeDescriptor> getCascadeDisposes() {
         return _cascadeDisposes;
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    boolean isCascadeDisposeDefined(@Nonnull final Element element) {
+    boolean isCascadeDisposeDefined(final Element element) {
         return getCascadeDisposes().containsKey(element);
     }
 
-    void addAutoObserve(@Nonnull final AutoObserveDescriptor descriptor) {
+    void addAutoObserve(final AutoObserveDescriptor descriptor) {
         getAutoObserves().put(descriptor.getElement(), descriptor);
     }
 
-    @Nonnull
     Map<Element, AutoObserveDescriptor> getAutoObserves() {
         return _autoObserves;
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    boolean isAutoObserveDefined(@Nonnull final Element element) {
+    boolean isAutoObserveDefined(final Element element) {
         return getAutoObserves().containsKey(element);
     }
 
-    @Nonnull
     Map<String, InverseDescriptor> getInverses() {
         return _inverses;
     }
 
-    @Nonnull
     Map<Element, DependencyDescriptor> getDependencies() {
         return _dependencies;
     }
 
-    void addDependency(@Nonnull final DependencyDescriptor dependencyDescriptor) {
+    void addDependency(final DependencyDescriptor dependencyDescriptor) {
         getDependencies().put(dependencyDescriptor.getElement(), dependencyDescriptor);
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    boolean isDependencyDefined(@Nonnull final Element element) {
+    boolean isDependencyDefined(final Element element) {
         return getDependencies().containsKey(element);
     }
 
@@ -411,7 +369,6 @@ final class ComponentDescriptor {
                 || !getObservables().isEmpty();
     }
 
-    @Nonnull
     List<ObservableDescriptor> getInitializers() {
         return getObservables().values().stream()
                 .filter(ObservableDescriptor::requireInitializer)
@@ -422,21 +379,18 @@ final class ComponentDescriptor {
         return _sting;
     }
 
-    boolean shouldGeneratedClassBePublic(@Nonnull final ProcessingEnvironment processingEnv) {
+    boolean shouldGeneratedClassBePublic(final ProcessingEnvironment processingEnv) {
         return hasReferenceWithInverseOutsidePackage(processingEnv) || hasInverseReferencedOutsidePackage();
     }
 
-    @Nonnull
     ClassName getEnhancedClassName() {
         return GeneratorUtil.getGeneratedClassName(getElement(), "Arez_", "");
     }
 
-    @Nonnull
     String getPackageName() {
         return GeneratorUtil.getQualifiedPackageName(getElement());
     }
 
-    @Nonnull
     String getIdMethodName() {
         /*
          * Note that it is a deliberate choice to not use getArezId() as that will box Id which for the
@@ -448,11 +402,10 @@ final class ComponentDescriptor {
                 : ComponentGenerator.ID_FIELD_NAME;
     }
 
-    @Nonnull
     TypeName getIdType() {
         return null == _componentIdMethodType
                 ? ComponentGenerator.DEFAULT_ID_TYPE
-                : TypeName.get(_componentIdMethodType.getReturnType());
+                : GeneratorUtil.getTypeName(_componentIdMethodType.getReturnType());
     }
 
     @Nullable
@@ -460,67 +413,54 @@ final class ComponentDescriptor {
         return _defaultPriority;
     }
 
-    @Nonnull
     List<ExecutableElement> getPostConstructs() {
         return _postConstructs;
     }
 
-    @Nonnull
     List<ExecutableElement> getPostDisposes() {
         return _postDisposes;
     }
 
-    @Nonnull
     List<ExecutableElement> getPreDisposes() {
         return _preDisposes;
     }
 
-    @Nonnull
     List<ExecutableElement> getComponentNameRefs() {
         return _componentNameRefs;
     }
 
-    @Nonnull
     List<ExecutableElement> getComponentRefs() {
         return _componentRefs;
     }
 
-    @Nonnull
     List<ComponentStateRefDescriptor> getComponentStateRefs() {
         return _componentStateRefs;
     }
 
-    @Nonnull
     List<ExecutableElement> getComponentTypeNameRefs() {
         return _componentTypeNameRefs;
     }
 
-    @Nonnull
     List<ExecutableElement> getContextRefs() {
         return _contextRefs;
     }
 
-    @Nonnull
     Map<String, List<CandidateMethod>> getObserverRefs() {
         return _observerRefs;
     }
 
-    @Nonnull
     Map<String, ActionDescriptor> getActions() {
         return _actions;
     }
 
-    @Nonnull
     List<RequiresTransactionDescriptor> getRequiresTransactions() {
         return _requiresTransactions;
     }
 
-    @Nonnull
     Map<String, MemoizeContextParameterDescriptor> getMemoizeContextParameters() {
         return _memoizeContextParameters;
     }
 
-    @Nonnull
     Map<String, MemoizeDescriptor> getMemoizes() {
         return _memoizes;
     }

@@ -6,7 +6,7 @@ if [[ $# -ne 2 ]]; then
   exit 1
 fi
 case "$1:$2" in
-  arez:component|arez:action|arez:observable|arez:memoize|arez:observe|arez:lifecycle|arez:relationships|arez:metadata|arez:interop|arez:scenarios)
+  arez:component|arez:action|arez:observable|arez:memoize|arez:observe|arez:lifecycle|arez:relationships|arez:metadata|arez:interop|arez:scenarios|arez:jspecify)
     module=processor
     package=arez/processor
     prefix=arez

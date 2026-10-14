@@ -2,14 +2,12 @@ package arez.persist.processor;
 
 import java.util.Arrays;
 import java.util.List;
-import javax.annotation.Nonnull;
 import javax.tools.JavaFileObject;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public final class ArezPersistProcessorDiagnosticTest extends ArezPersistProcessorTestSupport {
     @DataProvider(name = "failedCompiles")
-    @Nonnull
     public Object[][] failedCompiles() {
         return new Object[][] {
             new Object[] {
@@ -98,7 +96,7 @@ public final class ArezPersistProcessorDiagnosticTest extends ArezPersistProcess
     }
 
     @Test(dataProvider = "failedCompiles")
-    public void processFailedCompile(@Nonnull final String classname, @Nonnull final String messageFragment) {
+    public void processFailedCompile(final String classname, final String messageFragment) {
         assertFailedCompile(classname, messageFragment);
     }
 
@@ -114,7 +112,6 @@ public final class ArezPersistProcessorDiagnosticTest extends ArezPersistProcess
     }
 
     @DataProvider(name = "compileWithWarnings")
-    @Nonnull
     public Object[][] compileWithWarnings() {
         return new Object[][] {
             new Object[] {
@@ -128,12 +125,11 @@ public final class ArezPersistProcessorDiagnosticTest extends ArezPersistProcess
     }
 
     @Test(dataProvider = "compileWithWarnings")
-    public void processCompileWithWarnings(@Nonnull final String classname, @Nonnull final String messageFragment) {
+    public void processCompileWithWarnings(final String classname, final String messageFragment) {
         assertCompilesWithSingleWarningThatCanBeUpgradedToError(classname, messageFragment);
     }
 
     @DataProvider(name = "compileWithoutWarnings")
-    @Nonnull
     public Object[][] compileWithoutWarnings() {
         return new Object[][] {
             new Object[] {"com.example.persist.types.TypeBoxedBooleanPersistModel"},
@@ -148,7 +144,7 @@ public final class ArezPersistProcessorDiagnosticTest extends ArezPersistProcess
     }
 
     @Test(dataProvider = "compileWithoutWarnings")
-    public void processCompileWithoutWarnings(@Nonnull final String classname) {
+    public void processCompileWithoutWarnings(final String classname) {
         assertCompilesWithoutWarnings(classname);
     }
 }
