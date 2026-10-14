@@ -4,24 +4,26 @@ import arez.SafeProcedure;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 import arez.component.DisposeNotifier;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class NonnullFieldDependencyModel
 {
-  @Nonnull
+  @NonNull
   @ComponentDependency( action = ComponentDependency.Action.CASCADE )
   final DisposeNotifier time = new DisposeNotifier()
   {
     @Override
-    public void addOnDisposeListener( @Nonnull final Object key,
-                                      @Nonnull final SafeProcedure action,
+    public void addOnDisposeListener( @NonNull final Object key,
+                                      @NonNull final SafeProcedure action,
                                       final boolean errorIfDuplicate )
     {
     }
 
     @Override
-    public void removeOnDisposeListener( @Nonnull final Object key, final boolean errorIfMissing )
+    public void removeOnDisposeListener( @NonNull final Object key, final boolean errorIfMissing )
     {
     }
   };

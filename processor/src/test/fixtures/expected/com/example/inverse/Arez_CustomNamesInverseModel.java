@@ -15,12 +15,13 @@ import arez.component.internal.ComponentKernel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel implements Disposable,
     Identifiable<Integer>,
     Verifiable,
@@ -30,14 +31,11 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel impleme
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<Collection<CustomNamesInverseModel.Element>> $$arez$$_zap;
+  private final ObservableValue<@Nullable Collection<CustomNamesInverseModel.Element>> $$arez$$_zap;
 
-  @Nonnull
   private final Collection<CustomNamesInverseModel.Element> $$arezd$$_zap;
 
-  @Nullable
-  private Collection<CustomNamesInverseModel.Element> $$arezd$$_$$cache$$_zap;
+  private @Nullable Collection<CustomNamesInverseModel.Element> $$arezd$$_$$cache$$_zap;
 
   Arez_CustomNamesInverseModel() {
     super();
@@ -53,7 +51,6 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel impleme
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_inverse_CustomNamesInverseModel'" );
@@ -67,7 +64,6 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel impleme
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_inverse_CustomNamesInverseModel'" );
@@ -90,7 +86,7 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel impleme
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_CustomNamesInverseModel'" );
@@ -99,7 +95,7 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel impleme
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_CustomNamesInverseModel'" );
     }
@@ -157,13 +153,13 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel impleme
   }
 
   @Override
-  Collection<CustomNamesInverseModel.Element> getY() {
+  @Nullable Collection<CustomNamesInverseModel.Element> getY() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getY' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     this.$$arez$$_zap.reportObserved();
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      final Collection<CustomNamesInverseModel.Element> $$ar$$_result = this.$$arezd$$_zap;
+      final @Nullable Collection<CustomNamesInverseModel.Element> $$ar$$_result = this.$$arezd$$_zap;
       if ( null == this.$$arezd$$_$$cache$$_zap && null != $$ar$$_result ) {
         this.$$arezd$$_$$cache$$_zap = CollectionsUtil.wrap( $$ar$$_result );
       }
@@ -173,7 +169,7 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel impleme
     }
   }
 
-  void $$arezir$$_zap_add(@Nonnull final CustomNamesInverseModel.Element element) {
+  void $$arezir$$_zap_add(final CustomNamesInverseModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_zap_add' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -188,7 +184,7 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel impleme
     this.$$arez$$_zap.reportChanged();
   }
 
-  void $$arezir$$_zap_remove(@Nonnull final CustomNamesInverseModel.Element element) {
+  void $$arezir$$_zap_remove(final CustomNamesInverseModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_zap_remove' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }

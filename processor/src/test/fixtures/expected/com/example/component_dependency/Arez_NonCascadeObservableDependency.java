@@ -10,24 +10,24 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_NonCascadeObservableDependency extends NonCascadeObservableDependency implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<DisposeNotifier> $$arez$$_value;
+  private final ObservableValue<@Nullable DisposeNotifier> $$arez$$_value;
 
-  private DisposeNotifier $$arezd$$_value;
+  private @Nullable DisposeNotifier $$arezd$$_value;
 
-  Arez_NonCascadeObservableDependency(final DisposeNotifier value) {
+  Arez_NonCascadeObservableDependency(final @Nullable DisposeNotifier value) {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ++$$arezi$$_nextId;
@@ -50,7 +50,6 @@ final class Arez_NonCascadeObservableDependency extends NonCascadeObservableDepe
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_component_dependency_NonCascadeObservableDependency'" );
@@ -74,7 +73,7 @@ final class Arez_NonCascadeObservableDependency extends NonCascadeObservableDepe
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_component_dependency_NonCascadeObservableDependency'" );
@@ -83,7 +82,7 @@ final class Arez_NonCascadeObservableDependency extends NonCascadeObservableDepe
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_component_dependency_NonCascadeObservableDependency'" );
     }
@@ -120,7 +119,7 @@ final class Arez_NonCascadeObservableDependency extends NonCascadeObservableDepe
   }
 
   @Override
-  DisposeNotifier getValue() {
+  @Nullable DisposeNotifier getValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -129,12 +128,12 @@ final class Arez_NonCascadeObservableDependency extends NonCascadeObservableDepe
   }
 
   @Override
-  void setValue(final DisposeNotifier value) {
+  void setValue(final @Nullable DisposeNotifier value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     this.$$arez$$_value.preReportChanged();
-    final DisposeNotifier $$arezv$$_currentValue = this.$$arezd$$_value;
+    final @Nullable DisposeNotifier $$arezv$$_currentValue = this.$$arezd$$_value;
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
       if ( null != $$arezv$$_currentValue ) {
         DisposeNotifier.asDisposeNotifier( $$arezv$$_currentValue ).removeOnDisposeListener( this );

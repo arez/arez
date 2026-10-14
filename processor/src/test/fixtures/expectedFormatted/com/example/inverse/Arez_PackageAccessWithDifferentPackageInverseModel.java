@@ -16,12 +16,13 @@ import com.example.inverse.other.Arez_Element;
 import com.example.inverse.other.Element;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 public final class Arez_PackageAccessWithDifferentPackageInverseModel
     extends PackageAccessWithDifferentPackageInverseModel
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
@@ -30,14 +31,11 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<List<Element>> $$arez$$_elements;
+  private final ObservableValue<@Nullable List<Element>> $$arez$$_elements;
 
-  @Nonnull
   private final List<Element> $$arezd$$_elements;
 
-  @Nullable
-  private List<Element> $$arezd$$_$$cache$$_elements;
+  private @Nullable List<Element> $$arezd$$_$$cache$$_elements;
 
   public Arez_PackageAccessWithDifferentPackageInverseModel() {
     super();
@@ -77,7 +75,6 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -94,7 +91,6 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -124,9 +120,7 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -137,7 +131,7 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -235,6 +229,7 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel
   }
 
   @Override
+  @Nullable
   List<Element> getElements() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -244,7 +239,7 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel
     }
     this.$$arez$$_elements.reportObserved();
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final List<Element> $$ar$$_result = this.$$arezd$$_elements;
+      final @Nullable List<Element> $$ar$$_result = this.$$arezd$$_elements;
       if (null == this.$$arezd$$_$$cache$$_elements && null != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_elements = CollectionsUtil.wrap($$ar$$_result);
       }
@@ -254,7 +249,7 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel
     }
   }
 
-  public void $$arezir$$_elements_add(@Nonnull final Element element) {
+  public void $$arezir$$_elements_add(final Element element) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -277,7 +272,7 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel
     this.$$arez$$_elements.reportChanged();
   }
 
-  public void $$arezir$$_elements_remove(@Nonnull final Element element) {
+  public void $$arezir$$_elements_remove(final Element element) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),

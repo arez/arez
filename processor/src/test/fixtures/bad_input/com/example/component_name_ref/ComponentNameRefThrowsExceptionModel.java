@@ -4,7 +4,10 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentNameRef;
 import java.io.IOException;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class ComponentNameRefThrowsExceptionModel
 {
@@ -15,6 +18,6 @@ public abstract class ComponentNameRefThrowsExceptionModel
 
   @SuppressWarnings( { "RedundantThrows", "RedundantSuppression" } )
   @ComponentNameRef
-  abstract String getTypeName()
+  abstract @Nullable String getTypeName()
     throws IOException;
 }

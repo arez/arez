@@ -10,12 +10,13 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class NonObservableNullableManyReferenceModel_Arez_Element
     extends NonObservableNullableManyReferenceModel.Element
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
@@ -24,8 +25,8 @@ final class NonObservableNullableManyReferenceModel_Arez_Element
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nullable
-  private NonObservableNullableManyReferenceModel $$arezr$$_nonObservableNullableManyReferenceModel;
+  private @Nullable NonObservableNullableManyReferenceModel
+      $$arezr$$_nonObservableNullableManyReferenceModel;
 
   NonObservableNullableManyReferenceModel_Arez_Element() {
     super();
@@ -63,7 +64,6 @@ final class NonObservableNullableManyReferenceModel_Arez_Element
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -80,7 +80,6 @@ final class NonObservableNullableManyReferenceModel_Arez_Element
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -108,9 +107,7 @@ final class NonObservableNullableManyReferenceModel_Arez_Element
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -121,7 +118,7 @@ final class NonObservableNullableManyReferenceModel_Arez_Element
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -202,7 +199,7 @@ final class NonObservableNullableManyReferenceModel_Arez_Element
                   + $$arezi$$_locator()
                       .findById(
                           NonObservableNullableManyReferenceModel.Element.class, $$arezi$$_id()));
-      final Integer $$arezv$$_nonObservableNullableManyReferenceModelId =
+      final @Nullable Integer $$arezv$$_nonObservableNullableManyReferenceModelId =
           this.getNonObservableNullableManyReferenceModelId();
       if (null != $$arezv$$_nonObservableNullableManyReferenceModelId) {
         final NonObservableNullableManyReferenceModel
@@ -214,14 +211,14 @@ final class NonObservableNullableManyReferenceModel_Arez_Element
             () -> null != $$arezv$$_nonObservableNullableManyReferenceModel,
             () -> "Reference named 'nonObservableNullableManyReferenceModel' on component named '"
                 + this.$$arezi$$_kernel.getName()
-                + "' is unable to resolve entity of type com.example.inverse.NonObservableNullableManyReferenceModel and id = "
+                + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable NonObservableNullableManyReferenceModel and id = "
                 + getNonObservableNullableManyReferenceModelId());
       }
     }
   }
 
-  @Nullable
   @Override
+  @Nullable
   NonObservableNullableManyReferenceModel getNonObservableNullableManyReferenceModel() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -251,7 +248,7 @@ final class NonObservableNullableManyReferenceModel_Arez_Element
               + this.$$arezi$$_kernel.describeState() + " component named '"
               + this.$$arezi$$_kernel.getName() + "'");
     }
-    final Integer id = this.getNonObservableNullableManyReferenceModelId();
+    final @Nullable Integer id = this.getNonObservableNullableManyReferenceModelId();
     if (null != id) {
       this.$$arezr$$_nonObservableNullableManyReferenceModel =
           this.$$arezi$$_locator().findById(NonObservableNullableManyReferenceModel.class, id);
@@ -260,7 +257,7 @@ final class NonObservableNullableManyReferenceModel_Arez_Element
             () -> null != $$arezr$$_nonObservableNullableManyReferenceModel,
             () -> "Reference named 'nonObservableNullableManyReferenceModel' on component named '"
                 + this.$$arezi$$_kernel.getName()
-                + "' is unable to resolve entity of type com.example.inverse.NonObservableNullableManyReferenceModel and id = "
+                + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable NonObservableNullableManyReferenceModel and id = "
                 + getNonObservableNullableManyReferenceModelId());
       }
       ((Arez_NonObservableNullableManyReferenceModel)

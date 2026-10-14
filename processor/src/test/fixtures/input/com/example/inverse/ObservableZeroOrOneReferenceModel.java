@@ -6,8 +6,10 @@ import arez.annotations.Multiplicity;
 import arez.annotations.Observable;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class ObservableZeroOrOneReferenceModel
 {
@@ -15,11 +17,12 @@ abstract class ObservableZeroOrOneReferenceModel
   @Nullable
   abstract Element getElement();
 
+  @NullMarked
   @ArezComponent
   abstract static class Element
   {
     @Reference( inverseMultiplicity = Multiplicity.ZERO_OR_ONE )
-    abstract ObservableZeroOrOneReferenceModel getObservableZeroOrOneReferenceModel();
+    abstract @Nullable ObservableZeroOrOneReferenceModel getObservableZeroOrOneReferenceModel();
 
     @Observable
     @ReferenceId

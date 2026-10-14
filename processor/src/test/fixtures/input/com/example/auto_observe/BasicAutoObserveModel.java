@@ -7,8 +7,10 @@ import arez.annotations.Observable;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import arez.component.ComponentObservable;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class BasicAutoObserveModel
 {
@@ -17,7 +19,7 @@ abstract class BasicAutoObserveModel
   final MyComponent _field = null;
 
   @AutoObserve
-  MyComponent current()
+  @Nullable MyComponent current()
   {
     return _field;
   }
@@ -41,6 +43,7 @@ abstract class BasicAutoObserveModel
 
   abstract void setEntityId( @Nullable Integer id );
 
+  @NullMarked
   static class MyComponent
     implements ComponentObservable
   {
@@ -51,6 +54,7 @@ abstract class BasicAutoObserveModel
     }
   }
 
+  @NullMarked
   static class MyEntity
     implements ComponentObservable
   {

@@ -1,11 +1,14 @@
 package com.example.misplaced_annotation;
 
 import arez.annotations.ComponentDependency;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 final class ComponentDependencyMethodOutsideArezTypeModel
 {
   @ComponentDependency
-  Object getDependency()
+  @Nullable Object getDependency()
   {
     return null;
   }

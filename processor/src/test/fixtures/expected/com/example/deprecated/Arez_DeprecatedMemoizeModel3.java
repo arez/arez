@@ -9,20 +9,20 @@ import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
+@NullMarked
 final class Arez_DeprecatedMemoizeModel3 extends DeprecatedMemoizeModel3 implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
   private final ComputableValue<Long> $$arez$$_time;
 
   @SuppressWarnings("deprecation")
@@ -44,7 +44,6 @@ final class Arez_DeprecatedMemoizeModel3 extends DeprecatedMemoizeModel3 impleme
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_deprecated_DeprecatedMemoizeModel3'" );
@@ -60,7 +59,7 @@ final class Arez_DeprecatedMemoizeModel3 extends DeprecatedMemoizeModel3 impleme
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_deprecated_DeprecatedMemoizeModel3'" );
@@ -69,7 +68,7 @@ final class Arez_DeprecatedMemoizeModel3 extends DeprecatedMemoizeModel3 impleme
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_deprecated_DeprecatedMemoizeModel3'" );
     }

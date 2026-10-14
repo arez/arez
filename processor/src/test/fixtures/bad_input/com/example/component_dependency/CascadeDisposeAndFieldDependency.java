@@ -6,11 +6,15 @@ import arez.annotations.ArezComponent;
 import arez.annotations.CascadeDispose;
 import arez.annotations.ComponentDependency;
 import arez.component.DisposeNotifier;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class CascadeDisposeAndFieldDependency
 {
+  @NullMarked
   static class Element
     implements DisposeNotifier, Disposable
   {
@@ -26,19 +30,19 @@ public abstract class CascadeDisposeAndFieldDependency
     }
 
     @Override
-    public void addOnDisposeListener( @Nonnull final Object key,
-                                      @Nonnull final SafeProcedure action,
+    public void addOnDisposeListener( @NonNull final Object key,
+                                      @NonNull final SafeProcedure action,
                                       final boolean errorIfDuplicate )
     {
     }
 
     @Override
-    public void removeOnDisposeListener( @Nonnull final Object key, final boolean errorIfMissing )
+    public void removeOnDisposeListener( @NonNull final Object key, final boolean errorIfMissing )
     {
     }
   }
 
   @CascadeDispose
   @ComponentDependency
-  final Element time = null;
+  final @Nullable Element time = null;
 }

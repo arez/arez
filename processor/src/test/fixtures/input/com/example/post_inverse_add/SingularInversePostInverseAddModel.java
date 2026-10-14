@@ -7,25 +7,29 @@ import arez.annotations.Multiplicity;
 import arez.annotations.PostInverseAdd;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class SingularInversePostInverseAddModel
 {
   @PostInverseAdd
-  void postElementAdd( @Nonnull final Element element )
+  void postElementAdd( @NonNull final Element element )
   {
   }
 
   @Inverse( referenceName = "other" )
-  @Nonnull
+  @NonNull
   abstract Element getElement();
 
+  @NullMarked
   @ArezComponent
   abstract static class Element
   {
     @Reference( inverse = Feature.ENABLE, inverseMultiplicity = Multiplicity.ONE )
-    abstract SingularInversePostInverseAddModel getOther();
+    abstract @Nullable SingularInversePostInverseAddModel getOther();
 
     @ReferenceId
     int getOtherId()

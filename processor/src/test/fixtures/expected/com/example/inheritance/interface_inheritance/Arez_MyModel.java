@@ -12,33 +12,32 @@ import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import arez.component.internal.MemoizeCache;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
+@NullMarked
 final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<String> $$arez$$_valueB;
+  private final ObservableValue<@Nullable String> $$arez$$_valueB;
 
-  private String $$arezd$$_valueB;
+  private @Nullable String $$arezd$$_valueB;
 
-  @Nonnull
-  private final ObservableValue<String> $$arez$$_valueC;
+  private final ObservableValue<@Nullable String> $$arez$$_valueC;
 
-  private String $$arezd$$_valueC;
+  private @Nullable String $$arezd$$_valueC;
 
-  @Nonnull
   private final MemoizeCache<Boolean> $$arez$$_valid;
 
-  Arez_MyModel(final String valueA) {
+  Arez_MyModel(final @Nullable String valueA) {
     super(valueA);
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ++$$arezi$$_nextId;
@@ -58,7 +57,6 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Int
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_inheritance_interface_inheritance_MyModel'" );
@@ -74,7 +72,7 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Int
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_inheritance_interface_inheritance_MyModel'" );
@@ -83,7 +81,7 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Int
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_inheritance_interface_inheritance_MyModel'" );
     }
@@ -122,7 +120,7 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Int
   }
 
   @Override
-  String getValueB() {
+  @Nullable String getValueB() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getValueB' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -131,12 +129,12 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Int
   }
 
   @Override
-  void setValueB(final String valueB) {
+  void setValueB(final @Nullable String valueB) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setValueB' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     this.$$arez$$_valueB.preReportChanged();
-    final String $$arezv$$_currentValue = this.$$arezd$$_valueB;
+    final @Nullable String $$arezv$$_currentValue = this.$$arezd$$_valueB;
     if ( !Objects.equals( valueB, $$arezv$$_currentValue ) ) {
       this.$$arezd$$_valueB = valueB;
       this.$$arez$$_valueB.reportChanged();
@@ -144,7 +142,7 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Int
   }
 
   @Override
-  public String getValueC() {
+  public @Nullable String getValueC() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getValueC' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -153,12 +151,12 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Int
   }
 
   @Override
-  void setValueC(final String valueC) {
+  void setValueC(final @Nullable String valueC) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setValueC' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     this.$$arez$$_valueC.preReportChanged();
-    final String $$arezv$$_currentValue = this.$$arezd$$_valueC;
+    final @Nullable String $$arezv$$_currentValue = this.$$arezd$$_valueC;
     if ( !Objects.equals( valueC, $$arezv$$_currentValue ) ) {
       this.$$arezd$$_valueC = valueC;
       this.$$arez$$_valueC.reportChanged();
@@ -166,7 +164,7 @@ final class Arez_MyModel extends MyModel implements Disposable, Identifiable<Int
   }
 
   @Override
-  public boolean isValid(@Nonnull final String param) {
+  public boolean isValid(final @NonNull String param) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'isValid' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }

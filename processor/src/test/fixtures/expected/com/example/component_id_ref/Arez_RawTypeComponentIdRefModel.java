@@ -8,14 +8,15 @@ import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("rawtypes")
-final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel implements Disposable, Identifiable<RawTypeComponentIdRefModel.MyId>, DisposeNotifier {
+@NullMarked
+final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel implements Disposable, Identifiable<RawTypeComponentIdRefModel. @Nullable MyId>, DisposeNotifier {
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
@@ -33,15 +34,13 @@ final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel i
 
   @Override
   @SuppressWarnings("rawtypes")
-  @Nonnull
   RawTypeComponentIdRefModel.MyId getId() {
     return this.id();
   }
 
   @Override
-  @Nonnull
   @SuppressWarnings("rawtypes")
-  public RawTypeComponentIdRefModel.MyId getArezId() {
+  public RawTypeComponentIdRefModel. @Nullable MyId getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_component_id_ref_RawTypeComponentIdRefModel'" );
     }
@@ -56,7 +55,7 @@ final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel i
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_component_id_ref_RawTypeComponentIdRefModel'" );
@@ -65,7 +64,7 @@ final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel i
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_component_id_ref_RawTypeComponentIdRefModel'" );
     }

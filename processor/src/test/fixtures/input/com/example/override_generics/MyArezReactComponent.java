@@ -1,8 +1,10 @@
 package com.example.override_generics;
 
 import java.util.ArrayList;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 abstract class MyArezReactComponent
   extends ArezReactComponent<ArrayList<?>>
 {

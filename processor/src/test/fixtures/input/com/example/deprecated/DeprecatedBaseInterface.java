@@ -2,13 +2,15 @@ package com.example.deprecated;
 
 import arez.annotations.Memoize;
 import java.util.Date;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public interface DeprecatedBaseInterface
 {
   @SuppressWarnings( "DeprecatedIsStillUsed" )
   @Deprecated
-  boolean isValid( @Nonnull final Date at );
+  boolean isValid( @NonNull final Date at );
 
   @Memoize
   default boolean isValid()

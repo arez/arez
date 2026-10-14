@@ -8,26 +8,30 @@ import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import arez.annotations.SuppressArezWarnings;
 import java.util.Collection;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class Suppressed2ProtectedAccessPostInverseAddModel
 {
   // This uses the CLASS retention suppression
   @SuppressArezWarnings( "Arez:ProtectedMethod" )
   @PostInverseAdd
-  protected void postElementsAdd( @Nonnull final Element element )
+  protected void postElementsAdd( @NonNull final Element element )
   {
   }
 
   @Inverse( referenceName = "other" )
-  abstract Collection<Element> getElements();
+  abstract @Nullable Collection<Element> getElements();
 
+  @NullMarked
   @ArezComponent
   abstract static class Element
   {
     @Reference( inverse = Feature.ENABLE )
-    abstract Suppressed2ProtectedAccessPostInverseAddModel getOther();
+    abstract @Nullable Suppressed2ProtectedAccessPostInverseAddModel getOther();
 
     @ReferenceId
     int getOtherId()

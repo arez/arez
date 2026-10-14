@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Preserve inverse cardinality for annotated collection types and inherited reference-ID nullness after generic substitution, including compiled base classes.
+
 * Recognize annotated Observer and ComputableValue hook parameters by their declared Java type. Nullable observable initializers are diagnosed against the getter’s JSpecify contract.
 
 * Upgrade processor infrastructure to the pinned post-0.76 Proton module and require Java 21 to run processors. Generated code uses JSpecify type annotations and marked scopes. Nullness decisions honor declaration defaults and inherited generic bindings; unspecified initialization contracts are diagnosed. Legacy javax and JetBrains nullability annotations are ignored.

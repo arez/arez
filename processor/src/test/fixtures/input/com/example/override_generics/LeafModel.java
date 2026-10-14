@@ -1,14 +1,16 @@
 package com.example.override_generics;
 
 import arez.annotations.ArezComponent;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent( allowEmpty = true )
 abstract class LeafModel
   extends MiddleModel
 {
   @Override
-  protected void myAbstractMethod( @Nonnull final String value )
+  protected void myAbstractMethod( @NonNull final String value )
   {
   }
 }

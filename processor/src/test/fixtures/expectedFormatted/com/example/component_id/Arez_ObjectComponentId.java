@@ -8,14 +8,15 @@ import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_ObjectComponentId extends ObjectComponentId
-    implements Disposable, Identifiable<String>, DisposeNotifier {
+    implements Disposable, Identifiable<@Nullable String>, DisposeNotifier {
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
@@ -49,8 +50,7 @@ final class Arez_ObjectComponentId extends ObjectComponentId
   }
 
   @Override
-  @Nonnull
-  public String getArezId() {
+  public @Nullable String getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -72,9 +72,7 @@ final class Arez_ObjectComponentId extends ObjectComponentId
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -85,7 +83,7 @@ final class Arez_ObjectComponentId extends ObjectComponentId
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),

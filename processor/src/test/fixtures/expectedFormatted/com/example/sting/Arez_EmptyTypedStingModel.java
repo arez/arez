@@ -6,9 +6,9 @@ import arez.Component;
 import arez.Disposable;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 import sting.Eager;
 import sting.Injectable;
@@ -18,6 +18,7 @@ import sting.Typed;
 @Eager
 @Typed({})
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_EmptyTypedStingModel extends EmptyTypedStingModel
     implements Disposable, Identifiable<Integer> {
   private static volatile int $$arezi$$_nextId;
@@ -56,7 +57,6 @@ final class Arez_EmptyTypedStingModel extends EmptyTypedStingModel
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(

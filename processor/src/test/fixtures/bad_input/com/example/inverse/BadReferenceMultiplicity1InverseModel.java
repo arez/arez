@@ -6,12 +6,15 @@ import arez.annotations.Multiplicity;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import java.util.Collection;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class BadReferenceMultiplicity1InverseModel
 {
   @Reference( inverseMultiplicity = Multiplicity.ONE )
-  abstract MyEntity getMyEntity();
+  abstract @Nullable MyEntity getMyEntity();
 
   @ReferenceId
   int getMyEntityId()
@@ -19,10 +22,11 @@ abstract class BadReferenceMultiplicity1InverseModel
     return 0;
   }
 
+  @NullMarked
   @ArezComponent
   abstract static class MyEntity
   {
     @Inverse
-    abstract Collection<BadReferenceMultiplicity1InverseModel> getBadReferenceMultiplicity1InverseModel();
+    abstract @Nullable Collection<BadReferenceMultiplicity1InverseModel> getBadReferenceMultiplicity1InverseModel();
   }
 }

@@ -15,13 +15,14 @@ import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
 import arez.component.internal.MemoizeCache;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
+@NullMarked
 final class Arez_DeprecationModel extends DeprecationModel
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -29,29 +30,21 @@ final class Arez_DeprecationModel extends DeprecationModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
   private final ObservableValue<Long> $$arez$$_value;
 
-  @Nonnull
   private final MemoizeCache<Long> $$arez$$_count;
 
-  @Nonnull
   private final MemoizeCache<Long> $$arez$$_time2;
 
-  @Nonnull
   private final ComputableValue<Long> $$arez$$_time;
 
-  @Nonnull
   private final Observer $$arez$$_myObserve;
 
-  @Nonnull
   private final Observer $$arez$$_render;
 
-  @Nonnull
   private final Observer $$arez$$_render2;
 
-  @Nullable
-  private DeprecationModel.MyEntity $$arezr$$_Blah;
+  private DeprecationModel.@Nullable MyEntity $$arezr$$_Blah;
 
   Arez_DeprecationModel() {
     super();
@@ -101,7 +94,7 @@ final class Arez_DeprecationModel extends DeprecationModel
         Arez.areZonesEnabled() ? $$arezv$$_context : null,
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".time2" : null,
-        args -> $$arezi$$_memoize_time2((String) args[0]),
+        args -> $$arezi$$_memoize_time2((@Nullable String) args[0]),
         1,
         ComputableValue.Flags.AREZ_DEPENDENCIES);
     this.$$arez$$_time = $$arezv$$_context.computable(
@@ -136,7 +129,6 @@ final class Arez_DeprecationModel extends DeprecationModel
     this.$$arezi$$_kernel.componentComplete();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -153,7 +145,6 @@ final class Arez_DeprecationModel extends DeprecationModel
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -176,9 +167,7 @@ final class Arez_DeprecationModel extends DeprecationModel
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -189,7 +178,7 @@ final class Arez_DeprecationModel extends DeprecationModel
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -281,7 +270,7 @@ final class Arez_DeprecationModel extends DeprecationModel
       Guards.apiInvariant(
           () -> null != $$arezv$$_Blah,
           () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.deprecation.DeprecationModel.MyEntity and id = "
+              + "' is unable to resolve entity of type com.example.deprecation.DeprecationModel.@org.jspecify.annotations.Nullable MyEntity and id = "
               + getMyEntityId());
     }
   }
@@ -354,7 +343,6 @@ final class Arez_DeprecationModel extends DeprecationModel
 
   @Override
   @SuppressWarnings({"RedundantSuppression", "deprecation"})
-  @Nonnull
   Observer getRender2Observer() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -396,7 +384,7 @@ final class Arez_DeprecationModel extends DeprecationModel
     return this.$$arez$$_count.get(time, someOtherParameter);
   }
 
-  private long $$arezi$$_memoize_time2(final String $$arezi$$_myContextVar) {
+  private long $$arezi$$_memoize_time2(final @Nullable String $$arezi$$_myContextVar) {
     try {
       pushMyContextVar($$arezi$$_myContextVar);
       return super.getTime2();
@@ -438,7 +426,7 @@ final class Arez_DeprecationModel extends DeprecationModel
 
   @SuppressWarnings({"RedundantSuppression", "deprecation"})
   @Override
-  DeprecationModel.MyEntity getMyEntity() {
+  DeprecationModel.@Nullable MyEntity getMyEntity() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -469,7 +457,7 @@ final class Arez_DeprecationModel extends DeprecationModel
       Guards.apiInvariant(
           () -> null != $$arezr$$_Blah,
           () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.deprecation.DeprecationModel.MyEntity and id = "
+              + "' is unable to resolve entity of type com.example.deprecation.DeprecationModel.@org.jspecify.annotations.Nullable MyEntity and id = "
               + getMyEntityId());
     }
   }

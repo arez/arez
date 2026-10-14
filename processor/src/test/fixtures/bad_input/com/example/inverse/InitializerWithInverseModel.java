@@ -7,21 +7,25 @@ import arez.annotations.Multiplicity;
 import arez.annotations.Observable;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class InitializerWithInverseModel
 {
   @Inverse
-  @Nonnull
+  @NonNull
   @Observable( initializer = Feature.ENABLE )
   abstract MyEntity getMyEntity();
 
+  @NullMarked
   @ArezComponent
   abstract static class MyEntity
   {
     @Reference( inverseMultiplicity = Multiplicity.ONE )
-    abstract InitializerWithInverseModel getInitializerWithInverseModel();
+    abstract @Nullable InitializerWithInverseModel getInitializerWithInverseModel();
 
     @ReferenceId
     abstract int getInitializerWithInverseModelId();

@@ -1361,6 +1361,26 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
     }
 
     @Test
+    public void jspecifyInheritedNonNullReference() throws Exception {
+        assertSuccessfulFixtureCompile(
+                inputs("com.example.jspecify.ReferenceBase", "com.example.jspecify.InheritedNonNullReferenceModel"),
+                List.of("com/example/jspecify/Arez_InheritedNonNullReferenceModel.java"));
+        assertFalse(Files.readString(
+                        fixtureDir().resolve("expected/com/example/jspecify/Arez_InheritedNonNullReferenceModel.java"))
+                .contains("if ( null != id )"));
+    }
+
+    @Test
+    public void jspecifyInheritedNullableReference() throws Exception {
+        assertSuccessfulFixtureCompile(
+                inputs("com.example.jspecify.ReferenceBase", "com.example.jspecify.InheritedNullableReferenceModel"),
+                List.of("com/example/jspecify/Arez_InheritedNullableReferenceModel.java"));
+        assertTrue(Files.readString(
+                        fixtureDir().resolve("expected/com/example/jspecify/Arez_InheritedNullableReferenceModel.java"))
+                .contains("if ( null != id )"));
+    }
+
+    @Test
     public void jspecifyCompiledBase() throws Exception {
         final List<String> baseOptions = new ArrayList<>(getOptions());
         baseOptions.add("-proc:none");
@@ -1379,6 +1399,33 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
                     inputs("com.example.jspecify.InheritedNullableModel"),
                     List.of("com/example/jspecify/Arez_InheritedNullableModel.java"),
                     options);
+        } finally {
+            deleteDir(base.classOutput());
+            deleteDir(base.sourceOutput());
+        }
+    }
+
+    @Test
+    public void jspecifyCompiledReferenceBase() throws Exception {
+        final List<String> baseOptions = new ArrayList<>(getOptions());
+        baseOptions.add("-proc:none");
+        baseOptions.add("-parameters");
+        final Compilation base = CompileTestUtil.assertCompilesWithoutWarnings(
+                inputs("com.example.jspecify.ReferenceBase"),
+                baseOptions,
+                Collections.emptyList(),
+                Collections.emptyList());
+        try {
+            final List<String> options = new ArrayList<>(getOptions());
+            options.add("-classpath");
+            options.add(System.getProperty("java.class.path") + File.pathSeparator + base.classOutput());
+            for (final String classname :
+                    List.of("InheritedNonNullReferenceModel", "InheritedNullableReferenceModel")) {
+                assertSuccessfulFixtureCompile(
+                        inputs("com.example.jspecify." + classname),
+                        List.of("com/example/jspecify/Arez_" + classname + ".java"),
+                        options);
+            }
         } finally {
             deleteDir(base.classOutput());
             deleteDir(base.sourceOutput());

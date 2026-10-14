@@ -6,20 +6,24 @@ import arez.annotations.Multiplicity;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import java.util.Collection;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class ThrowsInverseModel
 {
   @SuppressWarnings( { "RedundantThrows", "RedundantSuppression" } )
   @Inverse
-  abstract Collection<MyEntity> getMyEntity()
+  abstract @Nullable Collection<MyEntity> getMyEntity()
     throws Exception;
 
+  @NullMarked
   @ArezComponent
   abstract static class MyEntity
   {
     @Reference( inverseMultiplicity = Multiplicity.MANY )
-    abstract ThrowsInverseModel getOther();
+    abstract @Nullable ThrowsInverseModel getOther();
 
     @ReferenceId
     int getOtherId()

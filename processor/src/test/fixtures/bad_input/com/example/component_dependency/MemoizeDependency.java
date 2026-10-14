@@ -4,13 +4,16 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 import arez.annotations.Memoize;
 import arez.component.DisposeNotifier;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class MemoizeDependency
 {
   @Memoize
   @ComponentDependency
-  public DisposeNotifier getValue()
+  public @Nullable DisposeNotifier getValue()
   {
     return null;
   }

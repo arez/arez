@@ -4,13 +4,16 @@ import arez.annotations.ArezComponent;
 import arez.annotations.CascadeDispose;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class CascadeDisposeReferenceModel
 {
   @Reference
   @CascadeDispose
-  abstract MyEntity getMyEntity();
+  abstract @Nullable MyEntity getMyEntity();
 
   @ReferenceId
   int getMyEntityId()
@@ -18,6 +21,7 @@ abstract class CascadeDisposeReferenceModel
     return 0;
   }
 
+  @NullMarked
   @ArezComponent( allowEmpty = true )
   abstract static class MyEntity
   {

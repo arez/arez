@@ -11,41 +11,44 @@ import arez.annotations.OnDepsChange;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.function.Consumer;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 // Example of usage of raw type through different
 // arez annotated methods should cause problems
+@NullMarked
 @SuppressWarnings( "rawtypes" )
 @ArezComponent
 public abstract class RawTypesUsageModel
 {
   @Action
-  public void doStuff( @Nonnull final Callable callable )
+  public void doStuff( @NonNull final Callable callable )
   {
   }
 
   @Observable( initializer = Feature.ENABLE )
-  abstract Callable getMyCallable();
+  abstract @Nullable Callable getMyCallable();
 
-  abstract void setMyCallable( Callable callable );
+  abstract void setMyCallable( @Nullable Callable callable );
 
   @Observable
-  Callable getMyCallable2()
+  @Nullable Callable getMyCallable2()
   {
     return null;
   }
 
-  void setMyCallable2( Callable callable )
+  void setMyCallable2( @Nullable Callable callable )
   {
   }
 
   @Observable( initializer = Feature.ENABLE )
-  abstract List<Callable> getMyCallableList();
+  abstract @Nullable List<Callable> getMyCallableList();
 
-  abstract void setMyCallableList( List<Callable> callable );
+  abstract void setMyCallableList( @Nullable List<Callable> callable );
 
   @Observe( executor = Executor.EXTERNAL )
-  public void render( @Nonnull final Callable callable )
+  public void render( @NonNull final Callable callable )
   {
   }
 
@@ -55,19 +58,19 @@ public abstract class RawTypesUsageModel
   }
 
   @Memoize
-  Callable genCallable()
+  @Nullable Callable genCallable()
   {
     return null;
   }
 
   @Memoize
-  int genCallableStat1( Callable callable )
+  int genCallableStat1( @Nullable Callable callable )
   {
     return 0;
   }
 
   @Memoize
-  int genCallableStat2( List<Consumer<Callable>> other )
+  int genCallableStat2( @Nullable List<Consumer<Callable>> other )
   {
     return 0;
   }

@@ -12,12 +12,13 @@ import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
 import com.example.pre_inverse_remove.Arez_ProtectedAccessFromBasePreInverseRemoveModel;
 import com.example.pre_inverse_remove.ProtectedAccessFromBasePreInverseRemoveModel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element extends BaseProtectedAccessPreInverseRemoveModel.Element implements Disposable,
     Identifiable<Integer>,
     Verifiable,
@@ -27,8 +28,7 @@ public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element extends
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nullable
-  private ProtectedAccessFromBasePreInverseRemoveModel $$arezr$$_other;
+  private @Nullable ProtectedAccessFromBasePreInverseRemoveModel $$arezr$$_other;
 
   public BaseProtectedAccessPreInverseRemoveModel_Arez_Element() {
     super();
@@ -45,7 +45,6 @@ public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element extends
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_pre_inverse_remove_other_BaseProtectedAccessPreInverseRemoveModel_Element'" );
@@ -59,7 +58,6 @@ public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element extends
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_pre_inverse_remove_other_BaseProtectedAccessPreInverseRemoveModel_Element'" );
@@ -80,7 +78,7 @@ public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element extends
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_pre_inverse_remove_other_BaseProtectedAccessPreInverseRemoveModel_Element'" );
@@ -89,7 +87,7 @@ public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element extends
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_pre_inverse_remove_other_BaseProtectedAccessPreInverseRemoveModel_Element'" );
     }
@@ -136,12 +134,12 @@ public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element extends
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( BaseProtectedAccessPreInverseRemoveModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type BaseProtectedAccessPreInverseRemoveModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( BaseProtectedAccessPreInverseRemoveModel.Element.class, $$arezi$$_id() ) );
       final int $$arezv$$_otherId = this.getOtherId();
       final ProtectedAccessFromBasePreInverseRemoveModel $$arezv$$_other = this.$$arezi$$_locator().findById( ProtectedAccessFromBasePreInverseRemoveModel.class, $$arezv$$_otherId );
-      Guards.apiInvariant( () -> null != $$arezv$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.pre_inverse_remove.ProtectedAccessFromBasePreInverseRemoveModel and id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.pre_inverse_remove.@org.jspecify.annotations.Nullable ProtectedAccessFromBasePreInverseRemoveModel and id = " + getOtherId() );
     }
   }
 
   @Override
-  ProtectedAccessFromBasePreInverseRemoveModel getOther() {
+  @Nullable ProtectedAccessFromBasePreInverseRemoveModel getOther() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getOther' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -158,7 +156,7 @@ public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element extends
     final int id = this.getOtherId();
     this.$$arezr$$_other = this.$$arezi$$_locator().findById( ProtectedAccessFromBasePreInverseRemoveModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.pre_inverse_remove.ProtectedAccessFromBasePreInverseRemoveModel and id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.pre_inverse_remove.@org.jspecify.annotations.Nullable ProtectedAccessFromBasePreInverseRemoveModel and id = " + getOtherId() );
     }
     ( (Arez_ProtectedAccessFromBasePreInverseRemoveModel) this.$$arezr$$_other ).$$arezir$$_elements_add( this );
   }

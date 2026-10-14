@@ -1,0 +1,1009 @@
+{
+  "review": {
+    "processor/src/test/fixtures/expected/com/example/auto_observe/Arez_BasicAutoObserveModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/auto_observe/Arez_NonnullFieldAutoObserveModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/auto_observe/Arez_NonnullRuntimeTypeValidateFieldAutoObserveModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/auto_observe/Arez_NullableFieldAutoObserveModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/auto_observe/Arez_NullableMethodAutoObserveModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/auto_observe/Arez_NullableRuntimeTypeValidateFieldAutoObserveModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/auto_observe/Arez_ProtectedAccessFromBaseFieldAutoObserveModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/auto_observe/Arez_RuntimeTypeValidateFieldAutoObserveModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/cascade_dispose/Arez_ComponentCascadeDisposeMethodModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/cascade_dispose/Arez_ComponentCascadeDisposeModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/cascade_dispose/Arez_DisposableCascadeDisposeMethodModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/cascade_dispose/Arez_DisposableCascadeDisposeModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/cascade_dispose/Arez_DisposeNotifierDisabledCascadeDisposeModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/cascade_dispose/Arez_NonStandardNameCascadeDisposeMethodModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/cascade_dispose/Arez_NonStandardNameDisposableCascadeDisposeModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/cascade_dispose/Arez_ObservableCascadeDisposeModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/cascade_dispose/Arez_ParameterizedComponentCascadeDisposeMethodModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/cascade_dispose/Arez_ProtectedAccessFromBaseFieldCascadeDisposeModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/cascade_dispose/ComponentCascadeDisposeMethodModel_Arez_MyComponent.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/cascade_dispose/ComponentCascadeDisposeModel_Arez_MyComponent.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/cascade_dispose/ObservableCascadeDisposeModel_Arez_MyComponent.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/cascade_dispose/ParameterizedComponentCascadeDisposeMethodModel_Arez_EventDrivenValue.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_AbstractObservableDependency.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_ArezComponentLikeFieldDependencyModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_ArezComponentLikeMethodDependencyModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_BasicDependencyModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_BasicFieldDependencyModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_CascadeDependencyModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_CascadeFieldDependencyModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_ComplexDependencyModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_ComplexDependencyWithCustomNameMethodModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_ComponentDependencyModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_ComponentFieldDependencyModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_ConcreteObservablePairWithInitializerDependency.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_MultiComponentDependencyModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_NonCascadeObservableDependency.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_NonStandardNameDependencyModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_NonStandardNameFieldDependencyModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_NonnullAbstractObservableDependency.java": {
+      "old_null_guards": 1,
+      "new_null_guards": 1
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_NonnullFieldDependencyModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_NonnullObservableDependency.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_ObservableDependency.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_ObservablePairAnnotatedDependency.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_ObservablePairWithInitializerDependency.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_ParameterizedFieldDependencyInParentModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_ParameterizedFieldDependencyModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_PartiallyResolvedParameterizedFieldDependencyInParentModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_ProtectedAccessFromBaseFieldDependencyModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_RuntimeTypeValidateDependency.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_RuntimeTypeValidateFieldDependency.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_SetNullObservableDependency.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/Arez_TransitivelyDisposeTrackableDependencyModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/ComponentDependencyModel_Arez_Foo.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/ComponentFieldDependencyModel_Arez_Foo.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_dependency/MultiComponentDependencyModel_Arez_Foo.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id/Arez_BooleanComponentId.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id/Arez_BooleanComponentIdRequireEquals.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id/Arez_ByteComponentId.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id/Arez_ByteComponentIdRequireEquals.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id/Arez_CharComponentId.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id/Arez_CharComponentIdRequireEquals.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id/Arez_ComponentIdOnModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id/Arez_DoubleComponentId.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id/Arez_DoubleComponentIdRequireEquals.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id/Arez_FloatComponentId.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id/Arez_FloatComponentIdRequireEquals.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id/Arez_IntComponentId.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id/Arez_IntComponentIdRequireEquals.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id/Arez_LongComponentId.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id/Arez_LongComponentIdRequireEquals.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id/Arez_NonStandardNameComponentId.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id/Arez_ObjectComponentId.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id/Arez_ObjectComponentIdRequireEquals.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id/Arez_ShortComponentId.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id/Arez_ShortComponentIdRequireEquals.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id_ref/Arez_BasicComponentIdRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id_ref/Arez_ComponentIdPresentComponentIdRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id_ref/Arez_MultiComponentIdRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id_ref/Arez_NonIntTypeComponentIdRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id_ref/Arez_NonStandardNameComponentIdRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id_ref/Arez_PackageAccessComponentIdRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id_ref/Arez_PublicAccessComponentIdRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_id_ref/Arez_RawTypeComponentIdRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_name_ref/Arez_BasicComponentNameRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_name_ref/Arez_MultiComponentNameRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_name_ref/Arez_NonStandardMethodNameComponentNameRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_name_ref/Arez_PackageAccessComponentNameRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_name_ref/Arez_ProtectedAccessFromBaseComponentNameRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_name_ref/Arez_PublicAccessViaInterfaceComponentNameRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_ref/Arez_BasicComponentRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_ref/Arez_MultiComponentRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_ref/Arez_NonStandardNameComponentRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_ref/Arez_PackageAccessComponentRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_ref/Arez_ProtectedAccessFromBaseComponentRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_ref/Arez_PublicAccessViaInterfaceComponentRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_state_ref/Arez_CompleteComponentStateRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_state_ref/Arez_ConstructedComponentStateRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_state_ref/Arez_DefaultComponentStateRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_state_ref/Arez_DisposingComponentStateRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_state_ref/Arez_MultipleComponentStateRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_state_ref/Arez_PackageAccessComponentStateRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_state_ref/Arez_ProtectedAccessFromBaseComponentStateRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_state_ref/Arez_PublicAccessViaInterfaceComponentStateRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_state_ref/Arez_ReadyComponentStateRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_type_name_ref/Arez_BasicComponentTypeNameRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_type_name_ref/Arez_MultiComponentTypeNameRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_type_name_ref/Arez_NonStandardMethodNameComponentTypeNameRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_type_name_ref/Arez_PackageAccessComponentTypeNameRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_type_name_ref/Arez_ProtectedAccessFromBaseComponentTypeNameRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/component_type_name_ref/Arez_PublicAccessViaInterfaceComponentTypeNameRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/context_ref/Arez_BasicContextRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/context_ref/Arez_MultiContextRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/context_ref/Arez_NonStandardMethodNameContextRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/context_ref/Arez_ProtectedAccessFromBaseContextRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/context_ref/Arez_PublicAccessViaInterfaceContextRefModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/deprecated/Arez_DeprecatedActionModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/deprecated/Arez_DeprecatedMemoize5Model.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/deprecated/Arez_DeprecatedMemoizeModel1.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/deprecated/Arez_DeprecatedMemoizeModel2.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/deprecated/Arez_DeprecatedMemoizeModel3.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/deprecated/Arez_DeprecatedObservableModel1.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/deprecated/Arez_DeprecatedObservableModel2.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/deprecated/Arez_DeprecatedObserveModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/deprecated/Arez_DeprecatedObserveModel1.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/deprecated/Arez_DeprecatedObserveModel2.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/deprecated/Arez_DeprecatedObserveModel3.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/deprecated/Arez_DeprecatedObserveModel4.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/deprecated/Arez_DeprecatedParameterModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/deprecated/Arez_DeprecatedPostConstructModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/deprecated/Arez_DeprecatedTypeParameterModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/deprecated/Arez_DeprecatedUsageModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/deprecated/Arez_DeprecatedViaInterfaceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/deprecation/Arez_DeprecationModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/dispose_notifier/Arez_DisposeNotifierModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/dispose_notifier/Arez_NoDisposeNotifierModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/id/Arez_ComponentIdExample.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/id/Arez_NonStandardNameModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/id/Arez_RequireIdDisable.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/id/Arez_RequireIdEnable.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inheritance/Arez_CompleteInterfaceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inheritance/Arez_CompleteModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inheritance/Arez_MyModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inheritance/interface_inheritance/Arez_MyModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inheritance/other/Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inheritance/other/Arez_OtherElement.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inject/Arez_NoInjectModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/Arez_CustomNamesInverseModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/Arez_DefaultMultiplicityInverseModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/Arez_DisableInverseModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/Arez_NonGetterInverseModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/Arez_NonObservableCollectionInverseModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/Arez_NonObservableNullableManyReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/Arez_NonObservableNullableOneReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/Arez_NonObservableNullableZeroOrOneReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/Arez_NonStandardNameModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/Arez_ObservableCollectionInverseModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/Arez_ObservableListInverseModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/Arez_ObservableManyReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/Arez_ObservableOneReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/Arez_ObservableReferenceInverseModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/Arez_ObservableSetInverseModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/Arez_ObservableZeroOrOneReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/Arez_OneMultiplicityInverseModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/Arez_PackageAccessWithDifferentPackageInverseModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/Arez_ZeroOrOneMultiplicityInverseModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/CustomNamesInverseModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/DefaultMultiplicityInverseModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/DisableInverseModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/MultipleReferenceWithInverseWithSameTarget_Arez_RoleType.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/NonGetterInverseModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/NonObservableCollectionInverseModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/NonObservableNullableManyReferenceModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/NonObservableNullableOneReferenceModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/NonObservableNullableZeroOrOneReferenceModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/NonStandardNameModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/ObservableCollectionInverseModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/ObservableListInverseModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/ObservableManyReferenceModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/ObservableOneReferenceModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/ObservableReferenceInverseModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/ObservableSetInverseModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/ObservableZeroOrOneReferenceModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/OneMultiplicityInverseModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/ZeroOrOneMultiplicityInverseModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/inverse/other/Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/overloaded_names/Arez_OverloadedActions.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/override_generics/Arez_GenericsModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/override_generics/Arez_LeafModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/override_generics/Arez_MyArezReactComponent_.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/parameterized_type/Arez_ResolvedModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/parameterized_type/Arez_UnresolvedModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/post_dispose/Arez_MultiViaInheritanceChainPostDisposeModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/post_inverse_add/Arez_BasicPostInverseAddModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/post_inverse_add/Arez_MultiPostInverseAddModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/post_inverse_add/Arez_PackageAccessPostInverseAddModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/post_inverse_add/Arez_ProtectedAccessFromBasePostInverseAddModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/post_inverse_add/Arez_PublicAccessViaInterfacePostInverseAddModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/post_inverse_add/Arez_SingularInversePostInverseAddModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/post_inverse_add/BasicPostInverseAddModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/post_inverse_add/MultiPostInverseAddModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/post_inverse_add/PackageAccessPostInverseAddModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/post_inverse_add/PublicAccessViaInterfacePostInverseAddModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/post_inverse_add/SingularInversePostInverseAddModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/post_inverse_add/other/BaseProtectedAccessPostInverseAddModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/pre_inverse_remove/Arez_BasicPreInverseRemoveModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/pre_inverse_remove/Arez_MultiPreInverseRemoveModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/pre_inverse_remove/Arez_PackageAccessPreInverseRemoveModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/pre_inverse_remove/Arez_ProtectedAccessFromBasePreInverseRemoveModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/pre_inverse_remove/Arez_PublicAccessViaInterfacePreInverseRemoveModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/pre_inverse_remove/Arez_SingularInversePreInverseRemoveModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/pre_inverse_remove/BasicPreInverseRemoveModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/pre_inverse_remove/MultiPreInverseRemoveModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/pre_inverse_remove/PackageAccessPreInverseRemoveModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/pre_inverse_remove/PublicAccessViaInterfacePreInverseRemoveModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/pre_inverse_remove/SingularInversePreInverseRemoveModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/pre_inverse_remove/other/BaseProtectedAccessPreInverseRemoveModel_Arez_Element.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/raw_types/Arez_RawTypesUsageModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/reference/Arez_CascadeDisposeReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/reference/Arez_CustomNameReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/reference/Arez_CustomNameReferenceModel2.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/reference/Arez_EagerLoadNulableObservableReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/reference/Arez_EagerLoadObservableReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/reference/Arez_EagerLoadReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/reference/Arez_EagerObservableReadOutsideTransactionReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/reference/Arez_ExplicitLoadObservableReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/reference/Arez_ExplicitLoadReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/reference/Arez_LazyLoadObservableReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/reference/Arez_LazyLoadReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/reference/Arez_LazyObservableReadOutsideTransactionReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/reference/Arez_NonJavabeanNameReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/reference/Arez_NonObservableReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/reference/Arez_NonnullLazyLoadReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/reference/Arez_NullableLazyLoadReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/reference/Arez_ObservableReferenceModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/reference/CascadeDisposeReferenceModel_Arez_MyEntity.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/reserved_names/Arez_NonReservedNameModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/sting/Arez_BasicStingModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/sting/Arez_EagerStingModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/sting/Arez_EmptyTypedStingModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/sting/Arez_MultipleArgsStingModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/sting/Arez_NamedArgStingModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/sting/Arez_NamedStingModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/sting/Arez_ServiceViaEagerStingModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/sting/Arez_ServiceViaNamedStingModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/sting/Arez_ServiceViaTypedStingModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/sting/Arez_TypedStingModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/type_access_levels/Arez_ReduceAccessLevelModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/type_params/Arez_ConcreteModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/verifiable/Arez_DisableVerifyModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    },
+    "processor/src/test/fixtures/expected/com/example/verifiable/Arez_EnableVerifyModel.java": {
+      "old_null_guards": 0,
+      "new_null_guards": 0
+    }
+  },
+  "discrepancies": []
+}

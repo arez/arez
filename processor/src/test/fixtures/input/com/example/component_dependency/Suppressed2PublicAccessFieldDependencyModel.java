@@ -4,11 +4,14 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 import arez.annotations.SuppressArezWarnings;
 import arez.component.DisposeNotifier;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class Suppressed2PublicAccessFieldDependencyModel
 {
   @SuppressArezWarnings( "Arez:PublicField" )
   @ComponentDependency
-  public final DisposeNotifier time = null;
+  public final @Nullable DisposeNotifier time = null;
 }

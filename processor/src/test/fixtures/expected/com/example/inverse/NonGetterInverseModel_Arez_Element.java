@@ -10,12 +10,13 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Element implements Disposable,
     Identifiable<Integer>,
     Verifiable,
@@ -25,8 +26,7 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nullable
-  private NonGetterInverseModel $$arezr$$_nonGetterInverseModel;
+  private @Nullable NonGetterInverseModel $$arezr$$_nonGetterInverseModel;
 
   NonGetterInverseModel_Arez_Element() {
     super();
@@ -43,7 +43,6 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_inverse_NonGetterInverseModel_Element'" );
@@ -57,7 +56,6 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_inverse_NonGetterInverseModel_Element'" );
@@ -78,7 +76,7 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_NonGetterInverseModel_Element'" );
@@ -87,7 +85,7 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_NonGetterInverseModel_Element'" );
     }
@@ -134,12 +132,12 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( NonGetterInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type NonGetterInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( NonGetterInverseModel.Element.class, $$arezi$$_id() ) );
       final int $$arezv$$_nonGetterInverseModelId = this.getNonGetterInverseModelId();
       final NonGetterInverseModel $$arezv$$_nonGetterInverseModel = this.$$arezi$$_locator().findById( NonGetterInverseModel.class, $$arezv$$_nonGetterInverseModelId );
-      Guards.apiInvariant( () -> null != $$arezv$$_nonGetterInverseModel, () -> "Reference named 'nonGetterInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.NonGetterInverseModel and id = " + getNonGetterInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_nonGetterInverseModel, () -> "Reference named 'nonGetterInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable NonGetterInverseModel and id = " + getNonGetterInverseModelId() );
     }
   }
 
   @Override
-  NonGetterInverseModel getNonGetterInverseModel() {
+  @Nullable NonGetterInverseModel getNonGetterInverseModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getNonGetterInverseModel' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -156,7 +154,7 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
     final int id = this.getNonGetterInverseModelId();
     this.$$arezr$$_nonGetterInverseModel = this.$$arezi$$_locator().findById( NonGetterInverseModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_nonGetterInverseModel, () -> "Reference named 'nonGetterInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.NonGetterInverseModel and id = " + getNonGetterInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_nonGetterInverseModel, () -> "Reference named 'nonGetterInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable NonGetterInverseModel and id = " + getNonGetterInverseModelId() );
     }
     ( (Arez_NonGetterInverseModel) this.$$arezr$$_nonGetterInverseModel ).$$arezir$$_elements_add( this );
   }

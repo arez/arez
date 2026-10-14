@@ -11,12 +11,13 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_ObservableReferenceModel extends ObservableReferenceModel
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -24,13 +25,11 @@ final class Arez_ObservableReferenceModel extends ObservableReferenceModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
   private final ObservableValue<Integer> $$arez$$_myEntityId;
 
   private int $$arezd$$_myEntityId;
 
-  @Nullable
-  private ObservableReferenceModel.MyEntity $$arezr$$_myEntity;
+  private ObservableReferenceModel.@Nullable MyEntity $$arezr$$_myEntity;
 
   Arez_ObservableReferenceModel() {
     super();
@@ -75,7 +74,6 @@ final class Arez_ObservableReferenceModel extends ObservableReferenceModel
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -92,7 +90,6 @@ final class Arez_ObservableReferenceModel extends ObservableReferenceModel
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -115,9 +112,7 @@ final class Arez_ObservableReferenceModel extends ObservableReferenceModel
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -128,7 +123,7 @@ final class Arez_ObservableReferenceModel extends ObservableReferenceModel
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -215,7 +210,7 @@ final class Arez_ObservableReferenceModel extends ObservableReferenceModel
       Guards.apiInvariant(
           () -> null != $$arezv$$_myEntity,
           () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.reference.ObservableReferenceModel.MyEntity and id = "
+              + "' is unable to resolve entity of type com.example.reference.ObservableReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = "
               + getMyEntityId());
     }
   }
@@ -250,7 +245,7 @@ final class Arez_ObservableReferenceModel extends ObservableReferenceModel
   }
 
   @Override
-  ObservableReferenceModel.MyEntity getMyEntity() {
+  ObservableReferenceModel.@Nullable MyEntity getMyEntity() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -283,7 +278,7 @@ final class Arez_ObservableReferenceModel extends ObservableReferenceModel
       Guards.apiInvariant(
           () -> null != $$arezr$$_myEntity,
           () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.reference.ObservableReferenceModel.MyEntity and id = "
+              + "' is unable to resolve entity of type com.example.reference.ObservableReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = "
               + getMyEntityId());
     }
   }

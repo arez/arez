@@ -2,13 +2,15 @@ package com.example.pre_inverse_remove;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.PreInverseRemove;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent( allowEmpty = true )
 abstract class MissingInversePreInverseRemoveModel
 {
   @PreInverseRemove
-  final void preElementRemove( @Nonnull final Object element )
+  final void preElementRemove( @NonNull final Object element )
   {
   }
 }

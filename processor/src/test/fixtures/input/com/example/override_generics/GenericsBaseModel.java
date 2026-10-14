@@ -1,11 +1,14 @@
 package com.example.override_generics;
 
 import arez.annotations.Action;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
-abstract class GenericsBaseModel<V>
+@NullMarked
+abstract class GenericsBaseModel<V extends @Nullable Object>
 {
   @Action
-  public void foo( final V v )
+  public void foo( final @Nullable V v )
   {
   }
 }

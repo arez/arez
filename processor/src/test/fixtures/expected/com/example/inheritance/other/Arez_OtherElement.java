@@ -13,12 +13,14 @@ import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
 import com.example.inheritance.Arez_CompleteInterfaceModel;
 import com.example.inheritance.CompleteInterfaceModel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 public final class Arez_OtherElement extends OtherElement implements Disposable,
     Identifiable<Integer>,
     Verifiable,
@@ -29,11 +31,9 @@ public final class Arez_OtherElement extends OtherElement implements Disposable,
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nullable
-  private CompleteInterfaceModel $$arezr$$_completeInterfaceModel;
+  private @Nullable CompleteInterfaceModel $$arezr$$_completeInterfaceModel;
 
-  @Nullable
-  private CompleteInterfaceModel $$arezr$$_child;
+  private @Nullable CompleteInterfaceModel $$arezr$$_child;
 
   public Arez_OtherElement() {
     super();
@@ -50,7 +50,6 @@ public final class Arez_OtherElement extends OtherElement implements Disposable,
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_inheritance_other_OtherElement'" );
@@ -64,7 +63,6 @@ public final class Arez_OtherElement extends OtherElement implements Disposable,
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_inheritance_other_OtherElement'" );
@@ -86,7 +84,7 @@ public final class Arez_OtherElement extends OtherElement implements Disposable,
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_inheritance_other_OtherElement'" );
@@ -95,7 +93,7 @@ public final class Arez_OtherElement extends OtherElement implements Disposable,
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_inheritance_other_OtherElement'" );
     }
@@ -142,10 +140,10 @@ public final class Arez_OtherElement extends OtherElement implements Disposable,
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( OtherElement.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type OtherElement and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( OtherElement.class, $$arezi$$_id() ) );
       final int $$arezv$$_completeInterfaceModelId = this.getCompleteInterfaceModelId();
       final CompleteInterfaceModel $$arezv$$_completeInterfaceModel = this.$$arezi$$_locator().findById( CompleteInterfaceModel.class, $$arezv$$_completeInterfaceModelId );
-      Guards.apiInvariant( () -> null != $$arezv$$_completeInterfaceModel, () -> "Reference named 'completeInterfaceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inheritance.CompleteInterfaceModel and id = " + getCompleteInterfaceModelId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_completeInterfaceModel, () -> "Reference named 'completeInterfaceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inheritance.@org.jspecify.annotations.Nullable CompleteInterfaceModel and id = " + getCompleteInterfaceModelId() );
       final int $$arezv$$_childId = this.getChildId();
       final CompleteInterfaceModel $$arezv$$_child = this.$$arezi$$_locator().findById( CompleteInterfaceModel.class, $$arezv$$_childId );
-      Guards.apiInvariant( () -> null != $$arezv$$_child, () -> "Reference named 'child' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inheritance.CompleteInterfaceModel and id = " + getChildId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_child, () -> "Reference named 'child' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inheritance.@org.jspecify.annotations.NonNull CompleteInterfaceModel and id = " + getChildId() );
     }
   }
 
@@ -164,7 +162,7 @@ public final class Arez_OtherElement extends OtherElement implements Disposable,
   }
 
   @Override
-  CompleteInterfaceModel getCompleteInterfaceModel() {
+  @Nullable CompleteInterfaceModel getCompleteInterfaceModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getCompleteInterfaceModel' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -181,7 +179,7 @@ public final class Arez_OtherElement extends OtherElement implements Disposable,
     final int id = this.getCompleteInterfaceModelId();
     this.$$arezr$$_completeInterfaceModel = this.$$arezi$$_locator().findById( CompleteInterfaceModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_completeInterfaceModel, () -> "Reference named 'completeInterfaceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inheritance.CompleteInterfaceModel and id = " + getCompleteInterfaceModelId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_completeInterfaceModel, () -> "Reference named 'completeInterfaceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inheritance.@org.jspecify.annotations.Nullable CompleteInterfaceModel and id = " + getCompleteInterfaceModelId() );
     }
     ( (Arez_CompleteInterfaceModel) this.$$arezr$$_completeInterfaceModel ).$$arezir$$_otherElements_add( this );
   }
@@ -193,9 +191,8 @@ public final class Arez_OtherElement extends OtherElement implements Disposable,
     this.$$arezr$$_completeInterfaceModel = null;
   }
 
-  @Nonnull
   @Override
-  CompleteInterfaceModel getChild() {
+  @NonNull CompleteInterfaceModel getChild() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getChild' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -213,7 +210,7 @@ public final class Arez_OtherElement extends OtherElement implements Disposable,
       final int id = this.getChildId();
       this.$$arezr$$_child = this.$$arezi$$_locator().findById( CompleteInterfaceModel.class, id );
       if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null != $$arezr$$_child, () -> "Reference named 'child' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inheritance.CompleteInterfaceModel and id = " + getChildId() );
+        Guards.apiInvariant( () -> null != $$arezr$$_child, () -> "Reference named 'child' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inheritance.@org.jspecify.annotations.NonNull CompleteInterfaceModel and id = " + getChildId() );
       }
       ( (Arez_CompleteInterfaceModel) this.$$arezr$$_child ).$$arezir$$_parentGeneralisation_zset( this );
     }

@@ -11,12 +11,13 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class ObservableManyReferenceModel_Arez_Element extends ObservableManyReferenceModel.Element implements Disposable,
     Identifiable<Integer>,
     Verifiable,
@@ -26,13 +27,11 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
   private final ObservableValue<Integer> $$arez$$_observableManyReferenceModelId;
 
   private int $$arezd$$_observableManyReferenceModelId;
 
-  @Nullable
-  private ObservableManyReferenceModel $$arezr$$_observableManyReferenceModel;
+  private @Nullable ObservableManyReferenceModel $$arezr$$_observableManyReferenceModel;
 
   ObservableManyReferenceModel_Arez_Element() {
     super();
@@ -50,7 +49,6 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_inverse_ObservableManyReferenceModel_Element'" );
@@ -64,7 +62,6 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_inverse_ObservableManyReferenceModel_Element'" );
@@ -85,7 +82,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_ObservableManyReferenceModel_Element'" );
@@ -94,7 +91,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_ObservableManyReferenceModel_Element'" );
     }
@@ -145,7 +142,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( ObservableManyReferenceModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type ObservableManyReferenceModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( ObservableManyReferenceModel.Element.class, $$arezi$$_id() ) );
       final int $$arezv$$_observableManyReferenceModelId = this.getObservableManyReferenceModelId();
       final ObservableManyReferenceModel $$arezv$$_observableManyReferenceModel = this.$$arezi$$_locator().findById( ObservableManyReferenceModel.class, $$arezv$$_observableManyReferenceModelId );
-      Guards.apiInvariant( () -> null != $$arezv$$_observableManyReferenceModel, () -> "Reference named 'observableManyReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.ObservableManyReferenceModel and id = " + getObservableManyReferenceModelId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_observableManyReferenceModel, () -> "Reference named 'observableManyReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ObservableManyReferenceModel and id = " + getObservableManyReferenceModelId() );
     }
   }
 
@@ -174,7 +171,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
   }
 
   @Override
-  ObservableManyReferenceModel getObservableManyReferenceModel() {
+  @Nullable ObservableManyReferenceModel getObservableManyReferenceModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getObservableManyReferenceModel' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -192,7 +189,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
     final int id = this.getObservableManyReferenceModelId();
     this.$$arezr$$_observableManyReferenceModel = this.$$arezi$$_locator().findById( ObservableManyReferenceModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_observableManyReferenceModel, () -> "Reference named 'observableManyReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.ObservableManyReferenceModel and id = " + getObservableManyReferenceModelId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_observableManyReferenceModel, () -> "Reference named 'observableManyReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ObservableManyReferenceModel and id = " + getObservableManyReferenceModelId() );
     }
     ( (Arez_ObservableManyReferenceModel) this.$$arezr$$_observableManyReferenceModel ).$$arezir$$_elements_add( this );
   }

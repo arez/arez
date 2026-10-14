@@ -23,72 +23,56 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
+@NullMarked
 public final class Arez_CompleteModel extends CompleteModel
     implements Disposable, Identifiable<Byte>, Verifiable, DisposeNotifier {
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<String> $$arez$$_myValue;
+  private final ObservableValue<@Nullable String> $$arez$$_myValue;
 
-  private String $$arezd$$_myValue;
+  private @Nullable String $$arezd$$_myValue;
 
-  @Nonnull
   private final ObservableValue<Integer> $$arez$$_myPrimitiveValue;
 
-  @Nonnull
-  private final ObservableValue<String> $$arez$$_myStringValue;
+  private final ObservableValue<@Nullable String> $$arez$$_myStringValue;
 
-  @Nonnull
-  private final ObservableValue<List<Element>> $$arez$$_elements;
+  private final ObservableValue<@Nullable List<Element>> $$arez$$_elements;
 
-  @Nonnull
   private final List<Element> $$arezd$$_elements;
 
-  @Nullable
-  private List<Element> $$arezd$$_$$cache$$_elements;
+  private @Nullable List<Element> $$arezd$$_$$cache$$_elements;
 
-  @Nonnull
-  private final ObservableValue<Element> $$arez$$_parentGeneralisation;
+  private final ObservableValue<@Nullable Element> $$arez$$_parentGeneralisation;
 
-  @Nullable
-  private Element $$arezd$$_parentGeneralisation;
+  private @Nullable Element $$arezd$$_parentGeneralisation;
 
-  @Nonnull
   private final ComputableValue<Long> $$arez$$_time;
 
-  @Nonnull
   private final MemoizeCache<Long> $$arez$$_calcStuff;
 
-  @Nonnull
-  private final ComputableValue<Collection<Long>> $$arez$$_collectionTime;
+  private final ComputableValue<@Nullable Collection<Long>> $$arez$$_collectionTime;
 
-  @Nullable
-  private Collection<Long> $$arezd$$_$$cache$$_collectionTime;
+  private @Nullable Collection<Long> $$arezd$$_$$cache$$_collectionTime;
 
-  @Nullable
-  private Collection<Long> $$arezd$$_$$unmodifiable_cache$$_collectionTime;
+  private @Nullable Collection<Long> $$arezd$$_$$unmodifiable_cache$$_collectionTime;
 
   private boolean $$arezd$$_$$cache_active$$_collectionTime;
 
-  @Nonnull
-  private final MemoizeCache<Collection<Long>> $$arez$$_calcCollectionStuff;
+  private final MemoizeCache<@Nullable Collection<Long>> $$arez$$_calcCollectionStuff;
 
-  @Nonnull
   private final Observer $$arez$$_myWatcher;
 
-  @Nonnull
   private final Observer $$arez$$_render;
 
-  @Nullable
-  private BaseCompleteModel.MyEntity $$arezr$$_myEntity;
+  private BaseCompleteModel.@Nullable MyEntity $$arezr$$_myEntity;
 
   public Arez_CompleteModel() {
     super();
@@ -210,7 +194,6 @@ public final class Arez_CompleteModel extends CompleteModel
   }
 
   @Override
-  @Nonnull
   protected ArezContext getContext() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -222,7 +205,6 @@ public final class Arez_CompleteModel extends CompleteModel
   }
 
   @Override
-  @Nonnull
   protected Component getComponent() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -257,7 +239,6 @@ public final class Arez_CompleteModel extends CompleteModel
     return this.$$arezi$$_kernel.getComponent();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -269,7 +250,6 @@ public final class Arez_CompleteModel extends CompleteModel
   }
 
   @Override
-  @Nonnull
   public Byte getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -287,7 +267,6 @@ public final class Arez_CompleteModel extends CompleteModel
   }
 
   @Override
-  @Nonnull
   protected String getComponentName() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -316,9 +295,7 @@ public final class Arez_CompleteModel extends CompleteModel
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -329,7 +306,7 @@ public final class Arez_CompleteModel extends CompleteModel
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -425,7 +402,7 @@ public final class Arez_CompleteModel extends CompleteModel
       Guards.apiInvariant(
           () -> null != $$arezv$$_myEntity,
           () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inheritance.other.BaseCompleteModel.MyEntity and id = "
+              + "' is unable to resolve entity of type com.example.inheritance.other.BaseCompleteModel.@org.jspecify.annotations.Nullable MyEntity and id = "
               + getMyEntityId());
       for (final Element element : this.$$arezd$$_elements) {
         if (Arez.shouldCheckApiInvariants()) {
@@ -447,7 +424,7 @@ public final class Arez_CompleteModel extends CompleteModel
   }
 
   @Override
-  protected String getMyValue() {
+  protected @Nullable String getMyValue() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -459,7 +436,7 @@ public final class Arez_CompleteModel extends CompleteModel
   }
 
   @Override
-  public void setMyValue(final String value) {
+  public void setMyValue(final @Nullable String value) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -467,7 +444,7 @@ public final class Arez_CompleteModel extends CompleteModel
               + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     this.$$arez$$_myValue.preReportChanged();
-    final String $$arezv$$_currentValue = this.$$arezd$$_myValue;
+    final @Nullable String $$arezv$$_currentValue = this.$$arezd$$_myValue;
     if (!Objects.equals(value, $$arezv$$_currentValue)) {
       this.$$arezd$$_myValue = value;
       this.$$arez$$_myValue.reportChanged();
@@ -475,7 +452,6 @@ public final class Arez_CompleteModel extends CompleteModel
   }
 
   @Override
-  @Nonnull
   protected ObservableValue<String> getMyValueObservableValue() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -520,7 +496,7 @@ public final class Arez_CompleteModel extends CompleteModel
   }
 
   @Override
-  protected String getMyStringValue() {
+  protected @Nullable String getMyStringValue() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -533,7 +509,7 @@ public final class Arez_CompleteModel extends CompleteModel
   }
 
   @Override
-  protected void setMyStringValue(final String value) {
+  protected void setMyStringValue(final @Nullable String value) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -542,7 +518,7 @@ public final class Arez_CompleteModel extends CompleteModel
                   + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     this.$$arez$$_myStringValue.preReportChanged();
-    final String $$arezv$$_currentValue = super.getMyStringValue();
+    final @Nullable String $$arezv$$_currentValue = super.getMyStringValue();
     if (!Objects.equals(value, $$arezv$$_currentValue)) {
       super.setMyStringValue(value);
       if (!Objects.equals($$arezv$$_currentValue, super.getMyStringValue())) {
@@ -552,7 +528,7 @@ public final class Arez_CompleteModel extends CompleteModel
   }
 
   @Override
-  protected List<Element> getElements() {
+  protected @Nullable List<Element> getElements() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -561,7 +537,7 @@ public final class Arez_CompleteModel extends CompleteModel
     }
     this.$$arez$$_elements.reportObserved();
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final List<Element> $$ar$$_result = this.$$arezd$$_elements;
+      final @Nullable List<Element> $$ar$$_result = this.$$arezd$$_elements;
       if (null == this.$$arezd$$_$$cache$$_elements && null != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_elements = CollectionsUtil.wrap($$ar$$_result);
       }
@@ -596,7 +572,6 @@ public final class Arez_CompleteModel extends CompleteModel
   }
 
   @Override
-  @Nonnull
   protected Observer getMyWatcherObserver() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -660,7 +635,6 @@ public final class Arez_CompleteModel extends CompleteModel
   }
 
   @Override
-  @Nonnull
   protected ComputableValue<Long> getTimeComputableValue() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -683,7 +657,7 @@ public final class Arez_CompleteModel extends CompleteModel
     return this.$$arez$$_calcStuff.get(i);
   }
 
-  private Collection<Long> $$arezi$$_memoize_collectionTime() {
+  private @Nullable Collection<Long> $$arezi$$_memoize_collectionTime() {
     this.$$arezi$$_kernel
         .getContext()
         .registerHook(
@@ -702,7 +676,7 @@ public final class Arez_CompleteModel extends CompleteModel
   }
 
   @Override
-  protected Collection<Long> getCollectionTime() {
+  protected @Nullable Collection<Long> getCollectionTime() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -711,7 +685,7 @@ public final class Arez_CompleteModel extends CompleteModel
                   + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final Collection<Long> $$ar$$_result = this.$$arez$$_collectionTime.get();
+      final @Nullable Collection<Long> $$ar$$_result = this.$$arez$$_collectionTime.get();
       if (this.$$arezd$$_$$cache$$_collectionTime != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_collectionTime = $$ar$$_result;
         this.$$arezd$$_$$unmodifiable_cache$$_collectionTime =
@@ -732,7 +706,7 @@ public final class Arez_CompleteModel extends CompleteModel
   }
 
   @Override
-  protected Collection<Long> calcCollectionStuff(final int i) {
+  protected @Nullable Collection<Long> calcCollectionStuff(final int i) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -744,7 +718,7 @@ public final class Arez_CompleteModel extends CompleteModel
   }
 
   @Override
-  protected BaseCompleteModel.MyEntity getMyEntity() {
+  protected BaseCompleteModel.@Nullable MyEntity getMyEntity() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -776,7 +750,7 @@ public final class Arez_CompleteModel extends CompleteModel
       Guards.apiInvariant(
           () -> null != $$arezr$$_myEntity,
           () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inheritance.other.BaseCompleteModel.MyEntity and id = "
+              + "' is unable to resolve entity of type com.example.inheritance.other.BaseCompleteModel.@org.jspecify.annotations.Nullable MyEntity and id = "
               + getMyEntityId());
     }
   }
@@ -785,7 +759,7 @@ public final class Arez_CompleteModel extends CompleteModel
     this.$$arezr$$_myEntity = null;
   }
 
-  public void $$arezir$$_elements_add(@Nonnull final Element element) {
+  public void $$arezir$$_elements_add(final Element element) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -808,7 +782,7 @@ public final class Arez_CompleteModel extends CompleteModel
     this.$$arez$$_elements.reportChanged();
   }
 
-  public void $$arezir$$_elements_remove(@Nonnull final Element element) {
+  public void $$arezir$$_elements_remove(final Element element) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -831,7 +805,7 @@ public final class Arez_CompleteModel extends CompleteModel
     this.$$arez$$_elements.reportChanged();
   }
 
-  public void $$arezir$$_parentGeneralisation_zset(@Nullable final Element element) {
+  public void $$arezir$$_parentGeneralisation_zset(final @Nullable Element element) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -844,7 +818,7 @@ public final class Arez_CompleteModel extends CompleteModel
     this.$$arez$$_parentGeneralisation.reportChanged();
   }
 
-  public void $$arezir$$_parentGeneralisation_zunset(@Nonnull final Element element) {
+  public void $$arezir$$_parentGeneralisation_zunset(final Element element) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),

@@ -7,11 +7,14 @@ import arez.annotations.Multiplicity;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class MultipleReferenceWithInverseWithSameTarget
 {
+  @NullMarked
   @ArezComponent
   abstract static class RoleTypeGeneralisation
   {
@@ -25,7 +28,7 @@ public class MultipleReferenceWithInverseWithSameTarget
     }
 
     @Reference( load = LinkType.EXPLICIT, inverseName = "childGeneralisations", inverseMultiplicity = Multiplicity.MANY )
-    @Nonnull
+    @NonNull
     abstract RoleType getParent();
 
     @ReferenceId
@@ -35,7 +38,7 @@ public class MultipleReferenceWithInverseWithSameTarget
     }
 
     @Reference( load = LinkType.EXPLICIT, inverseName = "parentGeneralisation", inverseMultiplicity = Multiplicity.ZERO_OR_ONE )
-    @Nonnull
+    @NonNull
     abstract RoleType getChild();
 
     @ReferenceId
@@ -45,11 +48,12 @@ public class MultipleReferenceWithInverseWithSameTarget
     }
   }
 
+  @NullMarked
   @ArezComponent
   abstract static class RoleType
   {
     @Inverse( name = "childGeneralisations", referenceName = "parent" )
-    @Nonnull
+    @NonNull
     abstract List<RoleTypeGeneralisation> getChildGeneralisations();
 
     @Inverse( name = "parentGeneralisation", referenceName = "child" )

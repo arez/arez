@@ -7,24 +7,28 @@ import arez.annotations.PreInverseRemove;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import java.util.Collection;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class BadName2PreInverseRemoveModel
 {
   @PreInverseRemove( name = "double" )
-  void preElementsRemove( @Nonnull final Element element )
+  void preElementsRemove( @NonNull final Element element )
   {
   }
 
   @Inverse( referenceName = "other" )
-  abstract Collection<Element> getElements();
+  abstract @Nullable Collection<Element> getElements();
 
+  @NullMarked
   @ArezComponent
   abstract static class Element
   {
     @Reference( inverse = Feature.ENABLE )
-    abstract BadName2PreInverseRemoveModel getOther();
+    abstract @Nullable BadName2PreInverseRemoveModel getOther();
 
     @ReferenceId
     int getOtherId()

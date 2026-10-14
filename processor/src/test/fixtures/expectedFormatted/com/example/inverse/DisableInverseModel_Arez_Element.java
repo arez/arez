@@ -10,12 +10,13 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class DisableInverseModel_Arez_Element extends DisableInverseModel.Element
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -23,8 +24,7 @@ final class DisableInverseModel_Arez_Element extends DisableInverseModel.Element
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nullable
-  private DisableInverseModel $$arezr$$_other;
+  private @Nullable DisableInverseModel $$arezr$$_other;
 
   DisableInverseModel_Arez_Element() {
     super();
@@ -62,7 +62,6 @@ final class DisableInverseModel_Arez_Element extends DisableInverseModel.Element
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -79,7 +78,6 @@ final class DisableInverseModel_Arez_Element extends DisableInverseModel.Element
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -102,9 +100,7 @@ final class DisableInverseModel_Arez_Element extends DisableInverseModel.Element
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -115,7 +111,7 @@ final class DisableInverseModel_Arez_Element extends DisableInverseModel.Element
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -198,12 +194,13 @@ final class DisableInverseModel_Arez_Element extends DisableInverseModel.Element
       Guards.apiInvariant(
           () -> null != $$arezv$$_other,
           () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.DisableInverseModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable DisableInverseModel and id = "
               + getOtherId());
     }
   }
 
   @Override
+  @Nullable
   DisableInverseModel getOther() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -235,7 +232,7 @@ final class DisableInverseModel_Arez_Element extends DisableInverseModel.Element
       Guards.apiInvariant(
           () -> null != $$arezr$$_other,
           () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.DisableInverseModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable DisableInverseModel and id = "
               + getOtherId());
     }
   }

@@ -5,29 +5,32 @@ import arez.annotations.ComponentDependency;
 import arez.annotations.ComponentNameRef;
 import arez.annotations.Observable;
 import arez.component.DisposeNotifier;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class ComplexDependencyWithCustomNameMethodModel
 {
-  @Nonnull
+  @NonNull
   @ComponentNameRef
   abstract String getComponentName();
 
   @ComponentDependency
-  DisposeNotifier getValue1()
+  @Nullable DisposeNotifier getValue1()
   {
     return null;
   }
 
   @ComponentDependency( action = ComponentDependency.Action.SET_NULL )
-  DisposeNotifier getValue3()
+  @Nullable DisposeNotifier getValue3()
   {
     return null;
   }
 
   @Observable
-  void setValue3( DisposeNotifier value )
+  void setValue3( @Nullable DisposeNotifier value )
   {
   }
 }

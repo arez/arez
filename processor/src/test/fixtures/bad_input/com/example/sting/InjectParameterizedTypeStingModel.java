@@ -4,12 +4,14 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import java.util.concurrent.Callable;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent( sting = Feature.ENABLE )
 public abstract class InjectParameterizedTypeStingModel
 {
-  InjectParameterizedTypeStingModel( @Nonnull final Callable<String> action )
+  InjectParameterizedTypeStingModel( @NonNull final Callable<String> action )
   {
   }
 

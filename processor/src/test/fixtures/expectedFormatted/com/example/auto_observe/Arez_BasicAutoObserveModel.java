@@ -14,12 +14,13 @@ import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -27,23 +28,17 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<BasicAutoObserveModel.MyComponent> $$arez$$_selected;
+  private final ObservableValue<BasicAutoObserveModel.@Nullable MyComponent> $$arez$$_selected;
 
-  @Nullable
-  private BasicAutoObserveModel.MyComponent $$arezd$$_selected;
+  private BasicAutoObserveModel.@Nullable MyComponent $$arezd$$_selected;
 
-  @Nonnull
-  private final ObservableValue<Integer> $$arez$$_entityId;
+  private final ObservableValue<@Nullable Integer> $$arez$$_entityId;
 
-  @Nullable
-  private Integer $$arezd$$_entityId;
+  private @Nullable Integer $$arezd$$_entityId;
 
-  @Nonnull
   private final Observer $$arez$$_$autoObserve;
 
-  @Nullable
-  private BasicAutoObserveModel.MyEntity $$arezr$$_entity;
+  private BasicAutoObserveModel.@Nullable MyEntity $$arezr$$_entity;
 
   Arez_BasicAutoObserveModel() {
     super();
@@ -101,7 +96,6 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel
     this.$$arezi$$_kernel.componentComplete();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -118,7 +112,6 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -141,9 +134,7 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -154,7 +145,7 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -236,22 +227,21 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel
           () -> "Attempted to lookup self in Locator with type BasicAutoObserveModel and id '"
               + $$arezi$$_id() + "' but unable to locate self. Actual value: "
               + $$arezi$$_locator().findById(BasicAutoObserveModel.class, $$arezi$$_id()));
-      final Integer $$arezv$$_entityId = this.getEntityId();
+      final @Nullable Integer $$arezv$$_entityId = this.getEntityId();
       if (null != $$arezv$$_entityId) {
         final BasicAutoObserveModel.MyEntity $$arezv$$_entity = this.$$arezi$$_locator()
             .findById(BasicAutoObserveModel.MyEntity.class, $$arezv$$_entityId);
         Guards.apiInvariant(
             () -> null != $$arezv$$_entity,
             () -> "Reference named 'entity' on component named '" + this.$$arezi$$_kernel.getName()
-                + "' is unable to resolve entity of type com.example.auto_observe.BasicAutoObserveModel.MyEntity and id = "
+                + "' is unable to resolve entity of type com.example.auto_observe.BasicAutoObserveModel.@org.jspecify.annotations.Nullable MyEntity and id = "
                 + getEntityId());
       }
     }
   }
 
   @Override
-  @Nullable
-  BasicAutoObserveModel.MyComponent getSelected() {
+  BasicAutoObserveModel.@Nullable MyComponent getSelected() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -263,7 +253,7 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel
   }
 
   @Override
-  void setSelected(@Nullable final BasicAutoObserveModel.MyComponent selected) {
+  void setSelected(final BasicAutoObserveModel.@Nullable MyComponent selected) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -271,7 +261,8 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel
               + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     this.$$arez$$_selected.preReportChanged();
-    final BasicAutoObserveModel.MyComponent $$arezv$$_currentValue = this.$$arezd$$_selected;
+    final BasicAutoObserveModel.@Nullable MyComponent $$arezv$$_currentValue =
+        this.$$arezd$$_selected;
     if (!Objects.equals(selected, $$arezv$$_currentValue)) {
       this.$$arezd$$_selected = selected;
       this.$$arez$$_selected.reportChanged();
@@ -292,7 +283,7 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel
   }
 
   @Override
-  void setEntityId(@Nullable final Integer id) {
+  void setEntityId(final @Nullable Integer id) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -300,7 +291,7 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel
               + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     this.$$arez$$_entityId.preReportChanged();
-    final Integer $$arezv$$_currentValue = this.$$arezd$$_entityId;
+    final @Nullable Integer $$arezv$$_currentValue = this.$$arezd$$_entityId;
     if (!Objects.equals(id, $$arezv$$_currentValue)) {
       this.$$arezd$$_entityId = id;
       this.$$arez$$_entityId.reportChanged();
@@ -316,22 +307,21 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel
               + this.$$arezi$$_kernel.describeState() + " component named '"
               + this.$$arezi$$_kernel.getName() + "'");
     }
-    final BasicAutoObserveModel.MyComponent $$arezv$$_autoObserve_0 = this.current();
+    final BasicAutoObserveModel.@Nullable MyComponent $$arezv$$_autoObserve_0 = this.current();
     ComponentObservable.maybeObserve($$arezv$$_autoObserve_0);
-    final BasicAutoObserveModel.MyComponent $$arezv$$_autoObserve_1 = this.getSelected();
+    final BasicAutoObserveModel.@Nullable MyComponent $$arezv$$_autoObserve_1 = this.getSelected();
     ComponentObservable.maybeObserve($$arezv$$_autoObserve_1);
     this.$$arezi$$_link_entity();
-    final BasicAutoObserveModel.MyEntity $$arezv$$_autoObserve_2 = this.getEntity();
+    final BasicAutoObserveModel.@Nullable MyEntity $$arezv$$_autoObserve_2 = this.getEntity();
     ComponentObservable.maybeObserve($$arezv$$_autoObserve_2);
-    final BasicAutoObserveModel.MyComponent $$arezv$$_autoObserve_3 = this._field;
+    final BasicAutoObserveModel.@Nullable MyComponent $$arezv$$_autoObserve_3 = this._field;
     if (null != $$arezv$$_autoObserve_3) {
       ComponentObservable.observe($$arezv$$_autoObserve_3);
     }
   }
 
-  @Nullable
   @Override
-  BasicAutoObserveModel.MyEntity getEntity() {
+  BasicAutoObserveModel.@Nullable MyEntity getEntity() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -355,7 +345,7 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel
               + this.$$arezi$$_kernel.getName() + "'");
     }
     if (null == this.$$arezr$$_entity) {
-      final Integer id = this.getEntityId();
+      final @Nullable Integer id = this.getEntityId();
       if (null != id) {
         this.$$arezr$$_entity =
             this.$$arezi$$_locator().findById(BasicAutoObserveModel.MyEntity.class, id);
@@ -364,7 +354,7 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel
               () -> null != $$arezr$$_entity,
               () ->
                   "Reference named 'entity' on component named '" + this.$$arezi$$_kernel.getName()
-                      + "' is unable to resolve entity of type com.example.auto_observe.BasicAutoObserveModel.MyEntity and id = "
+                      + "' is unable to resolve entity of type com.example.auto_observe.BasicAutoObserveModel.@org.jspecify.annotations.Nullable MyEntity and id = "
                       + getEntityId());
         }
       }

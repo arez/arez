@@ -6,16 +6,21 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class SimpleNameActAsArezComponentFieldDependencyModel
 {
+  @NullMarked
   @Retention( RetentionPolicy.RUNTIME )
   @Target( ElementType.ANNOTATION_TYPE )
   @interface ActAsArezComponent
   {
   }
 
+  @NullMarked
   @Retention( RetentionPolicy.RUNTIME )
   @Target( ElementType.TYPE )
   @ActAsArezComponent
@@ -24,8 +29,9 @@ abstract class SimpleNameActAsArezComponentFieldDependencyModel
   }
 
   @ComponentDependency
-  final MyType time = null;
+  final @Nullable MyType time = null;
 
+  @NullMarked
   @FrameworkView
   public interface MyType
   {

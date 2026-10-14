@@ -2,8 +2,6 @@ package arez.processor;
 
 import static javax.tools.Diagnostic.Kind.*;
 
-import com.palantir.javapoet.ParameterizedTypeName;
-import com.palantir.javapoet.TypeName;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,7 +44,6 @@ import org.realityforge.proton.AbstractStandardProcessor;
 import org.realityforge.proton.AnnotationsUtil;
 import org.realityforge.proton.DeferredElementSet;
 import org.realityforge.proton.ElementsUtil;
-import org.realityforge.proton.GeneratorUtil;
 import org.realityforge.proton.MemberChecks;
 import org.realityforge.proton.NamesUtil;
 import org.realityforge.proton.ProcessorException;
@@ -1579,14 +1576,13 @@ public final class ArezProcessor extends AbstractStandardProcessor {
 
     @Nullable
     private TypeElement getInverseManyTypeTarget(final ExecutableElement method) {
-        final TypeName typeName = GeneratorUtil.getTypeName(method.getReturnType());
-        if (typeName instanceof final ParameterizedTypeName type) {
-            if (isSupportedInverseCollectionType(type.rawType().toString())
-                    && !type.typeArguments().isEmpty()) {
-                final TypeElement typeElement =
-                        getTypeElement(type.typeArguments().get(0).toString());
-                if (AnnotationsUtil.hasAnnotationOfType(typeElement, Constants.COMPONENT_CLASSNAME)) {
-                    return typeElement;
+        if (method.getReturnType() instanceof DeclaredType type) {
+            if (isSupportedInverseCollectionType(
+                            ((TypeElement) type.asElement()).getQualifiedName().toString())
+                    && !type.getTypeArguments().isEmpty()) {
+                if (type.getTypeArguments().get(0) instanceof DeclaredType target
+                        && AnnotationsUtil.hasAnnotationOfType(target.asElement(), Constants.COMPONENT_CLASSNAME)) {
+                    return (TypeElement) target.asElement();
                 } else {
                     throw new ProcessorException(
                             "@Inverse target expected to return a type annotated with " + Constants.COMPONENT_CLASSNAME,
@@ -3076,7 +3072,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
             descriptor.addDependency(createMethodDependencyDescriptor(descriptor, method));
             return false;
         } else if (null != referenceId) {
-            addReferenceId(descriptor, referenceId, method);
+            addReferenceId(descriptor, referenceId, method, methodType);
             return true;
         } else if (null != inverse) {
             addInverse(descriptor, inverse, method, methodType);
@@ -3173,7 +3169,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     }
 
     private void addReferenceId(
-            final ComponentDescriptor descriptor, final AnnotationMirror annotation, final ExecutableElement method) {
+            final ComponentDescriptor descriptor,
+            final AnnotationMirror annotation,
+            final ExecutableElement method,
+            final ExecutableType methodType) {
         MemberChecks.mustNotHaveAnyParameters(Constants.REFERENCE_ID_CLASSNAME, method);
         MemberChecks.mustBeSubclassCallable(
                 descriptor.getElement(), Constants.COMPONENT_CLASSNAME, Constants.REFERENCE_ID_CLASSNAME, method);
@@ -3181,7 +3180,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         MemberChecks.mustReturnAValue(Constants.REFERENCE_ID_CLASSNAME, method);
 
         final var name = getReferenceIdName(annotation, method);
-        descriptor.findOrCreateReference(name).setIdMethod(method);
+        descriptor.findOrCreateReference(name).setIdMethod(method, methodType.getReturnType());
     }
 
     private String getReferenceIdName(final AnnotationMirror annotation, final ExecutableElement method) {

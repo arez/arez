@@ -15,12 +15,13 @@ import arez.component.internal.ComponentKernel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_NonStandardNameModel extends NonStandardNameModel
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -28,14 +29,11 @@ final class Arez_NonStandardNameModel extends NonStandardNameModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<Collection<NonStandardNameModel.Element>> $$arez$$_zap;
+  private final ObservableValue<@Nullable Collection<NonStandardNameModel.Element>> $$arez$$_zap;
 
-  @Nonnull
   private final Collection<NonStandardNameModel.Element> $$arezd$$_zap;
 
-  @Nullable
-  private Collection<NonStandardNameModel.Element> $$arezd$$_$$cache$$_zap;
+  private @Nullable Collection<NonStandardNameModel.Element> $$arezd$$_$$cache$$_zap;
 
   Arez_NonStandardNameModel() {
     super();
@@ -74,7 +72,6 @@ final class Arez_NonStandardNameModel extends NonStandardNameModel
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -91,7 +88,6 @@ final class Arez_NonStandardNameModel extends NonStandardNameModel
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -121,9 +117,7 @@ final class Arez_NonStandardNameModel extends NonStandardNameModel
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -134,7 +128,7 @@ final class Arez_NonStandardNameModel extends NonStandardNameModel
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -227,6 +221,7 @@ final class Arez_NonStandardNameModel extends NonStandardNameModel
   }
 
   @Override
+  @Nullable
   Collection<NonStandardNameModel.Element> getY$$$() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -236,7 +231,7 @@ final class Arez_NonStandardNameModel extends NonStandardNameModel
     }
     this.$$arez$$_zap.reportObserved();
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final Collection<NonStandardNameModel.Element> $$ar$$_result = this.$$arezd$$_zap;
+      final @Nullable Collection<NonStandardNameModel.Element> $$ar$$_result = this.$$arezd$$_zap;
       if (null == this.$$arezd$$_$$cache$$_zap && null != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_zap = CollectionsUtil.wrap($$ar$$_result);
       }
@@ -246,7 +241,7 @@ final class Arez_NonStandardNameModel extends NonStandardNameModel
     }
   }
 
-  void $$arezir$$_zap_add(@Nonnull final NonStandardNameModel.Element element) {
+  void $$arezir$$_zap_add(final NonStandardNameModel.Element element) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -269,7 +264,7 @@ final class Arez_NonStandardNameModel extends NonStandardNameModel
     this.$$arez$$_zap.reportChanged();
   }
 
-  void $$arezir$$_zap_remove(@Nonnull final NonStandardNameModel.Element element) {
+  void $$arezir$$_zap_remove(final NonStandardNameModel.Element element) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),

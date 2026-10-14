@@ -4,13 +4,15 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import java.util.concurrent.Callable;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent( sting = Feature.ENABLE )
 public abstract class InjectRawTypeStingModel
 {
   @SuppressWarnings( "rawtypes" )
-  InjectRawTypeStingModel( @Nonnull final Callable action )
+  InjectRawTypeStingModel( @NonNull final Callable action )
   {
   }
 

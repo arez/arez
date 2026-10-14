@@ -2,7 +2,7 @@
 
 - Spec: [SPEC.md](../SPEC.md)
 - Status: implementing
-- Current frontier: T11
+- Current frontier: T12
 - Planning reviewer: /root/planning_reviewer (2/3 rounds; passed, Findings: none)
 - Plan checkpoint: human-review (approved)
 - Checkpoint basis: the user said "Proceed" after the reviewed spec/task map and
@@ -27,7 +27,7 @@
 - Artifact reproducibility: independent-output-base hash comparisons, including
   binary, source, Javadoc and POM outputs; cached reruns alone are insufficient.
 - Final evidence: pending
-- Current milestone: T10 basic fixture slice passed; T11–T13 retain and migrate remaining suites before restoring the full JVM gate.
+- Current milestone: T11 full Arez processor suite passed; T12–T13 migrate remaining consumers before restoring the full JVM gate.
 
 ## Tasks
 
@@ -43,7 +43,7 @@
 | T08 | [Migrate core API and runtime contracts to JSpecify](T08-core-jspecify.md) | complete | T07 |
 | T09 | [Cut both processors to the pinned Proton and JSpecify API](T09-processor-jspecify-cut.md) | complete | T08 |
 | T10 | [Migrate component, observable and lifecycle scenarios](T10-arez-basic-fixtures.md) | complete | T09 |
-| T11 | [Migrate relationships, generics and remaining Arez scenarios](T11-arez-relationship-fixtures.md) | pending | T09 |
+| T11 | [Migrate relationships, generics and remaining Arez scenarios](T11-arez-relationship-fixtures.md) | complete | T09 |
 | T12 | [Restore the Persist slice after the nullability cut](T12-persist-jspecify.md) | pending | T10, T11 |
 | T13 | [Restore extras, integrations and compiled documentation](T13-generated-consumers-jspecify.md) | pending | T12 |
 | T14 | [Enforce strict checking on runtime products and tests](T14-runtime-strict-checks.md) | pending | T13 |

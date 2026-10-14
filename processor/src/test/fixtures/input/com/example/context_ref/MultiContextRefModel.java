@@ -3,13 +3,16 @@ package com.example.context_ref;
 import arez.ArezContext;
 import arez.annotations.ArezComponent;
 import arez.annotations.ContextRef;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent( allowEmpty = true )
 abstract class MultiContextRefModel
 {
   @ContextRef
-  abstract ArezContext getContext();
+  abstract @Nullable ArezContext getContext();
 
   @ContextRef
-  abstract ArezContext getContext2();
+  abstract @Nullable ArezContext getContext2();
 }

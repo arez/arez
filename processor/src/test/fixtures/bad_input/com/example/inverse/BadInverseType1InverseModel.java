@@ -6,18 +6,22 @@ import arez.annotations.Inverse;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import java.util.Collection;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class BadInverseType1InverseModel
 {
   @Inverse
-  abstract Collection<OtherEntity> getMyEntitys();
+  abstract @Nullable Collection<OtherEntity> getMyEntitys();
 
+  @NullMarked
   @ArezComponent()
   abstract static class OtherEntity
   {
     @Reference( inverse = Feature.ENABLE )
-    abstract MyEntity getBadInverseType1InverseModel();
+    abstract @Nullable MyEntity getBadInverseType1InverseModel();
 
     @ReferenceId
     int getBadInverseType1InverseModelId()
@@ -26,6 +30,7 @@ abstract class BadInverseType1InverseModel
     }
   }
 
+  @NullMarked
   @ArezComponent( allowEmpty = true )
   abstract static class MyEntity
   {

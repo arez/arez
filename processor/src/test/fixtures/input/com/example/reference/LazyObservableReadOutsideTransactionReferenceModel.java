@@ -6,12 +6,15 @@ import arez.annotations.LinkType;
 import arez.annotations.Observable;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class LazyObservableReadOutsideTransactionReferenceModel
 {
   @Reference( load = LinkType.LAZY )
-  abstract MyEntity getMyEntity();
+  abstract @Nullable MyEntity getMyEntity();
 
   @ReferenceId
   @Observable( readOutsideTransaction = Feature.ENABLE )
@@ -19,6 +22,7 @@ abstract class LazyObservableReadOutsideTransactionReferenceModel
 
   abstract void setMyEntityId( int id );
 
+  @NullMarked
   static class MyEntity
   {
   }

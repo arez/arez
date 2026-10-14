@@ -3,12 +3,15 @@ package com.example.reference;
 import arez.annotations.ArezComponent;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class CustomNameReferenceModel2
 {
   @Reference( name = "Blah" )
-  abstract MyEntity $$$getMyEntity();
+  abstract @Nullable MyEntity $$$getMyEntity();
 
   @ReferenceId( name = "Blah" )
   int getMyEntit$$$yId()
@@ -16,6 +19,7 @@ abstract class CustomNameReferenceModel2
     return 0;
   }
 
+  @NullMarked
   static class MyEntity
   {
   }

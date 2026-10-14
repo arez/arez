@@ -5,6 +5,7 @@ import com.palantir.javapoet.TypeName;
 import java.util.Objects;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.type.ExecutableType;
+import javax.lang.model.type.TypeMirror;
 import org.jspecify.annotations.Nullable;
 import org.realityforge.proton.GeneratorUtil;
 import org.realityforge.proton.ProcessorException;
@@ -34,6 +35,9 @@ final class ReferenceDescriptor {
     private ExecutableElement _idMethod;
 
     @Nullable
+    private TypeMirror _idType;
+
+    @Nullable
     private String _inverseName;
 
     @Nullable
@@ -50,13 +54,14 @@ final class ReferenceDescriptor {
         _name = Objects.requireNonNull(name);
     }
 
-    void setIdMethod(final ExecutableElement method) {
+    void setIdMethod(final ExecutableElement method, final TypeMirror type) {
         assert null == _idMethod;
         _idMethod = Objects.requireNonNull(method);
+        _idType = Objects.requireNonNull(type);
     }
 
     void setObservable(final ObservableDescriptor observable) {
-        setIdMethod(observable.getGetter());
+        setIdMethod(observable.getGetter(), observable.getGetterType().getReturnType());
         assert null == _observable;
         _observable = observable;
         _observable.setReferenceDescriptor(this);
@@ -137,6 +142,11 @@ final class ReferenceDescriptor {
         return _idMethod;
     }
 
+    TypeMirror getIdType() {
+        assert null != _idType;
+        return _idType;
+    }
+
     String getLinkMethodName() {
         return ComponentGenerator.getLinkMethodName(getName());
     }
@@ -164,7 +174,9 @@ final class ReferenceDescriptor {
     }
 
     boolean isNullable() {
-        return !getIdMethod().getReturnType().getKind().isPrimitive() && !Nullability.isNonNull(getIdMethod());
+        return !getIdType().getKind().isPrimitive()
+                && !Nullability.isNonNull(
+                        getIdMethod(), getIdType(), getComponent().getElement());
     }
 
     ClassName getArezClassName() {

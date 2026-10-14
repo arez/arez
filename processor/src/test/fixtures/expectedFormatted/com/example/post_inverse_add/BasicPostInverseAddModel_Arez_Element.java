@@ -10,12 +10,13 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class BasicPostInverseAddModel_Arez_Element extends BasicPostInverseAddModel.Element
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -23,8 +24,7 @@ final class BasicPostInverseAddModel_Arez_Element extends BasicPostInverseAddMod
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nullable
-  private BasicPostInverseAddModel $$arezr$$_other;
+  private @Nullable BasicPostInverseAddModel $$arezr$$_other;
 
   BasicPostInverseAddModel_Arez_Element() {
     super();
@@ -62,7 +62,6 @@ final class BasicPostInverseAddModel_Arez_Element extends BasicPostInverseAddMod
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -79,7 +78,6 @@ final class BasicPostInverseAddModel_Arez_Element extends BasicPostInverseAddMod
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -107,9 +105,7 @@ final class BasicPostInverseAddModel_Arez_Element extends BasicPostInverseAddMod
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -120,7 +116,7 @@ final class BasicPostInverseAddModel_Arez_Element extends BasicPostInverseAddMod
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -206,12 +202,13 @@ final class BasicPostInverseAddModel_Arez_Element extends BasicPostInverseAddMod
       Guards.apiInvariant(
           () -> null != $$arezv$$_other,
           () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.post_inverse_add.BasicPostInverseAddModel and id = "
+              + "' is unable to resolve entity of type com.example.post_inverse_add.@org.jspecify.annotations.Nullable BasicPostInverseAddModel and id = "
               + getOtherId());
     }
   }
 
   @Override
+  @Nullable
   BasicPostInverseAddModel getOther() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -243,7 +240,7 @@ final class BasicPostInverseAddModel_Arez_Element extends BasicPostInverseAddMod
       Guards.apiInvariant(
           () -> null != $$arezr$$_other,
           () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.post_inverse_add.BasicPostInverseAddModel and id = "
+              + "' is unable to resolve entity of type com.example.post_inverse_add.@org.jspecify.annotations.Nullable BasicPostInverseAddModel and id = "
               + getOtherId());
     }
     ((Arez_BasicPostInverseAddModel) this.$$arezr$$_other).$$arezir$$_elements_add(this);

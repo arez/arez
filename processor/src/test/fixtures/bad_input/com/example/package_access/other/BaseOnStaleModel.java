@@ -3,7 +3,9 @@ package com.example.package_access.other;
 import arez.annotations.Memoize;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public abstract class BaseOnStaleModel
 {
   @Memoize

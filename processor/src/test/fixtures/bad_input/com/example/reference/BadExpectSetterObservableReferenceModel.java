@@ -6,12 +6,15 @@ import arez.annotations.Observable;
 import arez.annotations.ObservableValueRef;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class BadExpectSetterObservableReferenceModel
 {
   @Reference
-  abstract MyEntity getMyEntity();
+  abstract @Nullable MyEntity getMyEntity();
 
   @ReferenceId
   @Observable( expectSetter = false )
@@ -21,8 +24,9 @@ abstract class BadExpectSetterObservableReferenceModel
   }
 
   @ObservableValueRef
-  protected abstract ObservableValue<Integer> getMyEntityIdObservableValue();
+  protected abstract @Nullable ObservableValue<Integer> getMyEntityIdObservableValue();
 
+  @NullMarked
   static class MyEntity
   {
   }

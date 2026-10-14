@@ -10,12 +10,13 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_ConcreteObservablePairWithInitializerDependency
     extends ConcreteObservablePairWithInitializerDependency
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
@@ -24,10 +25,9 @@ final class Arez_ConcreteObservablePairWithInitializerDependency
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<DisposeNotifier> $$arez$$_value;
+  private final ObservableValue<@Nullable DisposeNotifier> $$arez$$_value;
 
-  Arez_ConcreteObservablePairWithInitializerDependency(final DisposeNotifier value) {
+  Arez_ConcreteObservablePairWithInitializerDependency(final @Nullable DisposeNotifier value) {
     super(value);
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ++$$arezi$$_nextId;
@@ -74,7 +74,6 @@ final class Arez_ConcreteObservablePairWithInitializerDependency
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -106,9 +105,7 @@ final class Arez_ConcreteObservablePairWithInitializerDependency
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -119,7 +116,7 @@ final class Arez_ConcreteObservablePairWithInitializerDependency
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -174,6 +171,7 @@ final class Arez_ConcreteObservablePairWithInitializerDependency
   }
 
   @Override
+  @Nullable
   DisposeNotifier getValue() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -186,7 +184,7 @@ final class Arez_ConcreteObservablePairWithInitializerDependency
   }
 
   @Override
-  void setValue(final DisposeNotifier value) {
+  void setValue(final @Nullable DisposeNotifier value) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -194,7 +192,7 @@ final class Arez_ConcreteObservablePairWithInitializerDependency
               + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     this.$$arez$$_value.preReportChanged();
-    final DisposeNotifier $$arezv$$_currentValue = super.getValue();
+    final @Nullable DisposeNotifier $$arezv$$_currentValue = super.getValue();
     if (!Objects.equals(value, $$arezv$$_currentValue)) {
       if (null != $$arezv$$_currentValue) {
         DisposeNotifier.asDisposeNotifier($$arezv$$_currentValue).removeOnDisposeListener(this);

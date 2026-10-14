@@ -31,12 +31,15 @@ import arez.annotations.ReferenceId;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 public abstract class BaseCompleteModel
 {
   @CascadeDispose
-  protected Disposable _myDisposableField;
+  protected @Nullable Disposable _myDisposableField;
 
   @PreDispose
   protected final void preDispose()
@@ -59,7 +62,7 @@ public abstract class BaseCompleteModel
   }
 
   @ObserverRef
-  protected abstract Observer getMyWatcherObserver();
+  protected abstract @Nullable Observer getMyWatcherObserver();
 
   @ComponentId
   protected final byte getId()
@@ -68,9 +71,9 @@ public abstract class BaseCompleteModel
   }
 
   @ComponentNameRef
-  protected abstract String getComponentName();
+  protected abstract @Nullable String getComponentName();
 
-  @Nonnull
+  @NonNull
   @ComponentRef
   protected abstract Component getComponent();
 
@@ -86,7 +89,7 @@ public abstract class BaseCompleteModel
     return 0;
   }
 
-  @Nonnull
+  @NonNull
   @ComputableValueRef
   protected abstract ComputableValue<Long> getTimeComputableValue();
 
@@ -101,26 +104,26 @@ public abstract class BaseCompleteModel
   }
 
   @Memoize
-  protected Collection<Long> getCollectionTime()
+  protected @Nullable Collection<Long> getCollectionTime()
   {
     return Collections.emptyList();
   }
 
   @Memoize
-  protected Collection<Long> calcCollectionStuff( int i )
+  protected @Nullable Collection<Long> calcCollectionStuff( int i )
   {
     return Collections.emptyList();
   }
 
   @ContextRef
-  protected abstract ArezContext getContext();
+  protected abstract @Nullable ArezContext getContext();
 
   @Observable
-  protected abstract String getMyValue();
+  protected abstract @Nullable String getMyValue();
 
-  public abstract void setMyValue( String value );
+  public abstract void setMyValue( @Nullable String value );
 
-  @Nonnull
+  @NonNull
   @ObservableValueRef
   protected abstract ObservableValue<String> getMyValueObservableValue();
 
@@ -135,12 +138,12 @@ public abstract class BaseCompleteModel
   }
 
   @Observable( setterAlwaysMutates = false )
-  protected String getMyStringValue()
+  protected @Nullable String getMyStringValue()
   {
     return null;
   }
 
-  protected void setMyStringValue( String value )
+  protected void setMyStringValue( @Nullable String value )
   {
   }
 
@@ -160,7 +163,7 @@ public abstract class BaseCompleteModel
   }
 
   @Reference
-  protected abstract MyEntity getMyEntity();
+  protected abstract @Nullable MyEntity getMyEntity();
 
   @ReferenceId
   protected int getMyEntityId()
@@ -168,11 +171,12 @@ public abstract class BaseCompleteModel
     return 0;
   }
 
+  @NullMarked
   public static class MyEntity
   {
   }
 
   @Observable
   @Inverse
-  protected abstract List<Element> getElements();
+  protected abstract @Nullable List<Element> getElements();
 }

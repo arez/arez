@@ -7,7 +7,10 @@ import arez.annotations.PreInverseRemove;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import java.util.Collection;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class BadParamCount1PreInverseRemoveModel
 {
@@ -17,13 +20,14 @@ abstract class BadParamCount1PreInverseRemoveModel
   }
 
   @Inverse( referenceName = "other" )
-  abstract Collection<Element> getElements();
+  abstract @Nullable Collection<Element> getElements();
 
+  @NullMarked
   @ArezComponent
   abstract static class Element
   {
     @Reference( inverse = Feature.ENABLE )
-    abstract BadParamCount1PreInverseRemoveModel getOther();
+    abstract @Nullable BadParamCount1PreInverseRemoveModel getOther();
 
     @ReferenceId
     int getOtherId()

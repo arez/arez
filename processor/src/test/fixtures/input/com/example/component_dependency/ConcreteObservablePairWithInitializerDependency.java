@@ -4,26 +4,29 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 import arez.annotations.Observable;
 import arez.component.DisposeNotifier;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class ConcreteObservablePairWithInitializerDependency
 {
   @SuppressWarnings( "Arez:UnmanagedComponentReference" )
-  private DisposeNotifier _value;
+  private @Nullable DisposeNotifier _value;
 
-  ConcreteObservablePairWithInitializerDependency( final DisposeNotifier value )
+  ConcreteObservablePairWithInitializerDependency( final @Nullable DisposeNotifier value )
   {
     _value = value;
   }
 
   @ComponentDependency
-  DisposeNotifier getValue()
+  @Nullable DisposeNotifier getValue()
   {
     return _value;
   }
 
   @Observable
-  void setValue( DisposeNotifier value )
+  void setValue( @Nullable DisposeNotifier value )
   {
     _value = value;
   }

@@ -11,19 +11,19 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import com.example.auto_observe.other.BaseProtectedAccessFieldAutoObserveModel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_ProtectedAccessFromBaseFieldAutoObserveModel extends ProtectedAccessFromBaseFieldAutoObserveModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
   private final Observer $$arez$$_$autoObserve;
 
   Arez_ProtectedAccessFromBaseFieldAutoObserveModel() {
@@ -44,7 +44,6 @@ final class Arez_ProtectedAccessFromBaseFieldAutoObserveModel extends ProtectedA
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_auto_observe_ProtectedAccessFromBaseFieldAutoObserveModel'" );
@@ -60,7 +59,7 @@ final class Arez_ProtectedAccessFromBaseFieldAutoObserveModel extends ProtectedA
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_auto_observe_ProtectedAccessFromBaseFieldAutoObserveModel'" );
@@ -69,7 +68,7 @@ final class Arez_ProtectedAccessFromBaseFieldAutoObserveModel extends ProtectedA
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_auto_observe_ProtectedAccessFromBaseFieldAutoObserveModel'" );
     }
@@ -109,7 +108,7 @@ final class Arez_ProtectedAccessFromBaseFieldAutoObserveModel extends ProtectedA
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_$autoObserve' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
-    final BaseProtectedAccessFieldAutoObserveModel.MyType $$arezv$$_autoObserve_0 = this._field;
+    final BaseProtectedAccessFieldAutoObserveModel. @Nullable MyType $$arezv$$_autoObserve_0 = this._field;
     if ( null != $$arezv$$_autoObserve_0 ) {
       ComponentObservable.observe( $$arezv$$_autoObserve_0 );
     }

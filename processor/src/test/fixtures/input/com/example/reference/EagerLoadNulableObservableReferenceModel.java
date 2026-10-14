@@ -5,13 +5,15 @@ import arez.annotations.LinkType;
 import arez.annotations.Observable;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class EagerLoadNulableObservableReferenceModel
 {
   @Reference( load = LinkType.EAGER )
-  abstract MyEntity getMyEntity();
+  abstract @Nullable MyEntity getMyEntity();
 
   @ReferenceId
   @Observable
@@ -20,6 +22,7 @@ abstract class EagerLoadNulableObservableReferenceModel
 
   abstract void setMyEntityId( @Nullable String id );
 
+  @NullMarked
   static class MyEntity
   {
   }

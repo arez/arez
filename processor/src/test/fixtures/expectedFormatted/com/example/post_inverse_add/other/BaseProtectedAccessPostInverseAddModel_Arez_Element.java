@@ -12,12 +12,13 @@ import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
 import com.example.post_inverse_add.Arez_ProtectedAccessFromBasePostInverseAddModel;
 import com.example.post_inverse_add.ProtectedAccessFromBasePostInverseAddModel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 public final class BaseProtectedAccessPostInverseAddModel_Arez_Element
     extends BaseProtectedAccessPostInverseAddModel.Element
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
@@ -26,8 +27,7 @@ public final class BaseProtectedAccessPostInverseAddModel_Arez_Element
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nullable
-  private ProtectedAccessFromBasePostInverseAddModel $$arezr$$_other;
+  private @Nullable ProtectedAccessFromBasePostInverseAddModel $$arezr$$_other;
 
   public BaseProtectedAccessPostInverseAddModel_Arez_Element() {
     super();
@@ -66,7 +66,6 @@ public final class BaseProtectedAccessPostInverseAddModel_Arez_Element
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -83,7 +82,6 @@ public final class BaseProtectedAccessPostInverseAddModel_Arez_Element
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -111,9 +109,7 @@ public final class BaseProtectedAccessPostInverseAddModel_Arez_Element
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -124,7 +120,7 @@ public final class BaseProtectedAccessPostInverseAddModel_Arez_Element
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -211,12 +207,13 @@ public final class BaseProtectedAccessPostInverseAddModel_Arez_Element
       Guards.apiInvariant(
           () -> null != $$arezv$$_other,
           () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.post_inverse_add.ProtectedAccessFromBasePostInverseAddModel and id = "
+              + "' is unable to resolve entity of type com.example.post_inverse_add.@org.jspecify.annotations.Nullable ProtectedAccessFromBasePostInverseAddModel and id = "
               + OtherId());
     }
   }
 
   @Override
+  @Nullable
   ProtectedAccessFromBasePostInverseAddModel getOther() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -249,7 +246,7 @@ public final class BaseProtectedAccessPostInverseAddModel_Arez_Element
       Guards.apiInvariant(
           () -> null != $$arezr$$_other,
           () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.post_inverse_add.ProtectedAccessFromBasePostInverseAddModel and id = "
+              + "' is unable to resolve entity of type com.example.post_inverse_add.@org.jspecify.annotations.Nullable ProtectedAccessFromBasePostInverseAddModel and id = "
               + OtherId());
     }
     ((Arez_ProtectedAccessFromBasePostInverseAddModel) this.$$arezr$$_other)

@@ -4,18 +4,21 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 import arez.annotations.Observable;
 import arez.component.DisposeNotifier;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class ObservableDependency
 {
   @Observable
   @ComponentDependency
-  DisposeNotifier getValue()
+  @Nullable DisposeNotifier getValue()
   {
     return null;
   }
 
-  void setValue( DisposeNotifier value )
+  void setValue( @Nullable DisposeNotifier value )
   {
   }
 }

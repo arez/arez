@@ -14,7 +14,10 @@ import arez.annotations.OnDeactivate;
 import arez.annotations.OnDepsChange;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @SuppressWarnings( "RedundantSuppression" )
 @ArezComponent
 abstract class DeprecationModel
@@ -65,7 +68,7 @@ abstract class DeprecationModel
 
   @SuppressWarnings( "deprecation" )
   @ObserverRef
-  abstract Observer getRender2Observer();
+  abstract @Nullable Observer getRender2Observer();
 
   @SuppressWarnings( "deprecation" )
   @Memoize
@@ -102,24 +105,24 @@ abstract class DeprecationModel
 
   @SuppressWarnings( "deprecation" )
   @MemoizeContextParameter( pattern = "time2" )
-  String captureMyContextVar()
+  @Nullable String captureMyContextVar()
   {
     return "";
   }
 
   @SuppressWarnings( "deprecation" )
-  void pushMyContextVar( String var )
+  void pushMyContextVar( @Nullable String var )
   {
   }
 
   @SuppressWarnings( "deprecation" )
-  void popMyContextVar( String var )
+  void popMyContextVar( @Nullable String var )
   {
   }
 
   @SuppressWarnings( "deprecation" )
   @Reference( name = "Blah" )
-  abstract MyEntity getMyEntity();
+  abstract @Nullable MyEntity getMyEntity();
 
   @SuppressWarnings( "deprecation" )
   @ReferenceId( name = "Blah" )
@@ -128,6 +131,7 @@ abstract class DeprecationModel
     return 0;
   }
 
+  @NullMarked
   static class MyEntity
   {
   }

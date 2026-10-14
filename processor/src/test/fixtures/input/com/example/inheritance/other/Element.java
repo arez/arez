@@ -6,13 +6,16 @@ import arez.annotations.Multiplicity;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import com.example.inheritance.CompleteModel;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class Element
 {
   @Reference( inverseMultiplicity = Multiplicity.MANY )
-  abstract CompleteModel getCompleteModel();
+  abstract @Nullable CompleteModel getCompleteModel();
 
   @ReferenceId
   int getCompleteModelId()
@@ -21,7 +24,7 @@ public abstract class Element
   }
 
   @Reference( load = LinkType.EXPLICIT, inverseName = "parentGeneralisation", inverseMultiplicity = Multiplicity.ZERO_OR_ONE )
-  @Nonnull
+  @NonNull
   abstract CompleteModel getChild();
 
   @ReferenceId

@@ -11,12 +11,13 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_ZeroOrOneMultiplicityInverseModel extends ZeroOrOneMultiplicityInverseModel
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -24,11 +25,10 @@ final class Arez_ZeroOrOneMultiplicityInverseModel extends ZeroOrOneMultiplicity
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<ZeroOrOneMultiplicityInverseModel.Element> $$arez$$_element;
+  private final ObservableValue<ZeroOrOneMultiplicityInverseModel.@Nullable Element>
+      $$arez$$_element;
 
-  @Nullable
-  private ZeroOrOneMultiplicityInverseModel.Element $$arezd$$_element;
+  private ZeroOrOneMultiplicityInverseModel.@Nullable Element $$arezd$$_element;
 
   Arez_ZeroOrOneMultiplicityInverseModel() {
     super();
@@ -66,7 +66,6 @@ final class Arez_ZeroOrOneMultiplicityInverseModel extends ZeroOrOneMultiplicity
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -83,7 +82,6 @@ final class Arez_ZeroOrOneMultiplicityInverseModel extends ZeroOrOneMultiplicity
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -114,9 +112,7 @@ final class Arez_ZeroOrOneMultiplicityInverseModel extends ZeroOrOneMultiplicity
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -127,7 +123,7 @@ final class Arez_ZeroOrOneMultiplicityInverseModel extends ZeroOrOneMultiplicity
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -222,8 +218,7 @@ final class Arez_ZeroOrOneMultiplicityInverseModel extends ZeroOrOneMultiplicity
   }
 
   @Override
-  @Nullable
-  ZeroOrOneMultiplicityInverseModel.Element getElement() {
+  ZeroOrOneMultiplicityInverseModel.@Nullable Element getElement() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -234,7 +229,7 @@ final class Arez_ZeroOrOneMultiplicityInverseModel extends ZeroOrOneMultiplicity
     return this.$$arezd$$_element;
   }
 
-  void $$arezir$$_element_zset(@Nullable final ZeroOrOneMultiplicityInverseModel.Element element) {
+  void $$arezir$$_element_zset(final ZeroOrOneMultiplicityInverseModel.@Nullable Element element) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -247,7 +242,7 @@ final class Arez_ZeroOrOneMultiplicityInverseModel extends ZeroOrOneMultiplicity
     this.$$arez$$_element.reportChanged();
   }
 
-  void $$arezir$$_element_zunset(@Nonnull final ZeroOrOneMultiplicityInverseModel.Element element) {
+  void $$arezir$$_element_zunset(final ZeroOrOneMultiplicityInverseModel.Element element) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),

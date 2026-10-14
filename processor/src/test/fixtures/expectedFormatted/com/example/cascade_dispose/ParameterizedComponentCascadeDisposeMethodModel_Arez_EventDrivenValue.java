@@ -5,13 +5,16 @@ import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class ParameterizedComponentCascadeDisposeMethodModel_Arez_EventDrivenValue<
-        SourceType extends ParameterizedComponentCascadeDisposeMethodModel.EventTarget, ValueType>
+        SourceType extends ParameterizedComponentCascadeDisposeMethodModel.EventTarget,
+        ValueType extends @Nullable Object>
     extends ParameterizedComponentCascadeDisposeMethodModel.EventDrivenValue<SourceType, ValueType>
     implements Disposable {
   private static volatile int $$arezi$$_nextId;

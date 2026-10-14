@@ -30,12 +30,15 @@ import arez.annotations.ReferenceId;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 public interface BaseCompleteInterfaceModel
 {
   @CascadeDispose
-  default Disposable myDisposableField()
+  default @Nullable Disposable myDisposableField()
   {
     return null;
   }
@@ -61,12 +64,12 @@ public interface BaseCompleteInterfaceModel
   }
 
   @ObserverRef
-  Observer getMyWatcherObserver();
+  @Nullable Observer getMyWatcherObserver();
 
   @ComponentNameRef
-  String getComponentName();
+  @Nullable String getComponentName();
 
-  @Nonnull
+  @NonNull
   @ComponentRef
   Component getComponent();
 
@@ -82,7 +85,7 @@ public interface BaseCompleteInterfaceModel
     return 0;
   }
 
-  @Nonnull
+  @NonNull
   @ComputableValueRef
   ComputableValue<Long> getTimeComputableValue();
 
@@ -97,47 +100,47 @@ public interface BaseCompleteInterfaceModel
   }
 
   @Memoize
-  default Collection<Long> getCollectionTime()
+  default @Nullable Collection<Long> getCollectionTime()
   {
     return Collections.emptyList();
   }
 
   @Memoize
-  default Collection<Long> calcCollectionStuff( int i )
+  default @Nullable Collection<Long> calcCollectionStuff( int i )
   {
     return Collections.emptyList();
   }
 
   @ContextRef
-  ArezContext getContext();
+  @Nullable ArezContext getContext();
 
   @Observable
-  String getMyValue();
+  @Nullable String getMyValue();
 
-  void setMyValue( String value );
+  void setMyValue( @Nullable String value );
 
-  @Nonnull
+  @NonNull
   @ObservableValueRef
   ObservableValue<String> getMyValueObservableValue();
 
   @Observable
-  default List<String> getMyCollectionValue()
+  default @Nullable List<String> getMyCollectionValue()
   {
     return null;
   }
 
-  default void setMyCollectionValue( List<String> value )
+  default void setMyCollectionValue( @Nullable List<String> value )
   {
   }
 
   @Observable
-  @Nonnull
+  @NonNull
   default List<String> getMyNonnullCollectionValue()
   {
     return null;
   }
 
-  default void setMyNonnullCollectionValue( @Nonnull List<String> value )
+  default void setMyNonnullCollectionValue( @NonNull List<String> value )
   {
   }
 
@@ -152,12 +155,12 @@ public interface BaseCompleteInterfaceModel
   }
 
   @Observable( setterAlwaysMutates = false )
-  default String getMyStringValue()
+  default @Nullable String getMyStringValue()
   {
     return null;
   }
 
-  default void setMyStringValue( String value )
+  default void setMyStringValue( @Nullable String value )
   {
   }
 
@@ -177,7 +180,7 @@ public interface BaseCompleteInterfaceModel
   }
 
   @OnDepsChange
-  default void onRender2DepsChange( @Nonnull final Observer observer )
+  default void onRender2DepsChange( @NonNull final Observer observer )
   {
   }
 
@@ -187,7 +190,7 @@ public interface BaseCompleteInterfaceModel
   }
 
   @OnDepsChange
-  default void onRender3DepsChange( @Nonnull final Observer observer )
+  default void onRender3DepsChange( @NonNull final Observer observer )
   {
   }
 
@@ -207,7 +210,7 @@ public interface BaseCompleteInterfaceModel
   }
 
   @Reference
-  MyEntity getMyEntity();
+  @Nullable MyEntity getMyEntity();
 
   @ReferenceId
   default int getMyEntityId()
@@ -215,11 +218,12 @@ public interface BaseCompleteInterfaceModel
     return 0;
   }
 
+  @NullMarked
   class MyEntity
   {
   }
 
   @Observable
   @Inverse
-  List<OtherElement> getOtherElements();
+  @Nullable List<OtherElement> getOtherElements();
 }

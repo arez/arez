@@ -90,8 +90,7 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
             },
             new Object[] {
                 "com.example.cascade_dispose.ConflictingNullabilityFinalFieldComponent",
-                "@CascadeDispose target must not be annotated with both javax.annotation.Nullable and"
-                        + " javax.annotation.Nonnull"
+                "Conflicting JSpecify @Nullable and @NonNull annotations"
             },
             new Object[] {
                 "com.example.cascade_dispose.ConcreteObservableMethodComponent",
@@ -99,9 +98,7 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                         + " @Reference annotation."
             },
             new Object[] {
-                "com.example.cascade_dispose.MissingNullabilityFinalFieldComponent",
-                "@CascadeDispose target must be annotated with either javax.annotation.Nullable or"
-                        + " javax.annotation.Nonnull"
+                "com.example.cascade_dispose.MissingNullabilityFinalFieldComponent", "Unspecified JSpecify nullness"
             },
             new Object[] {
                 "com.example.cascade_dispose.ParametersMethodComponent",
@@ -168,13 +165,14 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
             },
             new Object[] {
                 "com.example.component_id_ref.BadType1Model",
-                "@ComponentIdRef target has a return type java.lang.String but no @ComponentId annotated method. The"
-                        + " type is expected to be of type int."
+                "@ComponentIdRef target has a return type java.lang.@org.jspecify.annotations.Nullable String but no"
+                        + " @ComponentId annotated method. The type is expected to be of type int."
             },
             new Object[] {
                 "com.example.component_id_ref.BadType2Model",
-                "@ComponentIdRef target has a return type java.lang.String and a @ComponentId annotated method with a"
-                        + " return type java.lang.String. The types must match."
+                "@ComponentIdRef target has a return type java.lang.@org.jspecify.annotations.Nullable String and a"
+                    + " @ComponentId annotated method with a return type java.lang.@org.jspecify.annotations.Nullable"
+                    + " String. The types must match."
             },
             new Object[] {"com.example.component_id_ref.ConcreteModel", "@ComponentIdRef target must be abstract"},
             new Object[] {"com.example.component_id_ref.FinalModel", "@ComponentIdRef target must be abstract"},
@@ -266,8 +264,7 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
             },
             new Object[] {
                 "com.example.auto_observe.ConflictingNullabilityFieldAutoObserveModel",
-                "@AutoObserve target must not be annotated with both javax.annotation.Nullable and"
-                        + " javax.annotation.Nonnull"
+                "Conflicting JSpecify @Nullable and @NonNull annotations"
             },
             new Object[] {
                 "com.example.auto_observe.ConcreteObservableAutoObserveModel",
@@ -275,9 +272,7 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                         + " @Reference annotation."
             },
             new Object[] {
-                "com.example.auto_observe.MissingNullabilityFieldAutoObserveModel",
-                "@AutoObserve target must be annotated with either javax.annotation.Nullable or"
-                        + " javax.annotation.Nonnull"
+                "com.example.auto_observe.MissingNullabilityFieldAutoObserveModel", "Unspecified JSpecify nullness"
             },
             new Object[] {"com.example.auto_observe.NonFinalFieldAutoObserveModel", "@AutoObserve target must be final"
             },
@@ -349,8 +344,8 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
             },
             new Object[] {
                 "com.example.component_dependency.SetNullOnNonnullDependency",
-                "@ComponentDependency target defined an action of 'SET_NULL' but the setter is annotated with"
-                        + " @javax.annotation.Nonnull."
+                "@ComponentDependency target defined an action of 'SET_NULL' but the setter has a"
+                        + " non-null JSpecify contract."
             },
             new Object[] {
                 "com.example.component_dependency.StaticDependency", "@ComponentDependency target must not be static"
@@ -432,7 +427,7 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                 "com.example.inverse.BadInverseType1InverseModel",
                 "@Inverse target expected to find an associated @Reference annotation with a target type equal to"
                         + " com.example.inverse.BadInverseType1InverseModel but the actual target type is"
-                        + " com.example.inverse.BadInverseType1InverseModel.MyEntity"
+                        + " com.example.inverse.BadInverseType1InverseModel.@org.jspecify.annotations.Nullable MyEntity"
             },
             new Object[] {
                 "com.example.inverse.BadMultiplicity1InverseModel",
@@ -514,8 +509,8 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                 "com.example.inverse.BadReferenceType2InverseModel",
                 "@Reference target expected to find an associated @Inverse annotation with a name parameter equal to"
                     + " 'badReferenceType2InverseModel' on class"
-                    + " com.example.inverse.BadReferenceType2InverseModel.MyEntity but is unable to locate a matching"
-                    + " method."
+                    + " com.example.inverse.BadReferenceType2InverseModel.@org.jspecify.annotations.Nullable MyEntity"
+                    + " but is unable to locate a matching method."
             },
             new Object[] {
                 "com.example.inverse.BadReferenceTypeInverseModel",
@@ -535,11 +530,7 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                 "com.example.inverse.BadType3InverseModel",
                 "@Inverse target expected to return a type annotated with arez.annotations.ArezComponent"
             },
-            new Object[] {
-                "com.example.inverse.BadType4InverseModel",
-                "@Inverse target expected to be annotated with either javax.annotation.Nullable or"
-                        + " javax.annotation.Nonnull"
-            },
+            new Object[] {"com.example.inverse.BadType4InverseModel", "Unspecified JSpecify nullness"},
             new Object[] {"com.example.inverse.ConcreteInverseModel", "@Inverse target must be abstract"},
             new Object[] {
                 "com.example.inverse.DuplicateInverseModel",
@@ -560,8 +551,8 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                 "com.example.inverse.MissingInverseReferenceModel",
                 "@Reference target expected to find an associated @Inverse annotation with a name parameter equal to"
                     + " 'missingInverseReferenceModels' on class"
-                    + " com.example.inverse.MissingInverseReferenceModel.MyEntity but is unable to locate a matching"
-                    + " method."
+                    + " com.example.inverse.MissingInverseReferenceModel.@org.jspecify.annotations.Nullable MyEntity"
+                    + " but is unable to locate a matching method."
             },
             new Object[] {
                 "com.example.inverse.MissingReference1InverseModel",
@@ -616,8 +607,9 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
             },
             new Object[] {
                 "com.example.post_inverse_add.BadParamTypePostInverseAddModel",
-                "@PostInverseAdd target has a parameter that is not the expected type. Actual type: java.lang.String"
-                        + " Expected Type: com.example.post_inverse_add.BadParamTypePostInverseAddModel.Element"
+                "@PostInverseAdd target has a parameter that is not the expected type. Actual type:"
+                        + " java.lang.@org.jspecify.annotations.NonNull String Expected Type:"
+                        + " com.example.post_inverse_add.BadParamTypePostInverseAddModel.Element"
             },
             new Object[] {
                 "com.example.post_inverse_add.MissingInversePostInverseAddModel",
@@ -665,8 +657,9 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
             },
             new Object[] {
                 "com.example.pre_inverse_remove.BadParamTypePreInverseRemoveModel",
-                "@PreInverseRemove target has a parameter that is not the expected type. Actual type: java.lang.String"
-                        + " Expected Type: com.example.pre_inverse_remove.BadParamTypePreInverseRemoveModel.Element"
+                "@PreInverseRemove target has a parameter that is not the expected type. Actual type:"
+                        + " java.lang.@org.jspecify.annotations.NonNull String Expected Type:"
+                        + " com.example.pre_inverse_remove.BadParamTypePreInverseRemoveModel.Element"
             },
             new Object[] {
                 "com.example.pre_inverse_remove.MissingInversePreInverseRemoveModel",

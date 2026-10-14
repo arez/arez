@@ -10,41 +10,44 @@ import arez.annotations.Observe;
 import arez.annotations.OnDepsChange;
 import java.util.List;
 import java.util.function.Consumer;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 // Example of usage of deprecated type through different
 // arez annotated methods should cause problems
+@NullMarked
 @ArezComponent
 @SuppressWarnings( "deprecation" )
 public abstract class DeprecatedUsageModel
 {
   @Action
-  public void doStuff( @Nonnull final MyDeprecatedEntity entity )
+  public void doStuff( @NonNull final MyDeprecatedEntity entity )
   {
   }
 
   @Observable( initializer = Feature.ENABLE )
-  abstract MyDeprecatedEntity getMyEntity();
+  abstract @Nullable MyDeprecatedEntity getMyEntity();
 
-  abstract void setMyEntity( MyDeprecatedEntity entity );
+  abstract void setMyEntity( @Nullable MyDeprecatedEntity entity );
 
   @Observable
-  MyDeprecatedEntity getMyEntity2()
+  @Nullable MyDeprecatedEntity getMyEntity2()
   {
     return null;
   }
 
-  void setMyEntity2( MyDeprecatedEntity entity )
+  void setMyEntity2( @Nullable MyDeprecatedEntity entity )
   {
   }
 
   @Observable( initializer = Feature.ENABLE )
-  abstract List<MyDeprecatedEntity> getMyEntityList();
+  abstract @Nullable List<MyDeprecatedEntity> getMyEntityList();
 
-  abstract void setMyEntityList( List<MyDeprecatedEntity> entity );
+  abstract void setMyEntityList( @Nullable List<MyDeprecatedEntity> entity );
 
   @Observe( executor = Executor.EXTERNAL )
-  public void render( @Nonnull final MyDeprecatedEntity entity )
+  public void render( @NonNull final MyDeprecatedEntity entity )
   {
   }
 
@@ -54,19 +57,19 @@ public abstract class DeprecatedUsageModel
   }
 
   @Memoize
-  MyDeprecatedEntity genEntity()
+  @Nullable MyDeprecatedEntity genEntity()
   {
     return null;
   }
 
   @Memoize
-  int genEntityStat1( MyDeprecatedEntity entity )
+  int genEntityStat1( @Nullable MyDeprecatedEntity entity )
   {
     return 0;
   }
 
   @Memoize
-  int genEntityStat2( List<Consumer<MyDeprecatedEntity>> other )
+  int genEntityStat2( @Nullable List<Consumer<MyDeprecatedEntity>> other )
   {
     return 0;
   }

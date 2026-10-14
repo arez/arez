@@ -11,12 +11,14 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -24,10 +26,9 @@ final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<ObservableOneReferenceModel.Element> $$arez$$_element;
+  private final ObservableValue<ObservableOneReferenceModel.@NonNull Element> $$arez$$_element;
 
-  private ObservableOneReferenceModel.Element $$arezd$$_element;
+  private ObservableOneReferenceModel.@NonNull Element $$arezd$$_element;
 
   Arez_ObservableOneReferenceModel() {
     super();
@@ -65,7 +66,6 @@ final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -82,7 +82,6 @@ final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -113,9 +112,7 @@ final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -126,7 +123,7 @@ final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -218,8 +215,7 @@ final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel
   }
 
   @Override
-  @Nonnull
-  ObservableOneReferenceModel.Element getElement() {
+  ObservableOneReferenceModel.@NonNull Element getElement() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -230,7 +226,7 @@ final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel
     return this.$$arezd$$_element;
   }
 
-  void $$arezir$$_element_set(@Nonnull final ObservableOneReferenceModel.Element element) {
+  void $$arezir$$_element_set(final ObservableOneReferenceModel.Element element) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -243,7 +239,7 @@ final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel
     this.$$arez$$_element.reportChanged();
   }
 
-  void $$arezir$$_element_unset(@Nonnull final ObservableOneReferenceModel.Element element) {
+  void $$arezir$$_element_unset(final ObservableOneReferenceModel.Element element) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),

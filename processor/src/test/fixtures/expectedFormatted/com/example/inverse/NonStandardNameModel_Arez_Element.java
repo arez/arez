@@ -10,12 +10,13 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class NonStandardNameModel_Arez_Element extends NonStandardNameModel.Element
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -23,8 +24,7 @@ final class NonStandardNameModel_Arez_Element extends NonStandardNameModel.Eleme
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nullable
-  private NonStandardNameModel $$arezr$$_zoom;
+  private @Nullable NonStandardNameModel $$arezr$$_zoom;
 
   NonStandardNameModel_Arez_Element() {
     super();
@@ -62,7 +62,6 @@ final class NonStandardNameModel_Arez_Element extends NonStandardNameModel.Eleme
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -79,7 +78,6 @@ final class NonStandardNameModel_Arez_Element extends NonStandardNameModel.Eleme
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -107,9 +105,7 @@ final class NonStandardNameModel_Arez_Element extends NonStandardNameModel.Eleme
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -120,7 +116,7 @@ final class NonStandardNameModel_Arez_Element extends NonStandardNameModel.Eleme
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -205,12 +201,13 @@ final class NonStandardNameModel_Arez_Element extends NonStandardNameModel.Eleme
       Guards.apiInvariant(
           () -> null != $$arezv$$_zoom,
           () -> "Reference named 'zoom' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.NonStandardNameModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable NonStandardNameModel and id = "
               + $$$getXId());
     }
   }
 
   @Override
+  @Nullable
   NonStandardNameModel $$$getX() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -242,7 +239,7 @@ final class NonStandardNameModel_Arez_Element extends NonStandardNameModel.Eleme
       Guards.apiInvariant(
           () -> null != $$arezr$$_zoom,
           () -> "Reference named 'zoom' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.NonStandardNameModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable NonStandardNameModel and id = "
               + $$$getXId());
     }
     ((Arez_NonStandardNameModel) this.$$arezr$$_zoom).$$arezir$$_zap_add(this);

@@ -10,12 +10,13 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class ObservableListInverseModel_Arez_Element extends ObservableListInverseModel.Element implements Disposable,
     Identifiable<Integer>,
     Verifiable,
@@ -25,8 +26,7 @@ final class ObservableListInverseModel_Arez_Element extends ObservableListInvers
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nullable
-  private ObservableListInverseModel $$arezr$$_observableListInverseModel;
+  private @Nullable ObservableListInverseModel $$arezr$$_observableListInverseModel;
 
   ObservableListInverseModel_Arez_Element() {
     super();
@@ -43,7 +43,6 @@ final class ObservableListInverseModel_Arez_Element extends ObservableListInvers
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_inverse_ObservableListInverseModel_Element'" );
@@ -57,7 +56,6 @@ final class ObservableListInverseModel_Arez_Element extends ObservableListInvers
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_inverse_ObservableListInverseModel_Element'" );
@@ -78,7 +76,7 @@ final class ObservableListInverseModel_Arez_Element extends ObservableListInvers
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_ObservableListInverseModel_Element'" );
@@ -87,7 +85,7 @@ final class ObservableListInverseModel_Arez_Element extends ObservableListInvers
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_ObservableListInverseModel_Element'" );
     }
@@ -134,12 +132,12 @@ final class ObservableListInverseModel_Arez_Element extends ObservableListInvers
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( ObservableListInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type ObservableListInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( ObservableListInverseModel.Element.class, $$arezi$$_id() ) );
       final int $$arezv$$_observableListInverseModelId = this.getObservableListInverseModelId();
       final ObservableListInverseModel $$arezv$$_observableListInverseModel = this.$$arezi$$_locator().findById( ObservableListInverseModel.class, $$arezv$$_observableListInverseModelId );
-      Guards.apiInvariant( () -> null != $$arezv$$_observableListInverseModel, () -> "Reference named 'observableListInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.ObservableListInverseModel and id = " + getObservableListInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_observableListInverseModel, () -> "Reference named 'observableListInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ObservableListInverseModel and id = " + getObservableListInverseModelId() );
     }
   }
 
   @Override
-  ObservableListInverseModel getObservableListInverseModel() {
+  @Nullable ObservableListInverseModel getObservableListInverseModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getObservableListInverseModel' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -156,7 +154,7 @@ final class ObservableListInverseModel_Arez_Element extends ObservableListInvers
     final int id = this.getObservableListInverseModelId();
     this.$$arezr$$_observableListInverseModel = this.$$arezi$$_locator().findById( ObservableListInverseModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_observableListInverseModel, () -> "Reference named 'observableListInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.ObservableListInverseModel and id = " + getObservableListInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_observableListInverseModel, () -> "Reference named 'observableListInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ObservableListInverseModel and id = " + getObservableListInverseModelId() );
     }
     ( (Arez_ObservableListInverseModel) this.$$arezr$$_observableListInverseModel ).$$arezir$$_elements_add( this );
   }

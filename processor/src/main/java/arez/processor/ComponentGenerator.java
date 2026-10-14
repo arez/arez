@@ -3630,12 +3630,13 @@ final class ComponentGenerator {
             builder.addModifiers(Modifier.PUBLIC);
         }
         final String otherName = inverse.getOtherName();
-        final ParameterSpec.Builder parameter = ParameterSpec.builder(
-                GeneratorUtil.getTypeName(inverse.getTargetType().asType()), otherName, Modifier.FINAL);
-        if (Multiplicity.ONE != multiplicity) {
-            parameter.addAnnotation(GeneratorUtil.NULLABLE_CLASSNAME);
-        }
-        builder.addParameter(parameter.build());
+        final TypeName parameterType =
+                GeneratorUtil.getTypeName(inverse.getTargetType().asType());
+        builder.addParameter(ParameterSpec.builder(
+                        Multiplicity.ONE == multiplicity ? parameterType : nullable(parameterType),
+                        otherName,
+                        Modifier.FINAL)
+                .build());
         generateNotDisposedInvariant(builder, methodName);
 
         builder.addStatement("this.$N.preReportChanged()", observable.getFieldName());
@@ -3738,7 +3739,7 @@ final class ComponentGenerator {
             final ParameterizedTypeName typeName = (ParameterizedTypeName)
                     GeneratorUtil.getTypeName(observable.getGetter().getReturnType());
             final boolean isList =
-                    List.class.getName().equals(typeName.rawType().toString());
+                    List.class.getName().equals(typeName.rawType().canonicalName());
             builder.addStatement(
                     "this.$N = new $T<>()", observable.getDataFieldName(), isList ? ArrayList.class : HashSet.class);
             builder.addStatement("this.$N = null", observable.getCollectionCacheDataFieldName());
@@ -3891,7 +3892,7 @@ final class ComponentGenerator {
              */
             builder.addStatement(
                     "final $T id = this.$N()",
-                    reference.getIdMethod().getReturnType(),
+                    GeneratorUtil.getTypeName(reference.getIdType()),
                     reference.getIdMethod().getSimpleName());
             if (reference.isNullable()) {
                 final CodeBlock.Builder nestedBlock = CodeBlock.builder();
@@ -3909,7 +3910,7 @@ final class ComponentGenerator {
             block.beginControlFlow("if ( null == this.$N )", reference.getFieldName());
             block.addStatement(
                     "final $T id = this.$N()",
-                    reference.getIdMethod().getReturnType(),
+                    GeneratorUtil.getTypeName(reference.getIdType()),
                     reference.getIdMethod().getSimpleName());
             if (reference.isNullable()) {
                 final CodeBlock.Builder nestedBlock = CodeBlock.builder();
@@ -4051,7 +4052,11 @@ final class ComponentGenerator {
         final String refName = VARIABLE_PREFIX + name;
 
         final ExecutableElement idMethod = reference.getIdMethod();
-        builder.addStatement("final $T $N = this.$N()", idMethod.getReturnType(), idName, idMethod.getSimpleName());
+        builder.addStatement(
+                "final $T $N = this.$N()",
+                GeneratorUtil.getTypeName(reference.getIdType()),
+                idName,
+                idMethod.getSimpleName());
         if (reference.isNullable()) {
             final CodeBlock.Builder nestedBlock = CodeBlock.builder();
             nestedBlock.beginControlFlow("if ( null != $N )", idName);

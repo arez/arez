@@ -3,8 +3,10 @@ package com.example.auto_observe;
 import arez.annotations.ArezComponent;
 import arez.annotations.AutoObserve;
 import arez.component.ComponentObservable;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class ProtectedAccessFieldAutoObserveModel
 {
@@ -12,6 +14,7 @@ abstract class ProtectedAccessFieldAutoObserveModel
   @Nullable
   protected final MyType _field = null;
 
+  @NullMarked
   static final class MyType
     implements ComponentObservable
   {

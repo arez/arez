@@ -14,12 +14,13 @@ import arez.component.internal.CollectionsUtil;
 import arez.component.internal.ComponentKernel;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_ObservableListInverseModel extends ObservableListInverseModel implements Disposable,
     Identifiable<Integer>,
     Verifiable,
@@ -29,14 +30,11 @@ final class Arez_ObservableListInverseModel extends ObservableListInverseModel i
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<List<ObservableListInverseModel.Element>> $$arez$$_elements;
+  private final ObservableValue<@Nullable List<ObservableListInverseModel.Element>> $$arez$$_elements;
 
-  @Nonnull
   private final List<ObservableListInverseModel.Element> $$arezd$$_elements;
 
-  @Nullable
-  private List<ObservableListInverseModel.Element> $$arezd$$_$$cache$$_elements;
+  private @Nullable List<ObservableListInverseModel.Element> $$arezd$$_$$cache$$_elements;
 
   Arez_ObservableListInverseModel() {
     super();
@@ -52,7 +50,6 @@ final class Arez_ObservableListInverseModel extends ObservableListInverseModel i
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_inverse_ObservableListInverseModel'" );
@@ -66,7 +63,6 @@ final class Arez_ObservableListInverseModel extends ObservableListInverseModel i
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_inverse_ObservableListInverseModel'" );
@@ -89,7 +85,7 @@ final class Arez_ObservableListInverseModel extends ObservableListInverseModel i
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_ObservableListInverseModel'" );
@@ -98,7 +94,7 @@ final class Arez_ObservableListInverseModel extends ObservableListInverseModel i
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_ObservableListInverseModel'" );
     }
@@ -156,13 +152,13 @@ final class Arez_ObservableListInverseModel extends ObservableListInverseModel i
   }
 
   @Override
-  List<ObservableListInverseModel.Element> getElements() {
+  @Nullable List<ObservableListInverseModel.Element> getElements() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getElements' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     this.$$arez$$_elements.reportObserved();
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      final List<ObservableListInverseModel.Element> $$ar$$_result = this.$$arezd$$_elements;
+      final @Nullable List<ObservableListInverseModel.Element> $$ar$$_result = this.$$arezd$$_elements;
       if ( null == this.$$arezd$$_$$cache$$_elements && null != $$ar$$_result ) {
         this.$$arezd$$_$$cache$$_elements = CollectionsUtil.wrap( $$ar$$_result );
       }
@@ -172,7 +168,7 @@ final class Arez_ObservableListInverseModel extends ObservableListInverseModel i
     }
   }
 
-  void $$arezir$$_elements_add(@Nonnull final ObservableListInverseModel.Element element) {
+  void $$arezir$$_elements_add(final ObservableListInverseModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_elements_add' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -187,7 +183,7 @@ final class Arez_ObservableListInverseModel extends ObservableListInverseModel i
     this.$$arez$$_elements.reportChanged();
   }
 
-  void $$arezir$$_elements_remove(@Nonnull final ObservableListInverseModel.Element element) {
+  void $$arezir$$_elements_remove(final ObservableListInverseModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_elements_remove' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }

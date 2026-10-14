@@ -15,12 +15,13 @@ import arez.component.internal.ComponentKernel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_MultiPostInverseAddModel extends MultiPostInverseAddModel implements Disposable,
     Identifiable<Integer>,
     Verifiable,
@@ -30,14 +31,11 @@ final class Arez_MultiPostInverseAddModel extends MultiPostInverseAddModel imple
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<Collection<MultiPostInverseAddModel.Element>> $$arez$$_elements;
+  private final ObservableValue<@Nullable Collection<MultiPostInverseAddModel.Element>> $$arez$$_elements;
 
-  @Nonnull
   private final Collection<MultiPostInverseAddModel.Element> $$arezd$$_elements;
 
-  @Nullable
-  private Collection<MultiPostInverseAddModel.Element> $$arezd$$_$$cache$$_elements;
+  private @Nullable Collection<MultiPostInverseAddModel.Element> $$arezd$$_$$cache$$_elements;
 
   Arez_MultiPostInverseAddModel() {
     super();
@@ -53,7 +51,6 @@ final class Arez_MultiPostInverseAddModel extends MultiPostInverseAddModel imple
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_post_inverse_add_MultiPostInverseAddModel'" );
@@ -67,7 +64,6 @@ final class Arez_MultiPostInverseAddModel extends MultiPostInverseAddModel imple
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_post_inverse_add_MultiPostInverseAddModel'" );
@@ -90,7 +86,7 @@ final class Arez_MultiPostInverseAddModel extends MultiPostInverseAddModel imple
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_post_inverse_add_MultiPostInverseAddModel'" );
@@ -99,7 +95,7 @@ final class Arez_MultiPostInverseAddModel extends MultiPostInverseAddModel imple
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_post_inverse_add_MultiPostInverseAddModel'" );
     }
@@ -157,13 +153,13 @@ final class Arez_MultiPostInverseAddModel extends MultiPostInverseAddModel imple
   }
 
   @Override
-  Collection<MultiPostInverseAddModel.Element> getElements() {
+  @Nullable Collection<MultiPostInverseAddModel.Element> getElements() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getElements' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     this.$$arez$$_elements.reportObserved();
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      final Collection<MultiPostInverseAddModel.Element> $$ar$$_result = this.$$arezd$$_elements;
+      final @Nullable Collection<MultiPostInverseAddModel.Element> $$ar$$_result = this.$$arezd$$_elements;
       if ( null == this.$$arezd$$_$$cache$$_elements && null != $$ar$$_result ) {
         this.$$arezd$$_$$cache$$_elements = CollectionsUtil.wrap( $$ar$$_result );
       }
@@ -173,7 +169,7 @@ final class Arez_MultiPostInverseAddModel extends MultiPostInverseAddModel imple
     }
   }
 
-  void $$arezir$$_elements_add(@Nonnull final MultiPostInverseAddModel.Element element) {
+  void $$arezir$$_elements_add(final MultiPostInverseAddModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_elements_add' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -190,7 +186,7 @@ final class Arez_MultiPostInverseAddModel extends MultiPostInverseAddModel imple
     postElementsAdd2( element );
   }
 
-  void $$arezir$$_elements_remove(@Nonnull final MultiPostInverseAddModel.Element element) {
+  void $$arezir$$_elements_remove(final MultiPostInverseAddModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_elements_remove' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }

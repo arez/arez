@@ -1,18 +1,21 @@
 package com.example.parameterized_type;
 
 import arez.annotations.Observable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 abstract class ParentModel<T extends Number>
 {
-  private T _value;
+  private @Nullable T _value;
 
   @Observable
-  public T getValue()
+  public @Nullable T getValue()
   {
     return _value;
   }
 
-  public void setValue( final T value )
+  public void setValue( final @Nullable T value )
   {
     _value = value;
   }

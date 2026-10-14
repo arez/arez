@@ -6,19 +6,23 @@ import arez.annotations.Multiplicity;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import java.util.Collection;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class NonObservableCollectionInverseModel
 {
   //No explicit @ObservableValue
   @Inverse
-  abstract Collection<Element> getElements();
+  abstract @Nullable Collection<Element> getElements();
 
+  @NullMarked
   @ArezComponent
   abstract static class Element
   {
     @Reference( inverseMultiplicity = Multiplicity.MANY )
-    abstract NonObservableCollectionInverseModel getNonObservableCollectionInverseModel();
+    abstract @Nullable NonObservableCollectionInverseModel getNonObservableCollectionInverseModel();
 
     @ReferenceId
     int getNonObservableCollectionInverseModelId()

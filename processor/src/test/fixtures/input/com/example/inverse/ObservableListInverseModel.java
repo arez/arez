@@ -7,19 +7,23 @@ import arez.annotations.Observable;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import java.util.List;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class ObservableListInverseModel
 {
   @Observable
   @Inverse
-  abstract List<Element> getElements();
+  abstract @Nullable List<Element> getElements();
 
+  @NullMarked
   @ArezComponent
   abstract static class Element
   {
     @Reference( inverseMultiplicity = Multiplicity.MANY )
-    abstract ObservableListInverseModel getObservableListInverseModel();
+    abstract @Nullable ObservableListInverseModel getObservableListInverseModel();
 
     @ReferenceId
     int getObservableListInverseModelId()

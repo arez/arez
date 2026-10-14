@@ -4,7 +4,9 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.Executor;
 import arez.annotations.Observe;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 public abstract class MemoizeAndObserveMethodModel
 {

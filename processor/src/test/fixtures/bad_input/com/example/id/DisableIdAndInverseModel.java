@@ -7,18 +7,22 @@ import arez.annotations.Multiplicity;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import java.util.Collection;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent( requireId = Feature.DISABLE )
 abstract class DisableIdAndInverseModel
 {
   @Inverse
-  abstract Collection<MyEntity> getMyEntitys();
+  abstract @Nullable Collection<MyEntity> getMyEntitys();
 
+  @NullMarked
   @ArezComponent
   abstract static class MyEntity
   {
     @Reference( inverseMultiplicity = Multiplicity.MANY )
-    abstract DisableIdAndInverseModel getDisableIdAndInverseModel();
+    abstract @Nullable DisableIdAndInverseModel getDisableIdAndInverseModel();
 
     @ReferenceId
     int getDisableIdAndInverseModelId()

@@ -7,7 +7,10 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @Retention( RetentionPolicy.RUNTIME )
 @Target( ElementType.TYPE )
 @ActAsArezComponent
@@ -15,12 +18,14 @@ import java.lang.annotation.Target;
 {
 }
 
+@NullMarked
 @ArezComponent
 abstract class ActAsArezComponentFieldDependencyModel
 {
   @ComponentDependency
-  final MyType time = null;
+  final @Nullable MyType time = null;
 
+  @NullMarked
   @FrameworkView
   public interface MyType
   {

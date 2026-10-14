@@ -12,12 +12,13 @@ import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulableObservableReferenceModel implements Disposable,
     Identifiable<Integer>,
     Verifiable,
@@ -27,14 +28,11 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<String> $$arez$$_myEntityId;
+  private final ObservableValue<@Nullable String> $$arez$$_myEntityId;
 
-  @Nullable
-  private String $$arezd$$_myEntityId;
+  private @Nullable String $$arezd$$_myEntityId;
 
-  @Nullable
-  private EagerLoadNulableObservableReferenceModel.MyEntity $$arezr$$_myEntity;
+  private EagerLoadNulableObservableReferenceModel. @Nullable MyEntity $$arezr$$_myEntity;
 
   Arez_EagerLoadNulableObservableReferenceModel() {
     super();
@@ -52,7 +50,6 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_reference_EagerLoadNulableObservableReferenceModel'" );
@@ -66,7 +63,6 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_reference_EagerLoadNulableObservableReferenceModel'" );
@@ -82,7 +78,7 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_reference_EagerLoadNulableObservableReferenceModel'" );
@@ -91,7 +87,7 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_reference_EagerLoadNulableObservableReferenceModel'" );
     }
@@ -140,17 +136,16 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( EagerLoadNulableObservableReferenceModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type EagerLoadNulableObservableReferenceModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( EagerLoadNulableObservableReferenceModel.class, $$arezi$$_id() ) );
-      final String $$arezv$$_myEntityId = this.getMyEntityId();
+      final @Nullable String $$arezv$$_myEntityId = this.getMyEntityId();
       if ( null != $$arezv$$_myEntityId ) {
         final EagerLoadNulableObservableReferenceModel.MyEntity $$arezv$$_myEntity = this.$$arezi$$_locator().findById( EagerLoadNulableObservableReferenceModel.MyEntity.class, $$arezv$$_myEntityId );
-        Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.EagerLoadNulableObservableReferenceModel.MyEntity and id = " + getMyEntityId() );
+        Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.EagerLoadNulableObservableReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
       }
     }
   }
 
   @Override
-  @Nullable
-  String getMyEntityId() {
+  @Nullable String getMyEntityId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyEntityId' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -159,12 +154,12 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
   }
 
   @Override
-  void setMyEntityId(@Nullable final String id) {
+  void setMyEntityId(final @Nullable String id) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyEntityId' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     this.$$arez$$_myEntityId.preReportChanged();
-    final String $$arezv$$_currentValue = this.$$arezd$$_myEntityId;
+    final @Nullable String $$arezv$$_currentValue = this.$$arezd$$_myEntityId;
     if ( !Objects.equals( id, $$arezv$$_currentValue ) ) {
       this.$$arezd$$_myEntityId = id;
       this.$$arez$$_myEntityId.reportChanged();
@@ -173,7 +168,7 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
   }
 
   @Override
-  EagerLoadNulableObservableReferenceModel.MyEntity getMyEntity() {
+  EagerLoadNulableObservableReferenceModel. @Nullable MyEntity getMyEntity() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyEntity' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -188,11 +183,11 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_link_myEntity' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
-    final String id = this.getMyEntityId();
+    final @Nullable String id = this.getMyEntityId();
     if ( null != id ) {
       this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( EagerLoadNulableObservableReferenceModel.MyEntity.class, id );
       if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.EagerLoadNulableObservableReferenceModel.MyEntity and id = " + getMyEntityId() );
+        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.EagerLoadNulableObservableReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
       }
     } else {
       this.$$arezr$$_myEntity = null;

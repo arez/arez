@@ -3,42 +3,46 @@ package com.example.component_dependency;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 import arez.annotations.Observable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class MultiComponentDependencyModel
 {
+  @NullMarked
   @ArezComponent( allowEmpty = true )
   abstract static class Foo
   {
   }
 
   @ComponentDependency
-  Foo getFoo()
+  @Nullable Foo getFoo()
   {
     return null;
   }
 
   @ComponentDependency
-  Foo getFoo2()
+  @Nullable Foo getFoo2()
   {
     return null;
   }
 
   @ComponentDependency
-  Foo getFoo3()
+  @Nullable Foo getFoo3()
   {
     return null;
   }
 
   @Observable
-  abstract void setFoo4( Foo foo );
+  abstract void setFoo4( @Nullable Foo foo );
 
   @ComponentDependency
-  abstract Foo getFoo4();
+  abstract @Nullable Foo getFoo4();
 
-  abstract void setFoo5( Foo foo );
+  abstract void setFoo5( @Nullable Foo foo );
 
   @ComponentDependency
   @Observable
-  abstract Foo getFoo5();
+  abstract @Nullable Foo getFoo5();
 }

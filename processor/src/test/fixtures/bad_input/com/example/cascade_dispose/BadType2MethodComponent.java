@@ -2,13 +2,16 @@ package com.example.cascade_dispose;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.CascadeDispose;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class BadType2MethodComponent
 {
   // Class does not implement Disposable
   @CascadeDispose
-  final String myField()
+  final @Nullable String myField()
   {
     return null;
   }

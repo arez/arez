@@ -11,12 +11,13 @@ import arez.component.Identifiable;
 import arez.component.Linkable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_ExplicitLoadReferenceModel extends ExplicitLoadReferenceModel implements Disposable,
     Identifiable<Integer>,
     Verifiable,
@@ -27,8 +28,7 @@ final class Arez_ExplicitLoadReferenceModel extends ExplicitLoadReferenceModel i
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nullable
-  private ExplicitLoadReferenceModel.MyEntity $$arezr$$_myEntity;
+  private ExplicitLoadReferenceModel. @Nullable MyEntity $$arezr$$_myEntity;
 
   Arez_ExplicitLoadReferenceModel() {
     super();
@@ -44,7 +44,6 @@ final class Arez_ExplicitLoadReferenceModel extends ExplicitLoadReferenceModel i
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_reference_ExplicitLoadReferenceModel'" );
@@ -58,7 +57,6 @@ final class Arez_ExplicitLoadReferenceModel extends ExplicitLoadReferenceModel i
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_reference_ExplicitLoadReferenceModel'" );
@@ -74,7 +72,7 @@ final class Arez_ExplicitLoadReferenceModel extends ExplicitLoadReferenceModel i
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_reference_ExplicitLoadReferenceModel'" );
@@ -83,7 +81,7 @@ final class Arez_ExplicitLoadReferenceModel extends ExplicitLoadReferenceModel i
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_reference_ExplicitLoadReferenceModel'" );
     }
@@ -130,7 +128,7 @@ final class Arez_ExplicitLoadReferenceModel extends ExplicitLoadReferenceModel i
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( ExplicitLoadReferenceModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type ExplicitLoadReferenceModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( ExplicitLoadReferenceModel.class, $$arezi$$_id() ) );
       final int $$arezv$$_myEntityId = this.getMyEntityId();
       final ExplicitLoadReferenceModel.MyEntity $$arezv$$_myEntity = this.$$arezi$$_locator().findById( ExplicitLoadReferenceModel.MyEntity.class, $$arezv$$_myEntityId );
-      Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.ExplicitLoadReferenceModel.MyEntity and id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.ExplicitLoadReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
     }
   }
 
@@ -149,7 +147,7 @@ final class Arez_ExplicitLoadReferenceModel extends ExplicitLoadReferenceModel i
   }
 
   @Override
-  ExplicitLoadReferenceModel.MyEntity getMyEntity() {
+  ExplicitLoadReferenceModel. @Nullable MyEntity getMyEntity() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyEntity' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -167,7 +165,7 @@ final class Arez_ExplicitLoadReferenceModel extends ExplicitLoadReferenceModel i
       final int id = this.getMyEntityId();
       this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( ExplicitLoadReferenceModel.MyEntity.class, id );
       if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.ExplicitLoadReferenceModel.MyEntity and id = " + getMyEntityId() );
+        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.ExplicitLoadReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
       }
     }
   }

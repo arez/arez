@@ -12,12 +12,13 @@ import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
 import com.example.inverse.Arez_PackageAccessWithDifferentPackageInverseModel;
 import com.example.inverse.PackageAccessWithDifferentPackageInverseModel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 public final class Arez_Element extends Element
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -25,8 +26,7 @@ public final class Arez_Element extends Element
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nullable
-  private PackageAccessWithDifferentPackageInverseModel
+  private @Nullable PackageAccessWithDifferentPackageInverseModel
       $$arezr$$_packageAccessWithDifferentPackageInverseModel;
 
   public Arez_Element() {
@@ -64,7 +64,6 @@ public final class Arez_Element extends Element
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -81,7 +80,6 @@ public final class Arez_Element extends Element
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -109,9 +107,7 @@ public final class Arez_Element extends Element
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -122,7 +118,7 @@ public final class Arez_Element extends Element
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -210,12 +206,13 @@ public final class Arez_Element extends Element
           () ->
               "Reference named 'packageAccessWithDifferentPackageInverseModel' on component named '"
                   + this.$$arezi$$_kernel.getName()
-                  + "' is unable to resolve entity of type com.example.inverse.PackageAccessWithDifferentPackageInverseModel and id = "
+                  + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable PackageAccessWithDifferentPackageInverseModel and id = "
                   + getPackageAccessWithDifferentPackageInverseModelId());
     }
   }
 
   @Override
+  @Nullable
   PackageAccessWithDifferentPackageInverseModel getPackageAccessWithDifferentPackageInverseModel() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -254,7 +251,7 @@ public final class Arez_Element extends Element
           () ->
               "Reference named 'packageAccessWithDifferentPackageInverseModel' on component named '"
                   + this.$$arezi$$_kernel.getName()
-                  + "' is unable to resolve entity of type com.example.inverse.PackageAccessWithDifferentPackageInverseModel and id = "
+                  + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable PackageAccessWithDifferentPackageInverseModel and id = "
                   + getPackageAccessWithDifferentPackageInverseModelId());
     }
     ((Arez_PackageAccessWithDifferentPackageInverseModel)

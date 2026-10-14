@@ -7,25 +7,29 @@ import arez.annotations.PostInverseAdd;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import java.util.Collection;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class ReturnsPostInverseAddModel
 {
   @PostInverseAdd
-  boolean postElementsAdd( @Nonnull final Element element )
+  boolean postElementsAdd( @NonNull final Element element )
   {
     return false;
   }
 
   @Inverse( referenceName = "other" )
-  abstract Collection<Element> getElements();
+  abstract @Nullable Collection<Element> getElements();
 
+  @NullMarked
   @ArezComponent
   abstract static class Element
   {
     @Reference( inverse = Feature.ENABLE )
-    abstract ReturnsPostInverseAddModel getOther();
+    abstract @Nullable ReturnsPostInverseAddModel getOther();
 
     @ReferenceId
     int getOtherId()

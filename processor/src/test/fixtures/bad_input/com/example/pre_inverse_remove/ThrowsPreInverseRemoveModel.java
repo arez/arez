@@ -8,26 +8,30 @@ import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import java.io.IOException;
 import java.util.Collection;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class ThrowsPreInverseRemoveModel
 {
   @PreInverseRemove
-  void preElementsRemove( @Nonnull final Element element )
+  void preElementsRemove( @NonNull final Element element )
     throws IOException
   {
     throw new IOException();
   }
 
   @Inverse( referenceName = "other" )
-  abstract Collection<Element> getElements();
+  abstract @Nullable Collection<Element> getElements();
 
+  @NullMarked
   @ArezComponent
   abstract static class Element
   {
     @Reference( inverse = Feature.ENABLE )
-    abstract ThrowsPreInverseRemoveModel getOther();
+    abstract @Nullable ThrowsPreInverseRemoveModel getOther();
 
     @ReferenceId
     int getOtherId()

@@ -10,12 +10,13 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_NullableLazyLoadReferenceModel extends NullableLazyLoadReferenceModel
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -23,8 +24,7 @@ final class Arez_NullableLazyLoadReferenceModel extends NullableLazyLoadReferenc
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nullable
-  private NullableLazyLoadReferenceModel.MyEntity $$arezr$$_myEntity;
+  private NullableLazyLoadReferenceModel.@Nullable MyEntity $$arezr$$_myEntity;
 
   Arez_NullableLazyLoadReferenceModel() {
     super();
@@ -61,7 +61,6 @@ final class Arez_NullableLazyLoadReferenceModel extends NullableLazyLoadReferenc
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -78,7 +77,6 @@ final class Arez_NullableLazyLoadReferenceModel extends NullableLazyLoadReferenc
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -101,9 +99,7 @@ final class Arez_NullableLazyLoadReferenceModel extends NullableLazyLoadReferenc
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -114,7 +110,7 @@ final class Arez_NullableLazyLoadReferenceModel extends NullableLazyLoadReferenc
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -193,7 +189,7 @@ final class Arez_NullableLazyLoadReferenceModel extends NullableLazyLoadReferenc
                   + $$arezi$$_id() + "' but unable to locate self. Actual value: "
                   + $$arezi$$_locator()
                       .findById(NullableLazyLoadReferenceModel.class, $$arezi$$_id()));
-      final Integer $$arezv$$_myEntityId = this.getMyEntityId();
+      final @Nullable Integer $$arezv$$_myEntityId = this.getMyEntityId();
       if (null != $$arezv$$_myEntityId) {
         final NullableLazyLoadReferenceModel.MyEntity $$arezv$$_myEntity = this.$$arezi$$_locator()
             .findById(NullableLazyLoadReferenceModel.MyEntity.class, $$arezv$$_myEntityId);
@@ -201,14 +197,14 @@ final class Arez_NullableLazyLoadReferenceModel extends NullableLazyLoadReferenc
             () -> null != $$arezv$$_myEntity,
             () ->
                 "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-                    + "' is unable to resolve entity of type com.example.reference.NullableLazyLoadReferenceModel.MyEntity and id = "
+                    + "' is unable to resolve entity of type com.example.reference.NullableLazyLoadReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = "
                     + getMyEntityId());
       }
     }
   }
 
   @Override
-  NullableLazyLoadReferenceModel.MyEntity getMyEntity() {
+  NullableLazyLoadReferenceModel.@Nullable MyEntity getMyEntity() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -228,7 +224,7 @@ final class Arez_NullableLazyLoadReferenceModel extends NullableLazyLoadReferenc
               + this.$$arezi$$_kernel.getName() + "'");
     }
     if (null == this.$$arezr$$_myEntity) {
-      final Integer id = this.getMyEntityId();
+      final @Nullable Integer id = this.getMyEntityId();
       if (null != id) {
         this.$$arezr$$_myEntity =
             this.$$arezi$$_locator().findById(NullableLazyLoadReferenceModel.MyEntity.class, id);
@@ -237,7 +233,7 @@ final class Arez_NullableLazyLoadReferenceModel extends NullableLazyLoadReferenc
               () -> null != $$arezr$$_myEntity,
               () -> "Reference named 'myEntity' on component named '"
                   + this.$$arezi$$_kernel.getName()
-                  + "' is unable to resolve entity of type com.example.reference.NullableLazyLoadReferenceModel.MyEntity and id = "
+                  + "' is unable to resolve entity of type com.example.reference.NullableLazyLoadReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = "
                   + getMyEntityId());
         }
       }

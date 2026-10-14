@@ -7,24 +7,28 @@ import arez.annotations.PostInverseAdd;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import java.util.Collection;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class BadParamCount2PostInverseAddModel
 {
   @PostInverseAdd
-  void postElementsAdd( @Nonnull final Element element1, @Nonnull final Element element2 )
+  void postElementsAdd( @NonNull final Element element1, @NonNull final Element element2 )
   {
   }
 
   @Inverse( referenceName = "other" )
-  abstract Collection<Element> getElements();
+  abstract @Nullable Collection<Element> getElements();
 
+  @NullMarked
   @ArezComponent
   abstract static class Element
   {
     @Reference( inverse = Feature.ENABLE )
-    abstract BadParamCount2PostInverseAddModel getOther();
+    abstract @Nullable BadParamCount2PostInverseAddModel getOther();
 
     @ReferenceId
     int getOtherId()

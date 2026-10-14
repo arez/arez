@@ -4,7 +4,10 @@ import arez.annotations.ArezComponentLike;
 import arez.annotations.Action;
 import arez.annotations.AutoObserve;
 import arez.annotations.SuppressArezWarnings;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponentLike
 @SuppressArezWarnings( "Arez:PublicField" )
 abstract class ArezComponentLikeUsageModel
@@ -15,5 +18,5 @@ abstract class ArezComponentLikeUsageModel
   }
 
   @AutoObserve
-  final Object dependency = null;
+  final @Nullable Object dependency = null;
 }

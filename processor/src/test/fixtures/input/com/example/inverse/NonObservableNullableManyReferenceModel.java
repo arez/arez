@@ -6,16 +6,19 @@ import arez.annotations.Multiplicity;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class NonObservableNullableManyReferenceModel
 {
   @Inverse
-  @Nonnull
+  @NonNull
   abstract List<Element> getElements();
 
+  @NullMarked
   @ArezComponent
   abstract static class Element
   {

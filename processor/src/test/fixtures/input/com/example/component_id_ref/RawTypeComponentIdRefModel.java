@@ -3,21 +3,25 @@ package com.example.component_id_ref;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
 import arez.annotations.ComponentIdRef;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @SuppressWarnings( "rawtypes" )
 @ArezComponent( allowEmpty = true )
 abstract class RawTypeComponentIdRefModel
 {
-  interface MyId<A, B>
+  @NullMarked
+  interface MyId<A extends @Nullable Object, B extends @Nullable Object>
   {
   }
 
   @ComponentId
-  MyId id()
+  @Nullable MyId id()
   {
     return null;
   }
 
   @ComponentIdRef
-  abstract MyId getId();
+  abstract @Nullable MyId getId();
 }

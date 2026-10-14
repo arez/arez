@@ -6,14 +6,18 @@ import arez.annotations.Observable;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import java.util.Collection;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 class UnexpectedInverseForReferenceModel
 {
+  @NullMarked
   @ArezComponent
   abstract static class Wheel
   {
     @Reference
-    abstract Car getCar();
+    abstract @Nullable Car getCar();
 
     @ReferenceId
     @Observable
@@ -22,10 +26,11 @@ class UnexpectedInverseForReferenceModel
     abstract void setCarId( int carId );
   }
 
+  @NullMarked
   @ArezComponent
   abstract static class Car
   {
     @Inverse
-    abstract Collection<Wheel> getWheels();
+    abstract @Nullable Collection<Wheel> getWheels();
   }
 }

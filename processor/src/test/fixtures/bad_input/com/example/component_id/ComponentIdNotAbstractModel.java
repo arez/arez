@@ -3,7 +3,9 @@ package com.example.component_id;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
 import arez.annotations.Observable;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 public abstract class ComponentIdNotAbstractModel
 {

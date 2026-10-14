@@ -4,7 +4,10 @@ import arez.Observer;
 import arez.annotations.ArezComponent;
 import arez.annotations.ObserverRef;
 import arez.annotations.OnDepsChange;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class DeprecatedObserveModel4
 {
@@ -19,5 +22,5 @@ abstract class DeprecatedObserveModel4
   }
 
   @ObserverRef
-  abstract Observer getRenderObserver();
+  abstract @Nullable Observer getRenderObserver();
 }

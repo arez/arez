@@ -11,12 +11,14 @@ import arez.component.Identifiable;
 import arez.component.Linkable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation
     extends MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier, Linkable {
@@ -25,11 +27,9 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nullable
-  private MultipleReferenceWithInverseWithSameTarget.RoleType $$arezr$$_parent;
+  private MultipleReferenceWithInverseWithSameTarget.@Nullable RoleType $$arezr$$_parent;
 
-  @Nullable
-  private MultipleReferenceWithInverseWithSameTarget.RoleType $$arezr$$_child;
+  private MultipleReferenceWithInverseWithSameTarget.@Nullable RoleType $$arezr$$_child;
 
   MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation(
       final int parentId, final int childId) {
@@ -68,7 +68,6 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -85,7 +84,6 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -114,9 +112,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -127,7 +123,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -219,7 +215,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
       Guards.apiInvariant(
           () -> null != $$arezv$$_parent,
           () -> "Reference named 'parent' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.RoleType and id = "
+              + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.@org.jspecify.annotations.NonNull RoleType and id = "
               + getParentId());
       final int $$arezv$$_childId = this.getChildId();
       final MultipleReferenceWithInverseWithSameTarget.RoleType $$arezv$$_child =
@@ -229,7 +225,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
       Guards.apiInvariant(
           () -> null != $$arezv$$_child,
           () -> "Reference named 'child' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.RoleType and id = "
+              + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.@org.jspecify.annotations.NonNull RoleType and id = "
               + getChildId());
     }
   }
@@ -258,9 +254,8 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
     this.$$arezi$$_link_child();
   }
 
-  @Nonnull
   @Override
-  MultipleReferenceWithInverseWithSameTarget.RoleType getParent() {
+  MultipleReferenceWithInverseWithSameTarget.@NonNull RoleType getParent() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -293,7 +288,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
         Guards.apiInvariant(
             () -> null != $$arezr$$_parent,
             () -> "Reference named 'parent' on component named '" + this.$$arezi$$_kernel.getName()
-                + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.RoleType and id = "
+                + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.@org.jspecify.annotations.NonNull RoleType and id = "
                 + getParentId());
       }
       ((MultipleReferenceWithInverseWithSameTarget_Arez_RoleType) this.$$arezr$$_parent)
@@ -309,9 +304,8 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
     this.$$arezr$$_parent = null;
   }
 
-  @Nonnull
   @Override
-  MultipleReferenceWithInverseWithSameTarget.RoleType getChild() {
+  MultipleReferenceWithInverseWithSameTarget.@NonNull RoleType getChild() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -344,7 +338,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
         Guards.apiInvariant(
             () -> null != $$arezr$$_child,
             () -> "Reference named 'child' on component named '" + this.$$arezi$$_kernel.getName()
-                + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.RoleType and id = "
+                + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.@org.jspecify.annotations.NonNull RoleType and id = "
                 + getChildId());
       }
       ((MultipleReferenceWithInverseWithSameTarget_Arez_RoleType) this.$$arezr$$_child)

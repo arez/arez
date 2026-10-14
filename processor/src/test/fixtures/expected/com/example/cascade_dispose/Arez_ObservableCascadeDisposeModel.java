@@ -10,22 +10,23 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_ObservableCascadeDisposeModel extends ObservableCascadeDisposeModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<ObservableCascadeDisposeModel.MyComponent> $$arez$$_element;
+  private final ObservableValue<ObservableCascadeDisposeModel. @Nullable MyComponent> $$arez$$_element;
 
-  private ObservableCascadeDisposeModel.MyComponent $$arezd$$_element;
+  private ObservableCascadeDisposeModel. @Nullable MyComponent $$arezd$$_element;
 
   Arez_ObservableCascadeDisposeModel() {
     super();
@@ -45,7 +46,6 @@ final class Arez_ObservableCascadeDisposeModel extends ObservableCascadeDisposeM
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_cascade_dispose_ObservableCascadeDisposeModel'" );
@@ -66,7 +66,7 @@ final class Arez_ObservableCascadeDisposeModel extends ObservableCascadeDisposeM
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_cascade_dispose_ObservableCascadeDisposeModel'" );
@@ -75,7 +75,7 @@ final class Arez_ObservableCascadeDisposeModel extends ObservableCascadeDisposeM
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_cascade_dispose_ObservableCascadeDisposeModel'" );
     }
@@ -112,7 +112,7 @@ final class Arez_ObservableCascadeDisposeModel extends ObservableCascadeDisposeM
   }
 
   @Override
-  ObservableCascadeDisposeModel.MyComponent getElement() {
+  ObservableCascadeDisposeModel. @Nullable MyComponent getElement() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getElement' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -121,12 +121,12 @@ final class Arez_ObservableCascadeDisposeModel extends ObservableCascadeDisposeM
   }
 
   @Override
-  void setElement(@Nonnull final ObservableCascadeDisposeModel.MyComponent element) {
+  void setElement(final ObservableCascadeDisposeModel. @NonNull MyComponent element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setElement' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     this.$$arez$$_element.preReportChanged();
-    final ObservableCascadeDisposeModel.MyComponent $$arezv$$_currentValue = this.$$arezd$$_element;
+    final ObservableCascadeDisposeModel. @NonNull MyComponent $$arezv$$_currentValue = this.$$arezd$$_element;
     assert null != element;
     if ( !Objects.equals( element, $$arezv$$_currentValue ) ) {
       this.$$arezd$$_element = element;

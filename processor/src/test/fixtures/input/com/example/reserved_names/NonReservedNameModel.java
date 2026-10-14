@@ -1,10 +1,12 @@
 package com.example.reserved_names;
 
 import arez.annotations.ArezComponent;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * These names are all valid as they have parameters and wont collide with built in Arez intrinsics.
  */
+@NullMarked
 @ArezComponent( allowEmpty = true )
 abstract class NonReservedNameModel
 {

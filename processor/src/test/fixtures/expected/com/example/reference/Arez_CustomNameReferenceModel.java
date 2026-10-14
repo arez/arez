@@ -10,12 +10,13 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel implements Disposable,
     Identifiable<Integer>,
     Verifiable,
@@ -25,8 +26,7 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel imple
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nullable
-  private CustomNameReferenceModel.MyEntity $$arezr$$_Blah;
+  private CustomNameReferenceModel. @Nullable MyEntity $$arezr$$_Blah;
 
   Arez_CustomNameReferenceModel() {
     super();
@@ -43,7 +43,6 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel imple
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_reference_CustomNameReferenceModel'" );
@@ -57,7 +56,6 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel imple
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_reference_CustomNameReferenceModel'" );
@@ -73,7 +71,7 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel imple
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_reference_CustomNameReferenceModel'" );
@@ -82,7 +80,7 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel imple
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_reference_CustomNameReferenceModel'" );
     }
@@ -129,12 +127,12 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel imple
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( CustomNameReferenceModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type CustomNameReferenceModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( CustomNameReferenceModel.class, $$arezi$$_id() ) );
       final int $$arezv$$_BlahId = this.getMyEntityId();
       final CustomNameReferenceModel.MyEntity $$arezv$$_Blah = this.$$arezi$$_locator().findById( CustomNameReferenceModel.MyEntity.class, $$arezv$$_BlahId );
-      Guards.apiInvariant( () -> null != $$arezv$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel.MyEntity and id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
     }
   }
 
   @Override
-  CustomNameReferenceModel.MyEntity getMyEntity() {
+  CustomNameReferenceModel. @Nullable MyEntity getMyEntity() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyEntity' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -151,7 +149,7 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel imple
     final int id = this.getMyEntityId();
     this.$$arezr$$_Blah = this.$$arezi$$_locator().findById( CustomNameReferenceModel.MyEntity.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel.MyEntity and id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
     }
   }
 

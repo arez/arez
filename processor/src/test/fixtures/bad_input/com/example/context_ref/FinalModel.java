@@ -3,12 +3,15 @@ package com.example.context_ref;
 import arez.ArezContext;
 import arez.annotations.ArezComponent;
 import arez.annotations.ContextRef;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent( allowEmpty = true )
 abstract class FinalModel
 {
   @ContextRef
-  final ArezContext getContext()
+  final @Nullable ArezContext getContext()
   {
     throw new IllegalStateException();
   }

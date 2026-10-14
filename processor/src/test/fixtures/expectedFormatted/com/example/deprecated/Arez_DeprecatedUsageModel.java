@@ -17,13 +17,15 @@ import arez.component.internal.MemoizeCache;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings({"RedundantSuppression", "deprecation", "unchecked"})
+@NullMarked
 final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -31,44 +33,37 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
   @SuppressWarnings("deprecation")
-  private final ObservableValue<MyDeprecatedEntity> $$arez$$_myEntity;
+  private final ObservableValue<@Nullable MyDeprecatedEntity> $$arez$$_myEntity;
 
   @SuppressWarnings("deprecation")
-  private MyDeprecatedEntity $$arezd$$_myEntity;
-
-  @Nonnull
-  @SuppressWarnings("deprecation")
-  private final ObservableValue<MyDeprecatedEntity> $$arez$$_myEntity2;
-
-  @Nonnull
-  @SuppressWarnings("deprecation")
-  private final ObservableValue<List<MyDeprecatedEntity>> $$arez$$_myEntityList;
+  private @Nullable MyDeprecatedEntity $$arezd$$_myEntity;
 
   @SuppressWarnings("deprecation")
-  private List<MyDeprecatedEntity> $$arezd$$_myEntityList;
+  private final ObservableValue<@Nullable MyDeprecatedEntity> $$arez$$_myEntity2;
 
-  @Nullable
   @SuppressWarnings("deprecation")
-  private List<MyDeprecatedEntity> $$arezd$$_$$cache$$_myEntityList;
+  private final ObservableValue<@Nullable List<MyDeprecatedEntity>> $$arez$$_myEntityList;
 
-  @Nonnull
   @SuppressWarnings("deprecation")
-  private final ComputableValue<MyDeprecatedEntity> $$arez$$_genEntity;
+  private @Nullable List<MyDeprecatedEntity> $$arezd$$_myEntityList;
 
-  @Nonnull
+  @SuppressWarnings("deprecation")
+  private @Nullable List<MyDeprecatedEntity> $$arezd$$_$$cache$$_myEntityList;
+
+  @SuppressWarnings("deprecation")
+  private final ComputableValue<@Nullable MyDeprecatedEntity> $$arez$$_genEntity;
+
   private final MemoizeCache<Integer> $$arez$$_genEntityStat1;
 
-  @Nonnull
   private final MemoizeCache<Integer> $$arez$$_genEntityStat2;
 
-  @Nonnull
   private final Observer $$arez$$_render;
 
   @SuppressWarnings("deprecation")
   Arez_DeprecatedUsageModel(
-      final MyDeprecatedEntity myEntity, final List<MyDeprecatedEntity> myEntityList) {
+      final @Nullable MyDeprecatedEntity myEntity,
+      final @Nullable List<MyDeprecatedEntity> myEntityList) {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ++$$arezi$$_nextId;
@@ -152,7 +147,6 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -175,9 +169,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -188,7 +180,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -250,6 +242,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel
 
   @Override
   @SuppressWarnings("deprecation")
+  @Nullable
   MyDeprecatedEntity getMyEntity() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -263,7 +256,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel
 
   @Override
   @SuppressWarnings("deprecation")
-  void setMyEntity(final MyDeprecatedEntity entity) {
+  void setMyEntity(final @Nullable MyDeprecatedEntity entity) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -271,7 +264,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel
               + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     this.$$arez$$_myEntity.preReportChanged();
-    final MyDeprecatedEntity $$arezv$$_currentValue = this.$$arezd$$_myEntity;
+    final @Nullable MyDeprecatedEntity $$arezv$$_currentValue = this.$$arezd$$_myEntity;
     if (!Objects.equals(entity, $$arezv$$_currentValue)) {
       this.$$arezd$$_myEntity = entity;
       this.$$arez$$_myEntity.reportChanged();
@@ -280,6 +273,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel
 
   @Override
   @SuppressWarnings("deprecation")
+  @Nullable
   MyDeprecatedEntity getMyEntity2() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -293,7 +287,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel
 
   @Override
   @SuppressWarnings("deprecation")
-  void setMyEntity2(final MyDeprecatedEntity entity) {
+  void setMyEntity2(final @Nullable MyDeprecatedEntity entity) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -301,7 +295,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel
               + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     this.$$arez$$_myEntity2.preReportChanged();
-    final MyDeprecatedEntity $$arezv$$_currentValue = super.getMyEntity2();
+    final @Nullable MyDeprecatedEntity $$arezv$$_currentValue = super.getMyEntity2();
     if (!Objects.equals(entity, $$arezv$$_currentValue)) {
       super.setMyEntity2(entity);
       this.$$arez$$_myEntity2.reportChanged();
@@ -310,6 +304,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel
 
   @Override
   @SuppressWarnings("deprecation")
+  @Nullable
   List<MyDeprecatedEntity> getMyEntityList() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -319,7 +314,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel
     }
     this.$$arez$$_myEntityList.reportObserved();
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final List<MyDeprecatedEntity> $$ar$$_result = this.$$arezd$$_myEntityList;
+      final @Nullable List<MyDeprecatedEntity> $$ar$$_result = this.$$arezd$$_myEntityList;
       if (null == this.$$arezd$$_$$cache$$_myEntityList && null != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_myEntityList = CollectionsUtil.wrap($$ar$$_result);
       }
@@ -331,7 +326,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel
 
   @Override
   @SuppressWarnings("deprecation")
-  void setMyEntityList(final List<MyDeprecatedEntity> entity) {
+  void setMyEntityList(final @Nullable List<MyDeprecatedEntity> entity) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -339,7 +334,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel
               + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     this.$$arez$$_myEntityList.preReportChanged();
-    final List<MyDeprecatedEntity> $$arezv$$_currentValue = this.$$arezd$$_myEntityList;
+    final @Nullable List<MyDeprecatedEntity> $$arezv$$_currentValue = this.$$arezd$$_myEntityList;
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
       this.$$arezd$$_$$cache$$_myEntityList = null;
     }
@@ -351,7 +346,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel
 
   @Override
   @SuppressWarnings("deprecation")
-  public void render(@Nonnull final MyDeprecatedEntity entity) {
+  public void render(final @NonNull MyDeprecatedEntity entity) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -368,7 +363,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel
 
   @Override
   @SuppressWarnings("deprecation")
-  public void doStuff(@Nonnull final MyDeprecatedEntity entity) {
+  public void doStuff(final @NonNull MyDeprecatedEntity entity) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -386,6 +381,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel
 
   @Override
   @SuppressWarnings("deprecation")
+  @Nullable
   MyDeprecatedEntity genEntity() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -398,7 +394,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel
 
   @Override
   @SuppressWarnings("deprecation")
-  int genEntityStat1(final MyDeprecatedEntity entity) {
+  int genEntityStat1(final @Nullable MyDeprecatedEntity entity) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -410,7 +406,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel
 
   @Override
   @SuppressWarnings("deprecation")
-  int genEntityStat2(final List<Consumer<MyDeprecatedEntity>> other) {
+  int genEntityStat2(final @Nullable List<Consumer<MyDeprecatedEntity>> other) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),

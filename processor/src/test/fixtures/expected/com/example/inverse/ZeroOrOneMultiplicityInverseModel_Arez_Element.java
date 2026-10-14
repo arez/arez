@@ -10,12 +10,13 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class ZeroOrOneMultiplicityInverseModel_Arez_Element extends ZeroOrOneMultiplicityInverseModel.Element implements Disposable,
     Identifiable<Integer>,
     Verifiable,
@@ -25,8 +26,7 @@ final class ZeroOrOneMultiplicityInverseModel_Arez_Element extends ZeroOrOneMult
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nullable
-  private ZeroOrOneMultiplicityInverseModel $$arezr$$_zeroOrOneMultiplicityInverseModel;
+  private @Nullable ZeroOrOneMultiplicityInverseModel $$arezr$$_zeroOrOneMultiplicityInverseModel;
 
   ZeroOrOneMultiplicityInverseModel_Arez_Element() {
     super();
@@ -43,7 +43,6 @@ final class ZeroOrOneMultiplicityInverseModel_Arez_Element extends ZeroOrOneMult
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_inverse_ZeroOrOneMultiplicityInverseModel_Element'" );
@@ -57,7 +56,6 @@ final class ZeroOrOneMultiplicityInverseModel_Arez_Element extends ZeroOrOneMult
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_inverse_ZeroOrOneMultiplicityInverseModel_Element'" );
@@ -78,7 +76,7 @@ final class ZeroOrOneMultiplicityInverseModel_Arez_Element extends ZeroOrOneMult
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_ZeroOrOneMultiplicityInverseModel_Element'" );
@@ -87,7 +85,7 @@ final class ZeroOrOneMultiplicityInverseModel_Arez_Element extends ZeroOrOneMult
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_ZeroOrOneMultiplicityInverseModel_Element'" );
     }
@@ -134,12 +132,12 @@ final class ZeroOrOneMultiplicityInverseModel_Arez_Element extends ZeroOrOneMult
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( ZeroOrOneMultiplicityInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type ZeroOrOneMultiplicityInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( ZeroOrOneMultiplicityInverseModel.Element.class, $$arezi$$_id() ) );
       final int $$arezv$$_zeroOrOneMultiplicityInverseModelId = this.getZeroOrOneMultiplicityInverseModelId();
       final ZeroOrOneMultiplicityInverseModel $$arezv$$_zeroOrOneMultiplicityInverseModel = this.$$arezi$$_locator().findById( ZeroOrOneMultiplicityInverseModel.class, $$arezv$$_zeroOrOneMultiplicityInverseModelId );
-      Guards.apiInvariant( () -> null != $$arezv$$_zeroOrOneMultiplicityInverseModel, () -> "Reference named 'zeroOrOneMultiplicityInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.ZeroOrOneMultiplicityInverseModel and id = " + getZeroOrOneMultiplicityInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_zeroOrOneMultiplicityInverseModel, () -> "Reference named 'zeroOrOneMultiplicityInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ZeroOrOneMultiplicityInverseModel and id = " + getZeroOrOneMultiplicityInverseModelId() );
     }
   }
 
   @Override
-  ZeroOrOneMultiplicityInverseModel getZeroOrOneMultiplicityInverseModel() {
+  @Nullable ZeroOrOneMultiplicityInverseModel getZeroOrOneMultiplicityInverseModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getZeroOrOneMultiplicityInverseModel' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -156,7 +154,7 @@ final class ZeroOrOneMultiplicityInverseModel_Arez_Element extends ZeroOrOneMult
     final int id = this.getZeroOrOneMultiplicityInverseModelId();
     this.$$arezr$$_zeroOrOneMultiplicityInverseModel = this.$$arezi$$_locator().findById( ZeroOrOneMultiplicityInverseModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_zeroOrOneMultiplicityInverseModel, () -> "Reference named 'zeroOrOneMultiplicityInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.ZeroOrOneMultiplicityInverseModel and id = " + getZeroOrOneMultiplicityInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_zeroOrOneMultiplicityInverseModel, () -> "Reference named 'zeroOrOneMultiplicityInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ZeroOrOneMultiplicityInverseModel and id = " + getZeroOrOneMultiplicityInverseModelId() );
     }
     ( (Arez_ZeroOrOneMultiplicityInverseModel) this.$$arezr$$_zeroOrOneMultiplicityInverseModel ).$$arezir$$_element_zset( this );
   }

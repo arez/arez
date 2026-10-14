@@ -23,13 +23,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
+@NullMarked
 public final class Arez_CompleteModel extends CompleteModel implements Disposable,
     Identifiable<Byte>,
     Verifiable,
@@ -37,60 +38,43 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<String> $$arez$$_myValue;
+  private final ObservableValue<@Nullable String> $$arez$$_myValue;
 
-  private String $$arezd$$_myValue;
+  private @Nullable String $$arezd$$_myValue;
 
-  @Nonnull
   private final ObservableValue<Integer> $$arez$$_myPrimitiveValue;
 
-  @Nonnull
-  private final ObservableValue<String> $$arez$$_myStringValue;
+  private final ObservableValue<@Nullable String> $$arez$$_myStringValue;
 
-  @Nonnull
-  private final ObservableValue<List<Element>> $$arez$$_elements;
+  private final ObservableValue<@Nullable List<Element>> $$arez$$_elements;
 
-  @Nonnull
   private final List<Element> $$arezd$$_elements;
 
-  @Nullable
-  private List<Element> $$arezd$$_$$cache$$_elements;
+  private @Nullable List<Element> $$arezd$$_$$cache$$_elements;
 
-  @Nonnull
-  private final ObservableValue<Element> $$arez$$_parentGeneralisation;
+  private final ObservableValue<@Nullable Element> $$arez$$_parentGeneralisation;
 
-  @Nullable
-  private Element $$arezd$$_parentGeneralisation;
+  private @Nullable Element $$arezd$$_parentGeneralisation;
 
-  @Nonnull
   private final ComputableValue<Long> $$arez$$_time;
 
-  @Nonnull
   private final MemoizeCache<Long> $$arez$$_calcStuff;
 
-  @Nonnull
-  private final ComputableValue<Collection<Long>> $$arez$$_collectionTime;
+  private final ComputableValue<@Nullable Collection<Long>> $$arez$$_collectionTime;
 
-  @Nullable
-  private Collection<Long> $$arezd$$_$$cache$$_collectionTime;
+  private @Nullable Collection<Long> $$arezd$$_$$cache$$_collectionTime;
 
-  @Nullable
-  private Collection<Long> $$arezd$$_$$unmodifiable_cache$$_collectionTime;
+  private @Nullable Collection<Long> $$arezd$$_$$unmodifiable_cache$$_collectionTime;
 
   private boolean $$arezd$$_$$cache_active$$_collectionTime;
 
-  @Nonnull
-  private final MemoizeCache<Collection<Long>> $$arez$$_calcCollectionStuff;
+  private final MemoizeCache<@Nullable Collection<Long>> $$arez$$_calcCollectionStuff;
 
-  @Nonnull
   private final Observer $$arez$$_myWatcher;
 
-  @Nonnull
   private final Observer $$arez$$_render;
 
-  @Nullable
-  private BaseCompleteModel.MyEntity $$arezr$$_myEntity;
+  private BaseCompleteModel. @Nullable MyEntity $$arezr$$_myEntity;
 
   public Arez_CompleteModel() {
     super();
@@ -122,7 +106,6 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  @Nonnull
   protected ArezContext getContext() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getContext' invoked on uninitialized component of type 'com_example_inheritance_CompleteModel'" );
@@ -131,7 +114,6 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  @Nonnull
   protected Component getComponent() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getComponent' invoked on uninitialized component of type 'com_example_inheritance_CompleteModel'" );
@@ -151,7 +133,6 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     return this.$$arezi$$_kernel.getComponent();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_inheritance_CompleteModel'" );
@@ -160,7 +141,6 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  @Nonnull
   public Byte getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_inheritance_CompleteModel'" );
@@ -172,7 +152,6 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  @Nonnull
   protected String getComponentName() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getComponentName' invoked on uninitialized component of type 'com_example_inheritance_CompleteModel'" );
@@ -197,7 +176,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_inheritance_CompleteModel'" );
@@ -206,7 +185,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_inheritance_CompleteModel'" );
     }
@@ -267,7 +246,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( CompleteModel.class, getId() ), () -> "Attempted to lookup self in Locator with type CompleteModel and id '" + getId() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( CompleteModel.class, getId() ) );
       final int $$arezv$$_myEntityId = this.getMyEntityId();
       final BaseCompleteModel.MyEntity $$arezv$$_myEntity = this.$$arezi$$_locator().findById( BaseCompleteModel.MyEntity.class, $$arezv$$_myEntityId );
-      Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inheritance.other.BaseCompleteModel.MyEntity and id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inheritance.other.BaseCompleteModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
       for( final Element element : this.$$arezd$$_elements ) {
         if ( Arez.shouldCheckApiInvariants() ) {
           Guards.apiInvariant( () -> Disposable.isNotDisposed( element ), () -> "Inverse relationship named 'elements' on component named '" + this.$$arezi$$_kernel.getName() + "' contains disposed element '" + element + "'" );
@@ -280,7 +259,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  protected String getMyValue() {
+  protected @Nullable String getMyValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -289,12 +268,12 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  public void setMyValue(final String value) {
+  public void setMyValue(final @Nullable String value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     this.$$arez$$_myValue.preReportChanged();
-    final String $$arezv$$_currentValue = this.$$arezd$$_myValue;
+    final @Nullable String $$arezv$$_currentValue = this.$$arezd$$_myValue;
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
       this.$$arezd$$_myValue = value;
       this.$$arez$$_myValue.reportChanged();
@@ -302,7 +281,6 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  @Nonnull
   protected ObservableValue<String> getMyValueObservableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValueObservableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
@@ -335,7 +313,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  protected String getMyStringValue() {
+  protected @Nullable String getMyStringValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyStringValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -344,12 +322,12 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  protected void setMyStringValue(final String value) {
+  protected void setMyStringValue(final @Nullable String value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyStringValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     this.$$arez$$_myStringValue.preReportChanged();
-    final String $$arezv$$_currentValue = super.getMyStringValue();
+    final @Nullable String $$arezv$$_currentValue = super.getMyStringValue();
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
       super.setMyStringValue( value );
       if ( !Objects.equals( $$arezv$$_currentValue, super.getMyStringValue() ) ) {
@@ -359,13 +337,13 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  protected List<Element> getElements() {
+  protected @Nullable List<Element> getElements() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getElements' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     this.$$arez$$_elements.reportObserved();
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      final List<Element> $$ar$$_result = this.$$arezd$$_elements;
+      final @Nullable List<Element> $$ar$$_result = this.$$arezd$$_elements;
       if ( null == this.$$arezd$$_$$cache$$_elements && null != $$ar$$_result ) {
         this.$$arezd$$_$$cache$$_elements = CollectionsUtil.wrap( $$ar$$_result );
       }
@@ -376,8 +354,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  @Nullable
-  Element getParentGeneralisation() {
+  @Nullable Element getParentGeneralisation() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getParentGeneralisation' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -394,7 +371,6 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  @Nonnull
   protected Observer getMyWatcherObserver() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyWatcherObserver' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
@@ -432,7 +408,6 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  @Nonnull
   protected ComputableValue<Long> getTimeComputableValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTimeComputableValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
@@ -448,7 +423,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     return this.$$arez$$_calcStuff.get( i );
   }
 
-  private Collection<Long> $$arezi$$_memoize_collectionTime() {
+  private @Nullable Collection<Long> $$arezi$$_memoize_collectionTime() {
     this.$$arezi$$_kernel.getContext().registerHook( "$H", this::$$arezi$$_onActivate_collectionTime, this::$$arezi$$_onDeactivate_collectionTime );
     return super.getCollectionTime();
   }
@@ -462,12 +437,12 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  protected Collection<Long> getCollectionTime() {
+  protected @Nullable Collection<Long> getCollectionTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getCollectionTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      final Collection<Long> $$ar$$_result = this.$$arez$$_collectionTime.get();
+      final @Nullable Collection<Long> $$ar$$_result = this.$$arez$$_collectionTime.get();
       if ( this.$$arezd$$_$$cache$$_collectionTime != $$ar$$_result ) {
         this.$$arezd$$_$$cache$$_collectionTime = $$ar$$_result;
         this.$$arezd$$_$$unmodifiable_cache$$_collectionTime = null == $$ar$$_result ? null : CollectionsUtil.wrap( $$ar$$_result );
@@ -487,7 +462,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  protected Collection<Long> calcCollectionStuff(final int i) {
+  protected @Nullable Collection<Long> calcCollectionStuff(final int i) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'calcCollectionStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -495,7 +470,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
   }
 
   @Override
-  protected BaseCompleteModel.MyEntity getMyEntity() {
+  protected BaseCompleteModel. @Nullable MyEntity getMyEntity() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyEntity' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -512,7 +487,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     final int id = this.getMyEntityId();
     this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( BaseCompleteModel.MyEntity.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inheritance.other.BaseCompleteModel.MyEntity and id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inheritance.other.BaseCompleteModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
     }
   }
 
@@ -520,7 +495,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     this.$$arezr$$_myEntity = null;
   }
 
-  public void $$arezir$$_elements_add(@Nonnull final Element element) {
+  public void $$arezir$$_elements_add(final Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_elements_add' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -535,7 +510,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     this.$$arez$$_elements.reportChanged();
   }
 
-  public void $$arezir$$_elements_remove(@Nonnull final Element element) {
+  public void $$arezir$$_elements_remove(final Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_elements_remove' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -550,7 +525,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     this.$$arez$$_elements.reportChanged();
   }
 
-  public void $$arezir$$_parentGeneralisation_zset(@Nullable final Element element) {
+  public void $$arezir$$_parentGeneralisation_zset(final @Nullable Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_parentGeneralisation_zset' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -559,7 +534,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     this.$$arez$$_parentGeneralisation.reportChanged();
   }
 
-  public void $$arezir$$_parentGeneralisation_zunset(@Nonnull final Element element) {
+  public void $$arezir$$_parentGeneralisation_zunset(final Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_parentGeneralisation_zunset' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }

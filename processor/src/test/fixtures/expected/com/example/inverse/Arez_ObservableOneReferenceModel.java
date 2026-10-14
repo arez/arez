@@ -11,12 +11,14 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel implements Disposable,
     Identifiable<Integer>,
     Verifiable,
@@ -26,10 +28,9 @@ final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<ObservableOneReferenceModel.Element> $$arez$$_element;
+  private final ObservableValue<ObservableOneReferenceModel. @NonNull Element> $$arez$$_element;
 
-  private ObservableOneReferenceModel.Element $$arezd$$_element;
+  private ObservableOneReferenceModel. @NonNull Element $$arezd$$_element;
 
   Arez_ObservableOneReferenceModel() {
     super();
@@ -43,7 +44,6 @@ final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_inverse_ObservableOneReferenceModel'" );
@@ -57,7 +57,6 @@ final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_inverse_ObservableOneReferenceModel'" );
@@ -80,7 +79,7 @@ final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_ObservableOneReferenceModel'" );
@@ -89,7 +88,7 @@ final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_ObservableOneReferenceModel'" );
     }
@@ -145,8 +144,7 @@ final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel
   }
 
   @Override
-  @Nonnull
-  ObservableOneReferenceModel.Element getElement() {
+  ObservableOneReferenceModel. @NonNull Element getElement() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getElement' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -154,7 +152,7 @@ final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel
     return this.$$arezd$$_element;
   }
 
-  void $$arezir$$_element_set(@Nonnull final ObservableOneReferenceModel.Element element) {
+  void $$arezir$$_element_set(final ObservableOneReferenceModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_element_set' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -163,7 +161,7 @@ final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel
     this.$$arez$$_element.reportChanged();
   }
 
-  void $$arezir$$_element_unset(@Nonnull final ObservableOneReferenceModel.Element element) {
+  void $$arezir$$_element_unset(final ObservableOneReferenceModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_element_unset' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }

@@ -10,12 +10,13 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyModel
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -23,23 +24,18 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<MultiComponentDependencyModel.Foo> $$arez$$_foo4;
+  private final ObservableValue<MultiComponentDependencyModel.@Nullable Foo> $$arez$$_foo4;
 
-  private MultiComponentDependencyModel.Foo $$arezd$$_foo4;
+  private MultiComponentDependencyModel.@Nullable Foo $$arezd$$_foo4;
 
-  @Nonnull
-  private final ObservableValue<MultiComponentDependencyModel.Foo> $$arez$$_foo5;
+  private final ObservableValue<MultiComponentDependencyModel.@Nullable Foo> $$arez$$_foo5;
 
-  private MultiComponentDependencyModel.Foo $$arezd$$_foo5;
+  private MultiComponentDependencyModel.@Nullable Foo $$arezd$$_foo5;
 
-  @Nonnull
   private final String $$arez_dk$$_getFoo;
 
-  @Nonnull
   private final String $$arez_dk$$_getFoo2;
 
-  @Nonnull
   private final String $$arez_dk$$_getFoo3;
 
   Arez_MultiComponentDependencyModel() {
@@ -112,7 +108,6 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -164,9 +159,7 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -177,7 +170,7 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -233,7 +226,7 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
   }
 
   @Override
-  MultiComponentDependencyModel.Foo getFoo4() {
+  MultiComponentDependencyModel.@Nullable Foo getFoo4() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -245,7 +238,7 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
   }
 
   @Override
-  void setFoo4(final MultiComponentDependencyModel.Foo foo) {
+  void setFoo4(final MultiComponentDependencyModel.@Nullable Foo foo) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -253,7 +246,7 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
               + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     this.$$arez$$_foo4.preReportChanged();
-    final MultiComponentDependencyModel.Foo $$arezv$$_currentValue = this.$$arezd$$_foo4;
+    final MultiComponentDependencyModel.@Nullable Foo $$arezv$$_currentValue = this.$$arezd$$_foo4;
     if (!Objects.equals(foo, $$arezv$$_currentValue)) {
       if (null != $$arezv$$_currentValue) {
         DisposeNotifier.asDisposeNotifier($$arezv$$_currentValue)
@@ -268,7 +261,7 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
   }
 
   @Override
-  MultiComponentDependencyModel.Foo getFoo5() {
+  MultiComponentDependencyModel.@Nullable Foo getFoo5() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -280,7 +273,7 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
   }
 
   @Override
-  void setFoo5(final MultiComponentDependencyModel.Foo foo) {
+  void setFoo5(final MultiComponentDependencyModel.@Nullable Foo foo) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -288,7 +281,7 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
               + " component named '" + this.$$arezi$$_kernel.getName() + "'");
     }
     this.$$arez$$_foo5.preReportChanged();
-    final MultiComponentDependencyModel.Foo $$arezv$$_currentValue = this.$$arezd$$_foo5;
+    final MultiComponentDependencyModel.@Nullable Foo $$arezv$$_currentValue = this.$$arezd$$_foo5;
     if (!Objects.equals(foo, $$arezv$$_currentValue)) {
       if (null != $$arezv$$_currentValue) {
         DisposeNotifier.asDisposeNotifier($$arezv$$_currentValue)

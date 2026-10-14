@@ -4,8 +4,10 @@ import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.CascadeDispose;
 import arez.annotations.Feature;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent( disposeNotifier = Feature.DISABLE )
 abstract class DisposeNotifierDisabledCascadeDisposeModel
 {

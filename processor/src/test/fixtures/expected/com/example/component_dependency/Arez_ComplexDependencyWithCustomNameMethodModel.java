@@ -10,22 +10,21 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_ComplexDependencyWithCustomNameMethodModel extends ComplexDependencyWithCustomNameMethodModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<DisposeNotifier> $$arez$$_value3;
+  private final ObservableValue<@Nullable DisposeNotifier> $$arez$$_value3;
 
-  @Nonnull
   private final String $$arez_dk$$_getValue1;
 
   Arez_ComplexDependencyWithCustomNameMethodModel() {
@@ -55,7 +54,6 @@ final class Arez_ComplexDependencyWithCustomNameMethodModel extends ComplexDepen
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_component_dependency_ComplexDependencyWithCustomNameMethodModel'" );
@@ -67,7 +65,6 @@ final class Arez_ComplexDependencyWithCustomNameMethodModel extends ComplexDepen
   }
 
   @Override
-  @Nonnull
   String getComponentName() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getComponentName' invoked on uninitialized component of type 'com_example_component_dependency_ComplexDependencyWithCustomNameMethodModel'" );
@@ -92,7 +89,7 @@ final class Arez_ComplexDependencyWithCustomNameMethodModel extends ComplexDepen
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_component_dependency_ComplexDependencyWithCustomNameMethodModel'" );
@@ -101,7 +98,7 @@ final class Arez_ComplexDependencyWithCustomNameMethodModel extends ComplexDepen
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_component_dependency_ComplexDependencyWithCustomNameMethodModel'" );
     }
@@ -138,7 +135,7 @@ final class Arez_ComplexDependencyWithCustomNameMethodModel extends ComplexDepen
   }
 
   @Override
-  DisposeNotifier getValue3() {
+  @Nullable DisposeNotifier getValue3() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getValue3' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -147,12 +144,12 @@ final class Arez_ComplexDependencyWithCustomNameMethodModel extends ComplexDepen
   }
 
   @Override
-  void setValue3(final DisposeNotifier value) {
+  void setValue3(final @Nullable DisposeNotifier value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setValue3' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
     this.$$arez$$_value3.preReportChanged();
-    final DisposeNotifier $$arezv$$_currentValue = super.getValue3();
+    final @Nullable DisposeNotifier $$arezv$$_currentValue = super.getValue3();
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
       if ( null != $$arezv$$_currentValue ) {
         DisposeNotifier.asDisposeNotifier( $$arezv$$_currentValue ).removeOnDisposeListener( $$arez$$_value3 );

@@ -5,19 +5,25 @@ import arez.annotations.Inverse;
 import arez.annotations.Multiplicity;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.NullUnmarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class BadType4InverseModel
 {
-  // This is missing both a Nullable and Nonnull
+  // Inverse cardinality requires a specified nullness contract.
   @Inverse
+  @NullUnmarked
   abstract MyEntity getMyEntity();
 
+  @NullMarked
   @ArezComponent
   abstract static class MyEntity
   {
     @Reference( inverseMultiplicity = Multiplicity.MANY )
-    abstract BadType4InverseModel getOther();
+    abstract @Nullable BadType4InverseModel getOther();
 
     @ReferenceId
     int getOtherId()

@@ -10,12 +10,13 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class NonObservableNullableZeroOrOneReferenceModel_Arez_Element extends NonObservableNullableZeroOrOneReferenceModel.Element implements Disposable,
     Identifiable<Integer>,
     Verifiable,
@@ -25,8 +26,7 @@ final class NonObservableNullableZeroOrOneReferenceModel_Arez_Element extends No
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nullable
-  private NonObservableNullableZeroOrOneReferenceModel $$arezr$$_nonObservableNullableZeroOrOneReferenceModel;
+  private @Nullable NonObservableNullableZeroOrOneReferenceModel $$arezr$$_nonObservableNullableZeroOrOneReferenceModel;
 
   NonObservableNullableZeroOrOneReferenceModel_Arez_Element() {
     super();
@@ -43,7 +43,6 @@ final class NonObservableNullableZeroOrOneReferenceModel_Arez_Element extends No
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_inverse_NonObservableNullableZeroOrOneReferenceModel_Element'" );
@@ -57,7 +56,6 @@ final class NonObservableNullableZeroOrOneReferenceModel_Arez_Element extends No
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_inverse_NonObservableNullableZeroOrOneReferenceModel_Element'" );
@@ -78,7 +76,7 @@ final class NonObservableNullableZeroOrOneReferenceModel_Arez_Element extends No
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_NonObservableNullableZeroOrOneReferenceModel_Element'" );
@@ -87,7 +85,7 @@ final class NonObservableNullableZeroOrOneReferenceModel_Arez_Element extends No
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_NonObservableNullableZeroOrOneReferenceModel_Element'" );
     }
@@ -132,17 +130,17 @@ final class NonObservableNullableZeroOrOneReferenceModel_Arez_Element extends No
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( NonObservableNullableZeroOrOneReferenceModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type NonObservableNullableZeroOrOneReferenceModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( NonObservableNullableZeroOrOneReferenceModel.Element.class, $$arezi$$_id() ) );
-      final Integer $$arezv$$_nonObservableNullableZeroOrOneReferenceModelId = this.getNonObservableNullableZeroOrOneReferenceModelId();
+      final @Nullable Integer $$arezv$$_nonObservableNullableZeroOrOneReferenceModelId = this.getNonObservableNullableZeroOrOneReferenceModelId();
       if ( null != $$arezv$$_nonObservableNullableZeroOrOneReferenceModelId ) {
         final NonObservableNullableZeroOrOneReferenceModel $$arezv$$_nonObservableNullableZeroOrOneReferenceModel = this.$$arezi$$_locator().findById( NonObservableNullableZeroOrOneReferenceModel.class, $$arezv$$_nonObservableNullableZeroOrOneReferenceModelId );
-        Guards.apiInvariant( () -> null != $$arezv$$_nonObservableNullableZeroOrOneReferenceModel, () -> "Reference named 'nonObservableNullableZeroOrOneReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.NonObservableNullableZeroOrOneReferenceModel and id = " + getNonObservableNullableZeroOrOneReferenceModelId() );
+        Guards.apiInvariant( () -> null != $$arezv$$_nonObservableNullableZeroOrOneReferenceModel, () -> "Reference named 'nonObservableNullableZeroOrOneReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable NonObservableNullableZeroOrOneReferenceModel and id = " + getNonObservableNullableZeroOrOneReferenceModelId() );
       }
     }
   }
 
-  @Nullable
   @Override
-  NonObservableNullableZeroOrOneReferenceModel getNonObservableNullableZeroOrOneReferenceModel() {
+  @Nullable NonObservableNullableZeroOrOneReferenceModel getNonObservableNullableZeroOrOneReferenceModel(
+      ) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getNonObservableNullableZeroOrOneReferenceModel' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -156,11 +154,11 @@ final class NonObservableNullableZeroOrOneReferenceModel_Arez_Element extends No
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_link_nonObservableNullableZeroOrOneReferenceModel' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
-    final Integer id = this.getNonObservableNullableZeroOrOneReferenceModelId();
+    final @Nullable Integer id = this.getNonObservableNullableZeroOrOneReferenceModelId();
     if ( null != id ) {
       this.$$arezr$$_nonObservableNullableZeroOrOneReferenceModel = this.$$arezi$$_locator().findById( NonObservableNullableZeroOrOneReferenceModel.class, id );
       if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null != $$arezr$$_nonObservableNullableZeroOrOneReferenceModel, () -> "Reference named 'nonObservableNullableZeroOrOneReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.NonObservableNullableZeroOrOneReferenceModel and id = " + getNonObservableNullableZeroOrOneReferenceModelId() );
+        Guards.apiInvariant( () -> null != $$arezr$$_nonObservableNullableZeroOrOneReferenceModel, () -> "Reference named 'nonObservableNullableZeroOrOneReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable NonObservableNullableZeroOrOneReferenceModel and id = " + getNonObservableNullableZeroOrOneReferenceModelId() );
       }
       ( (Arez_NonObservableNullableZeroOrOneReferenceModel) this.$$arezr$$_nonObservableNullableZeroOrOneReferenceModel ).$$arezir$$_element_zset( this );
     } else {

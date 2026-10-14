@@ -1,8 +1,11 @@
 package com.example.override_generics;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
-abstract class BaseModel<T>
+@NullMarked
+abstract class BaseModel<T extends @Nullable Object>
 {
-  protected abstract void myAbstractMethod( @Nonnull T value );
+  protected abstract void myAbstractMethod( @NonNull T value );
 }

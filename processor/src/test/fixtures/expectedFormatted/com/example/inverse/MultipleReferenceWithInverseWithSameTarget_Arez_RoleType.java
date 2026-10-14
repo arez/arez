@@ -14,12 +14,14 @@ import arez.component.internal.CollectionsUtil;
 import arez.component.internal.ComponentKernel;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType
     extends MultipleReferenceWithInverseWithSameTarget.RoleType
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
@@ -28,25 +30,21 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
   private final ObservableValue<
-          List<MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation>>
+          @NonNull List<MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation>>
       $$arez$$_childGeneralisations;
 
-  @Nonnull
   private final List<MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation>
       $$arezd$$_childGeneralisations;
 
-  @Nullable
-  private List<MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation>
+  private @Nullable List<MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation>
       $$arezd$$_$$cache$$_childGeneralisations;
 
-  @Nonnull
-  private final ObservableValue<MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation>
+  private final ObservableValue<
+          MultipleReferenceWithInverseWithSameTarget.@Nullable RoleTypeGeneralisation>
       $$arez$$_parentGeneralisation;
 
-  @Nullable
-  private MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation
+  private MultipleReferenceWithInverseWithSameTarget.@Nullable RoleTypeGeneralisation
       $$arezd$$_parentGeneralisation;
 
   MultipleReferenceWithInverseWithSameTarget_Arez_RoleType() {
@@ -96,7 +94,6 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -113,7 +110,6 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -150,9 +146,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -163,7 +157,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -272,7 +266,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType
   }
 
   @Override
-  @Nonnull
+  @NonNull
   List<MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation>
       getChildGeneralisations() {
     if (Arez.shouldCheckApiInvariants()) {
@@ -295,8 +289,8 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType
   }
 
   @Override
-  @Nullable
-  MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation getParentGeneralisation() {
+  MultipleReferenceWithInverseWithSameTarget.@Nullable RoleTypeGeneralisation
+      getParentGeneralisation() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -309,9 +303,8 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType
   }
 
   void $$arezir$$_childGeneralisations_add(
-      @Nonnull
-          final MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation
-              roleTypeGeneralisation) {
+      final MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation
+          roleTypeGeneralisation) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -335,9 +328,8 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType
   }
 
   void $$arezir$$_childGeneralisations_remove(
-      @Nonnull
-          final MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation
-              roleTypeGeneralisation) {
+      final MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation
+          roleTypeGeneralisation) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -361,9 +353,8 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType
   }
 
   void $$arezir$$_parentGeneralisation_zset(
-      @Nullable
-          final MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation
-              roleTypeGeneralisation) {
+      final MultipleReferenceWithInverseWithSameTarget.@Nullable RoleTypeGeneralisation
+          roleTypeGeneralisation) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -377,9 +368,8 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType
   }
 
   void $$arezir$$_parentGeneralisation_zunset(
-      @Nonnull
-          final MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation
-              roleTypeGeneralisation) {
+      final MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation
+          roleTypeGeneralisation) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),

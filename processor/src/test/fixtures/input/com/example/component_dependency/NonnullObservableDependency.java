@@ -4,21 +4,23 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 import arez.annotations.Observable;
 import arez.component.DisposeNotifier;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class NonnullObservableDependency
 {
   @SuppressWarnings( "ConstantConditions" )
   @Observable
   @ComponentDependency
-  @Nonnull
+  @NonNull
   DisposeNotifier getValue()
   {
     return null;
   }
 
-  void setValue( @Nonnull DisposeNotifier value )
+  void setValue( @NonNull DisposeNotifier value )
   {
   }
 }

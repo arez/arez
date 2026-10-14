@@ -3,16 +3,19 @@ package com.example.component_id_ref;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
 import arez.annotations.ComponentIdRef;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent( allowEmpty = true )
 abstract class NonIntTypeComponentIdRefModel
 {
   @ComponentId
-  String id()
+  @Nullable String id()
   {
     return null;
   }
 
   @ComponentIdRef
-  abstract String getId();
+  abstract @Nullable String getId();
 }

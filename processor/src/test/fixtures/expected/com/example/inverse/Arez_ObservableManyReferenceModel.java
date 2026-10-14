@@ -14,12 +14,14 @@ import arez.component.internal.CollectionsUtil;
 import arez.component.internal.ComponentKernel;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_ObservableManyReferenceModel extends ObservableManyReferenceModel implements Disposable,
     Identifiable<Integer>,
     Verifiable,
@@ -29,14 +31,11 @@ final class Arez_ObservableManyReferenceModel extends ObservableManyReferenceMod
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<List<ObservableManyReferenceModel.Element>> $$arez$$_elements;
+  private final ObservableValue<@NonNull List<ObservableManyReferenceModel.Element>> $$arez$$_elements;
 
-  @Nonnull
   private final List<ObservableManyReferenceModel.Element> $$arezd$$_elements;
 
-  @Nullable
-  private List<ObservableManyReferenceModel.Element> $$arezd$$_$$cache$$_elements;
+  private @Nullable List<ObservableManyReferenceModel.Element> $$arezd$$_$$cache$$_elements;
 
   Arez_ObservableManyReferenceModel() {
     super();
@@ -52,7 +51,6 @@ final class Arez_ObservableManyReferenceModel extends ObservableManyReferenceMod
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_inverse_ObservableManyReferenceModel'" );
@@ -66,7 +64,6 @@ final class Arez_ObservableManyReferenceModel extends ObservableManyReferenceMod
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'getArezId' invoked on uninitialized component of type 'com_example_inverse_ObservableManyReferenceModel'" );
@@ -89,7 +86,7 @@ final class Arez_ObservableManyReferenceModel extends ObservableManyReferenceMod
   }
 
   @Override
-  public void addOnDisposeListener(@Nonnull final Object key, @Nonnull final SafeProcedure action,
+  public void addOnDisposeListener(final Object key, final SafeProcedure action,
       final boolean errorIfDuplicate) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_ObservableManyReferenceModel'" );
@@ -98,7 +95,7 @@ final class Arez_ObservableManyReferenceModel extends ObservableManyReferenceMod
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'removeOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_ObservableManyReferenceModel'" );
     }
@@ -156,8 +153,7 @@ final class Arez_ObservableManyReferenceModel extends ObservableManyReferenceMod
   }
 
   @Override
-  @Nonnull
-  List<ObservableManyReferenceModel.Element> getElements() {
+  @NonNull List<ObservableManyReferenceModel.Element> getElements() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getElements' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -172,7 +168,7 @@ final class Arez_ObservableManyReferenceModel extends ObservableManyReferenceMod
     }
   }
 
-  void $$arezir$$_elements_add(@Nonnull final ObservableManyReferenceModel.Element element) {
+  void $$arezir$$_elements_add(final ObservableManyReferenceModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_elements_add' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }
@@ -187,7 +183,7 @@ final class Arez_ObservableManyReferenceModel extends ObservableManyReferenceMod
     this.$$arez$$_elements.reportChanged();
   }
 
-  void $$arezir$$_elements_remove(@Nonnull final ObservableManyReferenceModel.Element element) {
+  void $$arezir$$_elements_remove(final ObservableManyReferenceModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_elements_remove' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
     }

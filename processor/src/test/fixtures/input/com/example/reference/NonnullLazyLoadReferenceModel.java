@@ -4,21 +4,25 @@ import arez.annotations.ArezComponent;
 import arez.annotations.LinkType;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class NonnullLazyLoadReferenceModel
 {
   @Reference( load = LinkType.LAZY )
-  abstract MyEntity getMyEntity();
+  abstract @Nullable MyEntity getMyEntity();
 
   @ReferenceId
-  @Nonnull
+  @NonNull
   Integer getMyEntityId()
   {
     return 0;
   }
 
+  @NullMarked
   static class MyEntity
   {
   }

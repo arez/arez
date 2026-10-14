@@ -3,7 +3,9 @@ package com.example.reference;
 import arez.annotations.ArezComponent;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class NoReturnReferenceModel
 {
@@ -16,6 +18,7 @@ abstract class NoReturnReferenceModel
     return 0;
   }
 
+  @NullMarked
   static class MyEntity
   {
   }

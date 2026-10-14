@@ -15,12 +15,13 @@ import arez.component.internal.ComponentKernel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -28,14 +29,11 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<Collection<CustomNamesInverseModel.Element>> $$arez$$_zap;
+  private final ObservableValue<@Nullable Collection<CustomNamesInverseModel.Element>> $$arez$$_zap;
 
-  @Nonnull
   private final Collection<CustomNamesInverseModel.Element> $$arezd$$_zap;
 
-  @Nullable
-  private Collection<CustomNamesInverseModel.Element> $$arezd$$_$$cache$$_zap;
+  private @Nullable Collection<CustomNamesInverseModel.Element> $$arezd$$_$$cache$$_zap;
 
   Arez_CustomNamesInverseModel() {
     super();
@@ -75,7 +73,6 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -92,7 +89,6 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -122,9 +118,7 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -135,7 +129,7 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -228,6 +222,7 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel
   }
 
   @Override
+  @Nullable
   Collection<CustomNamesInverseModel.Element> getY() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -237,7 +232,8 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel
     }
     this.$$arez$$_zap.reportObserved();
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final Collection<CustomNamesInverseModel.Element> $$ar$$_result = this.$$arezd$$_zap;
+      final @Nullable Collection<CustomNamesInverseModel.Element> $$ar$$_result =
+          this.$$arezd$$_zap;
       if (null == this.$$arezd$$_$$cache$$_zap && null != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_zap = CollectionsUtil.wrap($$ar$$_result);
       }
@@ -247,7 +243,7 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel
     }
   }
 
-  void $$arezir$$_zap_add(@Nonnull final CustomNamesInverseModel.Element element) {
+  void $$arezir$$_zap_add(final CustomNamesInverseModel.Element element) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -270,7 +266,7 @@ final class Arez_CustomNamesInverseModel extends CustomNamesInverseModel
     this.$$arez$$_zap.reportChanged();
   }
 
-  void $$arezir$$_zap_remove(@Nonnull final CustomNamesInverseModel.Element element) {
+  void $$arezir$$_zap_remove(final CustomNamesInverseModel.Element element) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),

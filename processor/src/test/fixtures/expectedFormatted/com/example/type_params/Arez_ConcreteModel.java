@@ -12,25 +12,24 @@ import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.io.IOException;
 import java.io.Writer;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
+@NullMarked
 final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     implements Disposable, Identifiable<IOException>, DisposeNotifier {
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
   private final ComputableValue<W> $$arez$$_compWriter;
 
-  @Nonnull
   private final ComputableValue<IOException> $$arez$$_compError;
 
-  Arez_ConcreteModel(final W writer) {
+  Arez_ConcreteModel(final @Nullable W writer) {
     super(writer);
     final ArezContext $$arezv$$_context = Arez.context();
     final IOException $$arezv$$_id = getComponentId();
@@ -68,7 +67,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     this.$$arezi$$_kernel.componentReady();
   }
 
-  Arez_ConcreteModel(final IOException error) {
+  Arez_ConcreteModel(final @Nullable IOException error) {
     super(error);
     final ArezContext $$arezv$$_context = Arez.context();
     final IOException $$arezv$$_id = getComponentId();
@@ -106,7 +105,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     this.$$arezi$$_kernel.componentReady();
   }
 
-  Arez_ConcreteModel(final IOException error, final W writer, final int i) {
+  Arez_ConcreteModel(final @Nullable IOException error, final @Nullable W writer, final int i) {
     super(error, writer, i);
     final ArezContext $$arezv$$_context = Arez.context();
     final IOException $$arezv$$_id = getComponentId();
@@ -145,7 +144,6 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   }
 
   @Override
-  @Nonnull
   public IOException getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -168,9 +166,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -181,7 +177,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -237,7 +233,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   }
 
   @Override
-  public void handleWriter(final W writer) {
+  public void handleWriter(final @Nullable W writer) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -254,7 +250,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   }
 
   @Override
-  public void handleError(final IOException error) {
+  public void handleError(final @Nullable IOException error) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -271,7 +267,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   }
 
   @Override
-  public W genWriter() {
+  public @Nullable W genWriter() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -288,7 +284,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   }
 
   @Override
-  public IOException genError() {
+  public @Nullable IOException genError() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -305,7 +301,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   }
 
   @Override
-  public W compWriter() {
+  public @Nullable W compWriter() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -316,7 +312,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   }
 
   @Override
-  public IOException compError() {
+  public @Nullable IOException compError() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),

@@ -8,23 +8,27 @@ import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import com.example.pre_inverse_remove.ProtectedAccessFromBasePreInverseRemoveModel;
 import java.util.Collection;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 public abstract class BaseProtectedAccessPreInverseRemoveModel
 {
   @PreInverseRemove
-  protected void preElementsRemove( @Nonnull final Element element )
+  protected void preElementsRemove( @NonNull final Element element )
   {
   }
 
   @Inverse( referenceName = "other" )
-  protected abstract Collection<Element> getElements();
+  protected abstract @Nullable Collection<Element> getElements();
 
+  @NullMarked
   @ArezComponent
   public abstract static class Element
   {
     @Reference( inverse = Feature.ENABLE )
-    abstract ProtectedAccessFromBasePreInverseRemoveModel getOther();
+    abstract @Nullable ProtectedAccessFromBasePreInverseRemoveModel getOther();
 
     @ReferenceId
     int getOtherId()

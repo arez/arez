@@ -6,13 +6,16 @@ import arez.annotations.Multiplicity;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import com.example.inheritance.CompleteInterfaceModel;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class OtherElement
 {
   @Reference( inverseMultiplicity = Multiplicity.MANY )
-  abstract CompleteInterfaceModel getCompleteInterfaceModel();
+  abstract @Nullable CompleteInterfaceModel getCompleteInterfaceModel();
 
   @ReferenceId
   int getCompleteInterfaceModelId()
@@ -21,7 +24,7 @@ public abstract class OtherElement
   }
 
   @Reference( load = LinkType.EXPLICIT, inverseName = "parentGeneralisation", inverseMultiplicity = Multiplicity.ZERO_OR_ONE )
-  @Nonnull
+  @NonNull
   abstract CompleteInterfaceModel getChild();
 
   @ReferenceId

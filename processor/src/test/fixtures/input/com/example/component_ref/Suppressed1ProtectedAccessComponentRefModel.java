@@ -3,12 +3,15 @@ package com.example.component_ref;
 import arez.Component;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentRef;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent( allowEmpty = true )
 abstract class Suppressed1ProtectedAccessComponentRefModel
 {
   // This uses the SOURCE retention suppression
   @SuppressWarnings( "Arez:ProtectedMethod" )
   @ComponentRef
-  protected abstract Component getComponent();
+  protected abstract @Nullable Component getComponent();
 }

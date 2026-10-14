@@ -4,8 +4,10 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Inverse;
 import com.example.inheritance.other.BaseCompleteModel;
 import com.example.inheritance.other.Element;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 public abstract class CompleteModel
   extends BaseCompleteModel

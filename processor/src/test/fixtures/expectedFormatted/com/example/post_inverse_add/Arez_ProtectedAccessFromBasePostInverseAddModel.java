@@ -17,12 +17,13 @@ import com.example.post_inverse_add.other.BaseProtectedAccessPostInverseAddModel
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@NullMarked
 public final class Arez_ProtectedAccessFromBasePostInverseAddModel
     extends ProtectedAccessFromBasePostInverseAddModel
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
@@ -31,15 +32,14 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @Nonnull
-  private final ObservableValue<Collection<BaseProtectedAccessPostInverseAddModel.Element>>
+  private final ObservableValue<
+          @Nullable Collection<BaseProtectedAccessPostInverseAddModel.Element>>
       $$arez$$_elements;
 
-  @Nonnull
   private final Collection<BaseProtectedAccessPostInverseAddModel.Element> $$arezd$$_elements;
 
-  @Nullable
-  private Collection<BaseProtectedAccessPostInverseAddModel.Element> $$arezd$$_$$cache$$_elements;
+  private @Nullable Collection<BaseProtectedAccessPostInverseAddModel.Element>
+      $$arezd$$_$$cache$$_elements;
 
   public Arez_ProtectedAccessFromBasePostInverseAddModel() {
     super();
@@ -79,7 +79,6 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel
     this.$$arezi$$_kernel.componentReady();
   }
 
-  @Nonnull
   private Locator $$arezi$$_locator() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -96,7 +95,6 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel
   }
 
   @Override
-  @Nonnull
   public Integer getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -127,9 +125,7 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel
 
   @Override
   public void addOnDisposeListener(
-      @Nonnull final Object key,
-      @Nonnull final SafeProcedure action,
-      final boolean errorIfDuplicate) {
+      final Object key, final SafeProcedure action, final boolean errorIfDuplicate) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -140,7 +136,7 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel
   }
 
   @Override
-  public void removeOnDisposeListener(@Nonnull final Object key, final boolean errorIfMissing) {
+  public void removeOnDisposeListener(final Object key, final boolean errorIfMissing) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -237,7 +233,7 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel
   }
 
   @Override
-  protected Collection<BaseProtectedAccessPostInverseAddModel.Element> getElements() {
+  protected @Nullable Collection<BaseProtectedAccessPostInverseAddModel.Element> getElements() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -246,7 +242,7 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel
     }
     this.$$arez$$_elements.reportObserved();
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final Collection<BaseProtectedAccessPostInverseAddModel.Element> $$ar$$_result =
+      final @Nullable Collection<BaseProtectedAccessPostInverseAddModel.Element> $$ar$$_result =
           this.$$arezd$$_elements;
       if (null == this.$$arezd$$_$$cache$$_elements && null != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_elements = CollectionsUtil.wrap($$ar$$_result);
@@ -258,7 +254,7 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel
   }
 
   public void $$arezir$$_elements_add(
-      @Nonnull final BaseProtectedAccessPostInverseAddModel.Element element) {
+      final BaseProtectedAccessPostInverseAddModel.Element element) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -283,7 +279,7 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel
   }
 
   public void $$arezir$$_elements_remove(
-      @Nonnull final BaseProtectedAccessPostInverseAddModel.Element element) {
+      final BaseProtectedAccessPostInverseAddModel.Element element) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
