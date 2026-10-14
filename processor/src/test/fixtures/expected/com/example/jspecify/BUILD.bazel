@@ -16,6 +16,9 @@ filegroup(
         "Arez_NullableModel.java",
         "Arez_PrimitiveUnmarkedModel.java",
         "Arez_TypeVariableModel.java",
+        "Arez_UnmarkedActionModel.java",
+        "UnmarkedActionModel_Arez_Nested.java",
         "//processor/src/test/fixtures/expected/com/example/jspecify/package_scope:all",
+        "//processor/src/test/fixtures/expected/com/example/jspecify/unmarked_package:all",
     ],
 )

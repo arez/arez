@@ -1,6 +1,7 @@
 package arez.processor;
 
 import com.palantir.javapoet.AnnotationSpec;
+import com.palantir.javapoet.ArrayTypeName;
 import com.palantir.javapoet.ClassName;
 import com.palantir.javapoet.CodeBlock;
 import com.palantir.javapoet.FieldSpec;
@@ -1631,6 +1632,10 @@ final class ComponentGenerator {
             @Nullable final ExecutableElement constructor,
             @Nullable final ExecutableType constructorType) {
         final MethodSpec.Builder builder = MethodSpec.constructorBuilder();
+        final boolean unmarkedConstructor = constructor != null && !Nullability.isMarked(constructor);
+        if (unmarkedConstructor) {
+            builder.addAnnotation(ClassName.get("org.jspecify.annotations", "NullUnmarked"));
+        }
         if (component.shouldGeneratedClassBePublic(processingEnv)) {
             builder.addModifiers(Modifier.PUBLIC);
         }
@@ -1734,8 +1739,13 @@ final class ComponentGenerator {
             final String name = null != constructor && anyParametersNamed(constructor, candidateName)
                     ? INITIALIZER_PREFIX + candidateName
                     : candidateName;
-            final ParameterSpec.Builder param =
-                    ParameterSpec.builder(observableTypeName(processingEnv, observable), name, Modifier.FINAL);
+            final TypeName initializerType = observableTypeName(processingEnv, observable);
+            final ParameterSpec.Builder param = ParameterSpec.builder(
+                    unmarkedConstructor && Nullability.isMarked(observable.getGetter())
+                            ? explicitMarkedType(initializerType)
+                            : initializerType,
+                    name,
+                    Modifier.FINAL);
             GeneratorUtil.copyWhitelistedAnnotations(observable.getGetter(), param);
             builder.addParameter(param.build());
             final boolean isPrimitive = GeneratorUtil.getTypeName(
@@ -2368,8 +2378,14 @@ final class ComponentGenerator {
             final ProcessingEnvironment processingEnv,
             final TypeElement typeElement,
             final ExecutableElement executableElement) {
-        final MethodSpec.Builder method = GeneratorUtil.overrideMethod(
-                processingEnv, typeElement, executableElement, getAdditionalSuppressions(executableElement), false);
+        final MethodSpec.Builder method = preserveNullnessScope(
+                executableElement,
+                GeneratorUtil.overrideMethod(
+                        processingEnv,
+                        typeElement,
+                        executableElement,
+                        getAdditionalSuppressions(executableElement),
+                        false));
 
         return method;
     }
@@ -2378,8 +2394,56 @@ final class ComponentGenerator {
             final ProcessingEnvironment processingEnv,
             final TypeElement typeElement,
             final ExecutableElement executableElement) {
-        return GeneratorUtil.overrideMethod(
-                processingEnv, typeElement, executableElement, getAdditionalSuppressions(executableElement), true);
+        return preserveNullnessScope(
+                executableElement,
+                GeneratorUtil.overrideMethod(
+                        processingEnv,
+                        typeElement,
+                        executableElement,
+                        getAdditionalSuppressions(executableElement),
+                        true));
+    }
+
+    private static MethodSpec.Builder preserveNullnessScope(
+            final ExecutableElement declaration, final MethodSpec.Builder method) {
+        if (!Nullability.isMarked(declaration)) {
+            method.addAnnotation(ClassName.get("org.jspecify.annotations", "NullUnmarked"));
+        }
+        return method;
+    }
+
+    private static TypeName explicitMarkedType(final TypeName type) {
+        final TypeName explicit;
+        if (type instanceof ArrayTypeName array) {
+            explicit =
+                    ArrayTypeName.of(explicitMarkedType(array.componentType())).annotated(type.annotations());
+        } else if (type instanceof ParameterizedTypeName parameterized) {
+            explicit = ParameterizedTypeName.get(
+                            parameterized.rawType(),
+                            parameterized.typeArguments().stream()
+                                    .map(ComponentGenerator::explicitMarkedType)
+                                    .toArray(TypeName[]::new))
+                    .annotated(type.annotations());
+        } else if (type instanceof WildcardTypeName wildcard) {
+            explicit =
+                    wildcard.lowerBounds().isEmpty() && wildcard.upperBounds().equals(List.of(OBJECT))
+                            ? wildcard
+                            : (!wildcard.lowerBounds().isEmpty()
+                                            ? WildcardTypeName.supertypeOf(explicitMarkedType(
+                                                    wildcard.lowerBounds().get(0)))
+                                            : WildcardTypeName.subtypeOf(explicitMarkedType(
+                                                    wildcard.upperBounds().get(0))))
+                                    .annotated(type.annotations());
+        } else {
+            explicit = type;
+        }
+        return explicit.isPrimitive()
+                        || explicit instanceof TypeVariableName
+                        || explicit instanceof WildcardTypeName
+                        || !explicit.annotations().isEmpty()
+                ? explicit
+                : explicit.annotated(AnnotationSpec.builder(ClassName.get("org.jspecify.annotations", "NonNull"))
+                        .build());
     }
 
     private static List<String> getAdditionalSuppressions(final AnnotatedConstruct annotatedConstruct) {
@@ -2500,8 +2564,14 @@ final class ComponentGenerator {
         final List<String> additionalSuppressions =
                 new ArrayList<>(hasTypeParameters ? Collections.singletonList("unchecked") : Collections.emptyList());
         additionalSuppressions.addAll(getAdditionalSuppressions(executableElement));
-        final MethodSpec.Builder builder = GeneratorUtil.overrideMethod(
-                processingEnv, memoize.getComponent().getElement(), executableElement, additionalSuppressions, true);
+        final MethodSpec.Builder builder = preserveNullnessScope(
+                executableElement,
+                GeneratorUtil.overrideMethod(
+                        processingEnv,
+                        memoize.getComponent().getElement(),
+                        executableElement,
+                        additionalSuppressions,
+                        true));
 
         generateNotDisposedInvariant(builder, executableElement.getSimpleName().toString());
 
@@ -3408,8 +3478,10 @@ final class ComponentGenerator {
             additionalSuppressions.add("unchecked");
         }
         additionalSuppressions.addAll(getAdditionalSuppressions(getter));
-        final MethodSpec.Builder method = GeneratorUtil.overrideMethod(
-                processingEnv, component.getElement(), getter, additionalSuppressions, true);
+        final MethodSpec.Builder method = preserveNullnessScope(
+                getter,
+                GeneratorUtil.overrideMethod(
+                        processingEnv, component.getElement(), getter, additionalSuppressions, true));
         if (unresolvedOneInverse) {
             method.addComment("A ONE inverse can be observed before its reference is linked.");
         }

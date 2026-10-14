@@ -1,0 +1,24 @@
+{
+  "result": "passed",
+  "command": "tools/check.sh",
+  "main_log": "/tmp/arez-review-full-gate2.log",
+  "independent_log": "/tmp/arez-review-independent2.log",
+  "retired_tools_unavailable_in_independent": true,
+  "independent_system_home_rc": false,
+  "default_targets": 40,
+  "production_browser_targets": 8,
+  "jvm_coverage_targets": 31,
+  "separate_public_bazel_consumer": "passed in both roots",
+  "coverage": {
+    "source_files": 245,
+    "lines_found": 12358,
+    "lines_hit": 11367,
+    "branches_found": 6091,
+    "branches_hit": 4938
+  },
+  "main_jvm_testng_invocations": 2303,
+  "main_log_sha256": "4c4237064dddcbabc7a76f50a9104486ffa6da0c43c83fd27bcd6277a751a91c",
+  "independent_jvm_testng_invocations": 2303,
+  "independent_log_sha256": "fcac8800960ac807982bc6412906f5eaebbcf6ff02771352b8a0f11be20a43a1",
+  "site_files": 350
+}

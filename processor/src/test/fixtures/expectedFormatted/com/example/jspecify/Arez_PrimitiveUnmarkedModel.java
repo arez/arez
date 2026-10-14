@@ -12,6 +12,7 @@ import arez.component.internal.ComponentKernel;
 import java.util.Objects;
 import javax.annotation.processing.Generated;
 import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.NullUnmarked;
 import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
@@ -28,6 +29,7 @@ final class Arez_PrimitiveUnmarkedModel extends PrimitiveUnmarkedModel
 
   private int $$arezd$$_count;
 
+  @NullUnmarked
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_PrimitiveUnmarkedModel() {
     super();
@@ -166,6 +168,7 @@ final class Arez_PrimitiveUnmarkedModel extends PrimitiveUnmarkedModel
   }
 
   @Override
+  @NullUnmarked
   int getCount() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -178,6 +181,7 @@ final class Arez_PrimitiveUnmarkedModel extends PrimitiveUnmarkedModel
   }
 
   @Override
+  @NullUnmarked
   void setCount(final int count) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(

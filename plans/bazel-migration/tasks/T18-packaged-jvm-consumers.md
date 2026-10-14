@@ -32,3 +32,9 @@ Downstream JVM users import the actual release jars and run packaged Arez/Persis
 - [Development documentation](../../../docs/development.md) documents all labels, immutable git/local downstream overrides, Java 17 output/Java 21 processor requirements, type-annotation/parameter-name flags and formatter exports. It does not reinstate downstream project builds.
 - Palantir, Buildifier, Python execution, whitespace, plan and domain-documentation link checks passed.
 - Knowledge-sweep follow-up: an initial nested consumer exposed a pre-existing Persist sidecar factory-name mismatch. The original generator constructs a nested-prefix name from the model while Arez enhances the emitted top-level sidecar name. The final tiny consumer uses a top-level model; nested Persist support is outside this migration and this finding must be classified in T26 alongside the existing Object restore issue.
+
+## Implementation review correction
+
+- Round 1 reproduced a failing real downstream module graph and a strict-dependency failure on generated Braincheck guards. The earlier isolated javac consumer remains useful but did not exercise these Bazel integration boundaries.
+- Public core now exports the mandatory generated-code Braincheck dependency. `tools/bazel_consumer_config.py` copies required root rule pins, patch inputs and the Maven lock from the selected Arez checkout. Development documentation provides the complete include/immutable Arez override procedure and root Java configuration requirements.
+- `python3 tools/check_bazel_consumer.py` passed in a separate disposable workspace without system/home rc or local overrides of Proton/Sting. It uses the copied root inputs, all six public runtime imports and both packaged plugins, compiles with strict dependencies, and runs reactive propagation, unmarked null handling, generated Persist sidecar and runtime API checks. The shared full check gate includes this regression.

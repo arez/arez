@@ -12,6 +12,7 @@ import arez.component.internal.ComponentKernel;
 import java.util.Objects;
 import javax.annotation.processing.Generated;
 import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.NullUnmarked;
 import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
@@ -112,6 +113,7 @@ final class Arez_NestedScopeModel extends NestedScopeModel implements Disposable
   }
 
   @Override
+  @NullUnmarked
   @Nullable String getValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getValue' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
@@ -121,6 +123,7 @@ final class Arez_NestedScopeModel extends NestedScopeModel implements Disposable
   }
 
   @Override
+  @NullUnmarked
   void setValue(final @Nullable String value) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setValue' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );

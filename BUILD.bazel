@@ -71,6 +71,7 @@ java_import(
     name = "core",
     jars = ["//tools/release:core_jar"],
     srcjar = "//tools/release:core_sources",
+    exports = ["//third_party/java:braincheck_core"],
     deps = [
         "//third_party/java:braincheck_core",
         "//third_party/java:grim_annotations",

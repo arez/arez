@@ -11,7 +11,9 @@ import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import java.util.Objects;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.NullUnmarked;
 import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
@@ -27,8 +29,9 @@ final class Arez_InheritedMarkedBindingModel extends InheritedMarkedBindingModel
 
   private String $$arezd$$_value;
 
+  @NullUnmarked
   @SuppressWarnings("NonAtomicVolatileUpdate")
-  Arez_InheritedMarkedBindingModel(final String value) {
+  Arez_InheritedMarkedBindingModel(final @NonNull String value) {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ++$$arezi$$_nextId;

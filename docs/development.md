@@ -91,13 +91,40 @@ Use `@arez//:arez_processor_plugin` and
 Both plugins load the assembled shaded processor jars. Internal labels such as
 `//core` and `//processor:plugin` remain repository implementation targets.
 
-A downstream MODULE file can declare `bazel_dep(name = "arez")` and use
-`git_override(module_name = "arez", remote = "https://github.com/arez/arez.git",
-commit = "<full approved commit SHA>")`. Replace the placeholder with an
-immutable revision available in the remote. For local development, use
-`local_path_override(module_name = "arez", path = "/absolute/path/to/arez")`
-in the downstream workspace. The Arez checkout itself uses remotely pinned
-Proton/Sting modules without local overrides.
+Bazel applies dependency overrides and patches only from the downstream root
+module. From the Arez checkout at the revision you intend to consume, run:
+
+```sh
+python3 tools/bazel_consumer_config.py /absolute/path/to/consumer
+```
+
+This copies the pinned dependency configuration, patches and Maven lock into
+the consumer's `third_party/arez/`. Commit these generated inputs and regenerate
+them when updating Arez. Add the following to the consumer's `MODULE.bazel`:
+
+```starlark
+bazel_dep(name = "arez")
+git_override(
+    module_name = "arez",
+    remote = "https://github.com/arez/arez.git",
+    commit = "<full approved commit SHA>",
+)
+include("//third_party/arez:dependencies.MODULE.bazel")
+```
+
+Replace the placeholder with the same immutable revision used to generate the
+configuration. For local development, replace the Arez `git_override` with
+`local_path_override(module_name = "arez", path = "/absolute/path/to/arez")`.
+Merge duplicate dependency declarations or existing overrides in the consumer
+root; the generated fragment includes the required Java and browser rule pins.
+The Arez checkout itself uses remotely pinned Proton/Sting modules.
+
+Use Arez's `.bazelrc` Java language/runtime and tool language/runtime settings in
+the consumer root, including `--nojava_header_compilation` and strict dependency
+checking. Dependency repositories do not apply their `.bazelrc` to consumers.
+`python3 tools/check_bazel_consumer.py` compiles and runs a separate workspace
+with the public core/plugin labels and these root inputs. Core exports Braincheck,
+which the generated component bodies require.
 
 Runtime and generated classes target Java 17. Processors require Java 21 or newer.
 When compiling against inherited classes, retain parameter names with

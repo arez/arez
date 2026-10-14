@@ -33,3 +33,10 @@ Task evidence and a clean final full-scope gate establish that the migration is 
 - Inventory audit retains 270 recorded JVM test source files, all 2,191 recorded method/constructor declarations, all 1,025 Arez processor fixture classname entries and all 101 original Persist fixture input/golden paths. T01–T26 criteria/evidence and all R/AC owners were checked before final completion.
 - Plan/link/canonical documentation validators and git diff --check pass. Qualified knowledge is promoted and linked in TASKMAP; no new deferral, debug change or tracked scratch file remains. Temporary independent verification caches are task evidence and will be removed after review.
 - Practical platform limit: full gate executed on macOS arm64; the GitHub-hosted Linux job has not run from this unpushed branch. Live publication remains deliberately outside authority. Implementation review is the next required workflow gate.
+
+## Review-fix final verification
+
+- After round 1 corrections, `tools/check.sh` passed again in the main checkout and the independent checkout/output base with retired tools unavailable and system/home rc ignored. The updated gate includes a separate real Bazel consumer of all six runtime imports and both packaged plugins.
+- Both runs pass 40 default tests, eight production browser targets, 31 coverage targets and 2,303 JVM TestNG invocations. Coverage includes 245 sources, 12,358 lines/11,367 hits and 6,091 branches/4,938 hits. No percentage gate was added.
+- Archive checker plus direct hashes confirm all 33 final artifacts match. All 350 generated site files match; 13,910 links pass with zero broken. Unsigned 32-artifact bundle verification and release preparation/sign/upload/GitHub/site stubs pass. [Full gate evidence](../review-full-gate-evidence.json), [archive evidence](../review-artifact-evidence.json), [independent hashes](../review-reproducibility-evidence.json).
+- Canonical spec/ADR and affected T09/T18 evidence are updated. Plan/domain links and staged whitespace pass. Same-reviewer confirmation remains pending; no publication occurred.

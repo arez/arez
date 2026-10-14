@@ -20,6 +20,9 @@ filegroup(
         "PrimitiveUnmarkedModel.java",
         "ReferenceBase.java",
         "TypeVariableModel.java",
+        "UnmarkedActionBase.java",
+        "UnmarkedActionModel.java",
         "//processor/src/test/fixtures/input/com/example/jspecify/package_scope:all",
+        "//processor/src/test/fixtures/input/com/example/jspecify/unmarked_package:all",
     ],
 )

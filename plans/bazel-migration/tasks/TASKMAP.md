@@ -7,7 +7,7 @@
 - Plan checkpoint: human-review (approved)
 - Checkpoint basis: the user said "Proceed" after the reviewed spec/task map and
   explicit plan-approval request on 2026-10-14. Planning review passed in two rounds.
-- Implementation reviewer: /root/implementation_reviewer (1/5 rounds; round 1 running)
+- Implementation reviewer: /root/implementation_reviewer (1/5 rounds; three findings corrected; confirmation pending)
 - Active tree: plans/bazel-migration
 - Plan commit: 3ce61e840aeb6d9fd6cc15dd193a201736a499ed
 - Author preflight: passed — exact tree/link/acyclic graph and non-final-task
@@ -29,7 +29,13 @@
 - Final evidence: [fresh complete gate](../T27-full-gate-evidence.json), [independent 33-file artifact hashes](../T27-reproducibility-evidence.json), [isolated artifact consumer](../T27-artifact-evidence.json), [inventory audit](../T27-inventory-audit.json), [final previews](../T27-preview-evidence.json).
 - Result: tools/check.sh passed in a fresh checkout/output base with retired tools unavailable and no local override; 40 default tests, eight optimized browser tests, 31 coverage targets, 2,301 JVM TestNG invocations, 245 covered sources, complete artifacts/site/release stubs. All 33 archives/POMs and all 350 generated site files matched independent outputs.
 - Author preflight: every R01–R17 / AC01–AC17 has completed delivery-owner evidence; all retained inventories, intentional cuts, generated strict checks, archived public consumers and canonical owners inspected. No required local gate failed/skipped. GitHub-hosted Linux CI and live publication were not run.
-- Current milestone: all 27 tasks and the fresh full-scope gate are complete; canonical knowledge and independent output comparisons passed. The fresh read-only implementation review is next.
+- Current milestone: all 27 tasks and the fresh full-scope gate are complete; canonical knowledge and independent output comparisons passed. Implementation review round 1 found three valid contract/consumer defects; corrections, both full gates and independent comparisons passed. The same reviewer confirmation is next.
+
+## Review-fix validation
+
+- [Full gates](../review-full-gate-evidence.json): `tools/check.sh` passed in both the main and independent restricted-tool checkouts after correction, including a real separate public Bazel consumer. Both passed 40 default targets, eight production browser targets, 31 coverage targets and 2,303 JVM TestNG invocations.
+- [Archive checks](../review-artifact-evidence.json) and [independent hashes](../review-reproducibility-evidence.json): all 33 artifacts match; all 350 site files also match. Site checks report 13,910 local links and zero broken links. Unsigned 32-artifact packaging and all release command stubs pass.
+- [Round 1 disposition](../reviews/implementation-round-1.md): root configuration, Braincheck exports and original unmarked scopes corrected. Canonical spec/ADR updated; domain links and plan graph validation pass. Hosted Linux CI and live publication remain unexecuted.
 
 ## Tasks
 

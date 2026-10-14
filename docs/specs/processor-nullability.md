@@ -25,7 +25,9 @@ components and generating reactive or persistent state.
    multiplicity.
 6. Generate JSpecify contracts that preserve the component's declared nullness
    and lifecycle behavior. Internal construction state must not change declared
-   inverse cardinality.
+   inverse cardinality. Preserve unmarked scopes on overrides and original
+   constructor inputs; synthetic marked initializer parameters keep explicit
+   contracts, including nested container and array positions.
 7. Persist must resolve inherited getter/setter types in the concrete component
    context. Nullability annotations must not change converter identity; nullable
    state values retain the existing skip-null storage behavior.

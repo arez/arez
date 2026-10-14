@@ -18,6 +18,7 @@ bazel build //core //processor //extras/dom //extras/promise //extras/spytools /
 mkdir -p reports/verification
 python3 tools/release/check_artifacts.py --directory "$(bazel info bazel-bin)/tools/release" \
   --evidence reports/verification/artifacts.json
+python3 tools/check_bazel_consumer.py
 bazel test //:all_tests
 bazel test -c opt //:browser_tests
 bazel coverage -c dbg //:jvm_tests --combined_report=lcov \

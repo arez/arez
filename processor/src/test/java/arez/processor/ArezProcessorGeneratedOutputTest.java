@@ -1313,6 +1313,45 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
     }
 
     @Test
+    public void jspecifyUnmarkedActions() throws Exception {
+        assertSuccessfulFixtureCompile(
+                inputs("com.example.jspecify.UnmarkedActionBase", "com.example.jspecify.UnmarkedActionModel"),
+                List.of(
+                        "com/example/jspecify/Arez_UnmarkedActionModel.java",
+                        "com/example/jspecify/UnmarkedActionModel_Arez_Nested.java"));
+        assertSuccessfulFixtureCompile(
+                inputs(
+                        "com.example.jspecify.unmarked_package.package-info",
+                        "com.example.jspecify.unmarked_package.PackageActionModel"),
+                List.of("com/example/jspecify/unmarked_package/Arez_PackageActionModel.java"));
+    }
+
+    @Test
+    public void jspecifyCompiledUnmarkedActions() throws Exception {
+        final List<String> baseOptions = new ArrayList<>(getOptions());
+        baseOptions.addAll(List.of("-proc:none", "-parameters"));
+        final Compilation base = CompileTestUtil.assertCompilesWithoutWarnings(
+                inputs("com.example.jspecify.UnmarkedActionBase"),
+                baseOptions,
+                Collections.emptyList(),
+                Collections.emptyList());
+        try {
+            final List<String> options = new ArrayList<>(getOptions());
+            options.addAll(List.of(
+                    "-classpath", System.getProperty("java.class.path") + File.pathSeparator + base.classOutput()));
+            assertSuccessfulFixtureCompile(
+                    inputs("com.example.jspecify.UnmarkedActionModel"),
+                    List.of(
+                            "com/example/jspecify/Arez_UnmarkedActionModel.java",
+                            "com/example/jspecify/UnmarkedActionModel_Arez_Nested.java"),
+                    options);
+        } finally {
+            deleteDir(base.classOutput());
+            deleteDir(base.sourceOutput());
+        }
+    }
+
+    @Test
     public void jspecifyInheritedNonNull() throws Exception {
         assertSuccessfulFixtureCompile(
                 inputs("com.example.jspecify.GenericBase", "com.example.jspecify.InheritedNonNullModel"),

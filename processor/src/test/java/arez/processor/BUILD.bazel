@@ -432,6 +432,8 @@ java_testng(
     test_class = "arez.processor.ArezProcessorGeneratedOutputTest",
     test_methods = [
         "arez.processor.ArezProcessorGeneratedOutputTest.processJSpecifyCompile",
+        "arez.processor.ArezProcessorGeneratedOutputTest.jspecifyUnmarkedActions",
+        "arez.processor.ArezProcessorGeneratedOutputTest.jspecifyCompiledUnmarkedActions",
         "arez.processor.ArezProcessorGeneratedOutputTest.jspecifyInheritedNonNull",
         "arez.processor.ArezProcessorGeneratedOutputTest.jspecifyInheritedNullable",
         "arez.processor.ArezProcessorGeneratedOutputTest.jspecifyNonNullOperator",
