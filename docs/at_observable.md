@@ -22,8 +22,8 @@ Abstract observables typically require a constructor parameter to supply the ini
 initialized from a static field or static method, removing the need for constructor parameters.
 
 The annotated field must be `static final` (or a `static` method) and the associated observable must be abstract.
-If the observable getter is annotated with `javax.annotation.Nonnull` then the initializer
-must also be annotated with `javax.annotation.Nonnull`.
+The initializer must have the same effective JSpecify nullness as the observable getter.
+Use `@NullMarked` for non-null defaults and type-use `@Nullable` for nullable values.
 
 For example:
 
@@ -79,7 +79,7 @@ the component another value for `props`. The react framework is wholly responsib
 component that `props` has changed. Making this `props` property observable within Arez involved the following
 changes.
 
-* Disabling the `@Observable` setter via the {@link: arez.ObservableValue#expectSetter() @Observable.expectSetter}
+* Disabling the `@Observable` setter via the {@link: arez.annotations.Observable#expectSetter() @Observable.expectSetter}
   parameter on the getter.
 * Accessing the underlying {@link: arez.ObservableValue} primitive using the {@link: arez.annotations.ObservableValueRef @ObservableValueRef} annotation.
   See [accessing primitives](accessing_primitives.md) documentation on details on how this is achieved.

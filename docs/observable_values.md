@@ -16,7 +16,7 @@ The {@link: arez.ObservableValue} class is a low-level primitive and is not inte
 
 However it is possible to manually implement an observable property using code such as:
 
-{@file_content: file=arez/doc/examples/observables/ObservableExample.java "start_line=private Observable" "end_line=^}" include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/observables/ObservableExample.java "start_line=private final ObservableValue" "end_line=^}" include_end_line=false strip_block=true}
 
 This example does illustrate the basic usage of the class, notably the explicit call to
 {@link: arez.ObservableValue#reportObserved()} when the property is read and the explicit call to

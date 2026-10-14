@@ -1,0 +1,10 @@
+exports_files(
+    [
+        "IntelliJ-AddSource.png",
+        "IntelliJ-AnnotationProcessor.png",
+        "IntelliJ-EnableAutoBuild.png",
+        "favicon-32x32.png",
+        "logo.svg",
+    ],
+    visibility = ["//website:__pkg__"],
+)

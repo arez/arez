@@ -38,11 +38,11 @@ the [@Observe](at_observe.md) annotation.
 
 An example of a basic observer:
 
-{@file_content: file=arez/doc/examples/observe/ObserverExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/observe/ObserverExample.java "start_line=public static void main" "end_line=^    }" include_start_line=false include_end_line=false strip_block=true}
 
 An example of an observer that is explicitly named and uses a read-write transaction:
 
-{@file_content: file=arez/doc/examples/observe/ObserverExample2.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/observe/ObserverExample2.java "start_line=public static void main" "end_line=^    }" include_start_line=false include_end_line=false strip_block=true}
 
 A "tracker" observer is created with a `onDepsChange` hook function but no `observed` function. i.e. A
 tracker observer uses an application executor. Using a tracker observer is a little more complex within Arez.
@@ -51,7 +51,7 @@ invocation and then explicitly observe the observed function via {@link: arez.Ar
 
 A very simple example of a tracker observer:
 
-{@file_content: file=arez/doc/examples/tracker/TrackerExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/tracker/TrackerExample.java "start_line=public static void main" "end_line=^    }" include_start_line=false include_end_line=false strip_block=true}
 
 ## Error Handling
 
@@ -66,4 +66,4 @@ The error handlers are added and removed from the `ArezContext` by way of the {@
 and {@link: arez.ArezContext#removeObserverErrorHandler(arez.ObserverErrorHandler)  ArezContext.removeObserverErrorHandler(ObserverErrorHandler)}
 methods. A simple example that emits errors to the browsers console in a browser environment follows:
 
-{@file_content: file=arez/doc/examples/observer_error/ObserverErrorHandlerExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/observer_error/ObserverErrorHandlerExample.java "start_line=public static void main" "end_line=^    }" include_start_line=false include_end_line=false strip_block=true}

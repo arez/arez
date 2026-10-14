@@ -2,7 +2,7 @@
 
 - Spec: [SPEC.md](../SPEC.md)
 - Status: implementing
-- Current frontier: T23
+- Current frontier: T24
 - Planning reviewer: /root/planning_reviewer (2/3 rounds; passed, Findings: none)
 - Plan checkpoint: human-review (approved)
 - Checkpoint basis: the user said "Proceed" after the reviewed spec/task map and
@@ -27,7 +27,7 @@
 - Artifact reproducibility: independent-output-base hash comparisons, including
   binary, source, Javadoc and POM outputs; cached reruns alone are insufficient.
 - Final evidence: pending
-- Current milestone: T22 completes all eight J2CL previews and the two-mode Chromium matrix (22 cases per mode), strict Java 17 browser source inventory and independently reproducible publication artifacts. The Java website is next.
+- Current milestone: T23 delivers the Java website with all 35 public routes, compiled/generated snippets, local aggregate API/assets and mobile preview verified. Release orchestration is next.
 
 ## Tasks
 
@@ -55,7 +55,7 @@
 | T20 | [Run and test the promise J2CL example](T20-promise-browser-example.md) | complete | T19 |
 | T21 | [Run location, size and media-query examples](T21-dom-basic-examples.md) | complete | T20 |
 | T22 | [Run visibility, geolocation, idle and network examples](T22-dom-controlled-examples.md) | complete | T20 |
-| T23 | [Generate and preview the website with Java](T23-java-website.md) | pending | T17, T18 |
+| T23 | [Generate and preview the website with Java](T23-java-website.md) | complete | T17, T18 |
 | T24 | [Replace manual release and deployment commands](T24-release-orchestration.md) | pending | T18, T23 |
 | T25 | [Run the full check entrypoint in CI](T25-ci-ahab-coverage.md) | pending | T21, T22, T23, T24 |
 | T26 | [Remove old infrastructure and document delivered contracts](T26-remove-legacy-document-contracts.md) | pending | T25 |

@@ -340,6 +340,34 @@ _http_file(
 )
 
 _http_file(
+    name = "commonmark",
+    downloaded_file_path = "org/commonmark/commonmark/0.30.1/commonmark-0.30.1.jar",
+    sha256 = "9b0d20064975a17e876fcb4b599c6b3667f46a7739ed61e2f06c96f44b50629f",
+    urls = ["https://repo.maven.apache.org/maven2/org/commonmark/commonmark/0.30.1/commonmark-0.30.1.jar"],
+)
+
+_http_file(
+    name = "commonmark__sources",
+    downloaded_file_path = "org/commonmark/commonmark/0.30.1/commonmark-0.30.1-sources.jar",
+    sha256 = "e072cd44c9c8ffb5f2d6ced66670a3e023dd8f12ffbd5a996ec2a7014267cf61",
+    urls = ["https://repo.maven.apache.org/maven2/org/commonmark/commonmark/0.30.1/commonmark-0.30.1-sources.jar"],
+)
+
+_http_file(
+    name = "commonmark_ext_gfm_tables",
+    downloaded_file_path = "org/commonmark/commonmark-ext-gfm-tables/0.30.1/commonmark-ext-gfm-tables-0.30.1.jar",
+    sha256 = "c375b6d5b71efe179e5763a6d83fcf10e303c0bf82031310a46769727ac90da0",
+    urls = ["https://repo.maven.apache.org/maven2/org/commonmark/commonmark-ext-gfm-tables/0.30.1/commonmark-ext-gfm-tables-0.30.1.jar"],
+)
+
+_http_file(
+    name = "commonmark_ext_gfm_tables__sources",
+    downloaded_file_path = "org/commonmark/commonmark-ext-gfm-tables/0.30.1/commonmark-ext-gfm-tables-0.30.1-sources.jar",
+    sha256 = "f7c365fd5cb53c66c086eed5078d6d7416d660d1e7e594615c7a18d612df600d",
+    urls = ["https://repo.maven.apache.org/maven2/org/commonmark/commonmark-ext-gfm-tables/0.30.1/commonmark-ext-gfm-tables-0.30.1-sources.jar"],
+)
+
+_http_file(
     name = "javax_json",
     downloaded_file_path = "org/glassfish/javax.json/1.1/javax.json-1.1.jar",
     sha256 = "4b1f21bc50b728aaae5f44ff550383182b58b67647362959e31004e4522ee24f",

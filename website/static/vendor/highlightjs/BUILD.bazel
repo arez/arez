@@ -1,0 +1,11 @@
+exports_files(
+    [
+        "LICENSE",
+        "README.txt",
+        "core.min.js",
+        "idea.min.css",
+        "java.min.js",
+        "xml.min.js",
+    ],
+    visibility = ["//website:__pkg__"],
+)

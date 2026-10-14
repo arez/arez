@@ -1,0 +1,7 @@
+exports_files(
+    [
+        "highlight.js",
+        "navigation.js",
+    ],
+    visibility = ["//website:__pkg__"],
+)

@@ -1,0 +1,17 @@
+<div class="docs-layout">
+  <aside class="sidebar">
+    <button class="nav-toggle" aria-label="Toggle documentation navigation" aria-expanded="false" aria-controls="documentation-nav">
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h12" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      {{category}}
+    </button>
+    <nav id="documentation-nav" aria-label="Documentation navigation">{{sidebar}}</nav>
+  </aside>
+  <main id="main" class="article">
+    <div class="document-header">
+      <h1>{{title}}</h1>
+      <a class="button edit-link" href="https://github.com/arez/arez/tree/master/docs/{{id}}.md">Edit</a>
+    </div>
+    <article>{{body}}</article>
+    <nav class="pagination" aria-label="Previous and next documents">{{previous}}{{next}}</nav>
+  </main>
+</div>

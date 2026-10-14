@@ -2,15 +2,20 @@
 title: Project Setup
 ---
 
-An Arez project can be setup using any build system that supports configuration of annotation
-processors. The authors prefer [Apache Buildr](https://buildr.apache.org) but this is a relatively
-fringe build system so the project setup will be detailed using [Apache Maven](https://maven.apache.org)
-as that tool is relatively well known within the Java ecosystem.
+Arez supports Java 17 runtime applications and J2CL browser applications. Annotation processing
+requires JDK 21 or later. This repository builds with Bazel; published binary and source archives
+also support other build systems with annotation processor configuration.
+
+Use JSpecify `@NullMarked` scopes and type-use `@Nullable` annotations. Legacy `javax.annotation`
+and JetBrains nullability annotations are ignored by the processors. Nullness-sensitive component
+contracts must have specified JSpecify nullness.
 
 ## Configure Maven
 
-To configure Maven to support Arez you need to add a dependency on the library as well as
-configure the compiler to use the Arez annotation processor.
+Run Maven on JDK 21 or later, set `arez.version` to the release you consume, add the library
+dependency and configure the compiler to use the Arez annotation processor. The
+[Maven compiler plugin](https://maven.apache.org/plugins-archives/maven-compiler-plugin-3.12.1/compile-mojo.html)
+supports the `release` and `annotationProcessorPaths` configuration shown below.
 
 The core elements of Arez as well as the annotations and infrastructure for the annotation driven
 [component model](components.md) are included in the `arez-core` artifact. To add this library to
@@ -24,7 +29,7 @@ your Maven project, simply add the following to your `pom.xml`:
     <dependency>
       <groupId>org.realityforge.arez</groupId>
       <artifactId>arez-core</artifactId>
-      <version>0.256</version>
+      <version>${arez.version}</version>
     </dependency>
     ...
   </dependencies>
@@ -42,16 +47,15 @@ snippet to configure the maven compiler plugin from within the `pom.xml`:
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5.1</version>
+        <version>3.12.1</version>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+          <release>17</release>
           <useIncrementalCompilation>false</useIncrementalCompilation>
           <annotationProcessorPaths>
             <path>
               <groupId>org.realityforge.arez</groupId>
               <artifactId>arez-processor</artifactId>
-              <version>0.256</version>
+              <version>${arez.version}</version>
             </path>
           </annotationProcessorPaths>
         </configuration>
@@ -61,6 +65,11 @@ snippet to configure the maven compiler plugin from within the `pom.xml`:
   </build>
 </project>
 ```
+
+When compiling with JDK 21, also pass `-XDaddTypeAnnotationsToSymbol=true` to `javac` so processors
+can read type-use annotations from compiled dependencies. In Maven this belongs in
+`<compilerArgs><arg>-XDaddTypeAnnotationsToSymbol=true</arg></compilerArgs>`. Include
+`org.jspecify:jspecify:1.0.0` on the application compile classpath when declaring JSpecify contracts.
 
 ### Optional Generated Source Formatting
 
@@ -95,55 +104,34 @@ It is expected that most Arez applications are developed from within an IDE. The
 can be done by importing the `pom.xml` into the IDE but further customizations will often need to be done by
 the user. In particular, there is some additional steps required when using [IntelliJ IDEA](intellij.md).
 
-## Configure a GWT Application
+## Configure a J2CL Application
 
-If you are using Arez within a GWT application you will also need to inherit the appropriate
-GWT module in your `.gwt.xml` file. For Arez applications that depend on the component model
-it is sufficient to add:
+Public Bazel browser targets compile the same complete source archives that are published for
+Maven consumers:
 
-```xml
-<module>
-  ...
-  <inherits name='arez.component.Component'/>
-  ...
-</module>
+* `//:core-j2cl`
+* `//:dom-j2cl`
+* `//:promise-j2cl`
+* `//:spytools-j2cl`
+* `//:persist-core-j2cl`
+
+Use the packaged `//:arez_processor_plugin` and `//:arez_persist_processor_plugin` targets for
+annotation processing. JVM consumers use the corresponding root binary imports such as `//:core`
+and `//:dom`. The source archives contain generated Java and required native JavaScript companions;
+use them as J2CL inputs rather than expecting Java source inside binary jars.
+
+The examples use JsInterop bootstrap methods and Closure entry modules. For a working application
+and explicit development/production defines, see `extras/promise-example/BUILD.bazel` and
+`tools/browser/rules.bzl` in the repository. Development enables Arez and Braincheck invariant
+checks; production uses Closure ADVANCED optimization and disables those checks.
+
+```sh
+bazel build //extras/promise-example:app
+bazel test //:browser_tests
+bazel test -c opt //:browser_tests
+python3 tools/browser/preview.py //extras/promise-example:app
 ```
 
-If you are not using the component model you can instead inherit the base module:
-
-```xml
-<module>
-  ...
-  <inherits name='arez.Arez'/>
-  ...
-</module>
-```
-
-In addition you can *also* add the `Dev` module if you want the framework to perform validation
-and limited invariant checking. The `Dev` module is very useful during development as it adds a
-level of safety and error checking but it should not be used in production environments as it adds
-some overhead. The `Dev` module decreases the execution speeds and significantly increases the code
-size. In small and medium sized applications, the extra safety afforded by developing with the `Dev`
-module always enabled and disabling the `Dev` module for production builds is usually worth the
-decreased performance of development builds. The `Dev` module can be added via:
-
-```xml
-<module>
-  ...
-  <inherits name='arez.ArezDev'/>
-  ...
-</module>
-```
-
-Rather than adding the `Dev` module you can instead add the `Debug` module and force the Arez framework
-to do significantly more invariant checking. This adds a significant performance impact and should never
-be present in production builds and may be too much overhead, even in development builds. The `Debug`
-module can be added via:
-
-```xml
-<module>
-  ...
-  <inherits name='arez.ArezDebug'/>
-  ...
-</module>
-```
+All seven DOM examples have equivalent targets under `extras/dom-example`. GWT modules and
+bootstraps are retired. `GwtIncompatible` remains only as the annotation name recognized by J2CL
+to strip JVM-only methods.

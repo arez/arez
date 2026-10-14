@@ -29,19 +29,19 @@ exceptions are named `safeAction` while the methods that invoke actions that dec
 
 An example of an action that can throw a checked exception:
 
-{@file_content: file=arez/doc/examples/actions/ActionExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/actions/ActionExample.java "start_line=public static void main" "end_line=^    }" include_start_line=false include_end_line=false strip_block=true}
 
 An example of an action that returns a value:
 
-{@file_content: file=arez/doc/examples/actions/ActionExample2.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/actions/ActionExample2.java "start_line=public static void main" "end_line=^    }" include_start_line=false include_end_line=false strip_block=true}
 
 An example of an action that does not throw a checked exception and returns a value:
 
-{@file_content: file=arez/doc/examples/actions/ActionExample3.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/actions/ActionExample3.java "start_line=public static void main" "end_line=^    }" include_start_line=false include_end_line=false strip_block=true}
 
 An example of an action that is explicitly named, uses a read-only transaction and returns a value:
 
-{@file_content: file=arez/doc/examples/actions/ActionExample4.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/actions/ActionExample4.java "start_line=public static void main" "end_line=^    }" include_start_line=false include_end_line=false strip_block=true}
 
 While it is possible to use this low-level API it is strongly suggested that users make use of higher level
 APIs such as the [@Action](at_action.md) annotation.

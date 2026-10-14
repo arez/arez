@@ -53,6 +53,8 @@ java_format_check(
         "//tools/release:javadoc_jar_builder",
         "//extras/promise-example:java",
         "//extras/dom-example:java",
+        "//tools/site:tool",
+        "//tools/site/src/test/java/arez/site:all_tests",
     ],
 )
 

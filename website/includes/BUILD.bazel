@@ -1,0 +1,7 @@
+exports_files(
+    [
+        "DataflowNodes.svg",
+        "SimpleDataflowNodes.svg",
+    ],
+    visibility = ["//website:__pkg__"],
+)

@@ -81,7 +81,7 @@ is not yet reactive. However let's imagine the application needs to notify the u
 property `remainingRides` reaches `0`. We can do this using a method annotated with {@link: arez.annotations.Observe @Observe}
 such as
 
-{@file_content: file=arez/doc/examples/step4/TrainTicket.java start_line=@Observe "end_line=^  \}" strip_block=true}
+{@file_content: file=arez/doc/examples/step4/TrainTicket.java start_line=@Observe "end_line=^    \}" strip_block=true}
 
 Any time that this method is executed, Arez will track which observable properties are accessed within the method.
 If the values of any of these observable properties changes, Arez will schedule this method to be re-run. The very

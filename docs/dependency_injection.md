@@ -43,4 +43,4 @@ the `includes` parameter of the injector. (Although the next release of Sting wi
 
 The injector can then be used in code like:
 
-{@file_content: file=arez/doc/examples/sting/StingExample.java "start_line=  {" "end_line=  }" include_start_line=false include_end_line=false}
+{@file_content: file=arez/doc/examples/sting/StingExample.java "start_line=public static void main" "end_line=^    }" include_start_line=false include_end_line=false}

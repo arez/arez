@@ -1,0 +1,11 @@
+alias(
+    name = "tool",
+    actual = "//tools/site/src/main/java/arez/site:tool",
+    visibility = ["//visibility:public"],
+)
+
+test_suite(
+    name = "tests",
+    tests = ["//tools/site/src/test/java/arez/site:all_tests"],
+    visibility = ["//visibility:public"],
+)

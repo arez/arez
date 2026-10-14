@@ -1,0 +1,26 @@
+load("//third_party/java:rules.bzl", "java_binary", "java_library")
+
+java_library(
+    name = "site",
+    srcs = [
+        "Markdown.java",
+        "SiteBuilder.java",
+        "SiteLinks.java",
+    ],
+    visibility = ["//tools/site/src/test/java/arez/site:__pkg__"],
+    deps = [
+        "//third_party/java:commonmark",
+        "//third_party/java:commonmark_ext_gfm_tables",
+    ],
+)
+
+java_binary(
+    name = "tool",
+    srcs = [
+        "Main.java",
+        "SiteServer.java",
+    ],
+    main_class = "arez.site.Main",
+    visibility = ["//tools/site:__pkg__"],
+    deps = [":site"],
+)

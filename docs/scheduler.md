@@ -44,4 +44,4 @@ updated but not all the observers and computable values have reacted and are con
 However it is sometimes needed by Arez-based frameworks with complex concurrency needs that can ensure that no code
 interacts with Arez components while the scheduler is paused. A simple example of how pausing works is as follows:
 
-{@file_content: file=arez/doc/examples/scheduler/SchedulerExample.java "start_line=^  {" "end_line=^  }" include_start_line=false include_end_line=false strip_block=true}
+{@file_content: file=arez/doc/examples/scheduler/SchedulerExample.java "start_line=public static void main" "end_line=^    }" include_start_line=false include_end_line=false strip_block=true}

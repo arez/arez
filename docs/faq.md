@@ -151,31 +151,19 @@ noted that if names are not enabled by the Arez compile time configuration (i.e.
 The codebase is filled with lots of calls to the `Guards.invariant(...)` and `Guards.apiInvariant(...)` methods.
 If the appropriate configuration settings are supplied, these methods will verify that invariants and expectations
 of the Arez library are true at runtime. As these checks can be expensive, they should not be run in production mode.
-If these checks are not run then the code should not be generated in a GWT/Browser based application.
+Production J2CL applications disable these checks through Closure defines. Keeping an explicit
+`Arez.shouldCheckInvariants()` guard lets the optimizer remove the check and its lambda arguments
+when invariants are disabled:
 
-The initial design of the invariant checking code went through several iterations to ensure that the code is not
-present in generated javascript output and this seems to be true when the code complexity is low. However the
-GWT 2.8.2 compiler will fail to eliminate the code for the lambdas passed to the the invariant methods, even after the
-code for invariant methods is eliminated. It is unclear the trigger for this problem as the same sequence of
-code would be optimized in one context but kept in another context within the same application.
+```java
+if (Arez.shouldCheckInvariants()) {
+  Guards.invariant(() -> this.state == expected,
+      () -> "State " + this.state + " does not match expected " + expected);
+}
+```
 
-To work around this limitation of the GWT compiler, code the previously looked like:
-
-    Guards.invariant( () -> this.state == expected,
-                      () -> "State " + this.state + " does not match expected " + expected );
-
-Had to be rewritten to look like:
-
-    if ( Arez.shouldCheckInvariants() )
-    {
-      Guards.invariant( () -> this.state == expected,
-                        () -> "State " + this.state + " does not match expected " + expected );
-    }
-
-This has produced significantly more clutter in the codebase but needs to be supported while GWT 2.x continues
-to be a deployment target. As an indication of how much of an impact it can have, the size of one trivial
-application went from 141KB to 74KB after this change. If/When Arez targets GWT 3.x and not GWT 2.x, it is
-expected that most of this complexity can be removed from the codebase.
+The browser examples exercise both development checks and optimized production settings. See
+[Project Setup](project_setup.md#configure-a-j2cl-application) for the build targets and defines.
 
 ## Alternatives
 
@@ -183,7 +171,7 @@ expected that most of this complexity can be removed from the codebase.
 
 Arez began life as a port of Mobx so they both share a core conceptual model of observable values, computable
 values (a.k.a derived values) and observers. The internals that implement Arez are better optimized for both
-execution speed and base code size than the Mobx equivalents due to the magic of the GWT2.x and J2CL compilers.
+execution speed and base code size than the Mobx equivalents through static generation and J2CL optimization.
 For many use cases Arez has a much smaller memory footprint.
 
 As the number of observable nodes increases, Mobx has the advantage and the code size will increase at a
