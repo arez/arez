@@ -20,6 +20,11 @@ test_suite(
     ],
 )
 
+test_suite(
+    name = "browser_tests",
+    tests = ["//extras/promise-example:browser_test"],
+)
+
 java_format_check(
     name = "java_format_check",
     testonly = True,
@@ -37,6 +42,7 @@ java_format_check(
         "//processor",
         "//tools/release:jar_builder",
         "//tools/release:javadoc_jar_builder",
+        "//extras/promise-example:java",
     ],
 )
 

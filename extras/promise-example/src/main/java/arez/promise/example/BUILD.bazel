@@ -1,0 +1,10 @@
+filegroup(
+    name = "java_sources",
+    srcs = ["ObservablePromiseExample.java"],
+    visibility = ["//extras/promise-example:__pkg__"],
+)
+
+exports_files(
+    ["public/ObservablePromiseExample.html"],
+    visibility = ["//extras/promise-example:__pkg__"],
+)

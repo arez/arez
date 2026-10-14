@@ -129,3 +129,29 @@ The J2CL Java compiler uses a pinned Java 21 runtime. The retained compilation
 smokes are `//extras/promise:compile_smoke` and
 `//extras/spytools:compile_smoke`. Their `_dev` variants exercise development
 Closure output; the base targets compile ADVANCED production output.
+
+## Local browser examples
+
+Run the promise example with:
+
+```sh
+python3 tools/browser/preview.py //extras/promise-example:app
+python3 tools/browser/preview.py //extras/promise-example:app --production
+bazel build //extras/promise-example:java
+bazel test //extras/promise-example:browser_test
+bazel test -c opt //extras/promise-example:browser_test
+```
+
+The preview binds loopback on port 8000; use `--port` to select another port.
+Its fetch reads the local `index.html`. The bootstrap and the browser suite use
+the same exported Java method. Tests replace fetch with controlled native
+Promises and check pending, fulfillment, rejection, null values and disposal.
+
+Default browser builds use Closure BUNDLE output with Arez/Braincheck development
+checks. `-c opt` uses ADVANCED output and production application settings. Closure's
+jsunit harness retains `goog.DEBUG=true` in both test modes; the test asserts the
+application's actual check settings independently. Chromium and its matching
+driver are checksum-pinned by rules_webtesting 0.4.1's browser manifest 0.3.4.
+Browser execution runs outside the Bazel sandbox for its native launcher and
+loopback server; its compilation remains sandboxed. The Ahab exceptions name
+only that test action and its generated root-relative HTML argument.

@@ -1,0 +1,52 @@
+load("@j2cl//build_defs:rules.bzl", "j2cl_library")
+load("@rules_closure//closure:defs.bzl", "closure_js_library")
+load("//third_party/java:rules.bzl", "java_library")
+load("//tools/release:release.bzl", "release_source_jar")
+
+package(default_visibility = ["//visibility:public"])
+
+exports_files(["rules.bzl"])
+
+closure_js_library(
+    name = "mode",
+    testonly = True,
+    srcs = ["mode.js"],
+)
+
+config_setting(
+    name = "production",
+    values = {"compilation_mode": "opt"},
+)
+
+java_library(
+    name = "test_support_java",
+    testonly = True,
+    srcs = ["//tools/browser/src/main/java/arez/browser:java_sources"],
+    deps = [
+        "//:core",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:jsinterop_annotations",
+    ],
+)
+
+release_source_jar(
+    name = "test_support_sources",
+    testonly = True,
+    out = "test-support-sources.jar",
+    java_targets = [":test_support_java"],
+    resource_entries = ["arez/browser/BrowserAssertions.native.js"],
+    resource_files = ["//tools/browser/src/main/java/arez/browser:BrowserAssertions.native.js"],
+)
+
+j2cl_library(
+    name = "test_support",
+    testonly = True,
+    srcs = [":test_support_sources"],
+    experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
+    deps = [
+        "//:core-j2cl",
+        "//third_party/java:braincheck_core-j2cl",
+        "//third_party/java:jsinterop_annotations-j2cl",
+        "//third_party/java:jspecify-j2cl",
+    ],
+)

@@ -1,0 +1,38 @@
+{
+  "rules_webtesting": "0.4.1",
+  "browser_manifest": "0.3.4",
+  "downloads": {
+    "org_chromium_chromedriver_macos_arm64": {
+      "sha256": "07ac40a4a5cca634aab0b178b8118760bbcffe46e6e59429a1dd8e4c59f02d3b",
+      "urls": [
+        "https://storage.googleapis.com/chromium-browser-snapshots/Mac_Arm/1250665/chromedriver_mac64.zip"
+      ]
+    },
+    "org_chromium_chromium_macos_arm64": {
+      "sha256": "cf0dcbfdddd0bcdc08891492b21c4b11ed3b27c17922e7ead1f702a22a2e6d28",
+      "urls": [
+        "https://storage.googleapis.com/chromium-browser-snapshots/Mac_Arm/1250665/chrome-mac.zip"
+      ]
+    },
+    "org_chromium_chromedriver_linux_x64": {
+      "sha256": "8813b9fee041c1033d332a309c02a4d04658999fada4771c5901966b3558bda4",
+      "urls": [
+        "https://storage.googleapis.com/chromium-browser-snapshots/Linux_x64/1250580/chromedriver_linux64.zip"
+      ]
+    },
+    "org_chromium_chromium_linux_x64": {
+      "sha256": "b2dba543e76293d9718462eccea482fde606f16991775a73bdfbfcd32dd6a339",
+      "urls": [
+        "https://storage.googleapis.com/chromium-browser-snapshots/Linux_x64/1250580/chrome-linux.zip"
+      ]
+    }
+  },
+  "runner": {
+    "target": "//extras/promise-example:browser_test",
+    "execution_requirements": [
+      "no-sandbox"
+    ],
+    "argument": "/gen_html_browser_test.html",
+    "exceptions": "tools/ahab/exceptions.json"
+  }
+}

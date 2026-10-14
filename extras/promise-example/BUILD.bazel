@@ -1,0 +1,67 @@
+load("@j2cl//build_defs:rules.bzl", "j2cl_library")
+load("@rules_closure//closure:defs.bzl", "closure_js_library")
+load("//third_party/java:rules.bzl", "java_library")
+load("//tools/browser:rules.bzl", "browser_application", "browser_test")
+load("//tools/release:release.bzl", "release_source_jar")
+
+package(default_visibility = ["//visibility:public"])
+
+java_library(
+    name = "application_java",
+    srcs = ["//extras/promise-example/src/main/java/arez/promise/example:java_sources"],
+    deps = [
+        "//:core",
+        "//:promise",
+        "//third_party/java:jsinterop_annotations",
+    ],
+)
+
+java_library(
+    name = "java",
+    testonly = True,
+    exports = [
+        ":application_java",
+        "//tools/browser:test_support_java",
+    ],
+)
+
+release_source_jar(
+    name = "application_sources",
+    out = "application-sources.jar",
+    java_targets = [":application_java"],
+)
+
+j2cl_library(
+    name = "application",
+    srcs = [":application_sources"],
+    experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
+    deps = [
+        "//:core-j2cl",
+        "//:promise-j2cl",
+        "//third_party/java:jsinterop_annotations-j2cl",
+        "//third_party/java:jspecify-j2cl",
+    ],
+)
+
+closure_js_library(
+    name = "entry",
+    srcs = ["src/main/js/entry.js"],
+    deps = [":application"],
+)
+
+browser_application(
+    name = "app",
+    entry_point = "arez.promise.example.Entry",
+    html = "//extras/promise-example/src/main/java/arez/promise/example:public/ObservablePromiseExample.html",
+    deps = [":entry"],
+)
+
+browser_test(
+    name = "browser_test",
+    srcs = ["src/test/js/promise_test.js"],
+    entry_point = "arez.promise.example.PromiseTest",
+    deps = [
+        ":application",
+        "//tools/browser:test_support",
+    ],
+)

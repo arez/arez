@@ -1,0 +1,10 @@
+filegroup(
+    name = "java_sources",
+    srcs = ["BrowserAssertions.java"],
+    visibility = ["//tools/browser:__pkg__"],
+)
+
+exports_files(
+    ["BrowserAssertions.native.js"],
+    visibility = ["//tools/browser:__pkg__"],
+)
