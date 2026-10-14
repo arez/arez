@@ -1,4 +1,4 @@
-load(":release.bzl", "release_jar", "release_source_jar", "release_version")
+load(":release.bzl", "release_jar", "release_javadoc_jar", "release_pom", "release_source_jar", "release_version")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -229,5 +229,342 @@ filegroup(
         "spytools_sources",
         "testng_jar",
         "testng_sources",
+    ],
+)
+
+alias(
+    name = "javadoc_jar_builder",
+    actual = "//tools/release/src/main/java/arez/release:javadoc_jar_builder",
+)
+
+release_pom(
+    name = "core_pom",
+    out = "arez-core.pom",
+    artifact_id = "arez-core",
+    dependencies = [
+        "org.jspecify:jspecify:1.0.0",
+        "org.realityforge.braincheck:braincheck-core:1.35.0",
+        "org.realityforge.grim:grim-annotations:0.09",
+        "com.google.jsinterop:jsinterop-annotations:2.0.0",
+        "org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0",
+    ],
+    description = "Arez runtime and annotations",
+    display_name = "Arez Core",
+)
+
+release_javadoc_jar(
+    name = "core_javadoc",
+    out = "arez-core-javadoc.jar",
+    classpath = [
+        "//core/src/main/java/arez",
+        "//third_party/java:jspecify",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:jsinterop_annotations",
+        "//third_party/java:base",
+        "//third_party/java:javaemul_internal_annotations",
+        "//third_party/java:org_jetbrains_annotations",
+        "//third_party/java:testng",
+        "//third_party/java:proton_core",
+        "//third_party/java:javapoet",
+    ],
+    java_targets = ["//core/src/main/java/arez"],
+)
+
+release_pom(
+    name = "processor_pom",
+    out = "arez-processor.pom",
+    artifact_id = "arez-processor",
+    dependencies = [],
+    description = "Arez annotation processor",
+    display_name = "Arez Annotation Processor",
+)
+
+release_javadoc_jar(
+    name = "processor_javadoc",
+    out = "arez-processor-javadoc.jar",
+    classpath = [
+        "//core/src/main/java/arez",
+        "//third_party/java:jspecify",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:jsinterop_annotations",
+        "//third_party/java:base",
+        "//third_party/java:javaemul_internal_annotations",
+        "//third_party/java:org_jetbrains_annotations",
+        "//third_party/java:testng",
+        "//third_party/java:proton_core",
+        "//third_party/java:javapoet",
+    ],
+    java_targets = ["//processor/src/main/java/arez/processor"],
+)
+
+release_pom(
+    name = "dom_pom",
+    out = "arez-extras-dom.pom",
+    artifact_id = "arez-extras-dom",
+    dependencies = [
+        "org.jspecify:jspecify:1.0.0",
+        "org.realityforge.braincheck:braincheck-core:1.35.0",
+        "org.realityforge.grim:grim-annotations:0.09",
+        "com.google.jsinterop:jsinterop-annotations:2.0.0",
+        "org.realityforge.arez:arez-core:{version}",
+        "com.google.jsinterop:base:1.0.0",
+        "org.realityforge.javaemul.internal.annotations:javaemul.internal.annotations:0.01",
+    ],
+    description = "Arez browser components that make DOM properties observable",
+    display_name = "Arez DOM",
+)
+
+release_javadoc_jar(
+    name = "dom_javadoc",
+    out = "arez-extras-dom-javadoc.jar",
+    classpath = [
+        "//core/src/main/java/arez",
+        "//third_party/java:jspecify",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:jsinterop_annotations",
+        "//third_party/java:base",
+        "//third_party/java:javaemul_internal_annotations",
+        "//third_party/java:org_jetbrains_annotations",
+        "//third_party/java:testng",
+        "//third_party/java:proton_core",
+        "//third_party/java:javapoet",
+    ],
+    java_targets = ["//extras/dom"],
+)
+
+release_pom(
+    name = "promise_pom",
+    out = "arez-extras-promise.pom",
+    artifact_id = "arez-extras-promise",
+    dependencies = [
+        "org.jspecify:jspecify:1.0.0",
+        "org.realityforge.braincheck:braincheck-core:1.35.0",
+        "org.realityforge.grim:grim-annotations:0.09",
+        "com.google.jsinterop:jsinterop-annotations:2.0.0",
+        "org.realityforge.arez:arez-core:{version}",
+        "com.google.jsinterop:base:1.0.0",
+    ],
+    description = "Arez observable promise components",
+    display_name = "Arez Promise",
+)
+
+release_javadoc_jar(
+    name = "promise_javadoc",
+    out = "arez-extras-promise-javadoc.jar",
+    classpath = [
+        "//core/src/main/java/arez",
+        "//third_party/java:jspecify",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:jsinterop_annotations",
+        "//third_party/java:base",
+        "//third_party/java:javaemul_internal_annotations",
+        "//third_party/java:org_jetbrains_annotations",
+        "//third_party/java:testng",
+        "//third_party/java:proton_core",
+        "//third_party/java:javapoet",
+    ],
+    java_targets = ["//extras/promise"],
+)
+
+release_pom(
+    name = "spytools_pom",
+    out = "arez-extras-spytools.pom",
+    artifact_id = "arez-extras-spytools",
+    dependencies = [
+        "org.jspecify:jspecify:1.0.0",
+        "org.realityforge.braincheck:braincheck-core:1.35.0",
+        "org.realityforge.grim:grim-annotations:0.09",
+        "com.google.jsinterop:jsinterop-annotations:2.0.0",
+        "org.realityforge.arez:arez-core:{version}",
+        "com.google.jsinterop:base:1.0.0",
+        "org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0",
+    ],
+    description = "Arez spy support infrastructure",
+    display_name = "Arez Spytools",
+)
+
+release_javadoc_jar(
+    name = "spytools_javadoc",
+    out = "arez-extras-spytools-javadoc.jar",
+    classpath = [
+        "//core/src/main/java/arez",
+        "//third_party/java:jspecify",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:jsinterop_annotations",
+        "//third_party/java:base",
+        "//third_party/java:javaemul_internal_annotations",
+        "//third_party/java:org_jetbrains_annotations",
+        "//third_party/java:testng",
+        "//third_party/java:proton_core",
+        "//third_party/java:javapoet",
+    ],
+    java_targets = ["//extras/spytools"],
+)
+
+release_pom(
+    name = "testng_pom",
+    out = "arez-extras-testng.pom",
+    artifact_id = "arez-extras-testng",
+    dependencies = [
+        "org.jspecify:jspecify:1.0.0",
+        "org.realityforge.braincheck:braincheck-core:1.35.0",
+        "org.realityforge.grim:grim-annotations:0.09",
+        "org.realityforge.arez:arez-core:{version}",
+        "org.testng:testng:7.10.2",
+    ],
+    description = "Arez utilities for writing TestNG tests",
+    display_name = "Arez TestNG",
+)
+
+release_javadoc_jar(
+    name = "testng_javadoc",
+    out = "arez-extras-testng-javadoc.jar",
+    classpath = [
+        "//core/src/main/java/arez",
+        "//third_party/java:jspecify",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:jsinterop_annotations",
+        "//third_party/java:base",
+        "//third_party/java:javaemul_internal_annotations",
+        "//third_party/java:org_jetbrains_annotations",
+        "//third_party/java:testng",
+        "//third_party/java:proton_core",
+        "//third_party/java:javapoet",
+    ],
+    java_targets = ["//extras/testng"],
+)
+
+release_pom(
+    name = "persist_core_pom",
+    out = "arez-persist-core.pom",
+    artifact_id = "arez-persist-core",
+    dependencies = [
+        "org.jspecify:jspecify:1.0.0",
+        "org.realityforge.braincheck:braincheck-core:1.35.0",
+        "org.realityforge.grim:grim-annotations:0.09",
+        "com.google.jsinterop:jsinterop-annotations:2.0.0",
+        "org.realityforge.arez:arez-core:{version}",
+        "com.google.jsinterop:base:1.0.0",
+    ],
+    description = "Arez persistence runtime",
+    display_name = "Arez Persist Core",
+)
+
+release_javadoc_jar(
+    name = "persist_core_javadoc",
+    out = "arez-persist-core-javadoc.jar",
+    classpath = [
+        "//core/src/main/java/arez",
+        "//third_party/java:jspecify",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:jsinterop_annotations",
+        "//third_party/java:base",
+        "//third_party/java:javaemul_internal_annotations",
+        "//third_party/java:org_jetbrains_annotations",
+        "//third_party/java:testng",
+        "//third_party/java:proton_core",
+        "//third_party/java:javapoet",
+    ],
+    java_targets = ["//persist/core"],
+)
+
+release_pom(
+    name = "persist_processor_pom",
+    out = "arez-persist-processor.pom",
+    artifact_id = "arez-persist-processor",
+    dependencies = [],
+    description = "Arez persistence annotation processor",
+    display_name = "Arez Persist Annotation Processor",
+)
+
+release_javadoc_jar(
+    name = "persist_processor_javadoc",
+    out = "arez-persist-processor-javadoc.jar",
+    classpath = [
+        "//core/src/main/java/arez",
+        "//third_party/java:jspecify",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:jsinterop_annotations",
+        "//third_party/java:base",
+        "//third_party/java:javaemul_internal_annotations",
+        "//third_party/java:org_jetbrains_annotations",
+        "//third_party/java:testng",
+        "//third_party/java:proton_core",
+        "//third_party/java:javapoet",
+    ],
+    java_targets = ["//persist/processor"],
+)
+
+release_javadoc_jar(
+    name = "site_javadoc",
+    out = "arez-api-javadoc.jar",
+    classpath = [
+        "//core/src/main/java/arez",
+        "//third_party/java:jspecify",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:jsinterop_annotations",
+        "//third_party/java:base",
+        "//third_party/java:javaemul_internal_annotations",
+        "//third_party/java:org_jetbrains_annotations",
+        "//third_party/java:testng",
+        "//third_party/java:proton_core",
+        "//third_party/java:javapoet",
+    ],
+    java_targets = [
+        "//core/src/main/java/arez",
+        "//processor/src/main/java/arez/processor",
+        "//extras/dom",
+        "//extras/promise",
+        "//extras/spytools",
+        "//extras/testng",
+        "//persist/core",
+        "//persist/processor",
+    ],
+)
+
+filegroup(
+    name = "maven_artifacts",
+    srcs = [
+        ":core_jar",
+        ":core_javadoc",
+        ":core_pom",
+        ":core_sources",
+        ":dom_jar",
+        ":dom_javadoc",
+        ":dom_pom",
+        ":dom_sources",
+        ":persist_core_jar",
+        ":persist_core_javadoc",
+        ":persist_core_pom",
+        ":persist_core_sources",
+        ":persist_processor_jar",
+        ":persist_processor_javadoc",
+        ":persist_processor_pom",
+        ":persist_processor_sources",
+        ":processor_jar",
+        ":processor_javadoc",
+        ":processor_pom",
+        ":processor_sources",
+        ":promise_jar",
+        ":promise_javadoc",
+        ":promise_pom",
+        ":promise_sources",
+        ":spytools_jar",
+        ":spytools_javadoc",
+        ":spytools_pom",
+        ":spytools_sources",
+        ":testng_jar",
+        ":testng_javadoc",
+        ":testng_pom",
+        ":testng_sources",
     ],
 )

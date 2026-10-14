@@ -10,3 +10,12 @@ java_binary(
     ],
     main_class = "arez.release.JarBuilder",
 )
+
+java_binary(
+    name = "javadoc_jar_builder",
+    srcs = [
+        "JavadocJarBuilder.java",
+        "package-info.java",
+    ],
+    main_class = "arez.release.JavadocJarBuilder",
+)
