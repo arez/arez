@@ -3,7 +3,7 @@
 # Arez
 
 [<img src="https://img.shields.io/maven-central/v/org.realityforge.arez/arez-core.svg?label=latest%20release"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.realityforge.arez%22)
-![GWT3/J2CL compatible](https://img.shields.io/badge/GWT3/J2CL-compatible-brightgreen.svg)
+![J2CL compatible](https://img.shields.io/badge/J2CL-compatible-brightgreen.svg)
 
 Arez is a simple, efficient and scalable state management library for client-side applications. Arez is powered
 by the reactive programming model found in spreadsheets, a dataflow programming model. Arez tracks usage of
@@ -26,11 +26,24 @@ Arez was released as open source so others could benefit from the project. We ar
 contributions from the community. A [Code of Conduct](CODE_OF_CONDUCT.md) has been put in place and
 a [Contributing](CONTRIBUTING.md) document is under development.
 
-The J2CL verification tasks use Bazel 9.3.0 through Bazelisk. With the Buildr prerequisites installed,
-run `bundle exec buildr arez:extras:promise:bazel_j2cl_test arez:extras:spytools:bazel_j2cl_test GWT=no BUILD_STATS=no`
-to generate the Bazel modules and compile both test applications. Bazel downloads the Java 21 toolchains
-required by J2CL; Buildr itself uses Java 17. The [Bazel J2CL workflow](.github/workflows/bazel-j2cl.yml)
-also runs the JVM tests, with GWT compilation and historical downstream build statistics disabled.
+Build with Bazel 9.3.0 (Bazelisk reads `.bazelversion`), Bash and Python 3. Bazel downloads the
+pinned Java toolchains. Runtime and generated application classes target Java 17; annotation
+processors require Java 21 or later. Component contracts use JSpecify nullability.
+
+```sh
+bazel build //core //processor //extras/dom //extras/promise //extras/spytools //extras/testng //persist/core //persist/processor //doc-examples
+bazel test //:jvm_tests
+tools/check.sh
+```
+
+`tools/check.sh` is the [CI entrypoint](.github/workflows/bazel-j2cl.yml). It checks all retained JVM
+suites, eight Chromium suites in development and optimized production, packaged artifacts,
+hermeticity, formatting, coverage and the Java-generated site.
+
+See [development](docs/development.md) for focused goldens, public packaged JVM/J2CL labels and
+local browser previews; [project setup](docs/project_setup.md) for the Java 21/JSpecify cut; and
+[releasing](docs/releasing.md) for manual publication commands. Use `tools/site.sh serve` to preview
+the documentation. Binary jars and complete source jars are separate; GWT support is retired.
 
 # License
 

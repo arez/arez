@@ -7,32 +7,8 @@ import jsinterop.annotations.JsType;
 /**
  * Factory for getting observable models that sizing of windows.
  *
- * <p>A very simple example</p>
- * <pre>{@code
- * import arez.Arez;
- * import arez.dom.EventDrivenValue;
- * import arez.dom.WindowSize;
- * import arez.dom.WindowSize.Window;
- * import com.google.gwt.core.client.EntryPoint;
- * import jsinterop.annotations.JsPackage;
- * import jsinterop.annotations.JsProperty;
- *
- * public class WindowSizeExample
- *   implements EntryPoint
- * {
- *   public void onModuleLoad()
- *   {
- *     final EventDrivenValue<Window, Integer> innerHeight = WindowSize.innerHeight( window() );
- *     final EventDrivenValue<Window, Integer> innerWidth = WindowSize.innerWidth( window() );
- *
- *     Arez.context().observer( () -> System.out.println(
- *       "Screen size: " + innerWidth.getValue() + " x " + innerHeight.getValue() ) );
- *   }
- *
- *   {@literal @}JsProperty( name = "window", namespace = JsPackage.GLOBAL )
- *   private static native Window window();
- * }
- * }</pre>
+ * <p>See the <a href="https://github.com/arez/arez/blob/master/extras/dom-example/src/main/java/arez/dom/example/WindowSizeExample.java">compiled J2CL example</a> for a JsInterop bootstrap,
+ * reactive updates and observer disposal.</p>
  */
 public final class WindowSize {
     /**

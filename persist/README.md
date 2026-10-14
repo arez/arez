@@ -7,7 +7,7 @@ session or across browser sessions but allows users to supply their own mechanis
 ## Quick Start
 
 Use Java 17 application output and run annotation processing on JDK 21 or later. Set the Maven
-property `<arez.version>0.256</arez.version>` to the release you consume. Both processor artifacts
+property `<arez.version>RELEASE_VERSION</arez.version>` to a release containing the JSpecify migration. Both processor artifacts
 are required for persisted Arez components; see [project setup](../docs/project_setup.md) for the
 Arez processor, JSpecify contracts and formatter JVM exports.
 
@@ -28,6 +28,7 @@ The simplest way to use the library;
 ```xml
 <project>
   ...
+  <build>
   <plugins>
     ...
       <plugin>

@@ -34,21 +34,14 @@ class MyComponentFactory
     _someService = someService;
   }
 
-  @Nonnull MyComponent create(int someParameter)
+  @NonNull MyComponent create(int someParameter)
   {
     return new MyComponent(_someService, someParameter);
   }
 }
 ```
 
-* Remove `BuildOutputTest` by pushing the grim tests into downstream projects that always verify they meet
-  expectations. This is easier to maintain and makes it possible to verify each variant we build with all
-  grim-compatible libraries. We could easily add a test to arez that just built `raw` branch of `react4j-todomvc`
-  but with different compile time settings.
-
-* Figure out a way how to use Some sort of Constant string lookup for all `@Omit*`. Maybe down the track we could
-  generate the constant file, the `ArezConfig`, `ArezTestUtil`, parts of `Arez.gwt.xml` and part of the `arez.js`
-  from a single descriptor somewhere. Update `BuildOutputTest` to use constants.
+* Generate configuration constants, `ArezConfig`, `ArezTestUtil` and native `arez.js` defines from a single descriptor.
 
 * Can inverse references be maps. The key would be the component id.
 
@@ -90,6 +83,17 @@ class MyComponentFactory
       dispose and then activates before the dispose task runs. Should the dispose be aborted or should it go ahead?
       Currently the Arez API does not expose a flag indicating whether computableValues are observed and not possible
       to implement the first strategy even though it may seem to be the right one.
+
+## Known Bugs
+
+* Persist Object restore initializes a property from its key constant rather than the saved map value.
+  See [SidecarGenerator](persist/processor/src/main/java/arez/persist/processor/SidecarGenerator.java).
+* Nested persisted components can generate a sidecar factory name based on the peer's enclosing types,
+  although the generated sidecar itself is a top-level type. Check the factory against the actual enhanced
+  sidecar name in [SidecarGenerator](persist/processor/src/main/java/arez/persist/processor/SidecarGenerator.java).
+* [GeoPosition](extras/dom/src/main/java/arez/dom/GeoPosition.java) populates Position's speed field from longitude
+  in `onSuccess`. The controlled browser example displays latitude/longitude, so this existing defect does
+  not affect that preview's update/error/watch tests.
 
 ## On Stable Release
 

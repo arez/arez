@@ -312,7 +312,7 @@ Out of scope:
 
 ## Open questions
 
-None. User approval of this reviewed plan is pending. Required remote permissions
+None. The user approved the reviewed plan. Required remote permissions
 are an execution-authority boundary, not an unresolved implementation design.
 
 ## Knowledge ownership
@@ -325,3 +325,14 @@ qualification tests hold; mutable commands remain in development/setup docs.
 Golden grouping and its rationale are transferred to their durable documentation
 owner before the active deferred issue is deleted. No new question is silently
 deferred. Canonical artifacts are linked from this plan once they exist.
+
+## Canonical knowledge
+
+The nullness interpretation in D05–D06 expands the [processor nullability specification](../../docs/specs/processor-nullability.md).
+The complete build choice expands the [Bazel build ADR](../../docs/adr/0001-bazel-build.md), and
+D11–D12 expand the [publication boundary ADR](../../docs/adr/0002-publication-artifact-boundary.md).
+Mutable labels, compiler prerequisites, regression commands and release operations are owned by
+[development](../../docs/development.md), [project setup](../../docs/project_setup.md) and
+[releasing](../../docs/releasing.md). Concrete pre-existing defects are owned by the
+[bug backlog](../../TODO.md#known-bugs). The complete candidate classification is in
+[knowledge-classification.md](knowledge-classification.md).

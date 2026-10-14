@@ -1,5 +1,10 @@
 # Development checks
 
+The [Bazel build decision](adr/0001-bazel-build.md) and
+[publication artifact boundary](adr/0002-publication-artifact-boundary.md) explain the build ownership.
+The [processor nullability specification](specs/processor-nullability.md) owns effective JSpecify contracts.
+
+
 Bazel compiles shared processor test support once. Generated-output tests use
 feature families as the cache boundary, keeping JVM startup costs bounded while
 allowing fixture and golden edits to invalidate their owning family. Each family
@@ -52,6 +57,10 @@ Core invariant messages require the complete core suite so the collector sees al
 messages. Spy-event updates select exactly one integration method and copy back
 only its JSON file. Both use disposable copies of declared fixture inputs and
 rerun the corresponding check.
+
+Inspect invariant codes with `python3 tools/error_codes.py unused`, `new` or
+`next`. These read the same maintained message inventory; `next` prefers the
+first retired code before allocating a new one.
 
 Java runtime sources use the pinned Sting Error Prone policy and JSpecify-mode
 NullAway. Checks are errors and javac warnings fail the build. NullAway also

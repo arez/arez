@@ -28,13 +28,7 @@ final class ArezUtil {
 
     /**
      * Return string converted to stack trace.
-     * This method uses explicit traversal to be compatible with GWT.
-     * Contrast this with the following code that is not compatible with GWT.
-     *
-     * <pre>
-     * final StringWriter out = new StringWriter();
-     * t.printStackTrace( new PrintWriter( out ) );
-     * </pre>
+     * This method traverses the throwable explicitly rather than using JVM-only writers.
      *
      * @param throwable the throwable to convert
      * @return the stack trace.

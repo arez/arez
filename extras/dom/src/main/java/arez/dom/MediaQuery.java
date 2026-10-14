@@ -21,24 +21,8 @@ import jsinterop.annotations.JsType;
 /**
  * An observable model that indicates whether a window matches a CSS media query.
  *
- * <p>A very simple example</p>
- * <pre>{@code
- * import arez.Arez;
- * import arez.dom.MediaQuery;
- * import com.google.gwt.core.client.EntryPoint;
- *
- * public class MediaQueryExample
- *   implements EntryPoint
- * {
- *   public void onModuleLoad()
- *   {
- *     final MediaQuery mediaQuery = MediaQuery.create( "(max-width: 600px)" );
- *     Arez.context().observer( () ->
- *                                System.out.println( "Screen size Status: " +
- *                                                    ( mediaQuery.matches() ? "Narrow" : "Wide" ) ) );
- *   }
- * }
- * }</pre>
+ * <p>See the <a href="https://github.com/arez/arez/blob/master/extras/dom-example/src/main/java/arez/dom/example/MediaQueryExample.java">compiled J2CL example</a> for a JsInterop bootstrap,
+ * reactive updates and observer disposal.</p>
  */
 @ArezComponent(requireId = Feature.DISABLE)
 public abstract class MediaQuery {

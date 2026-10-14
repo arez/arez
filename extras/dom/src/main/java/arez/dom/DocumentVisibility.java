@@ -9,22 +9,8 @@ import jsinterop.annotations.JsType;
 /**
  * Exposes {@code document.visibilityState} as an observable property for specified documents.
  *
- * <p>A very simple example</p>
- * <pre>{@code
- * import arez.Arez;
- * import arez.dom.DocumentVisibility;
- * import com.google.gwt.core.client.EntryPoint;
- *
- * public class DocumentVisibilityExample
- *   implements EntryPoint
- * {
- *   public void onModuleLoad()
- *   {
- *     final DocumentVisibility v = DocumentVisibility.create();
- *     Arez.context().observer( () -> System.out.println( "Document Visibility: " + v.getVisibility() ) );
- *   }
- * }
- * }</pre>
+ * <p>See the <a href="https://github.com/arez/arez/blob/master/extras/dom-example/src/main/java/arez/dom/example/DocumentVisibilityExample.java">compiled J2CL example</a> for a JsInterop bootstrap,
+ * reactive updates and observer disposal.</p>
  */
 public final class DocumentVisibility implements Disposable {
     /**

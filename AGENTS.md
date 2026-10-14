@@ -17,12 +17,13 @@ reasonable alternatives.
   - `extras/promise` (Arez-Enabled Promise component) and `extras/promise-example` (Examples for the promise components)
   - `extras/spytools` (Spy support infrastructure)
   - `extras/testng` (TestNG support infrastructure)
+  - `persist/core` and `persist/processor` (persistence runtime and processor)
 - Tests and verification modules:
   - `integration-tests/` (integration tests)
-  - `downstream-test/` (validate Arez against downstream projects)
+  - `persist/integration-tests/` (Persist integration tests)
 - Source code used in documentation: `doc-examples/`.
-- Docs and site: `docs/`, `website/` (Docusaurus v1), `assets/`.
-- Build configuration: `buildfile` (Buildr), `tasks/*.rake` (CI/site tasks).
+- Docs and site: `docs/`, `website/` (Java-generated static site), `assets/`.
+- Build configuration: `MODULE.bazel`, owning-package `BUILD.bazel` files and `tools/`. List owned sources explicitly.
 - Source layout: `*/src/main/java/...`; tests: `*/src/test/java/...`.
 - Generated binaries and build artifacts should stay out of version control and should stay untouched unless you are
   troubleshooting a local build.
@@ -46,27 +47,33 @@ reasonable alternatives.
 
 ## Build, Test, and Development Commands
 
-Prerequisites: JDK 17+, Ruby 2.7.x with Bundler, Node.js (for docs site) and Yarn.
+Prerequisites: Bazel 9.3.0 (or Bazelisk), Bash and Python 3. Bazel downloads pinned Java 21/25 runtimes;
+application and owned processor bytecode target Java 17. Running published annotation processors requires JDK 21+.
 
-- Bootstrap once: `bundle install` and `yarn install`.
-- Build all modules: `bundle exec buildr clean package`.
-- Run tests: `bundle exec buildr test`.
-- Docs site (optional): `bundle exec buildr site:serve` (dev), `bundle exec buildr site:build` (static output under `reports/site`).
+- Full local/CI gate: `tools/check.sh` (format, Buildifier, Ahab, JVM/browser tests, artifacts, coverage and site).
+- Focused JVM tests: `bazel test //:jvm_tests`; complete tests: `bazel test //:all_tests`.
+- Browser matrix: `bazel test //:browser_tests` and `bazel test -c opt //:browser_tests`.
+- Docs: `tools/site.sh build`, `tools/site.sh check`, `tools/site.sh serve`; output is `reports/site`.
+- For processor fixtures, source updates or public consumer targets, read [development](docs/development.md).
+- For signing, publication or deployment, read [releasing](docs/releasing.md).
 
 ## Coding Style & Naming Conventions
 
 - Language: Java 17; compilation uses `-Xlint:all` and `-Werror` (warnings must be fixed).
-- Indentation: 2 spaces; braces on a new line for types/methods; keep imports ordered and minimal.
-- Annotations: prefer `@Nonnull`/`@Nullable`; use `final` where practical.
+- Maintained Java uses Palantir formatting: `tools/java_format.sh write` and `tools/java_format.sh check`.
+  Fixture inputs and their generated goldens retain their declared formatting modes; review their exact output changes.
+- Nullability: JSpecify `@NullMarked` scopes and type-use `@Nullable`/`@NonNull`; legacy annotations have no effect.
+  For processor nullness changes, read the [nullability specification](docs/specs/processor-nullability.md). Use `final` where practical.
 - Naming: packages lowercase (`arez.*`), classes `PascalCase`, methods/fields `camelCase`, constants `UPPER_SNAKE_CASE`.
 - Public API must include Javadoc; keep package-level docs in `package-info.java`.
 
 ## Testing Guidelines
 
-- Framework: TestNG across modules.
+- Framework: TestNG for JVM suites; Closure jsunit with pinned Chromium for browser suites.
 - Location: place tests under `*/src/test/java`; integration tests live in `integration-tests/src/test/java`.
 - Naming: suffix unit tests with `Test` and integration tests with `IntegrationTest`.
-- Run all tests with `bundle exec buildr test` before submitting.
+- Run `tools/check.sh` before submitting. Keep every retained scenario in its owning aggregate; generated-output
+  tests compare exact emitted-file sets in both modes. Run focused checks while iterating, then the full gate.
 
 ## Commit & Pull Request Guidelines
 
@@ -80,4 +87,5 @@ Prerequisites: JDK 17+, Ruby 2.7.x with Bundler, Node.js (for docs site) and Yar
 ## Security & Configuration Tips (Optional)
 
 - Never commit secrets.
-- Release-related env vars: `PRODUCT_VERSION`, `PREVIOUS_PRODUCT_VERSION`; for quicker local cycles set `J2CL=no`.
+- Release credentials belong outside the checkout. Use the explicit unsigned-preview commands before publication.
+- Preserve the [public artifact boundary](docs/adr/0002-publication-artifact-boundary.md): public consumers use assembled release jars/source archives.

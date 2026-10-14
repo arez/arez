@@ -40,25 +40,8 @@ import jsinterop.annotations.JsType;
  * there is no observer observing the idle state then the model will remove listeners
  * so as not to have any significant performance impact.</p>
  *
- * <p>A very simple example</p>
- * <pre>{@code
- * import com.google.gwt.core.client.EntryPoint;
- * import arez.Arez;
- * import arez.dom.IdleStatus;
- *
- * public class IdleStatusExample
- *   implements EntryPoint
- * {
- *   public void onModuleLoad()
- *   {
- *     final IdleStatus idleStatus = IdleStatus.create();
- *     Arez.context().autorun( () -> {
- *       final String message = "Interaction Status: " + ( idleStatus.isIdle() ? "Idle" : "Active" );
- *       System.out.println( message );
- *     } );
- *   }
- * }
- * }</pre>
+ * <p>See the <a href="https://github.com/arez/arez/blob/master/extras/dom-example/src/main/java/arez/dom/example/IdleStatusExample.java">compiled J2CL example</a> for a JsInterop bootstrap,
+ * reactive updates and observer disposal.</p>
  */
 @ArezComponent(requireId = Feature.DISABLE)
 public abstract class IdleStatus {

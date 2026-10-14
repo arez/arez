@@ -89,8 +89,6 @@ final class SidecarGenerator {
         builder.addField(FieldSpec.builder(TypeName.INT, "c_nextTaskId", Modifier.PRIVATE, Modifier.STATIC)
                 .build());
 
-        // Create a nested keys type to eliminate any possibility GWT will
-        // attempt to create a <clinit> for sidecar type and the deopt that brings  .
         builder.addType(buildKeysType(descriptor));
 
         // Create a separate class to hold converters to eliminate <clinit>

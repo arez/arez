@@ -31,7 +31,7 @@ final class ArezLogger {
 
     /**
      * Abstraction used to provide logging for Arez system.
-     * This abstraction is used to support compile time constants during GWT and/or closure
+     * This abstraction is used to support compile time constants during J2CL/Closure
      * compiler phases and thus allow elimination of code during production variants of the runtime.
      */
     interface Logger {

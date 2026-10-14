@@ -21,24 +21,8 @@ import org.jspecify.annotations.Nullable;
  * as the value that it resolves to or the error it was rejected with as observable
  * properties.
  *
- * <p>A very simple example</p>
- * <pre>{@code
- * import arez.Arez;
- * import arez.promise.ObservablePromise;
- * import arez.promise.ObservablePromise.Promise;
- * import com.google.gwt.core.client.EntryPoint;
- *
- * public class Example
- *   implements EntryPoint
- * {
- *   public void onModuleLoad()
- *   {
- *     final Promise<Response> promise = fetch( "https://example.com/" );
- *     final ObservablePromise<Response, Object> observablePromise = ObservablePromise.create( promise );
- *     Arez.context().observer( () -> System.out.println( "Promise Status: " + observablePromise.getState() ) );
- *   }
- * }
- * }</pre>
+ * <p>See the <a href="https://github.com/arez/arez/blob/master/extras/promise-example/src/main/java/arez/promise/example/ObservablePromiseExample.java">compiled J2CL example</a> for a JsInterop bootstrap,
+ * reactive updates and observer disposal.</p>
  *
  * @param <T> the type of the value that the promise will resolve to.
  * @param <E> the type of the error if the promise is rejected.

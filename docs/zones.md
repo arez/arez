@@ -10,7 +10,7 @@ properties from the same zone.
 
 Zones are an advanced concept and not used in the typical application. Zones can add some runtime overhead
 depending on the way that they are used. As a result, developers must explicitly enable zones at compile time.
-This is activated by setting the `arez.enable_zones` configuration property to `true` in a `.gwt.xml` module.
+For J2CL, pass `--define=arez.enable_zones=true` to Closure. On the JVM, set the corresponding system property.
 
 When zones are enabled, the {@link: arez.Arez#context()} method will return the
 {@link: arez.ArezContext} of the current zone. When actions and observers are invoked, Arez will switch to

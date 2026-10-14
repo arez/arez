@@ -2,7 +2,7 @@
 
 - Spec: [SPEC.md](../SPEC.md)
 - Status: implementing
-- Current frontier: T26
+- Current frontier: T27
 - Planning reviewer: /root/planning_reviewer (2/3 rounds; passed, Findings: none)
 - Plan checkpoint: human-review (approved)
 - Checkpoint basis: the user said "Proceed" after the reviewed spec/task map and
@@ -27,7 +27,7 @@
 - Artifact reproducibility: independent-output-base hash comparisons, including
   binary, source, Javadoc and POM outputs; cached reruns alone are insufficient.
 - Final evidence: pending
-- Current milestone: T25 completes tools/check.sh, both Ahab/browser modes and coverage for all 31 retained JVM targets. Legacy removal and canonical documentation are next.
+- Current milestone: T26 removes tracked legacy tooling/support, preserves native inputs, updates contributor/public guidance and completes canonical knowledge promotion. Fresh final verification is next.
 
 ## Tasks
 
@@ -58,7 +58,7 @@
 | T23 | [Generate and preview the website with Java](T23-java-website.md) | complete | T17, T18 |
 | T24 | [Replace manual release and deployment commands](T24-release-orchestration.md) | complete | T18, T23 |
 | T25 | [Run the full check entrypoint in CI](T25-ci-ahab-coverage.md) | complete | T21, T22, T23, T24 |
-| T26 | [Remove old infrastructure and document delivered contracts](T26-remove-legacy-document-contracts.md) | pending | T25 |
+| T26 | [Remove old infrastructure and document delivered contracts](T26-remove-legacy-document-contracts.md) | complete | T25 |
 | T27 | [Verify the clean final migration and prepare implementation review](T27-final-verification.md) | pending | T26 |
 
 ## Acceptance ownership
@@ -167,7 +167,12 @@ in this plan is not a claim that they already exist.
   existing canonical owners instead of duplicating, validate links and record
   exact owner links here once written.
 - Golden grouping/update ownership: [development documentation](../../../docs/development.md); deferred issue resolved/deleted in T06, link validation passed.
-- Promotion status: remaining classification/promotion sweep pending T26–T27. T12 also records the pre-existing Object restore generator issue for classification/follow-up.
+- Promotion status: complete at T26; [candidate classification](../knowledge-classification.md) and specification-only audit passed.
+- Canonical contracts: [processor nullability](../../../docs/specs/processor-nullability.md).
+- Canonical decisions: [Bazel build](../../../docs/adr/0001-bazel-build.md), [public archive boundary](../../../docs/adr/0002-publication-artifact-boundary.md).
+- Existing operational owners: [development](../../../docs/development.md), [setup](../../../docs/project_setup.md), [release](../../../docs/releasing.md).
+- Concrete existing defects: [bug backlog](../../../TODO.md#known-bugs); inverse construction limitation: [reference documentation](../../../docs/at_reference.md#inverse).
+- No new glossary/use case/deferred issue qualified. Domain link validator passed against the repository root; final T27 sweep verifies these owners before review.
 
 ## Review and closeout routing
 

@@ -21,13 +21,21 @@ Participation in this project comes under the [Contributor Covenant Code of Cond
 
 When submitting pull requests, make sure to do the following:
 
-- Maintain the same code style as the rest of the project.
+- Run `tools/java_format.sh write` for maintained Java and review the formatting diff.
+- For processor fixtures, use the focused updater in [development](docs/development.md); review both exact golden output sets.
 - Remove trailing whitespace. Many editors will do this automatically.
 - Ensure any new files have [a trailing newline](https://stackoverflow.com/questions/5813311/no-newline-at-end-of-file)
 
+## Verification
+
+Run `tools/check.sh` before submitting. It is the same command used by CI and includes all retained JVM tests,
+all eight browser suites in both modes, strict generated Java checks, artifact consumers, Ahab, coverage and site
+links. See [development](docs/development.md) for focused commands and [project setup](docs/project_setup.md)
+for Java 17 output, Java 21 processors and JSpecify contracts.
+
 ## How to speed the merging of pull requests
 
-* Describe your changes in the CHANGELOG.md (if present).
+* Describe user-visible changes under Unreleased in CHANGELOG.md, including processor diagnostics.
 * Give yourself some credit in the appropriate place (usually the CHANGELOG.md).
 * Make commits of logical units.
 * Ensure your commit messages help others understand what you are doing and why.

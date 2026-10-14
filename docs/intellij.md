@@ -7,31 +7,34 @@ is however the only IDE that the authors have experience with when tuning the co
 
 ## Configure the Annotation Processors
 
-IntelliJ IDEA 2017.2 does not correctly setup annotation processors when importing a `pom.xml` if the
-annotation processor jar is not also present on the compile path. So it is necessary to manually configure
-the annotation processors.
+Use Bazel for repository compilation and generation. Build the relevant targets before importing their
+generated sources into the IDE; `bazel test //:jvm_tests` and `tools/check.sh` remain the verification commands.
 
-This involves opening up the `Settings` or `Preferences` dialog which is accessed through the
-menu `IntelliJ IDEA -> Preferences` under Mac OSX or `File -> Settings` under Linux and Windows.
-Then go to `Build, Execution, Deployment -> Compiler -> Annotation Processors` and configure
-the `Processor Path` to include the path to the annotation processor jar.
+If the IDE compiles application sources directly, run its compiler on JDK 21 or later with Java 17 output.
+Configure both packaged processors as needed, JSpecify on the application classpath, the
+`-XDaddTypeAnnotationsToSymbol=true` compiler flag and the formatter JVM exports described in
+[project setup](project_setup.md). The processor path contains the assembled `arez-processor.jar` and,
+for Persist, `arez-persist-processor.jar`; their compiler infrastructure is shaded inside those jars.
+
+In Settings, open `Build, Execution, Deployment -> Compiler -> Annotation Processors`, enable
+annotation processing and select `Processor path` for the assembled jars. See the
+[IntelliJ annotation processor documentation](https://www.jetbrains.com/help/idea/annotation-processors-support.html)
+for profile and generated-source options. Maven imports can obtain their processor paths from the POM.
 
 ![Configuring the AnnotationProcessor](/img/IntelliJ-AnnotationProcessor.png)
 
 ## Enable Auto Build
 
-If your project is small enough or your processor is fast enough it is also useful to enable
-automatic annotation processing. As before you can open up the preferences dialog and go to
-`Build, Execution, Deployment -> Compiler` and enable `"Make project automatically"`. And then
-open the Action window:
-
-* Linux: `CTRL+SHIFT+A`
-* MacOS: `SHIFT+COMMAND+A`
-* Windows: `CTRL+ALT+SHIFT+/`
-
-Enter `Registry...` and enable `compiler.automake.allow.when.app.running`.
+When using IntelliJ's compiler directly, enable `Build project automatically` under
+`Build, Execution, Deployment -> Compiler` to compile changed files on save. See the
+[compiler settings documentation](https://www.jetbrains.com/help/idea/compiler.html).
+Configure the Java 21 processor/compiler settings above first.
 
 ![IntelliJ enable auto build when running](/img/IntelliJ-EnableAutoBuild.png)
+
+After changing a component, rebuild its owning Bazel target and refresh the IDE's generated source view.
+Use `tools/java_format.sh write` for maintained Java. Processor goldens are updated through the focused
+commands in [development](https://github.com/arez/arez/blob/master/docs/development.md), which also rerun their exact-output checks.
 
 ## Add Generated Source to Path
 

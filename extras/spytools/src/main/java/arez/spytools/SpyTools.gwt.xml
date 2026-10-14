@@ -1,6 +1,0 @@
-<module>
-  <inherits name='arez.Arez'/>
-  <inherits name='jsinterop.base.Base'/>
-
-  <source path='' includes='*.java'/>
-</module>

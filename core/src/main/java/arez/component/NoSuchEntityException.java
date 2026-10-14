@@ -6,7 +6,6 @@ import java.util.Objects;
 /**
  * Exception thrown by repository when the query for a specific entity failed.
  */
-@SuppressWarnings("GwtInconsistentSerializableClass")
 public class NoSuchEntityException extends NoResultException {
 
     private final Object _id;

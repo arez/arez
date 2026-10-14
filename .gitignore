@@ -22,3 +22,7 @@
 /.bazelrc.local
 /dist
 /.bazelbsp
+
+# Python helper caches
+__pycache__/
+*.pyc

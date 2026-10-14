@@ -2,6 +2,12 @@
 
 ### Unreleased
 
+* Replace Buildr/Ruby/Yarn/Node project tooling and Docusaurus with Bazel builds, a Java site generator, explicit release commands and the shared CI check gate. Remove downstream repository builds and GWT compiler/modules/bootstraps.
+
+* Run all seven DOM examples and the promise example through J2CL with local previews and deterministic Chromium tests in development and optimized production.
+
+* Publish complete sources separately from binary jars, including generated Java and native JavaScript. Public Bazel JVM imports/processors and browser libraries consume those publication archives; aggregate API documentation covers all eight artifacts.
+
 * Bind idle and network event subscriptions through `window` for optimized J2CL builds.
 
 * Handle an empty browser hash without taking an out-of-range substring and bind location listeners through `window`, so BrowserLocation initializes and compiles in optimized J2CL builds.
@@ -22,7 +28,7 @@
 
 * Replace core nullability annotations with JSpecify marked scopes. Nullable action arrays and their nullable elements are separate contracts; callback value types remain parametric and may include null.
 
-* Upgrade the development and CI Bazel version to 9.3.0 and migrate the generated J2CL verification workspaces to Bazel modules.
+* Upgrade the development and CI Bazel version to 9.3.0 with pinned Java toolchains.
 
 ### [v0.256](https://github.com/arez/arez/tree/v0.256) (2026-08-25) · [Full Changelog](https://github.com/arez/arez/compare/v0.255...v0.256)
 

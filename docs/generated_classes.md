@@ -32,15 +32,16 @@ generated source archive:
 
 {@file_content: path=generated/processors/main/java file=arez/doc/examples/access_level/Arez_MyComponent.java start_line=@Generated "end_line=private static volatile" include_end_line=false}
 
-The generated component subclass also implements the following interfaces; {@link: arez.Disposable},
-{@link: arez.component.Identifiable} and {@link: arez.component.ComponentObservable}.
+Every generated component subclass implements {@link: arez.Disposable}. Depending on the
+component's features, it also implements identity, observation and disposal-notification interfaces.
 
 * The {@link: arez.Disposable} interface provides a mechanism to decommission the component and release
   any resources associated with the component.
 * The {@link: arez.component.Identifiable} interface exposes the underlying identifier used by the Arez
-  system to uniquely identify the component instance of this particular type.
+  system to uniquely identify the component instance of this particular type when an ID is required.
 * The {@link: arez.component.ComponentObservable} allows observers to observe the component without
-  observing a particular property of the component. This is typically used in conjunction with the
+  observing a particular property of the component when `@ArezComponent.observable` enables it.
+  This is typically used in conjunction with the
   {@link: arez.annotations.ArezComponent#disposeOnDeactivate() @ArezComponent.disposeOnDeactivate} parameter to ensure a component is kept
   alive while it is in use. Components managed this way should not also be explicitly cascade-disposed by an
   owning component; the annotation processor warns about that mixed lifecycle configuration.

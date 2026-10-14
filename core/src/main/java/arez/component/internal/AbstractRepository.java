@@ -207,7 +207,6 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      * @param entity the entity to detach.
      */
     private void detach(final T entity, final boolean disposeEntity) {
-        // This method has been extracted to try and avoid GWT inlining into invoker
         final T removed = _entities.remove(Identifiable.<K>getArezId(entity));
         if (null != removed) {
             getEntitiesObservableValue().preReportChanged();

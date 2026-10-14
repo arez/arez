@@ -1,6 +1,0 @@
-<module>
-  <inherits name='arez.annotations.Annotations'/>
-  <inherits name='arez.Arez'/>
-
-  <source path=''/>
-</module>

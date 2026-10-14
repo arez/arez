@@ -11,7 +11,7 @@ import org.jspecify.annotations.Nullable;
 /**
  * A utility class that contains reference to zone data when zones are enabled.
  * This is extracted to a separate class to eliminate the <clinit> from Arez and thus
- * make it much easier for GWT to optimize out code based on build time compilation parameters.
+ * make it much easier for Closure to optimize out code based on build time compilation parameters.
  */
 @OmitType(unless = "arez.enable_zones")
 final class ZoneHolder {

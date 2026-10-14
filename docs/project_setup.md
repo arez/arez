@@ -12,9 +12,9 @@ contracts must have specified JSpecify nullness.
 
 ## Configure Maven
 
-Run Maven on JDK 21 or later, set `arez.version` to the release you consume (the example starts
-from the previous release), add the library
-dependency and configure the compiler to use the Arez annotation processor. The
+These instructions describe the JSpecify migration; the last legacy release is 0.256. Run Maven on
+JDK 21 or later and replace `RELEASE_VERSION` with a release containing this migration.
+Add the library dependency and configure the compiler to use the Arez annotation processor. The
 [Maven compiler plugin](https://maven.apache.org/plugins-archives/maven-compiler-plugin-3.12.1/compile-mojo.html)
 supports the `release` and `annotationProcessorPaths` configuration shown below.
 
@@ -25,7 +25,7 @@ your Maven project, simply add the following to your `pom.xml`:
 ```xml
 <project>
   <properties>
-    <arez.version>0.256</arez.version>
+    <arez.version>RELEASE_VERSION</arez.version>
   </properties>
   ...
   <dependencies>
@@ -46,6 +46,7 @@ snippet to configure the maven compiler plugin from within the `pom.xml`:
 ```xml
 <project>
   ...
+  <build>
   <plugins>
     ...
       <plugin>

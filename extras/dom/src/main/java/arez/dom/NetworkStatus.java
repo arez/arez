@@ -25,28 +25,8 @@ import jsinterop.annotations.JsType;
  * observer for the state, the model will not listen to to the browser events so as
  * not to have any significant performance impact.
  *
- * <p>A very simple example</p>
- * <pre>{@code
- * import com.google.gwt.core.client.EntryPoint;
- * import arez.Arez;
- * import arez.networkstatus.NetworkStatus;
- *
- * public class NetworkStatusExample
- *   implements EntryPoint
- * {
- *   public void onModuleLoad()
- *   {
- *     final NetworkStatus networkStatus = NetworkStatus.create();
- *     Arez.context().observer( () -> {
- *       System.out.println( "Network Status: " + ( networkStatus.isOnLine() ? "Online" : "Offline" ) );
- *       if ( networkStatus.isOffLine() )
- *       {
- *         System.out.println( "Offline since: " + networkStatus.getLastChangedAt() );
- *       }
- *     } );
- *   }
- * }
- * }</pre>
+ * <p>See the <a href="https://github.com/arez/arez/blob/master/extras/dom-example/src/main/java/arez/dom/example/NetworkStatusExample.java">compiled J2CL example</a> for a JsInterop bootstrap,
+ * reactive updates and observer disposal.</p>
  */
 @ArezComponent(requireId = Feature.DISABLE)
 public abstract class NetworkStatus {

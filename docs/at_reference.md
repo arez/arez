@@ -82,10 +82,14 @@ The multiplicity of a relationship is defined by the type returned by the method
   compatible with the class containing the method annotated with the {@link: arez.annotations.Reference @Reference} annotation.
 * {@link: arez.annotations.Multiplicity#ONE}: The inverse is related to exactly one reference. The type of
   the inverse must be compatible with the class containing the method annotated with the {@link: arez.annotations.Reference @Reference}
-  annotation. The inverse MUST be annotated with `javax.annotation.Nonnull`
+  annotation. The inverse must have effective non-null JSpecify nullness, for example within a `@NullMarked` scope.
 * {@link: arez.annotations.Multiplicity#ZERO_OR_ONE}: The inverse is related to one or no reference.
   The type of the inverse must be compatible with the class containing the method annotated with the
-  {@link: arez.annotations.Reference @Reference} annotation. The inverse MUST be annotated with `javax.annotation.Nullable`.
+  {@link: arez.annotations.Reference @Reference} annotation. The inverse must use type-use `org.jspecify.annotations.Nullable`.
+
+An inverse with unspecified nullness is diagnosed. Legacy nullability annotations do not determine multiplicity.
+During component construction a ONE inverse can still be unbound and return null; access it after relationships
+have been initialized. Its internal construction state does not change its declared ONE cardinality.
 
 So if we were to add an inverse relationship between the `Group` and `Permission` class illustrated earlier
 we would need to modify both sides of the relationship. The `Permission` class would look like:
