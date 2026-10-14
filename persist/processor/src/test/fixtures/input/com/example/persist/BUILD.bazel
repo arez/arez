@@ -14,3 +14,17 @@ filegroup(
         "//persist/processor/src/test/fixtures/input/com/example/persist/types:all",
     ],
 )
+
+filegroup(
+    name = "direct",
+    srcs = [
+        "BasicPersistModel.java",
+        "CustomNamePersistModel.java",
+        "CustomSetterPersistModel.java",
+        "CustomStorePersistModel.java",
+        "MultiPropertyPersistModel.java",
+        "MultiStorePersistModel.java",
+        "ObjectTypePersistModel.java",
+        "UnnecessaryCustomStorePersistModel.java",
+    ],
+)

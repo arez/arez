@@ -26,3 +26,29 @@ filegroup(
         "//processor/src/test/fixtures/input/com:all",
     ],
 )
+
+filegroup(
+    name = "direct",
+    srcs = [
+        "AnnotationsOnModel.java",
+        "BasicModelWithDifferentAccessLevels.java",
+        "BasicObservableModel.java",
+        "DefaultMethodsModel.java",
+        "DifferentObservableTypesModel.java",
+        "DisposingModel.java",
+        "EmptyModel.java",
+        "MyAnnotatedInterface.java",
+        "NestedModel.java",
+        "NestedNestedModel.java",
+        "ObservableGuessingModel.java",
+        "ObservableModelWithUnconventionalNames.java",
+        "ObservableTypeParametersModel.java",
+        "ObservableWithAnnotatedCtorModel.java",
+        "ObservableWithCtorModel.java",
+        "ObservableWithExceptingCtorModel.java",
+        "ObservableWithExceptionModel.java",
+        "ObservableWithSpecificExceptionModel.java",
+        "OverrideNamesInModel.java",
+        "TypeParametersOnModel.java",
+    ],
+)

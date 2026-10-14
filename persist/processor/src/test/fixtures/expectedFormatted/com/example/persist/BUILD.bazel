@@ -13,3 +13,16 @@ filegroup(
         "//persist/processor/src/test/fixtures/expectedFormatted/com/example/persist/types:all",
     ],
 )
+
+filegroup(
+    name = "direct",
+    srcs = [
+        "BasicPersistModel_PersistSidecar.java",
+        "CustomNamePersistModel_PersistSidecar.java",
+        "CustomSetterPersistModel_PersistSidecar.java",
+        "CustomStorePersistModel_PersistSidecar.java",
+        "MultiPropertyPersistModel_PersistSidecar.java",
+        "MultiStorePersistModel_PersistSidecar.java",
+        "ObjectTypePersistModel_PersistSidecar.java",
+    ],
+)

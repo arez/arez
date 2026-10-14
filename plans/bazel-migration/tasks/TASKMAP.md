@@ -2,7 +2,7 @@
 
 - Spec: [SPEC.md](../SPEC.md)
 - Status: implementing
-- Current frontier: T06
+- Current frontier: T07
 - Planning reviewer: /root/planning_reviewer (2/3 rounds; passed, Findings: none)
 - Plan checkpoint: human-review (approved)
 - Checkpoint basis: the user said "Proceed" after the reviewed spec/task map and
@@ -38,7 +38,7 @@
 | T03 | [Compile generated integrations and documentation examples](T03-integration-doc-parity.md) | complete | T02 |
 | T04 | [Build extras and run their JVM tests](T04-extras-parity.md) | complete | T03 |
 | T05 | [Run the complete Persist JVM slice](T05-persist-parity.md) | complete | T04 |
-| T06 | [Select and regenerate focused golden families](T06-focused-goldens.md) | pending | T05 |
+| T06 | [Select and regenerate focused golden families](T06-focused-goldens.md) | complete | T05 |
 | T07 | [Apply and check Palantir formatting](T07-java-format.md) | pending | T06 |
 | T08 | [Migrate core API and runtime contracts to JSpecify](T08-core-jspecify.md) | pending | T07 |
 | T09 | [Cut both processors to the pinned Proton and JSpecify API](T09-processor-jspecify-cut.md) | pending | T08 |
@@ -166,7 +166,8 @@ in this plan is not a claim that they already exist.
   architectural decisions. Promote only qualifying specifications/ADRs, update
   existing canonical owners instead of duplicating, validate links and record
   exact owner links here once written.
-- Promotion status: pending
+- Golden grouping/update ownership: [development documentation](../../../docs/development.md); deferred issue resolved/deleted in T06, link validation passed.
+- Promotion status: remaining classification/promotion sweep pending T26–T27
 
 ## Review and closeout routing
 

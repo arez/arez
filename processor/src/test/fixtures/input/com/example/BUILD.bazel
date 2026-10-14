@@ -54,3 +54,10 @@ filegroup(
         "//processor/src/test/fixtures/input/com/example/verifiable:all",
     ],
 )
+
+filegroup(
+    name = "direct",
+    srcs = [
+        "SubpackageModel.java",
+    ],
+)

@@ -9,3 +9,27 @@ filegroup(
         "//persist/processor/src/test/fixtures/input:all",
     ],
 )
+
+filegroup(
+    name = "model_goldens",
+    srcs = [
+        "//persist/processor/src/test/fixtures/expected/com/example/persist:direct",
+        "//persist/processor/src/test/fixtures/expected/com/example/persist_id:all",
+        "//persist/processor/src/test/fixtures/expected/com/example/persist_type:all",
+        "//persist/processor/src/test/fixtures/expectedFormatted/com/example/persist:direct",
+        "//persist/processor/src/test/fixtures/expectedFormatted/com/example/persist_id:all",
+        "//persist/processor/src/test/fixtures/expectedFormatted/com/example/persist_type:all",
+        "//persist/processor/src/test/fixtures/input/com/example/persist:direct",
+        "//persist/processor/src/test/fixtures/input/com/example/persist_id:all",
+        "//persist/processor/src/test/fixtures/input/com/example/persist_type:all",
+    ],
+)
+
+filegroup(
+    name = "types_goldens",
+    srcs = [
+        "//persist/processor/src/test/fixtures/expected/com/example/persist/types:all",
+        "//persist/processor/src/test/fixtures/expectedFormatted/com/example/persist/types:all",
+        "//persist/processor/src/test/fixtures/input/com/example/persist/types:all",
+    ],
+)

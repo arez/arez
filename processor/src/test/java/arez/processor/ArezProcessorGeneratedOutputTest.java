@@ -22,13 +22,57 @@ import static org.testng.Assert.*;
 public final class ArezProcessorGeneratedOutputTest
   extends ArezProcessorTestSupport
 {
-  @DataProvider( name = "successfulCompiles" )
+  @DataProvider( name = "componentCompiles" )
   @Nonnull
-  public Object[][] successfulCompiles()
+  public Object[][] componentCompiles()
   {
     return new Object[][]
       {
         new Object[]{ "com.example.SubpackageModel" },
+        new Object[]{ "com.example.component.DeprecatedModel" },
+        new Object[]{ "com.example.component.DisposeOnDeactivateModel" },
+        new Object[]{ "com.example.component.NoRequireEqualsModel" },
+        new Object[]{ "com.example.component.NotObservableModel" },
+        new Object[]{ "com.example.component.ObservableModel" },
+        new Object[]{ "com.example.inject.NoInjectModel" },
+        new Object[]{ "com.example.reserved_names.NonReservedNameModel" },
+        new Object[]{ "com.example.to_string.NoToStringPresent" },
+        new Object[]{ "com.example.to_string.ToStringPresent" },
+        new Object[]{ "com.example.type_access_levels.ReduceAccessLevelModel" },
+        new Object[]{ "com.example.verifiable.DisableVerifyModel" },
+        new Object[]{ "com.example.verifiable.EnableVerifyModel" },
+        new Object[]{ "DisposingModel" },
+        new Object[]{ "ObservableTypeParametersModel" },
+        new Object[]{ "TypeParametersOnModel" },
+        new Object[]{ "ObservableGuessingModel" },
+        new Object[]{ "AnnotationsOnModel" },
+        new Object[]{ "ObservableWithAnnotatedCtorModel" },
+        new Object[]{ "ObservableModelWithUnconventionalNames" },
+        new Object[]{ "DifferentObservableTypesModel" },
+        new Object[]{ "ObservableWithExceptingCtorModel" },
+        new Object[]{ "OverrideNamesInModel" },
+        new Object[]{ "EmptyModel" },
+        new Object[]{ "BasicModelWithDifferentAccessLevels" },
+        new Object[]{ "ObservableWithCtorModel" },
+        new Object[]{ "ObservableWithSpecificExceptionModel" },
+        new Object[]{ "ObservableWithExceptionModel" },
+        new Object[]{ "BasicObservableModel" }
+      };
+  }
+
+  @Test( dataProvider = "componentCompiles" )
+  public void processComponentCompile( @Nonnull final String classname )
+    throws Exception
+  {
+    assertSuccessfulFixtureCompile( classname );
+  }
+
+  @DataProvider( name = "actionCompiles" )
+  @Nonnull
+  public Object[][] actionCompiles()
+  {
+    return new Object[][]
+      {
         new Object[]{ "com.example.action.ActionTypeParametersModel" },
         new Object[]{ "com.example.action.NewTypeParametersModel" },
         new Object[]{ "com.example.action.NoReportParametersModel" },
@@ -52,20 +96,23 @@ public final class ArezProcessorGeneratedOutputTest
         new Object[]{ "com.example.requires_transaction.ConstrainedRequiresTransactionModel" },
         new Object[]{ "com.example.action.BasicFunctionActionModel" },
         new Object[]{ "com.example.action.BasicActionModel" },
-        new Object[]{ "com.example.cascade_dispose.ComponentCascadeDisposeModel" },
-        new Object[]{ "com.example.cascade_dispose.ComponentCascadeDisposeMethodModel" },
-        new Object[]{ "com.example.cascade_dispose.ParameterizedComponentCascadeDisposeMethodModel" },
-        new Object[]{ "com.example.cascade_dispose.DisposableCascadeDisposeModel" },
-        new Object[]{ "com.example.cascade_dispose.DisposeNotifierDisabledCascadeDisposeModel" },
-        new Object[]{ "com.example.cascade_dispose.DisposableCascadeDisposeMethodModel" },
-        new Object[]{ "com.example.cascade_dispose.NonStandardNameCascadeDisposeMethodModel" },
-        new Object[]{ "com.example.cascade_dispose.NonStandardNameDisposableCascadeDisposeModel" },
-        new Object[]{ "com.example.cascade_dispose.ObservableCascadeDisposeModel" },
-        new Object[]{ "com.example.component.DeprecatedModel" },
-        new Object[]{ "com.example.component.DisposeOnDeactivateModel" },
-        new Object[]{ "com.example.component.NoRequireEqualsModel" },
-        new Object[]{ "com.example.component.NotObservableModel" },
-        new Object[]{ "com.example.component.ObservableModel" },
+        new Object[]{ "com.example.overloaded_names.OverloadedActions" }
+      };
+  }
+
+  @Test( dataProvider = "actionCompiles" )
+  public void processActionCompile( @Nonnull final String classname )
+    throws Exception
+  {
+    assertSuccessfulFixtureCompile( classname );
+  }
+
+  @DataProvider( name = "observableCompiles" )
+  @Nonnull
+  public Object[][] observableCompiles()
+  {
+    return new Object[][]
+      {
         new Object[]{ "com.example.collections.AbstractCollectionObservableModel" },
         new Object[]{ "com.example.collections.AbstractListObservableModel" },
         new Object[]{ "com.example.collections.AbstractMapObservableModel" },
@@ -93,187 +140,6 @@ public final class ArezProcessorGeneratedOutputTest
         new Object[]{ "com.example.collections.ObservableNonnullSetModel" },
         new Object[]{ "com.example.collections.ObservableNoSettersModel" },
         new Object[]{ "com.example.collections.ObservableSetModel" },
-        new Object[]{ "com.example.component_id.BooleanComponentId" },
-        new Object[]{ "com.example.component_id.BooleanComponentIdRequireEquals" },
-        new Object[]{ "com.example.component_id.ByteComponentId" },
-        new Object[]{ "com.example.component_id.ByteComponentIdRequireEquals" },
-        new Object[]{ "com.example.component_id.CharComponentId" },
-        new Object[]{ "com.example.component_id.CharComponentIdRequireEquals" },
-        new Object[]{ "com.example.component_id.ComponentIdOnModel" },
-        new Object[]{ "com.example.component_id.DoubleComponentId" },
-        new Object[]{ "com.example.component_id.DoubleComponentIdRequireEquals" },
-        new Object[]{ "com.example.component_id.FloatComponentId" },
-        new Object[]{ "com.example.component_id.FloatComponentIdRequireEquals" },
-        new Object[]{ "com.example.component_id.IntComponentId" },
-        new Object[]{ "com.example.component_id.IntComponentIdRequireEquals" },
-        new Object[]{ "com.example.component_id.LongComponentId" },
-        new Object[]{ "com.example.component_id.LongComponentIdRequireEquals" },
-        new Object[]{ "com.example.component_id.NonStandardNameComponentId" },
-        new Object[]{ "com.example.component_id.ObjectComponentId" },
-        new Object[]{ "com.example.component_id.ObjectComponentIdRequireEquals" },
-        new Object[]{ "com.example.component_id.ShortComponentId" },
-        new Object[]{ "com.example.component_id.ShortComponentIdRequireEquals" },
-
-        new Object[]{ "com.example.component_id_ref.BasicComponentIdRefModel" },
-        new Object[]{ "com.example.component_id_ref.ComponentIdPresentComponentIdRefModel" },
-        new Object[]{ "com.example.component_id_ref.MultiComponentIdRefModel" },
-        new Object[]{ "com.example.component_id_ref.NonIntTypeComponentIdRefModel" },
-        new Object[]{ "com.example.component_id_ref.NonStandardNameComponentIdRefModel" },
-        new Object[]{ "com.example.component_id_ref.PackageAccessComponentIdRefModel" },
-        new Object[]{ "com.example.component_id_ref.PublicAccessComponentIdRefModel" },
-        new Object[]{ "com.example.component_id_ref.RawTypeComponentIdRefModel" },
-
-        new Object[]{ "com.example.component_name_ref.BasicComponentNameRefModel" },
-        new Object[]{ "com.example.component_name_ref.MultiComponentNameRefModel" },
-        new Object[]{ "com.example.component_name_ref.NonStandardMethodNameComponentNameRefModel" },
-        new Object[]{ "com.example.component_name_ref.PackageAccessComponentNameRefModel" },
-
-        new Object[]{ "com.example.component_ref.BasicComponentRefModel" },
-        new Object[]{ "com.example.component_ref.MultiComponentRefModel" },
-        new Object[]{ "com.example.component_ref.NonStandardNameComponentRefModel" },
-        new Object[]{ "com.example.component_ref.PackageAccessComponentRefModel" },
-
-        new Object[]{ "com.example.component_state_ref.CompleteComponentStateRefModel" },
-        new Object[]{ "com.example.component_state_ref.ConstructedComponentStateRefModel" },
-        new Object[]{ "com.example.component_state_ref.DefaultComponentStateRefModel" },
-        new Object[]{ "com.example.component_state_ref.DisposingComponentStateRefModel" },
-        new Object[]{ "com.example.component_state_ref.MultipleComponentStateRefModel" },
-        new Object[]{ "com.example.component_state_ref.PackageAccessComponentStateRefModel" },
-        new Object[]{ "com.example.component_state_ref.ReadyComponentStateRefModel" },
-
-        new Object[]{ "com.example.component_type_name_ref.BasicComponentTypeNameRefModel" },
-        new Object[]{ "com.example.component_type_name_ref.MultiComponentTypeNameRefModel" },
-        new Object[]{ "com.example.component_type_name_ref.NonStandardMethodNameComponentTypeNameRefModel" },
-        new Object[]{ "com.example.component_type_name_ref.PackageAccessComponentTypeNameRefModel" },
-
-        new Object[]{ "com.example.memoize.ArezOrNoneDependenciesModel" },
-        new Object[]{ "com.example.memoize.NameVariationsModel" },
-        new Object[]{ "com.example.memoize.HighestPriorityModel" },
-        new Object[]{ "com.example.memoize.HighPriorityModel" },
-        new Object[]{ "com.example.memoize.NormalPriorityModel" },
-        new Object[]{ "com.example.memoize.LowestPriorityModel" },
-        new Object[]{ "com.example.memoize.LowPriorityModel" },
-        new Object[]{ "com.example.memoize.NonArezDependenciesModel" },
-        new Object[]{ "com.example.memoize.NonArezDependenciesWithOnActivateParamModel" },
-        new Object[]{ "com.example.memoize.NoReportResultModel" },
-        new Object[]{ "com.example.memoize.WithHooksModel" },
-        new Object[]{ "com.example.memoize.KeepAliveModel" },
-        new Object[]{ "com.example.memoize.ObserveLowerPriorityModel" },
-        new Object[]{ "com.example.memoize.ReadOutsideTransactionDisableMemoizeModel" },
-        new Object[]{ "com.example.memoize.ReadOutsideTransactionEnabledMemoizeModel" },
-        new Object[]{ "com.example.memoize.ReadOutsideTransactionFromDefaultDefaultMemoizeModel" },
-        new Object[]{ "com.example.memoize.ReadOutsideTransactionFromDisabledDefaultMemoizeModel" },
-        new Object[]{ "com.example.memoize.ReadOutsideTransactionFromEnabledDefaultMemoizeModel" },
-        new Object[]{ "com.example.memoize.TypeParametersModel" },
-
-        new Object[]{ "com.example.memoize_context_parameter.AllowEmptyModel" },
-        new Object[]{ "com.example.memoize_context_parameter.BasicModel" },
-        new Object[]{ "com.example.memoize_context_parameter.FinalMethodsModel" },
-        new Object[]{ "com.example.memoize_context_parameter.FullyAnnotatedBasicModel" },
-        new Object[]{ "com.example.memoize_context_parameter.ManyTypesModel" },
-        new Object[]{ "com.example.memoize_context_parameter.NoCapturePrefixModel" },
-        new Object[]{ "com.example.memoize_context_parameter.OverrideNameModel" },
-
-        new Object[]{ "com.example.computable_value_ref.BasicComputableValueRefModel" },
-        new Object[]{ "com.example.computable_value_ref.MultiComputableValueRefModel" },
-        new Object[]{ "com.example.computable_value_ref.NonStandardName1ComputableValueRefModel" },
-        new Object[]{ "com.example.computable_value_ref.NonStandardName2ComputableValueRefModel" },
-        new Object[]{ "com.example.computable_value_ref.PackageAccessComputableValueRefModel" },
-        new Object[]{ "com.example.computable_value_ref.ParametersComputableValueRefModel" },
-        new Object[]{ "com.example.computable_value_ref.RawComputableValueRefModel" },
-        new Object[]{ "com.example.computable_value_ref.RawWithParamsComputableValueRefModel" },
-        new Object[]{ "com.example.computable_value_ref.WildcardComputableValueRefModel" },
-
-        new Object[]{ "com.example.context_ref.BasicContextRefModel" },
-        new Object[]{ "com.example.context_ref.MultiContextRefModel" },
-        new Object[]{ "com.example.context_ref.NonStandardMethodNameContextRefModel" },
-
-        new Object[]{ "com.example.auto_observe.BasicAutoObserveModel" },
-        new Object[]{ "com.example.auto_observe.NonnullFieldAutoObserveModel" },
-        new Object[]{ "com.example.auto_observe.NonnullRuntimeTypeValidateFieldAutoObserveModel" },
-        new Object[]{ "com.example.auto_observe.NullableFieldAutoObserveModel" },
-        new Object[]{ "com.example.auto_observe.NullableMethodAutoObserveModel" },
-        new Object[]{ "com.example.auto_observe.NullableRuntimeTypeValidateFieldAutoObserveModel" },
-        new Object[]{ "com.example.auto_observe.RuntimeTypeValidateFieldAutoObserveModel" },
-
-        new Object[]{ "com.example.component_dependency.AbstractObservableDependency" },
-        new Object[]{ "com.example.component_dependency.ArezComponentLikeFieldDependencyModel" },
-        new Object[]{ "com.example.component_dependency.ArezComponentLikeMethodDependencyModel" },
-        new Object[]{ "com.example.component_dependency.BasicDependencyModel" },
-        new Object[]{ "com.example.component_dependency.BasicFieldDependencyModel" },
-        new Object[]{ "com.example.component_dependency.CascadeDependencyModel" },
-        new Object[]{ "com.example.component_dependency.CascadeFieldDependencyModel" },
-        new Object[]{ "com.example.component_dependency.ComplexDependencyModel" },
-        new Object[]{ "com.example.component_dependency.ComplexDependencyWithCustomNameMethodModel" },
-        new Object[]{ "com.example.component_dependency.ComponentDependencyModel" },
-        new Object[]{ "com.example.component_dependency.MultiComponentDependencyModel" },
-        new Object[]{ "com.example.component_dependency.ComponentFieldDependencyModel" },
-        new Object[]{ "com.example.component_dependency.ConcreteObservablePairWithInitializerDependency" },
-        new Object[]{ "com.example.component_dependency.NonCascadeObservableDependency" },
-        new Object[]{ "com.example.component_dependency.NonnullAbstractObservableDependency" },
-        new Object[]{ "com.example.component_dependency.NonnullFieldDependencyModel" },
-        new Object[]{ "com.example.component_dependency.NonnullObservableDependency" },
-        new Object[]{ "com.example.component_dependency.NonStandardNameDependencyModel" },
-        new Object[]{ "com.example.component_dependency.NonStandardNameFieldDependencyModel" },
-        new Object[]{ "com.example.component_dependency.ObservableDependency" },
-        new Object[]{ "com.example.component_dependency.ObservablePairWithInitializerDependency" },
-        new Object[]{ "com.example.component_dependency.ObservablePairAnnotatedDependency" },
-        new Object[]{ "com.example.component_dependency.RuntimeTypeValidateDependency" },
-        new Object[]{ "com.example.component_dependency.RuntimeTypeValidateFieldDependency" },
-        new Object[]{ "com.example.component_dependency.SetNullObservableDependency" },
-        new Object[]{ "com.example.deprecated.DeprecatedActionModel" },
-        new Object[]{ "com.example.deprecated.DeprecatedObserveModel" },
-        new Object[]{ "com.example.deprecated.DeprecatedMemoizeModel1" },
-        new Object[]{ "com.example.deprecated.DeprecatedMemoizeModel2" },
-        new Object[]{ "com.example.deprecated.DeprecatedMemoizeModel3" },
-        new Object[]{ "com.example.deprecated.DeprecatedMemoize5Model" },
-        new Object[]{ "com.example.deprecated.DeprecatedObservableModel1" },
-        new Object[]{ "com.example.deprecated.DeprecatedObservableModel2" },
-        new Object[]{ "com.example.deprecated.DeprecatedPostConstructModel" },
-        new Object[]{ "com.example.deprecated.DeprecatedObserveModel1" },
-        new Object[]{ "com.example.deprecated.DeprecatedObserveModel2" },
-        new Object[]{ "com.example.deprecated.DeprecatedObserveModel3" },
-        new Object[]{ "com.example.deprecated.DeprecatedObserveModel4" },
-        new Object[]{ "com.example.deprecation.DeprecationModel" },
-        new Object[]{ "com.example.dispose_notifier.DisposeNotifierModel" },
-        new Object[]{ "com.example.dispose_notifier.NoDisposeNotifierModel" },
-        new Object[]{ "com.example.id.ComponentIdExample" },
-        new Object[]{ "com.example.id.NonStandardNameModel" },
-        new Object[]{ "com.example.id.RequireIdDisable" },
-        new Object[]{ "com.example.id.RequireIdEnable" },
-        new Object[]{ "com.example.inject.NoInjectModel" },
-        new Object[]{ "com.example.inverse.CustomNamesInverseModel" },
-        new Object[]{ "com.example.inverse.DefaultMultiplicityInverseModel" },
-        new Object[]{ "com.example.inverse.DisableInverseModel" },
-        new Object[]{ "com.example.inverse.NonGetterInverseModel" },
-        new Object[]{ "com.example.inverse.NonObservableCollectionInverseModel" },
-        new Object[]{ "com.example.inverse.NonObservableNullableManyReferenceModel" },
-        new Object[]{ "com.example.inverse.NonObservableNullableOneReferenceModel" },
-        new Object[]{ "com.example.inverse.NonObservableNullableZeroOrOneReferenceModel" },
-        new Object[]{ "com.example.inverse.NonStandardNameModel" },
-        new Object[]{ "com.example.inverse.ObservableCollectionInverseModel" },
-        new Object[]{ "com.example.inverse.ObservableListInverseModel" },
-        new Object[]{ "com.example.inverse.ObservableManyReferenceModel" },
-        new Object[]{ "com.example.inverse.ObservableOneReferenceModel" },
-        new Object[]{ "com.example.inverse.ObservableReferenceInverseModel" },
-        new Object[]{ "com.example.inverse.ObservableSetInverseModel" },
-        new Object[]{ "com.example.inverse.ObservableZeroOrOneReferenceModel" },
-        new Object[]{ "com.example.inverse.OneMultiplicityInverseModel" },
-        new Object[]{ "com.example.inverse.ZeroOrOneMultiplicityInverseModel" },
-        new Object[]{ "com.example.memoize.AnnotatedModel" },
-        new Object[]{ "com.example.memoize.BasicModel" },
-        new Object[]{ "com.example.memoize.CustomDepTypeModel" },
-        new Object[]{ "com.example.memoize.CustomPriorityModel" },
-        new Object[]{ "com.example.memoize.DefaultEqualityComparatorModel" },
-        new Object[]{ "com.example.memoize.DefaultDefaultPriorityUnspecifiedLocalPriorityMemoizeModel" },
-        new Object[]{ "com.example.memoize.DefaultPriorityDefaultLocalPriorityMemoizeModel" },
-        new Object[]{ "com.example.memoize.DefaultPrioritySpecifiedLocalPriorityMemoizeModel" },
-        new Object[]{ "com.example.memoize.DefaultPriorityUnspecifiedLocalPriorityMemoizeModel" },
-        new Object[]{ "com.example.memoize.LocalTypeParamModel" },
-        new Object[]{ "com.example.memoize.NoArgEqualityComparatorModel" },
-        new Object[]{ "com.example.memoize.ParameterizedEqualityComparatorModel" },
-        new Object[]{ "com.example.memoize.NonStandardNameModel" },
-        new Object[]{ "com.example.memoize.TypeParamModel" },
         new Object[]{ "com.example.observable.AbstractNonPrimitiveObservablesModel" },
         new Object[]{ "com.example.observable.AbstractObservablesModel" },
         new Object[]{ "com.example.observable.DefaultEqualityComparatorModel" },
@@ -303,18 +169,86 @@ public final class ArezProcessorGeneratedOutputTest
         new Object[]{ "com.example.observable.WriteOutsideTransactionThrowingObservablesModel" },
         new Object[]{ "com.example.observable.AbstractNonPrimitiveNonnullObservablesModel" },
         new Object[]{ "com.example.observable.AbstractPrimitiveObservablesWithInitializerModel" },
-        new Object[]{ "com.example.observable.ObservableInitialModel" },
+        new Object[]{ "com.example.observable.ObservableInitialModel" }
+      };
+  }
 
-        new Object[]{ "com.example.observable_value_ref.BasicObservableValueRefModel" },
-        new Object[]{ "com.example.observable_value_ref.MultiObservableValueRefModel" },
-        new Object[]{ "com.example.observable_value_ref.GenericObservableValueRefModel" },
-        new Object[]{ "com.example.observable_value_ref.NonStandardMethodName1ObservableValueRefModel" },
-        new Object[]{ "com.example.observable_value_ref.NonStandardMethodName2ObservableValueRefModel" },
-        new Object[]{ "com.example.observable_value_ref.PackageAccessObservableValueRefModel" },
-        new Object[]{ "com.example.observable_value_ref.RawObservableValueRefModel" },
+  @Test( dataProvider = "observableCompiles" )
+  public void processObservableCompile( @Nonnull final String classname )
+    throws Exception
+  {
+    assertSuccessfulFixtureCompile( classname );
+  }
 
-        new Object[]{ "com.example.observable_value_ref.WildcardObservableValueRefModel" },
+  @DataProvider( name = "memoizeCompiles" )
+  @Nonnull
+  public Object[][] memoizeCompiles()
+  {
+    return new Object[][]
+      {
+        new Object[]{ "com.example.memoize.ArezOrNoneDependenciesModel" },
+        new Object[]{ "com.example.memoize.NameVariationsModel" },
+        new Object[]{ "com.example.memoize.HighestPriorityModel" },
+        new Object[]{ "com.example.memoize.HighPriorityModel" },
+        new Object[]{ "com.example.memoize.NormalPriorityModel" },
+        new Object[]{ "com.example.memoize.LowestPriorityModel" },
+        new Object[]{ "com.example.memoize.LowPriorityModel" },
+        new Object[]{ "com.example.memoize.NonArezDependenciesModel" },
+        new Object[]{ "com.example.memoize.NonArezDependenciesWithOnActivateParamModel" },
+        new Object[]{ "com.example.memoize.NoReportResultModel" },
+        new Object[]{ "com.example.memoize.WithHooksModel" },
+        new Object[]{ "com.example.memoize.KeepAliveModel" },
+        new Object[]{ "com.example.memoize.ObserveLowerPriorityModel" },
+        new Object[]{ "com.example.memoize.ReadOutsideTransactionDisableMemoizeModel" },
+        new Object[]{ "com.example.memoize.ReadOutsideTransactionEnabledMemoizeModel" },
+        new Object[]{ "com.example.memoize.ReadOutsideTransactionFromDefaultDefaultMemoizeModel" },
+        new Object[]{ "com.example.memoize.ReadOutsideTransactionFromDisabledDefaultMemoizeModel" },
+        new Object[]{ "com.example.memoize.ReadOutsideTransactionFromEnabledDefaultMemoizeModel" },
+        new Object[]{ "com.example.memoize.TypeParametersModel" },
+        new Object[]{ "com.example.memoize_context_parameter.AllowEmptyModel" },
+        new Object[]{ "com.example.memoize_context_parameter.BasicModel" },
+        new Object[]{ "com.example.memoize_context_parameter.FinalMethodsModel" },
+        new Object[]{ "com.example.memoize_context_parameter.FullyAnnotatedBasicModel" },
+        new Object[]{ "com.example.memoize_context_parameter.ManyTypesModel" },
+        new Object[]{ "com.example.memoize_context_parameter.NoCapturePrefixModel" },
+        new Object[]{ "com.example.memoize_context_parameter.OverrideNameModel" },
+        new Object[]{ "com.example.memoize.AnnotatedModel" },
+        new Object[]{ "com.example.memoize.BasicModel" },
+        new Object[]{ "com.example.memoize.CustomDepTypeModel" },
+        new Object[]{ "com.example.memoize.CustomPriorityModel" },
+        new Object[]{ "com.example.memoize.DefaultEqualityComparatorModel" },
+        new Object[]{ "com.example.memoize.DefaultDefaultPriorityUnspecifiedLocalPriorityMemoizeModel" },
+        new Object[]{ "com.example.memoize.DefaultPriorityDefaultLocalPriorityMemoizeModel" },
+        new Object[]{ "com.example.memoize.DefaultPrioritySpecifiedLocalPriorityMemoizeModel" },
+        new Object[]{ "com.example.memoize.DefaultPriorityUnspecifiedLocalPriorityMemoizeModel" },
+        new Object[]{ "com.example.memoize.LocalTypeParamModel" },
+        new Object[]{ "com.example.memoize.NoArgEqualityComparatorModel" },
+        new Object[]{ "com.example.memoize.ParameterizedEqualityComparatorModel" },
+        new Object[]{ "com.example.memoize.NonStandardNameModel" },
+        new Object[]{ "com.example.memoize.TypeParamModel" }
+      };
+  }
 
+  @Test( dataProvider = "memoizeCompiles" )
+  public void processMemoizeCompile( @Nonnull final String classname )
+    throws Exception
+  {
+    assertSuccessfulFixtureCompile( classname );
+  }
+
+  @DataProvider( name = "observeCompiles" )
+  @Nonnull
+  public Object[][] observeCompiles()
+  {
+    return new Object[][]
+      {
+        new Object[]{ "com.example.auto_observe.BasicAutoObserveModel" },
+        new Object[]{ "com.example.auto_observe.NonnullFieldAutoObserveModel" },
+        new Object[]{ "com.example.auto_observe.NonnullRuntimeTypeValidateFieldAutoObserveModel" },
+        new Object[]{ "com.example.auto_observe.NullableFieldAutoObserveModel" },
+        new Object[]{ "com.example.auto_observe.NullableMethodAutoObserveModel" },
+        new Object[]{ "com.example.auto_observe.NullableRuntimeTypeValidateFieldAutoObserveModel" },
+        new Object[]{ "com.example.auto_observe.RuntimeTypeValidateFieldAutoObserveModel" },
         new Object[]{ "com.example.observe.BasicObserveModel" },
         new Object[]{ "com.example.observe.NestedActionsAllowedObserveModel" },
         new Object[]{ "com.example.observe.HighestPriorityObserveModel" },
@@ -351,53 +285,121 @@ public final class ArezProcessorGeneratedOutputTest
         new Object[]{ "com.example.observe.TrackedImplicitOnDepsChangeAcceptsObserverModel" },
         new Object[]{ "com.example.observe.TrackedNoOtherSchedulableModel" },
         new Object[]{ "com.example.observe.TrackedOnDepsChangeAcceptsObserverModel" },
-
-        new Object[]{ "com.example.observer_ref.BasicObserverRefModel" },
-        new Object[]{ "com.example.observer_ref.MultiObserverRefModel" },
-        new Object[]{ "com.example.observer_ref.CustomNameObserverRefModel" },
-        new Object[]{ "com.example.observer_ref.ExternalObserveObserverRefModel" },
-        new Object[]{ "com.example.observer_ref.NonStandardMethodNameObserverRefModel" },
-        new Object[]{ "com.example.observer_ref.PackageAccessObserverRefModel" },
-
-        new Object[]{ "com.example.on_activate.BasicOnActivateModel" },
-        new Object[]{ "com.example.on_activate.PackageAccessOnActivateModel" },
-
-        new Object[]{ "com.example.on_deactivate.BasicOnDeactivateModel" },
-        new Object[]{ "com.example.on_deactivate.PackageAccessOnDeactivateModel" },
-
         new Object[]{ "com.example.on_deps_change.BasicOnDepsChangeModel" },
         new Object[]{ "com.example.on_deps_change.DeriveOnDepsChangeModel" },
         new Object[]{ "com.example.on_deps_change.OnDepsChangeDuplicatedModel" },
-        new Object[]{ "com.example.on_deps_change.PackageAccessOnDepsChangeModel" },
+        new Object[]{ "com.example.on_deps_change.PackageAccessOnDepsChangeModel" }
+      };
+  }
 
-        new Object[]{ "com.example.overloaded_names.OverloadedActions" },
+  @Test( dataProvider = "observeCompiles" )
+  public void processObserveCompile( @Nonnull final String classname )
+    throws Exception
+  {
+    assertSuccessfulFixtureCompile( classname );
+  }
 
+  @DataProvider( name = "lifecycleCompiles" )
+  @Nonnull
+  public Object[][] lifecycleCompiles()
+  {
+    return new Object[][]
+      {
+        new Object[]{ "com.example.dispose_notifier.DisposeNotifierModel" },
+        new Object[]{ "com.example.dispose_notifier.NoDisposeNotifierModel" },
+        new Object[]{ "com.example.on_activate.BasicOnActivateModel" },
+        new Object[]{ "com.example.on_activate.PackageAccessOnActivateModel" },
+        new Object[]{ "com.example.on_deactivate.BasicOnDeactivateModel" },
+        new Object[]{ "com.example.on_deactivate.PackageAccessOnDeactivateModel" },
         new Object[]{ "com.example.post_construct.ActionPostConstructModel" },
         new Object[]{ "com.example.post_construct.BasicPostConstructModel" },
         new Object[]{ "com.example.post_construct.MultiPostConstructModel" },
         new Object[]{ "com.example.post_construct.NonStandardNamePostConstructModel" },
         new Object[]{ "com.example.post_construct.PackageAccessPostConstructModel" },
-
         new Object[]{ "com.example.post_dispose.BasicPostDisposeModel" },
         new Object[]{ "com.example.post_dispose.MultiPostDisposeModel" },
         new Object[]{ "com.example.post_dispose.PackageAccessPostDisposeModel" },
         new Object[]{ "com.example.post_dispose.PostDisposeWithDisabledDisposeNotifierModel" },
+        new Object[]{ "com.example.pre_dispose.BasicPreDisposeModel" },
+        new Object[]{ "com.example.pre_dispose.MultiPreDisposeModel" },
+        new Object[]{ "com.example.pre_dispose.MultiPreDisposeNotDisposeNotifierModel" },
+        new Object[]{ "com.example.pre_dispose.PackageAccessPreDisposeModel" }
+      };
+  }
 
+  @Test( dataProvider = "lifecycleCompiles" )
+  public void processLifecycleCompile( @Nonnull final String classname )
+    throws Exception
+  {
+    assertSuccessfulFixtureCompile( classname );
+  }
+
+  @DataProvider( name = "relationshipsCompiles" )
+  @Nonnull
+  public Object[][] relationshipsCompiles()
+  {
+    return new Object[][]
+      {
+        new Object[]{ "com.example.cascade_dispose.ComponentCascadeDisposeModel" },
+        new Object[]{ "com.example.cascade_dispose.ComponentCascadeDisposeMethodModel" },
+        new Object[]{ "com.example.cascade_dispose.ParameterizedComponentCascadeDisposeMethodModel" },
+        new Object[]{ "com.example.cascade_dispose.DisposableCascadeDisposeModel" },
+        new Object[]{ "com.example.cascade_dispose.DisposeNotifierDisabledCascadeDisposeModel" },
+        new Object[]{ "com.example.cascade_dispose.DisposableCascadeDisposeMethodModel" },
+        new Object[]{ "com.example.cascade_dispose.NonStandardNameCascadeDisposeMethodModel" },
+        new Object[]{ "com.example.cascade_dispose.NonStandardNameDisposableCascadeDisposeModel" },
+        new Object[]{ "com.example.cascade_dispose.ObservableCascadeDisposeModel" },
+        new Object[]{ "com.example.component_dependency.AbstractObservableDependency" },
+        new Object[]{ "com.example.component_dependency.ArezComponentLikeFieldDependencyModel" },
+        new Object[]{ "com.example.component_dependency.ArezComponentLikeMethodDependencyModel" },
+        new Object[]{ "com.example.component_dependency.BasicDependencyModel" },
+        new Object[]{ "com.example.component_dependency.BasicFieldDependencyModel" },
+        new Object[]{ "com.example.component_dependency.CascadeDependencyModel" },
+        new Object[]{ "com.example.component_dependency.CascadeFieldDependencyModel" },
+        new Object[]{ "com.example.component_dependency.ComplexDependencyModel" },
+        new Object[]{ "com.example.component_dependency.ComplexDependencyWithCustomNameMethodModel" },
+        new Object[]{ "com.example.component_dependency.ComponentDependencyModel" },
+        new Object[]{ "com.example.component_dependency.MultiComponentDependencyModel" },
+        new Object[]{ "com.example.component_dependency.ComponentFieldDependencyModel" },
+        new Object[]{ "com.example.component_dependency.ConcreteObservablePairWithInitializerDependency" },
+        new Object[]{ "com.example.component_dependency.NonCascadeObservableDependency" },
+        new Object[]{ "com.example.component_dependency.NonnullAbstractObservableDependency" },
+        new Object[]{ "com.example.component_dependency.NonnullFieldDependencyModel" },
+        new Object[]{ "com.example.component_dependency.NonnullObservableDependency" },
+        new Object[]{ "com.example.component_dependency.NonStandardNameDependencyModel" },
+        new Object[]{ "com.example.component_dependency.NonStandardNameFieldDependencyModel" },
+        new Object[]{ "com.example.component_dependency.ObservableDependency" },
+        new Object[]{ "com.example.component_dependency.ObservablePairWithInitializerDependency" },
+        new Object[]{ "com.example.component_dependency.ObservablePairAnnotatedDependency" },
+        new Object[]{ "com.example.component_dependency.RuntimeTypeValidateDependency" },
+        new Object[]{ "com.example.component_dependency.RuntimeTypeValidateFieldDependency" },
+        new Object[]{ "com.example.component_dependency.SetNullObservableDependency" },
+        new Object[]{ "com.example.inverse.CustomNamesInverseModel" },
+        new Object[]{ "com.example.inverse.DefaultMultiplicityInverseModel" },
+        new Object[]{ "com.example.inverse.DisableInverseModel" },
+        new Object[]{ "com.example.inverse.NonGetterInverseModel" },
+        new Object[]{ "com.example.inverse.NonObservableCollectionInverseModel" },
+        new Object[]{ "com.example.inverse.NonObservableNullableManyReferenceModel" },
+        new Object[]{ "com.example.inverse.NonObservableNullableOneReferenceModel" },
+        new Object[]{ "com.example.inverse.NonObservableNullableZeroOrOneReferenceModel" },
+        new Object[]{ "com.example.inverse.NonStandardNameModel" },
+        new Object[]{ "com.example.inverse.ObservableCollectionInverseModel" },
+        new Object[]{ "com.example.inverse.ObservableListInverseModel" },
+        new Object[]{ "com.example.inverse.ObservableManyReferenceModel" },
+        new Object[]{ "com.example.inverse.ObservableOneReferenceModel" },
+        new Object[]{ "com.example.inverse.ObservableReferenceInverseModel" },
+        new Object[]{ "com.example.inverse.ObservableSetInverseModel" },
+        new Object[]{ "com.example.inverse.ObservableZeroOrOneReferenceModel" },
+        new Object[]{ "com.example.inverse.OneMultiplicityInverseModel" },
+        new Object[]{ "com.example.inverse.ZeroOrOneMultiplicityInverseModel" },
         new Object[]{ "com.example.post_inverse_add.BasicPostInverseAddModel" },
         new Object[]{ "com.example.post_inverse_add.MultiPostInverseAddModel" },
         new Object[]{ "com.example.post_inverse_add.PackageAccessPostInverseAddModel" },
         new Object[]{ "com.example.post_inverse_add.SingularInversePostInverseAddModel" },
-
-        new Object[]{ "com.example.pre_dispose.BasicPreDisposeModel" },
-        new Object[]{ "com.example.pre_dispose.MultiPreDisposeModel" },
-        new Object[]{ "com.example.pre_dispose.MultiPreDisposeNotDisposeNotifierModel" },
-        new Object[]{ "com.example.pre_dispose.PackageAccessPreDisposeModel" },
-
         new Object[]{ "com.example.pre_inverse_remove.BasicPreInverseRemoveModel" },
         new Object[]{ "com.example.pre_inverse_remove.MultiPreInverseRemoveModel" },
         new Object[]{ "com.example.pre_inverse_remove.PackageAccessPreInverseRemoveModel" },
         new Object[]{ "com.example.pre_inverse_remove.SingularInversePreInverseRemoveModel" },
-
         new Object[]{ "com.example.reference.CascadeDisposeReferenceModel" },
         new Object[]{ "com.example.reference.CustomNameReferenceModel2" },
         new Object[]{ "com.example.reference.CustomNameReferenceModel" },
@@ -414,8 +416,130 @@ public final class ArezProcessorGeneratedOutputTest
         new Object[]{ "com.example.reference.NonnullLazyLoadReferenceModel" },
         new Object[]{ "com.example.reference.NonObservableReferenceModel" },
         new Object[]{ "com.example.reference.NullableLazyLoadReferenceModel" },
-        new Object[]{ "com.example.reference.ObservableReferenceModel" },
-        new Object[]{ "com.example.reserved_names.NonReservedNameModel" },
+        new Object[]{ "com.example.reference.ObservableReferenceModel" }
+      };
+  }
+
+  @Test( dataProvider = "relationshipsCompiles" )
+  public void processRelationshipsCompile( @Nonnull final String classname )
+    throws Exception
+  {
+    assertSuccessfulFixtureCompile( classname );
+  }
+
+  @DataProvider( name = "metadataCompiles" )
+  @Nonnull
+  public Object[][] metadataCompiles()
+  {
+    return new Object[][]
+      {
+        new Object[]{ "com.example.component_id.BooleanComponentId" },
+        new Object[]{ "com.example.component_id.BooleanComponentIdRequireEquals" },
+        new Object[]{ "com.example.component_id.ByteComponentId" },
+        new Object[]{ "com.example.component_id.ByteComponentIdRequireEquals" },
+        new Object[]{ "com.example.component_id.CharComponentId" },
+        new Object[]{ "com.example.component_id.CharComponentIdRequireEquals" },
+        new Object[]{ "com.example.component_id.ComponentIdOnModel" },
+        new Object[]{ "com.example.component_id.DoubleComponentId" },
+        new Object[]{ "com.example.component_id.DoubleComponentIdRequireEquals" },
+        new Object[]{ "com.example.component_id.FloatComponentId" },
+        new Object[]{ "com.example.component_id.FloatComponentIdRequireEquals" },
+        new Object[]{ "com.example.component_id.IntComponentId" },
+        new Object[]{ "com.example.component_id.IntComponentIdRequireEquals" },
+        new Object[]{ "com.example.component_id.LongComponentId" },
+        new Object[]{ "com.example.component_id.LongComponentIdRequireEquals" },
+        new Object[]{ "com.example.component_id.NonStandardNameComponentId" },
+        new Object[]{ "com.example.component_id.ObjectComponentId" },
+        new Object[]{ "com.example.component_id.ObjectComponentIdRequireEquals" },
+        new Object[]{ "com.example.component_id.ShortComponentId" },
+        new Object[]{ "com.example.component_id.ShortComponentIdRequireEquals" },
+        new Object[]{ "com.example.component_id_ref.BasicComponentIdRefModel" },
+        new Object[]{ "com.example.component_id_ref.ComponentIdPresentComponentIdRefModel" },
+        new Object[]{ "com.example.component_id_ref.MultiComponentIdRefModel" },
+        new Object[]{ "com.example.component_id_ref.NonIntTypeComponentIdRefModel" },
+        new Object[]{ "com.example.component_id_ref.NonStandardNameComponentIdRefModel" },
+        new Object[]{ "com.example.component_id_ref.PackageAccessComponentIdRefModel" },
+        new Object[]{ "com.example.component_id_ref.PublicAccessComponentIdRefModel" },
+        new Object[]{ "com.example.component_id_ref.RawTypeComponentIdRefModel" },
+        new Object[]{ "com.example.component_name_ref.BasicComponentNameRefModel" },
+        new Object[]{ "com.example.component_name_ref.MultiComponentNameRefModel" },
+        new Object[]{ "com.example.component_name_ref.NonStandardMethodNameComponentNameRefModel" },
+        new Object[]{ "com.example.component_name_ref.PackageAccessComponentNameRefModel" },
+        new Object[]{ "com.example.component_ref.BasicComponentRefModel" },
+        new Object[]{ "com.example.component_ref.MultiComponentRefModel" },
+        new Object[]{ "com.example.component_ref.NonStandardNameComponentRefModel" },
+        new Object[]{ "com.example.component_ref.PackageAccessComponentRefModel" },
+        new Object[]{ "com.example.component_state_ref.CompleteComponentStateRefModel" },
+        new Object[]{ "com.example.component_state_ref.ConstructedComponentStateRefModel" },
+        new Object[]{ "com.example.component_state_ref.DefaultComponentStateRefModel" },
+        new Object[]{ "com.example.component_state_ref.DisposingComponentStateRefModel" },
+        new Object[]{ "com.example.component_state_ref.MultipleComponentStateRefModel" },
+        new Object[]{ "com.example.component_state_ref.PackageAccessComponentStateRefModel" },
+        new Object[]{ "com.example.component_state_ref.ReadyComponentStateRefModel" },
+        new Object[]{ "com.example.component_type_name_ref.BasicComponentTypeNameRefModel" },
+        new Object[]{ "com.example.component_type_name_ref.MultiComponentTypeNameRefModel" },
+        new Object[]{ "com.example.component_type_name_ref.NonStandardMethodNameComponentTypeNameRefModel" },
+        new Object[]{ "com.example.component_type_name_ref.PackageAccessComponentTypeNameRefModel" },
+        new Object[]{ "com.example.computable_value_ref.BasicComputableValueRefModel" },
+        new Object[]{ "com.example.computable_value_ref.MultiComputableValueRefModel" },
+        new Object[]{ "com.example.computable_value_ref.NonStandardName1ComputableValueRefModel" },
+        new Object[]{ "com.example.computable_value_ref.NonStandardName2ComputableValueRefModel" },
+        new Object[]{ "com.example.computable_value_ref.PackageAccessComputableValueRefModel" },
+        new Object[]{ "com.example.computable_value_ref.ParametersComputableValueRefModel" },
+        new Object[]{ "com.example.computable_value_ref.RawComputableValueRefModel" },
+        new Object[]{ "com.example.computable_value_ref.RawWithParamsComputableValueRefModel" },
+        new Object[]{ "com.example.computable_value_ref.WildcardComputableValueRefModel" },
+        new Object[]{ "com.example.context_ref.BasicContextRefModel" },
+        new Object[]{ "com.example.context_ref.MultiContextRefModel" },
+        new Object[]{ "com.example.context_ref.NonStandardMethodNameContextRefModel" },
+        new Object[]{ "com.example.id.ComponentIdExample" },
+        new Object[]{ "com.example.id.NonStandardNameModel" },
+        new Object[]{ "com.example.id.RequireIdDisable" },
+        new Object[]{ "com.example.id.RequireIdEnable" },
+        new Object[]{ "com.example.observable_value_ref.BasicObservableValueRefModel" },
+        new Object[]{ "com.example.observable_value_ref.MultiObservableValueRefModel" },
+        new Object[]{ "com.example.observable_value_ref.GenericObservableValueRefModel" },
+        new Object[]{ "com.example.observable_value_ref.NonStandardMethodName1ObservableValueRefModel" },
+        new Object[]{ "com.example.observable_value_ref.NonStandardMethodName2ObservableValueRefModel" },
+        new Object[]{ "com.example.observable_value_ref.PackageAccessObservableValueRefModel" },
+        new Object[]{ "com.example.observable_value_ref.RawObservableValueRefModel" },
+        new Object[]{ "com.example.observable_value_ref.WildcardObservableValueRefModel" },
+        new Object[]{ "com.example.observer_ref.BasicObserverRefModel" },
+        new Object[]{ "com.example.observer_ref.MultiObserverRefModel" },
+        new Object[]{ "com.example.observer_ref.CustomNameObserverRefModel" },
+        new Object[]{ "com.example.observer_ref.ExternalObserveObserverRefModel" },
+        new Object[]{ "com.example.observer_ref.NonStandardMethodNameObserverRefModel" },
+        new Object[]{ "com.example.observer_ref.PackageAccessObserverRefModel" }
+      };
+  }
+
+  @Test( dataProvider = "metadataCompiles" )
+  public void processMetadataCompile( @Nonnull final String classname )
+    throws Exception
+  {
+    assertSuccessfulFixtureCompile( classname );
+  }
+
+  @DataProvider( name = "interopCompiles" )
+  @Nonnull
+  public Object[][] interopCompiles()
+  {
+    return new Object[][]
+      {
+        new Object[]{ "com.example.deprecated.DeprecatedActionModel" },
+        new Object[]{ "com.example.deprecated.DeprecatedObserveModel" },
+        new Object[]{ "com.example.deprecated.DeprecatedMemoizeModel1" },
+        new Object[]{ "com.example.deprecated.DeprecatedMemoizeModel2" },
+        new Object[]{ "com.example.deprecated.DeprecatedMemoizeModel3" },
+        new Object[]{ "com.example.deprecated.DeprecatedMemoize5Model" },
+        new Object[]{ "com.example.deprecated.DeprecatedObservableModel1" },
+        new Object[]{ "com.example.deprecated.DeprecatedObservableModel2" },
+        new Object[]{ "com.example.deprecated.DeprecatedPostConstructModel" },
+        new Object[]{ "com.example.deprecated.DeprecatedObserveModel1" },
+        new Object[]{ "com.example.deprecated.DeprecatedObserveModel2" },
+        new Object[]{ "com.example.deprecated.DeprecatedObserveModel3" },
+        new Object[]{ "com.example.deprecated.DeprecatedObserveModel4" },
+        new Object[]{ "com.example.deprecation.DeprecationModel" },
         new Object[]{ "com.example.sting.BasicStingModel" },
         new Object[]{ "com.example.sting.EagerStingModel" },
         new Object[]{ "com.example.sting.MultipleArgsStingModel" },
@@ -425,33 +549,12 @@ public final class ArezProcessorGeneratedOutputTest
         new Object[]{ "com.example.sting.ServiceViaNamedStingModel" },
         new Object[]{ "com.example.sting.ServiceViaTypedStingModel" },
         new Object[]{ "com.example.sting.EmptyTypedStingModel" },
-        new Object[]{ "com.example.sting.TypedStingModel" },
-        new Object[]{ "com.example.to_string.NoToStringPresent" },
-        new Object[]{ "com.example.to_string.ToStringPresent" },
-        new Object[]{ "com.example.type_access_levels.ReduceAccessLevelModel" },
-        new Object[]{ "com.example.verifiable.DisableVerifyModel" },
-        new Object[]{ "com.example.verifiable.EnableVerifyModel" },
-        new Object[]{ "DisposingModel" },
-        new Object[]{ "ObservableTypeParametersModel" },
-        new Object[]{ "TypeParametersOnModel" },
-        new Object[]{ "ObservableGuessingModel" },
-        new Object[]{ "AnnotationsOnModel" },
-        new Object[]{ "ObservableWithAnnotatedCtorModel" },
-        new Object[]{ "ObservableModelWithUnconventionalNames" },
-        new Object[]{ "DifferentObservableTypesModel" },
-        new Object[]{ "ObservableWithExceptingCtorModel" },
-        new Object[]{ "OverrideNamesInModel" },
-        new Object[]{ "EmptyModel" },
-        new Object[]{ "BasicModelWithDifferentAccessLevels" },
-        new Object[]{ "ObservableWithCtorModel" },
-        new Object[]{ "ObservableWithSpecificExceptionModel" },
-        new Object[]{ "ObservableWithExceptionModel" },
-        new Object[]{ "BasicObservableModel" }
+        new Object[]{ "com.example.sting.TypedStingModel" }
       };
   }
 
-  @Test( dataProvider = "successfulCompiles" )
-  public void processSuccessfulCompile( @Nonnull final String classname )
+  @Test( dataProvider = "interopCompiles" )
+  public void processInteropCompile( @Nonnull final String classname )
     throws Exception
   {
     assertSuccessfulFixtureCompile( classname );

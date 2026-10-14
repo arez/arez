@@ -21,9 +21,9 @@ import static org.testng.Assert.*;
 public final class ArezPersistProcessorGeneratedOutputTest
   extends ArezPersistProcessorTestSupport
 {
-  @DataProvider( name = "successfulCompiles" )
+  @DataProvider( name = "modelCompiles" )
   @Nonnull
-  public Object[][] successfulCompiles()
+  public Object[][] modelCompiles()
   {
     return new Object[][]
       {
@@ -34,9 +34,27 @@ public final class ArezPersistProcessorGeneratedOutputTest
         new Object[]{ "com.example.persist.MultiPropertyPersistModel" },
         new Object[]{ "com.example.persist.MultiStorePersistModel" },
         new Object[]{ "com.example.persist.ObjectTypePersistModel" },
-
         new Object[]{ "com.example.persist_id.BasicPersistIdModel" },
+        new Object[]{ "com.example.persist_type.CustomDefaultStorePersistTypeModel" },
+        new Object[]{ "com.example.persist_type.CustomNamePersistTypeModel" },
+        new Object[]{ "com.example.persist_type.PersistOnDisposeTruePersistTypeModel" },
+        new Object[]{ "com.example.persist_type.PersistOnDisposeFalsePersistTypeModel" }
+      };
+  }
 
+  @Test( dataProvider = "modelCompiles" )
+  public void processModelCompile( @Nonnull final String classname )
+    throws Exception
+  {
+    assertSuccessfulFixtureCompile( classname );
+  }
+
+  @DataProvider( name = "typesCompiles" )
+  @Nonnull
+  public Object[][] typesCompiles()
+  {
+    return new Object[][]
+      {
         new Object[]{ "com.example.persist.types.TypeBooleanPersistModel" },
         new Object[]{ "com.example.persist.types.TypeBytePersistModel" },
         new Object[]{ "com.example.persist.types.TypeCharPersistModel" },
@@ -47,17 +65,12 @@ public final class ArezPersistProcessorGeneratedOutputTest
         new Object[]{ "com.example.persist.types.TypeRawListPersistModel" },
         new Object[]{ "com.example.persist.types.TypeLongPersistModel" },
         new Object[]{ "com.example.persist.types.TypeShortPersistModel" },
-        new Object[]{ "com.example.persist.types.TypeStringPersistModel" },
-
-        new Object[]{ "com.example.persist_type.CustomDefaultStorePersistTypeModel" },
-        new Object[]{ "com.example.persist_type.CustomNamePersistTypeModel" },
-        new Object[]{ "com.example.persist_type.PersistOnDisposeTruePersistTypeModel" },
-        new Object[]{ "com.example.persist_type.PersistOnDisposeFalsePersistTypeModel" }
+        new Object[]{ "com.example.persist.types.TypeStringPersistModel" }
       };
   }
 
-  @Test( dataProvider = "successfulCompiles" )
-  public void processSuccessfulCompile( @Nonnull final String classname )
+  @Test( dataProvider = "typesCompiles" )
+  public void processTypesCompile( @Nonnull final String classname )
     throws Exception
   {
     assertSuccessfulFixtureCompile( classname );

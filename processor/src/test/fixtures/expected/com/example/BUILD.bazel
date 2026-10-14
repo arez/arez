@@ -53,3 +53,10 @@ filegroup(
         "//processor/src/test/fixtures/expected/com/example/verifiable:all",
     ],
 )
+
+filegroup(
+    name = "direct",
+    srcs = [
+        "Arez_SubpackageModel.java",
+    ],
+)

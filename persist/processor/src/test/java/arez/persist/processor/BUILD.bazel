@@ -38,13 +38,37 @@ _RUNTIME_DEPS = [
 ]
 
 java_testng(
-    name = "generated_output",
+    name = "model_goldens",
     size = "large",
     srcs = [],
-    data = ["//persist/processor/src/test/fixtures:all"],
+    data = ["//persist/processor/src/test/fixtures:model_goldens"],
     jvm_flags = _JVM_FLAGS,
     test_class = "arez.persist.processor.ArezPersistProcessorGeneratedOutputTest",
+    test_methods = [
+        "arez.persist.processor.ArezPersistProcessorGeneratedOutputTest.processModelCompile",
+    ],
     deps = _RUNTIME_DEPS,
+)
+
+java_testng(
+    name = "types_goldens",
+    size = "large",
+    srcs = [],
+    data = ["//persist/processor/src/test/fixtures:types_goldens"],
+    jvm_flags = _JVM_FLAGS,
+    test_class = "arez.persist.processor.ArezPersistProcessorGeneratedOutputTest",
+    test_methods = [
+        "arez.persist.processor.ArezPersistProcessorGeneratedOutputTest.processTypesCompile",
+    ],
+    deps = _RUNTIME_DEPS,
+)
+
+test_suite(
+    name = "generated_output",
+    tests = [
+        ":model_goldens",
+        ":types_goldens",
+    ],
 )
 
 java_testng(
