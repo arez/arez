@@ -1,6 +1,6 @@
 # T16 — Build deterministic binary and complete source archives
 
-- Status: pending
+- Status: complete
 - Blocked by: T15
 - Spec coverage: R02, R03, R07, AC02, AC03, AC07
 
@@ -10,11 +10,11 @@ All eight artifacts have deterministic release binary/source jars with correct s
 
 ## Acceptance criteria
 
-- [ ] Port release builders/rules with sorted entries, stable timestamps, no build-data stamping and explicit license/resources.
-- [ ] Keep runtime binary jars free of Java-source payload; source archives include authored/generated Java, configuration JS and native companions.
-- [ ] Preserve both relocated processor namespaces, formatter runtime, required services and self-contained behavior; avoid bundling unrelated compiler/test dependencies.
-- [ ] Exclude GWT-only metadata/overlay from final release archive inputs; remaining repository support removal is T26.
-- [ ] Add focused archive-content/bytecode checks for all eight identities. Assert Java 17 for runtime and owned/generated classes, including owned processor classes. Identify relocated dependency entries separately and require Java 21 compatibility; do not exempt an entire processor jar.
+- [x] Port release builders/rules with sorted entries, stable timestamps, no build-data stamping and explicit license/resources.
+- [x] Keep runtime binary jars free of Java-source payload; source archives include authored/generated Java, configuration JS and native companions.
+- [x] Preserve both relocated processor namespaces, formatter runtime, required services and self-contained behavior; avoid bundling unrelated compiler/test dependencies.
+- [x] Exclude GWT-only metadata/overlay from final release archive inputs; remaining repository support removal is T26.
+- [x] Add focused archive-content/bytecode checks for all eight identities. Assert Java 17 for runtime and owned/generated classes, including owned processor classes. Identify relocated dependency entries separately and require Java 21 compatibility; do not exempt an entire processor jar.
 
 ## Validation
 
@@ -24,4 +24,9 @@ All eight artifacts have deterministic release binary/source jars with correct s
 
 ## Evidence
 
-- pending
+- Ported the dependency-free Sting JarBuilder and the relevant release rules. Archives have an unstamped manifest, normalized timestamps and sorted entries, including service files. Rule actions declare the input jars/resources and Java executable; source/class jars are selected from the actual owning Java targets rather than empty facade jars.
+- `bazel build //tools/release:binary_and_sources` produces all sixteen outputs. Each sources archive includes every authored Java file and a source for every owned top-level generated class. Core/Persist include their four explicit native/configuration JS companions; processor sources retain service registration. All archives include the project license and omit GWT descriptors/overlays.
+- Both processor jars retain their original separate relocation namespaces, relocated Javapoet/Proton and formatter service/runtime. Removed unused shaded Jackson/annotation payloads and module descriptors, preserving all remaining declared service providers. Compiler/test libraries are not bundled.
+- `python3 tools/release/check_artifacts.py` checks every archive, complete source membership, sorted unique entries, normalized metadata, services, shading and scoped bytecode. [Archive evidence](../T16-archive-evidence.json) records owned Java 17 and separately identified shaded Java 21-compatible class counts and all hashes.
+- Independent rebuild: `bazel --output_base=/tmp/arez-bazel-release-t16 build --symlink_prefix=/tmp/arez-independent-t16- //tools/release:binary_and_sources` passed with 159 executed actions in a fresh output base. `python3 tools/release/check_artifacts.py --compare /tmp/arez-independent-t16-bin/tools/release --evidence plans/bazel-migration/T16-archive-evidence.json` passed: all sixteen hashes match.
+- Palantir, Buildifier, Python syntax, whitespace and plan checks passed. The root formatter gate explicitly traverses the release Java tool alias; its aggregation includes the JarBuilder formatting marker. Public packaged imports/isolated execution are deliberately delivered by T18, after T17 completes the publication set.

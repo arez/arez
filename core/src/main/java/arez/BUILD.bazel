@@ -71,3 +71,11 @@ java_library(
         "//third_party/java:org_jetbrains_annotations",
     ],
 )
+
+exports_files(
+    [
+        "ArezConfig.native.js",
+        "arez.js",
+    ],
+    visibility = ["//tools/release:__pkg__"],
+)

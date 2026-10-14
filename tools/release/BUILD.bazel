@@ -1,0 +1,233 @@
+load(":release.bzl", "release_jar", "release_source_jar", "release_version")
+
+package(default_visibility = ["//visibility:public"])
+
+release_version(
+    name = "version",
+    build_setting_default = "0.0.0-SNAPSHOT",
+)
+
+alias(
+    name = "jar_builder",
+    actual = "//tools/release/src/main/java/arez/release:jar_builder",
+)
+
+release_jar(
+    name = "core_jar",
+    out = "arez-core.jar",
+    java_targets = ["//core/src/main/java/arez"],
+    resource_entries = ["META-INF/LICENSE"],
+    resource_files = ["//:LICENSE"],
+)
+
+release_source_jar(
+    name = "core_sources",
+    out = "arez-core-sources.jar",
+    java_targets = ["//core/src/main/java/arez"],
+    resource_entries = [
+        "META-INF/LICENSE",
+        "arez/ArezConfig.native.js",
+        "arez/arez.js",
+    ],
+    resource_files = [
+        "//:LICENSE",
+        "//core/src/main/java/arez:ArezConfig.native.js",
+        "//core/src/main/java/arez:arez.js",
+    ],
+)
+
+release_jar(
+    name = "processor_jar",
+    out = "arez-processor.jar",
+    exclude_prefixes = [
+        "META-INF/maven/com.fasterxml.jackson",
+        "META-INF/maven/com.google.code.findbugs/jsr305/",
+        "META-INF/maven/com.google.errorprone/error_prone_annotations/",
+        "META-INF/maven/com.google.j2objc/j2objc-annotations/",
+        "META-INF/versions/",
+        "javax/annotation/",
+        "arez/processor/vendor/proton/vendor/google/errorprone/",
+        "arez/processor/vendor/proton/vendor/google/j2objc/",
+        "arez/processor/vendor/proton/vendor/jackson/",
+        "arez/processor/vendor/proton/vendor/jspecify/",
+        "META-INF/services/arez.processor.vendor.proton.vendor.jackson.",
+    ],
+    jars = [
+        "@javapoet//file",
+        "@proton//:core",
+    ],
+    java_targets = ["//processor/src/main/java/arez/processor"],
+    relocations = [
+        "com.palantir.javapoet=arez.processor.vendor.javapoet",
+        "org.realityforge.proton=arez.processor.vendor.proton",
+    ],
+    resource_entries = ["META-INF/LICENSE"],
+    resource_files = ["//:LICENSE"],
+)
+
+release_source_jar(
+    name = "processor_sources",
+    out = "arez-processor-sources.jar",
+    java_targets = ["//processor/src/main/java/arez/processor"],
+    resource_entries = [
+        "META-INF/LICENSE",
+        "META-INF/services/javax.annotation.processing.Processor",
+    ],
+    resource_files = [
+        "//:LICENSE",
+        "//processor/src/main/resources/META-INF/services:javax.annotation.processing.Processor",
+    ],
+)
+
+release_jar(
+    name = "dom_jar",
+    out = "arez-extras-dom.jar",
+    java_targets = ["//extras/dom"],
+    resource_entries = ["META-INF/LICENSE"],
+    resource_files = ["//:LICENSE"],
+)
+
+release_source_jar(
+    name = "dom_sources",
+    out = "arez-extras-dom-sources.jar",
+    java_targets = ["//extras/dom"],
+    resource_entries = ["META-INF/LICENSE"],
+    resource_files = ["//:LICENSE"],
+)
+
+release_jar(
+    name = "promise_jar",
+    out = "arez-extras-promise.jar",
+    java_targets = ["//extras/promise"],
+    resource_entries = ["META-INF/LICENSE"],
+    resource_files = ["//:LICENSE"],
+)
+
+release_source_jar(
+    name = "promise_sources",
+    out = "arez-extras-promise-sources.jar",
+    java_targets = ["//extras/promise"],
+    resource_entries = ["META-INF/LICENSE"],
+    resource_files = ["//:LICENSE"],
+)
+
+release_jar(
+    name = "spytools_jar",
+    out = "arez-extras-spytools.jar",
+    java_targets = ["//extras/spytools"],
+    resource_entries = ["META-INF/LICENSE"],
+    resource_files = ["//:LICENSE"],
+)
+
+release_source_jar(
+    name = "spytools_sources",
+    out = "arez-extras-spytools-sources.jar",
+    java_targets = ["//extras/spytools"],
+    resource_entries = ["META-INF/LICENSE"],
+    resource_files = ["//:LICENSE"],
+)
+
+release_jar(
+    name = "testng_jar",
+    out = "arez-extras-testng.jar",
+    java_targets = ["//extras/testng"],
+    resource_entries = ["META-INF/LICENSE"],
+    resource_files = ["//:LICENSE"],
+)
+
+release_source_jar(
+    name = "testng_sources",
+    out = "arez-extras-testng-sources.jar",
+    java_targets = ["//extras/testng"],
+    resource_entries = ["META-INF/LICENSE"],
+    resource_files = ["//:LICENSE"],
+)
+
+release_jar(
+    name = "persist_core_jar",
+    out = "arez-persist-core.jar",
+    java_targets = ["//persist/core"],
+    resource_entries = ["META-INF/LICENSE"],
+    resource_files = ["//:LICENSE"],
+)
+
+release_source_jar(
+    name = "persist_core_sources",
+    out = "arez-persist-core-sources.jar",
+    java_targets = ["//persist/core"],
+    resource_entries = [
+        "META-INF/LICENSE",
+        "arez/persist/runtime/ArezPersistConfig.native.js",
+        "arez/persist/runtime/arez.persist.js",
+    ],
+    resource_files = [
+        "//:LICENSE",
+        "//persist/core/src/main/java/arez/persist/runtime:ArezPersistConfig.native.js",
+        "//persist/core/src/main/java/arez/persist/runtime:arez.persist.js",
+    ],
+)
+
+release_jar(
+    name = "persist_processor_jar",
+    out = "arez-persist-processor.jar",
+    exclude_prefixes = [
+        "META-INF/maven/com.fasterxml.jackson",
+        "META-INF/maven/com.google.code.findbugs/jsr305/",
+        "META-INF/maven/com.google.errorprone/error_prone_annotations/",
+        "META-INF/maven/com.google.j2objc/j2objc-annotations/",
+        "META-INF/versions/",
+        "javax/annotation/",
+        "arez/persist/processor/vendor/proton/vendor/google/errorprone/",
+        "arez/persist/processor/vendor/proton/vendor/google/j2objc/",
+        "arez/persist/processor/vendor/proton/vendor/jackson/",
+        "arez/persist/processor/vendor/proton/vendor/jspecify/",
+        "META-INF/services/arez.persist.processor.vendor.proton.vendor.jackson.",
+    ],
+    jars = [
+        "@javapoet//file",
+        "@proton//:core",
+    ],
+    java_targets = ["//persist/processor"],
+    relocations = [
+        "com.palantir.javapoet=arez.persist.processor.vendor.javapoet",
+        "org.realityforge.proton=arez.persist.processor.vendor.proton",
+    ],
+    resource_entries = ["META-INF/LICENSE"],
+    resource_files = ["//:LICENSE"],
+)
+
+release_source_jar(
+    name = "persist_processor_sources",
+    out = "arez-persist-processor-sources.jar",
+    java_targets = ["//persist/processor"],
+    resource_entries = [
+        "META-INF/LICENSE",
+        "META-INF/services/javax.annotation.processing.Processor",
+    ],
+    resource_files = [
+        "//:LICENSE",
+        "//persist/processor/src/main/resources/META-INF/services:javax.annotation.processing.Processor",
+    ],
+)
+
+filegroup(
+    name = "binary_and_sources",
+    srcs = [
+        "core_jar",
+        "core_sources",
+        "dom_jar",
+        "dom_sources",
+        "persist_core_jar",
+        "persist_core_sources",
+        "persist_processor_jar",
+        "persist_processor_sources",
+        "processor_jar",
+        "processor_sources",
+        "promise_jar",
+        "promise_sources",
+        "spytools_jar",
+        "spytools_sources",
+        "testng_jar",
+        "testng_sources",
+    ],
+)

@@ -1,0 +1,12 @@
+load("//third_party/java:rules.bzl", "java_binary")
+
+package(default_visibility = ["//tools/release:__pkg__"])
+
+java_binary(
+    name = "jar_builder",
+    srcs = [
+        "JarBuilder.java",
+        "package-info.java",
+    ],
+    main_class = "arez.release.JarBuilder",
+)

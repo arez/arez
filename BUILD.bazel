@@ -31,5 +31,6 @@ java_format_check(
         "//persist/core",
         "//persist/processor",
         "//processor",
+        "//tools/release:jar_builder",
     ],
 )
