@@ -4,6 +4,7 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.CascadeDispose;
 import java.math.BigDecimal;
+import java.util.Objects;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
@@ -22,6 +23,6 @@ public abstract class Wallet {
     // A read-only action that queries observable value
     @Action(mutation = false)
     public boolean holdsAnyAustralianDollars() {
-        return aud.getAmount().compareTo(BigDecimal.ZERO) > 0;
+        return Objects.requireNonNull(aud.getAmount()).compareTo(BigDecimal.ZERO) > 0;
     }
 }

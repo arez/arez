@@ -45,7 +45,7 @@ public final class MemoizeDepTypeTest extends AbstractArezIntegrationTest {
     public void scenario() {
         captureObserverErrors();
 
-        final Model model = Model.create();
+        final var model = Model.create();
 
         assertInvariant(
                 () -> safeAction(model::derive1),

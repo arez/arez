@@ -27,10 +27,10 @@ import org.testng.annotations.Test;
 public final class ManyMultiplicityInverseIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
-        final AtomicInteger locatorLookupCallCount = new AtomicInteger();
+        final var locatorLookupCallCount = new AtomicInteger();
 
-        final TypeBasedLocator locator = new TypeBasedLocator();
-        final CarRepository repository = CarRepository.newRepository();
+        final var locator = new TypeBasedLocator();
+        final var repository = CarRepository.newRepository();
 
         Arez.context().registerLocator(locator);
 
@@ -46,7 +46,7 @@ public final class ManyMultiplicityInverseIntegrationTest extends AbstractArezIn
 
         assertEquals(locatorLookupCallCount.get(), 0);
 
-        final AtomicInteger inverseCallCount = new AtomicInteger();
+        final var inverseCallCount = new AtomicInteger();
         observer(() -> {
             car.getWheels();
             inverseCallCount.incrementAndGet();
@@ -58,7 +58,7 @@ public final class ManyMultiplicityInverseIntegrationTest extends AbstractArezIn
         assertEquals(locatorLookupCallCount.get(), 1);
         assertEquals(inverseCallCount.get(), 2);
 
-        final AtomicInteger wheel1GetCarCallCount = new AtomicInteger();
+        final var wheel1GetCarCallCount = new AtomicInteger();
         final Observer wheel1GetCarObserver = observer(() -> {
             wheel1.getCar();
             wheel1GetCarCallCount.incrementAndGet();
@@ -118,21 +118,19 @@ public final class ManyMultiplicityInverseIntegrationTest extends AbstractArezIn
     @ArezComponent(observable = Feature.ENABLE)
     abstract static class Car {
         @Inverse
-        abstract @Nullable Collection<Wheel> getWheels();
+        abstract Collection<Wheel> getWheels();
     }
 
     @NullMarked
     @ArezComponent(service = Feature.ENABLE, sting = Feature.DISABLE)
     abstract static class CarRepository extends AbstractRepository<Integer, Car, CarRepository> {
-        static @Nullable CarRepository newRepository() {
+        static CarRepository newRepository() {
             return new ManyMultiplicityInverseIntegrationTest_Arez_CarRepository();
         }
 
         @Action
-        @Nullable
         Car create() {
-            final ManyMultiplicityInverseIntegrationTest_Arez_Car entity =
-                    new ManyMultiplicityInverseIntegrationTest_Arez_Car();
+            final var entity = new ManyMultiplicityInverseIntegrationTest_Arez_Car();
             attach(entity);
             return entity;
         }

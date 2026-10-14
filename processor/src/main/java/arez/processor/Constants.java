@@ -1,8 +1,9 @@
 package arez.processor;
 
+import com.palantir.javapoet.ClassName;
+
 final class Constants {
-    static final com.palantir.javapoet.ClassName NONNULL_CLASSNAME =
-            com.palantir.javapoet.ClassName.get("org.jspecify.annotations", "NonNull");
+    static final ClassName NONNULL_CLASSNAME = ClassName.get("org.jspecify.annotations", "NonNull");
 
     static final String SUPPRESS_AREZ_WARNINGS_CLASSNAME = "arez.annotations.SuppressArezWarnings";
 

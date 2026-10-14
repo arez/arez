@@ -10,7 +10,6 @@ java_testng(
         "-Dbraincheck.environment=development",
         "-Darez.persist.environment=development",
     ],
-    migration_pending_checks = True,
     plugins = [
         "//processor:plugin",
         "//persist/processor:plugin",

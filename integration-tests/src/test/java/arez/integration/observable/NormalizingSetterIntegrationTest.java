@@ -14,9 +14,9 @@ import org.testng.annotations.Test;
 public final class NormalizingSetterIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void disallowNullInSetter() {
-        final Model model = Model.create(ValueUtil.randomString());
+        final var model = Model.create(ValueUtil.randomString());
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         observer(() -> {
             callCount.incrementAndGet();
             //noinspection ResultOfMethodCallIgnored

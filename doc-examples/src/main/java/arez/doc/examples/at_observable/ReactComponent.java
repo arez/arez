@@ -22,7 +22,7 @@ public abstract class ReactComponent {
 
     // This will be overridden and implemented in the Arez subclass
     @ObservableValueRef
-    abstract @Nullable ObservableValue<Props> getPropsObservableValue();
+    abstract ObservableValue<@Nullable Props> getPropsObservableValue();
 
     // This method is wrapped in an Action to ensure change is propagated
     // correctly in arez system.

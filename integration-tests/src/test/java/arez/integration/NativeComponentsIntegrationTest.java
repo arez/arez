@@ -46,6 +46,7 @@ public final class NativeComponentsIntegrationTest extends AbstractArezIntegrati
 
         final ComponentInfo info = context.getSpy().findComponent(type, id);
         assertNotNull(info);
+        assert null != info;
         assertEquals(info.getId(), id);
         assertEquals(info.getName(), component.getName());
         assertEquals(info.getObservableValues().size(), 2);

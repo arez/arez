@@ -144,6 +144,20 @@ _http_file(
 )
 
 _http_file(
+    name = "dataflow_errorprone",
+    downloaded_file_path = "io/github/eisop/dataflow-errorprone/3.41.0-eisop1/dataflow-errorprone-3.41.0-eisop1.jar",
+    sha256 = "10434fba4e53f55fa9c76904cde414b918932548c9dfc4e2d634ac05ff7a7d10",
+    urls = ["https://repo.maven.apache.org/maven2/io/github/eisop/dataflow-errorprone/3.41.0-eisop1/dataflow-errorprone-3.41.0-eisop1.jar"],
+)
+
+_http_file(
+    name = "dataflow_errorprone__sources",
+    downloaded_file_path = "io/github/eisop/dataflow-errorprone/3.41.0-eisop1/dataflow-errorprone-3.41.0-eisop1-sources.jar",
+    sha256 = "bca10a181e533fd47309320c34152c69d43e01928f0bac18818e352dcc0b77ee",
+    urls = ["https://repo.maven.apache.org/maven2/io/github/eisop/dataflow-errorprone/3.41.0-eisop1/dataflow-errorprone-3.41.0-eisop1-sources.jar"],
+)
+
+_http_file(
     name = "javax_annotation_api",
     downloaded_file_path = "javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar",
     sha256 = "e04ba5195bcd555dc95650f7cc614d151e4bcd52d29a10b8aa2197f3ab89ab9b",

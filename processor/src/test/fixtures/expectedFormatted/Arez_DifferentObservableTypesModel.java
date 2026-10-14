@@ -40,6 +40,7 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
 
   private final ObservableValue<@Nullable Object> $$arez$$_v9;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_DifferentObservableTypesModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -64,76 +65,97 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
         true,
         false,
         false);
-    this.$$arez$$_v1 = $$arezv$$_context.observable(
+    this.$$arez$$_v1 = $$arezv$$_context.<Boolean>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".v1" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : super.isV1())
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : super.isV1())
             : null,
-        Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV1(v) : null);
-    this.$$arez$$_v2 = $$arezv$$_context.observable(
+        Arez.arePropertyIntrospectorsEnabled()
+            ? v -> super.setV1(Objects.requireNonNull(v))
+            : null);
+    this.$$arez$$_v2 = $$arezv$$_context.<Byte>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".v2" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : super.getV2())
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : super.getV2())
             : null,
-        Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV2(v) : null);
-    this.$$arez$$_v3 = $$arezv$$_context.observable(
+        Arez.arePropertyIntrospectorsEnabled()
+            ? v -> super.setV2(Objects.requireNonNull(v))
+            : null);
+    this.$$arez$$_v3 = $$arezv$$_context.<Character>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".v3" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : super.getV3())
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : super.getV3())
             : null,
-        Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV3(v) : null);
-    this.$$arez$$_v4 = $$arezv$$_context.observable(
+        Arez.arePropertyIntrospectorsEnabled()
+            ? v -> super.setV3(Objects.requireNonNull(v))
+            : null);
+    this.$$arez$$_v4 = $$arezv$$_context.<Short>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".v4" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : super.getV4())
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : super.getV4())
             : null,
-        Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV4(v) : null);
-    this.$$arez$$_v5 = $$arezv$$_context.observable(
+        Arez.arePropertyIntrospectorsEnabled()
+            ? v -> super.setV4(Objects.requireNonNull(v))
+            : null);
+    this.$$arez$$_v5 = $$arezv$$_context.<Integer>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".v5" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : super.getV5())
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : super.getV5())
             : null,
-        Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV5(v) : null);
-    this.$$arez$$_v6 = $$arezv$$_context.observable(
+        Arez.arePropertyIntrospectorsEnabled()
+            ? v -> super.setV5(Objects.requireNonNull(v))
+            : null);
+    this.$$arez$$_v6 = $$arezv$$_context.<Long>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".v6" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : super.getV6())
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : super.getV6())
             : null,
-        Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV6(v) : null);
-    this.$$arez$$_v7 = $$arezv$$_context.observable(
+        Arez.arePropertyIntrospectorsEnabled()
+            ? v -> super.setV6(Objects.requireNonNull(v))
+            : null);
+    this.$$arez$$_v7 = $$arezv$$_context.<Float>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".v7" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : super.getV7())
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : super.getV7())
             : null,
-        Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV7(v) : null);
-    this.$$arez$$_v8 = $$arezv$$_context.observable(
+        Arez.arePropertyIntrospectorsEnabled()
+            ? v -> super.setV7(Objects.requireNonNull(v))
+            : null);
+    this.$$arez$$_v8 = $$arezv$$_context.<Double>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".v8" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : super.getV8())
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : super.getV8())
             : null,
-        Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV8(v) : null);
-    this.$$arez$$_v9 = $$arezv$$_context.observable(
+        Arez.arePropertyIntrospectorsEnabled()
+            ? v -> super.setV8(Objects.requireNonNull(v))
+            : null);
+    this.$$arez$$_v9 = $$arezv$$_context.<@Nullable Object>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".v9" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : super.getV9())
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : super.getV9())
             : null,
         Arez.arePropertyIntrospectorsEnabled() ? v -> super.setV9(v) : null);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -154,7 +176,7 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -166,7 +188,7 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'DifferentObservableTypesModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -183,7 +205,7 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -200,7 +222,7 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -217,7 +239,7 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -237,8 +259,8 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'isV1' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'isV1' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_v1.reportObserved();
     return super.isV1();
@@ -249,8 +271,8 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setV1' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setV1' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_v1.preReportChanged();
     final boolean $$arezv$$_currentValue = super.isV1();
@@ -265,8 +287,8 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getV2' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getV2' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_v2.reportObserved();
     return super.getV2();
@@ -277,8 +299,8 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setV2' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setV2' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_v2.preReportChanged();
     final byte $$arezv$$_currentValue = super.getV2();
@@ -293,8 +315,8 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getV3' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getV3' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_v3.reportObserved();
     return super.getV3();
@@ -305,8 +327,8 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setV3' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setV3' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_v3.preReportChanged();
     final char $$arezv$$_currentValue = super.getV3();
@@ -321,8 +343,8 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getV4' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getV4' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_v4.reportObserved();
     return super.getV4();
@@ -333,8 +355,8 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setV4' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setV4' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_v4.preReportChanged();
     final short $$arezv$$_currentValue = super.getV4();
@@ -349,8 +371,8 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getV5' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getV5' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_v5.reportObserved();
     return super.getV5();
@@ -361,8 +383,8 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setV5' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setV5' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_v5.preReportChanged();
     final int $$arezv$$_currentValue = super.getV5();
@@ -377,8 +399,8 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getV6' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getV6' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_v6.reportObserved();
     return super.getV6();
@@ -389,8 +411,8 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setV6' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setV6' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_v6.preReportChanged();
     final long $$arezv$$_currentValue = super.getV6();
@@ -405,8 +427,8 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getV7' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getV7' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_v7.reportObserved();
     return super.getV7();
@@ -417,8 +439,8 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setV7' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setV7' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_v7.preReportChanged();
     final float $$arezv$$_currentValue = super.getV7();
@@ -433,8 +455,8 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getV8' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getV8' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_v8.reportObserved();
     return super.getV8();
@@ -445,8 +467,8 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setV8' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setV8' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_v8.preReportChanged();
     final double $$arezv$$_currentValue = super.getV8();
@@ -461,8 +483,8 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getV9' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getV9' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_v9.reportObserved();
     return super.getV9();
@@ -473,11 +495,11 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setV9' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setV9' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_v9.preReportChanged();
-    final @Nullable Object $$arezv$$_currentValue = super.getV9();
+    final Object $$arezv$$_currentValue = super.getV9();
     if (!Objects.equals(v9, $$arezv$$_currentValue)) {
       super.setV9(v9);
       this.$$arez$$_v9.reportChanged();
@@ -487,7 +509,7 @@ final class Arez_DifferentObservableTypesModel extends DifferentObservableTypesM
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

@@ -12,7 +12,7 @@ import org.jspecify.annotations.Nullable;
 @NullMarked
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess"})
 public final class TestSpyEventHandler implements SpyEventHandler {
-    private final @Nullable ArrayList<Object> _events = new ArrayList<>();
+    private final ArrayList<Object> _events = new ArrayList<>();
     /**
      * When using assertNextEvent this tracks the index that we are up to.
      */

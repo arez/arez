@@ -15,8 +15,8 @@ import org.testng.annotations.Test;
 public final class AutoObserveObservableIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
-        final Child child1 = Child.create();
-        final Owner owner = Owner.create();
+        final var child1 = Child.create();
+        final var owner = Owner.create();
 
         safeAction(() -> owner.setChild(child1));
 
@@ -26,7 +26,7 @@ public final class AutoObserveObservableIntegrationTest extends AbstractArezInte
 
         assertTrue(Disposable.isDisposed(child1));
 
-        final Child child2 = Child.create();
+        final var child2 = Child.create();
 
         safeAction(() -> owner.setChild(child2));
 

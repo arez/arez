@@ -24,6 +24,7 @@ public final class ComponentRefTest extends AbstractArezIntegrationTest {
         final TestComponent instance = new ComponentRefTest_Arez_TestComponent();
         final Component component = instance.getComponent();
         assertNotNull(component);
+        assert null != component;
         assertEquals(component.getType(), "arez_integration_component_ref_ComponentRefTest_TestComponent");
     }
 }

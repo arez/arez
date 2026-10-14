@@ -20,9 +20,9 @@ import org.testng.annotations.Test;
 public final class ReferenceNotFoundIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
-        final Model2Repository repository = Model2Repository.newRepository();
+        final var repository = Model2Repository.newRepository();
 
-        final TypeBasedLocator locator = new TypeBasedLocator();
+        final var locator = new TypeBasedLocator();
         Arez.context().registerLocator(locator);
 
         final Model2 model2 = repository.create();
@@ -42,7 +42,7 @@ public final class ReferenceNotFoundIntegrationTest extends AbstractArezIntegrat
 
         private Object _model2Id;
 
-        static @Nullable Model1 create(final Object model2Id) {
+        static Model1 create(final Object model2Id) {
             return new ReferenceNotFoundIntegrationTest_Arez_Model1(model2Id);
         }
 
@@ -80,10 +80,8 @@ public final class ReferenceNotFoundIntegrationTest extends AbstractArezIntegrat
         }
 
         @Action
-        @Nullable
         Model2 create() {
-            final ReferenceNotFoundIntegrationTest_Arez_Model2 entity =
-                    new ReferenceNotFoundIntegrationTest_Arez_Model2();
+            final var entity = new ReferenceNotFoundIntegrationTest_Arez_Model2();
             attach(entity);
             return entity;
         }

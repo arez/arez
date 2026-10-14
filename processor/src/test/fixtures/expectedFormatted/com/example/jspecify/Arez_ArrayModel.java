@@ -36,6 +36,7 @@ final class Arez_ArrayModel extends ArrayModel
 
   private Object @Nullable [] $$arezd$$_optionalContainer;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ArrayModel(final @Nullable Object[] optionalElements) {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -61,34 +62,41 @@ final class Arez_ArrayModel extends ArrayModel
         false,
         false);
     this.$$arezd$$_optionalElements = Objects.requireNonNull(optionalElements);
-    this.$$arez$$_optionalArray = $$arezv$$_context.observable(
+    this.$$arez$$_optionalArray = $$arezv$$_context.<@Nullable Object @Nullable []>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".optionalArray" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_optionalArray)
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_optionalArray)
             : null,
         Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_optionalArray = v : null);
-    this.$$arez$$_optionalElements = $$arezv$$_context.observable(
+    this.$$arez$$_optionalElements = $$arezv$$_context.<@Nullable Object[]>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".optionalElements" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_optionalElements)
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_optionalElements)
             : null,
-        Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_optionalElements = v : null);
-    this.$$arez$$_optionalContainer = $$arezv$$_context.observable(
+        Arez.arePropertyIntrospectorsEnabled()
+            ? v -> this.$$arezd$$_optionalElements = Objects.requireNonNull(v)
+            : null);
+    this.$$arez$$_optionalContainer = $$arezv$$_context.<Object @Nullable []>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".optionalContainer" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_optionalContainer)
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_optionalContainer)
             : null,
         Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_optionalContainer = v : null);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -109,7 +117,7 @@ final class Arez_ArrayModel extends ArrayModel
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -121,7 +129,7 @@ final class Arez_ArrayModel extends ArrayModel
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_jspecify_ArrayModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -138,7 +146,7 @@ final class Arez_ArrayModel extends ArrayModel
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -155,7 +163,7 @@ final class Arez_ArrayModel extends ArrayModel
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -172,7 +180,7 @@ final class Arez_ArrayModel extends ArrayModel
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -187,25 +195,27 @@ final class Arez_ArrayModel extends ArrayModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () ->
-              "Method named 'getOptionalArray' invoked on " + this.$$arezi$$_kernel.describeState()
-                  + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getOptionalArray' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_optionalArray.reportObserved();
     return this.$$arezd$$_optionalArray;
   }
 
   @Override
+  @SuppressWarnings("ArrayEquals")
   void setOptionalArray(final @Nullable Object @Nullable [] value) {
+    // Default observable equality compares array identity; deep equality is opt-in.
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () ->
-              "Method named 'setOptionalArray' invoked on " + this.$$arezi$$_kernel.describeState()
-                  + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setOptionalArray' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_optionalArray.preReportChanged();
-    final @Nullable Object @Nullable [] $$arezv$$_currentValue = this.$$arezd$$_optionalArray;
+    final @Nullable Object[] $$arezv$$_currentValue = this.$$arezd$$_optionalArray;
     if (!Objects.equals(value, $$arezv$$_currentValue)) {
       this.$$arezd$$_optionalArray = value;
       this.$$arez$$_optionalArray.reportChanged();
@@ -219,21 +229,24 @@ final class Arez_ArrayModel extends ArrayModel
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
           () -> "Method named 'getOptionalElements' invoked on "
-              + this.$$arezi$$_kernel.describeState() + " component named '"
-              + this.$$arezi$$_kernel.getName() + "'");
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_optionalElements.reportObserved();
+    assert null != this.$$arezd$$_optionalElements;
     return this.$$arezd$$_optionalElements;
   }
 
   @Override
+  @SuppressWarnings("ArrayEquals")
   void setOptionalElements(final @Nullable Object[] value) {
+    // Default observable equality compares array identity; deep equality is opt-in.
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
           () -> "Method named 'setOptionalElements' invoked on "
-              + this.$$arezi$$_kernel.describeState() + " component named '"
-              + this.$$arezi$$_kernel.getName() + "'");
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_optionalElements.preReportChanged();
     final @Nullable Object[] $$arezv$$_currentValue = this.$$arezd$$_optionalElements;
@@ -250,24 +263,26 @@ final class Arez_ArrayModel extends ArrayModel
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
           () -> "Method named 'getOptionalContainer' invoked on "
-              + this.$$arezi$$_kernel.describeState() + " component named '"
-              + this.$$arezi$$_kernel.getName() + "'");
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_optionalContainer.reportObserved();
     return this.$$arezd$$_optionalContainer;
   }
 
   @Override
+  @SuppressWarnings("ArrayEquals")
   void setOptionalContainer(final Object @Nullable [] value) {
+    // Default observable equality compares array identity; deep equality is opt-in.
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
           () -> "Method named 'setOptionalContainer' invoked on "
-              + this.$$arezi$$_kernel.describeState() + " component named '"
-              + this.$$arezi$$_kernel.getName() + "'");
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_optionalContainer.preReportChanged();
-    final Object @Nullable [] $$arezv$$_currentValue = this.$$arezd$$_optionalContainer;
+    final Object[] $$arezv$$_currentValue = this.$$arezd$$_optionalContainer;
     if (!Objects.equals(value, $$arezv$$_currentValue)) {
       this.$$arezd$$_optionalContainer = value;
       this.$$arez$$_optionalContainer.reportChanged();
@@ -277,7 +292,7 @@ final class Arez_ArrayModel extends ArrayModel
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

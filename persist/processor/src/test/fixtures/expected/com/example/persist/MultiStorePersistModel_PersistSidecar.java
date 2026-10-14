@@ -72,7 +72,7 @@ abstract class MultiStorePersistModel_PersistSidecar {
   static void scheduleAttach(final Scope scope, final MultiStorePersistModel peer) {
     assert Disposable.isNotDisposed( scope );
     assert Disposable.isNotDisposed( peer );
-    Arez.context().task( Arez.areNamesEnabled() ? "MultiStorePersistModel_PersistSidecar.attach." + ( ++c_nextTaskId ) : null, () -> maybeAttach( scope, peer ) );
+    Arez.context().task( Arez.areNamesEnabled() ? "MultiStorePersistModel_PersistSidecar.attach." + ++c_nextTaskId : null, () -> maybeAttach( scope, peer ) );
   }
 
   private String getComponentId() {
@@ -99,31 +99,31 @@ abstract class MultiStorePersistModel_PersistSidecar {
   void restoreState() {
     final String $ap$_id = getComponentId();
     if ( !_aStore.isDisposed() && Disposable.isNotDisposed( _scope ) ) {
-      final @Nullable Map<String, @Nullable Object> state = _aStore.get( _scope, Keys.TYPE, $ap$_id, Converters.TYPE_CONVERTER );
+      final Map<String, @Nullable Object> state = _aStore.get( _scope, Keys.TYPE, $ap$_id, Converters.TYPE_CONVERTER );
       if ( null != state ) {
-        final @Nullable String $prop$_value2 = (@Nullable String) state.get( Keys.PROPERTY_value2 );
+        final var $prop$_value2 = (String) state.get( Keys.PROPERTY_value2 );
         if ( null != $prop$_value2 ) {
           _peer.setValue2( $prop$_value2 );
         }
-        final @Nullable Integer $prop$_value = (@Nullable Integer) state.get( Keys.PROPERTY_value );
+        final var $prop$_value = (Integer) state.get( Keys.PROPERTY_value );
         if ( null != $prop$_value ) {
           _peer.setValue( $prop$_value );
         }
       }
     }
     if ( !_appStore.isDisposed() && Disposable.isNotDisposed( _scope ) ) {
-      final @Nullable Map<String, @Nullable Object> state = _appStore.get( _scope, Keys.TYPE, $ap$_id, Converters.TYPE_CONVERTER );
+      final Map<String, @Nullable Object> state = _appStore.get( _scope, Keys.TYPE, $ap$_id, Converters.TYPE_CONVERTER );
       if ( null != state ) {
-        final @Nullable Double $prop$_value4 = (@Nullable Double) state.get( Keys.PROPERTY_value4 );
+        final var $prop$_value4 = (Double) state.get( Keys.PROPERTY_value4 );
         if ( null != $prop$_value4 ) {
           _peer.setValue4( $prop$_value4 );
         }
       }
     }
     if ( !_bStore.isDisposed() && Disposable.isNotDisposed( _scope ) ) {
-      final @Nullable Map<String, @Nullable Object> state = _bStore.get( _scope, Keys.TYPE, $ap$_id, Converters.TYPE_CONVERTER );
+      final Map<String, @Nullable Object> state = _bStore.get( _scope, Keys.TYPE, $ap$_id, Converters.TYPE_CONVERTER );
       if ( null != state ) {
-        final @Nullable Double $prop$_value3 = (@Nullable Double) state.get( Keys.PROPERTY_value3 );
+        final var $prop$_value3 = (Double) state.get( Keys.PROPERTY_value3 );
         if ( null != $prop$_value3 ) {
           _peer.setValue3( $prop$_value3 );
         }
@@ -138,7 +138,7 @@ abstract class MultiStorePersistModel_PersistSidecar {
   void persistState() {
     if ( !_aStore.isDisposed() && Disposable.isNotDisposed( _scope ) ) {
       final Map<String, @Nullable Object> state = new HashMap<>();
-      final @Nullable String $prop$_value2 = _peer.getValue2();
+      final String $prop$_value2 = _peer.getValue2();
       if ( null != $prop$_value2 ) {
         state.put( Keys.PROPERTY_value2, $prop$_value2 );
       }
@@ -150,7 +150,7 @@ abstract class MultiStorePersistModel_PersistSidecar {
     }
     if ( !_appStore.isDisposed() && Disposable.isNotDisposed( _scope ) ) {
       final Map<String, @Nullable Object> state = new HashMap<>();
-      final @Nullable Double $prop$_value4 = _peer.getValue4();
+      final Double $prop$_value4 = _peer.getValue4();
       if ( null != $prop$_value4 ) {
         state.put( Keys.PROPERTY_value4, $prop$_value4 );
       }
@@ -158,7 +158,7 @@ abstract class MultiStorePersistModel_PersistSidecar {
     }
     if ( !_bStore.isDisposed() && Disposable.isNotDisposed( _scope ) ) {
       final Map<String, @Nullable Object> state = new HashMap<>();
-      final @Nullable Double $prop$_value3 = _peer.getValue3();
+      final Double $prop$_value3 = _peer.getValue3();
       if ( null != $prop$_value3 ) {
         state.put( Keys.PROPERTY_value3, $prop$_value3 );
       }

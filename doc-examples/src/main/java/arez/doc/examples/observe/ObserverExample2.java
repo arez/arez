@@ -7,6 +7,9 @@ import org.jspecify.annotations.Nullable;
 
 @NullMarked
 public class ObserverExample2 {
+    // DOC ELIDE START
+    private ObserverExample2() {}
+    // DOC ELIDE END
     public static void main(String @Nullable [] args) {
         Arez.context()
                 .observer(

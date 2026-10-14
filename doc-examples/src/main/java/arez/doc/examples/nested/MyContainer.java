@@ -6,6 +6,9 @@ import org.jspecify.annotations.NullMarked;
 
 @NullMarked
 public class MyContainer {
+    // DOC ELIDE START
+    private MyContainer() {}
+    // DOC ELIDE END
     @NullMarked
     @ArezComponent
     public abstract static class MyComponent {

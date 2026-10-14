@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 import org.jspecify.annotations.NullMarked;
@@ -27,7 +28,7 @@ import org.testng.annotations.Test;
 public final class UnmodifiableCollectionsIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
-        final Model1 m1 = Model1.create();
+        final var m1 = Model1.create();
 
         safeAction(() -> assertUnmodifiable(m1.getNames(), ValueUtil::randomString));
         safeAction(() -> assertUnmodifiable(m1.getDates(), Date::new));
@@ -77,11 +78,11 @@ public final class UnmodifiableCollectionsIntegrationTest extends AbstractArezIn
         safeAction(() -> assertUnmodifiable(m1.getTimes(), ValueUtil::randomLong));
         safeAction(() ->
                 assertUnsupportedOperation(() -> m1.getPois().put(ValueUtil.randomString(), ValueUtil.randomString())));
-        safeAction(() -> assertUnmodifiable(m1.getNames2(), ValueUtil::randomString));
-        safeAction(() -> assertUnmodifiable(m1.getDates2(), Date::new));
-        safeAction(() -> assertUnmodifiable(m1.getTimes2(), ValueUtil::randomLong));
+        safeAction(() -> assertUnmodifiable(Objects.requireNonNull(m1.getNames2()), ValueUtil::randomString));
+        safeAction(() -> assertUnmodifiable(Objects.requireNonNull(m1.getDates2()), Date::new));
+        safeAction(() -> assertUnmodifiable(Objects.requireNonNull(m1.getTimes2()), ValueUtil::randomLong));
         safeAction(() -> assertUnsupportedOperation(
-                () -> m1.getPois2().put(ValueUtil.randomString(), ValueUtil.randomString())));
+                () -> Objects.requireNonNull(m1.getPois2()).put(ValueUtil.randomString(), ValueUtil.randomString())));
 
         // Assert Collections contain expected
         safeAction(() -> assertTrue(m1.getNames().contains(names.iterator().next())));
@@ -90,11 +91,14 @@ public final class UnmodifiableCollectionsIntegrationTest extends AbstractArezIn
         safeAction(() ->
                 assertTrue(m1.getPois().containsKey(pois.keySet().iterator().next())));
 
-        safeAction(() -> assertTrue(m1.getNames2().contains(names2.iterator().next())));
-        safeAction(() -> assertTrue(m1.getDates2().contains(dates2.iterator().next())));
-        safeAction(() -> assertTrue(m1.getTimes2().contains(times2.iterator().next())));
-        safeAction(() ->
-                assertTrue(m1.getPois2().containsKey(pois2.keySet().iterator().next())));
+        safeAction(() -> assertTrue(Objects.requireNonNull(m1.getNames2())
+                .contains(names2.iterator().next())));
+        safeAction(() -> assertTrue(Objects.requireNonNull(m1.getDates2())
+                .contains(dates2.iterator().next())));
+        safeAction(() -> assertTrue(Objects.requireNonNull(m1.getTimes2())
+                .contains(times2.iterator().next())));
+        safeAction(() -> assertTrue(Objects.requireNonNull(m1.getPois2())
+                .containsKey(pois2.keySet().iterator().next())));
 
         // Reference identity should be guaranteed
         safeAction(() -> assertTrue(m1.getNames() == m1.getNames()));
@@ -112,7 +116,7 @@ public final class UnmodifiableCollectionsIntegrationTest extends AbstractArezIn
     public void scenario_when_CollectionPropertiesModifiable() {
         ArezTestUtil.makeCollectionPropertiesModifiable();
 
-        final Model1 m1 = Model1.create();
+        final var m1 = Model1.create();
 
         safeAction(() -> assertNotNull(m1.getNames()));
         safeAction(() -> assertNotNull(m1.getDates()));
@@ -174,11 +178,14 @@ public final class UnmodifiableCollectionsIntegrationTest extends AbstractArezIn
         safeAction(() ->
                 assertTrue(m1.getPois().containsKey(pois.keySet().iterator().next())));
 
-        safeAction(() -> assertTrue(m1.getNames2().contains(names2.iterator().next())));
-        safeAction(() -> assertTrue(m1.getDates2().contains(dates2.iterator().next())));
-        safeAction(() -> assertTrue(m1.getTimes2().contains(times2.iterator().next())));
-        safeAction(() ->
-                assertTrue(m1.getPois2().containsKey(pois2.keySet().iterator().next())));
+        safeAction(() -> assertTrue(Objects.requireNonNull(m1.getNames2())
+                .contains(names2.iterator().next())));
+        safeAction(() -> assertTrue(Objects.requireNonNull(m1.getDates2())
+                .contains(dates2.iterator().next())));
+        safeAction(() -> assertTrue(Objects.requireNonNull(m1.getTimes2())
+                .contains(times2.iterator().next())));
+        safeAction(() -> assertTrue(Objects.requireNonNull(m1.getPois2())
+                .containsKey(pois2.keySet().iterator().next())));
 
         // Reference identity should be guaranteed
         safeAction(() -> assertTrue(m1.getNames() == m1.getNames()));

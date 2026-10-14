@@ -13,7 +13,6 @@ import arez.annotations.OnDepsChange;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.spy.ObserverInfo;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
 @NullMarked
@@ -32,7 +31,7 @@ public final class ApplicationExecutorNoDepsAllowedTest extends AbstractArezInte
         void onRenderDepsChange() {}
 
         @ObserverRef
-        abstract @Nullable Observer getRenderObserver();
+        abstract Observer getRenderObserver();
     }
 
     @Test

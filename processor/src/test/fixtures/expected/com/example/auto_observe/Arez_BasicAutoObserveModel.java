@@ -42,6 +42,7 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel implements 
 
   private BasicAutoObserveModel. @Nullable MyEntity $$arezr$$_entity;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_BasicAutoObserveModel() {
     super();
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -52,23 +53,28 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel implements 
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_auto_observe_BasicAutoObserveModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_auto_observe_BasicAutoObserveModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_selected = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".selected" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_selected ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_selected = v : null );
-    this.$$arez$$_entityId = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".entityId" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_entityId ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_entityId = v : null );
+    this.$$arez$$_selected = $$arezv$$_context.<BasicAutoObserveModel. @Nullable MyComponent>observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".selected" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_selected ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_selected = v : null );
+    this.$$arez$$_entityId = $$arezv$$_context.<@Nullable Integer>observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".entityId" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_entityId ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_entityId = v : null );
     this.$$arez$$_$autoObserve = $$arezv$$_context.observer( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".$autoObserve" : null, () -> this.$$arezi$$_$autoObserve(), Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentComplete();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentComplete();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_auto_observe_BasicAutoObserveModel'" );
     }
-    return this.$$arezi$$_kernel.getContext().locator();
+    return this.$$arezi$$_kernel().getContext().locator();
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -83,7 +89,7 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel implements 
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -92,7 +98,7 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel implements 
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_auto_observe_BasicAutoObserveModel'" );
     }
-    this.$$arezi$$_kernel.addOnDisposeListener( key, action, errorIfDuplicate );
+    this.$$arezi$$_kernel().addOnDisposeListener( key, action, errorIfDuplicate );
   }
 
   @Override
@@ -103,7 +109,7 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel implements 
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener( key, errorIfMissing );
+    this.$$arezi$$_kernel().removeOnDisposeListener( key, errorIfMissing );
   }
 
   @Override
@@ -114,7 +120,7 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel implements 
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'isDisposed' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -125,7 +131,7 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel implements 
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'dispose' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -143,14 +149,14 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel implements 
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'verify' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( BasicAutoObserveModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type BasicAutoObserveModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( BasicAutoObserveModel.class, $$arezi$$_id() ) );
-      final @Nullable Integer $$arezv$$_entityId = this.getEntityId();
+      final Integer $$arezv$$_entityId = this.getEntityId();
       if ( null != $$arezv$$_entityId ) {
         final BasicAutoObserveModel.MyEntity $$arezv$$_entity = this.$$arezi$$_locator().findById( BasicAutoObserveModel.MyEntity.class, $$arezv$$_entityId );
-        Guards.apiInvariant( () -> null != $$arezv$$_entity, () -> "Reference named 'entity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.auto_observe.BasicAutoObserveModel.MyEntity and id = " + getEntityId() );
+        Guards.apiInvariant( () -> null != $$arezv$$_entity, () -> "Reference named 'entity' on component named '" + this.$$arezi$$_kernel().getName() + "' is unable to resolve entity of type com.example.auto_observe.BasicAutoObserveModel.MyEntity and id = " + getEntityId() );
       }
     }
   }
@@ -158,7 +164,7 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel implements 
   @Override
   BasicAutoObserveModel. @Nullable MyComponent getSelected() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getSelected' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getSelected' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_selected.reportObserved();
     return this.$$arezd$$_selected;
@@ -167,10 +173,10 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel implements 
   @Override
   void setSelected(final BasicAutoObserveModel. @Nullable MyComponent selected) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setSelected' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setSelected' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_selected.preReportChanged();
-    final BasicAutoObserveModel. @Nullable MyComponent $$arezv$$_currentValue = this.$$arezd$$_selected;
+    final BasicAutoObserveModel.MyComponent $$arezv$$_currentValue = this.$$arezd$$_selected;
     if ( !Objects.equals( selected, $$arezv$$_currentValue ) ) {
       this.$$arezd$$_selected = selected;
       this.$$arez$$_selected.reportChanged();
@@ -180,7 +186,7 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel implements 
   @Override
   @Nullable Integer getEntityId() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getEntityId' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getEntityId' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_entityId.reportObserved();
     return this.$$arezd$$_entityId;
@@ -189,10 +195,10 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel implements 
   @Override
   void setEntityId(final @Nullable Integer id) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setEntityId' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setEntityId' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_entityId.preReportChanged();
-    final @Nullable Integer $$arezv$$_currentValue = this.$$arezd$$_entityId;
+    final Integer $$arezv$$_currentValue = this.$$arezd$$_entityId;
     if ( !Objects.equals( id, $$arezv$$_currentValue ) ) {
       this.$$arezd$$_entityId = id;
       this.$$arez$$_entityId.reportChanged();
@@ -202,16 +208,16 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel implements 
 
   private void $$arezi$$_$autoObserve() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_$autoObserve' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_$autoObserve' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
-    final BasicAutoObserveModel. @Nullable MyComponent $$arezv$$_autoObserve_0 = this.current();
+    final BasicAutoObserveModel.MyComponent $$arezv$$_autoObserve_0 = this.current();
     ComponentObservable.maybeObserve( $$arezv$$_autoObserve_0 );
-    final BasicAutoObserveModel. @Nullable MyComponent $$arezv$$_autoObserve_1 = this.getSelected();
+    final BasicAutoObserveModel.MyComponent $$arezv$$_autoObserve_1 = this.getSelected();
     ComponentObservable.maybeObserve( $$arezv$$_autoObserve_1 );
     this.$$arezi$$_link_entity();
-    final BasicAutoObserveModel. @Nullable MyEntity $$arezv$$_autoObserve_2 = this.getEntity();
+    final BasicAutoObserveModel.MyEntity $$arezv$$_autoObserve_2 = this.getEntity();
     ComponentObservable.maybeObserve( $$arezv$$_autoObserve_2 );
-    final BasicAutoObserveModel. @Nullable MyComponent $$arezv$$_autoObserve_3 = this._field;
+    final BasicAutoObserveModel.MyComponent $$arezv$$_autoObserve_3 = this._field;
     if ( null != $$arezv$$_autoObserve_3 ) {
       ComponentObservable.observe( $$arezv$$_autoObserve_3 );
     }
@@ -220,7 +226,7 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel implements 
   @Override
   BasicAutoObserveModel. @Nullable MyEntity getEntity() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getEntity' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getEntity' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     if ( null == this.$$arezr$$_entity ) {
       this.$$arezi$$_link_entity();
@@ -232,27 +238,23 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel implements 
 
   private void $$arezi$$_link_entity() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_link_entity' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_link_entity' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     if ( null == this.$$arezr$$_entity ) {
-      final @Nullable Integer id = this.getEntityId();
+      final Integer id = this.getEntityId();
       if ( null != id ) {
         this.$$arezr$$_entity = this.$$arezi$$_locator().findById( BasicAutoObserveModel.MyEntity.class, id );
         if ( Arez.shouldCheckApiInvariants() ) {
-          Guards.apiInvariant( () -> null != $$arezr$$_entity, () -> "Reference named 'entity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.auto_observe.BasicAutoObserveModel.MyEntity and id = " + getEntityId() );
+          Guards.apiInvariant( () -> null != $$arezr$$_entity, () -> "Reference named 'entity' on component named '" + this.$$arezi$$_kernel().getName() + "' is unable to resolve entity of type com.example.auto_observe.BasicAutoObserveModel.MyEntity and id = " + getEntityId() );
         }
       }
     }
   }
 
-  private void $$arezi$$_delink_entity() {
-    this.$$arezr$$_entity = null;
-  }
-
   @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

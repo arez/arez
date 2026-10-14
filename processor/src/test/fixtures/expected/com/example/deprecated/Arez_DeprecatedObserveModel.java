@@ -24,7 +24,10 @@ final class Arez_DeprecatedObserveModel extends DeprecatedObserveModel implement
 
   private final Observer $$arez$$_doStuff;
 
-  @SuppressWarnings("deprecation")
+  @SuppressWarnings({
+      "NonAtomicVolatileUpdate",
+      "deprecation"
+  })
   Arez_DeprecatedObserveModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -33,13 +36,18 @@ final class Arez_DeprecatedObserveModel extends DeprecatedObserveModel implement
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_deprecated_DeprecatedObserveModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arez$$_doStuff = $$arezv$$_context.observer( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".doStuff" : null, () -> super.doStuff(), Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentComplete();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentComplete();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -54,7 +62,7 @@ final class Arez_DeprecatedObserveModel extends DeprecatedObserveModel implement
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -63,7 +71,7 @@ final class Arez_DeprecatedObserveModel extends DeprecatedObserveModel implement
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_deprecated_DeprecatedObserveModel'" );
     }
-    this.$$arezi$$_kernel.addOnDisposeListener( key, action, errorIfDuplicate );
+    this.$$arezi$$_kernel().addOnDisposeListener( key, action, errorIfDuplicate );
   }
 
   @Override
@@ -74,7 +82,7 @@ final class Arez_DeprecatedObserveModel extends DeprecatedObserveModel implement
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener( key, errorIfMissing );
+    this.$$arezi$$_kernel().removeOnDisposeListener( key, errorIfMissing );
   }
 
   @Override
@@ -85,7 +93,7 @@ final class Arez_DeprecatedObserveModel extends DeprecatedObserveModel implement
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'isDisposed' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -96,7 +104,7 @@ final class Arez_DeprecatedObserveModel extends DeprecatedObserveModel implement
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'dispose' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -115,7 +123,7 @@ final class Arez_DeprecatedObserveModel extends DeprecatedObserveModel implement
   @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

@@ -8,8 +8,7 @@ import org.jspecify.annotations.Nullable;
 
 @NullMarked
 @ArezComponent
-public abstract class GroupRepository
-        extends AbstractRepository<Integer, arez.doc.examples.reference.Group, GroupRepository> {
+public abstract class GroupRepository extends AbstractRepository<Integer, Group, GroupRepository> {
     // DOC ELIDE START
     // DOC ELIDE END
     @Nullable

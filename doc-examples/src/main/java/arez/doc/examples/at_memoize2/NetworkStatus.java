@@ -44,7 +44,7 @@ public abstract class NetworkStatus {
     }
 
     @ComputableValueRef
-    abstract @Nullable ComputableValue<Boolean> getOnLineComputableValue();
+    abstract ComputableValue<Boolean> getOnLineComputableValue();
 
     @OnActivate
     void onOnLineActivate() {
@@ -66,7 +66,7 @@ public abstract class NetworkStatus {
 
     // DOC ELIDE START
     @JsProperty(name = "navigator", namespace = JsPackage.GLOBAL)
-    private static native @Nullable Navigator navigator();
+    private static native Navigator navigator();
 
     @JsMethod(name = "addEventListener", namespace = JsPackage.GLOBAL)
     private static native void addEventListener(@Nullable String type, @Nullable EventListener listener);

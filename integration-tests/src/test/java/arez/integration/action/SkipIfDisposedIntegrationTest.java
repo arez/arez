@@ -12,7 +12,6 @@ import arez.integration.util.TestSpyEventHandler;
 import arez.spy.ActionSkippedEvent;
 import java.util.function.IntSupplier;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
 @NullMarked
@@ -117,8 +116,8 @@ public final class SkipIfDisposedIntegrationTest extends AbstractArezIntegration
         assertActionSkipped(() -> component.myAction(123), () -> component.invokeCount);
     }
 
-    private void assertActionSkipped(final @Nullable Runnable action, final @Nullable IntSupplier invokeCountSupplier) {
-        final TestSpyEventHandler recorder = new TestSpyEventHandler();
+    private void assertActionSkipped(final Runnable action, final IntSupplier invokeCountSupplier) {
+        final var recorder = new TestSpyEventHandler();
         Arez.context().getSpy().addSpyEventHandler(recorder);
 
         action.run();
@@ -133,9 +132,7 @@ public final class SkipIfDisposedIntegrationTest extends AbstractArezIntegration
     }
 
     private void assertDisposedInvariant(
-            final @Nullable Runnable action,
-            final @Nullable Object component,
-            final @Nullable IntSupplier invokeCountSupplier) {
+            final Runnable action, final Object component, final IntSupplier invokeCountSupplier) {
         final IllegalStateException exception = expectThrows(IllegalStateException.class, action::run);
         final String componentName =
                 component.toString().replace("ArezComponent[", "").replace("]", "");

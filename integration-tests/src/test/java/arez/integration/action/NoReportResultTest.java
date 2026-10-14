@@ -40,7 +40,7 @@ public final class NoReportResultTest extends AbstractArezIntegrationTest {
 
         final MyComponent component = new NoReportResultTest_Arez_MyComponent();
 
-        final TestSpyEventHandler recorder = new TestSpyEventHandler();
+        final var recorder = new TestSpyEventHandler();
         context.getSpy().addSpyEventHandler(recorder);
 
         component.myAction();

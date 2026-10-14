@@ -21,6 +21,7 @@ final class Arez_TypeParametersOnModel<T extends Integer> extends TypeParameters
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_TypeParametersOnModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -45,13 +46,18 @@ final class Arez_TypeParametersOnModel<T extends Integer> extends TypeParameters
         true,
         false,
         false);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -72,7 +78,7 @@ final class Arez_TypeParametersOnModel<T extends Integer> extends TypeParameters
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -84,7 +90,7 @@ final class Arez_TypeParametersOnModel<T extends Integer> extends TypeParameters
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'TypeParametersOnModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -101,7 +107,7 @@ final class Arez_TypeParametersOnModel<T extends Integer> extends TypeParameters
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -118,7 +124,7 @@ final class Arez_TypeParametersOnModel<T extends Integer> extends TypeParameters
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -135,7 +141,7 @@ final class Arez_TypeParametersOnModel<T extends Integer> extends TypeParameters
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   @Override
@@ -143,13 +149,13 @@ final class Arez_TypeParametersOnModel<T extends Integer> extends TypeParameters
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
-    this.$$arezi$$_kernel
+    this.$$arezi$$_kernel()
         .getContext()
         .safeAction(
-            Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff" : null,
+            Arez.areNamesEnabled() ? this.$$arezi$$_kernel().getName() + ".doStuff" : null,
             () -> super.doStuff(),
             ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED,
             null);
@@ -158,7 +164,7 @@ final class Arez_TypeParametersOnModel<T extends Integer> extends TypeParameters
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

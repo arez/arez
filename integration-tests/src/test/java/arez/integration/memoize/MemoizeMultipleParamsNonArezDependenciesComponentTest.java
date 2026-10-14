@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
 @NullMarked
@@ -25,9 +24,9 @@ public final class MemoizeMultipleParamsNonArezDependenciesComponentTest extends
     public void scenario() throws Throwable {
         final ArezContext context = Arez.context();
 
-        final Element element = Element.create("");
+        final var element = Element.create("");
 
-        final AtomicInteger observerCallCount = new AtomicInteger();
+        final var observerCallCount = new AtomicInteger();
         observer(() -> {
             observerCallCount.incrementAndGet();
             element.getMemoized(3);
@@ -62,9 +61,9 @@ public final class MemoizeMultipleParamsNonArezDependenciesComponentTest extends
     public void lazyValidationDoesNotTrackTransitiveParameterizedMemoizeDependencies() throws Throwable {
         final ArezContext context = Arez.context();
 
-        final Element element = Element.create("");
+        final var element = Element.create("");
 
-        final AtomicInteger observerCallCount = new AtomicInteger();
+        final var observerCallCount = new AtomicInteger();
         observer(() -> {
             observerCallCount.incrementAndGet();
             assertEquals(element.getOuterMemoized(3), "");
@@ -109,11 +108,10 @@ public final class MemoizeMultipleParamsNonArezDependenciesComponentTest extends
     @SuppressWarnings("SameParameterValue")
     @ArezComponent
     public abstract static class Element {
-        private final @Nullable Map<Integer, AtomicInteger> _callCounts = new HashMap<>();
-        private final @Nullable Map<Integer, AtomicInteger> _nestedCallCounts = new HashMap<>();
-        private final @Nullable Map<Integer, AtomicInteger> _outerCallCounts = new HashMap<>();
+        private final Map<Integer, AtomicInteger> _callCounts = new HashMap<>();
+        private final Map<Integer, AtomicInteger> _nestedCallCounts = new HashMap<>();
+        private final Map<Integer, AtomicInteger> _outerCallCounts = new HashMap<>();
 
-        @Nullable
         String _result;
 
         public static Element create(final String result) {
@@ -135,7 +133,7 @@ public final class MemoizeMultipleParamsNonArezDependenciesComponentTest extends
         }
 
         @ComputableValueRef
-        abstract @Nullable ComputableValue<String> getMemoizedComputableValue(int index);
+        abstract ComputableValue<String> getMemoizedComputableValue(int index);
 
         @Memoize
         String getNestedMemoized(final int index) {
@@ -144,7 +142,7 @@ public final class MemoizeMultipleParamsNonArezDependenciesComponentTest extends
         }
 
         @ComputableValueRef
-        abstract @Nullable ComputableValue<String> getNestedMemoizedComputableValue(int index);
+        abstract ComputableValue<String> getNestedMemoizedComputableValue(int index);
 
         @Memoize
         String getOuterMemoized(final int index) {
@@ -153,6 +151,6 @@ public final class MemoizeMultipleParamsNonArezDependenciesComponentTest extends
         }
 
         @ComputableValueRef
-        abstract @Nullable ComputableValue<String> getOuterMemoizedComputableValue(int index);
+        abstract ComputableValue<String> getOuterMemoizedComputableValue(int index);
     }
 }

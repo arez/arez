@@ -16,6 +16,7 @@ import arez.annotations.Observable;
 import arez.component.ComponentObservable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -33,7 +34,7 @@ public final class MemoizedIntegrationTest extends AbstractArezIntegrationTest {
 
         final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-        final PersonModel person = PersonModel.create("Bill", 15);
+        final var person = PersonModel.create("Bill", 15);
 
         context.observer("SearchResult - red", () -> {
             observeADependency();
@@ -95,7 +96,7 @@ public final class MemoizedIntegrationTest extends AbstractArezIntegrationTest {
 
         final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-        final PersonModel person = PersonModel.create("Bill", 15);
+        final var person = PersonModel.create("Bill", 15);
 
         context.action("Query 1", () -> person.doesSearchMatch("ill"));
         context.action("Query 2", () -> person.doesSearchMatch("red"));
@@ -109,7 +110,7 @@ public final class MemoizedIntegrationTest extends AbstractArezIntegrationTest {
 
         final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-        final PersonModel person = PersonModel.create("Bill", 15);
+        final var person = PersonModel.create("Bill", 15);
 
         context.observer(
                 "SearchResult - red - 20",
@@ -133,7 +134,7 @@ public final class MemoizedIntegrationTest extends AbstractArezIntegrationTest {
 
         final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-        final PersonModel person = PersonModel.create("Bill", 15);
+        final var person = PersonModel.create("Bill", 15);
 
         context.observer(
                 "SearchResult - red - 20",
@@ -188,12 +189,12 @@ public final class MemoizedIntegrationTest extends AbstractArezIntegrationTest {
 
         @Memoize
         public boolean doesSearchMatch(final String value) {
-            return getName().contains(value);
+            return Objects.requireNonNull(getName()).contains(value);
         }
 
         @Memoize
         public boolean doesFullSearchMatch(final String value, final int minAge) {
-            return getName().contains(value) && getAge() >= minAge;
+            return Objects.requireNonNull(getName()).contains(value) && getAge() >= minAge;
         }
     }
 }

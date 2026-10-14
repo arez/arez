@@ -25,7 +25,7 @@ import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"rawtypes", "unchecked"})
 @NullMarked
 final class Arez_RawTypesUsageModel extends RawTypesUsageModel
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
@@ -61,7 +61,7 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel
 
   private final Observer $$arez$$_render;
 
-  @SuppressWarnings("rawtypes")
+  @SuppressWarnings({"NonAtomicVolatileUpdate", "rawtypes"})
   Arez_RawTypesUsageModel(
       final @Nullable Callable myCallable, final @Nullable List<Callable> myCallableList) {
     super();
@@ -89,25 +89,25 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel
         false);
     this.$$arezd$$_myCallable = myCallable;
     this.$$arezd$$_myCallableList = myCallableList;
-    this.$$arez$$_myCallable = $$arezv$$_context.observable(
+    this.$$arez$$_myCallable = $$arezv$$_context.<@Nullable Callable>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".myCallable" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_myCallable)
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_myCallable)
             : null,
         Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myCallable = v : null);
-    this.$$arez$$_myCallable2 = $$arezv$$_context.observable(
+    this.$$arez$$_myCallable2 = $$arezv$$_context.<@Nullable Callable>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".myCallable2" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : super.getMyCallable2())
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : super.getMyCallable2())
             : null,
         Arez.arePropertyIntrospectorsEnabled() ? v -> super.setMyCallable2(v) : null);
-    this.$$arez$$_myCallableList = $$arezv$$_context.observable(
+    this.$$arez$$_myCallableList = $$arezv$$_context.<@Nullable List<Callable>>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".myCallableList" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_myCallableList)
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_myCallableList)
             : null,
         Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myCallableList = v : null);
     this.$$arez$$_genCallable = $$arezv$$_context.computable(
@@ -136,13 +136,18 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel
         Observer.Flags.RUN_LATER
             | Observer.Flags.NESTED_ACTIONS_DISALLOWED
             | Observer.Flags.AREZ_DEPENDENCIES);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -163,7 +168,7 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -175,7 +180,7 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_raw_types_RawTypesUsageModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -192,7 +197,7 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -209,7 +214,7 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -226,7 +231,7 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -246,8 +251,9 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getMyCallable' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getMyCallable' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_myCallable.reportObserved();
     return this.$$arezd$$_myCallable;
@@ -259,11 +265,12 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setMyCallable' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setMyCallable' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_myCallable.preReportChanged();
-    final @Nullable Callable $$arezv$$_currentValue = this.$$arezd$$_myCallable;
+    final Callable $$arezv$$_currentValue = this.$$arezd$$_myCallable;
     if (!Objects.equals(callable, $$arezv$$_currentValue)) {
       this.$$arezd$$_myCallable = callable;
       this.$$arez$$_myCallable.reportChanged();
@@ -277,8 +284,9 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getMyCallable2' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getMyCallable2' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_myCallable2.reportObserved();
     return super.getMyCallable2();
@@ -290,11 +298,12 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setMyCallable2' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setMyCallable2' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_myCallable2.preReportChanged();
-    final @Nullable Callable $$arezv$$_currentValue = super.getMyCallable2();
+    final Callable $$arezv$$_currentValue = super.getMyCallable2();
     if (!Objects.equals(callable, $$arezv$$_currentValue)) {
       super.setMyCallable2(callable);
       this.$$arez$$_myCallable2.reportChanged();
@@ -308,13 +317,13 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () ->
-              "Method named 'getMyCallableList' invoked on " + this.$$arezi$$_kernel.describeState()
-                  + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getMyCallableList' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_myCallableList.reportObserved();
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final @Nullable List<Callable> $$ar$$_result = this.$$arezd$$_myCallableList;
+      final List<Callable> $$ar$$_result = this.$$arezd$$_myCallableList;
       if (null == this.$$arezd$$_$$cache$$_myCallableList && null != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_myCallableList = CollectionsUtil.wrap($$ar$$_result);
       }
@@ -330,12 +339,12 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () ->
-              "Method named 'setMyCallableList' invoked on " + this.$$arezi$$_kernel.describeState()
-                  + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setMyCallableList' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_myCallableList.preReportChanged();
-    final @Nullable List<Callable> $$arezv$$_currentValue = this.$$arezd$$_myCallableList;
+    final List<Callable> $$arezv$$_currentValue = this.$$arezd$$_myCallableList;
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
       this.$$arezd$$_$$cache$$_myCallableList = null;
     }
@@ -351,10 +360,10 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'render' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'render' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
-    this.$$arezi$$_kernel
+    this.$$arezi$$_kernel()
         .getContext()
         .safeObserve(
             this.$$arez$$_render,
@@ -368,13 +377,13 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
-    this.$$arezi$$_kernel
+    this.$$arezi$$_kernel()
         .getContext()
         .safeAction(
-            Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff" : null,
+            Arez.areNamesEnabled() ? this.$$arezi$$_kernel().getName() + ".doStuff" : null,
             () -> super.doStuff(callable),
             ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED,
             Arez.areSpiesEnabled() ? new Object[] {callable} : null);
@@ -387,8 +396,9 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'genCallable' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () ->
+              "Method named 'genCallable' invoked on " + this.$$arezi$$_kernel().describeState()
+                  + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     return this.$$arez$$_genCallable.get();
   }
@@ -399,9 +409,9 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () ->
-              "Method named 'genCallableStat1' invoked on " + this.$$arezi$$_kernel.describeState()
-                  + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'genCallableStat1' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     return this.$$arez$$_genCallableStat1.get(callable);
   }
@@ -412,9 +422,9 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () ->
-              "Method named 'genCallableStat2' invoked on " + this.$$arezi$$_kernel.describeState()
-                  + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'genCallableStat2' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     return this.$$arez$$_genCallableStat2.get(other);
   }
@@ -422,7 +432,7 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

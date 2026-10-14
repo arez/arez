@@ -11,12 +11,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.stream.JsonGenerator;
 import org.json.JSONException;
 import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.comparator.DefaultComparator;
@@ -36,7 +38,7 @@ public final class SpyEventRecorder implements SpyEventHandler {
     }
 
     public static SpyEventRecorder beginRecording(final ArezContext context) {
-        final SpyEventRecorder recorder = new SpyEventRecorder();
+        final var recorder = new SpyEventRecorder();
         context.getSpy().addSpyEventHandler(recorder);
         return recorder;
     }
@@ -56,7 +58,7 @@ public final class SpyEventRecorder implements SpyEventHandler {
         }
     }
 
-    public void mark(final String key, final Object value) {
+    public void mark(final String key, final @Nullable Object value) {
         final JsonObject mark = Json.createObjectBuilder()
                 .add("type", "usermark")
                 .add(key, String.valueOf(value))
@@ -67,7 +69,7 @@ public final class SpyEventRecorder implements SpyEventHandler {
     public void assertMatchesFixture(final Path file, final boolean updateFixture) throws IOException, JSONException {
         final String json = eventsAsString();
         if (updateFixture) {
-            final File dir = file.getParent().toFile();
+            final File dir = Objects.requireNonNull(file.getParent()).toFile();
             if (!dir.exists()) {
                 if (!dir.mkdirs()) {
                     throw new AssertionError("Unable to create fixtures parent directory: " + dir);
@@ -82,7 +84,7 @@ public final class SpyEventRecorder implements SpyEventHandler {
     private String eventsAsString() {
         final Map<String, Object> properties = new HashMap<>(1);
         properties.put(JsonGenerator.PRETTY_PRINTING, true);
-        final StringWriter writer = new StringWriter();
+        final var writer = new StringWriter();
         Json.createWriterFactory(properties).createWriter(writer).write(_events.build());
         writer.flush();
         return writer.toString();

@@ -21,7 +21,7 @@ public final class PrioritizedSchedulerTest extends AbstractArezIntegrationTest 
     @SuppressWarnings("SameParameterValue")
     @ArezComponent
     abstract static class TestComponent {
-        final @Nullable ArrayList<String> _calls = new ArrayList<>();
+        final ArrayList<String> _calls = new ArrayList<>();
 
         @Observable
         abstract @Nullable String getValue1();

@@ -7,7 +7,12 @@ import org.jspecify.annotations.Nullable;
 
 @NullMarked
 public class ActionExample4 {
+    // DOC ELIDE START
+    private ActionExample4() {}
+    // DOC ELIDE END
     public static void main(String @Nullable [] args) throws Throwable {
+        // The snippet demonstrates receiving a result before a caller uses it.
+        @SuppressWarnings("UnusedVariable")
         final int result = Arez.context()
                 .action(
                         "MyAction",

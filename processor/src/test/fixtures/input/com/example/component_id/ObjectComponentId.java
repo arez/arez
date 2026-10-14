@@ -10,7 +10,7 @@ import org.jspecify.annotations.Nullable;
 abstract class ObjectComponentId
 {
   @ComponentId
-  public @Nullable String getId()
+  public String getId()
   {
     return "";
   }

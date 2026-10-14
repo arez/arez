@@ -13,8 +13,8 @@ import org.testng.annotations.Test;
 public final class AutoObserveFieldIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
-        final Child child = Child.create();
-        final Owner owner = Owner.create(child);
+        final var child = Child.create();
+        final var owner = Owner.create(child);
 
         assertFalse(Disposable.isDisposed(child));
         assertFalse(Disposable.isDisposed(owner));

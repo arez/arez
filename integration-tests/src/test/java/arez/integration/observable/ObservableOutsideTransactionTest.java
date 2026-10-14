@@ -31,7 +31,7 @@ public final class ObservableOutsideTransactionTest extends AbstractArezIntegrat
         // Read outside a transaction
         assertEquals(component.getTime(), 0L);
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         observer(() -> {
             component.getTime();

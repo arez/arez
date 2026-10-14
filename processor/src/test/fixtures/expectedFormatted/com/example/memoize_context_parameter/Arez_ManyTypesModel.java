@@ -32,6 +32,7 @@ final class Arez_ManyTypesModel extends ManyTypesModel
 
   private final MemoizeCache<Long> $$arez$$_count;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ManyTypesModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -61,14 +62,14 @@ final class Arez_ManyTypesModel extends ManyTypesModel
         Arez.areZonesEnabled() ? $$arezv$$_context : null,
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null,
-        args -> $$arezi$$_memoize_time((@NonNull String) args[0], (int) args[1]),
+        args -> $$arezi$$_memoize_time((String) args[0], (int) args[1]),
         2,
         ComputableValue.Flags.AREZ_DEPENDENCIES);
     this.$$arez$$_text = new MemoizeCache<>(
         Arez.areZonesEnabled() ? $$arezv$$_context : null,
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".text" : null,
-        args -> $$arezi$$_memoize_text((@NonNull String) args[0], (int) args[1]),
+        args -> $$arezi$$_memoize_text((String) args[0], (int) args[1]),
         2,
         ComputableValue.Flags.AREZ_DEPENDENCIES);
     this.$$arez$$_count = new MemoizeCache<>(
@@ -76,16 +77,21 @@ final class Arez_ManyTypesModel extends ManyTypesModel
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".count" : null,
         args -> $$arezi$$_memoize_count(
-            (@NonNull String) args[0], (int) args[1], (long) args[2], (float) args[3]),
+            (String) args[0], (int) args[1], (long) args[2], (float) args[3]),
         4,
         ComputableValue.Flags.AREZ_DEPENDENCIES);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -106,7 +112,7 @@ final class Arez_ManyTypesModel extends ManyTypesModel
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -118,7 +124,7 @@ final class Arez_ManyTypesModel extends ManyTypesModel
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_memoize_context_parameter_ManyTypesModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -135,7 +141,7 @@ final class Arez_ManyTypesModel extends ManyTypesModel
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -152,7 +158,7 @@ final class Arez_ManyTypesModel extends ManyTypesModel
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -169,7 +175,7 @@ final class Arez_ManyTypesModel extends ManyTypesModel
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -198,8 +204,8 @@ final class Arez_ManyTypesModel extends ManyTypesModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     return this.$$arez$$_time.get(captureMyContextVar(), captureMyContextVar2());
   }
@@ -224,8 +230,8 @@ final class Arez_ManyTypesModel extends ManyTypesModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getText' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getText' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     return this.$$arez$$_text.get(captureMyContextVar(), captureMyContextVar2());
   }
@@ -253,8 +259,8 @@ final class Arez_ManyTypesModel extends ManyTypesModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'count' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'count' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     return this.$$arez$$_count.get(
         captureMyContextVar(), captureMyContextVar2(), time, someOtherParameter);
@@ -263,7 +269,7 @@ final class Arez_ManyTypesModel extends ManyTypesModel
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

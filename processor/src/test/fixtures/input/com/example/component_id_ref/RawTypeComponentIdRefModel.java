@@ -17,9 +17,9 @@ abstract class RawTypeComponentIdRefModel
   }
 
   @ComponentId
-  @Nullable MyId id()
+  MyId id()
   {
-    return null;
+    throw new UnsupportedOperationException("Fixture declaration");
   }
 
   @ComponentIdRef

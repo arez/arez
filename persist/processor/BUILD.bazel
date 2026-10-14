@@ -5,7 +5,6 @@ package(default_visibility = ["//visibility:public"])
 java_library(
     name = "processor",
     srcs = ["//persist/processor/src/main/java/arez/persist:all"],
-    migration_pending_checks = True,
     resources = ["//persist/processor/src/main/resources/META-INF/services:javax.annotation.processing.Processor"],
     deps = [
         "//third_party/java:javapoet",

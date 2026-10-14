@@ -5,9 +5,12 @@ import org.jspecify.annotations.Nullable;
 
 @NullMarked
 public class RepositoryExample {
+    // DOC ELIDE START
+    private RepositoryExample() {}
+    // DOC ELIDE END
     public static void main(String @Nullable [] args) {
         // EXAMPLE START
-        final MyComponentRepository repository = MyComponentRepository.newRepository();
+        final var repository = MyComponentRepository.newRepository();
         final int myComponentId = 22;
         final MyComponent component = repository.create(myComponentId, "MyName");
 

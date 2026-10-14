@@ -28,6 +28,7 @@ final class NonObservableCollectionInverseModel_Arez_Element extends NonObservab
 
   private @Nullable NonObservableCollectionInverseModel $$arezr$$_nonObservableCollectionInverseModel;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   NonObservableCollectionInverseModel_Arez_Element() {
     super();
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -38,21 +39,26 @@ final class NonObservableCollectionInverseModel_Arez_Element extends NonObservab
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_inverse_NonObservableCollectionInverseModel_Element." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_inverse_NonObservableCollectionInverseModel_Element", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, null, null, true, false, false );
-    this.$$arezi$$_kernel.componentConstructed();
+    this.$$arezi$$_kernel().componentConstructed();
     this.$$arezi$$_link_nonObservableCollectionInverseModel();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_inverse_NonObservableCollectionInverseModel_Element'" );
     }
-    return this.$$arezi$$_kernel.getContext().locator();
+    return this.$$arezi$$_kernel().getContext().locator();
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -72,7 +78,7 @@ final class NonObservableCollectionInverseModel_Arez_Element extends NonObservab
 
   private void $$arezi$$_nativeComponentPreDispose() {
     this.$$arezi$$_preDispose();
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -81,7 +87,7 @@ final class NonObservableCollectionInverseModel_Arez_Element extends NonObservab
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_NonObservableCollectionInverseModel_Element'" );
     }
-    this.$$arezi$$_kernel.addOnDisposeListener( key, action, errorIfDuplicate );
+    this.$$arezi$$_kernel().addOnDisposeListener( key, action, errorIfDuplicate );
   }
 
   @Override
@@ -92,7 +98,7 @@ final class NonObservableCollectionInverseModel_Arez_Element extends NonObservab
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener( key, errorIfMissing );
+    this.$$arezi$$_kernel().removeOnDisposeListener( key, errorIfMissing );
   }
 
   @Override
@@ -103,7 +109,7 @@ final class NonObservableCollectionInverseModel_Arez_Element extends NonObservab
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'isDisposed' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -114,7 +120,7 @@ final class NonObservableCollectionInverseModel_Arez_Element extends NonObservab
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'dispose' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   @Override
@@ -126,36 +132,38 @@ final class NonObservableCollectionInverseModel_Arez_Element extends NonObservab
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'verify' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( NonObservableCollectionInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type NonObservableCollectionInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( NonObservableCollectionInverseModel.Element.class, $$arezi$$_id() ) );
       final int $$arezv$$_nonObservableCollectionInverseModelId = this.getNonObservableCollectionInverseModelId();
       final NonObservableCollectionInverseModel $$arezv$$_nonObservableCollectionInverseModel = this.$$arezi$$_locator().findById( NonObservableCollectionInverseModel.class, $$arezv$$_nonObservableCollectionInverseModelId );
-      Guards.apiInvariant( () -> null != $$arezv$$_nonObservableCollectionInverseModel, () -> "Reference named 'nonObservableCollectionInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.NonObservableCollectionInverseModel and id = " + getNonObservableCollectionInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_nonObservableCollectionInverseModel, () -> "Reference named 'nonObservableCollectionInverseModel' on component named '" + this.$$arezi$$_kernel().getName() + "' is unable to resolve entity of type com.example.inverse.NonObservableCollectionInverseModel and id = " + getNonObservableCollectionInverseModelId() );
     }
   }
 
   @Override
   @Nullable NonObservableCollectionInverseModel getNonObservableCollectionInverseModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getNonObservableCollectionInverseModel' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getNonObservableCollectionInverseModel' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_nonObservableCollectionInverseModel, () -> "Nonnull reference method named 'getNonObservableCollectionInverseModel' invoked on component named '" + this.$$arezi$$_kernel.getName() + "' but reference has not been resolved yet is not lazy. Id = " + getNonObservableCollectionInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_nonObservableCollectionInverseModel, () -> "Nonnull reference method named 'getNonObservableCollectionInverseModel' invoked on component named '" + this.$$arezi$$_kernel().getName() + "' but reference has not been resolved yet is not lazy. Id = " + getNonObservableCollectionInverseModelId() );
     }
+    assert null != this.$$arezr$$_nonObservableCollectionInverseModel;
     return this.$$arezr$$_nonObservableCollectionInverseModel;
   }
 
   private void $$arezi$$_link_nonObservableCollectionInverseModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_link_nonObservableCollectionInverseModel' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_link_nonObservableCollectionInverseModel' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     final int id = this.getNonObservableCollectionInverseModelId();
     this.$$arezr$$_nonObservableCollectionInverseModel = this.$$arezi$$_locator().findById( NonObservableCollectionInverseModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_nonObservableCollectionInverseModel, () -> "Reference named 'nonObservableCollectionInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.NonObservableCollectionInverseModel and id = " + getNonObservableCollectionInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_nonObservableCollectionInverseModel, () -> "Reference named 'nonObservableCollectionInverseModel' on component named '" + this.$$arezi$$_kernel().getName() + "' is unable to resolve entity of type com.example.inverse.NonObservableCollectionInverseModel and id = " + getNonObservableCollectionInverseModelId() );
     }
+    assert null != this.$$arezr$$_nonObservableCollectionInverseModel;
     ( (Arez_NonObservableCollectionInverseModel) this.$$arezr$$_nonObservableCollectionInverseModel ).$$arezir$$_elements_add( this );
   }
 
@@ -169,7 +177,7 @@ final class NonObservableCollectionInverseModel_Arez_Element extends NonObservab
   @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

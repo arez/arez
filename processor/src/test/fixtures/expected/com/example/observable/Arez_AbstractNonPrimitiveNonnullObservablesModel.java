@@ -29,6 +29,7 @@ final class Arez_AbstractNonPrimitiveNonnullObservablesModel extends AbstractNon
 
   private @NonNull Date $$arezd$$_time;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_AbstractNonPrimitiveNonnullObservablesModel(final @NonNull Date time) {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -37,14 +38,19 @@ final class Arez_AbstractNonPrimitiveNonnullObservablesModel extends AbstractNon
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_observable_AbstractNonPrimitiveNonnullObservablesModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arezd$$_time = Objects.requireNonNull( time );
-    this.$$arez$$_time = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_time ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_time = v : null );
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arez$$_time = $$arezv$$_context.<@NonNull Date>observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_time ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_time = Objects.requireNonNull( v ) : null );
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -59,7 +65,7 @@ final class Arez_AbstractNonPrimitiveNonnullObservablesModel extends AbstractNon
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -68,7 +74,7 @@ final class Arez_AbstractNonPrimitiveNonnullObservablesModel extends AbstractNon
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_observable_AbstractNonPrimitiveNonnullObservablesModel'" );
     }
-    this.$$arezi$$_kernel.addOnDisposeListener( key, action, errorIfDuplicate );
+    this.$$arezi$$_kernel().addOnDisposeListener( key, action, errorIfDuplicate );
   }
 
   @Override
@@ -79,7 +85,7 @@ final class Arez_AbstractNonPrimitiveNonnullObservablesModel extends AbstractNon
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener( key, errorIfMissing );
+    this.$$arezi$$_kernel().removeOnDisposeListener( key, errorIfMissing );
   }
 
   @Override
@@ -90,7 +96,7 @@ final class Arez_AbstractNonPrimitiveNonnullObservablesModel extends AbstractNon
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'isDisposed' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -101,7 +107,7 @@ final class Arez_AbstractNonPrimitiveNonnullObservablesModel extends AbstractNon
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'dispose' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -111,19 +117,22 @@ final class Arez_AbstractNonPrimitiveNonnullObservablesModel extends AbstractNon
   @Override
   public @NonNull Date getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_time.reportObserved();
+    assert null != this.$$arezd$$_time;
     return this.$$arezd$$_time;
   }
 
   @Override
+  @SuppressWarnings("UndefinedEquals")
   public void setTime(final @NonNull Date value) {
+    // Default observable equality uses the concrete value's equals implementation.
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setTime' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_time.preReportChanged();
-    final @NonNull Date $$arezv$$_currentValue = this.$$arezd$$_time;
+    final Date $$arezv$$_currentValue = this.$$arezd$$_time;
     assert null != value;
     if ( !Objects.equals( value, $$arezv$$_currentValue ) ) {
       this.$$arezd$$_time = value;
@@ -134,7 +143,7 @@ final class Arez_AbstractNonPrimitiveNonnullObservablesModel extends AbstractNon
   @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

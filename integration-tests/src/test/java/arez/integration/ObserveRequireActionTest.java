@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 public final class ObserveRequireActionTest extends AbstractArezIntegrationTest {
     @Test
     public void accessingObservableOutsideTransactionShouldThrowException() {
-        final CodeModel component = CodeModel.create(ValueUtil.randomString(), ValueUtil.randomString());
+        final var component = CodeModel.create(ValueUtil.randomString(), ValueUtil.randomString());
         assertThrows(component::getName);
 
         safeAction(component::getName);
@@ -23,7 +23,7 @@ public final class ObserveRequireActionTest extends AbstractArezIntegrationTest 
 
     @Test
     public void mutatingObservableOutsideTransactionShouldThrowException() {
-        final CodeModel component = CodeModel.create(ValueUtil.randomString(), ValueUtil.randomString());
+        final var component = CodeModel.create(ValueUtil.randomString(), ValueUtil.randomString());
         assertThrows(() -> component.setName("X"));
 
         safeAction(() -> component.setName("X"));
@@ -31,7 +31,7 @@ public final class ObserveRequireActionTest extends AbstractArezIntegrationTest 
 
     @Test
     public void accessingMemoizedOutsideTransactionShouldThrowException() {
-        final CodeModel component = CodeModel.create(ValueUtil.randomString(), ValueUtil.randomString());
+        final var component = CodeModel.create(ValueUtil.randomString(), ValueUtil.randomString());
         assertThrows(component::getQualifiedName);
 
         safeAction(component::getQualifiedName);

@@ -18,7 +18,7 @@ public final class MemoizeKeepAliveTest extends AbstractArezIntegrationTest {
 
         final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-        final PersonModel person = PersonModel.create("Bill", "Smith");
+        final var person = PersonModel.create("Bill", "Smith");
 
         context.action("First Name Update", () -> person.setFirstName("Fred"));
         context.action("Last Name Update", () -> person.setLastName("Donaldo"));

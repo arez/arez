@@ -18,7 +18,7 @@ public final class ObservableInitializerIntegrationTest extends AbstractArezInte
 
         final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-        final PersonModel person = PersonModel.create("Bill", "Smith");
+        final var person = PersonModel.create("Bill", "Smith");
 
         context.observer("FirstNamePrinter", () -> {
             observeADependency();

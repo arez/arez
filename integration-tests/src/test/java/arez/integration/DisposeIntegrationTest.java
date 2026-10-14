@@ -23,7 +23,7 @@ public final class DisposeIntegrationTest extends AbstractArezIntegrationTest {
 
         final SpyEventRecorder recorder = SpyEventRecorder.beginRecording(context);
 
-        final CodeModel codeModel = CodeModel.create("com.example", "MyType");
+        final var codeModel = CodeModel.create("com.example", "MyType");
 
         final Observer observer = context.observer("Printer", () -> {
             observeADependency();

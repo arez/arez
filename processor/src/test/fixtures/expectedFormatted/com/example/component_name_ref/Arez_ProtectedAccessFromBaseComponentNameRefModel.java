@@ -23,6 +23,7 @@ final class Arez_ProtectedAccessFromBaseComponentNameRefModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ProtectedAccessFromBaseComponentNameRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -49,13 +50,18 @@ final class Arez_ProtectedAccessFromBaseComponentNameRefModel
         true,
         false,
         false);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -83,11 +89,11 @@ final class Arez_ProtectedAccessFromBaseComponentNameRefModel
           () ->
               "Method named 'getComponentName' invoked on uninitialized component of type 'com_example_component_name_ref_ProtectedAccessFromBaseComponentNameRefModel'");
     }
-    return this.$$arezi$$_kernel.getName();
+    return this.$$arezi$$_kernel().getName();
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -99,7 +105,7 @@ final class Arez_ProtectedAccessFromBaseComponentNameRefModel
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_component_name_ref_ProtectedAccessFromBaseComponentNameRefModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -116,7 +122,7 @@ final class Arez_ProtectedAccessFromBaseComponentNameRefModel
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -133,7 +139,7 @@ final class Arez_ProtectedAccessFromBaseComponentNameRefModel
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -150,13 +156,13 @@ final class Arez_ProtectedAccessFromBaseComponentNameRefModel
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

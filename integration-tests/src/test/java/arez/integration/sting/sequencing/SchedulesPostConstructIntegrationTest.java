@@ -29,7 +29,7 @@ public final class SchedulesPostConstructIntegrationTest extends AbstractArezInt
         }
 
         @Override
-        public @Nullable String toString() {
+        public String toString() {
             return "MyDependency";
         }
     }
@@ -64,14 +64,14 @@ public final class SchedulesPostConstructIntegrationTest extends AbstractArezInt
         @Nullable
         MyComponent component1();
 
-        static @Nullable MyInjector create() {
+        static MyInjector create() {
             return new SchedulesPostConstructIntegrationTest_Sting_MyInjector();
         }
     }
 
     @Test
     public void scenario() {
-        final MyInjector injector = MyInjector.create();
+        final var injector = MyInjector.create();
         assertEquals(String.join("\n", _events), "");
         injector.component1();
         assertEquals(

@@ -22,9 +22,9 @@ public final class MemoizeNonArezDependenciesOnActivateComputableValueIntegratio
     public void scenario() throws Throwable {
         final ArezContext context = Arez.context();
 
-        final Element element = Element.create("");
+        final var element = Element.create("");
 
-        final AtomicInteger observerCallCount = new AtomicInteger();
+        final var observerCallCount = new AtomicInteger();
         observer(() -> {
             observerCallCount.incrementAndGet();
             element.getMemoized();
@@ -66,7 +66,6 @@ public final class MemoizeNonArezDependenciesOnActivateComputableValueIntegratio
         @Nullable
         private ComputableValue<String> _memoizedComputableValue;
 
-        @Nullable
         String _result;
 
         int _callCount;
@@ -98,6 +97,7 @@ public final class MemoizeNonArezDependenciesOnActivateComputableValueIntegratio
 
         void reportExternalChange() {
             assertNotNull(_memoizedComputableValue);
+            assert null != _memoizedComputableValue;
             _memoizedComputableValue.reportPossiblyChanged();
         }
     }

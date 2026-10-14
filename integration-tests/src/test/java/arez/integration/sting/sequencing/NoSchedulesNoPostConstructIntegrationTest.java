@@ -26,7 +26,7 @@ public final class NoSchedulesNoPostConstructIntegrationTest extends AbstractAre
         }
 
         @Override
-        public @Nullable String toString() {
+        public String toString() {
             return "MyDependency";
         }
     }
@@ -46,14 +46,14 @@ public final class NoSchedulesNoPostConstructIntegrationTest extends AbstractAre
         @Nullable
         MyComponent component1();
 
-        static @Nullable MyInjector create() {
+        static MyInjector create() {
             return new NoSchedulesNoPostConstructIntegrationTest_Sting_MyInjector();
         }
     }
 
     @Test
     public void scenario() {
-        final MyInjector injector = MyInjector.create();
+        final var injector = MyInjector.create();
         assertEquals(String.join("\n", _events), "");
         assertNotNull(injector.component1());
         assertEquals(

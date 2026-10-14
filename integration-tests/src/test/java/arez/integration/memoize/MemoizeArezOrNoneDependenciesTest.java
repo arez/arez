@@ -11,7 +11,6 @@ import arez.annotations.Memoize;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
 @NullMarked
@@ -20,9 +19,9 @@ public final class MemoizeArezOrNoneDependenciesTest extends AbstractArezIntegra
     public void scenario() throws Throwable {
         final ArezContext context = Arez.context();
 
-        final Element element = Element.create();
+        final var element = Element.create();
 
-        final AtomicInteger observerCallCount = new AtomicInteger();
+        final var observerCallCount = new AtomicInteger();
         observer(() -> {
             observerCallCount.incrementAndGet();
             element.getMemoized();
@@ -57,7 +56,6 @@ public final class MemoizeArezOrNoneDependenciesTest extends AbstractArezIntegra
 
         final ObservableValue<?> _observableValue;
 
-        @Nullable
         String _result;
 
         int _callCount;

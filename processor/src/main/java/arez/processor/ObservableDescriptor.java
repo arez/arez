@@ -41,6 +41,8 @@ final class ObservableDescriptor {
     private String _setterDeclaredEqualityComparator = Constants.EQUALITY_COMPARATOR_CLASSNAME;
 
     private boolean _setterAlwaysMutates;
+
+    @Nullable
     private Boolean _initializer;
 
     @Nullable
@@ -260,6 +262,10 @@ final class ObservableDescriptor {
         return null != _inverseDescriptor && Multiplicity.MANY == _inverseDescriptor.getMultiplicity();
     }
 
+    boolean isInverse() {
+        return null != _inverseDescriptor;
+    }
+
     @Nullable
     CascadeDisposeDescriptor getCascadeDisposeDescriptor() {
         return _cascadeDisposeDescriptor;
@@ -315,8 +321,8 @@ final class ObservableDescriptor {
         if (TypeKind.DECLARED != kind) {
             return false;
         } else {
-            final DeclaredType declaredType = (DeclaredType) returnType;
-            final TypeElement element = (TypeElement) declaredType.asElement();
+            final var declaredType = (DeclaredType) returnType;
+            final var element = (TypeElement) declaredType.asElement();
             return element.getQualifiedName().toString().equals(type.getName());
         }
     }

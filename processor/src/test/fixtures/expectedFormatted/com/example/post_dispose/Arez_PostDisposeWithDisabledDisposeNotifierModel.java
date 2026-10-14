@@ -22,6 +22,7 @@ final class Arez_PostDisposeWithDisabledDisposeNotifierModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_PostDisposeWithDisabledDisposeNotifierModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -48,13 +49,18 @@ final class Arez_PostDisposeWithDisabledDisposeNotifierModel
         false,
         false,
         false);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -88,7 +94,7 @@ final class Arez_PostDisposeWithDisabledDisposeNotifierModel
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -105,7 +111,7 @@ final class Arez_PostDisposeWithDisabledDisposeNotifierModel
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   @Override
@@ -113,13 +119,13 @@ final class Arez_PostDisposeWithDisabledDisposeNotifierModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'someValue' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'someValue' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
-    return this.$$arezi$$_kernel
+    return this.$$arezi$$_kernel()
         .getContext()
         .safeAction(
-            Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".someValue" : null,
+            Arez.areNamesEnabled() ? this.$$arezi$$_kernel().getName() + ".someValue" : null,
             () -> super.someValue(),
             ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED,
             null);
@@ -128,7 +134,7 @@ final class Arez_PostDisposeWithDisabledDisposeNotifierModel
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

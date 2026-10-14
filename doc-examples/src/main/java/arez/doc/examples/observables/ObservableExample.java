@@ -1,12 +1,13 @@
 package arez.doc.examples.observables;
 
+import arez.Arez;
 import arez.ObservableValue;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 
 @NullMarked
 public class ObservableExample {
-    private @Nullable ObservableValue<Integer> _valueObservableValue;
+    private final ObservableValue<Integer> _valueObservableValue =
+            Arez.context().observable();
     private int _value;
 
     public int getValue() {

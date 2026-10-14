@@ -37,7 +37,7 @@ public abstract class BrowserLocation {
 
     // DOC ELIDE START
     @Action
-    void onHashChangeEvent(final Object e) {}
+    void onHashChangeEvent(final @Nullable Object e) {}
 
     @JsMethod(name = "addEventListener", namespace = JsPackage.GLOBAL)
     private static native void addEventListener(

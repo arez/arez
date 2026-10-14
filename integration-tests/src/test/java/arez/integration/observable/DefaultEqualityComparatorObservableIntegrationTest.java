@@ -79,8 +79,8 @@ public final class DefaultEqualityComparatorObservableIntegrationTest extends Ab
     @Test
     public void scenario() {
         final Model model = new DefaultEqualityComparatorObservableIntegrationTest_Arez_Model();
-        final AtomicInteger defaultCount = new AtomicInteger();
-        final AtomicInteger explicitCount = new AtomicInteger();
+        final var defaultCount = new AtomicInteger();
+        final var explicitCount = new AtomicInteger();
 
         observer(() -> {
             model.getDefaultName();

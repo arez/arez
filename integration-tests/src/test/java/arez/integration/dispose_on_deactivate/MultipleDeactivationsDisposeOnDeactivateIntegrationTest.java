@@ -13,17 +13,16 @@ import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
 @NullMarked
 public final class MultipleDeactivationsDisposeOnDeactivateIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() throws Throwable {
-        final AtomicInteger counter = new AtomicInteger();
+        final var counter = new AtomicInteger();
         final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-        final Model1 model = Model1.create();
+        final var model = Model1.create();
 
         assertFalse(Disposable.isDisposed(model));
 
@@ -61,7 +60,7 @@ public final class MultipleDeactivationsDisposeOnDeactivateIntegrationTest exten
     @NullMarked
     @ArezComponent(disposeOnDeactivate = true, allowEmpty = true)
     abstract static class Model1 {
-        static @Nullable Model1 create() {
+        static Model1 create() {
             return new MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Arez_Model1();
         }
     }

@@ -25,6 +25,7 @@ final class Arez_ObserveLowerPriorityObserveModel extends ObserveLowerPriorityOb
 
   private final Observer $$arez$$_doStuff;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ObserveLowerPriorityObserveModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -58,13 +59,18 @@ final class Arez_ObserveLowerPriorityObserveModel extends ObserveLowerPriorityOb
             | Observer.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES
             | Observer.Flags.NESTED_ACTIONS_DISALLOWED
             | Observer.Flags.AREZ_DEPENDENCIES);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentComplete();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentComplete();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -85,7 +91,7 @@ final class Arez_ObserveLowerPriorityObserveModel extends ObserveLowerPriorityOb
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -97,7 +103,7 @@ final class Arez_ObserveLowerPriorityObserveModel extends ObserveLowerPriorityOb
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_observe_ObserveLowerPriorityObserveModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -114,7 +120,7 @@ final class Arez_ObserveLowerPriorityObserveModel extends ObserveLowerPriorityOb
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -131,7 +137,7 @@ final class Arez_ObserveLowerPriorityObserveModel extends ObserveLowerPriorityOb
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -148,7 +154,7 @@ final class Arez_ObserveLowerPriorityObserveModel extends ObserveLowerPriorityOb
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -168,7 +174,7 @@ final class Arez_ObserveLowerPriorityObserveModel extends ObserveLowerPriorityOb
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

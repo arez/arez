@@ -107,7 +107,7 @@ final class Nullability {
     }
 
     static boolean isMarked(final Element declaration) {
-        for (@Nullable Element scope = declaration; scope != null; scope = scope.getEnclosingElement()) {
+        for (Element scope = declaration; scope != null; scope = scope.getEnclosingElement()) {
             if (AnnotationsUtil.hasAnnotationOfType(scope, UNMARKED)) {
                 return false;
             }
@@ -129,7 +129,7 @@ final class Nullability {
         parents.add(type.getSuperclass());
         for (final TypeMirror parent : parents) {
             if (parent instanceof DeclaredType declared) {
-                final TypeElement element = (TypeElement) declared.asElement();
+                final var element = (TypeElement) declared.asElement();
                 final Map<Element, Nullness> parentBindings = new HashMap<>();
                 for (int i = 0; i < declared.getTypeArguments().size(); i++) {
                     parentBindings.put(

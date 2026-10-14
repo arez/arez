@@ -12,6 +12,7 @@ import arez.component.Identifiable;
 import arez.component.Linkable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
+import java.util.Objects;
 import javax.annotation.processing.Generated;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -32,6 +33,7 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
 
   private ExplicitLoadObservableReferenceModel.@Nullable MyEntity $$arezr$$_myEntity;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ExplicitLoadObservableReferenceModel() {
     super();
     if (Arez.shouldCheckApiInvariants()) {
@@ -63,15 +65,22 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
         true,
         false,
         false);
-    this.$$arez$$_myEntityId = $$arezv$$_context.observable(
+    this.$$arez$$_myEntityId = $$arezv$$_context.<Integer>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".myEntityId" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_myEntityId)
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_myEntityId)
             : null,
-        Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myEntityId = v : null);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+        Arez.arePropertyIntrospectorsEnabled()
+            ? v -> this.$$arezd$$_myEntityId = Objects.requireNonNull(v)
+            : null);
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private Locator $$arezi$$_locator() {
@@ -81,12 +90,12 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
           () ->
               "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_reference_ExplicitLoadObservableReferenceModel'");
     }
-    return this.$$arezi$$_kernel.getContext().locator();
+    return this.$$arezi$$_kernel().getContext().locator();
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -107,7 +116,7 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -119,7 +128,7 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_reference_ExplicitLoadObservableReferenceModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -136,7 +145,7 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -153,7 +162,7 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -170,7 +179,7 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -194,8 +203,8 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     if (Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled()) {
       Guards.apiInvariant(
@@ -213,7 +222,8 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
               .findById(ExplicitLoadObservableReferenceModel.MyEntity.class, $$arezv$$_myEntityId);
       Guards.apiInvariant(
           () -> null != $$arezv$$_myEntity,
-          () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
+          () -> "Reference named 'myEntity' on component named '"
+              + this.$$arezi$$_kernel().getName()
               + "' is unable to resolve entity of type com.example.reference.ExplicitLoadObservableReferenceModel.MyEntity and id = "
               + getMyEntityId());
     }
@@ -236,8 +246,8 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'link' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'link' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arezi$$_link_myEntity();
   }
@@ -247,8 +257,9 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getMyEntityId' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getMyEntityId' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_myEntityId.reportObserved();
     return this.$$arezd$$_myEntityId;
@@ -259,8 +270,9 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setMyEntityId' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setMyEntityId' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_myEntityId.preReportChanged();
     final int $$arezv$$_currentValue = this.$$arezd$$_myEntityId;
@@ -276,17 +288,19 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getMyEntity' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () ->
+              "Method named 'getMyEntity' invoked on " + this.$$arezi$$_kernel().describeState()
+                  + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != $$arezr$$_myEntity,
           () -> "Nonnull reference method named 'getMyEntity' invoked on component named '"
-              + this.$$arezi$$_kernel.getName()
+              + this.$$arezi$$_kernel().getName()
               + "' but reference has not been resolved yet is not lazy. Id = " + getMyEntityId());
     }
     this.$$arez$$_myEntityId.reportObserved();
+    assert null != this.$$arezr$$_myEntity;
     return this.$$arezr$$_myEntity;
   }
 
@@ -295,8 +309,8 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
           () -> "Method named '$$arezi$$_link_myEntity' invoked on "
-              + this.$$arezi$$_kernel.describeState() + " component named '"
-              + this.$$arezi$$_kernel.getName() + "'");
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     if (null == this.$$arezr$$_myEntity) {
       final int id = this.getMyEntityId();
@@ -305,22 +319,18 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
       if (Arez.shouldCheckApiInvariants()) {
         Guards.apiInvariant(
             () -> null != $$arezr$$_myEntity,
-            () ->
-                "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-                    + "' is unable to resolve entity of type com.example.reference.ExplicitLoadObservableReferenceModel.MyEntity and id = "
-                    + getMyEntityId());
+            () -> "Reference named 'myEntity' on component named '"
+                + this.$$arezi$$_kernel().getName()
+                + "' is unable to resolve entity of type com.example.reference.ExplicitLoadObservableReferenceModel.MyEntity and id = "
+                + getMyEntityId());
       }
     }
-  }
-
-  private void $$arezi$$_delink_myEntity() {
-    this.$$arezr$$_myEntity = null;
   }
 
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

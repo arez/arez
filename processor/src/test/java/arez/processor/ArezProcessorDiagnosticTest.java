@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import javax.tools.Diagnostic.Kind;
 import javax.tools.JavaFileObject;
 import org.jetbrains.annotations.Contract;
 import org.realityforge.proton.qa.Compilation;
@@ -2269,8 +2270,8 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                 Collections.emptyList());
         assertCompilationUnsuccessful(compilation);
         assertErrorDiagnostic(compilation, messageFragment);
-        assertDiagnosticCount(compilation, javax.tools.Diagnostic.Kind.ERROR, 1);
-        assertDiagnosticCount(compilation, javax.tools.Diagnostic.Kind.WARNING, 0);
+        assertDiagnosticCount(compilation, Kind.ERROR, 1);
+        assertDiagnosticCount(compilation, Kind.WARNING, 0);
     }
 
     @DataProvider(name = "compileWithoutWarnings")
@@ -2400,8 +2401,8 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
                 Collections.singletonList(processor()),
                 Collections.emptyList());
         assertCompilationSuccessful(compilation);
-        assertDiagnosticCount(compilation, javax.tools.Diagnostic.Kind.ERROR, 0);
-        assertDiagnosticCount(compilation, javax.tools.Diagnostic.Kind.WARNING, 0);
+        assertDiagnosticCount(compilation, Kind.ERROR, 0);
+        assertDiagnosticCount(compilation, Kind.WARNING, 0);
     }
 
     @DataProvider(name = "packageAccessElementInDifferentPackage")

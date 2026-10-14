@@ -21,11 +21,17 @@ final class ObserveDescriptor {
     private final String _name;
 
     private boolean _mutation;
+
+    @Nullable
     private Priority _priority;
+
     private boolean _internalExecutor;
     private boolean _reportParameters;
     private boolean _reportResult;
+
+    @Nullable
     private String _depType;
+
     private boolean _observeLowerPriorityDependencies;
     private boolean _nestedActionsAllowed;
 
@@ -206,6 +212,7 @@ final class ObserveDescriptor {
     }
 
     Priority getPriority() {
+        assert null != _priority;
         return _priority;
     }
 
@@ -218,6 +225,7 @@ final class ObserveDescriptor {
     }
 
     String getDepType() {
+        assert null != _depType;
         return _depType;
     }
 

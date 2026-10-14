@@ -43,7 +43,7 @@ public final class RequiresTransactionTest extends AbstractArezIntegrationTest {
 
         final MyComponent component = new RequiresTransactionTest_Arez_MyComponent();
 
-        final TestSpyEventHandler recorder = new TestSpyEventHandler();
+        final var recorder = new TestSpyEventHandler();
         context.getSpy().addSpyEventHandler(recorder);
 
         component.myAction();
@@ -94,7 +94,7 @@ public final class RequiresTransactionTest extends AbstractArezIntegrationTest {
 
         final MyComponent2 component = new RequiresTransactionTest_Arez_MyComponent2();
 
-        final TestSpyEventHandler recorder = new TestSpyEventHandler();
+        final var recorder = new TestSpyEventHandler();
         context.getSpy().addSpyEventHandler(recorder);
 
         context.safeAction("MyWrapperAction", component::myAction, ActionFlags.NO_VERIFY_ACTION_REQUIRED);
@@ -141,7 +141,7 @@ public final class RequiresTransactionTest extends AbstractArezIntegrationTest {
 
         final MyComponent3 component = new RequiresTransactionTest_Arez_MyComponent3();
 
-        final TestSpyEventHandler recorder = new TestSpyEventHandler();
+        final var recorder = new TestSpyEventHandler();
         context.getSpy().addSpyEventHandler(recorder);
 
         assertInvariant(

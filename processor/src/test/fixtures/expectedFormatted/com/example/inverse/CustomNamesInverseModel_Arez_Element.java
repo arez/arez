@@ -26,6 +26,7 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
 
   private @Nullable CustomNamesInverseModel $$arezr$$_zoom;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   CustomNamesInverseModel_Arez_Element() {
     super();
     if (Arez.shouldCheckApiInvariants()) {
@@ -57,9 +58,14 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
         true,
         false,
         false);
-    this.$$arezi$$_kernel.componentConstructed();
+    this.$$arezi$$_kernel().componentConstructed();
     this.$$arezi$$_link_zoom();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private Locator $$arezi$$_locator() {
@@ -69,12 +75,12 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
           () ->
               "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_inverse_CustomNamesInverseModel_Element'");
     }
-    return this.$$arezi$$_kernel.getContext().locator();
+    return this.$$arezi$$_kernel().getContext().locator();
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -100,7 +106,7 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
 
   private void $$arezi$$_nativeComponentPreDispose() {
     this.$$arezi$$_preDispose();
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -112,7 +118,7 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_CustomNamesInverseModel_Element'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -129,7 +135,7 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -146,7 +152,7 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -163,7 +169,7 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   @Override
@@ -183,8 +189,8 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     if (Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled()) {
       Guards.apiInvariant(
@@ -201,7 +207,8 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
           this.$$arezi$$_locator().findById(CustomNamesInverseModel.class, $$arezv$$_zoomId);
       Guards.apiInvariant(
           () -> null != $$arezv$$_zoom,
-          () -> "Reference named 'zoom' on component named '" + this.$$arezi$$_kernel.getName()
+          () -> "Reference named 'zoom' on component named '"
+              + this.$$arezi$$_kernel().getName()
               + "' is unable to resolve entity of type com.example.inverse.CustomNamesInverseModel and id = "
               + getXId());
     }
@@ -213,16 +220,17 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getX' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getX' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != $$arezr$$_zoom,
           () -> "Nonnull reference method named 'getX' invoked on component named '"
-              + this.$$arezi$$_kernel.getName()
+              + this.$$arezi$$_kernel().getName()
               + "' but reference has not been resolved yet is not lazy. Id = " + getXId());
     }
+    assert null != this.$$arezr$$_zoom;
     return this.$$arezr$$_zoom;
   }
 
@@ -231,18 +239,20 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
           () -> "Method named '$$arezi$$_link_zoom' invoked on "
-              + this.$$arezi$$_kernel.describeState() + " component named '"
-              + this.$$arezi$$_kernel.getName() + "'");
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     final int id = this.getXId();
     this.$$arezr$$_zoom = this.$$arezi$$_locator().findById(CustomNamesInverseModel.class, id);
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != $$arezr$$_zoom,
-          () -> "Reference named 'zoom' on component named '" + this.$$arezi$$_kernel.getName()
+          () -> "Reference named 'zoom' on component named '"
+              + this.$$arezi$$_kernel().getName()
               + "' is unable to resolve entity of type com.example.inverse.CustomNamesInverseModel and id = "
               + getXId());
     }
+    assert null != this.$$arezr$$_zoom;
     ((Arez_CustomNamesInverseModel) this.$$arezr$$_zoom).$$arezir$$_zap_add(this);
   }
 
@@ -256,7 +266,7 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

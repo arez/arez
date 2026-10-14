@@ -14,7 +14,7 @@ public final class LogUtilTest extends AbstractTest {
         final String message1 = ValueUtil.randomString();
         final String message2 = ValueUtil.randomString();
         LogUtil.log(message1, null);
-        final Throwable throwable = new Throwable();
+        final var throwable = new Throwable();
         LogUtil.log(message2, throwable);
 
         final List<TestLogger.LogEntry> entries = getTestLogger().getEntries();

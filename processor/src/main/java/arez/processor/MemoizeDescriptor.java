@@ -35,10 +35,17 @@ final class MemoizeDescriptor {
     private ExecutableType _methodType;
 
     private boolean _keepAlive;
+
+    @Nullable
     private Priority _priority;
+
     private boolean _reportResult;
     private boolean _observeLowerPriorityDependencies;
+
+    @Nullable
     private String _readOutsideTransaction;
+
+    @Nullable
     private String _depType;
 
     private String _equalityComparator = Constants.OBJECTS_EQUALS_COMPARATOR_CLASSNAME;
@@ -75,6 +82,7 @@ final class MemoizeDescriptor {
     }
 
     Priority getPriority() {
+        assert null != _priority;
         return _priority;
     }
 
@@ -361,6 +369,7 @@ final class MemoizeDescriptor {
     }
 
     String getDepType() {
+        assert null != _depType;
         return _depType;
     }
 

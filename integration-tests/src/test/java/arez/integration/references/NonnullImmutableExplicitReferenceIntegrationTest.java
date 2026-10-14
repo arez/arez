@@ -26,12 +26,12 @@ import org.testng.annotations.Test;
 public final class NonnullImmutableExplicitReferenceIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
-        final Model2Repository repository = Model2Repository.newRepository();
+        final var repository = Model2Repository.newRepository();
 
-        final TypeBasedLocator locator = new TypeBasedLocator();
+        final var locator = new TypeBasedLocator();
         Arez.context().registerLocator(locator);
 
-        final AtomicInteger findCallCount = new AtomicInteger();
+        final var findCallCount = new AtomicInteger();
         final HashMap<Object, Model2> entities = new HashMap<>();
         locator.registerLookup(Model2.class, id -> {
             findCallCount.incrementAndGet();
@@ -43,7 +43,7 @@ public final class NonnullImmutableExplicitReferenceIntegrationTest extends Abst
         entities.put(model2aId, model2a);
 
         assertEquals(findCallCount.get(), 0);
-        final Model1 model1 = Model1.create(model2aId);
+        final var model1 = Model1.create(model2aId);
         assertEquals(findCallCount.get(), 0);
 
         assertInvariant(
@@ -72,7 +72,7 @@ public final class NonnullImmutableExplicitReferenceIntegrationTest extends Abst
 
         private final Object _model2Id;
 
-        static @Nullable Model1 create(final Object model2Id) {
+        static Model1 create(final Object model2Id) {
             return new NonnullImmutableExplicitReferenceIntegrationTest_Arez_Model1(model2Id);
         }
 
@@ -99,15 +99,13 @@ public final class NonnullImmutableExplicitReferenceIntegrationTest extends Abst
     @NullMarked
     @ArezComponent(service = Feature.ENABLE, sting = Feature.DISABLE)
     abstract static class Model2Repository extends AbstractRepository<Integer, Model2, Model2Repository> {
-        static @Nullable Model2Repository newRepository() {
+        static Model2Repository newRepository() {
             return new NonnullImmutableExplicitReferenceIntegrationTest_Arez_Model2Repository();
         }
 
         @Action
-        @Nullable
         Model2 create() {
-            final NonnullImmutableExplicitReferenceIntegrationTest_Arez_Model2 entity =
-                    new NonnullImmutableExplicitReferenceIntegrationTest_Arez_Model2();
+            final var entity = new NonnullImmutableExplicitReferenceIntegrationTest_Arez_Model2();
             attach(entity);
             return entity;
         }

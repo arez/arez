@@ -23,6 +23,7 @@ final class Arez_NoVerifyActionModel extends NoVerifyActionModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_NoVerifyActionModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -47,13 +48,18 @@ final class Arez_NoVerifyActionModel extends NoVerifyActionModel
         true,
         false,
         false);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -74,7 +80,7 @@ final class Arez_NoVerifyActionModel extends NoVerifyActionModel
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -86,7 +92,7 @@ final class Arez_NoVerifyActionModel extends NoVerifyActionModel
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_action_NoVerifyActionModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -103,7 +109,7 @@ final class Arez_NoVerifyActionModel extends NoVerifyActionModel
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -120,7 +126,7 @@ final class Arez_NoVerifyActionModel extends NoVerifyActionModel
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -137,7 +143,7 @@ final class Arez_NoVerifyActionModel extends NoVerifyActionModel
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   @Override
@@ -145,13 +151,13 @@ final class Arez_NoVerifyActionModel extends NoVerifyActionModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'doStuff1' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'doStuff1' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
-    this.$$arezi$$_kernel
+    this.$$arezi$$_kernel()
         .getContext()
         .safeAction(
-            Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff1" : null,
+            Arez.areNamesEnabled() ? this.$$arezi$$_kernel().getName() + ".doStuff1" : null,
             () -> super.doStuff1(),
             ActionFlags.READ_WRITE | ActionFlags.NO_VERIFY_ACTION_REQUIRED,
             null);
@@ -162,14 +168,14 @@ final class Arez_NoVerifyActionModel extends NoVerifyActionModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'doStuff2' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'doStuff2' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     try {
-      this.$$arezi$$_kernel
+      this.$$arezi$$_kernel()
           .getContext()
           .action(
-              Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff2" : null,
+              Arez.areNamesEnabled() ? this.$$arezi$$_kernel().getName() + ".doStuff2" : null,
               () -> super.doStuff2(),
               ActionFlags.READ_WRITE | ActionFlags.NO_VERIFY_ACTION_REQUIRED,
               null);
@@ -183,13 +189,13 @@ final class Arez_NoVerifyActionModel extends NoVerifyActionModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'doStuff3' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'doStuff3' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
-    return this.$$arezi$$_kernel
+    return this.$$arezi$$_kernel()
         .getContext()
         .safeAction(
-            Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff3" : null,
+            Arez.areNamesEnabled() ? this.$$arezi$$_kernel().getName() + ".doStuff3" : null,
             () -> super.doStuff3(),
             ActionFlags.READ_WRITE | ActionFlags.NO_VERIFY_ACTION_REQUIRED,
             null);
@@ -200,14 +206,14 @@ final class Arez_NoVerifyActionModel extends NoVerifyActionModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'doStuff4' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'doStuff4' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     try {
-      return this.$$arezi$$_kernel
+      return this.$$arezi$$_kernel()
           .getContext()
           .action(
-              Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff4" : null,
+              Arez.areNamesEnabled() ? this.$$arezi$$_kernel().getName() + ".doStuff4" : null,
               () -> super.doStuff4(),
               ActionFlags.READ_WRITE | ActionFlags.NO_VERIFY_ACTION_REQUIRED,
               null);
@@ -219,7 +225,7 @@ final class Arez_NoVerifyActionModel extends NoVerifyActionModel
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

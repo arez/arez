@@ -11,6 +11,7 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
+import java.util.Objects;
 import javax.annotation.processing.Generated;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -32,6 +33,7 @@ final class ObservableReferenceInverseModel_Arez_Element
 
   private @Nullable ObservableReferenceInverseModel $$arezr$$_observableReferenceInverseModel;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   ObservableReferenceInverseModel_Arez_Element() {
     super();
     if (Arez.shouldCheckApiInvariants()) {
@@ -63,20 +65,25 @@ final class ObservableReferenceInverseModel_Arez_Element
         true,
         false,
         false);
-    this.$$arez$$_observableReferenceInverseModelId = $$arezv$$_context.observable(
+    this.$$arez$$_observableReferenceInverseModelId = $$arezv$$_context.<Integer>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".observableReferenceInverseModelId" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady()
+            ? () -> (this.$$arezi$$_kernel().isNotReady()
                 ? null
                 : this.$$arezd$$_observableReferenceInverseModelId)
             : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? v -> this.$$arezd$$_observableReferenceInverseModelId = v
+            ? v -> this.$$arezd$$_observableReferenceInverseModelId = Objects.requireNonNull(v)
             : null);
-    this.$$arezi$$_kernel.componentConstructed();
+    this.$$arezi$$_kernel().componentConstructed();
     this.$$arezi$$_link_observableReferenceInverseModel();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private Locator $$arezi$$_locator() {
@@ -86,12 +93,12 @@ final class ObservableReferenceInverseModel_Arez_Element
           () ->
               "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_inverse_ObservableReferenceInverseModel_Element'");
     }
-    return this.$$arezi$$_kernel.getContext().locator();
+    return this.$$arezi$$_kernel().getContext().locator();
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -117,7 +124,7 @@ final class ObservableReferenceInverseModel_Arez_Element
 
   private void $$arezi$$_nativeComponentPreDispose() {
     this.$$arezi$$_preDispose();
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -129,7 +136,7 @@ final class ObservableReferenceInverseModel_Arez_Element
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_ObservableReferenceInverseModel_Element'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -146,7 +153,7 @@ final class ObservableReferenceInverseModel_Arez_Element
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -163,7 +170,7 @@ final class ObservableReferenceInverseModel_Arez_Element
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -180,7 +187,7 @@ final class ObservableReferenceInverseModel_Arez_Element
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -204,8 +211,8 @@ final class ObservableReferenceInverseModel_Arez_Element
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     if (Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled()) {
       Guards.apiInvariant(
@@ -227,7 +234,7 @@ final class ObservableReferenceInverseModel_Arez_Element
       Guards.apiInvariant(
           () -> null != $$arezv$$_observableReferenceInverseModel,
           () -> "Reference named 'observableReferenceInverseModel' on component named '"
-              + this.$$arezi$$_kernel.getName()
+              + this.$$arezi$$_kernel().getName()
               + "' is unable to resolve entity of type com.example.inverse.ObservableReferenceInverseModel and id = "
               + getObservableReferenceInverseModelId());
     }
@@ -239,8 +246,8 @@ final class ObservableReferenceInverseModel_Arez_Element
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
           () -> "Method named 'getObservableReferenceInverseModelId' invoked on "
-              + this.$$arezi$$_kernel.describeState() + " component named '"
-              + this.$$arezi$$_kernel.getName() + "'");
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_observableReferenceInverseModelId.reportObserved();
     return this.$$arezd$$_observableReferenceInverseModelId;
@@ -252,8 +259,8 @@ final class ObservableReferenceInverseModel_Arez_Element
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
           () -> "Method named 'setObservableReferenceInverseModelId' invoked on "
-              + this.$$arezi$$_kernel.describeState() + " component named '"
-              + this.$$arezi$$_kernel.getName() + "'");
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_observableReferenceInverseModelId.preReportChanged();
     final int $$arezv$$_currentValue = this.$$arezd$$_observableReferenceInverseModelId;
@@ -272,19 +279,20 @@ final class ObservableReferenceInverseModel_Arez_Element
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
           () -> "Method named 'getObservableReferenceInverseModel' invoked on "
-              + this.$$arezi$$_kernel.describeState() + " component named '"
-              + this.$$arezi$$_kernel.getName() + "'");
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != $$arezr$$_observableReferenceInverseModel,
           () ->
               "Nonnull reference method named 'getObservableReferenceInverseModel' invoked on component named '"
-                  + this.$$arezi$$_kernel.getName()
+                  + this.$$arezi$$_kernel().getName()
                   + "' but reference has not been resolved yet is not lazy. Id = "
                   + getObservableReferenceInverseModelId());
     }
     this.$$arez$$_observableReferenceInverseModelId.reportObserved();
+    assert null != this.$$arezr$$_observableReferenceInverseModel;
     return this.$$arezr$$_observableReferenceInverseModel;
   }
 
@@ -293,8 +301,8 @@ final class ObservableReferenceInverseModel_Arez_Element
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
           () -> "Method named '$$arezi$$_link_observableReferenceInverseModel' invoked on "
-              + this.$$arezi$$_kernel.describeState() + " component named '"
-              + this.$$arezi$$_kernel.getName() + "'");
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     final int id = this.getObservableReferenceInverseModelId();
     this.$$arezr$$_observableReferenceInverseModel =
@@ -303,10 +311,11 @@ final class ObservableReferenceInverseModel_Arez_Element
       Guards.apiInvariant(
           () -> null != $$arezr$$_observableReferenceInverseModel,
           () -> "Reference named 'observableReferenceInverseModel' on component named '"
-              + this.$$arezi$$_kernel.getName()
+              + this.$$arezi$$_kernel().getName()
               + "' is unable to resolve entity of type com.example.inverse.ObservableReferenceInverseModel and id = "
               + getObservableReferenceInverseModelId());
     }
+    assert null != this.$$arezr$$_observableReferenceInverseModel;
     ((Arez_ObservableReferenceInverseModel) this.$$arezr$$_observableReferenceInverseModel)
         .$$arezir$$_elements_add(this);
   }
@@ -323,7 +332,7 @@ final class ObservableReferenceInverseModel_Arez_Element
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

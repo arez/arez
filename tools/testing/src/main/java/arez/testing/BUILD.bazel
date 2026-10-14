@@ -1,0 +1,8 @@
+filegroup(
+    name = "sources",
+    srcs = [
+        "StrictGeneratedCode.java",
+        "package-info.java",
+    ],
+    visibility = ["//tools/testing:__pkg__"],
+)

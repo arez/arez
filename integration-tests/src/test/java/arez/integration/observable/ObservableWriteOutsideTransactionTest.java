@@ -25,7 +25,7 @@ public final class ObservableWriteOutsideTransactionTest extends AbstractArezInt
     public void scenario() {
         final MyComponent component = new ObservableWriteOutsideTransactionTest_Arez_MyComponent();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         observer(() -> {
             component.getTime();

@@ -70,7 +70,7 @@ public abstract class AbstractArezIntegrationTest {
         Arez.context().safeAction(action);
     }
 
-    protected final <T extends @Nullable Object> @Nullable T safeAction(final SafeFunction<T> action) {
+    protected final <T extends @Nullable Object> T safeAction(final SafeFunction<T> action) {
         return Arez.context().safeAction(action);
     }
 
@@ -97,6 +97,7 @@ public abstract class AbstractArezIntegrationTest {
                 fixtureDir,
                 "Expected System.getProperty( \"arez.integration_fixture_dir\" ) to return fixture directory if"
                         + " arez.output_fixture_data=true");
+        assert null != fixtureDir;
 
         return new File(fixtureDir).toPath();
     }

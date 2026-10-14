@@ -8,8 +8,7 @@ import org.jspecify.annotations.Nullable;
 
 @NullMarked
 @ArezComponent
-public abstract class PermissionRepository
-        extends AbstractRepository<Integer, arez.doc.examples.reference.Permission, PermissionRepository> {
+public abstract class PermissionRepository extends AbstractRepository<Integer, Permission, PermissionRepository> {
     // DOC ELIDE START
     // DOC ELIDE END
     @Nullable

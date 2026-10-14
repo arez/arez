@@ -9,7 +9,6 @@ import arez.component.ComponentObservable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
 @NullMarked
@@ -18,7 +17,7 @@ public final class DisposeOnDeactivateIntegrationTest extends AbstractArezIntegr
     public void scenario() throws Throwable {
         final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-        final Model1 model = Model1.create();
+        final var model = Model1.create();
 
         assertFalse(Disposable.isDisposed(model));
 
@@ -37,7 +36,7 @@ public final class DisposeOnDeactivateIntegrationTest extends AbstractArezIntegr
     @NullMarked
     @ArezComponent(disposeOnDeactivate = true, allowEmpty = true)
     abstract static class Model1 {
-        static @Nullable Model1 create() {
+        static Model1 create() {
             return new DisposeOnDeactivateIntegrationTest_Arez_Model1();
         }
     }

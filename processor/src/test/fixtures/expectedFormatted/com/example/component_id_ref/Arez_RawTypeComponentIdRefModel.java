@@ -17,9 +17,7 @@ import org.realityforge.braincheck.Guards;
 @SuppressWarnings("rawtypes")
 @NullMarked
 final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel
-    implements Disposable,
-        Identifiable<RawTypeComponentIdRefModel.@Nullable MyId>,
-        DisposeNotifier {
+    implements Disposable, Identifiable<RawTypeComponentIdRefModel.MyId>, DisposeNotifier {
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
@@ -49,8 +47,13 @@ final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel
         true,
         false,
         false);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   @Override
@@ -61,7 +64,7 @@ final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel
 
   @Override
   @SuppressWarnings("rawtypes")
-  public RawTypeComponentIdRefModel.@Nullable MyId getArezId() {
+  public RawTypeComponentIdRefModel.MyId getArezId() {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(),
@@ -78,7 +81,7 @@ final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -90,7 +93,7 @@ final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_component_id_ref_RawTypeComponentIdRefModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -107,7 +110,7 @@ final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -124,7 +127,7 @@ final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -141,13 +144,13 @@ final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

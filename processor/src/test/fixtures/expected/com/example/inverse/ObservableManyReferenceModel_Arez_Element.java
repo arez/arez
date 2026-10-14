@@ -11,6 +11,7 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
+import java.util.Objects;
 import javax.annotation.processing.Generated;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -33,6 +34,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
 
   private @Nullable ObservableManyReferenceModel $$arezr$$_observableManyReferenceModel;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   ObservableManyReferenceModel_Arez_Element() {
     super();
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -43,22 +45,27 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_inverse_ObservableManyReferenceModel_Element." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_inverse_ObservableManyReferenceModel_Element", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_observableManyReferenceModelId = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".observableManyReferenceModelId" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_observableManyReferenceModelId ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_observableManyReferenceModelId = v : null );
-    this.$$arezi$$_kernel.componentConstructed();
+    this.$$arez$$_observableManyReferenceModelId = $$arezv$$_context.<Integer>observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".observableManyReferenceModelId" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_observableManyReferenceModelId ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_observableManyReferenceModelId = Objects.requireNonNull( v ) : null );
+    this.$$arezi$$_kernel().componentConstructed();
     this.$$arezi$$_link_observableManyReferenceModel();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_inverse_ObservableManyReferenceModel_Element'" );
     }
-    return this.$$arezi$$_kernel.getContext().locator();
+    return this.$$arezi$$_kernel().getContext().locator();
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -78,7 +85,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
 
   private void $$arezi$$_nativeComponentPreDispose() {
     this.$$arezi$$_preDispose();
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -87,7 +94,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_ObservableManyReferenceModel_Element'" );
     }
-    this.$$arezi$$_kernel.addOnDisposeListener( key, action, errorIfDuplicate );
+    this.$$arezi$$_kernel().addOnDisposeListener( key, action, errorIfDuplicate );
   }
 
   @Override
@@ -98,7 +105,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener( key, errorIfMissing );
+    this.$$arezi$$_kernel().removeOnDisposeListener( key, errorIfMissing );
   }
 
   @Override
@@ -109,7 +116,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'isDisposed' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -120,7 +127,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'dispose' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -136,20 +143,20 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'verify' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( ObservableManyReferenceModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type ObservableManyReferenceModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( ObservableManyReferenceModel.Element.class, $$arezi$$_id() ) );
       final int $$arezv$$_observableManyReferenceModelId = this.getObservableManyReferenceModelId();
       final ObservableManyReferenceModel $$arezv$$_observableManyReferenceModel = this.$$arezi$$_locator().findById( ObservableManyReferenceModel.class, $$arezv$$_observableManyReferenceModelId );
-      Guards.apiInvariant( () -> null != $$arezv$$_observableManyReferenceModel, () -> "Reference named 'observableManyReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.ObservableManyReferenceModel and id = " + getObservableManyReferenceModelId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_observableManyReferenceModel, () -> "Reference named 'observableManyReferenceModel' on component named '" + this.$$arezi$$_kernel().getName() + "' is unable to resolve entity of type com.example.inverse.ObservableManyReferenceModel and id = " + getObservableManyReferenceModelId() );
     }
   }
 
   @Override
   int getObservableManyReferenceModelId() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getObservableManyReferenceModelId' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getObservableManyReferenceModelId' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_observableManyReferenceModelId.reportObserved();
     return this.$$arezd$$_observableManyReferenceModelId;
@@ -158,7 +165,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
   @Override
   void setObservableManyReferenceModelId(final int id) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setObservableManyReferenceModelId' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setObservableManyReferenceModelId' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_observableManyReferenceModelId.preReportChanged();
     final int $$arezv$$_currentValue = this.$$arezd$$_observableManyReferenceModelId;
@@ -173,24 +180,26 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
   @Override
   @Nullable ObservableManyReferenceModel getObservableManyReferenceModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getObservableManyReferenceModel' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getObservableManyReferenceModel' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_observableManyReferenceModel, () -> "Nonnull reference method named 'getObservableManyReferenceModel' invoked on component named '" + this.$$arezi$$_kernel.getName() + "' but reference has not been resolved yet is not lazy. Id = " + getObservableManyReferenceModelId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_observableManyReferenceModel, () -> "Nonnull reference method named 'getObservableManyReferenceModel' invoked on component named '" + this.$$arezi$$_kernel().getName() + "' but reference has not been resolved yet is not lazy. Id = " + getObservableManyReferenceModelId() );
     }
     this.$$arez$$_observableManyReferenceModelId.reportObserved();
+    assert null != this.$$arezr$$_observableManyReferenceModel;
     return this.$$arezr$$_observableManyReferenceModel;
   }
 
   private void $$arezi$$_link_observableManyReferenceModel() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_link_observableManyReferenceModel' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_link_observableManyReferenceModel' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     final int id = this.getObservableManyReferenceModelId();
     this.$$arezr$$_observableManyReferenceModel = this.$$arezi$$_locator().findById( ObservableManyReferenceModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_observableManyReferenceModel, () -> "Reference named 'observableManyReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.ObservableManyReferenceModel and id = " + getObservableManyReferenceModelId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_observableManyReferenceModel, () -> "Reference named 'observableManyReferenceModel' on component named '" + this.$$arezi$$_kernel().getName() + "' is unable to resolve entity of type com.example.inverse.ObservableManyReferenceModel and id = " + getObservableManyReferenceModelId() );
     }
+    assert null != this.$$arezr$$_observableManyReferenceModel;
     ( (Arez_ObservableManyReferenceModel) this.$$arezr$$_observableManyReferenceModel ).$$arezir$$_elements_add( this );
   }
 
@@ -204,7 +213,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
   @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

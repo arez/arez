@@ -25,10 +25,10 @@ import org.testng.annotations.Test;
 public final class OneMultiplicityInverseIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
-        final AtomicInteger locatorLookupCallCount = new AtomicInteger();
+        final var locatorLookupCallCount = new AtomicInteger();
 
-        final TypeBasedLocator locator = new TypeBasedLocator();
-        final PersonRepository repository = PersonRepository.newRepository();
+        final var locator = new TypeBasedLocator();
+        final var repository = PersonRepository.newRepository();
 
         Arez.context().registerLocator(locator);
 
@@ -44,7 +44,7 @@ public final class OneMultiplicityInverseIntegrationTest extends AbstractArezInt
 
         assertEquals(locatorLookupCallCount.get(), 0);
 
-        final AtomicInteger inverseCallCount = new AtomicInteger();
+        final var inverseCallCount = new AtomicInteger();
         observer(() -> {
             person.getCertificate();
             inverseCallCount.incrementAndGet();
@@ -57,13 +57,13 @@ public final class OneMultiplicityInverseIntegrationTest extends AbstractArezInt
         assertEquals(locatorLookupCallCount.get(), 2);
         assertEquals(inverseCallCount.get(), 2);
 
-        final AtomicInteger certificate1GetPersonCallCount = new AtomicInteger();
+        final var certificate1GetPersonCallCount = new AtomicInteger();
         observer(() -> {
             certificate1.getPerson();
             certificate1GetPersonCallCount.incrementAndGet();
         });
 
-        final AtomicInteger certificate2GetPersonCallCount = new AtomicInteger();
+        final var certificate2GetPersonCallCount = new AtomicInteger();
         observer(() -> {
             certificate2.getPerson();
             certificate2GetPersonCallCount.incrementAndGet();
@@ -121,15 +121,13 @@ public final class OneMultiplicityInverseIntegrationTest extends AbstractArezInt
     @NullMarked
     @ArezComponent(service = Feature.ENABLE, sting = Feature.DISABLE)
     abstract static class PersonRepository extends AbstractRepository<Integer, Person, PersonRepository> {
-        static @Nullable PersonRepository newRepository() {
+        static PersonRepository newRepository() {
             return new OneMultiplicityInverseIntegrationTest_Arez_PersonRepository();
         }
 
         @Action
-        @Nullable
         Person create() {
-            final OneMultiplicityInverseIntegrationTest_Arez_Person entity =
-                    new OneMultiplicityInverseIntegrationTest_Arez_Person();
+            final var entity = new OneMultiplicityInverseIntegrationTest_Arez_Person();
             attach(entity);
             return entity;
         }

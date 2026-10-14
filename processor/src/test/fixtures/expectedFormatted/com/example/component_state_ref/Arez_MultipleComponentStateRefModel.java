@@ -22,6 +22,7 @@ final class Arez_MultipleComponentStateRefModel extends MultipleComponentStateRe
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_MultipleComponentStateRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -47,13 +48,18 @@ final class Arez_MultipleComponentStateRefModel extends MultipleComponentStateRe
         true,
         false,
         false);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -74,7 +80,7 @@ final class Arez_MultipleComponentStateRefModel extends MultipleComponentStateRe
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -86,7 +92,7 @@ final class Arez_MultipleComponentStateRefModel extends MultipleComponentStateRe
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_component_state_ref_MultipleComponentStateRefModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -103,7 +109,7 @@ final class Arez_MultipleComponentStateRefModel extends MultipleComponentStateRe
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -120,7 +126,7 @@ final class Arez_MultipleComponentStateRefModel extends MultipleComponentStateRe
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -137,53 +143,53 @@ final class Arez_MultipleComponentStateRefModel extends MultipleComponentStateRe
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   @Override
   boolean isConstructed1() {
-    return this.$$arezi$$_kernel.isConstructed();
+    return this.$$arezi$$_kernel().isConstructed();
   }
 
   @Override
   boolean isComplete1() {
-    return this.$$arezi$$_kernel.isComplete();
+    return this.$$arezi$$_kernel().isComplete();
   }
 
   @Override
   boolean isReady1() {
-    return this.$$arezi$$_kernel.isReady();
+    return this.$$arezi$$_kernel().isReady();
   }
 
   @Override
   boolean isDisposing1() {
-    return this.$$arezi$$_kernel.isDisposing();
+    return this.$$arezi$$_kernel().isDisposing();
   }
 
   @Override
   boolean isConstructed2() {
-    return this.$$arezi$$_kernel.isConstructed();
+    return this.$$arezi$$_kernel().isConstructed();
   }
 
   @Override
   boolean isComplete2() {
-    return this.$$arezi$$_kernel.isComplete();
+    return this.$$arezi$$_kernel().isComplete();
   }
 
   @Override
   boolean isReady2() {
-    return this.$$arezi$$_kernel.isReady();
+    return this.$$arezi$$_kernel().isReady();
   }
 
   @Override
   boolean isDisposing2() {
-    return this.$$arezi$$_kernel.isDisposing();
+    return this.$$arezi$$_kernel().isDisposing();
   }
 
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

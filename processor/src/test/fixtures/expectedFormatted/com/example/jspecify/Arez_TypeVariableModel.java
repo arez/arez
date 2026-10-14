@@ -33,6 +33,7 @@ final class Arez_TypeVariableModel<T extends @Nullable Object> extends TypeVaria
 
   private @NonNull T $$arezd$$_required;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_TypeVariableModel(final @NonNull T required) {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -58,27 +59,34 @@ final class Arez_TypeVariableModel<T extends @Nullable Object> extends TypeVaria
         false,
         false);
     this.$$arezd$$_required = Objects.requireNonNull(required);
-    this.$$arez$$_optional = $$arezv$$_context.observable(
+    this.$$arez$$_optional = $$arezv$$_context.<@Nullable T>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".optional" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_optional)
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_optional)
             : null,
         Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_optional = v : null);
-    this.$$arez$$_required = $$arezv$$_context.observable(
+    this.$$arez$$_required = $$arezv$$_context.<@NonNull T>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".required" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_required)
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_required)
             : null,
-        Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_required = v : null);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+        Arez.arePropertyIntrospectorsEnabled()
+            ? v -> this.$$arezd$$_required = Objects.requireNonNull(v)
+            : null);
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -99,7 +107,7 @@ final class Arez_TypeVariableModel<T extends @Nullable Object> extends TypeVaria
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -111,7 +119,7 @@ final class Arez_TypeVariableModel<T extends @Nullable Object> extends TypeVaria
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_jspecify_TypeVariableModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -128,7 +136,7 @@ final class Arez_TypeVariableModel<T extends @Nullable Object> extends TypeVaria
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -145,7 +153,7 @@ final class Arez_TypeVariableModel<T extends @Nullable Object> extends TypeVaria
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -162,7 +170,7 @@ final class Arez_TypeVariableModel<T extends @Nullable Object> extends TypeVaria
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -176,8 +184,9 @@ final class Arez_TypeVariableModel<T extends @Nullable Object> extends TypeVaria
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getOptional' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () ->
+              "Method named 'getOptional' invoked on " + this.$$arezi$$_kernel().describeState()
+                  + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_optional.reportObserved();
     return this.$$arezd$$_optional;
@@ -188,8 +197,9 @@ final class Arez_TypeVariableModel<T extends @Nullable Object> extends TypeVaria
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setOptional' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () ->
+              "Method named 'setOptional' invoked on " + this.$$arezi$$_kernel().describeState()
+                  + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_optional.preReportChanged();
     final T $$arezv$$_currentValue = this.$$arezd$$_optional;
@@ -205,10 +215,12 @@ final class Arez_TypeVariableModel<T extends @Nullable Object> extends TypeVaria
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getRequired' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () ->
+              "Method named 'getRequired' invoked on " + this.$$arezi$$_kernel().describeState()
+                  + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_required.reportObserved();
+    assert null != this.$$arezd$$_required;
     return this.$$arezd$$_required;
   }
 
@@ -217,8 +229,9 @@ final class Arez_TypeVariableModel<T extends @Nullable Object> extends TypeVaria
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setRequired' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () ->
+              "Method named 'setRequired' invoked on " + this.$$arezi$$_kernel().describeState()
+                  + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_required.preReportChanged();
     final T $$arezv$$_currentValue = this.$$arezd$$_required;
@@ -232,7 +245,7 @@ final class Arez_TypeVariableModel<T extends @Nullable Object> extends TypeVaria
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

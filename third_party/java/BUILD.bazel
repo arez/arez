@@ -1,5 +1,5 @@
 load("@rules_java//java:defs.bzl", _java_binary = "java_binary", _java_import = "java_import", _java_library = "java_library", _java_plugin = "java_plugin")
-load(":rules.bzl", _java_test = "java_test")
+load(":rules.bzl", "strict_checker_options", _java_test = "java_test")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -34,16 +34,29 @@ alias(
     actual = "@sting//third_party/java:nullaway_plugin",
 )
 
+strict_checker_options(name = "strict_checker_options")
+
+alias(
+    name = "error_prone_core",
+    actual = "@sting//third_party/java:error_prone_core",
+)
+
+alias(
+    name = "nullaway",
+    actual = "@sting//third_party/java:nullaway",
+)
+
 # --- depgen-generated targets start ---
 
 # DO NOT EDIT: Content is auto-generated from //third_party/java:dependencies.yml by https://github.com/realityforge/bazel-depgen version 0.26
 
 # SHA256 of the configuration content that generated this content
-_CONFIG_SHA256 = "7DD4609A120DDA2F91FB4E228642FA8E8DFE8CD5ADA7BB343077E8C199707F96"
+_CONFIG_SHA256 = "4404ABBB49ECBC284099BCB3F748B48E64B8AA0F22217083D5710ED14CF00EC1"
 
 exports_files(["dependencies.yml"])
 
 # Dependency Graph Generated from the input data
+# +- io.github.eisop:dataflow-errorprone:jar:3.41.0-eisop1 [compile]
 # +- org.realityforge.braincheck:braincheck-core:jar:1.35.0 [compile]
 # |  +- org.jspecify:jspecify:jar:1.0.0 [compile]
 # |  \- com.google.jsinterop:jsinterop-annotations:jar:2.0.0 [compile]
@@ -184,6 +197,13 @@ _java_import(
     jars = ["@jdepend//file"],
     srcjar = "@jdepend__sources//file",
     tags = ["maven_coordinates=guru.nidi:jdepend:2.9.5"],
+)
+
+_java_import(
+    name = "dataflow_errorprone",
+    jars = ["@dataflow_errorprone//file"],
+    srcjar = "@dataflow_errorprone__sources//file",
+    tags = ["maven_coordinates=io.github.eisop:dataflow-errorprone:3.41.0-eisop1"],
 )
 
 _java_import(

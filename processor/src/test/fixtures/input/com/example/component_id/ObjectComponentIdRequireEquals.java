@@ -11,7 +11,7 @@ import org.jspecify.annotations.Nullable;
 abstract class ObjectComponentIdRequireEquals
 {
   @ComponentId
-  public @Nullable String getId()
+  public String getId()
   {
     return "";
   }

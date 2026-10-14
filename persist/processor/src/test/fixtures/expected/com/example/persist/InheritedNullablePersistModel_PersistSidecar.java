@@ -64,7 +64,7 @@ abstract class InheritedNullablePersistModel_PersistSidecar {
   static void scheduleAttach(final Scope scope, final InheritedNullablePersistModel peer) {
     assert Disposable.isNotDisposed( scope );
     assert Disposable.isNotDisposed( peer );
-    Arez.context().task( Arez.areNamesEnabled() ? "InheritedNullablePersistModel_PersistSidecar.attach." + ( ++c_nextTaskId ) : null, () -> maybeAttach( scope, peer ) );
+    Arez.context().task( Arez.areNamesEnabled() ? "InheritedNullablePersistModel_PersistSidecar.attach." + ++c_nextTaskId : null, () -> maybeAttach( scope, peer ) );
   }
 
   private String getComponentId() {
@@ -91,9 +91,9 @@ abstract class InheritedNullablePersistModel_PersistSidecar {
   void restoreState() {
     final String $ap$_id = getComponentId();
     if ( !_appStore.isDisposed() && Disposable.isNotDisposed( _scope ) ) {
-      final @Nullable Map<String, @Nullable Object> state = _appStore.get( _scope, Keys.TYPE, $ap$_id, Converters.TYPE_CONVERTER );
+      final Map<String, @Nullable Object> state = _appStore.get( _scope, Keys.TYPE, $ap$_id, Converters.TYPE_CONVERTER );
       if ( null != state ) {
-        final @Nullable String $prop$_value = (@Nullable String) state.get( Keys.PROPERTY_value );
+        final var $prop$_value = (String) state.get( Keys.PROPERTY_value );
         if ( null != $prop$_value ) {
           _peer.setValue( $prop$_value );
         }
@@ -108,7 +108,7 @@ abstract class InheritedNullablePersistModel_PersistSidecar {
   void persistState() {
     if ( !_appStore.isDisposed() && Disposable.isNotDisposed( _scope ) ) {
       final Map<String, @Nullable Object> state = new HashMap<>();
-      final @Nullable String $prop$_value = _peer.getValue();
+      final String $prop$_value = _peer.getValue();
       if ( null != $prop$_value ) {
         state.put( Keys.PROPERTY_value, $prop$_value );
       }

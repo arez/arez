@@ -12,6 +12,7 @@ options:
     java_test: false
   failOnMissingPom: false
 artifacts:
+  - coord: io.github.eisop:dataflow-errorprone:3.41.0-eisop1
   - coord: org.realityforge.braincheck:braincheck-core:1.35.0
   - coord: org.realityforge.braincheck:braincheck-testng:1.35.0
   - coord: org.realityforge.grim:grim-annotations:0.09

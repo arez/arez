@@ -73,7 +73,7 @@ public abstract class NetworkStatus {
 
     // DOC ELIDE START
     @JsProperty(name = "navigator", namespace = JsPackage.GLOBAL)
-    private static native @Nullable Navigator navigator();
+    private static native Navigator navigator();
 
     @JsMethod(name = "addEventListener", namespace = JsPackage.GLOBAL)
     private static native void addEventListener(@Nullable String type, @Nullable EventListener listener);

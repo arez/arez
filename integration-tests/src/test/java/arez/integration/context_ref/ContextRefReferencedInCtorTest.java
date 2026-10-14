@@ -5,7 +5,6 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ContextRef;
 import arez.integration.AbstractArezIntegrationTest;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
 @NullMarked
@@ -19,7 +18,7 @@ public final class ContextRefReferencedInCtorTest extends AbstractArezIntegratio
 
         @SuppressWarnings("UnusedReturnValue")
         @ContextRef
-        abstract @Nullable ArezContext getContext();
+        abstract ArezContext getContext();
     }
 
     @Test

@@ -44,7 +44,7 @@ public final class TrackNoReportResultTest extends AbstractArezIntegrationTest {
 
         final Model component = new TrackNoReportResultTest_Arez_Model();
 
-        final TestSpyEventHandler recorder = new TestSpyEventHandler();
+        final var recorder = new TestSpyEventHandler();
         context.getSpy().addSpyEventHandler(recorder);
 
         final int result = component.render();

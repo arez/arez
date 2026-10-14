@@ -38,6 +38,7 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
 
   private final String $$arez_dk$$_getFoo3;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_MultiComponentDependencyModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -63,18 +64,18 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
         true,
         false,
         false);
-    this.$$arez$$_foo4 = $$arezv$$_context.observable(
+    this.$$arez$$_foo4 = $$arezv$$_context.<MultiComponentDependencyModel.@Nullable Foo>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".foo4" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_foo4)
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_foo4)
             : null,
         Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_foo4 = v : null);
-    this.$$arez$$_foo5 = $$arezv$$_context.observable(
+    this.$$arez$$_foo5 = $$arezv$$_context.<MultiComponentDependencyModel.@Nullable Foo>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".foo5" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_foo5)
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_foo5)
             : null,
         Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_foo5 = v : null);
     this.$$arez_dk$$_getFoo =
@@ -85,26 +86,31 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
         Arez_MultiComponentDependencyModel.class.getName() + $$arezv$$_id + '.' + "getFoo3";
     final MultiComponentDependencyModel.Foo $$arezv$$_getFoo_dependency = super.getFoo();
     if (null != $$arezv$$_getFoo_dependency) {
-      DisposeNotifier.asDisposeNotifier(super.getFoo())
+      DisposeNotifier.asDisposeNotifier($$arezv$$_getFoo_dependency)
           .addOnDisposeListener($$arez_dk$$_getFoo, this::dispose);
     }
     final MultiComponentDependencyModel.Foo $$arezv$$_getFoo2_dependency = super.getFoo2();
     if (null != $$arezv$$_getFoo2_dependency) {
-      DisposeNotifier.asDisposeNotifier(super.getFoo2())
+      DisposeNotifier.asDisposeNotifier($$arezv$$_getFoo2_dependency)
           .addOnDisposeListener($$arez_dk$$_getFoo2, this::dispose);
     }
     final MultiComponentDependencyModel.Foo $$arezv$$_getFoo3_dependency = super.getFoo3();
     if (null != $$arezv$$_getFoo3_dependency) {
-      DisposeNotifier.asDisposeNotifier(super.getFoo3())
+      DisposeNotifier.asDisposeNotifier($$arezv$$_getFoo3_dependency)
           .addOnDisposeListener($$arez_dk$$_getFoo3, this::dispose);
     }
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentComplete();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentComplete();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -154,7 +160,7 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
 
   private void $$arezi$$_nativeComponentPreDispose() {
     this.$$arezi$$_preDispose();
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -166,7 +172,7 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_component_dependency_MultiComponentDependencyModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -183,7 +189,7 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -200,7 +206,7 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -217,7 +223,7 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -230,8 +236,8 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getFoo4' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getFoo4' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_foo4.reportObserved();
     return this.$$arezd$$_foo4;
@@ -242,11 +248,11 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setFoo4' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setFoo4' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_foo4.preReportChanged();
-    final MultiComponentDependencyModel.@Nullable Foo $$arezv$$_currentValue = this.$$arezd$$_foo4;
+    final MultiComponentDependencyModel.Foo $$arezv$$_currentValue = this.$$arezd$$_foo4;
     if (!Objects.equals(foo, $$arezv$$_currentValue)) {
       if (null != $$arezv$$_currentValue) {
         DisposeNotifier.asDisposeNotifier($$arezv$$_currentValue)
@@ -265,8 +271,8 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getFoo5' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getFoo5' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_foo5.reportObserved();
     return this.$$arezd$$_foo5;
@@ -277,11 +283,11 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setFoo5' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setFoo5' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_foo5.preReportChanged();
-    final MultiComponentDependencyModel.@Nullable Foo $$arezv$$_currentValue = this.$$arezd$$_foo5;
+    final MultiComponentDependencyModel.Foo $$arezv$$_currentValue = this.$$arezd$$_foo5;
     if (!Objects.equals(foo, $$arezv$$_currentValue)) {
       if (null != $$arezv$$_currentValue) {
         DisposeNotifier.asDisposeNotifier($$arezv$$_currentValue)
@@ -298,7 +304,7 @@ final class Arez_MultiComponentDependencyModel extends MultiComponentDependencyM
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

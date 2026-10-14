@@ -9,6 +9,7 @@ import arez.persist.StoreTypes;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 import org.mockito.ArgumentCaptor;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -44,7 +45,7 @@ public final class StoreTest extends AbstractTest {
 
     @Test
     public void get_save_remove_basicOperation() {
-        final TypeConverter converter = new TypeConverter(Collections.emptyMap());
+        final var converter = new TypeConverter(Collections.emptyMap());
         final Store store = ArezPersist.getStore(StoreTypes.APPLICATION);
 
         final Scope rootScope = ArezPersist.getRootScope();
@@ -186,7 +187,7 @@ public final class StoreTest extends AbstractTest {
 
     @Test
     public void canNotInteractWithDisposedStore() {
-        final TypeConverter converter = new TypeConverter(Collections.emptyMap());
+        final var converter = new TypeConverter(Collections.emptyMap());
         final Scope scope = ArezPersist.getRootScope();
         final String storeName = ValueUtil.randomString();
         final SafeProcedure disposeAction = ArezPersist.registerStore(storeName, mock(StorageService.class));
@@ -206,7 +207,7 @@ public final class StoreTest extends AbstractTest {
 
     @Test
     public void basicOperationAndInteractionWithStorageService() {
-        final TypeConverter converter = new TypeConverter(Collections.emptyMap());
+        final var converter = new TypeConverter(Collections.emptyMap());
         final ArgumentCaptor<SafeProcedure> actionCaptor = ArgumentCaptor.forClass(SafeProcedure.class);
 
         final StorageService service = mock(StorageService.class);
@@ -271,17 +272,21 @@ public final class StoreTest extends AbstractTest {
         action.call();
 
         @SuppressWarnings({"unchecked", "rawtypes"})
-        final ArgumentCaptor<Map<Scope, Map<String, Map<String, StorageService.Entry>>>> stateCaptor =
-                (ArgumentCaptor) ArgumentCaptor.forClass(Map.class);
+        final var stateCaptor = (ArgumentCaptor<Map<Scope, Map<String, Map<String, StorageService.Entry>>>>)
+                (ArgumentCaptor<?>) ArgumentCaptor.forClass(Map.class);
 
         verify(service).commit(stateCaptor.capture());
 
         final Map<Scope, Map<String, Map<String, StorageService.Entry>>> stateSaved = stateCaptor.getValue();
         final Map<String, Map<String, StorageService.Entry>> scopeMap = stateSaved.get(scope);
         assertNotNull(scopeMap);
+        assert null != scopeMap;
         final Map<String, StorageService.Entry> typeMap = scopeMap.get(type);
         assertNotNull(typeMap);
+        assert null != typeMap;
         final StorageService.Entry instanceEntry = typeMap.get(id);
+        assertNotNull(instanceEntry);
+        assert null != instanceEntry;
         assertEquals(instanceEntry.getData(), state2);
         assertEquals(instanceEntry.getEncoded(), state2);
 
@@ -296,7 +301,7 @@ public final class StoreTest extends AbstractTest {
     @Test
     public void encodeOnSave() {
         final String propertyKey = ValueUtil.randomString();
-        final TypeConverter converter = new TypeConverter(Collections.emptyMap());
+        final var converter = new TypeConverter(Collections.emptyMap());
 
         final StorageService service = mock(StorageService.class);
 
@@ -330,10 +335,12 @@ public final class StoreTest extends AbstractTest {
 
         reset(service);
 
-        final StorageService.Entry entry =
-                store.getConfig().get(scope).get(type).get(id);
+        final StorageService.Entry entry = Objects.requireNonNull(
+                        Objects.requireNonNull(store.getConfig().get(scope)).get(type))
+                .get(id);
 
         assertNotNull(entry);
+        assert null != entry;
         assertEquals(entry.getData(), state1);
         assertEquals(entry.getEncoded(), state1Encoded);
     }
@@ -353,14 +360,13 @@ public final class StoreTest extends AbstractTest {
         final Map<String, @Nullable Object> state1Encoded = new HashMap<>();
         state1Encoded.put(propertyKey, "a");
 
-        final TypeConverter converter = new TypeConverter(Collections.emptyMap());
+        final var converter = new TypeConverter(Collections.emptyMap());
 
         final StorageService service = mock(StorageService.class);
 
         doAnswer(invocation -> {
-                    final Map<Scope, Map<String, Map<String, StorageService.Entry>>> state =
-                            (Map<Scope, Map<String, Map<String, StorageService.Entry>>>)
-                                    invocation.getArguments()[0];
+                    final var state = (Map<Scope, Map<String, Map<String, StorageService.Entry>>>)
+                            invocation.getArguments()[0];
                     state.computeIfAbsent(scope, scope1 -> new HashMap<>())
                             .computeIfAbsent(type, t -> new HashMap<>())
                             .put(id, new StorageService.Entry(null, state1Encoded));
@@ -374,10 +380,12 @@ public final class StoreTest extends AbstractTest {
         final Store store = ArezPersist.getStore(storeName);
         verify(service).restore(any());
         reset(service);
-        final StorageService.Entry entry =
-                store.getConfig().get(scope).get(type).get(id);
+        final StorageService.Entry entry = Objects.requireNonNull(
+                        Objects.requireNonNull(store.getConfig().get(scope)).get(type))
+                .get(id);
 
         assertNotNull(entry);
+        assert null != entry;
         assertNull(entry.getData());
         assertEquals(entry.getEncoded(), state1Encoded);
 

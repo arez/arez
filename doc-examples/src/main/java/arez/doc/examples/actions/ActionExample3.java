@@ -6,7 +6,12 @@ import org.jspecify.annotations.Nullable;
 
 @NullMarked
 public class ActionExample3 {
+    // DOC ELIDE START
+    private ActionExample3() {}
+    // DOC ELIDE END
     public static void main(String @Nullable [] args) {
+        // The snippet demonstrates receiving a result before a caller uses it.
+        @SuppressWarnings("UnusedVariable")
         final int result = Arez.context().safeAction(() -> {
             // Interact with arez observable state (or computable values) here
             // DOC ELIDE START

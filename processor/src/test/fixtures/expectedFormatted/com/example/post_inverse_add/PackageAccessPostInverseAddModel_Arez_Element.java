@@ -27,6 +27,7 @@ final class PackageAccessPostInverseAddModel_Arez_Element
 
   private @Nullable PackageAccessPostInverseAddModel $$arezr$$_other;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   PackageAccessPostInverseAddModel_Arez_Element() {
     super();
     if (Arez.shouldCheckApiInvariants()) {
@@ -58,9 +59,14 @@ final class PackageAccessPostInverseAddModel_Arez_Element
         true,
         false,
         false);
-    this.$$arezi$$_kernel.componentConstructed();
+    this.$$arezi$$_kernel().componentConstructed();
     this.$$arezi$$_link_other();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private Locator $$arezi$$_locator() {
@@ -70,12 +76,12 @@ final class PackageAccessPostInverseAddModel_Arez_Element
           () ->
               "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_post_inverse_add_PackageAccessPostInverseAddModel_Element'");
     }
-    return this.$$arezi$$_kernel.getContext().locator();
+    return this.$$arezi$$_kernel().getContext().locator();
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -101,7 +107,7 @@ final class PackageAccessPostInverseAddModel_Arez_Element
 
   private void $$arezi$$_nativeComponentPreDispose() {
     this.$$arezi$$_preDispose();
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -113,7 +119,7 @@ final class PackageAccessPostInverseAddModel_Arez_Element
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_post_inverse_add_PackageAccessPostInverseAddModel_Element'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -130,7 +136,7 @@ final class PackageAccessPostInverseAddModel_Arez_Element
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -147,7 +153,7 @@ final class PackageAccessPostInverseAddModel_Arez_Element
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -164,7 +170,7 @@ final class PackageAccessPostInverseAddModel_Arez_Element
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   @Override
@@ -184,8 +190,8 @@ final class PackageAccessPostInverseAddModel_Arez_Element
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     if (Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled()) {
       Guards.apiInvariant(
@@ -202,7 +208,8 @@ final class PackageAccessPostInverseAddModel_Arez_Element
           .findById(PackageAccessPostInverseAddModel.class, $$arezv$$_otherId);
       Guards.apiInvariant(
           () -> null != $$arezv$$_other,
-          () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName()
+          () -> "Reference named 'other' on component named '"
+              + this.$$arezi$$_kernel().getName()
               + "' is unable to resolve entity of type com.example.post_inverse_add.PackageAccessPostInverseAddModel and id = "
               + getOtherId());
     }
@@ -214,16 +221,17 @@ final class PackageAccessPostInverseAddModel_Arez_Element
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getOther' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getOther' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != $$arezr$$_other,
           () -> "Nonnull reference method named 'getOther' invoked on component named '"
-              + this.$$arezi$$_kernel.getName()
+              + this.$$arezi$$_kernel().getName()
               + "' but reference has not been resolved yet is not lazy. Id = " + getOtherId());
     }
+    assert null != this.$$arezr$$_other;
     return this.$$arezr$$_other;
   }
 
@@ -232,8 +240,8 @@ final class PackageAccessPostInverseAddModel_Arez_Element
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
           () -> "Method named '$$arezi$$_link_other' invoked on "
-              + this.$$arezi$$_kernel.describeState() + " component named '"
-              + this.$$arezi$$_kernel.getName() + "'");
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     final int id = this.getOtherId();
     this.$$arezr$$_other =
@@ -241,10 +249,12 @@ final class PackageAccessPostInverseAddModel_Arez_Element
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != $$arezr$$_other,
-          () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName()
+          () -> "Reference named 'other' on component named '"
+              + this.$$arezi$$_kernel().getName()
               + "' is unable to resolve entity of type com.example.post_inverse_add.PackageAccessPostInverseAddModel and id = "
               + getOtherId());
     }
+    assert null != this.$$arezr$$_other;
     ((Arez_PackageAccessPostInverseAddModel) this.$$arezr$$_other).$$arezir$$_elements_add(this);
   }
 
@@ -259,7 +269,7 @@ final class PackageAccessPostInverseAddModel_Arez_Element
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

@@ -152,6 +152,8 @@ final class SidecarGenerator {
                     Objects.class,
                     Object.class,
                     IDENTIFIABLE_CLASSNAME);
+        } else if (idMethod.getReturnType().getKind().isPrimitive()) {
+            method.addStatement("return $T.valueOf( _peer.$N() )", String.class, idMethod.getSimpleName());
         } else {
             method.addStatement(
                     "return $T.valueOf( $T.<$T>requireNonNull( _peer.$N() ) )",
@@ -177,7 +179,7 @@ final class SidecarGenerator {
         method.addStatement("assert $T.isNotDisposed( scope )", DISPOSABLE_CLASSNAME);
         method.addStatement("assert $T.isNotDisposed( peer )", DISPOSABLE_CLASSNAME);
 
-        final StringBuilder storeParams = new StringBuilder();
+        final var storeParams = new StringBuilder();
 
         for (final String storeName : descriptor.getStoreNames()) {
             final String storeVar = storeVar(storeName);
@@ -229,7 +231,7 @@ final class SidecarGenerator {
         method.addStatement("assert $T.isNotDisposed( scope )", DISPOSABLE_CLASSNAME);
         method.addStatement("assert $T.isNotDisposed( peer )", DISPOSABLE_CLASSNAME);
         method.addStatement(
-                "$T.context().task( " + "$T.areNamesEnabled() ? $S + ( ++c_nextTaskId ) : null, "
+                "$T.context().task( " + "$T.areNamesEnabled() ? $S + ++c_nextTaskId : null, "
                         + "() -> maybeAttach( scope, peer ) "
                         + ")",
                 AREZ_CLASSNAME,
@@ -269,8 +271,7 @@ final class SidecarGenerator {
                     "if ( !$N.isDisposed() && $T.isNotDisposed( _scope ) )", fieldName, DISPOSABLE_CLASSNAME);
             block.addStatement(
                     "final $T state = $N.get( _scope, $T.TYPE, $N, $T.TYPE_CONVERTER )",
-                    nullable(ParameterizedTypeName.get(
-                            ClassName.get(Map.class), ClassName.get(String.class), nullable(OBJECT))),
+                    ParameterizedTypeName.get(ClassName.get(Map.class), ClassName.get(String.class), nullable(OBJECT)),
                     fieldName,
                     ClassName.bestGuess("Keys"),
                     idVar,
@@ -279,23 +280,23 @@ final class SidecarGenerator {
             stateBlock.beginControlFlow("if ( null != state )");
 
             for (final PropertyDescriptor property : descriptor.getPropertiesByStore(storeName)) {
-                final TypeName typeName = nullable(
-                        GeneratorUtil.overrideMethod(processingEnv, descriptor.getElement(), property.getGetter())
-                                .build()
-                                .returnType()
-                                .box());
+                final TypeName typeName = GeneratorUtil.overrideMethod(
+                                processingEnv, descriptor.getElement(), property.getGetter())
+                        .build()
+                        .returnType()
+                        .box()
+                        .withoutAnnotations();
                 final String propName = "$prop$_" + property.getName();
                 if (OBJECT.equals(typeName.withoutAnnotations())) {
                     stateBlock.addStatement(
-                            "final $T $N = ( $T.$N )",
+                            "final $T $N = $T.$N",
                             typeName,
                             propName,
                             ClassName.bestGuess("Keys"),
                             property.getConstantName());
                 } else {
                     stateBlock.addStatement(
-                            "final $T $N = ($T) state.get( $T.$N )",
-                            typeName,
+                            "final var $N = ($T) state.get( $T.$N )",
                             propName,
                             typeName,
                             ClassName.bestGuess("Keys"),
@@ -349,7 +350,8 @@ final class SidecarGenerator {
                         "final $T $N = _peer.$N()",
                         GeneratorUtil.overrideMethod(processingEnv, descriptor.getElement(), getter)
                                 .build()
-                                .returnType(),
+                                .returnType()
+                                .withoutAnnotations(),
                         propName,
                         getter.getSimpleName());
                 final CodeBlock.Builder subBlock = CodeBlock.builder();

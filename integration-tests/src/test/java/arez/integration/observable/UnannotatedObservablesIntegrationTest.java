@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 public final class UnannotatedObservablesIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
-        final Model model = Model.create();
+        final var model = Model.create();
         final List<String> trace = new ArrayList<>();
         safeAction(() -> model.setValue("A"));
         observer(() -> trace.add(model.getValue()));

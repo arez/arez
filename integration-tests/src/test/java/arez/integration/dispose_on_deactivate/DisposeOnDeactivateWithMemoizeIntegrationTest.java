@@ -36,9 +36,9 @@ public final class DisposeOnDeactivateWithMemoizeIntegrationTest extends Abstrac
          * when it will ultimately be disposed.
          */
 
-        final Model1 model1 = Model1.create();
-        final Model2 model2 = Model2.create(model1);
-        final Model3 model3 = Model3.create(model1, model2);
+        final var model1 = Model1.create();
+        final var model2 = Model2.create(model1);
+        final var model3 = Model3.create(model1, model2);
 
         assertEquals(model2._callCount.get(), 1);
         assertEquals(model3._callCount.get(), 1);
@@ -59,7 +59,7 @@ public final class DisposeOnDeactivateWithMemoizeIntegrationTest extends Abstrac
     @NullMarked
     @ArezComponent
     abstract static class Model1 {
-        static @Nullable Model1 create() {
+        static Model1 create() {
             return new DisposeOnDeactivateWithMemoizeIntegrationTest_Arez_Model1();
         }
 
@@ -72,12 +72,12 @@ public final class DisposeOnDeactivateWithMemoizeIntegrationTest extends Abstrac
     @NullMarked
     @ArezComponent(disposeOnDeactivate = true)
     abstract static class Model2 {
-        static @Nullable Model2 create(final Model1 model1) {
+        static Model2 create(final Model1 model1) {
             return new DisposeOnDeactivateWithMemoizeIntegrationTest_Arez_Model2(model1);
         }
 
-        private final @Nullable Model1 _model1;
-        final @Nullable AtomicInteger _callCount = new AtomicInteger();
+        private final Model1 _model1;
+        final AtomicInteger _callCount = new AtomicInteger();
 
         Model2(final Model1 model1) {
             _model1 = model1;
@@ -94,13 +94,13 @@ public final class DisposeOnDeactivateWithMemoizeIntegrationTest extends Abstrac
     @NullMarked
     @ArezComponent
     abstract static class Model3 {
-        static @Nullable Model3 create(final Model1 model1, final Model2 model2) {
+        static Model3 create(final Model1 model1, final Model2 model2) {
             return new DisposeOnDeactivateWithMemoizeIntegrationTest_Arez_Model3(model1, model2);
         }
 
-        private final @Nullable Model1 _model1;
-        private final @Nullable Model2 _model2;
-        final @Nullable AtomicInteger _callCount = new AtomicInteger();
+        private final Model1 _model1;
+        private final Model2 _model2;
+        final AtomicInteger _callCount = new AtomicInteger();
 
         Model3(final Model1 model1, final Model2 model2) {
             _model1 = model1;

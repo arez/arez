@@ -26,6 +26,7 @@ final class Arez_EagerLoadReferenceModel extends EagerLoadReferenceModel
 
   private EagerLoadReferenceModel.@Nullable MyEntity $$arezr$$_myEntity;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_EagerLoadReferenceModel() {
     super();
     if (Arez.shouldCheckApiInvariants()) {
@@ -57,9 +58,14 @@ final class Arez_EagerLoadReferenceModel extends EagerLoadReferenceModel
         true,
         false,
         false);
-    this.$$arezi$$_kernel.componentConstructed();
+    this.$$arezi$$_kernel().componentConstructed();
     this.$$arezi$$_link_myEntity();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private Locator $$arezi$$_locator() {
@@ -69,12 +75,12 @@ final class Arez_EagerLoadReferenceModel extends EagerLoadReferenceModel
           () ->
               "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_reference_EagerLoadReferenceModel'");
     }
-    return this.$$arezi$$_kernel.getContext().locator();
+    return this.$$arezi$$_kernel().getContext().locator();
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -95,7 +101,7 @@ final class Arez_EagerLoadReferenceModel extends EagerLoadReferenceModel
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -107,7 +113,7 @@ final class Arez_EagerLoadReferenceModel extends EagerLoadReferenceModel
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_reference_EagerLoadReferenceModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -124,7 +130,7 @@ final class Arez_EagerLoadReferenceModel extends EagerLoadReferenceModel
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -141,7 +147,7 @@ final class Arez_EagerLoadReferenceModel extends EagerLoadReferenceModel
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -158,7 +164,7 @@ final class Arez_EagerLoadReferenceModel extends EagerLoadReferenceModel
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   @Override
@@ -178,8 +184,8 @@ final class Arez_EagerLoadReferenceModel extends EagerLoadReferenceModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     if (Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled()) {
       Guards.apiInvariant(
@@ -192,7 +198,8 @@ final class Arez_EagerLoadReferenceModel extends EagerLoadReferenceModel
           .findById(EagerLoadReferenceModel.MyEntity.class, $$arezv$$_myEntityId);
       Guards.apiInvariant(
           () -> null != $$arezv$$_myEntity,
-          () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
+          () -> "Reference named 'myEntity' on component named '"
+              + this.$$arezi$$_kernel().getName()
               + "' is unable to resolve entity of type com.example.reference.EagerLoadReferenceModel.MyEntity and id = "
               + getMyEntityId());
     }
@@ -203,16 +210,18 @@ final class Arez_EagerLoadReferenceModel extends EagerLoadReferenceModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getMyEntity' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () ->
+              "Method named 'getMyEntity' invoked on " + this.$$arezi$$_kernel().describeState()
+                  + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != $$arezr$$_myEntity,
           () -> "Nonnull reference method named 'getMyEntity' invoked on component named '"
-              + this.$$arezi$$_kernel.getName()
+              + this.$$arezi$$_kernel().getName()
               + "' but reference has not been resolved yet is not lazy. Id = " + getMyEntityId());
     }
+    assert null != this.$$arezr$$_myEntity;
     return this.$$arezr$$_myEntity;
   }
 
@@ -221,8 +230,8 @@ final class Arez_EagerLoadReferenceModel extends EagerLoadReferenceModel
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
           () -> "Method named '$$arezi$$_link_myEntity' invoked on "
-              + this.$$arezi$$_kernel.describeState() + " component named '"
-              + this.$$arezi$$_kernel.getName() + "'");
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     final int id = this.getMyEntityId();
     this.$$arezr$$_myEntity =
@@ -230,20 +239,17 @@ final class Arez_EagerLoadReferenceModel extends EagerLoadReferenceModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != $$arezr$$_myEntity,
-          () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
+          () -> "Reference named 'myEntity' on component named '"
+              + this.$$arezi$$_kernel().getName()
               + "' is unable to resolve entity of type com.example.reference.EagerLoadReferenceModel.MyEntity and id = "
               + getMyEntityId());
     }
   }
 
-  private void $$arezi$$_delink_myEntity() {
-    this.$$arezr$$_myEntity = null;
-  }
-
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

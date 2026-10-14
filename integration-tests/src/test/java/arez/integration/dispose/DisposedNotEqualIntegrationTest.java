@@ -9,7 +9,6 @@ import arez.annotations.ComponentId;
 import arez.annotations.Feature;
 import arez.integration.AbstractArezIntegrationTest;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -28,9 +27,9 @@ public final class DisposedNotEqualIntegrationTest extends AbstractArezIntegrati
         ArezTestUtil.disableRegistries();
 
         final String id = ValueUtil.randomString();
-        final Model1 model1 = Model1.create(id);
-        final Model1 model2 = Model1.create(id);
-        final Model1 model3 = Model1.create(id);
+        final var model1 = Model1.create(id);
+        final var model2 = Model1.create(id);
+        final var model3 = Model1.create(id);
 
         Disposable.dispose(model3);
 
@@ -59,14 +58,13 @@ public final class DisposedNotEqualIntegrationTest extends AbstractArezIntegrati
             return new DisposedNotEqualIntegrationTest_Arez_Model1(id);
         }
 
-        private final @Nullable String _id;
+        private final String _id;
 
-        Model1(final @Nullable String id) {
+        Model1(final String id) {
             _id = id;
         }
 
         @ComponentId
-        @Nullable
         String getId() {
             return _id;
         }

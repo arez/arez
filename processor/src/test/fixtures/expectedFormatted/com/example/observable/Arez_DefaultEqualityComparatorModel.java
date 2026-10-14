@@ -46,6 +46,7 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
       $$arez$$_equalityComparator_exactTypeOnly =
           new DefaultEqualityComparatorModel.IgnoreCaseComparator();
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_DefaultEqualityComparatorModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -71,41 +72,49 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
         true,
         false,
         false);
-    this.$$arez$$_derived = $$arezv$$_context.observable(
-        Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
-        Arez.areNamesEnabled() ? $$arezv$$_name + ".derived" : null,
-        Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : super.getDerived())
-            : null,
-        Arez.arePropertyIntrospectorsEnabled() ? v -> super.setDerived(v) : null);
-    this.$$arez$$_explicit = $$arezv$$_context.observable(
-        Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
-        Arez.areNamesEnabled() ? $$arezv$$_name + ".explicit" : null,
-        Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : super.getExplicit())
-            : null,
-        Arez.arePropertyIntrospectorsEnabled() ? v -> super.setExplicit(v) : null);
-    this.$$arez$$_fallback = $$arezv$$_context.observable(
+    this.$$arez$$_derived =
+        $$arezv$$_context.<DefaultEqualityComparatorModel.@Nullable LabelView>observable(
+            Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
+            Arez.areNamesEnabled() ? $$arezv$$_name + ".derived" : null,
+            Arez.arePropertyIntrospectorsEnabled()
+                ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : super.getDerived())
+                : null,
+            Arez.arePropertyIntrospectorsEnabled() ? v -> super.setDerived(v) : null);
+    this.$$arez$$_explicit =
+        $$arezv$$_context.<DefaultEqualityComparatorModel.@Nullable LabelView>observable(
+            Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
+            Arez.areNamesEnabled() ? $$arezv$$_name + ".explicit" : null,
+            Arez.arePropertyIntrospectorsEnabled()
+                ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : super.getExplicit())
+                : null,
+            Arez.arePropertyIntrospectorsEnabled() ? v -> super.setExplicit(v) : null);
+    this.$$arez$$_fallback = $$arezv$$_context.<@Nullable String>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".fallback" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : super.getFallback())
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : super.getFallback())
             : null,
         Arez.arePropertyIntrospectorsEnabled() ? v -> super.setFallback(v) : null);
-    this.$$arez$$_exactTypeOnly = $$arezv$$_context.observable(
-        Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
-        Arez.areNamesEnabled() ? $$arezv$$_name + ".exactTypeOnly" : null,
-        Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : super.getExactTypeOnly())
-            : null,
-        Arez.arePropertyIntrospectorsEnabled() ? v -> super.setExactTypeOnly(v) : null);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arez$$_exactTypeOnly =
+        $$arezv$$_context.<DefaultEqualityComparatorModel.@Nullable DerivedLabel>observable(
+            Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
+            Arez.areNamesEnabled() ? $$arezv$$_name + ".exactTypeOnly" : null,
+            Arez.arePropertyIntrospectorsEnabled()
+                ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : super.getExactTypeOnly())
+                : null,
+            Arez.arePropertyIntrospectorsEnabled() ? v -> super.setExactTypeOnly(v) : null);
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -126,7 +135,7 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -138,7 +147,7 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_observable_DefaultEqualityComparatorModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -155,7 +164,7 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -172,7 +181,7 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -189,7 +198,7 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -204,8 +213,9 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getDerived' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () ->
+              "Method named 'getDerived' invoked on " + this.$$arezi$$_kernel().describeState()
+                  + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_derived.reportObserved();
     return super.getDerived();
@@ -216,12 +226,12 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setDerived' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () ->
+              "Method named 'setDerived' invoked on " + this.$$arezi$$_kernel().describeState()
+                  + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_derived.preReportChanged();
-    final DefaultEqualityComparatorModel.@Nullable LabelView $$arezv$$_currentValue =
-        super.getDerived();
+    final DefaultEqualityComparatorModel.LabelView $$arezv$$_currentValue = super.getDerived();
     if (!this.$$arez$$_equalityComparator_derived.areEqual(derived, $$arezv$$_currentValue)) {
       super.setDerived(derived);
       if (!this.$$arez$$_equalityComparator_derived.areEqual(
@@ -236,8 +246,9 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getExplicit' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () ->
+              "Method named 'getExplicit' invoked on " + this.$$arezi$$_kernel().describeState()
+                  + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_explicit.reportObserved();
     return super.getExplicit();
@@ -248,12 +259,12 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setExplicit' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () ->
+              "Method named 'setExplicit' invoked on " + this.$$arezi$$_kernel().describeState()
+                  + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_explicit.preReportChanged();
-    final DefaultEqualityComparatorModel.@Nullable LabelView $$arezv$$_currentValue =
-        super.getExplicit();
+    final DefaultEqualityComparatorModel.LabelView $$arezv$$_currentValue = super.getExplicit();
     if (!this.$$arez$$_equalityComparator_explicit.areEqual(explicit, $$arezv$$_currentValue)) {
       super.setExplicit(explicit);
       if (!this.$$arez$$_equalityComparator_explicit.areEqual(
@@ -269,8 +280,9 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getFallback' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () ->
+              "Method named 'getFallback' invoked on " + this.$$arezi$$_kernel().describeState()
+                  + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_fallback.reportObserved();
     return super.getFallback();
@@ -281,11 +293,12 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setFallback' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () ->
+              "Method named 'setFallback' invoked on " + this.$$arezi$$_kernel().describeState()
+                  + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_fallback.preReportChanged();
-    final @Nullable String $$arezv$$_currentValue = super.getFallback();
+    final String $$arezv$$_currentValue = super.getFallback();
     if (!Objects.equals(fallback, $$arezv$$_currentValue)) {
       super.setFallback(fallback);
       if (!Objects.equals($$arezv$$_currentValue, super.getFallback())) {
@@ -299,9 +312,9 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () ->
-              "Method named 'getExactTypeOnly' invoked on " + this.$$arezi$$_kernel.describeState()
-                  + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getExactTypeOnly' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_exactTypeOnly.reportObserved();
     return super.getExactTypeOnly();
@@ -312,12 +325,12 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () ->
-              "Method named 'setExactTypeOnly' invoked on " + this.$$arezi$$_kernel.describeState()
-                  + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setExactTypeOnly' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_exactTypeOnly.preReportChanged();
-    final DefaultEqualityComparatorModel.@Nullable DerivedLabel $$arezv$$_currentValue =
+    final DefaultEqualityComparatorModel.DerivedLabel $$arezv$$_currentValue =
         super.getExactTypeOnly();
     if (!this.$$arez$$_equalityComparator_exactTypeOnly.areEqual(
         exactTypeOnly, $$arezv$$_currentValue)) {
@@ -332,7 +345,7 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

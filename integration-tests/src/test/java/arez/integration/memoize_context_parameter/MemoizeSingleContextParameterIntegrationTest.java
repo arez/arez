@@ -13,13 +13,12 @@ import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import java.util.Stack;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
 @NullMarked
 public final class MemoizeSingleContextParameterIntegrationTest extends AbstractArezIntegrationTest {
 
-    private static Stack<String> _contextStack = new Stack<>();
+    private static final Stack<String> _contextStack = new Stack<>();
 
     @Test
     public void personScenario() throws Throwable {
@@ -27,7 +26,7 @@ public final class MemoizeSingleContextParameterIntegrationTest extends Abstract
 
         final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-        final PersonModel person = PersonModel.create("Bill", "Smith");
+        final var person = PersonModel.create("Bill", "Smith");
 
         final Observer observer1 = context.observer("FullNamePrinterC1", () -> {
             _contextStack.push("C1");
@@ -99,12 +98,11 @@ public final class MemoizeSingleContextParameterIntegrationTest extends Abstract
         }
 
         @MemoizeContextParameter
-        @Nullable
         String captureMyContextVar() {
             return currentMyContextVar();
         }
 
-        private @Nullable String currentMyContextVar() {
+        private String currentMyContextVar() {
             return _contextStack.peek();
         }
 

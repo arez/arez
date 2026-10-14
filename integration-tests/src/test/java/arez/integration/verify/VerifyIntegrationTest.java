@@ -23,9 +23,9 @@ import org.testng.annotations.Test;
 public final class VerifyIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void verifyOnDisposeCausesException() {
-        final Model2Repository repository = Model2Repository.newRepository();
+        final var repository = Model2Repository.newRepository();
 
-        final TypeBasedLocator locator = new TypeBasedLocator();
+        final var locator = new TypeBasedLocator();
         Arez.context().registerLocator(locator);
 
         final HashMap<Object, Model2> entities2 = new HashMap<>();
@@ -34,7 +34,7 @@ public final class VerifyIntegrationTest extends AbstractArezIntegrationTest {
         final Model2 model2a = repository.create(1);
         entities2.put(model2a.getId(), model2a);
 
-        final Model1 model1 = Model1.create(0, model2a.getId());
+        final var model1 = Model1.create(0, model2a.getId());
 
         Disposable.dispose(model1);
         entities2.clear();
@@ -47,9 +47,9 @@ public final class VerifyIntegrationTest extends AbstractArezIntegrationTest {
 
     @Test
     public void verifySuccess() throws Throwable {
-        final Model2Repository repository = Model2Repository.newRepository();
+        final var repository = Model2Repository.newRepository();
 
-        final TypeBasedLocator locator = new TypeBasedLocator();
+        final var locator = new TypeBasedLocator();
         Arez.context().registerLocator(locator);
 
         final HashMap<Object, Model1> entities1 = new HashMap<>();
@@ -60,7 +60,7 @@ public final class VerifyIntegrationTest extends AbstractArezIntegrationTest {
         final Model2 model2a = repository.create(1);
         entities2.put(model2a.getId(), model2a);
 
-        final Model1 model1 = Model1.create(0, model2a.getId());
+        final var model1 = Model1.create(0, model2a.getId());
         entities1.put(model1.getId(), model1);
 
         assertTrue(model1 instanceof Verifiable);
@@ -71,9 +71,9 @@ public final class VerifyIntegrationTest extends AbstractArezIntegrationTest {
 
     @Test
     public void unableToLocateOther() {
-        final Model2Repository repository = Model2Repository.newRepository();
+        final var repository = Model2Repository.newRepository();
 
-        final TypeBasedLocator locator = new TypeBasedLocator();
+        final var locator = new TypeBasedLocator();
         Arez.context().registerLocator(locator);
 
         final HashMap<Object, Model1> entities1 = new HashMap<>();
@@ -84,7 +84,7 @@ public final class VerifyIntegrationTest extends AbstractArezIntegrationTest {
         final Model2 model2a = repository.create(1);
         entities2.put(model2a.getId(), model2a);
 
-        final Model1 model1 = Model1.create(0, model2a.getId());
+        final var model1 = Model1.create(0, model2a.getId());
         entities1.put(model1.getId(), model1);
 
         entities2.clear();
@@ -98,9 +98,9 @@ public final class VerifyIntegrationTest extends AbstractArezIntegrationTest {
 
     @Test
     public void unableToLocateSelf() {
-        final Model2Repository repository = Model2Repository.newRepository();
+        final var repository = Model2Repository.newRepository();
 
-        final TypeBasedLocator locator = new TypeBasedLocator();
+        final var locator = new TypeBasedLocator();
         Arez.context().registerLocator(locator);
 
         final HashMap<Object, Model2> entities2 = new HashMap<>();
@@ -117,7 +117,7 @@ public final class VerifyIntegrationTest extends AbstractArezIntegrationTest {
 
     @Test
     public void modelWithoutVerify() throws Throwable {
-        final Model2Repository repository = Model2Repository.newRepository();
+        final var repository = Model2Repository.newRepository();
         Verifiable.verify(repository.create(0));
     }
 
@@ -127,7 +127,7 @@ public final class VerifyIntegrationTest extends AbstractArezIntegrationTest {
         private final int _id;
         private final int _model2Id;
 
-        static @Nullable Model1 create(final int id, final int model2Id) {
+        static Model1 create(final int id, final int model2Id) {
             return new VerifyIntegrationTest_Arez_Model1(id, model2Id);
         }
 
@@ -174,9 +174,8 @@ public final class VerifyIntegrationTest extends AbstractArezIntegrationTest {
         }
 
         @Action
-        @Nullable
         Model2 create(final int id) {
-            final VerifyIntegrationTest_Arez_Model2 entity = new VerifyIntegrationTest_Arez_Model2(id);
+            final var entity = new VerifyIntegrationTest_Arez_Model2(id);
             attach(entity);
             return entity;
         }

@@ -111,9 +111,7 @@ FORMATTER_JVM_FLAGS = [
     "--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED",
 ]
 
-def _compile_policy(srcs, javacopts, deps, plugins, migration_pending_checks):
-    if migration_pending_checks:
-        return (_JAVACOPTS + ["-XepDisableAllChecks"] + javacopts, deps, plugins)
+def _compile_policy(srcs, javacopts, deps, plugins):
     options = _JAVACOPTS + _ERROR_PRONE_JAVACOPTS
     if srcs:
         options += _NULLAWAY_JAVACOPTS
@@ -123,20 +121,20 @@ def _compile_policy(srcs, javacopts, deps, plugins, migration_pending_checks):
             plugins = ["//third_party/java:nullaway_plugin"] + plugins
     return (options + javacopts, deps, plugins)
 
-def java_library(name, srcs = [], javacopts = [], deps = [], plugins = [], migration_pending_checks = False, **kwargs):
-    options, deps, plugins = _compile_policy(srcs, javacopts, deps, plugins, migration_pending_checks)
+def java_library(name, srcs = [], javacopts = [], deps = [], plugins = [], **kwargs):
+    options, deps, plugins = _compile_policy(srcs, javacopts, deps, plugins)
     _java_library(name = name, srcs = srcs, javacopts = options, deps = deps, plugins = plugins, **kwargs)
 
-def java_plugin(name, srcs = [], javacopts = [], deps = [], plugins = [], migration_pending_checks = False, **kwargs):
-    options, deps, plugins = _compile_policy(srcs, javacopts, deps, plugins, migration_pending_checks)
+def java_plugin(name, srcs = [], javacopts = [], deps = [], plugins = [], **kwargs):
+    options, deps, plugins = _compile_policy(srcs, javacopts, deps, plugins)
     _java_plugin(name = name, srcs = srcs, javacopts = options, deps = deps, plugins = plugins, **kwargs)
 
-def java_binary(name, srcs = [], javacopts = [], deps = [], plugins = [], migration_pending_checks = False, **kwargs):
-    options, deps, plugins = _compile_policy(srcs, javacopts, deps, plugins, migration_pending_checks)
+def java_binary(name, srcs = [], javacopts = [], deps = [], plugins = [], **kwargs):
+    options, deps, plugins = _compile_policy(srcs, javacopts, deps, plugins)
     _java_binary(name = name, srcs = srcs, javacopts = options, deps = deps, plugins = plugins, exclude_build_data = True, **kwargs)
 
-def java_test(name, srcs = [], javacopts = [], deps = [], plugins = [], migration_pending_checks = False, jvm_flags = [], **kwargs):
-    options, deps, plugins = _compile_policy(srcs, javacopts, deps, plugins, migration_pending_checks)
+def java_test(name, srcs = [], javacopts = [], deps = [], plugins = [], jvm_flags = [], **kwargs):
+    options, deps, plugins = _compile_policy(srcs, javacopts, deps, plugins)
     _java_test(name = name, srcs = srcs, javacopts = options, deps = deps, plugins = plugins, exclude_build_data = True, jvm_flags = ["-ea"] + jvm_flags, **kwargs)
 
 def java_testng(name, srcs, test_classes = [], test_class = None, test_methods = [], deps = [], runtime_deps = [], jvm_flags = [], javacopts = [], **kwargs):
@@ -158,3 +156,10 @@ def java_testng(name, srcs, test_classes = [], test_class = None, test_methods =
         jvm_flags = jvm_flags,
         **kwargs
     )
+
+def _checker_options_impl(ctx):
+    output = ctx.actions.declare_file(ctx.label.name + ".txt")
+    ctx.actions.write(output, "\n".join(_JAVACOPTS + _ERROR_PRONE_JAVACOPTS + _NULLAWAY_JAVACOPTS) + "\n")
+    return [DefaultInfo(files = depset([output]))]
+
+strict_checker_options = rule(implementation = _checker_options_impl)

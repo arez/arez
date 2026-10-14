@@ -437,7 +437,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
             final Boolean existing = observable.getInitializer();
             if (null == existing) {
                 observable.setInitializer(requireInitializer);
-            } else if (existing != requireInitializer) {
+            } else if (!existing.equals(requireInitializer)) {
                 throw new ProcessorException(
                         "@Observable target set initializer parameter to value that differs from "
                                 + "the paired observable method.",
@@ -1070,8 +1070,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     private void mustBeCascadeDisposeTypeCompatible(final VariableElement field) {
         final TypeMirror typeMirror = field.asType();
         if (!ElementsUtil.isAssignableTo(processingEnv, typeMirror, getDisposableTypeElement())) {
-            final TypeElement typeElement =
-                    (TypeElement) processingEnv.getTypeUtils().asElement(typeMirror);
+            final var typeElement = (TypeElement) processingEnv.getTypeUtils().asElement(typeMirror);
             final AnnotationMirror value = null != typeElement
                     ? AnnotationsUtil.findAnnotationByType(typeElement, Constants.COMPONENT_CLASSNAME)
                     : null;
@@ -1173,8 +1172,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     private void mustBeCascadeDisposeTypeCompatible(final ExecutableElement method) {
         final TypeMirror typeMirror = method.getReturnType();
         if (!ElementsUtil.isAssignableTo(processingEnv, typeMirror, getDisposableTypeElement())) {
-            final TypeElement typeElement =
-                    (TypeElement) processingEnv.getTypeUtils().asElement(typeMirror);
+            final var typeElement = (TypeElement) processingEnv.getTypeUtils().asElement(typeMirror);
             final AnnotationMirror value = null != typeElement
                     ? AnnotationsUtil.findAnnotationByType(typeElement, Constants.COMPONENT_CLASSNAME)
                     : null;
@@ -1266,7 +1264,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
             throw new ProcessorException(
                     "@Action target must not return a value when skipIfDisposed resolves to ENABLE", method);
         }
-        final ActionDescriptor action = new ActionDescriptor(
+        final var action = new ActionDescriptor(
                 component,
                 name,
                 requireNewTransaction,
@@ -1601,7 +1599,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
 
     private String getInverseReferenceNameParameter(
             final ComponentDescriptor component, final ExecutableElement method) {
-        final String declaredName =
+        final var declaredName =
                 (String) AnnotationsUtil.getAnnotationValue(method, Constants.INVERSE_CLASSNAME, "referenceName")
                         .getValue();
         final String name;
@@ -1982,7 +1980,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
 
     private String constantCaseToLowerCamel(final String name) {
         final String[] parts = name.split("_");
-        final StringBuilder sb = new StringBuilder();
+        final var sb = new StringBuilder();
         for (final String part : parts) {
             if (part.isEmpty()) {
                 continue;
@@ -2179,7 +2177,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
 
     private void verifyMultiplicityOfAssociatedInverseMethod(
             final ComponentDescriptor component, final ReferenceDescriptor descriptor) {
-        final TypeElement element = (TypeElement)
+        final var element = (TypeElement)
                 processingEnv.getTypeUtils().asElement(descriptor.getMethod().getReturnType());
         final String defaultInverseName = descriptor.hasInverse()
                 ? null
@@ -2260,7 +2258,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         if (!validateTypeAtRuntime) {
             final TypeElement disposeNotifier = getTypeElement(Constants.DISPOSE_NOTIFIER_CLASSNAME);
             if (!ElementsUtil.isAssignableTo(processingEnv, type, disposeNotifier)) {
-                final TypeElement typeElement =
+                final var typeElement =
                         (TypeElement) processingEnv.getTypeUtils().asElement(type);
                 if (!isArezComponentLikeAnnotated(typeElement) && !isDisposeTrackableComponent(typeElement)) {
                     throw new ProcessorException(
@@ -2493,7 +2491,10 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         final var generateToString = methods.stream()
                 .noneMatch(m -> m.getSimpleName().toString().equals("toString")
                         && m.getParameters().isEmpty()
-                        && !(m.getEnclosingElement().getSimpleName().toString().equals("Object")
+                        && !(Objects.requireNonNull(m.getEnclosingElement())
+                                        .getSimpleName()
+                                        .toString()
+                                        .equals("Object")
                                 && "java.lang"
                                         .equals(processingEnv
                                                 .getElementUtils()
@@ -3419,7 +3420,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
                         && !isTypeAnnotatedByComponentAnnotation
                         && isArezComponentLikeType(fieldType);
                 if (isTypeAnnotatedByComponentAnnotation) {
-                    emitWarningForNonPrivateServiceField(field, fieldTypeElement);
+                    emitWarningForNonPrivateServiceField(field, Objects.requireNonNull(fieldTypeElement));
                 }
                 if (isDisposeNotifier || isTypeAnnotatedByComponentAnnotation || isTypeAnnotatedArezComponentLike) {
                     if (!descriptor.isDependencyDefined(field)
@@ -3427,7 +3428,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
                             && !descriptor.isAutoObserveDefined(field)
                             && (isDisposeNotifier
                                     || isTypeAnnotatedArezComponentLike
-                                    || verifyReferencesToComponent(fieldTypeElement))
+                                    || verifyReferencesToComponent(Objects.requireNonNull(fieldTypeElement)))
                             && isUnmanagedComponentReferenceNotSuppressed(field)) {
                         final var label = isDisposeNotifier
                                 ? "an implementation of DisposeNotifier"
@@ -3472,7 +3473,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
                                 && !descriptor.isAutoObserveDefined(getter)
                                 && (isDisposeNotifier
                                         || isTypeAnnotatedArezComponentLike
-                                        || verifyReferencesToComponent(returnElement))
+                                        || verifyReferencesToComponent(Objects.requireNonNull(returnElement)))
                                 && isUnmanagedComponentReferenceNotSuppressed(getter)
                                 && (observable.hasSetter()
                                         && isUnmanagedComponentReferenceNotSuppressed(observable.getSetter()))) {

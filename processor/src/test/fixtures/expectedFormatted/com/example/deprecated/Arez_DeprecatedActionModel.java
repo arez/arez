@@ -23,7 +23,7 @@ final class Arez_DeprecatedActionModel extends DeprecatedActionModel
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  @SuppressWarnings("deprecation")
+  @SuppressWarnings({"NonAtomicVolatileUpdate", "deprecation"})
   Arez_DeprecatedActionModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -49,13 +49,18 @@ final class Arez_DeprecatedActionModel extends DeprecatedActionModel
         true,
         false,
         false);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -76,7 +81,7 @@ final class Arez_DeprecatedActionModel extends DeprecatedActionModel
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -88,7 +93,7 @@ final class Arez_DeprecatedActionModel extends DeprecatedActionModel
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_deprecated_DeprecatedActionModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -105,7 +110,7 @@ final class Arez_DeprecatedActionModel extends DeprecatedActionModel
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -122,7 +127,7 @@ final class Arez_DeprecatedActionModel extends DeprecatedActionModel
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -139,7 +144,7 @@ final class Arez_DeprecatedActionModel extends DeprecatedActionModel
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   @Override
@@ -148,13 +153,13 @@ final class Arez_DeprecatedActionModel extends DeprecatedActionModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
-    this.$$arezi$$_kernel
+    this.$$arezi$$_kernel()
         .getContext()
         .safeAction(
-            Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff" : null,
+            Arez.areNamesEnabled() ? this.$$arezi$$_kernel().getName() + ".doStuff" : null,
             () -> super.doStuff(time, someOtherParameter),
             ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED,
             Arez.areSpiesEnabled() ? new Object[] {time, someOtherParameter} : null);
@@ -163,7 +168,7 @@ final class Arez_DeprecatedActionModel extends DeprecatedActionModel
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

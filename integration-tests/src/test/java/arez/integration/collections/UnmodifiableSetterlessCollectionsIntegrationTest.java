@@ -21,7 +21,7 @@ import org.testng.annotations.Test;
 public final class UnmodifiableSetterlessCollectionsIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
-        final Model1 m1 = Model1.create();
+        final var m1 = Model1.create();
 
         // In the future this should actually not throw an exception
         assertThrows(() -> safeAction(() -> assertUnmodifiable(m1.getValue(), ValueUtil::randomString)));
@@ -45,7 +45,7 @@ public final class UnmodifiableSetterlessCollectionsIntegrationTest extends Abst
 
     @Test
     public void scenario_when_CollectionPropertiesModifiable() {
-        final Model1 m1 = Model1.create();
+        final var m1 = Model1.create();
 
         assertThrows(() -> safeAction(() -> assertUnmodifiable(m1.getValue(), ValueUtil::randomString)));
 
@@ -97,6 +97,6 @@ public final class UnmodifiableSetterlessCollectionsIntegrationTest extends Abst
         }
 
         @ObservableValueRef
-        abstract @Nullable ObservableValue<Collection<String>> getValueObservableValue();
+        abstract ObservableValue<Collection<String>> getValueObservableValue();
     }
 }

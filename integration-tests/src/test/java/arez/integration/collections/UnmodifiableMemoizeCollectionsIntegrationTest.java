@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 import org.jspecify.annotations.NullMarked;
@@ -26,7 +27,7 @@ public final class UnmodifiableMemoizeCollectionsIntegrationTest extends Abstrac
     @SuppressWarnings("ConstantConditions")
     @Test
     public void scenario() {
-        final Model1 m1 = Model1.create();
+        final var m1 = Model1.create();
 
         safeAction(() -> assertUnmodifiable(m1.calcCollection(), ValueUtil::randomString));
         safeAction(() -> assertUnmodifiable(m1.calcSet(), ValueUtil::randomString));
@@ -77,11 +78,11 @@ public final class UnmodifiableMemoizeCollectionsIntegrationTest extends Abstrac
         safeAction(() -> assertUnmodifiable(m1.calcList(), ValueUtil::randomString));
         safeAction(() ->
                 assertUnsupportedOperation(() -> m1.calcMap().put(ValueUtil.randomString(), ValueUtil.randomString())));
-        safeAction(() -> assertUnmodifiable(m1.calcCollection2(), ValueUtil::randomString));
-        safeAction(() -> assertUnmodifiable(m1.calcSet2(), ValueUtil::randomString));
-        safeAction(() -> assertUnmodifiable(m1.calcList2(), ValueUtil::randomString));
+        safeAction(() -> assertUnmodifiable(Objects.requireNonNull(m1.calcCollection2()), ValueUtil::randomString));
+        safeAction(() -> assertUnmodifiable(Objects.requireNonNull(m1.calcSet2()), ValueUtil::randomString));
+        safeAction(() -> assertUnmodifiable(Objects.requireNonNull(m1.calcList2()), ValueUtil::randomString));
         safeAction(() -> assertUnsupportedOperation(
-                () -> m1.calcMap2().put(ValueUtil.randomString(), ValueUtil.randomString())));
+                () -> Objects.requireNonNull(m1.calcMap2()).put(ValueUtil.randomString(), ValueUtil.randomString())));
 
         // Assert Collections contain expected
         safeAction(() ->
@@ -91,12 +92,14 @@ public final class UnmodifiableMemoizeCollectionsIntegrationTest extends Abstrac
         safeAction(() ->
                 assertTrue(m1.calcMap().containsKey(map.keySet().iterator().next())));
 
-        safeAction(() ->
-                assertTrue(m1.calcCollection2().contains(collection2.iterator().next())));
-        safeAction(() -> assertTrue(m1.calcSet2().contains(set2.iterator().next())));
-        safeAction(() -> assertTrue(m1.calcList2().contains(list2.iterator().next())));
-        safeAction(() ->
-                assertTrue(m1.calcMap2().containsKey(map2.keySet().iterator().next())));
+        safeAction(() -> assertTrue(Objects.requireNonNull(m1.calcCollection2())
+                .contains(collection2.iterator().next())));
+        safeAction(() -> assertTrue(
+                Objects.requireNonNull(m1.calcSet2()).contains(set2.iterator().next())));
+        safeAction(() -> assertTrue(
+                Objects.requireNonNull(m1.calcList2()).contains(list2.iterator().next())));
+        safeAction(() -> assertTrue(Objects.requireNonNull(m1.calcMap2())
+                .containsKey(map2.keySet().iterator().next())));
 
         // Reference identity should be guaranteed
         safeAction(() -> assertTrue(m1.calcCollection() == m1.calcCollection()));

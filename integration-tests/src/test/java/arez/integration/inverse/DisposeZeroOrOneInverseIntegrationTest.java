@@ -27,10 +27,10 @@ import org.testng.annotations.Test;
 public final class DisposeZeroOrOneInverseIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
-        final AtomicInteger locatorLookupCallCount = new AtomicInteger();
+        final var locatorLookupCallCount = new AtomicInteger();
 
-        final TypeBasedLocator locator = new TypeBasedLocator();
-        final CarRepository repository = CarRepository.newRepository();
+        final var locator = new TypeBasedLocator();
+        final var repository = CarRepository.newRepository();
 
         Arez.context().registerLocator(locator);
 
@@ -46,7 +46,7 @@ public final class DisposeZeroOrOneInverseIntegrationTest extends AbstractArezIn
 
         assertEquals(locatorLookupCallCount.get(), 0);
 
-        final AtomicInteger inverseCallCount = new AtomicInteger();
+        final var inverseCallCount = new AtomicInteger();
         final Observer inverseObserver = observer(() -> {
             car.getWheel();
             inverseCallCount.incrementAndGet();
@@ -58,7 +58,7 @@ public final class DisposeZeroOrOneInverseIntegrationTest extends AbstractArezIn
         assertEquals(locatorLookupCallCount.get(), 1);
         assertEquals(inverseCallCount.get(), 2);
 
-        final AtomicInteger wheel1GetCarCallCount = new AtomicInteger();
+        final var wheel1GetCarCallCount = new AtomicInteger();
         final Observer wheel1GetCarObserver = observer(() -> {
             wheel1.getCar();
             wheel1GetCarCallCount.incrementAndGet();
@@ -135,15 +135,13 @@ public final class DisposeZeroOrOneInverseIntegrationTest extends AbstractArezIn
     @NullMarked
     @ArezComponent(service = Feature.ENABLE, sting = Feature.DISABLE)
     abstract static class CarRepository extends AbstractRepository<Integer, Car, CarRepository> {
-        static @Nullable CarRepository newRepository() {
+        static CarRepository newRepository() {
             return new DisposeZeroOrOneInverseIntegrationTest_Arez_CarRepository();
         }
 
         @Action
-        @Nullable
         Car create() {
-            final DisposeZeroOrOneInverseIntegrationTest_Arez_Car entity =
-                    new DisposeZeroOrOneInverseIntegrationTest_Arez_Car();
+            final var entity = new DisposeZeroOrOneInverseIntegrationTest_Arez_Car();
             attach(entity);
             return entity;
         }

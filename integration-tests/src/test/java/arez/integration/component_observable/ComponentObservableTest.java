@@ -27,7 +27,7 @@ public final class ComponentObservableTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
         final ArezContext context = Arez.context();
-        final ComponentObservableTest_Arez_TestComponent component = new ComponentObservableTest_Arez_TestComponent();
+        final var component = new ComponentObservableTest_Arez_TestComponent();
         // The base class will verify that there are no observer errors triggered in observed
         final Observer observer = context.observer(() -> ComponentObservable.observe(component));
         final List<ObservableValueInfo> dependencies =
@@ -40,7 +40,7 @@ public final class ComponentObservableTest extends AbstractArezIntegrationTest {
 
     @Test
     public void outsideTransaction() {
-        final ComponentObservableTest_Arez_TestComponent2 component = new ComponentObservableTest_Arez_TestComponent2();
+        final var component = new ComponentObservableTest_Arez_TestComponent2();
         assertInvariant(
                 () -> ComponentObservable.observe(component),
                 "Arez-0117: Attempting to get current transaction but no transaction is active.");

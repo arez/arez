@@ -21,7 +21,7 @@ public final class TypeConverterTest extends AbstractTest {
 
         final Map<String, Converter> converters = new HashMap<>();
         converters.put(key2, new CharacterConverter());
-        final TypeConverter converter = new TypeConverter(converters);
+        final var converter = new TypeConverter(converters);
 
         assertEquals(converter.encode(key1, null), (Object) null);
         assertEquals(converter.encode(key1, "NoConvert"), "NoConvert");

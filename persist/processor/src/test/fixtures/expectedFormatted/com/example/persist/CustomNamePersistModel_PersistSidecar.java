@@ -64,7 +64,7 @@ abstract class CustomNamePersistModel_PersistSidecar {
     Arez.context()
         .task(
             Arez.areNamesEnabled()
-                ? "CustomNamePersistModel_PersistSidecar.attach." + (++c_nextTaskId)
+                ? "CustomNamePersistModel_PersistSidecar.attach." + ++c_nextTaskId
                 : null,
             () -> maybeAttach(scope, peer));
   }
@@ -87,10 +87,10 @@ abstract class CustomNamePersistModel_PersistSidecar {
   void restoreState() {
     final String $ap$_id = getComponentId();
     if (!_appStore.isDisposed() && Disposable.isNotDisposed(_scope)) {
-      final @Nullable Map<String, @Nullable Object> state =
+      final Map<String, @Nullable Object> state =
           _appStore.get(_scope, Keys.TYPE, $ap$_id, Converters.TYPE_CONVERTER);
       if (null != state) {
-        final @Nullable Integer $prop$_v = (@Nullable Integer) state.get(Keys.PROPERTY_v);
+        final var $prop$_v = (Integer) state.get(Keys.PROPERTY_v);
         if (null != $prop$_v) {
           _peer.setV($prop$_v);
         }

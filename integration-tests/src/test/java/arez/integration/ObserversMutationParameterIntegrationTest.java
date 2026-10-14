@@ -19,7 +19,7 @@ public final class ObserversMutationParameterIntegrationTest extends AbstractAre
         captureObserverErrors();
 
         final SchedulerLock lock = Arez.context().pauseScheduler();
-        final Model1 model = Model1.create();
+        final var model = Model1.create();
 
         assertEquals(getObserverErrors().size(), 0);
 
@@ -35,7 +35,7 @@ public final class ObserversMutationParameterIntegrationTest extends AbstractAre
         captureObserverErrors();
 
         final SchedulerLock lock = Arez.context().pauseScheduler();
-        final Model2 model = Model2.create();
+        final var model = Model2.create();
 
         assertEquals(getObserverErrors().size(), 0);
 
@@ -51,7 +51,7 @@ public final class ObserversMutationParameterIntegrationTest extends AbstractAre
         captureObserverErrors();
 
         final SchedulerLock lock = Arez.context().pauseScheduler();
-        final Model3 model = Model3.create();
+        final var model = Model3.create();
 
         assertEquals(getObserverErrors().size(), 0);
 
@@ -66,7 +66,7 @@ public final class ObserversMutationParameterIntegrationTest extends AbstractAre
     public void readOnlyTrackAttemptsMutationScenario() {
         captureObserverErrors();
 
-        final Model4 model = Model4.create();
+        final var model = Model4.create();
 
         assertEquals(getObserverErrors().size(), 0);
 
@@ -81,7 +81,7 @@ public final class ObserversMutationParameterIntegrationTest extends AbstractAre
     public void readOnlyTrackAttemptsQueryScenario() {
         captureObserverErrors();
 
-        final Model5 model = Model5.create();
+        final var model = Model5.create();
 
         assertEquals(getObserverErrors().size(), 0);
 
@@ -96,7 +96,7 @@ public final class ObserversMutationParameterIntegrationTest extends AbstractAre
     public void readWriteTrackAttemptsMutationScenario() {
         captureObserverErrors();
 
-        final Model6 model = Model6.create();
+        final var model = Model6.create();
 
         assertEquals(getObserverErrors().size(), 0);
 

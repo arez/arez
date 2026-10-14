@@ -2,6 +2,7 @@ package arez.processor;
 
 import static org.testng.Assert.*;
 
+import arez.testing.StrictGeneratedCode;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -1464,6 +1465,7 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
         final Compilation compilation =
                 CompileTestUtil.assertCompilesWithoutWarnings(inputs, options, processors(), Collections.emptyList());
         try {
+            StrictGeneratedCode.check(compilation, options);
             outputFilesIfEnabled(compilation, expectedDirectory, this::emitGeneratedFile);
 
             final List<String> actualOutputs = Stream.concat(

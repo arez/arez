@@ -20,12 +20,12 @@ public final class DualDisposedDependenciesIntegrationTest extends AbstractArezI
     public void scenario() throws Throwable {
         final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-        final Model0 model0a = Model0.create("Model1A");
-        final Model0 model0b = Model0.create("Model1B");
-        final Model1 model1a = Model1.create("Model1A", model0a);
-        final Model1 model1b = Model1.create("Model1B", model0b);
-        final Model2 model2a = Model2.create(model1a, "Model2A", model0a);
-        final Model2 model2b = Model2.create(model1b, "Model2B", model0b);
+        final var model0a = Model0.create("Model1A");
+        final var model0b = Model0.create("Model1B");
+        final var model1a = Model1.create("Model1A", model0a);
+        final var model1b = Model1.create("Model1B", model0b);
+        final var model2a = Model2.create(model1a, "Model2A", model0a);
+        final var model2b = Model2.create(model1b, "Model2B", model0b);
 
         assertFalse(Disposable.isDisposed(model0a));
         assertFalse(Disposable.isDisposed(model0b));
@@ -69,7 +69,7 @@ public final class DualDisposedDependenciesIntegrationTest extends AbstractArezI
     abstract static class Model0 {
         private @Nullable String _name;
 
-        static @Nullable Model0 create(final @Nullable String name) {
+        static Model0 create(final @Nullable String name) {
             return new DualDisposedDependenciesIntegrationTest_Arez_Model0(name);
         }
 
@@ -95,7 +95,7 @@ public final class DualDisposedDependenciesIntegrationTest extends AbstractArezI
         private @Nullable String _name;
         private @Nullable Model0 _leaf;
 
-        static @Nullable Model1 create(final @Nullable String name, final @Nullable Model0 leaf) {
+        static Model1 create(final @Nullable String name, final @Nullable Model0 leaf) {
             return new DualDisposedDependenciesIntegrationTest_Arez_Model1(name, leaf);
         }
 
@@ -134,7 +134,7 @@ public final class DualDisposedDependenciesIntegrationTest extends AbstractArezI
         private final @Nullable Model1 _reference;
         private @Nullable String _name;
 
-        static @Nullable Model2 create(
+        static Model2 create(
                 final @Nullable Model1 reference, final @Nullable String name, final @Nullable Model0 leaf) {
             return new DualDisposedDependenciesIntegrationTest_Arez_Model2(reference, name, leaf);
         }

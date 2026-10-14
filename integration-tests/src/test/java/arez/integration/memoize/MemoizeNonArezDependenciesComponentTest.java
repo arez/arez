@@ -14,7 +14,6 @@ import arez.spy.ObservableValueInfo;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
 @NullMarked
@@ -23,9 +22,9 @@ public final class MemoizeNonArezDependenciesComponentTest extends AbstractArezI
     public void scenario() throws Throwable {
         final ArezContext context = Arez.context();
 
-        final Element element = Element.create("");
+        final var element = Element.create("");
 
-        final AtomicInteger observerCallCount = new AtomicInteger();
+        final var observerCallCount = new AtomicInteger();
         observer(() -> {
             observerCallCount.incrementAndGet();
             element.getMemoized();
@@ -60,9 +59,9 @@ public final class MemoizeNonArezDependenciesComponentTest extends AbstractArezI
     public void lazyValidationDoesNotTrackTransitiveMemoizeDependencies() throws Throwable {
         final ArezContext context = Arez.context();
 
-        final Element element = Element.create("");
+        final var element = Element.create("");
 
-        final AtomicInteger observerCallCount = new AtomicInteger();
+        final var observerCallCount = new AtomicInteger();
         observer(() -> {
             observerCallCount.incrementAndGet();
             assertEquals(element.getOuterMemoized(), "");
@@ -106,7 +105,6 @@ public final class MemoizeNonArezDependenciesComponentTest extends AbstractArezI
     @NullMarked
     @ArezComponent
     public abstract static class Element {
-        @Nullable
         String _result;
 
         int _callCount;
@@ -128,7 +126,7 @@ public final class MemoizeNonArezDependenciesComponentTest extends AbstractArezI
         }
 
         @ComputableValueRef
-        abstract @Nullable ComputableValue<String> getMemoizedComputableValue();
+        abstract ComputableValue<String> getMemoizedComputableValue();
 
         @Memoize
         String getNestedMemoized() {
@@ -137,7 +135,7 @@ public final class MemoizeNonArezDependenciesComponentTest extends AbstractArezI
         }
 
         @ComputableValueRef
-        abstract @Nullable ComputableValue<String> getNestedMemoizedComputableValue();
+        abstract ComputableValue<String> getNestedMemoizedComputableValue();
 
         @Memoize
         String getOuterMemoized() {
@@ -146,6 +144,6 @@ public final class MemoizeNonArezDependenciesComponentTest extends AbstractArezI
         }
 
         @ComputableValueRef
-        abstract @Nullable ComputableValue<String> getOuterMemoizedComputableValue();
+        abstract ComputableValue<String> getOuterMemoizedComputableValue();
     }
 }

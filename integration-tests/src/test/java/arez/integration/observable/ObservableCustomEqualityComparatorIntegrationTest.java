@@ -43,7 +43,7 @@ public final class ObservableCustomEqualityComparatorIntegrationTest extends Abs
     @Test
     public void scenario() {
         final Model model = new ObservableCustomEqualityComparatorIntegrationTest_Arez_Model();
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         observer(() -> {
             model.getName();

@@ -31,8 +31,7 @@ final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectionWithHo
 
   private @Nullable Collection<Long> $$arezd$$_$$unmodifiable_cache$$_time;
 
-  private boolean $$arezd$$_$$cache_active$$_time;
-
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_MemoizeCollectionWithHooksModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -41,13 +40,18 @@ final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectionWithHo
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_collections_MemoizeCollectionWithHooksModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arez$$_time = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, () -> $$arezi$$_memoize_time(), ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -62,7 +66,7 @@ final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectionWithHo
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -71,7 +75,7 @@ final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectionWithHo
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_collections_MemoizeCollectionWithHooksModel'" );
     }
-    this.$$arezi$$_kernel.addOnDisposeListener( key, action, errorIfDuplicate );
+    this.$$arezi$$_kernel().addOnDisposeListener( key, action, errorIfDuplicate );
   }
 
   @Override
@@ -82,7 +86,7 @@ final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectionWithHo
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener( key, errorIfMissing );
+    this.$$arezi$$_kernel().removeOnDisposeListener( key, errorIfMissing );
   }
 
   @Override
@@ -93,7 +97,7 @@ final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectionWithHo
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'isDisposed' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -104,7 +108,7 @@ final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectionWithHo
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'dispose' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -112,13 +116,12 @@ final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectionWithHo
   }
 
   private @Nullable Collection<Long> $$arezi$$_memoize_time() {
-    this.$$arezi$$_kernel.getContext().registerHook( "$H", this::$$arezi$$_onActivate_time, this::$$arezi$$_onDeactivate_time );
+    this.$$arezi$$_kernel().getContext().registerHook( "$H", this::$$arezi$$_onActivate_time, this::$$arezi$$_onDeactivate_time );
     return super.getTime();
   }
 
   private void $$arezi$$_onDeactivate_time() {
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      this.$$arezd$$_$$cache_active$$_time = false;
       this.$$arezd$$_$$cache$$_time = null;
       this.$$arezd$$_$$unmodifiable_cache$$_time = null;
     }
@@ -128,10 +131,10 @@ final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectionWithHo
   @Override
   public @Nullable Collection<Long> getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      final @Nullable Collection<Long> $$ar$$_result = this.$$arez$$_time.get();
+      final Collection<Long> $$ar$$_result = this.$$arez$$_time.get();
       if ( this.$$arezd$$_$$cache$$_time != $$ar$$_result ) {
         this.$$arezd$$_$$cache$$_time = $$ar$$_result;
         this.$$arezd$$_$$unmodifiable_cache$$_time = null == $$ar$$_result ? null : CollectionsUtil.wrap( $$ar$$_result );
@@ -144,7 +147,6 @@ final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectionWithHo
 
   private void $$arezi$$_onActivate_time() {
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      this.$$arezd$$_$$cache_active$$_time = true;
       this.$$arezd$$_$$cache$$_time = null;
       this.$$arezd$$_$$unmodifiable_cache$$_time = null;
     }
@@ -154,7 +156,7 @@ final class Arez_MemoizeCollectionWithHooksModel extends MemoizeCollectionWithHo
   @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

@@ -11,17 +11,16 @@ import org.testng.annotations.Test;
 public class EventDrivenValueTest extends AbstractTest {
     @Test
     public void basicOperation() {
-        final AtomicInteger underlyingValue = new AtomicInteger();
-        final AtomicInteger observerCallCount = new AtomicInteger();
-        final AtomicInteger memoizeCallCount = new AtomicInteger();
+        final var underlyingValue = new AtomicInteger();
+        final var observerCallCount = new AtomicInteger();
+        final var memoizeCallCount = new AtomicInteger();
 
-        final TestEventTarget source = new TestEventTarget();
+        final var source = new TestEventTarget();
 
-        final EventDrivenValue<TestEventTarget, Integer> eventDrivenValue =
-                EventDrivenValue.create(source, "click", t -> {
-                    memoizeCallCount.incrementAndGet();
-                    return underlyingValue.get();
-                });
+        final var eventDrivenValue = EventDrivenValue.create(source, "click", t -> {
+            memoizeCallCount.incrementAndGet();
+            return underlyingValue.get();
+        });
 
         Arez.context().safeAction(() -> assertEquals(eventDrivenValue.getSource(), source));
 
@@ -44,10 +43,7 @@ public class EventDrivenValueTest extends AbstractTest {
         final EventDrivenValue.EventListener eventListener =
                 source.getEventListenersByType("click").get(0);
 
-        // Event should not be null but as it has native methods it can not be instantiated
-        // in JRE without some significant magic. However we do not use the event so passing
-        // null actually works in this test
-        final Object evt = null;
+        final var evt = new Object();
         eventListener.handleEvent(evt);
 
         assertEquals(source.getEventListenersByType("click").size(), 1);
@@ -74,18 +70,17 @@ public class EventDrivenValueTest extends AbstractTest {
 
     @Test
     public void setSource() {
-        final AtomicInteger underlyingValue = new AtomicInteger();
-        final AtomicInteger observerCallCount = new AtomicInteger();
-        final AtomicInteger memoizeCallCount = new AtomicInteger();
+        final var underlyingValue = new AtomicInteger();
+        final var observerCallCount = new AtomicInteger();
+        final var memoizeCallCount = new AtomicInteger();
 
-        final TestEventTarget source1 = new TestEventTarget();
-        final TestEventTarget source2 = new TestEventTarget();
+        final var source1 = new TestEventTarget();
+        final var source2 = new TestEventTarget();
 
-        final EventDrivenValue<TestEventTarget, Integer> eventDrivenValue =
-                EventDrivenValue.create(source1, "click", t -> {
-                    memoizeCallCount.incrementAndGet();
-                    return underlyingValue.get();
-                });
+        final var eventDrivenValue = EventDrivenValue.create(source1, "click", t -> {
+            memoizeCallCount.incrementAndGet();
+            return underlyingValue.get();
+        });
 
         assertEquals(source1.getEventListenersByType("click").size(), 0);
         assertEquals(source2.getEventListenersByType("click").size(), 0);
@@ -94,7 +89,7 @@ public class EventDrivenValueTest extends AbstractTest {
 
         underlyingValue.set(ValueUtil.randomInt());
 
-        final Observer observer = Arez.context().observer(() -> {
+        Arez.context().observer(() -> {
             observerCallCount.incrementAndGet();
             final int result = eventDrivenValue.getValue();
             assertEquals(result, underlyingValue.get());

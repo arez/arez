@@ -17,7 +17,7 @@ public final class ObservableInitialIntegrationTest extends AbstractArezIntegrat
     @Test
     public void scenario() throws Throwable {
         final ArezContext context = Arez.context();
-        final PersonModel person = PersonModel.create();
+        final var person = PersonModel.create();
 
         safeAction(() -> assertEquals(person.getName(), "Bob"));
         safeAction(() -> assertEquals(person.getAge(), 42));
@@ -67,7 +67,7 @@ public final class ObservableInitialIntegrationTest extends AbstractArezIntegrat
         }
 
         @ObservableInitial(name = "nickname")
-        static @Nullable String initialNickname() {
+        static String initialNickname() {
             return "Bobby";
         }
     }

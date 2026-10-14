@@ -65,13 +65,11 @@ public final class DefaultEqualityComparatorMemoizeIntegrationTest extends Abstr
         }
 
         @Memoize
-        @Nullable
         Name getDefaultName() {
             return new Name(0 == (getValue() % 2) ? "Abc" : "aBC");
         }
 
         @Memoize(equalityComparator = ExactComparator.class)
-        @Nullable
         Name getExplicitName() {
             return new Name(0 == (getValue() % 2) ? "Abc" : "aBC");
         }
@@ -80,8 +78,8 @@ public final class DefaultEqualityComparatorMemoizeIntegrationTest extends Abstr
     @Test
     public void scenario() {
         final Model model = new DefaultEqualityComparatorMemoizeIntegrationTest_Arez_Model();
-        final AtomicInteger defaultCount = new AtomicInteger();
-        final AtomicInteger explicitCount = new AtomicInteger();
+        final var defaultCount = new AtomicInteger();
+        final var explicitCount = new AtomicInteger();
 
         observer(() -> {
             model.getDefaultName();

@@ -15,8 +15,8 @@ import org.testng.annotations.Test;
 public final class AutoObserveRuntimeValidationIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
-        final Child child = Child.create();
-        final Owner owner = Owner.create(child);
+        final var child = Child.create();
+        final var owner = Owner.create(child);
 
         assertFalse(Disposable.isDisposed(child));
 
@@ -28,7 +28,7 @@ public final class AutoObserveRuntimeValidationIntegrationTest extends AbstractA
     @Test
     public void scenario_withBadDependency() {
         captureObserverErrors();
-        final BadType value = new BadType();
+        final var value = new BadType();
         assertInvariant(
                 () -> Owner.create(value),
                 "Field annotated with @AutoObserve( validateTypeAtRuntime = true ) references a "
@@ -38,9 +38,10 @@ public final class AutoObserveRuntimeValidationIntegrationTest extends AbstractA
     @Test
     public void scenario_withNullDependency() {
         captureObserverErrors();
-        final Owner owner = Owner.create(null);
+        final var owner = Owner.create(null);
 
         assertNotNull(owner);
+        assert null != owner;
         assertEquals(getObserverErrors().size(), 0);
 
         Disposable.dispose(owner);

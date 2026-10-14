@@ -9,6 +9,7 @@ import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.integration.util.SpyEventRecorder;
 import java.util.ArrayList;
+import java.util.Objects;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
@@ -21,7 +22,7 @@ public final class NestedComputableValueIntegrationTest extends AbstractArezInte
 
         final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-        final FilterContext filterContext = FilterContext.create();
+        final var filterContext = FilterContext.create();
 
         /*
          01. People
@@ -46,26 +47,26 @@ public final class NestedComputableValueIntegrationTest extends AbstractArezInte
          20.         - Tanker CFA-4
         */
 
-        final Node node1 = Node.create(filterContext, null, "People");
-        final Node node2 = Node.create(filterContext, node1, "Person");
-        final Node node3 = Node.create(filterContext, node2, "Bob");
-        final Node node4 = Node.create(filterContext, node2, "Mary");
-        final Node node5 = Node.create(filterContext, node2, "Bill");
-        final Node node6 = Node.create(filterContext, node2, "Daniel");
-        final Node node7 = Node.create(filterContext, null, "Vehicle");
-        final Node node8 = Node.create(filterContext, node7, "Land Vehicle");
-        final Node node9 = Node.create(filterContext, node8, "Passenger Vehicle");
-        final Node node10 = Node.create(filterContext, node9, "Sedan 385");
-        final Node node11 = Node.create(filterContext, node9, "Slip On 397");
-        final Node node12 = Node.create(filterContext, node9, "Sedan 396");
-        final Node node13 = Node.create(filterContext, node8, "Heavy Vehicle");
-        final Node node14 = Node.create(filterContext, node13, "Dozer");
-        final Node node15 = Node.create(filterContext, node14, "Dozer 123");
-        final Node node16 = Node.create(filterContext, node14, "Dozer 124");
-        final Node node17 = Node.create(filterContext, node14, "Dozer 125");
-        final Node node18 = Node.create(filterContext, node13, "Fire Tanker");
-        final Node node19 = Node.create(filterContext, node18, "Tanker CFA-2");
-        final Node node20 = Node.create(filterContext, node18, "Tanker CFA-4");
+        final var node1 = Node.create(filterContext, null, "People");
+        final var node2 = Node.create(filterContext, node1, "Person");
+        final var node3 = Node.create(filterContext, node2, "Bob");
+        final var node4 = Node.create(filterContext, node2, "Mary");
+        final var node5 = Node.create(filterContext, node2, "Bill");
+        final var node6 = Node.create(filterContext, node2, "Daniel");
+        final var node7 = Node.create(filterContext, null, "Vehicle");
+        final var node8 = Node.create(filterContext, node7, "Land Vehicle");
+        final var node9 = Node.create(filterContext, node8, "Passenger Vehicle");
+        final var node10 = Node.create(filterContext, node9, "Sedan 385");
+        final var node11 = Node.create(filterContext, node9, "Slip On 397");
+        final var node12 = Node.create(filterContext, node9, "Sedan 396");
+        final var node13 = Node.create(filterContext, node8, "Heavy Vehicle");
+        final var node14 = Node.create(filterContext, node13, "Dozer");
+        final var node15 = Node.create(filterContext, node14, "Dozer 123");
+        final var node16 = Node.create(filterContext, node14, "Dozer 124");
+        final var node17 = Node.create(filterContext, node14, "Dozer 125");
+        final var node18 = Node.create(filterContext, node13, "Fire Tanker");
+        final var node19 = Node.create(filterContext, node18, "Tanker CFA-2");
+        final var node20 = Node.create(filterContext, node18, "Tanker CFA-4");
 
         context.observer(node1::cacheIsVisibleResult);
         context.observer(node2::cacheIsVisibleResult);
@@ -210,7 +211,7 @@ public final class NestedComputableValueIntegrationTest extends AbstractArezInte
 
         final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-        final FilterContext filterContext = FilterContext.create();
+        final var filterContext = FilterContext.create();
 
         /*
          01. People
@@ -218,9 +219,9 @@ public final class NestedComputableValueIntegrationTest extends AbstractArezInte
          03.     - Bob
         */
 
-        final Node node1 = Node.create(filterContext, null, "People");
-        final Node node2 = Node.create(filterContext, node1, "Person");
-        final Node node3 = Node.create(filterContext, node2, "Bob");
+        final var node1 = Node.create(filterContext, null, "People");
+        final var node2 = Node.create(filterContext, node1, "Person");
+        final var node3 = Node.create(filterContext, node2, "Bob");
 
         assertTrue(context.action(node3::isVisible));
         assertTrue(context.action(node2::isVisible));
@@ -277,8 +278,8 @@ public final class NestedComputableValueIntegrationTest extends AbstractArezInte
     @SuppressWarnings({"WeakerAccess", "Arez:UnmanagedComponentReference"})
     @ArezComponent
     abstract static class Node {
-        private final @Nullable FilterContext _context;
-        private final @Nullable ArrayList<Node> _children = new ArrayList<>();
+        private final FilterContext _context;
+        private final ArrayList<Node> _children = new ArrayList<>();
         private @Nullable String _name;
         // Cached result used in observed tests
         private boolean _isVisibleResult;
@@ -298,7 +299,8 @@ public final class NestedComputableValueIntegrationTest extends AbstractArezInte
         @Memoize
         boolean isVisible() {
             return getChildren().isEmpty()
-                    ? getName().contains(getContext().getFilter())
+                    ? Objects.requireNonNull(getName())
+                            .contains(Objects.requireNonNull(getContext().getFilter()))
                     : getChildren().stream().anyMatch(Node::isVisible);
         }
 
@@ -312,12 +314,10 @@ public final class NestedComputableValueIntegrationTest extends AbstractArezInte
             _name = name;
         }
 
-        @Nullable
         FilterContext getContext() {
             return _context;
         }
 
-        @Nullable
         ArrayList<Node> getChildren() {
             return _children;
         }

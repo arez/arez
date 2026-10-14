@@ -20,7 +20,7 @@ public final class ComputableValueRefTest extends AbstractArezIntegrationTest {
         private int _otherID;
 
         @ComputableValueRef
-        abstract @Nullable ComputableValue<Integer> getOtherIDComputableValue();
+        abstract ComputableValue<Integer> getOtherIDComputableValue();
 
         @Nullable
         String getOther() {

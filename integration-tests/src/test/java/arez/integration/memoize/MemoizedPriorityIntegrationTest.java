@@ -21,10 +21,10 @@ import org.testng.annotations.Test;
 public final class MemoizedPriorityIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() throws Throwable {
-        final SpyEventRecorder recorder = new SpyEventRecorder();
+        final var recorder = new SpyEventRecorder();
 
         final String name = "MyName";
-        final Model model = Model.create(name);
+        final var model = Model.create(name);
 
         final ArrayList<String> searches = new ArrayList<>();
 

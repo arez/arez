@@ -125,7 +125,7 @@ public final class RequiresTransactionIntegrationTest extends AbstractArezIntegr
     public void emitsNoActionOrTransactionSpyEventsOfItsOwn() {
         final ArezContext context = Arez.context();
         final SpyComponent component = new RequiresTransactionIntegrationTest_Arez_SpyComponent();
-        final TestSpyEventHandler recorder = new TestSpyEventHandler();
+        final var recorder = new TestSpyEventHandler();
         context.getSpy().addSpyEventHandler(recorder);
 
         context.safeAction("OuterAction", component::perform, ActionFlags.NO_VERIFY_ACTION_REQUIRED);

@@ -37,6 +37,7 @@ final class Arez_NonObservableCollectionInverseModel extends NonObservableCollec
   private @Nullable Collection<NonObservableCollectionInverseModel.Element>
       $$arezd$$_$$cache$$_elements;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_NonObservableCollectionInverseModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -64,15 +65,22 @@ final class Arez_NonObservableCollectionInverseModel extends NonObservableCollec
         false);
     this.$$arezd$$_elements = new HashSet<>();
     this.$$arezd$$_$$cache$$_elements = null;
-    this.$$arez$$_elements = $$arezv$$_context.observable(
-        Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
-        Arez.areNamesEnabled() ? $$arezv$$_name + ".elements" : null,
-        Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_elements)
-            : null,
-        null);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arez$$_elements =
+        $$arezv$$_context
+            .<@Nullable Collection<NonObservableCollectionInverseModel.Element>>observable(
+                Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
+                Arez.areNamesEnabled() ? $$arezv$$_name + ".elements" : null,
+                Arez.arePropertyIntrospectorsEnabled()
+                    ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_elements)
+                    : null,
+                null);
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private Locator $$arezi$$_locator() {
@@ -82,12 +90,12 @@ final class Arez_NonObservableCollectionInverseModel extends NonObservableCollec
           () ->
               "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_inverse_NonObservableCollectionInverseModel'");
     }
-    return this.$$arezi$$_kernel.getContext().locator();
+    return this.$$arezi$$_kernel().getContext().locator();
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -117,7 +125,7 @@ final class Arez_NonObservableCollectionInverseModel extends NonObservableCollec
 
   private void $$arezi$$_nativeComponentPreDispose() {
     this.$$arezi$$_preDispose();
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -129,7 +137,7 @@ final class Arez_NonObservableCollectionInverseModel extends NonObservableCollec
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_NonObservableCollectionInverseModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -146,7 +154,7 @@ final class Arez_NonObservableCollectionInverseModel extends NonObservableCollec
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -163,7 +171,7 @@ final class Arez_NonObservableCollectionInverseModel extends NonObservableCollec
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -180,7 +188,7 @@ final class Arez_NonObservableCollectionInverseModel extends NonObservableCollec
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -204,8 +212,8 @@ final class Arez_NonObservableCollectionInverseModel extends NonObservableCollec
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     if (Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled()) {
       Guards.apiInvariant(
@@ -222,7 +230,7 @@ final class Arez_NonObservableCollectionInverseModel extends NonObservableCollec
           Guards.apiInvariant(
               () -> Disposable.isNotDisposed(element),
               () -> "Inverse relationship named 'elements' on component named '"
-                  + this.$$arezi$$_kernel.getName() + "' contains disposed element '" + element
+                  + this.$$arezi$$_kernel().getName() + "' contains disposed element '" + element
                   + "'");
         }
       }
@@ -235,12 +243,13 @@ final class Arez_NonObservableCollectionInverseModel extends NonObservableCollec
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getElements' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () ->
+              "Method named 'getElements' invoked on " + this.$$arezi$$_kernel().describeState()
+                  + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_elements.reportObserved();
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final @Nullable Collection<NonObservableCollectionInverseModel.Element> $$ar$$_result =
+      final Collection<NonObservableCollectionInverseModel.Element> $$ar$$_result =
           this.$$arezd$$_elements;
       if (null == this.$$arezd$$_$$cache$$_elements && null != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_elements = CollectionsUtil.wrap($$ar$$_result);
@@ -256,8 +265,8 @@ final class Arez_NonObservableCollectionInverseModel extends NonObservableCollec
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
           () -> "Method named '$$arezir$$_elements_add' invoked on "
-              + this.$$arezi$$_kernel.describeState() + " component named '"
-              + this.$$arezi$$_kernel.getName() + "'");
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_elements.preReportChanged();
     if (Arez.shouldCheckInvariants()) {
@@ -279,8 +288,8 @@ final class Arez_NonObservableCollectionInverseModel extends NonObservableCollec
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
           () -> "Method named '$$arezir$$_elements_remove' invoked on "
-              + this.$$arezi$$_kernel.describeState() + " component named '"
-              + this.$$arezi$$_kernel.getName() + "'");
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_elements.preReportChanged();
     if (Arez.shouldCheckInvariants()) {
@@ -300,7 +309,7 @@ final class Arez_NonObservableCollectionInverseModel extends NonObservableCollec
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

@@ -13,7 +13,6 @@ import arez.annotations.ObserverRef;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.spy.ObserverInfo;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
 @NullMarked
@@ -21,7 +20,7 @@ public final class ObserveArezOrNoDependenciesTest extends AbstractArezIntegrati
     @NullMarked
     @ArezComponent
     abstract static class TestComponent1 {
-        final @Nullable ObservableValue<?> _observableValue = Arez.context().observable();
+        final ObservableValue<?> _observableValue = Arez.context().observable();
         int _renderCallCount;
 
         @Observe(depType = DepType.AREZ_OR_NONE)
@@ -33,7 +32,7 @@ public final class ObserveArezOrNoDependenciesTest extends AbstractArezIntegrati
         }
 
         @ObserverRef
-        abstract @Nullable Observer getRenderObserver();
+        abstract Observer getRenderObserver();
     }
 
     @Test

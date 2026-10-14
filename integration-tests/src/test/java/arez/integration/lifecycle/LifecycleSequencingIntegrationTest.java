@@ -11,14 +11,13 @@ import arez.annotations.PreDispose;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.ArrayList;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
 @NullMarked
 public final class LifecycleSequencingIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
-        final Model1 model = Model1.create();
+        final var model = Model1.create();
 
         Disposable.dispose(model);
 
@@ -28,7 +27,7 @@ public final class LifecycleSequencingIntegrationTest extends AbstractArezIntegr
     @Test
     public void scenario_NativeComponentsDisabled() {
         ArezTestUtil.disableNativeComponents();
-        final Model2 model = Model2.create();
+        final var model = Model2.create();
 
         Disposable.dispose(model);
 
@@ -38,7 +37,7 @@ public final class LifecycleSequencingIntegrationTest extends AbstractArezIntegr
     @NullMarked
     @ArezComponent(allowEmpty = true)
     abstract static class Model1 {
-        final @Nullable ArrayList<String> _steps = new ArrayList<>();
+        final ArrayList<String> _steps = new ArrayList<>();
 
         static Model1 create() {
             return new LifecycleSequencingIntegrationTest_Arez_Model1();
@@ -67,7 +66,7 @@ public final class LifecycleSequencingIntegrationTest extends AbstractArezIntegr
     @NullMarked
     @ArezComponent(allowEmpty = true)
     abstract static class Model2 {
-        final @Nullable ArrayList<String> _steps = new ArrayList<>();
+        final ArrayList<String> _steps = new ArrayList<>();
 
         static Model2 create() {
             return new LifecycleSequencingIntegrationTest_Arez_Model2();

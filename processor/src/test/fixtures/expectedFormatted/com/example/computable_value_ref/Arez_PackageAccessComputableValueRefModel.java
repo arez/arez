@@ -26,6 +26,7 @@ final class Arez_PackageAccessComputableValueRefModel extends PackageAccessCompu
 
   private final ComputableValue<Long> $$arez$$_time;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_PackageAccessComputableValueRefModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -56,13 +57,18 @@ final class Arez_PackageAccessComputableValueRefModel extends PackageAccessCompu
         Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null,
         () -> super.getTime(),
         ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -83,7 +89,7 @@ final class Arez_PackageAccessComputableValueRefModel extends PackageAccessCompu
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -95,7 +101,7 @@ final class Arez_PackageAccessComputableValueRefModel extends PackageAccessCompu
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_computable_value_ref_PackageAccessComputableValueRefModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -112,7 +118,7 @@ final class Arez_PackageAccessComputableValueRefModel extends PackageAccessCompu
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -129,7 +135,7 @@ final class Arez_PackageAccessComputableValueRefModel extends PackageAccessCompu
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -146,7 +152,7 @@ final class Arez_PackageAccessComputableValueRefModel extends PackageAccessCompu
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -158,8 +164,8 @@ final class Arez_PackageAccessComputableValueRefModel extends PackageAccessCompu
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     return this.$$arez$$_time.get();
   }
@@ -170,8 +176,8 @@ final class Arez_PackageAccessComputableValueRefModel extends PackageAccessCompu
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
           () -> "Method named 'getTimeComputableValue' invoked on "
-              + this.$$arezi$$_kernel.describeState() + " component named '"
-              + this.$$arezi$$_kernel.getName() + "'");
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     return $$arez$$_time;
   }
@@ -179,7 +185,7 @@ final class Arez_PackageAccessComputableValueRefModel extends PackageAccessCompu
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

@@ -12,7 +12,6 @@ java_testng(
         "-Dbraincheck.environment=development",
         "-Darez.integration_fixture_dir=integration-tests/src/test/resources",
     ],
-    migration_pending_checks = True,
     plugins = ["//processor:plugin"],
     test_classes = [
         "arez.integration.AccessingDisposedTest",

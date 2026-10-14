@@ -26,7 +26,7 @@ public final class NonTransactionEnforcingIntegrationTest extends AbstractArezIn
 
         final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-        final PersonModel person = PersonModel.create("Bill", "Smith");
+        final var person = PersonModel.create("Bill", "Smith");
 
         context.observer("FirstNamePrinter", () -> {
             observeADependency();
@@ -37,8 +37,8 @@ public final class NonTransactionEnforcingIntegrationTest extends AbstractArezIn
             recorder.mark("fullname", person.getFullName());
         });
 
-        final AtomicBoolean action1ReadOnly = new AtomicBoolean(true);
-        final AtomicBoolean action2ReadOnly = new AtomicBoolean(true);
+        final var action1ReadOnly = new AtomicBoolean(true);
+        final var action2ReadOnly = new AtomicBoolean(true);
 
         // Note that the next two actions pass in mutation false but actually perform mutation
         // This is to verify that transactions are really not set

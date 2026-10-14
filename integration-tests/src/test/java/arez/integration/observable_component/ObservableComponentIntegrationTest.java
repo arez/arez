@@ -16,8 +16,8 @@ import org.testng.annotations.Test;
 public final class ObservableComponentIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void disposeNotifiesComponentObservable() {
-        final Model model = Model.create();
-        final AtomicInteger callCount = new AtomicInteger();
+        final var model = Model.create();
+        final var callCount = new AtomicInteger();
         Arez.context().observer(() -> {
             observeADependency();
             ComponentObservable.observe(model);

@@ -13,7 +13,7 @@ import org.jspecify.annotations.Nullable;
 @NullMarked
 @ArezComponent
 public abstract class TrainTicket {
-    public static @Nullable TrainTicket create(int remainingRides) {
+    public static TrainTicket create(int remainingRides) {
         return new Arez_TrainTicket(remainingRides);
     }
 

@@ -17,10 +17,10 @@ public final class ComponentDependencyFieldIntegrationTest extends AbstractArezI
     public void scenario() throws Throwable {
         final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-        final Model1 model1a = Model1.create();
-        final Model1 model1b = Model1.create();
-        final Model2 model2a = Model2.create(model1a);
-        final Model2 model2b = Model2.create(model1b);
+        final var model1a = Model1.create();
+        final var model1b = Model1.create();
+        final var model2a = Model2.create(model1a);
+        final var model2b = Model2.create(model1b);
 
         assertFalse(Disposable.isDisposed(model1a));
         assertFalse(Disposable.isDisposed(model1b));
@@ -54,7 +54,7 @@ public final class ComponentDependencyFieldIntegrationTest extends AbstractArezI
     @NullMarked
     @ArezComponent(allowEmpty = true)
     abstract static class Model1 {
-        static @Nullable Model1 create() {
+        static Model1 create() {
             return new ComponentDependencyFieldIntegrationTest_Arez_Model1();
         }
     }
@@ -65,7 +65,7 @@ public final class ComponentDependencyFieldIntegrationTest extends AbstractArezI
         @ComponentDependency(action = ComponentDependency.Action.CASCADE)
         final @Nullable Model1 _reference;
 
-        static @Nullable Model2 create(final @Nullable Model1 reference) {
+        static Model2 create(final @Nullable Model1 reference) {
             return new ComponentDependencyFieldIntegrationTest_Arez_Model2(reference);
         }
 

@@ -31,7 +31,7 @@ public final class ObservableDeepEqualsComparatorIntegrationTest extends Abstrac
     @Test
     public void scenario() {
         final Model model = new ObservableDeepEqualsComparatorIntegrationTest_Arez_Model();
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         observer(() -> {
             model.getValues();

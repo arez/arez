@@ -11,10 +11,11 @@ import com.palantir.javapoet.TypeName;
 import com.palantir.javapoet.TypeSpec;
 import com.palantir.javapoet.TypeVariableName;
 import com.palantir.javapoet.WildcardTypeName;
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -98,6 +99,7 @@ final class ComponentGenerator {
     private static final String INTERNAL_POST_DISPOSE_METHOD_NAME = FRAMEWORK_PREFIX + "postDispose";
     private static final String NEXT_ID_FIELD_NAME = FRAMEWORK_PREFIX + "nextId";
     private static final String KERNEL_FIELD_NAME = FRAMEWORK_PREFIX + "kernel";
+    private static final String KERNEL_ACCESS_EXPRESSION = FRAMEWORK_PREFIX + "kernel()";
     private static final String AUTO_OBSERVE_FIELD_NAME = FIELD_PREFIX + "$autoObserve";
     private static final String AUTO_OBSERVE_METHOD_NAME = FRAMEWORK_PREFIX + "$autoObserve";
     static final String ID_FIELD_NAME = FRAMEWORK_PREFIX + "id";
@@ -212,6 +214,12 @@ final class ComponentGenerator {
         }
 
         buildFields(processingEnv, component, builder);
+        builder.addMethod(MethodSpec.methodBuilder(FRAMEWORK_PREFIX + "kernel")
+                .addModifiers(Modifier.PRIVATE)
+                .returns(KERNEL_CLASSNAME)
+                .addStatement("assert null != this.$N", KERNEL_FIELD_NAME)
+                .addStatement("return this.$N", KERNEL_FIELD_NAME)
+                .build());
 
         if (component.isClassType()) {
             buildConstructors(processingEnv, component, builder);
@@ -223,7 +231,7 @@ final class ComponentGenerator {
             final MethodSpec.Builder method = refMethod(processingEnv, component.getElement(), contextRef);
             generateNotInitializedInvariant(
                     component, method, contextRef.getSimpleName().toString());
-            method.addStatement("return this.$N.getContext()", KERNEL_FIELD_NAME);
+            method.addStatement("return this.$N.getContext()", KERNEL_ACCESS_EXPRESSION);
             builder.addMethod(method.build());
         }
         for (final ExecutableElement componentRef : component.getComponentRefs()) {
@@ -237,7 +245,10 @@ final class ComponentGenerator {
         if (!component.getReferences().isEmpty() || component.hasInverses()) {
             builder.addMethod(buildLocatorRefMethod(component));
         }
-        if (null == component.getComponentId()) {
+        if (null == component.getComponentId()
+                && (component.isIdRequired()
+                        || component.isRequireEquals()
+                        || !component.getComponentIdRefs().isEmpty())) {
             builder.addMethod(buildComponentIdMethod(component));
         }
         if (component.isIdRequired()) {
@@ -247,7 +258,7 @@ final class ComponentGenerator {
             final MethodSpec.Builder method = refMethod(processingEnv, component.getElement(), componentNameRef);
             generateNotInitializedInvariant(
                     component, method, componentNameRef.getSimpleName().toString());
-            method.addStatement("return this.$N.getName()", KERNEL_FIELD_NAME);
+            method.addStatement("return this.$N.getName()", KERNEL_ACCESS_EXPRESSION);
             builder.addMethod(method.build());
         }
         for (final ExecutableElement componentTypeNameRef : component.getComponentTypeNameRefs()) {
@@ -410,8 +421,8 @@ final class ComponentGenerator {
                 KERNEL_FIELD_NAME,
                 KERNEL_FIELD_NAME,
                 methodName,
-                KERNEL_FIELD_NAME,
-                KERNEL_FIELD_NAME);
+                KERNEL_ACCESS_EXPRESSION,
+                KERNEL_ACCESS_EXPRESSION);
         block.endControlFlow();
 
         builder.addCode(block.build());
@@ -486,7 +497,7 @@ final class ComponentGenerator {
         final ClassName other = typeName instanceof ClassName
                 ? (ClassName) typeName
                 : (ClassName) ((ParameterizedTypeName) typeName).typeArguments().get(0);
-        final StringBuilder sb = new StringBuilder();
+        final var sb = new StringBuilder();
         final String packageName = other.packageName();
         if (null != packageName) {
             sb.append(packageName);
@@ -514,7 +525,7 @@ final class ComponentGenerator {
         final List<? extends TypeMirror> thrownTypes = action.getAction().getThrownTypes();
         final boolean isSafe = thrownTypes.isEmpty();
 
-        final StringBuilder statement = new StringBuilder();
+        final var statement = new StringBuilder();
         final List<Object> params = new ArrayList<>();
 
         if (!isProcedure) {
@@ -522,7 +533,7 @@ final class ComponentGenerator {
         }
 
         statement.append("this.$N.getContext().");
-        params.add(KERNEL_FIELD_NAME);
+        params.add(KERNEL_ACCESS_EXPRESSION);
 
         if (isProcedure && isSafe) {
             statement.append("safeAction");
@@ -538,7 +549,7 @@ final class ComponentGenerator {
 
         statement.append("$T.areNamesEnabled() ? this.$N.getName() + $S : null");
         params.add(AREZ_CLASSNAME);
-        params.add(KERNEL_FIELD_NAME);
+        params.add(KERNEL_ACCESS_EXPRESSION);
         params.add("." + action.getName());
 
         statement.append(", () -> ");
@@ -594,22 +605,23 @@ final class ComponentGenerator {
         statement.append(" )");
 
         if (action.isSkipIfDisposed()) {
-            final CodeBlock nameExpr = CodeBlock.of(
+            final var nameExpr = CodeBlock.of(
                     "$T.areNamesEnabled() ? this.$N.getName() + $S : null",
                     AREZ_CLASSNAME,
-                    KERNEL_FIELD_NAME,
+                    KERNEL_ACCESS_EXPRESSION,
                     "." + action.getName());
             final CodeBlock parametersExpr = buildActionParametersExpression(action, parameters);
             final CodeBlock.Builder guardBlock = CodeBlock.builder();
-            guardBlock.beginControlFlow("if ( this.$N.isDisposed() )", KERNEL_FIELD_NAME);
+            guardBlock.beginControlFlow("if ( this.$N.isDisposed() )", KERNEL_ACCESS_EXPRESSION);
             guardBlock.beginControlFlow(
                     "if ( $T.areSpiesEnabled() && this.$N.getContext().getSpy().willPropagateSpyEvents() )",
                     AREZ_CLASSNAME,
-                    KERNEL_FIELD_NAME);
+                    KERNEL_ACCESS_EXPRESSION);
             guardBlock.addStatement(
-                    "this.$N.getContext().getSpy().reportSpyEvent( new $T( $L, false, $L ) )",
-                    KERNEL_FIELD_NAME,
+                    "this.$N.getContext().getSpy().reportSpyEvent( new $T( $T.requireNonNull( $L ), false, $L ) )",
+                    KERNEL_ACCESS_EXPRESSION,
                     ACTION_SKIPPED_EVENT_CLASSNAME,
+                    Objects.class,
                     nameExpr,
                     parametersExpr);
             guardBlock.endControlFlow();
@@ -686,7 +698,7 @@ final class ComponentGenerator {
         generateNotDisposedInvariant(method, methodName);
         generateRequiresTransactionInvariant(method, descriptor);
 
-        final StringBuilder statement = new StringBuilder();
+        final var statement = new StringBuilder();
         final List<Object> parameters = new ArrayList<>();
         if (TypeKind.VOID != descriptor.getMethodType().getReturnType().getKind()) {
             statement.append("return ");
@@ -726,7 +738,7 @@ final class ComponentGenerator {
         final String methodName = descriptor.getMethod().getSimpleName().toString();
         builder.beginControlFlow("if ( $T.shouldCheckInvariants() )", AREZ_CLASSNAME);
         builder.addStatement(
-                "final $T $N = this.$N.getContext()", AREZ_CONTEXT_CLASSNAME, contextName, KERNEL_FIELD_NAME);
+                "final $T $N = this.$N.getContext()", AREZ_CONTEXT_CLASSNAME, contextName, KERNEL_ACCESS_EXPRESSION);
         builder.addStatement(
                 "$T.invariant( $N::isTransactionActive, () -> \"Arez-0229: Method named '$N' invoked outside of a"
                         + " transaction on component type '$N'.\" )",
@@ -870,7 +882,7 @@ final class ComponentGenerator {
                     final String varName = VARIABLE_PREFIX + methodName + "_dependency";
                     builder.addStatement(
                             "final $T $N = this.$N",
-                            dependency.getMethod().getReturnType(),
+                            TypeName.get(dependency.getMethod().getReturnType()).withoutAnnotations(),
                             varName,
                             observable.getDataFieldName());
                     final CodeBlock.Builder listenerBlock = CodeBlock.builder();
@@ -879,13 +891,13 @@ final class ComponentGenerator {
                         listenerBlock.addStatement(
                                 "$T.asDisposeNotifier( $N ).addOnDisposeListener( $N, this::dispose )",
                                 DISPOSE_TRACKABLE_CLASSNAME,
-                                observable.getDataFieldName(),
+                                varName,
                                 getDependencyKey(dependency));
                     } else {
                         listenerBlock.addStatement(
                                 "$T.asDisposeNotifier( $N ).addOnDisposeListener( $N, () -> $N( null ) )",
                                 DISPOSE_TRACKABLE_CLASSNAME,
-                                observable.getDataFieldName(),
+                                varName,
                                 getDependencyKey(dependency),
                                 observable.getSetter().getSimpleName().toString());
                     }
@@ -914,13 +926,15 @@ final class ComponentGenerator {
                     if (dependency.getComponent().isClassType()) {
                         builder.addStatement(
                                 "final $T $N = super.$N()",
-                                dependency.getMethod().getReturnType(),
+                                TypeName.get(dependency.getMethod().getReturnType())
+                                        .withoutAnnotations(),
                                 varName,
                                 method.getSimpleName().toString());
                     } else {
                         builder.addStatement(
                                 "final $T $N = $T.super.$N()",
-                                dependency.getMethod().getReturnType(),
+                                TypeName.get(dependency.getMethod().getReturnType())
+                                        .withoutAnnotations(),
                                 varName,
                                 dependency.getComponent().getClassName(),
                                 method.getSimpleName().toString());
@@ -928,41 +942,19 @@ final class ComponentGenerator {
                     final CodeBlock.Builder listenerBlock = CodeBlock.builder();
                     listenerBlock.beginControlFlow("if ( null != $N )", varName);
                     if (dependency.shouldCascadeDispose()) {
-                        if (dependency.getComponent().isClassType()) {
-                            listenerBlock.addStatement(
-                                    "$T.asDisposeNotifier( super.$N() )." + "addOnDisposeListener( $N, this::dispose )",
-                                    DISPOSE_TRACKABLE_CLASSNAME,
-                                    method.getSimpleName(),
-                                    getDependencyKey(dependency));
-                        } else {
-                            listenerBlock.addStatement(
-                                    "$T.asDisposeNotifier( $T.super.$N() )."
-                                            + "addOnDisposeListener( $N, this::dispose )",
-                                    DISPOSE_TRACKABLE_CLASSNAME,
-                                    dependency.getComponent().getClassName(),
-                                    method.getSimpleName(),
-                                    getDependencyKey(dependency));
-                        }
+                        listenerBlock.addStatement(
+                                "$T.asDisposeNotifier( $N ).addOnDisposeListener( $N, this::dispose )",
+                                DISPOSE_TRACKABLE_CLASSNAME,
+                                varName,
+                                getDependencyKey(dependency));
                     } else {
                         final ObservableDescriptor observable = dependency.getObservable();
-                        if (dependency.getComponent().isClassType()) {
-                            listenerBlock.addStatement(
-                                    "$T.asDisposeNotifier( super.$N() )."
-                                            + "addOnDisposeListener( $N, () -> $N( null ) )",
-                                    DISPOSE_TRACKABLE_CLASSNAME,
-                                    method.getSimpleName(),
-                                    getDependencyKey(dependency),
-                                    observable.getSetter().getSimpleName().toString());
-                        } else {
-                            listenerBlock.addStatement(
-                                    "$T.asDisposeNotifier( $T.super.$N() )."
-                                            + "addOnDisposeListener( $N, () -> $N( null ) )",
-                                    DISPOSE_TRACKABLE_CLASSNAME,
-                                    dependency.getComponent().getClassName(),
-                                    method.getSimpleName(),
-                                    getDependencyKey(dependency),
-                                    observable.getSetter().getSimpleName().toString());
-                        }
+                        listenerBlock.addStatement(
+                                "$T.asDisposeNotifier( $N ).addOnDisposeListener( $N, () -> $N( null ) )",
+                                DISPOSE_TRACKABLE_CLASSNAME,
+                                varName,
+                                getDependencyKey(dependency),
+                                observable.getSetter().getSimpleName().toString());
                     }
                     listenerBlock.endControlFlow();
                     builder.addCode(listenerBlock.build());
@@ -981,7 +973,7 @@ final class ComponentGenerator {
 
         final CodeBlock.Builder codeBlock = CodeBlock.builder();
         codeBlock.beginControlFlow("if ( $T.areNamesEnabled() )", AREZ_CLASSNAME);
-        codeBlock.addStatement("return $S + this.$N.getName() + $S", "ArezComponent[", KERNEL_FIELD_NAME, "]");
+        codeBlock.addStatement("return $S + this.$N.getName() + $S", "ArezComponent[", KERNEL_ACCESS_EXPRESSION, "]");
         codeBlock.nextControlFlow("else");
         if (component.isInterfaceType()) {
             codeBlock.addStatement("return $T.super.toString()", component.getClassName());
@@ -1040,7 +1032,7 @@ final class ComponentGenerator {
 
         generateNotInitializedInvariant(component, method, methodName);
 
-        method.addStatement("return this.$N.getContext().locator()", KERNEL_FIELD_NAME);
+        method.addStatement("return this.$N.getContext().locator()", KERNEL_ACCESS_EXPRESSION);
         return method.build();
     }
 
@@ -1069,7 +1061,13 @@ final class ComponentGenerator {
 
         method.addCode(block.build());
 
-        method.addStatement("return this.$N.getComponent()", KERNEL_FIELD_NAME);
+        if (Nullability.isNonNull(componentRef)) {
+            method.addStatement("final var component = this.$N.getComponent()", KERNEL_ACCESS_EXPRESSION);
+            method.addStatement("assert null != component");
+            method.addStatement("return component");
+        } else {
+            method.addStatement("return this.$N.getComponent()", KERNEL_ACCESS_EXPRESSION);
+        }
         return method.build();
     }
 
@@ -1100,7 +1098,7 @@ final class ComponentGenerator {
                 .addModifiers(Modifier.PRIVATE)
                 .returns(DEFAULT_ID_TYPE)
                 .addStatement("assert null != this.$N", KERNEL_FIELD_NAME)
-                .addStatement("return this.$N.getId()", KERNEL_FIELD_NAME)
+                .addStatement("return this.$N.getId()", KERNEL_ACCESS_EXPRESSION)
                 .build();
     }
 
@@ -1178,7 +1176,7 @@ final class ComponentGenerator {
         generateNotInitializedInvariant(component, method, methodName);
         generateNotConstructedInvariant(method, methodName);
 
-        method.addStatement("this.$N.dispose()", KERNEL_FIELD_NAME);
+        method.addStatement("this.$N.dispose()", KERNEL_ACCESS_EXPRESSION);
 
         return method.build();
     }
@@ -1223,7 +1221,7 @@ final class ComponentGenerator {
         generateNotInitializedInvariant(component, method, methodName);
         generateNotConstructedInvariant(method, methodName);
 
-        method.addStatement("return this.$N.isDisposed()", KERNEL_FIELD_NAME);
+        method.addStatement("return this.$N.isDisposed()", KERNEL_ACCESS_EXPRESSION);
         return method.build();
     }
 
@@ -1239,7 +1237,7 @@ final class ComponentGenerator {
         generateNotInitializedInvariant(component, method, methodName);
         generateNotConstructedInvariant(method, methodName);
 
-        method.addStatement("return this.$N.observe()", KERNEL_FIELD_NAME);
+        method.addStatement("return this.$N.observe()", KERNEL_ACCESS_EXPRESSION);
         return method.build();
     }
 
@@ -1265,7 +1263,7 @@ final class ComponentGenerator {
             }
         }
         if (component.isDisposeNotifier()) {
-            builder.addStatement("this.$N.notifyOnDisposeListeners()", KERNEL_FIELD_NAME);
+            builder.addStatement("this.$N.notifyOnDisposeListeners()", KERNEL_ACCESS_EXPRESSION);
         }
 
         return builder.build();
@@ -1407,7 +1405,7 @@ final class ComponentGenerator {
                 .addParameter(ParameterSpec.builder(TypeName.BOOLEAN, "errorIfDuplicate", Modifier.FINAL)
                         .build());
         generateNotInitializedInvariant(component, method, methodName);
-        method.addStatement("this.$N.addOnDisposeListener( key, action, errorIfDuplicate )", KERNEL_FIELD_NAME);
+        method.addStatement("this.$N.addOnDisposeListener( key, action, errorIfDuplicate )", KERNEL_ACCESS_EXPRESSION);
         return method.build();
     }
 
@@ -1426,7 +1424,7 @@ final class ComponentGenerator {
                         .build());
         generateNotInitializedInvariant(component, method, methodName);
         generateNotConstructedInvariant(method, methodName);
-        method.addStatement("this.$N.removeOnDisposeListener( key, errorIfMissing )", KERNEL_FIELD_NAME);
+        method.addStatement("this.$N.removeOnDisposeListener( key, errorIfMissing )", KERNEL_ACCESS_EXPRESSION);
         return method.build();
     }
 
@@ -1439,7 +1437,7 @@ final class ComponentGenerator {
         buildNameVar(component, builder);
         buildNativeComponentVar(component, builder);
 
-        final StringBuilder sb = new StringBuilder();
+        final var sb = new StringBuilder();
         final List<Object> params = new ArrayList<>();
 
         sb.append("this.$N = new $T( $T.areZonesEnabled() ? $N : null, $T.areNamesEnabled() ? $N : null, ");
@@ -1545,7 +1543,7 @@ final class ComponentGenerator {
                         NEXT_ID_FIELD_NAME);
             }
         } else {
-            final ExecutableType methodType = (ExecutableType) processingEnv
+            final var methodType = (ExecutableType) processingEnv
                     .getTypeUtils()
                     .asMemberOf((DeclaredType) component.getElement().asType(), component.getComponentId());
             builder.addStatement(
@@ -1557,7 +1555,7 @@ final class ComponentGenerator {
     }
 
     private static void buildNativeComponentVar(final ComponentDescriptor component, final MethodSpec.Builder builder) {
-        final StringBuilder sb = new StringBuilder();
+        final var sb = new StringBuilder();
         final List<Object> params = new ArrayList<>();
         sb.append("final $T $N = $T.areNativeComponentsEnabled() ? $N.component( $S, $N, $N");
         params.add(COMPONENT_CLASSNAME);
@@ -1617,7 +1615,7 @@ final class ComponentGenerator {
             final ComponentDescriptor component,
             final TypeSpec.Builder builder) {
         for (final ExecutableElement constructor : ElementsUtil.getConstructors(component.getElement())) {
-            final ExecutableType methodType = (ExecutableType) processingEnv
+            final var methodType = (ExecutableType) processingEnv
                     .getTypeUtils()
                     .asMemberOf((DeclaredType) component.getElement().asType(), constructor);
             builder.addMethod(buildConstructor(processingEnv, component, constructor, methodType));
@@ -1642,8 +1640,14 @@ final class ComponentGenerator {
         }
         final List<ObservableDescriptor> initializers = component.getInitializers();
 
-        final List<String> additionalSuppressions =
-                component.hasDeprecatedElements() ? Collections.singletonList("deprecation") : Collections.emptyList();
+        final List<String> additionalSuppressions = new ArrayList<>();
+        if (component.hasDeprecatedElements()) {
+            additionalSuppressions.add("deprecation");
+        }
+        if (component.getComponentId() == null) {
+            // Components and synthetic IDs belong to one Arez context thread.
+            additionalSuppressions.add("NonAtomicVolatileUpdate");
+        }
         final List<TypeMirror> types = new ArrayList<>();
         final ExecutableElement componentId = component.getComponentId();
         if (null != componentId) {
@@ -1660,7 +1664,7 @@ final class ComponentGenerator {
         }
         SuppressWarningsUtil.addSuppressWarningsIfRequired(processingEnv, builder, additionalSuppressions, types);
 
-        final StringBuilder superCall = new StringBuilder();
+        final var superCall = new StringBuilder();
         superCall.append("super(");
         final List<String> parameterNames = new ArrayList<>();
 
@@ -1776,7 +1780,10 @@ final class ComponentGenerator {
             }
         }
 
-        component.getObservables().values().forEach(observable -> buildObservableInitializer(observable, builder));
+        component
+                .getObservables()
+                .values()
+                .forEach(observable -> buildObservableInitializer(processingEnv, observable, builder));
         component.getMemoizes().values().forEach(memoize -> buildMemoizeInitializer(memoize, builder));
         component.getObserves().values().forEach(observe -> buildObserveInitializer(observe, builder));
         if (!component.getAutoObserves().isEmpty()) {
@@ -1785,7 +1792,7 @@ final class ComponentGenerator {
         component.getDependencies().values().forEach(e -> buildDependencyKeyInitializer(e, builder));
         component.getDependencies().values().forEach(e -> buildDependencyInitializer(e, builder));
 
-        builder.addStatement("this.$N.componentConstructed()", KERNEL_FIELD_NAME);
+        builder.addStatement("this.$N.componentConstructed()", KERNEL_ACCESS_EXPRESSION);
 
         final List<ReferenceDescriptor> eagerReferences = component.getReferences().values().stream()
                 .filter(r -> r.getLinkType().equals("EAGER"))
@@ -1814,9 +1821,9 @@ final class ComponentGenerator {
         }
 
         if (component.requiresSchedule()) {
-            builder.addStatement("this.$N.componentComplete()", KERNEL_FIELD_NAME);
+            builder.addStatement("this.$N.componentComplete()", KERNEL_ACCESS_EXPRESSION);
         } else {
-            builder.addStatement("this.$N.componentReady()", KERNEL_FIELD_NAME);
+            builder.addStatement("this.$N.componentReady()", KERNEL_ACCESS_EXPRESSION);
         }
         return builder.build();
     }
@@ -1865,7 +1872,7 @@ final class ComponentGenerator {
         final MethodSpec.Builder method = MethodSpec.methodBuilder("equals")
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(Override.class)
-                .addParameter(Object.class, "o", Modifier.FINAL)
+                .addParameter(nullable(OBJECT), "o", Modifier.FINAL)
                 .returns(TypeName.BOOLEAN);
 
         final ClassName generatedClass = component.getEnhancedClassName();
@@ -1883,8 +1890,12 @@ final class ComponentGenerator {
                         typeParameters.stream().map(TypeVariableName::get).toArray(TypeName[]::new));
 
         final CodeBlock.Builder codeBlock = CodeBlock.builder();
-        codeBlock.beginControlFlow("if ( o instanceof $T )", generatedClass);
-        codeBlock.addStatement("final $T that = ($T) o", typeName, typeName);
+        if (typeParameters.isEmpty()) {
+            codeBlock.beginControlFlow("if ( o instanceof $T that )", generatedClass);
+        } else {
+            codeBlock.beginControlFlow("if ( o instanceof $T )", generatedClass);
+            codeBlock.addStatement("final var that = ($T) o", typeName);
+        }
         /*
          * If componentId is null then it is using synthetic id which is monotonically increasing and
          * thus if the id matches then the instance match. As a result no need to check isDisposed as
@@ -1980,7 +1991,7 @@ final class ComponentGenerator {
     private static void buildObserverInitializer(final ObserveDescriptor observe, final MethodSpec.Builder builder) {
         final ComponentDescriptor component = observe.getComponent();
         final List<Object> parameters = new ArrayList<>();
-        final StringBuilder sb = new StringBuilder();
+        final var sb = new StringBuilder();
         sb.append("this.$N = $N.observer( $T.areNativeComponentsEnabled() ? $N : null, "
                 + "$T.areNamesEnabled() ? $N + $S : null, ");
         parameters.add(observe.getFieldName());
@@ -2025,7 +2036,7 @@ final class ComponentGenerator {
         assert observe.hasOnDepsChange();
         final ComponentDescriptor component = observe.getComponent();
         final List<Object> parameters = new ArrayList<>();
-        final StringBuilder sb = new StringBuilder();
+        final var sb = new StringBuilder();
         sb.append("this.$N = $N.tracker( " + "$T.areNativeComponentsEnabled() ? $N : null, "
                 + "$T.areNamesEnabled() ? $N + $S : null, ");
         parameters.add(observe.getFieldName());
@@ -2140,7 +2151,6 @@ final class ComponentGenerator {
         if (memoize.isCollectionType()) {
             final CodeBlock.Builder block = CodeBlock.builder();
             block.beginControlFlow("if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME);
-            block.addStatement("this.$N = true", getMemoizeCollectionCacheDataActiveFieldName(memoize));
             block.addStatement("this.$N = null", getMemoizeCollectionCacheDataFieldName(memoize));
             block.addStatement("this.$N = null", getMemoizeCollectionUnmodifiableCacheDataFieldName(memoize));
             block.endControlFlow();
@@ -2166,7 +2176,6 @@ final class ComponentGenerator {
         if (memoize.isCollectionType() && memoize.hasNoParameters()) {
             final CodeBlock.Builder block = CodeBlock.builder();
             block.beginControlFlow("if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME);
-            block.addStatement("this.$N = false", getMemoizeCollectionCacheDataActiveFieldName(memoize));
             block.addStatement("this.$N = null", getMemoizeCollectionCacheDataFieldName(memoize));
             block.addStatement("this.$N = null", getMemoizeCollectionUnmodifiableCacheDataFieldName(memoize));
             block.endControlFlow();
@@ -2197,8 +2206,8 @@ final class ComponentGenerator {
         final ComponentDescriptor component = memoize.getComponent();
         final TypeElement typeElement = component.getElement();
 
-        final DeclaredType declaredType = (DeclaredType) typeElement.asType();
-        final ExecutableType executableType =
+        final var declaredType = (DeclaredType) typeElement.asType();
+        final var executableType =
                 (ExecutableType) processingEnv.getTypeUtils().asMemberOf(declaredType, executableElement);
 
         final MethodSpec.Builder method = MethodSpec.methodBuilder(getMemoizeWrapperMethodName(memoize));
@@ -2242,10 +2251,10 @@ final class ComponentGenerator {
 
         // Register Hook
         if (memoize.hasHooks() || onActivateRequiresWrapper || onDeactivateRequiresWrapper) {
-            final StringBuilder sb = new StringBuilder();
+            final var sb = new StringBuilder();
             final List<Object> parameters = new ArrayList<>();
             sb.append("this.$N.getContext().registerHook( $S, ");
-            parameters.add(KERNEL_FIELD_NAME);
+            parameters.add(KERNEL_ACCESS_EXPRESSION);
             parameters.add("$H");
 
             if (null != onActivate || onActivateRequiresWrapper) {
@@ -2253,6 +2262,7 @@ final class ComponentGenerator {
                     sb.append("this::$N");
                     parameters.add(getOnActivateHookMethodName(memoize));
                 } else if (component.isClassType()) {
+                    assert null != onActivate;
                     if (onActivate.getParameters().isEmpty()) {
                         sb.append("() -> super.$N()");
                         parameters.add(onActivate.getSimpleName());
@@ -2261,6 +2271,7 @@ final class ComponentGenerator {
                         parameters.add(onActivate.getSimpleName());
                     }
                 } else {
+                    assert null != onActivate;
                     sb.append(
                             onActivate.getParameters().isEmpty() ? "() -> $T.super.$N()" : "() -> $T.super.$N( this )");
                     parameters.add(component.getClassName());
@@ -2277,6 +2288,7 @@ final class ComponentGenerator {
                     sb.append("this::$N");
                     parameters.add(getOnDeactivateHookMethodName(memoize));
                 } else if (component.isClassType()) {
+                    assert null != onDeactivate;
                     if (onDeactivate.getParameters().isEmpty()) {
                         sb.append("() -> super.$N()");
                         parameters.add(onDeactivate.getSimpleName());
@@ -2285,6 +2297,7 @@ final class ComponentGenerator {
                         parameters.add(onDeactivate.getSimpleName());
                     }
                 } else {
+                    assert null != onDeactivate;
                     sb.append(
                             onDeactivate.getParameters().isEmpty()
                                     ? "() -> $T.super.$N()"
@@ -2306,13 +2319,14 @@ final class ComponentGenerator {
                     contextParameter.getPush().getSimpleName().toString(),
                     FRAMEWORK_PREFIX + contextParameter.getName());
         }
-        final StringBuilder sb = new StringBuilder();
+        final var sb = new StringBuilder();
         final List<Object> parameters = new ArrayList<>();
         sb.append("return ");
         if (!executableElement.getTypeParameters().isEmpty()) {
             sb.append("($T) ");
             parameters.add(GeneratorUtil.getTypeName(memoize.getMethodType().getReturnType())
-                    .box());
+                    .box()
+                    .withoutAnnotations());
         } else if (component.isClassType()) {
             sb.append("super.$N(");
             parameters.add(memoize.getMethod().getSimpleName().toString());
@@ -2356,7 +2370,6 @@ final class ComponentGenerator {
             final ExecutableElement executableElement) {
         final MethodSpec.Builder method = GeneratorUtil.overrideMethod(
                 processingEnv, typeElement, executableElement, getAdditionalSuppressions(executableElement), false);
-        if (!executableElement.getReturnType().getKind().isPrimitive()) {}
 
         return method;
     }
@@ -2370,31 +2383,25 @@ final class ComponentGenerator {
     }
 
     private static List<String> getAdditionalSuppressions(final AnnotatedConstruct annotatedConstruct) {
-        return hasSuppressWarningsDeprecation(annotatedConstruct)
-                ? Arrays.asList("RedundantSuppression", "deprecation")
-                : Collections.emptyList();
-    }
-
-    private static boolean hasSuppressWarningsDeprecation(final AnnotatedConstruct annotatedConstruct) {
+        final List<String> suppressions = new ArrayList<>();
         for (var annotationMirror : annotatedConstruct.getAnnotationMirrors()) {
             if (annotationMirror.getAnnotationType().toString().equals(SuppressWarnings.class.getCanonicalName())) {
                 for (var entry : annotationMirror.getElementValues().entrySet()) {
                     if (entry.getKey().getSimpleName().toString().equals("value")) {
-                        // Get the list of values (e.g., ["unchecked", "deprecation"])
                         @SuppressWarnings("unchecked")
                         var values = (List<? extends AnnotationValue>)
                                 entry.getValue().getValue();
                         for (var value : values) {
-                            if ("deprecation".equals(value.getValue().toString())) {
-                                return true;
-                            }
+                            suppressions.add((String) value.getValue());
                         }
                     }
                 }
             }
         }
-
-        return false;
+        if (suppressions.contains("deprecation")) {
+            suppressions.add("RedundantSuppression");
+        }
+        return suppressions;
     }
 
     /**
@@ -2406,8 +2413,9 @@ final class ComponentGenerator {
         final ComponentDescriptor component = memoize.getComponent();
         final MethodSpec.Builder method = overrideMethod(processingEnv, component.getElement(), executableElement);
 
-        final TypeName returnType =
-                GeneratorUtil.getTypeName(memoize.getMethodType().getReturnType());
+        final TypeName returnType = GeneratorUtil.getTypeName(
+                        memoize.getMethodType().getReturnType())
+                .withoutAnnotations();
         generateNotDisposedInvariant(method, executableElement.getSimpleName().toString());
 
         if (memoize.isCollectionType()) {
@@ -2436,6 +2444,10 @@ final class ComponentGenerator {
             }
             guard.endControlFlow();
             block.add(guard.build());
+            if (Nullability.isNonNull(memoize.getMethod())) {
+                block.addStatement(
+                        "assert null != this.$N", getMemoizeCollectionUnmodifiableCacheDataFieldName(memoize));
+            }
             block.addStatement("return $N", getMemoizeCollectionUnmodifiableCacheDataFieldName(memoize));
 
             block.nextControlFlow("else");
@@ -2460,7 +2472,7 @@ final class ComponentGenerator {
         generateNotDisposedInvariant(
                 method, refMethod.getMethod().getSimpleName().toString());
 
-        final StringBuilder sb = new StringBuilder();
+        final var sb = new StringBuilder();
         final List<Object> params = new ArrayList<>();
         sb.append("return this.$N.getComputableValue( ");
         params.add(getMemoizeFieldName(memoize));
@@ -2493,13 +2505,14 @@ final class ComponentGenerator {
 
         generateNotDisposedInvariant(builder, executableElement.getSimpleName().toString());
 
-        final StringBuilder sb = new StringBuilder();
+        final var sb = new StringBuilder();
         final List<Object> parameters = new ArrayList<>();
         sb.append("return ");
         if (hasTypeParameters) {
             sb.append("($T) ");
             parameters.add(GeneratorUtil.getTypeName(memoize.getMethodType().getReturnType())
-                    .box());
+                    .box()
+                    .withoutAnnotations());
         }
         sb.append("this.$N.get( ");
         parameters.add(getMemoizeFieldName(memoize));
@@ -2547,8 +2560,8 @@ final class ComponentGenerator {
         final ExecutableElement method = memoize.getMethod();
         final ExecutableType methodType = memoize.getMethodType();
         final TypeName parameterType = method.getTypeParameters().isEmpty()
-                ? GeneratorUtil.getTypeName(methodType.getReturnType()).box()
-                : WildcardTypeName.subtypeOf(OBJECT);
+                ? memoizeTypeName(processingEnv, memoize).box()
+                : WildcardTypeName.subtypeOf(nullable(OBJECT));
         final ParameterizedTypeName typeName = ParameterizedTypeName.get(COMPUTABLE_VALUE_CLASSNAME, parameterType);
         final FieldSpec.Builder field =
                 FieldSpec.builder(typeName, getMemoizeFieldName(memoize), Modifier.FINAL, Modifier.PRIVATE);
@@ -2569,10 +2582,6 @@ final class ComponentGenerator {
             SuppressWarningsUtil.addSuppressWarningsIfRequired(
                     processingEnv, unmodifiableCacheField, methodType.getReturnType());
             builder.addField(unmodifiableCacheField.build());
-
-            builder.addField(FieldSpec.builder(
-                            TypeName.BOOLEAN, getMemoizeCollectionCacheDataActiveFieldName(memoize), Modifier.PRIVATE)
-                    .build());
         }
     }
 
@@ -2581,9 +2590,8 @@ final class ComponentGenerator {
             final MemoizeDescriptor memoize,
             final TypeSpec.Builder builder) {
         final TypeName parameterType = memoize.getMethod().getTypeParameters().isEmpty()
-                ? GeneratorUtil.getTypeName(memoize.getMethodType().getReturnType())
-                        .box()
-                : WildcardTypeName.subtypeOf(OBJECT);
+                ? memoizeTypeName(processingEnv, memoize).box()
+                : WildcardTypeName.subtypeOf(nullable(OBJECT));
         final FieldSpec.Builder field = FieldSpec.builder(
                 ParameterizedTypeName.get(MEMOIZE_CACHE_CLASSNAME, parameterType),
                 getMemoizeFieldName(memoize),
@@ -2592,6 +2600,14 @@ final class ComponentGenerator {
         SuppressWarningsUtil.addSuppressWarningsIfRequired(
                 processingEnv, field, memoize.getMethodType().getReturnType());
         builder.addField(field.build());
+    }
+
+    private static TypeName memoizeTypeName(
+            final ProcessingEnvironment processingEnv, final MemoizeDescriptor memoize) {
+        return GeneratorUtil.overrideMethod(
+                        processingEnv, memoize.getComponent().getElement(), memoize.getMethod())
+                .build()
+                .returnType();
     }
 
     private static String getMemoizeFieldName(final MemoizeDescriptor memoize) {
@@ -2609,7 +2625,7 @@ final class ComponentGenerator {
     private static void buildMemoizeWithNoParameters(
             final MemoizeDescriptor memoize, final MethodSpec.Builder builder) {
         final List<Object> parameters = new ArrayList<>();
-        final StringBuilder sb = new StringBuilder();
+        final var sb = new StringBuilder();
 
         final ComponentDescriptor component = memoize.getComponent();
         final ExecutableElement method = memoize.getMethod();
@@ -2659,10 +2675,15 @@ final class ComponentGenerator {
             appendInitializerSuffix(memoize, parameters, sb);
         } else // hasHooks()
         {
-            sb.append("this.$N = $N.computable( " + "$T.areNativeComponentsEnabled() ? $N : null, "
-                    + "$T.areNamesEnabled() ? $N + $S : null, ");
+            sb.append("this.$N = $N.");
             parameters.add(getMemoizeFieldName(memoize));
             parameters.add(CONTEXT_VAR_NAME);
+            if (!method.getTypeParameters().isEmpty()) {
+                sb.append("<$T>");
+                parameters.add(nullable(OBJECT));
+            }
+            sb.append("computable( $T.areNativeComponentsEnabled() ? $N : null, "
+                    + "$T.areNamesEnabled() ? $N + $S : null, ");
             parameters.add(AREZ_CLASSNAME);
             parameters.add(COMPONENT_VAR_NAME);
             parameters.add(AREZ_CLASSNAME);
@@ -2688,12 +2709,17 @@ final class ComponentGenerator {
     private static void buildMemoizeWithParametersInitializer(
             final MemoizeDescriptor memoize, final MethodSpec.Builder builder) {
         final List<Object> parameters = new ArrayList<>();
-        final StringBuilder sb = new StringBuilder();
-        sb.append("this.$N = new $T<>( $T.areZonesEnabled() ? $N : null, "
+        final var sb = new StringBuilder();
+        final boolean localTypeParameters =
+                !memoize.getMethod().getTypeParameters().isEmpty();
+        sb.append("this.$N = new $T" + (localTypeParameters ? "" : "<>") + "( $T.areZonesEnabled() ? $N : null, "
                 + "$T.areNativeComponentsEnabled() ? $N : null, "
                 + "$T.areNamesEnabled() ? $N + $S : null, ");
         parameters.add(getMemoizeFieldName(memoize));
-        parameters.add(MEMOIZE_CACHE_CLASSNAME);
+        parameters.add(
+                localTypeParameters
+                        ? ParameterizedTypeName.get(MEMOIZE_CACHE_CLASSNAME, nullable(OBJECT))
+                        : MEMOIZE_CACHE_CLASSNAME);
         parameters.add(AREZ_CLASSNAME);
         parameters.add(CONTEXT_VAR_NAME);
         parameters.add(AREZ_CLASSNAME);
@@ -2728,7 +2754,7 @@ final class ComponentGenerator {
                 sb.append("args[ ").append(index).append(" ]");
             } else {
                 sb.append("($T) args[ ").append(index).append(" ]");
-                parameters.add(contextParameterJavaType);
+                parameters.add(contextParameterJavaType.withoutAnnotations());
             }
             index++;
         }
@@ -2741,7 +2767,7 @@ final class ComponentGenerator {
                 sb.append("args[ ").append(index).append(" ]");
             } else {
                 sb.append("($T) args[ ").append(index).append(" ]");
-                parameters.add(arg);
+                parameters.add(TypeName.get(arg).withoutAnnotations());
             }
             index++;
         }
@@ -2839,8 +2865,8 @@ final class ComponentGenerator {
         if (TypeKind.DECLARED != kind) {
             return false;
         } else {
-            final DeclaredType declaredType = (DeclaredType) returnType;
-            final TypeElement element = (TypeElement) declaredType.asElement();
+            final var declaredType = (DeclaredType) returnType;
+            final var element = (TypeElement) declaredType.asElement();
             return element.getQualifiedName().toString().equals(type.getName());
         }
     }
@@ -2855,10 +2881,6 @@ final class ComponentGenerator {
 
     private static String getOnDeactivateHookMethodName(final MemoizeDescriptor memoize) {
         return FRAMEWORK_PREFIX + "onDeactivate_" + memoize.getName();
-    }
-
-    private static String getMemoizeCollectionCacheDataActiveFieldName(final MemoizeDescriptor memoize) {
-        return OBSERVABLE_DATA_FIELD_PREFIX + "$$cache_active$$_" + memoize.getName();
     }
 
     private static String getMemoizeCollectionCacheDataFieldName(final MemoizeDescriptor memoize) {
@@ -2888,7 +2910,15 @@ final class ComponentGenerator {
                     .build());
         }
         if (observable.isAbstract()) {
-            final TypeName dataType = observable.isManyInverse() ? valueType.withoutAnnotations() : valueType;
+            final TypeName dataType = observable.isManyInverse()
+                    ? valueType.withoutAnnotations()
+                    : !valueType.isPrimitive()
+                                    && (!observable.hasSetter()
+                                            || observable.getCascadeDisposeDescriptor() != null
+                                            || !observable.requireInitializer()
+                                            || !observable.isSetterNonnull())
+                            ? nullable(valueType)
+                            : valueType;
             final FieldSpec.Builder dataField =
                     FieldSpec.builder(dataType, observable.getDataFieldName(), Modifier.PRIVATE);
             if (observable.isManyInverse()) {
@@ -2920,21 +2950,24 @@ final class ComponentGenerator {
     }
 
     private static void buildObservableInitializer(
-            final ObservableDescriptor observable, final MethodSpec.Builder builder) {
+            final ProcessingEnvironment processingEnv,
+            final ObservableDescriptor observable,
+            final MethodSpec.Builder builder) {
         final List<Object> parameters = new ArrayList<>();
-        final StringBuilder sb = new StringBuilder();
-        sb.append("this.$N = $N.observable( " + "$T.areNativeComponentsEnabled() ? $N : null, "
+        final var sb = new StringBuilder();
+        sb.append("this.$N = $N.<$T>observable( " + "$T.areNativeComponentsEnabled() ? $N : null, "
                 + "$T.areNamesEnabled() ? $N + $S : null, "
                 + "$T.arePropertyIntrospectorsEnabled() ? () -> ( this.$N.isNotReady() ? null : ");
         parameters.add(observable.getFieldName());
         parameters.add(CONTEXT_VAR_NAME);
+        parameters.add(observableTypeName(processingEnv, observable).box());
         parameters.add(AREZ_CLASSNAME);
         parameters.add(COMPONENT_VAR_NAME);
         parameters.add(AREZ_CLASSNAME);
         parameters.add(NAME_VAR_NAME);
         parameters.add("." + observable.getName());
         parameters.add(AREZ_CLASSNAME);
-        parameters.add(KERNEL_FIELD_NAME);
+        parameters.add(KERNEL_ACCESS_EXPRESSION);
 
         final boolean abstractObservables = observable.isAbstract();
         if (abstractObservables) {
@@ -2954,16 +2987,21 @@ final class ComponentGenerator {
             // setter
             sb.append(", $T.arePropertyIntrospectorsEnabled() ? v -> ");
             parameters.add(AREZ_CLASSNAME);
+            final boolean nonNull = observable.isSetterNonnull();
+            final String value = nonNull ? "$T.requireNonNull( v )" : "v";
             if (abstractObservables) {
-                sb.append("this.$N = v");
+                sb.append("this.$N = ").append(value);
                 parameters.add(observable.getDataFieldName());
             } else if (observable.getComponent().isClassType()) {
-                sb.append("super.$N( v )");
+                sb.append("super.$N( ").append(value).append(" )");
                 parameters.add(observable.getSetter().getSimpleName());
             } else {
-                sb.append("$T.super.$N( v )");
+                sb.append("$T.super.$N( ").append(value).append(" )");
                 parameters.add(observable.getComponent().getClassName());
                 parameters.add(observable.getSetter().getSimpleName());
+            }
+            if (nonNull) {
+                parameters.add(Objects.class);
             }
             sb.append(" : null");
         } else {
@@ -3024,9 +3062,9 @@ final class ComponentGenerator {
                 method.addStatement(
                         "this.$N.safeSetObservable( $T.areNamesEnabled() ? this.$N.getName() + $S : null, "
                                 + "() -> this.$N( $N ) )",
-                        KERNEL_FIELD_NAME,
+                        KERNEL_ACCESS_EXPRESSION,
                         AREZ_CLASSNAME,
-                        KERNEL_FIELD_NAME,
+                        KERNEL_ACCESS_EXPRESSION,
                         "." + methodName,
                         FRAMEWORK_PREFIX + methodName,
                         paramName);
@@ -3036,9 +3074,9 @@ final class ComponentGenerator {
                     b.addStatement(
                             "this.$N.setObservable( $T.areNamesEnabled() ? this.$N.getName() + $S : null, "
                                     + "() -> this.$N( $N ) )",
-                            KERNEL_FIELD_NAME,
+                            KERNEL_ACCESS_EXPRESSION,
                             AREZ_CLASSNAME,
-                            KERNEL_FIELD_NAME,
+                            KERNEL_ACCESS_EXPRESSION,
                             "." + methodName,
                             FRAMEWORK_PREFIX + methodName,
                             paramName);
@@ -3096,7 +3134,25 @@ final class ComponentGenerator {
                 observable.getSetterType().getParameterTypes().get(0);
         final VariableElement element = setter.getParameters().get(0);
         final String paramName = element.getSimpleName().toString();
-        final TypeName type = GeneratorUtil.getTypeName(parameterType);
+        final TypeName type = GeneratorUtil.getTypeName(parameterType).withoutAnnotations();
+        if ((isMethodReturnType(getter, Collection.class) || isMethodReturnType(getter, Date.class))
+                && !observable.hasObjectsDeepEqualsComparator()
+                && !observable.hasCustomEqualityComparator()) {
+            builder.addAnnotation(SuppressWarningsUtil.suppressWarningsAnnotation("UndefinedEquals"));
+            builder.addComment("Default observable equality uses the concrete value's equals implementation.");
+        }
+        if (parameterType.getKind() == TypeKind.ARRAY
+                && !observable.hasObjectsDeepEqualsComparator()
+                && !observable.hasCustomEqualityComparator()) {
+            builder.addAnnotation(SuppressWarningsUtil.suppressWarningsAnnotation("ArrayEquals"));
+            builder.addComment("Default observable equality compares array identity; deep equality is opt-in.");
+        }
+        if (isMethodReturnType(getter, BigDecimal.class)
+                && !observable.hasObjectsDeepEqualsComparator()
+                && !observable.hasCustomEqualityComparator()) {
+            builder.addAnnotation(SuppressWarningsUtil.suppressWarningsAnnotation("BigDecimalEquals"));
+            builder.addComment("Observable equality deliberately includes BigDecimal scale.");
+        }
         generateNotDisposedInvariant(builder, methodName);
         builder.addStatement("this.$N.preReportChanged()", observable.getFieldName());
 
@@ -3342,6 +3398,11 @@ final class ComponentGenerator {
         final ComponentDescriptor component = observable.getComponent();
         final ExecutableElement getter = observable.getGetter();
         final List<String> additionalSuppressions = new ArrayList<>();
+        final boolean unresolvedOneInverse =
+                observable.isInverse() && !observable.isManyInverse() && observable.isGetterNonnull();
+        if (unresolvedOneInverse) {
+            additionalSuppressions.add("NullAway");
+        }
         if (TypesUtil.hasRawTypes(processingEnv, observable.getGetterType().getReturnType())
                 && isCollectionType(getter)) {
             additionalSuppressions.add("unchecked");
@@ -3349,6 +3410,9 @@ final class ComponentGenerator {
         additionalSuppressions.addAll(getAdditionalSuppressions(getter));
         final MethodSpec.Builder method = GeneratorUtil.overrideMethod(
                 processingEnv, component.getElement(), getter, additionalSuppressions, true);
+        if (unresolvedOneInverse) {
+            method.addComment("A ONE inverse can be observed before its reference is linked.");
+        }
 
         generateNotDisposedInvariant(method, getter.getSimpleName().toString());
 
@@ -3359,6 +3423,12 @@ final class ComponentGenerator {
         }
 
         if (observable.isAbstract()) {
+            if (observable.isGetterNonnull()
+                    && !unresolvedOneInverse
+                    && !observable.isManyInverse()
+                    && !method.build().returnType().isPrimitive()) {
+                method.addStatement("assert null != this.$N", observable.getDataFieldName());
+            }
             if (observable.shouldGenerateUnmodifiableCollectionVariant()) {
                 if (observable.isGetterNonnull()) {
                     final CodeBlock.Builder block = CodeBlock.builder();
@@ -3388,7 +3458,8 @@ final class ComponentGenerator {
                     final String result = "$$ar$$_result";
                     block.addStatement(
                             "final $T $N = this.$N",
-                            GeneratorUtil.getTypeName(observable.getGetterType().getReturnType()),
+                            GeneratorUtil.getTypeName(observable.getGetterType().getReturnType())
+                                    .withoutAnnotations(),
                             result,
                             observable.getDataFieldName());
                     final CodeBlock.Builder guard = CodeBlock.builder();
@@ -3459,14 +3530,16 @@ final class ComponentGenerator {
                         block.addStatement(
                                 "final $T $N = super.$N()",
                                 GeneratorUtil.getTypeName(
-                                        observable.getGetterType().getReturnType()),
+                                                observable.getGetterType().getReturnType())
+                                        .withoutAnnotations(),
                                 result,
                                 getter.getSimpleName());
                     } else {
                         block.addStatement(
                                 "final $T $N = $T.super.$N()",
                                 GeneratorUtil.getTypeName(
-                                        observable.getGetterType().getReturnType()),
+                                                observable.getGetterType().getReturnType())
+                                        .withoutAnnotations(),
                                 result,
                                 component.getClassName(),
                                 getter.getSimpleName());
@@ -3521,7 +3594,7 @@ final class ComponentGenerator {
                         : ComponentStateRefDescriptor.State.COMPLETE == state ? "isComplete" : "isDisposing";
 
         builder.addMethod(GeneratorUtil.refMethod(processingEnv, typeElement, componentStateRef.getMethod())
-                .addStatement("return this.$N.$N()", KERNEL_FIELD_NAME, stateMethodName)
+                .addStatement("return this.$N.$N()", KERNEL_ACCESS_EXPRESSION, stateMethodName)
                 .build());
     }
 
@@ -3534,7 +3607,7 @@ final class ComponentGenerator {
             builder.addModifiers(Modifier.PUBLIC);
         }
         final String otherName = inverse.getOtherName();
-        final ParameterSpec parameter = ParameterSpec.builder(
+        final var parameter = ParameterSpec.builder(
                         GeneratorUtil.getTypeName(inverse.getTargetType().asType()), otherName, Modifier.FINAL)
                 .build();
         builder.addParameter(parameter);
@@ -3581,7 +3654,7 @@ final class ComponentGenerator {
             builder.addModifiers(Modifier.PUBLIC);
         }
         final String otherName = inverse.getOtherName();
-        final ParameterSpec parameter = ParameterSpec.builder(
+        final var parameter = ParameterSpec.builder(
                         GeneratorUtil.getTypeName(inverse.getTargetType().asType()), otherName, Modifier.FINAL)
                 .build();
         builder.addParameter(parameter);
@@ -3661,7 +3734,7 @@ final class ComponentGenerator {
             builder.addModifiers(Modifier.PUBLIC);
         }
         final String otherName = inverse.getOtherName();
-        final ParameterSpec parameter = ParameterSpec.builder(
+        final var parameter = ParameterSpec.builder(
                         GeneratorUtil.getTypeName(inverse.getTargetType().asType()), otherName, Modifier.FINAL)
                 .build();
         builder.addParameter(parameter);
@@ -3704,7 +3777,7 @@ final class ComponentGenerator {
                 DISPOSABLE_CLASSNAME,
                 observable.getDataFieldName(),
                 observable.getName(),
-                KERNEL_FIELD_NAME,
+                KERNEL_ACCESS_EXPRESSION,
                 observable.getDataFieldName());
         builder.endControlFlow();
         code.add(builder.build());
@@ -3725,7 +3798,7 @@ final class ComponentGenerator {
                 GUARDS_CLASSNAME,
                 DISPOSABLE_CLASSNAME,
                 observable.getName(),
-                KERNEL_FIELD_NAME);
+                KERNEL_ACCESS_EXPRESSION);
         block.endControlFlow();
         builder.add(block.build());
 
@@ -3736,7 +3809,7 @@ final class ComponentGenerator {
     private static void buildInverseInitializer(final InverseDescriptor inverse, final MethodSpec.Builder builder) {
         if (Multiplicity.MANY == inverse.getMultiplicity()) {
             final ObservableDescriptor observable = inverse.getObservable();
-            final ParameterizedTypeName typeName = (ParameterizedTypeName)
+            final var typeName = (ParameterizedTypeName)
                     GeneratorUtil.getTypeName(observable.getGetter().getReturnType());
             final boolean isList =
                     List.class.getName().equals(typeName.rawType().canonicalName());
@@ -3796,7 +3869,7 @@ final class ComponentGenerator {
             throws ProcessorException {
         builder.addMethod(buildReferenceMethod(processingEnv, reference));
         builder.addMethod(buildReferenceLinkMethod(reference));
-        if (reference.hasInverse() || reference.getComponent().shouldVerify()) {
+        if (reference.hasInverse()) {
             builder.addMethod(buildReferenceDelinkMethod(processingEnv, reference));
         }
     }
@@ -3831,7 +3904,7 @@ final class ComponentGenerator {
                         reference.getFieldName(),
                         idMethod.getSimpleName(),
                         method.getSimpleName(),
-                        KERNEL_FIELD_NAME,
+                        KERNEL_ACCESS_EXPRESSION,
                         idMethod.getSimpleName());
             } else {
                 block.addStatement(
@@ -3841,7 +3914,7 @@ final class ComponentGenerator {
                         GUARDS_CLASSNAME,
                         reference.getFieldName(),
                         method.getSimpleName(),
-                        KERNEL_FIELD_NAME,
+                        KERNEL_ACCESS_EXPRESSION,
                         idMethod.getSimpleName());
             }
             block.endControlFlow();
@@ -3875,6 +3948,9 @@ final class ComponentGenerator {
             }
         }
 
+        if (!reference.isNullable()) {
+            builder.addStatement("assert null != this.$N", reference.getFieldName());
+        }
         builder.addStatement("return this.$N", reference.getFieldName());
         return builder.build();
     }
@@ -3892,7 +3968,7 @@ final class ComponentGenerator {
              */
             builder.addStatement(
                     "final $T id = this.$N()",
-                    GeneratorUtil.getTypeName(reference.getIdType()),
+                    GeneratorUtil.getTypeName(reference.getIdType()).withoutAnnotations(),
                     reference.getIdMethod().getSimpleName());
             if (reference.isNullable()) {
                 final CodeBlock.Builder nestedBlock = CodeBlock.builder();
@@ -3910,7 +3986,7 @@ final class ComponentGenerator {
             block.beginControlFlow("if ( null == this.$N )", reference.getFieldName());
             block.addStatement(
                     "final $T id = this.$N()",
-                    GeneratorUtil.getTypeName(reference.getIdType()),
+                    GeneratorUtil.getTypeName(reference.getIdType()).withoutAnnotations(),
                     reference.getIdMethod().getSimpleName());
             if (reference.isNullable()) {
                 final CodeBlock.Builder nestedBlock = CodeBlock.builder();
@@ -3942,7 +4018,7 @@ final class ComponentGenerator {
                 GUARDS_CLASSNAME,
                 reference.getFieldName(),
                 reference.getName(),
-                KERNEL_FIELD_NAME,
+                KERNEL_ACCESS_EXPRESSION,
                 TypeName.get(reference.getMethod().getReturnType()).toString(),
                 reference.getIdMethod().getSimpleName());
         block.endControlFlow();
@@ -3955,6 +4031,7 @@ final class ComponentGenerator {
                     : Multiplicity.ONE == inverseMultiplicity
                             ? getInverseSetMethodName(inverseName)
                             : getInverseZSetMethodName(inverseName);
+            builder.addStatement("assert null != this.$N", reference.getFieldName());
             builder.addStatement(
                     "( ($T) this.$N ).$N( this )",
                     reference.getArezClassName(),
@@ -3978,7 +4055,7 @@ final class ComponentGenerator {
                 GUARDS_CLASSNAME,
                 reference.getFieldName(),
                 reference.getName(),
-                KERNEL_FIELD_NAME,
+                KERNEL_ACCESS_EXPRESSION,
                 TypeName.get(reference.getMethod().getReturnType()).toString(),
                 reference.getIdMethod().getSimpleName());
         block.endControlFlow();
@@ -3991,6 +4068,7 @@ final class ComponentGenerator {
                     : Multiplicity.ONE == inverseMultiplicity
                             ? getInverseSetMethodName(inverseName)
                             : getInverseZSetMethodName(inverseName);
+            builder.addStatement("assert null != this.$N", reference.getFieldName());
             builder.addStatement(
                     "( ($T) this.$N ).$N( this )",
                     reference.getArezClassName(),
@@ -4010,7 +4088,7 @@ final class ComponentGenerator {
         final String methodName = reference.getDelinkMethodName();
         final MethodSpec.Builder builder = MethodSpec.methodBuilder(methodName);
 
-        final TypeElement typeElement = (TypeElement)
+        final var typeElement = (TypeElement)
                 processingEnv.getTypeUtils().asElement(reference.getMethod().getReturnType());
         if (ElementsUtil.areTypesInDifferentPackage(
                 typeElement, reference.getComponent().getElement())) {
@@ -4054,7 +4132,7 @@ final class ComponentGenerator {
         final ExecutableElement idMethod = reference.getIdMethod();
         builder.addStatement(
                 "final $T $N = this.$N()",
-                GeneratorUtil.getTypeName(reference.getIdType()),
+                GeneratorUtil.getTypeName(reference.getIdType()).withoutAnnotations(),
                 idName,
                 idMethod.getSimpleName());
         if (reference.isNullable()) {
@@ -4087,7 +4165,7 @@ final class ComponentGenerator {
                 GUARDS_CLASSNAME,
                 refName,
                 reference.getName(),
-                KERNEL_FIELD_NAME,
+                KERNEL_ACCESS_EXPRESSION,
                 TypeName.get(reference.getMethod().getReturnType()).toString(),
                 reference.getIdMethod().getSimpleName());
     }
@@ -4107,7 +4185,7 @@ final class ComponentGenerator {
                 final String varName = VARIABLE_PREFIX + "autoObserve_" + index++;
                 builder.addStatement(
                         "final $T $N = this.$N",
-                        GeneratorUtil.getTypeName(field.asType()),
+                        GeneratorUtil.getTypeName(field.asType()).withoutAnnotations(),
                         varName,
                         field.getSimpleName().toString());
                 if (Nullability.isNonNull(field)) {
@@ -4122,7 +4200,8 @@ final class ComponentGenerator {
                 builder.addStatement("this.$N()", reference.getLinkMethodName());
                 builder.addStatement(
                         "final $T $N = this.$N()",
-                        GeneratorUtil.getTypeName(reference.getMethod().getReturnType()),
+                        GeneratorUtil.getTypeName(reference.getMethod().getReturnType())
+                                .withoutAnnotations(),
                         varName,
                         reference.getMethod().getSimpleName().toString());
                 if (reference.isNullable()) {
@@ -4135,7 +4214,7 @@ final class ComponentGenerator {
                 final String varName = VARIABLE_PREFIX + "autoObserve_" + index++;
                 builder.addStatement(
                         "final $T $N = this.$N()",
-                        GeneratorUtil.getTypeName(method.getReturnType()),
+                        GeneratorUtil.getTypeName(method.getReturnType()).withoutAnnotations(),
                         varName,
                         method.getSimpleName().toString());
                 if (isNullable(method, method.getReturnType())) {
@@ -4265,7 +4344,7 @@ final class ComponentGenerator {
         final List<? extends TypeMirror> thrownTypes = method.getThrownTypes();
         final boolean isSafe = thrownTypes.isEmpty();
 
-        final StringBuilder statement = new StringBuilder();
+        final var statement = new StringBuilder();
         final List<Object> params = new ArrayList<>();
 
         generateNotDisposedInvariant(builder, methodName);
@@ -4273,7 +4352,7 @@ final class ComponentGenerator {
             statement.append("return ");
         }
         statement.append("this.$N.getContext().");
-        params.add(KERNEL_FIELD_NAME);
+        params.add(KERNEL_ACCESS_EXPRESSION);
 
         if (isProcedure && isSafe) {
             statement.append("safeObserve");

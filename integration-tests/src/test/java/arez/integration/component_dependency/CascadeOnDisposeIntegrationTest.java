@@ -18,10 +18,10 @@ public final class CascadeOnDisposeIntegrationTest extends AbstractArezIntegrati
     public void scenario() throws Throwable {
         final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-        final Model1 model1a = Model1.create("Model1A");
-        final Model1 model1b = Model1.create("Model1B");
-        final Model2 model2a = Model2.create(model1a, "Model2A");
-        final Model2 model2b = Model2.create(model1b, "Model2B");
+        final var model1a = Model1.create("Model1A");
+        final var model1b = Model1.create("Model1B");
+        final var model2a = Model2.create(model1a, "Model2A");
+        final var model2b = Model2.create(model1b, "Model2B");
 
         assertFalse(Disposable.isDisposed(model1a));
         assertFalse(Disposable.isDisposed(model1b));

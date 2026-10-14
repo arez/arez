@@ -5,6 +5,7 @@ import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -31,15 +32,15 @@ public abstract class CurrencyCollection {
     // Memoized method that only changes when a currency is added or removed
     @Memoize
     public int getCurrencyCount() {
-        return getCurrencies().size();
+        return Objects.requireNonNull(getCurrencies()).size();
     }
 
     // Memoized method that changes when a currency is added or removed,
     // or the filter changes
     @Memoize
     public @Nullable List<Currency> filteredCurrencies() {
-        return getCurrencies().stream()
-                .filter(c -> c.getSymbol().contains(getFilter()))
+        return Objects.requireNonNull(getCurrencies()).stream()
+                .filter(c -> Objects.requireNonNull(c.getSymbol()).contains(Objects.requireNonNull(getFilter())))
                 .collect(Collectors.toList());
     }
 

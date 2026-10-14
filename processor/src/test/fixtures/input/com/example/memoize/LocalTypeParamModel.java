@@ -9,6 +9,8 @@ import org.jspecify.annotations.Nullable;
 @ArezComponent
 abstract class LocalTypeParamModel
 {
+  // This fixture deliberately tests a method-local return type parameter.
+  @SuppressWarnings("TypeParameterUnusedInFormals")
   @Memoize
   public <T extends @Nullable Object> @Nullable T count( final @Nullable String param )
   {

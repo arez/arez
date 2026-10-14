@@ -15,13 +15,17 @@ import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
 import arez.component.internal.MemoizeCache;
+import java.util.Objects;
 import javax.annotation.processing.Generated;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
-@SuppressWarnings("unchecked")
+@SuppressWarnings({
+    "RedundantSuppression",
+    "unchecked"
+})
 @NullMarked
 final class Arez_DeprecationModel extends DeprecationModel implements Disposable,
     Identifiable<Integer>,
@@ -48,6 +52,7 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
 
   private DeprecationModel. @Nullable MyEntity $$arezr$$_Blah;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_DeprecationModel() {
     super();
     if ( Arez.shouldCheckApiInvariants() ) {
@@ -58,28 +63,33 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_deprecation_DeprecationModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_deprecation_DeprecationModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_value = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : super.getValue() ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue( v ) : null );
+    this.$$arez$$_value = $$arezv$$_context.<Long>observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel().isNotReady() ? null : super.getValue() ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setValue( Objects.requireNonNull( v ) ) : null );
     this.$$arez$$_count = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".count" : null, args -> super.count((long) args[ 0 ], (float) args[ 1 ]), 2, ComputableValue.Flags.AREZ_DEPENDENCIES );
-    this.$$arez$$_time2 = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time2" : null, args -> $$arezi$$_memoize_time2((@Nullable String) args[ 0 ]), 1, ComputableValue.Flags.AREZ_DEPENDENCIES );
+    this.$$arez$$_time2 = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time2" : null, args -> $$arezi$$_memoize_time2((String) args[ 0 ]), 1, ComputableValue.Flags.AREZ_DEPENDENCIES );
     this.$$arez$$_time = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, () -> $$arezi$$_memoize_time(), ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
     this.$$arez$$_myObserve = $$arezv$$_context.observer( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myObserve" : null, () -> super.myObserve(), Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
     this.$$arez$$_render = $$arezv$$_context.tracker( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".render" : null, () -> super.onRenderDepsChange(), Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
     this.$$arez$$_render2 = $$arezv$$_context.observer( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".render2" : null, () -> super.render2(), () -> super.onRender2DepsChange(), Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
-    this.$$arezi$$_kernel.componentConstructed();
+    this.$$arezi$$_kernel().componentConstructed();
     this.$$arezi$$_link_Blah();
-    this.$$arezi$$_kernel.componentComplete();
+    this.$$arezi$$_kernel().componentComplete();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_deprecation_DeprecationModel'" );
     }
-    return this.$$arezi$$_kernel.getContext().locator();
+    return this.$$arezi$$_kernel().getContext().locator();
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -94,7 +104,7 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -103,7 +113,7 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_deprecation_DeprecationModel'" );
     }
-    this.$$arezi$$_kernel.addOnDisposeListener( key, action, errorIfDuplicate );
+    this.$$arezi$$_kernel().addOnDisposeListener( key, action, errorIfDuplicate );
   }
 
   @Override
@@ -114,7 +124,7 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener( key, errorIfMissing );
+    this.$$arezi$$_kernel().removeOnDisposeListener( key, errorIfMissing );
   }
 
   @Override
@@ -125,7 +135,7 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'isDisposed' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -136,7 +146,7 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'dispose' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -158,13 +168,13 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'verify' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( DeprecationModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type DeprecationModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( DeprecationModel.class, $$arezi$$_id() ) );
       final int $$arezv$$_BlahId = this.getMyEntityId();
       final DeprecationModel.MyEntity $$arezv$$_Blah = this.$$arezi$$_locator().findById( DeprecationModel.MyEntity.class, $$arezv$$_BlahId );
-      Guards.apiInvariant( () -> null != $$arezv$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.deprecation.DeprecationModel.MyEntity and id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel().getName() + "' is unable to resolve entity of type com.example.deprecation.DeprecationModel.MyEntity and id = " + getMyEntityId() );
     }
   }
 
@@ -175,7 +185,7 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
   })
   public long getValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getValue' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_value.reportObserved();
     return super.getValue();
@@ -188,7 +198,7 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
   })
   void setValue(final long time) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setValue' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_value.preReportChanged();
     final long $$arezv$$_currentValue = super.getValue();
@@ -217,9 +227,9 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
   })
   void render() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
-    this.$$arezi$$_kernel.getContext().safeObserve( this.$$arez$$_render, () -> super.render(), null );
+    this.$$arezi$$_kernel().getContext().safeObserve( this.$$arez$$_render, () -> super.render(), null );
   }
 
   @Override
@@ -241,7 +251,7 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
   })
   Observer getRender2Observer() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getRender2Observer' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getRender2Observer' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     return $$arez$$_render2;
   }
@@ -253,9 +263,9 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
   })
   public void doStuff(final long time, final float someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
-    this.$$arezi$$_kernel.getContext().safeAction( Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff" : null, () -> super.doStuff( time, someOtherParameter ), ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { time, someOtherParameter } : null );
+    this.$$arezi$$_kernel().getContext().safeAction( Arez.areNamesEnabled() ? this.$$arezi$$_kernel().getName() + ".doStuff" : null, () -> super.doStuff( time, someOtherParameter ), ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { time, someOtherParameter } : null );
   }
 
   @Override
@@ -265,7 +275,7 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
   })
   public long count(final long time, final float someOtherParameter) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'count' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'count' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     return this.$$arez$$_count.get( time, someOtherParameter );
   }
@@ -286,13 +296,13 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
   })
   public long getTime2() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime2' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime2' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     return this.$$arez$$_time2.get( captureMyContextVar() );
   }
 
   private long $$arezi$$_memoize_time() {
-    this.$$arezi$$_kernel.getContext().registerHook( "$H", () -> super.onTimeActivate(), () -> super.onTimeDeactivate() );
+    this.$$arezi$$_kernel().getContext().registerHook( "$H", () -> super.onTimeActivate(), () -> super.onTimeDeactivate() );
     return super.getTime();
   }
 
@@ -303,7 +313,7 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
   })
   public long getTime() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     return this.$$arez$$_time.get();
   }
@@ -315,33 +325,30 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
   @Override
   DeprecationModel. @Nullable MyEntity getMyEntity() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyEntity' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyEntity' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_Blah, () -> "Nonnull reference method named 'getMyEntity' invoked on component named '" + this.$$arezi$$_kernel.getName() + "' but reference has not been resolved yet is not lazy. Id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_Blah, () -> "Nonnull reference method named 'getMyEntity' invoked on component named '" + this.$$arezi$$_kernel().getName() + "' but reference has not been resolved yet is not lazy. Id = " + getMyEntityId() );
     }
+    assert null != this.$$arezr$$_Blah;
     return this.$$arezr$$_Blah;
   }
 
   private void $$arezi$$_link_Blah() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_link_Blah' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_link_Blah' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     final int id = this.getMyEntityId();
     this.$$arezr$$_Blah = this.$$arezi$$_locator().findById( DeprecationModel.MyEntity.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.deprecation.DeprecationModel.MyEntity and id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel().getName() + "' is unable to resolve entity of type com.example.deprecation.DeprecationModel.MyEntity and id = " + getMyEntityId() );
     }
-  }
-
-  private void $$arezi$$_delink_Blah() {
-    this.$$arezr$$_Blah = null;
   }
 
   @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

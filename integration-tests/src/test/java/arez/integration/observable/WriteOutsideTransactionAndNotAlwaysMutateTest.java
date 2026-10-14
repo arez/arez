@@ -33,7 +33,7 @@ public final class WriteOutsideTransactionAndNotAlwaysMutateTest extends Abstrac
     public void scenario() {
         final MyComponent component = new WriteOutsideTransactionAndNotAlwaysMutateTest_Arez_MyComponent();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         observer(() -> {
             component.getName();

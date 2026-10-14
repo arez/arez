@@ -26,6 +26,7 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2
 
   private CustomNameReferenceModel2.@Nullable MyEntity $$arezr$$_Blah;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_CustomNameReferenceModel2() {
     super();
     if (Arez.shouldCheckApiInvariants()) {
@@ -57,9 +58,14 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2
         true,
         false,
         false);
-    this.$$arezi$$_kernel.componentConstructed();
+    this.$$arezi$$_kernel().componentConstructed();
     this.$$arezi$$_link_Blah();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private Locator $$arezi$$_locator() {
@@ -69,12 +75,12 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2
           () ->
               "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_reference_CustomNameReferenceModel2'");
     }
-    return this.$$arezi$$_kernel.getContext().locator();
+    return this.$$arezi$$_kernel().getContext().locator();
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -95,7 +101,7 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -107,7 +113,7 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_reference_CustomNameReferenceModel2'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -124,7 +130,7 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -141,7 +147,7 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -158,7 +164,7 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   @Override
@@ -178,8 +184,8 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     if (Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled()) {
       Guards.apiInvariant(
@@ -193,7 +199,8 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2
           .findById(CustomNameReferenceModel2.MyEntity.class, $$arezv$$_BlahId);
       Guards.apiInvariant(
           () -> null != $$arezv$$_Blah,
-          () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName()
+          () -> "Reference named 'Blah' on component named '"
+              + this.$$arezi$$_kernel().getName()
               + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel2.MyEntity and id = "
               + getMyEntit$$$yId());
     }
@@ -204,17 +211,19 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named '$$$getMyEntity' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named '$$$getMyEntity' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != $$arezr$$_Blah,
           () -> "Nonnull reference method named '$$$getMyEntity' invoked on component named '"
-              + this.$$arezi$$_kernel.getName()
+              + this.$$arezi$$_kernel().getName()
               + "' but reference has not been resolved yet is not lazy. Id = "
               + getMyEntit$$$yId());
     }
+    assert null != this.$$arezr$$_Blah;
     return this.$$arezr$$_Blah;
   }
 
@@ -223,8 +232,8 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
           () -> "Method named '$$arezi$$_link_Blah' invoked on "
-              + this.$$arezi$$_kernel.describeState() + " component named '"
-              + this.$$arezi$$_kernel.getName() + "'");
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     final int id = this.getMyEntit$$$yId();
     this.$$arezr$$_Blah =
@@ -232,20 +241,17 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != $$arezr$$_Blah,
-          () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName()
+          () -> "Reference named 'Blah' on component named '"
+              + this.$$arezi$$_kernel().getName()
               + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel2.MyEntity and id = "
               + getMyEntit$$$yId());
     }
   }
 
-  private void $$arezi$$_delink_Blah() {
-    this.$$arezr$$_Blah = null;
-  }
-
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

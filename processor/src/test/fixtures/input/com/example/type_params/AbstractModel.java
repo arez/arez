@@ -57,8 +57,8 @@ abstract class AbstractModel<T extends Throwable, W extends Writer>
   }
 
   @ComponentId
-  public final @Nullable T getComponentId()
+  public final T getComponentId()
   {
-    return null;
+    throw new UnsupportedOperationException("Fixture declaration");
   }
 }

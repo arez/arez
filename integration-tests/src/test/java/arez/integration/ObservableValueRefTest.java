@@ -23,7 +23,7 @@ public final class ObservableValueRefTest extends AbstractArezIntegrationTest {
         private @Nullable String _other;
 
         @ObservableValueRef
-        abstract @Nullable ObservableValue<Integer> getOtherIDObservableValue();
+        abstract ObservableValue<Integer> getOtherIDObservableValue();
 
         @Nullable
         String getOther() {
@@ -58,8 +58,8 @@ public final class ObservableValueRefTest extends AbstractArezIntegrationTest {
 
         final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-        final AtomicInteger ttCount = new AtomicInteger();
-        final AtomicInteger rtCount = new AtomicInteger();
+        final var ttCount = new AtomicInteger();
+        final var rtCount = new AtomicInteger();
 
         context.observer("TransportType", () -> {
             observeADependency();

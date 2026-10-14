@@ -9,7 +9,7 @@ import org.jspecify.annotations.Nullable;
 @NullMarked
 @ArezComponent
 public abstract class MySubService {
-    static @Nullable MySubService create() {
+    static MySubService create() {
         return new Arez_MySubService();
     }
 

@@ -25,9 +25,9 @@ public final class MemoizeNoReportResultTest extends AbstractArezIntegrationTest
     public void scenario() {
         final ArezContext context = Arez.context();
 
-        final Element element = Element.create();
+        final var element = Element.create();
 
-        final TestSpyEventHandler recorder = new TestSpyEventHandler();
+        final var recorder = new TestSpyEventHandler();
         context.getSpy().addSpyEventHandler(recorder);
 
         safeAction(element::getMemoized);

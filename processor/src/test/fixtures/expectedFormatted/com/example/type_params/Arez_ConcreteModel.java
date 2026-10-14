@@ -25,9 +25,9 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   @Nullable
   private final ComponentKernel $$arezi$$_kernel;
 
-  private final ComputableValue<W> $$arez$$_compWriter;
+  private final ComputableValue<@Nullable W> $$arez$$_compWriter;
 
-  private final ComputableValue<IOException> $$arez$$_compError;
+  private final ComputableValue<@Nullable IOException> $$arez$$_compError;
 
   Arez_ConcreteModel(final @Nullable W writer) {
     super(writer);
@@ -63,8 +63,8 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
         Arez.areNamesEnabled() ? $$arezv$$_name + ".compError" : null,
         () -> super.compError(),
         ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
   }
 
   Arez_ConcreteModel(final @Nullable IOException error) {
@@ -101,8 +101,8 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
         Arez.areNamesEnabled() ? $$arezv$$_name + ".compError" : null,
         () -> super.compError(),
         ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
   }
 
   Arez_ConcreteModel(final @Nullable IOException error, final @Nullable W writer, final int i) {
@@ -139,8 +139,13 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
         Arez.areNamesEnabled() ? $$arezv$$_name + ".compError" : null,
         () -> super.compError(),
         ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   @Override
@@ -161,7 +166,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -173,7 +178,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_type_params_ConcreteModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -190,7 +195,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -207,7 +212,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -224,7 +229,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -237,13 +242,14 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'handleWriter' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'handleWriter' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
-    this.$$arezi$$_kernel
+    this.$$arezi$$_kernel()
         .getContext()
         .safeAction(
-            Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".handleWriter" : null,
+            Arez.areNamesEnabled() ? this.$$arezi$$_kernel().getName() + ".handleWriter" : null,
             () -> super.handleWriter(writer),
             ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED,
             Arez.areSpiesEnabled() ? new Object[] {writer} : null);
@@ -254,13 +260,14 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'handleError' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () ->
+              "Method named 'handleError' invoked on " + this.$$arezi$$_kernel().describeState()
+                  + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
-    this.$$arezi$$_kernel
+    this.$$arezi$$_kernel()
         .getContext()
         .safeAction(
-            Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".handleError" : null,
+            Arez.areNamesEnabled() ? this.$$arezi$$_kernel().getName() + ".handleError" : null,
             () -> super.handleError(error),
             ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED,
             Arez.areSpiesEnabled() ? new Object[] {error} : null);
@@ -271,13 +278,13 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'genWriter' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'genWriter' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
-    return this.$$arezi$$_kernel
+    return this.$$arezi$$_kernel()
         .getContext()
         .safeAction(
-            Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".genWriter" : null,
+            Arez.areNamesEnabled() ? this.$$arezi$$_kernel().getName() + ".genWriter" : null,
             () -> super.genWriter(),
             ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED,
             null);
@@ -288,13 +295,13 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'genError' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'genError' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
-    return this.$$arezi$$_kernel
+    return this.$$arezi$$_kernel()
         .getContext()
         .safeAction(
-            Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".genError" : null,
+            Arez.areNamesEnabled() ? this.$$arezi$$_kernel().getName() + ".genError" : null,
             () -> super.genError(),
             ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED,
             null);
@@ -305,8 +312,9 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'compWriter' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () ->
+              "Method named 'compWriter' invoked on " + this.$$arezi$$_kernel().describeState()
+                  + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     return this.$$arez$$_compWriter.get();
   }
@@ -316,8 +324,8 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'compError' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'compError' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     return this.$$arez$$_compError.get();
   }
@@ -325,7 +333,7 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

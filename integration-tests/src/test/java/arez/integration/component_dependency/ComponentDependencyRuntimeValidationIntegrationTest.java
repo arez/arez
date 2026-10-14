@@ -14,8 +14,8 @@ import org.testng.annotations.Test;
 public final class ComponentDependencyRuntimeValidationIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() throws Throwable {
-        final Model1 model1a1 = Model1.create();
-        final Model2 model2a = Model2.create(model1a1);
+        final var model1a1 = Model1.create();
+        final var model2a = Model2.create(model1a1);
 
         assertFalse(Disposable.isDisposed(model1a1));
         assertFalse(Disposable.isDisposed(model2a));
@@ -28,7 +28,7 @@ public final class ComponentDependencyRuntimeValidationIntegrationTest extends A
 
     @Test
     public void scenario_withBadDependency() {
-        final BadType value = new BadType();
+        final var value = new BadType();
         final IllegalStateException exception = expectThrows(IllegalStateException.class, () -> Model2.create(value));
         assertEquals(
                 exception.getMessage(),

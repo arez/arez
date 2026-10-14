@@ -11,7 +11,6 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
 import javax.annotation.processing.Generated;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
@@ -26,6 +25,7 @@ final class Arez_NonnullFieldAutoObserveModel extends NonnullFieldAutoObserveMod
 
   private final Observer $$arez$$_$autoObserve;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_NonnullFieldAutoObserveModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -34,13 +34,18 @@ final class Arez_NonnullFieldAutoObserveModel extends NonnullFieldAutoObserveMod
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_auto_observe_NonnullFieldAutoObserveModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arez$$_$autoObserve = $$arezv$$_context.observer( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".$autoObserve" : null, () -> this.$$arezi$$_$autoObserve(), Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_OR_NO_DEPENDENCIES );
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentComplete();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentComplete();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -55,7 +60,7 @@ final class Arez_NonnullFieldAutoObserveModel extends NonnullFieldAutoObserveMod
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -64,7 +69,7 @@ final class Arez_NonnullFieldAutoObserveModel extends NonnullFieldAutoObserveMod
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_auto_observe_NonnullFieldAutoObserveModel'" );
     }
-    this.$$arezi$$_kernel.addOnDisposeListener( key, action, errorIfDuplicate );
+    this.$$arezi$$_kernel().addOnDisposeListener( key, action, errorIfDuplicate );
   }
 
   @Override
@@ -75,7 +80,7 @@ final class Arez_NonnullFieldAutoObserveModel extends NonnullFieldAutoObserveMod
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener( key, errorIfMissing );
+    this.$$arezi$$_kernel().removeOnDisposeListener( key, errorIfMissing );
   }
 
   @Override
@@ -86,7 +91,7 @@ final class Arez_NonnullFieldAutoObserveModel extends NonnullFieldAutoObserveMod
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'isDisposed' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -97,7 +102,7 @@ final class Arez_NonnullFieldAutoObserveModel extends NonnullFieldAutoObserveMod
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'dispose' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -106,16 +111,16 @@ final class Arez_NonnullFieldAutoObserveModel extends NonnullFieldAutoObserveMod
 
   private void $$arezi$$_$autoObserve() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_$autoObserve' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_$autoObserve' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
-    final NonnullFieldAutoObserveModel. @NonNull MyType $$arezv$$_autoObserve_0 = this._field;
+    final NonnullFieldAutoObserveModel.MyType $$arezv$$_autoObserve_0 = this._field;
     ComponentObservable.observe( $$arezv$$_autoObserve_0 );
   }
 
   @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

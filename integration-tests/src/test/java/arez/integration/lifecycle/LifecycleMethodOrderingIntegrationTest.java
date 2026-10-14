@@ -19,14 +19,13 @@ import arez.integration.AbstractArezIntegrationTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
 @NullMarked
 public final class LifecycleMethodOrderingIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void duplicateCapableCallbacksAcrossInheritanceChain() {
-        final DuplicateLifecycleModel model = DuplicateLifecycleModel.create();
+        final var model = DuplicateLifecycleModel.create();
 
         model.updateValue(1);
         model.updateValue(5);
@@ -74,7 +73,7 @@ public final class LifecycleMethodOrderingIntegrationTest extends AbstractArezIn
 
     @Test
     public void observerLifecycleHooksSequenceAroundMutationAndDispose() {
-        final ObserverLifecycleModel model = ObserverLifecycleModel.create();
+        final var model = ObserverLifecycleModel.create();
 
         model.render();
         model.updateValue(3);
@@ -172,7 +171,7 @@ public final class LifecycleMethodOrderingIntegrationTest extends AbstractArezIn
 
     @NullMarked
     abstract static class GrandparentLifecycleModel implements InheritedInterfaceLifecycle {
-        private final @Nullable ArrayList<String> _steps = new ArrayList<>();
+        private final ArrayList<String> _steps = new ArrayList<>();
 
         GrandparentLifecycleModel() {
             step("Grandparent.constructor");
@@ -319,7 +318,7 @@ public final class LifecycleMethodOrderingIntegrationTest extends AbstractArezIn
 
     @NullMarked
     abstract static class ObserverLifecycleBase implements StepRecorder {
-        private final @Nullable ArrayList<String> _steps = new ArrayList<>();
+        private final ArrayList<String> _steps = new ArrayList<>();
 
         @Override
         public final List<String> getSteps() {

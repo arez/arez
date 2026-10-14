@@ -180,7 +180,7 @@ final class ReferenceDescriptor {
     }
 
     ClassName getArezClassName() {
-        final ClassName other = (ClassName) TypeName.get(getMethod().getReturnType());
+        final var other = (ClassName) TypeName.get(getMethod().getReturnType());
         return GeneratorUtil.getGeneratedClassName(other, "Arez_", "");
     }
 

@@ -63,7 +63,10 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Di
 
   private final Observer $$arez$$_render;
 
-  @SuppressWarnings("deprecation")
+  @SuppressWarnings({
+      "NonAtomicVolatileUpdate",
+      "deprecation"
+  })
   Arez_DeprecatedUsageModel(final @Nullable MyDeprecatedEntity myEntity,
       final @Nullable List<MyDeprecatedEntity> myEntityList) {
     super();
@@ -74,20 +77,25 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Di
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
     this.$$arezd$$_myEntity = myEntity;
     this.$$arezd$$_myEntityList = myEntityList;
-    this.$$arez$$_myEntity = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myEntity" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_myEntity ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myEntity = v : null );
-    this.$$arez$$_myEntity2 = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myEntity2" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : super.getMyEntity2() ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setMyEntity2( v ) : null );
-    this.$$arez$$_myEntityList = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myEntityList" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_myEntityList ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myEntityList = v : null );
+    this.$$arez$$_myEntity = $$arezv$$_context.<@Nullable MyDeprecatedEntity>observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myEntity" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_myEntity ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myEntity = v : null );
+    this.$$arez$$_myEntity2 = $$arezv$$_context.<@Nullable MyDeprecatedEntity>observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myEntity2" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel().isNotReady() ? null : super.getMyEntity2() ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> super.setMyEntity2( v ) : null );
+    this.$$arez$$_myEntityList = $$arezv$$_context.<@Nullable List<MyDeprecatedEntity>>observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myEntityList" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_myEntityList ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myEntityList = v : null );
     this.$$arez$$_genEntity = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".genEntity" : null, () -> super.genEntity(), ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
     this.$$arez$$_genEntityStat1 = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".genEntityStat1" : null, args -> super.genEntityStat1((MyDeprecatedEntity) args[ 0 ]), 1, ComputableValue.Flags.AREZ_DEPENDENCIES );
     this.$$arez$$_genEntityStat2 = new MemoizeCache<>( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".genEntityStat2" : null, args -> super.genEntityStat2((List<Consumer<MyDeprecatedEntity>>) args[ 0 ]), 1, ComputableValue.Flags.AREZ_DEPENDENCIES );
     this.$$arez$$_render = $$arezv$$_context.tracker( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".render" : null, () -> super.onRenderDepsChange(), Observer.Flags.RUN_LATER | Observer.Flags.NESTED_ACTIONS_DISALLOWED | Observer.Flags.AREZ_DEPENDENCIES );
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -102,7 +110,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Di
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -111,7 +119,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Di
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_deprecated_DeprecatedUsageModel'" );
     }
-    this.$$arezi$$_kernel.addOnDisposeListener( key, action, errorIfDuplicate );
+    this.$$arezi$$_kernel().addOnDisposeListener( key, action, errorIfDuplicate );
   }
 
   @Override
@@ -122,7 +130,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Di
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener( key, errorIfMissing );
+    this.$$arezi$$_kernel().removeOnDisposeListener( key, errorIfMissing );
   }
 
   @Override
@@ -133,7 +141,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Di
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'isDisposed' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -144,7 +152,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Di
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'dispose' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -161,7 +169,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Di
   @SuppressWarnings("deprecation")
   @Nullable MyDeprecatedEntity getMyEntity() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyEntity' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyEntity' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_myEntity.reportObserved();
     return this.$$arezd$$_myEntity;
@@ -171,10 +179,10 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Di
   @SuppressWarnings("deprecation")
   void setMyEntity(final @Nullable MyDeprecatedEntity entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyEntity' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyEntity' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_myEntity.preReportChanged();
-    final @Nullable MyDeprecatedEntity $$arezv$$_currentValue = this.$$arezd$$_myEntity;
+    final MyDeprecatedEntity $$arezv$$_currentValue = this.$$arezd$$_myEntity;
     if ( !Objects.equals( entity, $$arezv$$_currentValue ) ) {
       this.$$arezd$$_myEntity = entity;
       this.$$arez$$_myEntity.reportChanged();
@@ -185,7 +193,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Di
   @SuppressWarnings("deprecation")
   @Nullable MyDeprecatedEntity getMyEntity2() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyEntity2' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyEntity2' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_myEntity2.reportObserved();
     return super.getMyEntity2();
@@ -195,10 +203,10 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Di
   @SuppressWarnings("deprecation")
   void setMyEntity2(final @Nullable MyDeprecatedEntity entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyEntity2' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyEntity2' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_myEntity2.preReportChanged();
-    final @Nullable MyDeprecatedEntity $$arezv$$_currentValue = super.getMyEntity2();
+    final MyDeprecatedEntity $$arezv$$_currentValue = super.getMyEntity2();
     if ( !Objects.equals( entity, $$arezv$$_currentValue ) ) {
       super.setMyEntity2( entity );
       this.$$arez$$_myEntity2.reportChanged();
@@ -209,11 +217,11 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Di
   @SuppressWarnings("deprecation")
   @Nullable List<MyDeprecatedEntity> getMyEntityList() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyEntityList' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyEntityList' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_myEntityList.reportObserved();
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      final @Nullable List<MyDeprecatedEntity> $$ar$$_result = this.$$arezd$$_myEntityList;
+      final List<MyDeprecatedEntity> $$ar$$_result = this.$$arezd$$_myEntityList;
       if ( null == this.$$arezd$$_$$cache$$_myEntityList && null != $$ar$$_result ) {
         this.$$arezd$$_$$cache$$_myEntityList = CollectionsUtil.wrap( $$ar$$_result );
       }
@@ -227,10 +235,10 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Di
   @SuppressWarnings("deprecation")
   void setMyEntityList(final @Nullable List<MyDeprecatedEntity> entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyEntityList' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyEntityList' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_myEntityList.preReportChanged();
-    final @Nullable List<MyDeprecatedEntity> $$arezv$$_currentValue = this.$$arezd$$_myEntityList;
+    final List<MyDeprecatedEntity> $$arezv$$_currentValue = this.$$arezd$$_myEntityList;
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
       this.$$arezd$$_$$cache$$_myEntityList = null;
     }
@@ -244,25 +252,25 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Di
   @SuppressWarnings("deprecation")
   public void render(final @NonNull MyDeprecatedEntity entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'render' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
-    this.$$arezi$$_kernel.getContext().safeObserve( this.$$arez$$_render, () -> super.render( entity ), Arez.areSpiesEnabled() ? new Object[] { entity } : null );
+    this.$$arezi$$_kernel().getContext().safeObserve( this.$$arez$$_render, () -> super.render( entity ), Arez.areSpiesEnabled() ? new Object[] { entity } : null );
   }
 
   @Override
   @SuppressWarnings("deprecation")
   public void doStuff(final @NonNull MyDeprecatedEntity entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
-    this.$$arezi$$_kernel.getContext().safeAction( Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff" : null, () -> super.doStuff( entity ), ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { entity } : null );
+    this.$$arezi$$_kernel().getContext().safeAction( Arez.areNamesEnabled() ? this.$$arezi$$_kernel().getName() + ".doStuff" : null, () -> super.doStuff( entity ), ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED, Arez.areSpiesEnabled() ? new Object[] { entity } : null );
   }
 
   @Override
   @SuppressWarnings("deprecation")
   @Nullable MyDeprecatedEntity genEntity() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'genEntity' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'genEntity' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     return this.$$arez$$_genEntity.get();
   }
@@ -271,7 +279,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Di
   @SuppressWarnings("deprecation")
   int genEntityStat1(final @Nullable MyDeprecatedEntity entity) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'genEntityStat1' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'genEntityStat1' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     return this.$$arez$$_genEntityStat1.get( entity );
   }
@@ -280,7 +288,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Di
   @SuppressWarnings("deprecation")
   int genEntityStat2(final @Nullable List<Consumer<MyDeprecatedEntity>> other) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'genEntityStat2' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'genEntityStat2' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     return this.$$arez$$_genEntityStat2.get( other );
   }
@@ -288,7 +296,7 @@ final class Arez_DeprecatedUsageModel extends DeprecatedUsageModel implements Di
   @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

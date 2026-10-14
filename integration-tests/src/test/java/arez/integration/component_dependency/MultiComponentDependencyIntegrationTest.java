@@ -19,8 +19,8 @@ public final class MultiComponentDependencyIntegrationTest extends AbstractArezI
     public void scenario() throws Throwable {
         final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-        final SharedModel sharedModel = SharedModel.create();
-        final ModelUnderTest model = ModelUnderTest.create(sharedModel, sharedModel, sharedModel);
+        final var sharedModel = SharedModel.create();
+        final var model = ModelUnderTest.create(sharedModel, sharedModel, sharedModel);
         safeAction(() -> model.setRef4(sharedModel));
 
         assertFalse(Disposable.isDisposed(sharedModel));

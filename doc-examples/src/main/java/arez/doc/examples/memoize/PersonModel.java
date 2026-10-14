@@ -4,12 +4,11 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 
 @NullMarked
 @ArezComponent
 public abstract class PersonModel {
-    private @Nullable String _name;
+    private String _name;
 
     public static PersonModel create(final String name) {
         return new Arez_PersonModel(name);
@@ -20,7 +19,7 @@ public abstract class PersonModel {
     }
 
     @Observable
-    public @Nullable String getName() {
+    public String getName() {
         return _name;
     }
 

@@ -29,7 +29,6 @@ public final class StingInjectorIntegrationTest extends AbstractArezIntegrationT
     @NullMarked
     @Injector(includes = TestComponent.class, fragmentOnly = false)
     interface MyInjector {
-        @Nullable
         TestComponent component();
     }
 

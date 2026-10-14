@@ -121,7 +121,7 @@ public interface BaseCompleteInterfaceModel
 
   @NonNull
   @ObservableValueRef
-  ObservableValue<String> getMyValueObservableValue();
+  ObservableValue<@Nullable String> getMyValueObservableValue();
 
   @Observable
   default @Nullable List<String> getMyCollectionValue()

@@ -6,12 +6,11 @@ import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.annotations.Observe;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 
 @NullMarked
 @ArezComponent
 public abstract class TrainTicket {
-    public static @Nullable TrainTicket create(int remainingRides) {
+    public static TrainTicket create(int remainingRides) {
         return new Arez_TrainTicket(remainingRides);
     }
 

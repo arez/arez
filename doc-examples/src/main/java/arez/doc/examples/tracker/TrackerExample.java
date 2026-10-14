@@ -9,6 +9,9 @@ import org.jspecify.annotations.Nullable;
 @NullMarked
 @SuppressWarnings("Convert2MethodRef")
 public class TrackerExample {
+    // DOC ELIDE START
+    private TrackerExample() {}
+    // DOC ELIDE END
     public static void main(String @Nullable [] args) throws Throwable {
         final Procedure observedFunction = () -> {
             // Interact with arez observable state (or computable values) here

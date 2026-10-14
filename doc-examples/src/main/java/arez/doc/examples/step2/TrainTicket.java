@@ -3,14 +3,13 @@ package arez.doc.examples.step2;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 
 @NullMarked
 @ArezComponent
 public abstract class TrainTicket {
     private int _remainingRides;
 
-    public static @Nullable TrainTicket create(int remainingRides) {
+    public static TrainTicket create(int remainingRides) {
         return new Arez_TrainTicket(remainingRides);
     }
 

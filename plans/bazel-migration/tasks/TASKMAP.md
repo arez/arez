@@ -2,7 +2,7 @@
 
 - Spec: [SPEC.md](../SPEC.md)
 - Status: implementing
-- Current frontier: T15
+- Current frontier: T16
 - Planning reviewer: /root/planning_reviewer (2/3 rounds; passed, Findings: none)
 - Plan checkpoint: human-review (approved)
 - Checkpoint basis: the user said "Proceed" after the reviewed spec/task map and
@@ -27,7 +27,7 @@
 - Artifact reproducibility: independent-output-base hash comparisons, including
   binary, source, Javadoc and POM outputs; cached reruns alone are insufficient.
 - Final evidence: pending
-- Current milestone: T14 strict core/spytools tests pass; T15 fixes generated bodies and processor compilations before restoring every strict JVM target.
+- Current milestone: T15 restores the full strict JVM gate: all 31 targets and 2,299 TestNG invocations pass; release archive work is next.
 
 ## Tasks
 
@@ -47,7 +47,7 @@
 | T12 | [Restore the Persist slice after the nullability cut](T12-persist-jspecify.md) | complete | T10, T11 |
 | T13 | [Restore extras, integrations and compiled documentation](T13-generated-consumers-jspecify.md) | complete | T12 |
 | T14 | [Enforce strict checking on runtime products and tests](T14-runtime-strict-checks.md) | complete | T13 |
-| T15 | [Enforce strict checking on processors and generated output](T15-processor-strict-checks.md) | pending | T14 |
+| T15 | [Enforce strict checking on processors and generated output](T15-processor-strict-checks.md) | complete | T14 |
 | T16 | [Build deterministic binary and complete source archives](T16-release-binaries-sources.md) | pending | T15 |
 | T17 | [Complete POM, Javadoc and artifact verification](T17-complete-release-artifacts.md) | pending | T16 |
 | T18 | [Expose and test packaged JVM consumer targets](T18-packaged-jvm-consumers.md) | pending | T17 |

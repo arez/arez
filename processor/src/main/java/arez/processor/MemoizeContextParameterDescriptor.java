@@ -117,6 +117,7 @@ final class MemoizeContextParameterDescriptor {
     }
 
     boolean tryMatchMemoizeDescriptor(final MemoizeDescriptor memoizeDescriptor) {
+        assert null != _pattern;
         if (_pattern.matcher(memoizeDescriptor.getName()).matches()) {
             _matchedMemoizeDescriptors.add(memoizeDescriptor);
             memoizeDescriptor.addContextParameter(this);

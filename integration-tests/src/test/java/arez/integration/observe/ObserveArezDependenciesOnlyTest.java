@@ -9,7 +9,6 @@ import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 import arez.integration.AbstractArezIntegrationTest;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
 @NullMarked
@@ -26,7 +25,7 @@ public final class ObserveArezDependenciesOnlyTest extends AbstractArezIntegrati
         }
 
         @ObserverRef
-        abstract @Nullable Observer getRenderObserver();
+        abstract Observer getRenderObserver();
 
         @SuppressWarnings("UnusedReturnValue")
         @Observable

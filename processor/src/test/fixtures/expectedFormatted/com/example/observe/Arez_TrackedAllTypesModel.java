@@ -32,6 +32,7 @@ final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel
 
   private final Observer $$arez$$_render4;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_TrackedAllTypesModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -84,13 +85,18 @@ final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel
         Observer.Flags.RUN_LATER
             | Observer.Flags.NESTED_ACTIONS_DISALLOWED
             | Observer.Flags.AREZ_DEPENDENCIES);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -111,7 +117,7 @@ final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -123,7 +129,7 @@ final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_observe_TrackedAllTypesModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -140,7 +146,7 @@ final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -157,7 +163,7 @@ final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -174,7 +180,7 @@ final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -189,10 +195,10 @@ final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'render1' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'render1' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
-    this.$$arezi$$_kernel
+    this.$$arezi$$_kernel()
         .getContext()
         .safeObserve(this.$$arez$$_render1, () -> super.render1(), null);
   }
@@ -202,11 +208,11 @@ final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'render2' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'render2' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     try {
-      this.$$arezi$$_kernel
+      this.$$arezi$$_kernel()
           .getContext()
           .observe(this.$$arez$$_render2, () -> super.render2(), null);
     } catch (final ParseException | RuntimeException | Error $$arez_exception$$) {
@@ -221,10 +227,10 @@ final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'render3' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'render3' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
-    return this.$$arezi$$_kernel
+    return this.$$arezi$$_kernel()
         .getContext()
         .safeObserve(this.$$arez$$_render3, () -> super.render3(), null);
   }
@@ -234,11 +240,11 @@ final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'render4' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'render4' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     try {
-      return this.$$arezi$$_kernel
+      return this.$$arezi$$_kernel()
           .getContext()
           .observe(this.$$arez$$_render4, () -> super.render4(), null);
     } catch (final ParseException | RuntimeException | Error $$arez_exception$$) {
@@ -251,7 +257,7 @@ final class Arez_TrackedAllTypesModel extends TrackedAllTypesModel
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

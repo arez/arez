@@ -1,8 +1,9 @@
 package arez.persist.processor;
 
+import com.palantir.javapoet.ClassName;
+
 final class Constants {
-    static final com.palantir.javapoet.ClassName NONNULL_CLASSNAME =
-            com.palantir.javapoet.ClassName.get("org.jspecify.annotations", "NonNull");
+    static final ClassName NONNULL_CLASSNAME = ClassName.get("org.jspecify.annotations", "NonNull");
 
     static final String AREZ_COMPONENT_CLASSNAME = "arez.annotations.ArezComponent";
 

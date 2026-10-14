@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Pattern;
 import javax.annotation.processing.RoundEnvironment;
@@ -336,7 +337,7 @@ public final class ArezPersistProcessor extends AbstractStandardProcessor {
 
     private void verifyPersistIdElement(final RoundEnvironment env, final Element element) {
         assert ElementKind.METHOD == element.getKind();
-        final Element type = element.getEnclosingElement();
+        final Element type = Objects.requireNonNull(element.getEnclosingElement());
         if (!AnnotationsUtil.hasAnnotationOfType(type, Constants.AREZ_COMPONENT_CLASSNAME)
                 && !AnnotationsUtil.hasAnnotationOfType(type, Constants.AREZ_COMPONENT_LIKE_CLASSNAME)) {
             reportError(

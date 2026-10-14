@@ -26,10 +26,10 @@ import org.testng.annotations.Test;
 public final class OneMultiplicityLazyLoadInverseIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
-        final AtomicInteger locatorLookupCallCount = new AtomicInteger();
+        final var locatorLookupCallCount = new AtomicInteger();
 
-        final TypeBasedLocator locator = new TypeBasedLocator();
-        final PersonRepository repository = PersonRepository.newRepository();
+        final var locator = new TypeBasedLocator();
+        final var repository = PersonRepository.newRepository();
 
         Arez.context().registerLocator(locator);
 
@@ -45,7 +45,7 @@ public final class OneMultiplicityLazyLoadInverseIntegrationTest extends Abstrac
 
         assertEquals(locatorLookupCallCount.get(), 0);
 
-        final AtomicInteger inverseCallCount = new AtomicInteger();
+        final var inverseCallCount = new AtomicInteger();
         observer(() -> {
             person.getCertificate();
             inverseCallCount.incrementAndGet();
@@ -53,8 +53,8 @@ public final class OneMultiplicityLazyLoadInverseIntegrationTest extends Abstrac
 
         assertEquals(locatorLookupCallCount.get(), 0);
         assertEquals(inverseCallCount.get(), 1);
-        final Certificate certificate1 = Certificate.create(personId);
-        final Certificate certificate2 = Certificate.create(person2Id);
+        final var certificate1 = Certificate.create(personId);
+        final var certificate2 = Certificate.create(person2Id);
 
         assertEquals(locatorLookupCallCount.get(), 0);
         assertEquals(inverseCallCount.get(), 1);
@@ -68,13 +68,13 @@ public final class OneMultiplicityLazyLoadInverseIntegrationTest extends Abstrac
         assertEquals(locatorLookupCallCount.get(), 2);
         assertEquals(inverseCallCount.get(), 2);
 
-        final AtomicInteger certificate1GetPersonCallCount = new AtomicInteger();
+        final var certificate1GetPersonCallCount = new AtomicInteger();
         observer(() -> {
             certificate1.getPerson();
             certificate1GetPersonCallCount.incrementAndGet();
         });
 
-        final AtomicInteger certificate2GetPersonCallCount = new AtomicInteger();
+        final var certificate2GetPersonCallCount = new AtomicInteger();
         observer(() -> {
             certificate2.getPerson();
             certificate2GetPersonCallCount.incrementAndGet();
@@ -136,15 +136,13 @@ public final class OneMultiplicityLazyLoadInverseIntegrationTest extends Abstrac
     @NullMarked
     @ArezComponent(service = Feature.ENABLE, sting = Feature.DISABLE)
     abstract static class PersonRepository extends AbstractRepository<Integer, Person, PersonRepository> {
-        static @Nullable PersonRepository newRepository() {
+        static PersonRepository newRepository() {
             return new OneMultiplicityLazyLoadInverseIntegrationTest_Arez_PersonRepository();
         }
 
         @Action
-        @Nullable
         Person create() {
-            final OneMultiplicityLazyLoadInverseIntegrationTest_Arez_Person entity =
-                    new OneMultiplicityLazyLoadInverseIntegrationTest_Arez_Person();
+            final var entity = new OneMultiplicityLazyLoadInverseIntegrationTest_Arez_Person();
             attach(entity);
             return entity;
         }

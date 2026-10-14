@@ -73,6 +73,7 @@ public final class ScopeTest extends AbstractTest {
         final Scope scope3 = scope1.getParent();
 
         assertNotNull(scope3);
+        assert null != scope3;
 
         assertEquals(ArezPersist.findScope(name1), scope1);
         assertNull(ArezPersist.findScope(name2));
@@ -149,7 +150,7 @@ public final class ScopeTest extends AbstractTest {
 
     @Test
     public void releaseScope() {
-        final TypeConverter converter = new TypeConverter(Collections.emptyMap());
+        final var converter = new TypeConverter(Collections.emptyMap());
 
         final Scope parent = ArezPersist.getRootScope();
 
@@ -212,7 +213,7 @@ public final class ScopeTest extends AbstractTest {
 
     @Test
     public void canNotInteractWithDisposedScope() {
-        final TypeConverter converter = new TypeConverter(Collections.emptyMap());
+        final var converter = new TypeConverter(Collections.emptyMap());
 
         final Scope scope = ArezPersist.getRootScope().findOrCreateScope(ValueUtil.randomString());
         final String storeName = ValueUtil.randomString();

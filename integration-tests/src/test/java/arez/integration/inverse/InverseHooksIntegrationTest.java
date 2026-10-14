@@ -30,10 +30,10 @@ import org.testng.annotations.Test;
 public final class InverseHooksIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
-        final AtomicInteger locatorLookupCallCount = new AtomicInteger();
+        final var locatorLookupCallCount = new AtomicInteger();
 
-        final TypeBasedLocator locator = new TypeBasedLocator();
-        final CarRepository repository = CarRepository.newRepository();
+        final var locator = new TypeBasedLocator();
+        final var repository = CarRepository.newRepository();
 
         Arez.context().registerLocator(locator);
 
@@ -49,7 +49,7 @@ public final class InverseHooksIntegrationTest extends AbstractArezIntegrationTe
 
         assertEquals(locatorLookupCallCount.get(), 0);
 
-        final AtomicInteger inverseCallCount = new AtomicInteger();
+        final var inverseCallCount = new AtomicInteger();
         observer(() -> {
             car.getWheels();
             inverseCallCount.incrementAndGet();
@@ -132,20 +132,19 @@ public final class InverseHooksIntegrationTest extends AbstractArezIntegrationTe
         }
 
         @Inverse
-        abstract @Nullable Collection<Wheel> getWheels();
+        abstract Collection<Wheel> getWheels();
     }
 
     @NullMarked
     @ArezComponent(service = Feature.ENABLE, sting = Feature.DISABLE)
     abstract static class CarRepository extends AbstractRepository<Integer, Car, CarRepository> {
-        static @Nullable CarRepository newRepository() {
+        static CarRepository newRepository() {
             return new InverseHooksIntegrationTest_Arez_CarRepository();
         }
 
         @Action
-        @Nullable
         Car create(final String name, final List<String> trace) {
-            final InverseHooksIntegrationTest_Arez_Car entity = new InverseHooksIntegrationTest_Arez_Car(name, trace);
+            final var entity = new InverseHooksIntegrationTest_Arez_Car(name, trace);
             attach(entity);
             return entity;
         }

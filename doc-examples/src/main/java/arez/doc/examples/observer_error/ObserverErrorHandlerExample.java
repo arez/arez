@@ -11,6 +11,9 @@ import org.jspecify.annotations.Nullable;
 @SuppressWarnings("CodeBlock2Expr")
 public class ObserverErrorHandlerExample {
     // DOC ELIDE START
+    private ObserverErrorHandlerExample() {}
+    // DOC ELIDE END
+    // DOC ELIDE START
     @NullMarked
     @JsType(isNative = true, name = "globalThis.console", namespace = JsPackage.GLOBAL)
     private static final class NativeConsole {

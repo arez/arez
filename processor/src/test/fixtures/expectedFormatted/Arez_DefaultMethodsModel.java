@@ -9,6 +9,7 @@ import arez.SafeProcedure;
 import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.internal.ComponentKernel;
+import java.util.Objects;
 import javax.annotation.processing.Generated;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -28,6 +29,7 @@ final class Arez_DefaultMethodsModel extends DefaultMethodsModel
 
   private final ComputableValue<Integer> $$arez$$_someValue;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_DefaultMethodsModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -52,25 +54,32 @@ final class Arez_DefaultMethodsModel extends DefaultMethodsModel
         true,
         false,
         false);
-    this.$$arez$$_time = $$arezv$$_context.observable(
+    this.$$arez$$_time = $$arezv$$_context.<Long>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : super.getTime())
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : super.getTime())
             : null,
-        Arez.arePropertyIntrospectorsEnabled() ? v -> super.setTime(v) : null);
+        Arez.arePropertyIntrospectorsEnabled()
+            ? v -> super.setTime(Objects.requireNonNull(v))
+            : null);
     this.$$arez$$_someValue = $$arezv$$_context.computable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".someValue" : null,
         () -> super.someValue(),
         ComputableValue.Flags.AREZ_DEPENDENCIES | ComputableValue.Flags.RUN_LATER);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -91,7 +100,7 @@ final class Arez_DefaultMethodsModel extends DefaultMethodsModel
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -103,7 +112,7 @@ final class Arez_DefaultMethodsModel extends DefaultMethodsModel
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'DefaultMethodsModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -120,7 +129,7 @@ final class Arez_DefaultMethodsModel extends DefaultMethodsModel
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -137,7 +146,7 @@ final class Arez_DefaultMethodsModel extends DefaultMethodsModel
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -154,7 +163,7 @@ final class Arez_DefaultMethodsModel extends DefaultMethodsModel
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -167,8 +176,8 @@ final class Arez_DefaultMethodsModel extends DefaultMethodsModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_time.reportObserved();
     return super.getTime();
@@ -179,8 +188,8 @@ final class Arez_DefaultMethodsModel extends DefaultMethodsModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setTime' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setTime' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_time.preReportChanged();
     final long $$arezv$$_currentValue = super.getTime();
@@ -195,13 +204,13 @@ final class Arez_DefaultMethodsModel extends DefaultMethodsModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'doStuff' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
-    this.$$arezi$$_kernel
+    this.$$arezi$$_kernel()
         .getContext()
         .safeAction(
-            Arez.areNamesEnabled() ? this.$$arezi$$_kernel.getName() + ".doStuff" : null,
+            Arez.areNamesEnabled() ? this.$$arezi$$_kernel().getName() + ".doStuff" : null,
             () -> super.doStuff(time),
             ActionFlags.READ_WRITE | ActionFlags.VERIFY_ACTION_REQUIRED,
             Arez.areSpiesEnabled() ? new Object[] {time} : null);
@@ -212,8 +221,8 @@ final class Arez_DefaultMethodsModel extends DefaultMethodsModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'someValue' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'someValue' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     return this.$$arez$$_someValue.get();
   }
@@ -221,7 +230,7 @@ final class Arez_DefaultMethodsModel extends DefaultMethodsModel
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

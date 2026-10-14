@@ -65,7 +65,7 @@ abstract class TypeDatePersistModel_PersistSidecar {
     Arez.context()
         .task(
             Arez.areNamesEnabled()
-                ? "TypeDatePersistModel_PersistSidecar.attach." + (++c_nextTaskId)
+                ? "TypeDatePersistModel_PersistSidecar.attach." + ++c_nextTaskId
                 : null,
             () -> maybeAttach(scope, peer));
   }
@@ -88,10 +88,10 @@ abstract class TypeDatePersistModel_PersistSidecar {
   void restoreState() {
     final String $ap$_id = getComponentId();
     if (!_appStore.isDisposed() && Disposable.isNotDisposed(_scope)) {
-      final @Nullable Map<String, @Nullable Object> state =
+      final Map<String, @Nullable Object> state =
           _appStore.get(_scope, Keys.TYPE, $ap$_id, Converters.TYPE_CONVERTER);
       if (null != state) {
-        final @Nullable Date $prop$_value = (@Nullable Date) state.get(Keys.PROPERTY_value);
+        final var $prop$_value = (Date) state.get(Keys.PROPERTY_value);
         if (null != $prop$_value) {
           _peer.setValue($prop$_value);
         }
@@ -103,7 +103,7 @@ abstract class TypeDatePersistModel_PersistSidecar {
   void persistState() {
     if (!_appStore.isDisposed() && Disposable.isNotDisposed(_scope)) {
       final Map<String, @Nullable Object> state = new HashMap<>();
-      final @Nullable Date $prop$_value = _peer.getValue();
+      final Date $prop$_value = _peer.getValue();
       if (null != $prop$_value) {
         state.put(Keys.PROPERTY_value, $prop$_value);
       }

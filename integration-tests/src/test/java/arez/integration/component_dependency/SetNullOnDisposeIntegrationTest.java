@@ -18,10 +18,10 @@ public final class SetNullOnDisposeIntegrationTest extends AbstractArezIntegrati
     public void scenario() throws Throwable {
         final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-        final Model1 model1a = Model1.create("Model1A");
-        final Model1 model1b = Model1.create("Model1B");
-        final Model2 model2a = Model2.create(model1a);
-        final Model2 model2b = Model2.create(model1b);
+        final var model1a = Model1.create("Model1A");
+        final var model1b = Model1.create("Model1B");
+        final var model2a = Model2.create(model1a);
+        final var model2b = Model2.create(model1b);
 
         assertFalse(Disposable.isDisposed(model1a));
         assertFalse(Disposable.isDisposed(model1b));
@@ -60,7 +60,7 @@ public final class SetNullOnDisposeIntegrationTest extends AbstractArezIntegrati
     abstract static class Model1 {
         private @Nullable String _name;
 
-        static @Nullable Model1 create(final @Nullable String name) {
+        static Model1 create(final @Nullable String name) {
             return new SetNullOnDisposeIntegrationTest_Arez_Model1(name);
         }
 
@@ -85,7 +85,7 @@ public final class SetNullOnDisposeIntegrationTest extends AbstractArezIntegrati
         @SuppressWarnings("Arez:UnmanagedComponentReference")
         private @Nullable Model1 _reference;
 
-        static @Nullable Model2 create(final @Nullable Model1 reference) {
+        static Model2 create(final @Nullable Model1 reference) {
             return new SetNullOnDisposeIntegrationTest_Arez_Model2(reference);
         }
 

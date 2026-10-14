@@ -29,6 +29,7 @@ final class Arez_NonnullAbstractObservableDependency extends NonnullAbstractObse
 
   private @NonNull DisposeNotifier $$arezd$$_value;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_NonnullAbstractObservableDependency(final @NonNull DisposeNotifier value) {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -55,21 +56,28 @@ final class Arez_NonnullAbstractObservableDependency extends NonnullAbstractObse
         false,
         false);
     this.$$arezd$$_value = Objects.requireNonNull(value);
-    this.$$arez$$_value = $$arezv$$_context.observable(
+    this.$$arez$$_value = $$arezv$$_context.<@NonNull DisposeNotifier>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".value" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_value)
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_value)
             : null,
-        Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_value = v : null);
+        Arez.arePropertyIntrospectorsEnabled()
+            ? v -> this.$$arezd$$_value = Objects.requireNonNull(v)
+            : null);
     DisposeNotifier.asDisposeNotifier($$arezd$$_value).addOnDisposeListener(this, this::dispose);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentComplete();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentComplete();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -95,7 +103,7 @@ final class Arez_NonnullAbstractObservableDependency extends NonnullAbstractObse
 
   private void $$arezi$$_nativeComponentPreDispose() {
     this.$$arezi$$_preDispose();
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -107,7 +115,7 @@ final class Arez_NonnullAbstractObservableDependency extends NonnullAbstractObse
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_component_dependency_NonnullAbstractObservableDependency'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -124,7 +132,7 @@ final class Arez_NonnullAbstractObservableDependency extends NonnullAbstractObse
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -141,7 +149,7 @@ final class Arez_NonnullAbstractObservableDependency extends NonnullAbstractObse
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -158,7 +166,7 @@ final class Arez_NonnullAbstractObservableDependency extends NonnullAbstractObse
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -171,10 +179,11 @@ final class Arez_NonnullAbstractObservableDependency extends NonnullAbstractObse
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getValue' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getValue' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_value.reportObserved();
+    assert null != this.$$arezd$$_value;
     return this.$$arezd$$_value;
   }
 
@@ -183,11 +192,11 @@ final class Arez_NonnullAbstractObservableDependency extends NonnullAbstractObse
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setValue' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setValue' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_value.preReportChanged();
-    final @NonNull DisposeNotifier $$arezv$$_currentValue = this.$$arezd$$_value;
+    final DisposeNotifier $$arezv$$_currentValue = this.$$arezd$$_value;
     assert null != value;
     if (!Objects.equals(value, $$arezv$$_currentValue)) {
       DisposeNotifier.asDisposeNotifier($$arezv$$_currentValue).removeOnDisposeListener(this);
@@ -200,7 +209,7 @@ final class Arez_NonnullAbstractObservableDependency extends NonnullAbstractObse
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

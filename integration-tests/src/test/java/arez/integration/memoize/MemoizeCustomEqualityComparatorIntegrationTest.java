@@ -45,7 +45,7 @@ public final class MemoizeCustomEqualityComparatorIntegrationTest extends Abstra
     @Test
     public void scenario() {
         final Model model = new MemoizeCustomEqualityComparatorIntegrationTest_Arez_Model();
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         observer(() -> {
             model.getMemoizedValue();

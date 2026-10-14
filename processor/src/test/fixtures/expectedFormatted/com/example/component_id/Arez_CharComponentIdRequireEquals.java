@@ -45,8 +45,13 @@ final class Arez_CharComponentIdRequireEquals extends CharComponentIdRequireEqua
         true,
         false,
         false);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   @Override
@@ -67,7 +72,7 @@ final class Arez_CharComponentIdRequireEquals extends CharComponentIdRequireEqua
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -79,7 +84,7 @@ final class Arez_CharComponentIdRequireEquals extends CharComponentIdRequireEqua
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_component_id_CharComponentIdRequireEquals'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -96,7 +101,7 @@ final class Arez_CharComponentIdRequireEquals extends CharComponentIdRequireEqua
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -113,7 +118,7 @@ final class Arez_CharComponentIdRequireEquals extends CharComponentIdRequireEqua
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -130,7 +135,7 @@ final class Arez_CharComponentIdRequireEquals extends CharComponentIdRequireEqua
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   @Override
@@ -139,9 +144,8 @@ final class Arez_CharComponentIdRequireEquals extends CharComponentIdRequireEqua
   }
 
   @Override
-  public boolean equals(final Object o) {
-    if (o instanceof Arez_CharComponentIdRequireEquals) {
-      final Arez_CharComponentIdRequireEquals that = (Arez_CharComponentIdRequireEquals) o;
+  public boolean equals(final @Nullable Object o) {
+    if (o instanceof Arez_CharComponentIdRequireEquals that) {
       return isDisposed() == that.isDisposed() && getId() == that.getId();
     } else {
       return false;
@@ -151,7 +155,7 @@ final class Arez_CharComponentIdRequireEquals extends CharComponentIdRequireEqua
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

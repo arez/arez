@@ -18,10 +18,10 @@ public final class AllowWriteInDisposeIntegrationTest extends AbstractArezIntegr
     @Test
     public void scenario() {
         final String name = ValueUtil.randomString();
-        final Model1 model1 = Model1.create(name);
-        final Model2 model2 = Model2.create(model1);
+        final var model1 = Model1.create(name);
+        final var model2 = Model2.create(model1);
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         Arez.context().observer(() -> {
             // Perform observation
             model1.getName();

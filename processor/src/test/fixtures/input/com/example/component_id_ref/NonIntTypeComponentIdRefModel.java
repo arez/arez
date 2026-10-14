@@ -11,9 +11,9 @@ import org.jspecify.annotations.Nullable;
 abstract class NonIntTypeComponentIdRefModel
 {
   @ComponentId
-  @Nullable String id()
+  String id()
   {
-    return null;
+    throw new UnsupportedOperationException("Fixture declaration");
   }
 
   @ComponentIdRef

@@ -18,6 +18,7 @@ import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
+@SuppressWarnings("rawtypes")
 @NullMarked
 final class Arez_RawCollectionObservableModel extends RawCollectionObservableModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -34,6 +35,7 @@ final class Arez_RawCollectionObservableModel extends RawCollectionObservableMod
   @SuppressWarnings("rawtypes")
   private @Nullable List $$arezd$$_$$cache$$_myValue;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_RawCollectionObservableModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -41,14 +43,19 @@ final class Arez_RawCollectionObservableModel extends RawCollectionObservableMod
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_observable_RawCollectionObservableModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_observable_RawCollectionObservableModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_myValue = $$arezv$$_context.observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myValue" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_myValue ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myValue = v : null );
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arez$$_myValue = $$arezv$$_context.<@Nullable List>observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".myValue" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_myValue ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_myValue = v : null );
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -63,7 +70,7 @@ final class Arez_RawCollectionObservableModel extends RawCollectionObservableMod
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -72,7 +79,7 @@ final class Arez_RawCollectionObservableModel extends RawCollectionObservableMod
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_observable_RawCollectionObservableModel'" );
     }
-    this.$$arezi$$_kernel.addOnDisposeListener( key, action, errorIfDuplicate );
+    this.$$arezi$$_kernel().addOnDisposeListener( key, action, errorIfDuplicate );
   }
 
   @Override
@@ -83,7 +90,7 @@ final class Arez_RawCollectionObservableModel extends RawCollectionObservableMod
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener( key, errorIfMissing );
+    this.$$arezi$$_kernel().removeOnDisposeListener( key, errorIfMissing );
   }
 
   @Override
@@ -94,7 +101,7 @@ final class Arez_RawCollectionObservableModel extends RawCollectionObservableMod
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'isDisposed' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -105,7 +112,7 @@ final class Arez_RawCollectionObservableModel extends RawCollectionObservableMod
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'dispose' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -119,11 +126,11 @@ final class Arez_RawCollectionObservableModel extends RawCollectionObservableMod
   })
   public @Nullable List getMyValue() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getMyValue' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_myValue.reportObserved();
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      final @Nullable List $$ar$$_result = this.$$arezd$$_myValue;
+      final List $$ar$$_result = this.$$arezd$$_myValue;
       if ( null == this.$$arezd$$_$$cache$$_myValue && null != $$ar$$_result ) {
         this.$$arezd$$_$$cache$$_myValue = CollectionsUtil.wrap( $$ar$$_result );
       }
@@ -137,10 +144,10 @@ final class Arez_RawCollectionObservableModel extends RawCollectionObservableMod
   @SuppressWarnings("rawtypes")
   public void setMyValue(final @Nullable List value) {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyValue' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyValue' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_myValue.preReportChanged();
-    final @Nullable List $$arezv$$_currentValue = this.$$arezd$$_myValue;
+    final List $$arezv$$_currentValue = this.$$arezd$$_myValue;
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
       this.$$arezd$$_$$cache$$_myValue = null;
     }
@@ -153,7 +160,7 @@ final class Arez_RawCollectionObservableModel extends RawCollectionObservableMod
   @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

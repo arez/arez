@@ -20,7 +20,7 @@ public final class MemoizedObservesLowerPriorityIntegrationTest extends Abstract
     @Test
     public void scenario() {
         final String name = "MyName";
-        final Model model = Model.create(name);
+        final var model = Model.create(name);
 
         final ArrayList<String> searches = new ArrayList<>();
 

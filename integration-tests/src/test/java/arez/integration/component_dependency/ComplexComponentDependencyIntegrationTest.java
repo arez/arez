@@ -18,11 +18,11 @@ public final class ComplexComponentDependencyIntegrationTest extends AbstractAre
     public void scenario() throws Throwable {
         final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-        final Model1 model1a1 = Model1.create("Model1A1");
-        final Model1 model1a2 = Model1.create("Model1A2");
-        final Model1 model1a3 = Model1.create("Model1A3");
-        final Model1 model1a4 = Model1.create("Model1A4");
-        final Model2 model2a = Model2.create(model1a1, model1a2, model1a3, model1a4);
+        final var model1a1 = Model1.create("Model1A1");
+        final var model1a2 = Model1.create("Model1A2");
+        final var model1a3 = Model1.create("Model1A3");
+        final var model1a4 = Model1.create("Model1A4");
+        final var model2a = Model2.create(model1a1, model1a2, model1a3, model1a4);
 
         assertFalse(Disposable.isDisposed(model1a1));
         assertFalse(Disposable.isDisposed(model1a2));
@@ -56,7 +56,7 @@ public final class ComplexComponentDependencyIntegrationTest extends AbstractAre
     abstract static class Model1 {
         private @Nullable String _name;
 
-        static @Nullable Model1 create(final @Nullable String name) {
+        static Model1 create(final @Nullable String name) {
             return new ComplexComponentDependencyIntegrationTest_Arez_Model1(name);
         }
 
@@ -84,7 +84,7 @@ public final class ComplexComponentDependencyIntegrationTest extends AbstractAre
         private @Nullable Model1 _reference3;
         private @Nullable Model1 _reference4;
 
-        static @Nullable Model2 create(
+        static Model2 create(
                 final @Nullable Model1 reference1,
                 final @Nullable Model1 reference2,
                 final @Nullable Model1 reference3,

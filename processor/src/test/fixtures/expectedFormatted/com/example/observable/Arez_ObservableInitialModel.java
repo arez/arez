@@ -27,11 +27,11 @@ final class Arez_ObservableInitialModel extends ObservableInitialModel
 
   private final ObservableValue<@NonNull String> $$arez$$_name;
 
-  private @NonNull String $$arezd$$_name;
+  private @Nullable String $$arezd$$_name;
 
   private final ObservableValue<@NonNull String> $$arez$$_firstName;
 
-  private @NonNull String $$arezd$$_firstName;
+  private @Nullable String $$arezd$$_firstName;
 
   private final ObservableValue<Integer> $$arez$$_age;
 
@@ -41,6 +41,7 @@ final class Arez_ObservableInitialModel extends ObservableInitialModel
 
   private @Nullable String $$arezd$$_nickname;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ObservableInitialModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -70,41 +71,52 @@ final class Arez_ObservableInitialModel extends ObservableInitialModel
     this.$$arezd$$_firstName = Objects.requireNonNull(ObservableInitialModel.INITIAL_FIRST_NAME);
     this.$$arezd$$_age = ObservableInitialModel.getInitialAge();
     this.$$arezd$$_nickname = ObservableInitialModel.initialNickname();
-    this.$$arez$$_name = $$arezv$$_context.observable(
+    this.$$arez$$_name = $$arezv$$_context.<@NonNull String>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".name" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_name)
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_name)
             : null,
-        Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_name = v : null);
-    this.$$arez$$_firstName = $$arezv$$_context.observable(
+        Arez.arePropertyIntrospectorsEnabled()
+            ? v -> this.$$arezd$$_name = Objects.requireNonNull(v)
+            : null);
+    this.$$arez$$_firstName = $$arezv$$_context.<@NonNull String>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".firstName" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_firstName)
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_firstName)
             : null,
-        Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_firstName = v : null);
-    this.$$arez$$_age = $$arezv$$_context.observable(
+        Arez.arePropertyIntrospectorsEnabled()
+            ? v -> this.$$arezd$$_firstName = Objects.requireNonNull(v)
+            : null);
+    this.$$arez$$_age = $$arezv$$_context.<Integer>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".age" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_age)
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_age)
             : null,
-        Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_age = v : null);
-    this.$$arez$$_nickname = $$arezv$$_context.observable(
+        Arez.arePropertyIntrospectorsEnabled()
+            ? v -> this.$$arezd$$_age = Objects.requireNonNull(v)
+            : null);
+    this.$$arez$$_nickname = $$arezv$$_context.<@Nullable String>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".nickname" : null,
         Arez.arePropertyIntrospectorsEnabled()
-            ? () -> (this.$$arezi$$_kernel.isNotReady() ? null : this.$$arezd$$_nickname)
+            ? () -> (this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_nickname)
             : null,
         Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_nickname = v : null);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -125,7 +137,7 @@ final class Arez_ObservableInitialModel extends ObservableInitialModel
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -137,7 +149,7 @@ final class Arez_ObservableInitialModel extends ObservableInitialModel
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_observable_ObservableInitialModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -154,7 +166,7 @@ final class Arez_ObservableInitialModel extends ObservableInitialModel
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -171,7 +183,7 @@ final class Arez_ObservableInitialModel extends ObservableInitialModel
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -188,7 +200,7 @@ final class Arez_ObservableInitialModel extends ObservableInitialModel
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -204,10 +216,11 @@ final class Arez_ObservableInitialModel extends ObservableInitialModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getName' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getName' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_name.reportObserved();
+    assert null != this.$$arezd$$_name;
     return this.$$arezd$$_name;
   }
 
@@ -216,11 +229,11 @@ final class Arez_ObservableInitialModel extends ObservableInitialModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setName' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setName' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_name.preReportChanged();
-    final @NonNull String $$arezv$$_currentValue = this.$$arezd$$_name;
+    final String $$arezv$$_currentValue = this.$$arezd$$_name;
     assert null != name;
     if (!Objects.equals(name, $$arezv$$_currentValue)) {
       this.$$arezd$$_name = name;
@@ -234,10 +247,12 @@ final class Arez_ObservableInitialModel extends ObservableInitialModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getFirstName' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getFirstName' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_firstName.reportObserved();
+    assert null != this.$$arezd$$_firstName;
     return this.$$arezd$$_firstName;
   }
 
@@ -246,11 +261,12 @@ final class Arez_ObservableInitialModel extends ObservableInitialModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setFirstName' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setFirstName' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_firstName.preReportChanged();
-    final @NonNull String $$arezv$$_currentValue = this.$$arezd$$_firstName;
+    final String $$arezv$$_currentValue = this.$$arezd$$_firstName;
     assert null != firstName;
     if (!Objects.equals(firstName, $$arezv$$_currentValue)) {
       this.$$arezd$$_firstName = firstName;
@@ -263,8 +279,8 @@ final class Arez_ObservableInitialModel extends ObservableInitialModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getAge' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getAge' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_age.reportObserved();
     return this.$$arezd$$_age;
@@ -275,8 +291,8 @@ final class Arez_ObservableInitialModel extends ObservableInitialModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setAge' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'setAge' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_age.preReportChanged();
     final int $$arezv$$_currentValue = this.$$arezd$$_age;
@@ -292,8 +308,9 @@ final class Arez_ObservableInitialModel extends ObservableInitialModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getNickname' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () ->
+              "Method named 'getNickname' invoked on " + this.$$arezi$$_kernel().describeState()
+                  + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_nickname.reportObserved();
     return this.$$arezd$$_nickname;
@@ -304,11 +321,12 @@ final class Arez_ObservableInitialModel extends ObservableInitialModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'setNickname' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () ->
+              "Method named 'setNickname' invoked on " + this.$$arezi$$_kernel().describeState()
+                  + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_nickname.preReportChanged();
-    final @Nullable String $$arezv$$_currentValue = this.$$arezd$$_nickname;
+    final String $$arezv$$_currentValue = this.$$arezd$$_nickname;
     if (!Objects.equals(nickname, $$arezv$$_currentValue)) {
       this.$$arezd$$_nickname = nickname;
       this.$$arez$$_nickname.reportChanged();
@@ -318,7 +336,7 @@ final class Arez_ObservableInitialModel extends ObservableInitialModel
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

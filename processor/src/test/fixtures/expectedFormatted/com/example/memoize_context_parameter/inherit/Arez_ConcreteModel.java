@@ -31,6 +31,7 @@ final class Arez_ConcreteModel extends ConcreteModel
 
   private final MemoizeCache<Long> $$arez$$_countFromConcrete;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ConcreteModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -60,32 +61,37 @@ final class Arez_ConcreteModel extends ConcreteModel
         Arez.areZonesEnabled() ? $$arezv$$_context : null,
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".countFromAbstract" : null,
-        args -> $$arezi$$_memoize_countFromAbstract(
-            (@Nullable String) args[0], (long) args[1], (float) args[2]),
+        args ->
+            $$arezi$$_memoize_countFromAbstract((String) args[0], (long) args[1], (float) args[2]),
         3,
         ComputableValue.Flags.AREZ_DEPENDENCIES);
     this.$$arez$$_time = new MemoizeCache<>(
         Arez.areZonesEnabled() ? $$arezv$$_context : null,
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null,
-        args -> $$arezi$$_memoize_time((@Nullable String) args[0]),
+        args -> $$arezi$$_memoize_time((String) args[0]),
         1,
         ComputableValue.Flags.AREZ_DEPENDENCIES);
     this.$$arez$$_countFromConcrete = new MemoizeCache<>(
         Arez.areZonesEnabled() ? $$arezv$$_context : null,
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".countFromConcrete" : null,
-        args -> $$arezi$$_memoize_countFromConcrete(
-            (@Nullable String) args[0], (long) args[1], (float) args[2]),
+        args ->
+            $$arezi$$_memoize_countFromConcrete((String) args[0], (long) args[1], (float) args[2]),
         3,
         ComputableValue.Flags.AREZ_DEPENDENCIES);
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -106,7 +112,7 @@ final class Arez_ConcreteModel extends ConcreteModel
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -118,7 +124,7 @@ final class Arez_ConcreteModel extends ConcreteModel
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_memoize_context_parameter_inherit_ConcreteModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -135,7 +141,7 @@ final class Arez_ConcreteModel extends ConcreteModel
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -152,7 +158,7 @@ final class Arez_ConcreteModel extends ConcreteModel
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -169,7 +175,7 @@ final class Arez_ConcreteModel extends ConcreteModel
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -195,9 +201,9 @@ final class Arez_ConcreteModel extends ConcreteModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () ->
-              "Method named 'countFromAbstract' invoked on " + this.$$arezi$$_kernel.describeState()
-                  + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'countFromAbstract' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     return this.$$arez$$_countFromAbstract.get(captureMyContextVar(), time, someOtherParameter);
   }
@@ -216,8 +222,8 @@ final class Arez_ConcreteModel extends ConcreteModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'getTime' invoked on " + this.$$arezi$$_kernel().describeState()
+              + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     return this.$$arez$$_time.get(captureMyContextVar());
   }
@@ -239,9 +245,9 @@ final class Arez_ConcreteModel extends ConcreteModel
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () ->
-              "Method named 'countFromConcrete' invoked on " + this.$$arezi$$_kernel.describeState()
-                  + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'countFromConcrete' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     return this.$$arez$$_countFromConcrete.get(captureMyContextVar(), time, someOtherParameter);
   }
@@ -249,7 +255,7 @@ final class Arez_ConcreteModel extends ConcreteModel
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

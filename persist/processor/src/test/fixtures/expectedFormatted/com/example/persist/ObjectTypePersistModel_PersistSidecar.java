@@ -64,7 +64,7 @@ abstract class ObjectTypePersistModel_PersistSidecar {
     Arez.context()
         .task(
             Arez.areNamesEnabled()
-                ? "ObjectTypePersistModel_PersistSidecar.attach." + (++c_nextTaskId)
+                ? "ObjectTypePersistModel_PersistSidecar.attach." + ++c_nextTaskId
                 : null,
             () -> maybeAttach(scope, peer));
   }
@@ -87,10 +87,10 @@ abstract class ObjectTypePersistModel_PersistSidecar {
   void restoreState() {
     final String $ap$_id = getComponentId();
     if (!_appStore.isDisposed() && Disposable.isNotDisposed(_scope)) {
-      final @Nullable Map<String, @Nullable Object> state =
+      final Map<String, @Nullable Object> state =
           _appStore.get(_scope, Keys.TYPE, $ap$_id, Converters.TYPE_CONVERTER);
       if (null != state) {
-        final @Nullable Object $prop$_value = (Keys.PROPERTY_value);
+        final Object $prop$_value = Keys.PROPERTY_value;
         if (null != $prop$_value) {
           _peer.setValue($prop$_value);
         }
@@ -102,7 +102,7 @@ abstract class ObjectTypePersistModel_PersistSidecar {
   void persistState() {
     if (!_appStore.isDisposed() && Disposable.isNotDisposed(_scope)) {
       final Map<String, @Nullable Object> state = new HashMap<>();
-      final @Nullable Object $prop$_value = _peer.getValue();
+      final Object $prop$_value = _peer.getValue();
       if (null != $prop$_value) {
         state.put(Keys.PROPERTY_value, $prop$_value);
       }

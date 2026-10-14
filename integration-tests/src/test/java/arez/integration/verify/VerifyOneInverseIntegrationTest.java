@@ -26,9 +26,9 @@ import org.testng.annotations.Test;
 public final class VerifyOneInverseIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void verifySuccess() throws Throwable {
-        final Model2Repository repository = Model2Repository.newRepository();
+        final var repository = Model2Repository.newRepository();
 
-        final TypeBasedLocator locator = new TypeBasedLocator();
+        final var locator = new TypeBasedLocator();
         Arez.context().registerLocator(locator);
 
         final HashMap<Object, Model1> entities1 = new HashMap<>();
@@ -39,7 +39,7 @@ public final class VerifyOneInverseIntegrationTest extends AbstractArezIntegrati
         final Model2 model2 = repository.create(1);
         entities2.put(model2.getId(), model2);
 
-        final Model1 model1 = Model1.create(0, model2.getId());
+        final var model1 = Model1.create(0, model2.getId());
         entities1.put(model1.getId(), model1);
 
         assertTrue(model1 instanceof Verifiable);
@@ -51,9 +51,9 @@ public final class VerifyOneInverseIntegrationTest extends AbstractArezIntegrati
 
     @Test
     public void unableToLocateOther() throws Throwable {
-        final Model2Repository repository = Model2Repository.newRepository();
+        final var repository = Model2Repository.newRepository();
 
-        final TypeBasedLocator locator = new TypeBasedLocator();
+        final var locator = new TypeBasedLocator();
         Arez.context().registerLocator(locator);
 
         final HashMap<Object, Model1> entities1 = new HashMap<>();
@@ -64,7 +64,7 @@ public final class VerifyOneInverseIntegrationTest extends AbstractArezIntegrati
         final Model2 model2 = repository.create(1);
         entities2.put(model2.getId(), model2);
 
-        final Model1 model1 = Model1.create(0, model2.getId());
+        final var model1 = Model1.create(0, model2.getId());
         entities1.put(model1.getId(), model1);
 
         assertTrue(model1 instanceof Verifiable);
@@ -76,7 +76,7 @@ public final class VerifyOneInverseIntegrationTest extends AbstractArezIntegrati
 
         final Field kernelField = model1.getClass().getDeclaredField("$$arezi$$_kernel");
         kernelField.setAccessible(true);
-        final ComponentKernel kernel = (ComponentKernel) kernelField.get(model1);
+        final var kernel = (ComponentKernel) kernelField.get(model1);
 
         final Field field = kernel.getClass().getDeclaredField("_state");
         field.setAccessible(true);
@@ -95,7 +95,7 @@ public final class VerifyOneInverseIntegrationTest extends AbstractArezIntegrati
         private final int _id;
         private final int _model2Id;
 
-        static @Nullable Model1 create(final int id, final int model2Id) {
+        static Model1 create(final int id, final int model2Id) {
             return Arez.context().safeAction(() -> new VerifyOneInverseIntegrationTest_Arez_Model1(id, model2Id));
         }
 
@@ -145,10 +145,8 @@ public final class VerifyOneInverseIntegrationTest extends AbstractArezIntegrati
         }
 
         @Action
-        @Nullable
         Model2 create(final int id) {
-            final VerifyOneInverseIntegrationTest_Arez_Model2 entity =
-                    new VerifyOneInverseIntegrationTest_Arez_Model2(id);
+            final var entity = new VerifyOneInverseIntegrationTest_Arez_Model2(id);
             attach(entity);
             return entity;
         }

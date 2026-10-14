@@ -15,8 +15,8 @@ import org.testng.annotations.Test;
 public final class ObservableCascadeDisposeIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario1() {
-        final Model2 model2 = Model2.create();
-        final Model1 model1 = Model1.create(model2);
+        final var model2 = Model2.create();
+        final var model1 = Model1.create(model2);
 
         assertFalse(Disposable.isDisposed(model1));
         assertFalse(Disposable.isDisposed(model2));
@@ -29,9 +29,9 @@ public final class ObservableCascadeDisposeIntegrationTest extends AbstractArezI
 
     @Test
     public void scenario2() {
-        final Model2 model2a = Model2.create();
-        final Model2 model2b = Model2.create();
-        final Model1 model1 = Model1.create(model2a);
+        final var model2a = Model2.create();
+        final var model2b = Model2.create();
+        final var model1 = Model1.create(model2a);
 
         assertFalse(Disposable.isDisposed(model1));
         assertFalse(Disposable.isDisposed(model2a));

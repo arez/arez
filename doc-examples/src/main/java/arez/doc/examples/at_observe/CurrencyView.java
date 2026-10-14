@@ -41,6 +41,6 @@ public abstract class CurrencyView {
 
     // DOC ELIDE START
     @JsProperty(name = "document", namespace = JsPackage.GLOBAL)
-    private static native @Nullable Document document();
+    private static native Document document();
     // DOC ELIDE END
 }

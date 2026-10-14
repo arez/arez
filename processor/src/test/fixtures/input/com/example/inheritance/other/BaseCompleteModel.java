@@ -125,7 +125,7 @@ public abstract class BaseCompleteModel
 
   @NonNull
   @ObservableValueRef
-  protected abstract ObservableValue<String> getMyValueObservableValue();
+  protected abstract ObservableValue<@Nullable String> getMyValueObservableValue();
 
   @Observable( setterAlwaysMutates = false )
   protected int getMyPrimitiveValue()

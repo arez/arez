@@ -64,7 +64,7 @@ abstract class TypeLongPersistModel_PersistSidecar {
     Arez.context()
         .task(
             Arez.areNamesEnabled()
-                ? "TypeLongPersistModel_PersistSidecar.attach." + (++c_nextTaskId)
+                ? "TypeLongPersistModel_PersistSidecar.attach." + ++c_nextTaskId
                 : null,
             () -> maybeAttach(scope, peer));
   }
@@ -87,10 +87,10 @@ abstract class TypeLongPersistModel_PersistSidecar {
   void restoreState() {
     final String $ap$_id = getComponentId();
     if (!_appStore.isDisposed() && Disposable.isNotDisposed(_scope)) {
-      final @Nullable Map<String, @Nullable Object> state =
+      final Map<String, @Nullable Object> state =
           _appStore.get(_scope, Keys.TYPE, $ap$_id, Converters.TYPE_CONVERTER);
       if (null != state) {
-        final @Nullable Long $prop$_value = (@Nullable Long) state.get(Keys.PROPERTY_value);
+        final var $prop$_value = (Long) state.get(Keys.PROPERTY_value);
         if (null != $prop$_value) {
           _peer.setValue($prop$_value);
         }

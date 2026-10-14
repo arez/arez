@@ -26,7 +26,7 @@ public final class MultiZoneIntegrationTest extends AbstractArezIntegrationTest 
         final ArezContext context1 = zone1.getContext();
         final ArezContext context2 = zone2.getContext();
 
-        final SpyEventRecorder recorder = new SpyEventRecorder();
+        final var recorder = new SpyEventRecorder();
         context1.getSpy().addSpyEventHandler(recorder);
         context2.getSpy().addSpyEventHandler(recorder);
 

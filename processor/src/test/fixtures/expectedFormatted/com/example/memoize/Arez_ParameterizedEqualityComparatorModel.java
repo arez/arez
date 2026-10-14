@@ -32,6 +32,7 @@ final class Arez_ParameterizedEqualityComparatorModel extends ParameterizedEqual
 
   private final MemoizeCache<int @Nullable []> $$arez$$_customValues;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ParameterizedEqualityComparatorModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
@@ -80,13 +81,18 @@ final class Arez_ParameterizedEqualityComparatorModel extends ParameterizedEqual
         1,
         ComputableValue.Flags.AREZ_DEPENDENCIES,
         new ParameterizedEqualityComparatorModel.MemoizeParameterizedCustomComparator());
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -107,7 +113,7 @@ final class Arez_ParameterizedEqualityComparatorModel extends ParameterizedEqual
   }
 
   private void $$arezi$$_nativeComponentPreDispose() {
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -119,7 +125,7 @@ final class Arez_ParameterizedEqualityComparatorModel extends ParameterizedEqual
           () ->
               "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_memoize_ParameterizedEqualityComparatorModel'");
     }
-    this.$$arezi$$_kernel.addOnDisposeListener(key, action, errorIfDuplicate);
+    this.$$arezi$$_kernel().addOnDisposeListener(key, action, errorIfDuplicate);
   }
 
   @Override
@@ -136,7 +142,7 @@ final class Arez_ParameterizedEqualityComparatorModel extends ParameterizedEqual
           () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener(key, errorIfMissing);
+    this.$$arezi$$_kernel().removeOnDisposeListener(key, errorIfMissing);
   }
 
   @Override
@@ -153,7 +159,7 @@ final class Arez_ParameterizedEqualityComparatorModel extends ParameterizedEqual
           () -> "Method named 'isDisposed' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -170,7 +176,7 @@ final class Arez_ParameterizedEqualityComparatorModel extends ParameterizedEqual
           () -> "Method named 'dispose' invoked on un-constructed component named '"
               + (null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName()) + "'");
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   private void $$arezi$$_dispose() {
@@ -184,8 +190,9 @@ final class Arez_ParameterizedEqualityComparatorModel extends ParameterizedEqual
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'defaultValues' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'defaultValues' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     return this.$$arez$$_defaultValues.get(seed);
   }
@@ -195,8 +202,9 @@ final class Arez_ParameterizedEqualityComparatorModel extends ParameterizedEqual
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'deepValues' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () ->
+              "Method named 'deepValues' invoked on " + this.$$arezi$$_kernel().describeState()
+                  + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     return this.$$arez$$_deepValues.get(seed);
   }
@@ -206,8 +214,9 @@ final class Arez_ParameterizedEqualityComparatorModel extends ParameterizedEqual
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
-          () -> "Method named 'customValues' invoked on " + this.$$arezi$$_kernel.describeState()
-              + " component named '" + this.$$arezi$$_kernel.getName() + "'");
+          () -> "Method named 'customValues' invoked on "
+              + this.$$arezi$$_kernel().describeState() + " component named '"
+              + this.$$arezi$$_kernel().getName() + "'");
     }
     return this.$$arez$$_customValues.get(seed);
   }
@@ -215,7 +224,7 @@ final class Arez_ParameterizedEqualityComparatorModel extends ParameterizedEqual
   @Override
   public String toString() {
     if (Arez.areNamesEnabled()) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

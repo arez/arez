@@ -37,7 +37,7 @@ public final class TrackWithSchedulableTest extends AbstractArezIntegrationTest 
     public void scenario() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         context.task(callCount::incrementAndGet, Task.Flags.RUN_LATER);
 
         assertEquals(callCount.get(), 0);

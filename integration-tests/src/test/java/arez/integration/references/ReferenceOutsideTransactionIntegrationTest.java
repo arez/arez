@@ -24,12 +24,12 @@ import org.testng.annotations.Test;
 public final class ReferenceOutsideTransactionIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
-        final Model2Repository repository = Model2Repository.newRepository();
+        final var repository = Model2Repository.newRepository();
 
-        final TypeBasedLocator locator = new TypeBasedLocator();
+        final var locator = new TypeBasedLocator();
         Arez.context().registerLocator(locator);
 
-        final AtomicInteger findCallCount = new AtomicInteger();
+        final var findCallCount = new AtomicInteger();
         final HashMap<Object, Model2> entities = new HashMap<>();
         locator.registerLookup(Model2.class, id -> {
             findCallCount.incrementAndGet();
@@ -44,14 +44,14 @@ public final class ReferenceOutsideTransactionIntegrationTest extends AbstractAr
         entities.put(model2bId, model2b);
 
         assertEquals(findCallCount.get(), 0);
-        final Model1 model1 = Model1.create(model2aId);
+        final var model1 = Model1.create(model2aId);
         assertEquals(findCallCount.get(), 1);
 
         assertEquals(model1.getModel2(), model2a);
 
         assertEquals(findCallCount.get(), 1);
 
-        final AtomicInteger observerCallCount = new AtomicInteger();
+        final var observerCallCount = new AtomicInteger();
         observer(() -> {
             model1.getModel2();
             observerCallCount.incrementAndGet();
@@ -77,7 +77,7 @@ public final class ReferenceOutsideTransactionIntegrationTest extends AbstractAr
 
         private Object _model2Id;
 
-        static @Nullable Model1 create(final Object model2Id) {
+        static Model1 create(final Object model2Id) {
             return new ReferenceOutsideTransactionIntegrationTest_Arez_Model1(model2Id);
         }
 
@@ -115,10 +115,8 @@ public final class ReferenceOutsideTransactionIntegrationTest extends AbstractAr
         }
 
         @Action
-        @Nullable
         Model2 create() {
-            final ReferenceOutsideTransactionIntegrationTest_Arez_Model2 entity =
-                    new ReferenceOutsideTransactionIntegrationTest_Arez_Model2();
+            final var entity = new ReferenceOutsideTransactionIntegrationTest_Arez_Model2();
             attach(entity);
             return entity;
         }

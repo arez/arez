@@ -13,8 +13,8 @@ import org.testng.annotations.Test;
 public final class BasicCascadeDisposeIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
-        final Model2 model2 = Model2.create();
-        final Model1 model1 = Model1.create(model2);
+        final var model2 = Model2.create();
+        final var model1 = Model1.create(model2);
 
         assertFalse(Disposable.isDisposed(model1));
         assertFalse(Disposable.isDisposed(model2));

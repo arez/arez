@@ -33,6 +33,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
 
   private MultipleReferenceWithInverseWithSameTarget. @Nullable RoleType $$arezr$$_child;
 
+  @SuppressWarnings("NonAtomicVolatileUpdate")
   MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation(final int parentId,
       final int childId) {
     super(parentId,childId);
@@ -44,20 +45,25 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_inverse_MultipleReferenceWithInverseWithSameTarget_RoleTypeGeneralisation." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_inverse_MultipleReferenceWithInverseWithSameTarget_RoleTypeGeneralisation", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, null, null, true, false, false );
-    this.$$arezi$$_kernel.componentConstructed();
-    this.$$arezi$$_kernel.componentReady();
+    this.$$arezi$$_kernel().componentConstructed();
+    this.$$arezi$$_kernel().componentReady();
+  }
+
+  private ComponentKernel $$arezi$$_kernel() {
+    assert null != this.$$arezi$$_kernel;
+    return this.$$arezi$$_kernel;
   }
 
   private Locator $$arezi$$_locator() {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named '$$arezi$$_locator' invoked on uninitialized component of type 'com_example_inverse_MultipleReferenceWithInverseWithSameTarget_RoleTypeGeneralisation'" );
     }
-    return this.$$arezi$$_kernel.getContext().locator();
+    return this.$$arezi$$_kernel().getContext().locator();
   }
 
   private int $$arezi$$_id() {
     assert null != this.$$arezi$$_kernel;
-    return this.$$arezi$$_kernel.getId();
+    return this.$$arezi$$_kernel().getId();
   }
 
   @Override
@@ -78,7 +84,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
 
   private void $$arezi$$_nativeComponentPreDispose() {
     this.$$arezi$$_preDispose();
-    this.$$arezi$$_kernel.notifyOnDisposeListeners();
+    this.$$arezi$$_kernel().notifyOnDisposeListeners();
   }
 
   @Override
@@ -87,7 +93,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenInitialized(), () -> "Method named 'addOnDisposeListener' invoked on uninitialized component of type 'com_example_inverse_MultipleReferenceWithInverseWithSameTarget_RoleTypeGeneralisation'" );
     }
-    this.$$arezi$$_kernel.addOnDisposeListener( key, action, errorIfDuplicate );
+    this.$$arezi$$_kernel().addOnDisposeListener( key, action, errorIfDuplicate );
   }
 
   @Override
@@ -98,7 +104,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'removeOnDisposeListener' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.removeOnDisposeListener( key, errorIfMissing );
+    this.$$arezi$$_kernel().removeOnDisposeListener( key, errorIfMissing );
   }
 
   @Override
@@ -109,7 +115,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'isDisposed' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    return this.$$arezi$$_kernel.isDisposed();
+    return this.$$arezi$$_kernel().isDisposed();
   }
 
   @Override
@@ -120,7 +126,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'dispose' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
-    this.$$arezi$$_kernel.dispose();
+    this.$$arezi$$_kernel().dispose();
   }
 
   @Override
@@ -132,16 +138,16 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'verify' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'verify' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation.class, $$arezi$$_id() ) );
       final int $$arezv$$_parentId = this.getParentId();
       final MultipleReferenceWithInverseWithSameTarget.RoleType $$arezv$$_parent = this.$$arezi$$_locator().findById( MultipleReferenceWithInverseWithSameTarget.RoleType.class, $$arezv$$_parentId );
-      Guards.apiInvariant( () -> null != $$arezv$$_parent, () -> "Reference named 'parent' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.RoleType and id = " + getParentId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_parent, () -> "Reference named 'parent' on component named '" + this.$$arezi$$_kernel().getName() + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.RoleType and id = " + getParentId() );
       final int $$arezv$$_childId = this.getChildId();
       final MultipleReferenceWithInverseWithSameTarget.RoleType $$arezv$$_child = this.$$arezi$$_locator().findById( MultipleReferenceWithInverseWithSameTarget.RoleType.class, $$arezv$$_childId );
-      Guards.apiInvariant( () -> null != $$arezv$$_child, () -> "Reference named 'child' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.RoleType and id = " + getChildId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_child, () -> "Reference named 'child' on component named '" + this.$$arezi$$_kernel().getName() + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.RoleType and id = " + getChildId() );
     }
   }
 
@@ -154,7 +160,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.hasBeenConstructed(), () -> "Method named 'link' invoked on un-constructed component named '" + ( null == this.$$arezi$$_kernel ? "?" : this.$$arezi$$_kernel.getName() ) + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'link' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'link' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arezi$$_link_parent();
     this.$$arezi$$_link_child();
@@ -163,24 +169,26 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
   @Override
   MultipleReferenceWithInverseWithSameTarget. @NonNull RoleType getParent() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getParent' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getParent' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_parent, () -> "Nonnull reference method named 'getParent' invoked on component named '" + this.$$arezi$$_kernel.getName() + "' but reference has not been resolved yet is not lazy. Id = " + getParentId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_parent, () -> "Nonnull reference method named 'getParent' invoked on component named '" + this.$$arezi$$_kernel().getName() + "' but reference has not been resolved yet is not lazy. Id = " + getParentId() );
     }
+    assert null != this.$$arezr$$_parent;
     return this.$$arezr$$_parent;
   }
 
   private void $$arezi$$_link_parent() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_link_parent' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_link_parent' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     if ( null == this.$$arezr$$_parent ) {
       final int id = this.getParentId();
       this.$$arezr$$_parent = this.$$arezi$$_locator().findById( MultipleReferenceWithInverseWithSameTarget.RoleType.class, id );
       if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null != $$arezr$$_parent, () -> "Reference named 'parent' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.RoleType and id = " + getParentId() );
+        Guards.apiInvariant( () -> null != $$arezr$$_parent, () -> "Reference named 'parent' on component named '" + this.$$arezi$$_kernel().getName() + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.RoleType and id = " + getParentId() );
       }
+      assert null != this.$$arezr$$_parent;
       ( (MultipleReferenceWithInverseWithSameTarget_Arez_RoleType) this.$$arezr$$_parent ).$$arezir$$_childGeneralisations_add( this );
     }
   }
@@ -195,24 +203,26 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
   @Override
   MultipleReferenceWithInverseWithSameTarget. @NonNull RoleType getChild() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getChild' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getChild' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_child, () -> "Nonnull reference method named 'getChild' invoked on component named '" + this.$$arezi$$_kernel.getName() + "' but reference has not been resolved yet is not lazy. Id = " + getChildId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_child, () -> "Nonnull reference method named 'getChild' invoked on component named '" + this.$$arezi$$_kernel().getName() + "' but reference has not been resolved yet is not lazy. Id = " + getChildId() );
     }
+    assert null != this.$$arezr$$_child;
     return this.$$arezr$$_child;
   }
 
   private void $$arezi$$_link_child() {
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_link_child' invoked on " + this.$$arezi$$_kernel.describeState() + " component named '" + this.$$arezi$$_kernel.getName() + "'" );
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_link_child' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     if ( null == this.$$arezr$$_child ) {
       final int id = this.getChildId();
       this.$$arezr$$_child = this.$$arezi$$_locator().findById( MultipleReferenceWithInverseWithSameTarget.RoleType.class, id );
       if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null != $$arezr$$_child, () -> "Reference named 'child' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.RoleType and id = " + getChildId() );
+        Guards.apiInvariant( () -> null != $$arezr$$_child, () -> "Reference named 'child' on component named '" + this.$$arezi$$_kernel().getName() + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.RoleType and id = " + getChildId() );
       }
+      assert null != this.$$arezr$$_child;
       ( (MultipleReferenceWithInverseWithSameTarget_Arez_RoleType) this.$$arezr$$_child ).$$arezir$$_parentGeneralisation_zset( this );
     }
   }
@@ -227,7 +237,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
   @Override
   public String toString() {
     if ( Arez.areNamesEnabled() ) {
-      return "ArezComponent[" + this.$$arezi$$_kernel.getName() + "]";
+      return "ArezComponent[" + this.$$arezi$$_kernel().getName() + "]";
     } else {
       return super.toString();
     }

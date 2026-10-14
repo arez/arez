@@ -25,23 +25,23 @@ import org.testng.annotations.Test;
 public final class AutoObserveLazyReferenceIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
-        final TypeBasedLocator locator = new TypeBasedLocator();
+        final var locator = new TypeBasedLocator();
         Arez.context().registerLocator(locator);
 
-        final AtomicInteger findCallCount = new AtomicInteger();
+        final var findCallCount = new AtomicInteger();
         final HashMap<Object, Child> entities = new HashMap<>();
         locator.registerLookup(Child.class, id -> {
             findCallCount.incrementAndGet();
             return entities.get(id);
         });
 
-        final Child child = Child.create();
+        final var child = Child.create();
         final Object childId = Objects.requireNonNull(Identifiable.getArezId(child));
         entities.put(childId, child);
 
         assertEquals(findCallCount.get(), 0);
 
-        final Owner owner = Owner.create(childId);
+        final var owner = Owner.create(childId);
 
         assertEquals(findCallCount.get(), 1);
         assertFalse(Disposable.isDisposed(child));

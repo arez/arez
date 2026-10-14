@@ -25,7 +25,7 @@ abstract class ObservableNoSettersModel
   }
 
   @ObservableValueRef
-  abstract @Nullable ObservableValue<Collection<String>> getCollectionObservableValue();
+  abstract @Nullable ObservableValue<@Nullable Collection<String>> getCollectionObservableValue();
 
   @Observable( expectSetter = false )
   public @Nullable Set<String> getSet()
@@ -34,7 +34,7 @@ abstract class ObservableNoSettersModel
   }
 
   @ObservableValueRef
-  abstract @Nullable ObservableValue<Set<String>> getSetObservableValue();
+  abstract @Nullable ObservableValue<@Nullable Set<String>> getSetObservableValue();
 
   @Observable( expectSetter = false )
   public @Nullable List<String> getList()
@@ -43,7 +43,7 @@ abstract class ObservableNoSettersModel
   }
 
   @ObservableValueRef
-  abstract @Nullable ObservableValue<List<String>> getListObservableValue();
+  abstract @Nullable ObservableValue<@Nullable List<String>> getListObservableValue();
 
   @Observable( expectSetter = false )
   public @Nullable Map<String, String> getMap()
@@ -52,5 +52,5 @@ abstract class ObservableNoSettersModel
   }
 
   @ObservableValueRef
-  abstract @Nullable ObservableValue<Map<String, String>> getMapObservableValue();
+  abstract @Nullable ObservableValue<@Nullable Map<String, String>> getMapObservableValue();
 }

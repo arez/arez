@@ -240,7 +240,7 @@ final class ComponentDescriptor {
         return getReferences().values().stream()
                 .filter(ReferenceDescriptor::hasInverse)
                 .anyMatch(reference -> {
-                    final TypeElement typeElement = (TypeElement) processingEnv
+                    final var typeElement = (TypeElement) processingEnv
                             .getTypeUtils()
                             .asElement(reference.getMethod().getReturnType());
                     return ElementsUtil.areTypesInDifferentPackage(typeElement, getElement());

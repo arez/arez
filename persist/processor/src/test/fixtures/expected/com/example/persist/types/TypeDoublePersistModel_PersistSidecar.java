@@ -64,7 +64,7 @@ abstract class TypeDoublePersistModel_PersistSidecar {
   static void scheduleAttach(final Scope scope, final TypeDoublePersistModel peer) {
     assert Disposable.isNotDisposed( scope );
     assert Disposable.isNotDisposed( peer );
-    Arez.context().task( Arez.areNamesEnabled() ? "TypeDoublePersistModel_PersistSidecar.attach." + ( ++c_nextTaskId ) : null, () -> maybeAttach( scope, peer ) );
+    Arez.context().task( Arez.areNamesEnabled() ? "TypeDoublePersistModel_PersistSidecar.attach." + ++c_nextTaskId : null, () -> maybeAttach( scope, peer ) );
   }
 
   private String getComponentId() {
@@ -91,9 +91,9 @@ abstract class TypeDoublePersistModel_PersistSidecar {
   void restoreState() {
     final String $ap$_id = getComponentId();
     if ( !_appStore.isDisposed() && Disposable.isNotDisposed( _scope ) ) {
-      final @Nullable Map<String, @Nullable Object> state = _appStore.get( _scope, Keys.TYPE, $ap$_id, Converters.TYPE_CONVERTER );
+      final Map<String, @Nullable Object> state = _appStore.get( _scope, Keys.TYPE, $ap$_id, Converters.TYPE_CONVERTER );
       if ( null != state ) {
-        final @Nullable Double $prop$_value = (@Nullable Double) state.get( Keys.PROPERTY_value );
+        final var $prop$_value = (Double) state.get( Keys.PROPERTY_value );
         if ( null != $prop$_value ) {
           _peer.setValue( $prop$_value );
         }
