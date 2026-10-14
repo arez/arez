@@ -1,8 +1,8 @@
 # Task Map
 
 - Spec: [SPEC.md](../SPEC.md)
-- Status: implementing
-- Current frontier: T27
+- Status: implementation-review
+- Current frontier: None
 - Planning reviewer: /root/planning_reviewer (2/3 rounds; passed, Findings: none)
 - Plan checkpoint: human-review (approved)
 - Checkpoint basis: the user said "Proceed" after the reviewed spec/task map and
@@ -26,8 +26,10 @@
   JVM coverage reporting; legacy prerequisite/removal audit.
 - Artifact reproducibility: independent-output-base hash comparisons, including
   binary, source, Javadoc and POM outputs; cached reruns alone are insufficient.
-- Final evidence: pending
-- Current milestone: T26 removes tracked legacy tooling/support, preserves native inputs, updates contributor/public guidance and completes canonical knowledge promotion. Fresh final verification is next.
+- Final evidence: [fresh complete gate](../T27-full-gate-evidence.json), [independent 33-file artifact hashes](../T27-reproducibility-evidence.json), [isolated artifact consumer](../T27-artifact-evidence.json), [inventory audit](../T27-inventory-audit.json), [final previews](../T27-preview-evidence.json).
+- Result: tools/check.sh passed in a fresh checkout/output base with retired tools unavailable and no local override; 40 default tests, eight optimized browser tests, 31 coverage targets, 2,301 JVM TestNG invocations, 245 covered sources, complete artifacts/site/release stubs. All 33 archives/POMs and all 350 generated site files matched independent outputs.
+- Author preflight: every R01–R17 / AC01–AC17 has completed delivery-owner evidence; all retained inventories, intentional cuts, generated strict checks, archived public consumers and canonical owners inspected. No required local gate failed/skipped. GitHub-hosted Linux CI and live publication were not run.
+- Current milestone: all 27 tasks and the fresh full-scope gate are complete; canonical knowledge and independent output comparisons passed. The fresh read-only implementation review is next.
 
 ## Tasks
 
@@ -59,7 +61,7 @@
 | T24 | [Replace manual release and deployment commands](T24-release-orchestration.md) | complete | T18, T23 |
 | T25 | [Run the full check entrypoint in CI](T25-ci-ahab-coverage.md) | complete | T21, T22, T23, T24 |
 | T26 | [Remove old infrastructure and document delivered contracts](T26-remove-legacy-document-contracts.md) | complete | T25 |
-| T27 | [Verify the clean final migration and prepare implementation review](T27-final-verification.md) | pending | T26 |
+| T27 | [Verify the clean final migration and prepare implementation review](T27-final-verification.md) | complete | T26 |
 
 ## Acceptance ownership
 

@@ -1,0 +1,26 @@
+{
+  "root": "/var/folders/p8/sb9nc7pn1m1_hpg5xnfyx_vm0000gn/T/arez-final-t27-snfybinh",
+  "workspace": "/var/folders/p8/sb9nc7pn1m1_hpg5xnfyx_vm0000gn/T/arez-final-t27-snfybinh/workspace",
+  "path": "/var/folders/p8/sb9nc7pn1m1_hpg5xnfyx_vm0000gn/T/arez-final-t27-snfybinh/bin",
+  "output_base": "/var/folders/p8/sb9nc7pn1m1_hpg5xnfyx_vm0000gn/T/arez-final-t27-snfybinh/output-base",
+  "commit": "44febb4cc14850657e71515e649693ab8ba814d4",
+  "retired_tools_unavailable": [
+    "buildr",
+    "bundle",
+    "bundler",
+    "gem",
+    "gpg",
+    "irb",
+    "node",
+    "nodejs",
+    "npm",
+    "npx",
+    "rake",
+    "ruby",
+    "ruby2.6",
+    "ruby2.7",
+    "ruby3.0",
+    "yarn"
+  ],
+  "local_override": false
+}

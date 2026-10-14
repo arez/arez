@@ -1,6 +1,6 @@
 # T27 — Verify the clean final migration and prepare implementation review
 
-- Status: pending
+- Status: complete
 - Blocked by: T26
 - Spec coverage: R01, R02, R03, R04, R05, R06, R07, R08, R09, R10, R11, R12, R13, R14, R15, R16, R17, AC01, AC02, AC03, AC04, AC05, AC06, AC07, AC08, AC09, AC10, AC11, AC12, AC13, AC14, AC15, AC16, AC17
 
@@ -10,11 +10,11 @@ Task evidence and a clean final full-scope gate establish that the migration is 
 
 ## Acceptance criteria
 
-- [ ] Verify all task criteria, retained inventories, intentional cuts, public consumer/archive parity and promoted knowledge against the confirmed spec.
-- [ ] Run the complete check entrypoint without a local module override in a clean dependency/output environment; make host Ruby/Buildr/Node/Yarn unavailable for the prerequisite check.
-- [ ] Ensure coverage reports are nonempty, all eight browser apps execute in both modes, independent artifact rebuild comparisons passed and no scratch/debug files remain.
-- [ ] Record exact commands/results, residual platform/tool limits and full-gate evidence in TASKMAP.md; no required failed/skipped check can be reported as passing.
-- [ ] Commit final implementation/task/map state, then route to the fresh read-only implementation reviewer. Closeout is a workflow stage, not part of this task.
+- [x] Verify all task criteria, retained inventories, intentional cuts, public consumer/archive parity and promoted knowledge against the confirmed spec.
+- [x] Run the complete check entrypoint without a local module override in a clean dependency/output environment; make host Ruby/Buildr/Node/Yarn unavailable for the prerequisite check.
+- [x] Ensure coverage reports are nonempty, all eight browser apps execute in both modes, independent artifact rebuild comparisons passed and no scratch/debug files remain.
+- [x] Record exact commands/results, residual platform/tool limits and full-gate evidence in TASKMAP.md; no required failed/skipped check can be reported as passing.
+- [x] Commit final implementation/task/map state, then route to the fresh read-only implementation reviewer. Closeout is a workflow stage, not part of this task.
 
 ## Validation
 
@@ -25,4 +25,11 @@ Task evidence and a clean final full-scope gate establish that the migration is 
 
 ## Evidence
 
-- pending
+- Fresh local clone of 44febb4cc with a new empty Bazel output base and no local module override ran the entire tools/check.sh successfully. Wrapper startup flags disabled system/home rc; a PATH of allowlisted Unix tools plus Bazel/Python/Java excluded Ruby/Buildr/Bundler/Node/Yarn/npm and GPG. Environment/root/commit are captured in T27-clean-environment.json; complete results in T27-full-gate-evidence.json.
+- Fresh executions: all 40 default test targets, all eight ADVANCED browser targets (22 cases per mode), every strict Java 17 example/test target, packaged JVM/J2CL consumers, all 31 coverage targets and 2,301 JVM TestNG invocations. Coverage has 245 source files and 11,315 exercised lines, with no percentage gates.
+- 32 publication files plus aggregate API archive match the primary output base byte-for-byte; T27-reproducibility-evidence.json records all 33 SHA-256 values. The isolated Java 21 consumer/processor checker passed again, including compiled inherited JSpecify contracts. Entire generated site matches across the two checkouts (350 files).
+- Fresh unsigned preview has 32 artifacts / 96 entries with coordinates/checksums verified; release preparation/sign/upload/GitHub/site plumbing passed only through disposable copies/local stubs. No live signing/tag/upload/release/deploy occurred.
+- Final site/server previews verified setup, SVGs, generated snippets and aggregate API without console errors. Promise fulfilled its local fetch (200 OK); ADVANCED location route button updated both displayed values to /event. All temporary preview tabs/servers closed. Final tracked audit has no legacy config, downstream module or GWT descriptor/bootstrap; required native companions/markers remain.
+- Inventory audit retains 270 recorded JVM test source files, all 2,191 recorded method/constructor declarations, all 1,025 Arez processor fixture classname entries and all 101 original Persist fixture input/golden paths. T01–T26 criteria/evidence and all R/AC owners were checked before final completion.
+- Plan/link/canonical documentation validators and git diff --check pass. Qualified knowledge is promoted and linked in TASKMAP; no new deferral, debug change or tracked scratch file remains. Temporary independent verification caches are task evidence and will be removed after review.
+- Practical platform limit: full gate executed on macOS arm64; the GitHub-hosted Linux job has not run from this unpushed branch. Live publication remains deliberately outside authority. Implementation review is the next required workflow gate.

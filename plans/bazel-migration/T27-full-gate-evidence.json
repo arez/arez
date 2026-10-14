@@ -1,0 +1,49 @@
+{
+  "command": "tools/check.sh",
+  "checkout_commit": "44febb4cc14850657e71515e649693ab8ba814d4",
+  "startup_options": [
+    "--nosystem_rc",
+    "--nohome_rc",
+    "--output_base=/var/folders/p8/sb9nc7pn1m1_hpg5xnfyx_vm0000gn/T/arez-final-t27-snfybinh/output-base"
+  ],
+  "retired_tools_unavailable": [
+    "buildr",
+    "bundle",
+    "bundler",
+    "gem",
+    "gpg",
+    "irb",
+    "node",
+    "nodejs",
+    "npm",
+    "npx",
+    "rake",
+    "ruby",
+    "ruby2.6",
+    "ruby2.7",
+    "ruby3.0",
+    "yarn"
+  ],
+  "local_module_override": false,
+  "result": "passed",
+  "default_test_targets": 40,
+  "production_browser_targets": 8,
+  "browser_cases_per_mode": 22,
+  "jvm_coverage_targets": 31,
+  "jvm_testng_invocations": 2301,
+  "coverage": {
+    "source_files": 245,
+    "lines_found": 12298,
+    "lines_hit": 11315,
+    "branches_found": 6059,
+    "branches_hit": 4917
+  },
+  "site_identical_files": 350,
+  "site_local_links": 13910,
+  "site_broken_links": 0,
+  "unsigned_bundle_artifacts": 32,
+  "unsigned_bundle_entries": 96,
+  "release_commands": "local stubs with synthetic credentials passed",
+  "platform": "macOS arm64",
+  "unverified_external_gate": "GitHub-hosted Linux CI; live publication deliberately not run"
+}

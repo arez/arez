@@ -1,0 +1,7 @@
+{
+  "baseline_jvm_test_sources": 270,
+  "baseline_method_and_constructor_declarations_retained": 2191,
+  "processor_fixture_classname_entries_retained": 1025,
+  "missing": [],
+  "persist_fixture_paths_retained": 101
+}
