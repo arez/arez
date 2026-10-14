@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Preserve nested JSpecify qualifiers in generated observable setters that allow writes outside a transaction.
+
 * Preserve original unmarked scopes on generated overrides and constructor inputs, including inherited declarations, without changing generated observable initializer contracts.
 
 * Preserve enclosing generic types, wildcard bounds, definite non-null type variables and explicit reference return qualifiers when generating mixed-nullness contracts.

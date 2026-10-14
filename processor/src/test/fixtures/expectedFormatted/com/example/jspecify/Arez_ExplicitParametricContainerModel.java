@@ -216,6 +216,13 @@ final class Arez_ExplicitParametricContainerModel<T extends @Nullable Object>
 
   @Override
   void setValues(final List<@Nullable T> values) {
+    this.$$arezi$$_kernel()
+        .safeSetObservable(
+            Arez.areNamesEnabled() ? this.$$arezi$$_kernel().getName() + ".setValues" : null,
+            () -> this.$$arezi$$_setValues(values));
+  }
+
+  private void $$arezi$$_setValues(final List<@Nullable T> values) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -257,6 +264,13 @@ final class Arez_ExplicitParametricContainerModel<T extends @Nullable Object>
 
   @Override
   void setNonNullValues(final List<@NonNull T> values) {
+    this.$$arezi$$_kernel()
+        .safeSetObservable(
+            Arez.areNamesEnabled() ? this.$$arezi$$_kernel().getName() + ".setNonNullValues" : null,
+            () -> this.$$arezi$$_setNonNullValues(values));
+  }
+
+  private void $$arezi$$_setNonNullValues(final List<@NonNull T> values) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),

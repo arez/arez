@@ -8,8 +8,10 @@ import org.jspecify.annotations.*;
 abstract class ExplicitParametricContainerModel<T extends @Nullable Object> {
   @NullUnmarked
   ExplicitParametricContainerModel(String incoming) {}
-  @Observable abstract java.util.List<@Nullable T> getValues();
+  @Observable(writeOutsideTransaction = Feature.ENABLE)
+  abstract java.util.List<@Nullable T> getValues();
   abstract void setValues(java.util.List<@Nullable T> values);
-  @Observable abstract java.util.List<@NonNull T> getNonNullValues();
+  @Observable(writeOutsideTransaction = Feature.ENABLE)
+  abstract java.util.List<@NonNull T> getNonNullValues();
   abstract void setNonNullValues(java.util.List<@NonNull T> values);
 }

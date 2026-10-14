@@ -28,7 +28,7 @@ def main() -> None:
 load("@rules_java//java:defs.bzl", "java_binary", "java_library")
 java_binary(
     name = "consumer",
-    srcs = ["Consumer.java", "Model.java"],
+    srcs = ["Consumer.java", "Model.java", "ContainerModel.java"],
     main_class = "consumer.Consumer",
     javacopts = ["--release", "17", "-Xlint:all,-processing,-serial", "-Werror"],
     plugins = ["@arez//:arez_processor_plugin", "@arez//:arez_persist_processor_plugin"],
@@ -58,6 +58,13 @@ public final class Consumer {
     Arez.context().safeAction(() -> model.setValue("updated"));
     if (calls[0] != 2) throw new AssertionError("change propagation");
     if (model.echo(null) != null) throw new AssertionError("unmarked action");
+    var container = new Arez_ContainerModel<String>(null, java.util.List.of("initial"));
+    container.setValues(java.util.Arrays.asList((String) null));
+    Arez.context().safeAction(() -> {
+      if (container.getValues().get(0) != null)
+        throw new AssertionError("nested nullable setter outside transaction");
+    });
+    container.dispose();
     if (new arez.dom.Position(1, null, null, 2, 3, null).getLatitude() != 2)
       throw new AssertionError("DOM API");
     if (arez.promise.ObservablePromise.State.PENDING.ordinal() != 0)
@@ -92,6 +99,19 @@ abstract class Model {
   @arez.persist.Persist @Observable abstract String getValue();
   abstract void setValue(String value);
   @NullUnmarked @Action String echo(String value) { return value; }
+}
+''')
+        (workspace / "ContainerModel.java").write_text('''\
+package consumer;
+import arez.annotations.*;
+import org.jspecify.annotations.*;
+@NullMarked
+@ArezComponent(sting = Feature.DISABLE)
+abstract class ContainerModel<T extends @Nullable Object> {
+  @NullUnmarked ContainerModel(String incoming) {}
+  @Observable(writeOutsideTransaction = Feature.ENABLE)
+  abstract java.util.List<@Nullable T> getValues();
+  abstract void setValues(java.util.List<@Nullable T> values);
 }
 ''')
         (workspace / "InvalidModel.java").write_text('''\

@@ -32,7 +32,9 @@ components and generating reactive or persistent state.
    and lifecycle behavior. Internal construction state must not change declared
    inverse cardinality. Preserve unmarked scopes on overrides and original
    constructor inputs; synthetic marked initializer parameters keep explicit
-   contracts, including nested container and array positions.
+   contracts, including nested container and array positions. Public and internal
+   observable setter parameters and locals preserve the same nested qualifiers,
+   including setters that allow writes outside a transaction.
 7. Persist must resolve inherited getter/setter types in the concrete component
    context. Nullability annotations must not change converter identity; nullable
    state values retain the existing skip-null storage behavior.

@@ -3202,14 +3202,11 @@ final class ComponentGenerator {
         SuppressWarningsUtil.addSuppressWarningsIfRequired(processingEnv, builder, setterType);
         GeneratorUtil.copyWhitelistedAnnotations(setter, builder);
         buildObservableSetterImpl(processingEnv, observable, builder);
-        final VariableElement element = setter.getParameters().get(0);
-        final ParameterSpec.Builder param = ParameterSpec.builder(
-                GeneratorUtil.getTypeName(
-                        observable.getSetterType().getParameterTypes().get(0)),
-                element.getSimpleName().toString(),
-                Modifier.FINAL);
-        GeneratorUtil.copyWhitelistedAnnotations(element, param);
-        builder.addParameter(param.build());
+        builder.addParameter(
+                overrideMethod(processingEnv, observable.getComponent().getElement(), setter)
+                        .build()
+                        .parameters()
+                        .get(0));
 
         return builder.build();
     }
