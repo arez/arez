@@ -1,0 +1,136 @@
+{
+  "visibility": {
+    "production": "2 of 2 tests run in 5 ms.\n2 passed, 0 failed.",
+    "production_log": "bazel-out/darwin_arm64-opt/testlogs/extras/dom-example/visibility_browser_test/test.log",
+    "development": "2 of 2 tests run in 19 ms.\n2 passed, 0 failed.",
+    "development_log": "bazel-out/darwin_arm64-fastbuild/testlogs/extras/dom-example/visibility_browser_test/test.log",
+    "preview": {
+      "command": "python3 tools/browser/preview.py //extras/dom-example:visibility_app --port 0",
+      "observed": "Document Visibility: VISIBLE",
+      "console_errors": 0,
+      "console_warnings": 0
+    }
+  },
+  "geo": {
+    "production": "2 of 2 tests run in 5 ms.\n2 passed, 0 failed.",
+    "production_log": "bazel-out/darwin_arm64-opt/testlogs/extras/dom-example/geo_browser_test/test.log",
+    "development": "2 of 2 tests run in 23 ms.\n2 passed, 0 failed.",
+    "development_log": "bazel-out/darwin_arm64-fastbuild/testlogs/extras/dom-example/geo_browser_test/test.log",
+    "preview": {
+      "command": "python3 tools/browser/preview.py //extras/dom-example:geo_app --port 0",
+      "observed": "GeoPosition: -2; watch button present; no permission requested",
+      "console_errors": 0,
+      "console_warnings": 0
+    }
+  },
+  "idle": {
+    "production": "2 of 2 tests run in 6 ms.\n2 passed, 0 failed.",
+    "production_log": "bazel-out/darwin_arm64-opt/testlogs/extras/dom-example/idle_browser_test/test.log",
+    "development": "2 of 2 tests run in 23 ms.\n2 passed, 0 failed.",
+    "development_log": "bazel-out/darwin_arm64-fastbuild/testlogs/extras/dom-example/idle_browser_test/test.log",
+    "preview": {
+      "command": "python3 tools/browser/preview.py //extras/dom-example:idle_app --port 0",
+      "observed": "Interaction Status: Active",
+      "console_errors": 0,
+      "console_warnings": 0
+    }
+  },
+  "network": {
+    "production": "2 of 2 tests run in 5 ms.\n2 passed, 0 failed.",
+    "production_log": "bazel-out/darwin_arm64-opt/testlogs/extras/dom-example/network_browser_test/test.log",
+    "development": "2 of 2 tests run in 20 ms.\n2 passed, 0 failed.",
+    "development_log": "bazel-out/darwin_arm64-fastbuild/testlogs/extras/dom-example/network_browser_test/test.log",
+    "preview": {
+      "command": "python3 tools/browser/preview.py //extras/dom-example:network_app --port 0",
+      "observed": "Network Status: Online",
+      "console_errors": 0,
+      "console_warnings": 0
+    }
+  },
+  "matrix": {
+    "development": {
+      "//extras/dom-example:geo_browser_test": {
+        "cases": 2,
+        "report": "2 of 2 tests run in 23 ms.\n2 passed, 0 failed.",
+        "log": "bazel-out/darwin_arm64-fastbuild/testlogs/extras/dom-example/geo_browser_test/test.log"
+      },
+      "//extras/dom-example:idle_browser_test": {
+        "cases": 2,
+        "report": "2 of 2 tests run in 23 ms.\n2 passed, 0 failed.",
+        "log": "bazel-out/darwin_arm64-fastbuild/testlogs/extras/dom-example/idle_browser_test/test.log"
+      },
+      "//extras/dom-example:location_browser_test": {
+        "cases": 4,
+        "report": "4 of 4 tests run in 35 ms.\n4 passed, 0 failed.",
+        "log": "bazel-out/darwin_arm64-fastbuild/testlogs/extras/dom-example/location_browser_test/test.log"
+      },
+      "//extras/dom-example:media_browser_test": {
+        "cases": 3,
+        "report": "3 of 3 tests run in 22 ms.\n3 passed, 0 failed.",
+        "log": "bazel-out/darwin_arm64-fastbuild/testlogs/extras/dom-example/media_browser_test/test.log"
+      },
+      "//extras/dom-example:network_browser_test": {
+        "cases": 2,
+        "report": "2 of 2 tests run in 20 ms.\n2 passed, 0 failed.",
+        "log": "bazel-out/darwin_arm64-fastbuild/testlogs/extras/dom-example/network_browser_test/test.log"
+      },
+      "//extras/dom-example:size_browser_test": {
+        "cases": 2,
+        "report": "2 of 2 tests run in 19 ms.\n2 passed, 0 failed.",
+        "log": "bazel-out/darwin_arm64-fastbuild/testlogs/extras/dom-example/size_browser_test/test.log"
+      },
+      "//extras/dom-example:visibility_browser_test": {
+        "cases": 2,
+        "report": "2 of 2 tests run in 19 ms.\n2 passed, 0 failed.",
+        "log": "bazel-out/darwin_arm64-fastbuild/testlogs/extras/dom-example/visibility_browser_test/test.log"
+      },
+      "//extras/promise-example:browser_test": {
+        "cases": 5,
+        "report": "5 of 5 tests run in 21 ms.\n5 passed, 0 failed.",
+        "log": "bazel-out/darwin_arm64-fastbuild/testlogs/extras/promise-example/browser_test/test.log"
+      }
+    },
+    "production": {
+      "//extras/dom-example:geo_browser_test": {
+        "cases": 2,
+        "report": "2 of 2 tests run in 5 ms.\n2 passed, 0 failed.",
+        "log": "bazel-out/darwin_arm64-opt/testlogs/extras/dom-example/geo_browser_test/test.log"
+      },
+      "//extras/dom-example:idle_browser_test": {
+        "cases": 2,
+        "report": "2 of 2 tests run in 6 ms.\n2 passed, 0 failed.",
+        "log": "bazel-out/darwin_arm64-opt/testlogs/extras/dom-example/idle_browser_test/test.log"
+      },
+      "//extras/dom-example:location_browser_test": {
+        "cases": 4,
+        "report": "4 of 4 tests run in 10 ms.\n4 passed, 0 failed.",
+        "log": "bazel-out/darwin_arm64-opt/testlogs/extras/dom-example/location_browser_test/test.log"
+      },
+      "//extras/dom-example:media_browser_test": {
+        "cases": 3,
+        "report": "3 of 3 tests run in 5 ms.\n3 passed, 0 failed.",
+        "log": "bazel-out/darwin_arm64-opt/testlogs/extras/dom-example/media_browser_test/test.log"
+      },
+      "//extras/dom-example:network_browser_test": {
+        "cases": 2,
+        "report": "2 of 2 tests run in 5 ms.\n2 passed, 0 failed.",
+        "log": "bazel-out/darwin_arm64-opt/testlogs/extras/dom-example/network_browser_test/test.log"
+      },
+      "//extras/dom-example:size_browser_test": {
+        "cases": 2,
+        "report": "2 of 2 tests run in 4 ms.\n2 passed, 0 failed.",
+        "log": "bazel-out/darwin_arm64-opt/testlogs/extras/dom-example/size_browser_test/test.log"
+      },
+      "//extras/dom-example:visibility_browser_test": {
+        "cases": 2,
+        "report": "2 of 2 tests run in 5 ms.\n2 passed, 0 failed.",
+        "log": "bazel-out/darwin_arm64-opt/testlogs/extras/dom-example/visibility_browser_test/test.log"
+      },
+      "//extras/promise-example:browser_test": {
+        "cases": 5,
+        "report": "5 of 5 tests run in 6 ms.\n5 passed, 0 failed.",
+        "log": "bazel-out/darwin_arm64-opt/testlogs/extras/promise-example/browser_test/test.log"
+      }
+    }
+  }
+}

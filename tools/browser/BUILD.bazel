@@ -19,6 +19,13 @@ closure_js_library(
     srcs = ["fixtures.js"],
 )
 
+closure_js_library(
+    name = "clock",
+    testonly = True,
+    srcs = ["clock.js"],
+    deps = [":fixtures"],
+)
+
 config_setting(
     name = "production",
     values = {"compilation_mode": "opt"},

@@ -1,35 +1,37 @@
 package arez.dom.example;
 
 import arez.Arez;
+import arez.Disposable;
+import arez.Observer;
 import arez.dom.NetworkStatus;
-import com.google.gwt.core.client.EntryPoint;
 import jsinterop.annotations.JsMethod;
-import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsProperty;
-import jsinterop.annotations.JsType;
+import org.jspecify.annotations.NullMarked;
 
-public class NetworkStatusExample implements EntryPoint {
-    @JsType(isNative = true, name = "Element", namespace = JsPackage.GLOBAL)
-    private static class Element {
-        @JsProperty
-        native void setTextContent(String text);
+@NullMarked
+public final class NetworkStatusExample {
+    private final NetworkStatus _model = NetworkStatus.create();
+    private final Observer _observer;
+
+    private NetworkStatusExample() {
+        _observer = Arez.context().observer(() -> {
+            final String message = "Network Status: " + (_model.isOnLine() ? "Online" : "Offline");
+            ExampleDom.element("#network").setTextContent(message);
+        });
     }
 
-    @JsType(isNative = true, name = "Document", namespace = JsPackage.GLOBAL)
-    private static class Document {
-        @JsMethod
-        native Element querySelector(String selector);
+    @JsMethod
+    public static NetworkStatusExample bootstrap() {
+        return new NetworkStatusExample();
     }
 
-    @Override
-    public void onModuleLoad() {
-        final NetworkStatus networkStatus = NetworkStatus.create();
-        Arez.context()
-                .observer(() -> document()
-                        .querySelector("#network")
-                        .setTextContent("Network Status: " + (networkStatus.isOnLine() ? "Online" : "Offline")));
+    @JsMethod
+    public void dispose() {
+        _observer.dispose();
+        Disposable.dispose(_model);
     }
 
-    @JsProperty(name = "document", namespace = JsPackage.GLOBAL)
-    private static native Document document();
+    @JsMethod
+    public boolean isDisposed() {
+        return _observer.isDisposed() && Disposable.isDisposed(_model);
+    }
 }

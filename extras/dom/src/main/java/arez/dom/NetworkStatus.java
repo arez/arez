@@ -129,9 +129,9 @@ public abstract class NetworkStatus {
     @JsProperty(name = "navigator", namespace = JsPackage.GLOBAL)
     private static native Navigator navigator();
 
-    @JsMethod(name = "addEventListener", namespace = JsPackage.GLOBAL)
+    @JsMethod(name = "window.addEventListener", namespace = JsPackage.GLOBAL)
     private static native void addEventListener(String type, EventListener listener);
 
-    @JsMethod(name = "removeEventListener", namespace = JsPackage.GLOBAL)
+    @JsMethod(name = "window.removeEventListener", namespace = JsPackage.GLOBAL)
     private static native void removeEventListener(String type, EventListener listener);
 }

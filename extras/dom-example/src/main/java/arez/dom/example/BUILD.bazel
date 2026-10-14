@@ -36,3 +36,47 @@ exports_files(
     ["public/MediaQueryExample.html"],
     visibility = ["//extras/dom-example:__pkg__"],
 )
+
+filegroup(
+    name = "visibility_java_sources",
+    srcs = ["DocumentVisibilityExample.java"],
+    visibility = ["//extras/dom-example:__pkg__"],
+)
+
+exports_files(
+    ["public/DocumentVisibilityExample.html"],
+    visibility = ["//extras/dom-example:__pkg__"],
+)
+
+filegroup(
+    name = "geo_java_sources",
+    srcs = ["GeoPositionExample.java"],
+    visibility = ["//extras/dom-example:__pkg__"],
+)
+
+exports_files(
+    ["public/GeoPositionExample.html"],
+    visibility = ["//extras/dom-example:__pkg__"],
+)
+
+filegroup(
+    name = "idle_java_sources",
+    srcs = ["IdleStatusExample.java"],
+    visibility = ["//extras/dom-example:__pkg__"],
+)
+
+exports_files(
+    ["public/IdleStatusExample.html"],
+    visibility = ["//extras/dom-example:__pkg__"],
+)
+
+filegroup(
+    name = "network_java_sources",
+    srcs = ["NetworkStatusExample.java"],
+    visibility = ["//extras/dom-example:__pkg__"],
+)
+
+exports_files(
+    ["public/NetworkStatusExample.html"],
+    visibility = ["//extras/dom-example:__pkg__"],
+)

@@ -28,11 +28,13 @@ function click(id) {
 
 /**
  * @param {!EventTarget} target
- * @param {string} type
+ * @param {(string|!Array<string>)} type
  * @return {{count: function(): number, restore: function(): void}}
  */
 function trackEvents(target, type) {
-  const listeners = new Set();
+  const types = new Set(typeof type === 'string' ? [type] : type);
+  /** @type {!Map<string, !Set<(EventListener|function(!Event):*|null)>>} */
+  const listeners = new Map();
   const add = target.addEventListener;
   const remove = target.removeEventListener;
   /**
@@ -41,7 +43,14 @@ function trackEvents(target, type) {
    * @param {(boolean|!AddEventListenerOptions)=} options
    */
   const trackedAdd = (eventType, listener, options) => {
-    if (eventType === type) listeners.add(listener);
+    if (types.has(eventType)) {
+      let set = listeners.get(eventType);
+      if (!set) {
+        set = new Set();
+        listeners.set(eventType, set);
+      }
+      set.add(listener);
+    }
     add.call(target, eventType, listener, options);
   };
   Reflect.set(target, 'addEventListener', trackedAdd);
@@ -51,12 +60,18 @@ function trackEvents(target, type) {
    * @param {(boolean|!EventListenerOptions)=} options
    */
   const trackedRemove = (eventType, listener, options) => {
-    if (eventType === type) listeners.delete(listener);
+    const set = listeners.get(eventType);
+    if (set) set.delete(listener);
     remove.call(target, eventType, listener, options);
   };
   Reflect.set(target, 'removeEventListener', trackedRemove);
   return {
-    count: () => listeners.size,
+    count: () => {
+      /** @type {number} */
+      let count = 0;
+      listeners.forEach((set) => count += set.size);
+      return count;
+    },
     restore: () => {
       Reflect.set(target, 'addEventListener', add);
       Reflect.set(target, 'removeEventListener', remove);
@@ -64,4 +79,19 @@ function trackEvents(target, type) {
   };
 }
 
-exports = {append, click, element, trackEvents};
+/**
+ * @param {!Object} target
+ * @param {string} key
+ * @param {*} value
+ * @return {function():void}
+ */
+function replaceProperty(target, key, value) {
+  const original = Object.getOwnPropertyDescriptor(target, key);
+  Object.defineProperty(target, key, {configurable: true, writable: true, value});
+  return () => {
+    if (original) Object.defineProperty(target, key, original);
+    else Reflect.deleteProperty(target, key);
+  };
+}
+
+exports = {append, click, element, replaceProperty, trackEvents};

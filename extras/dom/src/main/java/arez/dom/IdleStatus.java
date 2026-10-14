@@ -283,13 +283,13 @@ public abstract class IdleStatus {
         setLastActivityAt(System.currentTimeMillis());
     }
 
-    @JsMethod(name = "addEventListener", namespace = JsPackage.GLOBAL)
+    @JsMethod(name = "window.addEventListener", namespace = JsPackage.GLOBAL)
     private static native void addEventListener(String type, EventListener listener);
 
-    @JsMethod(name = "addEventListener", namespace = JsPackage.GLOBAL)
+    @JsMethod(name = "window.addEventListener", namespace = JsPackage.GLOBAL)
     private static native void addEventListener(String type, EventListener listener, AddEventListenerOptions options);
 
-    @JsMethod(name = "removeEventListener", namespace = JsPackage.GLOBAL)
+    @JsMethod(name = "window.removeEventListener", namespace = JsPackage.GLOBAL)
     private static native void removeEventListener(String type, EventListener listener);
 
     @JsMethod(name = "clearTimeout", namespace = JsPackage.GLOBAL)

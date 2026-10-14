@@ -1,23 +1,38 @@
 package arez.dom.example;
 
 import arez.Arez;
+import arez.Disposable;
+import arez.Observer;
 import arez.dom.IdleStatus;
-import com.google.gwt.core.client.EntryPoint;
 import jsinterop.annotations.JsMethod;
-import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsType;
+import org.jspecify.annotations.NullMarked;
 
-public class IdleStatusExample implements EntryPoint {
-    @JsType(isNative = true, name = "globalThis.console", namespace = JsPackage.GLOBAL)
-    private static final class NativeConsole {
-        @JsMethod
-        private static native void log(Object message);
+@NullMarked
+public final class IdleStatusExample {
+    private final IdleStatus _model = IdleStatus.create();
+    private final Observer _observer;
+
+    private IdleStatusExample() {
+        _observer = Arez.context().observer(() -> {
+            final String message = "Interaction Status: " + (_model.isIdle() ? "Idle" : "Active");
+            ExampleDom.element("#idle").setTextContent(message);
+            ExampleDom.log(message);
+        });
     }
 
-    @Override
-    public void onModuleLoad() {
-        final IdleStatus idleStatus = IdleStatus.create();
-        Arez.context()
-                .observer(() -> NativeConsole.log("Interaction Status: " + (idleStatus.isIdle() ? "Idle" : "Active")));
+    @JsMethod
+    public static IdleStatusExample bootstrap() {
+        return new IdleStatusExample();
+    }
+
+    @JsMethod
+    public void dispose() {
+        _observer.dispose();
+        Disposable.dispose(_model);
+    }
+
+    @JsMethod
+    public boolean isDisposed() {
+        return _observer.isDisposed() && Disposable.isDisposed(_model);
     }
 }

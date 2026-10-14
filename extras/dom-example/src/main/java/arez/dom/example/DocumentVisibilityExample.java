@@ -1,21 +1,38 @@
 package arez.dom.example;
 
 import arez.Arez;
+import arez.Disposable;
+import arez.Observer;
 import arez.dom.DocumentVisibility;
-import com.google.gwt.core.client.EntryPoint;
 import jsinterop.annotations.JsMethod;
-import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsType;
+import org.jspecify.annotations.NullMarked;
 
-public class DocumentVisibilityExample implements EntryPoint {
-    @JsType(isNative = true, name = "globalThis.console", namespace = JsPackage.GLOBAL)
-    private static final class NativeConsole {
-        @JsMethod
-        private static native void log(Object message);
+@NullMarked
+public final class DocumentVisibilityExample {
+    private final DocumentVisibility _model = DocumentVisibility.create();
+    private final Observer _observer;
+
+    private DocumentVisibilityExample() {
+        _observer = Arez.context().observer(() -> {
+            final String message = "Document Visibility: " + _model.getVisibility();
+            ExampleDom.element("#visibility").setTextContent(message);
+            ExampleDom.log(message);
+        });
     }
 
-    public void onModuleLoad() {
-        final DocumentVisibility v = DocumentVisibility.create();
-        Arez.context().observer(() -> NativeConsole.log("Document Visibility: " + v.getVisibility()));
+    @JsMethod
+    public static DocumentVisibilityExample bootstrap() {
+        return new DocumentVisibilityExample();
+    }
+
+    @JsMethod
+    public void dispose() {
+        _observer.dispose();
+        Disposable.dispose(_model);
+    }
+
+    @JsMethod
+    public boolean isDisposed() {
+        return _observer.isDisposed() && Disposable.isDisposed(_model);
     }
 }

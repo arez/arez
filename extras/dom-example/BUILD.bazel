@@ -32,9 +32,13 @@ java_library(
     name = "java",
     testonly = True,
     exports = [
+        ":geo_java",
+        ":idle_java",
         ":location_java",
         ":media_java",
+        ":network_java",
         ":size_java",
+        ":visibility_java",
         "//tools/browser:test_support_java",
     ],
 )
@@ -196,6 +200,223 @@ browser_test(
     entry_point = "arez.dom.example.MediaQueryExampleTest",
     deps = [
         ":media",
+        "//tools/browser:fixtures",
+        "//tools/browser:test_support",
+    ],
+)
+
+java_library(
+    name = "visibility_java",
+    srcs = ["//extras/dom-example/src/main/java/arez/dom/example:visibility_java_sources"],
+    deps = [
+        ":common_java",
+        "//:core",
+        "//:dom",
+        "//third_party/java:jsinterop_annotations",
+    ],
+)
+
+release_source_jar(
+    name = "visibility_sources",
+    out = "visibility-sources.jar",
+    java_targets = [":visibility_java"],
+)
+
+j2cl_library(
+    name = "visibility",
+    srcs = [":visibility_sources"],
+    experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
+    deps = [
+        ":common",
+        "//:core-j2cl",
+        "//:dom-j2cl",
+        "//third_party/java:jsinterop_annotations-j2cl",
+        "//third_party/java:jspecify-j2cl",
+    ],
+)
+
+closure_js_library(
+    name = "visibility_entry",
+    srcs = ["src/main/js/visibility/entry.js"],
+    deps = [":visibility"],
+)
+
+browser_application(
+    name = "visibility_app",
+    entry_point = "arez.dom.example.DocumentVisibilityExampleEntry",
+    html = "//extras/dom-example/src/main/java/arez/dom/example:public/DocumentVisibilityExample.html",
+    deps = [":visibility_entry"],
+)
+
+browser_test(
+    name = "visibility_browser_test",
+    srcs = ["src/test/js/visibility_test.js"],
+    entry_point = "arez.dom.example.DocumentVisibilityExampleTest",
+    deps = [
+        ":visibility",
+        "//tools/browser:fixtures",
+        "//tools/browser:test_support",
+    ],
+)
+
+java_library(
+    name = "geo_java",
+    srcs = ["//extras/dom-example/src/main/java/arez/dom/example:geo_java_sources"],
+    deps = [
+        ":common_java",
+        "//:core",
+        "//:dom",
+        "//third_party/java:jsinterop_annotations",
+    ],
+)
+
+release_source_jar(
+    name = "geo_sources",
+    out = "geo-sources.jar",
+    java_targets = [":geo_java"],
+)
+
+j2cl_library(
+    name = "geo",
+    srcs = [":geo_sources"],
+    experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
+    deps = [
+        ":common",
+        "//:core-j2cl",
+        "//:dom-j2cl",
+        "//third_party/java:jsinterop_annotations-j2cl",
+        "//third_party/java:jspecify-j2cl",
+    ],
+)
+
+closure_js_library(
+    name = "geo_entry",
+    srcs = ["src/main/js/geo/entry.js"],
+    deps = [":geo"],
+)
+
+browser_application(
+    name = "geo_app",
+    entry_point = "arez.dom.example.GeoPositionExampleEntry",
+    html = "//extras/dom-example/src/main/java/arez/dom/example:public/GeoPositionExample.html",
+    deps = [":geo_entry"],
+)
+
+browser_test(
+    name = "geo_browser_test",
+    srcs = ["src/test/js/geo_test.js"],
+    entry_point = "arez.dom.example.GeoPositionExampleTest",
+    deps = [
+        ":geo",
+        "//tools/browser:fixtures",
+        "//tools/browser:test_support",
+    ],
+)
+
+java_library(
+    name = "idle_java",
+    srcs = ["//extras/dom-example/src/main/java/arez/dom/example:idle_java_sources"],
+    deps = [
+        ":common_java",
+        "//:core",
+        "//:dom",
+        "//third_party/java:jsinterop_annotations",
+    ],
+)
+
+release_source_jar(
+    name = "idle_sources",
+    out = "idle-sources.jar",
+    java_targets = [":idle_java"],
+)
+
+j2cl_library(
+    name = "idle",
+    srcs = [":idle_sources"],
+    experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
+    deps = [
+        ":common",
+        "//:core-j2cl",
+        "//:dom-j2cl",
+        "//third_party/java:jsinterop_annotations-j2cl",
+        "//third_party/java:jspecify-j2cl",
+    ],
+)
+
+closure_js_library(
+    name = "idle_entry",
+    srcs = ["src/main/js/idle/entry.js"],
+    deps = [":idle"],
+)
+
+browser_application(
+    name = "idle_app",
+    entry_point = "arez.dom.example.IdleStatusExampleEntry",
+    html = "//extras/dom-example/src/main/java/arez/dom/example:public/IdleStatusExample.html",
+    deps = [":idle_entry"],
+)
+
+browser_test(
+    name = "idle_browser_test",
+    srcs = ["src/test/js/idle_test.js"],
+    entry_point = "arez.dom.example.IdleStatusExampleTest",
+    deps = [
+        ":idle",
+        "//tools/browser:clock",
+        "//tools/browser:fixtures",
+        "//tools/browser:test_support",
+    ],
+)
+
+java_library(
+    name = "network_java",
+    srcs = ["//extras/dom-example/src/main/java/arez/dom/example:network_java_sources"],
+    deps = [
+        ":common_java",
+        "//:core",
+        "//:dom",
+        "//third_party/java:jsinterop_annotations",
+    ],
+)
+
+release_source_jar(
+    name = "network_sources",
+    out = "network-sources.jar",
+    java_targets = [":network_java"],
+)
+
+j2cl_library(
+    name = "network",
+    srcs = [":network_sources"],
+    experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
+    deps = [
+        ":common",
+        "//:core-j2cl",
+        "//:dom-j2cl",
+        "//third_party/java:jsinterop_annotations-j2cl",
+        "//third_party/java:jspecify-j2cl",
+    ],
+)
+
+closure_js_library(
+    name = "network_entry",
+    srcs = ["src/main/js/network/entry.js"],
+    deps = [":network"],
+)
+
+browser_application(
+    name = "network_app",
+    entry_point = "arez.dom.example.NetworkStatusExampleEntry",
+    html = "//extras/dom-example/src/main/java/arez/dom/example:public/NetworkStatusExample.html",
+    deps = [":network_entry"],
+)
+
+browser_test(
+    name = "network_browser_test",
+    srcs = ["src/test/js/network_test.js"],
+    entry_point = "arez.dom.example.NetworkStatusExampleTest",
+    deps = [
+        ":network",
         "//tools/browser:fixtures",
         "//tools/browser:test_support",
     ],

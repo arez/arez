@@ -164,6 +164,10 @@ The location, window-size and media-query examples use the same commands under
 | Browser location | `:location_app` | `:location_browser_test` |
 | Window size | `:size_app` | `:size_browser_test` |
 | Media query | `:media_app` | `:media_browser_test` |
+| Document visibility | `:visibility_app` | `:visibility_browser_test` |
+| Geolocation | `:geo_app` | `:geo_browser_test` |
+| Idle status | `:idle_app` | `:idle_browser_test` |
+| Network status | `:network_app` | `:network_browser_test` |
 
 For example, run `python3 tools/browser/preview.py //extras/dom-example:location_app`.
 Build `//extras/dom-example:java` for the complete strict Java 17 source gate.
@@ -171,3 +175,11 @@ Those checked source archives are also the J2CL inputs. `//:browser_tests` colle
 the browser suites as they land. Location tests cover route buttons, hash events,
 invalid-route reset and the empty-hash bootstrap. Size/media tests drive explicit
 events and query responses; all three verify that disposal removes subscriptions.
+
+Visibility and network tests control the browser properties and notifications.
+Geolocation starts on the watch button; its tests provide position, permission
+denial and timeout callbacks and check recovery, one watcher and cleanup. Idle
+tests advance a manual clock and dispatch activity events. They check the timeout
+boundary and removal of all seven listeners and pending timers. The complete
+`//:browser_tests` matrix contains all seven DOM suites plus promise, in both
+default development mode and `-c opt` production mode.

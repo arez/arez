@@ -1,57 +1,59 @@
 package arez.dom.example;
 
 import arez.Arez;
+import arez.Disposable;
+import arez.Observer;
 import arez.dom.GeoPosition;
 import arez.dom.Position;
-import com.google.gwt.core.client.EntryPoint;
-import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsMethod;
-import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsProperty;
-import jsinterop.annotations.JsType;
-import jsinterop.base.Js;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
-public class GeoPositionExample implements EntryPoint {
-    @JsFunction
-    private interface EventListener {
-        void handleEvent(Object event);
+@NullMarked
+public final class GeoPositionExample {
+    private final GeoPosition _model = GeoPosition.create();
+    private final Runnable _removeWatch;
+    private @Nullable Observer _observer;
+
+    private GeoPositionExample() {
+        ExampleDom.element("#status").setTextContent("GeoPosition: " + GeoPosition.Status.INITIAL);
+        _removeWatch = ExampleDom.listen("#watch", "click", e -> watch());
     }
 
-    @JsType(isNative = true, name = "Element", namespace = JsPackage.GLOBAL)
-    private static class Element {
-        @JsMethod
-        native void addEventListener(String type, EventListener listener);
-
-        @JsProperty
-        native void setTextContent(String text);
+    @JsMethod
+    public static GeoPositionExample bootstrap() {
+        return new GeoPositionExample();
     }
 
-    @JsType(isNative = true, name = "Document", namespace = JsPackage.GLOBAL)
-    private static class Document {
-        @JsMethod
-        native Element querySelector(String selector);
+    private void watch() {
+        if (null == _observer) {
+            _observer = Arez.context().observer(this::render);
+        }
     }
 
-    public void onModuleLoad() {
-        final GeoPosition geoPosition = GeoPosition.create();
-
-        document().querySelector("#watch").addEventListener("click", e -> {
-            Arez.context().observer(() -> {
-                final int status = geoPosition.getStatus();
-                final String errorMessage = geoPosition.getErrorMessage();
-                final Position position = geoPosition.getPosition();
-                Js.debugger();
-                document()
-                        .querySelector("#status")
-                        .setTextContent("GeoPosition: " + status
-                                + (null != position
-                                        ? " Position: " + position.getLatitude() + ", " + position.getLongitude()
-                                        : "")
-                                + (null != errorMessage ? " ErrorMessage: " + errorMessage : ""));
-            });
-        });
+    private void render() {
+        final int status = _model.getStatus();
+        final String errorMessage = _model.getErrorMessage();
+        final Position position = _model.getPosition();
+        ExampleDom.element("#status")
+                .setTextContent("GeoPosition: " + status
+                        + (null != position
+                                ? " Position: " + position.getLatitude() + ", " + position.getLongitude()
+                                : "")
+                        + (null != errorMessage ? " ErrorMessage: " + errorMessage : ""));
     }
 
-    @JsProperty(name = "document", namespace = JsPackage.GLOBAL)
-    private static native Document document();
+    @JsMethod
+    public void dispose() {
+        _removeWatch.run();
+        if (null != _observer) {
+            _observer.dispose();
+        }
+        Disposable.dispose(_model);
+    }
+
+    @JsMethod
+    public boolean isDisposed() {
+        return (null == _observer || _observer.isDisposed()) && Disposable.isDisposed(_model);
+    }
 }
