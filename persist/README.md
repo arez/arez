@@ -6,6 +6,11 @@ session or across browser sessions but allows users to supply their own mechanis
 
 ## Quick Start
 
+Use Java 17 application output and run annotation processing on JDK 21 or later. Set the Maven
+property `<arez.version>0.256</arez.version>` to the release you consume. Both processor artifacts
+are required for persisted Arez components; see [project setup](../docs/project_setup.md) for the
+Arez processor, JSpecify contracts and formatter JVM exports.
+
 The simplest way to use the library;
 
 * add the following dependencies into the build system. i.e.
@@ -14,7 +19,7 @@ The simplest way to use the library;
 <dependency>
    <groupId>org.realityforge.arez</groupId>
    <artifactId>arez-persist-core</artifactId>
-   <version>0.61</version>
+   <version>${arez.version}</version>
 </dependency>
 ```
 * To enable the annotation processor used by the framework, you need add the following
@@ -28,16 +33,18 @@ The simplest way to use the library;
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5.1</version>
+        <version>3.12.1</version>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+          <release>17</release>
+          <compilerArgs>
+            <arg>-XDaddTypeAnnotationsToSymbol=true</arg>
+          </compilerArgs>
           <useIncrementalCompilation>false</useIncrementalCompilation>
           <annotationProcessorPaths>
             <path>
-               <groupId>org.realityforge.arez.persist</groupId>
+               <groupId>org.realityforge.arez</groupId>
                <artifactId>arez-persist-processor</artifactId>
-              <version>0.256</version>
+              <version>${arez.version}</version>
             </path>
           </annotationProcessorPaths>
         </configuration>
@@ -48,29 +55,9 @@ The simplest way to use the library;
 </project>
 ```
 
-* If you are using ArezPersist within a GWT application you will also need to inherit the appropriate
-  GWT module in your `.gwt.xml` file. It is usually sufficient to add:
-
-```xml
-<module>
-  ...
-  <inherits name='arez.persist.Persist'/>
-  ...
-</module>
-```
-
-  If you want the framework to perform validation and invariant checking you can instead inherit
-  the `Dev` module instead. The `Dev` module is very useful during development as it adds a
-  level of safety and error checking, but it should not be used in production environments as it adds
-  some overhead in terms of code size and execution speed. The `Dev` module can be added via:
-
-```xml
-<module>
-  ...
-  <inherits name='arez.persist.PersistDev'/>
-  ...
-</module>
-```
+* Bazel JVM consumers use `//:persist_core` and `//:arez_persist_processor_plugin` alongside the
+  core Arez library and processor. Browser consumers compile `//:persist-core-j2cl` from the
+  published source archive. GWT descriptors and bootstraps are retired.
 
 * Configure the stores used to persist component state. There are 3 types of store included in the
   library. One store is purely in memory and is lost on application reload, one persists to the
@@ -78,7 +65,7 @@ The simplest way to use the library;
   stored in the browser's local storage and is persisted even after the tab is closed.
 
   The in-memory store is automatically created unless disable at compile time. (See the compile-time
-  settings in the `Persist.gwt.xml` module). While the other two stores must be explicitly created
+  Closure defines in `persist/core/src/main/java/arez/persist/runtime/ArezPersistConfig.native.js`). While the other two stores must be explicitly created
   via:
 
 ```java
