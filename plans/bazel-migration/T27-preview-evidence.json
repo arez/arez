@@ -1,6 +1,0 @@
-{
-  "site": "tools/site.sh serve; setup/SVG/generated snippet/all-eight aggregate API verified; no console errors",
-  "promise": "local preview fulfilled fetch with 200 OK; no console errors",
-  "dom": "ADVANCED location preview began with empty hash, route button changed both displayed values to /event; no console errors",
-  "cleanup": "temporary preview tabs and servers closed"
-}
