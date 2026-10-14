@@ -116,3 +116,16 @@ published runtime jars and isolated Java 21 processorpaths. It checks reactive
 updates, nullable generic/array contracts, persisted state and null removal,
 disposal, and the JVM-compatible extras APIs. Browser-native behavior is checked
 by the J2CL browser suites.
+
+The browser labels `@arez//:core-j2cl`, `@arez//:promise-j2cl`,
+`@arez//:dom-j2cl`, `@arez//:spytools-j2cl` and `@arez//:persist-core-j2cl`
+compile those same release source archives, including generated Java and native
+JavaScript configuration companions. JSpecify annotations are imported as
+bytecode. JVM configuration, logging and test utilities marked
+`GwtIncompatible` are stripped by J2CL; that annotation's simple name is a
+transpiler convention. It does not introduce a GWT build dependency.
+
+The J2CL Java compiler uses a pinned Java 21 runtime. The retained compilation
+smokes are `//extras/promise:compile_smoke` and
+`//extras/spytools:compile_smoke`. Their `_dev` variants exercise development
+Closure output; the base targets compile ADVANCED production output.

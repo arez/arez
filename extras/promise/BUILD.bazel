@@ -1,3 +1,5 @@
+load("@j2cl//build_defs:rules.bzl", "j2cl_application")
+load("@rules_closure//closure:defs.bzl", "closure_js_library")
 load("//third_party/java:rules.bzl", "java_library")
 
 package(default_visibility = ["//visibility:public"])
@@ -14,4 +16,16 @@ java_library(
         "//third_party/java:jsinterop_annotations",
         "//third_party/java:jspecify",
     ],
+)
+
+closure_js_library(
+    name = "compile_smoke_entry",
+    srcs = ["src/test/js/arez/promise/PromiseCompileTest.js"],
+    deps = ["//:promise-j2cl"],
+)
+
+j2cl_application(
+    name = "compile_smoke",
+    entry_points = ["arez.promise.PromiseCompileTest"],
+    deps = [":compile_smoke_entry"],
 )

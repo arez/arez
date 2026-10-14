@@ -1,0 +1,43 @@
+{
+  "//:core-j2cl": {
+    "java_compiler": "external/rules_java++toolchains+remotejdk21_macos_aarch64/bin/java",
+    "publication_source": "bazel-out/darwin_arm64-fastbuild/bin/tools/release/arez-core-sources.jar",
+    "jspecify_enabled": true,
+    "native_js": [
+      "arez/ArezConfig.native.js",
+      "arez/arez.js"
+    ],
+    "java_sources": 154
+  },
+  "//:promise-j2cl": {
+    "java_compiler": "external/rules_java++toolchains+remotejdk21_macos_aarch64/bin/java",
+    "publication_source": "bazel-out/darwin_arm64-fastbuild/bin/tools/release/arez-extras-promise-sources.jar",
+    "jspecify_enabled": true,
+    "native_js": [],
+    "java_sources": 3
+  },
+  "//:dom-j2cl": {
+    "java_compiler": "external/rules_java++toolchains+remotejdk21_macos_aarch64/bin/java",
+    "publication_source": "bazel-out/darwin_arm64-fastbuild/bin/tools/release/arez-extras-dom-sources.jar",
+    "jspecify_enabled": true,
+    "native_js": [],
+    "java_sources": 17
+  },
+  "//:spytools-j2cl": {
+    "java_compiler": "external/rules_java++toolchains+remotejdk21_macos_aarch64/bin/java",
+    "publication_source": "bazel-out/darwin_arm64-fastbuild/bin/tools/release/arez-extras-spytools-sources.jar",
+    "jspecify_enabled": true,
+    "native_js": [],
+    "java_sources": 12
+  },
+  "//:persist-core-j2cl": {
+    "java_compiler": "external/rules_java++toolchains+remotejdk21_macos_aarch64/bin/java",
+    "publication_source": "bazel-out/darwin_arm64-fastbuild/bin/tools/release/arez-persist-core-sources.jar",
+    "jspecify_enabled": true,
+    "native_js": [
+      "arez/persist/runtime/ArezPersistConfig.native.js",
+      "arez/persist/runtime/arez.persist.js"
+    ],
+    "java_sources": 29
+  }
+}
