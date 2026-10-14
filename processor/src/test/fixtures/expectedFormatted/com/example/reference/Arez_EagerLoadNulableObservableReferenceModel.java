@@ -219,7 +219,7 @@ final class Arez_EagerLoadNulableObservableReferenceModel
             () -> null != $$arezv$$_myEntity,
             () ->
                 "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-                    + "' is unable to resolve entity of type com.example.reference.EagerLoadNulableObservableReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+                    + "' is unable to resolve entity of type com.example.reference.EagerLoadNulableObservableReferenceModel.MyEntity and id = "
                     + getMyEntityId());
       }
     }
@@ -291,7 +291,7 @@ final class Arez_EagerLoadNulableObservableReferenceModel
             () -> null != $$arezr$$_myEntity,
             () ->
                 "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-                    + "' is unable to resolve entity of type com.example.reference.EagerLoadNulableObservableReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+                    + "' is unable to resolve entity of type com.example.reference.EagerLoadNulableObservableReferenceModel.MyEntity and id = "
                     + getMyEntityId());
       }
     } else {

@@ -142,7 +142,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( ObservableManyReferenceModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type ObservableManyReferenceModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( ObservableManyReferenceModel.Element.class, $$arezi$$_id() ) );
       final int $$arezv$$_observableManyReferenceModelId = this.getObservableManyReferenceModelId();
       final ObservableManyReferenceModel $$arezv$$_observableManyReferenceModel = this.$$arezi$$_locator().findById( ObservableManyReferenceModel.class, $$arezv$$_observableManyReferenceModelId );
-      Guards.apiInvariant( () -> null != $$arezv$$_observableManyReferenceModel, () -> "Reference named 'observableManyReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ObservableManyReferenceModel and id = " + getObservableManyReferenceModelId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_observableManyReferenceModel, () -> "Reference named 'observableManyReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.ObservableManyReferenceModel and id = " + getObservableManyReferenceModelId() );
     }
   }
 
@@ -189,7 +189,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
     final int id = this.getObservableManyReferenceModelId();
     this.$$arezr$$_observableManyReferenceModel = this.$$arezi$$_locator().findById( ObservableManyReferenceModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_observableManyReferenceModel, () -> "Reference named 'observableManyReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ObservableManyReferenceModel and id = " + getObservableManyReferenceModelId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_observableManyReferenceModel, () -> "Reference named 'observableManyReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.ObservableManyReferenceModel and id = " + getObservableManyReferenceModelId() );
     }
     ( (Arez_ObservableManyReferenceModel) this.$$arezr$$_observableManyReferenceModel ).$$arezir$$_elements_add( this );
   }

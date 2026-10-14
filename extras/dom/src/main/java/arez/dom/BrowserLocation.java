@@ -11,7 +11,6 @@ import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
 import java.util.Objects;
-import javax.annotation.Nonnull;
 import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
@@ -72,17 +71,14 @@ public abstract class BrowserLocation {
         native String title();
     }
 
-    @Nonnull
     private final HashChangeEventListener _listener = this::onHashChangeEvent;
     /**
      * The location according to the application.
      */
-    @Nonnull
     private String _location;
     /**
      * The location that the application is attempting to update the browser to.
      */
-    @Nonnull
     private String _targetLocation;
     /**
      * Should we prevent the default action associated with hash change.
@@ -94,7 +90,6 @@ public abstract class BrowserLocation {
      *
      * @return the BrowserLocation instance.
      */
-    @Nonnull
     public static BrowserLocation create() {
         return new Arez_BrowserLocation();
     }
@@ -129,7 +124,7 @@ public abstract class BrowserLocation {
      * @param targetLocation the location to change to.
      */
     @Action(verifyRequired = false)
-    public void changeLocation(@Nonnull final String targetLocation) {
+    public void changeLocation(final String targetLocation) {
         _targetLocation = targetLocation;
         if (targetLocation.equals(getBrowserLocation())) {
             setLocation(targetLocation);
@@ -156,18 +151,16 @@ public abstract class BrowserLocation {
      * @return the location.
      */
     @Observable
-    @Nonnull
     public String getLocation() {
         return _location;
     }
 
     @Observable
-    void setLocation(@Nonnull final String location) {
+    void setLocation(final String location) {
         _location = Objects.requireNonNull(location);
     }
 
     @Memoize(depType = DepType.AREZ_OR_EXTERNAL)
-    @Nonnull
     public String getBrowserLocation() {
         return getHash();
     }
@@ -194,19 +187,18 @@ public abstract class BrowserLocation {
         }
     }
 
-    private void onHashChangeEvent(@Nonnull final HashChangeEvent e) {
+    private void onHashChangeEvent(final HashChangeEvent e) {
         if (_preventDefault) {
             e.preventDefault();
         }
         updateBrowserLocation();
     }
 
-    @Nonnull
     private String getHash() {
         return location().hash().substring(1);
     }
 
-    private void setHash(@Nonnull final String hash) {
+    private void setHash(final String hash) {
         final Location location = location();
         if (hash.isEmpty()) {
             /*

@@ -194,7 +194,7 @@ final class Arez_NonObservableReferenceModel extends NonObservableReferenceModel
       Guards.apiInvariant(
           () -> null != $$arezv$$_myEntity,
           () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.reference.NonObservableReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+              + "' is unable to resolve entity of type com.example.reference.NonObservableReferenceModel.MyEntity and id = "
               + getMyEntityId());
     }
   }
@@ -232,7 +232,7 @@ final class Arez_NonObservableReferenceModel extends NonObservableReferenceModel
       Guards.apiInvariant(
           () -> null != $$arezr$$_myEntity,
           () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.reference.NonObservableReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+              + "' is unable to resolve entity of type com.example.reference.NonObservableReferenceModel.MyEntity and id = "
               + getMyEntityId());
     }
   }

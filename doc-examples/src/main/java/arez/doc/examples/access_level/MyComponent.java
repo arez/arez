@@ -2,10 +2,13 @@ package arez.doc.examples.access_level;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class MyComponent {
-    public static MyComponent create() {
+    public static @Nullable MyComponent create() {
         return new Arez_MyComponent();
     }
 

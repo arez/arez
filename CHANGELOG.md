@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Migrate extras and compiled examples to JSpecify. Promise value/error and spy parameter element contracts allow null; runtime reference messages retain Java type names without nullability annotation text.
+
 * Migrate Persist contracts to JSpecify, including nullable converter results and state-map values. Preserve converter identity across nullability annotations and nullable inherited properties loaded from compiled bases.
 
 * Preserve inverse cardinality for annotated collection types and inherited reference-ID nullness after generic substitution, including compiled base classes.

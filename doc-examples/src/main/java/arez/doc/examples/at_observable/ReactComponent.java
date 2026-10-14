@@ -5,11 +5,14 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.ObservableValueRef;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class ReactComponent {
     @Observable(expectSetter = false)
+    @Nullable
     Props props() {
         // Return the native props object here.
         // DOC ELIDE START
@@ -19,7 +22,7 @@ public abstract class ReactComponent {
 
     // This will be overridden and implemented in the Arez subclass
     @ObservableValueRef
-    abstract ObservableValue<Props> getPropsObservableValue();
+    abstract @Nullable ObservableValue<Props> getPropsObservableValue();
 
     // This method is wrapped in an Action to ensure change is propagated
     // correctly in arez system.
@@ -29,13 +32,14 @@ public abstract class ReactComponent {
     }
 
     // This method is invoked by the React runtime
-    void componentWillReceiveProps(@Nonnull final Props nextProps) {
+    void componentWillReceiveProps(final Props nextProps) {
         reportPropsChanged();
         // DOC ELIDE START
         // DOC ELIDE END
     }
 
     // DOC ELIDE START
+    @NullMarked
     static class Props {}
     // DOC ELIDE END
 }

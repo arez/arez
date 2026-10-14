@@ -11,9 +11,10 @@ import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.integration.util.SpyEventRecorder;
 import java.util.concurrent.atomic.AtomicBoolean;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class NonTransactionEnforcingIntegrationTest extends AbstractArezIntegrationTest {
     /**
      * Tests integration between observed and actions and sequencing of operations.
@@ -63,46 +64,42 @@ public final class NonTransactionEnforcingIntegrationTest extends AbstractArezIn
         assertMatchesFixture(recorder);
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class PersonModel {
-        @Nonnull
+
         private String _firstName;
 
-        @Nonnull
         private String _lastName;
 
-        @Nonnull
-        static PersonModel create(@Nonnull final String firstName, @Nonnull final String lastName) {
+        static PersonModel create(final String firstName, final String lastName) {
             return new NonTransactionEnforcingIntegrationTest_Arez_PersonModel(firstName, lastName);
         }
 
-        PersonModel(@Nonnull final String firstName, @Nonnull final String lastName) {
+        PersonModel(final String firstName, final String lastName) {
             _firstName = firstName;
             _lastName = lastName;
         }
 
         @Observable
-        @Nonnull
         String getFirstName() {
             return _firstName;
         }
 
-        void setFirstName(@Nonnull final String firstName) {
+        void setFirstName(final String firstName) {
             _firstName = firstName;
         }
 
         @Observable
-        @Nonnull
         String getLastName() {
             return _lastName;
         }
 
-        void setLastName(@Nonnull final String lastName) {
+        void setLastName(final String lastName) {
             _lastName = lastName;
         }
 
         @Memoize
-        @Nonnull
         String getFullName() {
             return getFirstName() + " " + getLastName();
         }

@@ -8,8 +8,11 @@ import arez.annotations.ComponentDependency;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class SetNullOnDisposeIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() throws Throwable {
@@ -52,48 +55,52 @@ public final class SetNullOnDisposeIntegrationTest extends AbstractArezIntegrati
         assertMatchesFixture(recorder);
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model1 {
-        private String _name;
+        private @Nullable String _name;
 
-        static Model1 create(final String name) {
+        static @Nullable Model1 create(final @Nullable String name) {
             return new SetNullOnDisposeIntegrationTest_Arez_Model1(name);
         }
 
-        Model1(final String name) {
+        Model1(final @Nullable String name) {
             _name = name;
         }
 
         @Observable
+        @Nullable
         String getName() {
             return _name;
         }
 
-        void setName(String name) {
+        void setName(@Nullable String name) {
             _name = name;
         }
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model2 {
         @SuppressWarnings("Arez:UnmanagedComponentReference")
-        private Model1 _reference;
+        private @Nullable Model1 _reference;
 
-        static Model2 create(final Model1 reference) {
+        static @Nullable Model2 create(final @Nullable Model1 reference) {
             return new SetNullOnDisposeIntegrationTest_Arez_Model2(reference);
         }
 
-        Model2(final Model1 reference) {
+        Model2(final @Nullable Model1 reference) {
             _reference = reference;
         }
 
         @Observable
         @ComponentDependency(action = ComponentDependency.Action.SET_NULL)
+        @Nullable
         Model1 getReference() {
             return _reference;
         }
 
-        void setReference(final Model1 reference) {
+        void setReference(final @Nullable Model1 reference) {
             _reference = reference;
         }
     }

@@ -7,13 +7,17 @@ import arez.ArezContext;
 import arez.annotations.ArezComponent;
 import arez.annotations.ContextRef;
 import arez.integration.AbstractArezIntegrationTest;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ContextRefTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent(allowEmpty = true)
     abstract static class TestComponent {
         @ContextRef
-        abstract ArezContext getContext();
+        abstract @Nullable ArezContext getContext();
     }
 
     @Test

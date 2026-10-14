@@ -10,10 +10,14 @@ import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 import arez.annotations.OnDepsChange;
 import arez.integration.AbstractArezIntegrationTest;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ObserveManualScheduleTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent
     abstract static class TestComponent1 {
         int _renderCallCount;
@@ -31,7 +35,7 @@ public final class ObserveManualScheduleTest extends AbstractArezIntegrationTest
         }
 
         @ObserverRef
-        abstract Observer getRenderObserver();
+        abstract @Nullable Observer getRenderObserver();
 
         @SuppressWarnings("UnusedReturnValue")
         @Observable

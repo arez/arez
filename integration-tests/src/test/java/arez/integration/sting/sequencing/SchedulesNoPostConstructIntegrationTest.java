@@ -9,15 +9,18 @@ import arez.annotations.Observe;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 import sting.Injectable;
 import sting.Injector;
 
+@NullMarked
 public final class SchedulesNoPostConstructIntegrationTest extends AbstractArezIntegrationTest {
-    @Nonnull
+
     private static final List<String> _events = new ArrayList<>();
 
+    @NullMarked
     @Injectable
     static class MyDependency {
         MyDependency() {
@@ -25,16 +28,17 @@ public final class SchedulesNoPostConstructIntegrationTest extends AbstractArezI
         }
 
         @Override
-        public String toString() {
+        public @Nullable String toString() {
             return "MyDependency";
         }
     }
 
+    @NullMarked
     @ArezComponent(sting = Feature.ENABLE)
     public abstract static class MyComponent {
-        private final MyDependency _dependency;
+        private final @Nullable MyDependency _dependency;
 
-        MyComponent(final MyDependency dependency) {
+        MyComponent(final @Nullable MyDependency dependency) {
             _events.add("MyComponent()");
             _events.add("MyComponent._dependency = " + dependency);
             _dependency = dependency;
@@ -47,11 +51,13 @@ public final class SchedulesNoPostConstructIntegrationTest extends AbstractArezI
         }
     }
 
+    @NullMarked
     @Injector(includes = MyComponent.class, fragmentOnly = false)
     interface MyInjector {
+        @Nullable
         MyComponent component1();
 
-        static MyInjector create() {
+        static @Nullable MyInjector create() {
             return new SchedulesNoPostConstructIntegrationTest_Sting_MyInjector();
         }
     }

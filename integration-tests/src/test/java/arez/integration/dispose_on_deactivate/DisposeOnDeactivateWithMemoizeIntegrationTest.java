@@ -14,9 +14,11 @@ import arez.component.ComponentObservable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 @SuppressWarnings("Arez:UnmanagedComponentReference")
 public final class DisposeOnDeactivateWithMemoizeIntegrationTest extends AbstractArezIntegrationTest {
     @Test
@@ -54,28 +56,30 @@ public final class DisposeOnDeactivateWithMemoizeIntegrationTest extends Abstrac
         assertMatchesFixture(recorder);
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model1 {
-        static Model1 create() {
+        static @Nullable Model1 create() {
             return new DisposeOnDeactivateWithMemoizeIntegrationTest_Arez_Model1();
         }
 
         @Observable
-        abstract String getName();
+        abstract @Nullable String getName();
 
-        abstract void setName(String name);
+        abstract void setName(@Nullable String name);
     }
 
+    @NullMarked
     @ArezComponent(disposeOnDeactivate = true)
     abstract static class Model2 {
-        static Model2 create(@Nonnull final Model1 model1) {
+        static @Nullable Model2 create(final Model1 model1) {
             return new DisposeOnDeactivateWithMemoizeIntegrationTest_Arez_Model2(model1);
         }
 
-        private final Model1 _model1;
-        final AtomicInteger _callCount = new AtomicInteger();
+        private final @Nullable Model1 _model1;
+        final @Nullable AtomicInteger _callCount = new AtomicInteger();
 
-        Model2(@Nonnull final Model1 model1) {
+        Model2(final Model1 model1) {
             _model1 = model1;
         }
 
@@ -87,17 +91,18 @@ public final class DisposeOnDeactivateWithMemoizeIntegrationTest extends Abstrac
         }
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model3 {
-        static Model3 create(@Nonnull final Model1 model1, @Nonnull final Model2 model2) {
+        static @Nullable Model3 create(final Model1 model1, final Model2 model2) {
             return new DisposeOnDeactivateWithMemoizeIntegrationTest_Arez_Model3(model1, model2);
         }
 
-        private final Model1 _model1;
-        private final Model2 _model2;
-        final AtomicInteger _callCount = new AtomicInteger();
+        private final @Nullable Model1 _model1;
+        private final @Nullable Model2 _model2;
+        final @Nullable AtomicInteger _callCount = new AtomicInteger();
 
-        Model3(@Nonnull final Model1 model1, @Nonnull final Model2 model2) {
+        Model3(final Model1 model1, final Model2 model2) {
             _model1 = model1;
             _model2 = model2;
         }

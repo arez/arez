@@ -1,6 +1,5 @@
 package arez.dom;
 
-import javax.annotation.Nonnull;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
@@ -64,8 +63,7 @@ public final class WindowSize {
      * @param window the window.
      * @return the event driven observable component.
      */
-    @Nonnull
-    public static EventDrivenValue<Window, Dimension> inner(@Nonnull final Window window) {
+    public static EventDrivenValue<Window, Dimension> inner(final Window window) {
         return EventDrivenValue.create(window, "resize", w -> new Dimension(w.innerWidth(), w.innerHeight()));
     }
 
@@ -75,8 +73,7 @@ public final class WindowSize {
      * @param window the window.
      * @return the event driven observable component.
      */
-    @Nonnull
-    public static EventDrivenValue<Window, Integer> innerHeight(@Nonnull final Window window) {
+    public static EventDrivenValue<Window, Integer> innerHeight(final Window window) {
         return EventDrivenValue.create(window, "resize", Window::innerHeight);
     }
 
@@ -86,8 +83,7 @@ public final class WindowSize {
      * @param window the window.
      * @return the event driven observable component.
      */
-    @Nonnull
-    public static EventDrivenValue<Window, Integer> innerWidth(@Nonnull final Window window) {
+    public static EventDrivenValue<Window, Integer> innerWidth(final Window window) {
         return EventDrivenValue.create(window, "resize", Window::innerWidth);
     }
 
@@ -97,8 +93,7 @@ public final class WindowSize {
      * @param window the window.
      * @return the event driven observable component.
      */
-    @Nonnull
-    public static EventDrivenValue<Window, Integer> outerHeight(@Nonnull final Window window) {
+    public static EventDrivenValue<Window, Integer> outerHeight(final Window window) {
         return EventDrivenValue.create(window, "resize", Window::outerHeight);
     }
 
@@ -108,8 +103,7 @@ public final class WindowSize {
      * @param window the window.
      * @return the event driven observable component.
      */
-    @Nonnull
-    public static EventDrivenValue<Window, Integer> outerWidth(@Nonnull final Window window) {
+    public static EventDrivenValue<Window, Integer> outerWidth(final Window window) {
         return EventDrivenValue.create(window, "resize", Window::outerWidth);
     }
 }

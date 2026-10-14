@@ -2,8 +2,11 @@ package arez.doc.examples.nested;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class MyContainer {
+    @NullMarked
     @ArezComponent
     public abstract static class MyComponent {
         // DOC ELIDE START

@@ -203,7 +203,7 @@ final class PackageAccessPostInverseAddModel_Arez_Element
       Guards.apiInvariant(
           () -> null != $$arezv$$_other,
           () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.post_inverse_add.@org.jspecify.annotations.Nullable PackageAccessPostInverseAddModel and id = "
+              + "' is unable to resolve entity of type com.example.post_inverse_add.PackageAccessPostInverseAddModel and id = "
               + getOtherId());
     }
   }
@@ -242,7 +242,7 @@ final class PackageAccessPostInverseAddModel_Arez_Element
       Guards.apiInvariant(
           () -> null != $$arezr$$_other,
           () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.post_inverse_add.@org.jspecify.annotations.Nullable PackageAccessPostInverseAddModel and id = "
+              + "' is unable to resolve entity of type com.example.post_inverse_add.PackageAccessPostInverseAddModel and id = "
               + getOtherId());
     }
     ((Arez_PackageAccessPostInverseAddModel) this.$$arezr$$_other).$$arezir$$_elements_add(this);

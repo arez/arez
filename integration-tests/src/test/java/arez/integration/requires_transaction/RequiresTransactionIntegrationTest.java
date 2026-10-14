@@ -17,10 +17,13 @@ import arez.spy.ActionCompleteEvent;
 import arez.spy.ActionStartEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 @SuppressWarnings({"UnusedReturnValue", "unused"})
 public final class RequiresTransactionIntegrationTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent(allowEmpty = true)
     abstract static class NoTransactionComponent {
         int _callCount;
@@ -43,6 +46,7 @@ public final class RequiresTransactionIntegrationTest extends AbstractArezIntegr
         assertEquals(component._callCount, 0);
     }
 
+    @NullMarked
     @ArezComponent(allowEmpty = true)
     abstract static class ReadOnlyComponent {
         int _callCount;
@@ -76,6 +80,7 @@ public final class RequiresTransactionIntegrationTest extends AbstractArezIntegr
         assertEquals(component._callCount, 1);
     }
 
+    @NullMarked
     @ArezComponent(allowEmpty = true)
     abstract static class TrackingComponent {
         int _callCount;
@@ -109,6 +114,7 @@ public final class RequiresTransactionIntegrationTest extends AbstractArezIntegr
         assertEquals(component._callCount, 1);
     }
 
+    @NullMarked
     @ArezComponent(allowEmpty = true)
     abstract static class SpyComponent {
         @RequiresTransaction
@@ -131,6 +137,7 @@ public final class RequiresTransactionIntegrationTest extends AbstractArezIntegr
         recorder.assertNextEvent(ActionCompleteEvent.class, e -> assertEquals(e.getName(), "OuterAction"));
     }
 
+    @NullMarked
     abstract static class InheritedBase {
         int _callCount;
 
@@ -140,6 +147,7 @@ public final class RequiresTransactionIntegrationTest extends AbstractArezIntegr
         }
     }
 
+    @NullMarked
     @ArezComponent(allowEmpty = true)
     abstract static class InheritedComponent extends InheritedBase {}
 
@@ -152,6 +160,7 @@ public final class RequiresTransactionIntegrationTest extends AbstractArezIntegr
         assertEquals(component._callCount, 1);
     }
 
+    @NullMarked
     interface DefaultRequiresTransactionMethods {
         @RequiresTransaction
         default int performDefault() {
@@ -159,6 +168,7 @@ public final class RequiresTransactionIntegrationTest extends AbstractArezIntegr
         }
     }
 
+    @NullMarked
     @ArezComponent(allowEmpty = true)
     abstract static class DefaultMethodComponent implements DefaultRequiresTransactionMethods {}
 

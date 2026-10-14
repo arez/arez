@@ -9,7 +9,7 @@ import arez.Observer;
 import arez.Procedure;
 import arez.SafeFunction;
 import arez.SafeProcedure;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.braincheck.BrainCheckTestUtil;
 import org.testng.IHookCallBack;
 import org.testng.IHookable;
@@ -35,33 +35,31 @@ public interface ArezTestSupport extends IHookable {
         new ArezTestHook().run(callBack, testResult);
     }
 
-    @Nonnull
     default ArezContext context() {
         return Arez.context();
     }
 
-    @Nonnull
     default Disposable pauseScheduler() {
         return context().pauseScheduler();
     }
 
-    default void observer(@Nonnull final Procedure procedure) {
+    default void observer(final Procedure procedure) {
         context().observer(procedure, Observer.Flags.AREZ_OR_NO_DEPENDENCIES);
     }
 
-    default void action(@Nonnull final Procedure action) throws Throwable {
+    default void action(final Procedure action) throws Throwable {
         context().action(action);
     }
 
-    default <T> T action(@Nonnull final Function<T> action) throws Throwable {
+    default <T extends @Nullable Object> T action(final Function<T> action) throws Throwable {
         return context().action(action);
     }
 
-    default void safeAction(@Nonnull final SafeProcedure action) {
+    default void safeAction(final SafeProcedure action) {
         context().safeAction(action);
     }
 
-    default <T> T safeAction(@Nonnull final SafeFunction<T> action) {
+    default <T extends @Nullable Object> T safeAction(final SafeFunction<T> action) {
         return context().safeAction(action);
     }
 }

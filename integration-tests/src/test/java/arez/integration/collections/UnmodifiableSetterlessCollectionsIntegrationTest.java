@@ -11,10 +11,12 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.function.Supplier;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
+@NullMarked
 @SuppressWarnings({"SimplifiableAssertion", "ExpressionComparedToItself"})
 public final class UnmodifiableSetterlessCollectionsIntegrationTest extends AbstractArezIntegrationTest {
     @Test
@@ -63,38 +65,38 @@ public final class UnmodifiableSetterlessCollectionsIntegrationTest extends Abst
         safeAction(() -> assertTrue(m1.getValue() == m1.getValue()));
     }
 
-    private <T> void assertUnmodifiable(@Nonnull final Collection<T> collection, @Nonnull final Supplier<T> creator) {
+    private <T extends @Nullable Object> void assertUnmodifiable(
+            final Collection<T> collection, final Supplier<T> creator) {
         assertUnsupportedOperation(() -> collection.add(creator.get()));
     }
 
-    private void assertUnsupportedOperation(final ThrowingRunnable runnable) {
+    private void assertUnsupportedOperation(final @Nullable ThrowingRunnable runnable) {
         assertThrows(UnsupportedOperationException.class, runnable);
     }
 
+    @NullMarked
     @SuppressWarnings("SameParameterValue")
     @ArezComponent
     abstract static class Model1 {
-        @Nonnull
+
         private Collection<String> _value = new HashSet<>();
 
-        @Nonnull
         static Model1 create() {
             return new UnmodifiableSetterlessCollectionsIntegrationTest_Arez_Model1();
         }
 
         @Observable(expectSetter = false)
-        @Nonnull
         Collection<String> getValue() {
             return _value;
         }
 
-        void setValue(@Nonnull final Collection<String> value) {
+        void setValue(final Collection<String> value) {
             getValueObservableValue().preReportChanged();
             _value = value;
             getValueObservableValue().reportChanged();
         }
 
         @ObservableValueRef
-        abstract ObservableValue<Collection<String>> getValueObservableValue();
+        abstract @Nullable ObservableValue<Collection<String>> getValueObservableValue();
     }
 }

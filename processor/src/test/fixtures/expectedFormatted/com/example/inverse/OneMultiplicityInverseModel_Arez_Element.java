@@ -204,7 +204,7 @@ final class OneMultiplicityInverseModel_Arez_Element extends OneMultiplicityInve
           () -> null != $$arezv$$_oneMultiplicityInverseModel,
           () -> "Reference named 'oneMultiplicityInverseModel' on component named '"
               + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable OneMultiplicityInverseModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.OneMultiplicityInverseModel and id = "
               + getOneMultiplicityInverseModelId());
     }
   }
@@ -247,7 +247,7 @@ final class OneMultiplicityInverseModel_Arez_Element extends OneMultiplicityInve
           () -> null != $$arezr$$_oneMultiplicityInverseModel,
           () -> "Reference named 'oneMultiplicityInverseModel' on component named '"
               + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable OneMultiplicityInverseModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.OneMultiplicityInverseModel and id = "
               + getOneMultiplicityInverseModelId());
     }
     ((Arez_OneMultiplicityInverseModel) this.$$arezr$$_oneMultiplicityInverseModel)

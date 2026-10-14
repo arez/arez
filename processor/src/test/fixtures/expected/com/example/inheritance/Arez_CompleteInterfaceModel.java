@@ -279,7 +279,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( CompleteInterfaceModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type CompleteInterfaceModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( CompleteInterfaceModel.class, $$arezi$$_id() ) );
       final int $$arezv$$_myEntityId = this.getMyEntityId();
       final BaseCompleteInterfaceModel.MyEntity $$arezv$$_myEntity = this.$$arezi$$_locator().findById( BaseCompleteInterfaceModel.MyEntity.class, $$arezv$$_myEntityId );
-      Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inheritance.other.BaseCompleteInterfaceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inheritance.other.BaseCompleteInterfaceModel.MyEntity and id = " + getMyEntityId() );
       if ( Arez.shouldCheckApiInvariants() ) {
         Guards.apiInvariant( () -> Disposable.isNotDisposed( this.$$arezd$$_parentGeneralisation ), () -> "Inverse relationship named 'parentGeneralisation' on component named '" + this.$$arezi$$_kernel.getName() + "' contains disposed element '" + this.$$arezd$$_parentGeneralisation + "'" );
       }
@@ -624,7 +624,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
     final int id = this.getMyEntityId();
     this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( BaseCompleteInterfaceModel.MyEntity.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inheritance.other.BaseCompleteInterfaceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inheritance.other.BaseCompleteInterfaceModel.MyEntity and id = " + getMyEntityId() );
     }
   }
 

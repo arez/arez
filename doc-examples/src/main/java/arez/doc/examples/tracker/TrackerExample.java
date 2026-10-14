@@ -3,10 +3,13 @@ package arez.doc.examples.tracker;
 import arez.Arez;
 import arez.Observer;
 import arez.Procedure;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @SuppressWarnings("Convert2MethodRef")
 public class TrackerExample {
-    public static void main(String[] args) throws Throwable {
+    public static void main(String @Nullable [] args) throws Throwable {
         final Procedure observedFunction = () -> {
             // Interact with arez observable state (or computable values) here
             // and any time these changed the rescheduleRender function will

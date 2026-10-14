@@ -19,9 +19,11 @@ import arez.component.internal.AbstractRepository;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class DisposeOneInverseIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
@@ -88,15 +90,16 @@ public final class DisposeOneInverseIntegrationTest extends AbstractArezIntegrat
         assertTrue(Disposable.isDisposed(wheel1));
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Wheel {
-        @Nonnull
+
         static Wheel create(final int carId) {
             return new DisposeOneInverseIntegrationTest_Arez_Wheel(carId);
         }
 
         @Reference(inverseMultiplicity = Multiplicity.ONE)
-        abstract Car getCar();
+        abstract @Nullable Car getCar();
 
         @ReferenceId
         @Observable(initializer = Feature.ENABLE)
@@ -105,20 +108,22 @@ public final class DisposeOneInverseIntegrationTest extends AbstractArezIntegrat
         abstract void setCarId(int carId);
     }
 
+    @NullMarked
     @ArezComponent(observable = Feature.ENABLE)
     abstract static class Car {
         @Inverse
-        @Nonnull
         abstract Wheel getWheel();
     }
 
+    @NullMarked
     @ArezComponent(service = Feature.ENABLE, sting = Feature.DISABLE)
     abstract static class CarRepository extends AbstractRepository<Integer, Car, CarRepository> {
-        static CarRepository newRepository() {
+        static @Nullable CarRepository newRepository() {
             return new DisposeOneInverseIntegrationTest_Arez_CarRepository();
         }
 
         @Action
+        @Nullable
         Car create() {
             final DisposeOneInverseIntegrationTest_Arez_Car entity = new DisposeOneInverseIntegrationTest_Arez_Car();
             attach(entity);
@@ -126,7 +131,7 @@ public final class DisposeOneInverseIntegrationTest extends AbstractArezIntegrat
         }
 
         @Action
-        protected void destroy(@Nonnull final Car entity) {
+        protected void destroy(final Car entity) {
             super.destroy(entity);
         }
     }

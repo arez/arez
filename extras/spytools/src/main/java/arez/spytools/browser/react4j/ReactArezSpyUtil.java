@@ -3,7 +3,7 @@ package arez.spytools.browser.react4j;
 import arez.Arez;
 import arez.spy.SpyEventHandler;
 import arez.spytools.browser.BrowserSpyUtil;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Utility class for interacting with spy capabilities.

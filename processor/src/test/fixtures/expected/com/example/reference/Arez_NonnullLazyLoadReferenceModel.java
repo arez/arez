@@ -127,7 +127,7 @@ final class Arez_NonnullLazyLoadReferenceModel extends NonnullLazyLoadReferenceM
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( NonnullLazyLoadReferenceModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type NonnullLazyLoadReferenceModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( NonnullLazyLoadReferenceModel.class, $$arezi$$_id() ) );
       final @NonNull Integer $$arezv$$_myEntityId = this.getMyEntityId();
       final NonnullLazyLoadReferenceModel.MyEntity $$arezv$$_myEntity = this.$$arezi$$_locator().findById( NonnullLazyLoadReferenceModel.MyEntity.class, $$arezv$$_myEntityId );
-      Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.NonnullLazyLoadReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.NonnullLazyLoadReferenceModel.MyEntity and id = " + getMyEntityId() );
     }
   }
 
@@ -148,7 +148,7 @@ final class Arez_NonnullLazyLoadReferenceModel extends NonnullLazyLoadReferenceM
       final @NonNull Integer id = this.getMyEntityId();
       this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( NonnullLazyLoadReferenceModel.MyEntity.class, id );
       if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.NonnullLazyLoadReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
+        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.NonnullLazyLoadReferenceModel.MyEntity and id = " + getMyEntityId() );
       }
     }
   }

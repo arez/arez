@@ -14,9 +14,10 @@ import arez.integration.util.SpyEventRecorder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class MemoizedPriorityIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() throws Throwable {
@@ -74,8 +75,7 @@ public final class MemoizedPriorityIntegrationTest extends AbstractArezIntegrati
         assertMatchesFixture(recorder);
     }
 
-    private void observer(
-            @Nonnull final Model model, @Nonnull final ArrayList<String> searches, @Nonnull final String key) {
+    private void observer(final Model model, final ArrayList<String> searches, final String key) {
         final ArezContext context = Arez.context();
         {
             final String observerName = "search1(" + key + ")";
@@ -118,31 +118,31 @@ public final class MemoizedPriorityIntegrationTest extends AbstractArezIntegrati
         }
     }
 
+    @NullMarked
     @ArezComponent
     public abstract static class Model {
-        @Nonnull
-        static Model create(@Nonnull final String name) {
+
+        static Model create(final String name) {
             return new MemoizedPriorityIntegrationTest_Arez_Model(name);
         }
 
         @Observable
-        @Nonnull
         abstract String getName();
 
-        abstract void setName(@Nonnull String name);
+        abstract void setName(String name);
 
         @Memoize(priority = Priority.LOW)
-        boolean search1(@Nonnull final String value) {
+        boolean search1(final String value) {
             return getName().contains(value);
         }
 
         @Memoize(priority = Priority.HIGH)
-        boolean search2(@Nonnull final String value) {
+        boolean search2(final String value) {
             return getName().contains(value);
         }
 
         @Memoize
-        boolean search3(@Nonnull final String value) {
+        boolean search3(final String value) {
             return getName().contains(value);
         }
     }

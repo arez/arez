@@ -132,7 +132,7 @@ final class ObservableSetInverseModel_Arez_Element extends ObservableSetInverseM
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( ObservableSetInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type ObservableSetInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( ObservableSetInverseModel.Element.class, $$arezi$$_id() ) );
       final int $$arezv$$_observableSetInverseModelId = this.getObservableSetInverseModelId();
       final ObservableSetInverseModel $$arezv$$_observableSetInverseModel = this.$$arezi$$_locator().findById( ObservableSetInverseModel.class, $$arezv$$_observableSetInverseModelId );
-      Guards.apiInvariant( () -> null != $$arezv$$_observableSetInverseModel, () -> "Reference named 'observableSetInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ObservableSetInverseModel and id = " + getObservableSetInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_observableSetInverseModel, () -> "Reference named 'observableSetInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.ObservableSetInverseModel and id = " + getObservableSetInverseModelId() );
     }
   }
 
@@ -154,7 +154,7 @@ final class ObservableSetInverseModel_Arez_Element extends ObservableSetInverseM
     final int id = this.getObservableSetInverseModelId();
     this.$$arezr$$_observableSetInverseModel = this.$$arezi$$_locator().findById( ObservableSetInverseModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_observableSetInverseModel, () -> "Reference named 'observableSetInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ObservableSetInverseModel and id = " + getObservableSetInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_observableSetInverseModel, () -> "Reference named 'observableSetInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.ObservableSetInverseModel and id = " + getObservableSetInverseModelId() );
     }
     ( (Arez_ObservableSetInverseModel) this.$$arezr$$_observableSetInverseModel ).$$arezir$$_elements_add( this );
   }

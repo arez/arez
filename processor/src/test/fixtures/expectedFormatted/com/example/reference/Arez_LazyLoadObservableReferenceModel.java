@@ -212,7 +212,7 @@ final class Arez_LazyLoadObservableReferenceModel extends LazyLoadObservableRefe
       Guards.apiInvariant(
           () -> null != $$arezv$$_myEntity,
           () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.reference.LazyLoadObservableReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+              + "' is unable to resolve entity of type com.example.reference.LazyLoadObservableReferenceModel.MyEntity and id = "
               + getMyEntityId());
     }
   }
@@ -279,7 +279,7 @@ final class Arez_LazyLoadObservableReferenceModel extends LazyLoadObservableRefe
             () -> null != $$arezr$$_myEntity,
             () ->
                 "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-                    + "' is unable to resolve entity of type com.example.reference.LazyLoadObservableReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+                    + "' is unable to resolve entity of type com.example.reference.LazyLoadObservableReferenceModel.MyEntity and id = "
                     + getMyEntityId());
       }
     }

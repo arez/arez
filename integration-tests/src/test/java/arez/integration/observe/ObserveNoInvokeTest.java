@@ -5,9 +5,12 @@ import static org.testng.Assert.*;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observe;
 import arez.integration.AbstractArezIntegrationTest;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ObserveNoInvokeTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent
     abstract static class TestComponent {
         int _observerCallCount;

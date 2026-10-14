@@ -8,9 +8,10 @@ import arez.annotations.CascadeDispose;
 import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ObservableCascadeDisposeIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario1() {
@@ -45,25 +46,26 @@ public final class ObservableCascadeDisposeIntegrationTest extends AbstractArezI
         assertTrue(Disposable.isDisposed(model2b));
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model1 {
-        @Nonnull
-        static Model1 create(@Nonnull final Model2 name) {
+
+        static Model1 create(final Model2 name) {
             return new ObservableCascadeDisposeIntegrationTest_Arez_Model1(name);
         }
 
         @SuppressWarnings("unused")
         @CascadeDispose
-        @Nonnull
         abstract Model2 getModel2();
 
         @Observable(writeOutsideTransaction = Feature.ENABLE)
-        abstract void setModel2(@Nonnull Model2 model2);
+        abstract void setModel2(Model2 model2);
     }
 
+    @NullMarked
     @ArezComponent(allowEmpty = true)
     abstract static class Model2 {
-        @Nonnull
+
         static Model2 create() {
             return new ObservableCascadeDisposeIntegrationTest_Arez_Model2();
         }

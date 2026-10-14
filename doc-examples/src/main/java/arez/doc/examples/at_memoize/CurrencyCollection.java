@@ -6,11 +6,14 @@ import arez.annotations.Observable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class CurrencyCollection {
     @Observable
-    public String getFilter() {
+    public @Nullable String getFilter() {
         // Return value used to filter currencies by their symbol
         // DOC ELIDE START
         return _filter;
@@ -18,7 +21,7 @@ public abstract class CurrencyCollection {
     }
 
     @Observable
-    public List<Currency> getCurrencies() {
+    public @Nullable List<Currency> getCurrencies() {
         // Return the list of all currencies here
         // DOC ELIDE START
         return _currencies;
@@ -34,21 +37,21 @@ public abstract class CurrencyCollection {
     // Memoized method that changes when a currency is added or removed,
     // or the filter changes
     @Memoize
-    public List<Currency> filteredCurrencies() {
+    public @Nullable List<Currency> filteredCurrencies() {
         return getCurrencies().stream()
                 .filter(c -> c.getSymbol().contains(getFilter()))
                 .collect(Collectors.toList());
     }
 
     // DOC ELIDE START
-    private List<Currency> _currencies = new ArrayList<>();
-    private String _filter;
+    private @Nullable List<Currency> _currencies = new ArrayList<>();
+    private @Nullable String _filter;
 
-    public void setFilter(final String filter) {
+    public void setFilter(final @Nullable String filter) {
         _filter = filter;
     }
 
-    public void setCurrencies(final List<Currency> currencies) {
+    public void setCurrencies(final @Nullable List<Currency> currencies) {
         _currencies = currencies;
     }
 

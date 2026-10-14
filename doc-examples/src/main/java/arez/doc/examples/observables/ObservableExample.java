@@ -1,9 +1,12 @@
 package arez.doc.examples.observables;
 
 import arez.ObservableValue;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 public class ObservableExample {
-    private ObservableValue<Integer> _valueObservableValue;
+    private @Nullable ObservableValue<Integer> _valueObservableValue;
     private int _value;
 
     public int getValue() {

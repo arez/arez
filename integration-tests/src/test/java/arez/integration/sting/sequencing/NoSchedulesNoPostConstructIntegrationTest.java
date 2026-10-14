@@ -7,15 +7,18 @@ import arez.annotations.Feature;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 import sting.Injectable;
 import sting.Injector;
 
+@NullMarked
 public final class NoSchedulesNoPostConstructIntegrationTest extends AbstractArezIntegrationTest {
-    @Nonnull
+
     private static final List<String> _events = new ArrayList<>();
 
+    @NullMarked
     @Injectable
     static class MyDependency {
         MyDependency() {
@@ -23,24 +26,27 @@ public final class NoSchedulesNoPostConstructIntegrationTest extends AbstractAre
         }
 
         @Override
-        public String toString() {
+        public @Nullable String toString() {
             return "MyDependency";
         }
     }
 
+    @NullMarked
     @ArezComponent(sting = Feature.ENABLE, allowEmpty = true)
     public abstract static class MyComponent {
-        MyComponent(final MyDependency dependency) {
+        MyComponent(final @Nullable MyDependency dependency) {
             _events.add("MyComponent()");
             _events.add("MyComponent._dependency = " + dependency);
         }
     }
 
+    @NullMarked
     @Injector(includes = MyComponent.class, fragmentOnly = false)
     interface MyInjector {
+        @Nullable
         MyComponent component1();
 
-        static MyInjector create() {
+        static @Nullable MyInjector create() {
             return new NoSchedulesNoPostConstructIntegrationTest_Sting_MyInjector();
         }
     }

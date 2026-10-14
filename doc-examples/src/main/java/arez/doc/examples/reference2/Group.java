@@ -6,17 +6,18 @@ import arez.annotations.Inverse;
 import arez.annotations.Observable;
 import java.util.Collection;
 import java.util.Objects;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class Group {
     // DOC ELIDE START
     private final int _id;
 
-    @Nonnull
     private String _name;
 
-    Group(final int id, @Nonnull final String name) {
+    Group(final int id, final String name) {
         _id = id;
         _name = Objects.requireNonNull(name);
     }
@@ -27,16 +28,15 @@ public abstract class Group {
     }
 
     @Observable
-    @Nonnull
     public String getName() {
         return _name;
     }
 
-    public void setName(@Nonnull final String name) {
+    public void setName(final String name) {
         _name = name;
     }
 
     // DOC ELIDE END
     @Inverse
-    public abstract Collection<Permission> getPermissions();
+    public abstract @Nullable Collection<Permission> getPermissions();
 }

@@ -228,7 +228,7 @@ final class ObservableZeroOrOneReferenceModel_Arez_Element
           () -> null != $$arezv$$_observableZeroOrOneReferenceModel,
           () -> "Reference named 'observableZeroOrOneReferenceModel' on component named '"
               + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ObservableZeroOrOneReferenceModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.ObservableZeroOrOneReferenceModel and id = "
               + getObservableZeroOrOneReferenceModelId());
     }
   }
@@ -304,7 +304,7 @@ final class ObservableZeroOrOneReferenceModel_Arez_Element
           () -> null != $$arezr$$_observableZeroOrOneReferenceModel,
           () -> "Reference named 'observableZeroOrOneReferenceModel' on component named '"
               + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ObservableZeroOrOneReferenceModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.ObservableZeroOrOneReferenceModel and id = "
               + getObservableZeroOrOneReferenceModelId());
     }
     ((Arez_ObservableZeroOrOneReferenceModel) this.$$arezr$$_observableZeroOrOneReferenceModel)

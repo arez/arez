@@ -15,9 +15,12 @@ import arez.spy.ActionCompleteEvent;
 import arez.spy.ActionStartEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class TrackNoReportResultTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent
     public abstract static class Model {
         @Observe(executor = Executor.EXTERNAL, reportResult = false)

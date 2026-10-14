@@ -194,7 +194,7 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel
       Guards.apiInvariant(
           () -> null != $$arezv$$_Blah,
           () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+              + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel.MyEntity and id = "
               + getMyEntityId());
     }
   }
@@ -232,7 +232,7 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel
       Guards.apiInvariant(
           () -> null != $$arezr$$_Blah,
           () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+              + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel.MyEntity and id = "
               + getMyEntityId());
     }
   }

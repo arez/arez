@@ -1,0 +1,14 @@
+{
+  "retained_JVM_owned_legacy_nullability_sources": [],
+  "direct_legacy_product_nullability_dependencies": [],
+  "pending_browser_bootstrap_sources": [
+    "extras/dom-example/src/main/java/arez/dom/example/BrowserLocationExample.java",
+    "extras/promise-example/src/main/java/arez/promise/example/ObservablePromiseExample.java"
+  ],
+  "browser_owners": "T20\u2013T22",
+  "ignored_legacy_fixture_owners": [
+    "processor/src/test/fixtures/input/com/example/jspecify/LegacyDecoratedModel.java",
+    "processor/src/test/fixtures/bad_input/com/example/jspecify/UnmarkedModel.java"
+  ],
+  "unrelated_jetbrains_metadata": "extras/spytools CssRules uses org.intellij.lang.annotations.Language; keep this dependency."
+}

@@ -11,42 +11,49 @@ import arez.annotations.Priority;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import java.util.ArrayList;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class PrioritizedSchedulerTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @SuppressWarnings("SameParameterValue")
     @ArezComponent
     abstract static class TestComponent {
-        final ArrayList<String> _calls = new ArrayList<>();
+        final @Nullable ArrayList<String> _calls = new ArrayList<>();
 
         @Observable
-        abstract String getValue1();
+        abstract @Nullable String getValue1();
 
-        abstract void setValue1(String value);
-
-        @Observable
-        abstract String getValue2();
-
-        abstract void setValue2(String value);
+        abstract void setValue1(@Nullable String value);
 
         @Observable
-        abstract String getValue3();
+        abstract @Nullable String getValue2();
 
-        abstract void setValue3(String value);
+        abstract void setValue2(@Nullable String value);
+
+        @Observable
+        abstract @Nullable String getValue3();
+
+        abstract void setValue3(@Nullable String value);
 
         @Memoize(priority = Priority.HIGH)
+        @Nullable
         String computed1() {
             _calls.add("computed1");
             return getValue1();
         }
 
         @Memoize(priority = Priority.NORMAL)
+        @Nullable
         String computed2() {
             _calls.add("computed2");
             return getValue2();
         }
 
         @Memoize(priority = Priority.LOW)
+        @Nullable
         String computed3() {
             _calls.add("computed3");
             return getValue3();

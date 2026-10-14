@@ -15,11 +15,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
+@NullMarked
 @SuppressWarnings({"SimplifiableAssertion", "ExpressionComparedToItself"})
 public final class UnmodifiableMemoizeCollectionsIntegrationTest extends AbstractArezIntegrationTest {
     @SuppressWarnings("ConstantConditions")
@@ -109,32 +110,30 @@ public final class UnmodifiableMemoizeCollectionsIntegrationTest extends Abstrac
         safeAction(() -> assertTrue(m1.calcMap2() == m1.calcMap2()));
     }
 
-    private <T> void assertUnmodifiable(@Nonnull final Collection<T> collection, @Nonnull final Supplier<T> creator) {
+    private <T extends @Nullable Object> void assertUnmodifiable(
+            final Collection<T> collection, final Supplier<T> creator) {
         assertUnsupportedOperation(() -> collection.add(creator.get()));
     }
 
-    private void assertUnsupportedOperation(final ThrowingRunnable runnable) {
+    private void assertUnsupportedOperation(final @Nullable ThrowingRunnable runnable) {
         assertThrows(UnsupportedOperationException.class, runnable);
     }
 
+    @NullMarked
     @SuppressWarnings("SameParameterValue")
     @ArezComponent
     abstract static class Model1 {
-        @Nonnull
+
         static Model1 create() {
             return new UnmodifiableMemoizeCollectionsIntegrationTest_Arez_Model1();
         }
 
-        @Nonnull
         private Collection<String> _collection = new HashSet<>();
 
-        @Nonnull
         private Set<String> _set = new HashSet<>();
 
-        @Nonnull
         private List<String> _list = new ArrayList<>();
 
-        @Nonnull
         private Map<String, String> _map = new HashMap<>();
 
         @Nullable
@@ -150,25 +149,21 @@ public final class UnmodifiableMemoizeCollectionsIntegrationTest extends Abstrac
         private Map<String, String> _map2;
 
         @Memoize
-        @Nonnull
         Collection<String> calcCollection() {
             return getCollection();
         }
 
         @Memoize
-        @Nonnull
         Set<String> calcSet() {
             return getSet();
         }
 
         @Memoize
-        @Nonnull
         List<String> calcList() {
             return getList();
         }
 
         @Memoize
-        @Nonnull
         Map<String, String> calcMap() {
             return getMap();
         }
@@ -198,25 +193,21 @@ public final class UnmodifiableMemoizeCollectionsIntegrationTest extends Abstrac
         }
 
         @Observable
-        @Nonnull
         Collection<String> getCollection() {
             return _collection;
         }
 
         @Observable
-        @Nonnull
         Set<String> getSet() {
             return _set;
         }
 
         @Observable
-        @Nonnull
         List<String> getList() {
             return _list;
         }
 
         @Observable
-        @Nonnull
         Map<String, String> getMap() {
             return _map;
         }
@@ -245,19 +236,19 @@ public final class UnmodifiableMemoizeCollectionsIntegrationTest extends Abstrac
             return _map2;
         }
 
-        void setCollection(@Nonnull final Collection<String> collection) {
+        void setCollection(final Collection<String> collection) {
             _collection = collection;
         }
 
-        void setSet(@Nonnull final Set<String> set) {
+        void setSet(final Set<String> set) {
             _set = set;
         }
 
-        void setList(@Nonnull final List<String> list) {
+        void setList(final List<String> list) {
             _list = list;
         }
 
-        void setMap(@Nonnull final Map<String, String> map) {
+        void setMap(final Map<String, String> map) {
             _map = map;
         }
 

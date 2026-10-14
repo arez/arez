@@ -15,9 +15,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class MemoizeMultipleParamsNonArezDependenciesComponentTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() throws Throwable {
@@ -84,9 +86,9 @@ public final class MemoizeMultipleParamsNonArezDependenciesComponentTest extends
     }
 
     private static void assertDependencies(
-            @Nonnull final ArezContext context,
-            @Nonnull final ComputableValue<?> computableValue,
-            @Nonnull final ComputableValue<?>... dependencies) {
+            final ArezContext context,
+            final ComputableValue<?> computableValue,
+            final ComputableValue<?>... dependencies) {
         final List<ObservableValueInfo> actual =
                 context.getSpy().asComputableValueInfo(computableValue).getDependencies();
         assertEquals(actual.size(), dependencies.length);
@@ -96,34 +98,33 @@ public final class MemoizeMultipleParamsNonArezDependenciesComponentTest extends
     }
 
     private static void assertNotObserver(
-            @Nonnull final ArezContext context,
-            @Nonnull final ComputableValue<?> observable,
-            @Nonnull final ComputableValue<?> observer) {
+            final ArezContext context, final ComputableValue<?> observable, final ComputableValue<?> observer) {
         assertFalse(context.getSpy().asComputableValueInfo(observable).getObservers().stream()
                 .anyMatch(o -> o.getName().equals(observer.getName())));
         assertFalse(context.getSpy().asComputableValueInfo(observer).getDependencies().stream()
                 .anyMatch(o -> o.getName().equals(observable.getName())));
     }
 
+    @NullMarked
     @SuppressWarnings("SameParameterValue")
     @ArezComponent
     public abstract static class Element {
-        private final Map<Integer, AtomicInteger> _callCounts = new HashMap<>();
-        private final Map<Integer, AtomicInteger> _nestedCallCounts = new HashMap<>();
-        private final Map<Integer, AtomicInteger> _outerCallCounts = new HashMap<>();
+        private final @Nullable Map<Integer, AtomicInteger> _callCounts = new HashMap<>();
+        private final @Nullable Map<Integer, AtomicInteger> _nestedCallCounts = new HashMap<>();
+        private final @Nullable Map<Integer, AtomicInteger> _outerCallCounts = new HashMap<>();
+
+        @Nullable
         String _result;
 
-        @Nonnull
-        public static Element create(@Nonnull final String result) {
+        public static Element create(final String result) {
             return new MemoizeMultipleParamsNonArezDependenciesComponentTest_Arez_Element(result);
         }
 
-        Element(@Nonnull final String result) {
+        Element(final String result) {
             _result = result;
         }
 
         @Memoize(depType = DepType.AREZ_OR_EXTERNAL)
-        @Nonnull
         String getMemoized(final int index) {
             _callCounts.computeIfAbsent(index, i -> new AtomicInteger()).incrementAndGet();
             return _result;
@@ -134,26 +135,24 @@ public final class MemoizeMultipleParamsNonArezDependenciesComponentTest extends
         }
 
         @ComputableValueRef
-        abstract ComputableValue<String> getMemoizedComputableValue(int index);
+        abstract @Nullable ComputableValue<String> getMemoizedComputableValue(int index);
 
         @Memoize
-        @Nonnull
         String getNestedMemoized(final int index) {
             _nestedCallCounts.computeIfAbsent(index, i -> new AtomicInteger()).incrementAndGet();
             return getMemoized(index);
         }
 
         @ComputableValueRef
-        abstract ComputableValue<String> getNestedMemoizedComputableValue(int index);
+        abstract @Nullable ComputableValue<String> getNestedMemoizedComputableValue(int index);
 
         @Memoize
-        @Nonnull
         String getOuterMemoized(final int index) {
             _outerCallCounts.computeIfAbsent(index, i -> new AtomicInteger()).incrementAndGet();
             return getNestedMemoized(index);
         }
 
         @ComputableValueRef
-        abstract ComputableValue<String> getOuterMemoizedComputableValue(int index);
+        abstract @Nullable ComputableValue<String> getOuterMemoizedComputableValue(int index);
     }
 }

@@ -9,9 +9,10 @@ import arez.annotations.Feature;
 import arez.component.ComponentObservable;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ObservableComponentIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void disposeNotifiesComponentObservable() {
@@ -29,9 +30,10 @@ public final class ObservableComponentIntegrationTest extends AbstractArezIntegr
         assertEquals(callCount.get(), 2);
     }
 
+    @NullMarked
     @ArezComponent(allowEmpty = true, observable = Feature.ENABLE)
     abstract static class Model {
-        @Nonnull
+
         static Model create() {
             return new ObservableComponentIntegrationTest_Arez_Model();
         }

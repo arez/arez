@@ -4,17 +4,18 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.CascadeDispose;
 import java.math.BigDecimal;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class Wallet {
     @CascadeDispose
-    @Nonnull
     final Currency aud = new Arez_Currency();
 
     // A read-write action that updates observable value
     @Action
-    public void updateAustralianDollarBalance(final BigDecimal newBalance) {
+    public void updateAustralianDollarBalance(final @Nullable BigDecimal newBalance) {
         aud.setAmount(newBalance);
     }
 

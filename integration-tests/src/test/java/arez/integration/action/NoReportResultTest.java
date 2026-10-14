@@ -13,10 +13,13 @@ import arez.spy.ActionCompleteEvent;
 import arez.spy.ActionStartEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 @SuppressWarnings({"UnusedReturnValue", "unused", "SameParameterValue"})
 public final class NoReportResultTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent
     abstract static class MyComponent {
         @Action(reportResult = false)

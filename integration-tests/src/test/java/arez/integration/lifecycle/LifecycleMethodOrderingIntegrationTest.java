@@ -18,9 +18,11 @@ import arez.annotations.PreDispose;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class LifecycleMethodOrderingIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void duplicateCapableCallbacksAcrossInheritanceChain() {
@@ -92,16 +94,17 @@ public final class LifecycleMethodOrderingIntegrationTest extends AbstractArezIn
             """.stripIndent());
     }
 
-    @Nonnull
-    private static String trace(@Nonnull final List<String> steps) {
+    private static String trace(final List<String> steps) {
         return String.join("\n", steps);
     }
 
+    @NullMarked
     interface StepRecorder {
-        @Nonnull
+
         List<String> getSteps();
     }
 
+    @NullMarked
     interface InheritedInterfaceLifecycle extends StepRecorder {
         @PostConstruct
         default void inheritedInterfacePostConstruct1() {
@@ -134,6 +137,7 @@ public final class LifecycleMethodOrderingIntegrationTest extends AbstractArezIn
         }
     }
 
+    @NullMarked
     interface DirectInterfaceLifecycle extends StepRecorder {
         @PostConstruct
         default void directInterfacePostConstruct1() {
@@ -166,20 +170,20 @@ public final class LifecycleMethodOrderingIntegrationTest extends AbstractArezIn
         }
     }
 
+    @NullMarked
     abstract static class GrandparentLifecycleModel implements InheritedInterfaceLifecycle {
-        private final ArrayList<String> _steps = new ArrayList<>();
+        private final @Nullable ArrayList<String> _steps = new ArrayList<>();
 
         GrandparentLifecycleModel() {
             step("Grandparent.constructor");
         }
 
         @Override
-        @Nonnull
         public final List<String> getSteps() {
             return _steps;
         }
 
-        protected final void step(@Nonnull final String step) {
+        protected final void step(final String step) {
             _steps.add(step);
         }
 
@@ -214,6 +218,7 @@ public final class LifecycleMethodOrderingIntegrationTest extends AbstractArezIn
         }
     }
 
+    @NullMarked
     abstract static class ParentLifecycleModel extends GrandparentLifecycleModel {
         ParentLifecycleModel() {
             step("Parent.constructor");
@@ -250,9 +255,10 @@ public final class LifecycleMethodOrderingIntegrationTest extends AbstractArezIn
         }
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class DuplicateLifecycleModel extends ParentLifecycleModel implements DirectInterfaceLifecycle {
-        @Nonnull
+
         static DuplicateLifecycleModel create() {
             return new LifecycleMethodOrderingIntegrationTest_Arez_DuplicateLifecycleModel();
         }
@@ -303,6 +309,7 @@ public final class LifecycleMethodOrderingIntegrationTest extends AbstractArezIn
         }
     }
 
+    @NullMarked
     interface RenderHooks extends StepRecorder {
         @OnDepsChange
         default void onRenderDepsChange() {
@@ -310,16 +317,16 @@ public final class LifecycleMethodOrderingIntegrationTest extends AbstractArezIn
         }
     }
 
+    @NullMarked
     abstract static class ObserverLifecycleBase implements StepRecorder {
-        private final ArrayList<String> _steps = new ArrayList<>();
+        private final @Nullable ArrayList<String> _steps = new ArrayList<>();
 
         @Override
-        @Nonnull
         public final List<String> getSteps() {
             return _steps;
         }
 
-        protected final void step(@Nonnull final String step) {
+        protected final void step(final String step) {
             _steps.add(step);
         }
 
@@ -345,9 +352,10 @@ public final class LifecycleMethodOrderingIntegrationTest extends AbstractArezIn
         }
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class ObserverLifecycleModel extends ObserverLifecycleBase implements RenderHooks {
-        @Nonnull
+
         static ObserverLifecycleModel create() {
             return new LifecycleMethodOrderingIntegrationTest_Arez_ObserverLifecycleModel();
         }

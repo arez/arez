@@ -16,15 +16,16 @@ import java.lang.reflect.Method;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import org.json.JSONException;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+@NullMarked
 @SuppressWarnings({"SameParameterValue"})
 public abstract class AbstractArezIntegrationTest {
-    @Nonnull
+
     private final List<String> _observerErrors = new ArrayList<>();
 
     private boolean _captureObserverErrors;
@@ -37,7 +38,7 @@ public abstract class AbstractArezIntegrationTest {
     }
 
     @BeforeMethod
-    public void handleTestMethodName(@Nonnull final Method method) {
+    public void handleTestMethodName(final Method method) {
         _currentMethod = method.getName();
         ArezTestUtil.resetConfig(false);
         _captureObserverErrors = false;
@@ -46,7 +47,7 @@ public abstract class AbstractArezIntegrationTest {
     }
 
     private void onObserverError(
-            @Nonnull final Observer observer, @Nonnull final ObserverError error, @Nullable final Throwable throwable) {
+            final Observer observer, final ObserverError error, @Nullable final Throwable throwable) {
         final var message = "Observer: " + observer.getName() + " Error: " + error + " " + throwable;
         _observerErrors.add(message);
         if (!_captureObserverErrors) {
@@ -65,22 +66,20 @@ public abstract class AbstractArezIntegrationTest {
         }
     }
 
-    protected final void safeAction(@Nonnull final SafeProcedure action) {
+    protected final void safeAction(final SafeProcedure action) {
         Arez.context().safeAction(action);
     }
 
-    protected final <T> T safeAction(@Nonnull final SafeFunction<T> action) {
+    protected final <T extends @Nullable Object> @Nullable T safeAction(final SafeFunction<T> action) {
         return Arez.context().safeAction(action);
     }
 
-    @Nonnull
     protected final List<String> getObserverErrors() {
         assert _captureObserverErrors;
         return _observerErrors;
     }
 
-    protected final void assertMatchesFixture(@Nonnull final SpyEventRecorder recorder)
-            throws IOException, JSONException {
+    protected final void assertMatchesFixture(final SpyEventRecorder recorder) throws IOException, JSONException {
         recorder.assertMatchesFixture(fixtureDir().resolve(getFixtureFilename()), outputFiles());
     }
 
@@ -88,12 +87,10 @@ public abstract class AbstractArezIntegrationTest {
         Arez.context().observable().reportObserved();
     }
 
-    @Nonnull
     private String getFixtureFilename() {
         return getClass().getName().replace(".", "/") + "." + _currentMethod + ".json";
     }
 
-    @Nonnull
     private Path fixtureDir() {
         final String fixtureDir = System.getProperty("arez.integration_fixture_dir");
         assertNotNull(
@@ -108,20 +105,16 @@ public abstract class AbstractArezIntegrationTest {
         return System.getProperty("arez.output_fixture_data", "false").equals("true");
     }
 
-    protected static void assertInvariant(
-            @Nonnull final ThrowingRunnable throwingRunnable, @Nonnull final String message) {
+    protected static void assertInvariant(final ThrowingRunnable throwingRunnable, final String message) {
         assertThrowsWithMessage(IllegalStateException.class, throwingRunnable, message);
     }
 
     private static <T extends Throwable> void assertThrowsWithMessage(
-            @Nonnull final Class<T> exceptionType,
-            @Nonnull final ThrowingRunnable runnable,
-            @Nonnull final String message) {
+            final Class<T> exceptionType, final ThrowingRunnable runnable, final String message) {
         assertEquals(expectThrows(exceptionType, runnable).getMessage(), message);
     }
 
-    @Nonnull
-    protected final Observer observer(@Nonnull final Procedure executable) {
+    protected final Observer observer(final Procedure executable) {
         return Arez.context().observer(() -> {
             observeADependency();
             executable.call();

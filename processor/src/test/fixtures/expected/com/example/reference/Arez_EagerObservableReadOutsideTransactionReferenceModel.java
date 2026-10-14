@@ -137,7 +137,7 @@ final class Arez_EagerObservableReadOutsideTransactionReferenceModel extends Eag
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( EagerObservableReadOutsideTransactionReferenceModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type EagerObservableReadOutsideTransactionReferenceModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( EagerObservableReadOutsideTransactionReferenceModel.class, $$arezi$$_id() ) );
       final int $$arezv$$_myEntityId = this.getMyEntityId();
       final EagerObservableReadOutsideTransactionReferenceModel.MyEntity $$arezv$$_myEntity = this.$$arezi$$_locator().findById( EagerObservableReadOutsideTransactionReferenceModel.MyEntity.class, $$arezv$$_myEntityId );
-      Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.EagerObservableReadOutsideTransactionReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.EagerObservableReadOutsideTransactionReferenceModel.MyEntity and id = " + getMyEntityId() );
     }
   }
 
@@ -183,7 +183,7 @@ final class Arez_EagerObservableReadOutsideTransactionReferenceModel extends Eag
     final int id = this.getMyEntityId();
     this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( EagerObservableReadOutsideTransactionReferenceModel.MyEntity.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.EagerObservableReadOutsideTransactionReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.EagerObservableReadOutsideTransactionReferenceModel.MyEntity and id = " + getMyEntityId() );
     }
   }
 

@@ -3943,7 +3943,7 @@ final class ComponentGenerator {
                 reference.getFieldName(),
                 reference.getName(),
                 KERNEL_FIELD_NAME,
-                reference.getMethod().getReturnType().toString(),
+                TypeName.get(reference.getMethod().getReturnType()).toString(),
                 reference.getIdMethod().getSimpleName());
         block.endControlFlow();
         builder.addCode(block.build());
@@ -3979,7 +3979,7 @@ final class ComponentGenerator {
                 reference.getFieldName(),
                 reference.getName(),
                 KERNEL_FIELD_NAME,
-                reference.getMethod().getReturnType().toString(),
+                TypeName.get(reference.getMethod().getReturnType()).toString(),
                 reference.getIdMethod().getSimpleName());
         block.endControlFlow();
         builder.add(block.build());
@@ -4088,7 +4088,7 @@ final class ComponentGenerator {
                 refName,
                 reference.getName(),
                 KERNEL_FIELD_NAME,
-                reference.getMethod().getReturnType().toString(),
+                TypeName.get(reference.getMethod().getReturnType()).toString(),
                 reference.getIdMethod().getSimpleName());
     }
 

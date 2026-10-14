@@ -7,18 +7,19 @@ import arez.annotations.Observable;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
 import java.util.Objects;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class Permission {
     // DOC ELIDE START
     private final int _id;
     private final int _groupId;
 
-    @Nonnull
     private String _name;
 
-    Permission(final int id, final int groupId, @Nonnull final String name) {
+    Permission(final int id, final int groupId, final String name) {
         _id = id;
         _groupId = groupId;
         _name = Objects.requireNonNull(name);
@@ -30,18 +31,17 @@ public abstract class Permission {
     }
 
     @Observable
-    @Nonnull
     public String getName() {
         return _name;
     }
 
-    public void setName(@Nonnull final String name) {
+    public void setName(final String name) {
         _name = name;
     }
 
     // DOC ELIDE END
     @Reference(inverse = Feature.ENABLE)
-    public abstract Group getGroup();
+    public abstract @Nullable Group getGroup();
 
     @ReferenceId
     public int getGroupId() {

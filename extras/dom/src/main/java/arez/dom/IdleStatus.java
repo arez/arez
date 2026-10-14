@@ -16,7 +16,6 @@ import arez.annotations.PreDispose;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import javax.annotation.Nonnull;
 import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
@@ -83,13 +82,10 @@ public abstract class IdleStatus {
 
     private static final long DEFAULT_TIMEOUT = 2000L;
 
-    @Nonnull
     private final TimerHandler _timeoutCallback = this::onTimeout;
 
-    @Nonnull
     private final EventListener _listener = e -> tryResetLastActivityTime();
 
-    @Nonnull
     private Set<String> _events = new HashSet<>(
             Arrays.asList("keydown", "touchstart", "scroll", "mousemove", "mouseup", "mousedown", "wheel"));
     /**
@@ -106,7 +102,6 @@ public abstract class IdleStatus {
      *
      * @return an instance of IdleStatus.
      */
-    @Nonnull
     public static IdleStatus create() {
         return create(DEFAULT_TIMEOUT);
     }
@@ -117,7 +112,6 @@ public abstract class IdleStatus {
      * @param timeout the duration to after activity before becoming idle.
      * @return an instance of IdleStatus.
      */
-    @Nonnull
     public static IdleStatus create(final long timeout) {
         return new Arez_IdleStatus(timeout);
     }
@@ -201,7 +195,6 @@ public abstract class IdleStatus {
      *
      * @return the set of events.
      */
-    @Nonnull
     @Observable
     public Set<String> getEvents() {
         return _events;
@@ -213,7 +206,7 @@ public abstract class IdleStatus {
      *
      * @param events the set of events.
      */
-    public void setEvents(@Nonnull final Set<String> events) {
+    public void setEvents(final Set<String> events) {
         final Set<String> oldEvents = _events;
         _events = new HashSet<>(events);
         updateListeners(oldEvents);
@@ -222,7 +215,7 @@ public abstract class IdleStatus {
     /**
      * Synchronize listeners against the dom based on new events.
      */
-    private void updateListeners(@Nonnull final Set<String> oldEvents) {
+    private void updateListeners(final Set<String> oldEvents) {
         if (_active) {
             // Remove any old events
             oldEvents.stream().filter(e -> !_events.contains(e)).forEach(e -> removeEventListener(e, _listener));

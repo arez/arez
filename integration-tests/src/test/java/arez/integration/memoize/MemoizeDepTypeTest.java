@@ -5,15 +5,17 @@ import arez.annotations.ArezComponent;
 import arez.annotations.DepType;
 import arez.annotations.Memoize;
 import arez.integration.AbstractArezIntegrationTest;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class MemoizeDepTypeTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @SuppressWarnings({"SameParameterValue", "unused"})
     @ArezComponent
     public abstract static class Model {
-        @Nonnull
+
         static Model create() {
             return new MemoizeDepTypeTest_Arez_Model();
         }
@@ -29,12 +31,12 @@ public final class MemoizeDepTypeTest extends AbstractArezIntegrationTest {
         }
 
         @Memoize(depType = DepType.AREZ)
-        boolean search1(@Nonnull final String value) {
+        boolean search1(final String value) {
             return false;
         }
 
         @Memoize(depType = DepType.AREZ_OR_NONE)
-        boolean search2(@Nonnull final String value) {
+        boolean search2(final String value) {
             return false;
         }
     }

@@ -1,7 +1,11 @@
 package arez.doc.examples.repository;
 
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
+
+@NullMarked
 public class RepositoryExample {
-    public static void main(String[] args) {
+    public static void main(String @Nullable [] args) {
         // EXAMPLE START
         final MyComponentRepository repository = MyComponentRepository.newRepository();
         final int myComponentId = 22;

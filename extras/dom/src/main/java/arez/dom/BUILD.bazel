@@ -13,5 +13,6 @@ filegroup(
         "NetworkStatus.java",
         "Position.java",
         "WindowSize.java",
+        "package-info.java",
     ],
 )

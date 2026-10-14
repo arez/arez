@@ -17,10 +17,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
+@NullMarked
 @SuppressWarnings({"SimplifiableAssertion", "ExpressionComparedToItself"})
 public final class UnmodifiableCollectionsIntegrationTest extends AbstractArezIntegrationTest {
     @Test
@@ -202,65 +204,63 @@ public final class UnmodifiableCollectionsIntegrationTest extends AbstractArezIn
         safeAction(() -> assertNull(m1.getPois2()));
     }
 
-    private <T> void assertUnmodifiable(@Nonnull final Collection<T> collection, @Nonnull final Supplier<T> creator) {
+    private <T extends @Nullable Object> void assertUnmodifiable(
+            final Collection<T> collection, final Supplier<T> creator) {
         assertUnsupportedOperation(() -> collection.add(creator.get()));
     }
 
-    private void assertUnsupportedOperation(final ThrowingRunnable runnable) {
+    private void assertUnsupportedOperation(final @Nullable ThrowingRunnable runnable) {
         assertThrows(UnsupportedOperationException.class, runnable);
     }
 
+    @NullMarked
     @SuppressWarnings("SameParameterValue")
     @ArezComponent
     abstract static class Model1 {
-        @Nonnull
+
         static Model1 create() {
             return new UnmodifiableCollectionsIntegrationTest_Arez_Model1(
                     new HashSet<>(), new HashSet<>(), new ArrayList<>(), new HashMap<>());
         }
 
         @Observable
-        @Nonnull
         abstract Collection<String> getNames();
 
-        abstract void setNames(@Nonnull Collection<String> value);
+        abstract void setNames(Collection<String> value);
 
         @Observable
-        @Nonnull
         abstract Set<Date> getDates();
 
-        abstract void setDates(@Nonnull Set<Date> value);
+        abstract void setDates(Set<Date> value);
 
         @Observable
-        @Nonnull
         abstract List<Long> getTimes();
 
-        abstract void setTimes(@Nonnull List<Long> value);
+        abstract void setTimes(List<Long> value);
 
         @Observable
-        @Nonnull
         abstract Map<String, String> getPois();
 
-        abstract void setPois(@Nonnull Map<String, String> value);
+        abstract void setPois(Map<String, String> value);
 
         @Observable
-        abstract Collection<String> getNames2();
+        abstract @Nullable Collection<String> getNames2();
 
-        abstract void setNames2(Collection<String> value);
-
-        @Observable
-        abstract Set<Date> getDates2();
-
-        abstract void setDates2(Set<Date> value);
+        abstract void setNames2(@Nullable Collection<String> value);
 
         @Observable
-        abstract List<Long> getTimes2();
+        abstract @Nullable Set<Date> getDates2();
 
-        abstract void setTimes2(List<Long> value);
+        abstract void setDates2(@Nullable Set<Date> value);
 
         @Observable
-        abstract Map<String, String> getPois2();
+        abstract @Nullable List<Long> getTimes2();
 
-        abstract void setPois2(Map<String, String> value);
+        abstract void setTimes2(@Nullable List<Long> value);
+
+        @Observable
+        abstract @Nullable Map<String, String> getPois2();
+
+        abstract void setPois2(@Nullable Map<String, String> value);
     }
 }

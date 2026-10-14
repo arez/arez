@@ -4,18 +4,18 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
 import arez.annotations.Observable;
 import java.util.Objects;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 public abstract class User {
     private final int _id;
 
-    @Nonnull
     private String _name;
 
     private boolean _active;
 
-    User(final int id, @Nonnull final String name) {
+    User(final int id, final String name) {
         _id = id;
         _name = Objects.requireNonNull(name);
     }
@@ -26,12 +26,11 @@ public abstract class User {
     }
 
     @Observable
-    @Nonnull
     public String getName() {
         return _name;
     }
 
-    public void setName(@Nonnull final String name) {
+    public void setName(final String name) {
         _name = name;
     }
 

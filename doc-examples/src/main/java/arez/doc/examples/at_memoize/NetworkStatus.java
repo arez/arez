@@ -11,15 +11,20 @@ import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class NetworkStatus {
     // DOC ELIDE START
+    @NullMarked
     @JsFunction
     private interface EventListener {
-        void handleEvent(Object event);
+        void handleEvent(@Nullable Object event);
     }
 
+    @NullMarked
     @JsType(isNative = true, name = "Navigator", namespace = JsPackage.GLOBAL)
     private static class Navigator {
         @JsProperty(name = "onLine")
@@ -27,7 +32,7 @@ public abstract class NetworkStatus {
     }
     // DOC ELIDE END
 
-    private final EventListener _listener = e -> updateOnlineStatus();
+    private final @Nullable EventListener _listener = e -> updateOnlineStatus();
     private boolean _rawOnLine = getIsOnLine();
 
     @Memoize
@@ -68,12 +73,12 @@ public abstract class NetworkStatus {
 
     // DOC ELIDE START
     @JsProperty(name = "navigator", namespace = JsPackage.GLOBAL)
-    private static native Navigator navigator();
+    private static native @Nullable Navigator navigator();
 
     @JsMethod(name = "addEventListener", namespace = JsPackage.GLOBAL)
-    private static native void addEventListener(String type, EventListener listener);
+    private static native void addEventListener(@Nullable String type, @Nullable EventListener listener);
 
     @JsMethod(name = "removeEventListener", namespace = JsPackage.GLOBAL)
-    private static native void removeEventListener(String type, EventListener listener);
+    private static native void removeEventListener(@Nullable String type, @Nullable EventListener listener);
     // DOC ELIDE END
 }

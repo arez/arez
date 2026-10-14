@@ -6,9 +6,12 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observe;
 import arez.annotations.PostConstruct;
 import arez.integration.AbstractArezIntegrationTest;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ConstructBeforeScheduledTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent
     abstract static class TestComponent {
         boolean _postConstructCalled;

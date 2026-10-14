@@ -224,7 +224,7 @@ final class ObservableOneReferenceModel_Arez_Element extends ObservableOneRefere
           () -> null != $$arezv$$_observableOneReferenceModel,
           () -> "Reference named 'observableOneReferenceModel' on component named '"
               + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ObservableOneReferenceModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.ObservableOneReferenceModel and id = "
               + getObservableOneReferenceModelId());
     }
   }
@@ -300,7 +300,7 @@ final class ObservableOneReferenceModel_Arez_Element extends ObservableOneRefere
           () -> null != $$arezr$$_observableOneReferenceModel,
           () -> "Reference named 'observableOneReferenceModel' on component named '"
               + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ObservableOneReferenceModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.ObservableOneReferenceModel and id = "
               + getObservableOneReferenceModelId());
     }
     ((Arez_ObservableOneReferenceModel) this.$$arezr$$_observableOneReferenceModel)

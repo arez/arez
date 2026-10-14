@@ -206,7 +206,7 @@ public final class Arez_Element extends Element
           () ->
               "Reference named 'packageAccessWithDifferentPackageInverseModel' on component named '"
                   + this.$$arezi$$_kernel.getName()
-                  + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable PackageAccessWithDifferentPackageInverseModel and id = "
+                  + "' is unable to resolve entity of type com.example.inverse.PackageAccessWithDifferentPackageInverseModel and id = "
                   + getPackageAccessWithDifferentPackageInverseModelId());
     }
   }
@@ -251,7 +251,7 @@ public final class Arez_Element extends Element
           () ->
               "Reference named 'packageAccessWithDifferentPackageInverseModel' on component named '"
                   + this.$$arezi$$_kernel.getName()
-                  + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable PackageAccessWithDifferentPackageInverseModel and id = "
+                  + "' is unable to resolve entity of type com.example.inverse.PackageAccessWithDifferentPackageInverseModel and id = "
                   + getPackageAccessWithDifferentPackageInverseModelId());
     }
     ((Arez_PackageAccessWithDifferentPackageInverseModel)

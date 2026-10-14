@@ -15,9 +15,11 @@ import arez.component.Verifiable;
 import arez.component.internal.AbstractRepository;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.HashMap;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class VerifyIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void verifyOnDisposeCausesException() {
@@ -119,12 +121,13 @@ public final class VerifyIntegrationTest extends AbstractArezIntegrationTest {
         Verifiable.verify(repository.create(0));
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model1 {
         private final int _id;
         private final int _model2Id;
 
-        static Model1 create(final int id, final int model2Id) {
+        static @Nullable Model1 create(final int id, final int model2Id) {
             return new VerifyIntegrationTest_Arez_Model1(id, model2Id);
         }
 
@@ -139,7 +142,7 @@ public final class VerifyIntegrationTest extends AbstractArezIntegrationTest {
         }
 
         @Reference
-        abstract Model2 getModel2();
+        abstract @Nullable Model2 getModel2();
 
         @ReferenceId
         int getModel2Id() {
@@ -147,6 +150,7 @@ public final class VerifyIntegrationTest extends AbstractArezIntegrationTest {
         }
     }
 
+    @NullMarked
     @ArezComponent(allowEmpty = true)
     abstract static class Model2 {
         private final int _id;
@@ -161,14 +165,16 @@ public final class VerifyIntegrationTest extends AbstractArezIntegrationTest {
         }
     }
 
+    @NullMarked
     @ArezComponent(service = Feature.ENABLE, sting = Feature.DISABLE)
     abstract static class Model2Repository extends AbstractRepository<Integer, Model2, Model2Repository> {
-        @Nonnull
+
         static Model2Repository newRepository() {
             return new VerifyIntegrationTest_Arez_Model2Repository();
         }
 
         @Action
+        @Nullable
         Model2 create(final int id) {
             final VerifyIntegrationTest_Arez_Model2 entity = new VerifyIntegrationTest_Arez_Model2(id);
             attach(entity);
@@ -176,7 +182,7 @@ public final class VerifyIntegrationTest extends AbstractArezIntegrationTest {
         }
 
         @Action
-        protected void destroy(@Nonnull final Model2 entity) {
+        protected void destroy(final Model2 entity) {
             super.destroy(entity);
         }
     }

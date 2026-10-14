@@ -2,7 +2,9 @@ package arez.doc.examples.step1;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 public abstract class TrainTicket {
     private int _remainingRides;

@@ -11,8 +11,10 @@ import arez.ObservableValue;
 import arez.Observer;
 import arez.integration.util.SpyEventRecorder;
 import arez.spy.ComponentInfo;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class NativeComponentsIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void inspectComponentViaSpy() throws Throwable {

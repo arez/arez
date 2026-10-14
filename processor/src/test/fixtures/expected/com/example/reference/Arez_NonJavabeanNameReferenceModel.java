@@ -127,7 +127,7 @@ final class Arez_NonJavabeanNameReferenceModel extends NonJavabeanNameReferenceM
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( NonJavabeanNameReferenceModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type NonJavabeanNameReferenceModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( NonJavabeanNameReferenceModel.class, $$arezi$$_id() ) );
       final int $$arezv$$_myEntityId = this.myEntityId();
       final NonJavabeanNameReferenceModel.MyEntity $$arezv$$_myEntity = this.$$arezi$$_locator().findById( NonJavabeanNameReferenceModel.MyEntity.class, $$arezv$$_myEntityId );
-      Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.NonJavabeanNameReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + myEntityId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.NonJavabeanNameReferenceModel.MyEntity and id = " + myEntityId() );
     }
   }
 
@@ -149,7 +149,7 @@ final class Arez_NonJavabeanNameReferenceModel extends NonJavabeanNameReferenceM
     final int id = this.myEntityId();
     this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( NonJavabeanNameReferenceModel.MyEntity.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.NonJavabeanNameReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + myEntityId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.NonJavabeanNameReferenceModel.MyEntity and id = " + myEntityId() );
     }
   }
 

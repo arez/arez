@@ -8,7 +8,6 @@ import arez.spy.Spy;
 import arez.spy.TransactionInfo;
 import grim.annotations.OmitType;
 import java.util.List;
-import javax.annotation.Nonnull;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
@@ -32,7 +31,6 @@ public final class WhyRun {
         }
     }
 
-    @Nonnull
     public static String whyRun() {
         return Arez.areSpiesEnabled() ? whyRun(Arez.context().getSpy()) : "";
     }
@@ -44,8 +42,7 @@ public final class WhyRun {
      * @param spy the spy to introspect.
      * @return a human readable explanation why the current transaction is running.
      */
-    @Nonnull
-    public static String whyRun(@Nonnull final Spy spy) {
+    public static String whyRun(final Spy spy) {
         if (spy.isTransactionActive()) {
             final TransactionInfo transaction = spy.getTransaction();
             if (transaction.isTracking()) {
@@ -65,8 +62,7 @@ public final class WhyRun {
      * @param observer the observer that we want to investigate.
      * @return a human readable explanation why the node is/will run.
      */
-    @Nonnull
-    public static String whyRun(@Nonnull final Spy spy, @Nonnull final ObserverInfo observer) {
+    public static String whyRun(final Spy spy, final ObserverInfo observer) {
         if (observer.isComputableValue()) {
             return whyComputableValueRun(spy, observer.asComputableValue());
         } else {
@@ -74,8 +70,7 @@ public final class WhyRun {
         }
     }
 
-    @Nonnull
-    private static String whyObserverRun(@Nonnull final Spy spy, @Nonnull final ObserverInfo observer) {
+    private static String whyObserverRun(final Spy spy, final ObserverInfo observer) {
         final StringBuilder sb = new StringBuilder();
         sb.append("Observer '");
         sb.append(observer.getName());
@@ -95,9 +90,7 @@ public final class WhyRun {
         return sb.toString();
     }
 
-    @Nonnull
-    private static String whyComputableValueRun(
-            @Nonnull final Spy spy, @Nonnull final ComputableValueInfo computableValue) {
+    private static String whyComputableValueRun(final Spy spy, final ComputableValueInfo computableValue) {
         final StringBuilder sb = new StringBuilder();
         sb.append("ComputableValue '");
         sb.append(computableValue.getName());
@@ -129,8 +122,7 @@ public final class WhyRun {
      * @param observer the Observer.
      * @return the status description.
      */
-    @Nonnull
-    private static String describeStatus(@Nonnull final Spy spy, @Nonnull final ObserverInfo observer) {
+    private static String describeStatus(final Spy spy, final ObserverInfo observer) {
         final boolean running = observer.isRunning();
         if (running) {
             final TransactionInfo transaction = spy.getTransaction();
@@ -154,8 +146,7 @@ public final class WhyRun {
      * @param computableValue the ComputableValue.
      * @return the status description.
      */
-    @Nonnull
-    private static String describeComputableValueStatus(@Nonnull final ComputableValueInfo computableValue) {
+    private static String describeComputableValueStatus(final ComputableValueInfo computableValue) {
         if (computableValue.isActive()) {
             return "Active (The value is used by "
                     + computableValue.getObservers().size() + " observers)";
@@ -166,8 +157,7 @@ public final class WhyRun {
         }
     }
 
-    private static void describeDependencies(
-            @Nonnull final StringBuilder sb, @Nonnull final List<ObservableValueInfo> dependencies) {
+    private static void describeDependencies(final StringBuilder sb, final List<ObservableValueInfo> dependencies) {
         for (final ObservableValueInfo observable : dependencies) {
             sb.append("    - ");
             describeObservable(sb, observable);
@@ -175,15 +165,14 @@ public final class WhyRun {
         }
     }
 
-    private static void describeObservable(
-            @Nonnull final StringBuilder sb, @Nonnull final ObservableValueInfo observable) {
+    private static void describeObservable(final StringBuilder sb, final ObservableValueInfo observable) {
         sb.append(observable.isComputableValue() ? "ComputableValue" : "Observable");
         sb.append(" '");
         sb.append(observable.getName());
         sb.append("'");
     }
 
-    private static void describeObserver(@Nonnull final StringBuilder sb, @Nonnull final ObserverInfo observer) {
+    private static void describeObserver(final StringBuilder sb, final ObserverInfo observer) {
         sb.append(observer.isComputableValue() ? "ComputableValue" : "Observer");
         sb.append(" '");
         sb.append(observer.getName());

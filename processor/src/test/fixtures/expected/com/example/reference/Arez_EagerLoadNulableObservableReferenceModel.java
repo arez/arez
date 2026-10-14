@@ -139,7 +139,7 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
       final @Nullable String $$arezv$$_myEntityId = this.getMyEntityId();
       if ( null != $$arezv$$_myEntityId ) {
         final EagerLoadNulableObservableReferenceModel.MyEntity $$arezv$$_myEntity = this.$$arezi$$_locator().findById( EagerLoadNulableObservableReferenceModel.MyEntity.class, $$arezv$$_myEntityId );
-        Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.EagerLoadNulableObservableReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
+        Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.EagerLoadNulableObservableReferenceModel.MyEntity and id = " + getMyEntityId() );
       }
     }
   }
@@ -187,7 +187,7 @@ final class Arez_EagerLoadNulableObservableReferenceModel extends EagerLoadNulab
     if ( null != id ) {
       this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( EagerLoadNulableObservableReferenceModel.MyEntity.class, id );
       if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.EagerLoadNulableObservableReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
+        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.EagerLoadNulableObservableReferenceModel.MyEntity and id = " + getMyEntityId() );
       }
     } else {
       this.$$arezr$$_myEntity = null;

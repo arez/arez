@@ -18,9 +18,11 @@ import arez.integration.AbstractArezIntegrationTest;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class NonnullImmutableExplicitReferenceIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
@@ -64,42 +66,45 @@ public final class NonnullImmutableExplicitReferenceIntegrationTest extends Abst
                         + " 'arez_integration_references_NonnullImmutableExplicitReferenceIntegrationTest_Model1.1'");
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model1 {
-        @Nonnull
+
         private final Object _model2Id;
 
-        static Model1 create(@Nonnull final Object model2Id) {
+        static @Nullable Model1 create(final Object model2Id) {
             return new NonnullImmutableExplicitReferenceIntegrationTest_Arez_Model1(model2Id);
         }
 
-        Model1(@Nonnull final Object model2Id) {
+        Model1(final Object model2Id) {
             _model2Id = model2Id;
         }
 
         @Reference(load = LinkType.EXPLICIT)
-        abstract Model2 getModel2();
+        abstract @Nullable Model2 getModel2();
 
         @ReferenceId
-        @Nonnull
         Object getModel2Id() {
             return _model2Id;
         }
     }
 
+    @NullMarked
     @ArezComponent(requireId = Feature.ENABLE)
     abstract static class Model2 {
         @Action
         void doStuff() {}
     }
 
+    @NullMarked
     @ArezComponent(service = Feature.ENABLE, sting = Feature.DISABLE)
     abstract static class Model2Repository extends AbstractRepository<Integer, Model2, Model2Repository> {
-        static Model2Repository newRepository() {
+        static @Nullable Model2Repository newRepository() {
             return new NonnullImmutableExplicitReferenceIntegrationTest_Arez_Model2Repository();
         }
 
         @Action
+        @Nullable
         Model2 create() {
             final NonnullImmutableExplicitReferenceIntegrationTest_Arez_Model2 entity =
                     new NonnullImmutableExplicitReferenceIntegrationTest_Arez_Model2();
@@ -108,7 +113,7 @@ public final class NonnullImmutableExplicitReferenceIntegrationTest extends Abst
         }
 
         @Action
-        protected void destroy(@Nonnull final Model2 entity) {
+        protected void destroy(final Model2 entity) {
             super.destroy(entity);
         }
     }

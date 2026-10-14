@@ -7,9 +7,12 @@ import arez.annotations.Executor;
 import arez.annotations.Observe;
 import arez.annotations.OnDepsChange;
 import arez.integration.AbstractArezIntegrationTest;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class TrackCanNotBeNestedInActionTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent
     abstract static class TestComponent1 {
         int _renderCallCount;

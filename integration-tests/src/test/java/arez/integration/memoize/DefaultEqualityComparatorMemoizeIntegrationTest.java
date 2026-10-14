@@ -9,41 +9,48 @@ import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class DefaultEqualityComparatorMemoizeIntegrationTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @DefaultEqualityComparator(CaseInsensitiveComparator.class)
     static final class Name {
-        private final String _value;
+        private final @Nullable String _value;
 
-        Name(final String value) {
+        Name(final @Nullable String value) {
             _value = value;
         }
 
         @Override
-        public String toString() {
+        public @Nullable String toString() {
             return _value;
         }
     }
 
+    @NullMarked
     static final class CaseInsensitiveComparator implements EqualityComparator {
         @Override
-        public boolean areEqual(final Object oldValue, final Object newValue) {
+        public boolean areEqual(final @Nullable Object oldValue, final @Nullable Object newValue) {
             return null == oldValue || null == newValue
                     ? oldValue == newValue
                     : oldValue.toString().equalsIgnoreCase(newValue.toString());
         }
     }
 
+    @NullMarked
     static final class ExactComparator implements EqualityComparator {
         @Override
-        public boolean areEqual(final Object oldValue, final Object newValue) {
+        public boolean areEqual(final @Nullable Object oldValue, final @Nullable Object newValue) {
             return null == oldValue || null == newValue
                     ? oldValue == newValue
                     : oldValue.toString().equals(newValue.toString());
         }
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model {
         private int _value;
@@ -58,11 +65,13 @@ public final class DefaultEqualityComparatorMemoizeIntegrationTest extends Abstr
         }
 
         @Memoize
+        @Nullable
         Name getDefaultName() {
             return new Name(0 == (getValue() % 2) ? "Abc" : "aBC");
         }
 
         @Memoize(equalityComparator = ExactComparator.class)
+        @Nullable
         Name getExplicitName() {
             return new Name(0 == (getValue() % 2) ? "Abc" : "aBC");
         }

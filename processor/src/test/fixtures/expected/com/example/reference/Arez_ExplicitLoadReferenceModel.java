@@ -128,7 +128,7 @@ final class Arez_ExplicitLoadReferenceModel extends ExplicitLoadReferenceModel i
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( ExplicitLoadReferenceModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type ExplicitLoadReferenceModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( ExplicitLoadReferenceModel.class, $$arezi$$_id() ) );
       final int $$arezv$$_myEntityId = this.getMyEntityId();
       final ExplicitLoadReferenceModel.MyEntity $$arezv$$_myEntity = this.$$arezi$$_locator().findById( ExplicitLoadReferenceModel.MyEntity.class, $$arezv$$_myEntityId );
-      Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.ExplicitLoadReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.ExplicitLoadReferenceModel.MyEntity and id = " + getMyEntityId() );
     }
   }
 
@@ -165,7 +165,7 @@ final class Arez_ExplicitLoadReferenceModel extends ExplicitLoadReferenceModel i
       final int id = this.getMyEntityId();
       this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( ExplicitLoadReferenceModel.MyEntity.class, id );
       if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.ExplicitLoadReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
+        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.ExplicitLoadReferenceModel.MyEntity and id = " + getMyEntityId() );
       }
     }
   }

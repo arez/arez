@@ -19,9 +19,11 @@ import arez.integration.AbstractArezIntegrationTest;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ManyMultiplicityInverseIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
@@ -94,15 +96,16 @@ public final class ManyMultiplicityInverseIntegrationTest extends AbstractArezIn
         assertEquals(locatorLookupCallCount.get(), 2);
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Wheel {
-        @Nonnull
+
         static Wheel create(final int carId) {
             return new ManyMultiplicityInverseIntegrationTest_Arez_Wheel(carId);
         }
 
         @Reference(inverse = Feature.ENABLE)
-        abstract Car getCar();
+        abstract @Nullable Car getCar();
 
         @ReferenceId
         @Observable(initializer = Feature.ENABLE)
@@ -111,19 +114,22 @@ public final class ManyMultiplicityInverseIntegrationTest extends AbstractArezIn
         abstract void setCarId(int carId);
     }
 
+    @NullMarked
     @ArezComponent(observable = Feature.ENABLE)
     abstract static class Car {
         @Inverse
-        abstract Collection<Wheel> getWheels();
+        abstract @Nullable Collection<Wheel> getWheels();
     }
 
+    @NullMarked
     @ArezComponent(service = Feature.ENABLE, sting = Feature.DISABLE)
     abstract static class CarRepository extends AbstractRepository<Integer, Car, CarRepository> {
-        static CarRepository newRepository() {
+        static @Nullable CarRepository newRepository() {
             return new ManyMultiplicityInverseIntegrationTest_Arez_CarRepository();
         }
 
         @Action
+        @Nullable
         Car create() {
             final ManyMultiplicityInverseIntegrationTest_Arez_Car entity =
                     new ManyMultiplicityInverseIntegrationTest_Arez_Car();
@@ -132,7 +138,7 @@ public final class ManyMultiplicityInverseIntegrationTest extends AbstractArezIn
         }
 
         @Action
-        protected void destroy(@Nonnull final Car entity) {
+        protected void destroy(final Car entity) {
             super.destroy(entity);
         }
     }

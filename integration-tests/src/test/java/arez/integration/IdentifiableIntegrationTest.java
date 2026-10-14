@@ -6,8 +6,10 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
 import arez.annotations.Feature;
 import arez.component.Identifiable;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 @SuppressWarnings("ConstantConditions")
 public final class IdentifiableIntegrationTest extends AbstractArezIntegrationTest {
     @Test
@@ -35,9 +37,11 @@ public final class IdentifiableIntegrationTest extends AbstractArezIntegrationTe
         assertEquals(Identifiable.asIdentifiable(model), model);
     }
 
+    @NullMarked
     @ArezComponent(allowEmpty = true, requireId = Feature.DISABLE)
     abstract static class Model1 {}
 
+    @NullMarked
     @ArezComponent(allowEmpty = true, requireId = Feature.ENABLE)
     abstract static class Model2 {
         private final int id;
@@ -52,6 +56,7 @@ public final class IdentifiableIntegrationTest extends AbstractArezIntegrationTe
         }
     }
 
+    @NullMarked
     @ArezComponent(allowEmpty = true, requireId = Feature.AUTODETECT)
     abstract static class Model3 {}
 }

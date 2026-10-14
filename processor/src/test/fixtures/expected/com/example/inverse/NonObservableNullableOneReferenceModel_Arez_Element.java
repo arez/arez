@@ -133,7 +133,7 @@ final class NonObservableNullableOneReferenceModel_Arez_Element extends NonObser
       final @Nullable Integer $$arezv$$_nonObservableNullableOneReferenceModelId = this.getNonObservableNullableOneReferenceModelId();
       if ( null != $$arezv$$_nonObservableNullableOneReferenceModelId ) {
         final NonObservableNullableOneReferenceModel $$arezv$$_nonObservableNullableOneReferenceModel = this.$$arezi$$_locator().findById( NonObservableNullableOneReferenceModel.class, $$arezv$$_nonObservableNullableOneReferenceModelId );
-        Guards.apiInvariant( () -> null != $$arezv$$_nonObservableNullableOneReferenceModel, () -> "Reference named 'nonObservableNullableOneReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable NonObservableNullableOneReferenceModel and id = " + getNonObservableNullableOneReferenceModelId() );
+        Guards.apiInvariant( () -> null != $$arezv$$_nonObservableNullableOneReferenceModel, () -> "Reference named 'nonObservableNullableOneReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.NonObservableNullableOneReferenceModel and id = " + getNonObservableNullableOneReferenceModelId() );
       }
     }
   }
@@ -157,7 +157,7 @@ final class NonObservableNullableOneReferenceModel_Arez_Element extends NonObser
     if ( null != id ) {
       this.$$arezr$$_nonObservableNullableOneReferenceModel = this.$$arezi$$_locator().findById( NonObservableNullableOneReferenceModel.class, id );
       if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null != $$arezr$$_nonObservableNullableOneReferenceModel, () -> "Reference named 'nonObservableNullableOneReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable NonObservableNullableOneReferenceModel and id = " + getNonObservableNullableOneReferenceModelId() );
+        Guards.apiInvariant( () -> null != $$arezr$$_nonObservableNullableOneReferenceModel, () -> "Reference named 'nonObservableNullableOneReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.NonObservableNullableOneReferenceModel and id = " + getNonObservableNullableOneReferenceModelId() );
       }
       ( (Arez_NonObservableNullableOneReferenceModel) this.$$arezr$$_nonObservableNullableOneReferenceModel ).$$arezir$$_element_set( this );
     } else {

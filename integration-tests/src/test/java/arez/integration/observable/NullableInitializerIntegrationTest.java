@@ -6,10 +6,11 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class NullableInitializerIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
@@ -17,10 +18,11 @@ public final class NullableInitializerIntegrationTest extends AbstractArezIntegr
         safeAction(() -> assertEquals(Model.create("XXX").getName(), "XXX"));
     }
 
+    @NullMarked
     @SuppressWarnings("SameParameterValue")
     @ArezComponent
     abstract static class Model {
-        @Nonnull
+
         static Model create(@Nullable final String name) {
             return new NullableInitializerIntegrationTest_Arez_Model(name);
         }

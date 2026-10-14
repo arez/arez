@@ -28,7 +28,6 @@ import arez.spy.TaskCompleteEvent;
 import arez.spy.TaskStartEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
-import javax.annotation.Nonnull;
 
 /**
  * Utility class that simplifies interaction with the Spy subsystem.
@@ -57,8 +56,7 @@ public final class SpyUtil {
      * @param type the event type.
      * @return the nesting delta.
      */
-    @Nonnull
-    public static NestingDelta getNestingDelta(@Nonnull final Class<?> type) {
+    public static NestingDelta getNestingDelta(final Class<?> type) {
         if (ComponentCreateStartEvent.class == type
                 || ComponentDisposeStartEvent.class == type
                 || ObserveStartEvent.class == type

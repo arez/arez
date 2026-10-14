@@ -3,12 +3,15 @@ package arez.doc.examples.at_observe3;
 import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
 import arez.annotations.Observe;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class CurrencyView {
     // A read-only observer that renders
     @Observe(executor = Executor.EXTERNAL)
-    public ReactNode render() {
+    public @Nullable ReactNode render() {
         // Render component here
         // DOC ELIDE START
         return null;
@@ -21,6 +24,7 @@ public abstract class CurrencyView {
     }
 
     // DOC ELIDE START
+    @NullMarked
     static class ReactNode {}
 
     private void scheduleRender() {}

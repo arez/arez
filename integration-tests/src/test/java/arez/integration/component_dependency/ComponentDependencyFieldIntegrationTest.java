@@ -7,8 +7,11 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ComponentDependencyFieldIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() throws Throwable {
@@ -48,23 +51,25 @@ public final class ComponentDependencyFieldIntegrationTest extends AbstractArezI
         assertMatchesFixture(recorder);
     }
 
+    @NullMarked
     @ArezComponent(allowEmpty = true)
     abstract static class Model1 {
-        static Model1 create() {
+        static @Nullable Model1 create() {
             return new ComponentDependencyFieldIntegrationTest_Arez_Model1();
         }
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model2 {
         @ComponentDependency(action = ComponentDependency.Action.CASCADE)
-        final Model1 _reference;
+        final @Nullable Model1 _reference;
 
-        static Model2 create(final Model1 reference) {
+        static @Nullable Model2 create(final @Nullable Model1 reference) {
             return new ComponentDependencyFieldIntegrationTest_Arez_Model2(reference);
         }
 
-        Model2(final Model1 reference) {
+        Model2(final @Nullable Model1 reference) {
             _reference = reference;
         }
     }

@@ -11,7 +11,6 @@ import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
 import java.util.Date;
-import javax.annotation.Nonnull;
 import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
@@ -62,7 +61,6 @@ public abstract class NetworkStatus {
         native boolean onLine();
     }
 
-    @Nonnull
     private final EventListener _listener = e -> updateOnlineStatus(getOnLineComputableValue());
 
     /**
@@ -70,7 +68,6 @@ public abstract class NetworkStatus {
      *
      * @return the NetworkStatus instance.
      */
-    @Nonnull
     public static NetworkStatus create() {
         return new Arez_NetworkStatus(new Date());
     }
@@ -104,10 +101,9 @@ public abstract class NetworkStatus {
      * @return the last time at which online status changed.
      */
     @Observable
-    @Nonnull
     public abstract Date getLastChangedAt();
 
-    abstract void setLastChangedAt(@Nonnull Date lastChangedAt);
+    abstract void setLastChangedAt(Date lastChangedAt);
 
     @ComputableValueRef
     abstract ComputableValue<?> getOnLineComputableValue();
@@ -125,7 +121,7 @@ public abstract class NetworkStatus {
     }
 
     @Action
-    void updateOnlineStatus(@Nonnull final ComputableValue<?> computableValue) {
+    void updateOnlineStatus(final ComputableValue<?> computableValue) {
         computableValue.reportPossiblyChanged();
         setLastChangedAt(new Date());
     }

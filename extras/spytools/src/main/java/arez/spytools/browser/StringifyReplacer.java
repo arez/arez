@@ -1,7 +1,5 @@
 package arez.spytools.browser;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
@@ -9,6 +7,7 @@ import jsinterop.base.Any;
 import jsinterop.base.Js;
 import jsinterop.base.JsArrayLike;
 import jsinterop.base.JsPropertyMap;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Utility class that helps convert javascript values to strings for JSON.stringify method.
@@ -24,7 +23,6 @@ public class StringifyReplacer {
         private static native JsArrayLike<String> getOwnPropertyNames(JsPropertyMap<?> value);
     }
 
-    @Nonnull
     private final JsArrayLike<Object> _array = Js.uncheckedCast(new NativeArray());
 
     /**
@@ -73,7 +71,7 @@ public class StringifyReplacer {
         }
     }
 
-    protected boolean includeProperty(@Nonnull final Any value, @Nonnull final String propertyName) {
+    protected boolean includeProperty(final Any value, final String propertyName) {
         return true;
     }
 }

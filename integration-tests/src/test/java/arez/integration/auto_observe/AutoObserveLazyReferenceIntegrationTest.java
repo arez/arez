@@ -17,10 +17,11 @@ import arez.integration.AbstractArezIntegrationTest;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class AutoObserveLazyReferenceIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
@@ -50,12 +51,12 @@ public final class AutoObserveLazyReferenceIntegrationTest extends AbstractArezI
         assertTrue(Disposable.isDisposed(child));
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Owner {
         @Nullable
         private Object _childId;
 
-        @Nonnull
         static Owner create(@Nullable final Object childId) {
             return new AutoObserveLazyReferenceIntegrationTest_Arez_Owner(childId);
         }
@@ -81,9 +82,10 @@ public final class AutoObserveLazyReferenceIntegrationTest extends AbstractArezI
         }
     }
 
+    @NullMarked
     @ArezComponent(allowEmpty = true, disposeOnDeactivate = true, requireId = Feature.ENABLE)
     abstract static class Child {
-        @Nonnull
+
         static Child create() {
             return new AutoObserveLazyReferenceIntegrationTest_Arez_Child();
         }

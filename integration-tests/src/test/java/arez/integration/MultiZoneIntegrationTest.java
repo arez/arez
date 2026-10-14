@@ -11,9 +11,10 @@ import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.integration.util.SpyEventRecorder;
 import java.util.concurrent.atomic.AtomicReference;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class MultiZoneIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void multiZoneScenario() throws Throwable {
@@ -90,7 +91,7 @@ public final class MultiZoneIntegrationTest extends AbstractArezIntegrationTest 
      * Test we are in a transaction by trying to observe an observable.
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private void assertInTransaction(@Nonnull final PersonModel person) {
+    private void assertInTransaction(final PersonModel person) {
         person.getFirstName();
     }
 
@@ -98,50 +99,46 @@ public final class MultiZoneIntegrationTest extends AbstractArezIntegrationTest 
      * Test we are not in a transaction by trying to observe an observable.
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private void assertNotInTransaction(@Nonnull final PersonModel person) {
+    private void assertNotInTransaction(final PersonModel person) {
         assertThrows(person::getFirstName);
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class PersonModel {
-        @Nonnull
+
         private String _firstName;
 
-        @Nonnull
         private String _lastName;
 
-        @Nonnull
-        static PersonModel create(@Nonnull final String firstName, @Nonnull final String lastName) {
+        static PersonModel create(final String firstName, final String lastName) {
             return new MultiZoneIntegrationTest_Arez_PersonModel(firstName, lastName);
         }
 
-        PersonModel(@Nonnull final String firstName, @Nonnull final String lastName) {
+        PersonModel(final String firstName, final String lastName) {
             _firstName = firstName;
             _lastName = lastName;
         }
 
         @Observable
-        @Nonnull
         String getFirstName() {
             return _firstName;
         }
 
-        void setFirstName(@Nonnull final String firstName) {
+        void setFirstName(final String firstName) {
             _firstName = firstName;
         }
 
         @Observable
-        @Nonnull
         String getLastName() {
             return _lastName;
         }
 
-        void setLastName(@Nonnull final String lastName) {
+        void setLastName(final String lastName) {
             _lastName = lastName;
         }
 
         @Memoize
-        @Nonnull
         String getFullName() {
             return getFirstName() + " " + getLastName();
         }

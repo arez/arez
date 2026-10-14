@@ -206,7 +206,7 @@ public final class Arez_OtherElement extends OtherElement
           () -> null != $$arezv$$_completeInterfaceModel,
           () -> "Reference named 'completeInterfaceModel' on component named '"
               + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inheritance.@org.jspecify.annotations.Nullable CompleteInterfaceModel and id = "
+              + "' is unable to resolve entity of type com.example.inheritance.CompleteInterfaceModel and id = "
               + getCompleteInterfaceModelId());
       final int $$arezv$$_childId = this.getChildId();
       final CompleteInterfaceModel $$arezv$$_child =
@@ -214,7 +214,7 @@ public final class Arez_OtherElement extends OtherElement
       Guards.apiInvariant(
           () -> null != $$arezv$$_child,
           () -> "Reference named 'child' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inheritance.@org.jspecify.annotations.NonNull CompleteInterfaceModel and id = "
+              + "' is unable to resolve entity of type com.example.inheritance.CompleteInterfaceModel and id = "
               + getChildId());
     }
   }
@@ -280,7 +280,7 @@ public final class Arez_OtherElement extends OtherElement
           () -> null != $$arezr$$_completeInterfaceModel,
           () -> "Reference named 'completeInterfaceModel' on component named '"
               + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inheritance.@org.jspecify.annotations.Nullable CompleteInterfaceModel and id = "
+              + "' is unable to resolve entity of type com.example.inheritance.CompleteInterfaceModel and id = "
               + getCompleteInterfaceModelId());
     }
     ((Arez_CompleteInterfaceModel) this.$$arezr$$_completeInterfaceModel)
@@ -330,7 +330,7 @@ public final class Arez_OtherElement extends OtherElement
         Guards.apiInvariant(
             () -> null != $$arezr$$_child,
             () -> "Reference named 'child' on component named '" + this.$$arezi$$_kernel.getName()
-                + "' is unable to resolve entity of type com.example.inheritance.@org.jspecify.annotations.NonNull CompleteInterfaceModel and id = "
+                + "' is unable to resolve entity of type com.example.inheritance.CompleteInterfaceModel and id = "
                 + getChildId());
       }
       ((Arez_CompleteInterfaceModel) this.$$arezr$$_child)

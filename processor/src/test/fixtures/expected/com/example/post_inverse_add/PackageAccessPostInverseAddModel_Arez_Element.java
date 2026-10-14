@@ -132,7 +132,7 @@ final class PackageAccessPostInverseAddModel_Arez_Element extends PackageAccessP
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( PackageAccessPostInverseAddModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type PackageAccessPostInverseAddModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( PackageAccessPostInverseAddModel.Element.class, $$arezi$$_id() ) );
       final int $$arezv$$_otherId = this.getOtherId();
       final PackageAccessPostInverseAddModel $$arezv$$_other = this.$$arezi$$_locator().findById( PackageAccessPostInverseAddModel.class, $$arezv$$_otherId );
-      Guards.apiInvariant( () -> null != $$arezv$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.post_inverse_add.@org.jspecify.annotations.Nullable PackageAccessPostInverseAddModel and id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.post_inverse_add.PackageAccessPostInverseAddModel and id = " + getOtherId() );
     }
   }
 
@@ -154,7 +154,7 @@ final class PackageAccessPostInverseAddModel_Arez_Element extends PackageAccessP
     final int id = this.getOtherId();
     this.$$arezr$$_other = this.$$arezi$$_locator().findById( PackageAccessPostInverseAddModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.post_inverse_add.@org.jspecify.annotations.Nullable PackageAccessPostInverseAddModel and id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.post_inverse_add.PackageAccessPostInverseAddModel and id = " + getOtherId() );
     }
     ( (Arez_PackageAccessPostInverseAddModel) this.$$arezr$$_other ).$$arezir$$_elements_add( this );
   }

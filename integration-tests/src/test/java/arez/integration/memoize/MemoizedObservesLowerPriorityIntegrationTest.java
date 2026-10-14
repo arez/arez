@@ -12,9 +12,10 @@ import arez.annotations.Priority;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.ArrayList;
 import java.util.Collections;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class MemoizedObservesLowerPriorityIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
@@ -40,18 +41,18 @@ public final class MemoizedObservesLowerPriorityIntegrationTest extends Abstract
         assertEquals(searches, Collections.emptyList());
     }
 
+    @NullMarked
     @ArezComponent
     public abstract static class Model {
-        @Nonnull
-        static Model create(@SuppressWarnings("SameParameterValue") @Nonnull final String name) {
+
+        static Model create(@SuppressWarnings("SameParameterValue") final String name) {
             return new MemoizedObservesLowerPriorityIntegrationTest_Arez_Model(name);
         }
 
         @Observable
-        @Nonnull
         abstract String getName();
 
-        abstract void setName(@Nonnull String name);
+        abstract void setName(String name);
 
         @Memoize(priority = Priority.LOWEST)
         boolean isNameEmpty() {
@@ -59,7 +60,7 @@ public final class MemoizedObservesLowerPriorityIntegrationTest extends Abstract
         }
 
         @Memoize(observeLowerPriorityDependencies = true)
-        boolean search1(@Nonnull final String value) {
+        boolean search1(final String value) {
             return isNameEmpty() || getName().contains(value);
         }
     }

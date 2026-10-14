@@ -18,10 +18,11 @@ import arez.integration.AbstractArezIntegrationTest;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class NullableObservableEagerReferenceIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
@@ -82,13 +83,14 @@ public final class NullableObservableEagerReferenceIntegrationTest extends Abstr
                         + " 'arez_integration_references_NullableObservableEagerReferenceIntegrationTest_Model1.1'");
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model1 {
         @Nullable
         private Object _model2Id;
 
         @SuppressWarnings("SameParameterValue")
-        static Model1 create(@Nullable final Object model2Id) {
+        static @Nullable Model1 create(@Nullable final Object model2Id) {
             return new NullableObservableEagerReferenceIntegrationTest_Arez_Model1(model2Id);
         }
 
@@ -97,7 +99,7 @@ public final class NullableObservableEagerReferenceIntegrationTest extends Abstr
         }
 
         @Reference
-        abstract Model2 getModel2();
+        abstract @Nullable Model2 getModel2();
 
         @ReferenceId
         @Observable
@@ -111,19 +113,22 @@ public final class NullableObservableEagerReferenceIntegrationTest extends Abstr
         }
     }
 
+    @NullMarked
     @ArezComponent(requireId = Feature.ENABLE)
     abstract static class Model2 {
         @Action
         void doStuff() {}
     }
 
+    @NullMarked
     @ArezComponent(service = Feature.ENABLE, sting = Feature.DISABLE)
     abstract static class Model2Repository extends AbstractRepository<Integer, Model2, Model2Repository> {
-        static Model2Repository newRepository() {
+        static @Nullable Model2Repository newRepository() {
             return new NullableObservableEagerReferenceIntegrationTest_Arez_Model2Repository();
         }
 
         @Action
+        @Nullable
         Model2 create() {
             final NullableObservableEagerReferenceIntegrationTest_Arez_Model2 entity =
                     new NullableObservableEagerReferenceIntegrationTest_Arez_Model2();
@@ -132,7 +137,7 @@ public final class NullableObservableEagerReferenceIntegrationTest extends Abstr
         }
 
         @Action
-        protected void destroy(@Nonnull final Model2 entity) {
+        protected void destroy(final Model2 entity) {
             super.destroy(entity);
         }
     }

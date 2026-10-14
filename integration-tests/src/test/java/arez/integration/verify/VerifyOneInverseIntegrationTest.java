@@ -18,9 +18,11 @@ import arez.component.internal.ComponentKernel;
 import arez.integration.AbstractArezIntegrationTest;
 import java.lang.reflect.Field;
 import java.util.HashMap;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class VerifyOneInverseIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void verifySuccess() throws Throwable {
@@ -87,12 +89,13 @@ public final class VerifyOneInverseIntegrationTest extends AbstractArezIntegrati
                     + " 'ArezComponent[arez_integration_verify_VerifyOneInverseIntegrationTest_Model1.0]'");
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model1 {
         private final int _id;
         private final int _model2Id;
 
-        static Model1 create(final int id, final int model2Id) {
+        static @Nullable Model1 create(final int id, final int model2Id) {
             return Arez.context().safeAction(() -> new VerifyOneInverseIntegrationTest_Arez_Model1(id, model2Id));
         }
 
@@ -107,7 +110,7 @@ public final class VerifyOneInverseIntegrationTest extends AbstractArezIntegrati
         }
 
         @Reference(inverseMultiplicity = Multiplicity.ONE)
-        abstract Model2 getModel2();
+        abstract @Nullable Model2 getModel2();
 
         @ReferenceId
         int getModel2Id() {
@@ -115,6 +118,7 @@ public final class VerifyOneInverseIntegrationTest extends AbstractArezIntegrati
         }
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model2 {
         private final int _id;
@@ -129,18 +133,19 @@ public final class VerifyOneInverseIntegrationTest extends AbstractArezIntegrati
         }
 
         @Inverse
-        @Nonnull
         abstract Model1 getModel1();
     }
 
+    @NullMarked
     @ArezComponent(service = Feature.ENABLE, sting = Feature.DISABLE)
     abstract static class Model2Repository extends AbstractRepository<Integer, Model2, Model2Repository> {
-        @Nonnull
+
         static Model2Repository newRepository() {
             return new VerifyOneInverseIntegrationTest_Arez_Model2Repository();
         }
 
         @Action
+        @Nullable
         Model2 create(final int id) {
             final VerifyOneInverseIntegrationTest_Arez_Model2 entity =
                     new VerifyOneInverseIntegrationTest_Arez_Model2(id);
@@ -149,7 +154,7 @@ public final class VerifyOneInverseIntegrationTest extends AbstractArezIntegrati
         }
 
         @Action
-        protected void destroy(@Nonnull final Model2 entity) {
+        protected void destroy(final Model2 entity) {
             super.destroy(entity);
         }
     }

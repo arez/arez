@@ -5,10 +5,12 @@ import static org.testng.Assert.*;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class NonnullObservableIntegrationTest extends AbstractArezIntegrationTest {
     @SuppressWarnings("ConstantConditions")
     @Test
@@ -22,17 +24,17 @@ public final class NonnullObservableIntegrationTest extends AbstractArezIntegrat
         assertThrows(NullPointerException.class, () -> Model.create(null));
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model {
-        @Nonnull
-        static Model create(final String lastName) {
+
+        static Model create(final @Nullable String lastName) {
             return new NonnullObservableIntegrationTest_Arez_Model(lastName);
         }
 
         @Observable
-        @Nonnull
         abstract String getLastName();
 
-        abstract void setLastName(@Nonnull String lastName);
+        abstract void setLastName(String lastName);
     }
 }

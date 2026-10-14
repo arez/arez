@@ -207,7 +207,7 @@ public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element
       Guards.apiInvariant(
           () -> null != $$arezv$$_other,
           () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.pre_inverse_remove.@org.jspecify.annotations.Nullable ProtectedAccessFromBasePreInverseRemoveModel and id = "
+              + "' is unable to resolve entity of type com.example.pre_inverse_remove.ProtectedAccessFromBasePreInverseRemoveModel and id = "
               + getOtherId());
     }
   }
@@ -246,7 +246,7 @@ public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element
       Guards.apiInvariant(
           () -> null != $$arezr$$_other,
           () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.pre_inverse_remove.@org.jspecify.annotations.Nullable ProtectedAccessFromBasePreInverseRemoveModel and id = "
+              + "' is unable to resolve entity of type com.example.pre_inverse_remove.ProtectedAccessFromBasePreInverseRemoveModel and id = "
               + getOtherId());
     }
     ((Arez_ProtectedAccessFromBasePreInverseRemoveModel) this.$$arezr$$_other)

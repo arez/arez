@@ -201,7 +201,7 @@ final class NonStandardNameModel_Arez_Element extends NonStandardNameModel.Eleme
       Guards.apiInvariant(
           () -> null != $$arezv$$_zoom,
           () -> "Reference named 'zoom' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable NonStandardNameModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.NonStandardNameModel and id = "
               + $$$getXId());
     }
   }
@@ -239,7 +239,7 @@ final class NonStandardNameModel_Arez_Element extends NonStandardNameModel.Eleme
       Guards.apiInvariant(
           () -> null != $$arezr$$_zoom,
           () -> "Reference named 'zoom' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable NonStandardNameModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.NonStandardNameModel and id = "
               + $$$getXId());
     }
     ((Arez_NonStandardNameModel) this.$$arezr$$_zoom).$$arezir$$_zap_add(this);

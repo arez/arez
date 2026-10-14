@@ -7,8 +7,7 @@ import arez.Arez;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.testng.IHookCallBack;
 import org.testng.IHookable;
 import org.testng.ITestResult;
@@ -48,7 +47,7 @@ public final class ArezTestHook implements IHookable {
     }
 
     @Nullable
-    private ActionWrapper getActionWrapperAnnotation(@Nonnull final Method method) {
+    private ActionWrapper getActionWrapperAnnotation(final Method method) {
         final ActionWrapper annotation = method.getAnnotation(ActionWrapper.class);
         if (null != annotation) {
             return annotation;
@@ -58,7 +57,7 @@ public final class ArezTestHook implements IHookable {
     }
 
     @Nullable
-    private ActionWrapper getActionWrapperAnnotation(@Nonnull final Class<?> type) {
+    private ActionWrapper getActionWrapperAnnotation(final Class<?> type) {
         final ActionWrapper annotation = type.getAnnotation(ActionWrapper.class);
         if (null != annotation) {
             return annotation;
@@ -68,7 +67,7 @@ public final class ArezTestHook implements IHookable {
         }
     }
 
-    private void linkObserverErrorCollectors(@Nonnull final Object instance) {
+    private void linkObserverErrorCollectors(final Object instance) {
         for (final Field field : instance.getClass().getDeclaredFields()) {
             if (field.getType().equals(ObserverErrorCollector.class)) {
                 field.setAccessible(true);
@@ -82,7 +81,7 @@ public final class ArezTestHook implements IHookable {
         }
     }
 
-    private void linkObserverErrorCollector(@Nonnull final ObserverErrorCollector collector) {
+    private void linkObserverErrorCollector(final ObserverErrorCollector collector) {
         Arez.context().addObserverErrorHandler(collector::onObserverError);
     }
 }

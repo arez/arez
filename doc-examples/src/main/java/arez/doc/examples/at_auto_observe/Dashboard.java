@@ -6,18 +6,18 @@ import arez.annotations.LinkType;
 import arez.annotations.Observable;
 import arez.annotations.Reference;
 import arez.annotations.ReferenceId;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class Dashboard {
     // The session should stay alive while the dashboard is alive.
     @AutoObserve
-    @Nonnull
     final Session _session;
     // DOC ELIDE START
 
-    Dashboard(@Nonnull final Session session) {
+    Dashboard(final Session session) {
         _session = session;
     }
 

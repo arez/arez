@@ -127,7 +127,7 @@ final class Arez_InheritedNonNullReferenceModel extends InheritedNonNullReferenc
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( InheritedNonNullReferenceModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type InheritedNonNullReferenceModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( InheritedNonNullReferenceModel.class, $$arezi$$_id() ) );
       final Integer $$arezv$$_entityId = this.getEntityId();
       final ReferenceBase.Entity $$arezv$$_entity = this.$$arezi$$_locator().findById( ReferenceBase.Entity.class, $$arezv$$_entityId );
-      Guards.apiInvariant( () -> null != $$arezv$$_entity, () -> "Reference named 'entity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.jspecify.ReferenceBase.@org.jspecify.annotations.Nullable Entity and id = " + getEntityId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_entity, () -> "Reference named 'entity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.jspecify.ReferenceBase.Entity and id = " + getEntityId() );
     }
   }
 
@@ -149,7 +149,7 @@ final class Arez_InheritedNonNullReferenceModel extends InheritedNonNullReferenc
     final Integer id = this.getEntityId();
     this.$$arezr$$_entity = this.$$arezi$$_locator().findById( ReferenceBase.Entity.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_entity, () -> "Reference named 'entity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.jspecify.ReferenceBase.@org.jspecify.annotations.Nullable Entity and id = " + getEntityId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_entity, () -> "Reference named 'entity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.jspecify.ReferenceBase.Entity and id = " + getEntityId() );
     }
   }
 

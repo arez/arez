@@ -127,7 +127,7 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel imple
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( CustomNameReferenceModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type CustomNameReferenceModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( CustomNameReferenceModel.class, $$arezi$$_id() ) );
       final int $$arezv$$_BlahId = this.getMyEntityId();
       final CustomNameReferenceModel.MyEntity $$arezv$$_Blah = this.$$arezi$$_locator().findById( CustomNameReferenceModel.MyEntity.class, $$arezv$$_BlahId );
-      Guards.apiInvariant( () -> null != $$arezv$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel.MyEntity and id = " + getMyEntityId() );
     }
   }
 
@@ -149,7 +149,7 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel imple
     final int id = this.getMyEntityId();
     this.$$arezr$$_Blah = this.$$arezi$$_locator().findById( CustomNameReferenceModel.MyEntity.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel.MyEntity and id = " + getMyEntityId() );
     }
   }
 

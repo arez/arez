@@ -7,8 +7,10 @@ import arez.Observer;
 import arez.SafeFunction;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class CoreCanObserveLowerPriorityIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() throws Throwable {

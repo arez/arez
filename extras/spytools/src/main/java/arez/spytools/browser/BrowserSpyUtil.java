@@ -5,14 +5,13 @@ import arez.ArezContext;
 import arez.spy.SpyEventHandler;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Utility class for interacting with spy capabilities.
  */
 public final class BrowserSpyUtil {
-    @Nonnull
+
     private static final Map<ArezContext, SpyEventHandler> c_processors =
             Arez.areSpiesEnabled() ? new HashMap<>() : null;
 

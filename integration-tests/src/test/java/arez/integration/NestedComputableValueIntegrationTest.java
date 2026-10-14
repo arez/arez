@@ -9,10 +9,11 @@ import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.integration.util.SpyEventRecorder;
 import java.util.ArrayList;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class NestedComputableValueIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() throws Throwable {
@@ -252,41 +253,41 @@ public final class NestedComputableValueIntegrationTest extends AbstractArezInte
         assertMatchesFixture(recorder);
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class FilterContext {
-        private String _filter = "";
+        private @Nullable String _filter = "";
 
-        @Nonnull
         static FilterContext create() {
             return new NestedComputableValueIntegrationTest_Arez_FilterContext();
         }
 
         @Observable
+        @Nullable
         String getFilter() {
             return _filter;
         }
 
-        void setFilter(final String filter) {
+        void setFilter(final @Nullable String filter) {
             _filter = filter;
         }
     }
 
+    @NullMarked
     @SuppressWarnings({"WeakerAccess", "Arez:UnmanagedComponentReference"})
     @ArezComponent
     abstract static class Node {
-        private final FilterContext _context;
-        private final ArrayList<Node> _children = new ArrayList<>();
-        private String _name;
+        private final @Nullable FilterContext _context;
+        private final @Nullable ArrayList<Node> _children = new ArrayList<>();
+        private @Nullable String _name;
         // Cached result used in observed tests
         private boolean _isVisibleResult;
 
-        @Nonnull
-        static Node create(
-                @Nonnull final FilterContext context, @Nullable final Node parent, @Nonnull final String name) {
+        static Node create(final FilterContext context, @Nullable final Node parent, final String name) {
             return new NestedComputableValueIntegrationTest_Arez_Node(context, parent, name);
         }
 
-        Node(@Nonnull final FilterContext context, @Nullable final Node parent, @Nonnull final String name) {
+        Node(final FilterContext context, @Nullable final Node parent, final String name) {
             _context = context;
             _name = name;
             if (null != parent) {
@@ -302,18 +303,21 @@ public final class NestedComputableValueIntegrationTest extends AbstractArezInte
         }
 
         @Observable
+        @Nullable
         String getName() {
             return _name;
         }
 
-        void setName(final String name) {
+        void setName(final @Nullable String name) {
             _name = name;
         }
 
+        @Nullable
         FilterContext getContext() {
             return _context;
         }
 
+        @Nullable
         ArrayList<Node> getChildren() {
             return _children;
         }

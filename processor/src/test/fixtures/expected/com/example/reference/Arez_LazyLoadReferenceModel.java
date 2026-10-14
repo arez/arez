@@ -126,7 +126,7 @@ final class Arez_LazyLoadReferenceModel extends LazyLoadReferenceModel implement
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( LazyLoadReferenceModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type LazyLoadReferenceModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( LazyLoadReferenceModel.class, $$arezi$$_id() ) );
       final int $$arezv$$_myEntityId = this.getMyEntityId();
       final LazyLoadReferenceModel.MyEntity $$arezv$$_myEntity = this.$$arezi$$_locator().findById( LazyLoadReferenceModel.MyEntity.class, $$arezv$$_myEntityId );
-      Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.LazyLoadReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.LazyLoadReferenceModel.MyEntity and id = " + getMyEntityId() );
     }
   }
 
@@ -147,7 +147,7 @@ final class Arez_LazyLoadReferenceModel extends LazyLoadReferenceModel implement
       final int id = this.getMyEntityId();
       this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( LazyLoadReferenceModel.MyEntity.class, id );
       if ( Arez.shouldCheckApiInvariants() ) {
-        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.LazyLoadReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
+        Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.LazyLoadReferenceModel.MyEntity and id = " + getMyEntityId() );
       }
     }
   }

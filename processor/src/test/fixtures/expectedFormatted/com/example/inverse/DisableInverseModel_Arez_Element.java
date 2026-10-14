@@ -194,7 +194,7 @@ final class DisableInverseModel_Arez_Element extends DisableInverseModel.Element
       Guards.apiInvariant(
           () -> null != $$arezv$$_other,
           () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable DisableInverseModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.DisableInverseModel and id = "
               + getOtherId());
     }
   }
@@ -232,7 +232,7 @@ final class DisableInverseModel_Arez_Element extends DisableInverseModel.Element
       Guards.apiInvariant(
           () -> null != $$arezr$$_other,
           () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable DisableInverseModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.DisableInverseModel and id = "
               + getOtherId());
     }
   }

@@ -6,9 +6,11 @@ import arez.annotations.ArezComponent;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class UnannotatedObservablesIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
@@ -31,15 +33,16 @@ public final class UnannotatedObservablesIntegrationTest extends AbstractArezInt
         assertEquals(String.join(",", trace), "A,B,D");
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model {
-        @Nonnull
+
         static Model create() {
             return new UnannotatedObservablesIntegrationTest_Arez_Model();
         }
 
-        abstract String getValue();
+        abstract @Nullable String getValue();
 
-        abstract void setValue(String lastName);
+        abstract void setValue(@Nullable String lastName);
     }
 }

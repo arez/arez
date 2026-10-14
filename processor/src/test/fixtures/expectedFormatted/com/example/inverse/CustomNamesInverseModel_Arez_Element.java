@@ -202,7 +202,7 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
       Guards.apiInvariant(
           () -> null != $$arezv$$_zoom,
           () -> "Reference named 'zoom' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable CustomNamesInverseModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.CustomNamesInverseModel and id = "
               + getXId());
     }
   }
@@ -240,7 +240,7 @@ final class CustomNamesInverseModel_Arez_Element extends CustomNamesInverseModel
       Guards.apiInvariant(
           () -> null != $$arezr$$_zoom,
           () -> "Reference named 'zoom' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable CustomNamesInverseModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.CustomNamesInverseModel and id = "
               + getXId());
     }
     ((Arez_CustomNamesInverseModel) this.$$arezr$$_zoom).$$arezir$$_zap_add(this);

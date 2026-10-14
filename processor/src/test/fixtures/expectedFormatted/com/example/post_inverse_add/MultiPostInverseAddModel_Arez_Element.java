@@ -202,7 +202,7 @@ final class MultiPostInverseAddModel_Arez_Element extends MultiPostInverseAddMod
       Guards.apiInvariant(
           () -> null != $$arezv$$_other,
           () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.post_inverse_add.@org.jspecify.annotations.Nullable MultiPostInverseAddModel and id = "
+              + "' is unable to resolve entity of type com.example.post_inverse_add.MultiPostInverseAddModel and id = "
               + getOtherId());
     }
   }
@@ -240,7 +240,7 @@ final class MultiPostInverseAddModel_Arez_Element extends MultiPostInverseAddMod
       Guards.apiInvariant(
           () -> null != $$arezr$$_other,
           () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.post_inverse_add.@org.jspecify.annotations.Nullable MultiPostInverseAddModel and id = "
+              + "' is unable to resolve entity of type com.example.post_inverse_add.MultiPostInverseAddModel and id = "
               + getOtherId());
     }
     ((Arez_MultiPostInverseAddModel) this.$$arezr$$_other).$$arezir$$_elements_add(this);

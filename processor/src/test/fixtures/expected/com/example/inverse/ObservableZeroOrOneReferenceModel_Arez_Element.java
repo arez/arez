@@ -142,7 +142,7 @@ final class ObservableZeroOrOneReferenceModel_Arez_Element extends ObservableZer
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( ObservableZeroOrOneReferenceModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type ObservableZeroOrOneReferenceModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( ObservableZeroOrOneReferenceModel.Element.class, $$arezi$$_id() ) );
       final int $$arezv$$_observableZeroOrOneReferenceModelId = this.getObservableZeroOrOneReferenceModelId();
       final ObservableZeroOrOneReferenceModel $$arezv$$_observableZeroOrOneReferenceModel = this.$$arezi$$_locator().findById( ObservableZeroOrOneReferenceModel.class, $$arezv$$_observableZeroOrOneReferenceModelId );
-      Guards.apiInvariant( () -> null != $$arezv$$_observableZeroOrOneReferenceModel, () -> "Reference named 'observableZeroOrOneReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ObservableZeroOrOneReferenceModel and id = " + getObservableZeroOrOneReferenceModelId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_observableZeroOrOneReferenceModel, () -> "Reference named 'observableZeroOrOneReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.ObservableZeroOrOneReferenceModel and id = " + getObservableZeroOrOneReferenceModelId() );
     }
   }
 
@@ -189,7 +189,7 @@ final class ObservableZeroOrOneReferenceModel_Arez_Element extends ObservableZer
     final int id = this.getObservableZeroOrOneReferenceModelId();
     this.$$arezr$$_observableZeroOrOneReferenceModel = this.$$arezi$$_locator().findById( ObservableZeroOrOneReferenceModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_observableZeroOrOneReferenceModel, () -> "Reference named 'observableZeroOrOneReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ObservableZeroOrOneReferenceModel and id = " + getObservableZeroOrOneReferenceModelId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_observableZeroOrOneReferenceModel, () -> "Reference named 'observableZeroOrOneReferenceModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.ObservableZeroOrOneReferenceModel and id = " + getObservableZeroOrOneReferenceModelId() );
     }
     ( (Arez_ObservableZeroOrOneReferenceModel) this.$$arezr$$_observableZeroOrOneReferenceModel ).$$arezir$$_element_zset( this );
   }

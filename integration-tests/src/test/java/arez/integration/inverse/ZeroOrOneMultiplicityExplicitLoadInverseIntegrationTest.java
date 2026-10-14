@@ -21,10 +21,11 @@ import arez.component.internal.AbstractRepository;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ZeroOrOneMultiplicityExplicitLoadInverseIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
@@ -105,15 +106,16 @@ public final class ZeroOrOneMultiplicityExplicitLoadInverseIntegrationTest exten
         assertEquals(locatorLookupCallCount.get(), 2);
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Certificate {
-        @Nonnull
+
         static Certificate create(final int personId) {
             return new ZeroOrOneMultiplicityExplicitLoadInverseIntegrationTest_Arez_Certificate(personId);
         }
 
         @Reference(inverseMultiplicity = Multiplicity.ZERO_OR_ONE, load = LinkType.EXPLICIT)
-        abstract Person getPerson();
+        abstract @Nullable Person getPerson();
 
         @ReferenceId
         @Observable(initializer = Feature.ENABLE)
@@ -122,6 +124,7 @@ public final class ZeroOrOneMultiplicityExplicitLoadInverseIntegrationTest exten
         abstract void setPersonId(int personId);
     }
 
+    @NullMarked
     @ArezComponent(observable = Feature.ENABLE)
     abstract static class Person {
         @Inverse
@@ -129,13 +132,15 @@ public final class ZeroOrOneMultiplicityExplicitLoadInverseIntegrationTest exten
         abstract Certificate getCertificate();
     }
 
+    @NullMarked
     @ArezComponent(service = Feature.ENABLE, sting = Feature.DISABLE)
     abstract static class PersonRepository extends AbstractRepository<Integer, Person, PersonRepository> {
-        static PersonRepository newRepository() {
+        static @Nullable PersonRepository newRepository() {
             return new ZeroOrOneMultiplicityExplicitLoadInverseIntegrationTest_Arez_PersonRepository();
         }
 
         @Action
+        @Nullable
         Person create() {
             final ZeroOrOneMultiplicityExplicitLoadInverseIntegrationTest_Arez_Person entity =
                     new ZeroOrOneMultiplicityExplicitLoadInverseIntegrationTest_Arez_Person();
@@ -144,7 +149,7 @@ public final class ZeroOrOneMultiplicityExplicitLoadInverseIntegrationTest exten
         }
 
         @Action
-        protected void destroy(@Nonnull final Person entity) {
+        protected void destroy(final Person entity) {
             super.destroy(entity);
         }
     }

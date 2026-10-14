@@ -15,13 +15,12 @@ import arez.annotations.Memoize;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A component that exposes the current geo position as an observable property. This component relies on the
@@ -58,10 +57,10 @@ public abstract class GeoPosition {
         native double accuracy();
 
         @JsProperty(name = "altitude")
-        native Double altitude();
+        native @Nullable Double altitude();
 
         @JsProperty(name = "heading")
-        native Double heading();
+        native @Nullable Double heading();
 
         @JsProperty(name = "latitude")
         native double latitude();
@@ -70,7 +69,7 @@ public abstract class GeoPosition {
         native double longitude();
 
         @JsProperty(name = "speed")
-        native Double speed();
+        native @Nullable Double speed();
     }
 
     @JsType(isNative = true, name = "GeolocationPositionError", namespace = JsPackage.GLOBAL)
@@ -143,7 +142,6 @@ public abstract class GeoPosition {
      *
      * @return the newly created GeoPosition component.
      */
-    @Nonnull
     public static GeoPosition create() {
         return new Arez_GeoPosition();
     }
@@ -248,7 +246,7 @@ public abstract class GeoPosition {
     }
 
     @Action
-    void onFailure(@Nonnull final GeolocationPositionError e) {
+    void onFailure(final GeolocationPositionError e) {
         setStatus(e.code());
         final String errorMessage = e.message();
         if (!Objects.equals(errorMessage, _errorMessage)) {
@@ -270,7 +268,7 @@ public abstract class GeoPosition {
     }
 
     @Action
-    void onSuccess(@Nonnull final GeolocationCoordinates coords) {
+    void onSuccess(final GeolocationCoordinates coords) {
         setStatus(Status.POSITION_LOADED);
         if (null != _errorMessage) {
             _errorMessage = null;

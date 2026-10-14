@@ -1,13 +1,17 @@
 package arez.doc.examples.at_memoize;
 
-public class Currency {
-    private final String _symbol;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
-    public Currency(final String symbol) {
+@NullMarked
+public class Currency {
+    private final @Nullable String _symbol;
+
+    public Currency(final @Nullable String symbol) {
         _symbol = symbol;
     }
 
-    public String getSymbol() {
+    public @Nullable String getSymbol() {
         return _symbol;
     }
 }

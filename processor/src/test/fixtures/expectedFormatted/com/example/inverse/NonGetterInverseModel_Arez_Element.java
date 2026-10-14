@@ -202,7 +202,7 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
           () -> null != $$arezv$$_nonGetterInverseModel,
           () -> "Reference named 'nonGetterInverseModel' on component named '"
               + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable NonGetterInverseModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.NonGetterInverseModel and id = "
               + getNonGetterInverseModelId());
     }
   }
@@ -245,7 +245,7 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
           () -> null != $$arezr$$_nonGetterInverseModel,
           () -> "Reference named 'nonGetterInverseModel' on component named '"
               + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable NonGetterInverseModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.NonGetterInverseModel and id = "
               + getNonGetterInverseModelId());
     }
     ((Arez_NonGetterInverseModel) this.$$arezr$$_nonGetterInverseModel)

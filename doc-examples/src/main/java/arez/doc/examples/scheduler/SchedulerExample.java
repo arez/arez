@@ -2,9 +2,12 @@ package arez.doc.examples.scheduler;
 
 import arez.Arez;
 import arez.SchedulerLock;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 public class SchedulerExample {
-    public static void main(String[] args) {
+    public static void main(String @Nullable [] args) {
         assert !Arez.context().isSchedulerPaused();
         // Pause the scheduler here
         final SchedulerLock pausedControl = Arez.context().pauseScheduler();

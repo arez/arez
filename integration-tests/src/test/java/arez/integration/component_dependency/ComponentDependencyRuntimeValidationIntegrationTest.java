@@ -6,9 +6,11 @@ import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 import arez.integration.AbstractArezIntegrationTest;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ComponentDependencyRuntimeValidationIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() throws Throwable {
@@ -34,29 +36,32 @@ public final class ComponentDependencyRuntimeValidationIntegrationTest extends A
                         + value);
     }
 
+    @NullMarked
     interface MyInterface {}
 
+    @NullMarked
     private static class BadType implements MyInterface {}
 
+    @NullMarked
     @ArezComponent(allowEmpty = true)
     abstract static class Model1 implements MyInterface {
-        @Nonnull
+
         static Model1 create() {
             return new ComponentDependencyRuntimeValidationIntegrationTest_Arez_Model1();
         }
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model2 {
         @ComponentDependency(validateTypeAtRuntime = true)
-        final MyInterface _reference1;
+        final @Nullable MyInterface _reference1;
 
-        @Nonnull
-        static Model2 create(final MyInterface reference1) {
+        static Model2 create(final @Nullable MyInterface reference1) {
             return new ComponentDependencyRuntimeValidationIntegrationTest_Arez_Model2(reference1);
         }
 
-        Model2(final MyInterface reference1) {
+        Model2(final @Nullable MyInterface reference1) {
             _reference1 = reference1;
         }
     }

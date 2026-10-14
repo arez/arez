@@ -11,9 +11,13 @@ import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.TestSpyEventHandler;
 import arez.spy.ActionSkippedEvent;
 import java.util.function.IntSupplier;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class SkipIfDisposedIntegrationTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent
     abstract static class ExplicitSkipEnabledComponent {
         int invokeCount;
@@ -24,6 +28,7 @@ public final class SkipIfDisposedIntegrationTest extends AbstractArezIntegration
         }
     }
 
+    @NullMarked
     @ArezComponent(defaultSkipIfDisposed = Feature.ENABLE)
     abstract static class DefaultSkipEnabledComponent {
         int invokeCount;
@@ -34,6 +39,7 @@ public final class SkipIfDisposedIntegrationTest extends AbstractArezIntegration
         }
     }
 
+    @NullMarked
     @ArezComponent(defaultSkipIfDisposed = Feature.ENABLE)
     abstract static class DefaultSkipEnabledExplicitDisableComponent {
         int invokeCount;
@@ -44,6 +50,7 @@ public final class SkipIfDisposedIntegrationTest extends AbstractArezIntegration
         }
     }
 
+    @NullMarked
     @ArezComponent(defaultSkipIfDisposed = Feature.AUTODETECT)
     abstract static class DefaultSkipAutodetectComponent {
         int invokeCount;
@@ -54,6 +61,7 @@ public final class SkipIfDisposedIntegrationTest extends AbstractArezIntegration
         }
     }
 
+    @NullMarked
     @ArezComponent(defaultSkipIfDisposed = Feature.DISABLE)
     abstract static class DefaultSkipDisabledExplicitEnableComponent {
         int invokeCount;
@@ -109,7 +117,7 @@ public final class SkipIfDisposedIntegrationTest extends AbstractArezIntegration
         assertActionSkipped(() -> component.myAction(123), () -> component.invokeCount);
     }
 
-    private void assertActionSkipped(final Runnable action, final IntSupplier invokeCountSupplier) {
+    private void assertActionSkipped(final @Nullable Runnable action, final @Nullable IntSupplier invokeCountSupplier) {
         final TestSpyEventHandler recorder = new TestSpyEventHandler();
         Arez.context().getSpy().addSpyEventHandler(recorder);
 
@@ -125,7 +133,9 @@ public final class SkipIfDisposedIntegrationTest extends AbstractArezIntegration
     }
 
     private void assertDisposedInvariant(
-            final Runnable action, final Object component, final IntSupplier invokeCountSupplier) {
+            final @Nullable Runnable action,
+            final @Nullable Object component,
+            final @Nullable IntSupplier invokeCountSupplier) {
         final IllegalStateException exception = expectThrows(IllegalStateException.class, action::run);
         final String componentName =
                 component.toString().replace("ArezComponent[", "").replace("]", "");

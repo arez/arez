@@ -6,5 +6,6 @@ filegroup(
         "AbstractTest.java",
         "EventDrivenValueTest.java",
         "TestEventTarget.java",
+        "package-info.java",
     ],
 )

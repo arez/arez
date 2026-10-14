@@ -8,9 +8,13 @@ import arez.annotations.Observable;
 import arez.annotations.Observe;
 import arez.annotations.ObserverRef;
 import arez.integration.AbstractArezIntegrationTest;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ObserveManualScheduleDisallowedTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent
     abstract static class TestComponent1 {
         int _renderCallCount;
@@ -22,7 +26,7 @@ public final class ObserveManualScheduleDisallowedTest extends AbstractArezInteg
         }
 
         @ObserverRef
-        abstract Observer getRenderObserver();
+        abstract @Nullable Observer getRenderObserver();
 
         @SuppressWarnings("UnusedReturnValue")
         @Observable

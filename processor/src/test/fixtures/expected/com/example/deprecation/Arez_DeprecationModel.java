@@ -164,7 +164,7 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( DeprecationModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type DeprecationModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( DeprecationModel.class, $$arezi$$_id() ) );
       final int $$arezv$$_BlahId = this.getMyEntityId();
       final DeprecationModel.MyEntity $$arezv$$_Blah = this.$$arezi$$_locator().findById( DeprecationModel.MyEntity.class, $$arezv$$_BlahId );
-      Guards.apiInvariant( () -> null != $$arezv$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.deprecation.DeprecationModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.deprecation.DeprecationModel.MyEntity and id = " + getMyEntityId() );
     }
   }
 
@@ -330,7 +330,7 @@ final class Arez_DeprecationModel extends DeprecationModel implements Disposable
     final int id = this.getMyEntityId();
     this.$$arezr$$_Blah = this.$$arezi$$_locator().findById( DeprecationModel.MyEntity.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.deprecation.DeprecationModel.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntityId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.deprecation.DeprecationModel.MyEntity and id = " + getMyEntityId() );
     }
   }
 

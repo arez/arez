@@ -20,10 +20,11 @@ import arez.component.internal.AbstractRepository;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ZeroOrOneMultiplicityLazyLoadInverseIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
@@ -101,15 +102,16 @@ public final class ZeroOrOneMultiplicityLazyLoadInverseIntegrationTest extends A
         assertEquals(locatorLookupCallCount.get(), 2);
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Certificate {
-        @Nonnull
+
         static Certificate create(final int personId) {
             return new ZeroOrOneMultiplicityLazyLoadInverseIntegrationTest_Arez_Certificate(personId);
         }
 
         @Reference(inverseMultiplicity = Multiplicity.ZERO_OR_ONE, load = LinkType.LAZY)
-        abstract Person getPerson();
+        abstract @Nullable Person getPerson();
 
         @ReferenceId
         @Observable(initializer = Feature.ENABLE)
@@ -118,6 +120,7 @@ public final class ZeroOrOneMultiplicityLazyLoadInverseIntegrationTest extends A
         abstract void setPersonId(int personId);
     }
 
+    @NullMarked
     @ArezComponent(observable = Feature.ENABLE)
     abstract static class Person {
         @Inverse
@@ -125,13 +128,15 @@ public final class ZeroOrOneMultiplicityLazyLoadInverseIntegrationTest extends A
         abstract Certificate getCertificate();
     }
 
+    @NullMarked
     @ArezComponent(service = Feature.ENABLE, sting = Feature.DISABLE)
     abstract static class PersonRepository extends AbstractRepository<Integer, Person, PersonRepository> {
-        static PersonRepository newRepository() {
+        static @Nullable PersonRepository newRepository() {
             return new ZeroOrOneMultiplicityLazyLoadInverseIntegrationTest_Arez_PersonRepository();
         }
 
         @Action
+        @Nullable
         Person create() {
             final ZeroOrOneMultiplicityLazyLoadInverseIntegrationTest_Arez_Person entity =
                     new ZeroOrOneMultiplicityLazyLoadInverseIntegrationTest_Arez_Person();
@@ -140,7 +145,7 @@ public final class ZeroOrOneMultiplicityLazyLoadInverseIntegrationTest extends A
         }
 
         @Action
-        protected void destroy(@Nonnull final Person entity) {
+        protected void destroy(final Person entity) {
             super.destroy(entity);
         }
     }

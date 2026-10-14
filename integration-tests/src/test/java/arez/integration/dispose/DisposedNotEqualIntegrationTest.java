@@ -8,10 +8,12 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
 import arez.annotations.Feature;
 import arez.integration.AbstractArezIntegrationTest;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class DisposedNotEqualIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
@@ -49,20 +51,22 @@ public final class DisposedNotEqualIntegrationTest extends AbstractArezIntegrati
         assertEquals(model3, model2);
     }
 
+    @NullMarked
     @ArezComponent(allowEmpty = true, requireEquals = Feature.ENABLE)
     abstract static class Model1 {
-        @Nonnull
-        static Model1 create(@Nonnull final String id) {
+
+        static Model1 create(final String id) {
             return new DisposedNotEqualIntegrationTest_Arez_Model1(id);
         }
 
-        private final String _id;
+        private final @Nullable String _id;
 
-        Model1(final String id) {
+        Model1(final @Nullable String id) {
             _id = id;
         }
 
         @ComponentId
+        @Nullable
         String getId() {
             return _id;
         }

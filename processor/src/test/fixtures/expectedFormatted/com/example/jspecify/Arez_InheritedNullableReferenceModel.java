@@ -198,7 +198,7 @@ final class Arez_InheritedNullableReferenceModel extends InheritedNullableRefere
         Guards.apiInvariant(
             () -> null != $$arezv$$_entity,
             () -> "Reference named 'entity' on component named '" + this.$$arezi$$_kernel.getName()
-                + "' is unable to resolve entity of type com.example.jspecify.ReferenceBase.@org.jspecify.annotations.Nullable Entity and id = "
+                + "' is unable to resolve entity of type com.example.jspecify.ReferenceBase.Entity and id = "
                 + getEntityId());
       }
     }
@@ -237,7 +237,7 @@ final class Arez_InheritedNullableReferenceModel extends InheritedNullableRefere
         Guards.apiInvariant(
             () -> null != $$arezr$$_entity,
             () -> "Reference named 'entity' on component named '" + this.$$arezi$$_kernel.getName()
-                + "' is unable to resolve entity of type com.example.jspecify.ReferenceBase.@org.jspecify.annotations.Nullable Entity and id = "
+                + "' is unable to resolve entity of type com.example.jspecify.ReferenceBase.Entity and id = "
                 + getEntityId());
       }
     } else {

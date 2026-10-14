@@ -402,7 +402,7 @@ public final class Arez_CompleteModel extends CompleteModel
       Guards.apiInvariant(
           () -> null != $$arezv$$_myEntity,
           () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inheritance.other.BaseCompleteModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+              + "' is unable to resolve entity of type com.example.inheritance.other.BaseCompleteModel.MyEntity and id = "
               + getMyEntityId());
       for (final Element element : this.$$arezd$$_elements) {
         if (Arez.shouldCheckApiInvariants()) {
@@ -750,7 +750,7 @@ public final class Arez_CompleteModel extends CompleteModel
       Guards.apiInvariant(
           () -> null != $$arezr$$_myEntity,
           () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inheritance.other.BaseCompleteModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+              + "' is unable to resolve entity of type com.example.inheritance.other.BaseCompleteModel.MyEntity and id = "
               + getMyEntityId());
     }
   }

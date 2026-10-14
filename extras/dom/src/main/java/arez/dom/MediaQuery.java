@@ -12,7 +12,6 @@ import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
 import java.util.Objects;
-import javax.annotation.Nonnull;
 import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
@@ -74,13 +73,10 @@ public abstract class MediaQuery {
         native void removeListener(EventListener listener);
     }
 
-    @Nonnull
     private final EventListener _listener = e -> notifyOnMatchChange();
 
-    @Nonnull
     private final Window _window;
 
-    @Nonnull
     private MediaQueryList _mediaQueryList;
 
     private boolean _active;
@@ -91,8 +87,7 @@ public abstract class MediaQuery {
      * @param query the CSS media query to match.
      * @return the MediaQuery instance.
      */
-    @Nonnull
-    public static MediaQuery create(@Nonnull final String query) {
+    public static MediaQuery create(final String query) {
         return create(window(), query);
     }
 
@@ -103,12 +98,11 @@ public abstract class MediaQuery {
      * @param query  the CSS media query to match.
      * @return the MediaQuery instance.
      */
-    @Nonnull
-    public static MediaQuery create(@Nonnull final Window window, @Nonnull final String query) {
+    public static MediaQuery create(final Window window, final String query) {
         return new Arez_MediaQuery(window, query);
     }
 
-    MediaQuery(@Nonnull final Window window, @Nonnull final String query) {
+    MediaQuery(final Window window, final String query) {
         _window = Objects.requireNonNull(window);
         _mediaQueryList = _window.matchMedia(Objects.requireNonNull(query));
     }
@@ -118,7 +112,6 @@ public abstract class MediaQuery {
      *
      * @return the window to test.
      */
-    @Nonnull
     public Window getWindow() {
         return _window;
     }
@@ -128,7 +121,6 @@ public abstract class MediaQuery {
      *
      * @return the associated media query.
      */
-    @Nonnull
     @Observable
     public String getQuery() {
         return _mediaQueryList.media();
@@ -141,7 +133,7 @@ public abstract class MediaQuery {
      *
      * @param query the CSS media query.
      */
-    public void setQuery(@Nonnull final String query) {
+    public void setQuery(final String query) {
         if (_active) {
             unbindListener();
         }

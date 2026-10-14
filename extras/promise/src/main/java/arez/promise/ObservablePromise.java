@@ -8,12 +8,12 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import arez.annotations.Observable;
 import java.util.Objects;
-import javax.annotation.Nonnull;
 import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 import jsinterop.base.Js;
+import org.jspecify.annotations.Nullable;
 
 /**
  * An observable model that wraps a Promise and exposes observable state that track
@@ -44,37 +44,37 @@ import jsinterop.base.Js;
  * @param <E> the type of the error if the promise is rejected.
  */
 @ArezComponent(requireId = Feature.DISABLE)
-public abstract class ObservablePromise<T, E> {
+public abstract class ObservablePromise<T extends @Nullable Object, E extends @Nullable Object> {
     /**
      * Minimal facade for a JavaScript promise.
      *
      * @param <T> the type of value produced by the promise.
      */
     @JsType(isNative = true, name = "Promise", namespace = JsPackage.GLOBAL)
-    public static class Promise<T> {
+    public static class Promise<T extends @Nullable Object> {
         protected Promise() {}
 
         @JsMethod
-        static native <V> Promise<V> resolve(V value);
+        static native <V extends @Nullable Object> Promise<V> resolve(V value);
 
         @JsMethod
-        static native <V> Promise<V> reject(Object error);
+        static native <V extends @Nullable Object> Promise<V> reject(@Nullable Object error);
 
         @JsMethod
-        native <V> Promise<V> then(OnFulfilledCallback<? super T, V> callback);
+        native <V extends @Nullable Object> Promise<V> then(OnFulfilledCallback<? super T, V> callback);
 
         @JsMethod(name = "catch")
-        native <V> Promise<V> catch_(OnRejectedCallback<V> callback);
+        native <V extends @Nullable Object> Promise<V> catch_(OnRejectedCallback<V> callback);
     }
 
     @JsFunction
-    private interface OnFulfilledCallback<T, V> {
+    private interface OnFulfilledCallback<T extends @Nullable Object, V extends @Nullable Object> {
         Promise<V> onFulfilled(T value);
     }
 
     @JsFunction
-    private interface OnRejectedCallback<V> {
-        Promise<V> onRejected(Object error);
+    private interface OnRejectedCallback<V extends @Nullable Object> {
+        Promise<V> onRejected(@Nullable Object error);
     }
 
     /**
@@ -97,16 +97,15 @@ public abstract class ObservablePromise<T, E> {
      * The state of the promise. Starts as {@link State#PENDING} and then transitions to either
      * {@link State#FULFILLED} or {@link State#REJECTED}.
      */
-    @Nonnull
     private State _state;
     /**
      * The value that the promise resolved to. This is not valid unless the state is {@link State#FULFILLED}.
      */
-    private T _value;
+    private @Nullable T _value;
     /**
      * The error that the promise was rejected with. This is not valid unless the state is {@link State#REJECTED}.
      */
-    private E _error;
+    private @Nullable E _error;
 
     /**
      * Create the observable model that wraps specified promise.
@@ -116,12 +115,12 @@ public abstract class ObservablePromise<T, E> {
      * @param promise the promise to wrap.
      * @return the ObservablePromise
      */
-    @Nonnull
-    public static <T, E> ObservablePromise<T, E> create(@Nonnull final Promise<T> promise) {
+    public static <T extends @Nullable Object, E extends @Nullable Object> ObservablePromise<T, E> create(
+            final Promise<T> promise) {
         return new Arez_ObservablePromise<>(promise);
     }
 
-    ObservablePromise(@Nonnull final Promise<T> promise) {
+    ObservablePromise(final Promise<T> promise) {
         _state = State.PENDING;
         _promise = Objects.requireNonNull(promise);
         _promise.then(this::onFulfilled).catch_(this::onRejected);
@@ -133,12 +132,11 @@ public abstract class ObservablePromise<T, E> {
      * @return the promise state.
      */
     @Observable
-    @Nonnull
     public State getState() {
         return _state;
     }
 
-    void setState(@Nonnull final State state) {
+    void setState(final State state) {
         _state = Objects.requireNonNull(state);
     }
 
@@ -150,7 +148,7 @@ public abstract class ObservablePromise<T, E> {
      * @return the value that the promise was resolved to.
      */
     @Observable
-    public T getValue() {
+    public @Nullable T getValue() {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> _state == State.FULFILLED,
@@ -160,7 +158,7 @@ public abstract class ObservablePromise<T, E> {
         return _value;
     }
 
-    void setValue(final T value) {
+    void setValue(final @Nullable T value) {
         if (Arez.shouldCheckInvariants()) {
             invariant(
                     () -> _state == State.FULFILLED,
@@ -178,7 +176,7 @@ public abstract class ObservablePromise<T, E> {
      * @return the error that the promise was rejected with.
      */
     @Observable
-    public E getError() {
+    public @Nullable E getError() {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> _state == State.REJECTED,
@@ -188,7 +186,7 @@ public abstract class ObservablePromise<T, E> {
         return _error;
     }
 
-    void setError(final E error) {
+    void setError(final @Nullable E error) {
         if (Arez.shouldCheckInvariants()) {
             invariant(
                     () -> _state == State.REJECTED,
@@ -199,7 +197,6 @@ public abstract class ObservablePromise<T, E> {
     }
 
     @Action
-    @Nonnull
     Promise<T> onFulfilled(final T value) {
         setState(State.FULFILLED);
         setValue(value);
@@ -207,7 +204,7 @@ public abstract class ObservablePromise<T, E> {
     }
 
     @Action
-    Promise<Object> onRejected(@Nonnull final Object error) {
+    Promise<Object> onRejected(final @Nullable Object error) {
         setState(State.REJECTED);
         setError(Js.uncheckedCast(error));
         return Promise.reject(error);

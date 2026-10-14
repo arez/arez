@@ -208,7 +208,7 @@ final class ObservableCollectionInverseModel_Arez_Element
           () -> null != $$arezv$$_observableCollectionInverseModel,
           () -> "Reference named 'observableCollectionInverseModel' on component named '"
               + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ObservableCollectionInverseModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.ObservableCollectionInverseModel and id = "
               + getObservableCollectionInverseModelId());
     }
   }
@@ -251,7 +251,7 @@ final class ObservableCollectionInverseModel_Arez_Element
           () -> null != $$arezr$$_observableCollectionInverseModel,
           () -> "Reference named 'observableCollectionInverseModel' on component named '"
               + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ObservableCollectionInverseModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.ObservableCollectionInverseModel and id = "
               + getObservableCollectionInverseModelId());
     }
     ((Arez_ObservableCollectionInverseModel) this.$$arezr$$_observableCollectionInverseModel)

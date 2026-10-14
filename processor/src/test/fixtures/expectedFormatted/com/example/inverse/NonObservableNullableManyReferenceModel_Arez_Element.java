@@ -211,7 +211,7 @@ final class NonObservableNullableManyReferenceModel_Arez_Element
             () -> null != $$arezv$$_nonObservableNullableManyReferenceModel,
             () -> "Reference named 'nonObservableNullableManyReferenceModel' on component named '"
                 + this.$$arezi$$_kernel.getName()
-                + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable NonObservableNullableManyReferenceModel and id = "
+                + "' is unable to resolve entity of type com.example.inverse.NonObservableNullableManyReferenceModel and id = "
                 + getNonObservableNullableManyReferenceModelId());
       }
     }
@@ -257,7 +257,7 @@ final class NonObservableNullableManyReferenceModel_Arez_Element
             () -> null != $$arezr$$_nonObservableNullableManyReferenceModel,
             () -> "Reference named 'nonObservableNullableManyReferenceModel' on component named '"
                 + this.$$arezi$$_kernel.getName()
-                + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable NonObservableNullableManyReferenceModel and id = "
+                + "' is unable to resolve entity of type com.example.inverse.NonObservableNullableManyReferenceModel and id = "
                 + getNonObservableNullableManyReferenceModelId());
       }
       ((Arez_NonObservableNullableManyReferenceModel)

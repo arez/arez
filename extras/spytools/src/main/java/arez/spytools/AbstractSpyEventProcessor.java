@@ -7,7 +7,7 @@ import arez.spy.SpyEventHandler;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Abstract base class for processing spy events.
@@ -32,8 +32,8 @@ public abstract class AbstractSpyEventProcessor implements SpyEventHandler {
      * @param type      the type of the event to register.
      * @param processor the processor to handle event with.
      */
-    protected final <T> void on(
-            @Nonnull final Class<T> type, @Nonnull final BiConsumer<SpyUtil.NestingDelta, T> processor) {
+    protected final <T extends @Nullable Object> void on(
+            final Class<T> type, final BiConsumer<SpyUtil.NestingDelta, T> processor) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> !_processors.containsKey(type),
@@ -50,7 +50,7 @@ public abstract class AbstractSpyEventProcessor implements SpyEventHandler {
      */
     @Override
     @SuppressWarnings({"ConstantConditions", "unchecked"})
-    public final void onSpyEvent(@Nonnull final Object event) {
+    public final void onSpyEvent(final Object event) {
         assert null != event;
         final BiConsumer<SpyUtil.NestingDelta, Object> processor =
                 (BiConsumer<SpyUtil.NestingDelta, Object>) _processors.get(event.getClass());
@@ -96,7 +96,7 @@ public abstract class AbstractSpyEventProcessor implements SpyEventHandler {
      *
      * @param event the unhandled event.
      */
-    protected void handleUnhandledEvent(@Nonnull final Object event) {}
+    protected void handleUnhandledEvent(final Object event) {}
 
     /**
      * Return the change in nesting level for event if any.
@@ -106,8 +106,7 @@ public abstract class AbstractSpyEventProcessor implements SpyEventHandler {
      * @param event the event.
      * @return the delta in nesting level.
      */
-    @Nonnull
-    protected SpyUtil.NestingDelta getNestingDelta(@Nonnull final Object event) {
+    protected SpyUtil.NestingDelta getNestingDelta(final Object event) {
         return SpyUtil.getNestingDelta(event.getClass());
     }
 }

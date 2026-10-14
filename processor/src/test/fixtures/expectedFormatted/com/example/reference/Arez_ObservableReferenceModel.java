@@ -210,7 +210,7 @@ final class Arez_ObservableReferenceModel extends ObservableReferenceModel
       Guards.apiInvariant(
           () -> null != $$arezv$$_myEntity,
           () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.reference.ObservableReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+              + "' is unable to resolve entity of type com.example.reference.ObservableReferenceModel.MyEntity and id = "
               + getMyEntityId());
     }
   }
@@ -278,7 +278,7 @@ final class Arez_ObservableReferenceModel extends ObservableReferenceModel
       Guards.apiInvariant(
           () -> null != $$arezr$$_myEntity,
           () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.reference.ObservableReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+              + "' is unable to resolve entity of type com.example.reference.ObservableReferenceModel.MyEntity and id = "
               + getMyEntityId());
     }
   }

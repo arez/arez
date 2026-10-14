@@ -202,7 +202,7 @@ final class BasicPostInverseAddModel_Arez_Element extends BasicPostInverseAddMod
       Guards.apiInvariant(
           () -> null != $$arezv$$_other,
           () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.post_inverse_add.@org.jspecify.annotations.Nullable BasicPostInverseAddModel and id = "
+              + "' is unable to resolve entity of type com.example.post_inverse_add.BasicPostInverseAddModel and id = "
               + getOtherId());
     }
   }
@@ -240,7 +240,7 @@ final class BasicPostInverseAddModel_Arez_Element extends BasicPostInverseAddMod
       Guards.apiInvariant(
           () -> null != $$arezr$$_other,
           () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.post_inverse_add.@org.jspecify.annotations.Nullable BasicPostInverseAddModel and id = "
+              + "' is unable to resolve entity of type com.example.post_inverse_add.BasicPostInverseAddModel and id = "
               + getOtherId());
     }
     ((Arez_BasicPostInverseAddModel) this.$$arezr$$_other).$$arezir$$_elements_add(this);

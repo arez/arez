@@ -208,7 +208,7 @@ final class ZeroOrOneMultiplicityInverseModel_Arez_Element
           () -> null != $$arezv$$_zeroOrOneMultiplicityInverseModel,
           () -> "Reference named 'zeroOrOneMultiplicityInverseModel' on component named '"
               + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ZeroOrOneMultiplicityInverseModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.ZeroOrOneMultiplicityInverseModel and id = "
               + getZeroOrOneMultiplicityInverseModelId());
     }
   }
@@ -251,7 +251,7 @@ final class ZeroOrOneMultiplicityInverseModel_Arez_Element
           () -> null != $$arezr$$_zeroOrOneMultiplicityInverseModel,
           () -> "Reference named 'zeroOrOneMultiplicityInverseModel' on component named '"
               + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ZeroOrOneMultiplicityInverseModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.ZeroOrOneMultiplicityInverseModel and id = "
               + getZeroOrOneMultiplicityInverseModelId());
     }
     ((Arez_ZeroOrOneMultiplicityInverseModel) this.$$arezr$$_zeroOrOneMultiplicityInverseModel)

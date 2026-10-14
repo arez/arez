@@ -238,7 +238,7 @@ final class Arez_DisableVerifyModel extends DisableVerifyModel
       Guards.apiInvariant(
           () -> null != $$arezr$$_myEntity,
           () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.verifiable.DisableVerifyModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+              + "' is unable to resolve entity of type com.example.verifiable.DisableVerifyModel.MyEntity and id = "
               + getMyEntityId());
     }
   }

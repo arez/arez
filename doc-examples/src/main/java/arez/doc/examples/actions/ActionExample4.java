@@ -2,9 +2,12 @@ package arez.doc.examples.actions;
 
 import arez.ActionFlags;
 import arez.Arez;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 public class ActionExample4 {
-    public static void main(String[] args) throws Throwable {
+    public static void main(String @Nullable [] args) throws Throwable {
         final int result = Arez.context()
                 .action(
                         "MyAction",

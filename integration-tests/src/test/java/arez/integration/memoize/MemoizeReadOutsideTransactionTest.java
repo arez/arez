@@ -13,9 +13,10 @@ import arez.spy.ComputeStartEvent;
 import arez.spy.ObservableValueChangeEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class MemoizeReadOutsideTransactionTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
@@ -42,15 +43,15 @@ public final class MemoizeReadOutsideTransactionTest extends AbstractArezIntegra
         recorder.assertNextEvent(TransactionCompleteEvent.class);
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Element {
-        @Nonnull
+
         static Element create() {
             return new MemoizeReadOutsideTransactionTest_Arez_Element();
         }
 
         @Memoize(readOutsideTransaction = Feature.ENABLE, depType = DepType.AREZ_OR_NONE)
-        @Nonnull
         String getMemoized() {
             return "";
         }

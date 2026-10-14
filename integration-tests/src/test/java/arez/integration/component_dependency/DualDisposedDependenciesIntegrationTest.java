@@ -9,9 +9,11 @@ import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 @SuppressWarnings("Arez:UnmanagedComponentReference")
 public final class DualDisposedDependenciesIntegrationTest extends AbstractArezIntegrationTest {
     @Test
@@ -62,96 +64,106 @@ public final class DualDisposedDependenciesIntegrationTest extends AbstractArezI
         assertMatchesFixture(recorder);
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model0 {
-        private String _name;
+        private @Nullable String _name;
 
-        static Model0 create(final String name) {
+        static @Nullable Model0 create(final @Nullable String name) {
             return new DualDisposedDependenciesIntegrationTest_Arez_Model0(name);
         }
 
-        Model0(final String name) {
+        Model0(final @Nullable String name) {
             _name = name;
         }
 
         @Observable
+        @Nullable
         String getName() {
             return _name;
         }
 
-        void setName(String name) {
+        void setName(@Nullable String name) {
             _name = name;
         }
     }
 
     // Explicitly requireEquals so there is a stable ordering when disposing by dispose notifier
+    @NullMarked
     @ArezComponent(requireEquals = Feature.ENABLE)
     abstract static class Model1 {
-        private String _name;
-        private Model0 _leaf;
+        private @Nullable String _name;
+        private @Nullable Model0 _leaf;
 
-        static Model1 create(final String name, final Model0 leaf) {
+        static @Nullable Model1 create(final @Nullable String name, final @Nullable Model0 leaf) {
             return new DualDisposedDependenciesIntegrationTest_Arez_Model1(name, leaf);
         }
 
-        Model1(final String name, final Model0 leaf) {
+        Model1(final @Nullable String name, final @Nullable Model0 leaf) {
             _name = name;
             _leaf = leaf;
         }
 
         @ComponentDependency
         @Observable
+        @Nullable
         Model0 getLeaf() {
             return _leaf;
         }
 
         @Observable
-        void setLeaf(final Model0 leaf) {
+        void setLeaf(final @Nullable Model0 leaf) {
             _leaf = leaf;
         }
 
         @Observable
+        @Nullable
         String getName() {
             return _name;
         }
 
-        void setName(String name) {
+        void setName(@Nullable String name) {
             _name = name;
         }
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model2 {
-        private final Model0 _leaf;
-        private final Model1 _reference;
-        private String _name;
+        private final @Nullable Model0 _leaf;
+        private final @Nullable Model1 _reference;
+        private @Nullable String _name;
 
-        static Model2 create(final Model1 reference, final String name, final Model0 leaf) {
+        static @Nullable Model2 create(
+                final @Nullable Model1 reference, final @Nullable String name, final @Nullable Model0 leaf) {
             return new DualDisposedDependenciesIntegrationTest_Arez_Model2(reference, name, leaf);
         }
 
-        Model2(final Model1 reference, final String name, final Model0 leaf) {
+        Model2(final @Nullable Model1 reference, final @Nullable String name, final @Nullable Model0 leaf) {
             _reference = reference;
             _name = name;
             _leaf = leaf;
         }
 
         @ComponentDependency
+        @Nullable
         Model1 getReference() {
             return _reference;
         }
 
         @ComponentDependency
+        @Nullable
         Model0 getLeaf() {
             return _leaf;
         }
 
         @Observable
+        @Nullable
         String getName() {
             return _name;
         }
 
-        void setName(@Nonnull String name) {
+        void setName(String name) {
             _name = name;
         }
     }

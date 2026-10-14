@@ -4,18 +4,21 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import java.math.BigDecimal;
 import java.util.Objects;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class Currency {
-    private BigDecimal _amount;
+    private @Nullable BigDecimal _amount;
 
     @Observable(name = "amount")
-    public BigDecimal amount() {
+    public @Nullable BigDecimal amount() {
         return _amount;
     }
 
     @Observable(name = "amount")
-    public void updateAmount(final BigDecimal amount) {
+    public void updateAmount(final @Nullable BigDecimal amount) {
         _amount = Objects.requireNonNull(amount);
     }
 

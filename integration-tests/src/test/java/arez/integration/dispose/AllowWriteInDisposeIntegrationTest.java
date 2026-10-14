@@ -9,10 +9,11 @@ import arez.annotations.Observable;
 import arez.annotations.PreDispose;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class AllowWriteInDisposeIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
@@ -36,32 +37,31 @@ public final class AllowWriteInDisposeIntegrationTest extends AbstractArezIntegr
         assertEquals(callCount.get(), 2);
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model1 {
-        @Nonnull
-        static Model1 create(@Nonnull final String name) {
+
+        static Model1 create(final String name) {
             return new AllowWriteInDisposeIntegrationTest_Arez_Model1(name);
         }
 
         @Observable
-        @Nonnull
         abstract String getName();
 
-        abstract void setName(@Nonnull String name);
+        abstract void setName(String name);
     }
 
+    @NullMarked
     @ArezComponent(allowEmpty = true)
     abstract static class Model2 {
         @SuppressWarnings("Arez:UnmanagedComponentReference")
-        @Nonnull
         private final Model1 _other;
 
-        @Nonnull
-        static Model2 create(@Nonnull final Model1 other) {
+        static Model2 create(final Model1 other) {
             return new AllowWriteInDisposeIntegrationTest_Arez_Model2(other);
         }
 
-        Model2(@Nonnull final Model1 other) {
+        Model2(final Model1 other) {
             _other = other;
         }
 

@@ -11,12 +11,16 @@ import arez.component.ComponentObservable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.spy.ObservableValueInfo;
 import java.util.List;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ComponentObservableTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent(allowEmpty = true, observable = Feature.ENABLE)
     abstract static class TestComponent {}
 
+    @NullMarked
     @ArezComponent(allowEmpty = true, observable = Feature.ENABLE)
     abstract static class TestComponent2 {}
 

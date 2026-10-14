@@ -7,9 +7,12 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.PostConstruct;
 import arez.integration.AbstractArezIntegrationTest;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class PostConstructCanChangeArezStateTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent
     abstract static class TestComponent {
         boolean _postConstructCalled;

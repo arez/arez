@@ -7,9 +7,10 @@ import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class MemoizeKeepAliveTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() throws Throwable {
@@ -25,47 +26,43 @@ public final class MemoizeKeepAliveTest extends AbstractArezIntegrationTest {
         assertMatchesFixture(recorder);
     }
 
+    @NullMarked
     @SuppressWarnings("WeakerAccess")
     @ArezComponent
     public abstract static class PersonModel {
-        @Nonnull
+
         private String _firstName;
 
-        @Nonnull
         private String _lastName;
 
-        @Nonnull
-        public static PersonModel create(@Nonnull final String firstName, @Nonnull final String lastName) {
+        public static PersonModel create(final String firstName, final String lastName) {
             return new MemoizeKeepAliveTest_Arez_PersonModel(firstName, lastName);
         }
 
-        PersonModel(@Nonnull final String firstName, @Nonnull final String lastName) {
+        PersonModel(final String firstName, final String lastName) {
             _firstName = firstName;
             _lastName = lastName;
         }
 
         @Observable
-        @Nonnull
         public String getFirstName() {
             return _firstName;
         }
 
-        public void setFirstName(@Nonnull final String firstName) {
+        public void setFirstName(final String firstName) {
             _firstName = firstName;
         }
 
         @Observable
-        @Nonnull
         public String getLastName() {
             return _lastName;
         }
 
-        public void setLastName(@Nonnull final String lastName) {
+        public void setLastName(final String lastName) {
             _lastName = lastName;
         }
 
         @Memoize(keepAlive = true)
-        @Nonnull
         public String getFullName() {
             return getFirstName() + " " + getLastName();
         }

@@ -8,9 +8,11 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
 import arez.annotations.Observable;
 import arez.annotations.Observe;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ObserversMutationParameterIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void readOnlyAutorunAttemptsMutationScenario() {
@@ -105,12 +107,14 @@ public final class ObserversMutationParameterIntegrationTest extends AbstractAre
         assertEquals(model._observerRunCount, 1);
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model1 {
+        @Nullable
         String _name = "Initial";
+
         int _observerRunCount;
 
-        @Nonnull
         static Model1 create() {
             return new ObserversMutationParameterIntegrationTest_Arez_Model1();
         }
@@ -123,21 +127,24 @@ public final class ObserversMutationParameterIntegrationTest extends AbstractAre
         }
 
         @Observable
+        @Nullable
         String getName() {
             return _name;
         }
 
-        void setName(@Nonnull final String name) {
+        void setName(final String name) {
             _name = name;
         }
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model2 {
+        @Nullable
         String _name = "Initial";
+
         int _observerRunCount;
 
-        @Nonnull
         static Model2 create() {
             return new ObserversMutationParameterIntegrationTest_Arez_Model2();
         }
@@ -150,21 +157,24 @@ public final class ObserversMutationParameterIntegrationTest extends AbstractAre
         }
 
         @Observable
+        @Nullable
         String getName() {
             return _name;
         }
 
-        void setName(@Nonnull final String name) {
+        void setName(final String name) {
             _name = name;
         }
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model3 {
+        @Nullable
         String _name = "Initial";
+
         int _observerRunCount;
 
-        @Nonnull
         static Model3 create() {
             return new ObserversMutationParameterIntegrationTest_Arez_Model3();
         }
@@ -177,21 +187,24 @@ public final class ObserversMutationParameterIntegrationTest extends AbstractAre
         }
 
         @Observable
+        @Nullable
         String getName() {
             return _name;
         }
 
-        void setName(@Nonnull final String name) {
+        void setName(final String name) {
             _name = name;
         }
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model4 {
+        @Nullable
         String _name = "Initial";
+
         int _observerRunCount;
 
-        @Nonnull
         static Model4 create() {
             return new ObserversMutationParameterIntegrationTest_Arez_Model4();
         }
@@ -205,21 +218,24 @@ public final class ObserversMutationParameterIntegrationTest extends AbstractAre
         void onMyObserveReactionDepsChange() {}
 
         @Observable
+        @Nullable
         String getName() {
             return _name;
         }
 
-        void setName(@Nonnull final String name) {
+        void setName(final String name) {
             _name = name;
         }
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model5 {
+        @Nullable
         String _name = "Initial";
+
         int _observerRunCount;
 
-        @Nonnull
         static Model5 create() {
             return new ObserversMutationParameterIntegrationTest_Arez_Model5();
         }
@@ -234,21 +250,24 @@ public final class ObserversMutationParameterIntegrationTest extends AbstractAre
         void onMyObserveReactionDepsChange() {}
 
         @Observable
+        @Nullable
         String getName() {
             return _name;
         }
 
-        void setName(@Nonnull final String name) {
+        void setName(final String name) {
             _name = name;
         }
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model6 {
+        @Nullable
         String _name = "Initial";
+
         int _observerRunCount;
 
-        @Nonnull
         static Model6 create() {
             return new ObserversMutationParameterIntegrationTest_Arez_Model6();
         }
@@ -263,11 +282,12 @@ public final class ObserversMutationParameterIntegrationTest extends AbstractAre
         void onMyObserveReactionDepsChange() {}
 
         @Observable
+        @Nullable
         String getName() {
             return _name;
         }
 
-        void setName(@Nonnull final String name) {
+        void setName(final String name) {
             _name = name;
         }
     }

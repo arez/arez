@@ -132,7 +132,7 @@ final class OneMultiplicityInverseModel_Arez_Element extends OneMultiplicityInve
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( OneMultiplicityInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type OneMultiplicityInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( OneMultiplicityInverseModel.Element.class, $$arezi$$_id() ) );
       final int $$arezv$$_oneMultiplicityInverseModelId = this.getOneMultiplicityInverseModelId();
       final OneMultiplicityInverseModel $$arezv$$_oneMultiplicityInverseModel = this.$$arezi$$_locator().findById( OneMultiplicityInverseModel.class, $$arezv$$_oneMultiplicityInverseModelId );
-      Guards.apiInvariant( () -> null != $$arezv$$_oneMultiplicityInverseModel, () -> "Reference named 'oneMultiplicityInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable OneMultiplicityInverseModel and id = " + getOneMultiplicityInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_oneMultiplicityInverseModel, () -> "Reference named 'oneMultiplicityInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.OneMultiplicityInverseModel and id = " + getOneMultiplicityInverseModelId() );
     }
   }
 
@@ -154,7 +154,7 @@ final class OneMultiplicityInverseModel_Arez_Element extends OneMultiplicityInve
     final int id = this.getOneMultiplicityInverseModelId();
     this.$$arezr$$_oneMultiplicityInverseModel = this.$$arezi$$_locator().findById( OneMultiplicityInverseModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_oneMultiplicityInverseModel, () -> "Reference named 'oneMultiplicityInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable OneMultiplicityInverseModel and id = " + getOneMultiplicityInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_oneMultiplicityInverseModel, () -> "Reference named 'oneMultiplicityInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.OneMultiplicityInverseModel and id = " + getOneMultiplicityInverseModelId() );
     }
     ( (Arez_OneMultiplicityInverseModel) this.$$arezr$$_oneMultiplicityInverseModel ).$$arezir$$_element_set( this );
   }

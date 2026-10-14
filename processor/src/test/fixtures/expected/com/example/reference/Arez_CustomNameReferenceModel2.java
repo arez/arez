@@ -127,7 +127,7 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2 imp
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( CustomNameReferenceModel2.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type CustomNameReferenceModel2 and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( CustomNameReferenceModel2.class, $$arezi$$_id() ) );
       final int $$arezv$$_BlahId = this.getMyEntit$$$yId();
       final CustomNameReferenceModel2.MyEntity $$arezv$$_Blah = this.$$arezi$$_locator().findById( CustomNameReferenceModel2.MyEntity.class, $$arezv$$_BlahId );
-      Guards.apiInvariant( () -> null != $$arezv$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel2.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntit$$$yId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel2.MyEntity and id = " + getMyEntit$$$yId() );
     }
   }
 
@@ -149,7 +149,7 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2 imp
     final int id = this.getMyEntit$$$yId();
     this.$$arezr$$_Blah = this.$$arezi$$_locator().findById( CustomNameReferenceModel2.MyEntity.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel2.@org.jspecify.annotations.Nullable MyEntity and id = " + getMyEntit$$$yId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel2.MyEntity and id = " + getMyEntit$$$yId() );
     }
   }
 

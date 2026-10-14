@@ -5,7 +5,9 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.RequiresTransaction;
 import arez.annotations.TransactionMode;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 abstract class Wallet {
     private int _balance;

@@ -132,7 +132,7 @@ final class BasicPostInverseAddModel_Arez_Element extends BasicPostInverseAddMod
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( BasicPostInverseAddModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type BasicPostInverseAddModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( BasicPostInverseAddModel.Element.class, $$arezi$$_id() ) );
       final int $$arezv$$_otherId = this.getOtherId();
       final BasicPostInverseAddModel $$arezv$$_other = this.$$arezi$$_locator().findById( BasicPostInverseAddModel.class, $$arezv$$_otherId );
-      Guards.apiInvariant( () -> null != $$arezv$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.post_inverse_add.@org.jspecify.annotations.Nullable BasicPostInverseAddModel and id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.post_inverse_add.BasicPostInverseAddModel and id = " + getOtherId() );
     }
   }
 
@@ -154,7 +154,7 @@ final class BasicPostInverseAddModel_Arez_Element extends BasicPostInverseAddMod
     final int id = this.getOtherId();
     this.$$arezr$$_other = this.$$arezi$$_locator().findById( BasicPostInverseAddModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.post_inverse_add.@org.jspecify.annotations.Nullable BasicPostInverseAddModel and id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.post_inverse_add.BasicPostInverseAddModel and id = " + getOtherId() );
     }
     ( (Arez_BasicPostInverseAddModel) this.$$arezr$$_other ).$$arezir$$_elements_add( this );
   }

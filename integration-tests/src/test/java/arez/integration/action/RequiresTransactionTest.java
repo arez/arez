@@ -15,10 +15,13 @@ import arez.spy.ActionStartEvent;
 import arez.spy.ObservableValueChangeEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 @SuppressWarnings({"UnusedReturnValue", "unused", "SameParameterValue"})
 public final class RequiresTransactionTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent
     abstract static class MyComponent {
         @SuppressWarnings("DefaultAnnotationParam")
@@ -69,6 +72,7 @@ public final class RequiresTransactionTest extends AbstractArezIntegrationTest {
                         a.getName(), "arez_integration_action_RequiresTransactionTest_MyComponent.1.myAction"));
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class MyComponent2 {
         @SuppressWarnings("DefaultAnnotationParam")
@@ -115,6 +119,7 @@ public final class RequiresTransactionTest extends AbstractArezIntegrationTest {
         recorder.assertNextEvent(ActionCompleteEvent.class, a -> assertEquals(a.getName(), "MyWrapperAction"));
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class MyComponent3 {
         @SuppressWarnings("DefaultAnnotationParam")

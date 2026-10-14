@@ -3,9 +3,10 @@ package arez.doc.examples.at_component_dependency;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 import arez.annotations.Observable;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class PersonViewModel {
     // This reference is immutable and the network replication
@@ -13,11 +14,10 @@ public abstract class PersonViewModel {
     // component and may dispose it when the Person entity is deleted
     // on the server which should trigger this view model being disposed.
     @ComponentDependency
-    @Nonnull
     final Person _person;
     // DOC ELIDE START
 
-    PersonViewModel(@Nonnull final Person person) {
+    PersonViewModel(final Person person) {
         _person = person;
     }
 
@@ -27,7 +27,6 @@ public abstract class PersonViewModel {
     // to justify it's existence rather than just having view layer directly
     // accessing underlying entities
 
-    @Nonnull
     public Person getPerson() {
         return _person;
     }

@@ -203,7 +203,7 @@ final class ObservableSetInverseModel_Arez_Element extends ObservableSetInverseM
           () -> null != $$arezv$$_observableSetInverseModel,
           () -> "Reference named 'observableSetInverseModel' on component named '"
               + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ObservableSetInverseModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.ObservableSetInverseModel and id = "
               + getObservableSetInverseModelId());
     }
   }
@@ -246,7 +246,7 @@ final class ObservableSetInverseModel_Arez_Element extends ObservableSetInverseM
           () -> null != $$arezr$$_observableSetInverseModel,
           () -> "Reference named 'observableSetInverseModel' on component named '"
               + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ObservableSetInverseModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.ObservableSetInverseModel and id = "
               + getObservableSetInverseModelId());
     }
     ((Arez_ObservableSetInverseModel) this.$$arezr$$_observableSetInverseModel)

@@ -9,21 +9,27 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 import sting.Injector;
 
+@NullMarked
 public final class StingInjectorIntegrationTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent(sting = Feature.ENABLE)
     public abstract static class TestComponent {
         @Observable
-        abstract String getValue();
+        abstract @Nullable String getValue();
 
-        abstract void setValue(String value);
+        abstract void setValue(@Nullable String value);
     }
 
+    @NullMarked
     @Injector(includes = TestComponent.class, fragmentOnly = false)
     interface MyInjector {
+        @Nullable
         TestComponent component();
     }
 

@@ -3,8 +3,10 @@ package arez.doc.examples.reference2;
 import arez.annotations.ArezComponent;
 import arez.component.internal.AbstractRepository;
 import arez.doc.examples.reference.Group;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class GroupRepository
         extends AbstractRepository<Integer, arez.doc.examples.reference.Group, GroupRepository> {

@@ -12,8 +12,11 @@ import arez.component.ComponentObservable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class MultipleDeactivationsDisposeOnDeactivateIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() throws Throwable {
@@ -55,9 +58,10 @@ public final class MultipleDeactivationsDisposeOnDeactivateIntegrationTest exten
         assertMatchesFixture(recorder);
     }
 
+    @NullMarked
     @ArezComponent(disposeOnDeactivate = true, allowEmpty = true)
     abstract static class Model1 {
-        static Model1 create() {
+        static @Nullable Model1 create() {
             return new MultipleDeactivationsDisposeOnDeactivateIntegrationTest_Arez_Model1();
         }
     }

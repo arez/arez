@@ -1,0 +1,874 @@
+{
+  "test_source_method_membership_unchanged": true,
+  "test_sources": 156,
+  "methods": {
+    "extras/dom/src/test/java/arez/dom/AbstractTest.java": [
+      "beforeTest",
+      "afterTest"
+    ],
+    "extras/dom/src/test/java/arez/dom/EventDrivenValueTest.java": [
+      "basicOperation",
+      "setSource"
+    ],
+    "extras/dom/src/test/java/arez/dom/TestEventTarget.java": [
+      "addEventListener",
+      "removeEventListener"
+    ],
+    "extras/spytools/src/test/java/arez/spytools/AbstractSpyToolsTest.java": [
+      "beforeTest",
+      "afterTest"
+    ],
+    "extras/spytools/src/test/java/arez/spytools/SpyEventProcessorTest.java": [
+      "increaseNestingLevel",
+      "decreaseNestingLevel",
+      "handleUnhandledEvent",
+      "handleUnhandledEvent",
+      "increaseNesting",
+      "decreaseNesting",
+      "maintainNesting",
+      "onFailsOnDuplicates"
+    ],
+    "extras/spytools/src/test/java/arez/spytools/SpyUtilTest.java": [
+      "getNestingDelta"
+    ],
+    "extras/spytools/src/test/java/arez/spytools/WhyRunTest.java": [
+      "whyRun_whenSpiesDisabled",
+      "log_whenSpiesDisabled",
+      "whyRun_whenNoTransaction"
+    ],
+    "integration-tests/src/test/java/arez/integration/AbstractArezIntegrationTest.java": [
+      "captureObserverErrors",
+      "handleTestMethodName",
+      "onObserverError",
+      "afterTest",
+      "safeAction",
+      "assertMatchesFixture",
+      "observeADependency",
+      "assertInvariant",
+      "assertThrowsWithMessage"
+    ],
+    "integration-tests/src/test/java/arez/integration/AccessingDisposedTest.java": [
+      "myAction",
+      "accessingDisposedComponentResultsInError"
+    ],
+    "integration-tests/src/test/java/arez/integration/ComputableValueRefTest.java": [
+      "setOtherID",
+      "ref"
+    ],
+    "integration-tests/src/test/java/arez/integration/DisposeIntegrationTest.java": [
+      "codeModelScenario",
+      "setName",
+      "setPackageName",
+      "setQualifiedName"
+    ],
+    "integration-tests/src/test/java/arez/integration/EqualsAndHashCodeTest.java": [
+      "setFirstName",
+      "equalsAndHashBasedOnId"
+    ],
+    "integration-tests/src/test/java/arez/integration/IdentifiableIntegrationTest.java": [
+      "requireId_DISABLE",
+      "requireId_ENABLE",
+      "requireId_DEFAULT"
+    ],
+    "integration-tests/src/test/java/arez/integration/MultiZoneIntegrationTest.java": [
+      "multiZoneScenario",
+      "multiZoneScenario_transactionAlignment",
+      "assertInTransaction",
+      "assertNotInTransaction",
+      "setFirstName",
+      "setLastName"
+    ],
+    "integration-tests/src/test/java/arez/integration/NativeComponentsIntegrationTest.java": [
+      "inspectComponentViaSpy"
+    ],
+    "integration-tests/src/test/java/arez/integration/NestedComputableValueIntegrationTest.java": [
+      "scenario",
+      "scenarioWithActions",
+      "setFilter",
+      "setName",
+      "cacheIsVisibleResult"
+    ],
+    "integration-tests/src/test/java/arez/integration/NonTransactionEnforcingIntegrationTest.java": [
+      "personScenario",
+      "setFirstName",
+      "setLastName"
+    ],
+    "integration-tests/src/test/java/arez/integration/ObservableValueRefNoSetterTest.java": [
+      "setOtherID",
+      "observableRef"
+    ],
+    "integration-tests/src/test/java/arez/integration/ObservableValueRefTest.java": [
+      "setOtherID",
+      "observableRef"
+    ],
+    "integration-tests/src/test/java/arez/integration/ObserveRequireActionTest.java": [
+      "accessingObservableOutsideTransactionShouldThrowException",
+      "mutatingObservableOutsideTransactionShouldThrowException",
+      "accessingMemoizedOutsideTransactionShouldThrowException",
+      "setName",
+      "setPackageName",
+      "setQualifiedName"
+    ],
+    "integration-tests/src/test/java/arez/integration/ObserversMutationParameterIntegrationTest.java": [
+      "readOnlyAutorunAttemptsMutationScenario",
+      "readOnlyAutorunAttemptsQueryScenario",
+      "readWriteAutorunAttemptsMutationScenario",
+      "readOnlyTrackAttemptsMutationScenario",
+      "readOnlyTrackAttemptsQueryScenario",
+      "readWriteTrackAttemptsMutationScenario",
+      "myObserveReaction",
+      "setName",
+      "myObserveReaction",
+      "setName",
+      "myObserveReaction",
+      "setName",
+      "myObserveReaction",
+      "onMyObserveReactionDepsChange",
+      "setName",
+      "myObserveReaction",
+      "onMyObserveReactionDepsChange",
+      "setName",
+      "myObserveReaction",
+      "onMyObserveReactionDepsChange",
+      "setName"
+    ],
+    "integration-tests/src/test/java/arez/integration/TypeVisibilityTest.java": [
+      "setFirstName",
+      "setFirstName",
+      "typeVisibilities"
+    ],
+    "integration-tests/src/test/java/arez/integration/action/NoReportResultTest.java": [
+      "setTime",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/action/RequiresNewTransactionTest.java": [
+      "myAction",
+      "setTime",
+      "topLevelAction",
+      "myAction",
+      "setTime",
+      "nestedAction",
+      "myAction",
+      "setTime",
+      "nestedAction_in_ReadOnlyAction"
+    ],
+    "integration-tests/src/test/java/arez/integration/action/RequiresTransactionTest.java": [
+      "myAction",
+      "setTime",
+      "topLevelAction",
+      "myAction",
+      "setTime",
+      "nestedAction",
+      "myAction",
+      "setTime",
+      "nestedAction_in_ReadOnlyAction"
+    ],
+    "integration-tests/src/test/java/arez/integration/action/SkipIfDisposedIntegrationTest.java": [
+      "myAction",
+      "myAction",
+      "myAction",
+      "myAction",
+      "myAction",
+      "explicitEnable_skipsDisposedAction",
+      "componentDefaultEnable_skipsDisposedAction",
+      "explicitDisable_overridesComponentDefaultEnable",
+      "componentDefaultAutodetect_treatedAsDisable",
+      "explicitEnable_overridesComponentDefaultDisable",
+      "assertActionSkipped",
+      "assertDisposedInvariant"
+    ],
+    "integration-tests/src/test/java/arez/integration/auto_observe/AutoObserveFieldIntegrationTest.java": [
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/auto_observe/AutoObserveLazyReferenceIntegrationTest.java": [
+      "scenario",
+      "setChildId"
+    ],
+    "integration-tests/src/test/java/arez/integration/auto_observe/AutoObserveObservableIntegrationTest.java": [
+      "scenario",
+      "setChild"
+    ],
+    "integration-tests/src/test/java/arez/integration/auto_observe/AutoObserveRuntimeValidationIntegrationTest.java": [
+      "scenario",
+      "scenario_withBadDependency",
+      "scenario_withNullDependency"
+    ],
+    "integration-tests/src/test/java/arez/integration/cascade_dispose/BasicCascadeDisposeIntegrationTest.java": [
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/cascade_dispose/ObservableCascadeDisposeIntegrationTest.java": [
+      "scenario1",
+      "scenario2",
+      "setModel2"
+    ],
+    "integration-tests/src/test/java/arez/integration/collections/UnmodifiableCollectionsIntegrationTest.java": [
+      "scenario",
+      "scenario_when_CollectionPropertiesModifiable",
+      "assertUnmodifiable",
+      "assertUnsupportedOperation",
+      "setNames",
+      "setDates",
+      "setTimes",
+      "setPois",
+      "setNames2",
+      "setDates2",
+      "setTimes2",
+      "setPois2"
+    ],
+    "integration-tests/src/test/java/arez/integration/collections/UnmodifiableMemoizeCollectionsIntegrationTest.java": [
+      "scenario",
+      "assertUnmodifiable",
+      "assertUnsupportedOperation",
+      "setCollection",
+      "setSet",
+      "setList",
+      "setMap",
+      "setCollection2",
+      "setSet2",
+      "setList2",
+      "setMap2"
+    ],
+    "integration-tests/src/test/java/arez/integration/collections/UnmodifiableSetterlessCollectionsIntegrationTest.java": [
+      "scenario",
+      "scenario_when_CollectionPropertiesModifiable",
+      "assertUnmodifiable",
+      "assertUnsupportedOperation",
+      "setValue"
+    ],
+    "integration-tests/src/test/java/arez/integration/component_dependency/CascadeOnDisposeIntegrationTest.java": [
+      "scenario",
+      "setName",
+      "setName"
+    ],
+    "integration-tests/src/test/java/arez/integration/component_dependency/ComplexComponentDependencyIntegrationTest.java": [
+      "scenario",
+      "setName",
+      "setReference1",
+      "setReference2",
+      "setReference3",
+      "setReference4"
+    ],
+    "integration-tests/src/test/java/arez/integration/component_dependency/ComponentDependencyFieldIntegrationTest.java": [
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/component_dependency/ComponentDependencyRuntimeValidationIntegrationTest.java": [
+      "scenario",
+      "scenario_withBadDependency"
+    ],
+    "integration-tests/src/test/java/arez/integration/component_dependency/DualDisposedDependenciesIntegrationTest.java": [
+      "scenario",
+      "setName",
+      "setLeaf",
+      "setName",
+      "setName"
+    ],
+    "integration-tests/src/test/java/arez/integration/component_dependency/MultiComponentDependencyIntegrationTest.java": [
+      "scenario",
+      "setRef3",
+      "setRef4"
+    ],
+    "integration-tests/src/test/java/arez/integration/component_dependency/SetNullOnDisposeIntegrationTest.java": [
+      "scenario",
+      "setName",
+      "setReference"
+    ],
+    "integration-tests/src/test/java/arez/integration/component_id_ref/ComponentIdRefTest.java": [
+      "scenario",
+      "scenarioIdForcedDespiteProductionMode"
+    ],
+    "integration-tests/src/test/java/arez/integration/component_name_ref/ComponentNameRefInvokedInCtorTest.java": [
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/component_observable/ComponentObservableTest.java": [
+      "scenario",
+      "outsideTransaction"
+    ],
+    "integration-tests/src/test/java/arez/integration/component_ref/ComponentRefCalledInCtorTest.java": [
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/component_ref/ComponentRefCalledInPostConstructTest.java": [
+      "postConstruct",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/component_ref/ComponentRefTest.java": [
+      "componentRef"
+    ],
+    "integration-tests/src/test/java/arez/integration/context_ref/ContextRefReferencedInCtorTest.java": [
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/context_ref/ContextRefTest.java": [
+      "contextRef"
+    ],
+    "integration-tests/src/test/java/arez/integration/dispose/AllowWriteInDisposeIntegrationTest.java": [
+      "scenario",
+      "setName",
+      "preDispose"
+    ],
+    "integration-tests/src/test/java/arez/integration/dispose/DisposedNotEqualIntegrationTest.java": [
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/dispose_notifier/DisposeNotifierIgnoresDisposedListenersTest.java": [
+      "scenario",
+      "setName",
+      "preDispose",
+      "clearOther",
+      "setOther"
+    ],
+    "integration-tests/src/test/java/arez/integration/dispose_on_deactivate/DisposeOnDeactivateIntegrationTest.java": [
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/dispose_on_deactivate/DisposeOnDeactivateWithMemoizeIntegrationTest.java": [
+      "scenario",
+      "setName",
+      "myAutorun"
+    ],
+    "integration-tests/src/test/java/arez/integration/dispose_on_deactivate/MultipleDeactivationsDisposeOnDeactivateIntegrationTest.java": [
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/interface_component/InterfaceComponentTest.java": [
+      "setMyVar",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/inverse/DisposeManyInverseIntegrationTest.java": [
+      "scenario",
+      "setCarId",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/inverse/DisposeOneInverseIntegrationTest.java": [
+      "scenario",
+      "setCarId",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/inverse/DisposeZeroOrOneInverseIntegrationTest.java": [
+      "scenario",
+      "setCarId",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/inverse/InverseHooksIntegrationTest.java": [
+      "scenario",
+      "setCarId",
+      "preWheelsRemove",
+      "postWheelsAdd",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/inverse/ManyMultiplicityExplicitLoadInverseIntegrationTest.java": [
+      "scenario",
+      "setCarId",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/inverse/ManyMultiplicityInverseIntegrationTest.java": [
+      "scenario",
+      "setCarId",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/inverse/ManyMultiplicityLazyLoadInverseIntegrationTest.java": [
+      "scenario",
+      "setCarId",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/inverse/OneMultiplicityExplicitLoadInverseIntegrationTest.java": [
+      "scenario",
+      "setPersonId",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/inverse/OneMultiplicityInverseIntegrationTest.java": [
+      "scenario",
+      "setPersonId",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/inverse/OneMultiplicityLazyLoadInverseIntegrationTest.java": [
+      "scenario",
+      "setPersonId",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/inverse/ZeroOrOneMultiplicityExplicitLoadInverseIntegrationTest.java": [
+      "scenario",
+      "setPersonId",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/inverse/ZeroOrOneMultiplicityInverseIntegrationTest.java": [
+      "scenario",
+      "setPersonId",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/inverse/ZeroOrOneMultiplicityLazyLoadInverseIntegrationTest.java": [
+      "scenario",
+      "setPersonId",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/lifecycle/LifecycleMethodOrderingIntegrationTest.java": [
+      "duplicateCapableCallbacksAcrossInheritanceChain",
+      "observerLifecycleHooksSequenceAroundMutationAndDispose",
+      "inheritedInterfacePostConstruct1",
+      "inheritedInterfacePostConstruct2",
+      "inheritedInterfacePreDispose1",
+      "inheritedInterfacePreDispose2",
+      "inheritedInterfacePostDispose1",
+      "inheritedInterfacePostDispose2",
+      "directInterfacePostConstruct1",
+      "directInterfacePostConstruct2",
+      "directInterfacePreDispose1",
+      "directInterfacePreDispose2",
+      "directInterfacePostDispose1",
+      "directInterfacePostDispose2",
+      "step",
+      "grandparentPostConstruct1",
+      "grandparentPostConstruct2",
+      "grandparentPreDispose1",
+      "grandparentPreDispose2",
+      "grandparentPostDispose1",
+      "grandparentPostDispose2",
+      "parentPostConstruct1",
+      "parentPostConstruct2",
+      "parentPreDispose1",
+      "parentPreDispose2",
+      "parentPostDispose1",
+      "parentPostDispose2",
+      "setValue",
+      "updateValue",
+      "componentPostConstruct1",
+      "componentPostConstruct2",
+      "componentPreDispose1",
+      "componentPreDispose2",
+      "componentPostDispose1",
+      "componentPostDispose2",
+      "onRenderDepsChange",
+      "step",
+      "setValue",
+      "onTimeActivate",
+      "onTimeDeactivate",
+      "updateValue",
+      "render"
+    ],
+    "integration-tests/src/test/java/arez/integration/lifecycle/LifecycleSequencingIntegrationTest.java": [
+      "scenario",
+      "scenario_NativeComponentsDisabled",
+      "postConstruct",
+      "preDispose",
+      "postDispose",
+      "postConstruct",
+      "preDispose",
+      "postDispose"
+    ],
+    "integration-tests/src/test/java/arez/integration/memoize/DefaultEqualityComparatorMemoizeIntegrationTest.java": [
+      "setValue",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/memoize/MemoizeArezOrNoneDependenciesTest.java": [
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/memoize/MemoizeCustomEqualityComparatorIntegrationTest.java": [
+      "setValue",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/memoize/MemoizeDepTypeTest.java": [
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/memoize/MemoizeKeepAliveTest.java": [
+      "scenario",
+      "setFirstName",
+      "setLastName"
+    ],
+    "integration-tests/src/test/java/arez/integration/memoize/MemoizeMultipleParamsNonArezDependenciesComponentTest.java": [
+      "scenario",
+      "lazyValidationDoesNotTrackTransitiveParameterizedMemoizeDependencies",
+      "assertDependencies",
+      "assertNotObserver"
+    ],
+    "integration-tests/src/test/java/arez/integration/memoize/MemoizeNoParamIntegrationTest.java": [
+      "personScenario",
+      "setFirstName",
+      "setLastName"
+    ],
+    "integration-tests/src/test/java/arez/integration/memoize/MemoizeNoReportResultTest.java": [
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/memoize/MemoizeNonArezDependenciesComponentTest.java": [
+      "scenario",
+      "lazyValidationDoesNotTrackTransitiveMemoizeDependencies",
+      "assertDependencies",
+      "assertNotObserver"
+    ],
+    "integration-tests/src/test/java/arez/integration/memoize/MemoizeNonArezDependenciesOnActivateComputableValueIntegrationTest.java": [
+      "scenario",
+      "onMemoizedActivate",
+      "reportExternalChange"
+    ],
+    "integration-tests/src/test/java/arez/integration/memoize/MemoizeReadOutsideTransactionTest.java": [
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/memoize/MemoizedIntegrationTest.java": [
+      "scenario",
+      "scenario_actionOnly",
+      "scenario_disposeWithoutDeactivate",
+      "scenario_disposeNoNativeComponentsEnabled",
+      "setName",
+      "setAge"
+    ],
+    "integration-tests/src/test/java/arez/integration/memoize/MemoizedObservesLowerPriorityIntegrationTest.java": [
+      "scenario",
+      "setName"
+    ],
+    "integration-tests/src/test/java/arez/integration/memoize/MemoizedPriorityIntegrationTest.java": [
+      "scenario",
+      "observer",
+      "setName"
+    ],
+    "integration-tests/src/test/java/arez/integration/memoize_context_parameter/MemoizeSingleContextParameterIntegrationTest.java": [
+      "personScenario",
+      "setFirstName",
+      "setLastName",
+      "pushMyContextVar",
+      "popMyContextVar"
+    ],
+    "integration-tests/src/test/java/arez/integration/observable/DefaultEqualityComparatorObservableIntegrationTest.java": [
+      "setDefaultName",
+      "setExplicitName",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observable/NonnullObservableIntegrationTest.java": [
+      "disallowNullInSetter",
+      "disallowNullInInitializer",
+      "setLastName"
+    ],
+    "integration-tests/src/test/java/arez/integration/observable/NormalizingSetterIntegrationTest.java": [
+      "disallowNullInSetter",
+      "setName"
+    ],
+    "integration-tests/src/test/java/arez/integration/observable/NullableInitializerIntegrationTest.java": [
+      "scenario",
+      "setName"
+    ],
+    "integration-tests/src/test/java/arez/integration/observable/ObservableCustomEqualityComparatorIntegrationTest.java": [
+      "setName",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observable/ObservableDeepEqualsComparatorIntegrationTest.java": [
+      "setValues",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observable/ObservableDefaultReadAndWriteOutsideTransactionTest.java": [
+      "setTime",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observable/ObservableInitialIntegrationTest.java": [
+      "scenario",
+      "setName",
+      "setAge",
+      "setNickname"
+    ],
+    "integration-tests/src/test/java/arez/integration/observable/ObservableInitializerIntegrationTest.java": [
+      "scenario",
+      "setFirstName",
+      "setLastName"
+    ],
+    "integration-tests/src/test/java/arez/integration/observable/ObservableOutsideTransactionTest.java": [
+      "setTime",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observable/ObservableWriteOutsideTransactionTest.java": [
+      "setTime",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observable/UnannotatedObservablesIntegrationTest.java": [
+      "scenario",
+      "setValue"
+    ],
+    "integration-tests/src/test/java/arez/integration/observable/WriteOutsideTransactionAndNotAlwaysMutateTest.java": [
+      "setName",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observable_component/ObservableComponentIntegrationTest.java": [
+      "disposeNotifiesComponentObservable"
+    ],
+    "integration-tests/src/test/java/arez/integration/observe/ApplicationExecutorNoDepsAllowedTest.java": [
+      "render",
+      "onRenderDepsChange",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observe/ApplicationExecutorNoDepsDisallowedTest.java": [
+      "render",
+      "onRenderDepsChange",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observe/ObserveArezDependenciesOnlyTest.java": [
+      "render",
+      "setValue",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observe/ObserveArezOrNoDependenciesTest.java": [
+      "render",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observe/ObserveManualScheduleDisallowedTest.java": [
+      "render",
+      "setValue",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observe/ObserveManualScheduleTest.java": [
+      "render",
+      "onRenderDepsChange",
+      "setValue",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observe/ObserveNestedActionAllowedTest.java": [
+      "render",
+      "myAction",
+      "setTime",
+      "setTime2",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observe/ObserveNestedActionDisallowedTest.java": [
+      "render",
+      "myAction",
+      "setTime",
+      "setTime2",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observe/ObserveNoInvokeTest.java": [
+      "observer",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observe/ObserveNonArezDependenciesTest.java": [
+      "render",
+      "setValue",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observe/TrackButNoSchedulableTest.java": [
+      "onRenderDepsChange",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observe/TrackCanNestActionTest.java": [
+      "render",
+      "onRenderDepsChange",
+      "myAction",
+      "setTime",
+      "setTime2",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observe/TrackCanNotBeNestedInActionTest.java": [
+      "render",
+      "onRenderDepsChange",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observe/TrackNestNonRequiresNewActionTest.java": [
+      "render",
+      "onRenderDepsChange",
+      "myAction",
+      "setTime",
+      "setTime2",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observe/TrackNoNestActionTest.java": [
+      "render",
+      "onRenderDepsChange",
+      "myAction",
+      "setTime",
+      "setTime2",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observe/TrackNoReportResultTest.java": [
+      "onRenderDepsChange",
+      "setTime",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/observe/TrackWithSchedulableTest.java": [
+      "onRenderDepsChange",
+      "other",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/post_construct/ActionAndPostConstructTest.java": [
+      "postConstruct",
+      "setValue",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/post_construct/ConstructBeforeScheduledTest.java": [
+      "postConstruct",
+      "observer",
+      "observerAndPostConstructSequencing"
+    ],
+    "integration-tests/src/test/java/arez/integration/post_construct/PostConstructCanChangeArezStateTest.java": [
+      "postConstruct",
+      "doSetValue",
+      "setValue",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/priority/CoreCanNotObserveLowerPriorityIntegrationTest.java": [
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/priority/CoreCanObserveLowerPriorityIntegrationTest.java": [
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/priority/PriorityOrderingIntegrationTest.java": [
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/references/NonnullImmutableEagerReferenceIntegrationTest.java": [
+      "scenario",
+      "doStuff",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/references/NonnullImmutableExplicitReferenceIntegrationTest.java": [
+      "scenario",
+      "doStuff",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/references/NonnullImmutableLazyReferenceIntegrationTest.java": [
+      "scenario",
+      "doStuff",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/references/NonnullObservableEagerReferenceIntegrationTest.java": [
+      "scenario",
+      "setModel2Id",
+      "doStuff",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/references/NonnullObservableExplicitReferenceIntegrationTest.java": [
+      "scenario",
+      "setModel2Id",
+      "doStuff",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/references/NonnullObservableLazyReferenceIntegrationTest.java": [
+      "scenario",
+      "setModel2Id",
+      "doStuff",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/references/NullableObservableEagerReferenceIntegrationTest.java": [
+      "scenario",
+      "setModel2Id",
+      "doStuff",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/references/NullableObservableExplicitReferenceIntegrationTest.java": [
+      "scenario",
+      "setModel2Id",
+      "doStuff",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/references/NullableObservableLazyReferenceIntegrationTest.java": [
+      "scenario",
+      "setModel2Id",
+      "doStuff",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/references/NullablelImmutableEagerReferenceIntegrationTest.java": [
+      "scenario",
+      "doStuff",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/references/NullablelImmutableExplicitReferenceIntegrationTest.java": [
+      "scenario",
+      "doStuff",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/references/NullablelImmutableLazyReferenceIntegrationTest.java": [
+      "scenario",
+      "doStuff",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/references/ReferenceNotFoundIntegrationTest.java": [
+      "scenario",
+      "setModel2Id",
+      "doStuff",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/references/ReferenceOutsideTransactionIntegrationTest.java": [
+      "scenario",
+      "setModel2Id",
+      "doStuff",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/requires_transaction/RequiresTransactionIntegrationTest.java": [
+      "perform",
+      "outsideTransactionFails",
+      "readOnlyModeMismatchFails",
+      "modeRequirementDegradesWhenTransactionTypeEnforcementDisabled",
+      "trackingMismatchFails",
+      "trackingRequirementSucceedsInsideTrackingTransaction",
+      "perform",
+      "emitsNoActionOrTransactionSpyEventsOfItsOwn",
+      "performBase",
+      "inheritedMethodDispatchesInsideTransaction",
+      "defaultMethodDispatchesInsideTransaction"
+    ],
+    "integration-tests/src/test/java/arez/integration/scheduler/PrioritizedSchedulerTest.java": [
+      "setValue1",
+      "setValue2",
+      "setValue3",
+      "observer1a",
+      "observer1b",
+      "observer2a",
+      "observer2b",
+      "observer3a",
+      "observer3b",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/sting/StingInjectorIntegrationTest.java": [
+      "setValue",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/sting/package_access/ComponentInDifferentPackageIntegrationTest.java": [
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/sting/package_access/other/MyDependency.java": [],
+    "integration-tests/src/test/java/arez/integration/sting/package_access/other/MyDependency2.java": [],
+    "integration-tests/src/test/java/arez/integration/sting/package_access/other/TestComponent.java": [
+      "postConstruct",
+      "setValue"
+    ],
+    "integration-tests/src/test/java/arez/integration/sting/package_access/other/TestComponent2.java": [
+      "postConstruct"
+    ],
+    "integration-tests/src/test/java/arez/integration/sting/sequencing/NoSchedulesNoPostConstructIntegrationTest.java": [
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/sting/sequencing/SchedulesNoPostConstructIntegrationTest.java": [
+      "run",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/sting/sequencing/SchedulesPostConstructIntegrationTest.java": [
+      "postConstruct",
+      "run",
+      "scenario"
+    ],
+    "integration-tests/src/test/java/arez/integration/util/SpyEventRecorder.java": [
+      "onSpyEvent",
+      "mark",
+      "assertMatchesFixture"
+    ],
+    "integration-tests/src/test/java/arez/integration/util/SpyEventTestUtil.java": [],
+    "integration-tests/src/test/java/arez/integration/util/TestSpyEventHandler.java": [
+      "onSpyEvent",
+      "assertEventCount"
+    ],
+    "integration-tests/src/test/java/arez/integration/verify/VerifyIntegrationTest.java": [
+      "verifyOnDisposeCausesException",
+      "verifySuccess",
+      "unableToLocateOther",
+      "unableToLocateSelf",
+      "modelWithoutVerify",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/verify/VerifyManyInverseIntegrationTest.java": [
+      "verifySuccess",
+      "unableToLocateOther",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/verify/VerifyOneInverseIntegrationTest.java": [
+      "verifySuccess",
+      "unableToLocateOther",
+      "destroy"
+    ],
+    "integration-tests/src/test/java/arez/integration/verify/VerifyZeroOrOneInverseIntegrationTest.java": [
+      "verifySuccess",
+      "verifySuccessNullReference",
+      "unableToLocateOther",
+      "verify",
+      "setModel2Id",
+      "destroy"
+    ]
+  },
+  "runtime_fixtures_unchanged": true
+}

@@ -7,10 +7,13 @@ import arez.annotations.Feature;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.Observe;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class TrainTicket {
-    public static TrainTicket create(int remainingRides) {
+    public static @Nullable TrainTicket create(int remainingRides) {
         return new Arez_TrainTicket(remainingRides);
     }
 
@@ -25,7 +28,7 @@ public abstract class TrainTicket {
     }
 
     @Observe(executor = Executor.EXTERNAL)
-    public String render() {
+    public @Nullable String render() {
         return "<table class='ticket'>" + "  <tr>"
                 + "    <th>Remaining Rides</th>"
                 + "    <td>"

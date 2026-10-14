@@ -10,9 +10,12 @@ import arez.annotations.Observe;
 import arez.annotations.OnDepsChange;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class TrackNestNonRequiresNewActionTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent
     public abstract static class TestComponent1 {
         int _renderCallCount;

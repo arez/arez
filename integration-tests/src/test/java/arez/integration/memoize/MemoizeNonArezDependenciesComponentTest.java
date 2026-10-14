@@ -13,9 +13,11 @@ import arez.integration.AbstractArezIntegrationTest;
 import arez.spy.ObservableValueInfo;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class MemoizeNonArezDependenciesComponentTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() throws Throwable {
@@ -82,9 +84,9 @@ public final class MemoizeNonArezDependenciesComponentTest extends AbstractArezI
     }
 
     private static void assertDependencies(
-            @Nonnull final ArezContext context,
-            @Nonnull final ComputableValue<?> computableValue,
-            @Nonnull final ComputableValue<?>... dependencies) {
+            final ArezContext context,
+            final ComputableValue<?> computableValue,
+            final ComputableValue<?>... dependencies) {
         final List<ObservableValueInfo> actual =
                 context.getSpy().asComputableValueInfo(computableValue).getDependencies();
         assertEquals(actual.size(), dependencies.length);
@@ -94,59 +96,56 @@ public final class MemoizeNonArezDependenciesComponentTest extends AbstractArezI
     }
 
     private static void assertNotObserver(
-            @Nonnull final ArezContext context,
-            @Nonnull final ComputableValue<?> observable,
-            @Nonnull final ComputableValue<?> observer) {
+            final ArezContext context, final ComputableValue<?> observable, final ComputableValue<?> observer) {
         assertFalse(context.getSpy().asComputableValueInfo(observable).getObservers().stream()
                 .anyMatch(o -> o.getName().equals(observer.getName())));
         assertFalse(context.getSpy().asComputableValueInfo(observer).getDependencies().stream()
                 .anyMatch(o -> o.getName().equals(observable.getName())));
     }
 
+    @NullMarked
     @ArezComponent
     public abstract static class Element {
+        @Nullable
         String _result;
+
         int _callCount;
         int _nestedCallCount;
         int _outerCallCount;
 
-        @Nonnull
-        public static Element create(@Nonnull final String result) {
+        public static Element create(final String result) {
             return new MemoizeNonArezDependenciesComponentTest_Arez_Element(result);
         }
 
-        Element(@Nonnull final String result) {
+        Element(final String result) {
             _result = result;
         }
 
         @Memoize(depType = DepType.AREZ_OR_EXTERNAL)
-        @Nonnull
         String getMemoized() {
             _callCount++;
             return _result;
         }
 
         @ComputableValueRef
-        abstract ComputableValue<String> getMemoizedComputableValue();
+        abstract @Nullable ComputableValue<String> getMemoizedComputableValue();
 
         @Memoize
-        @Nonnull
         String getNestedMemoized() {
             _nestedCallCount++;
             return getMemoized();
         }
 
         @ComputableValueRef
-        abstract ComputableValue<String> getNestedMemoizedComputableValue();
+        abstract @Nullable ComputableValue<String> getNestedMemoizedComputableValue();
 
         @Memoize
-        @Nonnull
         String getOuterMemoized() {
             _outerCallCount++;
             return getNestedMemoized();
         }
 
         @ComputableValueRef
-        abstract ComputableValue<String> getOuterMemoizedComputableValue();
+        abstract @Nullable ComputableValue<String> getOuterMemoizedComputableValue();
     }
 }

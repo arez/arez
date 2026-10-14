@@ -8,9 +8,12 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class InterfaceComponentTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent
     interface TestComponent {
         @Observable

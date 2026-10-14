@@ -196,7 +196,7 @@ final class Arez_NonJavabeanNameReferenceModel extends NonJavabeanNameReferenceM
       Guards.apiInvariant(
           () -> null != $$arezv$$_myEntity,
           () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.reference.NonJavabeanNameReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+              + "' is unable to resolve entity of type com.example.reference.NonJavabeanNameReferenceModel.MyEntity and id = "
               + myEntityId());
     }
   }
@@ -234,7 +234,7 @@ final class Arez_NonJavabeanNameReferenceModel extends NonJavabeanNameReferenceM
       Guards.apiInvariant(
           () -> null != $$arezr$$_myEntity,
           () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.reference.NonJavabeanNameReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+              + "' is unable to resolve entity of type com.example.reference.NonJavabeanNameReferenceModel.MyEntity and id = "
               + myEntityId());
     }
   }

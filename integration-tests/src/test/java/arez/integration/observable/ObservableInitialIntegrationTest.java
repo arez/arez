@@ -8,10 +8,11 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.ObservableInitial;
 import arez.integration.AbstractArezIntegrationTest;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ObservableInitialIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() throws Throwable {
@@ -33,18 +34,18 @@ public final class ObservableInitialIntegrationTest extends AbstractArezIntegrat
         safeAction(() -> assertNull(person.getNickname()));
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class PersonModel {
-        @Nonnull
+
         static PersonModel create() {
             return new ObservableInitialIntegrationTest_Arez_PersonModel();
         }
 
         @Observable
-        @Nonnull
         abstract String getName();
 
-        abstract void setName(@Nonnull String name);
+        abstract void setName(String name);
 
         @Observable
         abstract int getAge();
@@ -58,7 +59,6 @@ public final class ObservableInitialIntegrationTest extends AbstractArezIntegrat
         abstract void setNickname(@Nullable String nickname);
 
         @ObservableInitial
-        @Nonnull
         static final String INITIAL_NAME = "Bob";
 
         @ObservableInitial
@@ -67,7 +67,7 @@ public final class ObservableInitialIntegrationTest extends AbstractArezIntegrat
         }
 
         @ObservableInitial(name = "nickname")
-        static String initialNickname() {
+        static @Nullable String initialNickname() {
             return "Bobby";
         }
     }

@@ -5,26 +5,29 @@ import static org.testng.Assert.*;
 import arez.spy.SpyEventHandler;
 import java.util.ArrayList;
 import java.util.function.Consumer;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess"})
 public final class TestSpyEventHandler implements SpyEventHandler {
-    private final ArrayList<Object> _events = new ArrayList<>();
+    private final @Nullable ArrayList<Object> _events = new ArrayList<>();
     /**
      * When using assertNextEvent this tracks the index that we are up to.
      */
     private int _currentAssertIndex;
 
     @Override
-    public void onSpyEvent(@Nonnull final Object event) {
+    public void onSpyEvent(final Object event) {
         _events.add(event);
     }
 
     /**
      * Assert Event at index is of specific type and return it.
      */
-    @Nonnull
-    public <T> T assertEvent(@Nonnull final Class<T> type, final int index) {
+    @NonNull
+    public <T extends @Nullable Object> T assertEvent(final Class<T> type, final int index) {
         assertTrue(eventCount() > index);
         final Object event = _events.get(index);
         assertTrue(
@@ -42,8 +45,8 @@ public final class TestSpyEventHandler implements SpyEventHandler {
      * Assert "next" Event is of specific type.
      * Increment the next counter.
      */
-    @Nonnull
-    public <T> T assertNextEvent(@Nonnull final Class<T> type) {
+    @NonNull
+    public <T extends @Nullable Object> T assertNextEvent(final Class<T> type) {
         final T event = assertEvent(type, _currentAssertIndex);
         _currentAssertIndex++;
         return event;
@@ -53,8 +56,8 @@ public final class TestSpyEventHandler implements SpyEventHandler {
      * Assert "next" Event is of specific type.
      * Increment the next counter, run action.
      */
-    @Nonnull
-    public <T> T assertNextEvent(@Nonnull final Class<T> type, @Nonnull final Consumer<T> action) {
+    @NonNull
+    public <T extends @Nullable Object> T assertNextEvent(final Class<T> type, final Consumer<T> action) {
         final T event = assertNextEvent(type);
         action.accept(event);
         return event;

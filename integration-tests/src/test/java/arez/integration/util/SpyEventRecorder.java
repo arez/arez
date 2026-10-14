@@ -11,12 +11,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Nonnull;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.stream.JsonGenerator;
 import org.json.JSONException;
+import org.jspecify.annotations.NullMarked;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.comparator.DefaultComparator;
@@ -24,19 +24,18 @@ import org.skyscreamer.jsonassert.comparator.DefaultComparator;
 /**
  * A recorder used to record collect spy events and compare against a fixture file.
  */
+@NullMarked
 public final class SpyEventRecorder implements SpyEventHandler {
-    @Nonnull
+
     private final JsonArrayBuilder _events = Json.createArrayBuilder();
 
     private final boolean _keepValue;
 
-    @Nonnull
     public static SpyEventRecorder beginRecording() {
         return beginRecording(Arez.context());
     }
 
-    @Nonnull
-    public static SpyEventRecorder beginRecording(@Nonnull final ArezContext context) {
+    public static SpyEventRecorder beginRecording(final ArezContext context) {
         final SpyEventRecorder recorder = new SpyEventRecorder();
         context.getSpy().addSpyEventHandler(recorder);
         return recorder;
@@ -51,13 +50,13 @@ public final class SpyEventRecorder implements SpyEventHandler {
     }
 
     @Override
-    public void onSpyEvent(@Nonnull final Object event) {
+    public void onSpyEvent(final Object event) {
         if (event instanceof SerializableEvent) {
             _events.add(SpyEventTestUtil.toJsonObject((SerializableEvent) event, _keepValue));
         }
     }
 
-    public void mark(@Nonnull final String key, @Nonnull final Object value) {
+    public void mark(final String key, final Object value) {
         final JsonObject mark = Json.createObjectBuilder()
                 .add("type", "usermark")
                 .add(key, String.valueOf(value))
@@ -65,8 +64,7 @@ public final class SpyEventRecorder implements SpyEventHandler {
         _events.add(mark);
     }
 
-    public void assertMatchesFixture(@Nonnull final Path file, final boolean updateFixture)
-            throws IOException, JSONException {
+    public void assertMatchesFixture(final Path file, final boolean updateFixture) throws IOException, JSONException {
         final String json = eventsAsString();
         if (updateFixture) {
             final File dir = file.getParent().toFile();
@@ -81,7 +79,6 @@ public final class SpyEventRecorder implements SpyEventHandler {
         JSONAssert.assertEquals(expected, json, new DefaultComparator(JSONCompareMode.STRICT));
     }
 
-    @Nonnull
     private String eventsAsString() {
         final Map<String, Object> properties = new HashMap<>(1);
         properties.put(JsonGenerator.PRETTY_PRINTING, true);

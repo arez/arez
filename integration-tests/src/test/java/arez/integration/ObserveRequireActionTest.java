@@ -5,11 +5,12 @@ import static org.testng.Assert.*;
 import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
+@NullMarked
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public final class ObserveRequireActionTest extends AbstractArezIntegrationTest {
     @Test
@@ -36,49 +37,45 @@ public final class ObserveRequireActionTest extends AbstractArezIntegrationTest 
         safeAction(component::getQualifiedName);
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class CodeModel {
-        @Nonnull
+
         private String _name;
 
-        @Nonnull
         private String _packageName;
 
         @Nullable
         private String _qualifiedName;
 
-        @Nonnull
-        static CodeModel create(@Nonnull final String packageName, @Nonnull final String name) {
+        static CodeModel create(final String packageName, final String name) {
             return new ObserveRequireActionTest_Arez_CodeModel(packageName, name);
         }
 
-        CodeModel(@Nonnull final String packageName, @Nonnull final String name) {
+        CodeModel(final String packageName, final String name) {
             _packageName = packageName;
             _name = name;
         }
 
         @Observable
-        @Nonnull
         String getName() {
             return _name;
         }
 
-        void setName(@Nonnull final String name) {
+        void setName(final String name) {
             _name = name;
         }
 
         @Observable
-        @Nonnull
         String getPackageName() {
             return _packageName;
         }
 
-        void setPackageName(@Nonnull final String packageName) {
+        void setPackageName(final String packageName) {
             _packageName = packageName;
         }
 
         @Memoize
-        @Nonnull
         String getQualifiedName() {
             final String rawQualifiedName = getRawQualifiedName();
             if (null == rawQualifiedName) {

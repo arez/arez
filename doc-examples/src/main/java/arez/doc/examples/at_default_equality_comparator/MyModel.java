@@ -5,50 +5,50 @@ import arez.annotations.ArezComponent;
 import arez.annotations.DefaultEqualityComparator;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 abstract class MyModel {
+    @NullMarked
     @DefaultEqualityComparator(TagComparator.class)
     static final class Tag {
-        @Nonnull
+
         private final String _value;
 
-        Tag(@Nonnull final String value) {
+        Tag(final String value) {
             _value = value;
         }
 
-        @Nonnull
         @Override
         public String toString() {
             return _value;
         }
     }
 
+    @NullMarked
     static final class TagComparator implements EqualityComparator {
         @Override
-        public boolean areEqual(final Object oldValue, final Object newValue) {
+        public boolean areEqual(final @Nullable Object oldValue, final @Nullable Object newValue) {
             return null == oldValue || null == newValue
                     ? oldValue == newValue
                     : oldValue.toString().equalsIgnoreCase(newValue.toString());
         }
     }
 
-    @Nonnull
     private Tag _searchTerm = new Tag("");
 
     @Observable(setterAlwaysMutates = false)
-    @Nonnull
     Tag getSearchTerm() {
         return _searchTerm;
     }
 
-    void setSearchTerm(@Nonnull final Tag searchTerm) {
+    void setSearchTerm(final Tag searchTerm) {
         _searchTerm = searchTerm;
     }
 
     @Memoize
-    @Nonnull
     Tag getNormalizedSearchTerm() {
         return new Tag(getSearchTerm().toString().trim());
     }

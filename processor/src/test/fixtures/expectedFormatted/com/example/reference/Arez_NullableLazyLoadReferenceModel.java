@@ -197,7 +197,7 @@ final class Arez_NullableLazyLoadReferenceModel extends NullableLazyLoadReferenc
             () -> null != $$arezv$$_myEntity,
             () ->
                 "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-                    + "' is unable to resolve entity of type com.example.reference.NullableLazyLoadReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+                    + "' is unable to resolve entity of type com.example.reference.NullableLazyLoadReferenceModel.MyEntity and id = "
                     + getMyEntityId());
       }
     }
@@ -233,7 +233,7 @@ final class Arez_NullableLazyLoadReferenceModel extends NullableLazyLoadReferenc
               () -> null != $$arezr$$_myEntity,
               () -> "Reference named 'myEntity' on component named '"
                   + this.$$arezi$$_kernel.getName()
-                  + "' is unable to resolve entity of type com.example.reference.NullableLazyLoadReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+                  + "' is unable to resolve entity of type com.example.reference.NullableLazyLoadReferenceModel.MyEntity and id = "
                   + getMyEntityId());
         }
       }

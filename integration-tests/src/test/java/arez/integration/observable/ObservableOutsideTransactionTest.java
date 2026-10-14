@@ -8,9 +8,12 @@ import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ObservableOutsideTransactionTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent
     abstract static class MyComponent {
         @Observable(readOutsideTransaction = Feature.ENABLE)

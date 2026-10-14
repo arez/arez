@@ -12,11 +12,12 @@ import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
 import java.util.Objects;
-import javax.annotation.Nonnull;
 import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Generic component that exposes a property as observable where changes to the variable are signalled
@@ -39,7 +40,8 @@ import jsinterop.annotations.JsType;
  * @param <ValueType>  the type of the value returned by the "value" observable.
  */
 @ArezComponent(requireId = Feature.DISABLE, disposeNotifier = Feature.DISABLE)
-public abstract class EventDrivenValue<SourceType extends EventDrivenValue.EventTarget, ValueType> {
+public abstract class EventDrivenValue<
+        SourceType extends EventDrivenValue.EventTarget, ValueType extends @Nullable Object> {
     /**
      * Minimal facade for a browser object that dispatches events.
      */
@@ -67,29 +69,26 @@ public abstract class EventDrivenValue<SourceType extends EventDrivenValue.Event
      */
     @FunctionalInterface
     @JsFunction
-    public interface Accessor<SourceType extends EventTarget, ValueType> {
+    public interface Accessor<SourceType extends EventTarget, ValueType extends @Nullable Object> {
         /**
          * Return the value.
          *
          * @param source the source that drives the access.
          * @return the value
          */
-        ValueType get(@Nonnull SourceType source);
+        ValueType get(@NonNull SourceType source);
     }
 
     /**
      * The
      */
-    @Nonnull
     private final EventListener _listener = e -> onEvent();
 
-    @Nonnull
+    @NonNull
     private SourceType _source;
 
-    @Nonnull
     private final String _event;
 
-    @Nonnull
     private final Accessor<SourceType, ValueType> _getter;
 
     private boolean _active;
@@ -104,18 +103,16 @@ public abstract class EventDrivenValue<SourceType extends EventDrivenValue.Event
      * @param getter       the function that retrieves the observed value from the platform.
      * @return the new component.
      */
-    @Nonnull
-    public static <SourceType extends EventTarget, ValueType> EventDrivenValue<SourceType, ValueType> create(
-            @Nonnull final SourceType source,
-            @Nonnull final String event,
-            @Nonnull final Accessor<SourceType, ValueType> getter) {
+    public static <SourceType extends EventTarget, ValueType extends @Nullable Object>
+            EventDrivenValue<SourceType, ValueType> create(
+                    @NonNull final SourceType source,
+                    final String event,
+                    final Accessor<SourceType, ValueType> getter) {
         return new Arez_EventDrivenValue<>(source, event, getter);
     }
 
     EventDrivenValue(
-            @Nonnull final SourceType source,
-            @Nonnull final String event,
-            @Nonnull final Accessor<SourceType, ValueType> getter) {
+            @NonNull final SourceType source, final String event, final Accessor<SourceType, ValueType> getter) {
         _source = Objects.requireNonNull(source);
         _event = Objects.requireNonNull(event);
         _getter = Objects.requireNonNull(getter);
@@ -126,7 +123,7 @@ public abstract class EventDrivenValue<SourceType extends EventDrivenValue.Event
      *
      * @return the associated element.
      */
-    @Nonnull
+    @NonNull
     @Observable
     public SourceType getSource() {
         return _source;
@@ -138,7 +135,7 @@ public abstract class EventDrivenValue<SourceType extends EventDrivenValue.Event
      *
      * @param source the the event source.
      */
-    public void setSource(@Nonnull final SourceType source) {
+    public void setSource(@NonNull final SourceType source) {
         if (_active) {
             unbindListener();
         }

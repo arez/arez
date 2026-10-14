@@ -2,7 +2,6 @@ package arez.dom;
 
 import arez.Disposable;
 import java.util.Objects;
-import javax.annotation.Nonnull;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
@@ -67,7 +66,6 @@ public final class DocumentVisibility implements Disposable {
      *
      * @return the new component.
      */
-    @Nonnull
     public static DocumentVisibility create() {
         return create(document());
     }
@@ -78,12 +76,11 @@ public final class DocumentVisibility implements Disposable {
      * @param document the document.
      * @return the new component.
      */
-    @Nonnull
-    public static DocumentVisibility create(@Nonnull final Document document) {
+    public static DocumentVisibility create(final Document document) {
         return new DocumentVisibility(Objects.requireNonNull(document));
     }
 
-    private DocumentVisibility(@Nonnull final Document document) {
+    private DocumentVisibility(final Document document) {
         _value = EventDrivenValue.create(document, "visibilitychange", Document::visibilityState);
     }
 
@@ -92,7 +89,6 @@ public final class DocumentVisibility implements Disposable {
      *
      * @return the document.
      */
-    @Nonnull
     public Document getDocument() {
         return _value.getSource();
     }
@@ -102,7 +98,7 @@ public final class DocumentVisibility implements Disposable {
      *
      * @param document the new document.
      */
-    public void setDocument(@Nonnull final Document document) {
+    public void setDocument(final Document document) {
         _value.setSource(document);
     }
 
@@ -111,7 +107,6 @@ public final class DocumentVisibility implements Disposable {
      *
      * @return the visibility state as an enum.
      */
-    @Nonnull
     public Visibility getVisibility() {
         return asVisibility(getVisibilityState());
     }
@@ -121,7 +116,6 @@ public final class DocumentVisibility implements Disposable {
      *
      * @return the visibility state as a string.
      */
-    @Nonnull
     public String getVisibilityState() {
         return _value.getValue();
     }
@@ -160,8 +154,7 @@ public final class DocumentVisibility implements Disposable {
      * @param state the state.
      * @return the visibility enum.
      */
-    @Nonnull
-    private Visibility asVisibility(@Nonnull final String state) {
+    private Visibility asVisibility(final String state) {
         if ("visible".equals(state)) {
             return Visibility.VISIBLE;
         } else if ("hidden".equals(state)) {

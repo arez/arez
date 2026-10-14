@@ -31,13 +31,12 @@ import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import arez.spytools.AbstractSpyEventProcessor;
 import arez.spytools.SpyUtil;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 import jsinterop.base.Js;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A SpyEventHandler that prints spy events to the browser console.
@@ -163,7 +162,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onTaskStart(@Nonnull final SpyUtil.NestingDelta d, @Nonnull final TaskStartEvent e) {
+    protected void onTaskStart(final SpyUtil.NestingDelta d, final TaskStartEvent e) {
         log(d, "%cTask Start " + e.getTask().getName(), TASK_COLOR);
     }
 
@@ -173,7 +172,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onTaskComplete(@Nonnull final SpyUtil.NestingDelta d, @Nonnull final TaskCompleteEvent e) {
+    protected void onTaskComplete(final SpyUtil.NestingDelta d, final TaskCompleteEvent e) {
         log(d, "%cTask Complete " + e.getTask().getName(), TASK_COLOR);
     }
 
@@ -183,8 +182,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onReactionCycleStart(
-            @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ReactionCycleStartEvent e) {
+    protected void onReactionCycleStart(final SpyUtil.NestingDelta d, final ReactionCycleStartEvent e) {
         log(d, "%cReaction Cycle Start", REACTION_COLOR);
     }
 
@@ -194,8 +192,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onReactionCycleComplete(
-            @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ReactionCycleCompleteEvent e) {
+    protected void onReactionCycleComplete(final SpyUtil.NestingDelta d, final ReactionCycleCompleteEvent e) {
         log(d, "%cReaction Cycle Complete [" + e.getDuration() + "]", REACTION_COLOR);
     }
 
@@ -205,8 +202,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onComponentCreateStart(
-            @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComponentCreateStartEvent e) {
+    protected void onComponentCreateStart(final SpyUtil.NestingDelta d, final ComponentCreateStartEvent e) {
         log(d, "%cComponent Create Start " + e.getComponentInfo().getName(), COMPONENT_COLOR);
     }
 
@@ -216,8 +212,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onComponentCreateCompleteEvent(
-            @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComponentCreateCompleteEvent e) {
+    protected void onComponentCreateCompleteEvent(final SpyUtil.NestingDelta d, final ComponentCreateCompleteEvent e) {
         log(d, "%cComponent Create Complete " + e.getComponentInfo().getName(), COMPONENT_COLOR);
     }
 
@@ -227,8 +222,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onComponentDisposeStart(
-            @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComponentDisposeStartEvent e) {
+    protected void onComponentDisposeStart(final SpyUtil.NestingDelta d, final ComponentDisposeStartEvent e) {
         log(d, "%cComponent Dispose Start " + e.getComponentInfo().getName(), COMPONENT_COLOR);
     }
 
@@ -238,8 +232,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onComponentDisposeComplete(
-            @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComponentDisposeCompleteEvent e) {
+    protected void onComponentDisposeComplete(final SpyUtil.NestingDelta d, final ComponentDisposeCompleteEvent e) {
         log(d, "%cComponent Dispose Complete " + e.getComponentInfo().getName(), COMPONENT_COLOR);
     }
 
@@ -249,7 +242,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onObserverCreate(@Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObserverCreateEvent e) {
+    protected void onObserverCreate(final SpyUtil.NestingDelta d, final ObserverCreateEvent e) {
         log(d, "%cObserver Create " + e.getObserver().getName(), OBSERVER_COLOR);
     }
 
@@ -259,7 +252,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onObserverDispose(@Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObserverDisposeEvent e) {
+    protected void onObserverDispose(final SpyUtil.NestingDelta d, final ObserverDisposeEvent e) {
         log(d, "%cObserver Dispose " + e.getObserver().getName(), OBSERVER_COLOR);
     }
 
@@ -269,7 +262,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onObserverError(@Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObserverErrorEvent e) {
+    protected void onObserverError(final SpyUtil.NestingDelta d, final ObserverErrorEvent e) {
         log(
                 d,
                 "%cObserver Error " + e.getObserver().getName() + " " + e.getError() + " " + e.getThrowable(),
@@ -282,8 +275,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onObservableValueCreate(
-            @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObservableValueCreateEvent e) {
+    protected void onObservableValueCreate(final SpyUtil.NestingDelta d, final ObservableValueCreateEvent e) {
         log(d, "%cObservable Create " + e.getObservableValue().getName(), OBSERVABLE_COLOR);
     }
 
@@ -293,8 +285,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onObservableValueDispose(
-            @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObservableValueDisposeEvent e) {
+    protected void onObservableValueDispose(final SpyUtil.NestingDelta d, final ObservableValueDisposeEvent e) {
         log(d, "%cObservable Dispose " + e.getObservableValue().getName(), OBSERVABLE_COLOR);
     }
 
@@ -304,8 +295,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onObservableValueChange(
-            @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObservableValueChangeEvent e) {
+    protected void onObservableValueChange(final SpyUtil.NestingDelta d, final ObservableValueChangeEvent e) {
         if (Arez.arePropertyIntrospectorsEnabled()) {
             log(
                     SpyUtil.NestingDelta.NONE,
@@ -326,8 +316,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onComputableValueCreate(
-            @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComputableValueCreateEvent e) {
+    protected void onComputableValueCreate(final SpyUtil.NestingDelta d, final ComputableValueCreateEvent e) {
         log(d, "%cComputed Value Create " + e.getComputableValue().getName(), COMPUTED_COLOR);
     }
 
@@ -337,8 +326,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onComputableValueActivate(
-            @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComputableValueActivateEvent e) {
+    protected void onComputableValueActivate(final SpyUtil.NestingDelta d, final ComputableValueActivateEvent e) {
         log(d, "%cComputed Value Activate " + e.getComputableValue().getName(), COMPUTED_COLOR);
     }
 
@@ -348,7 +336,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onComputeStart(@Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComputeStartEvent e) {
+    protected void onComputeStart(final SpyUtil.NestingDelta d, final ComputeStartEvent e) {
         log(d, "%cCompute Start " + e.getComputableValue().getName(), COMPUTED_COLOR);
     }
 
@@ -358,7 +346,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onComputeComplete(@Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComputeCompleteEvent e) {
+    protected void onComputeComplete(final SpyUtil.NestingDelta d, final ComputeCompleteEvent e) {
         log(d, "%cCompute Complete " + e.getComputableValue().getName() + " [" + e.getDuration() + "]", COMPUTED_COLOR);
     }
 
@@ -368,8 +356,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onComputableValueDeactivate(
-            @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComputableValueDeactivateEvent e) {
+    protected void onComputableValueDeactivate(final SpyUtil.NestingDelta d, final ComputableValueDeactivateEvent e) {
         log(d, "%cComputed Value Deactivate " + e.getComputableValue().getName(), COMPUTED_COLOR);
     }
 
@@ -379,8 +366,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onComputableValueDispose(
-            @Nonnull final SpyUtil.NestingDelta d, @Nonnull final ComputableValueDisposeEvent e) {
+    protected void onComputableValueDispose(final SpyUtil.NestingDelta d, final ComputableValueDisposeEvent e) {
         log(d, "%cComputed Value Dispose " + e.getComputableValue().getName(), COMPUTED_COLOR);
     }
 
@@ -390,7 +376,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onObserveSchedule(@Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObserveScheduleEvent e) {
+    protected void onObserveSchedule(final SpyUtil.NestingDelta d, final ObserveScheduleEvent e) {
         log(d, "%cObserve Scheduled " + e.getObserver().getName(), REACTION_SCHEDULED_COLOR);
     }
 
@@ -400,7 +386,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onObserveStart(@Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObserveStartEvent e) {
+    protected void onObserveStart(final SpyUtil.NestingDelta d, final ObserveStartEvent e) {
         log(d, "%cObserve Start " + e.getObserver().getName(), REACTION_COLOR);
     }
 
@@ -410,7 +396,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onObserveComplete(@Nonnull final SpyUtil.NestingDelta d, @Nonnull final ObserveCompleteEvent e) {
+    protected void onObserveComplete(final SpyUtil.NestingDelta d, final ObserveCompleteEvent e) {
         log(d, "%cObserve Complete " + e.getObserver().getName() + " [" + e.getDuration() + "]", REACTION_COLOR);
     }
 
@@ -420,7 +406,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void TransactionStart(@Nonnull final SpyUtil.NestingDelta d, @Nonnull final TransactionStartEvent e) {
+    protected void TransactionStart(final SpyUtil.NestingDelta d, final TransactionStartEvent e) {
         log(
                 d,
                 "%cTransaction Start " + e.getName()
@@ -437,8 +423,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onTransactionComplete(
-            @Nonnull final SpyUtil.NestingDelta d, @Nonnull final TransactionCompleteEvent e) {
+    protected void onTransactionComplete(final SpyUtil.NestingDelta d, final TransactionCompleteEvent e) {
         log(
                 d,
                 "%cTransaction Complete " + e.getName()
@@ -458,7 +443,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onActionStart(@Nonnull final SpyUtil.NestingDelta d, @Nonnull final ActionStartEvent e) {
+    protected void onActionStart(final SpyUtil.NestingDelta d, final ActionStartEvent e) {
         final String message = (e.isTracked() ? "Tracked " : "") + "Action Start " + e.getName()
                 + parametersToString(e.getParameters());
         log(d, "%c" + message, ACTION_COLOR);
@@ -470,7 +455,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onActionComplete(@Nonnull final SpyUtil.NestingDelta d, @Nonnull final ActionCompleteEvent e) {
+    protected void onActionComplete(final SpyUtil.NestingDelta d, final ActionCompleteEvent e) {
         final String message = (e.isTracked() ? "Tracked " : "") + "Action Complete "
                 + e.getName()
                 + parametersToString(e.getParameters())
@@ -488,7 +473,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param d the change in nesting level.
      * @param e the event.
      */
-    protected void onActionSkipped(@Nonnull final SpyUtil.NestingDelta d, @Nonnull final ActionSkippedEvent e) {
+    protected void onActionSkipped(final SpyUtil.NestingDelta d, final ActionSkippedEvent e) {
         final String message = (e.isTracked() ? "Tracked " : "") + "Action Skipped " + e.getName()
                 + parametersToString(e.getParameters());
         log(d, "%c" + message, ACTION_COLOR);
@@ -501,8 +486,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param parameters the parameters to convert
      * @return a string representation of the parameters
      */
-    @Nonnull
-    protected String parametersToString(@Nonnull final Object[] parameters) {
+    protected String parametersToString(final @Nullable Object[] parameters) {
         if (0 == parameters.length) {
             return "()";
         } else {
@@ -529,7 +513,6 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      *
      * @return the stringify replacer callback function.
      */
-    @Nonnull
     protected StringifyReplacer getStringifyReplacer() {
         return new StringifyReplacer();
     }
@@ -541,10 +524,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      * @param message the message.
      * @param styling the styling parameter. It is assumed that the message has a %c somewhere in it to identify the start of the styling.
      */
-    protected void log(
-            @Nonnull final SpyUtil.NestingDelta delta,
-            @Nonnull final String message,
-            @CssRules @Nonnull final String styling) {
+    protected void log(final SpyUtil.NestingDelta delta, final String message, @CssRules final String styling) {
         if (SpyUtil.NestingDelta.INCREASE == delta) {
             NativeConsole.groupCollapsed(message, styling);
         } else if (SpyUtil.NestingDelta.DECREASE == delta) {
@@ -565,9 +545,9 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
      */
     @SuppressWarnings("SameParameterValue")
     protected void log(
-            @Nonnull final SpyUtil.NestingDelta delta,
-            @Nonnull final String message,
-            @CssRules @Nonnull final String styling,
+            final SpyUtil.NestingDelta delta,
+            final String message,
+            @CssRules final String styling,
             @Nullable final Object value) {
         if (SpyUtil.NestingDelta.INCREASE == delta) {
             NativeConsole.groupCollapsed(message, styling);
@@ -580,7 +560,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
     }
 
     @Override
-    protected void handleUnhandledEvent(@Nonnull final Object event) {
+    protected void handleUnhandledEvent(final Object event) {
         NativeConsole.log(event);
     }
 }

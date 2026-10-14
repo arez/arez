@@ -17,9 +17,11 @@ import arez.component.ComponentObservable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class MemoizedIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() throws Throwable {
@@ -147,31 +149,31 @@ public final class MemoizedIntegrationTest extends AbstractArezIntegrationTest {
         assertMatchesFixture(recorder);
     }
 
+    @NullMarked
     @SuppressWarnings("WeakerAccess")
     @ArezComponent(observable = Feature.ENABLE)
     public abstract static class PersonModel {
-        private String _name;
+        private @Nullable String _name;
         private int _age;
 
-        @Nonnull
-        public static PersonModel create(@Nonnull final String name, final int age) {
+        public static PersonModel create(final String name, final int age) {
             return new MemoizedIntegrationTest_Arez_PersonModel(name, age);
         }
 
-        PersonModel(@Nonnull final String name, final int age) {
+        PersonModel(final String name, final int age) {
             _name = name;
             _age = age;
         }
 
         @ComponentRef
-        abstract Component getComponent();
+        abstract @Nullable Component getComponent();
 
         @Observable
-        public String getName() {
+        public @Nullable String getName() {
             return _name;
         }
 
-        public void setName(@Nonnull final String name) {
+        public void setName(final String name) {
             _name = name;
         }
 
@@ -185,12 +187,12 @@ public final class MemoizedIntegrationTest extends AbstractArezIntegrationTest {
         }
 
         @Memoize
-        public boolean doesSearchMatch(@Nonnull final String value) {
+        public boolean doesSearchMatch(final String value) {
             return getName().contains(value);
         }
 
         @Memoize
-        public boolean doesFullSearchMatch(@Nonnull final String value, final int minAge) {
+        public boolean doesFullSearchMatch(final String value, final int minAge) {
             return getName().contains(value) && getAge() >= minAge;
         }
     }

@@ -4,5 +4,6 @@ filegroup(
     name = "all",
     srcs = [
         "ObservablePromise.java",
+        "package-info.java",
     ],
 )

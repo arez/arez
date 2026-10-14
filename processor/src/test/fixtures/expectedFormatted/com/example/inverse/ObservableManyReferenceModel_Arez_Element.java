@@ -225,7 +225,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
           () -> null != $$arezv$$_observableManyReferenceModel,
           () -> "Reference named 'observableManyReferenceModel' on component named '"
               + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ObservableManyReferenceModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.ObservableManyReferenceModel and id = "
               + getObservableManyReferenceModelId());
     }
   }
@@ -301,7 +301,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
           () -> null != $$arezr$$_observableManyReferenceModel,
           () -> "Reference named 'observableManyReferenceModel' on component named '"
               + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable ObservableManyReferenceModel and id = "
+              + "' is unable to resolve entity of type com.example.inverse.ObservableManyReferenceModel and id = "
               + getObservableManyReferenceModelId());
     }
     ((Arez_ObservableManyReferenceModel) this.$$arezr$$_observableManyReferenceModel)

@@ -4,32 +4,32 @@ import static org.testng.Assert.*;
 
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class EqualsAndHashCodeTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent
     abstract static class PersonModel {
-        @Nonnull
+
         private String _firstName;
 
-        @Nonnull
-        static PersonModel create(@Nonnull final String firstName) {
+        static PersonModel create(final String firstName) {
             return new EqualsAndHashCodeTest_Arez_PersonModel(firstName);
         }
 
-        PersonModel(@Nonnull final String firstName) {
+        PersonModel(final String firstName) {
             _firstName = firstName;
         }
 
         @Observable
-        @Nonnull
         String getFirstName() {
             return _firstName;
         }
 
-        void setFirstName(@Nonnull final String firstName) {
+        void setFirstName(final String firstName) {
             _firstName = firstName;
         }
     }

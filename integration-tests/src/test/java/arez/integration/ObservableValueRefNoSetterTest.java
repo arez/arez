@@ -11,17 +11,22 @@ import arez.annotations.Observable;
 import arez.annotations.ObservableValueRef;
 import arez.integration.util.SpyEventRecorder;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ObservableValueRefNoSetterTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent
     abstract static class TestComponent {
         private int _otherID;
-        private String _other;
+        private @Nullable String _other;
 
         @ObservableValueRef
-        abstract ObservableValue<Integer> getOtherIDObservableValue();
+        abstract @Nullable ObservableValue<Integer> getOtherIDObservableValue();
 
+        @Nullable
         String getOther() {
             getOtherIDObservableValue().reportObserved();
             if (null == _other) {

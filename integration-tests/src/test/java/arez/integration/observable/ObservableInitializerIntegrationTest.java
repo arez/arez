@@ -7,9 +7,10 @@ import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ObservableInitializerIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() throws Throwable {
@@ -34,28 +35,26 @@ public final class ObservableInitializerIntegrationTest extends AbstractArezInte
         assertMatchesFixture(recorder);
     }
 
+    @NullMarked
     @SuppressWarnings("SameParameterValue")
     @ArezComponent
     abstract static class PersonModel {
-        @Nonnull
-        static PersonModel create(@Nonnull final String firstName, @Nonnull final String lastName) {
+
+        static PersonModel create(final String firstName, final String lastName) {
             return new ObservableInitializerIntegrationTest_Arez_PersonModel(firstName, lastName);
         }
 
         @Observable
-        @Nonnull
         abstract String getFirstName();
 
-        abstract void setFirstName(@Nonnull String firstName);
+        abstract void setFirstName(String firstName);
 
         @Observable
-        @Nonnull
         abstract String getLastName();
 
-        abstract void setLastName(@Nonnull String lastName);
+        abstract void setLastName(String lastName);
 
         @Memoize
-        @Nonnull
         String getFullName() {
             return getFirstName() + " " + getLastName();
         }

@@ -3,7 +3,9 @@ package arez.doc.examples.component_id;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @ArezComponent
 public abstract class Person {
     private final int _id;

@@ -205,7 +205,7 @@ final class SingularInversePreInverseRemoveModel_Arez_Element
       Guards.apiInvariant(
           () -> null != $$arezv$$_other,
           () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.pre_inverse_remove.@org.jspecify.annotations.Nullable SingularInversePreInverseRemoveModel and id = "
+              + "' is unable to resolve entity of type com.example.pre_inverse_remove.SingularInversePreInverseRemoveModel and id = "
               + getOtherId());
     }
   }
@@ -244,7 +244,7 @@ final class SingularInversePreInverseRemoveModel_Arez_Element
       Guards.apiInvariant(
           () -> null != $$arezr$$_other,
           () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.pre_inverse_remove.@org.jspecify.annotations.Nullable SingularInversePreInverseRemoveModel and id = "
+              + "' is unable to resolve entity of type com.example.pre_inverse_remove.SingularInversePreInverseRemoveModel and id = "
               + getOtherId());
     }
     ((Arez_SingularInversePreInverseRemoveModel) this.$$arezr$$_other).$$arezir$$_element_set(this);

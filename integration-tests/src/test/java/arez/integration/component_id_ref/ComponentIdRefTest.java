@@ -6,9 +6,12 @@ import arez.ArezTestUtil;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentIdRef;
 import arez.integration.AbstractArezIntegrationTest;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ComponentIdRefTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent(allowEmpty = true)
     abstract static class TestComponent {
         @ComponentIdRef

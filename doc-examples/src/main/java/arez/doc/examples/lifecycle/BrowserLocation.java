@@ -4,20 +4,23 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.PostConstruct;
 import arez.annotations.PreDispose;
-import javax.annotation.Nonnull;
 import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @ArezComponent
 public abstract class BrowserLocation {
     // DOC ELIDE START
+    @NullMarked
     @JsFunction
     private interface HashChangeEventListener {
-        void handleEvent(Object event);
+        void handleEvent(@Nullable Object event);
     }
 
-    private final HashChangeEventListener _listener = this::onHashChangeEvent;
+    private final @Nullable HashChangeEventListener _listener = this::onHashChangeEvent;
     // DOC ELIDE END
 
     @PostConstruct
@@ -34,12 +37,14 @@ public abstract class BrowserLocation {
 
     // DOC ELIDE START
     @Action
-    void onHashChangeEvent(@Nonnull final Object e) {}
+    void onHashChangeEvent(final Object e) {}
 
     @JsMethod(name = "addEventListener", namespace = JsPackage.GLOBAL)
-    private static native void addEventListener(String type, HashChangeEventListener listener, boolean capture);
+    private static native void addEventListener(
+            @Nullable String type, @Nullable HashChangeEventListener listener, boolean capture);
 
     @JsMethod(name = "removeEventListener", namespace = JsPackage.GLOBAL)
-    private static native void removeEventListener(String type, HashChangeEventListener listener, boolean capture);
+    private static native void removeEventListener(
+            @Nullable String type, @Nullable HashChangeEventListener listener, boolean capture);
     // DOC ELIDE END
 }

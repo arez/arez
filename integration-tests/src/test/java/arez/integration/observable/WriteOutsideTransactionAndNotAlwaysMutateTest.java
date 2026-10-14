@@ -7,22 +7,23 @@ import arez.annotations.Feature;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class WriteOutsideTransactionAndNotAlwaysMutateTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent
     abstract static class MyComponent {
-        @Nonnull
+
         private String _name = "";
 
         @Observable(writeOutsideTransaction = Feature.ENABLE, setterAlwaysMutates = false)
-        @Nonnull
         String getName() {
             return _name;
         }
 
-        void setName(@Nonnull String name) {
+        void setName(String name) {
             _name = name.trim();
         }
     }

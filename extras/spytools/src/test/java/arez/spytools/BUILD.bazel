@@ -7,5 +7,6 @@ filegroup(
         "SpyEventProcessorTest.java",
         "SpyUtilTest.java",
         "WhyRunTest.java",
+        "package-info.java",
     ],
 )

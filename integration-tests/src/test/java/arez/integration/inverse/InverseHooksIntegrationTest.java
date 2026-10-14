@@ -22,9 +22,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class InverseHooksIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
@@ -78,27 +80,26 @@ public final class InverseHooksIntegrationTest extends AbstractArezIntegrationTe
         assertEquals(String.join("|", trace), "P+A|P+B|P+C|P-A|Q+A|Q-A");
     }
 
+    @NullMarked
     @ArezComponent(defaultReadOutsideTransaction = Feature.ENABLE)
     abstract static class Wheel {
-        @Nonnull
+
         private final String _name;
 
-        Wheel(@Nonnull final String name) {
+        Wheel(final String name) {
             _name = name;
         }
 
-        @Nonnull
-        static Wheel create(@Nonnull final String name, final int carId) {
+        static Wheel create(final String name, final int carId) {
             return new InverseHooksIntegrationTest_Arez_Wheel(name, carId);
         }
 
-        @Nonnull
         String getName() {
             return _name;
         }
 
         @Reference(inverse = Feature.ENABLE)
-        abstract Car getCar();
+        abstract @Nullable Car getCar();
 
         @ReferenceId
         @Observable(initializer = Feature.ENABLE)
@@ -107,48 +108,50 @@ public final class InverseHooksIntegrationTest extends AbstractArezIntegrationTe
         abstract void setCarId(int carId);
     }
 
+    @NullMarked
     @ArezComponent(defaultReadOutsideTransaction = Feature.ENABLE, observable = Feature.ENABLE)
     abstract static class Car {
-        @Nonnull
+
         private final String _name;
 
-        @Nonnull
         private final List<String> _trace;
 
-        Car(@Nonnull final String name, @Nonnull final List<String> trace) {
+        Car(final String name, final List<String> trace) {
             _name = name;
             _trace = trace;
         }
 
         @PreInverseRemove
-        void preWheelsRemove(@Nonnull final Wheel wheel) {
+        void preWheelsRemove(final Wheel wheel) {
             _trace.add(_name + "-" + wheel.getName());
         }
 
         @PostInverseAdd
-        void postWheelsAdd(@Nonnull final Wheel wheel) {
+        void postWheelsAdd(final Wheel wheel) {
             _trace.add(_name + "+" + wheel.getName());
         }
 
         @Inverse
-        abstract Collection<Wheel> getWheels();
+        abstract @Nullable Collection<Wheel> getWheels();
     }
 
+    @NullMarked
     @ArezComponent(service = Feature.ENABLE, sting = Feature.DISABLE)
     abstract static class CarRepository extends AbstractRepository<Integer, Car, CarRepository> {
-        static CarRepository newRepository() {
+        static @Nullable CarRepository newRepository() {
             return new InverseHooksIntegrationTest_Arez_CarRepository();
         }
 
         @Action
-        Car create(@Nonnull final String name, @Nonnull final List<String> trace) {
+        @Nullable
+        Car create(final String name, final List<String> trace) {
             final InverseHooksIntegrationTest_Arez_Car entity = new InverseHooksIntegrationTest_Arez_Car(name, trace);
             attach(entity);
             return entity;
         }
 
         @Action
-        protected void destroy(@Nonnull final Car entity) {
+        protected void destroy(final Car entity) {
             super.destroy(entity);
         }
     }

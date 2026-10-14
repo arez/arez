@@ -132,7 +132,7 @@ final class PublicAccessViaInterfacePostInverseAddModel_Arez_Element extends Pub
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( PublicAccessViaInterfacePostInverseAddModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type PublicAccessViaInterfacePostInverseAddModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( PublicAccessViaInterfacePostInverseAddModel.Element.class, $$arezi$$_id() ) );
       final int $$arezv$$_otherId = this.getOtherId();
       final PublicAccessViaInterfacePostInverseAddModel $$arezv$$_other = this.$$arezi$$_locator().findById( PublicAccessViaInterfacePostInverseAddModel.class, $$arezv$$_otherId );
-      Guards.apiInvariant( () -> null != $$arezv$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.post_inverse_add.@org.jspecify.annotations.Nullable PublicAccessViaInterfacePostInverseAddModel and id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.post_inverse_add.PublicAccessViaInterfacePostInverseAddModel and id = " + getOtherId() );
     }
   }
 
@@ -154,7 +154,7 @@ final class PublicAccessViaInterfacePostInverseAddModel_Arez_Element extends Pub
     final int id = this.getOtherId();
     this.$$arezr$$_other = this.$$arezi$$_locator().findById( PublicAccessViaInterfacePostInverseAddModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.post_inverse_add.@org.jspecify.annotations.Nullable PublicAccessViaInterfacePostInverseAddModel and id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.post_inverse_add.PublicAccessViaInterfacePostInverseAddModel and id = " + getOtherId() );
     }
     ( (Arez_PublicAccessViaInterfacePostInverseAddModel) this.$$arezr$$_other ).$$arezir$$_elements_add( this );
   }

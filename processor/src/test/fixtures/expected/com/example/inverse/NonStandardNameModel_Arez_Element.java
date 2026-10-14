@@ -132,7 +132,7 @@ final class NonStandardNameModel_Arez_Element extends NonStandardNameModel.Eleme
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( NonStandardNameModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type NonStandardNameModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( NonStandardNameModel.Element.class, $$arezi$$_id() ) );
       final int $$arezv$$_zoomId = this.$$$getXId();
       final NonStandardNameModel $$arezv$$_zoom = this.$$arezi$$_locator().findById( NonStandardNameModel.class, $$arezv$$_zoomId );
-      Guards.apiInvariant( () -> null != $$arezv$$_zoom, () -> "Reference named 'zoom' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable NonStandardNameModel and id = " + $$$getXId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_zoom, () -> "Reference named 'zoom' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.NonStandardNameModel and id = " + $$$getXId() );
     }
   }
 
@@ -154,7 +154,7 @@ final class NonStandardNameModel_Arez_Element extends NonStandardNameModel.Eleme
     final int id = this.$$$getXId();
     this.$$arezr$$_zoom = this.$$arezi$$_locator().findById( NonStandardNameModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_zoom, () -> "Reference named 'zoom' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable NonStandardNameModel and id = " + $$$getXId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_zoom, () -> "Reference named 'zoom' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.NonStandardNameModel and id = " + $$$getXId() );
     }
     ( (Arez_NonStandardNameModel) this.$$arezr$$_zoom ).$$arezir$$_zap_add( this );
   }

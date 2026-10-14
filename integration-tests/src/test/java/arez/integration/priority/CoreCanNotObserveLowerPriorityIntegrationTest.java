@@ -7,8 +7,10 @@ import arez.ArezContext;
 import arez.ComputableValue;
 import arez.SafeFunction;
 import arez.integration.AbstractArezIntegrationTest;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class CoreCanNotObserveLowerPriorityIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {

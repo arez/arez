@@ -7,19 +7,23 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ObservableDeepEqualsComparatorIntegrationTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent
     abstract static class Model {
-        private int[] _values = new int[] {1, 2, 3};
+        private int @Nullable [] _values = new int[] {1, 2, 3};
 
         @Observable(equalityComparator = ObjectsDeepEqualsComparator.class)
-        int[] getValues() {
+        int @Nullable [] getValues() {
             return _values;
         }
 
-        void setValues(final int[] values) {
+        void setValues(final int @Nullable [] values) {
             _values = values;
         }
     }

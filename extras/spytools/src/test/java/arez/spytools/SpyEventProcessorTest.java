@@ -11,7 +11,6 @@ import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
-import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -34,7 +33,7 @@ public class SpyEventProcessorTest extends AbstractSpyToolsTest {
         }
 
         @Override
-        protected void handleUnhandledEvent(@Nonnull final Object event) {
+        protected void handleUnhandledEvent(final Object event) {
             super.handleUnhandledEvent(event);
             _handleUnhandledEventCallCount += 1;
         }

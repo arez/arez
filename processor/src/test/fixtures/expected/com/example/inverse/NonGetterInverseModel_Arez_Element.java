@@ -132,7 +132,7 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( NonGetterInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type NonGetterInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( NonGetterInverseModel.Element.class, $$arezi$$_id() ) );
       final int $$arezv$$_nonGetterInverseModelId = this.getNonGetterInverseModelId();
       final NonGetterInverseModel $$arezv$$_nonGetterInverseModel = this.$$arezi$$_locator().findById( NonGetterInverseModel.class, $$arezv$$_nonGetterInverseModelId );
-      Guards.apiInvariant( () -> null != $$arezv$$_nonGetterInverseModel, () -> "Reference named 'nonGetterInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable NonGetterInverseModel and id = " + getNonGetterInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_nonGetterInverseModel, () -> "Reference named 'nonGetterInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.NonGetterInverseModel and id = " + getNonGetterInverseModelId() );
     }
   }
 
@@ -154,7 +154,7 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
     final int id = this.getNonGetterInverseModelId();
     this.$$arezr$$_nonGetterInverseModel = this.$$arezi$$_locator().findById( NonGetterInverseModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_nonGetterInverseModel, () -> "Reference named 'nonGetterInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable NonGetterInverseModel and id = " + getNonGetterInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_nonGetterInverseModel, () -> "Reference named 'nonGetterInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.NonGetterInverseModel and id = " + getNonGetterInverseModelId() );
     }
     ( (Arez_NonGetterInverseModel) this.$$arezr$$_nonGetterInverseModel ).$$arezir$$_elements_add( this );
   }

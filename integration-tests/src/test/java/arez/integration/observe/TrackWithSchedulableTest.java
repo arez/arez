@@ -11,9 +11,12 @@ import arez.annotations.Observe;
 import arez.annotations.OnDepsChange;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class TrackWithSchedulableTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent
     public abstract static class Model {
         @Observe(executor = Executor.EXTERNAL)

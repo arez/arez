@@ -5,9 +5,13 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentRef;
 import arez.annotations.PostConstruct;
 import arez.integration.AbstractArezIntegrationTest;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ComponentRefCalledInPostConstructTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent(allowEmpty = true)
     abstract static class TestComponent {
         @PostConstruct
@@ -17,7 +21,7 @@ public final class ComponentRefCalledInPostConstructTest extends AbstractArezInt
 
         @SuppressWarnings("UnusedReturnValue")
         @ComponentRef
-        abstract Component getComponent();
+        abstract @Nullable Component getComponent();
     }
 
     @Test

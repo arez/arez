@@ -11,10 +11,11 @@ import arez.annotations.Memoize;
 import arez.annotations.OnActivate;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class MemoizeNonArezDependenciesOnActivateComputableValueIntegrationTest
         extends AbstractArezIntegrationTest {
     @Test
@@ -59,33 +60,34 @@ public final class MemoizeNonArezDependenciesOnActivateComputableValueIntegratio
         assertEquals(element._activateCount, 1);
     }
 
+    @NullMarked
     @ArezComponent
     public abstract static class Element {
         @Nullable
         private ComputableValue<String> _memoizedComputableValue;
 
+        @Nullable
         String _result;
+
         int _callCount;
         int _activateCount;
 
-        @Nonnull
-        public static Element create(@Nonnull final String result) {
+        public static Element create(final String result) {
             return new MemoizeNonArezDependenciesOnActivateComputableValueIntegrationTest_Arez_Element(result);
         }
 
-        Element(@Nonnull final String result) {
+        Element(final String result) {
             _result = result;
         }
 
         @Memoize(depType = DepType.AREZ_OR_EXTERNAL)
-        @Nonnull
         String getMemoized() {
             _callCount++;
             return _result;
         }
 
         @OnActivate
-        void onMemoizedActivate(@Nonnull final ComputableValue<String> computableValue) {
+        void onMemoizedActivate(final ComputableValue<String> computableValue) {
             _activateCount++;
             _memoizedComputableValue = computableValue;
         }

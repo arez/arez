@@ -10,9 +10,11 @@ import arez.annotations.DepType;
 import arez.annotations.Memoize;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class MemoizeArezOrNoneDependenciesTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() throws Throwable {
@@ -49,15 +51,17 @@ public final class MemoizeArezOrNoneDependenciesTest extends AbstractArezIntegra
         assertEquals(element._callCount, 2);
     }
 
+    @NullMarked
     @ArezComponent
     public abstract static class Element {
-        @Nonnull
+
         final ObservableValue<?> _observableValue;
 
+        @Nullable
         String _result;
+
         int _callCount;
 
-        @Nonnull
         public static Element create() {
             return new MemoizeArezOrNoneDependenciesTest_Arez_Element();
         }
@@ -68,7 +72,6 @@ public final class MemoizeArezOrNoneDependenciesTest extends AbstractArezIntegra
         }
 
         @Memoize(depType = DepType.AREZ_OR_NONE)
-        @Nonnull
         String getMemoized() {
             if (0 == _callCount) {
                 _observableValue.reportObserved();

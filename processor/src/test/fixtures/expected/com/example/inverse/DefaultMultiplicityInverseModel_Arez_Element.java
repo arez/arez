@@ -132,7 +132,7 @@ final class DefaultMultiplicityInverseModel_Arez_Element extends DefaultMultipli
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( DefaultMultiplicityInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type DefaultMultiplicityInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( DefaultMultiplicityInverseModel.Element.class, $$arezi$$_id() ) );
       final int $$arezv$$_defaultMultiplicityInverseModelId = this.getDefaultMultiplicityInverseModelId();
       final DefaultMultiplicityInverseModel $$arezv$$_defaultMultiplicityInverseModel = this.$$arezi$$_locator().findById( DefaultMultiplicityInverseModel.class, $$arezv$$_defaultMultiplicityInverseModelId );
-      Guards.apiInvariant( () -> null != $$arezv$$_defaultMultiplicityInverseModel, () -> "Reference named 'defaultMultiplicityInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable DefaultMultiplicityInverseModel and id = " + getDefaultMultiplicityInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_defaultMultiplicityInverseModel, () -> "Reference named 'defaultMultiplicityInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.DefaultMultiplicityInverseModel and id = " + getDefaultMultiplicityInverseModelId() );
     }
   }
 
@@ -154,7 +154,7 @@ final class DefaultMultiplicityInverseModel_Arez_Element extends DefaultMultipli
     final int id = this.getDefaultMultiplicityInverseModelId();
     this.$$arezr$$_defaultMultiplicityInverseModel = this.$$arezi$$_locator().findById( DefaultMultiplicityInverseModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_defaultMultiplicityInverseModel, () -> "Reference named 'defaultMultiplicityInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable DefaultMultiplicityInverseModel and id = " + getDefaultMultiplicityInverseModelId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_defaultMultiplicityInverseModel, () -> "Reference named 'defaultMultiplicityInverseModel' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.DefaultMultiplicityInverseModel and id = " + getDefaultMultiplicityInverseModelId() );
     }
     ( (Arez_DefaultMultiplicityInverseModel) this.$$arezr$$_defaultMultiplicityInverseModel ).$$arezir$$_elements_add( this );
   }

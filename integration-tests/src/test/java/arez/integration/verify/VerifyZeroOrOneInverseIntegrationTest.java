@@ -20,10 +20,11 @@ import arez.component.internal.ComponentKernel;
 import arez.integration.AbstractArezIntegrationTest;
 import java.lang.reflect.Field;
 import java.util.HashMap;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class VerifyZeroOrOneInverseIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void verifySuccess() throws Throwable {
@@ -107,10 +108,11 @@ public final class VerifyZeroOrOneInverseIntegrationTest extends AbstractArezInt
                         + " 'ArezComponent[arez_integration_verify_VerifyZeroOrOneInverseIntegrationTest_Model1.0]'");
     }
 
-    private void verify(@Nonnull final Object object) throws Throwable {
+    private void verify(final Object object) throws Throwable {
         Arez.context().action(() -> Verifiable.verify(object), ActionFlags.NO_VERIFY_ACTION_REQUIRED);
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model1 {
         private final int _id;
@@ -118,7 +120,7 @@ public final class VerifyZeroOrOneInverseIntegrationTest extends AbstractArezInt
         @Nullable
         private Integer _model2Id;
 
-        static Model1 create(final int id, @Nullable final Integer model2Id) {
+        static @Nullable Model1 create(final int id, @Nullable final Integer model2Id) {
             return Arez.context().safeAction(() -> new VerifyZeroOrOneInverseIntegrationTest_Arez_Model1(id, model2Id));
         }
 
@@ -133,7 +135,7 @@ public final class VerifyZeroOrOneInverseIntegrationTest extends AbstractArezInt
         }
 
         @Reference(inverseMultiplicity = Multiplicity.ZERO_OR_ONE)
-        abstract Model2 getModel2();
+        abstract @Nullable Model2 getModel2();
 
         @ReferenceId
         @Nullable
@@ -147,6 +149,7 @@ public final class VerifyZeroOrOneInverseIntegrationTest extends AbstractArezInt
         }
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model2 {
         private final int _id;
@@ -165,14 +168,16 @@ public final class VerifyZeroOrOneInverseIntegrationTest extends AbstractArezInt
         abstract Model1 getModel1();
     }
 
+    @NullMarked
     @ArezComponent(service = Feature.ENABLE, sting = Feature.DISABLE)
     abstract static class Model2Repository extends AbstractRepository<Integer, Model2, Model2Repository> {
-        @Nonnull
+
         static Model2Repository newRepository() {
             return new VerifyZeroOrOneInverseIntegrationTest_Arez_Model2Repository();
         }
 
         @Action
+        @Nullable
         Model2 create(final int id) {
             final VerifyZeroOrOneInverseIntegrationTest_Arez_Model2 entity =
                     new VerifyZeroOrOneInverseIntegrationTest_Arez_Model2(id);
@@ -181,7 +186,7 @@ public final class VerifyZeroOrOneInverseIntegrationTest extends AbstractArezInt
         }
 
         @Action
-        protected void destroy(@Nonnull final Model2 entity) {
+        protected void destroy(final Model2 entity) {
             super.destroy(entity);
         }
     }

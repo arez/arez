@@ -6,10 +6,11 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class NormalizingSetterIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void disallowNullInSetter() {
@@ -41,27 +42,26 @@ public final class NormalizingSetterIntegrationTest extends AbstractArezIntegrat
         safeAction(() -> assertEquals(model.getName(), "Fred"));
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model {
-        @Nonnull
+
         private String _name;
 
-        @Nonnull
-        static Model create(@Nonnull final String name) {
+        static Model create(final String name) {
             return new NormalizingSetterIntegrationTest_Arez_Model(name);
         }
 
-        Model(@Nonnull final String name) {
+        Model(final String name) {
             _name = name;
         }
 
         @Observable(setterAlwaysMutates = false)
-        @Nonnull
         String getName() {
             return _name;
         }
 
-        void setName(@Nonnull final String name) {
+        void setName(final String name) {
             _name = name.trim();
         }
     }

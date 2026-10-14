@@ -270,7 +270,7 @@ final class Arez_DeprecationModel extends DeprecationModel
       Guards.apiInvariant(
           () -> null != $$arezv$$_Blah,
           () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.deprecation.DeprecationModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+              + "' is unable to resolve entity of type com.example.deprecation.DeprecationModel.MyEntity and id = "
               + getMyEntityId());
     }
   }
@@ -457,7 +457,7 @@ final class Arez_DeprecationModel extends DeprecationModel
       Guards.apiInvariant(
           () -> null != $$arezr$$_Blah,
           () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.deprecation.DeprecationModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+              + "' is unable to resolve entity of type com.example.deprecation.DeprecationModel.MyEntity and id = "
               + getMyEntityId());
     }
   }

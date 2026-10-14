@@ -10,11 +10,12 @@ import arez.annotations.ComponentDependency;
 import arez.annotations.Observable;
 import arez.annotations.PreDispose;
 import arez.integration.AbstractArezIntegrationTest;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class DisposeNotifierIgnoresDisposedListenersTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
@@ -28,26 +29,27 @@ public final class DisposeNotifierIgnoresDisposedListenersTest extends AbstractA
         assertTrue(Disposable.isDisposed(model2));
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model1 {
-        @Nonnull
-        static Model1 create(@Nonnull final String name) {
+
+        static Model1 create(final String name) {
             return new DisposeNotifierIgnoresDisposedListenersTest_Arez_Model1(name);
         }
 
         @Observable
-        @Nonnull
         abstract String getName();
 
-        abstract void setName(@Nonnull String name);
+        abstract void setName(String name);
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model2 {
         @CascadeDispose
+        @Nullable
         Model1 _other;
 
-        @Nonnull
         static Model2 create(@Nullable final Model1 other) {
             return new DisposeNotifierIgnoresDisposedListenersTest_Arez_Model2(other);
         }
@@ -71,11 +73,12 @@ public final class DisposeNotifierIgnoresDisposedListenersTest extends AbstractA
 
         @ComponentDependency(action = ComponentDependency.Action.SET_NULL)
         @Observable
+        @Nullable
         Model1 getOther() {
             return _other;
         }
 
-        void setOther(final Model1 other) {
+        void setOther(final @Nullable Model1 other) {
             _other = other;
         }
     }

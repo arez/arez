@@ -234,7 +234,7 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel
         Guards.apiInvariant(
             () -> null != $$arezv$$_entity,
             () -> "Reference named 'entity' on component named '" + this.$$arezi$$_kernel.getName()
-                + "' is unable to resolve entity of type com.example.auto_observe.BasicAutoObserveModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+                + "' is unable to resolve entity of type com.example.auto_observe.BasicAutoObserveModel.MyEntity and id = "
                 + getEntityId());
       }
     }
@@ -354,7 +354,7 @@ final class Arez_BasicAutoObserveModel extends BasicAutoObserveModel
               () -> null != $$arezr$$_entity,
               () ->
                   "Reference named 'entity' on component named '" + this.$$arezi$$_kernel.getName()
-                      + "' is unable to resolve entity of type com.example.auto_observe.BasicAutoObserveModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+                      + "' is unable to resolve entity of type com.example.auto_observe.BasicAutoObserveModel.MyEntity and id = "
                       + getEntityId());
         }
       }

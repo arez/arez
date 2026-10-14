@@ -2,9 +2,12 @@ package arez.doc.examples.reference;
 
 import arez.Arez;
 import arez.component.TypeBasedLocator;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 public class ReferenceExample {
-    public static void main(String[] args) {
+    public static void main(String @Nullable [] args) {
         // EXAMPLE START
         final GroupRepository groupRepository = new Arez_GroupRepository();
         final PermissionRepository permissionRepository = new Arez_PermissionRepository();

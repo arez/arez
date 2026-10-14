@@ -7,10 +7,13 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.Observe;
 import arez.integration.AbstractArezIntegrationTest;
+import org.jspecify.annotations.NullMarked;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ObserveNestedActionDisallowedTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent
     abstract static class TestComponent1 {
         int _renderCallCount;

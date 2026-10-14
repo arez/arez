@@ -8,16 +8,21 @@ import arez.ComputableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComputableValueRef;
 import arez.annotations.Memoize;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class ComputableValueRefTest extends AbstractArezIntegrationTest {
+    @NullMarked
     @ArezComponent
     abstract static class TestComponent {
         private int _otherID;
 
         @ComputableValueRef
-        abstract ComputableValue<Integer> getOtherIDComputableValue();
+        abstract @Nullable ComputableValue<Integer> getOtherIDComputableValue();
 
+        @Nullable
         String getOther() {
             return String.valueOf(getOtherIDComputableValue().get());
         }

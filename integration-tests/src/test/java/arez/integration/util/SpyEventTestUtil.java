@@ -6,15 +6,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Nonnull;
 import javax.json.Json;
 import javax.json.JsonObject;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public final class SpyEventTestUtil {
     private SpyEventTestUtil() {}
 
-    @Nonnull
-    public static JsonObject toJsonObject(@Nonnull final SerializableEvent event, final boolean keepValue) {
+    public static JsonObject toJsonObject(final SerializableEvent event, final boolean keepValue) {
         final Map<String, Object> map = new HashMap<>();
         event.toMap(map);
         map.remove("duration");

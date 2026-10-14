@@ -6,9 +6,10 @@ import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.CascadeDispose;
 import arez.integration.AbstractArezIntegrationTest;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class BasicCascadeDisposeIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
@@ -24,25 +25,25 @@ public final class BasicCascadeDisposeIntegrationTest extends AbstractArezIntegr
         assertTrue(Disposable.isDisposed(model2));
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model1 {
         @CascadeDispose
-        @Nonnull
         final Model2 _model2;
 
-        @Nonnull
-        static Model1 create(@Nonnull final Model2 name) {
+        static Model1 create(final Model2 name) {
             return new BasicCascadeDisposeIntegrationTest_Arez_Model1(name);
         }
 
-        Model1(@Nonnull final Model2 model2) {
+        Model1(final Model2 model2) {
             _model2 = model2;
         }
     }
 
+    @NullMarked
     @ArezComponent(allowEmpty = true)
     abstract static class Model2 {
-        @Nonnull
+
         static Model2 create() {
             return new BasicCascadeDisposeIntegrationTest_Arez_Model2();
         }

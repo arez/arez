@@ -1,12 +1,15 @@
 package arez.doc.examples.sting;
 
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import sting.Injectable;
 
+@NullMarked
 @Injectable
 public class ExampleConsumer {
-    private final MyService _myService;
+    private final @Nullable MyService _myService;
 
-    ExampleConsumer(final MyService myService) {
+    ExampleConsumer(final @Nullable MyService myService) {
         _myService = myService;
     }
 

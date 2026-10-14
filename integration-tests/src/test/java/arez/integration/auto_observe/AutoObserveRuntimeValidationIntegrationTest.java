@@ -7,10 +7,11 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ArezComponentLike;
 import arez.annotations.AutoObserve;
 import arez.integration.AbstractArezIntegrationTest;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class AutoObserveRuntimeValidationIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
@@ -45,26 +46,29 @@ public final class AutoObserveRuntimeValidationIntegrationTest extends AbstractA
         Disposable.dispose(owner);
     }
 
+    @NullMarked
     @ArezComponentLike
     interface MyType {}
 
+    @NullMarked
     private static final class BadType implements MyType {}
 
+    @NullMarked
     @ArezComponent(disposeOnDeactivate = true, allowEmpty = true)
     abstract static class Child implements MyType {
-        @Nonnull
+
         static Child create() {
             return new AutoObserveRuntimeValidationIntegrationTest_Arez_Child();
         }
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Owner {
         @AutoObserve(validateTypeAtRuntime = true)
         @Nullable
         final MyType _child;
 
-        @Nonnull
         static Owner create(@Nullable final MyType child) {
             return new AutoObserveRuntimeValidationIntegrationTest_Arez_Owner(child);
         }

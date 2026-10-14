@@ -194,7 +194,7 @@ final class Arez_ExplicitLoadReferenceModel extends ExplicitLoadReferenceModel
       Guards.apiInvariant(
           () -> null != $$arezv$$_myEntity,
           () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-              + "' is unable to resolve entity of type com.example.reference.ExplicitLoadReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+              + "' is unable to resolve entity of type com.example.reference.ExplicitLoadReferenceModel.MyEntity and id = "
               + getMyEntityId());
     }
   }
@@ -257,7 +257,7 @@ final class Arez_ExplicitLoadReferenceModel extends ExplicitLoadReferenceModel
             () -> null != $$arezr$$_myEntity,
             () ->
                 "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel.getName()
-                    + "' is unable to resolve entity of type com.example.reference.ExplicitLoadReferenceModel.@org.jspecify.annotations.Nullable MyEntity and id = "
+                    + "' is unable to resolve entity of type com.example.reference.ExplicitLoadReferenceModel.MyEntity and id = "
                     + getMyEntityId());
       }
     }

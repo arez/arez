@@ -10,9 +10,11 @@ import arez.annotations.PostDispose;
 import arez.annotations.PreDispose;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.ArrayList;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class LifecycleSequencingIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() {
@@ -33,11 +35,11 @@ public final class LifecycleSequencingIntegrationTest extends AbstractArezIntegr
         assertEquals(String.join(" ", model._steps), "Constructor PostConstruct PreDispose PostDispose");
     }
 
+    @NullMarked
     @ArezComponent(allowEmpty = true)
     abstract static class Model1 {
-        final ArrayList<String> _steps = new ArrayList<>();
+        final @Nullable ArrayList<String> _steps = new ArrayList<>();
 
-        @Nonnull
         static Model1 create() {
             return new LifecycleSequencingIntegrationTest_Arez_Model1();
         }
@@ -62,11 +64,11 @@ public final class LifecycleSequencingIntegrationTest extends AbstractArezIntegr
         }
     }
 
+    @NullMarked
     @ArezComponent(allowEmpty = true)
     abstract static class Model2 {
-        final ArrayList<String> _steps = new ArrayList<>();
+        final @Nullable ArrayList<String> _steps = new ArrayList<>();
 
-        @Nonnull
         static Model2 create() {
             return new LifecycleSequencingIntegrationTest_Arez_Model2();
         }

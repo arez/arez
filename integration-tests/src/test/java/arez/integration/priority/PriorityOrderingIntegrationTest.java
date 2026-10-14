@@ -11,8 +11,10 @@ import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import org.jspecify.annotations.NullMarked;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class PriorityOrderingIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() throws Throwable {

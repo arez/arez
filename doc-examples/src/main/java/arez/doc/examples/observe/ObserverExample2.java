@@ -2,9 +2,12 @@ package arez.doc.examples.observe;
 
 import arez.Arez;
 import arez.Observer;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 public class ObserverExample2 {
-    public static void main(String[] args) {
+    public static void main(String @Nullable [] args) {
         Arez.context()
                 .observer(
                         "MyObserver",

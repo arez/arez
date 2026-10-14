@@ -2,7 +2,7 @@ package arez.dom;
 
 import java.util.Objects;
 import javaemul.internal.annotations.DoNotAutobox;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * An immutable representation of coordinates returned by the Web Geolocation API.

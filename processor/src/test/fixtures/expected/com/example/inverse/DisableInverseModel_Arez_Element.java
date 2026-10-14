@@ -127,7 +127,7 @@ final class DisableInverseModel_Arez_Element extends DisableInverseModel.Element
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( DisableInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type DisableInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( DisableInverseModel.Element.class, $$arezi$$_id() ) );
       final int $$arezv$$_otherId = this.getOtherId();
       final DisableInverseModel $$arezv$$_other = this.$$arezi$$_locator().findById( DisableInverseModel.class, $$arezv$$_otherId );
-      Guards.apiInvariant( () -> null != $$arezv$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable DisableInverseModel and id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezv$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.DisableInverseModel and id = " + getOtherId() );
     }
   }
 
@@ -149,7 +149,7 @@ final class DisableInverseModel_Arez_Element extends DisableInverseModel.Element
     final int id = this.getOtherId();
     this.$$arezr$$_other = this.$$arezi$$_locator().findById( DisableInverseModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
-      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.@org.jspecify.annotations.Nullable DisableInverseModel and id = " + getOtherId() );
+      Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel.getName() + "' is unable to resolve entity of type com.example.inverse.DisableInverseModel and id = " + getOtherId() );
     }
   }
 

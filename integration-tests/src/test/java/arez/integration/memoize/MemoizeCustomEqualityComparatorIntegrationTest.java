@@ -8,16 +8,21 @@ import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class MemoizeCustomEqualityComparatorIntegrationTest extends AbstractArezIntegrationTest {
+    @NullMarked
     static final class AlwaysEqualComparator implements EqualityComparator {
         @Override
-        public boolean areEqual(final Object oldValue, final Object newValue) {
+        public boolean areEqual(final @Nullable Object oldValue, final @Nullable Object newValue) {
             return null != oldValue;
         }
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model {
         private int _value;

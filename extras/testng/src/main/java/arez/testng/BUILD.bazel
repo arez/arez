@@ -8,5 +8,6 @@ filegroup(
         "ArezTestSupport.java",
         "CollectObserverErrors.java",
         "ObserverErrorCollector.java",
+        "package-info.java",
     ],
 )

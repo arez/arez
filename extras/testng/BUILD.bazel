@@ -9,7 +9,7 @@ java_library(
         "//core",
         "//third_party/java:braincheck_core",
         "//third_party/java:grim_annotations",
-        "//third_party/java:javax_annotation",
+        "//third_party/java:jspecify",
         "//third_party/java:testng",
     ],
 )

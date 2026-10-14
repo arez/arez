@@ -8,9 +8,11 @@ import arez.annotations.ComponentDependency;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
+@NullMarked
 public final class CascadeOnDisposeIntegrationTest extends AbstractArezIntegrationTest {
     @Test
     public void scenario() throws Throwable {
@@ -50,57 +52,60 @@ public final class CascadeOnDisposeIntegrationTest extends AbstractArezIntegrati
         assertMatchesFixture(recorder);
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model1 {
-        private String _name;
+        private @Nullable String _name;
 
-        @Nonnull
-        static Model1 create(final String name) {
+        static Model1 create(final @Nullable String name) {
             return new CascadeOnDisposeIntegrationTest_Arez_Model1(name);
         }
 
-        Model1(final String name) {
+        Model1(final @Nullable String name) {
             _name = name;
         }
 
         @Observable
+        @Nullable
         String getName() {
             return _name;
         }
 
-        void setName(String name) {
+        void setName(@Nullable String name) {
             _name = name;
         }
     }
 
+    @NullMarked
     @ArezComponent
     abstract static class Model2 {
         @SuppressWarnings("Arez:UnmanagedComponentReference")
-        private final Model1 _reference;
+        private final @Nullable Model1 _reference;
 
-        private String _name;
+        private @Nullable String _name;
 
-        @Nonnull
-        static Model2 create(final Model1 reference, final String name) {
+        static Model2 create(final @Nullable Model1 reference, final @Nullable String name) {
             return new CascadeOnDisposeIntegrationTest_Arez_Model2(reference, name);
         }
 
-        Model2(final Model1 reference, final String name) {
+        Model2(final @Nullable Model1 reference, final @Nullable String name) {
             _reference = reference;
             _name = name;
         }
 
         @ComponentDependency(action = ComponentDependency.Action.CASCADE)
+        @Nullable
         Model1 getReference() {
             return _reference;
         }
 
         @Observable
+        @Nullable
         String getName() {
             return _name;
         }
 
-        void setName(@Nonnull String name) {
+        void setName(String name) {
             _name = name;
         }
     }

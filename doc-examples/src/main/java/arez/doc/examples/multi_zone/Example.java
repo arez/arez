@@ -2,9 +2,12 @@ package arez.doc.examples.multi_zone;
 
 import arez.Arez;
 import arez.Zone;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 public class Example {
-    public static void main(final String[] args) throws Throwable {
+    public static void main(final String @Nullable [] args) throws Throwable {
         // Create zone
         final Zone zone = Arez.createZone();
         // Activate the newly created zone and suspend the current zone if any
