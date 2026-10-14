@@ -8,6 +8,7 @@ import grim.annotations.OmitType;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A implementation of {@link ComponentInfo} that proxies to a {@link Component}.
@@ -66,13 +67,13 @@ final class ComponentInfoImpl implements ComponentInfo {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (this == o) {
             return true;
         } else if (o == null || getClass() != o.getClass()) {
             return false;
         } else {
-            final ComponentInfoImpl that = (ComponentInfoImpl) o;
+            final var that = (ComponentInfoImpl) o;
             return _component.equals(that._component);
         }
     }

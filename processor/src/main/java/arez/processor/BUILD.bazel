@@ -29,6 +29,7 @@ java_library(
         "RequiresTransactionDescriptor.java",
         "package-info.java",
     ],
+    migration_pending_checks = True,
     resources = ["//processor/src/main/resources/META-INF/services:javax.annotation.processing.Processor"],
     deps = [
         "//third_party/java:javapoet",

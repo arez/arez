@@ -159,6 +159,8 @@ public final class ComputableValue<T extends @Nullable Object> extends Node {
         return returnResult();
     }
 
+    // Successful computation stores a T; the nullable field also represents the uncomputed state.
+    @SuppressWarnings("NullAway")
     private T returnResult() {
         if (null != _error) {
             if (Arez.shouldCheckInvariants()) {
@@ -433,8 +435,9 @@ public final class ComputableValue<T extends @Nullable Object> extends Node {
      *
      * @return the info associated with this class.
      */
-    @SuppressWarnings("ConstantConditions")
     @OmitSymbol(unless = "arez.enable_spies")
+    // Valid calls require spies enabled; disabled variants eliminate this method.
+    @SuppressWarnings({"NullAway", "ReturnMissingNullable"})
     ComputableValueInfo asInfo() {
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -457,21 +460,23 @@ public final class ComputableValue<T extends @Nullable Object> extends Node {
         return _component;
     }
 
+    @Nullable
     T getValue() {
         return _value;
     }
 
     @OmitSymbol
-    void setValue(final T value) {
+    void setValue(final @Nullable T value) {
         _value = value;
     }
 
+    @Nullable
     Throwable getError() {
         return _error;
     }
 
     @OmitSymbol
-    void setError(final Throwable error) {
+    void setError(final @Nullable Throwable error) {
         _error = error;
     }
 
@@ -494,6 +499,7 @@ public final class ComputableValue<T extends @Nullable Object> extends Node {
      * Flags that can configure ComputableValue instances during creation.
      */
     public static final class Flags {
+        private Flags() {}
         /**
          * The scheduler will be triggered when the ComputableValue is created to immediately invoke the
          * compute function. This should not be specified if {@link #RUN_LATER} is specified.

@@ -18,7 +18,7 @@ public final class ObserverApiTest extends AbstractTest {
     public void autorun() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final String name = ValueUtil.randomString();
         final Observer observer = context.observer(name, () -> {
@@ -41,7 +41,7 @@ public final class ObserverApiTest extends AbstractTest {
 
     @Test
     public void autorun_noDependencies() {
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         Arez.context().observer(callCount::incrementAndGet, Observer.Flags.AREZ_OR_NO_DEPENDENCIES);
 
@@ -50,8 +50,8 @@ public final class ObserverApiTest extends AbstractTest {
 
     @Test
     public void schedule_autorun_doesNotExecuteIfNotStale() {
-        final AtomicInteger callCount = new AtomicInteger();
-        final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
+        final var onDepsChangeCallCount = new AtomicInteger();
 
         final ArezContext context = Arez.context();
         final ObservableValue<Object> observable = context.observable();
@@ -73,7 +73,7 @@ public final class ObserverApiTest extends AbstractTest {
 
     @Test
     public void reportStale_schedules_autorun() {
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final ArezContext context = Arez.context();
         final ObservableValue<Object> observable = context.observable();
@@ -93,8 +93,8 @@ public final class ObserverApiTest extends AbstractTest {
 
     @Test
     public void schedule_onManuallyScheduled_autorun() {
-        final AtomicInteger callCount = new AtomicInteger();
-        final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
+        final var onDepsChangeCallCount = new AtomicInteger();
 
         final ArezContext context = Arez.context();
         final ObservableValue<Object> observable = context.observable();
@@ -122,7 +122,7 @@ public final class ObserverApiTest extends AbstractTest {
 
     @Test
     public void application_executed_observer_function_with_no_dependencies_but_AREZ_DEPENDENCIES() {
-        final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
+        final var onDepsChangeCallCount = new AtomicInteger();
 
         final ArezContext context = Arez.context();
         final Observer observer =
@@ -138,7 +138,7 @@ public final class ObserverApiTest extends AbstractTest {
     @Test
     public void application_executed_observer_function_with_no_dependencies_and_AREZ_OR_NO_DEPENDENCIES()
             throws Throwable {
-        final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
+        final var onDepsChangeCallCount = new AtomicInteger();
 
         final ArezContext context = Arez.context();
         final Observer observer =
@@ -152,7 +152,7 @@ public final class ObserverApiTest extends AbstractTest {
 
     @Test
     public void application_executed_observer_procedure_with_no_dependencies_but_AREZ_DEPENDENCIES() {
-        final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
+        final var onDepsChangeCallCount = new AtomicInteger();
 
         final ArezContext context = Arez.context();
         final Observer observer =
@@ -168,7 +168,7 @@ public final class ObserverApiTest extends AbstractTest {
     @Test
     public void application_executed_observer_procedure_with_no_dependencies_and_AREZ_OR_NO_DEPENDENCIES()
             throws Throwable {
-        final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
+        final var onDepsChangeCallCount = new AtomicInteger();
 
         final ArezContext context = Arez.context();
         final Observer observer =

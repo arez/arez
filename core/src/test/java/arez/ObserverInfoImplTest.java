@@ -69,7 +69,7 @@ public final class ObserverInfoImplTest extends AbstractTest {
     public void isRunning() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final AtomicReference<ObserverInfo> ref = new AtomicReference<>();
 
         final Observer observer = context.observer(
@@ -180,6 +180,7 @@ public final class ObserverInfoImplTest extends AbstractTest {
 
         final ComponentInfo info = spy.asObserverInfo(observer1).getComponent();
         assertNotNull(info);
+        assert null != info;
         assertEquals(info.getName(), component.getName());
         assertNull(spy.asObserverInfo(observer2).getComponent());
     }

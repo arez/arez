@@ -12,7 +12,7 @@ import org.jspecify.annotations.Nullable;
  */
 public final class BrowserSpyUtil {
 
-    private static final Map<ArezContext, SpyEventHandler> c_processors =
+    private static final @Nullable Map<ArezContext, SpyEventHandler> c_processors =
             Arez.areSpiesEnabled() ? new HashMap<>() : null;
 
     /**
@@ -21,7 +21,11 @@ public final class BrowserSpyUtil {
      * @return true if spy event logging is enabled.
      */
     public static boolean isSpyEventLoggingEnabled() {
-        return Arez.areSpiesEnabled() && c_processors.containsKey(Arez.context());
+        if (!Arez.areSpiesEnabled()) {
+            return false;
+        }
+        assert null != c_processors;
+        return c_processors.containsKey(Arez.context());
     }
 
     /**
@@ -42,6 +46,7 @@ public final class BrowserSpyUtil {
             final SpyEventHandler actualHandler = null == handler ? new ConsoleSpyEventProcessor() : handler;
             final ArezContext context = Arez.context();
             context.getSpy().addSpyEventHandler(actualHandler);
+            assert null != c_processors;
             c_processors.put(context, actualHandler);
         }
     }
@@ -53,6 +58,7 @@ public final class BrowserSpyUtil {
     public static void disableSpyEventLogging() {
         if (Arez.areSpiesEnabled() && isSpyEventLoggingEnabled()) {
             final ArezContext context = Arez.context();
+            assert null != c_processors;
             final SpyEventHandler handler = c_processors.remove(context);
             assert null != handler;
             context.getSpy().removeSpyEventHandler(handler);

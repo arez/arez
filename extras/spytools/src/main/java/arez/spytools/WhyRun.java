@@ -71,7 +71,7 @@ public final class WhyRun {
     }
 
     private static String whyObserverRun(final Spy spy, final ObserverInfo observer) {
-        final StringBuilder sb = new StringBuilder();
+        final var sb = new StringBuilder();
         sb.append("Observer '");
         sb.append(observer.getName());
         sb.append("':\n");
@@ -91,7 +91,7 @@ public final class WhyRun {
     }
 
     private static String whyComputableValueRun(final Spy spy, final ComputableValueInfo computableValue) {
-        final StringBuilder sb = new StringBuilder();
+        final var sb = new StringBuilder();
         sb.append("ComputableValue '");
         sb.append(computableValue.getName());
         sb.append("':\n");

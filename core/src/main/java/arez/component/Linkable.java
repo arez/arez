@@ -17,7 +17,7 @@ public interface Linkable {
      */
     static void link(final Object object) {
         if (object instanceof Linkable) {
-            final Linkable linkable = (Linkable) object;
+            final var linkable = (Linkable) object;
             linkable.link();
         }
     }

@@ -24,12 +24,12 @@ public final class RepositoryTest extends AbstractTest {
     public void entityLifecycles() {
         final ArezContext context = Arez.context();
 
-        final MyEntity entity1 = new MyEntity(301);
-        final MyEntity entity2 = new MyEntity(302);
-        final MyEntity entity3 = new MyEntity(303);
-        final MyEntity entity4 = new MyEntity(304);
-        final MyEntity entity5 = new MyEntity(305);
-        final MyRepository repository = MyRepository.create();
+        final var entity1 = new MyEntity(301);
+        final var entity2 = new MyEntity(302);
+        final var entity3 = new MyEntity(303);
+        final var entity4 = new MyEntity(304);
+        final var entity5 = new MyEntity(305);
+        final var repository = MyRepository.create();
 
         assertFalse(context.safeAction(() -> repository.contains(entity1)));
         assertFalse(context.safeAction(() -> repository.contains(entity2)));
@@ -95,9 +95,9 @@ public final class RepositoryTest extends AbstractTest {
     public void preDispose() {
         final ArezContext context = Arez.context();
 
-        final MyEntity entity1 = new MyEntity(301);
-        final MyEntity entity2 = new MyEntity(302);
-        final MyRepository repository = MyRepository.create();
+        final var entity1 = new MyEntity(301);
+        final var entity2 = new MyEntity(302);
+        final var repository = MyRepository.create();
 
         context.safeAction(() -> repository.attach(entity1));
         context.safeAction(() -> repository.attach(entity2));
@@ -118,11 +118,11 @@ public final class RepositoryTest extends AbstractTest {
     public void findAll() {
         final ArezContext context = Arez.context();
 
-        final MyRepository repository = MyRepository.create();
+        final var repository = MyRepository.create();
         context.safeAction(() -> repository.attach(new MyEntity(302)));
         context.safeAction(() -> repository.attach(new MyEntity(303)));
         context.safeAction(() -> repository.attach(new MyEntity(304)));
-        final MyEntity entity = new MyEntity(305);
+        final var entity = new MyEntity(305);
         context.safeAction(() -> repository.attach(entity));
         entity.dispose();
 
@@ -138,11 +138,11 @@ public final class RepositoryTest extends AbstractTest {
     public void findAllSorted() {
         final ArezContext context = Arez.context();
 
-        final MyRepository repository = MyRepository.create();
+        final var repository = MyRepository.create();
         context.safeAction(() -> repository.attach(new MyEntity(302)));
         context.safeAction(() -> repository.attach(new MyEntity(303)));
         context.safeAction(() -> repository.attach(new MyEntity(304)));
-        final MyEntity entity = new MyEntity(305);
+        final var entity = new MyEntity(305);
         context.safeAction(() -> repository.attach(entity));
         entity.dispose();
 
@@ -160,11 +160,11 @@ public final class RepositoryTest extends AbstractTest {
     public void findAllByQuery() {
         final ArezContext context = Arez.context();
 
-        final MyRepository repository = MyRepository.create();
+        final var repository = MyRepository.create();
         context.safeAction(() -> repository.attach(new MyEntity(302)));
         context.safeAction(() -> repository.attach(new MyEntity(303)));
         context.safeAction(() -> repository.attach(new MyEntity(304)));
-        final MyEntity entity = new MyEntity(305);
+        final var entity = new MyEntity(305);
         context.safeAction(() -> repository.attach(entity));
         entity.dispose();
 
@@ -180,13 +180,13 @@ public final class RepositoryTest extends AbstractTest {
     public void findAllByQuerySorted() {
         final ArezContext context = Arez.context();
 
-        final MyRepository repository = MyRepository.create();
+        final var repository = MyRepository.create();
         context.safeAction(() -> repository.attach(new MyEntity(300)));
         context.safeAction(() -> repository.attach(new MyEntity(301)));
         context.safeAction(() -> repository.attach(new MyEntity(302)));
         context.safeAction(() -> repository.attach(new MyEntity(303)));
         context.safeAction(() -> repository.attach(new MyEntity(304)));
-        final MyEntity entity = new MyEntity(305);
+        final var entity = new MyEntity(305);
         context.safeAction(() -> repository.attach(entity));
         entity.dispose();
 
@@ -205,12 +205,13 @@ public final class RepositoryTest extends AbstractTest {
     public void findByQuery() {
         final ArezContext context = Arez.context();
 
-        final MyRepository repository = MyRepository.create();
+        final var repository = MyRepository.create();
         context.safeAction(() -> repository.attach(new MyEntity(302)));
         context.safeAction(() -> repository.attach(new MyEntity(303)));
 
         final MyEntity entity = context.safeAction(() -> repository.findByQuery(e -> e.getArezId() == 302));
         assertNotNull(entity);
+        assert null != entity;
         assertEquals(entity.getArezId(), (Integer) 302);
 
         // Dispose entity so that it is no longer found
@@ -224,12 +225,13 @@ public final class RepositoryTest extends AbstractTest {
     public void getByQuery() {
         final ArezContext context = Arez.context();
 
-        final MyRepository repository = MyRepository.create();
+        final var repository = MyRepository.create();
         context.safeAction(() -> repository.attach(new MyEntity(302)));
         context.safeAction(() -> repository.attach(new MyEntity(303)));
 
         final MyEntity entity = context.safeAction(() -> repository.getByQuery(e -> e.getArezId() == 302));
         assertNotNull(entity);
+        assert null != entity;
         assertEquals(entity.getArezId(), (Integer) 302);
 
         // Dispose entity so that it is no longer found
@@ -244,12 +246,13 @@ public final class RepositoryTest extends AbstractTest {
     public void findByArezId() {
         final ArezContext context = Arez.context();
 
-        final MyRepository repository = MyRepository.create();
+        final var repository = MyRepository.create();
         context.safeAction(() -> repository.attach(new MyEntity(302)));
         context.safeAction(() -> repository.attach(new MyEntity(303)));
 
         final MyEntity entity = context.safeAction(() -> repository.findByArezId(302));
         assertNotNull(entity);
+        assert null != entity;
         assertEquals(entity.getArezId(), (Integer) 302);
 
         // Dispose entity so that it is no longer found
@@ -263,12 +266,13 @@ public final class RepositoryTest extends AbstractTest {
     public void getByArezId() {
         final ArezContext context = Arez.context();
 
-        final MyRepository repository = MyRepository.create();
+        final var repository = MyRepository.create();
         context.safeAction(() -> repository.attach(new MyEntity(302)));
         context.safeAction(() -> repository.attach(new MyEntity(303)));
 
         final MyEntity entity = context.safeAction(() -> repository.getByArezId(302));
         assertNotNull(entity);
+        assert null != entity;
         assertEquals(entity.getArezId(), (Integer) 302);
 
         // Dispose entity so that it is no longer found
@@ -282,7 +286,7 @@ public final class RepositoryTest extends AbstractTest {
 
     @Test
     public void self() {
-        final MyRepository repository = MyRepository.create();
+        final var repository = MyRepository.create();
         assertEquals(repository.self(), repository);
     }
 
@@ -290,7 +294,7 @@ public final class RepositoryTest extends AbstractTest {
     public void entities() {
         final ArezContext context = Arez.context();
 
-        final MyRepository repository = MyRepository.create();
+        final var repository = MyRepository.create();
         context.safeAction(() -> repository.attach(new MyEntity(302)));
         context.safeAction(() -> repository.attach(new MyEntity(303)));
 
@@ -305,8 +309,8 @@ public final class RepositoryTest extends AbstractTest {
     public void entities_removesDisposed() {
         final ArezContext context = Arez.context();
 
-        final MyRepository repository = MyRepository.create();
-        final MyEntity entity = new MyEntity(302);
+        final var repository = MyRepository.create();
+        final var entity = new MyEntity(302);
 
         context.safeAction(() -> repository.attach(entity));
         context.safeAction(() -> repository.attach(new MyEntity(303)));

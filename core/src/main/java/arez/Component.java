@@ -212,8 +212,9 @@ public final class Component implements Disposable {
      *
      * @return the info associated with this class.
      */
-    @SuppressWarnings("ConstantConditions")
     @OmitSymbol(unless = "arez.enable_spies")
+    // Valid calls require spies enabled; disabled variants eliminate this method.
+    @SuppressWarnings({"NullAway", "ReturnMissingNullable"})
     ComponentInfo asInfo() {
         if (Arez.shouldCheckInvariants()) {
             invariant(

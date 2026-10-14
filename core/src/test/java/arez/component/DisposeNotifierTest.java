@@ -18,7 +18,7 @@ public final class DisposeNotifierTest extends AbstractTest {
 
     @Test
     public void asDisposeNotifier() {
-        final BasicDisposeNotifier notifier = new BasicDisposeNotifier();
+        final var notifier = new BasicDisposeNotifier();
 
         assertEquals(DisposeNotifier.asDisposeNotifier(notifier), notifier);
     }

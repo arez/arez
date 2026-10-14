@@ -1,6 +1,7 @@
 package arez.dom;
 
 import java.util.Objects;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A class containing width and height dimensions.
@@ -39,9 +40,9 @@ public final class Dimension {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (o instanceof Dimension) {
-            final Dimension other = (Dimension) o;
+            final var other = (Dimension) o;
             return other._width == _width && other._height == _height;
         } else {
             return false;

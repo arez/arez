@@ -12,7 +12,7 @@ public final class TaskTest extends AbstractTest {
     public void basicOperation() {
         final String name = ValueUtil.randomString();
         final SafeProcedure work = ValueUtil::randomString;
-        final Task task = new Task(Arez.context(), name, work, 0);
+        final var task = new Task(Arez.context(), name, work, 0);
 
         assertEquals(task.getName(), name);
         assertEquals(task.getWork(), work);
@@ -46,7 +46,7 @@ public final class TaskTest extends AbstractTest {
 
     @Test
     public void schedule() {
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final Task task = Arez.context().task(callCount::incrementAndGet);
 
         assertEquals(callCount.get(), 1);
@@ -60,7 +60,7 @@ public final class TaskTest extends AbstractTest {
 
     @Test
     public void schedule_whileSchedulerPaused() {
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final ArezContext context = Arez.context();
         final SchedulerLock schedulerLock = context.pauseScheduler();
 
@@ -86,7 +86,7 @@ public final class TaskTest extends AbstractTest {
 
     @Test
     public void schedule_insideTask() {
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final ArezContext context = Arez.context();
         final AtomicReference<Task> taskRef = new AtomicReference<>();
         context.task(() -> {
@@ -111,7 +111,7 @@ public final class TaskTest extends AbstractTest {
 
     @Test
     public void queuedFlag() {
-        final Task task = new Task(Arez.context(), ValueUtil.randomString(), ValueUtil::randomString, 0);
+        final var task = new Task(Arez.context(), ValueUtil.randomString(), ValueUtil::randomString, 0);
 
         assertTrue(task.isIdle());
         assertFalse(task.isQueued());
@@ -129,7 +129,7 @@ public final class TaskTest extends AbstractTest {
 
     @Test
     public void markAsQueued_alreadyScheduled() {
-        final Task task = new Task(Arez.context(), "X", ValueUtil::randomString, 0);
+        final var task = new Task(Arez.context(), "X", ValueUtil::randomString, 0);
 
         task.markAsQueued();
         assertInvariantFailure(
@@ -138,7 +138,7 @@ public final class TaskTest extends AbstractTest {
 
     @Test
     public void markAsExecuted_notScheduled() {
-        final Task task = new Task(Arez.context(), "X", ValueUtil::randomString, 0);
+        final var task = new Task(Arez.context(), "X", ValueUtil::randomString, 0);
 
         assertInvariantFailure(
                 task::markAsIdle,
@@ -147,8 +147,8 @@ public final class TaskTest extends AbstractTest {
 
     @Test
     public void executeTask_notScheduled() {
-        final AtomicInteger callCount = new AtomicInteger();
-        final Task task = new Task(Arez.context(), ValueUtil.randomString(), callCount::incrementAndGet, 0);
+        final var callCount = new AtomicInteger();
+        final var task = new Task(Arez.context(), ValueUtil.randomString(), callCount::incrementAndGet, 0);
 
         assertEquals(callCount.get(), 0);
 
@@ -161,8 +161,8 @@ public final class TaskTest extends AbstractTest {
 
     @Test
     public void executeTask_scheduled() {
-        final AtomicInteger callCount = new AtomicInteger();
-        final Task task = new Task(Arez.context(), ValueUtil.randomString(), callCount::incrementAndGet, 0);
+        final var callCount = new AtomicInteger();
+        final var task = new Task(Arez.context(), ValueUtil.randomString(), callCount::incrementAndGet, 0);
 
         task.markAsQueued();
 
@@ -178,8 +178,8 @@ public final class TaskTest extends AbstractTest {
 
     @Test
     public void executeTask_DISPOSE_ON_COMPLETE() {
-        final AtomicInteger callCount = new AtomicInteger();
-        final Task task = new Task(
+        final var callCount = new AtomicInteger();
+        final var task = new Task(
                 Arez.context(), ValueUtil.randomString(), callCount::incrementAndGet, Task.Flags.DISPOSE_ON_COMPLETE);
 
         task.markAsQueued();

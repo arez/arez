@@ -7,19 +7,20 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.json.Json;
 import javax.json.JsonObject;
+import org.jspecify.annotations.Nullable;
 
 public final class SpyEventTestUtil {
     private SpyEventTestUtil() {}
 
     public static JsonObject toJsonObject(final SerializableEvent event, final boolean keepValue) {
-        final Map<String, Object> map = new HashMap<>();
+        final Map<String, @Nullable Object> map = new HashMap<>();
         event.toMap(map);
         map.remove("duration");
         if (!keepValue) {
             map.remove("value");
             map.remove("result");
         }
-        final Map<String, Object> output = new HashMap<>();
+        final Map<String, @Nullable Object> output = new HashMap<>();
         for (final Map.Entry<String, Object> entry : map.entrySet()) {
             final String key = entry.getKey();
             final Object value = entry.getValue();

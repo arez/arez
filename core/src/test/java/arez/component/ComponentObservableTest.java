@@ -34,7 +34,7 @@ public final class ComponentObservableTest extends AbstractTest {
 
     @Test
     public void observe_notComponentObservable() {
-        final Object element = new Object();
+        final var element = new Object();
         assertInvariantFailure(
                 () -> ComponentObservable.observe(element),
                 "Arez-0179: Object passed to asComponentObservable does not implement "
@@ -49,7 +49,7 @@ public final class ComponentObservableTest extends AbstractTest {
 
     @Test
     public void notObserved_notComponentObservable() {
-        final Object element = new Object();
+        final var element = new Object();
         assertInvariantFailure(
                 () -> ComponentObservable.notObserved(element),
                 "Arez-0179: Object passed to asComponentObservable does not implement "
@@ -58,13 +58,13 @@ public final class ComponentObservableTest extends AbstractTest {
 
     @Test
     public void asComponentObservable() {
-        final TestElement element = new TestElement(true);
+        final var element = new TestElement(true);
         assertEquals(ComponentObservable.asComponentObservable(element), element);
     }
 
     @Test
     public void asComponentObservable_nonObservable() {
-        final Object element = new Object();
+        final var element = new Object();
         assertInvariantFailure(
                 () -> ComponentObservable.asComponentObservable(element),
                 "Arez-0179: Object passed to asComponentObservable does not implement "

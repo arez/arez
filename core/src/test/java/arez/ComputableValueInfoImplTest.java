@@ -83,16 +83,16 @@ public final class ComputableValueInfoImplTest extends AbstractTest {
         final Observer observer2 = context.observer(new CountAndObserveProcedure());
 
         computableValue.setComputing(true);
-        final ComputableValueInfoImpl info = (ComputableValueInfoImpl) computableValue.asInfo();
+        final var info = (ComputableValueInfoImpl) computableValue.asInfo();
 
-        final Transaction transaction =
+        final var transaction =
                 new Transaction(context, null, observer.getName(), observer.isMutation(), observer, false);
         Transaction.setTransaction(transaction);
 
         // This picks up where it is the first transaction in stack
         assertEquals(info.getTransactionComputing(), transaction);
 
-        final Transaction transaction2 = new Transaction(
+        final var transaction2 = new Transaction(
                 context, transaction, ValueUtil.randomString(), observer2.isMutation(), observer2, false);
         Transaction.setTransaction(transaction2);
 
@@ -108,7 +108,7 @@ public final class ComputableValueInfoImplTest extends AbstractTest {
 
         computableValue.setComputing(true);
 
-        final ComputableValueInfoImpl info = (ComputableValueInfoImpl) computableValue.asInfo();
+        final var info = (ComputableValueInfoImpl) computableValue.asInfo();
         setupReadOnlyTransaction(context);
 
         assertInvariantFailure(
@@ -183,6 +183,7 @@ public final class ComputableValueInfoImplTest extends AbstractTest {
 
         final ComponentInfo info = computableValue1.asInfo().getComponent();
         assertNotNull(info);
+        assert null != info;
         assertEquals(info.getName(), component.getName());
         assertNull(computableValue2.asInfo().getComponent());
     }

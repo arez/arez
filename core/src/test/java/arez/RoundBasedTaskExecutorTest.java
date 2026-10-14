@@ -10,8 +10,8 @@ import org.testng.annotations.Test;
 public final class RoundBasedTaskExecutorTest extends AbstractTest {
     @Test
     public void construct() {
-        final TaskQueue taskQueue = new TaskQueue(Task.Flags.PRIORITY_COUNT, 10);
-        final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor(taskQueue, 2);
+        final var taskQueue = new TaskQueue(Task.Flags.PRIORITY_COUNT, 10);
+        final var executor = new RoundBasedTaskExecutor(taskQueue, 2);
 
         assertEquals(executor.getMaxRounds(), 2);
         assertEquals(executor.getCurrentRound(), 0);
@@ -23,11 +23,11 @@ public final class RoundBasedTaskExecutorTest extends AbstractTest {
     public void runNextTask() {
         final ArezContext context = Arez.context();
         final TaskQueue taskQueue = context.getTaskQueue();
-        final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor(taskQueue, 2);
+        final var executor = new RoundBasedTaskExecutor(taskQueue, 2);
 
-        final AtomicInteger task1CallCount = new AtomicInteger();
-        final AtomicInteger task2CallCount = new AtomicInteger();
-        final AtomicInteger task3CallCount = new AtomicInteger();
+        final var task1CallCount = new AtomicInteger();
+        final var task2CallCount = new AtomicInteger();
+        final var task3CallCount = new AtomicInteger();
         final Task task1 = context.task("A", task1CallCount::incrementAndGet, Task.Flags.RUN_LATER);
         final Task task2 = context.task("B", task2CallCount::incrementAndGet, Task.Flags.RUN_LATER);
         context.task("C", task3CallCount::incrementAndGet, Task.Flags.RUN_LATER);
@@ -119,11 +119,11 @@ public final class RoundBasedTaskExecutorTest extends AbstractTest {
     public void runTasks() {
         final ArezContext context = Arez.context();
         final TaskQueue taskQueue = context.getTaskQueue();
-        final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor(taskQueue, 2);
+        final var executor = new RoundBasedTaskExecutor(taskQueue, 2);
 
-        final AtomicInteger task1CallCount = new AtomicInteger();
-        final AtomicInteger task2CallCount = new AtomicInteger();
-        final AtomicInteger task3CallCount = new AtomicInteger();
+        final var task1CallCount = new AtomicInteger();
+        final var task2CallCount = new AtomicInteger();
+        final var task3CallCount = new AtomicInteger();
         context.task("A", task1CallCount::incrementAndGet, Task.Flags.RUN_LATER);
         context.task("B", task2CallCount::incrementAndGet, Task.Flags.RUN_LATER);
         context.task("C", task3CallCount::incrementAndGet, Task.Flags.RUN_LATER);
@@ -162,9 +162,9 @@ public final class RoundBasedTaskExecutorTest extends AbstractTest {
 
         final ArezContext context = Arez.context();
         final TaskQueue taskQueue = context.getTaskQueue();
-        final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor(taskQueue, 2);
+        final var executor = new RoundBasedTaskExecutor(taskQueue, 2);
 
-        final AtomicInteger task1CallCount = new AtomicInteger();
+        final var task1CallCount = new AtomicInteger();
         final AtomicReference<Task> taskRef = new AtomicReference<>();
         final Task task1 = context.task(
                 "A",
@@ -199,9 +199,9 @@ public final class RoundBasedTaskExecutorTest extends AbstractTest {
 
         final ArezContext context = Arez.context();
         final TaskQueue taskQueue = context.getTaskQueue();
-        final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor(taskQueue, 2);
+        final var executor = new RoundBasedTaskExecutor(taskQueue, 2);
 
-        final AtomicInteger task1CallCount = new AtomicInteger();
+        final var task1CallCount = new AtomicInteger();
         final AtomicReference<Task> taskRef = new AtomicReference<>();
         final Task task1 = context.task(
                 "A",
@@ -231,8 +231,8 @@ public final class RoundBasedTaskExecutorTest extends AbstractTest {
     public void onRunawayReactionsDetected() {
         ArezTestUtil.purgeTasksWhenRunawayDetected();
 
-        final TaskQueue taskQueue = new TaskQueue(Task.Flags.PRIORITY_COUNT, 10);
-        final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor(taskQueue, 2);
+        final var taskQueue = new TaskQueue(Task.Flags.PRIORITY_COUNT, 10);
+        final var executor = new RoundBasedTaskExecutor(taskQueue, 2);
 
         final Task task1 = Arez.context().task("A", ValueUtil::randomString);
         taskQueue.queueTask(task1);
@@ -250,8 +250,8 @@ public final class RoundBasedTaskExecutorTest extends AbstractTest {
     public void onRunawayReactionsDetected_noPurgeConfigured() {
         ArezTestUtil.noPurgeTasksWhenRunawayDetected();
 
-        final TaskQueue taskQueue = new TaskQueue(Task.Flags.PRIORITY_COUNT, 10);
-        final RoundBasedTaskExecutor executor = new RoundBasedTaskExecutor(taskQueue, 2);
+        final var taskQueue = new TaskQueue(Task.Flags.PRIORITY_COUNT, 10);
+        final var executor = new RoundBasedTaskExecutor(taskQueue, 2);
 
         final Task task1 = Arez.context().task("A", ValueUtil::randomString);
         taskQueue.queueTask(task1);

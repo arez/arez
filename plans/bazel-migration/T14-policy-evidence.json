@@ -1,0 +1,14 @@
+{
+  "reference_error_prone_options_identical": true,
+  "explicit_checks": 78,
+  "nullaway": "0.14.2 from the pinned Sting module",
+  "jdk_release": 17,
+  "assertion_reasoning": true,
+  "maintained_runtime_diagnostics": [],
+  "generated_failures_by_checker": {
+    "NullAway": 131
+  },
+  "generated_failure_owner": "T15",
+  "representative_action": "//core/src/main/java/arez:arez",
+  "blanket_generated_exclusions": []
+}

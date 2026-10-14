@@ -232,7 +232,7 @@ public final class MemoizeCache<T extends @Nullable Object> implements Disposabl
     private void disposeMap(final Map<Object, Object> map, final int depth) {
         if (1 == depth) {
             for (final Map.Entry<Object, Object> entry : map.entrySet()) {
-                final ComputableValue<?> computableValue = (ComputableValue<?>) entry.getValue();
+                final var computableValue = (ComputableValue<?>) entry.getValue();
                 computableValue.dispose();
             }
         } else {
@@ -317,8 +317,7 @@ public final class MemoizeCache<T extends @Nullable Object> implements Disposabl
         for (int i = 0; i < size; i++) {
             stack.push((Map<Object, ?>) stack.peek().get(args[i]));
         }
-        final ComputableValue<T> computableValue =
-                (ComputableValue<T>) stack.peek().remove(args[size]);
+        final var computableValue = (ComputableValue<T>) stack.peek().remove(args[size]);
         if (Arez.shouldCheckInvariants()) {
             invariant(
                     () -> null != computableValue,

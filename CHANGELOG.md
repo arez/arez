@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Enforce the reference Error Prone policy and JSpecify-mode NullAway on runtime builds. Lookup callbacks and erased spy property access preserve their nullable results and inputs; assertions establish existing internal invariants.
+
 * Migrate extras and compiled examples to JSpecify. Promise value/error and spy parameter element contracts allow null; runtime reference messages retain Java type names without nullability annotation text.
 
 * Migrate Persist contracts to JSpecify, including nullable converter results and state-map values. Preserve converter identity across nullability annotations and nullable inherited properties loaded from compiled bases.

@@ -7,6 +7,7 @@ import arez.spy.ObservableValueInfo;
 import arez.spy.Spy;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReference;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -47,7 +48,7 @@ public final class ObservableValueInfoImplTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final String name = ValueUtil.randomString();
         final Component component = context.component(ValueUtil.randomString(), ValueUtil.randomString());
-        final AtomicReference<String> value = new AtomicReference<>();
+        final AtomicReference<@Nullable String> value = new AtomicReference<>();
         String initialValue = ValueUtil.randomString();
         value.set(initialValue);
         final ObservableValue<String> observableValue = context.observable(component, name, value::get, value::set);
@@ -57,6 +58,7 @@ public final class ObservableValueInfoImplTest extends AbstractTest {
 
         final ComponentInfo componentInfo = info.getComponent();
         assertNotNull(componentInfo);
+        assert null != componentInfo;
         assertEquals(componentInfo.getType(), component.getType());
         assertEquals(info.getName(), name);
         assertEquals(info.toString(), name);
@@ -162,6 +164,7 @@ public final class ObservableValueInfoImplTest extends AbstractTest {
 
         final ComponentInfo info = spy.asObservableValueInfo(observableValue1).getComponent();
         assertNotNull(info);
+        assert null != info;
         assertEquals(info.getName(), component.getName());
         assertNull(spy.asObservableValueInfo(observableValue2).getComponent());
     }
@@ -184,9 +187,9 @@ public final class ObservableValueInfoImplTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final Spy spy = context.getSpy();
 
-        final AtomicReference<String> value1 = new AtomicReference<>();
+        final AtomicReference<@Nullable String> value1 = new AtomicReference<>();
         value1.set("23");
-        final AtomicReference<String> value2 = new AtomicReference<>();
+        final AtomicReference<@Nullable String> value2 = new AtomicReference<>();
         value2.set("42");
 
         final ObservableValue<String> observableValue1 =

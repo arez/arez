@@ -52,3 +52,10 @@ Core invariant messages require the complete core suite so the collector sees al
 messages. Spy-event updates select exactly one integration method and copy back
 only its JSON file. Both use disposable copies of declared fixture inputs and
 rerun the corresponding check.
+
+Java runtime sources use the pinned Sting Error Prone policy and JSpecify-mode
+NullAway. Checks are errors and javac warnings fail the build. NullAway also
+reasons about the existing Java assertions; Bazel JVM tests enable assertions.
+A valid runtime call must satisfy those internal invariants even when production
+assertions are disabled. Spy-only methods and initialized generic caches have
+small documented exceptions where their lifecycle contract supplies the proof.

@@ -29,7 +29,7 @@ public final class VerifiableTest extends AbstractTest {
 
     @Test
     public void verifiableElement() throws Exception {
-        final TestElement element = new TestElement();
+        final var element = new TestElement();
         assertFalse(element._verified);
         Verifiable.verify(element);
         assertTrue(element._verified);
@@ -38,7 +38,7 @@ public final class VerifiableTest extends AbstractTest {
     @Test
     public void verifiableElement_verifyDisabled() throws Exception {
         ArezTestUtil.disableVerify();
-        final TestElement element = new TestElement();
+        final var element = new TestElement();
         assertFalse(element._verified);
         Verifiable.verify(element);
         assertFalse(element._verified);
@@ -52,7 +52,7 @@ public final class VerifiableTest extends AbstractTest {
 
     @Test
     public void verifiableBadElement() {
-        final TestBadElement element = new TestBadElement();
+        final var element = new TestBadElement();
         assertFalse(element._verified);
         assertThrows(IOException.class, () -> Verifiable.verify(element));
         assertTrue(element._verified);

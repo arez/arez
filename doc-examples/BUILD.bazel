@@ -5,6 +5,7 @@ package(default_visibility = ["//visibility:public"])
 java_library(
     name = "doc-examples",
     srcs = ["//doc-examples/src/main/java/arez/doc/examples:all"],
+    migration_pending_checks = True,
     plugins = ["//processor:plugin"],
     deps = [
         "//core",

@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 public final class TaskQueueTest extends AbstractTest {
     @Test
     public void construct() {
-        final TaskQueue queue = new TaskQueue(3, 22);
+        final var queue = new TaskQueue(3, 22);
 
         assertEquals(queue.getPriorityCount(), 3);
         assertEquals(queue.getBufferByPriority(0).getCapacity(), 22);
@@ -18,7 +18,7 @@ public final class TaskQueueTest extends AbstractTest {
 
     @Test
     public void queueTask_badPriority() {
-        final TaskQueue queue = new TaskQueue(3, 10);
+        final var queue = new TaskQueue(3, 10);
 
         final ArezContext context = Arez.context();
         assertInvariantFailure(
@@ -31,7 +31,7 @@ public final class TaskQueueTest extends AbstractTest {
 
     @Test
     public void queueTask_direct_alreadyQueued() {
-        final TaskQueue queue = new TaskQueue(3, 10);
+        final var queue = new TaskQueue(3, 10);
 
         final ArezContext context = Arez.context();
         final Task task = context.task("A", ValueUtil::randomString, Task.Flags.RUN_LATER);
@@ -45,7 +45,7 @@ public final class TaskQueueTest extends AbstractTest {
 
     @Test
     public void queueTask_alreadyQueued() {
-        final TaskQueue queue = new TaskQueue(3, 10);
+        final var queue = new TaskQueue(3, 10);
 
         final ArezContext context = Arez.context();
         final Task task = context.task("A", ValueUtil::randomString, Task.Flags.RUN_LATER);
@@ -139,12 +139,14 @@ public final class TaskQueueTest extends AbstractTest {
     private void assertDequeue(final TaskQueue queue, final String name) {
         final Task task = queue.dequeueTask();
         assertNotNull(task);
+        assert null != task;
         assertEquals(task.getName(), name);
     }
 
     private Task getTask(final TaskQueue queue, final int priority, final int index) {
         final Task task = queue.getBufferByPriority(priority).get(index);
         assertNotNull(task);
+        assert null != task;
         return task;
     }
 }

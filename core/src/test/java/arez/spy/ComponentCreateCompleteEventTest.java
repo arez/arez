@@ -8,6 +8,7 @@ import arez.ArezContext;
 import arez.ArezTestUtil;
 import arez.Component;
 import java.util.HashMap;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
 public final class ComponentCreateCompleteEventTest extends AbstractTest {
@@ -16,16 +17,17 @@ public final class ComponentCreateCompleteEventTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final Component component = context.component("Foo", "1");
         final ComponentInfo info = context.getSpy().asComponentInfo(component);
-        final ComponentCreateCompleteEvent event = new ComponentCreateCompleteEvent(info);
+        final var event = new ComponentCreateCompleteEvent(info);
 
         assertEquals(event.getComponentInfo(), info);
 
-        final HashMap<String, Object> data = new HashMap<>();
+        final HashMap<String, @Nullable Object> data = new HashMap<>();
         event.toMap(data);
 
         assertEquals(data.get("type"), "ComponentCreateComplete");
         assertEquals(data.get("name"), "Foo@1");
         assertNotNull(data.get("zone"));
+        assert null != data.get("zone");
         assertEquals(data.size(), 3);
     }
 
@@ -36,9 +38,9 @@ public final class ComponentCreateCompleteEventTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final Component component = context.component("Foo", "1");
         final ComponentInfo info = context.getSpy().asComponentInfo(component);
-        final ComponentCreateCompleteEvent event = new ComponentCreateCompleteEvent(info);
+        final var event = new ComponentCreateCompleteEvent(info);
 
-        final HashMap<String, Object> data = new HashMap<>();
+        final HashMap<String, @Nullable Object> data = new HashMap<>();
         event.toMap(data);
 
         assertEquals(data.get("type"), "ComponentCreateComplete");

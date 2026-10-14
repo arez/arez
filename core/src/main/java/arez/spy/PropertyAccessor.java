@@ -17,5 +17,6 @@ public interface PropertyAccessor<T extends @Nullable Object> {
      * @return the value of an ObservableValue.
      * @throws Throwable if unable to retrieve value.
      */
+    @Nullable
     T get() throws Throwable;
 }

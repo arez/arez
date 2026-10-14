@@ -3,7 +3,6 @@ package arez.persist;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import org.jspecify.annotations.NonNull;
 
 /**
  * Annotation applied to arez components that triggers the generation of persistence code.
@@ -21,7 +20,6 @@ public @interface PersistType {
      *
      * @return the name used to persist the property.
      */
-    @NonNull
     String name() default "<default>";
 
     /**
@@ -31,7 +29,6 @@ public @interface PersistType {
      *
      * @return the key identifying the default store where the observable data is stored.
      */
-    @NonNull
     String defaultStore() default StoreTypes.APPLICATION;
 
     /**

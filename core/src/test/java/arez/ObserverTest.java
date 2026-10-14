@@ -30,9 +30,9 @@ public final class ObserverTest extends AbstractTest {
     public void enableSpyAsPartOfObserver() {
         final ArezContext context = Arez.context();
         final String name = ValueUtil.randomString();
-        final TestSpyEventHandler handler = new TestSpyEventHandler(context);
+        final var handler = new TestSpyEventHandler(context);
         ;
-        final AtomicBoolean done = new AtomicBoolean();
+        final var done = new AtomicBoolean();
 
         final Procedure observed = () -> {
             if (!done.get()) {
@@ -51,9 +51,9 @@ public final class ObserverTest extends AbstractTest {
     public void initialState() {
         final ArezContext context = Arez.context();
         final String name = ValueUtil.randomString();
-        final CountAndObserveProcedure observed = new CountAndObserveProcedure();
-        final CountingProcedure onDepsChange = new CountingProcedure();
-        final Observer observer = new Observer(context, null, name, observed, onDepsChange, Observer.Flags.RUN_LATER);
+        final var observed = new CountAndObserveProcedure();
+        final var onDepsChange = new CountingProcedure();
+        final var observer = new Observer(context, null, name, observed, onDepsChange, Observer.Flags.RUN_LATER);
 
         // Verify all "Node" behaviour
         assertEquals(observer.getContext(), context);
@@ -86,8 +86,8 @@ public final class ObserverTest extends AbstractTest {
 
     @Test
     public void initialState_externalExecutor() {
-        final CountingProcedure onDepsChange = new CountingProcedure();
-        final Observer observer = new Observer(Arez.context(), null, ValueUtil.randomString(), null, onDepsChange, 0);
+        final var onDepsChange = new CountingProcedure();
+        final var observer = new Observer(Arez.context(), null, ValueUtil.randomString(), null, onDepsChange, 0);
 
         assertFalse(observer.shouldExecuteObserveNext());
 
@@ -268,7 +268,7 @@ public final class ObserverTest extends AbstractTest {
 
         final String name = ValueUtil.randomString();
 
-        final Observer observer = new Observer(Arez.context(), null, name, new CountAndObserveProcedure(), null, 0);
+        final var observer = new Observer(Arez.context(), null, name, new CountAndObserveProcedure(), null, 0);
         assertThrows(observer::isMutation);
     }
 
@@ -276,7 +276,7 @@ public final class ObserverTest extends AbstractTest {
     public void constructWithComponentWhenNativeComponentsDisabled() {
         ArezTestUtil.disableNativeComponents();
 
-        final Component component = new Component(
+        final var component = new Component(
                 Arez.context(),
                 ValueUtil.randomString(),
                 ValueUtil.randomString(),
@@ -294,7 +294,7 @@ public final class ObserverTest extends AbstractTest {
 
     @Test
     public void basicLifecycle_withComponent() {
-        final Component component = new Component(
+        final var component = new Component(
                 Arez.context(),
                 ValueUtil.randomString(),
                 ValueUtil.randomString(),
@@ -303,8 +303,7 @@ public final class ObserverTest extends AbstractTest {
                 null);
 
         final String name = ValueUtil.randomString();
-        final Observer observer =
-                new Observer(Arez.context(), component, name, new CountAndObserveProcedure(), null, 0);
+        final var observer = new Observer(Arez.context(), component, name, new CountAndObserveProcedure(), null, 0);
         assertEquals(observer.getName(), name);
         assertEquals(observer.getComponent(), component);
 
@@ -503,7 +502,7 @@ public final class ObserverTest extends AbstractTest {
     public void runHook_normalHook() {
         final Observer observer = Arez.context().observer(new CountAndObserveProcedure());
 
-        final AtomicInteger counter = new AtomicInteger();
+        final var counter = new AtomicInteger();
 
         observer.runHook(counter::incrementAndGet, ObserverError.ON_ACTIVATE_ERROR);
 
@@ -516,12 +515,12 @@ public final class ObserverTest extends AbstractTest {
 
         final Observer observer = Arez.context().observer(new CountAndObserveProcedure());
 
-        final Exception exception = new Exception("X");
+        final var exception = new Exception("X");
 
-        final AtomicInteger handlerCallCount = new AtomicInteger();
-        final AtomicBoolean observerMatches = new AtomicBoolean(false);
-        final AtomicBoolean errorMatches = new AtomicBoolean(false);
-        final AtomicBoolean throwableMatches = new AtomicBoolean(false);
+        final var handlerCallCount = new AtomicInteger();
+        final var observerMatches = new AtomicBoolean(false);
+        final var errorMatches = new AtomicBoolean(false);
+        final var throwableMatches = new AtomicBoolean(false);
 
         Arez.context().addObserverErrorHandler(((observer1, error, throwable) -> {
             handlerCallCount.incrementAndGet();
@@ -651,8 +650,8 @@ public final class ObserverTest extends AbstractTest {
 
     @Test
     public void setState_onComputableValue() {
-        final TestProcedure onActivate = new TestProcedure();
-        final TestProcedure onDeactivate = new TestProcedure();
+        final var onActivate = new TestProcedure();
+        final var onDeactivate = new TestProcedure();
 
         final ComputableValue<String> computableValue = Arez.context().computable(null, null, () -> "");
         final ObservableValue<String> derivedValue = computableValue.getObservableValue();
@@ -687,6 +686,7 @@ public final class ObserverTest extends AbstractTest {
         assertEquals(onActivate.getCalls(), 0);
         assertEquals(onDeactivate.getCalls(), 0);
         assertNotNull(computableValue.getValue());
+        assert null != computableValue.getValue();
 
         observer.setState(Observer.Flags.STATE_POSSIBLY_STALE);
 
@@ -697,6 +697,7 @@ public final class ObserverTest extends AbstractTest {
         assertEquals(watcher.getState(), Observer.Flags.STATE_POSSIBLY_STALE);
         assertEquals(derivedValue.getLeastStaleObserverState(), Observer.Flags.STATE_POSSIBLY_STALE);
         assertNotNull(computableValue.getValue());
+        assert null != computableValue.getValue();
 
         Arez.context().getTaskQueue().clear();
         assertFalse(observer.getTask().isQueued());
@@ -707,6 +708,7 @@ public final class ObserverTest extends AbstractTest {
         assertEquals(onActivate.getCalls(), 0);
         assertEquals(onDeactivate.getCalls(), 0);
         assertNotNull(computableValue.getValue());
+        assert null != computableValue.getValue();
 
         watcher.setState(Observer.Flags.STATE_UP_TO_DATE);
         derivedValue.setLeastStaleObserverState(Observer.Flags.STATE_UP_TO_DATE);
@@ -951,7 +953,7 @@ public final class ObserverTest extends AbstractTest {
     public void dispose_via_ComputableValue() {
         ignoreObserverErrors();
 
-        final AtomicBoolean hasErrorOccurred = new AtomicBoolean();
+        final var hasErrorOccurred = new AtomicBoolean();
         hasErrorOccurred.set(false);
         Arez.context().addObserverErrorHandler((observer, error, throwable) -> {
             hasErrorOccurred.set(true);
@@ -1057,13 +1059,13 @@ public final class ObserverTest extends AbstractTest {
 
         final ArezContext context = Arez.context();
 
-        final AtomicInteger errorCount = new AtomicInteger();
+        final var errorCount = new AtomicInteger();
 
         context.addObserverErrorHandler((observer, error, throwable) -> errorCount.incrementAndGet());
 
-        final CountAndObserveProcedure observed = new CountAndObserveProcedure();
+        final var observed = new CountAndObserveProcedure();
 
-        final Observer observer = new Observer(context, null, ValueUtil.randomString(), observed, null, 0);
+        final var observer = new Observer(context, null, ValueUtil.randomString(), observed, null, 0);
 
         observer.invokeReaction();
 
@@ -1077,7 +1079,7 @@ public final class ObserverTest extends AbstractTest {
 
         final ObservableValue<Object> observable = context.observable();
 
-        final CountingProcedure observed = new CountingProcedure() {
+        final var observed = new CountingProcedure() {
             @Override
             public void call() throws Throwable {
                 observable.reportObserved();
@@ -1087,7 +1089,7 @@ public final class ObserverTest extends AbstractTest {
         };
         final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
-        final Observer observer = new Observer(context, null, ValueUtil.randomString(), observed, null, 0);
+        final var observer = new Observer(context, null, ValueUtil.randomString(), observed, null, 0);
 
         context.triggerScheduler();
 
@@ -1158,7 +1160,7 @@ public final class ObserverTest extends AbstractTest {
     @Test
     public void invokeReaction_onDisposedObserver() {
         final CountingProcedure observed = new CountAndObserveProcedure();
-        final Observer observer = new Observer(Arez.context(), null, ValueUtil.randomString(), observed, null, 0);
+        final var observer = new Observer(Arez.context(), null, ValueUtil.randomString(), observed, null, 0);
 
         observer.invokeReaction();
 
@@ -1173,9 +1175,9 @@ public final class ObserverTest extends AbstractTest {
 
     @Test
     public void invokeReaction_onUpToDateObserver() {
-        final CountAndObserveProcedure observed = new CountAndObserveProcedure();
+        final var observed = new CountAndObserveProcedure();
         final ArezContext context = Arez.context();
-        final Observer observer = new Observer(context, null, ValueUtil.randomString(), observed, null, 0);
+        final var observer = new Observer(context, null, ValueUtil.randomString(), observed, null, 0);
 
         context.triggerScheduler();
 
@@ -1191,10 +1193,10 @@ public final class ObserverTest extends AbstractTest {
 
     @Test
     public void invokeReaction_onUpToDateObserver_onDepsChange_Present() {
-        final CountAndObserveProcedure observed = new CountAndObserveProcedure();
-        final CountingProcedure onDepsChange = new CountingProcedure();
+        final var observed = new CountAndObserveProcedure();
+        final var onDepsChange = new CountingProcedure();
         final ArezContext context = Arez.context();
-        final Observer observer = new Observer(context, null, ValueUtil.randomString(), observed, onDepsChange, 0);
+        final var observer = new Observer(context, null, ValueUtil.randomString(), observed, onDepsChange, 0);
 
         context.triggerScheduler();
 
@@ -1218,9 +1220,9 @@ public final class ObserverTest extends AbstractTest {
     public void invokeReaction_reactionGeneratesError() {
         ignoreObserverErrors();
 
-        final AtomicInteger errorCount = new AtomicInteger();
+        final var errorCount = new AtomicInteger();
 
-        final RuntimeException exception = new RuntimeException("X");
+        final var exception = new RuntimeException("X");
 
         final ArezContext context = Arez.context();
 
@@ -1230,7 +1232,7 @@ public final class ObserverTest extends AbstractTest {
             assertEquals(throwable, exception);
         });
 
-        final CountingProcedure observed = new CountingProcedure() {
+        final var observed = new CountingProcedure() {
             @Override
             public void call() throws Throwable {
                 super.call();
@@ -1483,7 +1485,7 @@ public final class ObserverTest extends AbstractTest {
     public void reportStale() {
         final ArezContext context = Arez.context();
 
-        final Observer observer = new Observer(
+        final var observer = new Observer(
                 context,
                 null,
                 ValueUtil.randomString(),
@@ -1509,7 +1511,7 @@ public final class ObserverTest extends AbstractTest {
     public void reportStale_arezOnlyDependencies() {
         final ArezContext context = Arez.context();
 
-        final Observer observer =
+        final var observer =
                 new Observer(context, null, ValueUtil.randomString(), new CountAndObserveProcedure(), null, 0);
         context.triggerScheduler();
 
@@ -1533,7 +1535,7 @@ public final class ObserverTest extends AbstractTest {
     public void reportStale_noTransaction() {
         final ArezContext context = Arez.context();
 
-        final Observer observer = new Observer(
+        final var observer = new Observer(
                 context,
                 null,
                 ValueUtil.randomString(),
@@ -1580,9 +1582,9 @@ public final class ObserverTest extends AbstractTest {
     public void schedule() {
         final ArezContext context = Arez.context();
 
-        final CountAndObserveProcedure observed = new CountAndObserveProcedure();
-        final CountingProcedure onDepsChange = new CountingProcedure();
-        final Observer observer =
+        final var observed = new CountAndObserveProcedure();
+        final var onDepsChange = new CountingProcedure();
+        final var observer =
                 new Observer(context, null, ValueUtil.randomString(), observed, onDepsChange, Observer.Flags.RUN_LATER);
 
         context.safeAction(
@@ -1619,9 +1621,9 @@ public final class ObserverTest extends AbstractTest {
     public void schedule_in_transactionMarksTransactionAsUsed() {
         final ArezContext context = Arez.context();
 
-        final CountAndObserveProcedure observed = new CountAndObserveProcedure();
-        final CountingProcedure onDepsChange = new CountingProcedure();
-        final Observer observer = new Observer(
+        final var observed = new CountAndObserveProcedure();
+        final var onDepsChange = new CountingProcedure();
+        final var observer = new Observer(
                 context,
                 null,
                 ValueUtil.randomString(),
@@ -1660,9 +1662,9 @@ public final class ObserverTest extends AbstractTest {
     public void schedule_but_state_UP_TO_DATE() {
         final ArezContext context = Arez.context();
 
-        final CountAndObserveProcedure observed = new CountAndObserveProcedure();
-        final CountingProcedure onDepsChange = new CountingProcedure();
-        final Observer observer = new Observer(context, null, ValueUtil.randomString(), observed, onDepsChange, 0);
+        final var observed = new CountAndObserveProcedure();
+        final var onDepsChange = new CountingProcedure();
+        final var observer = new Observer(context, null, ValueUtil.randomString(), observed, onDepsChange, 0);
         context.triggerScheduler();
 
         assertEquals(observed.getCallCount(), 1);
@@ -1691,8 +1693,8 @@ public final class ObserverTest extends AbstractTest {
     public void schedule_onNonManualScheduleObserver() {
         final ArezContext context = Arez.context();
 
-        final CountAndObserveProcedure observed = new CountAndObserveProcedure();
-        final Observer observer =
+        final var observed = new CountAndObserveProcedure();
+        final var observer =
                 new Observer(context, null, ValueUtil.randomString(), observed, null, Observer.Flags.RUN_LATER);
         context.safeAction(
                 () -> {

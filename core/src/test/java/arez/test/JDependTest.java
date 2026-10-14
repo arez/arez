@@ -15,11 +15,11 @@ import org.testng.annotations.Test;
 public final class JDependTest {
     @Test
     public void dependencyAnalysis() throws Exception {
-        final JDepend jdepend = new JDepend(PackageFilter.all().excluding("java.*", "javax.*"));
+        final var jdepend = new JDepend(PackageFilter.all().excluding("java.*", "javax.*"));
         jdepend.addDirectory(compileTargetDir());
         jdepend.analyze();
 
-        final DependencyConstraint constraint = new DependencyConstraint();
+        final var constraint = new DependencyConstraint();
 
         final JavaPackage arez = constraint.addPackage("arez");
         final JavaPackage braincheck = constraint.addPackage("org.realityforge.braincheck");
@@ -65,7 +65,7 @@ public final class JDependTest {
 
         final List<JavaPackage[]> nonMatchingPackages = result.getNonMatchingPackages();
         if (!nonMatchingPackages.isEmpty()) {
-            final StringBuilder sb = new StringBuilder();
+            final var sb = new StringBuilder();
             sb.append("Discovered packages where relationships do not align.\n");
             for (final JavaPackage[] packages : nonMatchingPackages) {
                 final JavaPackage expected = packages[0];
@@ -114,6 +114,7 @@ public final class JDependTest {
     private String compileTargetDir() {
         final String fixtureDir = System.getProperty("arez.core.compile_target");
         assertNotNull(fixtureDir, "Expected System.getProperty( \"arez.core.compile_target\" ) to return directory");
+        assert null != fixtureDir;
         return new File(fixtureDir).getAbsolutePath();
     }
 }

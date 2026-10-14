@@ -17,6 +17,7 @@ import org.jspecify.annotations.Nullable;
  */
 final class Transaction {
     static final class Flags {
+        private Flags() {}
         /**
          * The transaction can only read arez state.
          */
@@ -217,24 +218,25 @@ final class Transaction {
             @Nullable final String name,
             final boolean mutation,
             @Nullable final Observer tracker) {
+        final Transaction parent = c_transaction;
         if (Arez.shouldCheckApiInvariants() && Arez.shouldEnforceTransactionType()) {
-            if (null != c_transaction) {
+            if (null != parent) {
                 final boolean inComputableTransaction = null != tracker && tracker.isComputableValue();
                 apiInvariant(
-                        () -> !c_transaction.isComputableValueTracker() || inComputableTransaction,
+                        () -> !parent.isComputableValueTracker() || inComputableTransaction,
                         () -> "Arez-0186: Attempting to create transaction named '" + name + "' "
                                 + "nested in ComputableValue transaction named '"
-                                + c_transaction.getName() + "'. "
+                                + parent.getName() + "'. "
                                 + "ComputableValues must not invoke actions or observe methods as "
                                 + "they should derive values from other computeds and observables.");
                 apiInvariant(
-                        () -> !mutation || c_transaction.isMutation(),
+                        () -> !mutation || parent.isMutation(),
                         () -> "Arez-0119: Attempting to create READ_WRITE transaction named '" + name + "' but it is "
                                 + "nested in transaction named '"
-                                + c_transaction.getName() + "' with mode "
+                                + parent.getName() + "' with mode "
                                 + "READ_ONLY which is not equal to READ_WRITE.");
                 apiInvariant(
-                        () -> c_transaction.getContext() != context || inComputableTransaction || null == tracker,
+                        () -> parent.getContext() != context || inComputableTransaction || null == tracker,
                         () -> "Arez-0171: Attempting to create a tracking transaction named '" + name + "' for "
                                 + "the observer named '"
                                 + Objects.requireNonNull(tracker).getName() + "' but the transaction is not a"
@@ -245,12 +247,12 @@ final class Transaction {
             }
         }
         if (Arez.shouldCheckInvariants()) {
-            if (!Arez.areZonesEnabled() && null != c_transaction) {
+            if (!Arez.areZonesEnabled() && null != parent) {
                 invariant(
-                        () -> c_transaction.getContext() == context,
+                        () -> parent.getContext() == context,
                         () -> "Arez-0120: Zones are not enabled but the transaction named '" + name + "' is "
                                 + "nested in a transaction named '"
-                                + c_transaction.getName() + "' from a " + "different context.");
+                                + parent.getName() + "' from a " + "different context.");
             }
         }
         boolean zoneActivated = false;
@@ -291,12 +293,13 @@ final class Transaction {
             invariant(
                     () -> c_transaction == transaction,
                     () -> "Arez-0123: Attempting to commit transaction named '" + transaction.getName()
-                            + "' but this does not match existing transaction named '" + c_transaction.getName()
+                            + "' but this does not match existing transaction named '"
+                            + Objects.requireNonNull(c_transaction).getName()
                             + "'.");
         }
         assert null != c_transaction;
         try {
-            c_transaction.commit();
+            c_transaction.complete();
             if (c_transaction.getContext().willPropagateSpyEvents()) {
                 final String name = c_transaction.getName();
                 final boolean mutation = !Arez.shouldEnforceTransactionType() || c_transaction.isMutation();
@@ -459,7 +462,7 @@ final class Transaction {
         return _previousInSameContext;
     }
 
-    void commit() {
+    void complete() {
         completeTracking();
         if (isRootTransaction()) {
             // Only the root transaction performs deactivations.
@@ -523,7 +526,7 @@ final class Transaction {
         } else {
             if (Arez.shouldCheckExpensiveInvariants()) {
                 invariant(
-                        () -> !_pendingDeactivations.contains(observableValue),
+                        () -> !Objects.requireNonNull(_pendingDeactivations).contains(observableValue),
                         () -> "Arez-0141: Invoked queueForDeactivation on transaction named '" + getName() + "' for "
                                 + "observableValue named '"
                                 + observableValue.getName() + "' when pending deactivation "
@@ -1083,8 +1086,9 @@ final class Transaction {
      *
      * @return the info associated with this class.
      */
-    @SuppressWarnings("ConstantConditions")
     @OmitSymbol(unless = "arez.enable_spies")
+    // Valid calls require spies enabled; disabled variants eliminate this method.
+    @SuppressWarnings({"NullAway", "ReturnMissingNullable"})
     TransactionInfo asInfo() {
         if (Arez.shouldCheckInvariants()) {
             invariant(

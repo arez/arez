@@ -10,7 +10,7 @@ public final class SchedulerLockTest extends AbstractTest {
         final ArezContext context = Arez.context();
         context.setSchedulerLockCount(2);
 
-        final SchedulerLock lock = new SchedulerLock(context);
+        final var lock = new SchedulerLock(context);
 
         assertFalse(lock.isDisposed());
 

@@ -22,7 +22,7 @@ public final class DisposableTest extends AbstractTest {
     @Test
     public void randomObject() {
         // No exception but no action
-        final Object object = new Object();
+        final var object = new Object();
         assertFalse(Disposable.isDisposed(object));
         assertTrue(Disposable.isNotDisposed(object));
         Disposable.dispose(object);
@@ -32,7 +32,7 @@ public final class DisposableTest extends AbstractTest {
 
     @Test
     public void disposable() {
-        final TestDisposable object = new TestDisposable();
+        final var object = new TestDisposable();
         assertFalse(object.isDisposed());
         assertTrue(object.isNotDisposed());
         assertFalse(Disposable.isDisposed(object));
@@ -46,10 +46,10 @@ public final class DisposableTest extends AbstractTest {
 
     @Test
     public void asDisposable() {
-        final TestDisposable object = new TestDisposable();
+        final var object = new TestDisposable();
         assertEquals(Disposable.asDisposable(object), object);
 
-        final Object element = new Object();
+        final var element = new Object();
         assertInvariantFailure(
                 () -> Disposable.asDisposable(element),
                 "Object passed to asDisposable does not implement Disposable. Object: " + element);

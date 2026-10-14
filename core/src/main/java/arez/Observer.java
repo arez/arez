@@ -676,6 +676,7 @@ public final class Observer extends Node {
                                     transaction.restoreObservations();
                                 }
                             } catch (final Throwable ignored) {
+                                // Failed computations still update the observer state checked below.
                             }
                             // Call to get() will update this state if ComputableValue changed
                             if (Flags.STATE_STALE == getState()) {
@@ -861,8 +862,9 @@ public final class Observer extends Node {
      *
      * @return the info associated with this class.
      */
-    @SuppressWarnings("ConstantConditions")
     @OmitSymbol(unless = "arez.enable_spies")
+    // Valid calls require spies enabled; disabled variants eliminate this method.
+    @SuppressWarnings({"NullAway", "ReturnMissingNullable"})
     ObserverInfo asInfo() {
         if (Arez.shouldCheckInvariants()) {
             invariant(
@@ -906,6 +908,7 @@ public final class Observer extends Node {
     }
 
     public static final class Flags {
+        private Flags() {}
         /**
          * The flag can be passed to actions or observers to force the action to not report result to spy infrastructure.
          */

@@ -19,7 +19,7 @@ public final class CollectionsUtilTest extends AbstractTest {
     @Test
     public void wrap_when_areRepositoryResultsModifiable_isTrue() {
         final ArrayList<MyEntity> input = new ArrayList<>();
-        final MyEntity entity = new MyEntity();
+        final var entity = new MyEntity();
         input.add(entity);
         final List<MyEntity> output = CollectionsUtil.wrap(input);
 
@@ -34,7 +34,7 @@ public final class CollectionsUtilTest extends AbstractTest {
     @Test
     public void wrap_List_when_areRepositoryResultsModifiable_isFalse() {
         final List<MyEntity> input = new ArrayList<>();
-        final MyEntity entity = new MyEntity();
+        final var entity = new MyEntity();
         input.add(entity);
         ArezTestUtil.makeCollectionPropertiesModifiable();
         final Collection<MyEntity> output = CollectionsUtil.wrap(input);
@@ -45,7 +45,7 @@ public final class CollectionsUtilTest extends AbstractTest {
     @Test
     public void wrap_Set_when_areRepositoryResultsModifiable_isFalse() {
         final Set<MyEntity> input = new HashSet<>();
-        final MyEntity entity = new MyEntity();
+        final var entity = new MyEntity();
         input.add(entity);
         ArezTestUtil.makeCollectionPropertiesModifiable();
         final Collection<MyEntity> output = CollectionsUtil.wrap(input);
@@ -56,7 +56,7 @@ public final class CollectionsUtilTest extends AbstractTest {
     @Test
     public void wrap_Collection_when_areRepositoryResultsModifiable_isFalse() {
         final Collection<MyEntity> input = new HashSet<>();
-        final MyEntity entity = new MyEntity();
+        final var entity = new MyEntity();
         input.add(entity);
         ArezTestUtil.makeCollectionPropertiesModifiable();
         final Collection<MyEntity> output = CollectionsUtil.wrap(input);
@@ -67,7 +67,7 @@ public final class CollectionsUtilTest extends AbstractTest {
     @Test
     public void wrap_Map_when_areRepositoryResultsModifiable_isFalse() {
         final Map<String, MyEntity> input = new HashMap<>();
-        final MyEntity entity = new MyEntity();
+        final var entity = new MyEntity();
         input.put(ValueUtil.randomString(), entity);
         ArezTestUtil.makeCollectionPropertiesModifiable();
         final Map<String, MyEntity> output = CollectionsUtil.wrap(input);
@@ -91,7 +91,7 @@ public final class CollectionsUtilTest extends AbstractTest {
     @Test
     public void asList() {
         final ArrayList<MyEntity> input = new ArrayList<>();
-        final MyEntity entity = new MyEntity();
+        final var entity = new MyEntity();
         input.add(entity);
         final List<MyEntity> output = CollectionsUtil.asList(input.stream());
 
@@ -103,6 +103,7 @@ public final class CollectionsUtilTest extends AbstractTest {
 
     private <T> void assertUnmodifiable(final Collection<T> list, final Supplier<T> creator) {
         assertNotNull(list.iterator().next());
+        assert null != list.iterator().next();
         assertThrows(UnsupportedOperationException.class, () -> list.add(creator.get()));
     }
 

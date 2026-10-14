@@ -123,14 +123,14 @@ final class WebStorageService implements StorageService {
     @Override
     public void commit(@NonNull final Map<Scope, Map<String, Map<String, Entry>>> state) {
         _idleCallbackId = 0;
-        final JsPropertyMap<@Nullable Object> data = JsPropertyMap.of();
+        final var data = Js.<JsPropertyMap<@Nullable Object>>uncheckedCast(JsPropertyMap.of());
         for (final Map.Entry<Scope, Map<String, Map<String, Entry>>> scopeEntry : state.entrySet()) {
-            final JsPropertyMap<@Nullable Object> scope = JsPropertyMap.of();
+            final var scope = Js.<JsPropertyMap<@Nullable Object>>uncheckedCast(JsPropertyMap.of());
             final Set<Map.Entry<String, Map<String, Entry>>> entries =
                     scopeEntry.getValue().entrySet();
             if (!entries.isEmpty()) {
                 for (final Map.Entry<String, Map<String, Entry>> entry : entries) {
-                    final JsPropertyMap<@Nullable Object> type = JsPropertyMap.of();
+                    final var type = Js.<JsPropertyMap<@Nullable Object>>uncheckedCast(JsPropertyMap.of());
                     for (final Map.Entry<String, Entry> instance :
                             entry.getValue().entrySet()) {
                         type.set(instance.getKey(), instance.getValue().getEncoded());
@@ -151,8 +151,8 @@ final class WebStorageService implements StorageService {
     @Override
     public Object encodeState(
             @NonNull final Map<String, @Nullable Object> state, @NonNull final TypeConverter converter) {
-        final JsPropertyMap<@Nullable Object> encoded = JsPropertyMap.of();
-        for (final Map.Entry<String, Object> entry : state.entrySet()) {
+        final var encoded = Js.<JsPropertyMap<@Nullable Object>>uncheckedCast(JsPropertyMap.of());
+        for (final Map.Entry<String, @Nullable Object> entry : state.entrySet()) {
             final String key = entry.getKey();
             encoded.set(key, converter.encode(key, entry.getValue()));
         }
@@ -185,7 +185,10 @@ final class WebStorageService implements StorageService {
             final int scopeCount = scopeNames.getLength();
             for (int s = 0; s < scopeCount; s++) {
                 final String scopeName = scopeNames.getAt(s);
-                restoreScope(state, scopeName, scopes.getAsAny(scopeName).asPropertyMap());
+                restoreScope(
+                        state,
+                        scopeName,
+                        Js.uncheckedCast(scopes.getAsAny(scopeName).asPropertyMap()));
             }
         }
     }
@@ -198,7 +201,11 @@ final class WebStorageService implements StorageService {
         final int typeCount = typeNames.getLength();
         for (int i = 0; i < typeCount; i++) {
             final String typeName = typeNames.getAt(i);
-            restoreType(state, scopeName, typeName, types.getAsAny(typeName).asPropertyMap());
+            restoreType(
+                    state,
+                    scopeName,
+                    typeName,
+                    Js.uncheckedCast(types.getAsAny(typeName).asPropertyMap()));
         }
     }
 

@@ -30,8 +30,10 @@ import arez.spy.TransactionStartEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -78,7 +80,7 @@ public final class ArezContextTest extends AbstractTest {
     @Test
     public void triggerScheduler() {
         final ArezContext context = Arez.context();
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         context.observer(
                 () -> {
@@ -98,7 +100,7 @@ public final class ArezContextTest extends AbstractTest {
     public void triggerScheduler_generatesReactionCycleSpyEvents() {
         final ArezContext context = Arez.context();
         final ObservableValue<Object> observableValue = context.observable();
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final TestSpyEventHandler handler = TestSpyEventHandler.subscribe(context);
 
@@ -144,7 +146,7 @@ public final class ArezContextTest extends AbstractTest {
     @Test
     public void triggerScheduler_generatesReactionCycleCompleteSpyEventWhenInterceptorThrows() {
         final ArezContext context = Arez.context();
-        final RuntimeException error = new RuntimeException("Boom!");
+        final var error = new RuntimeException("Boom!");
 
         context.setTaskInterceptor(a -> {
             throw error;
@@ -167,7 +169,7 @@ public final class ArezContextTest extends AbstractTest {
     @Test
     public void triggerScheduler_alreadyActive() {
         final ArezContext context = Arez.context();
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         context.observer(
                 () -> {
@@ -304,13 +306,13 @@ public final class ArezContextTest extends AbstractTest {
     public void registerHook_basic() {
         final ArezContext context = Arez.context();
 
-        final CountingProcedure onActivateHook1 = new CountingProcedure();
-        final CountingProcedure onActivateHook2 = new CountingProcedure();
-        final CountingProcedure onActivateHook3 = new CountingProcedure();
+        final var onActivateHook1 = new CountingProcedure();
+        final var onActivateHook2 = new CountingProcedure();
+        final var onActivateHook3 = new CountingProcedure();
 
-        final CountingProcedure onDeactivateHook1 = new CountingProcedure();
-        final CountingProcedure onDeactivateHook2 = new CountingProcedure();
-        final CountingProcedure onDeactivateHook3 = new CountingProcedure();
+        final var onDeactivateHook1 = new CountingProcedure();
+        final var onDeactivateHook2 = new CountingProcedure();
+        final var onDeactivateHook3 = new CountingProcedure();
 
         final ComputableValue<Integer> computable = context.computable(() -> {
             observeADependency();
@@ -328,12 +330,12 @@ public final class ArezContextTest extends AbstractTest {
         assertEquals(hooks.size(), 3);
 
         assertHookOrder(hooks, "3,2,1");
-        assertEquals(hooks.get("3").getOnActivate(), onActivateHook1);
-        assertEquals(hooks.get("3").getOnDeactivate(), onDeactivateHook1);
-        assertEquals(hooks.get("2").getOnActivate(), onActivateHook2);
-        assertEquals(hooks.get("2").getOnDeactivate(), onDeactivateHook2);
-        assertEquals(hooks.get("1").getOnActivate(), onActivateHook3);
-        assertEquals(hooks.get("1").getOnDeactivate(), onDeactivateHook3);
+        assertEquals(Objects.requireNonNull(hooks.get("3")).getOnActivate(), onActivateHook1);
+        assertEquals(Objects.requireNonNull(hooks.get("3")).getOnDeactivate(), onDeactivateHook1);
+        assertEquals(Objects.requireNonNull(hooks.get("2")).getOnActivate(), onActivateHook2);
+        assertEquals(Objects.requireNonNull(hooks.get("2")).getOnDeactivate(), onDeactivateHook2);
+        assertEquals(Objects.requireNonNull(hooks.get("1")).getOnActivate(), onActivateHook3);
+        assertEquals(Objects.requireNonNull(hooks.get("1")).getOnDeactivate(), onDeactivateHook3);
 
         assertEquals(onActivateHook1.getCallCount(), 1);
         assertEquals(onActivateHook2.getCallCount(), 1);
@@ -358,7 +360,7 @@ public final class ArezContextTest extends AbstractTest {
 
     @SuppressWarnings("SameParameterValue")
     private static void assertHookOrder(final HookMap hooks, final String expected) {
-        final StringBuilder sb = new StringBuilder();
+        final var sb = new StringBuilder();
         for (int i = 0; i < hooks.size(); i++) {
             if (0 != i) {
                 sb.append(',');
@@ -372,15 +374,15 @@ public final class ArezContextTest extends AbstractTest {
     public void registerOnDeactivationHook_dynamicallyAdjustHooks() {
         final ArezContext context = Arez.context();
 
-        final AtomicBoolean includeAll = new AtomicBoolean(true);
+        final var includeAll = new AtomicBoolean(true);
 
-        final CountingProcedure onActivateHook1 = new CountingProcedure();
-        final CountingProcedure onActivateHook2 = new CountingProcedure();
-        final CountingProcedure onActivateHook3 = new CountingProcedure();
+        final var onActivateHook1 = new CountingProcedure();
+        final var onActivateHook2 = new CountingProcedure();
+        final var onActivateHook3 = new CountingProcedure();
 
-        final CountingProcedure onDeactivateHook1 = new CountingProcedure();
-        final CountingProcedure onDeactivateHook2 = new CountingProcedure();
-        final CountingProcedure onDeactivateHook3 = new CountingProcedure();
+        final var onDeactivateHook1 = new CountingProcedure();
+        final var onDeactivateHook2 = new CountingProcedure();
+        final var onDeactivateHook3 = new CountingProcedure();
 
         final ObservableValue<Object> observable = Arez.context().observable();
 
@@ -403,12 +405,12 @@ public final class ArezContextTest extends AbstractTest {
         final HookMap hooks = computable.getObserver().getHooks();
         assertEquals(hooks.size(), 3);
         assertHookOrder(hooks, "3,2,1");
-        assertEquals(hooks.get("3").getOnActivate(), onActivateHook1);
-        assertEquals(hooks.get("3").getOnDeactivate(), onDeactivateHook1);
-        assertEquals(hooks.get("2").getOnActivate(), onActivateHook2);
-        assertEquals(hooks.get("2").getOnDeactivate(), onDeactivateHook2);
-        assertEquals(hooks.get("1").getOnActivate(), onActivateHook3);
-        assertEquals(hooks.get("1").getOnDeactivate(), onDeactivateHook3);
+        assertEquals(Objects.requireNonNull(hooks.get("3")).getOnActivate(), onActivateHook1);
+        assertEquals(Objects.requireNonNull(hooks.get("3")).getOnDeactivate(), onDeactivateHook1);
+        assertEquals(Objects.requireNonNull(hooks.get("2")).getOnActivate(), onActivateHook2);
+        assertEquals(Objects.requireNonNull(hooks.get("2")).getOnDeactivate(), onDeactivateHook2);
+        assertEquals(Objects.requireNonNull(hooks.get("1")).getOnActivate(), onActivateHook3);
+        assertEquals(Objects.requireNonNull(hooks.get("1")).getOnDeactivate(), onDeactivateHook3);
 
         assertEquals(onActivateHook1.getCallCount(), 1);
         assertEquals(onActivateHook2.getCallCount(), 1);
@@ -445,6 +447,8 @@ public final class ArezContextTest extends AbstractTest {
         assertEquals(onDeactivateHook3.getCallCount(), 1);
     }
 
+    // Deliberately exercise the runtime invariant for an invalid null key.
+    @SuppressWarnings("NullAway")
     @Test
     public void registerOnDeactivationHook_nullKey() {
         final ArezContext context = Arez.context();
@@ -553,7 +557,7 @@ public final class ArezContextTest extends AbstractTest {
     public void nestedAction_allowed() throws Throwable {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger updateCalled = new AtomicInteger();
+        final var updateCalled = new AtomicInteger();
 
         final Observer tracker = context.tracker(
                 updateCalled::incrementAndGet, Observer.Flags.READ_WRITE | Observer.Flags.NESTED_ACTIONS_ALLOWED);
@@ -595,7 +599,7 @@ public final class ArezContextTest extends AbstractTest {
     public void nestedAction_notAllowed() throws Throwable {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger updateCalled = new AtomicInteger();
+        final var updateCalled = new AtomicInteger();
 
         final Observer tracker = context.tracker(
                 updateCalled::incrementAndGet, Observer.Flags.READ_WRITE | Observer.Flags.NESTED_ACTIONS_DISALLOWED);
@@ -722,7 +726,7 @@ public final class ArezContextTest extends AbstractTest {
         handler.assertNextEvent(ActionStartEvent.class, e -> {
             assertEquals(e.getName(), name);
             assertFalse(e.isTracked());
-            final Object[] parameters = e.getParameters();
+            final @Nullable Object[] parameters = e.getParameters();
             assertEquals(parameters.length, 3);
             assertEquals(parameters[0], param1);
             assertEquals(parameters[1], param2);
@@ -744,7 +748,7 @@ public final class ArezContextTest extends AbstractTest {
             assertTrue(e.returnsResult());
             assertEquals(e.getResult(), v0);
             assertFalse(e.isTracked());
-            final Object[] parameters = e.getParameters();
+            final @Nullable Object[] parameters = e.getParameters();
             assertEquals(parameters.length, 3);
             assertEquals(parameters[0], param1);
             assertEquals(parameters[1], param2);
@@ -812,7 +816,7 @@ public final class ArezContextTest extends AbstractTest {
 
         final String name = ValueUtil.randomString();
 
-        final IOException ioException = new IOException();
+        final var ioException = new IOException();
 
         final String param1 = "";
         final Object param2 = null;
@@ -837,7 +841,7 @@ public final class ArezContextTest extends AbstractTest {
         handler.assertNextEvent(ActionStartEvent.class, e -> {
             assertEquals(e.getName(), name);
             assertFalse(e.isTracked());
-            final Object[] parameters = e.getParameters();
+            final @Nullable Object[] parameters = e.getParameters();
             assertEquals(parameters.length, 3);
             assertEquals(parameters[0], param1);
             assertEquals(parameters[1], param2);
@@ -859,7 +863,7 @@ public final class ArezContextTest extends AbstractTest {
             assertTrue(e.returnsResult());
             assertNull(e.getResult());
             assertFalse(e.isTracked());
-            final Object[] parameters = e.getParameters();
+            final @Nullable Object[] parameters = e.getParameters();
             assertEquals(parameters.length, 3);
             assertEquals(parameters[0], param1);
             assertEquals(parameters[1], param2);
@@ -1041,7 +1045,7 @@ public final class ArezContextTest extends AbstractTest {
 
         handler.assertNextEvent(ActionStartEvent.class, e -> {
             assertFalse(e.isTracked());
-            final Object[] parameters = e.getParameters();
+            final @Nullable Object[] parameters = e.getParameters();
             assertEquals(parameters.length, 0);
         });
         handler.assertNextEvent(TransactionStartEvent.class, e -> {
@@ -1057,7 +1061,7 @@ public final class ArezContextTest extends AbstractTest {
             assertTrue(e.returnsResult());
             assertEquals(e.getResult(), v0);
             assertFalse(e.isTracked());
-            final Object[] parameters = e.getParameters();
+            final @Nullable Object[] parameters = e.getParameters();
             assertEquals(parameters.length, 0);
         });
     }
@@ -1070,7 +1074,7 @@ public final class ArezContextTest extends AbstractTest {
 
         final String expectedValue = ValueUtil.randomString();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final Observer tracker = context.tracker(callCount::incrementAndGet, Observer.Flags.READ_WRITE);
 
@@ -1101,6 +1105,7 @@ public final class ArezContextTest extends AbstractTest {
                     // Tracking so state updated
                     final FastList<ObservableValue<?>> observableValues = transaction.getObservableValues();
                     assertNotNull(observableValues);
+                    assert null != observableValues;
                     assertEquals(observableValues.size(), 1);
                     assertEquals(observableValue.getObservers().size(), 0);
                     assertEquals(observableValue.getLastTrackerTransactionId(), nextNodeId);
@@ -1131,7 +1136,7 @@ public final class ArezContextTest extends AbstractTest {
 
         handler.assertNextEvent(ActionStartEvent.class, e -> {
             assertTrue(e.isTracked());
-            final Object[] parameters = e.getParameters();
+            final @Nullable Object[] parameters = e.getParameters();
             assertEquals(parameters.length, 3);
             assertEquals(parameters[0], param1);
             assertEquals(parameters[1], param2);
@@ -1141,12 +1146,14 @@ public final class ArezContextTest extends AbstractTest {
             assertTrue(e.isMutation());
             final ObserverInfo info = e.getTracker();
             assertNotNull(info);
+            assert null != info;
             assertEquals(info.getName(), tracker.getName());
         });
         handler.assertNextEvent(TransactionCompleteEvent.class, e -> {
             assertTrue(e.isMutation());
             final ObserverInfo info = e.getTracker();
             assertNotNull(info);
+            assert null != info;
             assertEquals(info.getName(), tracker.getName());
         });
         handler.assertNextEvent(ActionCompleteEvent.class, e -> {
@@ -1154,7 +1161,7 @@ public final class ArezContextTest extends AbstractTest {
             assertTrue(e.returnsResult());
             assertEquals(e.getResult(), v0);
             assertTrue(e.isTracked());
-            final Object[] parameters = e.getParameters();
+            final @Nullable Object[] parameters = e.getParameters();
             assertEquals(parameters.length, 3);
             assertEquals(parameters[0], param1);
             assertEquals(parameters[1], param2);
@@ -1169,7 +1176,7 @@ public final class ArezContextTest extends AbstractTest {
         // Scheduler paused otherwise reactions will run in environment and upset our environment call count
         context.pauseScheduler();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final Observer observer = context.tracker(
                 callCount::incrementAndGet, Observer.Flags.AREZ_OR_NO_DEPENDENCIES | Observer.Flags.READ_WRITE);
@@ -1194,12 +1201,14 @@ public final class ArezContextTest extends AbstractTest {
             assertTrue(e.isMutation());
             final ObserverInfo info = e.getTracker();
             assertNotNull(info);
+            assert null != info;
             assertEquals(info.getName(), observer.getName());
         });
         handler.assertNextEvent(TransactionCompleteEvent.class, e -> {
             assertTrue(e.isMutation());
             final ObserverInfo info = e.getTracker();
             assertNotNull(info);
+            assert null != info;
             assertEquals(info.getName(), observer.getName());
         });
         handler.assertNextEvent(ActionCompleteEvent.class, e -> {
@@ -1215,7 +1224,7 @@ public final class ArezContextTest extends AbstractTest {
     public void observe_NO_REPORT_RESULT() throws Throwable {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final Observer observer = context.tracker(
                 callCount::incrementAndGet, Observer.Flags.AREZ_OR_NO_DEPENDENCIES | Observer.Flags.NO_REPORT_RESULT);
@@ -1243,7 +1252,7 @@ public final class ArezContextTest extends AbstractTest {
     public void track_function_passingNonTracker() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final Observer observer = context.observer(new CountAndObserveProcedure());
 
@@ -1317,7 +1326,7 @@ public final class ArezContextTest extends AbstractTest {
         handler.assertNextEvent(ActionStartEvent.class, e -> {
             assertEquals(e.getName(), name);
             assertFalse(e.isTracked());
-            final Object[] parameters = e.getParameters();
+            final @Nullable Object[] parameters = e.getParameters();
             assertEquals(parameters.length, 3);
             assertEquals(parameters[0], param1);
             assertEquals(parameters[1], param2);
@@ -1339,7 +1348,7 @@ public final class ArezContextTest extends AbstractTest {
             assertTrue(e.returnsResult());
             assertEquals(e.getResult(), v0);
             assertFalse(e.isTracked());
-            final Object[] parameters = e.getParameters();
+            final @Nullable Object[] parameters = e.getParameters();
             assertEquals(parameters.length, 3);
             assertEquals(parameters[0], param1);
             assertEquals(parameters[1], param2);
@@ -1357,7 +1366,7 @@ public final class ArezContextTest extends AbstractTest {
                 context::getTransaction,
                 "Arez-0117: Attempting to get current transaction but no transaction is active.");
 
-        final IllegalStateException secException = new IllegalStateException("");
+        final var secException = new IllegalStateException("");
 
         final String name = ValueUtil.randomString();
 
@@ -1384,7 +1393,7 @@ public final class ArezContextTest extends AbstractTest {
         handler.assertNextEvent(ActionStartEvent.class, e -> {
             assertEquals(e.getName(), name);
             assertFalse(e.isTracked());
-            final Object[] parameters = e.getParameters();
+            final @Nullable Object[] parameters = e.getParameters();
             assertEquals(parameters.length, 3);
             assertEquals(parameters[0], param1);
             assertEquals(parameters[1], param2);
@@ -1406,7 +1415,7 @@ public final class ArezContextTest extends AbstractTest {
             assertTrue(e.returnsResult());
             assertNull(e.getResult());
             assertFalse(e.isTracked());
-            final Object[] parameters = e.getParameters();
+            final @Nullable Object[] parameters = e.getParameters();
             assertEquals(parameters.length, 3);
             assertEquals(parameters[0], param1);
             assertEquals(parameters[1], param2);
@@ -1459,7 +1468,7 @@ public final class ArezContextTest extends AbstractTest {
 
         final String expectedValue = ValueUtil.randomString();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final Observer tracker = context.tracker(callCount::incrementAndGet);
 
@@ -1482,6 +1491,7 @@ public final class ArezContextTest extends AbstractTest {
             // Tracking so state updated
             final FastList<ObservableValue<?>> observableValues = transaction.getObservableValues();
             assertNotNull(observableValues);
+            assert null != observableValues;
             assertEquals(observableValues.size(), 1);
             assertEquals(observableValue.getObservers().size(), 0);
             assertEquals(observableValue.getLastTrackerTransactionId(), nextNodeId);
@@ -1511,7 +1521,7 @@ public final class ArezContextTest extends AbstractTest {
     public void track_safeFunction_passingNonTracker() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final Observer observer = context.observer(new CountAndObserveProcedure());
 
@@ -1562,7 +1572,7 @@ public final class ArezContextTest extends AbstractTest {
                 context::getTransaction,
                 "Arez-0117: Attempting to get current transaction but no transaction is active.");
 
-        final IllegalStateException secException = new IllegalStateException("");
+        final var secException = new IllegalStateException("");
 
         final String name = ValueUtil.randomString();
 
@@ -1586,7 +1596,7 @@ public final class ArezContextTest extends AbstractTest {
         handler.assertNextEvent(ActionStartEvent.class, e -> {
             assertEquals(e.getName(), name);
             assertFalse(e.isTracked());
-            final Object[] parameters = e.getParameters();
+            final @Nullable Object[] parameters = e.getParameters();
             assertEquals(parameters.length, 3);
             assertEquals(parameters[0], param1);
             assertEquals(parameters[1], param2);
@@ -1608,7 +1618,7 @@ public final class ArezContextTest extends AbstractTest {
             assertFalse(e.returnsResult());
             assertNull(e.getResult());
             assertFalse(e.isTracked());
-            final Object[] parameters = e.getParameters();
+            final @Nullable Object[] parameters = e.getParameters();
             assertEquals(parameters.length, 3);
             assertEquals(parameters[0], param1);
             assertEquals(parameters[1], param2);
@@ -1622,7 +1632,7 @@ public final class ArezContextTest extends AbstractTest {
 
         assertFalse(context.isTransactionActive());
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final Observer tracker = context.tracker(callCount::incrementAndGet);
 
@@ -1645,6 +1655,7 @@ public final class ArezContextTest extends AbstractTest {
             // Tracking so state updated
             final FastList<ObservableValue<?>> observableValues = transaction.getObservableValues();
             assertNotNull(observableValues);
+            assert null != observableValues;
             assertEquals(observableValues.size(), 1);
             assertEquals(observableValue.getObservers().size(), 0);
             assertEquals(observableValue.getLastTrackerTransactionId(), nextNodeId);
@@ -1670,7 +1681,7 @@ public final class ArezContextTest extends AbstractTest {
     public void track_safeProcedure_passingNonTracker() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final Observer observer = context.observer(new CountAndObserveProcedure());
 
@@ -1716,7 +1727,7 @@ public final class ArezContextTest extends AbstractTest {
     public void track_procedure_passingNonTracker() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final Observer observer = context.observer(new CountAndObserveProcedure());
 
@@ -1735,7 +1746,7 @@ public final class ArezContextTest extends AbstractTest {
 
         assertFalse(context.isTransactionActive());
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final Observer tracker = context.tracker(callCount::incrementAndGet);
 
@@ -1758,6 +1769,7 @@ public final class ArezContextTest extends AbstractTest {
             // Tracking so state updated
             final FastList<ObservableValue<?>> observableValues = transaction.getObservableValues();
             assertNotNull(observableValues);
+            assert null != observableValues;
             assertEquals(observableValues.size(), 1);
             assertEquals(observableValue.getObservers().size(), 0);
             assertEquals(observableValue.getLastTrackerTransactionId(), nextNodeId);
@@ -1832,7 +1844,7 @@ public final class ArezContextTest extends AbstractTest {
         handler.assertNextEvent(ActionStartEvent.class, e -> {
             assertEquals(e.getName(), name);
             assertFalse(e.isTracked());
-            final Object[] parameters = e.getParameters();
+            final @Nullable Object[] parameters = e.getParameters();
             assertEquals(parameters.length, 3);
             assertEquals(parameters[0], param1);
             assertEquals(parameters[1], param2);
@@ -1854,7 +1866,7 @@ public final class ArezContextTest extends AbstractTest {
             assertFalse(e.returnsResult());
             assertNull(e.getResult());
             assertFalse(e.isTracked());
-            final Object[] parameters = e.getParameters();
+            final @Nullable Object[] parameters = e.getParameters();
             assertEquals(parameters.length, 3);
             assertEquals(parameters[0], param1);
             assertEquals(parameters[1], param2);
@@ -1919,7 +1931,7 @@ public final class ArezContextTest extends AbstractTest {
         handler.assertNextEvent(ActionStartEvent.class, e -> {
             assertEquals(e.getName(), name);
             assertFalse(e.isTracked());
-            final Object[] parameters = e.getParameters();
+            final @Nullable Object[] parameters = e.getParameters();
             assertEquals(parameters.length, 3);
             assertEquals(parameters[0], param1);
             assertEquals(parameters[1], param2);
@@ -1942,7 +1954,7 @@ public final class ArezContextTest extends AbstractTest {
             assertFalse(e.returnsResult());
             assertNull(e.getResult());
             assertFalse(e.isTracked());
-            final Object[] parameters = e.getParameters();
+            final @Nullable Object[] parameters = e.getParameters();
             assertEquals(parameters.length, 3);
             assertEquals(parameters[0], param1);
             assertEquals(parameters[1], param2);
@@ -1960,7 +1972,7 @@ public final class ArezContextTest extends AbstractTest {
                 "Arez-0117: Attempting to get current transaction but no transaction is active.");
 
         final String name = ValueUtil.randomString();
-        final IOException ioException = new IOException();
+        final var ioException = new IOException();
 
         final String param1 = "";
         final Object param2 = null;
@@ -1985,7 +1997,7 @@ public final class ArezContextTest extends AbstractTest {
         handler.assertNextEvent(ActionStartEvent.class, e -> {
             assertEquals(e.getName(), name);
             assertFalse(e.isTracked());
-            final Object[] parameters = e.getParameters();
+            final @Nullable Object[] parameters = e.getParameters();
             assertEquals(parameters.length, 3);
             assertEquals(parameters[0], param1);
             assertEquals(parameters[1], param2);
@@ -2007,7 +2019,7 @@ public final class ArezContextTest extends AbstractTest {
             assertFalse(e.returnsResult());
             assertNull(e.getResult());
             assertFalse(e.isTracked());
-            final Object[] parameters = e.getParameters();
+            final @Nullable Object[] parameters = e.getParameters();
             assertEquals(parameters.length, 3);
             assertEquals(parameters[0], param1);
             assertEquals(parameters[1], param2);
@@ -2077,8 +2089,8 @@ public final class ArezContextTest extends AbstractTest {
         final ArezContext context = Arez.context();
 
         final ObservableValue<Object> observable = context.observable();
-        final AtomicInteger observedCallCount = new AtomicInteger();
-        final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
+        final var observedCallCount = new AtomicInteger();
+        final var onDepsChangeCallCount = new AtomicInteger();
 
         final String name = ValueUtil.randomString();
         context.observer(
@@ -2102,8 +2114,8 @@ public final class ArezContextTest extends AbstractTest {
         final ArezContext context = Arez.context();
 
         final ObservableValue<Object> observable = context.observable();
-        final AtomicInteger observeCallCount = new AtomicInteger();
-        final AtomicInteger onDepsChangeCallCount = new AtomicInteger();
+        final var observeCallCount = new AtomicInteger();
+        final var onDepsChangeCallCount = new AtomicInteger();
 
         final Component component = context.component(ValueUtil.randomString(), 22);
 
@@ -2121,6 +2133,7 @@ public final class ArezContextTest extends AbstractTest {
         assertEquals(onDepsChangeCallCount.get(), 0);
         final ComponentInfo componentInfo = observer.asInfo().getComponent();
         assertNotNull(componentInfo);
+        assert null != componentInfo;
         assertEquals(componentInfo.getName(), component.getName());
 
         context.safeAction(observable::reportChanged);
@@ -2135,11 +2148,11 @@ public final class ArezContextTest extends AbstractTest {
         context.getObserverErrorHandlerSupport().getHandlers().clear();
 
         final ObserverError observerError = ObserverError.REACTION_ERROR;
-        final Throwable throwable = new Throwable();
+        final var throwable = new Throwable();
         final Procedure action = new NoopProcedure();
         final Observer observer = context.observer(ValueUtil.randomString(), action, Observer.Flags.READ_WRITE);
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final ObserverErrorHandler handler = (o, e, t) -> {
             callCount.incrementAndGet();
@@ -2175,7 +2188,7 @@ public final class ArezContextTest extends AbstractTest {
         context.getObserverErrorHandlerSupport().getHandlers().clear();
 
         final ObserverError observerError = ObserverError.REACTION_ERROR;
-        final Throwable throwable = new Throwable();
+        final var throwable = new Throwable();
         final Procedure action = new NoopProcedure();
         final Observer observer = context.observer(action);
 
@@ -2303,7 +2316,6 @@ public final class ArezContextTest extends AbstractTest {
             observeADependency();
             return "";
         };
-        final Procedure onActivate = ValueUtil::randomString;
         final ComputableValue<String> computableValue =
                 context.computable(null, name, function, ComputableValue.Flags.PRIORITY_HIGH);
 
@@ -2388,7 +2400,7 @@ public final class ArezContextTest extends AbstractTest {
     public void computableValue_withKeepAliveAndRunImmediately() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger calls = new AtomicInteger();
+        final var calls = new AtomicInteger();
         final SafeFunction<String> action = () -> {
             observeADependency();
             calls.incrementAndGet();
@@ -2405,7 +2417,7 @@ public final class ArezContextTest extends AbstractTest {
     public void computableValue_withKeepAliveAndNoRunImmediately() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger calls = new AtomicInteger();
+        final var calls = new AtomicInteger();
         final SafeFunction<String> action = () -> {
             observeADependency();
             calls.incrementAndGet();
@@ -2483,7 +2495,7 @@ public final class ArezContextTest extends AbstractTest {
         ignoreObserverErrors();
 
         Arez.context().setNextNodeId(22);
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final Observer observer = Arez.context().observer(callCount::incrementAndGet);
 
         assertEquals(observer.getName(), "Observer@22");
@@ -2505,7 +2517,7 @@ public final class ArezContextTest extends AbstractTest {
         ignoreObserverErrors();
 
         final ArezContext context = Arez.context();
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         context.observer(callCount::incrementAndGet, Observer.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES);
 
         assertEquals(callCount.get(), 1);
@@ -2519,7 +2531,7 @@ public final class ArezContextTest extends AbstractTest {
         final ArezContext context = Arez.context();
 
         context.setNextNodeId(22);
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final Procedure observe = () -> {
             observeADependency();
             callCount.incrementAndGet();
@@ -2560,7 +2572,7 @@ public final class ArezContextTest extends AbstractTest {
         final ArezContext context = Arez.context();
 
         context.setNextNodeId(22);
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final Observer observer = context.observer(
                 () -> {
                     observeADependency();
@@ -2585,7 +2597,7 @@ public final class ArezContextTest extends AbstractTest {
         final TestSpyEventHandler handler = TestSpyEventHandler.subscribe(context);
 
         final String name = ValueUtil.randomString();
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final Observer observer = context.observer(
                 name,
                 () -> {
@@ -2702,7 +2714,7 @@ public final class ArezContextTest extends AbstractTest {
         final TestSpyEventHandler handler = TestSpyEventHandler.subscribe(context);
 
         final String name = ValueUtil.randomString();
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final Observer observer = context.observer(
                 name,
                 () -> {
@@ -2733,7 +2745,7 @@ public final class ArezContextTest extends AbstractTest {
         final TestSpyEventHandler handler = TestSpyEventHandler.subscribe(context);
 
         final String name = ValueUtil.randomString();
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final Observer observer = context.tracker(
                 null,
                 name,
@@ -2767,7 +2779,7 @@ public final class ArezContextTest extends AbstractTest {
         final ArezContext context = Arez.context();
 
         final String name = ValueUtil.randomString();
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final Component component =
                 context.component(ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString());
         final Observer observer = context.tracker(component, name, callCount::incrementAndGet);
@@ -2787,7 +2799,7 @@ public final class ArezContextTest extends AbstractTest {
 
         final int nextNodeId = context.getNextNodeId();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final Observer observer = context.tracker(callCount::incrementAndGet);
 
         assertEquals(observer.getName(), "Observer@" + nextNodeId);
@@ -2833,6 +2845,8 @@ public final class ArezContextTest extends AbstractTest {
         final ObservableValue<?> observableValue = context.observable();
 
         assertNotNull(observableValue.getName());
+
+        assert null != observableValue.getName();
         assertEquals(observableValue.getName(), "ObservableValue@22");
         assertNull(observableValue.getAccessor());
         assertNull(observableValue.getMutator());
@@ -2904,6 +2918,8 @@ public final class ArezContextTest extends AbstractTest {
         final ObservableValue<?> observableValue = context.observable(null);
 
         assertNotNull(observableValue);
+
+        assert null != observableValue;
     }
 
     @Test
@@ -2917,7 +2933,7 @@ public final class ArezContextTest extends AbstractTest {
         assertEquals(context.getSchedulerLockCount(), 1);
         assertTrue(context.isSchedulerPaused());
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         // This would normally be scheduled and run now but scheduler should be paused
         context.observer(
@@ -3090,7 +3106,7 @@ public final class ArezContextTest extends AbstractTest {
 
         final ArezContext context = Arez.context();
 
-        final Component component = new Component(
+        final var component = new Component(
                 context, ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString(), null, null);
 
         assertInvariantFailure(
@@ -3103,7 +3119,7 @@ public final class ArezContextTest extends AbstractTest {
     public void deregisterComponent_componentMisalignment() {
         final ArezContext context = Arez.context();
 
-        final Component component = new Component(
+        final var component = new Component(
                 context, ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString(), null, null);
 
         final Component component2 =
@@ -3404,10 +3420,11 @@ public final class ArezContextTest extends AbstractTest {
 
         final Locator locator = context.locator();
         assertNotNull(locator);
+        assert null != locator;
 
         assertNull(locator.findById(String.class, "21"));
 
-        final TypeBasedLocator worker = new TypeBasedLocator();
+        final var worker = new TypeBasedLocator();
         worker.registerLookup(String.class, String::valueOf);
 
         final Disposable disposable = context.registerLocator(worker);
@@ -3459,7 +3476,7 @@ public final class ArezContextTest extends AbstractTest {
     public void task() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final String name = ValueUtil.randomString();
 
         final TestSpyEventHandler handler = TestSpyEventHandler.subscribe(context);
@@ -3498,7 +3515,7 @@ public final class ArezContextTest extends AbstractTest {
     public void task_throwsException() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final String name = ValueUtil.randomString();
 
         final TestSpyEventHandler handler = TestSpyEventHandler.subscribe(context);
@@ -3523,6 +3540,7 @@ public final class ArezContextTest extends AbstractTest {
         handler.assertNextEvent(TaskCompleteEvent.class, e -> {
             assertEquals(e.getTask().getName(), name);
             assertNotNull(e.getThrowable());
+            assert null != e.getThrowable();
             assertEquals(e.getThrowable().getMessage(), errorMessage);
         });
         handler.assertNextEvent(ReactionCycleCompleteEvent.class);
@@ -3532,7 +3550,7 @@ public final class ArezContextTest extends AbstractTest {
     public void task_minimalParameters() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final TestSpyEventHandler handler = TestSpyEventHandler.subscribe(context);
 
@@ -3558,7 +3576,7 @@ public final class ArezContextTest extends AbstractTest {
     public void task_RUN_LATER() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
@@ -3630,8 +3648,8 @@ public final class ArezContextTest extends AbstractTest {
 
     @Test
     public void taskInterceptor() {
-        final AtomicInteger preTaskCount = new AtomicInteger();
-        final AtomicInteger postTaskCount = new AtomicInteger();
+        final var preTaskCount = new AtomicInteger();
+        final var postTaskCount = new AtomicInteger();
         final TaskInterceptor interceptor = a -> {
             preTaskCount.incrementAndGet();
             a.call();
@@ -3654,8 +3672,8 @@ public final class ArezContextTest extends AbstractTest {
     public void taskInterceptor_whereInterceptorGeneratesMoreTasks() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger preTaskCount = new AtomicInteger();
-        final AtomicInteger postTaskCount = new AtomicInteger();
+        final var preTaskCount = new AtomicInteger();
+        final var postTaskCount = new AtomicInteger();
         final TaskInterceptor interceptor = a -> {
             preTaskCount.incrementAndGet();
             a.call();

@@ -255,7 +255,7 @@ public final class ArezContext {
                     () -> "Arez-0009: ArezContext.component() invoked for type '" + type + "' and id '" + id
                             + "' but a component already exists for specified type+id.");
         }
-        final Component component =
+        final var component =
                 new Component(Arez.areZonesEnabled() ? this : null, type, id, name, preDispose, postDispose);
         map.put(id, component);
         if (willPropagateSpyEvents()) {
@@ -925,7 +925,7 @@ public final class ArezContext {
             @Nullable final String name,
             final SafeProcedure work,
             @MagicConstant(flagsFromClass = Task.Flags.class) final int flags) {
-        final Task task = new Task(Arez.areZonesEnabled() ? this : null, generateName("Task", name), work, flags);
+        final var task = new Task(Arez.areZonesEnabled() ? this : null, generateName("Task", name), work, flags);
         task.initialSchedule();
         return task;
     }
@@ -1550,7 +1550,7 @@ public final class ArezContext {
      * @param procedure the procedure.
      * @return the function.
      */
-    private SafeFunction<Object> safeProcedureToFunction(final SafeProcedure procedure) {
+    private SafeFunction<@Nullable Object> safeProcedureToFunction(final SafeProcedure procedure) {
         return () -> {
             procedure.call();
             return null;
@@ -1564,7 +1564,7 @@ public final class ArezContext {
      * @param procedure the procedure.
      * @return the function.
      */
-    private Function<Object> procedureToFunction(final Procedure procedure) {
+    private Function<@Nullable Object> procedureToFunction(final Procedure procedure) {
         return () -> {
             procedure.call();
             return null;
@@ -1738,7 +1738,7 @@ public final class ArezContext {
 
         verifyActionFlags(name, flags);
         final boolean observed = null != observer;
-        final boolean generateActionEvents = !observed || !observer.isComputableValue();
+        final boolean generateActionEvents = null == observer || !observer.isComputableValue();
         Throwable t = null;
         boolean completed = false;
         long startedAt = 0L;
@@ -2231,10 +2231,10 @@ public final class ArezContext {
             @Nullable final String name,
             final @Nullable Object @Nullable [] parameters,
             final boolean observed,
-            final Throwable t,
+            @Nullable final Throwable t,
             final long startedAt,
             final boolean returnsResult,
-            final Object result) {
+            @Nullable final Object result) {
         final int duration = Math.max(0, (int) (System.currentTimeMillis() - startedAt));
         assert null != name;
         final @Nullable Object[] params = null == parameters ? new Object[0] : parameters;

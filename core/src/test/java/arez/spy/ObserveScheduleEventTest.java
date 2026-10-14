@@ -8,6 +8,7 @@ import arez.ArezContext;
 import arez.ArezTestUtil;
 import arez.Observer;
 import java.util.HashMap;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -18,16 +19,17 @@ public final class ObserveScheduleEventTest extends AbstractTest {
         final String name = "Foo@1";
         final Observer observer = context.tracker(name, ValueUtil::randomString);
         final ObserverInfo info = context.getSpy().asObserverInfo(observer);
-        final ObserveScheduleEvent event = new ObserveScheduleEvent(info);
+        final var event = new ObserveScheduleEvent(info);
 
         assertEquals(event.getObserver(), info);
 
-        final HashMap<String, Object> data = new HashMap<>();
+        final HashMap<String, @Nullable Object> data = new HashMap<>();
         event.toMap(data);
 
         assertEquals(data.get("type"), "ObserveSchedule");
         assertEquals(data.get("name"), name);
         assertNotNull(data.get("zone"));
+        assert null != data.get("zone");
         assertEquals(data.size(), 3);
     }
 
@@ -39,9 +41,9 @@ public final class ObserveScheduleEventTest extends AbstractTest {
         final String name = "Foo@1";
         final Observer observer = context.tracker(name, ValueUtil::randomString);
         final ObserverInfo info = context.getSpy().asObserverInfo(observer);
-        final ObserveScheduleEvent event = new ObserveScheduleEvent(info);
+        final var event = new ObserveScheduleEvent(info);
 
-        final HashMap<String, Object> data = new HashMap<>();
+        final HashMap<String, @Nullable Object> data = new HashMap<>();
         event.toMap(data);
 
         assertEquals(data.get("type"), "ObserveSchedule");

@@ -52,8 +52,7 @@ public abstract class AbstractSpyEventProcessor implements SpyEventHandler {
     @SuppressWarnings({"ConstantConditions", "unchecked"})
     public final void onSpyEvent(final Object event) {
         assert null != event;
-        final BiConsumer<SpyUtil.NestingDelta, Object> processor =
-                (BiConsumer<SpyUtil.NestingDelta, Object>) _processors.get(event.getClass());
+        final var processor = (BiConsumer<SpyUtil.NestingDelta, Object>) _processors.get(event.getClass());
         if (null != processor) {
             final SpyUtil.NestingDelta delta = getNestingDelta(event);
             if (SpyUtil.NestingDelta.DECREASE == delta) {

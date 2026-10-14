@@ -110,7 +110,7 @@ final class Registry {
                     () -> "registerStore() invoked with name '" + name
                             + "' but a store is already registered with that name");
         }
-        final Store store = new Store(service);
+        final var store = new Store(service);
         c_stores.put(name, store);
         try {
             store.restore();
@@ -179,7 +179,7 @@ final class Registry {
     @SuppressWarnings("unchecked")
     @NonNull
     static <A> Converter<A, ?> getConverter(@NonNull final Class<A> type) {
-        final Converter<A, ?> converter = (Converter<A, ?>) c_converters.get(type);
+        final var converter = (Converter<A, ?>) c_converters.get(type);
         return null == converter ? IdentityConverter.instance() : converter;
     }
 

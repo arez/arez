@@ -70,7 +70,7 @@ final class CircularBuffer<T> {
         if (currentSize + 1 > _elements.length) {
             final int newSize = ((_elements.length - 1) * 2) + 1;
             @SuppressWarnings("unchecked")
-            final @Nullable T[] elements = (@Nullable T[]) new Object[newSize];
+            final var elements = (@Nullable T[]) new Object[newSize];
             int j = 0;
             for (int i = 0; i < currentSize; i++) {
                 final int index = (_head + i) % _elements.length;
@@ -101,7 +101,7 @@ final class CircularBuffer<T> {
         if (isEmpty()) {
             return null;
         }
-        final @Nullable T result = _elements[_head];
+        final T result = _elements[_head];
         _elements[_head] = null;
 
         _head++;
@@ -155,7 +155,7 @@ final class CircularBuffer<T> {
         assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
         final int size = size();
         @SuppressWarnings("unchecked")
-        final @Nullable T[] elements = (@Nullable T[]) new Object[size];
+        final var elements = (@Nullable T[]) new Object[size];
         for (int i = 0; i < size; i++) {
             elements[i] = get(i);
         }

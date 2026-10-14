@@ -37,7 +37,7 @@ public final class ComponentTest extends AbstractTest {
         final String id = ValueUtil.randomString();
         final String name = ValueUtil.randomString();
 
-        final Component component = new Component(context, type, id, name, null, null);
+        final var component = new Component(context, type, id, name, null, null);
         assertEquals(component.getContext(), context);
         assertEquals(component.getType(), type);
         assertEquals(component.getId(), id);
@@ -48,7 +48,7 @@ public final class ComponentTest extends AbstractTest {
     @Test
     public void basicOperationIntegerId() {
         final Integer id = ValueUtil.randomInt();
-        final Component component =
+        final var component =
                 new Component(Arez.context(), ValueUtil.randomString(), id, ValueUtil.randomString(), null, null);
         assertEquals(component.getId(), id);
     }
@@ -61,7 +61,7 @@ public final class ComponentTest extends AbstractTest {
         final String type = ValueUtil.randomString();
         final String id = ValueUtil.randomString();
 
-        final Component component = new Component(context, type, id, null, null, null);
+        final var component = new Component(context, type, id, null, null, null);
         assertEquals(component.getContext(), context);
         assertEquals(component.getType(), type);
         assertEquals(component.getId(), id);
@@ -137,7 +137,7 @@ public final class ComponentTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final String name = ValueUtil.randomString();
 
-        final Component component =
+        final var component =
                 new Component(context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null);
 
         final Observer observer1 = context.observer(AbstractTest::observeADependency);
@@ -171,7 +171,7 @@ public final class ComponentTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final String name = ValueUtil.randomString();
 
-        final Component component =
+        final var component =
                 new Component(context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null);
 
         final Observer observer1 = context.observer(AbstractTest::observeADependency);
@@ -193,7 +193,7 @@ public final class ComponentTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final String name = ValueUtil.randomString();
 
-        final Component component =
+        final var component =
                 new Component(context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null);
         component.complete();
 
@@ -215,7 +215,7 @@ public final class ComponentTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final String name = ValueUtil.randomString();
 
-        final Component component =
+        final var component =
                 new Component(context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null);
 
         final Observer observer1 = context.observer(AbstractTest::observeADependency);
@@ -231,7 +231,7 @@ public final class ComponentTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final String name = ValueUtil.randomString();
 
-        final Component component =
+        final var component =
                 new Component(context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null);
 
         final ObservableValue<?> observableValue1 = context.observable();
@@ -265,7 +265,7 @@ public final class ComponentTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final String name = ValueUtil.randomString();
 
-        final Component component =
+        final var component =
                 new Component(context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null);
 
         final ObservableValue<?> observableValue1 = context.observable();
@@ -288,7 +288,7 @@ public final class ComponentTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final String name = ValueUtil.randomString();
 
-        final Component component =
+        final var component =
                 new Component(context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null);
         component.complete();
 
@@ -306,7 +306,7 @@ public final class ComponentTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final String name = ValueUtil.randomString();
 
-        final Component component =
+        final var component =
                 new Component(context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null);
 
         final ObservableValue<?> observableValue1 = context.observable();
@@ -323,7 +323,7 @@ public final class ComponentTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final String name = ValueUtil.randomString();
 
-        final Component component =
+        final var component =
                 new Component(context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null);
 
         final ComputableValue<?> computableValue1 = context.computable(() -> "");
@@ -357,7 +357,7 @@ public final class ComponentTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final String name = ValueUtil.randomString();
 
-        final Component component =
+        final var component =
                 new Component(context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null);
 
         final ComputableValue<?> computableValue1 = context.computable(() -> "");
@@ -380,7 +380,7 @@ public final class ComponentTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final String name = ValueUtil.randomString();
 
-        final Component component =
+        final var component =
                 new Component(context, ValueUtil.randomString(), ValueUtil.randomString(), name, null, null);
 
         final ComputableValue<?> computableValue1 = context.computable(() -> "");

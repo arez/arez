@@ -17,15 +17,18 @@ public final class ZoneTest extends AbstractTest {
         // Default zone should have a name when names enabled
         final Zone defaultZone = ZoneHolder.getDefaultZone();
         assertNotNull(defaultZone.getName());
+        assert null != defaultZone.getName();
         assertTrue(defaultZone.getName().startsWith("Zone@"));
 
         // create unnamed zone should auto-generate incrementing name
         final Zone z2 = Arez.createZone();
         assertNotNull(z2.getName());
+        assert null != z2.getName();
         assertTrue(z2.getName().startsWith("Zone@"));
 
         final Zone z3 = Arez.createZone();
         assertNotNull(z3.getName());
+        assert null != z3.getName();
         assertTrue(z3.getName().startsWith("Zone@"));
 
         // create named zone should keep name

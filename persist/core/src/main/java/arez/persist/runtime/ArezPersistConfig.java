@@ -7,7 +7,8 @@ import org.realityforge.braincheck.BrainCheckConfig;
 /**
  * Location of all compile time configuration settings for the framework.
  */
-@SuppressWarnings("FieldMayBeFinal")
+// Test configuration resets mutate these fields through reflection.
+@SuppressWarnings("FieldCanBeFinal")
 @OmitType
 final class ArezPersistConfig {
     @NonNull

@@ -11,6 +11,7 @@ import arez.Component;
 import arez.Disposable;
 import arez.Observer;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -24,8 +25,7 @@ public final class ComponentKernelTest extends AbstractTest {
         final int id = ValueUtil.nextID();
         final Component component = context.component("MyType", id);
 
-        final ComponentKernel kernel =
-                new ComponentKernel(context, name, id, component, null, null, null, false, false, false);
+        final var kernel = new ComponentKernel(context, name, id, component, null, null, null, false, false, false);
         assertEquals(kernel.getContext(), context);
         assertEquals(kernel.getName(), name);
         assertEquals(kernel.getId(), id);
@@ -94,8 +94,7 @@ public final class ComponentKernelTest extends AbstractTest {
         final int id = ValueUtil.nextID();
         final Component component = context.component("MyType", id);
 
-        final ComponentKernel kernel =
-                new ComponentKernel(context, name, id, component, null, null, null, false, false, false);
+        final var kernel = new ComponentKernel(context, name, id, component, null, null, null, false, false, false);
         kernel.componentConstructed();
 
         assertTrue(kernel.hasBeenInitialized());
@@ -106,7 +105,7 @@ public final class ComponentKernelTest extends AbstractTest {
         assertFalse(kernel.isDisposed());
         assertEquals(kernel.describeState(), "constructed");
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         // create observer that will run during componentComplete() because we declare RUN_LATER here
         context.observer(
@@ -133,8 +132,7 @@ public final class ComponentKernelTest extends AbstractTest {
         final int id = ValueUtil.nextID();
         final Component component = context.component("MyType", id);
 
-        final ComponentKernel kernel =
-                new ComponentKernel(context, null, id, component, null, null, null, false, false, false);
+        final var kernel = new ComponentKernel(context, null, id, component, null, null, null, false, false, false);
 
         assertEquals(kernel.getContext(), context);
         assertDefaultToString(kernel);
@@ -178,7 +176,7 @@ public final class ComponentKernelTest extends AbstractTest {
 
         final String name = ValueUtil.randomString();
 
-        final ComponentKernel kernel = new ComponentKernel(
+        final var kernel = new ComponentKernel(
                 Arez.context(), name, ValueUtil.nextID(), null, null, null, null, false, false, false);
 
         assertInvariantFailure(
@@ -193,8 +191,7 @@ public final class ComponentKernelTest extends AbstractTest {
 
         final String name = ValueUtil.randomString();
 
-        final ComponentKernel kernel =
-                new ComponentKernel(Arez.context(), name, 0, null, null, null, null, false, false, false);
+        final var kernel = new ComponentKernel(Arez.context(), name, 0, null, null, null, null, false, false, false);
 
         assertInvariantFailure(
                 kernel::getId,
@@ -221,8 +218,7 @@ public final class ComponentKernelTest extends AbstractTest {
         final String name = ValueUtil.randomString();
         final Component component = context.component("MyType", 0);
 
-        final ComponentKernel kernel =
-                new ComponentKernel(context, name, 0, component, null, null, null, false, false, false);
+        final var kernel = new ComponentKernel(context, name, 0, component, null, null, null, false, false, false);
 
         kernel.componentConstructed();
 
@@ -240,8 +236,7 @@ public final class ComponentKernelTest extends AbstractTest {
         final String name = ValueUtil.randomString();
         final Component component = context.component("MyType", 0);
 
-        final ComponentKernel kernel =
-                new ComponentKernel(context, name, 0, component, null, null, null, false, false, false);
+        final var kernel = new ComponentKernel(context, name, 0, component, null, null, null, false, false, false);
 
         assertInvariantFailure(
                 kernel::componentComplete,
@@ -254,8 +249,7 @@ public final class ComponentKernelTest extends AbstractTest {
         final String name = ValueUtil.randomString();
         final Component component = context.component("MyType", 0);
 
-        final ComponentKernel kernel =
-                new ComponentKernel(context, name, 0, component, null, null, null, false, false, false);
+        final var kernel = new ComponentKernel(context, name, 0, component, null, null, null, false, false, false);
 
         assertInvariantFailure(
                 kernel::componentReady,
@@ -268,8 +262,7 @@ public final class ComponentKernelTest extends AbstractTest {
         final String name = ValueUtil.randomString();
         final Component component = context.component("MyType", 0);
 
-        final ComponentKernel kernel =
-                new ComponentKernel(context, name, 0, component, null, null, null, false, false, false);
+        final var kernel = new ComponentKernel(context, name, 0, component, null, null, null, false, false, false);
 
         assertInvariantFailure(
                 kernel::observe,
@@ -284,16 +277,15 @@ public final class ComponentKernelTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final String name = ValueUtil.randomString();
 
-        final ComponentKernel kernel =
-                new ComponentKernel(context, name, 0, null, null, null, null, false, true, false);
+        final var kernel = new ComponentKernel(context, name, 0, null, null, null, null, false, true, false);
 
         kernel.componentConstructed();
         kernel.componentReady();
 
         assertTrue(context.safeAction(kernel::observe));
 
-        final AtomicInteger disposedCallCount = new AtomicInteger();
-        final AtomicInteger notDisposedCallCount = new AtomicInteger();
+        final var disposedCallCount = new AtomicInteger();
+        final var notDisposedCallCount = new AtomicInteger();
         context.observer(() -> {
             context.observable().reportObserved();
             if (kernel.isDisposed()) {
@@ -323,13 +315,13 @@ public final class ComponentKernelTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final String name = ValueUtil.randomString();
 
-        final ComponentKernel kernel = new ComponentKernel(context, name, 0, null, null, null, null, false, true, true);
+        final var kernel = new ComponentKernel(context, name, 0, null, null, null, null, false, true, true);
 
         kernel.componentConstructed();
         kernel.componentReady();
 
-        final AtomicInteger disposedCallCount = new AtomicInteger();
-        final AtomicInteger notDisposedCallCount = new AtomicInteger();
+        final var disposedCallCount = new AtomicInteger();
+        final var notDisposedCallCount = new AtomicInteger();
         final Observer observer = context.observer(() -> {
             context.observable().reportObserved();
             if (kernel.isDisposed()) {
@@ -367,7 +359,7 @@ public final class ComponentKernelTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final String name = ValueUtil.randomString();
 
-        final ComponentKernel kernel = new ComponentKernel(
+        final var kernel = new ComponentKernel(
                 context,
                 name,
                 0,
@@ -398,11 +390,11 @@ public final class ComponentKernelTest extends AbstractTest {
     @Test
     public void addOnDisposeListener() {
         final ArezContext context = Arez.context();
-        final ComponentKernel kernel = new ComponentKernel(
+        final var kernel = new ComponentKernel(
                 context, "MyType", 1, context.component("MyType", 1), null, null, null, true, false, false);
 
         final String key = ValueUtil.randomString();
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         assertEquals(kernel.getOnDisposeListeners().size(), 0);
         assertEquals(callCount.get(), 0);
@@ -412,7 +404,7 @@ public final class ComponentKernelTest extends AbstractTest {
         assertEquals(kernel.getOnDisposeListeners().size(), 1);
         assertEquals(callCount.get(), 0);
 
-        kernel.getOnDisposeListeners().get(key).call();
+        Objects.requireNonNull(kernel.getOnDisposeListeners().get(key)).call();
 
         assertEquals(kernel.getOnDisposeListeners().size(), 1);
         assertEquals(callCount.get(), 1);
@@ -421,13 +413,13 @@ public final class ComponentKernelTest extends AbstractTest {
     @Test
     public void addOnDisposeListener_afterDispose() {
         final ArezContext context = Arez.context();
-        final ComponentKernel kernel = new ComponentKernel(
+        final var kernel = new ComponentKernel(
                 context, "MyType", 1, context.component("MyType", 1), null, null, null, true, false, false);
 
         kernel.dispose();
 
         final String key = ValueUtil.randomString();
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         assertInvariantFailure(
                 () -> kernel.addOnDisposeListener(key, callCount::incrementAndGet, true),
@@ -437,11 +429,11 @@ public final class ComponentKernelTest extends AbstractTest {
     @Test
     public void addOnDisposeListener_duplicate() {
         final ArezContext context = Arez.context();
-        final ComponentKernel kernel = new ComponentKernel(
+        final var kernel = new ComponentKernel(
                 context, "MyType", 1, context.component("MyType", 1), null, null, null, true, false, false);
 
         final String key = ValueUtil.randomString();
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         kernel.addOnDisposeListener(key, callCount::incrementAndGet, true);
 
@@ -456,11 +448,11 @@ public final class ComponentKernelTest extends AbstractTest {
     @Test
     public void removeOnDisposeListener() {
         final ArezContext context = Arez.context();
-        final ComponentKernel kernel = new ComponentKernel(
+        final var kernel = new ComponentKernel(
                 context, "MyType", 1, context.component("MyType", 1), null, null, null, true, false, false);
 
         final String key = ValueUtil.randomString();
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         assertEquals(kernel.getOnDisposeListeners().size(), 0);
 
@@ -476,11 +468,11 @@ public final class ComponentKernelTest extends AbstractTest {
     @Test
     public void removeOnDisposeListener_after_dispose() {
         final ArezContext context = Arez.context();
-        final ComponentKernel kernel = new ComponentKernel(
+        final var kernel = new ComponentKernel(
                 context, "MyType", 1, context.component("MyType", 1), null, null, null, true, false, false);
 
         final String key = ValueUtil.randomString();
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         kernel.addOnDisposeListener(key, callCount::incrementAndGet, true);
 
@@ -497,7 +489,7 @@ public final class ComponentKernelTest extends AbstractTest {
     @Test
     public void removeOnDisposeListener_notPresent() {
         final ArezContext context = Arez.context();
-        final ComponentKernel kernel = new ComponentKernel(
+        final var kernel = new ComponentKernel(
                 context, "MyType", 1, context.component("MyType", 1), null, null, null, true, false, false);
 
         final String key = ValueUtil.randomString();
@@ -513,7 +505,7 @@ public final class ComponentKernelTest extends AbstractTest {
     public void dispose() {
         final ArezContext context = Arez.context();
         final AtomicReference<ComponentKernel> ref = new AtomicReference<>();
-        final ComponentKernel kernel = new ComponentKernel(
+        final var kernel = new ComponentKernel(
                 context,
                 "MyType",
                 1,
@@ -527,7 +519,7 @@ public final class ComponentKernelTest extends AbstractTest {
         ref.set(kernel);
 
         final String key = ValueUtil.randomString();
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         assertEquals(callCount.get(), 0);
 
@@ -544,7 +536,7 @@ public final class ComponentKernelTest extends AbstractTest {
     public void notifyOnDisposeOperation() {
         final ArezContext context = Arez.context();
         final AtomicReference<ComponentKernel> ref = new AtomicReference<>();
-        final ComponentKernel kernel = new ComponentKernel(
+        final var kernel = new ComponentKernel(
                 context,
                 "MyType",
                 1,
@@ -564,9 +556,9 @@ public final class ComponentKernelTest extends AbstractTest {
         final String key1 = ValueUtil.randomString();
         final String key2 = ValueUtil.randomString();
         final String key3 = ValueUtil.randomString();
-        final AtomicInteger callCount1 = new AtomicInteger();
-        final AtomicInteger callCount2 = new AtomicInteger();
-        final AtomicInteger callCount3 = new AtomicInteger();
+        final var callCount1 = new AtomicInteger();
+        final var callCount2 = new AtomicInteger();
+        final var callCount3 = new AtomicInteger();
 
         assertEquals(callCount1.get(), 0);
         assertEquals(callCount2.get(), 0);
@@ -602,7 +594,7 @@ public final class ComponentKernelTest extends AbstractTest {
     public void disposeWhenAListenerHasDisposedKey() {
         final ArezContext context = Arez.context();
         final AtomicReference<ComponentKernel> ref = new AtomicReference<>();
-        final ComponentKernel kernel = new ComponentKernel(
+        final var kernel = new ComponentKernel(
                 context,
                 "MyType",
                 1,
@@ -616,7 +608,7 @@ public final class ComponentKernelTest extends AbstractTest {
         ref.set(kernel);
 
         final String key1 = ValueUtil.randomString();
-        final Disposable key2 = new Disposable() {
+        final var key2 = new Disposable() {
             @Override
             public void dispose() {}
 
@@ -625,8 +617,8 @@ public final class ComponentKernelTest extends AbstractTest {
                 return true;
             }
         };
-        final AtomicInteger callCount1 = new AtomicInteger();
-        final AtomicInteger callCount2 = new AtomicInteger();
+        final var callCount1 = new AtomicInteger();
+        final var callCount2 = new AtomicInteger();
 
         assertEquals(callCount1.get(), 0);
         assertEquals(callCount2.get(), 0);

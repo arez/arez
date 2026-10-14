@@ -109,7 +109,7 @@ public abstract class Scope {
         if (null != existing) {
             return existing;
         } else {
-            final Scope scope = Scope.create(this, name);
+            final var scope = Scope.create(this, name);
             _nestedScopes.put(name, scope);
             return scope;
         }

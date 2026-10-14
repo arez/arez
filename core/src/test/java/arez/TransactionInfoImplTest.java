@@ -11,7 +11,7 @@ public final class TransactionInfoImplTest extends AbstractTest {
     public void nonTracking_READ_WRITE() {
         final ArezContext context = Arez.context();
 
-        final Transaction transaction = new Transaction(context, null, ValueUtil.randomString(), true, null, false);
+        final var transaction = new Transaction(context, null, ValueUtil.randomString(), true, null, false);
         final TransactionInfo info = transaction.asInfo();
 
         assertEquals(info.getName(), transaction.getName());
@@ -24,7 +24,7 @@ public final class TransactionInfoImplTest extends AbstractTest {
     public void getTracker_whenNoTracker() {
         final ArezContext context = Arez.context();
 
-        final Transaction transaction = new Transaction(context, null, ValueUtil.randomString(), true, null, false);
+        final var transaction = new Transaction(context, null, ValueUtil.randomString(), true, null, false);
         final TransactionInfo info = transaction.asInfo();
 
         assertInvariantFailure(
@@ -37,7 +37,7 @@ public final class TransactionInfoImplTest extends AbstractTest {
         final ArezContext context = Arez.context();
 
         final Observer observer = context.computable(() -> "").getObserver();
-        final Transaction transaction =
+        final var transaction =
                 new Transaction(context, null, observer.getName(), observer.isMutation(), observer, false);
         final TransactionInfo info = transaction.asInfo();
 
@@ -55,14 +55,14 @@ public final class TransactionInfoImplTest extends AbstractTest {
         final Observer observer1 = context.observer(new CountAndObserveProcedure());
         final Observer observer2 = context.observer(new CountAndObserveProcedure());
 
-        final Transaction transaction1 = new Transaction(context, null, observer1.getName(), false, observer1, false);
-        final Transaction transaction2 =
-                new Transaction(context, transaction1, observer2.getName(), false, observer2, false);
+        final var transaction1 = new Transaction(context, null, observer1.getName(), false, observer1, false);
+        final var transaction2 = new Transaction(context, transaction1, observer2.getName(), false, observer2, false);
         final TransactionInfo info = transaction2.asInfo();
 
         assertEquals(info.getName(), transaction2.getName());
         final TransactionInfo parent = info.getParent();
         assertNotNull(parent);
+        assert null != parent;
         assertEquals(parent.getName(), transaction1.getName());
 
         // Ensure the same instance is returned if parent is called multiple times

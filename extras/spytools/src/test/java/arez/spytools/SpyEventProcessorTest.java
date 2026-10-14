@@ -15,7 +15,7 @@ import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
 public class SpyEventProcessorTest extends AbstractSpyToolsTest {
-    private class TestSpyEventProcessor extends AbstractSpyEventProcessor {
+    private static class TestSpyEventProcessor extends AbstractSpyEventProcessor {
         int _increaseNestingLevelCallCount;
         int _decreaseNestingLevelCallCount;
         int _handleUnhandledEventCallCount;
@@ -41,9 +41,8 @@ public class SpyEventProcessorTest extends AbstractSpyToolsTest {
 
     @Test
     public void handleUnhandledEvent() {
-        final TestSpyEventProcessor processor = new TestSpyEventProcessor();
-        final TransactionStartEvent event =
-                new TransactionStartEvent(ValueUtil.randomString(), ValueUtil.randomBoolean(), null);
+        final var processor = new TestSpyEventProcessor();
+        final var event = new TransactionStartEvent(ValueUtil.randomString(), ValueUtil.randomBoolean(), null);
 
         processor.onSpyEvent(event);
 
@@ -52,11 +51,10 @@ public class SpyEventProcessorTest extends AbstractSpyToolsTest {
 
     @Test
     public void increaseNesting() {
-        final TestSpyEventProcessor processor = new TestSpyEventProcessor();
-        final TransactionStartEvent event =
-                new TransactionStartEvent(ValueUtil.randomString(), ValueUtil.randomBoolean(), null);
+        final var processor = new TestSpyEventProcessor();
+        final var event = new TransactionStartEvent(ValueUtil.randomString(), ValueUtil.randomBoolean(), null);
 
-        final AtomicInteger handleCallCount = new AtomicInteger();
+        final var handleCallCount = new AtomicInteger();
         final BiConsumer<SpyUtil.NestingDelta, TransactionStartEvent> handler = (delta, e) -> {
             handleCallCount.incrementAndGet();
             assertEquals(delta, SpyUtil.NestingDelta.INCREASE);
@@ -74,19 +72,20 @@ public class SpyEventProcessorTest extends AbstractSpyToolsTest {
 
         assertEquals(handleCallCount.get(), 1);
         assertEquals(processor.getNestingLevel(), 1);
+        assertEquals(processor._increaseNestingLevelCallCount, 1);
         assertEquals(processor._handleUnhandledEventCallCount, 0);
     }
 
     @Test
     public void decreaseNesting() {
-        final TestSpyEventProcessor processor = new TestSpyEventProcessor();
-        final TransactionCompleteEvent event = new TransactionCompleteEvent(
+        final var processor = new TestSpyEventProcessor();
+        final var event = new TransactionCompleteEvent(
                 ValueUtil.randomString(),
                 ValueUtil.randomBoolean(),
                 null,
                 Math.min(1, Math.abs(ValueUtil.randomInt())));
 
-        final AtomicInteger handleCallCount = new AtomicInteger();
+        final var handleCallCount = new AtomicInteger();
         final BiConsumer<SpyUtil.NestingDelta, TransactionCompleteEvent> handler = (delta, e) -> {
             handleCallCount.incrementAndGet();
             assertEquals(delta, SpyUtil.NestingDelta.DECREASE);
@@ -103,22 +102,22 @@ public class SpyEventProcessorTest extends AbstractSpyToolsTest {
         processor.onSpyEvent(event);
 
         assertEquals(handleCallCount.get(), 1);
+        assertEquals(processor._decreaseNestingLevelCallCount, 1);
         assertEquals(processor.getNestingLevel(), -1);
         assertEquals(processor._handleUnhandledEventCallCount, 0);
     }
 
     @Test
     public void maintainNesting() {
-        final TestSpyEventProcessor processor = new TestSpyEventProcessor();
+        final var processor = new TestSpyEventProcessor();
 
         final ArezContext context = Arez.context();
         final ObservableValue<Object> observable = context.observable();
         final Observer observer = context.observer(observable::reportObserved);
 
-        final ObserverCreateEvent event =
-                new ObserverCreateEvent(context.getSpy().asObserverInfo(observer));
+        final var event = new ObserverCreateEvent(context.getSpy().asObserverInfo(observer));
 
-        final AtomicInteger handleCallCount = new AtomicInteger();
+        final var handleCallCount = new AtomicInteger();
         final BiConsumer<SpyUtil.NestingDelta, ObserverCreateEvent> handler = (delta, e) -> {
             handleCallCount.incrementAndGet();
             assertEquals(delta, SpyUtil.NestingDelta.NONE);
@@ -141,7 +140,7 @@ public class SpyEventProcessorTest extends AbstractSpyToolsTest {
 
     @Test
     public void onFailsOnDuplicates() {
-        final TestSpyEventProcessor processor = new TestSpyEventProcessor();
+        final var processor = new TestSpyEventProcessor();
 
         final BiConsumer<SpyUtil.NestingDelta, ObserverCreateEvent> handler = (delta, e) -> {};
         processor.on(ObserverCreateEvent.class, handler);

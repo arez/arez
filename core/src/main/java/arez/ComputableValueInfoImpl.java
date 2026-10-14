@@ -119,13 +119,13 @@ final class ComputableValueInfoImpl implements ComputableValueInfo {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (this == o) {
             return true;
         } else if (o == null || getClass() != o.getClass()) {
             return false;
         } else {
-            final ComputableValueInfoImpl that = (ComputableValueInfoImpl) o;
+            final var that = (ComputableValueInfoImpl) o;
             return _computableValue.equals(that._computableValue);
         }
     }

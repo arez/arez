@@ -28,7 +28,7 @@ public final class ArezUtilTest {
 
     @Test
     public void throwableToString_with_NestedThrowable() {
-        final RuntimeException exception = new RuntimeException("X", new IOException("Y"));
+        final var exception = new RuntimeException("X", new IOException("Y"));
         final String text = ArezUtil.throwableToString(exception);
         assertTrue(text.startsWith("java.lang.RuntimeException: X\n"));
         assertTrue(text.contains("\nCaused by: java.io.IOException: Y\n"));

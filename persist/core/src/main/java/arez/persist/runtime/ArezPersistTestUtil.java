@@ -58,7 +58,7 @@ public final class ArezPersistTestUtil {
                     "Unable to call ArezTestUtil.setLogger() as ArezPersist is in production mode");
         }
 
-        final LogUtil.ProxyLogger proxyLogger = (LogUtil.ProxyLogger) LogUtil.getLogger();
+        final var proxyLogger = (LogUtil.ProxyLogger) LogUtil.getLogger();
         proxyLogger.setLogger(null == logger ? null : logger::log);
     }
 

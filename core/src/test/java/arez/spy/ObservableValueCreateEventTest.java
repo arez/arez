@@ -8,6 +8,7 @@ import arez.ArezContext;
 import arez.ArezTestUtil;
 import arez.ObservableValue;
 import java.util.HashMap;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
 public final class ObservableValueCreateEventTest extends AbstractTest {
@@ -16,16 +17,17 @@ public final class ObservableValueCreateEventTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final ObservableValue<?> observableValue = context.observable("Foo@1");
         final ObservableValueInfo info = context.getSpy().asObservableValueInfo(observableValue);
-        final ObservableValueCreateEvent event = new ObservableValueCreateEvent(info);
+        final var event = new ObservableValueCreateEvent(info);
 
         assertEquals(event.getObservableValue(), info);
 
-        final HashMap<String, Object> data = new HashMap<>();
+        final HashMap<String, @Nullable Object> data = new HashMap<>();
         event.toMap(data);
 
         assertEquals(data.get("type"), "ObservableValueCreate");
         assertEquals(data.get("name"), "Foo@1");
         assertNotNull(data.get("zone"));
+        assert null != data.get("zone");
         assertEquals(data.size(), 3);
     }
 
@@ -36,9 +38,9 @@ public final class ObservableValueCreateEventTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final ObservableValue<?> observableValue = context.observable("Foo@1");
         final ObservableValueInfo info = context.getSpy().asObservableValueInfo(observableValue);
-        final ObservableValueCreateEvent event = new ObservableValueCreateEvent(info);
+        final var event = new ObservableValueCreateEvent(info);
 
-        final HashMap<String, Object> data = new HashMap<>();
+        final HashMap<String, @Nullable Object> data = new HashMap<>();
         event.toMap(data);
 
         assertEquals(data.get("type"), "ObservableValueCreate");

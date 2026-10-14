@@ -72,10 +72,11 @@ public final class ArezTestHook implements IHookable {
             if (field.getType().equals(ObserverErrorCollector.class)) {
                 field.setAccessible(true);
                 try {
-                    final ObserverErrorCollector collector = (ObserverErrorCollector) field.get(instance);
+                    final var collector = (ObserverErrorCollector) field.get(instance);
                     collector.clear();
                     linkObserverErrorCollector(collector);
                 } catch (final IllegalAccessException ignored) {
+                    // A collector inaccessible through reflection cannot be linked by this hook.
                 }
             }
         }

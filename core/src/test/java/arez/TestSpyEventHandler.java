@@ -33,7 +33,7 @@ public final class TestSpyEventHandler implements SpyEventHandler {
     }
 
     static TestSpyEventHandler subscribe(final ArezContext context) {
-        final TestSpyEventHandler handler = new TestSpyEventHandler(context);
+        final var handler = new TestSpyEventHandler(context);
         context.getSpy().addSpyEventHandler(handler);
         return handler;
     }
@@ -52,7 +52,7 @@ public final class TestSpyEventHandler implements SpyEventHandler {
     }
 
     private String eventsDebug() {
-        final AtomicInteger counter = new AtomicInteger(0);
+        final var counter = new AtomicInteger(0);
         return _events.stream()
                 .map(this::convertEventToString)
                 .map(s -> counter.getAndIncrement() + ": " + s)

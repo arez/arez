@@ -46,13 +46,14 @@ import org.jspecify.annotations.Nullable;
 public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
     @JsFunction
     private interface StringifyReplacerCallback {
-        Object replace(String key, Object value);
+        @Nullable
+        Object replace(String key, @Nullable Object value);
     }
 
     @JsType(isNative = true, name = "JSON", namespace = JsPackage.GLOBAL)
     private static final class NativeJSON {
         @JsMethod
-        private static native String stringify(Object value, StringifyReplacerCallback replacer);
+        private static native String stringify(@Nullable Object value, StringifyReplacerCallback replacer);
     }
 
     @JsType(isNative = true, name = "globalThis.console", namespace = JsPackage.GLOBAL)
@@ -70,7 +71,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
         private static native void log(Object message, Object styling);
 
         @JsMethod
-        private static native void log(Object message, Object styling, Object value);
+        private static native void log(Object message, Object styling, @Nullable Object value);
     }
 
     /*
@@ -491,7 +492,7 @@ public class ConsoleSpyEventProcessor extends AbstractSpyEventProcessor {
             return "()";
         } else {
             final StringifyReplacer filter = getStringifyReplacer();
-            final StringBuilder sb = new StringBuilder();
+            final var sb = new StringBuilder();
             sb.append("(");
             boolean requireComma = false;
             for (final Object parameter : parameters) {

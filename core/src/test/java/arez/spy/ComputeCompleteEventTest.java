@@ -8,6 +8,7 @@ import arez.ArezContext;
 import arez.ArezTestUtil;
 import arez.ComputableValue;
 import java.util.HashMap;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -17,14 +18,14 @@ public final class ComputeCompleteEventTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final ComputableValue<?> computableValue = context.computable("Foo@1", ValueUtil::randomString);
         final ComputableValueInfo info = context.getSpy().asComputableValueInfo(computableValue);
-        final Object result = new Object();
+        final var result = new Object();
         final int duration = 44;
-        final ComputeCompleteEvent event = new ComputeCompleteEvent(info, result, null, duration);
+        final var event = new ComputeCompleteEvent(info, result, null, duration);
 
         assertEquals(event.getComputableValue(), info);
         assertEquals(event.getDuration(), duration);
 
-        final HashMap<String, Object> data = new HashMap<>();
+        final HashMap<String, @Nullable Object> data = new HashMap<>();
         event.toMap(data);
 
         assertEquals(data.get("type"), "ComputeComplete");
@@ -33,6 +34,7 @@ public final class ComputeCompleteEventTest extends AbstractTest {
         assertNull(data.get("errorMessage"));
         assertEquals(data.get("duration"), duration);
         assertNotNull(data.get("zone"));
+        assert null != data.get("zone");
         assertEquals(data.size(), 6);
     }
 
@@ -42,12 +44,12 @@ public final class ComputeCompleteEventTest extends AbstractTest {
         final ComputableValue<?> computableValue = context.computable("Foo@1", ValueUtil::randomString);
         final ComputableValueInfo info = context.getSpy().asComputableValueInfo(computableValue);
         final int duration = 44;
-        final ComputeCompleteEvent event = new ComputeCompleteEvent(info, null, new Error("I am an error"), duration);
+        final var event = new ComputeCompleteEvent(info, null, new Error("I am an error"), duration);
 
         assertEquals(event.getComputableValue(), info);
         assertEquals(event.getDuration(), duration);
 
-        final HashMap<String, Object> data = new HashMap<>();
+        final HashMap<String, @Nullable Object> data = new HashMap<>();
         event.toMap(data);
 
         assertEquals(data.get("type"), "ComputeComplete");
@@ -56,6 +58,7 @@ public final class ComputeCompleteEventTest extends AbstractTest {
         assertEquals(data.get("errorMessage"), "I am an error");
         assertEquals(data.get("duration"), duration);
         assertNotNull(data.get("zone"));
+        assert null != data.get("zone");
         assertEquals(data.size(), 6);
     }
 
@@ -66,11 +69,11 @@ public final class ComputeCompleteEventTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final ComputableValue<?> computableValue = context.computable("Foo@1", ValueUtil::randomString);
         final ComputableValueInfo info = context.getSpy().asComputableValueInfo(computableValue);
-        final Object result = new Object();
+        final var result = new Object();
         final int duration = 44;
-        final ComputeCompleteEvent event = new ComputeCompleteEvent(info, result, null, duration);
+        final var event = new ComputeCompleteEvent(info, result, null, duration);
 
-        final HashMap<String, Object> data = new HashMap<>();
+        final HashMap<String, @Nullable Object> data = new HashMap<>();
         event.toMap(data);
 
         assertEquals(data.get("type"), "ComputeComplete");

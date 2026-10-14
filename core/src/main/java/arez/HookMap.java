@@ -1,5 +1,6 @@
 package arez;
 
+import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -52,11 +53,11 @@ final class HookMap {
     }
 
     String keyAt(final int index) {
-        return _keys[index];
+        return Objects.requireNonNull(_keys[index]);
     }
 
     Hook valueAt(final int index) {
-        return _values[index];
+        return Objects.requireNonNull(_values[index]);
     }
 
     private void ensureCapacity() {

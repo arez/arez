@@ -12,6 +12,7 @@ java_library(
         "ArezPersistProcessorTestSupport.java",
         "package-info.java",
     ],
+    migration_pending_checks = True,
     deps = [
         "//core",
         "//persist/core",

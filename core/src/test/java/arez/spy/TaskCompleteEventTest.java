@@ -8,6 +8,7 @@ import arez.ArezContext;
 import arez.ArezTestUtil;
 import arez.Task;
 import java.util.HashMap;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -18,12 +19,12 @@ public final class TaskCompleteEventTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final Task task = context.task(ValueUtil::randomString);
         final TaskInfo info = context.getSpy().asTaskInfo(task);
-        final TaskCompleteEvent event = new TaskCompleteEvent(info, null, duration);
+        final var event = new TaskCompleteEvent(info, null, duration);
 
         assertEquals(event.getTask(), info);
         assertEquals(event.getDuration(), duration);
 
-        final HashMap<String, Object> data = new HashMap<>();
+        final HashMap<String, @Nullable Object> data = new HashMap<>();
         event.toMap(data);
 
         assertEquals(data.get("type"), "TaskComplete");
@@ -31,22 +32,23 @@ public final class TaskCompleteEventTest extends AbstractTest {
         assertEquals(data.get("duration"), duration);
         assertNull(data.get("errorMessage"));
         assertNotNull(data.get("zone"));
+        assert null != data.get("zone");
         assertEquals(data.size(), 5);
     }
 
     @Test
     public void basicOperation_withError() {
         final int duration = 42;
-        final Throwable throwable = new Throwable("Boo!");
+        final var throwable = new Throwable("Boo!");
         final ArezContext context = Arez.context();
         final Task task = context.task(ValueUtil::randomString);
         final TaskInfo info = context.getSpy().asTaskInfo(task);
-        final TaskCompleteEvent event = new TaskCompleteEvent(info, throwable, duration);
+        final var event = new TaskCompleteEvent(info, throwable, duration);
 
         assertEquals(event.getTask(), info);
         assertEquals(event.getDuration(), duration);
 
-        final HashMap<String, Object> data = new HashMap<>();
+        final HashMap<String, @Nullable Object> data = new HashMap<>();
         event.toMap(data);
 
         assertEquals(data.get("type"), "TaskComplete");
@@ -54,6 +56,7 @@ public final class TaskCompleteEventTest extends AbstractTest {
         assertEquals(data.get("duration"), duration);
         assertEquals(data.get("errorMessage"), "Boo!");
         assertNotNull(data.get("zone"));
+        assert null != data.get("zone");
         assertEquals(data.size(), 5);
     }
 
@@ -65,9 +68,9 @@ public final class TaskCompleteEventTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final Task task = context.task(ValueUtil::randomString);
         final TaskInfo info = context.getSpy().asTaskInfo(task);
-        final TaskCompleteEvent event = new TaskCompleteEvent(info, null, duration);
+        final var event = new TaskCompleteEvent(info, null, duration);
 
-        final HashMap<String, Object> data = new HashMap<>();
+        final HashMap<String, @Nullable Object> data = new HashMap<>();
         event.toMap(data);
 
         assertEquals(data.get("type"), "TaskComplete");

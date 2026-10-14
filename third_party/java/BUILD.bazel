@@ -29,6 +29,11 @@ _java_library(
     exports = ["@sting//:processor"],
 )
 
+alias(
+    name = "nullaway_plugin",
+    actual = "@sting//third_party/java:nullaway_plugin",
+)
+
 # --- depgen-generated targets start ---
 
 # DO NOT EDIT: Content is auto-generated from //third_party/java:dependencies.yml by https://github.com/realityforge/bazel-depgen version 0.26

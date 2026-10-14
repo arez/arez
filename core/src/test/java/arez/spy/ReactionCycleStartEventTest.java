@@ -5,18 +5,20 @@ import static org.testng.Assert.*;
 import arez.AbstractTest;
 import arez.ArezTestUtil;
 import java.util.HashMap;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
 public final class ReactionCycleStartEventTest extends AbstractTest {
     @Test
     public void basicOperation() {
-        final ReactionCycleStartEvent event = new ReactionCycleStartEvent();
+        final var event = new ReactionCycleStartEvent();
 
-        final HashMap<String, Object> data = new HashMap<>();
+        final HashMap<String, @Nullable Object> data = new HashMap<>();
         event.toMap(data);
 
         assertEquals(data.get("type"), "ReactionCycleStart");
         assertNotNull(data.get("zone"));
+        assert null != data.get("zone");
         assertEquals(data.size(), 2);
     }
 
@@ -24,9 +26,9 @@ public final class ReactionCycleStartEventTest extends AbstractTest {
     public void basicOperation_zonesDisabled() {
         ArezTestUtil.disableZones();
 
-        final ReactionCycleStartEvent event = new ReactionCycleStartEvent();
+        final var event = new ReactionCycleStartEvent();
 
-        final HashMap<String, Object> data = new HashMap<>();
+        final HashMap<String, @Nullable Object> data = new HashMap<>();
         event.toMap(data);
 
         assertEquals(data.get("type"), "ReactionCycleStart");

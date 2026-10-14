@@ -106,7 +106,7 @@ public final class ComputableValueTest extends AbstractTest {
         ArezTestUtil.disableNativeComponents();
 
         final ArezContext context = Arez.context();
-        final Component component = new Component(
+        final var component = new Component(
                 context, ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString(), null, null);
 
         final String name = ValueUtil.randomString();
@@ -119,7 +119,7 @@ public final class ComputableValueTest extends AbstractTest {
     @Test
     public void basicLifecycle_withComponent() {
         final ArezContext context = Arez.context();
-        final Component component = new Component(
+        final var component = new Component(
                 context, ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString(), null, null);
 
         final String name = ValueUtil.randomString();
@@ -171,8 +171,8 @@ public final class ComputableValueTest extends AbstractTest {
         final AtomicReference<String> value = new AtomicReference<>();
         final String value1 = ValueUtil.randomString();
         final String value2 = ValueUtil.randomString();
-        final NoopProcedure onDeactivateHook1 = new NoopProcedure();
-        final NoopProcedure onDeactivateHook2 = new NoopProcedure();
+        final var onDeactivateHook1 = new NoopProcedure();
+        final var onDeactivateHook2 = new NoopProcedure();
         final SafeFunction<String> function = () -> {
             observeADependency();
             Arez.context().registerHook("1", null, onDeactivateHook1);
@@ -208,6 +208,7 @@ public final class ComputableValueTest extends AbstractTest {
         // The hooks should have been registered with the transaction
         final HookMap hooks = Transaction.current().getHooks();
         assertNotNull(hooks);
+        assert null != hooks;
         assertEquals(hooks.size(), 2);
         assertTrue(containsOnDeactivateHook(hooks, onDeactivateHook1));
         assertTrue(containsOnDeactivateHook(hooks, onDeactivateHook2));
@@ -424,6 +425,8 @@ public final class ComputableValueTest extends AbstractTest {
                 context.computable(ValueUtil::randomString, ComputableValue.Flags.AREZ_OR_NO_DEPENDENCIES);
 
         assertNotNull(context.safeAction(computableValue::get));
+
+        assert null != context.safeAction(computableValue::get);
     }
 
     @Test
@@ -531,7 +534,7 @@ public final class ComputableValueTest extends AbstractTest {
         setupReadOnlyTransaction(context);
 
         observer.setState(Observer.Flags.STATE_UP_TO_DATE);
-        final IllegalStateException error = new IllegalStateException();
+        final var error = new IllegalStateException();
         computableValue.setError(error);
 
         final IllegalStateException exception = expectThrows(IllegalStateException.class, computableValue::get);
@@ -554,7 +557,7 @@ public final class ComputableValueTest extends AbstractTest {
         setupReadOnlyTransaction(context);
 
         observer.setState(Observer.Flags.STATE_UP_TO_DATE);
-        final Error error = new Error();
+        final var error = new Error();
         computableValue.setError(error);
 
         final Error exception = expectThrows(Error.class, computableValue::get);
@@ -577,7 +580,7 @@ public final class ComputableValueTest extends AbstractTest {
         setupReadOnlyTransaction(context);
 
         observer.setState(Observer.Flags.STATE_UP_TO_DATE);
-        final IllegalStateException error = new IllegalStateException();
+        final var error = new IllegalStateException();
 
         computableValue.setValue("");
         computableValue.setError(error);
@@ -674,9 +677,9 @@ public final class ComputableValueTest extends AbstractTest {
     public void reportPossiblyChanged_observerUpToDate() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger computedCallCount = new AtomicInteger();
-        final AtomicInteger autorunCallCount = new AtomicInteger();
-        final AtomicInteger result = new AtomicInteger();
+        final var computedCallCount = new AtomicInteger();
+        final var autorunCallCount = new AtomicInteger();
+        final var result = new AtomicInteger();
         final AtomicReference<String> expected = new AtomicReference<>();
 
         final ObservableValue<Object> observableValue = context.observable();
@@ -727,8 +730,8 @@ public final class ComputableValueTest extends AbstractTest {
     public void reportPossiblyChanged_readOnlyTransaction() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger computedCallCount = new AtomicInteger();
-        final AtomicInteger autorunCallCount = new AtomicInteger();
+        final var computedCallCount = new AtomicInteger();
+        final var autorunCallCount = new AtomicInteger();
 
         final ObservableValue<Object> observableValue = context.observable();
 
@@ -783,8 +786,8 @@ public final class ComputableValueTest extends AbstractTest {
     public void reportPossiblyChanged_computedAlreadyScheduled() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger computedCallCount = new AtomicInteger();
-        final AtomicInteger autorunCallCount = new AtomicInteger();
+        final var computedCallCount = new AtomicInteger();
+        final var autorunCallCount = new AtomicInteger();
 
         final ObservableValue<Object> observableValue = context.observable();
 
@@ -854,7 +857,7 @@ public final class ComputableValueTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final ObservableValue<Object> observable = context.observable();
 
-        final AtomicInteger calls = new AtomicInteger();
+        final var calls = new AtomicInteger();
         final SafeFunction<String> function = () -> {
             observable.reportObserved();
             calls.incrementAndGet();
@@ -920,7 +923,7 @@ public final class ComputableValueTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final ObservableValue<Object> observable = context.observable();
 
-        final AtomicInteger calls = new AtomicInteger();
+        final var calls = new AtomicInteger();
         final SafeFunction<String> function = () -> {
             observable.reportObserved();
             calls.incrementAndGet();
@@ -975,7 +978,7 @@ public final class ComputableValueTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final ObservableValue<Object> observable = context.observable();
 
-        final AtomicInteger calls = new AtomicInteger();
+        final var calls = new AtomicInteger();
         final SafeFunction<String> function = () -> {
             observable.reportObserved();
             calls.incrementAndGet();
@@ -1087,7 +1090,7 @@ public final class ComputableValueTest extends AbstractTest {
     public void lazyValidationDoesNotTrackTransitiveComputableDependencies() {
         final ArezContext context = Arez.context();
         final ObservableValue<Object> source = context.observable();
-        final AtomicInteger sourceValue = new AtomicInteger(1);
+        final var sourceValue = new AtomicInteger(1);
 
         final ComputableValue<Integer> leaf = context.computable(() -> {
             source.reportObserved();
@@ -1118,7 +1121,7 @@ public final class ComputableValueTest extends AbstractTest {
     public void lazyValidationSuppressionDoesNotHideLaterDirectReadInSameTransaction() {
         final ArezContext context = Arez.context();
         final ObservableValue<Object> source = context.observable();
-        final AtomicInteger sourceValue = new AtomicInteger(1);
+        final var sourceValue = new AtomicInteger(1);
 
         final ComputableValue<Integer> leaf = context.computable(() -> {
             source.reportObserved();
@@ -1148,9 +1151,9 @@ public final class ComputableValueTest extends AbstractTest {
     public void lazyValidationChangeStillPropagatesThroughImmediateEdges() {
         final ArezContext context = Arez.context();
         final ObservableValue<Object> source = context.observable();
-        final AtomicInteger sourceValue = new AtomicInteger(1);
-        final AtomicInteger expectedValue = new AtomicInteger(1);
-        final AtomicInteger observerCallCount = new AtomicInteger();
+        final var sourceValue = new AtomicInteger(1);
+        final var expectedValue = new AtomicInteger(1);
+        final var observerCallCount = new AtomicInteger();
 
         final ComputableValue<Integer> leaf = context.computable(() -> {
             source.reportObserved();
@@ -1182,8 +1185,8 @@ public final class ComputableValueTest extends AbstractTest {
     public void lazyValidationEqualityComparatorNoChangeDoesNotTrackTransitiveComputableDependencies() {
         final ArezContext context = Arez.context();
         final ObservableValue<Object> source = context.observable();
-        final AtomicInteger sourceValue = new AtomicInteger(1);
-        final AtomicInteger observerCallCount = new AtomicInteger();
+        final var sourceValue = new AtomicInteger(1);
+        final var observerCallCount = new AtomicInteger();
         final EqualityComparator comparator = (oldValue, newValue) ->
                 null != oldValue && null != newValue && (int) oldValue % 2 == (int) newValue % 2;
 
@@ -1216,9 +1219,9 @@ public final class ComputableValueTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final ObservableValue<Object> source1 = context.observable();
         final ObservableValue<Object> source2 = context.observable();
-        final AtomicInteger source1Value = new AtomicInteger(1);
-        final AtomicInteger source2Value = new AtomicInteger(1);
-        final AtomicInteger secondComputeCallCount = new AtomicInteger();
+        final var source1Value = new AtomicInteger(1);
+        final var source2Value = new AtomicInteger(1);
+        final var secondComputeCallCount = new AtomicInteger();
 
         final ComputableValue<Integer> first = context.computable(() -> {
             source1.reportObserved();
@@ -1273,7 +1276,7 @@ public final class ComputableValueTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final ObservableValue<Object> source1 = context.observable();
         final ObservableValue<Object> source2 = context.observable();
-        final AtomicBoolean useSource1 = new AtomicBoolean(true);
+        final var useSource1 = new AtomicBoolean(true);
 
         final ComputableValue<Integer> leaf = context.computable(() -> {
             if (useSource1.get()) {
@@ -1307,7 +1310,7 @@ public final class ComputableValueTest extends AbstractTest {
     public void lazyValidationSuppressesReadOutsideTransactionDependencyObservation() {
         final ArezContext context = Arez.context();
         final ObservableValue<Object> source = context.observable();
-        final AtomicInteger sourceValue = new AtomicInteger(1);
+        final var sourceValue = new AtomicInteger(1);
 
         final ComputableValue<Integer> leaf = context.computable(
                 () -> {
@@ -1338,8 +1341,8 @@ public final class ComputableValueTest extends AbstractTest {
 
         final ArezContext context = Arez.context();
         final ObservableValue<Object> source = context.observable();
-        final AtomicBoolean throwException = new AtomicBoolean();
-        final AtomicInteger observerCallCount = new AtomicInteger();
+        final var throwException = new AtomicBoolean();
+        final var observerCallCount = new AtomicInteger();
 
         final ComputableValue<Integer> leaf = context.computable(() -> {
             source.reportObserved();
@@ -1380,7 +1383,7 @@ public final class ComputableValueTest extends AbstractTest {
 
         final ArezContext context = Arez.context();
         final ObservableValue<Object> source = context.observable();
-        final AtomicInteger observerCallCount = new AtomicInteger();
+        final var observerCallCount = new AtomicInteger();
 
         final ComputableValue<Integer> leaf = context.computable(() -> {
             source.reportObserved();
@@ -1412,11 +1415,11 @@ public final class ComputableValueTest extends AbstractTest {
     public void lazyValidationDoesNotMoveDependencyHooksToOuterComputable() {
         final ArezContext context = Arez.context();
         final ObservableValue<Object> source = context.observable();
-        final AtomicInteger sourceValue = new AtomicInteger(1);
-        final TestProcedure leafOnActivate = new TestProcedure();
-        final TestProcedure leafOnDeactivate = new TestProcedure();
-        final TestProcedure downstreamOnActivate = new TestProcedure();
-        final TestProcedure downstreamOnDeactivate = new TestProcedure();
+        final var sourceValue = new AtomicInteger(1);
+        final var leafOnActivate = new TestProcedure();
+        final var leafOnDeactivate = new TestProcedure();
+        final var downstreamOnActivate = new TestProcedure();
+        final var downstreamOnDeactivate = new TestProcedure();
 
         final ComputableValue<Integer> leaf = context.computable(() -> {
             source.reportObserved();
@@ -1453,7 +1456,7 @@ public final class ComputableValueTest extends AbstractTest {
     public void lazyValidationWithLowerPriorityDependencyDoesNotTrackTransitiveComputableDependencies() {
         final ArezContext context = Arez.context();
         final ObservableValue<Object> source = context.observable();
-        final AtomicInteger sourceValue = new AtomicInteger(1);
+        final var sourceValue = new AtomicInteger(1);
 
         final ComputableValue<Integer> leaf = context.computable(() -> {
             source.reportObserved();
@@ -1486,7 +1489,7 @@ public final class ComputableValueTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final ObservableValue<Object> source = context.observable();
         final ObservableValue<Object> branch = context.observable();
-        final AtomicBoolean useMiddle = new AtomicBoolean(true);
+        final var useMiddle = new AtomicBoolean(true);
 
         final ComputableValue<Integer> leaf = context.computable(() -> {
             source.reportObserved();
@@ -1518,7 +1521,7 @@ public final class ComputableValueTest extends AbstractTest {
     public void leastStaleObserverStateMaintainedCorrectly() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger value = new AtomicInteger();
+        final var value = new AtomicInteger();
         value.set(1);
         final ComputableValue<Integer> computable1 =
                 context.computable(value::get, ComputableValue.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES);

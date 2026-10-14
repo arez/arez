@@ -16,14 +16,14 @@ public final class IdentifiableTest extends AbstractTest {
 
     @Test
     public void identifiableElement() {
-        final TestElement element = new TestElement();
+        final var element = new TestElement();
         assertEquals(Identifiable.getArezId(element), "X");
         assertEquals(Identifiable.<String>asIdentifiable(element), element);
     }
 
     @Test
     public void nonIdentifiableElement() {
-        final Object element = new Object();
+        final var element = new Object();
         assertNull(Identifiable.getArezId(element));
         assertInvariantFailure(
                 () -> Identifiable.asIdentifiable(element),

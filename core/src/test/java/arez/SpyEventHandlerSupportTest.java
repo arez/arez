@@ -10,11 +10,11 @@ import org.testng.annotations.Test;
 public final class SpyEventHandlerSupportTest extends AbstractTest {
     @Test
     public void basicOperation() {
-        final SpyEventHandlerSupport support = new SpyEventHandlerSupport();
+        final var support = new SpyEventHandlerSupport();
 
-        final Object event = new Object();
+        final var event = new Object();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final SpyEventHandler handler = e -> {
             callCount.incrementAndGet();
@@ -45,11 +45,11 @@ public final class SpyEventHandlerSupportTest extends AbstractTest {
 
     @Test
     public void reportSpyEvent_whenNoListeners() {
-        final SpyEventHandlerSupport support = new SpyEventHandlerSupport();
+        final var support = new SpyEventHandlerSupport();
 
         assertFalse(support.willPropagateSpyEvents());
 
-        final Object event = new Object();
+        final var event = new Object();
 
         assertInvariantFailure(
                 () -> support.reportSpyEvent(event),
@@ -58,7 +58,7 @@ public final class SpyEventHandlerSupportTest extends AbstractTest {
 
     @Test
     public void addSpyEventHandler_alreadyExists() {
-        final SpyEventHandlerSupport support = new SpyEventHandlerSupport();
+        final var support = new SpyEventHandlerSupport();
 
         final SpyEventHandler handler = new TestSpyEventHandler(Arez.context());
         support.addSpyEventHandler(handler);
@@ -71,7 +71,7 @@ public final class SpyEventHandlerSupportTest extends AbstractTest {
 
     @Test
     public void removeSpyEventHandler_noExists() {
-        final SpyEventHandlerSupport support = new SpyEventHandlerSupport();
+        final var support = new SpyEventHandlerSupport();
 
         final SpyEventHandler handler = new TestSpyEventHandler(Arez.context());
 
@@ -82,13 +82,13 @@ public final class SpyEventHandlerSupportTest extends AbstractTest {
 
     @Test
     public void multipleHandlers() {
-        final SpyEventHandlerSupport support = new SpyEventHandlerSupport();
+        final var support = new SpyEventHandlerSupport();
 
-        final Object event = new Object();
+        final var event = new Object();
 
-        final AtomicInteger callCount1 = new AtomicInteger();
-        final AtomicInteger callCount2 = new AtomicInteger();
-        final AtomicInteger callCount3 = new AtomicInteger();
+        final var callCount1 = new AtomicInteger();
+        final var callCount2 = new AtomicInteger();
+        final var callCount3 = new AtomicInteger();
 
         final SpyEventHandler handler1 = e -> callCount1.incrementAndGet();
         final SpyEventHandler handler2 = e -> callCount2.incrementAndGet();
@@ -114,14 +114,14 @@ public final class SpyEventHandlerSupportTest extends AbstractTest {
 
     @Test
     public void onSpyEvent_whereOneHandlerGeneratesError() {
-        final SpyEventHandlerSupport support = new SpyEventHandlerSupport();
+        final var support = new SpyEventHandlerSupport();
 
-        final Object event = new Object();
+        final var event = new Object();
 
-        final AtomicInteger callCount1 = new AtomicInteger();
-        final AtomicInteger callCount3 = new AtomicInteger();
+        final var callCount1 = new AtomicInteger();
+        final var callCount3 = new AtomicInteger();
 
-        final RuntimeException exception = new RuntimeException("X");
+        final var exception = new RuntimeException("X");
 
         final SpyEventHandler handler1 = e -> callCount1.incrementAndGet();
         final SpyEventHandler handler2 = e -> {

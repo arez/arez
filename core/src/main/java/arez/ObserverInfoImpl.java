@@ -120,13 +120,13 @@ final class ObserverInfoImpl implements ObserverInfo {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (this == o) {
             return true;
         } else if (o == null || getClass() != o.getClass()) {
             return false;
         } else {
-            final ObserverInfoImpl that = (ObserverInfoImpl) o;
+            final var that = (ObserverInfoImpl) o;
             return _observer.equals(that._observer);
         }
     }

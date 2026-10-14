@@ -58,7 +58,7 @@ public class StringifyReplacer {
                     _array.setAt(_array.getLength(), value);
 
                     final JsArrayLike<String> propertyNames = NativeObject.getOwnPropertyNames(Js.asPropertyMap(value));
-                    final JsPropertyMap<Object> map = JsPropertyMap.of();
+                    final var map = JsPropertyMap.of();
                     for (int i = 0; i < propertyNames.getLength(); i++) {
                         final String propertyName = propertyNames.getAt(i);
                         if (includeProperty(value, propertyName)) {

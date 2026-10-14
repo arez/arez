@@ -12,7 +12,7 @@ public final class ArezLoggerTest extends AbstractTest {
         final String message1 = ValueUtil.randomString();
         final String message2 = ValueUtil.randomString();
         ArezLogger.log(message1, null);
-        final Throwable throwable = new Throwable();
+        final var throwable = new Throwable();
         ArezLogger.log(message2, throwable);
 
         final List<TestLogger.LogEntry> entries = getTestLogger().getEntries();

@@ -12,6 +12,7 @@ public final class ArezTest extends AbstractTest {
 
         final ArezContext context1 = Arez.context();
         assertNotNull(context1);
+        assert null != context1;
         final ArezContext context2 = Arez.context();
         //noinspection SimplifiableAssertion
         assertTrue(context1 == context2);

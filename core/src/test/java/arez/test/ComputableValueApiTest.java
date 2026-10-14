@@ -32,9 +32,9 @@ import org.testng.annotations.Test;
 public final class ComputableValueApiTest extends AbstractTest {
     @Test
     public void reportPossiblyChanged() {
-        final AtomicInteger observerCallCount = new AtomicInteger();
-        final AtomicInteger computedCallCount = new AtomicInteger();
-        final AtomicInteger result = new AtomicInteger();
+        final var observerCallCount = new AtomicInteger();
+        final var computedCallCount = new AtomicInteger();
+        final var result = new AtomicInteger();
 
         result.set(42);
 
@@ -78,8 +78,8 @@ public final class ComputableValueApiTest extends AbstractTest {
 
     @Test
     public void reportPossiblyChanged_notObserved() {
-        final AtomicInteger computedCallCount = new AtomicInteger();
-        final AtomicInteger result = new AtomicInteger();
+        final var computedCallCount = new AtomicInteger();
+        final var result = new AtomicInteger();
 
         result.set(42);
 
@@ -108,8 +108,8 @@ public final class ComputableValueApiTest extends AbstractTest {
     @Test
     public void reportPossiblyChanged_onDisposedWithInvariantsDisabled() {
         ArezTestUtil.noCheckInvariants();
-        final AtomicInteger computedCallCount = new AtomicInteger();
-        final AtomicInteger result = new AtomicInteger();
+        final var computedCallCount = new AtomicInteger();
+        final var result = new AtomicInteger();
 
         result.set(42);
 
@@ -131,8 +131,8 @@ public final class ComputableValueApiTest extends AbstractTest {
 
     @Test
     public void computedWithNoDependencies() {
-        final AtomicInteger observerCallCount = new AtomicInteger();
-        final AtomicInteger computedCallCount = new AtomicInteger();
+        final var observerCallCount = new AtomicInteger();
+        final var computedCallCount = new AtomicInteger();
 
         final ArezContext context = Arez.context();
         final ComputableValue<Integer> computableValue = context.computable(
@@ -160,7 +160,7 @@ public final class ComputableValueApiTest extends AbstractTest {
     public void arezOrExternalDependencies() throws Throwable {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger calls = new AtomicInteger();
+        final var calls = new AtomicInteger();
         final AtomicReference<String> result = new AtomicReference<>();
         result.set("");
         final SafeFunction<String> action = () -> {
@@ -172,7 +172,7 @@ public final class ComputableValueApiTest extends AbstractTest {
                 action,
                 ComputableValue.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES | ComputableValue.Flags.KEEPALIVE);
 
-        final AtomicInteger observerCallCount = new AtomicInteger();
+        final var observerCallCount = new AtomicInteger();
         context.observer(() -> {
             observerCallCount.incrementAndGet();
             computableValue.get();
@@ -207,7 +207,7 @@ public final class ComputableValueApiTest extends AbstractTest {
     public void keepAlive() throws Throwable {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger calls = new AtomicInteger();
+        final var calls = new AtomicInteger();
         final SafeFunction<String> action = () -> {
             observeADependency();
             calls.incrementAndGet();
@@ -234,7 +234,7 @@ public final class ComputableValueApiTest extends AbstractTest {
 
         final ObservableValue<Object> observable = Arez.context().observable();
 
-        final AtomicInteger calls = new AtomicInteger();
+        final var calls = new AtomicInteger();
         final SafeFunction<String> action = () -> {
             observable.reportObserved();
             calls.incrementAndGet();
@@ -338,7 +338,7 @@ public final class ComputableValueApiTest extends AbstractTest {
 
         final ObservableValue<Object> observable = Arez.context().observable();
 
-        final AtomicInteger calls = new AtomicInteger();
+        final var calls = new AtomicInteger();
         final SafeFunction<String> action = () -> {
             observable.reportObserved();
             calls.incrementAndGet();
@@ -492,8 +492,8 @@ public final class ComputableValueApiTest extends AbstractTest {
 
     @Test
     public void readOutsideTransaction() {
-        final AtomicInteger computedCallCount = new AtomicInteger();
-        final AtomicInteger result = new AtomicInteger();
+        final var computedCallCount = new AtomicInteger();
+        final var result = new AtomicInteger();
 
         result.set(42);
 

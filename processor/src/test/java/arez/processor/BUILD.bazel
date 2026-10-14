@@ -13,6 +13,7 @@ java_library(
         "ArezProcessorTestSupport.java",
         "package-info.java",
     ],
+    migration_pending_checks = True,
     deps = [
         "//core",
         "//processor",

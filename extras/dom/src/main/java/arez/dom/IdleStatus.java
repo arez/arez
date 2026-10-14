@@ -156,7 +156,7 @@ public abstract class IdleStatus {
     @OnActivate
     void onIdleActivate() {
         _active = true;
-        final AddEventListenerOptions options = new AddEventListenerOptions();
+        final var options = new AddEventListenerOptions();
         options.setPassive(true);
         _events.forEach(e -> addEventListener(e, _listener, options));
     }

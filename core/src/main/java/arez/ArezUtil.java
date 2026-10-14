@@ -40,7 +40,7 @@ final class ArezUtil {
      * @return the stack trace.
      */
     static String throwableToString(final Throwable throwable) {
-        final StringBuilder sb = new StringBuilder();
+        final var sb = new StringBuilder();
         Throwable t = throwable;
         while (null != t) {
             addCausedByPrefix(sb);

@@ -29,7 +29,7 @@ public final class ExternalApiTest extends AbstractTest {
     @Test
     public void triggerScheduler() {
         final ArezContext context = Arez.context();
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final Procedure action = () -> {
             observeADependency();
@@ -167,9 +167,9 @@ public final class ExternalApiTest extends AbstractTest {
     public void ComputableValue_reportPossiblyChanged() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger computedCallCount = new AtomicInteger();
-        final AtomicInteger autorunCallCount = new AtomicInteger();
-        final AtomicInteger result = new AtomicInteger();
+        final var computedCallCount = new AtomicInteger();
+        final var autorunCallCount = new AtomicInteger();
+        final var result = new AtomicInteger();
         final AtomicReference<String> expected = new AtomicReference<>();
 
         final SafeFunction<String> function = () -> {
@@ -220,7 +220,7 @@ public final class ExternalApiTest extends AbstractTest {
         ignoreObserverErrors();
         final ArezContext context = Arez.context();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final ObserverErrorHandler handler = (observer, error, throwable) -> callCount.incrementAndGet();
         context.addObserverErrorHandler(handler);
@@ -245,7 +245,7 @@ public final class ExternalApiTest extends AbstractTest {
     public void spyEventHandler() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final SpyEventHandler handler = e -> callCount.incrementAndGet();
         context.getSpy().addSpyEventHandler(handler);
@@ -270,7 +270,7 @@ public final class ExternalApiTest extends AbstractTest {
         final ObservableValue<?> observableValue = context.observable();
         assertEquals(observableValue.getContext(), context);
 
-        final AtomicInteger reactionCount = new AtomicInteger();
+        final var reactionCount = new AtomicInteger();
 
         final Observer observer = context.observer(() -> {
             observableValue.reportObserved();
@@ -302,7 +302,7 @@ public final class ExternalApiTest extends AbstractTest {
 
         final ObservableValue<?> observableValue = context.observable();
 
-        final AtomicInteger reactionCount = new AtomicInteger();
+        final var reactionCount = new AtomicInteger();
 
         final Observer observer = context.observer(() -> {
             observableValue.reportObserved();
@@ -328,7 +328,7 @@ public final class ExternalApiTest extends AbstractTest {
         final ObservableValue<?> observableValue3 = context.observable();
         final ObservableValue<?> observableValue4 = context.observable();
 
-        final AtomicInteger reactionCount = new AtomicInteger();
+        final var reactionCount = new AtomicInteger();
 
         final Observer observer = context.observer(() -> {
             observableValue1.reportObserved();
@@ -507,8 +507,8 @@ public final class ExternalApiTest extends AbstractTest {
         final ObservableValue<?> observableValue1 = context1.observable();
         final ObservableValue<?> observableValue2 = context2.observable();
 
-        final AtomicInteger observerCallCount1 = new AtomicInteger();
-        final AtomicInteger observerCallCount2 = new AtomicInteger();
+        final var observerCallCount1 = new AtomicInteger();
+        final var observerCallCount2 = new AtomicInteger();
 
         context1.observer(() -> {
             observableValue1.reportObserved();
@@ -581,7 +581,7 @@ public final class ExternalApiTest extends AbstractTest {
         final SchedulerLock lock1 = context.pauseScheduler();
         assertTrue(context.isSchedulerPaused());
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         // This would normally be scheduled and run now but scheduler should be paused
         context.observer(

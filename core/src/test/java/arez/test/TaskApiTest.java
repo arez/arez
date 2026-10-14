@@ -23,7 +23,7 @@ public final class TaskApiTest extends AbstractTest {
     public void task() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
@@ -32,6 +32,7 @@ public final class TaskApiTest extends AbstractTest {
 
         assertEquals(callCount.get(), 1);
         assertNotNull(task);
+        assert null != task;
         assertFalse(task.isDisposed());
 
         handler.assertEventCount(4);
@@ -50,7 +51,7 @@ public final class TaskApiTest extends AbstractTest {
     public void task_withError() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final TestSpyEventHandler handler = TestSpyEventHandler.subscribe();
 
@@ -65,6 +66,7 @@ public final class TaskApiTest extends AbstractTest {
 
         assertEquals(callCount.get(), 1);
         assertNotNull(task);
+        assert null != task;
         assertFalse(task.isDisposed());
 
         handler.unsubscribe();
@@ -76,6 +78,7 @@ public final class TaskApiTest extends AbstractTest {
         handler.assertNextEvent(TaskCompleteEvent.class, e -> {
             assertEquals(e.getTask().getName(), name);
             assertNotNull(e.getThrowable());
+            assert null != e.getThrowable();
             assertEquals(e.getThrowable().getMessage(), "Foo");
             assertTrue(e.getDuration() >= 0);
         });
@@ -86,18 +89,19 @@ public final class TaskApiTest extends AbstractTest {
     public void task_DISPOSE_ON_COMPLETE() {
         final ArezContext context = Arez.context();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final Task task = context.task(callCount::incrementAndGet, Task.Flags.DISPOSE_ON_COMPLETE);
 
         assertEquals(callCount.get(), 1);
         assertNotNull(task);
+        assert null != task;
         assertTrue(task.isDisposed());
     }
 
     @Test
     public void schedule() {
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final Task task = Arez.context().task(callCount::incrementAndGet);
 
         assertEquals(callCount.get(), 1);
@@ -109,7 +113,7 @@ public final class TaskApiTest extends AbstractTest {
 
     @Test
     public void schedule_whileSchedulerPaused() {
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final ArezContext context = Arez.context();
         final SchedulerLock schedulerLock = context.pauseScheduler();
 
@@ -129,7 +133,7 @@ public final class TaskApiTest extends AbstractTest {
 
     @Test
     public void schedule_insideTask() {
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final ArezContext context = Arez.context();
         final AtomicReference<Task> taskRef = new AtomicReference<>();
         context.task(() -> {
@@ -148,7 +152,7 @@ public final class TaskApiTest extends AbstractTest {
 
     @Test
     public void schedule_insideObserver() {
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final ArezContext context = Arez.context();
         final AtomicReference<Task> taskRef = new AtomicReference<>();
         context.observer(

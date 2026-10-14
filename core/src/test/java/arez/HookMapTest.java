@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public final class HookMapTest extends AbstractTest {
     @Test
     public void empty() {
-        final HookMap map = new HookMap();
+        final var map = new HookMap();
 
         assertEquals(map.size(), 0);
         assertTrue(map.isEmpty());
@@ -17,7 +17,7 @@ public final class HookMapTest extends AbstractTest {
 
     @Test
     public void put_appendsInInsertionOrder() {
-        final HookMap map = new HookMap();
+        final var map = new HookMap();
         final Hook hook1 = hook();
         final Hook hook2 = hook();
         final Hook hook3 = hook();
@@ -36,7 +36,7 @@ public final class HookMapTest extends AbstractTest {
 
     @Test
     public void put_replacesExistingValueWithoutReordering() {
-        final HookMap map = new HookMap();
+        final var map = new HookMap();
         final Hook hook1 = hook();
         final Hook hook2 = hook();
         final Hook hook3 = hook();
@@ -53,7 +53,7 @@ public final class HookMapTest extends AbstractTest {
 
     @Test
     public void clear_andReuse() {
-        final HookMap map = new HookMap();
+        final var map = new HookMap();
         map.put("A", hook());
         map.put("B", hook());
 
@@ -74,7 +74,7 @@ public final class HookMapTest extends AbstractTest {
 
     @Test
     public void growthPreservesOrder() {
-        final HookMap map = new HookMap();
+        final var map = new HookMap();
 
         for (int i = 0; i < 6; i++) {
             map.put("K" + i, hook());
@@ -91,7 +91,7 @@ public final class HookMapTest extends AbstractTest {
     }
 
     private static void assertOrder(final HookMap map, final String expected) {
-        final StringBuilder sb = new StringBuilder();
+        final var sb = new StringBuilder();
         for (int i = 0; i < map.size(); i++) {
             if (0 != i) {
                 sb.append(',');

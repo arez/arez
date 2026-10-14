@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 public final class TypeBasedLocatorTest extends AbstractTest {
     @Test
     public void basicOperation() {
-        final TypeBasedLocator locator = new TypeBasedLocator();
+        final var locator = new TypeBasedLocator();
 
         assertNull(locator.findById(A.class, 23));
 
@@ -20,7 +20,7 @@ public final class TypeBasedLocatorTest extends AbstractTest {
 
         assertNull(locator.findById(A.class, 23));
 
-        final A entity = new A();
+        final var entity = new A();
         entities.put(23, entity);
 
         assertEquals(locator.findById(A.class, 23), entity);
@@ -28,7 +28,7 @@ public final class TypeBasedLocatorTest extends AbstractTest {
 
     @Test
     public void registerLookup_duplicate() {
-        final TypeBasedLocator locator = new TypeBasedLocator();
+        final var locator = new TypeBasedLocator();
 
         locator.registerLookup(A.class, i -> new A());
 

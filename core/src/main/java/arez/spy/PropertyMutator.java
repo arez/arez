@@ -15,5 +15,5 @@ public interface PropertyMutator<T extends @Nullable Object> {
      * @param value the value of an ObservableValue.
      * @throws Throwable if unable to set value.
      */
-    void set(T value) throws Throwable;
+    void set(@Nullable T value) throws Throwable;
 }

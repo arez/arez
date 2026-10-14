@@ -528,6 +528,7 @@ public final class ObservableValue<T extends @Nullable Object> extends Node {
             try {
                 return getAccessor().get();
             } catch (final Throwable ignored) {
+                // Introspection failure must not interrupt change propagation.
             }
         }
         return null;
@@ -538,8 +539,9 @@ public final class ObservableValue<T extends @Nullable Object> extends Node {
      *
      * @return the info associated with this class.
      */
-    @SuppressWarnings("ConstantConditions")
     @OmitSymbol(unless = "arez.enable_spies")
+    // Valid calls require spies enabled; disabled variants eliminate this method.
+    @SuppressWarnings({"NullAway", "ReturnMissingNullable"})
     ObservableValueInfo asInfo() {
         if (Arez.shouldCheckInvariants()) {
             invariant(

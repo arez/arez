@@ -140,13 +140,13 @@ final class ObservableValueInfoImpl implements ObservableValueInfo {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (this == o) {
             return true;
         } else if (o == null || getClass() != o.getClass()) {
             return false;
         } else {
-            final ObservableValueInfoImpl that = (ObservableValueInfoImpl) o;
+            final var that = (ObservableValueInfoImpl) o;
             return _observableValue.equals(that._observableValue);
         }
     }

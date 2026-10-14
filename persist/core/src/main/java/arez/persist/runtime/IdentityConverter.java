@@ -17,6 +17,8 @@ final class IdentityConverter<A extends @Nullable Object> implements Converter<A
 
     // Holder class to avoid <clinit> on instance calls
     static final class Holder {
+        private Holder() {}
+
         @NonNull
         static final IdentityConverter<Object> CONVERTER = new IdentityConverter<>();
     }

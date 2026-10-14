@@ -2,7 +2,7 @@
 
 - Spec: [SPEC.md](../SPEC.md)
 - Status: implementing
-- Current frontier: T14
+- Current frontier: T15
 - Planning reviewer: /root/planning_reviewer (2/3 rounds; passed, Findings: none)
 - Plan checkpoint: human-review (approved)
 - Checkpoint basis: the user said "Proceed" after the reviewed spec/task map and
@@ -27,7 +27,7 @@
 - Artifact reproducibility: independent-output-base hash comparisons, including
   binary, source, Javadoc and POM outputs; cached reruns alone are insufficient.
 - Final evidence: pending
-- Current milestone: T13 restores all 31 JVM targets and 2,299 TestNG invocations; T14–T15 activate strict checking.
+- Current milestone: T14 strict core/spytools tests pass; T15 fixes generated bodies and processor compilations before restoring every strict JVM target.
 
 ## Tasks
 
@@ -46,7 +46,7 @@
 | T11 | [Migrate relationships, generics and remaining Arez scenarios](T11-arez-relationship-fixtures.md) | complete | T09 |
 | T12 | [Restore the Persist slice after the nullability cut](T12-persist-jspecify.md) | complete | T10, T11 |
 | T13 | [Restore extras, integrations and compiled documentation](T13-generated-consumers-jspecify.md) | complete | T12 |
-| T14 | [Enforce strict checking on runtime products and tests](T14-runtime-strict-checks.md) | pending | T13 |
+| T14 | [Enforce strict checking on runtime products and tests](T14-runtime-strict-checks.md) | complete | T13 |
 | T15 | [Enforce strict checking on processors and generated output](T15-processor-strict-checks.md) | pending | T14 |
 | T16 | [Build deterministic binary and complete source archives](T16-release-binaries-sources.md) | pending | T15 |
 | T17 | [Complete POM, Javadoc and artifact verification](T17-complete-release-artifacts.md) | pending | T16 |

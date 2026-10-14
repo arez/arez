@@ -109,9 +109,9 @@ public final class Position {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (o instanceof Position) {
-            final Position other = (Position) o;
+            final var other = (Position) o;
             return other._latitude == _latitude && other._longitude == _longitude;
         } else {
             return false;

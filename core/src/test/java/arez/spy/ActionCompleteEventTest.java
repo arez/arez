@@ -5,6 +5,7 @@ import static org.testng.Assert.*;
 import arez.AbstractTest;
 import arez.ArezTestUtil;
 import java.util.HashMap;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -16,10 +17,10 @@ public final class ActionCompleteEventTest extends AbstractTest {
         final boolean tracked = true;
         final Object[] parameters = new Object[0];
         final boolean returnsResult = true;
-        final Object result = new Object();
+        final var result = new Object();
         final Throwable throwable = null;
         final int duration = 33;
-        final ActionCompleteEvent event =
+        final var event =
                 new ActionCompleteEvent(name, tracked, parameters, returnsResult, result, throwable, duration);
 
         assertEquals(event.getName(), name);
@@ -30,7 +31,7 @@ public final class ActionCompleteEventTest extends AbstractTest {
         assertEquals(event.getThrowable(), throwable);
         assertEquals(event.getDuration(), duration);
 
-        final HashMap<String, Object> data = new HashMap<>();
+        final HashMap<String, @Nullable Object> data = new HashMap<>();
         event.toMap(data);
 
         assertEquals(data.get("type"), "ActionComplete");
@@ -42,6 +43,7 @@ public final class ActionCompleteEventTest extends AbstractTest {
         assertEquals(data.get("returnsResult"), true);
         assertEquals(data.get("result"), result);
         assertNotNull(data.get("zone"));
+        assert null != data.get("zone");
         assertEquals(data.size(), 9);
     }
 
@@ -54,7 +56,7 @@ public final class ActionCompleteEventTest extends AbstractTest {
         final Object result = null;
         final Throwable throwable = new Exception("X");
         final int duration = 33;
-        final ActionCompleteEvent event =
+        final var event =
                 new ActionCompleteEvent(name, tracked, parameters, returnsResult, result, throwable, duration);
 
         assertEquals(event.getName(), name);
@@ -65,7 +67,7 @@ public final class ActionCompleteEventTest extends AbstractTest {
         assertEquals(event.getThrowable(), throwable);
         assertEquals(event.getDuration(), duration);
 
-        final HashMap<String, Object> data = new HashMap<>();
+        final HashMap<String, @Nullable Object> data = new HashMap<>();
         event.toMap(data);
 
         assertEquals(data.get("type"), "ActionComplete");
@@ -77,6 +79,7 @@ public final class ActionCompleteEventTest extends AbstractTest {
         assertEquals(data.get("returnsResult"), true);
         assertNull(data.get("result"));
         assertNotNull(data.get("zone"));
+        assert null != data.get("zone");
         assertEquals(data.size(), 9);
     }
 
@@ -88,12 +91,11 @@ public final class ActionCompleteEventTest extends AbstractTest {
         final boolean tracked = true;
         final Object[] parameters = new Object[0];
         final boolean returnsResult = true;
-        final Object result = new Object();
+        final var result = new Object();
         final int duration = 33;
-        final ActionCompleteEvent event =
-                new ActionCompleteEvent(name, tracked, parameters, returnsResult, result, null, duration);
+        final var event = new ActionCompleteEvent(name, tracked, parameters, returnsResult, result, null, duration);
 
-        final HashMap<String, Object> data = new HashMap<>();
+        final HashMap<String, @Nullable Object> data = new HashMap<>();
         event.toMap(data);
 
         assertEquals(data.get("type"), "ActionComplete");

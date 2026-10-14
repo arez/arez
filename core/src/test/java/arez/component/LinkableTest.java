@@ -17,7 +17,7 @@ public final class LinkableTest extends AbstractTest {
 
     @Test
     public void linkableElement() {
-        final TestElement element = new TestElement();
+        final var element = new TestElement();
         assertFalse(element._linked);
         Linkable.link(element);
         assertTrue(element._linked);

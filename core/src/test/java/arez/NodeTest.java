@@ -26,7 +26,7 @@ public final class NodeTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final String name = ValueUtil.randomString();
 
-        final TestNode node = new TestNode(context, name);
+        final var node = new TestNode(context, name);
         assertEquals(node.getContext(), context);
         assertEquals(node.getName(), name);
         assertEquals(node.toString(), name);
@@ -38,7 +38,7 @@ public final class NodeTest extends AbstractTest {
 
         final ArezContext context = Arez.context();
 
-        final TestNode node = new TestNode(context, null);
+        final var node = new TestNode(context, null);
         assertEquals(node.getContext(), context);
         assertDefaultToString(node);
 

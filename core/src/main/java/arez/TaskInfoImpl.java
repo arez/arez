@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A implementation of {@link TaskInfo} that proxies to a {@link Task}.
@@ -60,9 +61,9 @@ final class TaskInfoImpl implements TaskInfo {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (o instanceof TaskInfoImpl) {
-            final TaskInfoImpl that = (TaskInfoImpl) o;
+            final var that = (TaskInfoImpl) o;
             return _task.equals(that._task);
         } else {
             return false;

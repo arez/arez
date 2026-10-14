@@ -36,7 +36,7 @@ public final class MemoizeCacheTest extends AbstractTest {
 
     @Test
     public void basicOperation() {
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final MemoizeCache.Function<String> function = args -> {
             observeADependency();
             callCount.incrementAndGet();
@@ -59,10 +59,15 @@ public final class MemoizeCacheTest extends AbstractTest {
         assertEquals(callCount.get(), 1);
         assertEquals(cache.getNextIndex(), 1);
         assertEquals(cache.getCache().size(), 1);
-        assertEquals(((Map<Object, Object>) cache.getCache().get("a")).size(), 1);
-        final ComputableValue<String> computableValue1 = (ComputableValue<String>)
-                ((Map<Object, Object>) cache.getCache().get("a")).get("b");
+        assertEquals(
+                Objects.requireNonNull((Map<Object, Object>) cache.getCache().get("a"))
+                        .size(),
+                1);
+        final var computableValue1 = (ComputableValue<String>)
+                Objects.requireNonNull((Map<Object, Object>) cache.getCache().get("a"))
+                        .get("b");
         assertNotNull(computableValue1);
+        assert null != computableValue1;
         assertEquals(context.safeAction(computableValue1::get), "a.b");
         final Observer observer2 = context.observer(() -> {
             observeADependency();
@@ -71,7 +76,10 @@ public final class MemoizeCacheTest extends AbstractTest {
         assertEquals(callCount.get(), 1);
         assertEquals(cache.getNextIndex(), 1);
         assertEquals(cache.getCache().size(), 1);
-        assertEquals(((Map<Object, Object>) cache.getCache().get("a")).size(), 1);
+        assertEquals(
+                Objects.requireNonNull((Map<Object, Object>) cache.getCache().get("a"))
+                        .size(),
+                1);
         final Observer observer3 = context.observer(() -> {
             observeADependency();
             assertEquals(cache.get("a", "c"), "a.c");
@@ -79,10 +87,15 @@ public final class MemoizeCacheTest extends AbstractTest {
         assertEquals(callCount.get(), 2);
         assertEquals(cache.getNextIndex(), 2);
         assertEquals(cache.getCache().size(), 1);
-        assertEquals(((Map<Object, Object>) cache.getCache().get("a")).size(), 2);
-        final ComputableValue<String> computableValue2 = (ComputableValue<String>)
-                ((Map<Object, Object>) cache.getCache().get("a")).get("c");
+        assertEquals(
+                Objects.requireNonNull((Map<Object, Object>) cache.getCache().get("a"))
+                        .size(),
+                2);
+        final var computableValue2 = (ComputableValue<String>)
+                Objects.requireNonNull((Map<Object, Object>) cache.getCache().get("a"))
+                        .get("c");
         assertNotNull(computableValue2);
+        assert null != computableValue2;
         assertEquals(context.safeAction(computableValue2::get), "a.c");
 
         observer1.dispose();
@@ -91,7 +104,10 @@ public final class MemoizeCacheTest extends AbstractTest {
         assertEquals(cache.getCache().size(), 1);
         assertFalse(computableValue1.isDisposed());
         assertFalse(computableValue2.isDisposed());
-        assertEquals(((Map<Object, Object>) cache.getCache().get("a")).size(), 2);
+        assertEquals(
+                Objects.requireNonNull((Map<Object, Object>) cache.getCache().get("a"))
+                        .size(),
+                2);
 
         observer2.dispose();
         assertEquals(callCount.get(), 2);
@@ -99,7 +115,10 @@ public final class MemoizeCacheTest extends AbstractTest {
         assertEquals(cache.getCache().size(), 1);
         assertTrue(computableValue1.isDisposed());
         assertFalse(computableValue2.isDisposed());
-        assertEquals(((Map<Object, Object>) cache.getCache().get("a")).size(), 1);
+        assertEquals(
+                Objects.requireNonNull((Map<Object, Object>) cache.getCache().get("a"))
+                        .size(),
+                1);
 
         observer3.dispose();
         assertEquals(callCount.get(), 2);
@@ -160,8 +179,8 @@ public final class MemoizeCacheTest extends AbstractTest {
 
     @Test
     public void disposeNotifierParameters_disposeComputableValue() {
-        final MyElement element = new MyElement("P");
-        final AtomicInteger callCount = new AtomicInteger();
+        final var element = new MyElement("P");
+        final var callCount = new AtomicInteger();
         final MemoizeCache.Function<String> function = args -> {
             observeADependency();
             callCount.incrementAndGet();
@@ -187,9 +206,9 @@ public final class MemoizeCacheTest extends AbstractTest {
         assertEquals(cache.getNextIndex(), 1);
         assertEquals(cache.getCache().size(), 1);
 
-        final ComputableValue<String> computableValue =
-                (ComputableValue<String>) cache.getCache().get(element);
+        final var computableValue = (ComputableValue<String>) cache.getCache().get(element);
         assertNotNull(computableValue);
+        assert null != computableValue;
         assertEquals(context.safeAction(computableValue::get), "P");
 
         Disposable.dispose(element);
@@ -202,8 +221,8 @@ public final class MemoizeCacheTest extends AbstractTest {
 
     @Test
     public void disposeNotifierParameters_clearedWhenObserverRemoved() {
-        final MyElement element = new MyElement("P");
-        final AtomicInteger callCount = new AtomicInteger();
+        final var element = new MyElement("P");
+        final var callCount = new AtomicInteger();
         final MemoizeCache.Function<String> function = args -> {
             observeADependency();
             callCount.incrementAndGet();
@@ -235,9 +254,9 @@ public final class MemoizeCacheTest extends AbstractTest {
         assertEquals(element._onDisposeListenersAdded.size(), 1);
         assertEquals(element._onDisposeListenersRemoved.size(), 0);
 
-        final ComputableValue<String> computableValue =
-                (ComputableValue<String>) cache.getCache().get(element);
+        final var computableValue = (ComputableValue<String>) cache.getCache().get(element);
         assertNotNull(computableValue);
+        assert null != computableValue;
         assertEquals(context.safeAction(computableValue::get), "P");
 
         Disposable.dispose(observer);
@@ -254,7 +273,7 @@ public final class MemoizeCacheTest extends AbstractTest {
 
     @Test
     public void getComputableValue_recreatesDisposedElements() {
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final MemoizeCache.Function<String> function = args -> {
             observeADependency();
             callCount.incrementAndGet();
@@ -283,7 +302,7 @@ public final class MemoizeCacheTest extends AbstractTest {
 
     @Test
     public void basicOperationWhenNativeComponentPresent() {
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final MemoizeCache.Function<String> function = args -> {
             observeADependency();
             callCount.incrementAndGet();
@@ -302,6 +321,7 @@ public final class MemoizeCacheTest extends AbstractTest {
         final ComponentInfo componentInfo =
                 context.getSpy().asComputableValueInfo(computableValue1).getComponent();
         assertNotNull(componentInfo);
+        assert null != componentInfo;
         assertEquals(componentInfo.getName(), component.getName());
 
         component.dispose();
@@ -311,7 +331,7 @@ public final class MemoizeCacheTest extends AbstractTest {
 
     @Test
     public void disposingCacheClearsOutComputableValues() {
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final MemoizeCache.Function<String> function = args -> {
             observeADependency();
             callCount.incrementAndGet();
@@ -334,9 +354,11 @@ public final class MemoizeCacheTest extends AbstractTest {
         assertEquals(cache.getNextIndex(), 1);
         assertEquals(cache.getCache().size(), 1);
 
-        final ComputableValue<String> computableValue1 = (ComputableValue<String>)
-                ((Map<Object, Object>) cache.getCache().get("a")).get("b");
+        final var computableValue1 = (ComputableValue<String>)
+                Objects.requireNonNull((Map<Object, Object>) cache.getCache().get("a"))
+                        .get("b");
         assertNotNull(computableValue1);
+        assert null != computableValue1;
 
         assertFalse(computableValue1.isDisposed());
 
@@ -350,7 +372,7 @@ public final class MemoizeCacheTest extends AbstractTest {
 
     @Test
     public void basicOperation_inAction() {
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
         final MemoizeCache.Function<String> function = args -> {
             observeADependency();
             callCount.incrementAndGet();

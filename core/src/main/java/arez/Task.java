@@ -172,8 +172,9 @@ public final class Task extends Node {
      *
      * @return the info associated with this class.
      */
-    @SuppressWarnings("ConstantConditions")
     @OmitSymbol(unless = "arez.enable_spies")
+    // Valid calls require spies enabled; disabled variants eliminate this method.
+    @SuppressWarnings({"NullAway", "ReturnMissingNullable"})
     TaskInfo asInfo() {
         if (Arez.shouldCheckInvariants()) {
             invariant(

@@ -88,7 +88,7 @@ public final class ArezTestUtil {
             throw new IllegalStateException("Unable to call ArezTestUtil.setLogger() as Arez is in production mode");
         }
 
-        final ArezLogger.ProxyLogger proxyLogger = (ArezLogger.ProxyLogger) ArezLogger.getLogger();
+        final var proxyLogger = (ArezLogger.ProxyLogger) ArezLogger.getLogger();
         proxyLogger.setLogger(null == logger ? null : logger::log);
     }
 

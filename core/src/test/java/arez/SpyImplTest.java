@@ -26,11 +26,11 @@ public final class SpyImplTest extends AbstractTest {
 
     @Test
     public void basicOperation() {
-        final SpyImpl spy = (SpyImpl) Arez.context().getSpy();
+        final var spy = (SpyImpl) Arez.context().getSpy();
 
-        final Object event = new Object();
+        final var event = new Object();
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final SpyEventHandler handler = e -> {
             callCount.incrementAndGet();
@@ -135,7 +135,9 @@ public final class SpyImplTest extends AbstractTest {
         final ComponentInfo info1 = spy.findComponent(type, id1);
         final ComponentInfo info2 = spy.findComponent(type, id2);
         assertNotNull(info1);
+        assert null != info1;
         assertNotNull(info2);
+        assert null != info2;
         assertEquals(info1.getName(), component.getName());
         assertEquals(info2.getName(), component2.getName());
         assertNull(spy.findComponent(type, ValueUtil.randomString()));

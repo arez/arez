@@ -16,7 +16,9 @@ import arez.spy.PropertyMutator;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -78,6 +80,8 @@ public final class ObservableValueTest extends AbstractTest {
         assertTrue(observableValue.isActive());
 
         assertNotNull(observableValue.getAccessor());
+
+        assert null != observableValue.getAccessor();
         assertNull(observableValue.getMutator());
 
         observableValue.invariantLeastStaleObserverState();
@@ -90,7 +94,7 @@ public final class ObservableValueTest extends AbstractTest {
         ArezTestUtil.disableNativeComponents();
 
         final ArezContext context = Arez.context();
-        final Component component = new Component(
+        final var component = new Component(
                 context, ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString(), null, null);
 
         final String name = ValueUtil.randomString();
@@ -103,7 +107,7 @@ public final class ObservableValueTest extends AbstractTest {
     @Test
     public void basicLifecycle_withComponent() {
         final ArezContext context = Arez.context();
-        final Component component = new Component(
+        final var component = new Component(
                 context, ValueUtil.randomString(), ValueUtil.randomString(), ValueUtil.randomString(), null, null);
 
         final String name = ValueUtil.randomString();
@@ -169,7 +173,7 @@ public final class ObservableValueTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final ObservableValue<?> observableValue = context.observable();
 
-        final Observer observer =
+        final var observer =
                 new Observer(context, null, ValueUtil.randomString(), new CountAndObserveProcedure(), null, 0);
 
         setupReadOnlyTransaction(context);
@@ -366,11 +370,10 @@ public final class ObservableValueTest extends AbstractTest {
                         },
                         ActionFlags.READ_ONLY));
 
-        assertTrue(exception
-                .getMessage()
-                .startsWith("Arez-0119: Attempting to create READ_WRITE transaction named '" + name
-                        + "' but it is nested in transaction named '"));
-        assertTrue(exception.getMessage().endsWith("' with mode READ_ONLY which is not equal to READ_WRITE."));
+        final var message = Objects.requireNonNull(exception.getMessage());
+        assertTrue(message.startsWith("Arez-0119: Attempting to create READ_WRITE transaction named '" + name
+                + "' but it is nested in transaction named '"));
+        assertTrue(message.endsWith("' with mode READ_ONLY which is not equal to READ_WRITE."));
 
         // No transaction created so new id
         assertEquals(context.currentNextTransactionId(), currentNextTransactionId + 1);
@@ -509,7 +512,7 @@ public final class ObservableValueTest extends AbstractTest {
     @Test
     public void addObserver_highPriorityObserver_normalPriorityComputableValue() {
         final ArezContext context = Arez.context();
-        final Observer observer = new Observer(
+        final var observer = new Observer(
                 context,
                 null,
                 ValueUtil.randomString(),
@@ -534,7 +537,7 @@ public final class ObservableValueTest extends AbstractTest {
     @Test
     public void addObserver_highPriorityObserver_normalPriorityComputableValue_whenObservingLowerPriorityEnabled() {
         final ArezContext context = Arez.context();
-        final Observer observer = new Observer(
+        final var observer = new Observer(
                 context,
                 null,
                 ValueUtil.randomString(),
@@ -682,6 +685,7 @@ public final class ObservableValueTest extends AbstractTest {
         final List<ObservableValue<?>> pendingDeactivations =
                 context.getTransaction().getPendingDeactivations();
         assertNotNull(pendingDeactivations);
+        assert null != pendingDeactivations;
         assertEquals(pendingDeactivations.size(), 1);
         assertTrue(pendingDeactivations.contains(observableValue));
     }
@@ -913,6 +917,7 @@ public final class ObservableValueTest extends AbstractTest {
         final List<ObservableValue<?>> pendingDeactivations =
                 context.getTransaction().getPendingDeactivations();
         assertNotNull(pendingDeactivations);
+        assert null != pendingDeactivations;
         assertEquals(pendingDeactivations.size(), 1);
         assertTrue(pendingDeactivations.contains(observableValue));
     }
@@ -1701,14 +1706,17 @@ public final class ObservableValueTest extends AbstractTest {
 
     @Test
     public void introspectors() throws Throwable {
-        final AtomicReference<String> value = new AtomicReference<>();
+        final AtomicReference<@Nullable String> value = new AtomicReference<>();
         final String initialValue = ValueUtil.randomString();
         value.set(initialValue);
         final ObservableValue<?> observableValue =
                 new ObservableValue<>(Arez.context(), null, ValueUtil.randomString(), null, value::get, value::set);
 
         assertNotNull(observableValue.getAccessor());
+
+        assert null != observableValue.getAccessor();
         assertNotNull(observableValue.getMutator());
+        assert null != observableValue.getMutator();
         assertEquals(observableValue.getAccessor().get(), initialValue);
         final String secondValue = ValueUtil.randomString();
         value.set(secondValue);

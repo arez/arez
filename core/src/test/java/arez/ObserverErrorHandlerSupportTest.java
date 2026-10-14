@@ -10,14 +10,14 @@ import org.testng.annotations.Test;
 public final class ObserverErrorHandlerSupportTest extends AbstractTest {
     @Test
     public void basicOperation() {
-        final ObserverErrorHandlerSupport support = new ObserverErrorHandlerSupport();
+        final var support = new ObserverErrorHandlerSupport();
 
         final ArezContext context = Arez.context();
         final Observer observer = context.observer(new CountAndObserveProcedure());
         final ObserverError error = ObserverError.ON_ACTIVATE_ERROR;
         final Throwable throwable = null;
 
-        final AtomicInteger callCount = new AtomicInteger();
+        final var callCount = new AtomicInteger();
 
         final ObserverErrorHandler handler = (observerArg, errorArg, throwableArg) -> {
             callCount.incrementAndGet();
@@ -48,7 +48,7 @@ public final class ObserverErrorHandlerSupportTest extends AbstractTest {
 
     @Test
     public void addObserverErrorHandler_alreadyExists() {
-        final ObserverErrorHandlerSupport support = new ObserverErrorHandlerSupport();
+        final var support = new ObserverErrorHandlerSupport();
 
         final ObserverErrorHandler handler = (observerArg, errorArg, throwableArg) -> {};
         support.addObserverErrorHandler(handler);
@@ -61,7 +61,7 @@ public final class ObserverErrorHandlerSupportTest extends AbstractTest {
 
     @Test
     public void removeObserverErrorHandler_noExists() {
-        final ObserverErrorHandlerSupport support = new ObserverErrorHandlerSupport();
+        final var support = new ObserverErrorHandlerSupport();
 
         final ObserverErrorHandler handler = (observerArg, errorArg, throwableArg) -> {};
 
@@ -73,16 +73,16 @@ public final class ObserverErrorHandlerSupportTest extends AbstractTest {
 
     @Test
     public void multipleHandlers() {
-        final ObserverErrorHandlerSupport support = new ObserverErrorHandlerSupport();
+        final var support = new ObserverErrorHandlerSupport();
 
         final ArezContext context = Arez.context();
         final Observer observer = context.observer(new CountAndObserveProcedure());
         final ObserverError error = ObserverError.ON_ACTIVATE_ERROR;
         final Throwable throwable = null;
 
-        final AtomicInteger callCount1 = new AtomicInteger();
-        final AtomicInteger callCount2 = new AtomicInteger();
-        final AtomicInteger callCount3 = new AtomicInteger();
+        final var callCount1 = new AtomicInteger();
+        final var callCount2 = new AtomicInteger();
+        final var callCount3 = new AtomicInteger();
 
         final ObserverErrorHandler handler1 = (observerArg, errorArg, throwableArg) -> callCount1.incrementAndGet();
         final ObserverErrorHandler handler2 = (observerArg, errorArg, throwableArg) -> callCount2.incrementAndGet();
@@ -108,17 +108,17 @@ public final class ObserverErrorHandlerSupportTest extends AbstractTest {
 
     @Test
     public void onObserverError_whereOneHandlerGeneratesError() {
-        final ObserverErrorHandlerSupport support = new ObserverErrorHandlerSupport();
+        final var support = new ObserverErrorHandlerSupport();
 
         final ArezContext context = Arez.context();
         final Observer observer = context.observer(new CountAndObserveProcedure());
         final ObserverError error = ObserverError.ON_ACTIVATE_ERROR;
         final Throwable throwable = null;
 
-        final AtomicInteger callCount1 = new AtomicInteger();
-        final AtomicInteger callCount3 = new AtomicInteger();
+        final var callCount1 = new AtomicInteger();
+        final var callCount3 = new AtomicInteger();
 
-        final RuntimeException exception = new RuntimeException("X");
+        final var exception = new RuntimeException("X");
 
         final ObserverErrorHandler handler1 = (observerArg, errorArg, throwableArg) -> callCount1.incrementAndGet();
         final ObserverErrorHandler handler2 = (observerArg, errorArg, throwableArg) -> {
@@ -155,14 +155,14 @@ public final class ObserverErrorHandlerSupportTest extends AbstractTest {
     public void onObserverError_whereOneHandlerGeneratesError_but_Arez_areNamesEnabled_is_false() {
         ArezTestUtil.disableNames();
 
-        final ObserverErrorHandlerSupport support = new ObserverErrorHandlerSupport();
+        final var support = new ObserverErrorHandlerSupport();
 
         final ArezContext context = Arez.context();
-        final Observer observer = new Observer(context, null, null, new CountAndObserveProcedure(), null, 0);
+        final var observer = new Observer(context, null, null, new CountAndObserveProcedure(), null, 0);
         final ObserverError error = ObserverError.ON_ACTIVATE_ERROR;
         final Throwable throwable = null;
 
-        final RuntimeException exception = new RuntimeException("X");
+        final var exception = new RuntimeException("X");
 
         final ObserverErrorHandler handler2 = (observerArg, errorArg, throwableArg) -> {
             throw exception;

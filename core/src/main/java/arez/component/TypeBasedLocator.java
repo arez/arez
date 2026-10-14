@@ -18,7 +18,7 @@ public final class TypeBasedLocator implements Locator {
     /**
      * Factory methods for looking entities up by type.
      */
-    private final Map<Class<?>, Function<Object, ?>> _findByIdFunctions = new HashMap<>();
+    private final Map<Class<?>, Function<Object, ? extends @Nullable Object>> _findByIdFunctions = new HashMap<>();
 
     /**
      * Register a function that will find entities of specified type by id.
@@ -28,7 +28,7 @@ public final class TypeBasedLocator implements Locator {
      * @param type             the type of the entity.
      * @param findByIdFunction the function that looks up the entity by id.
      */
-    public <T> void registerLookup(final Class<T> type, final Function<Object, T> findByIdFunction) {
+    public <T> void registerLookup(final Class<T> type, final Function<Object, @Nullable T> findByIdFunction) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> !_findByIdFunctions.containsKey(type),
@@ -42,7 +42,7 @@ public final class TypeBasedLocator implements Locator {
     @Override
     @SuppressWarnings("unchecked")
     public <T> T findById(final Class<T> type, final Object id) {
-        final Function<Object, ?> function = _findByIdFunctions.get(type);
+        final Function<Object, ? extends @Nullable Object> function = _findByIdFunctions.get(type);
         if (null != function) {
             return (T) function.apply(id);
         } else {
