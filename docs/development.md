@@ -183,3 +183,37 @@ tests advance a manual clock and dispatch activity events. They check the timeou
 boundary and removal of all seven listeners and pending timers. The complete
 `//:browser_tests` matrix contains all seven DOM suites plus promise, in both
 default development mode and `-c opt` production mode.
+
+## Complete verification and coverage
+
+Run `tools/check.sh` for the same gate used by CI. It checks Buildifier, Palantir,
+the complete Ahab graph in development and optimized modes, JVM products and
+suites, strict Java 17 browser sources, packaged JVM/J2CL consumers, both browser
+test modes, publication artifacts, the website and disposable release commands.
+`//:all_tests` collects JVM, browser and site tests; `//:jvm_tests` and
+`//:browser_tests` remain available for focused work.
+
+JVM coverage runs every retained JVM test target in the separate `dbg` configuration
+and writes `reports/coverage/jvm.lcov`
+and a JSON summary. Reports must contain the tested product modules and exercised
+lines. There are no line or branch percentage gates. CI retains coverage and
+artifact verification under `reports/`.
+
+Ahab's `tools/ahab/baseline.json` contains no violations. Its exceptions name only
+the eight Chromium TestRunner actions and their root-relative generated HTML
+paths. `tools/ahab/reproducibility.json` declares the deterministic archive tools,
+formatter and the site tool's build mode. Inspect findings before changing these
+files; use `//tools/ahab:hermeticity`, `:hermeticity.check`, `:hermeticity.explain`
+and `:hermeticity.update` for analysis, enforcement, explanation and reviewed
+baseline updates.
+
+## Documentation and releases
+
+`tools/site.sh build` creates `reports/site`; `tools/site.sh check` validates local
+files, assets and fragments. `tools/site.sh serve` builds and serves the site on
+loopback port 3000. Rebuild and refresh after editing documentation. Snippets are
+read from compiled documentation source archives, including generated Java.
+External page links are preserved without network checks; browser assets are local.
+
+See [Releasing Arez](releasing.md) for manual preparation, unsigned previews,
+signing, Central upload, GitHub release and site deployment.

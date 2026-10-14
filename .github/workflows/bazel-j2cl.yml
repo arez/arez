@@ -1,4 +1,4 @@
-name: Bazel J2CL
+name: Verify
 
 on:
   push:
@@ -17,28 +17,19 @@ jobs:
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: '17'
-      - uses: ruby/setup-ruby@v1
-        with:
-          bundler: '2.3.7'
-          bundler-cache: true
+          java-version: '21'
       - uses: bazel-contrib/setup-bazel@0.19.0
         with:
           bazelisk-cache: true
           repository-cache: true
-      - name: Verify Bazel version
-        run: test "$(bazel --version)" = "bazel 9.3.0"
-      - name: Run JVM tests
-        run: >-
-          bundle exec buildr
-          arez:core:test
-          arez:processor:test
-          arez:extras:dom:test
-          arez:extras:spytools:test
-          arez:integration-tests:test
-          arez:persist:core:test
-          arez:persist:processor:test
-          arez:persist:integration-tests:test
-          GWT=no BUILD_STATS=no
-      - name: Compile J2CL applications
-        run: bundle exec buildr arez:extras:promise:bazel_j2cl_test arez:extras:spytools:bazel_j2cl_test GWT=no BUILD_STATS=no
+      - name: Check
+        run: tools/check.sh
+      - name: Retain coverage and verification reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verification
+          path: |
+            reports/coverage
+            reports/verification
+          if-no-files-found: warn

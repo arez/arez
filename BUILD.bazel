@@ -21,6 +21,15 @@ test_suite(
 )
 
 test_suite(
+    name = "all_tests",
+    tests = [
+        ":browser_tests",
+        ":jvm_tests",
+        "//tools/site:tests",
+    ],
+)
+
+test_suite(
     name = "browser_tests",
     tests = [
         "//extras/dom-example:geo_browser_test",

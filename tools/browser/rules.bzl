@@ -86,6 +86,19 @@ def browser_application(name, entry_point, deps, html):
     )
     _preview(name = name, html = html, js = name + "_bundle.js", defines = _defines())
 
+def browser_compile_smoke(name, entry_point, deps):
+    for suffix, level, debug, defines in [
+        ("", "ADVANCED", "false", _PRODUCTION_DEFINES),
+        ("_dev", "BUNDLE", "true", _DEVELOPMENT_DEFINES),
+    ]:
+        closure_js_binary(
+            name = name + suffix,
+            compilation_level = level,
+            defs = ["--define=goog.DEBUG=" + debug] + ["--define=%s=%s" % item for item in defines.items()],
+            entry_points = [entry_point],
+            deps = deps,
+        )
+
 def browser_test(name, srcs, deps, entry_point):
     closure_js_test(
         name = name,

@@ -1,0 +1,26 @@
+{
+  "check": "tools/check.sh",
+  "result": "passed",
+  "test_targets": 40,
+  "jvm_test_targets": 31,
+  "browser_test_targets_per_mode": 8,
+  "browser_cases_per_mode": 22,
+  "coverage": {
+    "source_files": 245,
+    "lines_found": 12298,
+    "lines_hit": 11315,
+    "branches_found": 6059,
+    "branches_hit": 4917
+  },
+  "coverage_reports": 31,
+  "ahab": "empty violations; 16 scoped browser exceptions",
+  "ci": ".github/workflows/bazel-j2cl.yml calls tools/check.sh and retains reports",
+  "check_log": "/tmp/arez-check-complete-t25.log",
+  "coverage_configuration": "dbg",
+  "jvm_testng_invocations": 2301,
+  "ahab_modes": [
+    "fastbuild",
+    "opt"
+  ],
+  "ahab_probe": "Removing the site declaration produced unknown_program and failed baseline enforcement; restoration passed."
+}

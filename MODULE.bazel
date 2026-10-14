@@ -23,6 +23,7 @@ single_version_override(
 )
 
 bazel_dep(name = "buildifier_prebuilt", version = "10.0.1", dev_dependency = True)
+bazel_dep(name = "ahab", version = "0.4.0", dev_dependency = True)
 
 bazel_dep(name = "rules_palantir_java_format", version = "0.1.1")
 archive_override(

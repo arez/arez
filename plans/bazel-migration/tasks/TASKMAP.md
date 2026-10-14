@@ -2,7 +2,7 @@
 
 - Spec: [SPEC.md](../SPEC.md)
 - Status: implementing
-- Current frontier: T25
+- Current frontier: T26
 - Planning reviewer: /root/planning_reviewer (2/3 rounds; passed, Findings: none)
 - Plan checkpoint: human-review (approved)
 - Checkpoint basis: the user said "Proceed" after the reviewed spec/task map and
@@ -27,7 +27,7 @@
 - Artifact reproducibility: independent-output-base hash comparisons, including
   binary, source, Javadoc and POM outputs; cached reruns alone are insufficient.
 - Final evidence: pending
-- Current milestone: T24 delivers explicit preparation/package/publish/deploy commands, a verified 32-artifact unsigned bundle and disposable stub tests. The complete CI/Ahab/coverage entrypoint is next.
+- Current milestone: T25 completes tools/check.sh, both Ahab/browser modes and coverage for all 31 retained JVM targets. Legacy removal and canonical documentation are next.
 
 ## Tasks
 
@@ -57,7 +57,7 @@
 | T22 | [Run visibility, geolocation, idle and network examples](T22-dom-controlled-examples.md) | complete | T20 |
 | T23 | [Generate and preview the website with Java](T23-java-website.md) | complete | T17, T18 |
 | T24 | [Replace manual release and deployment commands](T24-release-orchestration.md) | complete | T18, T23 |
-| T25 | [Run the full check entrypoint in CI](T25-ci-ahab-coverage.md) | pending | T21, T22, T23, T24 |
+| T25 | [Run the full check entrypoint in CI](T25-ci-ahab-coverage.md) | complete | T21, T22, T23, T24 |
 | T26 | [Remove old infrastructure and document delivered contracts](T26-remove-legacy-document-contracts.md) | pending | T25 |
 | T27 | [Verify the clean final migration and prepare implementation review](T27-final-verification.md) | pending | T26 |
 
