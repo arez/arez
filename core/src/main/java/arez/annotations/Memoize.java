@@ -43,96 +43,95 @@ import javax.annotation.Nonnull;
  * {@link ArezComponent} or {@link ArezComponentLike}. Other usages will fail compilation.</p>
  */
 @Documented
-@Target( ElementType.METHOD )
-public @interface Memoize
-{
-  /**
-   * Return the root name of the element value relative to the component.
-   * If the method has parameters then the name will be used in combination with a sequence
-   * when naming the synthesized {@link ComputableValue} instances. The value must conform to
-   * the requirements of a java identifier. The name must also be unique across {@link Observable}s,
-   * {@code Memoize}s and {@link Action}s within the scope of the {@link ArezComponent} annotated element.
-   *
-   * @return the root name of the element relative to the component.
-   */
-  @Nonnull
-  String name() default "<default>";
+@Target(ElementType.METHOD)
+public @interface Memoize {
+    /**
+     * Return the root name of the element value relative to the component.
+     * If the method has parameters then the name will be used in combination with a sequence
+     * when naming the synthesized {@link ComputableValue} instances. The value must conform to
+     * the requirements of a java identifier. The name must also be unique across {@link Observable}s,
+     * {@code Memoize}s and {@link Action}s within the scope of the {@link ArezComponent} annotated element.
+     *
+     * @return the root name of the element relative to the component.
+     */
+    @Nonnull
+    String name() default "<default>";
 
-  /**
-   * A flag indicating whether the computable should be "kept alive". A computable that is kept alive
-   * is activated on creation and never deactivates. This is useful if the computable property is only
-   * accessed from within actions but should be kept up to date and not recomputed on each access.
-   * This MUST not be set if the target method has any parameters as can not keep computed value active
-   * if parameter values are unknown.
-   *
-   * @return true to keep computable alive.
-   */
-  boolean keepAlive() default false;
+    /**
+     * A flag indicating whether the computable should be "kept alive". A computable that is kept alive
+     * is activated on creation and never deactivates. This is useful if the computable property is only
+     * accessed from within actions but should be kept up to date and not recomputed on each access.
+     * This MUST not be set if the target method has any parameters as can not keep computed value active
+     * if parameter values are unknown.
+     *
+     * @return true to keep computable alive.
+     */
+    boolean keepAlive() default false;
 
-  /**
-   * The priority of the underlying ComputableValue observer.
-   *
-   * @return the priority of the ComputableValue observer.
-   */
-  Priority priority() default Priority.DEFAULT;
+    /**
+     * The priority of the underlying ComputableValue observer.
+     *
+     * @return the priority of the ComputableValue observer.
+     */
+    Priority priority() default Priority.DEFAULT;
 
-  /**
-   * Flag controlling whether the underlying observer can observe ComputableValue instances with lower priorities.
-   * The default value of false will result in an invariant failure (in development mode) if a lower priority
-   * dependency is observed by the observer. This is to prevent priority inversion when scheduling a higher
-   * priority observer is dependent upon a lower priority computable value. If the value is true then the no
-   * invariant failure is triggered and the component relies on the component author to handle possible priority
-   * inversion.
-   *
-   * @return false if observing lower priority dependencies should result in invariant failure in development mode.
-   */
-  boolean observeLowerPriorityDependencies() default false;
+    /**
+     * Flag controlling whether the underlying observer can observe ComputableValue instances with lower priorities.
+     * The default value of false will result in an invariant failure (in development mode) if a lower priority
+     * dependency is observed by the observer. This is to prevent priority inversion when scheduling a higher
+     * priority observer is dependent upon a lower priority computable value. If the value is true then the no
+     * invariant failure is triggered and the component relies on the component author to handle possible priority
+     * inversion.
+     *
+     * @return false if observing lower priority dependencies should result in invariant failure in development mode.
+     */
+    boolean observeLowerPriorityDependencies() default false;
 
-  /**
-   * Enum indicating whether the value of the computable is derived from arez elements and/or external dependencies.
-   * If set to {@link DepType#AREZ} then Arez will verify that the method annotated by this annotation accesses arez
-   * elements (i.e. instances of {@link arez.ObservableValue} or instances of {@link ComputableValue}). If set to
-   * {@link DepType#AREZ_OR_NONE} then the runtime will allow computable to exist with no dependencies. If set
-   * to {@link DepType#AREZ_OR_EXTERNAL} then the component must define a {@link ComputableValueRef} method and should invoke
-   * {@link ComputableValue#reportPossiblyChanged()} when the non-arez dependencies are changed.
-   *
-   * @return the types of dependencies allowed on the computable.
-   */
-  @Nonnull
-  DepType depType() default DepType.AREZ;
+    /**
+     * Enum indicating whether the value of the computable is derived from arez elements and/or external dependencies.
+     * If set to {@link DepType#AREZ} then Arez will verify that the method annotated by this annotation accesses arez
+     * elements (i.e. instances of {@link arez.ObservableValue} or instances of {@link ComputableValue}). If set to
+     * {@link DepType#AREZ_OR_NONE} then the runtime will allow computable to exist with no dependencies. If set
+     * to {@link DepType#AREZ_OR_EXTERNAL} then the component must define a {@link ComputableValueRef} method and should invoke
+     * {@link ComputableValue#reportPossiblyChanged()} when the non-arez dependencies are changed.
+     *
+     * @return the types of dependencies allowed on the computable.
+     */
+    @Nonnull
+    DepType depType() default DepType.AREZ;
 
-  /**
-   * Return true if the return value of the memoized value should be reported to the Arez spy subsystem.
-   * It is useful to disable reporting for large, circular or just uninteresting parameters to the spy infrastructure.
-   *
-   * @return true to report the return value, false otherwise.
-   */
-  boolean reportResult() default true;
+    /**
+     * Return true if the return value of the memoized value should be reported to the Arez spy subsystem.
+     * It is useful to disable reporting for large, circular or just uninteresting parameters to the spy infrastructure.
+     *
+     * @return true to report the return value, false otherwise.
+     */
+    boolean reportResult() default true;
 
-  /**
-   * Indicate whether the memoized value can be read outside a transaction.
-   * If the value is {@link Feature#AUTODETECT} then the value will be derived from the
-   * {@link ArezComponent#defaultReadOutsideTransaction()} parameter on the {@link ArezComponent} annotation. If
-   * the value is set to {@link Feature#ENABLE} then the memoized value can be read outside a transaction. It should
-   * be noted that in this scenario the memoized value will be recalculated each time it is accessed.
-   *
-   * @return flag that determines whether the memoized value allows reads outside a transaction, false to require a transaction to read the memoized value.
-   */
-  Feature readOutsideTransaction() default Feature.AUTODETECT;
+    /**
+     * Indicate whether the memoized value can be read outside a transaction.
+     * If the value is {@link Feature#AUTODETECT} then the value will be derived from the
+     * {@link ArezComponent#defaultReadOutsideTransaction()} parameter on the {@link ArezComponent} annotation. If
+     * the value is set to {@link Feature#ENABLE} then the memoized value can be read outside a transaction. It should
+     * be noted that in this scenario the memoized value will be recalculated each time it is accessed.
+     *
+     * @return flag that determines whether the memoized value allows reads outside a transaction, false to require a transaction to read the memoized value.
+     */
+    Feature readOutsideTransaction() default Feature.AUTODETECT;
 
-  /**
-   * Return the strategy used to compare computed values when deciding whether to
-   * propagate a change. If this parameter is left as {@link EqualityComparator} then the
-   * annotation processor will derive the comparator from the exact declared return type when
-   * that type is annotated with {@link DefaultEqualityComparator}. If no type-level default is
-   * present then {@link arez.ObjectsEqualsComparator} will be used.
-   *
-   * <p>Explicitly specifying a comparator on the annotation overrides any type-level default.
-   * Type-level defaults are not derived for arrays, type-use annotations, or supertypes and
-   * interfaces other than the exact declared type.</p>
-   *
-   * @return the comparator type used when checking whether values are equal.
-   */
-  @Nonnull
-  Class<? extends EqualityComparator> equalityComparator() default EqualityComparator.class;
+    /**
+     * Return the strategy used to compare computed values when deciding whether to
+     * propagate a change. If this parameter is left as {@link EqualityComparator} then the
+     * annotation processor will derive the comparator from the exact declared return type when
+     * that type is annotated with {@link DefaultEqualityComparator}. If no type-level default is
+     * present then {@link arez.ObjectsEqualsComparator} will be used.
+     *
+     * <p>Explicitly specifying a comparator on the annotation overrides any type-level default.
+     * Type-level defaults are not derived for arrays, type-use annotations, or supertypes and
+     * interfaces other than the exact declared type.</p>
+     *
+     * @return the comparator type used when checking whether values are equal.
+     */
+    @Nonnull
+    Class<? extends EqualityComparator> equalityComparator() default EqualityComparator.class;
 }

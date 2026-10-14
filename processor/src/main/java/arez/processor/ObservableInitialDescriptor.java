@@ -12,85 +12,79 @@ import javax.lang.model.type.TypeMirror;
 /**
  * The class that represents the parsed state of @ObservableInitial annotated elements.
  */
-final class ObservableInitialDescriptor
-{
-  @Nonnull
-  private final String _name;
-  @Nonnull
-  private final Element _element;
-  @Nullable
-  private final VariableElement _field;
-  @Nullable
-  private final ExecutableElement _method;
-  @Nullable
-  private final ExecutableType _methodType;
+final class ObservableInitialDescriptor {
+    @Nonnull
+    private final String _name;
 
-  ObservableInitialDescriptor( @Nonnull final String name, @Nonnull final VariableElement field )
-  {
-    _name = Objects.requireNonNull( name );
-    _element = Objects.requireNonNull( field );
-    _field = field;
-    _method = null;
-    _methodType = null;
-  }
+    @Nonnull
+    private final Element _element;
 
-  ObservableInitialDescriptor( @Nonnull final String name,
-                               @Nonnull final ExecutableElement method,
-                               @Nonnull final ExecutableType methodType )
-  {
-    _name = Objects.requireNonNull( name );
-    _element = Objects.requireNonNull( method );
-    _field = null;
-    _method = method;
-    _methodType = Objects.requireNonNull( methodType );
-  }
+    @Nullable
+    private final VariableElement _field;
 
-  @Nonnull
-  String getName()
-  {
-    return _name;
-  }
+    @Nullable
+    private final ExecutableElement _method;
 
-  boolean isField()
-  {
-    return null != _field;
-  }
+    @Nullable
+    private final ExecutableType _methodType;
 
-  @Nonnull
-  VariableElement getField()
-  {
-    assert null != _field;
-    return _field;
-  }
+    ObservableInitialDescriptor(@Nonnull final String name, @Nonnull final VariableElement field) {
+        _name = Objects.requireNonNull(name);
+        _element = Objects.requireNonNull(field);
+        _field = field;
+        _method = null;
+        _methodType = null;
+    }
 
-  boolean isMethod()
-  {
-    return null != _method;
-  }
+    ObservableInitialDescriptor(
+            @Nonnull final String name,
+            @Nonnull final ExecutableElement method,
+            @Nonnull final ExecutableType methodType) {
+        _name = Objects.requireNonNull(name);
+        _element = Objects.requireNonNull(method);
+        _field = null;
+        _method = method;
+        _methodType = Objects.requireNonNull(methodType);
+    }
 
-  @Nonnull
-  ExecutableElement getMethod()
-  {
-    assert null != _method;
-    return _method;
-  }
+    @Nonnull
+    String getName() {
+        return _name;
+    }
 
-  @Nonnull
-  TypeMirror getType()
-  {
-    return isField() ? getField().asType() : getMethodType().getReturnType();
-  }
+    boolean isField() {
+        return null != _field;
+    }
 
-  @Nonnull
-  ExecutableType getMethodType()
-  {
-    assert null != _methodType;
-    return _methodType;
-  }
+    @Nonnull
+    VariableElement getField() {
+        assert null != _field;
+        return _field;
+    }
 
-  @Nonnull
-  Element getElement()
-  {
-    return _element;
-  }
+    boolean isMethod() {
+        return null != _method;
+    }
+
+    @Nonnull
+    ExecutableElement getMethod() {
+        assert null != _method;
+        return _method;
+    }
+
+    @Nonnull
+    TypeMirror getType() {
+        return isField() ? getField().asType() : getMethodType().getReturnType();
+    }
+
+    @Nonnull
+    ExecutableType getMethodType() {
+        assert null != _methodType;
+        return _methodType;
+    }
+
+    @Nonnull
+    Element getElement() {
+        return _element;
+    }
 }

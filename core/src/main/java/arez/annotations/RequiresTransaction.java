@@ -25,22 +25,21 @@ import javax.annotation.Nonnull;
  * that the caller has already established a transaction with the required characteristics.</p>
  */
 @Documented
-@Target( ElementType.METHOD )
-public @interface RequiresTransaction
-{
-  /**
-   * Return the required mode of the existing transaction.
-   *
-   * @return the required mode of the existing transaction.
-   */
-  @Nonnull
-  TransactionMode mode() default TransactionMode.ANY;
+@Target(ElementType.METHOD)
+public @interface RequiresTransaction {
+    /**
+     * Return the required mode of the existing transaction.
+     *
+     * @return the required mode of the existing transaction.
+     */
+    @Nonnull
+    TransactionMode mode() default TransactionMode.ANY;
 
-  /**
-   * Return the required tracking state of the existing transaction.
-   *
-   * @return the required tracking state of the existing transaction.
-   */
-  @Nonnull
-  TrackingMode tracking() default TrackingMode.ANY;
+    /**
+     * Return the required tracking state of the existing transaction.
+     *
+     * @return the required tracking state of the existing transaction.
+     */
+    @Nonnull
+    TrackingMode tracking() default TrackingMode.ANY;
 }

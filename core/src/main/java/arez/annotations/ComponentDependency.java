@@ -52,42 +52,40 @@ import javax.annotation.Nonnull;
  * {@link ArezComponent} or {@link ArezComponentLike}. Other usages will fail compilation.</p>
  */
 @Documented
-@Target( { ElementType.METHOD, ElementType.FIELD } )
-public @interface ComponentDependency
-{
-  /**
-   * The action to take when dependency is disposed.
-   */
-  enum Action
-  {
+@Target({ElementType.METHOD, ElementType.FIELD})
+public @interface ComponentDependency {
     /**
-     * Remove the component.
+     * The action to take when dependency is disposed.
      */
-    CASCADE,
+    enum Action {
+        /**
+         * Remove the component.
+         */
+        CASCADE,
+        /**
+         * Set the {@link Observable} property that holds dependency to null.
+         */
+        SET_NULL
+    }
+
     /**
-     * Set the {@link Observable} property that holds dependency to null.
+     * Return the action to take when the dependency is disposed.
+     * A {@link Action#CASCADE} value indicates that the component should be deleted, while a
+     * {@link Action#SET_NULL} value indicates that the observable field should be set to null.
+     * The {@link Action#SET_NULL} is only valid on {@link Observable} properties that have an
+     * associated setter and are not annotated with {@link javax.annotation.Nonnull}.
+     *
+     * @return the action to take when the dependency is disposed.
      */
-    SET_NULL
-  }
+    @Nonnull
+    Action action() default Action.CASCADE;
 
-  /**
-   * Return the action to take when the dependency is disposed.
-   * A {@link Action#CASCADE} value indicates that the component should be deleted, while a
-   * {@link Action#SET_NULL} value indicates that the observable field should be set to null.
-   * The {@link Action#SET_NULL} is only valid on {@link Observable} properties that have an
-   * associated setter and are not annotated with {@link javax.annotation.Nonnull}.
-   *
-   * @return the action to take when the dependency is disposed.
-   */
-  @Nonnull
-  Action action() default Action.CASCADE;
-
-  /**
-   * Return true and the value of the annotated field will be validated at runtime rather than at compile time.
-   * This is useful when the field is defined by an interface but the underlying field is guaranteed to implement
-   * {@link DisposeNotifier} at runtime.
-   *
-   * @return true to defer validation of types until runtime.
-   */
-  boolean validateTypeAtRuntime() default false;
+    /**
+     * Return true and the value of the annotated field will be validated at runtime rather than at compile time.
+     * This is useful when the field is defined by an interface but the underlying field is guaranteed to implement
+     * {@link DisposeNotifier} at runtime.
+     *
+     * @return true to defer validation of types until runtime.
+     */
+    boolean validateTypeAtRuntime() default false;
 }

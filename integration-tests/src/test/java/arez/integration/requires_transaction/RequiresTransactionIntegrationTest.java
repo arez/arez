@@ -1,5 +1,7 @@
 package arez.integration.requires_transaction;
 
+import static org.testng.Assert.*;
+
 import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
@@ -16,181 +18,157 @@ import arez.spy.ActionStartEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
-@SuppressWarnings( { "UnusedReturnValue", "unused" } )
-public final class RequiresTransactionIntegrationTest
-  extends AbstractArezIntegrationTest
-{
-  @ArezComponent( allowEmpty = true )
-  static abstract class NoTransactionComponent
-  {
-    int _callCount;
+@SuppressWarnings({"UnusedReturnValue", "unused"})
+public final class RequiresTransactionIntegrationTest extends AbstractArezIntegrationTest {
+    @ArezComponent(allowEmpty = true)
+    abstract static class NoTransactionComponent {
+        int _callCount;
 
-    @RequiresTransaction
-    void perform()
-    {
-      _callCount++;
+        @RequiresTransaction
+        void perform() {
+            _callCount++;
+        }
     }
-  }
 
-  @Test
-  public void outsideTransactionFails()
-  {
-    final NoTransactionComponent component = new RequiresTransactionIntegrationTest_Arez_NoTransactionComponent();
+    @Test
+    public void outsideTransactionFails() {
+        final NoTransactionComponent component = new RequiresTransactionIntegrationTest_Arez_NoTransactionComponent();
 
-    assertInvariant( component::perform,
-                     "Arez-0229: Method named 'perform' invoked outside of a transaction on component type 'arez_integration_requires_transaction_RequiresTransactionIntegrationTest_NoTransactionComponent'." );
+        assertInvariant(
+                component::perform,
+                "Arez-0229: Method named 'perform' invoked outside of a transaction on component type"
+                    + " 'arez_integration_requires_transaction_RequiresTransactionIntegrationTest_NoTransactionComponent'.");
 
-    assertEquals( component._callCount, 0 );
-  }
-
-  @ArezComponent( allowEmpty = true )
-  static abstract class ReadOnlyComponent
-  {
-    int _callCount;
-
-    @RequiresTransaction( mode = TransactionMode.READ_ONLY )
-    int perform()
-    {
-      return ++_callCount;
+        assertEquals(component._callCount, 0);
     }
-  }
 
-  @Test
-  public void readOnlyModeMismatchFails()
-  {
-    final ReadOnlyComponent component = new RequiresTransactionIntegrationTest_Arez_ReadOnlyComponent();
+    @ArezComponent(allowEmpty = true)
+    abstract static class ReadOnlyComponent {
+        int _callCount;
 
-    assertInvariant( () -> safeAction( component::perform ),
-                     "Arez-0230: Method named 'perform' invoked with transaction mode READ_WRITE but expected READ_ONLY on component type 'arez_integration_requires_transaction_RequiresTransactionIntegrationTest_ReadOnlyComponent'." );
-
-    assertEquals( component._callCount, 0 );
-  }
-
-  @Test
-  public void modeRequirementDegradesWhenTransactionTypeEnforcementDisabled()
-  {
-    ArezTestUtil.noEnforceTransactionType();
-
-    final ReadOnlyComponent component = new RequiresTransactionIntegrationTest_Arez_ReadOnlyComponent();
-
-    Arez.context().safeAction( component::perform, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
-    assertEquals( component._callCount, 1 );
-  }
-
-  @ArezComponent( allowEmpty = true )
-  static abstract class TrackingComponent
-  {
-    int _callCount;
-
-    @RequiresTransaction( tracking = TrackingMode.TRACKING )
-    int perform()
-    {
-      return ++_callCount;
+        @RequiresTransaction(mode = TransactionMode.READ_ONLY)
+        int perform() {
+            return ++_callCount;
+        }
     }
-  }
 
-  @Test
-  public void trackingMismatchFails()
-  {
-    final TrackingComponent component = new RequiresTransactionIntegrationTest_Arez_TrackingComponent();
+    @Test
+    public void readOnlyModeMismatchFails() {
+        final ReadOnlyComponent component = new RequiresTransactionIntegrationTest_Arez_ReadOnlyComponent();
 
-    assertInvariant( () -> safeAction( component::perform ),
-                     "Arez-0231: Method named 'perform' invoked with transaction tracking state NON_TRACKING but expected TRACKING on component type 'arez_integration_requires_transaction_RequiresTransactionIntegrationTest_TrackingComponent'." );
+        assertInvariant(
+                () -> safeAction(component::perform),
+                "Arez-0230: Method named 'perform' invoked with transaction mode READ_WRITE but expected READ_ONLY on"
+                    + " component type"
+                    + " 'arez_integration_requires_transaction_RequiresTransactionIntegrationTest_ReadOnlyComponent'.");
 
-    assertEquals( component._callCount, 0 );
-  }
-
-  @Test
-  public void trackingRequirementSucceedsInsideTrackingTransaction()
-    throws Throwable
-  {
-    final ArezContext context = Arez.context();
-    final TrackingComponent component = new RequiresTransactionIntegrationTest_Arez_TrackingComponent();
-    final Observer tracker =
-      context.tracker( "Tracker", () -> {
-      }, Observer.Flags.AREZ_OR_NO_DEPENDENCIES );
-
-    assertEquals( context.observe( tracker, component::perform ).intValue(), 1 );
-    assertEquals( component._callCount, 1 );
-  }
-
-  @ArezComponent( allowEmpty = true )
-  static abstract class SpyComponent
-  {
-    @RequiresTransaction
-    void perform()
-    {
+        assertEquals(component._callCount, 0);
     }
-  }
 
-  @Test
-  public void emitsNoActionOrTransactionSpyEventsOfItsOwn()
-  {
-    final ArezContext context = Arez.context();
-    final SpyComponent component = new RequiresTransactionIntegrationTest_Arez_SpyComponent();
-    final TestSpyEventHandler recorder = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( recorder );
+    @Test
+    public void modeRequirementDegradesWhenTransactionTypeEnforcementDisabled() {
+        ArezTestUtil.noEnforceTransactionType();
 
-    context.safeAction( "OuterAction", component::perform, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
+        final ReadOnlyComponent component = new RequiresTransactionIntegrationTest_Arez_ReadOnlyComponent();
 
-    recorder.assertEventCount( 4 );
-    recorder.assertNextEvent( ActionStartEvent.class, e -> assertEquals( e.getName(), "OuterAction" ) );
-    recorder.assertNextEvent( TransactionStartEvent.class, e -> assertEquals( e.getName(), "OuterAction" ) );
-    recorder.assertNextEvent( TransactionCompleteEvent.class, e -> assertEquals( e.getName(), "OuterAction" ) );
-    recorder.assertNextEvent( ActionCompleteEvent.class, e -> assertEquals( e.getName(), "OuterAction" ) );
-  }
-
-  static abstract class InheritedBase
-  {
-    int _callCount;
-
-    @RequiresTransaction
-    void performBase()
-    {
-      _callCount++;
+        Arez.context().safeAction(component::perform, ActionFlags.NO_VERIFY_ACTION_REQUIRED);
+        assertEquals(component._callCount, 1);
     }
-  }
 
-  @ArezComponent( allowEmpty = true )
-  static abstract class InheritedComponent
-    extends InheritedBase
-  {
-  }
+    @ArezComponent(allowEmpty = true)
+    abstract static class TrackingComponent {
+        int _callCount;
 
-  @Test
-  public void inheritedMethodDispatchesInsideTransaction()
-  {
-    final InheritedComponent component = new RequiresTransactionIntegrationTest_Arez_InheritedComponent();
-
-    Arez.context().safeAction( component::performBase, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
-
-    assertEquals( component._callCount, 1 );
-  }
-
-  interface DefaultRequiresTransactionMethods
-  {
-    @RequiresTransaction
-    default int performDefault()
-    {
-      return 7;
+        @RequiresTransaction(tracking = TrackingMode.TRACKING)
+        int perform() {
+            return ++_callCount;
+        }
     }
-  }
 
-  @ArezComponent( allowEmpty = true )
-  static abstract class DefaultMethodComponent
-    implements DefaultRequiresTransactionMethods
-  {
-  }
+    @Test
+    public void trackingMismatchFails() {
+        final TrackingComponent component = new RequiresTransactionIntegrationTest_Arez_TrackingComponent();
 
-  @Test
-  public void defaultMethodDispatchesInsideTransaction()
-  {
-    final DefaultMethodComponent component = new RequiresTransactionIntegrationTest_Arez_DefaultMethodComponent();
-    assertEquals( Arez.context()
-                    .safeAction( component::performDefault, ActionFlags.NO_VERIFY_ACTION_REQUIRED )
-                    .intValue(),
-                  7 );
-  }
+        assertInvariant(
+                () -> safeAction(component::perform),
+                "Arez-0231: Method named 'perform' invoked with transaction tracking state NON_TRACKING but expected"
+                    + " TRACKING on component type"
+                    + " 'arez_integration_requires_transaction_RequiresTransactionIntegrationTest_TrackingComponent'.");
+
+        assertEquals(component._callCount, 0);
+    }
+
+    @Test
+    public void trackingRequirementSucceedsInsideTrackingTransaction() throws Throwable {
+        final ArezContext context = Arez.context();
+        final TrackingComponent component = new RequiresTransactionIntegrationTest_Arez_TrackingComponent();
+        final Observer tracker = context.tracker("Tracker", () -> {}, Observer.Flags.AREZ_OR_NO_DEPENDENCIES);
+
+        assertEquals(context.observe(tracker, component::perform).intValue(), 1);
+        assertEquals(component._callCount, 1);
+    }
+
+    @ArezComponent(allowEmpty = true)
+    abstract static class SpyComponent {
+        @RequiresTransaction
+        void perform() {}
+    }
+
+    @Test
+    public void emitsNoActionOrTransactionSpyEventsOfItsOwn() {
+        final ArezContext context = Arez.context();
+        final SpyComponent component = new RequiresTransactionIntegrationTest_Arez_SpyComponent();
+        final TestSpyEventHandler recorder = new TestSpyEventHandler();
+        context.getSpy().addSpyEventHandler(recorder);
+
+        context.safeAction("OuterAction", component::perform, ActionFlags.NO_VERIFY_ACTION_REQUIRED);
+
+        recorder.assertEventCount(4);
+        recorder.assertNextEvent(ActionStartEvent.class, e -> assertEquals(e.getName(), "OuterAction"));
+        recorder.assertNextEvent(TransactionStartEvent.class, e -> assertEquals(e.getName(), "OuterAction"));
+        recorder.assertNextEvent(TransactionCompleteEvent.class, e -> assertEquals(e.getName(), "OuterAction"));
+        recorder.assertNextEvent(ActionCompleteEvent.class, e -> assertEquals(e.getName(), "OuterAction"));
+    }
+
+    abstract static class InheritedBase {
+        int _callCount;
+
+        @RequiresTransaction
+        void performBase() {
+            _callCount++;
+        }
+    }
+
+    @ArezComponent(allowEmpty = true)
+    abstract static class InheritedComponent extends InheritedBase {}
+
+    @Test
+    public void inheritedMethodDispatchesInsideTransaction() {
+        final InheritedComponent component = new RequiresTransactionIntegrationTest_Arez_InheritedComponent();
+
+        Arez.context().safeAction(component::performBase, ActionFlags.NO_VERIFY_ACTION_REQUIRED);
+
+        assertEquals(component._callCount, 1);
+    }
+
+    interface DefaultRequiresTransactionMethods {
+        @RequiresTransaction
+        default int performDefault() {
+            return 7;
+        }
+    }
+
+    @ArezComponent(allowEmpty = true)
+    abstract static class DefaultMethodComponent implements DefaultRequiresTransactionMethods {}
+
+    @Test
+    public void defaultMethodDispatchesInsideTransaction() {
+        final DefaultMethodComponent component = new RequiresTransactionIntegrationTest_Arez_DefaultMethodComponent();
+        assertEquals(
+                Arez.context()
+                        .safeAction(component::performDefault, ActionFlags.NO_VERIFY_ACTION_REQUIRED)
+                        .intValue(),
+                7);
+    }
 }

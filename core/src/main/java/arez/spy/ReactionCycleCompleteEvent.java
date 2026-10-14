@@ -7,40 +7,36 @@ import javax.annotation.Nullable;
 /**
  * Notification when a reaction cycle completes.
  */
-public final class ReactionCycleCompleteEvent
-  implements SerializableEvent
-{
-  @Nullable
-  private final Throwable _throwable;
-  private final int _duration;
+public final class ReactionCycleCompleteEvent implements SerializableEvent {
+    @Nullable
+    private final Throwable _throwable;
 
-  public ReactionCycleCompleteEvent( @Nullable final Throwable throwable, final int duration )
-  {
-    assert duration >= 0;
-    _throwable = throwable;
-    _duration = duration;
-  }
+    private final int _duration;
 
-  @Nullable
-  public Throwable getThrowable()
-  {
-    return _throwable;
-  }
+    public ReactionCycleCompleteEvent(@Nullable final Throwable throwable, final int duration) {
+        assert duration >= 0;
+        _throwable = throwable;
+        _duration = duration;
+    }
 
-  public int getDuration()
-  {
-    return _duration;
-  }
+    @Nullable
+    public Throwable getThrowable() {
+        return _throwable;
+    }
 
-  @Override
-  public void toMap( @Nonnull final Map<String, Object> map )
-  {
-    map.put( "type", "ReactionCycleComplete" );
-    map.put( "duration", getDuration() );
-    final Throwable throwable = getThrowable();
-    final String message =
-      null == throwable ? null : null == throwable.getMessage() ? throwable.toString() : throwable.getMessage();
-    map.put( "errorMessage", message );
-    SpyEventUtil.maybeAddZone( map );
-  }
+    public int getDuration() {
+        return _duration;
+    }
+
+    @Override
+    public void toMap(@Nonnull final Map<String, Object> map) {
+        map.put("type", "ReactionCycleComplete");
+        map.put("duration", getDuration());
+        final Throwable throwable = getThrowable();
+        final String message = null == throwable
+                ? null
+                : null == throwable.getMessage() ? throwable.toString() : throwable.getMessage();
+        map.put("errorMessage", message);
+        SpyEventUtil.maybeAddZone(map);
+    }
 }

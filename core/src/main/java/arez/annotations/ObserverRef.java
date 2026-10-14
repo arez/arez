@@ -33,16 +33,15 @@ import javax.annotation.Nonnull;
  * {@link ArezComponent} or {@link ArezComponentLike}. Other usages will fail compilation.</p>
  */
 @Documented
-@Target( ElementType.METHOD )
-public @interface ObserverRef
-{
-  /**
-   * Return the name of the associated Observer that this ref relates to.
-   * This value will be derived if the method name matches the pattern "get[Name]Observer",
-   * otherwise it must be specified.
-   *
-   * @return the name of the associated Observer.
-   */
-  @Nonnull
-  String name() default "<default>";
+@Target(ElementType.METHOD)
+public @interface ObserverRef {
+    /**
+     * Return the name of the associated Observer that this ref relates to.
+     * This value will be derived if the method name matches the pattern "get[Name]Observer",
+     * otherwise it must be specified.
+     *
+     * @return the name of the associated Observer.
+     */
+    @Nonnull
+    String name() default "<default>";
 }

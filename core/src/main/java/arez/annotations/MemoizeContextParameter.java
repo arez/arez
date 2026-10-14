@@ -83,38 +83,37 @@ import org.intellij.lang.annotations.Language;
  * {@link ArezComponent} or {@link ArezComponentLike}. Other usages will fail compilation.</p>
  */
 @Documented
-@Target( ElementType.METHOD )
-public @interface MemoizeContextParameter
-{
-  /**
-   * Return the name of the context parameter.
-   * If not specified, then the name will be derived from the name of the method.
-   * <ul>
-   *   <li>To derive the name from a push method then remove the "push" prefix.</li>
-   *   <li>To derive the name from a pop method then remove the "pop" prefix.</li>
-   *   <li>To derive the name from a capture method then remove the optional "capture" prefix else just use the method name if no such prefix.</li>
-   * </ul>
-   *
-   * @return the name of the context parameter.
-   */
-  @Nonnull
-  String name() default "<default>";
+@Target(ElementType.METHOD)
+public @interface MemoizeContextParameter {
+    /**
+     * Return the name of the context parameter.
+     * If not specified, then the name will be derived from the name of the method.
+     * <ul>
+     *   <li>To derive the name from a push method then remove the "push" prefix.</li>
+     *   <li>To derive the name from a pop method then remove the "pop" prefix.</li>
+     *   <li>To derive the name from a capture method then remove the optional "capture" prefix else just use the method name if no such prefix.</li>
+     * </ul>
+     *
+     * @return the name of the context parameter.
+     */
+    @Nonnull
+    String name() default "<default>";
 
-  /**
-   * Return a regular expression for matching the arez names of memoized methods where this context parameter is tracked.
-   *
-   * @return a regular expression for matching arez name of memoized methods.
-   */
-  @Nonnull
-  @Language( "RegExp" )
-  String pattern() default ".*";
+    /**
+     * Return a regular expression for matching the arez names of memoized methods where this context parameter is tracked.
+     *
+     * @return a regular expression for matching arez name of memoized methods.
+     */
+    @Nonnull
+    @Language("RegExp")
+    String pattern() default ".*";
 
-  /**
-   * Return true if the component does not need to have {@link Memoize} annotated methods match.
-   * Otherwise, if no {@link Memoize} annotated methods match the {@link #pattern()} then the annotation
-   * processor will generate an error.
-   *
-   * @return true if the memoized methods must match annotation, false otherwise.
-   */
-  boolean allowEmpty() default false;
+    /**
+     * Return true if the component does not need to have {@link Memoize} annotated methods match.
+     * Otherwise, if no {@link Memoize} annotated methods match the {@link #pattern()} then the annotation
+     * processor will generate an error.
+     *
+     * @return true if the memoized methods must match annotation, false otherwise.
+     */
+    boolean allowEmpty() default false;
 }

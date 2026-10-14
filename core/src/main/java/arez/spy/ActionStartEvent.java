@@ -7,49 +7,43 @@ import javax.annotation.Nonnull;
 /**
  * Notification when Action starts.
  */
-public final class ActionStartEvent
-  implements SerializableEvent
-{
-  @Nonnull
-  private final String _name;
-  /**
-   * Is the action a "tracking" action.
-   */
-  private final boolean _tracked;
-  @Nonnull
-  private final Object[] _parameters;
+public final class ActionStartEvent implements SerializableEvent {
+    @Nonnull
+    private final String _name;
+    /**
+     * Is the action a "tracking" action.
+     */
+    private final boolean _tracked;
 
-  public ActionStartEvent( @Nonnull final String name, final boolean tracked, @Nonnull final Object[] parameters )
-  {
-    _name = Objects.requireNonNull( name );
-    _tracked = tracked;
-    _parameters = Objects.requireNonNull( parameters );
-  }
+    @Nonnull
+    private final Object[] _parameters;
 
-  @Nonnull
-  public String getName()
-  {
-    return _name;
-  }
+    public ActionStartEvent(@Nonnull final String name, final boolean tracked, @Nonnull final Object[] parameters) {
+        _name = Objects.requireNonNull(name);
+        _tracked = tracked;
+        _parameters = Objects.requireNonNull(parameters);
+    }
 
-  public boolean isTracked()
-  {
-    return _tracked;
-  }
+    @Nonnull
+    public String getName() {
+        return _name;
+    }
 
-  @Nonnull
-  public Object[] getParameters()
-  {
-    return _parameters;
-  }
+    public boolean isTracked() {
+        return _tracked;
+    }
 
-  @Override
-  public void toMap( @Nonnull final Map<String, Object> map )
-  {
-    map.put( "type", "ActionStart" );
-    map.put( "name", getName() );
-    map.put( "tracked", isTracked() );
-    map.put( "parameters", getParameters() );
-    SpyEventUtil.maybeAddZone( map );
-  }
+    @Nonnull
+    public Object[] getParameters() {
+        return _parameters;
+    }
+
+    @Override
+    public void toMap(@Nonnull final Map<String, Object> map) {
+        map.put("type", "ActionStart");
+        map.put("name", getName());
+        map.put("tracked", isTracked());
+        map.put("parameters", getParameters());
+        SpyEventUtil.maybeAddZone(map);
+    }
 }

@@ -12,98 +12,85 @@ import org.realityforge.proton.ProcessorException;
 /**
  * Declaration of a method or field that must be cascade disposed.
  */
-final class CascadeDisposeDescriptor
-{
-  @Nullable
-  private final ExecutableElement _method;
-  @Nullable
-  private final VariableElement _field;
-  @Nullable
-  private ObservableDescriptor _observable;
-  @Nullable
-  private ReferenceDescriptor _reference;
+final class CascadeDisposeDescriptor {
+    @Nullable
+    private final ExecutableElement _method;
 
-  CascadeDisposeDescriptor( @Nonnull final VariableElement field )
-  {
-    _method = null;
-    _field = Objects.requireNonNull( field );
-  }
+    @Nullable
+    private final VariableElement _field;
 
-  CascadeDisposeDescriptor( @Nonnull final ExecutableElement method, @Nullable final ObservableDescriptor observable )
-  {
-    _method = Objects.requireNonNull( method );
-    _field = null;
-    if ( null != observable )
-    {
-      setObservable( observable );
+    @Nullable
+    private ObservableDescriptor _observable;
+
+    @Nullable
+    private ReferenceDescriptor _reference;
+
+    CascadeDisposeDescriptor(@Nonnull final VariableElement field) {
+        _method = null;
+        _field = Objects.requireNonNull(field);
     }
-  }
 
-  @Nonnull
-  Element getElement()
-  {
-    final ExecutableElement method = getMethod();
-    return null != method ? method : Objects.requireNonNull( getField() );
-  }
-
-  void setObservable( @Nonnull final ObservableDescriptor observable )
-  {
-    _observable = Objects.requireNonNull( observable );
-    observable.setCascadeDisposeDescriptor( this );
-  }
-
-  void setReference( @Nullable final ReferenceDescriptor reference )
-  {
-    _reference = Objects.requireNonNull( reference );
-    reference.setCascadeDisposeDescriptor( this );
-  }
-
-  void validate()
-  {
-    if ( null != getMethod() )
-    {
-      if ( null == getObservable() && null == getReference() )
-      {
-        if ( getMethod().getModifiers().contains( Modifier.ABSTRACT ) )
-        {
-          throw new ProcessorException( "@CascadeDispose target must not be abstract unless the method is " +
-                                        "also annotated with the @Observable or @Reference annotation.",
-                                        getMethod() );
+    CascadeDisposeDescriptor(@Nonnull final ExecutableElement method, @Nullable final ObservableDescriptor observable) {
+        _method = Objects.requireNonNull(method);
+        _field = null;
+        if (null != observable) {
+            setObservable(observable);
         }
-      }
-      else
-      {
-        if ( !getMethod().getModifiers().contains( Modifier.ABSTRACT ) )
-        {
-          throw new ProcessorException( "@CascadeDispose target must be abstract if the method is " +
-                                        "also annotated with the @Observable or @Reference annotation.",
-                                        getMethod() );
-        }
-      }
     }
-  }
 
-  @Nullable
-  ExecutableElement getMethod()
-  {
-    return _method;
-  }
+    @Nonnull
+    Element getElement() {
+        final ExecutableElement method = getMethod();
+        return null != method ? method : Objects.requireNonNull(getField());
+    }
 
-  @Nullable
-  VariableElement getField()
-  {
-    return _field;
-  }
+    void setObservable(@Nonnull final ObservableDescriptor observable) {
+        _observable = Objects.requireNonNull(observable);
+        observable.setCascadeDisposeDescriptor(this);
+    }
 
-  @Nullable
-  ObservableDescriptor getObservable()
-  {
-    return _observable;
-  }
+    void setReference(@Nullable final ReferenceDescriptor reference) {
+        _reference = Objects.requireNonNull(reference);
+        reference.setCascadeDisposeDescriptor(this);
+    }
 
-  @Nullable
-  ReferenceDescriptor getReference()
-  {
-    return _reference;
-  }
+    void validate() {
+        if (null != getMethod()) {
+            if (null == getObservable() && null == getReference()) {
+                if (getMethod().getModifiers().contains(Modifier.ABSTRACT)) {
+                    throw new ProcessorException(
+                            "@CascadeDispose target must not be abstract unless the method is "
+                                    + "also annotated with the @Observable or @Reference annotation.",
+                            getMethod());
+                }
+            } else {
+                if (!getMethod().getModifiers().contains(Modifier.ABSTRACT)) {
+                    throw new ProcessorException(
+                            "@CascadeDispose target must be abstract if the method is "
+                                    + "also annotated with the @Observable or @Reference annotation.",
+                            getMethod());
+                }
+            }
+        }
+    }
+
+    @Nullable
+    ExecutableElement getMethod() {
+        return _method;
+    }
+
+    @Nullable
+    VariableElement getField() {
+        return _field;
+    }
+
+    @Nullable
+    ObservableDescriptor getObservable() {
+        return _observable;
+    }
+
+    @Nullable
+    ReferenceDescriptor getReference() {
+        return _reference;
+    }
 }

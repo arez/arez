@@ -10,46 +10,41 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class Permission
-{
-  //DOC ELIDE START
-  private final int _id;
-  private final int _groupId;
-  @Nonnull
-  private String _name;
+public abstract class Permission {
+    // DOC ELIDE START
+    private final int _id;
+    private final int _groupId;
 
-  Permission( final int id, final int groupId, @Nonnull final String name )
-  {
-    _id = id;
-    _groupId = groupId;
-    _name = Objects.requireNonNull( name );
-  }
+    @Nonnull
+    private String _name;
 
-  @ComponentId
-  public int getId()
-  {
-    return _id;
-  }
+    Permission(final int id, final int groupId, @Nonnull final String name) {
+        _id = id;
+        _groupId = groupId;
+        _name = Objects.requireNonNull(name);
+    }
 
-  @Observable
-  @Nonnull
-  public String getName()
-  {
-    return _name;
-  }
+    @ComponentId
+    public int getId() {
+        return _id;
+    }
 
-  public void setName( @Nonnull final String name )
-  {
-    _name = name;
-  }
+    @Observable
+    @Nonnull
+    public String getName() {
+        return _name;
+    }
 
-  //DOC ELIDE END
-  @Reference( inverse = Feature.ENABLE )
-  public abstract Group getGroup();
+    public void setName(@Nonnull final String name) {
+        _name = name;
+    }
 
-  @ReferenceId
-  public int getGroupId()
-  {
-    return _groupId;
-  }
+    // DOC ELIDE END
+    @Reference(inverse = Feature.ENABLE)
+    public abstract Group getGroup();
+
+    @ReferenceId
+    public int getGroupId() {
+        return _groupId;
+    }
 }

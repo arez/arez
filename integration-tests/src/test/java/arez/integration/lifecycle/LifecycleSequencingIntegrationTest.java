@@ -1,5 +1,7 @@
 package arez.integration.lifecycle;
 
+import static org.testng.Assert.*;
+
 import arez.ArezTestUtil;
 import arez.Disposable;
 import arez.annotations.ArezComponent;
@@ -10,99 +12,82 @@ import arez.integration.AbstractArezIntegrationTest;
 import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
-public final class LifecycleSequencingIntegrationTest
-  extends AbstractArezIntegrationTest
-{
-  @Test
-  public void scenario()
-  {
-    final Model1 model = Model1.create();
+public final class LifecycleSequencingIntegrationTest extends AbstractArezIntegrationTest {
+    @Test
+    public void scenario() {
+        final Model1 model = Model1.create();
 
-    Disposable.dispose( model );
+        Disposable.dispose(model);
 
-    assertEquals( String.join( " ", model._steps ), "Constructor PostConstruct PreDispose PostDispose" );
-  }
-
-  @Test
-  public void scenario_NativeComponentsDisabled()
-  {
-    ArezTestUtil.disableNativeComponents();
-    final Model2 model = Model2.create();
-
-    Disposable.dispose( model );
-
-    assertEquals( String.join( " ", model._steps ), "Constructor PostConstruct PreDispose PostDispose" );
-  }
-
-  @ArezComponent( allowEmpty = true )
-  static abstract class Model1
-  {
-    final ArrayList<String> _steps = new ArrayList<>();
-
-    @Nonnull
-    static Model1 create()
-    {
-      return new LifecycleSequencingIntegrationTest_Arez_Model1();
+        assertEquals(String.join(" ", model._steps), "Constructor PostConstruct PreDispose PostDispose");
     }
 
-    Model1()
-    {
-      _steps.add( "Constructor" );
+    @Test
+    public void scenario_NativeComponentsDisabled() {
+        ArezTestUtil.disableNativeComponents();
+        final Model2 model = Model2.create();
+
+        Disposable.dispose(model);
+
+        assertEquals(String.join(" ", model._steps), "Constructor PostConstruct PreDispose PostDispose");
     }
 
-    @PostConstruct
-    void postConstruct()
-    {
-      _steps.add( "PostConstruct" );
+    @ArezComponent(allowEmpty = true)
+    abstract static class Model1 {
+        final ArrayList<String> _steps = new ArrayList<>();
+
+        @Nonnull
+        static Model1 create() {
+            return new LifecycleSequencingIntegrationTest_Arez_Model1();
+        }
+
+        Model1() {
+            _steps.add("Constructor");
+        }
+
+        @PostConstruct
+        void postConstruct() {
+            _steps.add("PostConstruct");
+        }
+
+        @PreDispose
+        void preDispose() {
+            _steps.add("PreDispose");
+        }
+
+        @PostDispose
+        void postDispose() {
+            _steps.add("PostDispose");
+        }
     }
 
-    @PreDispose
-    void preDispose()
-    {
-      _steps.add( "PreDispose" );
-    }
+    @ArezComponent(allowEmpty = true)
+    abstract static class Model2 {
+        final ArrayList<String> _steps = new ArrayList<>();
 
-    @PostDispose
-    void postDispose()
-    {
-      _steps.add( "PostDispose" );
-    }
-  }
+        @Nonnull
+        static Model2 create() {
+            return new LifecycleSequencingIntegrationTest_Arez_Model2();
+        }
 
-  @ArezComponent( allowEmpty = true )
-  static abstract class Model2
-  {
-    final ArrayList<String> _steps = new ArrayList<>();
+        Model2() {
+            _steps.add("Constructor");
+        }
 
-    @Nonnull
-    static Model2 create()
-    {
-      return new LifecycleSequencingIntegrationTest_Arez_Model2();
-    }
+        @PostConstruct
+        void postConstruct() {
+            _steps.add("PostConstruct");
+        }
 
-    Model2()
-    {
-      _steps.add( "Constructor" );
-    }
+        @PreDispose
+        void preDispose() {
+            _steps.add("PreDispose");
+        }
 
-    @PostConstruct
-    void postConstruct()
-    {
-      _steps.add( "PostConstruct" );
+        @PostDispose
+        void postDispose() {
+            _steps.add("PostDispose");
+        }
     }
-
-    @PreDispose
-    void preDispose()
-    {
-      _steps.add( "PreDispose" );
-    }
-
-    @PostDispose
-    void postDispose()
-    {
-      _steps.add( "PostDispose" );
-    }
-  }
 }

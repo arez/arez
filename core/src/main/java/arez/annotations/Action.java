@@ -22,68 +22,67 @@ import javax.annotation.Nonnull;
  * {@link ArezComponent} or {@link ArezComponentLike}. Other usages will fail compilation.</p>
  */
 @Documented
-@Target( ElementType.METHOD )
-public @interface Action
-{
-  /**
-   * Return the name of the Action relative to the component.
-   * The value must conform to the requirements of a java identifier.
-   * The name must also be unique across {@link Observable}s,
-   * {@link Memoize}s and {@link Action}s within the scope of the
-   * {@link ArezComponent} annotated element.
-   *
-   * @return the name of the Action relative to the component.
-   */
-  @Nonnull
-  String name() default "<default>";
+@Target(ElementType.METHOD)
+public @interface Action {
+    /**
+     * Return the name of the Action relative to the component.
+     * The value must conform to the requirements of a java identifier.
+     * The name must also be unique across {@link Observable}s,
+     * {@link Memoize}s and {@link Action}s within the scope of the
+     * {@link ArezComponent} annotated element.
+     *
+     * @return the name of the Action relative to the component.
+     */
+    @Nonnull
+    String name() default "<default>";
 
-  /**
-   * Does the action mutate state or not.
-   *
-   * @return true if method should be wrapped in READ_WRITE transaction, false if it should it should be wrapped in READ_ONLY transaction.
-   */
-  boolean mutation() default true;
+    /**
+     * Does the action mutate state or not.
+     *
+     * @return true if method should be wrapped in READ_WRITE transaction, false if it should it should be wrapped in READ_ONLY transaction.
+     */
+    boolean mutation() default true;
 
-  /**
-   * Return true if the parameters should be reported to the Arez spy subsystem.
-   * It is useful to disable reporting for large, circular or just uninteresting parameters to the spy infrastructure.
-   *
-   * @return true to report the parameters, false otherwise.
-   */
-  boolean reportParameters() default true;
+    /**
+     * Return true if the parameters should be reported to the Arez spy subsystem.
+     * It is useful to disable reporting for large, circular or just uninteresting parameters to the spy infrastructure.
+     *
+     * @return true to report the parameters, false otherwise.
+     */
+    boolean reportParameters() default true;
 
-  /**
-   * Return true if the return value of the action (if any) should be reported to the Arez spy subsystem.
-   * It is useful to disable reporting for large, circular or just uninteresting parameters to the spy infrastructure.
-   *
-   * @return true to report the return value, false otherwise.
-   */
-  boolean reportResult() default true;
+    /**
+     * Return true if the return value of the action (if any) should be reported to the Arez spy subsystem.
+     * It is useful to disable reporting for large, circular or just uninteresting parameters to the spy infrastructure.
+     *
+     * @return true to report the return value, false otherwise.
+     */
+    boolean reportResult() default true;
 
-  /**
-   * True if the action should always start a new transaction. A false value indicates that the action will
-   * use the invoking transaction if present, otherwise will create a new transaction to invoke action.
-   *
-   * @return true if the action will create a new transaction, false if it will use the existing transaction if present.
-   */
-  boolean requireNewTransaction() default false;
+    /**
+     * True if the action should always start a new transaction. A false value indicates that the action will
+     * use the invoking transaction if present, otherwise will create a new transaction to invoke action.
+     *
+     * @return true if the action will create a new transaction, false if it will use the existing transaction if present.
+     */
+    boolean requireNewTransaction() default false;
 
-  /**
-   * Flag indicating whether the code should verify that at least one read or write occurs within
-   * the scope of the action.
-   *
-   * @return true to verify action reads or writes observable data.
-   */
-  boolean verifyRequired() default true;
+    /**
+     * Flag indicating whether the code should verify that at least one read or write occurs within
+     * the scope of the action.
+     *
+     * @return true to verify action reads or writes observable data.
+     */
+    boolean verifyRequired() default true;
 
-  /**
-   * Flag indicating whether the action will be skipped if the owning component is disposing or disposed.
-   * If set to {@link Feature#AUTODETECT} then the value is inherited from the
-   * {@link ArezComponent#defaultSkipIfDisposed()} parameter on the containing component. If that value is also
-   * {@link Feature#AUTODETECT} then the effective value is treated as {@link Feature#DISABLE}. If the effective
-   * value is {@link Feature#ENABLE} then the action must be a void method.
-   *
-   * @return the flag indicating whether the action will be skipped if the owning component is disposing or disposed.
-   */
-  Feature skipIfDisposed() default Feature.AUTODETECT;
+    /**
+     * Flag indicating whether the action will be skipped if the owning component is disposing or disposed.
+     * If set to {@link Feature#AUTODETECT} then the value is inherited from the
+     * {@link ArezComponent#defaultSkipIfDisposed()} parameter on the containing component. If that value is also
+     * {@link Feature#AUTODETECT} then the effective value is treated as {@link Feature#DISABLE}. If the effective
+     * value is {@link Feature#ENABLE} then the action must be a void method.
+     *
+     * @return the flag indicating whether the action will be skipped if the owning component is disposing or disposed.
+     */
+    Feature skipIfDisposed() default Feature.AUTODETECT;
 }

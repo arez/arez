@@ -1,5 +1,7 @@
 package arez.integration.observe;
 
+import static org.testng.Assert.*;
+
 import arez.Arez;
 import arez.ArezContext;
 import arez.annotations.ArezComponent;
@@ -14,49 +16,41 @@ import arez.spy.ActionStartEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
-public final class TrackNoReportResultTest
-  extends AbstractArezIntegrationTest
-{
-  @ArezComponent
-  public static abstract class Model
-  {
-    @Observe( executor = Executor.EXTERNAL, reportResult = false )
-    public int render()
-    {
-      getTime();
-      return 23;
+public final class TrackNoReportResultTest extends AbstractArezIntegrationTest {
+    @ArezComponent
+    public abstract static class Model {
+        @Observe(executor = Executor.EXTERNAL, reportResult = false)
+        public int render() {
+            getTime();
+            return 23;
+        }
+
+        @OnDepsChange
+        void onRenderDepsChange() {}
+
+        @Observable
+        abstract long getTime();
+
+        abstract void setTime(long value);
     }
 
-    @OnDepsChange
-    void onRenderDepsChange()
-    {
+    @Test
+    public void scenario() {
+        final ArezContext context = Arez.context();
+
+        final Model component = new TrackNoReportResultTest_Arez_Model();
+
+        final TestSpyEventHandler recorder = new TestSpyEventHandler();
+        context.getSpy().addSpyEventHandler(recorder);
+
+        final int result = component.render();
+        assertEquals(result, 23);
+
+        recorder.assertEventCount(4);
+        recorder.assertNextEvent(ActionStartEvent.class);
+        recorder.assertNextEvent(TransactionStartEvent.class);
+        recorder.assertNextEvent(TransactionCompleteEvent.class);
+        recorder.assertNextEvent(ActionCompleteEvent.class, a -> assertNull(a.getResult()));
     }
-
-    @Observable
-    abstract long getTime();
-
-    abstract void setTime( long value );
-  }
-
-  @Test
-  public void scenario()
-  {
-    final ArezContext context = Arez.context();
-
-    final Model component = new TrackNoReportResultTest_Arez_Model();
-
-    final TestSpyEventHandler recorder = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( recorder );
-
-    final int result = component.render();
-    assertEquals( result, 23 );
-
-    recorder.assertEventCount( 4 );
-    recorder.assertNextEvent( ActionStartEvent.class );
-    recorder.assertNextEvent( TransactionStartEvent.class );
-    recorder.assertNextEvent( TransactionCompleteEvent.class );
-    recorder.assertNextEvent( ActionCompleteEvent.class, a -> assertNull( a.getResult() ) );
-  }
 }

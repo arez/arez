@@ -16,49 +16,43 @@ import arez.spy.TransactionStartEvent;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 
-public final class MemoizeReadOutsideTransactionTest
-  extends AbstractArezIntegrationTest
-{
-  @Test
-  public void scenario()
-  {
-    final ArezContext context = Arez.context();
+public final class MemoizeReadOutsideTransactionTest extends AbstractArezIntegrationTest {
+    @Test
+    public void scenario() {
+        final ArezContext context = Arez.context();
 
-    final Element element = Element.create();
+        final Element element = Element.create();
 
-    final TestSpyEventHandler recorder = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( recorder );
+        final TestSpyEventHandler recorder = new TestSpyEventHandler();
+        context.getSpy().addSpyEventHandler(recorder);
 
-    element.getMemoized();
+        element.getMemoized();
 
-    recorder.assertEventCount( 7 );
-    recorder.assertNextEvent( TransactionStartEvent.class );
+        recorder.assertEventCount(7);
+        recorder.assertNextEvent(TransactionStartEvent.class);
 
-    recorder.assertNextEvent( ComputeStartEvent.class );
-    recorder.assertNextEvent( TransactionStartEvent.class );
+        recorder.assertNextEvent(ComputeStartEvent.class);
+        recorder.assertNextEvent(TransactionStartEvent.class);
 
-    recorder.assertNextEvent( ObservableValueChangeEvent.class );
+        recorder.assertNextEvent(ObservableValueChangeEvent.class);
 
-    recorder.assertNextEvent( TransactionCompleteEvent.class );
-    recorder.assertNextEvent( ComputeCompleteEvent.class );
+        recorder.assertNextEvent(TransactionCompleteEvent.class);
+        recorder.assertNextEvent(ComputeCompleteEvent.class);
 
-    recorder.assertNextEvent( TransactionCompleteEvent.class );
-  }
-
-  @ArezComponent
-  static abstract class Element
-  {
-    @Nonnull
-    static Element create()
-    {
-      return new MemoizeReadOutsideTransactionTest_Arez_Element();
+        recorder.assertNextEvent(TransactionCompleteEvent.class);
     }
 
-    @Memoize( readOutsideTransaction = Feature.ENABLE, depType = DepType.AREZ_OR_NONE )
-    @Nonnull
-    String getMemoized()
-    {
-      return "";
+    @ArezComponent
+    abstract static class Element {
+        @Nonnull
+        static Element create() {
+            return new MemoizeReadOutsideTransactionTest_Arez_Element();
+        }
+
+        @Memoize(readOutsideTransaction = Feature.ENABLE, depType = DepType.AREZ_OR_NONE)
+        @Nonnull
+        String getMemoized() {
+            return "";
+        }
     }
-  }
 }

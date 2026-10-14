@@ -6,26 +6,24 @@ import arez.annotations.ObservableInitial;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-abstract class MyModel
-{
-  @Observable
-  @Nonnull
-  abstract String getName();
+abstract class MyModel {
+    @Observable
+    @Nonnull
+    abstract String getName();
 
-  abstract void setName( @Nonnull String name );
+    abstract void setName(@Nonnull String name);
 
-  @Observable
-  abstract int getAge();
+    @Observable
+    abstract int getAge();
 
-  abstract void setAge( int age );
+    abstract void setAge(int age);
 
-  @ObservableInitial
-  @Nonnull
-  static final String INITIAL_Name = "Anonymous";
+    @ObservableInitial
+    @Nonnull
+    static final String INITIAL_Name = "Anonymous";
 
-  @ObservableInitial
-  static int getInitialAge()
-  {
-    return 18;
-  }
+    @ObservableInitial
+    static int getInitialAge() {
+        return 18;
+    }
 }

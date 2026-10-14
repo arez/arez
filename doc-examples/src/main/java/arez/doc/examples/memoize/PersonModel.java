@@ -6,35 +6,29 @@ import arez.annotations.Observable;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class PersonModel
-{
-  private String _name;
+public abstract class PersonModel {
+    private String _name;
 
-  @Nonnull
-  public static PersonModel create( @Nonnull final String name )
-  {
-    return new Arez_PersonModel( name );
-  }
+    @Nonnull
+    public static PersonModel create(@Nonnull final String name) {
+        return new Arez_PersonModel(name);
+    }
 
-  PersonModel( @Nonnull final String name )
-  {
-    _name = name;
-  }
+    PersonModel(@Nonnull final String name) {
+        _name = name;
+    }
 
-  @Observable
-  public String getName()
-  {
-    return _name;
-  }
+    @Observable
+    public String getName() {
+        return _name;
+    }
 
-  public void setName( @Nonnull final String name )
-  {
-    _name = name;
-  }
+    public void setName(@Nonnull final String name) {
+        _name = name;
+    }
 
-  @Memoize
-  public boolean doesSearchMatch( @Nonnull final String value )
-  {
-    return getName().contains( value );
-  }
+    @Memoize
+    public boolean doesSearchMatch(@Nonnull final String value) {
+        return getName().contains(value);
+    }
 }

@@ -6,18 +6,15 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @ArezComponent
-public abstract class Currency
-{
-  private BigDecimal _amount;
+public abstract class Currency {
+    private BigDecimal _amount;
 
-  @Observable
-  public BigDecimal getAmount()
-  {
-    return _amount;
-  }
+    @Observable
+    public BigDecimal getAmount() {
+        return _amount;
+    }
 
-  public void setAmount( final BigDecimal amount )
-  {
-    _amount = Objects.requireNonNull( amount );
-  }
+    public void setAmount(final BigDecimal amount) {
+        _amount = Objects.requireNonNull(amount);
+    }
 }

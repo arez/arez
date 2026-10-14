@@ -6,18 +6,14 @@ import javax.annotation.Nonnull;
 /**
  * Represent Float as doubles when emitting as json.
  */
-final class FloatConverter
-  implements Converter<Float, Double>
-{
-  @Override
-  public Float decode( @Nonnull final Double encoded )
-  {
-    return encoded.floatValue();
-  }
+final class FloatConverter implements Converter<Float, Double> {
+    @Override
+    public Float decode(@Nonnull final Double encoded) {
+        return encoded.floatValue();
+    }
 
-  @Override
-  public Double encode( @Nonnull final Float value )
-  {
-    return value.doubleValue();
-  }
+    @Override
+    public Double encode(@Nonnull final Float value) {
+        return value.doubleValue();
+    }
 }

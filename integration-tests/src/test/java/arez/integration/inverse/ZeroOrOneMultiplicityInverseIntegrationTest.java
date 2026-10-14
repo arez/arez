@@ -1,5 +1,7 @@
 package arez.integration.inverse;
 
+import static org.testng.Assert.*;
+
 import arez.Arez;
 import arez.Disposable;
 import arez.Observer;
@@ -20,131 +22,118 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
-public final class ZeroOrOneMultiplicityInverseIntegrationTest
-  extends AbstractArezIntegrationTest
-{
-  @Test
-  public void scenario()
-  {
-    final AtomicInteger locatorLookupCallCount = new AtomicInteger();
+public final class ZeroOrOneMultiplicityInverseIntegrationTest extends AbstractArezIntegrationTest {
+    @Test
+    public void scenario() {
+        final AtomicInteger locatorLookupCallCount = new AtomicInteger();
 
-    final TypeBasedLocator locator = new TypeBasedLocator();
-    final PersonRepository repository =
-      PersonRepository.newRepository();
+        final TypeBasedLocator locator = new TypeBasedLocator();
+        final PersonRepository repository = PersonRepository.newRepository();
 
-    Arez.context().registerLocator( locator );
+        Arez.context().registerLocator(locator);
 
-    locator.registerLookup( Person.class, id -> {
-      locatorLookupCallCount.incrementAndGet();
-      return repository.findByArezId( (Integer) id );
-    } );
+        locator.registerLookup(Person.class, id -> {
+            locatorLookupCallCount.incrementAndGet();
+            return repository.findByArezId((Integer) id);
+        });
 
-    final Person person = repository.create();
-    final Person person2 = repository.create();
-    final Integer personId = Objects.requireNonNull( Identifiable.getArezId( person ) );
-    final Integer person2Id = Objects.requireNonNull( Identifiable.getArezId( person2 ) );
+        final Person person = repository.create();
+        final Person person2 = repository.create();
+        final Integer personId = Objects.requireNonNull(Identifiable.getArezId(person));
+        final Integer person2Id = Objects.requireNonNull(Identifiable.getArezId(person2));
 
-    assertEquals( locatorLookupCallCount.get(), 0 );
+        assertEquals(locatorLookupCallCount.get(), 0);
 
-    final AtomicInteger inverseCallCount = new AtomicInteger();
-    observer( () -> {
-      person.getCertificate();
-      inverseCallCount.incrementAndGet();
-    } );
+        final AtomicInteger inverseCallCount = new AtomicInteger();
+        observer(() -> {
+            person.getCertificate();
+            inverseCallCount.incrementAndGet();
+        });
 
-    assertEquals( locatorLookupCallCount.get(), 0 );
-    assertEquals( inverseCallCount.get(), 1 );
-    final Certificate certificate1 = safeAction( () -> Certificate.create( personId ) );
-    assertEquals( locatorLookupCallCount.get(), 1 );
-    assertEquals( inverseCallCount.get(), 2 );
+        assertEquals(locatorLookupCallCount.get(), 0);
+        assertEquals(inverseCallCount.get(), 1);
+        final Certificate certificate1 = safeAction(() -> Certificate.create(personId));
+        assertEquals(locatorLookupCallCount.get(), 1);
+        assertEquals(inverseCallCount.get(), 2);
 
-    final AtomicInteger certificate1GetPersonCallCount = new AtomicInteger();
-    final Observer certificate1GetPersonObserver = observer( () -> {
-      certificate1.getPerson();
-      certificate1GetPersonCallCount.incrementAndGet();
-    } );
+        final AtomicInteger certificate1GetPersonCallCount = new AtomicInteger();
+        final Observer certificate1GetPersonObserver = observer(() -> {
+            certificate1.getPerson();
+            certificate1GetPersonCallCount.incrementAndGet();
+        });
 
-    safeAction( () -> assertEquals( certificate1.getPerson(), person ) );
-    safeAction( () -> assertEquals( person.getCertificate(), certificate1 ) );
-    safeAction( () -> assertNull( person2.getCertificate() ) );
+        safeAction(() -> assertEquals(certificate1.getPerson(), person));
+        safeAction(() -> assertEquals(person.getCertificate(), certificate1));
+        safeAction(() -> assertNull(person2.getCertificate()));
 
-    assertEquals( certificate1GetPersonCallCount.get(), 1 );
-    assertEquals( locatorLookupCallCount.get(), 1 );
+        assertEquals(certificate1GetPersonCallCount.get(), 1);
+        assertEquals(locatorLookupCallCount.get(), 1);
 
-    safeAction( () -> certificate1.setPersonId( person2Id ) );
+        safeAction(() -> certificate1.setPersonId(person2Id));
 
-    safeAction( () -> assertEquals( certificate1.getPerson(), person2 ) );
-    safeAction( () -> assertNull( person.getCertificate() ) );
-    safeAction( () -> assertEquals( person2.getCertificate(), certificate1 ) );
+        safeAction(() -> assertEquals(certificate1.getPerson(), person2));
+        safeAction(() -> assertNull(person.getCertificate()));
+        safeAction(() -> assertEquals(person2.getCertificate(), certificate1));
 
-    assertEquals( inverseCallCount.get(), 3 );
-    assertEquals( certificate1GetPersonCallCount.get(), 2 );
-    assertEquals( locatorLookupCallCount.get(), 2 );
+        assertEquals(inverseCallCount.get(), 3);
+        assertEquals(certificate1GetPersonCallCount.get(), 2);
+        assertEquals(locatorLookupCallCount.get(), 2);
 
-    // Stop observer so we don't get an exception
-    Disposable.dispose( certificate1GetPersonObserver );
+        // Stop observer so we don't get an exception
+        Disposable.dispose(certificate1GetPersonObserver);
 
-    Disposable.dispose( certificate1 );
+        Disposable.dispose(certificate1);
 
-    assertTrue( Disposable.isDisposed( certificate1 ) );
-    safeAction( () -> assertNull( person.getCertificate() ) );
-    safeAction( () -> assertNull( person2.getCertificate() ) );
+        assertTrue(Disposable.isDisposed(certificate1));
+        safeAction(() -> assertNull(person.getCertificate()));
+        safeAction(() -> assertNull(person2.getCertificate()));
 
-    assertEquals( certificate1GetPersonCallCount.get(), 2 );
-    assertEquals( locatorLookupCallCount.get(), 2 );
-  }
-
-  @ArezComponent
-  static abstract class Certificate
-  {
-    @Nonnull
-    static Certificate create( final int personId )
-    {
-      return new ZeroOrOneMultiplicityInverseIntegrationTest_Arez_Certificate( personId );
+        assertEquals(certificate1GetPersonCallCount.get(), 2);
+        assertEquals(locatorLookupCallCount.get(), 2);
     }
 
-    @Reference( inverseMultiplicity = Multiplicity.ZERO_OR_ONE )
-    abstract Person getPerson();
+    @ArezComponent
+    abstract static class Certificate {
+        @Nonnull
+        static Certificate create(final int personId) {
+            return new ZeroOrOneMultiplicityInverseIntegrationTest_Arez_Certificate(personId);
+        }
 
-    @ReferenceId
-    @Observable( initializer = Feature.ENABLE )
-    abstract int getPersonId();
+        @Reference(inverseMultiplicity = Multiplicity.ZERO_OR_ONE)
+        abstract Person getPerson();
 
-    abstract void setPersonId( int personId );
-  }
+        @ReferenceId
+        @Observable(initializer = Feature.ENABLE)
+        abstract int getPersonId();
 
-  @ArezComponent( observable = Feature.ENABLE )
-  static abstract class Person
-  {
-    @Inverse
-    @Nullable
-    abstract Certificate getCertificate();
-  }
-
-  @ArezComponent( service = Feature.ENABLE, sting = Feature.DISABLE )
-  static abstract class PersonRepository
-    extends AbstractRepository<Integer, Person, PersonRepository>
-  {
-    static PersonRepository newRepository()
-    {
-      return new ZeroOrOneMultiplicityInverseIntegrationTest_Arez_PersonRepository();
+        abstract void setPersonId(int personId);
     }
 
-    @Action
-    Person create()
-    {
-      final ZeroOrOneMultiplicityInverseIntegrationTest_Arez_Person entity =
-        new ZeroOrOneMultiplicityInverseIntegrationTest_Arez_Person();
-      attach( entity );
-      return entity;
+    @ArezComponent(observable = Feature.ENABLE)
+    abstract static class Person {
+        @Inverse
+        @Nullable
+        abstract Certificate getCertificate();
     }
 
-    @Action
-    protected void destroy( @Nonnull final Person entity )
-    {
-      super.destroy( entity );
+    @ArezComponent(service = Feature.ENABLE, sting = Feature.DISABLE)
+    abstract static class PersonRepository extends AbstractRepository<Integer, Person, PersonRepository> {
+        static PersonRepository newRepository() {
+            return new ZeroOrOneMultiplicityInverseIntegrationTest_Arez_PersonRepository();
+        }
+
+        @Action
+        Person create() {
+            final ZeroOrOneMultiplicityInverseIntegrationTest_Arez_Person entity =
+                    new ZeroOrOneMultiplicityInverseIntegrationTest_Arez_Person();
+            attach(entity);
+            return entity;
+        }
+
+        @Action
+        protected void destroy(@Nonnull final Person entity) {
+            super.destroy(entity);
+        }
     }
-  }
 }

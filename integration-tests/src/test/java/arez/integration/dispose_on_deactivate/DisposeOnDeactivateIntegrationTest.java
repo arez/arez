@@ -1,5 +1,7 @@
 package arez.integration.dispose_on_deactivate;
 
+import static org.testng.Assert.*;
+
 import arez.Disposable;
 import arez.Observer;
 import arez.annotations.ArezComponent;
@@ -7,39 +9,32 @@ import arez.component.ComponentObservable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
-public final class DisposeOnDeactivateIntegrationTest
-  extends AbstractArezIntegrationTest
-{
-  @Test
-  public void scenario()
-    throws Throwable
-  {
-    final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
+public final class DisposeOnDeactivateIntegrationTest extends AbstractArezIntegrationTest {
+    @Test
+    public void scenario() throws Throwable {
+        final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-    final Model1 model = Model1.create();
+        final Model1 model = Model1.create();
 
-    assertFalse( Disposable.isDisposed( model ) );
+        assertFalse(Disposable.isDisposed(model));
 
-    final Observer observer = observer( () -> ComponentObservable.observe( model ) );
+        final Observer observer = observer(() -> ComponentObservable.observe(model));
 
-    assertFalse( Disposable.isDisposed( observer ) );
+        assertFalse(Disposable.isDisposed(observer));
 
-    Disposable.dispose( observer );
+        Disposable.dispose(observer);
 
-    assertTrue( Disposable.isDisposed( model ) );
-    assertTrue( Disposable.isDisposed( observer ) );
+        assertTrue(Disposable.isDisposed(model));
+        assertTrue(Disposable.isDisposed(observer));
 
-    assertMatchesFixture( recorder );
-  }
-
-  @ArezComponent( disposeOnDeactivate = true, allowEmpty = true )
-  static abstract class Model1
-  {
-    static Model1 create()
-    {
-      return new DisposeOnDeactivateIntegrationTest_Arez_Model1();
+        assertMatchesFixture(recorder);
     }
-  }
+
+    @ArezComponent(disposeOnDeactivate = true, allowEmpty = true)
+    abstract static class Model1 {
+        static Model1 create() {
+            return new DisposeOnDeactivateIntegrationTest_Arez_Model1();
+        }
+    }
 }

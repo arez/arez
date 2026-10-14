@@ -6,16 +6,13 @@ import arez.annotations.CascadeDispose;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class MyService
-{
-  @CascadeDispose
-  @Nonnull
-  final MySubService _subService = MySubService.create();
+public abstract class MyService {
+    @CascadeDispose
+    @Nonnull
+    final MySubService _subService = MySubService.create();
 
-  //DOC ELIDE START
-  @Action
-  void myAction()
-  {
-  }
-  //DOC ELIDE END
+    // DOC ELIDE START
+    @Action
+    void myAction() {}
+    // DOC ELIDE END
 }

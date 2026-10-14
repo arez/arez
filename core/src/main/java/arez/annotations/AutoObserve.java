@@ -56,15 +56,14 @@ import java.lang.annotation.Target;
  * {@link ArezComponent} or {@link ArezComponentLike}. Other usages will fail compilation.</p>
  */
 @Documented
-@Target( { ElementType.METHOD, ElementType.FIELD } )
-public @interface AutoObserve
-{
-  /**
-   * Return true and the value of the annotated field or method will be validated at runtime rather than compile time.
-   * This is useful when the declared type is annotated with {@link ArezComponentLike} but the runtime value is
-   * known to implement {@link ComponentObservable}.
-   *
-   * @return true to defer validation of types until runtime.
-   */
-  boolean validateTypeAtRuntime() default false;
+@Target({ElementType.METHOD, ElementType.FIELD})
+public @interface AutoObserve {
+    /**
+     * Return true and the value of the annotated field or method will be validated at runtime rather than compile time.
+     * This is useful when the declared type is annotated with {@link ArezComponentLike} but the runtime value is
+     * known to implement {@link ComponentObservable}.
+     *
+     * @return true to defer validation of types until runtime.
+     */
+    boolean validateTypeAtRuntime() default false;
 }

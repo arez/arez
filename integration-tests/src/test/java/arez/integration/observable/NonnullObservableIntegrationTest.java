@@ -1,43 +1,38 @@
 package arez.integration.observable;
 
+import static org.testng.Assert.*;
+
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import javax.annotation.Nonnull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
-public final class NonnullObservableIntegrationTest
-  extends AbstractArezIntegrationTest
-{
-  @SuppressWarnings( "ConstantConditions" )
-  @Test
-  public void disallowNullInSetter()
-  {
-    final Model model = Model.create( ValueUtil.randomString() );
-    safeAction( () -> assertThrows( AssertionError.class, () -> model.setLastName( null ) ) );
-  }
-
-  @Test
-  public void disallowNullInInitializer()
-  {
-    assertThrows( NullPointerException.class, () -> Model.create( null ) );
-  }
-
-  @ArezComponent
-  static abstract class Model
-  {
-    @Nonnull
-    static Model create( final String lastName )
-    {
-      return new NonnullObservableIntegrationTest_Arez_Model( lastName );
+public final class NonnullObservableIntegrationTest extends AbstractArezIntegrationTest {
+    @SuppressWarnings("ConstantConditions")
+    @Test
+    public void disallowNullInSetter() {
+        final Model model = Model.create(ValueUtil.randomString());
+        safeAction(() -> assertThrows(AssertionError.class, () -> model.setLastName(null)));
     }
 
-    @Observable
-    @Nonnull
-    abstract String getLastName();
+    @Test
+    public void disallowNullInInitializer() {
+        assertThrows(NullPointerException.class, () -> Model.create(null));
+    }
 
-    abstract void setLastName( @Nonnull String lastName );
-  }
+    @ArezComponent
+    abstract static class Model {
+        @Nonnull
+        static Model create(final String lastName) {
+            return new NonnullObservableIntegrationTest_Arez_Model(lastName);
+        }
+
+        @Observable
+        @Nonnull
+        abstract String getLastName();
+
+        abstract void setLastName(@Nonnull String lastName);
+    }
 }

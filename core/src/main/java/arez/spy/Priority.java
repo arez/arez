@@ -17,37 +17,36 @@ import arez.Disposable;
  *
  * @see arez.annotations.Priority
  */
-public enum Priority
-{
-  /**
-   * Highest priority.
-   * This priority should be used when the reaction will dispose other reactive elements (and thus they
-   * need not be scheduled).
-   */
-  HIGHEST,
-  /**
-   * High priority.
-   * This priority should be used when the reaction will trigger many downstream reactions.
-   */
-  HIGH,
-  /**
-   * Normal priority if not otherwise specified.
-   */
-  NORMAL,
-  /**
-   * Low priority.
-   * Usually used to schedule observers that reflect state onto non-reactive
-   * application components. i.e. Observers that are used to build html views,
-   * perform network operations etc. These reactions are often at low priority
-   * to avoid recalculation of dependencies (i.e. {@link ComputableValue}s) triggering
-   * this reaction multiple times within a single reaction round.
-   */
-  LOW,
-  /**
-   * Lowest priority.
-   * This is low-priority reactions that reflect onto non-reactive applications. It is
-   * also used for (i.e. {@link ComputableValue}s) that may be unobserved when a {@link #LOW}
-   * priority reaction runs.
-   */
-  LOWEST
+public enum Priority {
+    /**
+     * Highest priority.
+     * This priority should be used when the reaction will dispose other reactive elements (and thus they
+     * need not be scheduled).
+     */
+    HIGHEST,
+    /**
+     * High priority.
+     * This priority should be used when the reaction will trigger many downstream reactions.
+     */
+    HIGH,
+    /**
+     * Normal priority if not otherwise specified.
+     */
+    NORMAL,
+    /**
+     * Low priority.
+     * Usually used to schedule observers that reflect state onto non-reactive
+     * application components. i.e. Observers that are used to build html views,
+     * perform network operations etc. These reactions are often at low priority
+     * to avoid recalculation of dependencies (i.e. {@link ComputableValue}s) triggering
+     * this reaction multiple times within a single reaction round.
+     */
+    LOW,
+    /**
+     * Lowest priority.
+     * This is low-priority reactions that reflect onto non-reactive applications. It is
+     * also used for (i.e. {@link ComputableValue}s) that may be unobserved when a {@link #LOW}
+     * priority reaction runs.
+     */
+    LOWEST
 }

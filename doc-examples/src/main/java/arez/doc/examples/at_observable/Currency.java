@@ -6,22 +6,19 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @ArezComponent
-public abstract class Currency
-{
-  private BigDecimal _amount;
+public abstract class Currency {
+    private BigDecimal _amount;
 
-  @Observable( name = "amount" )
-  public BigDecimal amount()
-  {
-    return _amount;
-  }
+    @Observable(name = "amount")
+    public BigDecimal amount() {
+        return _amount;
+    }
 
-  @Observable( name = "amount" )
-  public void updateAmount( final BigDecimal amount )
-  {
-    _amount = Objects.requireNonNull( amount );
-  }
+    @Observable(name = "amount")
+    public void updateAmount(final BigDecimal amount) {
+        _amount = Objects.requireNonNull(amount);
+    }
 
-  //DOC ELIDE START
-  //DOC ELIDE END
+    // DOC ELIDE START
+    // DOC ELIDE END
 }

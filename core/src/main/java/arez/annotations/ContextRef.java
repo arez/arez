@@ -32,7 +32,5 @@ import java.lang.annotation.Target;
  * {@link ArezComponent} or {@link ArezComponentLike}. Other usages will fail compilation.</p>
  */
 @Documented
-@Target( ElementType.METHOD )
-public @interface ContextRef
-{
-}
+@Target(ElementType.METHOD)
+public @interface ContextRef {}

@@ -10,63 +10,54 @@ import arez.integration.util.SpyEventRecorder;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
 
-public final class ObservableInitializerIntegrationTest
-  extends AbstractArezIntegrationTest
-{
-  @Test
-  public void scenario()
-    throws Throwable
-  {
-    final ArezContext context = Arez.context();
+public final class ObservableInitializerIntegrationTest extends AbstractArezIntegrationTest {
+    @Test
+    public void scenario() throws Throwable {
+        final ArezContext context = Arez.context();
 
-    final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
+        final SpyEventRecorder recorder = SpyEventRecorder.beginRecording();
 
-    final PersonModel person = PersonModel.create( "Bill", "Smith" );
+        final PersonModel person = PersonModel.create("Bill", "Smith");
 
-    context.observer( "FirstNamePrinter",
-                      () -> {
-                        observeADependency();
-                        recorder.mark( "firstName", person.getFirstName() );
-                      } );
-    context.observer( "FullNamePrinter",
-                      () -> {
-                        observeADependency();
-                        recorder.mark( "fullname", person.getFullName() );
-                      } );
+        context.observer("FirstNamePrinter", () -> {
+            observeADependency();
+            recorder.mark("firstName", person.getFirstName());
+        });
+        context.observer("FullNamePrinter", () -> {
+            observeADependency();
+            recorder.mark("fullname", person.getFullName());
+        });
 
-    context.action( "First Name Update", () -> person.setFirstName( "Fred" ) );
-    context.action( "Last Name Update", () -> person.setLastName( "Donaldo" ) );
+        context.action("First Name Update", () -> person.setFirstName("Fred"));
+        context.action("Last Name Update", () -> person.setLastName("Donaldo"));
 
-    assertMatchesFixture( recorder );
-  }
-
-  @SuppressWarnings( "SameParameterValue" )
-  @ArezComponent
-  static abstract class PersonModel
-  {
-    @Nonnull
-    static PersonModel create( @Nonnull final String firstName, @Nonnull final String lastName )
-    {
-      return new ObservableInitializerIntegrationTest_Arez_PersonModel( firstName, lastName );
+        assertMatchesFixture(recorder);
     }
 
-    @Observable
-    @Nonnull
-    abstract String getFirstName();
+    @SuppressWarnings("SameParameterValue")
+    @ArezComponent
+    abstract static class PersonModel {
+        @Nonnull
+        static PersonModel create(@Nonnull final String firstName, @Nonnull final String lastName) {
+            return new ObservableInitializerIntegrationTest_Arez_PersonModel(firstName, lastName);
+        }
 
-    abstract void setFirstName( @Nonnull String firstName );
+        @Observable
+        @Nonnull
+        abstract String getFirstName();
 
-    @Observable
-    @Nonnull
-    abstract String getLastName();
+        abstract void setFirstName(@Nonnull String firstName);
 
-    abstract void setLastName( @Nonnull String lastName );
+        @Observable
+        @Nonnull
+        abstract String getLastName();
 
-    @Memoize
-    @Nonnull
-    String getFullName()
-    {
-      return getFirstName() + " " + getLastName();
+        abstract void setLastName(@Nonnull String lastName);
+
+        @Memoize
+        @Nonnull
+        String getFullName() {
+            return getFirstName() + " " + getLastName();
+        }
     }
-  }
 }

@@ -17,69 +17,66 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 
 @PersistType
-@ArezComponent( requireId = Feature.ENABLE, requireEquals = Feature.ENABLE, observable = Feature.ENABLE, disposeNotifier = Feature.ENABLE )
-public abstract class TreeNode
-{
-  @Nonnull
-  private final List<TreeNode> _children = new ArrayList<>();
-  private final String _id;
-  private final int _depth;
+@ArezComponent(
+        requireId = Feature.ENABLE,
+        requireEquals = Feature.ENABLE,
+        observable = Feature.ENABLE,
+        disposeNotifier = Feature.ENABLE)
+public abstract class TreeNode {
+    @Nonnull
+    private final List<TreeNode> _children = new ArrayList<>();
 
-  @Nonnull
-  public static TreeNode create( @Nonnull final String id, final int depth )
-  {
-    final TreeNode node = new Arez_TreeNode( id, depth );
-    TreeNode_PersistSidecar.attach( ArezPersist.getRootScope(), node );
-    return node;
-  }
+    private final String _id;
+    private final int _depth;
 
-  TreeNode( @Nonnull final String id, final int depth )
-  {
-    _id = Objects.requireNonNull( id );
-    _depth = depth;
-  }
+    @Nonnull
+    public static TreeNode create(@Nonnull final String id, final int depth) {
+        final TreeNode node = new Arez_TreeNode(id, depth);
+        TreeNode_PersistSidecar.attach(ArezPersist.getRootScope(), node);
+        return node;
+    }
 
-  public boolean isLeafNode()
-  {
-    return getChildren().isEmpty();
-  }
+    TreeNode(@Nonnull final String id, final int depth) {
+        _id = Objects.requireNonNull(id);
+        _depth = depth;
+    }
 
-  public int getDepth()
-  {
-    return _depth;
-  }
+    public boolean isLeafNode() {
+        return getChildren().isEmpty();
+    }
 
-  @Observable( writeOutsideTransaction = Feature.ENABLE, readOutsideTransaction = Feature.ENABLE )
-  public abstract String getLabel();
+    public int getDepth() {
+        return _depth;
+    }
 
-  public abstract void setLabel( String label );
+    @Observable(writeOutsideTransaction = Feature.ENABLE, readOutsideTransaction = Feature.ENABLE)
+    public abstract String getLabel();
 
-  @Persist( store = StoreTypes.LOCAL )
-  @Observable( writeOutsideTransaction = Feature.ENABLE, readOutsideTransaction = Feature.ENABLE )
-  public abstract boolean isExpanded();
+    public abstract void setLabel(String label);
 
-  public abstract void setExpanded( boolean expanded );
+    @Persist(store = StoreTypes.LOCAL)
+    @Observable(writeOutsideTransaction = Feature.ENABLE, readOutsideTransaction = Feature.ENABLE)
+    public abstract boolean isExpanded();
 
-  @Action
-  public void toggleExpanded()
-  {
-    setExpanded( !isExpanded() );
-  }
+    public abstract void setExpanded(boolean expanded);
 
-  @Observable( expectSetter = false, readOutsideTransaction = Feature.ENABLE )
-  @Nonnull
-  public List<TreeNode> getChildren()
-  {
-    return _children;
-  }
+    @Action
+    public void toggleExpanded() {
+        setExpanded(!isExpanded());
+    }
 
-  @SuppressWarnings( "Arez:PublicRefMethod" )
-  @ObservableValueRef
-  public abstract ObservableValue<?> getChildrenObservableValue();
+    @Observable(expectSetter = false, readOutsideTransaction = Feature.ENABLE)
+    @Nonnull
+    public List<TreeNode> getChildren() {
+        return _children;
+    }
 
-  @ComponentId
-  String getId()
-  {
-    return _id;
-  }
+    @SuppressWarnings("Arez:PublicRefMethod")
+    @ObservableValueRef
+    public abstract ObservableValue<?> getChildrenObservableValue();
+
+    @ComponentId
+    String getId() {
+        return _id;
+    }
 }

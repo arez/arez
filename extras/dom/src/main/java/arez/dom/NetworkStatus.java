@@ -49,104 +49,93 @@ import jsinterop.annotations.JsType;
  * }
  * }</pre>
  */
-@ArezComponent( requireId = Feature.DISABLE )
-public abstract class NetworkStatus
-{
-  @JsFunction
-  private interface EventListener
-  {
-    void handleEvent( Object event );
-  }
+@ArezComponent(requireId = Feature.DISABLE)
+public abstract class NetworkStatus {
+    @JsFunction
+    private interface EventListener {
+        void handleEvent(Object event);
+    }
 
-  @JsType( isNative = true, name = "Navigator", namespace = JsPackage.GLOBAL )
-  private static class Navigator
-  {
-    @JsProperty( name = "onLine" )
-    native boolean onLine();
-  }
+    @JsType(isNative = true, name = "Navigator", namespace = JsPackage.GLOBAL)
+    private static class Navigator {
+        @JsProperty(name = "onLine")
+        native boolean onLine();
+    }
 
-  @Nonnull
-  private final EventListener _listener = e -> updateOnlineStatus( getOnLineComputableValue() );
+    @Nonnull
+    private final EventListener _listener = e -> updateOnlineStatus(getOnLineComputableValue());
 
-  /**
-   * Create an instance of NetworkStatus.
-   *
-   * @return the NetworkStatus instance.
-   */
-  @Nonnull
-  public static NetworkStatus create()
-  {
-    return new Arez_NetworkStatus( new Date() );
-  }
+    /**
+     * Create an instance of NetworkStatus.
+     *
+     * @return the NetworkStatus instance.
+     */
+    @Nonnull
+    public static NetworkStatus create() {
+        return new Arez_NetworkStatus(new Date());
+    }
 
-  NetworkStatus()
-  {
-  }
+    NetworkStatus() {}
 
-  /**
-   * Return true if the browser is offline, false otherwise.
-   *
-   * @return true if the browser is offline, false otherwise.
-   */
-  public boolean isOffLine()
-  {
-    return !isOnLine();
-  }
+    /**
+     * Return true if the browser is offline, false otherwise.
+     *
+     * @return true if the browser is offline, false otherwise.
+     */
+    public boolean isOffLine() {
+        return !isOnLine();
+    }
 
-  /**
-   * Return true if the browser is online, false otherwise.
-   *
-   * @return true if the browser is online, false otherwise.
-   */
-  @Memoize( depType = DepType.AREZ_OR_EXTERNAL )
-  public boolean isOnLine()
-  {
-    return navigator().onLine();
-  }
+    /**
+     * Return true if the browser is online, false otherwise.
+     *
+     * @return true if the browser is online, false otherwise.
+     */
+    @Memoize(depType = DepType.AREZ_OR_EXTERNAL)
+    public boolean isOnLine() {
+        return navigator().onLine();
+    }
 
-  /**
-   * Return the last time at which online status changed.
-   * This will default to the time the component was created, otherwise
-   * the time at which the online status was changed.
-   *
-   * @return the last time at which online status changed.
-   */
-  @Observable
-  @Nonnull
-  public abstract Date getLastChangedAt();
+    /**
+     * Return the last time at which online status changed.
+     * This will default to the time the component was created, otherwise
+     * the time at which the online status was changed.
+     *
+     * @return the last time at which online status changed.
+     */
+    @Observable
+    @Nonnull
+    public abstract Date getLastChangedAt();
 
-  abstract void setLastChangedAt( @Nonnull Date lastChangedAt );
+    abstract void setLastChangedAt(@Nonnull Date lastChangedAt);
 
-  @ComputableValueRef
-  abstract ComputableValue<?> getOnLineComputableValue();
+    @ComputableValueRef
+    abstract ComputableValue<?> getOnLineComputableValue();
 
-  @OnActivate
-  void onOnLineActivate()
-  {
-    addEventListener( "online", _listener );
-    addEventListener( "offline", _listener );
-  }
+    @OnActivate
+    void onOnLineActivate() {
+        addEventListener("online", _listener);
+        addEventListener("offline", _listener);
+    }
 
-  @OnDeactivate
-  void onOnLineDeactivate()
-  {
-    removeEventListener( "online", _listener );
-    removeEventListener( "offline", _listener );
-  }
+    @OnDeactivate
+    void onOnLineDeactivate() {
+        removeEventListener("online", _listener);
+        removeEventListener("offline", _listener);
+    }
 
-  @Action
-  void updateOnlineStatus( @Nonnull final ComputableValue<?> computableValue )
-  {
-    computableValue.reportPossiblyChanged();
-    setLastChangedAt( new Date() );
-  }
+    @Action
+    void updateOnlineStatus(@Nonnull final ComputableValue<?> computableValue) {
+        computableValue.reportPossiblyChanged();
+        setLastChangedAt(new Date());
+    }
 
-  @JsProperty( name = "navigator", namespace = JsPackage.GLOBAL )
-  private static native Navigator navigator();
+    @JsProperty(name = "navigator", namespace = JsPackage.GLOBAL)
+    private static native Navigator navigator();
 
-  @JsMethod( name = "addEventListener", namespace = JsPackage.GLOBAL )
-  private static native void addEventListener( String type, EventListener listener );
+    @JsMethod(name = "addEventListener", namespace = JsPackage.GLOBAL)
+    private static native void addEventListener(String type, EventListener listener);
 
-  @JsMethod( name = "removeEventListener", namespace = JsPackage.GLOBAL )
-  private static native void removeEventListener( String type, EventListener listener );
+    @JsMethod(name = "removeEventListener", namespace = JsPackage.GLOBAL)
+    private static native void removeEventListener(String type, EventListener listener);
 }

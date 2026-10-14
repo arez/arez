@@ -1,29 +1,26 @@
 package arez.integration.context_ref;
 
+import static org.testng.Assert.*;
+
 import arez.Arez;
 import arez.ArezContext;
 import arez.annotations.ArezComponent;
 import arez.annotations.ContextRef;
 import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
-public final class ContextRefTest
-  extends AbstractArezIntegrationTest
-{
-  @ArezComponent( allowEmpty = true )
-  static abstract class TestComponent
-  {
-    @ContextRef
-    abstract ArezContext getContext();
-  }
+public final class ContextRefTest extends AbstractArezIntegrationTest {
+    @ArezComponent(allowEmpty = true)
+    abstract static class TestComponent {
+        @ContextRef
+        abstract ArezContext getContext();
+    }
 
-  @Test
-  public void contextRef()
-  {
-    final ArezContext context = Arez.context();
+    @Test
+    public void contextRef() {
+        final ArezContext context = Arez.context();
 
-    final TestComponent component = new ContextRefTest_Arez_TestComponent();
-    assertEquals( component.getContext(), context );
-  }
+        final TestComponent component = new ContextRefTest_Arez_TestComponent();
+        assertEquals(component.getContext(), context);
+    }
 }

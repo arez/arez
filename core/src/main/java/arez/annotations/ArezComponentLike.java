@@ -17,7 +17,5 @@ import java.lang.annotation.Target;
  * See {@link ArezComponent#verifyReferencesToComponent()} for additional details.</p>
  */
 @Documented
-@Target( ElementType.TYPE )
-public @interface ArezComponentLike
-{
-}
+@Target(ElementType.TYPE)
+public @interface ArezComponentLike {}

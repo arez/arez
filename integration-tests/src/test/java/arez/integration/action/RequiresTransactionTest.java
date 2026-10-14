@@ -1,5 +1,7 @@
 package arez.integration.action;
 
+import static org.testng.Assert.*;
+
 import arez.ActionFlags;
 import arez.Arez;
 import arez.ArezContext;
@@ -14,128 +16,147 @@ import arez.spy.ObservableValueChangeEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
-@SuppressWarnings( { "UnusedReturnValue", "unused", "SameParameterValue" } )
-public final class RequiresTransactionTest
-  extends AbstractArezIntegrationTest
-{
-  @ArezComponent
-  static abstract class MyComponent
-  {
-    @SuppressWarnings( "DefaultAnnotationParam" )
-    @Action( requireNewTransaction = false )
-    void myAction()
-    {
-      getTime();
-      setTime( 33 );
+@SuppressWarnings({"UnusedReturnValue", "unused", "SameParameterValue"})
+public final class RequiresTransactionTest extends AbstractArezIntegrationTest {
+    @ArezComponent
+    abstract static class MyComponent {
+        @SuppressWarnings("DefaultAnnotationParam")
+        @Action(requireNewTransaction = false)
+        void myAction() {
+            getTime();
+            setTime(33);
+        }
+
+        @Observable
+        abstract long getTime();
+
+        abstract void setTime(long value);
     }
 
-    @Observable
-    abstract long getTime();
+    @Test
+    public void topLevelAction() {
+        final ArezContext context = Arez.context();
 
-    abstract void setTime( long value );
-  }
+        final MyComponent component = new RequiresTransactionTest_Arez_MyComponent();
 
-  @Test
-  public void topLevelAction()
-  {
-    final ArezContext context = Arez.context();
+        final TestSpyEventHandler recorder = new TestSpyEventHandler();
+        context.getSpy().addSpyEventHandler(recorder);
 
-    final MyComponent component = new RequiresTransactionTest_Arez_MyComponent();
+        component.myAction();
 
-    final TestSpyEventHandler recorder = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( recorder );
-
-    component.myAction();
-
-    recorder.assertEventCount( 5 );
-    recorder.assertNextEvent( ActionStartEvent.class, a -> assertEquals( a.getName(), "arez_integration_action_RequiresTransactionTest_MyComponent.1.myAction" ) );
-    recorder.assertNextEvent( TransactionStartEvent.class,
-                              a -> assertEquals( a.getName(), "arez_integration_action_RequiresTransactionTest_MyComponent.1.myAction" ) );
-    recorder.assertNextEvent( ObservableValueChangeEvent.class,
-                              a -> assertEquals( a.getObservableValue().getName(), "arez_integration_action_RequiresTransactionTest_MyComponent.1.time" ) );
-    recorder.assertNextEvent( TransactionCompleteEvent.class,
-                              a -> assertEquals( a.getName(), "arez_integration_action_RequiresTransactionTest_MyComponent.1.myAction" ) );
-    recorder.assertNextEvent( ActionCompleteEvent.class, a -> assertEquals( a.getName(), "arez_integration_action_RequiresTransactionTest_MyComponent.1.myAction" ) );
-  }
-
-  @ArezComponent
-  static abstract class MyComponent2
-  {
-    @SuppressWarnings( "DefaultAnnotationParam" )
-    @Action( requireNewTransaction = false )
-    void myAction()
-    {
-      getTime();
-      setTime( 33 );
+        recorder.assertEventCount(5);
+        recorder.assertNextEvent(
+                ActionStartEvent.class,
+                a -> assertEquals(
+                        a.getName(), "arez_integration_action_RequiresTransactionTest_MyComponent.1.myAction"));
+        recorder.assertNextEvent(
+                TransactionStartEvent.class,
+                a -> assertEquals(
+                        a.getName(), "arez_integration_action_RequiresTransactionTest_MyComponent.1.myAction"));
+        recorder.assertNextEvent(
+                ObservableValueChangeEvent.class,
+                a -> assertEquals(
+                        a.getObservableValue().getName(),
+                        "arez_integration_action_RequiresTransactionTest_MyComponent.1.time"));
+        recorder.assertNextEvent(
+                TransactionCompleteEvent.class,
+                a -> assertEquals(
+                        a.getName(), "arez_integration_action_RequiresTransactionTest_MyComponent.1.myAction"));
+        recorder.assertNextEvent(
+                ActionCompleteEvent.class,
+                a -> assertEquals(
+                        a.getName(), "arez_integration_action_RequiresTransactionTest_MyComponent.1.myAction"));
     }
 
-    @Observable
-    abstract long getTime();
+    @ArezComponent
+    abstract static class MyComponent2 {
+        @SuppressWarnings("DefaultAnnotationParam")
+        @Action(requireNewTransaction = false)
+        void myAction() {
+            getTime();
+            setTime(33);
+        }
 
-    abstract void setTime( long value );
-  }
+        @Observable
+        abstract long getTime();
 
-  @Test
-  public void nestedAction()
-  {
-    final ArezContext context = Arez.context();
-
-    final MyComponent2 component = new RequiresTransactionTest_Arez_MyComponent2();
-
-    final TestSpyEventHandler recorder = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( recorder );
-
-    context.safeAction( "MyWrapperAction", component::myAction, ActionFlags.NO_VERIFY_ACTION_REQUIRED );
-
-    recorder.assertEventCount( 7 );
-    recorder.assertNextEvent( ActionStartEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
-    recorder.assertNextEvent( TransactionStartEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
-    recorder.assertNextEvent( ActionStartEvent.class, a -> assertEquals( a.getName(), "arez_integration_action_RequiresTransactionTest_MyComponent2.1.myAction" ) );
-    recorder.assertNextEvent( ObservableValueChangeEvent.class,
-                              a -> assertEquals( a.getObservableValue().getName(), "arez_integration_action_RequiresTransactionTest_MyComponent2.1.time" ) );
-    recorder.assertNextEvent( ActionCompleteEvent.class, a -> assertEquals( a.getName(), "arez_integration_action_RequiresTransactionTest_MyComponent2.1.myAction" ) );
-    recorder.assertNextEvent( TransactionCompleteEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
-    recorder.assertNextEvent( ActionCompleteEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
-  }
-
-  @ArezComponent
-  static abstract class MyComponent3
-  {
-    @SuppressWarnings( "DefaultAnnotationParam" )
-    @Action( requireNewTransaction = false )
-    void myAction()
-    {
-      getTime();
-      setTime( 33 );
+        abstract void setTime(long value);
     }
 
-    @Observable
-    abstract long getTime();
+    @Test
+    public void nestedAction() {
+        final ArezContext context = Arez.context();
 
-    abstract void setTime( long value );
-  }
+        final MyComponent2 component = new RequiresTransactionTest_Arez_MyComponent2();
 
-  @Test
-  public void nestedAction_in_ReadOnlyAction()
-  {
-    final ArezContext context = Arez.context();
+        final TestSpyEventHandler recorder = new TestSpyEventHandler();
+        context.getSpy().addSpyEventHandler(recorder);
 
-    final MyComponent3 component = new RequiresTransactionTest_Arez_MyComponent3();
+        context.safeAction("MyWrapperAction", component::myAction, ActionFlags.NO_VERIFY_ACTION_REQUIRED);
 
-    final TestSpyEventHandler recorder = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( recorder );
+        recorder.assertEventCount(7);
+        recorder.assertNextEvent(ActionStartEvent.class, a -> assertEquals(a.getName(), "MyWrapperAction"));
+        recorder.assertNextEvent(TransactionStartEvent.class, a -> assertEquals(a.getName(), "MyWrapperAction"));
+        recorder.assertNextEvent(
+                ActionStartEvent.class,
+                a -> assertEquals(
+                        a.getName(), "arez_integration_action_RequiresTransactionTest_MyComponent2.1.myAction"));
+        recorder.assertNextEvent(
+                ObservableValueChangeEvent.class,
+                a -> assertEquals(
+                        a.getObservableValue().getName(),
+                        "arez_integration_action_RequiresTransactionTest_MyComponent2.1.time"));
+        recorder.assertNextEvent(
+                ActionCompleteEvent.class,
+                a -> assertEquals(
+                        a.getName(), "arez_integration_action_RequiresTransactionTest_MyComponent2.1.myAction"));
+        recorder.assertNextEvent(TransactionCompleteEvent.class, a -> assertEquals(a.getName(), "MyWrapperAction"));
+        recorder.assertNextEvent(ActionCompleteEvent.class, a -> assertEquals(a.getName(), "MyWrapperAction"));
+    }
 
-    assertInvariant( () -> context.safeAction( "MyWrapperAction", component::myAction, ActionFlags.READ_ONLY ),
-                     "Arez-0119: Attempting to create READ_WRITE transaction named 'arez_integration_action_RequiresTransactionTest_MyComponent3.1.myAction' but it is nested in transaction named 'MyWrapperAction' with mode READ_ONLY which is not equal to READ_WRITE." );
+    @ArezComponent
+    abstract static class MyComponent3 {
+        @SuppressWarnings("DefaultAnnotationParam")
+        @Action(requireNewTransaction = false)
+        void myAction() {
+            getTime();
+            setTime(33);
+        }
 
-    recorder.assertEventCount( 6 );
-    recorder.assertNextEvent( ActionStartEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
-    recorder.assertNextEvent( TransactionStartEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
-    recorder.assertNextEvent( ActionStartEvent.class, a -> assertEquals( a.getName(), "arez_integration_action_RequiresTransactionTest_MyComponent3.1.myAction" ) );
-    recorder.assertNextEvent( ActionCompleteEvent.class, a -> assertEquals( a.getName(), "arez_integration_action_RequiresTransactionTest_MyComponent3.1.myAction" ) );
-    recorder.assertNextEvent( TransactionCompleteEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
-    recorder.assertNextEvent( ActionCompleteEvent.class, a -> assertEquals( a.getName(), "MyWrapperAction" ) );
-  }
+        @Observable
+        abstract long getTime();
+
+        abstract void setTime(long value);
+    }
+
+    @Test
+    public void nestedAction_in_ReadOnlyAction() {
+        final ArezContext context = Arez.context();
+
+        final MyComponent3 component = new RequiresTransactionTest_Arez_MyComponent3();
+
+        final TestSpyEventHandler recorder = new TestSpyEventHandler();
+        context.getSpy().addSpyEventHandler(recorder);
+
+        assertInvariant(
+                () -> context.safeAction("MyWrapperAction", component::myAction, ActionFlags.READ_ONLY),
+                "Arez-0119: Attempting to create READ_WRITE transaction named"
+                    + " 'arez_integration_action_RequiresTransactionTest_MyComponent3.1.myAction' but it is nested in"
+                    + " transaction named 'MyWrapperAction' with mode READ_ONLY which is not equal to READ_WRITE.");
+
+        recorder.assertEventCount(6);
+        recorder.assertNextEvent(ActionStartEvent.class, a -> assertEquals(a.getName(), "MyWrapperAction"));
+        recorder.assertNextEvent(TransactionStartEvent.class, a -> assertEquals(a.getName(), "MyWrapperAction"));
+        recorder.assertNextEvent(
+                ActionStartEvent.class,
+                a -> assertEquals(
+                        a.getName(), "arez_integration_action_RequiresTransactionTest_MyComponent3.1.myAction"));
+        recorder.assertNextEvent(
+                ActionCompleteEvent.class,
+                a -> assertEquals(
+                        a.getName(), "arez_integration_action_RequiresTransactionTest_MyComponent3.1.myAction"));
+        recorder.assertNextEvent(TransactionCompleteEvent.class, a -> assertEquals(a.getName(), "MyWrapperAction"));
+        recorder.assertNextEvent(ActionCompleteEvent.class, a -> assertEquals(a.getName(), "MyWrapperAction"));
+    }
 }

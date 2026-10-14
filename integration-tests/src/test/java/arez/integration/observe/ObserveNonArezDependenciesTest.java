@@ -1,5 +1,7 @@
 package arez.integration.observe;
 
+import static org.testng.Assert.*;
+
 import arez.Arez;
 import arez.Observer;
 import arez.annotations.ArezComponent;
@@ -10,56 +12,50 @@ import arez.annotations.ObserverRef;
 import arez.integration.AbstractArezIntegrationTest;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
-public final class ObserveNonArezDependenciesTest
-  extends AbstractArezIntegrationTest
-{
-  @ArezComponent
-  static abstract class TestComponent1
-  {
-    int _renderCallCount;
+public final class ObserveNonArezDependenciesTest extends AbstractArezIntegrationTest {
+    @ArezComponent
+    abstract static class TestComponent1 {
+        int _renderCallCount;
 
-    @Observe( depType = DepType.AREZ_OR_EXTERNAL )
-    void render()
-    {
-      getValue();
-      _renderCallCount++;
+        @Observe(depType = DepType.AREZ_OR_EXTERNAL)
+        void render() {
+            getValue();
+            _renderCallCount++;
+        }
+
+        @ObserverRef
+        abstract Observer getRenderObserver();
+
+        @SuppressWarnings("UnusedReturnValue")
+        @Observable
+        abstract long getValue();
+
+        abstract void setValue(long value);
     }
 
-    @ObserverRef
-    abstract Observer getRenderObserver();
+    @Test
+    public void scenario() {
+        final TestComponent1 component = new ObserveNonArezDependenciesTest_Arez_TestComponent1();
 
-    @SuppressWarnings( "UnusedReturnValue" )
-    @Observable
-    abstract long getValue();
+        assertEquals(component._renderCallCount, 1);
 
-    abstract void setValue( long value );
-  }
+        // reportStale should result in re-render invocation
+        Arez.context().safeAction(() -> component.getRenderObserver().reportStale());
 
-  @Test
-  public void scenario()
-  {
-    final TestComponent1 component = new ObserveNonArezDependenciesTest_Arez_TestComponent1();
+        assertEquals(component._renderCallCount, 2);
 
-    assertEquals( component._renderCallCount, 1 );
+        // Trigger a dependency change, mark observer as dirty
+        safeAction(() -> component.setValue(ValueUtil.randomLong()));
 
-    // reportStale should result in re-render invocation
-    Arez.context().safeAction( () -> component.getRenderObserver().reportStale() );
+        assertEquals(component._renderCallCount, 3);
 
-    assertEquals( component._renderCallCount, 2 );
+        // reportStale and dependency change should result in single re-render invocation
+        Arez.context().safeAction(() -> {
+            component.setValue(ValueUtil.randomLong());
+            component.getRenderObserver().reportStale();
+        });
 
-    // Trigger a dependency change, mark observer as dirty
-    safeAction( () -> component.setValue( ValueUtil.randomLong() ) );
-
-    assertEquals( component._renderCallCount, 3 );
-
-    // reportStale and dependency change should result in single re-render invocation
-    Arez.context().safeAction( () -> {
-      component.setValue( ValueUtil.randomLong() );
-      component.getRenderObserver().reportStale();
-    } );
-
-    assertEquals( component._renderCallCount, 4 );
-  }
+        assertEquals(component._renderCallCount, 4);
+    }
 }

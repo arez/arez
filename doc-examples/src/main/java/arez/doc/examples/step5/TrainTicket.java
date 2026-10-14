@@ -9,52 +9,43 @@ import arez.annotations.Observable;
 import arez.annotations.Observe;
 
 @ArezComponent
-public abstract class TrainTicket
-{
-  public static TrainTicket create( int remainingRides )
-  {
-    return new Arez_TrainTicket( remainingRides );
-  }
-
-  @Observable( initializer = Feature.ENABLE )
-  public abstract int getRemainingRides();
-
-  public abstract void setRemainingRides( int remainingRides );
-
-  @Action
-  public void rideTrain()
-  {
-    setRemainingRides( getRemainingRides() - 1 );
-  }
-
-  @Observe( executor = Executor.EXTERNAL )
-  public String render()
-  {
-    return "<table class='ticket'>" +
-           "  <tr>" +
-           "    <th>Remaining Rides</th>" +
-           "    <td>" + getRemainingRides() + "</td>" +
-           "  </tr>" +
-           "</table>";
-  }
-
-  void onRenderDepsChange()
-  {
-    Renderer.scheduleRender( this );
-  }
-
-  @Memoize
-  public boolean isTicketExpired()
-  {
-    return 0 == getRemainingRides();
-  }
-
-  @Observe
-  void notifyUserWhenTicketExpires()
-  {
-    if ( isTicketExpired() )
-    {
-      NotifyTool.notifyUserTicketExpired( this );
+public abstract class TrainTicket {
+    public static TrainTicket create(int remainingRides) {
+        return new Arez_TrainTicket(remainingRides);
     }
-  }
+
+    @Observable(initializer = Feature.ENABLE)
+    public abstract int getRemainingRides();
+
+    public abstract void setRemainingRides(int remainingRides);
+
+    @Action
+    public void rideTrain() {
+        setRemainingRides(getRemainingRides() - 1);
+    }
+
+    @Observe(executor = Executor.EXTERNAL)
+    public String render() {
+        return "<table class='ticket'>" + "  <tr>"
+                + "    <th>Remaining Rides</th>"
+                + "    <td>"
+                + getRemainingRides() + "</td>" + "  </tr>"
+                + "</table>";
+    }
+
+    void onRenderDepsChange() {
+        Renderer.scheduleRender(this);
+    }
+
+    @Memoize
+    public boolean isTicketExpired() {
+        return 0 == getRemainingRides();
+    }
+
+    @Observe
+    void notifyUserWhenTicketExpires() {
+        if (isTicketExpired()) {
+            NotifyTool.notifyUserTicketExpired(this);
+        }
+    }
 }

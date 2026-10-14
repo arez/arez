@@ -2,7 +2,7 @@
 
 - Spec: [SPEC.md](../SPEC.md)
 - Status: implementing
-- Current frontier: T07
+- Current frontier: T08
 - Planning reviewer: /root/planning_reviewer (2/3 rounds; passed, Findings: none)
 - Plan checkpoint: human-review (approved)
 - Checkpoint basis: the user said "Proceed" after the reviewed spec/task map and
@@ -39,7 +39,7 @@
 | T04 | [Build extras and run their JVM tests](T04-extras-parity.md) | complete | T03 |
 | T05 | [Run the complete Persist JVM slice](T05-persist-parity.md) | complete | T04 |
 | T06 | [Select and regenerate focused golden families](T06-focused-goldens.md) | complete | T05 |
-| T07 | [Apply and check Palantir formatting](T07-java-format.md) | pending | T06 |
+| T07 | [Apply and check Palantir formatting](T07-java-format.md) | complete | T06 |
 | T08 | [Migrate core API and runtime contracts to JSpecify](T08-core-jspecify.md) | pending | T07 |
 | T09 | [Cut both processors to the pinned Proton and JSpecify API](T09-processor-jspecify-cut.md) | pending | T08 |
 | T10 | [Migrate component, observable and lifecycle scenarios](T10-arez-basic-fixtures.md) | pending | T09 |

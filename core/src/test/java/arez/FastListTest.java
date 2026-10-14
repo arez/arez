@@ -1,147 +1,145 @@
 package arez;
 
-import javax.annotation.Nonnull;
-import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public final class FastListTest
-{
-  @Test
-  public void basicOperation()
-  {
-    final FastList<Object> list = new FastList<>();
-    assertEquals( list.size(), 0 );
-    assertTrue( list.isEmpty() );
-    assertFalse( list.contains( "1" ) );
+import javax.annotation.Nonnull;
+import org.testng.annotations.Test;
 
-    list.add( "1" );
-    list.add( "2" );
-    list.add( "3" );
+public final class FastListTest {
+    @Test
+    public void basicOperation() {
+        final FastList<Object> list = new FastList<>();
+        assertEquals(list.size(), 0);
+        assertTrue(list.isEmpty());
+        assertFalse(list.contains("1"));
 
-    assertEquals( list.size(), 3 );
-    assertFalse( list.isEmpty() );
+        list.add("1");
+        list.add("2");
+        list.add("3");
 
-    assertToString( list, "123" );
+        assertEquals(list.size(), 3);
+        assertFalse(list.isEmpty());
 
-    assertTrue( list.contains( "1" ) );
-    assertTrue( list.contains( "2" ) );
-    assertTrue( list.contains( "3" ) );
-    assertFalse( list.contains( "4" ) );
+        assertToString(list, "123");
 
-    assertEquals( list.get( 0 ), "1" );
-    assertEquals( list.get( 1 ), "2" );
-    assertEquals( list.get( 2 ), "3" );
+        assertTrue(list.contains("1"));
+        assertTrue(list.contains("2"));
+        assertTrue(list.contains("3"));
+        assertFalse(list.contains("4"));
 
-    list.add( "4" );
+        assertEquals(list.get(0), "1");
+        assertEquals(list.get(1), "2");
+        assertEquals(list.get(2), "3");
 
-    assertEquals( list.size(), 4 );
-    assertFalse( list.isEmpty() );
+        list.add("4");
 
-    assertToString( list, "1234" );
+        assertEquals(list.size(), 4);
+        assertFalse(list.isEmpty());
 
-    assertEquals( list.get( 0 ), "1" );
-    assertEquals( list.get( 1 ), "2" );
-    assertEquals( list.get( 2 ), "3" );
-    assertEquals( list.get( 3 ), "4" );
+        assertToString(list, "1234");
 
-    list.remove( "2" );
+        assertEquals(list.get(0), "1");
+        assertEquals(list.get(1), "2");
+        assertEquals(list.get(2), "3");
+        assertEquals(list.get(3), "4");
 
-    assertEquals( list.size(), 3 );
-    assertFalse( list.isEmpty() );
+        list.remove("2");
 
-    assertToString( list, "134" );
+        assertEquals(list.size(), 3);
+        assertFalse(list.isEmpty());
 
-    assertEquals( list.get( 0 ), "1" );
-    assertEquals( list.get( 1 ), "3" );
-    assertEquals( list.get( 2 ), "4" );
+        assertToString(list, "134");
 
-    list.remove( "2" );
+        assertEquals(list.get(0), "1");
+        assertEquals(list.get(1), "3");
+        assertEquals(list.get(2), "4");
 
-    assertEquals( list.size(), 3 );
-    assertFalse( list.isEmpty() );
+        list.remove("2");
 
-    assertToString( list, "134" );
+        assertEquals(list.size(), 3);
+        assertFalse(list.isEmpty());
 
-    assertEquals( list.get( 0 ), "1" );
-    assertEquals( list.get( 1 ), "3" );
-    assertEquals( list.get( 2 ), "4" );
+        assertToString(list, "134");
 
-    list.add( "5" );
-    list.add( "5" );
-    list.add( "5" );
+        assertEquals(list.get(0), "1");
+        assertEquals(list.get(1), "3");
+        assertEquals(list.get(2), "4");
 
-    assertEquals( list.size(), 4 );
-    assertFalse( list.isEmpty() );
+        list.add("5");
+        list.add("5");
+        list.add("5");
 
-    assertToString( list, "1345" );
+        assertEquals(list.size(), 4);
+        assertFalse(list.isEmpty());
 
-    assertEquals( list.get( 0 ), "1" );
-    assertEquals( list.get( 1 ), "3" );
-    assertEquals( list.get( 2 ), "4" );
-    assertEquals( list.get( 3 ), "5" );
+        assertToString(list, "1345");
 
-    list.set( 0, "5" );
+        assertEquals(list.get(0), "1");
+        assertEquals(list.get(1), "3");
+        assertEquals(list.get(2), "4");
+        assertEquals(list.get(3), "5");
 
-    assertEquals( list.size(), 3 );
-    assertFalse( list.isEmpty() );
+        list.set(0, "5");
 
-    assertToString( list, "534" );
+        assertEquals(list.size(), 3);
+        assertFalse(list.isEmpty());
 
-    assertEquals( list.get( 0 ), "5" );
-    assertEquals( list.get( 1 ), "3" );
-    assertEquals( list.get( 2 ), "4" );
+        assertToString(list, "534");
 
-    list.set( 0, "7" );
+        assertEquals(list.get(0), "5");
+        assertEquals(list.get(1), "3");
+        assertEquals(list.get(2), "4");
 
-    assertEquals( list.size(), 3 );
-    assertFalse( list.isEmpty() );
+        list.set(0, "7");
 
-    assertToString( list, "734" );
+        assertEquals(list.size(), 3);
+        assertFalse(list.isEmpty());
 
-    assertEquals( list.get( 0 ), "7" );
-    assertEquals( list.get( 1 ), "3" );
-    assertEquals( list.get( 2 ), "4" );
+        assertToString(list, "734");
 
-    list.set( 2, "8" );
+        assertEquals(list.get(0), "7");
+        assertEquals(list.get(1), "3");
+        assertEquals(list.get(2), "4");
 
-    assertEquals( list.size(), 3 );
-    assertFalse( list.isEmpty() );
+        list.set(2, "8");
 
-    assertToString( list, "738" );
+        assertEquals(list.size(), 3);
+        assertFalse(list.isEmpty());
 
-    assertEquals( list.get( 0 ), "7" );
-    assertEquals( list.get( 1 ), "3" );
-    assertEquals( list.get( 2 ), "8" );
+        assertToString(list, "738");
 
-    list.remove( 1 );
+        assertEquals(list.get(0), "7");
+        assertEquals(list.get(1), "3");
+        assertEquals(list.get(2), "8");
 
-    assertEquals( list.size(), 2 );
-    assertFalse( list.isEmpty() );
+        list.remove(1);
 
-    assertToString( list, "78" );
+        assertEquals(list.size(), 2);
+        assertFalse(list.isEmpty());
 
-    assertEquals( list.get( 0 ), "7" );
-    assertEquals( list.get( 1 ), "8" );
+        assertToString(list, "78");
 
-    list.clear();
+        assertEquals(list.get(0), "7");
+        assertEquals(list.get(1), "8");
 
-    assertEquals( list.size(), 0 );
-    assertTrue( list.isEmpty() );
+        list.clear();
 
-    assertToString( list, "" );
-  }
+        assertEquals(list.size(), 0);
+        assertTrue(list.isEmpty());
 
-  private static void assertToString( @Nonnull final FastList<Object> list, @Nonnull final String expected )
-  {
-    {
-      final var sb = new StringBuilder();
-      list.forEach( sb::append );
-      assertEquals( sb.toString(), expected, "forEach collection of values" );
+        assertToString(list, "");
     }
-    {
-      final var sb = new StringBuilder();
-      list.stream().forEach( sb::append );
-      assertEquals( sb.toString(), expected, "stream() collection of values" );
+
+    private static void assertToString(@Nonnull final FastList<Object> list, @Nonnull final String expected) {
+        {
+            final var sb = new StringBuilder();
+            list.forEach(sb::append);
+            assertEquals(sb.toString(), expected, "forEach collection of values");
+        }
+        {
+            final var sb = new StringBuilder();
+            list.stream().forEach(sb::append);
+            assertEquals(sb.toString(), expected, "stream() collection of values");
+        }
     }
-  }
 }

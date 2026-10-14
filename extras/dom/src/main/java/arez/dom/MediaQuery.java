@@ -41,180 +41,162 @@ import jsinterop.annotations.JsType;
  * }
  * }</pre>
  */
-@ArezComponent( requireId = Feature.DISABLE )
-public abstract class MediaQuery
-{
-  /**
-   * Minimal facade for the browser window media-query API.
-   */
-  @JsType( isNative = true, name = "Window", namespace = JsPackage.GLOBAL )
-  public static class Window
-  {
-    protected Window()
-    {
+@ArezComponent(requireId = Feature.DISABLE)
+public abstract class MediaQuery {
+    /**
+     * Minimal facade for the browser window media-query API.
+     */
+    @JsType(isNative = true, name = "Window", namespace = JsPackage.GLOBAL)
+    public static class Window {
+        protected Window() {}
+
+        @JsMethod
+        native MediaQueryList matchMedia(String query);
     }
 
-    @JsMethod
-    native MediaQueryList matchMedia( String query );
-  }
-
-  @JsFunction
-  private interface EventListener
-  {
-    void handleEvent( Object event );
-  }
-
-  @JsType( isNative = true, name = "MediaQueryList", namespace = JsPackage.GLOBAL )
-  private static class MediaQueryList
-  {
-    @JsProperty( name = "media" )
-    native String media();
-
-    @JsProperty( name = "matches" )
-    native boolean matches();
-
-    @JsMethod
-    native void addListener( EventListener listener );
-
-    @JsMethod
-    native void removeListener( EventListener listener );
-  }
-
-  @Nonnull
-  private final EventListener _listener = e -> notifyOnMatchChange();
-  @Nonnull
-  private final Window _window;
-  @Nonnull
-  private MediaQueryList _mediaQueryList;
-  private boolean _active;
-
-  /**
-   * Create an instance of MediaQuery.
-   *
-   * @param query the CSS media query to match.
-   * @return the MediaQuery instance.
-   */
-  @Nonnull
-  public static MediaQuery create( @Nonnull final String query )
-  {
-    return create( window(), query );
-  }
-
-  /**
-   * Create an instance of MediaQuery.
-   *
-   * @param window the window to test.
-   * @param query  the CSS media query to match.
-   * @return the MediaQuery instance.
-   */
-  @Nonnull
-  public static MediaQuery create( @Nonnull final Window window, @Nonnull final String query )
-  {
-    return new Arez_MediaQuery( window, query );
-  }
-
-  MediaQuery( @Nonnull final Window window, @Nonnull final String query )
-  {
-    _window = Objects.requireNonNull( window );
-    _mediaQueryList = _window.matchMedia( Objects.requireNonNull( query ) );
-  }
-
-  /**
-   * Return the window against which the MediaQuery will run.
-   *
-   * @return the window to test.
-   */
-  @Nonnull
-  public Window getWindow()
-  {
-    return _window;
-  }
-
-  /**
-   * Return the media query to test against window.
-   *
-   * @return the associated media query.
-   */
-  @Nonnull
-  @Observable
-  public String getQuery()
-  {
-    return _mediaQueryList.media();
-  }
-
-  /**
-   * Change the media query to test against.
-   * If the component is active then invoking this will ensure that the listener is updated to listen
-   * to new query.
-   *
-   * @param query the CSS media query.
-   */
-  public void setQuery( @Nonnull final String query )
-  {
-    if ( _active )
-    {
-      unbindListener();
+    @JsFunction
+    private interface EventListener {
+        void handleEvent(Object event);
     }
-    _mediaQueryList = _window.matchMedia( Objects.requireNonNull( query ) );
-    if ( _active )
-    {
-      bindListener();
+
+    @JsType(isNative = true, name = "MediaQueryList", namespace = JsPackage.GLOBAL)
+    private static class MediaQueryList {
+        @JsProperty(name = "media")
+        native String media();
+
+        @JsProperty(name = "matches")
+        native boolean matches();
+
+        @JsMethod
+        native void addListener(EventListener listener);
+
+        @JsMethod
+        native void removeListener(EventListener listener);
     }
-  }
 
-  /**
-   * Return true if the media query matches, false otherwise.
-   *
-   * @return true if the media query matches, false otherwise.
-   */
-  @Memoize( depType = DepType.AREZ_OR_EXTERNAL )
-  public boolean matches()
-  {
-    // Observe query so that this is re-calculated if query changes
-    getQuery();
-    return _mediaQueryList.matches();
-  }
+    @Nonnull
+    private final EventListener _listener = e -> notifyOnMatchChange();
 
-  @ComputableValueRef
-  abstract ComputableValue<?> getMatchesComputableValue();
+    @Nonnull
+    private final Window _window;
 
-  @OnActivate
-  void onMatchesActivate()
-  {
-    _active = true;
-    bindListener();
-  }
+    @Nonnull
+    private MediaQueryList _mediaQueryList;
 
-  @OnDeactivate
-  void onMatchesDeactivate()
-  {
-    _active = false;
-    unbindListener();
-  }
+    private boolean _active;
 
-  @Action
-  void notifyOnMatchChange()
-  {
-    // According to notes in https://github.com/ReactTraining/react-media/blob/master/modules/MediaQueryList.js
-    // Safari doesn't clear up listener with removeListener when the listener is already waiting in the event queue.
-    // This code makes sure Having an active flag to make sure the change is not reported after computable is
-    // deactivated and component is disposed.
-    if ( !Disposable.isDisposed( this ) )
-    {
-      getMatchesComputableValue().reportPossiblyChanged();
+    /**
+     * Create an instance of MediaQuery.
+     *
+     * @param query the CSS media query to match.
+     * @return the MediaQuery instance.
+     */
+    @Nonnull
+    public static MediaQuery create(@Nonnull final String query) {
+        return create(window(), query);
     }
-  }
 
-  private void bindListener()
-  {
-    _mediaQueryList.addListener( _listener );
-  }
+    /**
+     * Create an instance of MediaQuery.
+     *
+     * @param window the window to test.
+     * @param query  the CSS media query to match.
+     * @return the MediaQuery instance.
+     */
+    @Nonnull
+    public static MediaQuery create(@Nonnull final Window window, @Nonnull final String query) {
+        return new Arez_MediaQuery(window, query);
+    }
 
-  private void unbindListener()
-  {
-    _mediaQueryList.removeListener( _listener );
-  }
+    MediaQuery(@Nonnull final Window window, @Nonnull final String query) {
+        _window = Objects.requireNonNull(window);
+        _mediaQueryList = _window.matchMedia(Objects.requireNonNull(query));
+    }
 
-  @JsProperty( name = "window", namespace = JsPackage.GLOBAL )
-  private static native Window window();
+    /**
+     * Return the window against which the MediaQuery will run.
+     *
+     * @return the window to test.
+     */
+    @Nonnull
+    public Window getWindow() {
+        return _window;
+    }
+
+    /**
+     * Return the media query to test against window.
+     *
+     * @return the associated media query.
+     */
+    @Nonnull
+    @Observable
+    public String getQuery() {
+        return _mediaQueryList.media();
+    }
+
+    /**
+     * Change the media query to test against.
+     * If the component is active then invoking this will ensure that the listener is updated to listen
+     * to new query.
+     *
+     * @param query the CSS media query.
+     */
+    public void setQuery(@Nonnull final String query) {
+        if (_active) {
+            unbindListener();
+        }
+        _mediaQueryList = _window.matchMedia(Objects.requireNonNull(query));
+        if (_active) {
+            bindListener();
+        }
+    }
+
+    /**
+     * Return true if the media query matches, false otherwise.
+     *
+     * @return true if the media query matches, false otherwise.
+     */
+    @Memoize(depType = DepType.AREZ_OR_EXTERNAL)
+    public boolean matches() {
+        // Observe query so that this is re-calculated if query changes
+        getQuery();
+        return _mediaQueryList.matches();
+    }
+
+    @ComputableValueRef
+    abstract ComputableValue<?> getMatchesComputableValue();
+
+    @OnActivate
+    void onMatchesActivate() {
+        _active = true;
+        bindListener();
+    }
+
+    @OnDeactivate
+    void onMatchesDeactivate() {
+        _active = false;
+        unbindListener();
+    }
+
+    @Action
+    void notifyOnMatchChange() {
+        // According to notes in https://github.com/ReactTraining/react-media/blob/master/modules/MediaQueryList.js
+        // Safari doesn't clear up listener with removeListener when the listener is already waiting in the event queue.
+        // This code makes sure Having an active flag to make sure the change is not reported after computable is
+        // deactivated and component is disposed.
+        if (!Disposable.isDisposed(this)) {
+            getMatchesComputableValue().reportPossiblyChanged();
+        }
+    }
+
+    private void bindListener() {
+        _mediaQueryList.addListener(_listener);
+    }
+
+    private void unbindListener() {
+        _mediaQueryList.removeListener(_listener);
+    }
+
+    @JsProperty(name = "window", namespace = JsPackage.GLOBAL)
+    private static native Window window();
 }

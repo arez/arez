@@ -1,5 +1,7 @@
 package arez.integration.action;
 
+import static org.testng.Assert.*;
+
 import arez.Arez;
 import arez.ArezContext;
 import arez.annotations.Action;
@@ -12,44 +14,38 @@ import arez.spy.ActionStartEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
-@SuppressWarnings( { "UnusedReturnValue", "unused", "SameParameterValue" } )
-public final class NoReportResultTest
-  extends AbstractArezIntegrationTest
-{
-  @ArezComponent
-  static abstract class MyComponent
-  {
-    @Action( reportResult = false )
-    int myAction()
-    {
-      getTime();
-      return 23;
+@SuppressWarnings({"UnusedReturnValue", "unused", "SameParameterValue"})
+public final class NoReportResultTest extends AbstractArezIntegrationTest {
+    @ArezComponent
+    abstract static class MyComponent {
+        @Action(reportResult = false)
+        int myAction() {
+            getTime();
+            return 23;
+        }
+
+        @Observable
+        abstract long getTime();
+
+        abstract void setTime(long value);
     }
 
-    @Observable
-    abstract long getTime();
+    @Test
+    public void scenario() {
+        final ArezContext context = Arez.context();
 
-    abstract void setTime( long value );
-  }
+        final MyComponent component = new NoReportResultTest_Arez_MyComponent();
 
-  @Test
-  public void scenario()
-  {
-    final ArezContext context = Arez.context();
+        final TestSpyEventHandler recorder = new TestSpyEventHandler();
+        context.getSpy().addSpyEventHandler(recorder);
 
-    final MyComponent component = new NoReportResultTest_Arez_MyComponent();
+        component.myAction();
 
-    final TestSpyEventHandler recorder = new TestSpyEventHandler();
-    context.getSpy().addSpyEventHandler( recorder );
-
-    component.myAction();
-
-    recorder.assertEventCount( 4 );
-    recorder.assertNextEvent( ActionStartEvent.class );
-    recorder.assertNextEvent( TransactionStartEvent.class );
-    recorder.assertNextEvent( TransactionCompleteEvent.class );
-    recorder.assertNextEvent( ActionCompleteEvent.class, a -> assertNull( a.getResult() ) );
-  }
+        recorder.assertEventCount(4);
+        recorder.assertNextEvent(ActionStartEvent.class);
+        recorder.assertNextEvent(TransactionStartEvent.class);
+        recorder.assertNextEvent(TransactionCompleteEvent.class);
+        recorder.assertNextEvent(ActionCompleteEvent.class, a -> assertNull(a.getResult()));
+    }
 }

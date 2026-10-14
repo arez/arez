@@ -61,290 +61,247 @@ import jsinterop.annotations.JsType;
  * }
  * }</pre>
  */
-@ArezComponent( requireId = Feature.DISABLE )
-public abstract class IdleStatus
-{
-  @JsFunction
-  private interface TimerHandler
-  {
-    void onInvoke();
-  }
-
-  @JsFunction
-  private interface EventListener
-  {
-    void handleEvent( Object event );
-  }
-
-  @JsType( isNative = true, name = "Object", namespace = JsPackage.GLOBAL )
-  private static class AddEventListenerOptions
-  {
-    AddEventListenerOptions()
-    {
+@ArezComponent(requireId = Feature.DISABLE)
+public abstract class IdleStatus {
+    @JsFunction
+    private interface TimerHandler {
+        void onInvoke();
     }
 
-    @JsProperty
-    native void setPassive( boolean passive );
-  }
-
-  private static final long DEFAULT_TIMEOUT = 2000L;
-  @Nonnull
-  private final TimerHandler _timeoutCallback = this::onTimeout;
-  @Nonnull
-  private final EventListener _listener = e -> tryResetLastActivityTime();
-  @Nonnull
-  private Set<String> _events =
-    new HashSet<>( Arrays.asList( "keydown", "touchstart", "scroll", "mousemove", "mouseup", "mousedown", "wheel" ) );
-  /**
-   * True if an Observer is watching idle state.
-   */
-  private boolean _active;
-  /**
-   * The id of timeout scheduled action, 0 if none set.
-   */
-  private int _timeoutId;
-
-  /**
-   * Create an instance of this model.
-   *
-   * @return an instance of IdleStatus.
-   */
-  @Nonnull
-  public static IdleStatus create()
-  {
-    return create( DEFAULT_TIMEOUT );
-  }
-
-  /**
-   * Create an instance of this model.
-   *
-   * @param timeout the duration to after activity before becoming idle.
-   * @return an instance of IdleStatus.
-   */
-  @Nonnull
-  public static IdleStatus create( final long timeout )
-  {
-    return new Arez_IdleStatus( timeout );
-  }
-
-  IdleStatus()
-  {
-  }
-
-  @ContextRef
-  abstract ArezContext context();
-
-  @PostConstruct
-  void postConstruct()
-  {
-    resetLastActivityTime();
-  }
-
-  @PreDispose
-  void preDispose()
-  {
-    cancelTimeout();
-  }
-
-  /**
-   * Return true if the user is idle.
-   *
-   * @return true if the user is idle, false otherwise.
-   */
-  @Memoize
-  public boolean isIdle()
-  {
-    if ( isRawIdle() )
-    {
-      return true;
+    @JsFunction
+    private interface EventListener {
+        void handleEvent(Object event);
     }
-    else
-    {
-      final int timeToWait = getTimeToWait();
-      if ( timeToWait > 0 )
-      {
-        if ( 0 == _timeoutId )
-        {
-          scheduleTimeout( timeToWait );
+
+    @JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
+    private static class AddEventListenerOptions {
+        AddEventListenerOptions() {}
+
+        @JsProperty
+        native void setPassive(boolean passive);
+    }
+
+    private static final long DEFAULT_TIMEOUT = 2000L;
+
+    @Nonnull
+    private final TimerHandler _timeoutCallback = this::onTimeout;
+
+    @Nonnull
+    private final EventListener _listener = e -> tryResetLastActivityTime();
+
+    @Nonnull
+    private Set<String> _events = new HashSet<>(
+            Arrays.asList("keydown", "touchstart", "scroll", "mousemove", "mouseup", "mousedown", "wheel"));
+    /**
+     * True if an Observer is watching idle state.
+     */
+    private boolean _active;
+    /**
+     * The id of timeout scheduled action, 0 if none set.
+     */
+    private int _timeoutId;
+
+    /**
+     * Create an instance of this model.
+     *
+     * @return an instance of IdleStatus.
+     */
+    @Nonnull
+    public static IdleStatus create() {
+        return create(DEFAULT_TIMEOUT);
+    }
+
+    /**
+     * Create an instance of this model.
+     *
+     * @param timeout the duration to after activity before becoming idle.
+     * @return an instance of IdleStatus.
+     */
+    @Nonnull
+    public static IdleStatus create(final long timeout) {
+        return new Arez_IdleStatus(timeout);
+    }
+
+    IdleStatus() {}
+
+    @ContextRef
+    abstract ArezContext context();
+
+    @PostConstruct
+    void postConstruct() {
+        resetLastActivityTime();
+    }
+
+    @PreDispose
+    void preDispose() {
+        cancelTimeout();
+    }
+
+    /**
+     * Return true if the user is idle.
+     *
+     * @return true if the user is idle, false otherwise.
+     */
+    @Memoize
+    public boolean isIdle() {
+        if (isRawIdle()) {
+            return true;
+        } else {
+            final int timeToWait = getTimeToWait();
+            if (timeToWait > 0) {
+                if (0 == _timeoutId) {
+                    scheduleTimeout(timeToWait);
+                }
+                return false;
+            } else {
+                return true;
+            }
         }
-        return false;
-      }
-      else
-      {
-        return true;
-      }
     }
-  }
 
-  @OnActivate
-  void onIdleActivate()
-  {
-    _active = true;
-    final AddEventListenerOptions options = new AddEventListenerOptions();
-    options.setPassive( true );
-    _events.forEach( e -> addEventListener( e, _listener, options ) );
-  }
-
-  @OnDeactivate
-  void onIdleDeactivate()
-  {
-    _active = false;
-    _events.forEach( e -> removeEventListener( e, _listener ) );
-  }
-
-  /**
-   * Short cut observable field checked after idle state is confirmed.
-   */
-  @Observable
-  abstract void setRawIdle( boolean rawIdle );
-
-  abstract boolean isRawIdle();
-
-  /**
-   * Return the duration for which no events should be received for the idle condition to be triggered.
-   *
-   * @return the timeout.
-   */
-  @Observable( initializer = Feature.ENABLE )
-  public abstract long getTimeout();
-
-  /**
-   * Set the timeout.
-   *
-   * @param timeout the timeout.
-   */
-  public abstract void setTimeout( long timeout );
-
-  /**
-   * Return the set of events to listen to.
-   *
-   * @return the set of events.
-   */
-  @Nonnull
-  @Observable
-  public Set<String> getEvents()
-  {
-    return _events;
-  }
-
-  /**
-   * Specify the set of events to listen to.
-   * If the model is already active, the listeners will be updated to reflect the new events.
-   *
-   * @param events the set of events.
-   */
-  public void setEvents( @Nonnull final Set<String> events )
-  {
-    final Set<String> oldEvents = _events;
-    _events = new HashSet<>( events );
-    updateListeners( oldEvents );
-  }
-
-  /**
-   * Synchronize listeners against the dom based on new events.
-   */
-  private void updateListeners( @Nonnull final Set<String> oldEvents )
-  {
-    if ( _active )
-    {
-      //Remove any old events
-      oldEvents.stream().
-        filter( e -> !_events.contains( e ) ).
-        forEach( e -> removeEventListener( e, _listener ) );
-      // Add any new events
-      _events.stream().
-        filter( e -> !oldEvents.contains( e ) ).
-        forEach( e -> addEventListener( e, _listener ) );
+    @OnActivate
+    void onIdleActivate() {
+        _active = true;
+        final AddEventListenerOptions options = new AddEventListenerOptions();
+        options.setPassive(true);
+        _events.forEach(e -> addEventListener(e, _listener, options));
     }
-  }
 
-  /**
-   * Return the time at which the last monitored event was received.
-   *
-   * @return the time at which the last event was received.
-   */
-  @Observable
-  public abstract long getLastActivityAt();
-
-  abstract void setLastActivityAt( long lastActivityAt );
-
-  private int getTimeToWait()
-  {
-    return (int) ( getLastActivityAt() + getTimeout() - System.currentTimeMillis() );
-  }
-
-  private void cancelTimeout()
-  {
-    clearTimeout( _timeoutId );
-    _timeoutId = 0;
-  }
-
-  private void scheduleTimeout( final int timeToWait )
-  {
-    _timeoutId = setTimeout( _timeoutCallback, timeToWait );
-  }
-
-  @Action
-  void onTimeout()
-  {
-    _timeoutId = 0;
-    final int timeToWait = getTimeToWait();
-    if ( timeToWait > 0 )
-    {
-      scheduleTimeout( timeToWait );
+    @OnDeactivate
+    void onIdleDeactivate() {
+        _active = false;
+        _events.forEach(e -> removeEventListener(e, _listener));
     }
-    else
-    {
-      setRawIdle( true );
+
+    /**
+     * Short cut observable field checked after idle state is confirmed.
+     */
+    @Observable
+    abstract void setRawIdle(boolean rawIdle);
+
+    abstract boolean isRawIdle();
+
+    /**
+     * Return the duration for which no events should be received for the idle condition to be triggered.
+     *
+     * @return the timeout.
+     */
+    @Observable(initializer = Feature.ENABLE)
+    public abstract long getTimeout();
+
+    /**
+     * Set the timeout.
+     *
+     * @param timeout the timeout.
+     */
+    public abstract void setTimeout(long timeout);
+
+    /**
+     * Return the set of events to listen to.
+     *
+     * @return the set of events.
+     */
+    @Nonnull
+    @Observable
+    public Set<String> getEvents() {
+        return _events;
     }
-  }
 
-  void tryResetLastActivityTime()
-  {
-    if ( context().isTransactionActive() )
-    {
-      // This can be called anytime an event occurs ... which can
-      // actually occur during the middle of a transaction (i.e. a browser exception event)
-      // So if we are in the middle of a transaction, just trigger its execution for later.
-      context().task( this::doResetLastActivityTime, Task.Flags.DISPOSE_ON_COMPLETE );
+    /**
+     * Specify the set of events to listen to.
+     * If the model is already active, the listeners will be updated to reflect the new events.
+     *
+     * @param events the set of events.
+     */
+    public void setEvents(@Nonnull final Set<String> events) {
+        final Set<String> oldEvents = _events;
+        _events = new HashSet<>(events);
+        updateListeners(oldEvents);
     }
-    else
-    {
-      doResetLastActivityTime();
+
+    /**
+     * Synchronize listeners against the dom based on new events.
+     */
+    private void updateListeners(@Nonnull final Set<String> oldEvents) {
+        if (_active) {
+            // Remove any old events
+            oldEvents.stream().filter(e -> !_events.contains(e)).forEach(e -> removeEventListener(e, _listener));
+            // Add any new events
+            _events.stream().filter(e -> !oldEvents.contains(e)).forEach(e -> addEventListener(e, _listener));
+        }
     }
-  }
 
-  void doResetLastActivityTime()
-  {
-    // As the tryResetLastActivityTime can be scheduled later,
-    // it is possible that this will be invoked after the object has been disposed
-    if( Disposable.isNotDisposed( this ) )
-    {
-      resetLastActivityTime();
+    /**
+     * Return the time at which the last monitored event was received.
+     *
+     * @return the time at which the last event was received.
+     */
+    @Observable
+    public abstract long getLastActivityAt();
+
+    abstract void setLastActivityAt(long lastActivityAt);
+
+    private int getTimeToWait() {
+        return (int) (getLastActivityAt() + getTimeout() - System.currentTimeMillis());
     }
-  }
 
-  @Action
-  void resetLastActivityTime()
-  {
-    setRawIdle( false );
-    setLastActivityAt( System.currentTimeMillis() );
-  }
+    private void cancelTimeout() {
+        clearTimeout(_timeoutId);
+        _timeoutId = 0;
+    }
 
-  @JsMethod( name = "addEventListener", namespace = JsPackage.GLOBAL )
-  private static native void addEventListener( String type, EventListener listener );
+    private void scheduleTimeout(final int timeToWait) {
+        _timeoutId = setTimeout(_timeoutCallback, timeToWait);
+    }
 
-  @JsMethod( name = "addEventListener", namespace = JsPackage.GLOBAL )
-  private static native void addEventListener( String type,
-                                               EventListener listener,
-                                               AddEventListenerOptions options );
+    @Action
+    void onTimeout() {
+        _timeoutId = 0;
+        final int timeToWait = getTimeToWait();
+        if (timeToWait > 0) {
+            scheduleTimeout(timeToWait);
+        } else {
+            setRawIdle(true);
+        }
+    }
 
-  @JsMethod( name = "removeEventListener", namespace = JsPackage.GLOBAL )
-  private static native void removeEventListener( String type, EventListener listener );
+    void tryResetLastActivityTime() {
+        if (context().isTransactionActive()) {
+            // This can be called anytime an event occurs ... which can
+            // actually occur during the middle of a transaction (i.e. a browser exception event)
+            // So if we are in the middle of a transaction, just trigger its execution for later.
+            context().task(this::doResetLastActivityTime, Task.Flags.DISPOSE_ON_COMPLETE);
+        } else {
+            doResetLastActivityTime();
+        }
+    }
 
-  @JsMethod( name = "clearTimeout", namespace = JsPackage.GLOBAL )
-  private static native void clearTimeout( int timeoutId );
+    void doResetLastActivityTime() {
+        // As the tryResetLastActivityTime can be scheduled later,
+        // it is possible that this will be invoked after the object has been disposed
+        if (Disposable.isNotDisposed(this)) {
+            resetLastActivityTime();
+        }
+    }
 
-  @JsMethod( name = "setTimeout", namespace = JsPackage.GLOBAL )
-  private static native int setTimeout( TimerHandler callback, int delay );
+    @Action
+    void resetLastActivityTime() {
+        setRawIdle(false);
+        setLastActivityAt(System.currentTimeMillis());
+    }
+
+    @JsMethod(name = "addEventListener", namespace = JsPackage.GLOBAL)
+    private static native void addEventListener(String type, EventListener listener);
+
+    @JsMethod(name = "addEventListener", namespace = JsPackage.GLOBAL)
+    private static native void addEventListener(String type, EventListener listener, AddEventListenerOptions options);
+
+    @JsMethod(name = "removeEventListener", namespace = JsPackage.GLOBAL)
+    private static native void removeEventListener(String type, EventListener listener);
+
+    @JsMethod(name = "clearTimeout", namespace = JsPackage.GLOBAL)
+    private static native void clearTimeout(int timeoutId);
+
+    @JsMethod(name = "setTimeout", namespace = JsPackage.GLOBAL)
+    private static native int setTimeout(TimerHandler callback, int delay);
 }

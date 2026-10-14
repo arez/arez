@@ -39,17 +39,16 @@ import javax.annotation.Nonnull;
  * {@link ArezComponent} or {@link ArezComponentLike}. Other usages will fail compilation.</p>
  */
 @Documented
-@Target( ElementType.METHOD )
-public @interface OnDepsChange
-{
-  /**
-   * Return the name of the paired Tracked relative to the component.
-   * The value must conform to the requirements of a java identifier.
-   * The name need not be specified. If the {@link Observe} annotated method is
-   * named "render" then this will default to being named "onRenderDepsChange".
-   *
-   * @return the name of the paired {@link Observe} annotated method relative to the component.
-   */
-  @Nonnull
-  String name() default "<default>";
+@Target(ElementType.METHOD)
+public @interface OnDepsChange {
+    /**
+     * Return the name of the paired Tracked relative to the component.
+     * The value must conform to the requirements of a java identifier.
+     * The name need not be specified. If the {@link Observe} annotated method is
+     * named "render" then this will default to being named "onRenderDepsChange".
+     *
+     * @return the name of the paired {@link Observe} annotated method relative to the component.
+     */
+    @Nonnull
+    String name() default "<default>";
 }

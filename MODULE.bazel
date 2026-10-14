@@ -10,6 +10,14 @@ single_version_override(
 
 bazel_dep(name = "buildifier_prebuilt", version = "10.0.1", dev_dependency = True)
 
+bazel_dep(name = "rules_palantir_java_format", version = "0.1.1")
+archive_override(
+    module_name = "rules_palantir_java_format",
+    integrity = "sha256-4h/h0cVmPQ/7jkXnvW69rmABbfXOOzoXuBh3gMJDMk8=",
+    strip_prefix = "rules_palantir_java_format-0.1.1",
+    urls = ["https://github.com/realityforge/rules_palantir_java_format/releases/download/v0.1.1/rules_palantir_java_format-v0.1.1.tar.gz"],
+)
+
 # --- depgen-generated repository rules start ---
 
 # DO NOT EDIT: Content is auto-generated from //third_party/java:dependencies.yml by https://github.com/realityforge/bazel-depgen version 0.26

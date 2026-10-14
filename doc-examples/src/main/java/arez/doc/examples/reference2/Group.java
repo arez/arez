@@ -9,38 +9,34 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 
 @ArezComponent
-public abstract class Group
-{
-  //DOC ELIDE START
-  private final int _id;
-  @Nonnull
-  private String _name;
+public abstract class Group {
+    // DOC ELIDE START
+    private final int _id;
 
-  Group( final int id, @Nonnull final String name )
-  {
-    _id = id;
-    _name = Objects.requireNonNull( name );
-  }
+    @Nonnull
+    private String _name;
 
-  @ComponentId
-  public int getId()
-  {
-    return _id;
-  }
+    Group(final int id, @Nonnull final String name) {
+        _id = id;
+        _name = Objects.requireNonNull(name);
+    }
 
-  @Observable
-  @Nonnull
-  public String getName()
-  {
-    return _name;
-  }
+    @ComponentId
+    public int getId() {
+        return _id;
+    }
 
-  public void setName( @Nonnull final String name )
-  {
-    _name = name;
-  }
+    @Observable
+    @Nonnull
+    public String getName() {
+        return _name;
+    }
 
-  //DOC ELIDE END
-  @Inverse
-  public abstract Collection<Permission> getPermissions();
+    public void setName(@Nonnull final String name) {
+        _name = name;
+    }
+
+    // DOC ELIDE END
+    @Inverse
+    public abstract Collection<Permission> getPermissions();
 }

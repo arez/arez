@@ -41,16 +41,15 @@ import javax.annotation.Nonnull;
  * {@link ArezComponent} or {@link ArezComponentLike}. Other usages will fail compilation.</p>
  */
 @Documented
-@Target( ElementType.METHOD )
-public @interface OnDeactivate
-{
-  /**
-   * Return the name of the ComputableValue that this method is associated with.
-   * This value will be derived if the method name matches the pattern "on[Name]Deactivate",
-   * otherwise it must be specified.
-   *
-   * @return the name of the ComputableValue.
-   */
-  @Nonnull
-  String name() default "<default>";
+@Target(ElementType.METHOD)
+public @interface OnDeactivate {
+    /**
+     * Return the name of the ComputableValue that this method is associated with.
+     * This value will be derived if the method name matches the pattern "on[Name]Deactivate",
+     * otherwise it must be specified.
+     *
+     * @return the name of the ComputableValue.
+     */
+    @Nonnull
+    String name() default "<default>";
 }

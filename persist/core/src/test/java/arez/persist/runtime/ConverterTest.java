@@ -1,73 +1,70 @@
 package arez.persist.runtime;
 
-import arez.SafeProcedure;
-import arez.persist.AbstractTest;
-import org.testng.annotations.Test;
 import static org.mockito.Mockito.*;
 import static org.testng.Assert.*;
 
-@SuppressWarnings( { "unchecked", "rawtypes" } )
-public final class ConverterTest
-  extends AbstractTest
-{
-  @Test
-  public void getConverter_noConverterRegistered()
-  {
-    assertEquals( Registry.getConverters().size(), 0 );
+import arez.SafeProcedure;
+import arez.persist.AbstractTest;
+import org.testng.annotations.Test;
 
-    final Converter<Integer, ?> converter = ArezPersist.getConverter( Integer.class );
+@SuppressWarnings({"unchecked", "rawtypes"})
+public final class ConverterTest extends AbstractTest {
+    @Test
+    public void getConverter_noConverterRegistered() {
+        assertEquals(Registry.getConverters().size(), 0);
 
-    assertEquals( Registry.getConverters().size(), 0 );
+        final Converter<Integer, ?> converter = ArezPersist.getConverter(Integer.class);
 
-    final Integer value = 33;
-    assertSame( converter.encode( value ), value );
+        assertEquals(Registry.getConverters().size(), 0);
 
-    assertSame( ( (Converter) converter ).decode( converter.encode( value ) ), value );
-  }
+        final Integer value = 33;
+        assertSame(converter.encode(value), value);
 
-  @Test
-  public void getConverter_converterRegistered()
-  {
-    final Converter converter = mock( Converter.class );
+        assertSame(((Converter) converter).decode(converter.encode(value)), value);
+    }
 
-    assertEquals( Registry.getConverters().size(), 0 );
+    @Test
+    public void getConverter_converterRegistered() {
+        final Converter converter = mock(Converter.class);
 
-    ArezPersist.registerConverter( String.class, converter );
+        assertEquals(Registry.getConverters().size(), 0);
 
-    assertEquals( Registry.getConverters().size(), 1 );
+        ArezPersist.registerConverter(String.class, converter);
 
-    assertSame( ArezPersist.getConverter( String.class ), converter );
-  }
+        assertEquals(Registry.getConverters().size(), 1);
 
-  @Test
-  public void registerConverter_duplicate()
-  {
-    final Converter converter1 = mock( Converter.class );
-    final Converter converter2 = mock( Converter.class );
+        assertSame(ArezPersist.getConverter(String.class), converter);
+    }
 
-    assertEquals( Registry.getConverters().size(), 0 );
+    @Test
+    public void registerConverter_duplicate() {
+        final Converter converter1 = mock(Converter.class);
+        final Converter converter2 = mock(Converter.class);
 
-    ArezPersist.registerConverter( String.class, converter1 );
+        assertEquals(Registry.getConverters().size(), 0);
 
-    assertEquals( Registry.getConverters().size(), 1 );
+        ArezPersist.registerConverter(String.class, converter1);
 
-    assertInvariantFailure( () -> ArezPersist.registerConverter( String.class, converter2 ),
-                            "registerConverter() invoked with type 'java.lang.String' but a converter is already registered for that type" );
-  }
+        assertEquals(Registry.getConverters().size(), 1);
 
-  @Test
-  public void deregisterConverter()
-  {
-    final Converter converter = mock( Converter.class );
+        assertInvariantFailure(
+                () -> ArezPersist.registerConverter(String.class, converter2),
+                "registerConverter() invoked with type 'java.lang.String' but a converter is already registered for"
+                        + " that type");
+    }
 
-    assertEquals( Registry.getConverters().size(), 0 );
+    @Test
+    public void deregisterConverter() {
+        final Converter converter = mock(Converter.class);
 
-    final SafeProcedure deregisterAction = ArezPersist.registerConverter( String.class, converter );
+        assertEquals(Registry.getConverters().size(), 0);
 
-    assertEquals( Registry.getConverters().size(), 1 );
+        final SafeProcedure deregisterAction = ArezPersist.registerConverter(String.class, converter);
 
-    deregisterAction.call();
+        assertEquals(Registry.getConverters().size(), 1);
 
-    assertEquals( Registry.getConverters().size(), 0 );
-  }
+        deregisterAction.call();
+
+        assertEquals(Registry.getConverters().size(), 0);
+    }
 }

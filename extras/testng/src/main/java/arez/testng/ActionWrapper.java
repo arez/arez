@@ -13,14 +13,13 @@ import java.lang.annotation.Target;
  * is reached.
  */
 @Documented
-@Target( { ElementType.TYPE, ElementType.METHOD } )
-@Retention( RetentionPolicy.RUNTIME )
-public @interface ActionWrapper
-{
-  /**
-   * A flag indicating whether the test method should be wrapped in an action.
-   *
-   * @return true if the test method should be wrapped in an action, false otherwise.
-   */
-  boolean enable();
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ActionWrapper {
+    /**
+     * A flag indicating whether the test method should be wrapped in an action.
+     *
+     * @return true if the test method should be wrapped in an action, false otherwise.
+     */
+    boolean enable();
 }

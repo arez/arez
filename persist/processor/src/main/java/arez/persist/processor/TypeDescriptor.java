@@ -8,74 +8,69 @@ import javax.annotation.Nullable;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 
-final class TypeDescriptor
-{
-  @Nonnull
-  private final String _name;
-  private final boolean _persistOnDispose;
-  @Nonnull
-  private final TypeElement _element;
-  @Nullable
-  private final ExecutableElement _idMethod;
-  @Nonnull
-  private final List<PropertyDescriptor> _properties;
+final class TypeDescriptor {
+    @Nonnull
+    private final String _name;
 
-  TypeDescriptor( @Nonnull final String name,
-                  final boolean persistOnDispose,
-                  @Nonnull final TypeElement element,
-                  @Nullable final ExecutableElement idMethod,
-                  @Nonnull final List<PropertyDescriptor> properties )
-  {
-    _name = Objects.requireNonNull( name );
-    _persistOnDispose = persistOnDispose;
-    _element = Objects.requireNonNull( element );
-    _idMethod = idMethod;
-    _properties = Objects.requireNonNull( properties );
-  }
+    private final boolean _persistOnDispose;
 
-  @Nonnull
-  String getName()
-  {
-    return _name;
-  }
+    @Nonnull
+    private final TypeElement _element;
 
-  boolean isPersistOnDispose()
-  {
-    return _persistOnDispose;
-  }
+    @Nullable
+    private final ExecutableElement _idMethod;
 
-  @Nonnull
-  TypeElement getElement()
-  {
-    return _element;
-  }
+    @Nonnull
+    private final List<PropertyDescriptor> _properties;
 
-  @Nullable
-  ExecutableElement getIdMethod()
-  {
-    return _idMethod;
-  }
+    TypeDescriptor(
+            @Nonnull final String name,
+            final boolean persistOnDispose,
+            @Nonnull final TypeElement element,
+            @Nullable final ExecutableElement idMethod,
+            @Nonnull final List<PropertyDescriptor> properties) {
+        _name = Objects.requireNonNull(name);
+        _persistOnDispose = persistOnDispose;
+        _element = Objects.requireNonNull(element);
+        _idMethod = idMethod;
+        _properties = Objects.requireNonNull(properties);
+    }
 
-  @Nonnull
-  List<PropertyDescriptor> getProperties()
-  {
-    return _properties;
-  }
+    @Nonnull
+    String getName() {
+        return _name;
+    }
 
-  @Nonnull
-  List<PropertyDescriptor> getPropertiesByStore( @Nonnull final String storeName )
-  {
-    return _properties.stream().filter( p -> p.getStore().equals( storeName ) ).collect( Collectors.toList() );
-  }
+    boolean isPersistOnDispose() {
+        return _persistOnDispose;
+    }
 
-  @Nonnull
-  List<String> getStoreNames()
-  {
-    return getProperties()
-      .stream()
-      .map( PropertyDescriptor::getStore )
-      .sorted()
-      .distinct()
-      .collect( Collectors.toList() );
-  }
+    @Nonnull
+    TypeElement getElement() {
+        return _element;
+    }
+
+    @Nullable
+    ExecutableElement getIdMethod() {
+        return _idMethod;
+    }
+
+    @Nonnull
+    List<PropertyDescriptor> getProperties() {
+        return _properties;
+    }
+
+    @Nonnull
+    List<PropertyDescriptor> getPropertiesByStore(@Nonnull final String storeName) {
+        return _properties.stream().filter(p -> p.getStore().equals(storeName)).collect(Collectors.toList());
+    }
+
+    @Nonnull
+    List<String> getStoreNames() {
+        return getProperties().stream()
+                .map(PropertyDescriptor::getStore)
+                .sorted()
+                .distinct()
+                .collect(Collectors.toList());
+    }
 }

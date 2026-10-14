@@ -15,90 +15,74 @@ import javax.annotation.Nullable;
  *
  * @param <T> The element type
  */
-final class FastList<T>
-{
-  @Nonnull
-  private final List<T> _values = new ArrayList<>();
-  @Nonnull
-  private final Set<T> _set = new HashSet<>();
+final class FastList<T> {
+    @Nonnull
+    private final List<T> _values = new ArrayList<>();
 
-  void forEach( @Nonnull Consumer<? super T> action )
-  {
-    _values.forEach( v -> {
-      if ( null != v )
-      {
-        action.accept( v );
-      }
-    } );
-  }
+    @Nonnull
+    private final Set<T> _set = new HashSet<>();
 
-  int size()
-  {
-    return _values.size();
-  }
-
-  boolean isEmpty()
-  {
-    return 0 == size();
-  }
-
-  @Nonnull
-  Stream<T> stream()
-  {
-    return _values.stream().filter( Objects::nonNull );
-  }
-
-  void clear()
-  {
-    _values.clear();
-    _set.clear();
-  }
-
-  @SuppressWarnings( "SuspiciousMethodCalls" )
-  boolean contains( @Nonnull final Object o )
-  {
-    return _set.contains( o );
-  }
-
-  @Nullable
-  T get( final int index )
-  {
-    return _values.get( index );
-  }
-
-  void set( final int index, @Nonnull final T element )
-  {
-    if ( _set.contains( element ) )
-    {
-      _values.remove( element );
+    void forEach(@Nonnull Consumer<? super T> action) {
+        _values.forEach(v -> {
+            if (null != v) {
+                action.accept(v);
+            }
+        });
     }
-    _values.set( index, element );
-    _set.add( element );
-  }
 
-  void remove( final int index )
-  {
-    final T element = _values.remove( index );
-    if ( null != element )
-    {
-      _set.remove( element );
+    int size() {
+        return _values.size();
     }
-  }
 
-  void remove( @Nonnull final T element )
-  {
-    if ( _set.remove( element ) )
-    {
-      _values.remove( element );
+    boolean isEmpty() {
+        return 0 == size();
     }
-  }
 
-  void add( @Nonnull final T element )
-  {
-    if ( !_set.contains( element ) )
-    {
-      _values.add( element );
-      _set.add( element );
+    @Nonnull
+    Stream<T> stream() {
+        return _values.stream().filter(Objects::nonNull);
     }
-  }
+
+    void clear() {
+        _values.clear();
+        _set.clear();
+    }
+
+    @SuppressWarnings("SuspiciousMethodCalls")
+    boolean contains(@Nonnull final Object o) {
+        return _set.contains(o);
+    }
+
+    @Nullable
+    T get(final int index) {
+        return _values.get(index);
+    }
+
+    void set(final int index, @Nonnull final T element) {
+        if (_set.contains(element)) {
+            _values.remove(element);
+        }
+        _values.set(index, element);
+        _set.add(element);
+    }
+
+    void remove(final int index) {
+        final T element = _values.remove(index);
+        if (null != element) {
+            _set.remove(element);
+        }
+    }
+
+    void remove(@Nonnull final T element) {
+        if (_set.remove(element)) {
+            _values.remove(element);
+        }
+    }
+
+    void add(@Nonnull final T element) {
+        if (!_set.contains(element)) {
+            _values.add(element);
+            _set.add(element);
+        }
+    }
 }

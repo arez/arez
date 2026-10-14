@@ -1,5 +1,8 @@
 package arez.persist.runtime;
 
+import static org.mockito.Mockito.*;
+import static org.testng.Assert.*;
+
 import arez.SafeProcedure;
 import arez.persist.AbstractTest;
 import arez.persist.StoreTypes;
@@ -9,389 +12,378 @@ import java.util.Map;
 import org.mockito.ArgumentCaptor;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
-import static org.mockito.Mockito.*;
-import static org.testng.Assert.*;
-
-public final class StoreTest
-  extends AbstractTest
-{
-  @Test
-  public void registerApplicationStoreIfEnabled_disabled()
-  {
-    ArezPersistTestUtil.disableApplicationStore();
-    ArezPersistTestUtil.resetState();
-
-    assertTrue( Registry.getStores().isEmpty() );
-
-    ArezPersist.registerApplicationStoreIfEnabled();
-
-    assertTrue( Registry.getStores().isEmpty() );
-  }
-
-  @Test
-  public void registerApplicationStoreIfEnabled_enabled()
-  {
-    ArezPersistTestUtil.disableApplicationStore();
-    ArezPersistTestUtil.resetState();
-
-    assertTrue( Registry.getStores().isEmpty() );
-
-    ArezPersistTestUtil.enableApplicationStore();
-    ArezPersist.registerApplicationStoreIfEnabled();
-
-    assertEquals( Registry.getStores().size(), 1 );
-
-    assertNotNull( ArezPersist.getStore( StoreTypes.APPLICATION ) );
-  }
-
-  @Test
-  public void get_save_remove_basicOperation()
-  {
-    final TypeConverter converter = new TypeConverter( Collections.emptyMap() );
-    final Store store = ArezPersist.getStore( StoreTypes.APPLICATION );
-
-    final Scope rootScope = ArezPersist.getRootScope();
-    final Scope scope = rootScope.findOrCreateScope( ValueUtil.randomString() );
-
-    final String type1 = ValueUtil.randomString();
-    final String type2 = ValueUtil.randomString();
-
-    final String id1 = ValueUtil.randomString();
-    final String id2 = ValueUtil.randomString();
-    final String id3 = ValueUtil.randomString();
 
-    final Map<String, Object> state1 = randomState();
-    final Map<String, Object> state2 = randomState();
-    final Map<String, Object> state3 = randomState();
+public final class StoreTest extends AbstractTest {
+    @Test
+    public void registerApplicationStoreIfEnabled_disabled() {
+        ArezPersistTestUtil.disableApplicationStore();
+        ArezPersistTestUtil.resetState();
+
+        assertTrue(Registry.getStores().isEmpty());
+
+        ArezPersist.registerApplicationStoreIfEnabled();
+
+        assertTrue(Registry.getStores().isEmpty());
+    }
+
+    @Test
+    public void registerApplicationStoreIfEnabled_enabled() {
+        ArezPersistTestUtil.disableApplicationStore();
+        ArezPersistTestUtil.resetState();
+
+        assertTrue(Registry.getStores().isEmpty());
 
-    assertNull( store.get( scope, type1, id1, converter ) );
-    assertNull( store.get( rootScope, type1, id1, converter ) );
-    assertNull( store.get( scope, type1, id2, converter ) );
-    assertNull( store.get( rootScope, type1, id2, converter ) );
-    assertNull( store.get( scope, type2, id3, converter ) );
-    assertNull( store.get( rootScope, type2, id3, converter ) );
+        ArezPersistTestUtil.enableApplicationStore();
+        ArezPersist.registerApplicationStoreIfEnabled();
 
-    store.save( scope, type1, id1, state1, converter );
+        assertEquals(Registry.getStores().size(), 1);
 
-    assertEquals( store.get( scope, type1, id1, converter ), state1 );
-    assertNull( store.get( rootScope, type1, id1, converter ) );
-    assertNull( store.get( scope, type1, id2, converter ) );
-    assertNull( store.get( rootScope, type1, id2, converter ) );
-    assertNull( store.get( scope, type2, id3, converter ) );
-    assertNull( store.get( rootScope, type2, id3, converter ) );
+        assertNotNull(ArezPersist.getStore(StoreTypes.APPLICATION));
+    }
 
-    store.save( scope, type1, id2, state2, converter );
-    store.save( rootScope, type2, id3, state3, converter );
+    @Test
+    public void get_save_remove_basicOperation() {
+        final TypeConverter converter = new TypeConverter(Collections.emptyMap());
+        final Store store = ArezPersist.getStore(StoreTypes.APPLICATION);
 
-    assertEquals( store.get( scope, type1, id1, converter ), state1 );
-    assertNull( store.get( rootScope, type1, id1, converter ) );
-    assertEquals( store.get( scope, type1, id2, converter ), state2 );
-    assertNull( store.get( rootScope, type1, id2, converter ) );
-    assertNull( store.get( scope, type2, id3, converter ) );
-    assertEquals( store.get( rootScope, type2, id3, converter ), state3 );
-
-    // A save of an empty map is equivalent to a remove
-    store.save( scope, type1, id1, Collections.emptyMap(), converter );
-
-    assertNull( store.get( scope, type1, id1, converter ) );
-    assertNull( store.get( rootScope, type1, id1, converter ) );
-    assertEquals( store.get( scope, type1, id2, converter ), state2 );
-    assertNull( store.get( rootScope, type1, id2, converter ) );
-    assertNull( store.get( scope, type2, id3, converter ) );
-    assertEquals( store.get( rootScope, type2, id3, converter ), state3 );
-
-    store.remove( scope, type1, id1 );
-    store.remove( scope, type1, id2 );
-
-    assertNull( store.get( scope, type1, id1, converter ) );
-    assertNull( store.get( rootScope, type1, id1, converter ) );
-    assertNull( store.get( scope, type1, id2, converter ) );
-    assertNull( store.get( rootScope, type1, id2, converter ) );
-    assertNull( store.get( scope, type2, id3, converter ) );
-    assertEquals( store.get( rootScope, type2, id3, converter ), state3 );
-
-    ArezPersist.disposeScope( scope );
-
-    assertInvariantFailure( () -> store.remove( scope, ValueUtil.randomString(), ValueUtil.randomString() ),
-                            "Store.remove() passed a disposed scope named '" + scope.getName() + "'" );
-    assertInvariantFailure( () -> store.get( scope, ValueUtil.randomString(), ValueUtil.randomString(), converter ),
-                            "Store.get() passed a disposed scope named '" + scope.getName() + "'" );
-    assertInvariantFailure( () -> store.save( scope,
-                                              ValueUtil.randomString(),
-                                              ValueUtil.randomString(),
-                                              randomState(),
-                                              converter ),
-                            "Store.save() passed a disposed scope named '" + scope.getName() + "'" );
-  }
-
-  @Test
-  public void registerAndDergisterStoreLifecycle()
-  {
-    ArezPersistTestUtil.disableApplicationStore();
-    ArezPersistTestUtil.resetState();
-
-    final String store1Name = ValueUtil.randomString();
-    final String store2Name = ValueUtil.randomString();
-
-    final StorageService service1 = mock( StorageService.class );
-    final StorageService service2 = mock( StorageService.class );
-
-    assertEquals( Registry.getStores().size(), 0 );
+        final Scope rootScope = ArezPersist.getRootScope();
+        final Scope scope = rootScope.findOrCreateScope(ValueUtil.randomString());
 
-    final SafeProcedure store1Deregister = ArezPersist.registerStore( store1Name, service1 );
+        final String type1 = ValueUtil.randomString();
+        final String type2 = ValueUtil.randomString();
 
-    verify( service1 ).restore( any() );
-    reset( service1 );
+        final String id1 = ValueUtil.randomString();
+        final String id2 = ValueUtil.randomString();
+        final String id3 = ValueUtil.randomString();
 
-    assertEquals( Registry.getStores().size(), 1 );
-    assertNotNull( ArezPersist.getStore( store1Name ) );
+        final Map<String, Object> state1 = randomState();
+        final Map<String, Object> state2 = randomState();
+        final Map<String, Object> state3 = randomState();
 
-    final SafeProcedure store2Deregister = ArezPersist.registerStore( store2Name, service2 );
+        assertNull(store.get(scope, type1, id1, converter));
+        assertNull(store.get(rootScope, type1, id1, converter));
+        assertNull(store.get(scope, type1, id2, converter));
+        assertNull(store.get(rootScope, type1, id2, converter));
+        assertNull(store.get(scope, type2, id3, converter));
+        assertNull(store.get(rootScope, type2, id3, converter));
 
-    verify( service2 ).restore( any() );
-    reset( service2 );
+        store.save(scope, type1, id1, state1, converter);
 
-    assertEquals( Registry.getStores().size(), 2 );
-    assertNotNull( ArezPersist.getStore( store1Name ) );
-    assertNotNull( ArezPersist.getStore( store2Name ) );
+        assertEquals(store.get(scope, type1, id1, converter), state1);
+        assertNull(store.get(rootScope, type1, id1, converter));
+        assertNull(store.get(scope, type1, id2, converter));
+        assertNull(store.get(rootScope, type1, id2, converter));
+        assertNull(store.get(scope, type2, id3, converter));
+        assertNull(store.get(rootScope, type2, id3, converter));
 
-    assertNotNull( ArezPersist.getStore( store1Name ) );
+        store.save(scope, type1, id2, state2, converter);
+        store.save(rootScope, type2, id3, state3, converter);
 
-    store1Deregister.call();
+        assertEquals(store.get(scope, type1, id1, converter), state1);
+        assertNull(store.get(rootScope, type1, id1, converter));
+        assertEquals(store.get(scope, type1, id2, converter), state2);
+        assertNull(store.get(rootScope, type1, id2, converter));
+        assertNull(store.get(scope, type2, id3, converter));
+        assertEquals(store.get(rootScope, type2, id3, converter), state3);
 
-    verify( service1 ).dispose();
-    reset( service1 );
+        // A save of an empty map is equivalent to a remove
+        store.save(scope, type1, id1, Collections.emptyMap(), converter);
 
-    assertEquals( Registry.getStores().size(), 1 );
-    assertNotNull( ArezPersist.getStore( store2Name ) );
+        assertNull(store.get(scope, type1, id1, converter));
+        assertNull(store.get(rootScope, type1, id1, converter));
+        assertEquals(store.get(scope, type1, id2, converter), state2);
+        assertNull(store.get(rootScope, type1, id2, converter));
+        assertNull(store.get(scope, type2, id3, converter));
+        assertEquals(store.get(rootScope, type2, id3, converter), state3);
 
-    store2Deregister.call();
+        store.remove(scope, type1, id1);
+        store.remove(scope, type1, id2);
+
+        assertNull(store.get(scope, type1, id1, converter));
+        assertNull(store.get(rootScope, type1, id1, converter));
+        assertNull(store.get(scope, type1, id2, converter));
+        assertNull(store.get(rootScope, type1, id2, converter));
+        assertNull(store.get(scope, type2, id3, converter));
+        assertEquals(store.get(rootScope, type2, id3, converter), state3);
+
+        ArezPersist.disposeScope(scope);
+
+        assertInvariantFailure(
+                () -> store.remove(scope, ValueUtil.randomString(), ValueUtil.randomString()),
+                "Store.remove() passed a disposed scope named '" + scope.getName() + "'");
+        assertInvariantFailure(
+                () -> store.get(scope, ValueUtil.randomString(), ValueUtil.randomString(), converter),
+                "Store.get() passed a disposed scope named '" + scope.getName() + "'");
+        assertInvariantFailure(
+                () -> store.save(scope, ValueUtil.randomString(), ValueUtil.randomString(), randomState(), converter),
+                "Store.save() passed a disposed scope named '" + scope.getName() + "'");
+    }
 
-    verify( service2 ).dispose();
-    reset( service2 );
+    @Test
+    public void registerAndDergisterStoreLifecycle() {
+        ArezPersistTestUtil.disableApplicationStore();
+        ArezPersistTestUtil.resetState();
 
-    assertEquals( Registry.getStores().size(), 0 );
-  }
+        final String store1Name = ValueUtil.randomString();
+        final String store2Name = ValueUtil.randomString();
 
-  @Test
-  public void getStoreForNonExistentStore()
-  {
-    final String name = ValueUtil.randomString();
-    assertInvariantFailure( () -> ArezPersist.getStore( name ),
-                            "getStore() invoked with name " + name + " but no such store exists" );
-  }
+        final StorageService service1 = mock(StorageService.class);
+        final StorageService service2 = mock(StorageService.class);
 
-  @Test
-  public void duplicateRegister()
-  {
-    final String name = ValueUtil.randomString();
-    ArezPersist.registerStore( name, mock( StorageService.class ) );
-    assertInvariantFailure( () -> ArezPersist.registerStore( name, mock( StorageService.class ) ),
-                            "registerStore() invoked with name '" + name +
-                            "' but a store is already registered with that name" );
-  }
+        assertEquals(Registry.getStores().size(), 0);
 
-  @Test
-  public void canNotInteractWithDisposedStore()
-  {
-    final TypeConverter converter = new TypeConverter( Collections.emptyMap() );
-    final Scope scope = ArezPersist.getRootScope();
-    final String storeName = ValueUtil.randomString();
-    final SafeProcedure disposeAction = ArezPersist.registerStore( storeName, mock( StorageService.class ) );
-    final Store store = ArezPersist.getStore( storeName );
-    disposeAction.call();
+        final SafeProcedure store1Deregister = ArezPersist.registerStore(store1Name, service1);
 
-    assertInvariantFailure( () -> store.remove( scope, ValueUtil.randomString(), ValueUtil.randomString() ),
-                            "Store.remove() invoked after the store has been disposed" );
-    assertInvariantFailure( () -> store.get( scope, ValueUtil.randomString(), ValueUtil.randomString(), converter ),
-                            "Store.get() invoked after the store has been disposed" );
-    assertInvariantFailure( () -> store.save( scope,
-                                              ValueUtil.randomString(),
-                                              ValueUtil.randomString(),
-                                              randomState(),
-                                              converter ),
-                            "Store.save() invoked after the store has been disposed" );
-  }
+        verify(service1).restore(any());
+        reset(service1);
 
-  @Test
-  public void basicOperationAndInteractionWithStorageService()
-  {
-    final TypeConverter converter = new TypeConverter( Collections.emptyMap() );
-    final ArgumentCaptor<SafeProcedure> actionCaptor = ArgumentCaptor.forClass( SafeProcedure.class );
+        assertEquals(Registry.getStores().size(), 1);
+        assertNotNull(ArezPersist.getStore(store1Name));
 
-    final StorageService service = mock( StorageService.class );
+        final SafeProcedure store2Deregister = ArezPersist.registerStore(store2Name, service2);
 
-    final String storeName = ValueUtil.randomString();
-    ArezPersist.registerStore( storeName, service );
-    final Store store = ArezPersist.getStore( storeName );
+        verify(service2).restore(any());
+        reset(service2);
 
-    verify( service ).restore( any() );
+        assertEquals(Registry.getStores().size(), 2);
+        assertNotNull(ArezPersist.getStore(store1Name));
+        assertNotNull(ArezPersist.getStore(store2Name));
 
-    reset( service );
+        assertNotNull(ArezPersist.getStore(store1Name));
 
-    final Scope scope = ArezPersist.getRootScope();
+        store1Deregister.call();
 
-    final String type = ValueUtil.randomString();
+        verify(service1).dispose();
+        reset(service1);
 
-    final String id = ValueUtil.randomString();
-    final String id2 = ValueUtil.randomString();
+        assertEquals(Registry.getStores().size(), 1);
+        assertNotNull(ArezPersist.getStore(store2Name));
 
-    final Map<String, Object> state1 = randomState();
-    final Map<String, Object> state2 = randomState();
+        store2Deregister.call();
 
-    assertNull( store.get( scope, type, id, converter ) );
-    assertNull( store.get( scope, type, id2, converter ) );
+        verify(service2).dispose();
+        reset(service2);
 
-    verifyNoInteractions( service );
+        assertEquals(Registry.getStores().size(), 0);
+    }
 
-    when( service.encodeState( eq( state1 ), eq( converter ) ) ).thenReturn( state1 );
+    @Test
+    public void getStoreForNonExistentStore() {
+        final String name = ValueUtil.randomString();
+        assertInvariantFailure(
+                () -> ArezPersist.getStore(name), "getStore() invoked with name " + name + " but no such store exists");
+    }
 
-    store.save( scope, type, id, state1, converter );
+    @Test
+    public void duplicateRegister() {
+        final String name = ValueUtil.randomString();
+        ArezPersist.registerStore(name, mock(StorageService.class));
+        assertInvariantFailure(
+                () -> ArezPersist.registerStore(name, mock(StorageService.class)),
+                "registerStore() invoked with name '" + name + "' but a store is already registered with that name");
+    }
 
-    verify( service ).encodeState( eq( state1 ), eq( converter ) );
-    verify( service ).scheduleCommit( actionCaptor.capture() );
-    verifyNoMoreInteractions( service );
+    @Test
+    public void canNotInteractWithDisposedStore() {
+        final TypeConverter converter = new TypeConverter(Collections.emptyMap());
+        final Scope scope = ArezPersist.getRootScope();
+        final String storeName = ValueUtil.randomString();
+        final SafeProcedure disposeAction = ArezPersist.registerStore(storeName, mock(StorageService.class));
+        final Store store = ArezPersist.getStore(storeName);
+        disposeAction.call();
 
-    reset( service );
+        assertInvariantFailure(
+                () -> store.remove(scope, ValueUtil.randomString(), ValueUtil.randomString()),
+                "Store.remove() invoked after the store has been disposed");
+        assertInvariantFailure(
+                () -> store.get(scope, ValueUtil.randomString(), ValueUtil.randomString(), converter),
+                "Store.get() invoked after the store has been disposed");
+        assertInvariantFailure(
+                () -> store.save(scope, ValueUtil.randomString(), ValueUtil.randomString(), randomState(), converter),
+                "Store.save() invoked after the store has been disposed");
+    }
 
-    assertEquals( store.get( scope, type, id, converter ), state1 );
-    assertNull( store.get( scope, type, id2, converter ) );
+    @Test
+    public void basicOperationAndInteractionWithStorageService() {
+        final TypeConverter converter = new TypeConverter(Collections.emptyMap());
+        final ArgumentCaptor<SafeProcedure> actionCaptor = ArgumentCaptor.forClass(SafeProcedure.class);
 
-    verifyNoInteractions( service );
+        final StorageService service = mock(StorageService.class);
 
-    when( service.encodeState( eq( state2 ), eq( converter ) ) ).thenReturn( state2 );
+        final String storeName = ValueUtil.randomString();
+        ArezPersist.registerStore(storeName, service);
+        final Store store = ArezPersist.getStore(storeName);
 
-    store.save( scope, type, id, state2, converter );
+        verify(service).restore(any());
 
-    verify( service ).encodeState( eq( state2 ), eq( converter ) );
-    verify( service, never() ).scheduleCommit( any() );
-    verifyNoMoreInteractions( service );
+        reset(service);
 
-    reset( service );
+        final Scope scope = ArezPersist.getRootScope();
 
-    assertEquals( store.get( scope, type, id, converter ), state2 );
-    assertNull( store.get( scope, type, id2, converter ) );
+        final String type = ValueUtil.randomString();
 
-    verifyNoInteractions( service );
+        final String id = ValueUtil.randomString();
+        final String id2 = ValueUtil.randomString();
 
-    final SafeProcedure action = actionCaptor.getValue();
+        final Map<String, Object> state1 = randomState();
+        final Map<String, Object> state2 = randomState();
 
-    // Now perform the commit
+        assertNull(store.get(scope, type, id, converter));
+        assertNull(store.get(scope, type, id2, converter));
 
-    action.call();
+        verifyNoInteractions(service);
 
-    @SuppressWarnings( { "unchecked", "rawtypes" } )
-    final ArgumentCaptor<Map<Scope, Map<String, Map<String, StorageService.Entry>>>> stateCaptor =
-      (ArgumentCaptor) ArgumentCaptor.forClass( Map.class );
+        when(service.encodeState(eq(state1), eq(converter))).thenReturn(state1);
 
-    verify( service ).commit( stateCaptor.capture() );
+        store.save(scope, type, id, state1, converter);
 
-    final Map<Scope, Map<String, Map<String, StorageService.Entry>>> stateSaved = stateCaptor.getValue();
-    final Map<String, Map<String, StorageService.Entry>> scopeMap = stateSaved.get( scope );
-    assertNotNull( scopeMap );
-    final Map<String, StorageService.Entry> typeMap = scopeMap.get( type );
-    assertNotNull( typeMap );
-    final StorageService.Entry instanceEntry = typeMap.get( id );
-    assertEquals( instanceEntry.getData(), state2 );
-    assertEquals( instanceEntry.getEncoded(), state2 );
+        verify(service).encodeState(eq(state1), eq(converter));
+        verify(service).scheduleCommit(actionCaptor.capture());
+        verifyNoMoreInteractions(service);
 
-    reset( service );
+        reset(service);
 
-    // Duplicate commit ignored as already committed an no remaining changes
-    action.call();
+        assertEquals(store.get(scope, type, id, converter), state1);
+        assertNull(store.get(scope, type, id2, converter));
 
-    verifyNoMoreInteractions( service );
-  }
+        verifyNoInteractions(service);
 
-  @Test
-  public void encodeOnSave()
-  {
-    final String propertyKey = ValueUtil.randomString();
-    final TypeConverter converter = new TypeConverter( Collections.emptyMap() );
+        when(service.encodeState(eq(state2), eq(converter))).thenReturn(state2);
 
-    final StorageService service = mock( StorageService.class );
+        store.save(scope, type, id, state2, converter);
 
-    final String storeName = ValueUtil.randomString();
-    ArezPersist.registerStore( storeName, service );
-    final Store store = ArezPersist.getStore( storeName );
-    reset( service );
+        verify(service).encodeState(eq(state2), eq(converter));
+        verify(service, never()).scheduleCommit(any());
+        verifyNoMoreInteractions(service);
 
-    final Scope scope = ArezPersist.getRootScope();
+        reset(service);
 
-    final String type = ValueUtil.randomString();
+        assertEquals(store.get(scope, type, id, converter), state2);
+        assertNull(store.get(scope, type, id2, converter));
 
-    final String id = ValueUtil.randomString();
+        verifyNoInteractions(service);
 
-    final Map<String, Object> state1 = new HashMap<>();
-    state1.put( propertyKey, 'a' );
-    final Map<String, Object> state1Encoded = new HashMap<>();
-    state1Encoded.put( propertyKey, "a" );
+        final SafeProcedure action = actionCaptor.getValue();
 
-    assertNull( store.get( scope, type, id, converter ) );
+        // Now perform the commit
 
-    verifyNoInteractions( service );
+        action.call();
 
-    when( service.encodeState( eq( state1 ), eq( converter ) ) ).thenReturn( state1Encoded );
+        @SuppressWarnings({"unchecked", "rawtypes"})
+        final ArgumentCaptor<Map<Scope, Map<String, Map<String, StorageService.Entry>>>> stateCaptor =
+                (ArgumentCaptor) ArgumentCaptor.forClass(Map.class);
 
-    store.save( scope, type, id, state1, converter );
+        verify(service).commit(stateCaptor.capture());
 
-    verify( service ).encodeState( eq( state1 ), eq( converter ) );
-    verify( service ).scheduleCommit( any() );
-    verifyNoMoreInteractions( service );
+        final Map<Scope, Map<String, Map<String, StorageService.Entry>>> stateSaved = stateCaptor.getValue();
+        final Map<String, Map<String, StorageService.Entry>> scopeMap = stateSaved.get(scope);
+        assertNotNull(scopeMap);
+        final Map<String, StorageService.Entry> typeMap = scopeMap.get(type);
+        assertNotNull(typeMap);
+        final StorageService.Entry instanceEntry = typeMap.get(id);
+        assertEquals(instanceEntry.getData(), state2);
+        assertEquals(instanceEntry.getEncoded(), state2);
 
-    reset( service );
+        reset(service);
 
-    final StorageService.Entry entry = store.getConfig().get( scope ).get( type ).get( id );
+        // Duplicate commit ignored as already committed an no remaining changes
+        action.call();
 
-    assertNotNull( entry );
-    assertEquals( entry.getData(), state1 );
-    assertEquals( entry.getEncoded(), state1Encoded );
-  }
+        verifyNoMoreInteractions(service);
+    }
 
-  @SuppressWarnings( { "unchecked" } )
-  @Test
-  public void decodeOnGetencodeOnSave()
-  {
-    final Scope scope = ArezPersist.getRootScope();
-    final String type = ValueUtil.randomString();
+    @Test
+    public void encodeOnSave() {
+        final String propertyKey = ValueUtil.randomString();
+        final TypeConverter converter = new TypeConverter(Collections.emptyMap());
 
-    final String id = ValueUtil.randomString();
+        final StorageService service = mock(StorageService.class);
 
-    final String propertyKey = ValueUtil.randomString();
+        final String storeName = ValueUtil.randomString();
+        ArezPersist.registerStore(storeName, service);
+        final Store store = ArezPersist.getStore(storeName);
+        reset(service);
 
-    final Map<String, Object> state1 = new HashMap<>();
-    state1.put( propertyKey, 'a' );
-    final Map<String, Object> state1Encoded = new HashMap<>();
-    state1Encoded.put( propertyKey, "a" );
+        final Scope scope = ArezPersist.getRootScope();
 
-    final TypeConverter converter = new TypeConverter( Collections.emptyMap() );
+        final String type = ValueUtil.randomString();
 
-    final StorageService service = mock( StorageService.class );
+        final String id = ValueUtil.randomString();
 
-    doAnswer( invocation -> {
-      final Map<Scope, Map<String, Map<String, StorageService.Entry>>> state =
-        (Map<Scope, Map<String, Map<String, StorageService.Entry>>>) invocation.getArguments()[ 0 ];
-      state.computeIfAbsent( scope, scope1 -> new HashMap<>() )
-        .computeIfAbsent( type, t -> new HashMap<>() )
-        .put( id, new StorageService.Entry( null, state1Encoded ) );
-      return null;
-    } ).when( service ).restore( any() );
+        final Map<String, Object> state1 = new HashMap<>();
+        state1.put(propertyKey, 'a');
+        final Map<String, Object> state1Encoded = new HashMap<>();
+        state1Encoded.put(propertyKey, "a");
 
-    final String storeName = ValueUtil.randomString();
-    ArezPersist.registerStore( storeName, service );
-    final Store store = ArezPersist.getStore( storeName );
-    verify( service ).restore( any() );
-    reset( service );
-    final StorageService.Entry entry = store.getConfig().get( scope ).get( type ).get( id );
+        assertNull(store.get(scope, type, id, converter));
 
-    assertNotNull( entry );
-    assertNull( entry.getData() );
-    assertEquals( entry.getEncoded(), state1Encoded );
+        verifyNoInteractions(service);
 
-    doReturn( state1 ).when( service ).decodeState( entry.getEncoded(), converter );
+        when(service.encodeState(eq(state1), eq(converter))).thenReturn(state1Encoded);
 
-    assertEquals( store.get( scope, type, id, converter ), state1 );
+        store.save(scope, type, id, state1, converter);
 
-    assertEquals( entry.getData(), state1 );
-  }
+        verify(service).encodeState(eq(state1), eq(converter));
+        verify(service).scheduleCommit(any());
+        verifyNoMoreInteractions(service);
+
+        reset(service);
+
+        final StorageService.Entry entry =
+                store.getConfig().get(scope).get(type).get(id);
+
+        assertNotNull(entry);
+        assertEquals(entry.getData(), state1);
+        assertEquals(entry.getEncoded(), state1Encoded);
+    }
+
+    @SuppressWarnings({"unchecked"})
+    @Test
+    public void decodeOnGetencodeOnSave() {
+        final Scope scope = ArezPersist.getRootScope();
+        final String type = ValueUtil.randomString();
+
+        final String id = ValueUtil.randomString();
+
+        final String propertyKey = ValueUtil.randomString();
+
+        final Map<String, Object> state1 = new HashMap<>();
+        state1.put(propertyKey, 'a');
+        final Map<String, Object> state1Encoded = new HashMap<>();
+        state1Encoded.put(propertyKey, "a");
+
+        final TypeConverter converter = new TypeConverter(Collections.emptyMap());
+
+        final StorageService service = mock(StorageService.class);
+
+        doAnswer(invocation -> {
+                    final Map<Scope, Map<String, Map<String, StorageService.Entry>>> state =
+                            (Map<Scope, Map<String, Map<String, StorageService.Entry>>>)
+                                    invocation.getArguments()[0];
+                    state.computeIfAbsent(scope, scope1 -> new HashMap<>())
+                            .computeIfAbsent(type, t -> new HashMap<>())
+                            .put(id, new StorageService.Entry(null, state1Encoded));
+                    return null;
+                })
+                .when(service)
+                .restore(any());
+
+        final String storeName = ValueUtil.randomString();
+        ArezPersist.registerStore(storeName, service);
+        final Store store = ArezPersist.getStore(storeName);
+        verify(service).restore(any());
+        reset(service);
+        final StorageService.Entry entry =
+                store.getConfig().get(scope).get(type).get(id);
+
+        assertNotNull(entry);
+        assertNull(entry.getData());
+        assertEquals(entry.getEncoded(), state1Encoded);
+
+        doReturn(state1).when(service).decodeState(entry.getEncoded(), converter);
+
+        assertEquals(store.get(scope, type, id, converter), state1);
+
+        assertEquals(entry.getData(), state1);
+    }
 }

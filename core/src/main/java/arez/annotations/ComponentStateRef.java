@@ -36,14 +36,13 @@ import javax.annotation.Nonnull;
  * {@link ArezComponent} or {@link ArezComponentLike}. Other usages will fail compilation.</p>
  */
 @Documented
-@Target( ElementType.METHOD )
-public @interface ComponentStateRef
-{
-  /**
-   * Return the component state which will cause the annotated method to return true.
-   *
-   * @return the component state which will cause annotated method to return true.
-   */
-  @Nonnull
-  State value() default State.READY;
+@Target(ElementType.METHOD)
+public @interface ComponentStateRef {
+    /**
+     * Return the component state which will cause the annotated method to return true.
+     *
+     * @return the component state which will cause annotated method to return true.
+     */
+    @Nonnull
+    State value() default State.READY;
 }

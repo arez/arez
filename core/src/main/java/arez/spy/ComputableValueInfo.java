@@ -10,73 +10,70 @@ import javax.annotation.Nullable;
 /**
  * A representation of a ComputableValue instance exposed to spy framework.
  */
-public interface ComputableValueInfo
-  extends ElementInfo
-{
-  /**
-   * Return true if the ComputableValue is "computing".
-   * This implies that the current transaction or one of the parent transactions is calculating the
-   * ComputableValue at the moment.
-   *
-   * @return true if there is a transaction active.
-   */
-  boolean isComputing();
+public interface ComputableValueInfo extends ElementInfo {
+    /**
+     * Return true if the ComputableValue is "computing".
+     * This implies that the current transaction or one of the parent transactions is calculating the
+     * ComputableValue at the moment.
+     *
+     * @return true if there is a transaction active.
+     */
+    boolean isComputing();
 
-  /**
-   * Return the priority of the ComputableValue.
-   *
-   * @return the priority of the ComputableValue.
-   */
-  @Nonnull
-  Priority getPriority();
+    /**
+     * Return the priority of the ComputableValue.
+     *
+     * @return the priority of the ComputableValue.
+     */
+    @Nonnull
+    Priority getPriority();
 
-  /**
-   * Return true if the ComputableValue is active.
-   * A ComputableValue is active if there is one or more Observers and the value will be calculated.
-   *
-   * @return true if the ComputableValue is active.
-   */
-  boolean isActive();
+    /**
+     * Return true if the ComputableValue is active.
+     * A ComputableValue is active if there is one or more Observers and the value will be calculated.
+     *
+     * @return true if the ComputableValue is active.
+     */
+    boolean isActive();
 
-  /**
-   * Return the list of observers for ComputableValue.
-   * The list is an immutable copy of the observers of the {@link ComputableValue}.
-   *
-   * @return the list of observers for ComputableValue.
-   */
-  @Nonnull
-  List<ObserverInfo> getObservers();
+    /**
+     * Return the list of observers for ComputableValue.
+     * The list is an immutable copy of the observers of the {@link ComputableValue}.
+     *
+     * @return the list of observers for ComputableValue.
+     */
+    @Nonnull
+    List<ObserverInfo> getObservers();
 
-  /**
-   * Return the list of dependencies of the ComputableValue.
-   * The list is an immutable copy of the dependencies of the {@link ComputableValue}.
-   * If the {@link ComputableValue} is currently being computed (i.e. {@link #isComputing()}
-   * returns true) then the dependencies are provisional and may be added to as transaction
-   * completes.
-   *
-   * @return the list of dependencies for ComputableValue.
-   */
-  @Nonnull
-  List<ObservableValueInfo> getDependencies();
+    /**
+     * Return the list of dependencies of the ComputableValue.
+     * The list is an immutable copy of the dependencies of the {@link ComputableValue}.
+     * If the {@link ComputableValue} is currently being computed (i.e. {@link #isComputing()}
+     * returns true) then the dependencies are provisional and may be added to as transaction
+     * completes.
+     *
+     * @return the list of dependencies for ComputableValue.
+     */
+    @Nonnull
+    List<ObservableValueInfo> getDependencies();
 
-  /**
-   * Return the component for the ComputableValue.
-   * This method should not be invoked if {@link Arez#areNativeComponentsEnabled()} returns false.
-   *
-   * @return the component that contains ComputableValue if any.
-   */
-  @Nullable
-  ComponentInfo getComponent();
+    /**
+     * Return the component for the ComputableValue.
+     * This method should not be invoked if {@link Arez#areNativeComponentsEnabled()} returns false.
+     *
+     * @return the component that contains ComputableValue if any.
+     */
+    @Nullable
+    ComponentInfo getComponent();
 
-  /**
-   * Return the value of the ComputableValue.
-   * This method should only be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns true.
-   *
-   * @return the value of the ComputableValue.
-   * @throws Throwable if the property accessor throws an exception.
-   */
-  @OmitSymbol( unless = "arez.enable_property_introspection" )
-  @Nullable
-  Object getValue()
-    throws Throwable;
+    /**
+     * Return the value of the ComputableValue.
+     * This method should only be invoked if {@link Arez#arePropertyIntrospectorsEnabled()} returns true.
+     *
+     * @return the value of the ComputableValue.
+     * @throws Throwable if the property accessor throws an exception.
+     */
+    @OmitSymbol(unless = "arez.enable_property_introspection")
+    @Nullable
+    Object getValue() throws Throwable;
 }

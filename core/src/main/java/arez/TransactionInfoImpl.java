@@ -1,69 +1,62 @@
 package arez;
 
+import static org.realityforge.braincheck.Guards.*;
+
 import arez.spy.ObserverInfo;
 import arez.spy.TransactionInfo;
 import grim.annotations.OmitType;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import static org.realityforge.braincheck.Guards.*;
 
 /**
  * Adapter of Transaction to TransactionInfo for spy capabilities.
  */
-@OmitType( unless = "arez.enable_spies" )
-final class TransactionInfoImpl
-  implements TransactionInfo
-{
-  @Nonnull
-  private final Transaction _transaction;
+@OmitType(unless = "arez.enable_spies")
+final class TransactionInfoImpl implements TransactionInfo {
+    @Nonnull
+    private final Transaction _transaction;
 
-  TransactionInfoImpl( @Nonnull final Transaction transaction )
-  {
-    _transaction = Objects.requireNonNull( transaction );
-  }
+    TransactionInfoImpl(@Nonnull final Transaction transaction) {
+        _transaction = Objects.requireNonNull(transaction);
+    }
 
-  @Nonnull
-  @Override
-  public String getName()
-  {
-    return getTransaction().getName();
-  }
+    @Nonnull
+    @Override
+    public String getName() {
+        return getTransaction().getName();
+    }
 
-  @Override
-  public boolean isReadOnly()
-  {
-    return Arez.shouldEnforceTransactionType() && !getTransaction().isMutation();
-  }
+    @Override
+    public boolean isReadOnly() {
+        return Arez.shouldEnforceTransactionType() && !getTransaction().isMutation();
+    }
 
-  @Nullable
-  @Override
-  public TransactionInfo getParent()
-  {
-    final Transaction previous = _transaction.getPrevious();
-    return null != previous ? previous.asInfo() : null;
-  }
+    @Nullable
+    @Override
+    public TransactionInfo getParent() {
+        final Transaction previous = _transaction.getPrevious();
+        return null != previous ? previous.asInfo() : null;
+    }
 
-  @Override
-  public boolean isTracking()
-  {
-    return null != getTransaction().getTracker();
-  }
+    @Override
+    public boolean isTracking() {
+        return null != getTransaction().getTracker();
+    }
 
-  @Nonnull
-  @Override
-  public ObserverInfo getTracker()
-  {
-    final Observer tracker = getTransaction().getTracker();
-    apiInvariant( () -> null != tracker,
-                  () -> "Invoked getTracker on TransactionInfo named '" + getName() + "' but no tracker exists." );
-    assert null != tracker;
-    return tracker.asInfo();
-  }
+    @Nonnull
+    @Override
+    public ObserverInfo getTracker() {
+        final Observer tracker = getTransaction().getTracker();
+        apiInvariant(
+                () -> null != tracker,
+                () -> "Invoked getTracker on TransactionInfo named '" + getName() + "' but no tracker exists.");
+        assert null != tracker;
+        return tracker.asInfo();
+    }
 
-  @Nonnull
-  Transaction getTransaction()
-  {
-    return _transaction;
-  }
+    @Nonnull
+    Transaction getTransaction() {
+        return _transaction;
+    }
 }

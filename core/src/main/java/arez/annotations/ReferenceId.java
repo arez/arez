@@ -25,16 +25,15 @@ import javax.annotation.Nonnull;
  * {@link ArezComponent} or {@link ArezComponentLike}. Other usages will fail compilation.</p>
  */
 @Documented
-@Target( ElementType.METHOD )
-public @interface ReferenceId
-{
-  /**
-   * Return the name of the reference relative to the component. The value must conform
-   * to the requirements of a java identifier. If not specified, the name will be derived by assuming
-   * the naming convention "get[Name]Id" or "[name]Id" otherwise a compile failure will generated.
-   *
-   * @return the name of the reference relative to the component.
-   */
-  @Nonnull
-  String name() default "<default>";
+@Target(ElementType.METHOD)
+public @interface ReferenceId {
+    /**
+     * Return the name of the reference relative to the component. The value must conform
+     * to the requirements of a java identifier. If not specified, the name will be derived by assuming
+     * the naming convention "get[Name]Id" or "[name]Id" otherwise a compile failure will generated.
+     *
+     * @return the name of the reference relative to the component.
+     */
+    @Nonnull
+    String name() default "<default>";
 }

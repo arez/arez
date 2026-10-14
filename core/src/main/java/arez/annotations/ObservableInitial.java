@@ -20,20 +20,19 @@ import javax.annotation.Nonnull;
  * {@link ArezComponent} or {@link ArezComponentLike}. Other usages will fail compilation.</p>
  */
 @Documented
-@Target( { ElementType.METHOD, ElementType.FIELD } )
-public @interface ObservableInitial
-{
-  /**
-   * Return the name of the associated Observable.
-   *
-   * <p>If the annotation is applied to a method, this value will be derived if the method name matches
-   * the pattern "getInitial[Name]", otherwise it must be specified.</p>
-   *
-   * <p>If the annotation is applied to a field, this value will be derived if the field name matches
-   * the pattern "INITIAL_[NAME]", otherwise it must be specified.</p>
-   *
-   * @return the name of the Observable.
-   */
-  @Nonnull
-  String name() default "<default>";
+@Target({ElementType.METHOD, ElementType.FIELD})
+public @interface ObservableInitial {
+    /**
+     * Return the name of the associated Observable.
+     *
+     * <p>If the annotation is applied to a method, this value will be derived if the method name matches
+     * the pattern "getInitial[Name]", otherwise it must be specified.</p>
+     *
+     * <p>If the annotation is applied to a field, this value will be derived if the field name matches
+     * the pattern "INITIAL_[NAME]", otherwise it must be specified.</p>
+     *
+     * @return the name of the Observable.
+     */
+    @Nonnull
+    String name() default "<default>";
 }

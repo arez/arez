@@ -1,5 +1,7 @@
 package arez.integration.observable;
 
+import static org.testng.Assert.*;
+
 import arez.Arez;
 import arez.ArezContext;
 import arez.annotations.ArezComponent;
@@ -9,73 +11,64 @@ import arez.integration.AbstractArezIntegrationTest;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
-public final class ObservableInitialIntegrationTest
-  extends AbstractArezIntegrationTest
-{
-  @Test
-  public void scenario()
-    throws Throwable
-  {
-    final ArezContext context = Arez.context();
-    final PersonModel person = PersonModel.create();
+public final class ObservableInitialIntegrationTest extends AbstractArezIntegrationTest {
+    @Test
+    public void scenario() throws Throwable {
+        final ArezContext context = Arez.context();
+        final PersonModel person = PersonModel.create();
 
-    safeAction( () -> assertEquals( person.getName(), "Bob" ) );
-    safeAction( () -> assertEquals( person.getAge(), 42 ) );
-    safeAction( () -> assertEquals( person.getNickname(), "Bobby" ) );
+        safeAction(() -> assertEquals(person.getName(), "Bob"));
+        safeAction(() -> assertEquals(person.getAge(), 42));
+        safeAction(() -> assertEquals(person.getNickname(), "Bobby"));
 
-    context.action( () -> {
-      person.setName( "Jane" );
-      person.setAge( 37 );
-      person.setNickname( null );
-    } );
+        context.action(() -> {
+            person.setName("Jane");
+            person.setAge(37);
+            person.setNickname(null);
+        });
 
-    safeAction( () -> assertEquals( person.getName(), "Jane" ) );
-    safeAction( () -> assertEquals( person.getAge(), 37 ) );
-    safeAction( () -> assertNull( person.getNickname() ) );
-  }
-
-  @ArezComponent
-  abstract static class PersonModel
-  {
-    @Nonnull
-    static PersonModel create()
-    {
-      return new ObservableInitialIntegrationTest_Arez_PersonModel();
+        safeAction(() -> assertEquals(person.getName(), "Jane"));
+        safeAction(() -> assertEquals(person.getAge(), 37));
+        safeAction(() -> assertNull(person.getNickname()));
     }
 
-    @Observable
-    @Nonnull
-    abstract String getName();
+    @ArezComponent
+    abstract static class PersonModel {
+        @Nonnull
+        static PersonModel create() {
+            return new ObservableInitialIntegrationTest_Arez_PersonModel();
+        }
 
-    abstract void setName( @Nonnull String name );
+        @Observable
+        @Nonnull
+        abstract String getName();
 
-    @Observable
-    abstract int getAge();
+        abstract void setName(@Nonnull String name);
 
-    abstract void setAge( int age );
+        @Observable
+        abstract int getAge();
 
-    @Observable
-    @Nullable
-    abstract String getNickname();
+        abstract void setAge(int age);
 
-    abstract void setNickname( @Nullable String nickname );
+        @Observable
+        @Nullable
+        abstract String getNickname();
 
-    @ObservableInitial
-    @Nonnull
-    static final String INITIAL_NAME = "Bob";
+        abstract void setNickname(@Nullable String nickname);
 
-    @ObservableInitial
-    static int getInitialAge()
-    {
-      return 42;
+        @ObservableInitial
+        @Nonnull
+        static final String INITIAL_NAME = "Bob";
+
+        @ObservableInitial
+        static int getInitialAge() {
+            return 42;
+        }
+
+        @ObservableInitial(name = "nickname")
+        static String initialNickname() {
+            return "Bobby";
+        }
     }
-
-    @ObservableInitial( name = "nickname" )
-    static String initialNickname()
-    {
-      return "Bobby";
-    }
-  }
 }

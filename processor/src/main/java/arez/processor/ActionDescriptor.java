@@ -8,97 +8,90 @@ import javax.lang.model.type.ExecutableType;
 /**
  * The class that represents the parsed state of @Action methods on a @ArezComponent annotated class.
  */
-final class ActionDescriptor
-{
-  @Nonnull
-  private final ComponentDescriptor _component;
-  @Nonnull
-  private final String _name;
-  private final boolean _requireNewTransaction;
-  private final boolean _mutation;
-  private final boolean _verifyRequired;
-  private final boolean _reportParameters;
-  private final boolean _reportResult;
-  private final boolean _skipIfDisposed;
-  @Nonnull
-  private final ExecutableElement _action;
-  @Nonnull
-  private final ExecutableType _actionType;
+final class ActionDescriptor {
+    @Nonnull
+    private final ComponentDescriptor _component;
 
-  ActionDescriptor( @Nonnull final ComponentDescriptor component,
-                    @Nonnull final String name,
-                    final boolean requireNewTransaction,
-                    final boolean mutation,
-                    final boolean verifyRequired,
-                    final boolean reportParameters,
-                    final boolean reportResult,
-                    final boolean skipIfDisposed,
-                    @Nonnull final ExecutableElement action,
-                    @Nonnull final ExecutableType actionType )
-  {
-    _component = Objects.requireNonNull( component );
-    _name = Objects.requireNonNull( name );
-    _requireNewTransaction = requireNewTransaction;
-    _mutation = mutation;
-    _verifyRequired = verifyRequired;
-    _reportParameters = reportParameters;
-    _reportResult = reportResult;
-    _skipIfDisposed = skipIfDisposed;
-    _action = Objects.requireNonNull( action );
-    _actionType = Objects.requireNonNull( actionType );
-  }
+    @Nonnull
+    private final String _name;
 
-  @Nonnull
-  String getName()
-  {
-    return _name;
-  }
+    private final boolean _requireNewTransaction;
+    private final boolean _mutation;
+    private final boolean _verifyRequired;
+    private final boolean _reportParameters;
+    private final boolean _reportResult;
+    private final boolean _skipIfDisposed;
 
-  @Nonnull
-  ExecutableElement getAction()
-  {
-    return _action;
-  }
+    @Nonnull
+    private final ExecutableElement _action;
 
-  @Nonnull
-  ComponentDescriptor getComponent()
-  {
-    return _component;
-  }
+    @Nonnull
+    private final ExecutableType _actionType;
 
-  boolean isRequireNewTransaction()
-  {
-    return _requireNewTransaction;
-  }
+    ActionDescriptor(
+            @Nonnull final ComponentDescriptor component,
+            @Nonnull final String name,
+            final boolean requireNewTransaction,
+            final boolean mutation,
+            final boolean verifyRequired,
+            final boolean reportParameters,
+            final boolean reportResult,
+            final boolean skipIfDisposed,
+            @Nonnull final ExecutableElement action,
+            @Nonnull final ExecutableType actionType) {
+        _component = Objects.requireNonNull(component);
+        _name = Objects.requireNonNull(name);
+        _requireNewTransaction = requireNewTransaction;
+        _mutation = mutation;
+        _verifyRequired = verifyRequired;
+        _reportParameters = reportParameters;
+        _reportResult = reportResult;
+        _skipIfDisposed = skipIfDisposed;
+        _action = Objects.requireNonNull(action);
+        _actionType = Objects.requireNonNull(actionType);
+    }
 
-  boolean isMutation()
-  {
-    return _mutation;
-  }
+    @Nonnull
+    String getName() {
+        return _name;
+    }
 
-  boolean isVerifyRequired()
-  {
-    return _verifyRequired;
-  }
+    @Nonnull
+    ExecutableElement getAction() {
+        return _action;
+    }
 
-  boolean isReportParameters()
-  {
-    return _reportParameters;
-  }
+    @Nonnull
+    ComponentDescriptor getComponent() {
+        return _component;
+    }
 
-  boolean isReportResult()
-  {
-    return _reportResult;
-  }
+    boolean isRequireNewTransaction() {
+        return _requireNewTransaction;
+    }
 
-  boolean isSkipIfDisposed()
-  {
-    return _skipIfDisposed;
-  }
+    boolean isMutation() {
+        return _mutation;
+    }
 
-  @Nonnull
-  ExecutableType getActionType()
-  {
-    return _actionType;
-  }
+    boolean isVerifyRequired() {
+        return _verifyRequired;
+    }
+
+    boolean isReportParameters() {
+        return _reportParameters;
+    }
+
+    boolean isReportResult() {
+        return _reportResult;
+    }
+
+    boolean isSkipIfDisposed() {
+        return _skipIfDisposed;
+    }
+
+    @Nonnull
+    ExecutableType getActionType() {
+        return _actionType;
+    }
 }

@@ -12,8 +12,6 @@ import java.lang.annotation.Target;
  * are contained in the test.
  */
 @Documented
-@Target( ElementType.METHOD )
-@Retention( RetentionPolicy.RUNTIME )
-public @interface CollectObserverErrors
-{
-}
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface CollectObserverErrors {}

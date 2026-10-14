@@ -1,46 +1,41 @@
 package arez.integration.post_construct;
 
+import static org.testng.Assert.*;
+
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.annotations.PostConstruct;
 import arez.integration.AbstractArezIntegrationTest;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
-public final class PostConstructCanChangeArezStateTest
-  extends AbstractArezIntegrationTest
-{
-  @ArezComponent
-  static abstract class TestComponent
-  {
-    boolean _postConstructCalled;
+public final class PostConstructCanChangeArezStateTest extends AbstractArezIntegrationTest {
+    @ArezComponent
+    abstract static class TestComponent {
+        boolean _postConstructCalled;
 
-    @PostConstruct
-    void postConstruct()
-    {
-      _postConstructCalled = true;
-      doSetValue( 42 );
+        @PostConstruct
+        void postConstruct() {
+            _postConstructCalled = true;
+            doSetValue(42);
+        }
+
+        @Action
+        void doSetValue(int value) {
+            setValue(value);
+        }
+
+        @Observable
+        abstract int getValue();
+
+        abstract void setValue(int value);
     }
 
-    @Action
-    void doSetValue( int value )
-    {
-      setValue( value );
+    @Test
+    public void scenario() {
+        final TestComponent component = new PostConstructCanChangeArezStateTest_Arez_TestComponent();
+
+        assertTrue(component._postConstructCalled);
+        assertEquals(safeAction(component::getValue), (Integer) 42);
     }
-
-    @Observable
-    abstract int getValue();
-
-    abstract void setValue( int value );
-  }
-
-  @Test
-  public void scenario()
-  {
-    final TestComponent component = new PostConstructCanChangeArezStateTest_Arez_TestComponent();
-
-    assertTrue( component._postConstructCalled );
-    assertEquals( safeAction( component::getValue ), (Integer) 42 );
-  }
 }

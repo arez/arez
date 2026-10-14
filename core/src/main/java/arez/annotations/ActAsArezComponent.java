@@ -25,8 +25,6 @@ import java.lang.annotation.Target;
  * dependency on Arez.</p>
  */
 @Documented
-@Retention( RetentionPolicy.RUNTIME )
-@Target( ElementType.ANNOTATION_TYPE )
-public @interface ActAsArezComponent
-{
-}
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.ANNOTATION_TYPE)
+public @interface ActAsArezComponent {}

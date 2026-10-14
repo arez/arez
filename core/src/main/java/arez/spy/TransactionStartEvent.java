@@ -8,49 +8,43 @@ import javax.annotation.Nullable;
 /**
  * Notification when Transaction starts.
  */
-public final class TransactionStartEvent
-  implements SerializableEvent
-{
-  @Nonnull
-  private final String _name;
-  private final boolean _mutation;
-  @Nullable
-  private final ObserverInfo _tracker;
+public final class TransactionStartEvent implements SerializableEvent {
+    @Nonnull
+    private final String _name;
 
-  public TransactionStartEvent( @Nonnull final String name,
-                                final boolean mutation,
-                                @Nullable final ObserverInfo tracker )
-  {
-    _name = Objects.requireNonNull( name );
-    _mutation = mutation;
-    _tracker = tracker;
-  }
+    private final boolean _mutation;
 
-  @Nonnull
-  public String getName()
-  {
-    return _name;
-  }
+    @Nullable
+    private final ObserverInfo _tracker;
 
-  public boolean isMutation()
-  {
-    return _mutation;
-  }
+    public TransactionStartEvent(
+            @Nonnull final String name, final boolean mutation, @Nullable final ObserverInfo tracker) {
+        _name = Objects.requireNonNull(name);
+        _mutation = mutation;
+        _tracker = tracker;
+    }
 
-  @Nullable
-  public ObserverInfo getTracker()
-  {
-    return _tracker;
-  }
+    @Nonnull
+    public String getName() {
+        return _name;
+    }
 
-  @Override
-  public void toMap( @Nonnull final Map<String, Object> map )
-  {
-    map.put( "type", "TransactionStart" );
-    map.put( "name", getName() );
-    map.put( "mutation", isMutation() );
-    final ObserverInfo tracker = getTracker();
-    map.put( "tracker", null == tracker ? null : tracker.getName() );
-    SpyEventUtil.maybeAddZone( map );
-  }
+    public boolean isMutation() {
+        return _mutation;
+    }
+
+    @Nullable
+    public ObserverInfo getTracker() {
+        return _tracker;
+    }
+
+    @Override
+    public void toMap(@Nonnull final Map<String, Object> map) {
+        map.put("type", "TransactionStart");
+        map.put("name", getName());
+        map.put("mutation", isMutation());
+        final ObserverInfo tracker = getTracker();
+        map.put("tracker", null == tracker ? null : tracker.getName());
+        SpyEventUtil.maybeAddZone(map);
+    }
 }

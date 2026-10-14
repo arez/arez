@@ -27,21 +27,22 @@ import java.lang.annotation.Target;
  * contained within a type annotated by {@link ArezComponent} or {@link ArezComponentLike} or on the
  * type itself. Other usages will fail compilation.</p>
  */
-@Target( { ElementType.TYPE,
-           ElementType.FIELD,
-           ElementType.METHOD,
-           ElementType.PARAMETER,
-           ElementType.CONSTRUCTOR,
-           ElementType.LOCAL_VARIABLE } )
-@Retention( RetentionPolicy.CLASS )
-public @interface SuppressArezWarnings
-{
-  /**
-   * The set of warnings that are to be suppressed by the compiler in the
-   * annotated element. Duplicate names are permitted.  The second and
-   * successive occurrences of a name are ignored.
-   *
-   * @return the set of warnings to be suppressed
-   */
-  String[] value();
+@Target({
+    ElementType.TYPE,
+    ElementType.FIELD,
+    ElementType.METHOD,
+    ElementType.PARAMETER,
+    ElementType.CONSTRUCTOR,
+    ElementType.LOCAL_VARIABLE
+})
+@Retention(RetentionPolicy.CLASS)
+public @interface SuppressArezWarnings {
+    /**
+     * The set of warnings that are to be suppressed by the compiler in the
+     * annotated element. Duplicate names are permitted.  The second and
+     * successive occurrences of a name are ignored.
+     *
+     * @return the set of warnings to be suppressed
+     */
+    String[] value();
 }

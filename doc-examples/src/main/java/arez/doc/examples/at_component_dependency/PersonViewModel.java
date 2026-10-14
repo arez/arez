@@ -7,46 +7,43 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 @ArezComponent
-public abstract class PersonViewModel
-{
-  // This reference is immutable and the network replication
-  // layer is responsible for managing the lifecycle of person
-  // component and may dispose it when the Person entity is deleted
-  // on the server which should trigger this view model being disposed.
-  @ComponentDependency
-  @Nonnull
-  final Person _person;
-  //DOC ELIDE START
+public abstract class PersonViewModel {
+    // This reference is immutable and the network replication
+    // layer is responsible for managing the lifecycle of person
+    // component and may dispose it when the Person entity is deleted
+    // on the server which should trigger this view model being disposed.
+    @ComponentDependency
+    @Nonnull
+    final Person _person;
+    // DOC ELIDE START
 
-  PersonViewModel( @Nonnull final Person person )
-  {
-    _person = person;
-  }
+    PersonViewModel(@Nonnull final Person person) {
+        _person = person;
+    }
 
-  //DOC ELIDE END
+    // DOC ELIDE END
 
-  // Let imagine there is a lot more logic and state on the view model
-  // to justify it's existence rather than just having view layer directly
-  // accessing underlying entities
+    // Let imagine there is a lot more logic and state on the view model
+    // to justify it's existence rather than just having view layer directly
+    // accessing underlying entities
 
-  @Nonnull
-  public Person getPerson()
-  {
-    return _person;
-  }
+    @Nonnull
+    public Person getPerson() {
+        return _person;
+    }
 
-  /**
-   * The Job entity is likewise controlled by the server
-   * and can be updated, removed on the server and replicated to the web
-   * browser. In this scenario the current job is just removed from the
-   * person view model.
-   */
-  @ComponentDependency( action = ComponentDependency.Action.SET_NULL )
-  @Observable
-  @Nullable
-  public abstract Job getCurrentJob();
-  //DOC ELIDE START
+    /**
+     * The Job entity is likewise controlled by the server
+     * and can be updated, removed on the server and replicated to the web
+     * browser. In this scenario the current job is just removed from the
+     * person view model.
+     */
+    @ComponentDependency(action = ComponentDependency.Action.SET_NULL)
+    @Observable
+    @Nullable
+    public abstract Job getCurrentJob();
+    // DOC ELIDE START
 
-  public abstract void setCurrentJob( @Nullable final Job currentJob );
-  //DOC ELIDE END
+    public abstract void setCurrentJob(@Nullable final Job currentJob);
+    // DOC ELIDE END
 }

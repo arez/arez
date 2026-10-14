@@ -1,5 +1,7 @@
 package arez.integration.inverse;
 
+import static org.testng.Assert.*;
+
 import arez.Arez;
 import arez.Disposable;
 import arez.Observer;
@@ -19,122 +21,113 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
-public final class DisposeManyInverseIntegrationTest
-  extends AbstractArezIntegrationTest
-{
-  @Test
-  public void scenario()
-  {
-    final AtomicInteger locatorLookupCallCount = new AtomicInteger();
+public final class DisposeManyInverseIntegrationTest extends AbstractArezIntegrationTest {
+    @Test
+    public void scenario() {
+        final AtomicInteger locatorLookupCallCount = new AtomicInteger();
 
-    final TypeBasedLocator locator = new TypeBasedLocator();
-    final CarRepository repository = CarRepository.newRepository();
+        final TypeBasedLocator locator = new TypeBasedLocator();
+        final CarRepository repository = CarRepository.newRepository();
 
-    Arez.context().registerLocator( locator );
+        Arez.context().registerLocator(locator);
 
-    locator.registerLookup( Car.class, id -> {
-      locatorLookupCallCount.incrementAndGet();
-      return repository.findByArezId( (Integer) id );
-    } );
+        locator.registerLookup(Car.class, id -> {
+            locatorLookupCallCount.incrementAndGet();
+            return repository.findByArezId((Integer) id);
+        });
 
-    final Car car = repository.create();
-    final Integer carId = Objects.requireNonNull( Identifiable.getArezId( car ) );
+        final Car car = repository.create();
+        final Integer carId = Objects.requireNonNull(Identifiable.getArezId(car));
 
-    assertEquals( locatorLookupCallCount.get(), 0 );
+        assertEquals(locatorLookupCallCount.get(), 0);
 
-    final AtomicInteger inverseCallCount = new AtomicInteger();
-    final Observer inverseObserver = observer( () -> {
-      car.getWheels();
-      inverseCallCount.incrementAndGet();
-    } );
+        final AtomicInteger inverseCallCount = new AtomicInteger();
+        final Observer inverseObserver = observer(() -> {
+            car.getWheels();
+            inverseCallCount.incrementAndGet();
+        });
 
-    assertEquals( locatorLookupCallCount.get(), 0 );
-    assertEquals( inverseCallCount.get(), 1 );
-    final Wheel wheel1 = safeAction( () -> Wheel.create( carId ) );
-    assertEquals( locatorLookupCallCount.get(), 1 );
-    assertEquals( inverseCallCount.get(), 2 );
+        assertEquals(locatorLookupCallCount.get(), 0);
+        assertEquals(inverseCallCount.get(), 1);
+        final Wheel wheel1 = safeAction(() -> Wheel.create(carId));
+        assertEquals(locatorLookupCallCount.get(), 1);
+        assertEquals(inverseCallCount.get(), 2);
 
-    final AtomicInteger wheel1GetCarCallCount = new AtomicInteger();
-    final Observer wheel1GetCarObserver = observer( () -> {
-      wheel1.getCar();
-      wheel1GetCarCallCount.incrementAndGet();
-    } );
+        final AtomicInteger wheel1GetCarCallCount = new AtomicInteger();
+        final Observer wheel1GetCarObserver = observer(() -> {
+            wheel1.getCar();
+            wheel1GetCarCallCount.incrementAndGet();
+        });
 
-    safeAction( () -> assertEquals( wheel1.getCar(), car ) );
-    safeAction( () -> assertEquals( car.getWheels().size(), 1 ) );
-    safeAction( () -> assertTrue( car.getWheels().contains( wheel1 ) ) );
+        safeAction(() -> assertEquals(wheel1.getCar(), car));
+        safeAction(() -> assertEquals(car.getWheels().size(), 1));
+        safeAction(() -> assertTrue(car.getWheels().contains(wheel1)));
 
-    assertEquals( wheel1GetCarCallCount.get(), 1 );
-    assertEquals( locatorLookupCallCount.get(), 1 );
+        assertEquals(wheel1GetCarCallCount.get(), 1);
+        assertEquals(locatorLookupCallCount.get(), 1);
 
-    // Stop observer so we don't get an exception
-    Disposable.dispose( inverseObserver );
+        // Stop observer so we don't get an exception
+        Disposable.dispose(inverseObserver);
 
-    Disposable.dispose( car );
+        Disposable.dispose(car);
 
-    assertTrue( Disposable.isDisposed( car ) );
+        assertTrue(Disposable.isDisposed(car));
 
-    assertInvariant( () -> safeAction( wheel1::getCar ),
-                     "Nonnull reference method named 'getCar' invoked on component named 'arez_integration_inverse_DisposeManyInverseIntegrationTest_Wheel.1' but reference has not been resolved yet is not lazy. Id = 1" );
-    assertEquals( locatorLookupCallCount.get(), 1 );
+        assertInvariant(
+                () -> safeAction(wheel1::getCar),
+                "Nonnull reference method named 'getCar' invoked on component named"
+                        + " 'arez_integration_inverse_DisposeManyInverseIntegrationTest_Wheel.1' but reference has not"
+                        + " been resolved yet is not lazy. Id = 1");
+        assertEquals(locatorLookupCallCount.get(), 1);
 
-    // Stop observer so we don't get an exception
-    Disposable.dispose( wheel1GetCarObserver );
+        // Stop observer so we don't get an exception
+        Disposable.dispose(wheel1GetCarObserver);
 
-    Disposable.dispose( wheel1 );
+        Disposable.dispose(wheel1);
 
-    assertTrue( Disposable.isDisposed( wheel1 ) );
-  }
-
-  @ArezComponent
-  static abstract class Wheel
-  {
-    @Nonnull
-    static Wheel create( final int carId )
-    {
-      return new DisposeManyInverseIntegrationTest_Arez_Wheel( carId );
+        assertTrue(Disposable.isDisposed(wheel1));
     }
 
-    @Reference( inverse = Feature.ENABLE )
-    abstract Car getCar();
+    @ArezComponent
+    abstract static class Wheel {
+        @Nonnull
+        static Wheel create(final int carId) {
+            return new DisposeManyInverseIntegrationTest_Arez_Wheel(carId);
+        }
 
-    @ReferenceId
-    @Observable( initializer = Feature.ENABLE )
-    abstract int getCarId();
+        @Reference(inverse = Feature.ENABLE)
+        abstract Car getCar();
 
-    abstract void setCarId( int carId );
-  }
+        @ReferenceId
+        @Observable(initializer = Feature.ENABLE)
+        abstract int getCarId();
 
-  @ArezComponent( observable = Feature.ENABLE )
-  static abstract class Car
-  {
-    @Inverse
-    abstract Collection<Wheel> getWheels();
-  }
-
-  @ArezComponent( service = Feature.ENABLE, sting = Feature.DISABLE )
-  static abstract class CarRepository
-    extends AbstractRepository<Integer, Car, CarRepository>
-  {
-    static CarRepository newRepository()
-    {
-      return new DisposeManyInverseIntegrationTest_Arez_CarRepository();
+        abstract void setCarId(int carId);
     }
 
-    @Action
-    Car create()
-    {
-      final DisposeManyInverseIntegrationTest_Arez_Car entity = new DisposeManyInverseIntegrationTest_Arez_Car();
-      attach( entity );
-      return entity;
+    @ArezComponent(observable = Feature.ENABLE)
+    abstract static class Car {
+        @Inverse
+        abstract Collection<Wheel> getWheels();
     }
 
-    @Action
-    protected void destroy( @Nonnull final Car entity )
-    {
-      super.destroy( entity );
+    @ArezComponent(service = Feature.ENABLE, sting = Feature.DISABLE)
+    abstract static class CarRepository extends AbstractRepository<Integer, Car, CarRepository> {
+        static CarRepository newRepository() {
+            return new DisposeManyInverseIntegrationTest_Arez_CarRepository();
+        }
+
+        @Action
+        Car create() {
+            final DisposeManyInverseIntegrationTest_Arez_Car entity = new DisposeManyInverseIntegrationTest_Arez_Car();
+            attach(entity);
+            return entity;
+        }
+
+        @Action
+        protected void destroy(@Nonnull final Car entity) {
+            super.destroy(entity);
+        }
     }
-  }
 }

@@ -7,30 +7,25 @@ import arez.annotations.Observable;
 import arez.annotations.Observe;
 
 @ArezComponent
-public abstract class TrainTicket
-{
-  public static TrainTicket create( int remainingRides )
-  {
-    return new Arez_TrainTicket( remainingRides );
-  }
-
-  @Observable( initializer = Feature.ENABLE )
-  public abstract int getRemainingRides();
-
-  public abstract void setRemainingRides( int remainingRides );
-
-  @Action
-  public void rideTrain()
-  {
-    setRemainingRides( getRemainingRides() - 1 );
-  }
-
-  @Observe
-  void notifyUserWhenTicketExpires()
-  {
-    if ( 0 == getRemainingRides() )
-    {
-      NotifyTool.notifyUserTicketExpired( this );
+public abstract class TrainTicket {
+    public static TrainTicket create(int remainingRides) {
+        return new Arez_TrainTicket(remainingRides);
     }
-  }
+
+    @Observable(initializer = Feature.ENABLE)
+    public abstract int getRemainingRides();
+
+    public abstract void setRemainingRides(int remainingRides);
+
+    @Action
+    public void rideTrain() {
+        setRemainingRides(getRemainingRides() - 1);
+    }
+
+    @Observe
+    void notifyUserWhenTicketExpires() {
+        if (0 == getRemainingRides()) {
+            NotifyTool.notifyUserTicketExpired(this);
+        }
+    }
 }

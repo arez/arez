@@ -1,3 +1,5 @@
+load("@rules_palantir_java_format//:defs.bzl", "java_format_check")
+
 exports_files(["LICENSE"])
 
 test_suite(
@@ -11,5 +13,23 @@ test_suite(
         "//persist/integration-tests:tests",
         "//persist/processor:all_tests",
         "//processor:all_tests",
+    ],
+)
+
+java_format_check(
+    name = "java_format_check",
+    testonly = True,
+    remediation = "tools/java_format.sh write",
+    targets = [
+        ":jvm_tests",
+        "//core",
+        "//doc-examples",
+        "//extras/dom",
+        "//extras/promise",
+        "//extras/spytools",
+        "//extras/testng",
+        "//persist/core",
+        "//persist/processor",
+        "//processor",
     ],
 )

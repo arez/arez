@@ -1,77 +1,63 @@
 package arez.integration.component_dependency;
 
+import static org.testng.Assert.*;
+
 import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 import arez.integration.AbstractArezIntegrationTest;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
-public final class ComponentDependencyRuntimeValidationIntegrationTest
-  extends AbstractArezIntegrationTest
-{
-  @Test
-  public void scenario()
-    throws Throwable
-  {
-    final Model1 model1a1 = Model1.create();
-    final Model2 model2a = Model2.create( model1a1 );
+public final class ComponentDependencyRuntimeValidationIntegrationTest extends AbstractArezIntegrationTest {
+    @Test
+    public void scenario() throws Throwable {
+        final Model1 model1a1 = Model1.create();
+        final Model2 model2a = Model2.create(model1a1);
 
-    assertFalse( Disposable.isDisposed( model1a1 ) );
-    assertFalse( Disposable.isDisposed( model2a ) );
+        assertFalse(Disposable.isDisposed(model1a1));
+        assertFalse(Disposable.isDisposed(model2a));
 
-    Disposable.dispose( model1a1 );
+        Disposable.dispose(model1a1);
 
-    assertTrue( Disposable.isDisposed( model1a1 ) );
-    assertTrue( Disposable.isDisposed( model2a ) );
-  }
-
-  @Test
-  public void scenario_withBadDependency()
-  {
-    final BadType value = new BadType();
-    final IllegalStateException exception = expectThrows( IllegalStateException.class, () -> Model2.create( value ) );
-    assertEquals( exception.getMessage(),
-                  "Arez-0178: Object passed to asDisposeNotifier does not implement " +
-                  "DisposeNotifier. Object: " + value );
-  }
-
-  interface MyInterface
-  {
-  }
-
-  private static class BadType
-    implements MyInterface
-  {
-  }
-
-  @ArezComponent( allowEmpty = true )
-  static abstract class Model1
-    implements MyInterface
-  {
-    @Nonnull
-    static Model1 create()
-    {
-      return new ComponentDependencyRuntimeValidationIntegrationTest_Arez_Model1();
-    }
-  }
-
-  @ArezComponent
-  static abstract class Model2
-  {
-    @ComponentDependency( validateTypeAtRuntime = true )
-    final MyInterface _reference1;
-
-    @Nonnull
-    static Model2 create( final MyInterface reference1 )
-    {
-      return new ComponentDependencyRuntimeValidationIntegrationTest_Arez_Model2( reference1 );
+        assertTrue(Disposable.isDisposed(model1a1));
+        assertTrue(Disposable.isDisposed(model2a));
     }
 
-    Model2( final MyInterface reference1 )
-    {
-      _reference1 = reference1;
+    @Test
+    public void scenario_withBadDependency() {
+        final BadType value = new BadType();
+        final IllegalStateException exception = expectThrows(IllegalStateException.class, () -> Model2.create(value));
+        assertEquals(
+                exception.getMessage(),
+                "Arez-0178: Object passed to asDisposeNotifier does not implement " + "DisposeNotifier. Object: "
+                        + value);
     }
-  }
+
+    interface MyInterface {}
+
+    private static class BadType implements MyInterface {}
+
+    @ArezComponent(allowEmpty = true)
+    abstract static class Model1 implements MyInterface {
+        @Nonnull
+        static Model1 create() {
+            return new ComponentDependencyRuntimeValidationIntegrationTest_Arez_Model1();
+        }
+    }
+
+    @ArezComponent
+    abstract static class Model2 {
+        @ComponentDependency(validateTypeAtRuntime = true)
+        final MyInterface _reference1;
+
+        @Nonnull
+        static Model2 create(final MyInterface reference1) {
+            return new ComponentDependencyRuntimeValidationIntegrationTest_Arez_Model2(reference1);
+        }
+
+        Model2(final MyInterface reference1) {
+            _reference1 = reference1;
+        }
+    }
 }

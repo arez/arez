@@ -4,55 +4,52 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.lang.model.element.ExecutableElement;
 
-final class PropertyDescriptor
-{
-  @Nonnull
-  private final String _name;
-  @Nonnull
-  private final String _store;
-  @Nonnull
-  private final ExecutableElement _getter;
-  @Nonnull
-  private final ExecutableElement _setter;
+final class PropertyDescriptor {
+    @Nonnull
+    private final String _name;
 
-  PropertyDescriptor( @Nonnull final String name,
-                      @Nonnull final String store,
-                      @Nonnull final ExecutableElement getter,
-                      @Nonnull final ExecutableElement setter )
-  {
-    _name = Objects.requireNonNull( name );
-    _store = Objects.requireNonNull( store );
-    _getter = Objects.requireNonNull( getter );
-    _setter = Objects.requireNonNull( setter );
-  }
+    @Nonnull
+    private final String _store;
 
-  @Nonnull
-  String getName()
-  {
-    return _name;
-  }
+    @Nonnull
+    private final ExecutableElement _getter;
 
-  @Nonnull
-  String getConstantName()
-  {
-    return "PROPERTY_" + getName();
-  }
+    @Nonnull
+    private final ExecutableElement _setter;
 
-  @Nonnull
-  String getStore()
-  {
-    return _store;
-  }
+    PropertyDescriptor(
+            @Nonnull final String name,
+            @Nonnull final String store,
+            @Nonnull final ExecutableElement getter,
+            @Nonnull final ExecutableElement setter) {
+        _name = Objects.requireNonNull(name);
+        _store = Objects.requireNonNull(store);
+        _getter = Objects.requireNonNull(getter);
+        _setter = Objects.requireNonNull(setter);
+    }
 
-  @Nonnull
-  ExecutableElement getGetter()
-  {
-    return _getter;
-  }
+    @Nonnull
+    String getName() {
+        return _name;
+    }
 
-  @Nonnull
-  ExecutableElement getSetter()
-  {
-    return _setter;
-  }
+    @Nonnull
+    String getConstantName() {
+        return "PROPERTY_" + getName();
+    }
+
+    @Nonnull
+    String getStore() {
+        return _store;
+    }
+
+    @Nonnull
+    ExecutableElement getGetter() {
+        return _getter;
+    }
+
+    @Nonnull
+    ExecutableElement getSetter() {
+        return _setter;
+    }
 }

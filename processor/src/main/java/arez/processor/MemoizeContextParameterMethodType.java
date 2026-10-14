@@ -1,8 +1,7 @@
 package arez.processor;
 
-enum MemoizeContextParameterMethodType
-{
-  Capture,
-  Push,
-  Pop
+enum MemoizeContextParameterMethodType {
+    Capture,
+    Push,
+    Pop
 }

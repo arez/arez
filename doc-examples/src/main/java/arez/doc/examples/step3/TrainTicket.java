@@ -6,21 +6,18 @@ import arez.annotations.Feature;
 import arez.annotations.Observable;
 
 @ArezComponent
-public abstract class TrainTicket
-{
-  public static TrainTicket create( int remainingRides )
-  {
-    return new Arez_TrainTicket( remainingRides );
-  }
+public abstract class TrainTicket {
+    public static TrainTicket create(int remainingRides) {
+        return new Arez_TrainTicket(remainingRides);
+    }
 
-  @Observable( initializer = Feature.ENABLE )
-  public abstract int getRemainingRides();
+    @Observable(initializer = Feature.ENABLE)
+    public abstract int getRemainingRides();
 
-  public abstract void setRemainingRides( int remainingRides );
+    public abstract void setRemainingRides(int remainingRides);
 
-  @Action
-  public void rideTrain()
-  {
-    setRemainingRides( getRemainingRides() - 1 );
-  }
+    @Action
+    public void rideTrain() {
+        setRemainingRides(getRemainingRides() - 1);
+    }
 }

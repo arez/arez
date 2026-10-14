@@ -1,31 +1,27 @@
 package arez.spytools;
 
-import arez.ArezTestUtil;
-import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
-public class WhyRunTest
-  extends AbstractSpyToolsTest
-{
-  @Test
-  public void whyRun_whenSpiesDisabled()
-  {
-    ArezTestUtil.disableSpies();
+import arez.ArezTestUtil;
+import org.testng.annotations.Test;
 
-    assertEquals( WhyRun.whyRun(), "" );
-  }
+public class WhyRunTest extends AbstractSpyToolsTest {
+    @Test
+    public void whyRun_whenSpiesDisabled() {
+        ArezTestUtil.disableSpies();
 
-  @Test
-  public void log_whenSpiesDisabled()
-  {
-    ArezTestUtil.disableSpies();
+        assertEquals(WhyRun.whyRun(), "");
+    }
 
-    WhyRun.log();
-  }
+    @Test
+    public void log_whenSpiesDisabled() {
+        ArezTestUtil.disableSpies();
 
-  @Test
-  public void whyRun_whenNoTransaction()
-  {
-    assertEquals( WhyRun.whyRun(), "WhyRun invoked when no active transaction." );
-  }
+        WhyRun.log();
+    }
+
+    @Test
+    public void whyRun_whenNoTransaction() {
+        assertEquals(WhyRun.whyRun(), "WhyRun invoked when no active transaction.");
+    }
 }

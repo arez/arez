@@ -1,5 +1,7 @@
 package arez.integration.inverse;
 
+import static org.testng.Assert.*;
+
 import arez.Arez;
 import arez.Disposable;
 import arez.Observer;
@@ -20,154 +22,141 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
-public final class ManyMultiplicityLazyLoadInverseIntegrationTest
-  extends AbstractArezIntegrationTest
-{
-  @Test
-  public void scenario()
-  {
-    final AtomicInteger locatorLookupCallCount = new AtomicInteger();
+public final class ManyMultiplicityLazyLoadInverseIntegrationTest extends AbstractArezIntegrationTest {
+    @Test
+    public void scenario() {
+        final AtomicInteger locatorLookupCallCount = new AtomicInteger();
 
-    final TypeBasedLocator locator = new TypeBasedLocator();
-    final CarRepository repository =
-      CarRepository.newRepository();
+        final TypeBasedLocator locator = new TypeBasedLocator();
+        final CarRepository repository = CarRepository.newRepository();
 
-    Arez.context().registerLocator( locator );
+        Arez.context().registerLocator(locator);
 
-    locator.registerLookup( Car.class, id -> {
-      locatorLookupCallCount.incrementAndGet();
-      return repository.findByArezId( (Integer) id );
-    } );
+        locator.registerLookup(Car.class, id -> {
+            locatorLookupCallCount.incrementAndGet();
+            return repository.findByArezId((Integer) id);
+        });
 
-    final Car car = repository.create();
-    final Car car2 = repository.create();
-    final Integer carId = Objects.requireNonNull( Identifiable.getArezId( car ) );
-    final Integer car2Id = Objects.requireNonNull( Identifiable.getArezId( car2 ) );
+        final Car car = repository.create();
+        final Car car2 = repository.create();
+        final Integer carId = Objects.requireNonNull(Identifiable.getArezId(car));
+        final Integer car2Id = Objects.requireNonNull(Identifiable.getArezId(car2));
 
-    assertEquals( locatorLookupCallCount.get(), 0 );
+        assertEquals(locatorLookupCallCount.get(), 0);
 
-    final AtomicInteger inverseCallCount = new AtomicInteger();
-    observer( () -> {
-      car.getWheels();
-      inverseCallCount.incrementAndGet();
-    } );
+        final AtomicInteger inverseCallCount = new AtomicInteger();
+        observer(() -> {
+            car.getWheels();
+            inverseCallCount.incrementAndGet();
+        });
 
-    assertEquals( locatorLookupCallCount.get(), 0 );
-    assertEquals( inverseCallCount.get(), 1 );
+        assertEquals(locatorLookupCallCount.get(), 0);
+        assertEquals(inverseCallCount.get(), 1);
 
-    final Wheel wheel1 = Wheel.create( carId );
+        final Wheel wheel1 = Wheel.create(carId);
 
-    assertEquals( locatorLookupCallCount.get(), 0 );
-    assertEquals( inverseCallCount.get(), 1 );
+        assertEquals(locatorLookupCallCount.get(), 0);
+        assertEquals(inverseCallCount.get(), 1);
 
-    // It is lazy so not added to inverse until lazy resolved
-    safeAction( () -> assertEquals( car.getWheels().size(), 0 ) );
-    safeAction( () -> assertEquals( car2.getWheels().size(), 0 ) );
+        // It is lazy so not added to inverse until lazy resolved
+        safeAction(() -> assertEquals(car.getWheels().size(), 0));
+        safeAction(() -> assertEquals(car2.getWheels().size(), 0));
 
-    // resolve the lazy
-    safeAction( () -> assertEquals( wheel1.getCar(), car ) );
-    safeAction( () -> assertEquals( car.getWheels().size(), 1 ) );
-    safeAction( () -> assertTrue( car.getWheels().contains( wheel1 ) ) );
-    safeAction( () -> assertEquals( car2.getWheels().size(), 0 ) );
+        // resolve the lazy
+        safeAction(() -> assertEquals(wheel1.getCar(), car));
+        safeAction(() -> assertEquals(car.getWheels().size(), 1));
+        safeAction(() -> assertTrue(car.getWheels().contains(wheel1)));
+        safeAction(() -> assertEquals(car2.getWheels().size(), 0));
 
-    assertEquals( locatorLookupCallCount.get(), 1 );
-    assertEquals( inverseCallCount.get(), 2 );
+        assertEquals(locatorLookupCallCount.get(), 1);
+        assertEquals(inverseCallCount.get(), 2);
 
-    final AtomicInteger wheel1GetCarCallCount = new AtomicInteger();
+        final AtomicInteger wheel1GetCarCallCount = new AtomicInteger();
 
-    final Observer wheel1GetCarObserver = observer( () -> {
-      wheel1.getCar();
-      wheel1GetCarCallCount.incrementAndGet();
-    } );
+        final Observer wheel1GetCarObserver = observer(() -> {
+            wheel1.getCar();
+            wheel1GetCarCallCount.incrementAndGet();
+        });
 
-    assertEquals( wheel1GetCarCallCount.get(), 1 );
-    assertEquals( locatorLookupCallCount.get(), 1 );
+        assertEquals(wheel1GetCarCallCount.get(), 1);
+        assertEquals(locatorLookupCallCount.get(), 1);
 
-    // This will trigger observer so no need to explicitly resolve
-    safeAction( () -> {
-      wheel1.setCarId( car2Id );
-      assertEquals( wheel1GetCarCallCount.get(), 1 );
-      assertEquals( locatorLookupCallCount.get(), 1 );
+        // This will trigger observer so no need to explicitly resolve
+        safeAction(() -> {
+            wheel1.setCarId(car2Id);
+            assertEquals(wheel1GetCarCallCount.get(), 1);
+            assertEquals(locatorLookupCallCount.get(), 1);
 
-      // Removed from inverses
-      assertEquals( car.getWheels().size(), 0 );
-      assertEquals( car2.getWheels().size(), 0 );
+            // Removed from inverses
+            assertEquals(car.getWheels().size(), 0);
+            assertEquals(car2.getWheels().size(), 0);
 
-      // Resolve the lazy reference
-      assertEquals( wheel1.getCar(), car2 );
-    } );
+            // Resolve the lazy reference
+            assertEquals(wheel1.getCar(), car2);
+        });
 
-    safeAction( () -> assertEquals( car.getWheels().size(), 0 ) );
-    safeAction( () -> assertEquals( car2.getWheels().size(), 1 ) );
-    safeAction( () -> assertTrue( car2.getWheels().contains( wheel1 ) ) );
+        safeAction(() -> assertEquals(car.getWheels().size(), 0));
+        safeAction(() -> assertEquals(car2.getWheels().size(), 1));
+        safeAction(() -> assertTrue(car2.getWheels().contains(wheel1)));
 
-    assertEquals( inverseCallCount.get(), 3 );
-    assertEquals( wheel1GetCarCallCount.get(), 2 );
-    assertEquals( locatorLookupCallCount.get(), 2 );
+        assertEquals(inverseCallCount.get(), 3);
+        assertEquals(wheel1GetCarCallCount.get(), 2);
+        assertEquals(locatorLookupCallCount.get(), 2);
 
-    // Stop observer so we don't get an exception
-    Disposable.dispose( wheel1GetCarObserver );
+        // Stop observer so we don't get an exception
+        Disposable.dispose(wheel1GetCarObserver);
 
-    Disposable.dispose( wheel1 );
+        Disposable.dispose(wheel1);
 
-    assertTrue( Disposable.isDisposed( wheel1 ) );
-    safeAction( () -> assertEquals( car.getWheels().size(), 0 ) );
-    safeAction( () -> assertEquals( car2.getWheels().size(), 0 ) );
+        assertTrue(Disposable.isDisposed(wheel1));
+        safeAction(() -> assertEquals(car.getWheels().size(), 0));
+        safeAction(() -> assertEquals(car2.getWheels().size(), 0));
 
-    assertEquals( wheel1GetCarCallCount.get(), 2 );
-    assertEquals( locatorLookupCallCount.get(), 2 );
-  }
-
-  @ArezComponent
-  static abstract class Wheel
-  {
-    @Nonnull
-    static Wheel create( final int carId )
-    {
-      return new ManyMultiplicityLazyLoadInverseIntegrationTest_Arez_Wheel( carId );
+        assertEquals(wheel1GetCarCallCount.get(), 2);
+        assertEquals(locatorLookupCallCount.get(), 2);
     }
 
-    @Reference( inverse = Feature.ENABLE, load = LinkType.LAZY )
-    abstract Car getCar();
+    @ArezComponent
+    abstract static class Wheel {
+        @Nonnull
+        static Wheel create(final int carId) {
+            return new ManyMultiplicityLazyLoadInverseIntegrationTest_Arez_Wheel(carId);
+        }
 
-    @ReferenceId
-    @Observable( initializer = Feature.ENABLE )
-    abstract int getCarId();
+        @Reference(inverse = Feature.ENABLE, load = LinkType.LAZY)
+        abstract Car getCar();
 
-    abstract void setCarId( int carId );
-  }
+        @ReferenceId
+        @Observable(initializer = Feature.ENABLE)
+        abstract int getCarId();
 
-  @ArezComponent( observable = Feature.ENABLE )
-  static abstract class Car
-  {
-    @Inverse
-    abstract Collection<Wheel> getWheels();
-  }
-
-  @ArezComponent( service = Feature.ENABLE, sting = Feature.DISABLE )
-  static abstract class CarRepository
-    extends AbstractRepository<Integer, Car, CarRepository>
-  {
-    static CarRepository newRepository()
-    {
-      return new ManyMultiplicityLazyLoadInverseIntegrationTest_Arez_CarRepository();
+        abstract void setCarId(int carId);
     }
 
-    @Action
-    Car create()
-    {
-      final ManyMultiplicityLazyLoadInverseIntegrationTest_Arez_Car entity =
-        new ManyMultiplicityLazyLoadInverseIntegrationTest_Arez_Car();
-      attach( entity );
-      return entity;
+    @ArezComponent(observable = Feature.ENABLE)
+    abstract static class Car {
+        @Inverse
+        abstract Collection<Wheel> getWheels();
     }
 
-    @Action
-    protected void destroy( @Nonnull final Car entity )
-    {
-      super.destroy( entity );
+    @ArezComponent(service = Feature.ENABLE, sting = Feature.DISABLE)
+    abstract static class CarRepository extends AbstractRepository<Integer, Car, CarRepository> {
+        static CarRepository newRepository() {
+            return new ManyMultiplicityLazyLoadInverseIntegrationTest_Arez_CarRepository();
+        }
+
+        @Action
+        Car create() {
+            final ManyMultiplicityLazyLoadInverseIntegrationTest_Arez_Car entity =
+                    new ManyMultiplicityLazyLoadInverseIntegrationTest_Arez_Car();
+            attach(entity);
+            return entity;
+        }
+
+        @Action
+        protected void destroy(@Nonnull final Car entity) {
+            super.destroy(entity);
+        }
     }
-  }
 }

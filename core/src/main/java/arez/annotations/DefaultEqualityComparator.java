@@ -19,14 +19,13 @@ import javax.annotation.Nonnull;
  * {@link Memoize} always overrides the type-level default.</p>
  */
 @Documented
-@Target( ElementType.TYPE )
-public @interface DefaultEqualityComparator
-{
-  /**
-   * Return the default equality comparator associated with the annotated type.
-   *
-   * @return the comparator type.
-   */
-  @Nonnull
-  Class<? extends EqualityComparator> value();
+@Target(ElementType.TYPE)
+public @interface DefaultEqualityComparator {
+    /**
+     * Return the default equality comparator associated with the annotated type.
+     *
+     * @return the comparator type.
+     */
+    @Nonnull
+    Class<? extends EqualityComparator> value();
 }

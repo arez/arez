@@ -38,7 +38,5 @@ import java.lang.annotation.Target;
  * @see ComponentTypeNameRef
  */
 @Documented
-@Target( ElementType.METHOD )
-public @interface ComponentNameRef
-{
-}
+@Target(ElementType.METHOD)
+public @interface ComponentNameRef {}

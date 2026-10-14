@@ -19,7 +19,5 @@ import java.lang.annotation.Target;
  * </ul>
  */
 @Documented
-@Target( ElementType.METHOD )
-public @interface PersistId
-{
-}
+@Target(ElementType.METHOD)
+public @interface PersistId {}

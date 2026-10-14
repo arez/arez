@@ -34,287 +34,264 @@ import jsinterop.annotations.JsType;
  * Arez.context().observer( () -> consumePosition( geoPosition.getPosition() ) );
  * }</pre>
  */
-@ArezComponent( requireId = Feature.DISABLE, disposeNotifier = Feature.DISABLE )
-public abstract class GeoPosition
-{
-  @JsFunction
-  private interface PositionCallback
-  {
-    void onPosition( GeolocationPosition position );
-  }
+@ArezComponent(requireId = Feature.DISABLE, disposeNotifier = Feature.DISABLE)
+public abstract class GeoPosition {
+    @JsFunction
+    private interface PositionCallback {
+        void onPosition(GeolocationPosition position);
+    }
 
-  @JsFunction
-  private interface PositionErrorCallback
-  {
-    void onError( GeolocationPositionError error );
-  }
+    @JsFunction
+    private interface PositionErrorCallback {
+        void onError(GeolocationPositionError error);
+    }
 
-  @JsType( isNative = true, name = "GeolocationPosition", namespace = JsPackage.GLOBAL )
-  private static class GeolocationPosition
-  {
-    @JsProperty( name = "coords" )
-    native GeolocationCoordinates coords();
-  }
+    @JsType(isNative = true, name = "GeolocationPosition", namespace = JsPackage.GLOBAL)
+    private static class GeolocationPosition {
+        @JsProperty(name = "coords")
+        native GeolocationCoordinates coords();
+    }
 
-  @JsType( isNative = true, name = "GeolocationCoordinates", namespace = JsPackage.GLOBAL )
-  static class GeolocationCoordinates
-  {
-    @JsProperty( name = "accuracy" )
-    native double accuracy();
+    @JsType(isNative = true, name = "GeolocationCoordinates", namespace = JsPackage.GLOBAL)
+    static class GeolocationCoordinates {
+        @JsProperty(name = "accuracy")
+        native double accuracy();
 
-    @JsProperty( name = "altitude" )
-    native Double altitude();
+        @JsProperty(name = "altitude")
+        native Double altitude();
 
-    @JsProperty( name = "heading" )
-    native Double heading();
+        @JsProperty(name = "heading")
+        native Double heading();
 
-    @JsProperty( name = "latitude" )
-    native double latitude();
+        @JsProperty(name = "latitude")
+        native double latitude();
 
-    @JsProperty( name = "longitude" )
-    native double longitude();
+        @JsProperty(name = "longitude")
+        native double longitude();
 
-    @JsProperty( name = "speed" )
-    native Double speed();
-  }
+        @JsProperty(name = "speed")
+        native Double speed();
+    }
 
-  @JsType( isNative = true, name = "GeolocationPositionError", namespace = JsPackage.GLOBAL )
-  static class GeolocationPositionError
-  {
-    @JsProperty( name = "code" )
-    native int code();
+    @JsType(isNative = true, name = "GeolocationPositionError", namespace = JsPackage.GLOBAL)
+    static class GeolocationPositionError {
+        @JsProperty(name = "code")
+        native int code();
 
-    @JsProperty( name = "message" )
-    native String message();
-  }
+        @JsProperty(name = "message")
+        native String message();
+    }
 
-  @JsType( isNative = true, name = "Geolocation", namespace = JsPackage.GLOBAL )
-  private static class Geolocation
-  {
-    @JsMethod
-    native int watchPosition( PositionCallback successCallback, PositionErrorCallback errorCallback );
+    @JsType(isNative = true, name = "Geolocation", namespace = JsPackage.GLOBAL)
+    private static class Geolocation {
+        @JsMethod
+        native int watchPosition(PositionCallback successCallback, PositionErrorCallback errorCallback);
 
-    @JsMethod
-    native void clearWatch( int watchId );
-  }
+        @JsMethod
+        native void clearWatch(int watchId);
+    }
 
-  @JsType( isNative = true, name = "Navigator", namespace = JsPackage.GLOBAL )
-  private static class Navigator
-  {
-    @JsProperty( name = "geolocation" )
-    native Geolocation geolocation();
-  }
+    @JsType(isNative = true, name = "Navigator", namespace = JsPackage.GLOBAL)
+    private static class Navigator {
+        @JsProperty(name = "geolocation")
+        native Geolocation geolocation();
+    }
 
-  @SuppressWarnings( "unused" )
-  public static final class Status
-  {
+    @SuppressWarnings("unused")
+    public static final class Status {
+        /**
+         * Position data is yet to start loading.
+         */
+        public static final int INITIAL = -2;
+        /**
+         * Position data is loading.
+         */
+        public static final int LOADING = -1;
+        /**
+         * No error acquiring position.
+         */
+        public static final int POSITION_LOADED = 0;
+        /**
+         * The acquisition of the geolocation information failed because the page didn't have the permission to do it.
+         */
+        public static final int PERMISSION_DENIED = 1;
+        /**
+         * The acquisition of the geolocation failed because at least one internal source of position returned an internal error.
+         */
+        public static final int POSITION_UNAVAILABLE = 2;
+        /**
+         * The time allowed to acquire the geolocation, defined by PositionOptions.timeout information was reached before the information was obtained.
+         */
+        public static final int TIMEOUT = 3;
+
+        private Status() {}
+    }
+
+    @Nullable
+    private Position _position;
+
+    private int _status;
+
+    @Nullable
+    private String _errorMessage;
+
+    private int _activateCount;
+    private int _watcherId;
+
     /**
-     * Position data is yet to start loading.
+     * Create the GeoPosition component.
+     *
+     * @return the newly created GeoPosition component.
      */
-    public static final int INITIAL = -2;
+    @Nonnull
+    public static GeoPosition create() {
+        return new Arez_GeoPosition();
+    }
+
+    GeoPosition() {
+        _status = Status.INITIAL;
+        _activateCount = 0;
+    }
+
     /**
-     * Position data is loading.
+     * Return an immutable representation of the current position.
+     * This will be null unless {@link #getStatus()} has returned a {@link Status#POSITION_LOADED} value.
+     *
+     * @return the current position as reported by the geolocation API.
      */
-    public static final int LOADING = -1;
+    @Memoize(depType = DepType.AREZ_OR_EXTERNAL)
+    @Nullable
+    public Position getPosition() {
+        return _position;
+    }
+
     /**
-     * No error acquiring position.
+     * Return the status indicating whether the position is available.
+     * It will be one of the values provided by {@link Status}.
+     *
+     * @return the status of the position data.
      */
-    public static final int POSITION_LOADED = 0;
+    @Memoize(depType = DepType.AREZ_OR_EXTERNAL)
+    public int getStatus() {
+        return _status;
+    }
+
     /**
-     * The acquisition of the geolocation information failed because the page didn't have the permission to do it.
+     * Return the error message reported by the geolocation API when position could not be loaded else null.
+     *
+     * @return the error message if any.
      */
-    public static final int PERMISSION_DENIED = 1;
-    /**
-     * The acquisition of the geolocation failed because at least one internal source of position returned an internal error.
-     */
-    public static final int POSITION_UNAVAILABLE = 2;
-    /**
-     * The time allowed to acquire the geolocation, defined by PositionOptions.timeout information was reached before the information was obtained.
-     */
-    public static final int TIMEOUT = 3;
-
-    private Status()
-    {
+    @Memoize(depType = DepType.AREZ_OR_EXTERNAL)
+    @Nullable
+    public String getErrorMessage() {
+        return _errorMessage;
     }
-  }
 
-  @Nullable
-  private Position _position;
-  private int _status;
-  @Nullable
-  private String _errorMessage;
-  private int _activateCount;
-  private int _watcherId;
+    @ComputableValueRef
+    abstract ComputableValue<?> getPositionComputableValue();
 
-  /**
-   * Create the GeoPosition component.
-   *
-   * @return the newly created GeoPosition component.
-   */
-  @Nonnull
-  public static GeoPosition create()
-  {
-    return new Arez_GeoPosition();
-  }
+    @ComputableValueRef
+    abstract ComputableValue<?> getStatusComputableValue();
 
-  GeoPosition()
-  {
-    _status = Status.INITIAL;
-    _activateCount = 0;
-  }
+    @ComputableValueRef
+    abstract ComputableValue<?> getErrorMessageComputableValue();
 
-  /**
-   * Return an immutable representation of the current position.
-   * This will be null unless {@link #getStatus()} has returned a {@link Status#POSITION_LOADED} value.
-   *
-   * @return the current position as reported by the geolocation API.
-   */
-  @Memoize( depType = DepType.AREZ_OR_EXTERNAL )
-  @Nullable
-  public Position getPosition()
-  {
-    return _position;
-  }
-
-  /**
-   * Return the status indicating whether the position is available.
-   * It will be one of the values provided by {@link Status}.
-   *
-   * @return the status of the position data.
-   */
-  @Memoize( depType = DepType.AREZ_OR_EXTERNAL )
-  public int getStatus()
-  {
-    return _status;
-  }
-
-  /**
-   * Return the error message reported by the geolocation API when position could not be loaded else null.
-   *
-   * @return the error message if any.
-   */
-  @Memoize( depType = DepType.AREZ_OR_EXTERNAL )
-  @Nullable
-  public String getErrorMessage()
-  {
-    return _errorMessage;
-  }
-
-  @ComputableValueRef
-  abstract ComputableValue<?> getPositionComputableValue();
-
-  @ComputableValueRef
-  abstract ComputableValue<?> getStatusComputableValue();
-
-  @ComputableValueRef
-  abstract ComputableValue<?> getErrorMessageComputableValue();
-
-  @OnActivate
-  void onPositionActivate()
-  {
-    activate();
-  }
-
-  @OnDeactivate
-  void onPositionDeactivate()
-  {
-    deactivate();
-  }
-
-  @OnActivate
-  void onStatusActivate()
-  {
-    activate();
-  }
-
-  @OnDeactivate
-  void onStatusDeactivate()
-  {
-    deactivate();
-  }
-
-  @OnActivate
-  void onErrorMessageActivate()
-  {
-    activate();
-  }
-
-  @OnDeactivate
-  void onErrorMessageDeactivate()
-  {
-    deactivate();
-  }
-
-  private void activate()
-  {
-    if ( 0 == _activateCount )
-    {
-      context().task( Arez.areNamesEnabled() ? componentName() + ".setLoadingStatus" : null,
-                      () -> setStatus( Status.LOADING ),
-                      Task.Flags.DISPOSE_ON_COMPLETE );
-      _watcherId = navigator().geolocation().watchPosition( e -> onSuccess( e.coords() ), this::onFailure );
+    @OnActivate
+    void onPositionActivate() {
+        activate();
     }
-    _activateCount++;
-  }
 
-  private void deactivate()
-  {
-    _activateCount--;
-    if ( 0 == _activateCount )
-    {
-      setStatus( Status.INITIAL );
-      navigator().geolocation().clearWatch( _watcherId );
-      _watcherId = 0;
+    @OnDeactivate
+    void onPositionDeactivate() {
+        deactivate();
     }
-  }
 
-  @Action
-  void onFailure( @Nonnull final GeolocationPositionError e )
-  {
-    setStatus( e.code() );
-    final String errorMessage = e.message();
-    if ( !Objects.equals( errorMessage, _errorMessage ) )
-    {
-      _errorMessage = errorMessage;
-      getErrorMessageComputableValue().reportPossiblyChanged();
+    @OnActivate
+    void onStatusActivate() {
+        activate();
     }
-    if ( null != _position )
-    {
-      _position = null;
-      getPositionComputableValue().reportPossiblyChanged();
+
+    @OnDeactivate
+    void onStatusDeactivate() {
+        deactivate();
     }
-  }
 
-  @Action
-  void setStatus( final int status )
-  {
-    if ( status != _status )
-    {
-      _status = status;
-      getStatusComputableValue().reportPossiblyChanged();
+    @OnActivate
+    void onErrorMessageActivate() {
+        activate();
     }
-  }
 
-  @Action
-  void onSuccess( @Nonnull final GeolocationCoordinates coords )
-  {
-    setStatus( Status.POSITION_LOADED );
-    if ( null != _errorMessage )
-    {
-      _errorMessage = null;
-      getErrorMessageComputableValue().reportPossiblyChanged();
+    @OnDeactivate
+    void onErrorMessageDeactivate() {
+        deactivate();
     }
-    _position =
-      new Position( coords.accuracy(), coords.altitude(), coords.heading(), coords.latitude(), coords.longitude(), coords.longitude() );
-    getPositionComputableValue().reportPossiblyChanged();
-  }
 
-  @ComponentNameRef
-  abstract String componentName();
+    private void activate() {
+        if (0 == _activateCount) {
+            context()
+                    .task(
+                            Arez.areNamesEnabled() ? componentName() + ".setLoadingStatus" : null,
+                            () -> setStatus(Status.LOADING),
+                            Task.Flags.DISPOSE_ON_COMPLETE);
+            _watcherId = navigator().geolocation().watchPosition(e -> onSuccess(e.coords()), this::onFailure);
+        }
+        _activateCount++;
+    }
 
-  @ContextRef
-  abstract ArezContext context();
+    private void deactivate() {
+        _activateCount--;
+        if (0 == _activateCount) {
+            setStatus(Status.INITIAL);
+            navigator().geolocation().clearWatch(_watcherId);
+            _watcherId = 0;
+        }
+    }
 
-  @JsProperty( name = "navigator", namespace = JsPackage.GLOBAL )
-  private static native Navigator navigator();
+    @Action
+    void onFailure(@Nonnull final GeolocationPositionError e) {
+        setStatus(e.code());
+        final String errorMessage = e.message();
+        if (!Objects.equals(errorMessage, _errorMessage)) {
+            _errorMessage = errorMessage;
+            getErrorMessageComputableValue().reportPossiblyChanged();
+        }
+        if (null != _position) {
+            _position = null;
+            getPositionComputableValue().reportPossiblyChanged();
+        }
+    }
+
+    @Action
+    void setStatus(final int status) {
+        if (status != _status) {
+            _status = status;
+            getStatusComputableValue().reportPossiblyChanged();
+        }
+    }
+
+    @Action
+    void onSuccess(@Nonnull final GeolocationCoordinates coords) {
+        setStatus(Status.POSITION_LOADED);
+        if (null != _errorMessage) {
+            _errorMessage = null;
+            getErrorMessageComputableValue().reportPossiblyChanged();
+        }
+        _position = new Position(
+                coords.accuracy(),
+                coords.altitude(),
+                coords.heading(),
+                coords.latitude(),
+                coords.longitude(),
+                coords.longitude());
+        getPositionComputableValue().reportPossiblyChanged();
+    }
+
+    @ComponentNameRef
+    abstract String componentName();
+
+    @ContextRef
+    abstract ArezContext context();
+
+    @JsProperty(name = "navigator", namespace = JsPackage.GLOBAL)
+    private static native Navigator navigator();
 }
