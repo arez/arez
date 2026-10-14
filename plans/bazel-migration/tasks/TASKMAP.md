@@ -1,13 +1,13 @@
 # Task Map
 
 - Spec: [SPEC.md](../SPEC.md)
-- Status: implementation-review
+- Status: closeout-pending
 - Current frontier: None
 - Planning reviewer: /root/planning_reviewer (2/3 rounds; passed, Findings: none)
 - Plan checkpoint: human-review (approved)
 - Checkpoint basis: the user said "Proceed" after the reviewed spec/task map and
   explicit plan-approval request on 2026-10-14. Planning review passed in two rounds.
-- Implementation reviewer: /root/implementation_reviewer (5/5 rounds; round 5 running; prior findings corrected and validated)
+- Implementation reviewer: /root/implementation_reviewer (5/5 rounds; passed, Findings: none)
 - Active tree: plans/bazel-migration
 - Plan commit: 3ce61e840aeb6d9fd6cc15dd193a201736a499ed
 - Author preflight: passed — exact tree/link/acyclic graph and non-final-task
@@ -29,7 +29,7 @@
 - Final evidence: [fresh complete gate](../T27-full-gate-evidence.json), [independent 33-file artifact hashes](../T27-reproducibility-evidence.json), [isolated artifact consumer](../T27-artifact-evidence.json), [inventory audit](../T27-inventory-audit.json), [final previews](../T27-preview-evidence.json).
 - Result: tools/check.sh passed in a fresh checkout/output base with retired tools unavailable and no local override; 40 default tests, eight optimized browser tests, 31 coverage targets, 2,301 JVM TestNG invocations, 245 covered sources, complete artifacts/site/release stubs. All 33 archives/POMs and all 350 generated site files matched independent outputs.
 - Author preflight: every R01–R17 / AC01–AC17 has completed delivery-owner evidence; all retained inventories, intentional cuts, generated strict checks, archived public consumers and canonical owners inspected. No required local gate failed/skipped. GitHub-hosted Linux CI and live publication were not run.
-- Current milestone: all 27 tasks and the fresh full-scope gate are complete; canonical knowledge and independent output comparisons passed. Implementation review round 1 found three valid contract/consumer defects; corrections, both full gates and independent comparisons passed. Round 2 confirmed the downstream fixes and exposed three additional signature-materialization cases; correction, the full main gate and independent targeted checks/output comparisons passed. Round 3 found one unrepresentable parametric mixed scope; the precise diagnostic and supported positive alternatives pass the full gate and independent checks. Round 4 exposed a separate private setter header that lost nested qualifiers when writes outside a transaction are enabled. The correction passes focused strict goldens/diagnostics, the separate packaged runtime consumer, the complete main gate and independent artifact/site comparison. Same-reviewer round 5 is running.
+- Current milestone: all 27 tasks, the complete local gate, independent artifact/site comparisons, canonical knowledge promotion and implementation review passed. Same-reviewer round 5 returned Findings: none. Local PR content is prepared; explicit Git-push authority is the remaining publication dependency. Keep this exact tree until that dependency is resolved, then make the final deletion commit and publish a ready-for-human-review PR. Never merge or perform live release/deployment operations.
 
 ## Review-fix validation
 
@@ -42,6 +42,10 @@
 - Round 3 correction: [full main gate](../review-round-3-full-gate-evidence.json), [archive inspection](../review-round-3-artifact-evidence.json), [independent targeted checks and output comparison](../review-round-3-reproducibility-evidence.json), [review disposition](../reviews/implementation-round-3.md). Full gate passes 40/8/31 targets and 2,306 JVM invocations; 21 strict golden invocations/seven diagnostics and the packaged positive/negative consumer pass. No policy weakening or scope replanning was needed.
 
 - Round 4 correction: [full main gate](../review-round-4-full-gate-evidence.json), [archive inspection](../review-round-4-artifact-evidence.json), [independent checks/output comparison](../review-round-4-reproducibility-evidence.json), [review disposition](../reviews/implementation-round-4.md). The full gate passes 40/8/31 targets and 2,306 JVM invocations; focused nullable/nonnull outside-transaction setters and packaged runtime use pass. All 33 artifacts and 350 site files match; no policy weakening or replanning was needed.
+
+- Round 5: [Findings: none; implementation review passed](../reviews/implementation-round-5.md). The final domain-modeling sweep classified all reviewer-driven conclusions: original declaration/type-use preservation and representability are owned by the processor nullability specification; downstream root configuration and public strict dependencies by the publication ADR and development guidance; implementation mechanisms by code, and temporary proof by this tree. All changed canonical artifacts and local links validate; no qualifying conclusion remains unpromoted.
+
+- Closeout readiness: all 27 tasks, required local validation, five-round implementation review, knowledge promotion and committed plan/implementation history are verified. Hosted Linux CI and live operations remain unexecuted. The local PR draft is `/tmp/arez-bazel-migration-pr.md`. Logs are retained under ignored `reports/verification/arez-bazel-migration/`; earlier execution paths in evidence identify where those logs originated. Plan deletion/its final commit and remote PR publication await explicit Git-push authority under the commit skill.
 
 ## Tasks
 
