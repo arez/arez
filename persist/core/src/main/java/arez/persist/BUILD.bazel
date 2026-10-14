@@ -1,0 +1,13 @@
+package(default_visibility = ["//persist/core:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "Persist.java",
+        "PersistId.java",
+        "PersistType.java",
+        "StoreTypes.java",
+        "package-info.java",
+        "//persist/core/src/main/java/arez/persist/runtime:all",
+    ],
+)

@@ -1,0 +1,11 @@
+package(default_visibility = ["//persist/processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "//persist/processor/src/test/fixtures/bad_input:all",
+        "//persist/processor/src/test/fixtures/expected:all",
+        "//persist/processor/src/test/fixtures/expectedFormatted:all",
+        "//persist/processor/src/test/fixtures/input:all",
+    ],
+)

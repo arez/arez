@@ -1,0 +1,61 @@
+load("//third_party/java:rules.bzl", "java_library", "java_testng")
+
+package(default_visibility = ["//visibility:public"])
+
+java_library(
+    name = "core",
+    srcs = ["//persist/core/src/main/java/arez/persist:all"],
+    plugins = ["//processor:plugin"],
+    resources = [
+        "//persist/core/src/main/java/arez/persist/runtime:ArezPersistConfig.native.js",
+        "//persist/core/src/main/java/arez/persist/runtime:arez.persist.js",
+    ],
+    deps = [
+        "//core",
+        "//third_party/java:base",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:grim_processor",
+        "//third_party/java:javax_annotation",
+        "//third_party/java:javax_json",
+        "//third_party/java:jsinterop_annotations",
+        "//third_party/java:org_jetbrains_annotations",
+    ],
+)
+
+java_testng(
+    name = "tests",
+    srcs = ["//persist/core/src/test/java/arez:all"],
+    data = [":core"],
+    jvm_flags = [
+        "-Darez.environment=development",
+        "-Dbraincheck.environment=development",
+        "-Darez.persist.environment=development",
+        "-Darez.persist.core.compile_target=$(rootpath :core)",
+    ],
+    plugins = ["//processor:plugin"],
+    test_classes = [
+        "arez.persist.runtime.ArezPersistTest",
+        "arez.persist.runtime.ConverterTest",
+        "arez.persist.runtime.LogUtilTest",
+        "arez.persist.runtime.ScopeTest",
+        "arez.persist.runtime.StoreTest",
+        "arez.persist.runtime.TypeConverterTest",
+        "arez.persist.runtime.browser.ConvertersTest",
+        "arez.persist.test.JDependTest",
+    ],
+    deps = [
+        ":core",
+        "//core",
+        "//extras/testng",
+        "//third_party/java:base",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:grim_processor",
+        "//third_party/java:guiceyloops",
+        "//third_party/java:javax_annotation",
+        "//third_party/java:jdepend",
+        "//third_party/java:jsinterop_annotations",
+        "//third_party/java:mockito_core",
+    ],
+)

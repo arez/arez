@@ -1,0 +1,15 @@
+package(default_visibility = ["//persist/processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BasicPersistModel_PersistSidecar.java",
+        "CustomNamePersistModel_PersistSidecar.java",
+        "CustomSetterPersistModel_PersistSidecar.java",
+        "CustomStorePersistModel_PersistSidecar.java",
+        "MultiPropertyPersistModel_PersistSidecar.java",
+        "MultiStorePersistModel_PersistSidecar.java",
+        "ObjectTypePersistModel_PersistSidecar.java",
+        "//persist/processor/src/test/fixtures/expectedFormatted/com/example/persist/types:all",
+    ],
+)

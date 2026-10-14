@@ -1,0 +1,11 @@
+package(default_visibility = ["//persist/integration-tests:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BasicIntegrationTest.java",
+        "TestStorageService.java",
+        "TreeNode.java",
+        "TreeNodeService.java",
+    ],
+)

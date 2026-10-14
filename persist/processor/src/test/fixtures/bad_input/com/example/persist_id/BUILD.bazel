@@ -1,0 +1,13 @@
+package(default_visibility = ["//persist/processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "DuplicatePersistIdModel.java",
+        "InaccessiblePersistIdModel.java",
+        "PersistPersistIdModel.java",
+        "UnclaimedPersistIdModel.java",
+        "//persist/processor/src/test/fixtures/bad_input/com/example/persist_id/other:all",
+        "//persist/processor/src/test/fixtures/bad_input/com/example/persist_id/parent_type:all",
+    ],
+)

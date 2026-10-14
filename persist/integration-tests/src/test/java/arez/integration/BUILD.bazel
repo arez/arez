@@ -1,0 +1,9 @@
+package(default_visibility = ["//persist/integration-tests:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "AbstractIntegrationTest.java",
+        "//persist/integration-tests/src/test/java/arez/integration/basic:all",
+    ],
+)

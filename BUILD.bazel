@@ -1,1 +1,15 @@
 exports_files(["LICENSE"])
+
+test_suite(
+    name = "jvm_tests",
+    tests = [
+        "//core:tests",
+        "//extras/dom:tests",
+        "//extras/spytools:tests",
+        "//integration-tests:tests",
+        "//persist/core:tests",
+        "//persist/integration-tests:tests",
+        "//persist/processor:all_tests",
+        "//processor:all_tests",
+    ],
+)

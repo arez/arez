@@ -1,6 +1,8 @@
 package arez.persist.processor;
 
 import arez.processor.ArezProcessor;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.processing.Processor;
 import org.realityforge.proton.qa.AbstractProcessorTest;
@@ -8,6 +10,16 @@ import org.realityforge.proton.qa.AbstractProcessorTest;
 abstract class ArezPersistProcessorTestSupport
   extends AbstractProcessorTest
 {
+  @Nonnull
+  @Override
+  protected List<String> getOptions()
+  {
+    final List<String> options = new ArrayList<>( super.getOptions() );
+    options.add( "--release" );
+    options.add( "17" );
+    return options;
+  }
+
   @Nonnull
   @Override
   protected String getOptionPrefix()

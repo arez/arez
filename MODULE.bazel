@@ -262,6 +262,34 @@ _http_file(
 )
 
 _http_file(
+    name = "byte_buddy",
+    downloaded_file_path = "net/bytebuddy/byte-buddy/1.12.9/byte-buddy-1.12.9.jar",
+    sha256 = "e305b6b5bdf8602bc5012efaa50c96b0fb922a3c60308ee1af85605b74d82710",
+    urls = ["https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy/1.12.9/byte-buddy-1.12.9.jar"],
+)
+
+_http_file(
+    name = "byte_buddy__sources",
+    downloaded_file_path = "net/bytebuddy/byte-buddy/1.12.9/byte-buddy-1.12.9-sources.jar",
+    sha256 = "163dfad52782ae23cdca3f1045d68c06bd23e02198e1cb5f3a6a0cc11ad20a9f",
+    urls = ["https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy/1.12.9/byte-buddy-1.12.9-sources.jar"],
+)
+
+_http_file(
+    name = "byte_buddy_agent",
+    downloaded_file_path = "net/bytebuddy/byte-buddy-agent/1.12.9/byte-buddy-agent-1.12.9.jar",
+    sha256 = "5d62779f66436ef2130b470b7ecb6463c552fd411be757267034798a130bf5ed",
+    urls = ["https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-agent/1.12.9/byte-buddy-agent-1.12.9.jar"],
+)
+
+_http_file(
+    name = "byte_buddy_agent__sources",
+    downloaded_file_path = "net/bytebuddy/byte-buddy-agent/1.12.9/byte-buddy-agent-1.12.9-sources.jar",
+    sha256 = "22a5d08ae9c72feb70ffa36383ff4a6f46856e1582edec0be6fc1ed10afba16e",
+    urls = ["https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-agent/1.12.9/byte-buddy-agent-1.12.9-sources.jar"],
+)
+
+_http_file(
     name = "checker_qual",
     downloaded_file_path = "org/checkerframework/checker-qual/2.5.2/checker-qual-2.5.2.jar",
     sha256 = "64b02691c8b9d4e7700f8ee2e742dce7ea2c6e81e662b7522c9ee3bf568c040a",
@@ -329,6 +357,34 @@ _http_file(
     downloaded_file_path = "org/jspecify/jspecify/1.0.0/jspecify-1.0.0-sources.jar",
     sha256 = "adf0898191d55937fb3192ba971826f4f294292c4a960740f3c27310e7b70296",
     urls = ["https://repo.maven.apache.org/maven2/org/jspecify/jspecify/1.0.0/jspecify-1.0.0-sources.jar"],
+)
+
+_http_file(
+    name = "mockito_core",
+    downloaded_file_path = "org/mockito/mockito-core/4.5.1/mockito-core-4.5.1.jar",
+    sha256 = "0b66f11abbb39eaffb05989109892a50fd344d633a3b3587726ef1fe5fc8ab78",
+    urls = ["https://repo.maven.apache.org/maven2/org/mockito/mockito-core/4.5.1/mockito-core-4.5.1.jar"],
+)
+
+_http_file(
+    name = "mockito_core__sources",
+    downloaded_file_path = "org/mockito/mockito-core/4.5.1/mockito-core-4.5.1-sources.jar",
+    sha256 = "384bab0cb377e320eb86764922f493d974ccb22a3a92ac9d5305bb27c458112d",
+    urls = ["https://repo.maven.apache.org/maven2/org/mockito/mockito-core/4.5.1/mockito-core-4.5.1-sources.jar"],
+)
+
+_http_file(
+    name = "objenesis",
+    downloaded_file_path = "org/objenesis/objenesis/3.2/objenesis-3.2.jar",
+    sha256 = "03d960bd5aef03c653eb000413ada15eb77cdd2b8e4448886edf5692805e35f3",
+    urls = ["https://repo.maven.apache.org/maven2/org/objenesis/objenesis/3.2/objenesis-3.2.jar"],
+)
+
+_http_file(
+    name = "objenesis__sources",
+    downloaded_file_path = "org/objenesis/objenesis/3.2/objenesis-3.2-sources.jar",
+    sha256 = "56a7987f5746bd809c363e29055c41f5472a086b0e0e32248693e064d10bc306",
+    urls = ["https://repo.maven.apache.org/maven2/org/objenesis/objenesis/3.2/objenesis-3.2-sources.jar"],
 )
 
 _http_file(

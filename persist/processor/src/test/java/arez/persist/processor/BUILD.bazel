@@ -1,0 +1,76 @@
+load("//third_party/java:rules.bzl", "FORMATTER_JVM_FLAGS", "java_library", "java_testng")
+
+package(default_visibility = ["//visibility:public"])
+
+java_library(
+    name = "test_classes",
+    testonly = True,
+    srcs = [
+        "ArezPersistProcessorDiagnosticTest.java",
+        "ArezPersistProcessorGeneratedOutputTest.java",
+        "ArezPersistProcessorJavacTest.java",
+        "ArezPersistProcessorTestSupport.java",
+    ],
+    deps = [
+        "//core",
+        "//persist/core",
+        "//persist/processor",
+        "//processor",
+        "//third_party/java:javax_annotation",
+        "//third_party/java:org_jetbrains_annotations",
+        "//third_party/java:proton_core",
+        "//third_party/java:proton_qa",
+        "//third_party/java:testng",
+    ],
+)
+
+_JVM_FLAGS = [
+    "-Darez.persist.fixture_dir=persist/processor/src/test/fixtures",
+    "-Xmx1024m",
+] + FORMATTER_JVM_FLAGS
+
+_RUNTIME_DEPS = [
+    ":test_classes",
+    "//core",
+    "//processor",
+    "//persist/processor",
+    "//persist/core",
+]
+
+java_testng(
+    name = "generated_output",
+    size = "large",
+    srcs = [],
+    data = ["//persist/processor/src/test/fixtures:all"],
+    jvm_flags = _JVM_FLAGS,
+    test_class = "arez.persist.processor.ArezPersistProcessorGeneratedOutputTest",
+    deps = _RUNTIME_DEPS,
+)
+
+java_testng(
+    name = "diagnostics",
+    size = "large",
+    srcs = [],
+    data = ["//persist/processor/src/test/fixtures:all"],
+    jvm_flags = _JVM_FLAGS,
+    test_class = "arez.persist.processor.ArezPersistProcessorDiagnosticTest",
+    deps = _RUNTIME_DEPS,
+)
+
+java_testng(
+    name = "forked_javac",
+    srcs = [],
+    data = ["//persist/processor/src/test/fixtures:all"],
+    jvm_flags = _JVM_FLAGS,
+    test_class = "arez.persist.processor.ArezPersistProcessorJavacTest",
+    deps = _RUNTIME_DEPS,
+)
+
+test_suite(
+    name = "all_tests",
+    tests = [
+        ":diagnostics",
+        ":forked_javac",
+        ":generated_output",
+    ],
+)

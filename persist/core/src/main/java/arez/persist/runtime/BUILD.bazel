@@ -1,0 +1,27 @@
+package(default_visibility = ["//persist/core:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ArezPersist.java",
+        "ArezPersistConfig.java",
+        "ArezPersistTestUtil.java",
+        "Converter.java",
+        "GwtIncompatible.java",
+        "IdentityConverter.java",
+        "LogUtil.java",
+        "NoopStorageService.java",
+        "Registry.java",
+        "Scope.java",
+        "StorageService.java",
+        "Store.java",
+        "TypeConverter.java",
+        "package-info.java",
+        "//persist/core/src/main/java/arez/persist/runtime/browser:all",
+    ],
+)
+
+exports_files([
+    "ArezPersistConfig.native.js",
+    "arez.persist.js",
+])

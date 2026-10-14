@@ -1,0 +1,11 @@
+package(default_visibility = ["//persist/core:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "AbstractTest.java",
+        "TestLogger.java",
+        "//persist/core/src/test/java/arez/persist/runtime:all",
+        "//persist/core/src/test/java/arez/persist/test:all",
+    ],
+)

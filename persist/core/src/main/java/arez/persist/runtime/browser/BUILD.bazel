@@ -1,0 +1,16 @@
+package(default_visibility = ["//persist/core:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ArezPersistBrowserUtil.java",
+        "ByteConverter.java",
+        "CharacterConverter.java",
+        "FloatConverter.java",
+        "IntegerConverter.java",
+        "LongConverter.java",
+        "ShortConverter.java",
+        "WebStorageService.java",
+        "package-info.java",
+    ],
+)

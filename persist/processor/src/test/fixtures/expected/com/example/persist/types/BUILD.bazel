@@ -1,0 +1,18 @@
+package(default_visibility = ["//persist/processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "TypeBooleanPersistModel_PersistSidecar.java",
+        "TypeBytePersistModel_PersistSidecar.java",
+        "TypeCharPersistModel_PersistSidecar.java",
+        "TypeDatePersistModel_PersistSidecar.java",
+        "TypeDoublePersistModel_PersistSidecar.java",
+        "TypeFloatPersistModel_PersistSidecar.java",
+        "TypeIntPersistModel_PersistSidecar.java",
+        "TypeLongPersistModel_PersistSidecar.java",
+        "TypeRawListPersistModel_PersistSidecar.java",
+        "TypeShortPersistModel_PersistSidecar.java",
+        "TypeStringPersistModel_PersistSidecar.java",
+    ],
+)

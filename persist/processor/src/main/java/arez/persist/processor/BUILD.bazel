@@ -1,0 +1,13 @@
+package(default_visibility = ["//persist/processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ArezPersistProcessor.java",
+        "Constants.java",
+        "PropertyDescriptor.java",
+        "SidecarGenerator.java",
+        "TypeDescriptor.java",
+        "package-info.java",
+    ],
+)

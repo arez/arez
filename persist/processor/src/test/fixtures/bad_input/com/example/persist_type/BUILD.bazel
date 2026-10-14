@@ -1,0 +1,11 @@
+package(default_visibility = ["//persist/processor:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "BadDefaultStorePersistTypeModel.java",
+        "BadNamePersistTypeModel.java",
+        "NoPropertiesPersistTypeModel.java",
+        "NonArezComponentPersistTypeModel.java",
+    ],
+)

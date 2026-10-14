@@ -1,0 +1,14 @@
+package(default_visibility = ["//persist/core:__subpackages__"])
+
+filegroup(
+    name = "all",
+    srcs = [
+        "ArezPersistTest.java",
+        "ConverterTest.java",
+        "LogUtilTest.java",
+        "ScopeTest.java",
+        "StoreTest.java",
+        "TypeConverterTest.java",
+        "//persist/core/src/test/java/arez/persist/runtime/browser:all",
+    ],
+)

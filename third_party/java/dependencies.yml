@@ -31,6 +31,7 @@ artifacts:
   - coord: com.vaadin.external.google:android-json:0.0.20131108.vaadin1
   - coord: org.testng:testng:7.10.2
   - coord: guru.nidi:jdepend:2.9.5
+  - coord: org.mockito:mockito-core:4.5.1
   - coord: org.realityforge.proton:proton-core:0.75
   - coord: org.realityforge.proton:proton-qa:0.75
   - coord: com.palantir.javapoet:javapoet:0.14.0

@@ -1,0 +1,27 @@
+load("//third_party/java:rules.bzl", "java_testng")
+
+package(default_visibility = ["//visibility:public"])
+
+java_testng(
+    name = "tests",
+    srcs = ["//persist/integration-tests/src/test/java/arez:all"],
+    jvm_flags = [
+        "-Darez.environment=development",
+        "-Dbraincheck.environment=development",
+        "-Darez.persist.environment=development",
+    ],
+    plugins = [
+        "//processor:plugin",
+        "//persist/processor:plugin",
+    ],
+    test_classes = ["arez.integration.basic.BasicIntegrationTest"],
+    deps = [
+        "//core",
+        "//extras/testng",
+        "//persist/core",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:guiceyloops",
+        "//third_party/java:javax_annotation",
+        "//third_party/java:javax_json",
+    ],
+)
