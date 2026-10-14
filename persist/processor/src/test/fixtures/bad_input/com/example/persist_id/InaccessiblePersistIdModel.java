@@ -5,7 +5,9 @@ import arez.annotations.Observable;
 import arez.persist.Persist;
 import arez.persist.PersistType;
 import com.example.persist_id.other.BasePackageAccessPersistIdModel;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @PersistType
 @ArezComponent
 abstract class InaccessiblePersistIdModel

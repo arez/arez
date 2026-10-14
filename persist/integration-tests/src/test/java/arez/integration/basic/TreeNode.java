@@ -14,7 +14,8 @@ import arez.persist.runtime.ArezPersist;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 @PersistType
 @ArezComponent(
@@ -23,20 +24,20 @@ import javax.annotation.Nonnull;
         observable = Feature.ENABLE,
         disposeNotifier = Feature.ENABLE)
 public abstract class TreeNode {
-    @Nonnull
+    @NonNull
     private final List<TreeNode> _children = new ArrayList<>();
 
     private final String _id;
     private final int _depth;
 
-    @Nonnull
-    public static TreeNode create(@Nonnull final String id, final int depth) {
+    @NonNull
+    public static TreeNode create(@NonNull final String id, final int depth) {
         final TreeNode node = new Arez_TreeNode(id, depth);
         TreeNode_PersistSidecar.attach(ArezPersist.getRootScope(), node);
         return node;
     }
 
-    TreeNode(@Nonnull final String id, final int depth) {
+    TreeNode(@NonNull final String id, final int depth) {
         _id = Objects.requireNonNull(id);
         _depth = depth;
     }
@@ -50,9 +51,9 @@ public abstract class TreeNode {
     }
 
     @Observable(writeOutsideTransaction = Feature.ENABLE, readOutsideTransaction = Feature.ENABLE)
-    public abstract String getLabel();
+    public abstract @Nullable String getLabel();
 
-    public abstract void setLabel(String label);
+    public abstract void setLabel(@Nullable String label);
 
     @Persist(store = StoreTypes.LOCAL)
     @Observable(writeOutsideTransaction = Feature.ENABLE, readOutsideTransaction = Feature.ENABLE)
@@ -66,7 +67,7 @@ public abstract class TreeNode {
     }
 
     @Observable(expectSetter = false, readOutsideTransaction = Feature.ENABLE)
-    @Nonnull
+    @NonNull
     public List<TreeNode> getChildren() {
         return _children;
     }

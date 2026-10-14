@@ -10,7 +10,8 @@ import arez.persist.runtime.Scope;
 import arez.persist.runtime.StorageService;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
 public final class BasicIntegrationTest extends AbstractIntegrationTest {
@@ -72,13 +73,49 @@ public final class BasicIntegrationTest extends AbstractIntegrationTest {
                 .get(type)
                 .get("0-1-2-2");
         assertNotNull(entry);
-        final Map<String, Object> data = entry.getData();
+        final Map<String, @Nullable Object> data = entry.getData();
         assertNotNull(data);
         assertEquals(data.get("expanded"), true);
     }
 
-    private void expandTreeNode(@Nonnull final Map<String, StorageService.Entry> typeMap, @Nonnull final String id) {
-        final Map<String, Object> encoded = new HashMap<>();
+    @Test
+    public void nullableValuesPersistAndRestore() {
+        final Scope scope = ArezPersist.getRootScope();
+        final Map<String, @Nullable Object> encoded = new HashMap<>();
+        encoded.put("value", "restored");
+        final Map<Scope, Map<String, Map<String, StorageService.Entry>>> initialState = new HashMap<>();
+        final Map<String, StorageService.Entry> entries = initialState
+                .computeIfAbsent(scope, key -> new HashMap<>())
+                .computeIfAbsent("NullableValue", key -> new HashMap<>());
+        entries.put("present", new StorageService.Entry(null, encoded));
+        entries.put("absent", new StorageService.Entry(null, new HashMap<String, @Nullable Object>()));
+        final TestStorageService service = new TestStorageService(initialState);
+        ArezPersist.registerStore(StoreTypes.LOCAL, service);
+
+        Arez.context().safeAction(() -> {
+            final NullableValue absent = NullableValue.create("absent");
+            assertNull(absent.getValue());
+            final NullableValue present = NullableValue.create("present");
+            assertEquals(present.getValue(), "restored");
+            present.setValue(null);
+            assertNull(present.getValue());
+        });
+        assertFalse(service.getState().get(scope).get("NullableValue").containsKey("present"));
+
+        Arez.context().safeAction(() -> {
+            final NullableValue value = NullableValue.create("changed");
+            value.setValue("saved");
+        });
+        final StorageService.Entry saved =
+                service.getState().get(scope).get("NullableValue").get("changed");
+        assertNotNull(saved);
+        final Map<String, @Nullable Object> data = saved.getData();
+        assertNotNull(data);
+        assertEquals(data.get("value"), "saved");
+    }
+
+    private void expandTreeNode(@NonNull final Map<String, StorageService.Entry> typeMap, @NonNull final String id) {
+        final Map<String, @Nullable Object> encoded = new HashMap<>();
         encoded.put("expanded", true);
         typeMap.put(id, new StorageService.Entry(null, encoded));
     }

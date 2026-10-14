@@ -7,20 +7,21 @@ import arez.persist.runtime.TypeConverter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 public final class TestStorageService implements StorageService {
-    @Nonnull
+    @NonNull
     private final Map<Scope, Map<String, Map<String, Entry>>> _initialState;
 
-    @Nonnull
+    @NonNull
     private final Map<Scope, Map<String, Map<String, Entry>>> _state = new HashMap<>();
 
-    public TestStorageService(@Nonnull final Map<Scope, Map<String, Map<String, Entry>>> initialState) {
+    public TestStorageService(@NonNull final Map<Scope, Map<String, Map<String, Entry>>> initialState) {
         _initialState = Objects.requireNonNull(initialState);
     }
 
-    @Nonnull
+    @NonNull
     public Map<Scope, Map<String, Map<String, Entry>>> getState() {
         return _state;
     }
@@ -29,32 +30,34 @@ public final class TestStorageService implements StorageService {
     public void dispose() {}
 
     @Override
-    public void scheduleCommit(@Nonnull final SafeProcedure commitTriggerAction) {
+    public void scheduleCommit(@NonNull final SafeProcedure commitTriggerAction) {
         commitTriggerAction.call();
     }
 
     @Override
-    public void commit(@Nonnull final Map<Scope, Map<String, Map<String, Entry>>> state) {
+    public void commit(@NonNull final Map<Scope, Map<String, Map<String, Entry>>> state) {
         _state.clear();
         _state.putAll(state);
     }
 
     @Override
-    public void restore(@Nonnull final Map<Scope, Map<String, Map<String, Entry>>> state) {
+    public void restore(@NonNull final Map<Scope, Map<String, Map<String, Entry>>> state) {
         state.clear();
         state.putAll(_initialState);
     }
 
-    @Nonnull
+    @NonNull
     @Override
-    public Object encodeState(@Nonnull final Map<String, Object> state, @Nonnull final TypeConverter converter) {
+    public Object encodeState(
+            @NonNull final Map<String, @Nullable Object> state, @NonNull final TypeConverter converter) {
         return state;
     }
 
     @SuppressWarnings("unchecked")
-    @Nonnull
+    @NonNull
     @Override
-    public Map<String, Object> decodeState(@Nonnull final Object encoded, @Nonnull final TypeConverter converter) {
-        return (Map<String, Object>) encoded;
+    public Map<String, @Nullable Object> decodeState(
+            @NonNull final Object encoded, @NonNull final TypeConverter converter) {
+        return (Map<String, @Nullable Object>) encoded;
     }
 }

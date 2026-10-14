@@ -2,8 +2,8 @@ package arez.persist.runtime;
 
 import java.util.Map;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A converter that encodes properties for a specific type.
@@ -13,10 +13,10 @@ public final class TypeConverter {
     /**
      * A map of property names to converters.
      */
-    @Nonnull
+    @NonNull
     private final Map<String, Converter> _converters;
 
-    public TypeConverter(@Nonnull final Map<String, Converter> converters) {
+    public TypeConverter(@NonNull final Map<String, Converter> converters) {
         _converters = Objects.requireNonNull(converters);
     }
 
@@ -29,7 +29,8 @@ public final class TypeConverter {
      * @param <A> the type of the value.
      * @param <E> the type of the encoded value.
      */
-    public <A, E> A decode(@Nonnull final String key, @Nullable E encoded) {
+    public <A extends @Nullable Object, E extends @Nullable Object> @Nullable A decode(
+            @NonNull final String key, @Nullable E encoded) {
         if (null == encoded) {
             return null;
         } else {
@@ -47,7 +48,8 @@ public final class TypeConverter {
      * @param <A> the type of the value.
      * @param <E> the type of the encoded value.
      */
-    public <A, E> E encode(@Nonnull final String key, @Nullable A value) {
+    public <A extends @Nullable Object, E extends @Nullable Object> @Nullable E encode(
+            @NonNull final String key, @Nullable A value) {
         if (null == value) {
             return null;
         } else {

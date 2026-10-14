@@ -5,7 +5,7 @@ import static org.testng.Assert.*;
 import arez.persist.AbstractTest;
 import arez.persist.runtime.ArezPersist;
 import arez.persist.runtime.Converter;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 import org.testng.annotations.Test;
 
 public final class ConvertersTest extends AbstractTest {
@@ -29,7 +29,7 @@ public final class ConvertersTest extends AbstractTest {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     private <T> void assertEncodeAndDecode(
-            @Nonnull final Class<T> type, @Nonnull final T value, @Nonnull final Object encodedValue) {
+            @NonNull final Class<T> type, @NonNull final T value, @NonNull final Object encodedValue) {
         final Converter converter = ArezPersist.getConverter(type);
         assertEquals(converter.encode(value), encodedValue);
         assertEquals(converter.decode(encodedValue), value);

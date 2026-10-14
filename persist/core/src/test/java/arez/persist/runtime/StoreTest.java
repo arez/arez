@@ -9,6 +9,7 @@ import arez.persist.StoreTypes;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import org.jspecify.annotations.Nullable;
 import org.mockito.ArgumentCaptor;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
@@ -56,9 +57,9 @@ public final class StoreTest extends AbstractTest {
         final String id2 = ValueUtil.randomString();
         final String id3 = ValueUtil.randomString();
 
-        final Map<String, Object> state1 = randomState();
-        final Map<String, Object> state2 = randomState();
-        final Map<String, Object> state3 = randomState();
+        final Map<String, @Nullable Object> state1 = randomState();
+        final Map<String, @Nullable Object> state2 = randomState();
+        final Map<String, @Nullable Object> state3 = randomState();
 
         assertNull(store.get(scope, type1, id1, converter));
         assertNull(store.get(rootScope, type1, id1, converter));
@@ -225,8 +226,8 @@ public final class StoreTest extends AbstractTest {
         final String id = ValueUtil.randomString();
         final String id2 = ValueUtil.randomString();
 
-        final Map<String, Object> state1 = randomState();
-        final Map<String, Object> state2 = randomState();
+        final Map<String, @Nullable Object> state1 = randomState();
+        final Map<String, @Nullable Object> state2 = randomState();
 
         assertNull(store.get(scope, type, id, converter));
         assertNull(store.get(scope, type, id2, converter));
@@ -310,9 +311,9 @@ public final class StoreTest extends AbstractTest {
 
         final String id = ValueUtil.randomString();
 
-        final Map<String, Object> state1 = new HashMap<>();
+        final Map<String, @Nullable Object> state1 = new HashMap<>();
         state1.put(propertyKey, 'a');
-        final Map<String, Object> state1Encoded = new HashMap<>();
+        final Map<String, @Nullable Object> state1Encoded = new HashMap<>();
         state1Encoded.put(propertyKey, "a");
 
         assertNull(store.get(scope, type, id, converter));
@@ -347,9 +348,9 @@ public final class StoreTest extends AbstractTest {
 
         final String propertyKey = ValueUtil.randomString();
 
-        final Map<String, Object> state1 = new HashMap<>();
+        final Map<String, @Nullable Object> state1 = new HashMap<>();
         state1.put(propertyKey, 'a');
-        final Map<String, Object> state1Encoded = new HashMap<>();
+        final Map<String, @Nullable Object> state1Encoded = new HashMap<>();
         state1Encoded.put(propertyKey, "a");
 
         final TypeConverter converter = new TypeConverter(Collections.emptyMap());

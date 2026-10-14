@@ -269,7 +269,8 @@ final class SidecarGenerator {
                     "if ( !$N.isDisposed() && $T.isNotDisposed( _scope ) )", fieldName, DISPOSABLE_CLASSNAME);
             block.addStatement(
                     "final $T state = $N.get( _scope, $T.TYPE, $N, $T.TYPE_CONVERTER )",
-                    ParameterizedTypeName.get(Map.class, String.class, Object.class),
+                    nullable(ParameterizedTypeName.get(
+                            ClassName.get(Map.class), ClassName.get(String.class), nullable(OBJECT))),
                     fieldName,
                     ClassName.bestGuess("Keys"),
                     idVar,
@@ -278,9 +279,11 @@ final class SidecarGenerator {
             stateBlock.beginControlFlow("if ( null != state )");
 
             for (final PropertyDescriptor property : descriptor.getPropertiesByStore(storeName)) {
-                final TypeName typeName = GeneratorUtil.getTypeName(
-                                property.getGetter().getReturnType())
-                        .box();
+                final TypeName typeName = nullable(
+                        GeneratorUtil.overrideMethod(processingEnv, descriptor.getElement(), property.getGetter())
+                                .build()
+                                .returnType()
+                                .box());
                 final String propName = "$prop$_" + property.getName();
                 if (OBJECT.equals(typeName.withoutAnnotations())) {
                     stateBlock.addStatement(
@@ -336,13 +339,19 @@ final class SidecarGenerator {
                     "if ( !$N.isDisposed() && $T.isNotDisposed( _scope ) )", fieldName, DISPOSABLE_CLASSNAME);
             block.addStatement(
                     "final $T state = new $T<>()",
-                    ParameterizedTypeName.get(Map.class, String.class, Object.class),
+                    ParameterizedTypeName.get(ClassName.get(Map.class), ClassName.get(String.class), nullable(OBJECT)),
                     HashMap.class);
             for (final PropertyDescriptor property : descriptor.getPropertiesByStore(storeName)) {
                 final ExecutableElement getter = property.getGetter();
                 final String propName = "$prop$_" + property.getName();
                 final TypeMirror returnType = getter.getReturnType();
-                block.addStatement("final $T $N = _peer.$N()", returnType, propName, getter.getSimpleName());
+                block.addStatement(
+                        "final $T $N = _peer.$N()",
+                        GeneratorUtil.overrideMethod(processingEnv, descriptor.getElement(), getter)
+                                .build()
+                                .returnType(),
+                        propName,
+                        getter.getSimpleName());
                 final CodeBlock.Builder subBlock = CodeBlock.builder();
                 final TypeKind kind = returnType.getKind();
                 if (TypeKind.DECLARED == kind) {
@@ -448,19 +457,19 @@ final class SidecarGenerator {
                 .addMember("value", "$S", "rawtypes")
                 .build());
 
-        final List<TypeMirror> typesToConvert = descriptor.getProperties().stream()
-                .map(p -> p.getGetter().getReturnType())
-                .sorted(Comparator.comparing(TypeMirror::toString))
+        final List<TypeName> typesToConvert = descriptor.getProperties().stream()
+                .map(p -> TypeName.get(p.getGetter().getReturnType()))
+                .sorted(Comparator.comparing(TypeName::toString))
                 .distinct()
                 .collect(Collectors.toList());
-        for (final TypeMirror typeMirror : typesToConvert) {
+        for (final TypeName typeName : typesToConvert) {
             builder.addField(FieldSpec.builder(
                             CONVERTER_CLASSNAME,
-                            converterName(typeMirror),
+                            converterName(typeName),
                             Modifier.PRIVATE,
                             Modifier.STATIC,
                             Modifier.FINAL)
-                    .initializer("$T.getConverter( $T.class )", AREZ_PERSIST_CLASSNAME, typeMirror)
+                    .initializer("$T.getConverter( $T.class )", AREZ_PERSIST_CLASSNAME, typeName)
                     .build());
         }
 
@@ -480,7 +489,7 @@ final class SidecarGenerator {
             method.addStatement(
                     "converters.put( $S, $N )",
                     property.getName(),
-                    converterName(property.getGetter().getReturnType()));
+                    converterName(TypeName.get(property.getGetter().getReturnType())));
         }
         method.addStatement("return new $T( converters )", TYPE_CONVERTER_CLASSNAME);
         builder.addMethod(method.build());
@@ -488,10 +497,15 @@ final class SidecarGenerator {
         return builder.build();
     }
 
-    private static String converterName(final TypeMirror typeMirror) {
+    private static TypeName nullable(final TypeName type) {
+        return type.withoutAnnotations()
+                .annotated(
+                        AnnotationSpec.builder(GeneratorUtil.NULLABLE_CLASSNAME).build());
+    }
+
+    private static String converterName(final TypeName typeName) {
         return "CONVERTER_"
-                + typeMirror
-                        .toString()
+                + typeName.toString()
                         .replaceAll("\\[", "_")
                         .replaceAll("]", "_")
                         .replaceAll("\\.", "__");

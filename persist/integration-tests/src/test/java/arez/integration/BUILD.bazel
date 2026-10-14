@@ -4,6 +4,7 @@ filegroup(
     name = "all",
     srcs = [
         "AbstractIntegrationTest.java",
+        "package-info.java",
         "//persist/integration-tests/src/test/java/arez/integration/basic:all",
     ],
 )

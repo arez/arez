@@ -4,7 +4,10 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.persist.Persist;
 import arez.persist.PersistType;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @PersistType
 @ArezComponent
 abstract class MultiStorePersistModel
@@ -17,19 +20,19 @@ abstract class MultiStorePersistModel
 
   @Observable
   @Persist( store = "a" )
-  public abstract String getValue2();
+  public abstract @Nullable String getValue2();
 
-  public abstract void setValue2( String v );
+  public abstract void setValue2( @Nullable String v );
 
   @Observable
   @Persist( store = "b" )
-  public abstract Double getValue3();
+  public abstract @Nullable Double getValue3();
 
-  public abstract void setValue3( Double v );
+  public abstract void setValue3( @Nullable Double v );
 
   @Observable
   @Persist
-  public abstract Double getValue4();
+  public abstract @Nullable Double getValue4();
 
-  public abstract void setValue4( Double v );
+  public abstract void setValue4( @Nullable Double v );
 }

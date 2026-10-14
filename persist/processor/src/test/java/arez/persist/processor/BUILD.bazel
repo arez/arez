@@ -47,6 +47,8 @@ java_testng(
     test_class = "arez.persist.processor.ArezPersistProcessorGeneratedOutputTest",
     test_methods = [
         "arez.persist.processor.ArezPersistProcessorGeneratedOutputTest.processModelCompile",
+        "arez.persist.processor.ArezPersistProcessorGeneratedOutputTest.inheritedNullableProperty",
+        "arez.persist.processor.ArezPersistProcessorGeneratedOutputTest.compiledInheritedNullableProperty",
     ],
     deps = _RUNTIME_DEPS,
 )

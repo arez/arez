@@ -21,7 +21,7 @@ java_testng(
         "//persist/core",
         "//third_party/java:braincheck_core",
         "//third_party/java:guiceyloops",
-        "//third_party/java:javax_annotation",
         "//third_party/java:javax_json",
+        "//third_party/java:jspecify",
     ],
 )

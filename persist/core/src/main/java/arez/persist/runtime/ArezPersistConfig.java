@@ -1,7 +1,7 @@
 package arez.persist.runtime;
 
 import grim.annotations.OmitType;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 import org.realityforge.braincheck.BrainCheckConfig;
 
 /**
@@ -10,14 +10,14 @@ import org.realityforge.braincheck.BrainCheckConfig;
 @SuppressWarnings("FieldMayBeFinal")
 @OmitType
 final class ArezPersistConfig {
-    @Nonnull
+    @NonNull
     private static final ConfigProvider PROVIDER = new ConfigProvider();
 
     private static final boolean PRODUCTION_ENVIRONMENT = PROVIDER.isProductionEnvironment();
     private static boolean ENABLE_APPLICATION_STORE = PROVIDER.isApplicationStoreEnabled();
     private static boolean CHECK_API_INVARIANTS = PROVIDER.shouldCheckApiInvariants();
 
-    @Nonnull
+    @NonNull
     private static final String LOGGER_TYPE = PROVIDER.loggerType();
 
     private ArezPersistConfig() {}
@@ -34,7 +34,7 @@ final class ArezPersistConfig {
         return ENABLE_APPLICATION_STORE;
     }
 
-    @Nonnull
+    @NonNull
     static String loggerType() {
         return LOGGER_TYPE;
     }
@@ -61,7 +61,7 @@ final class ArezPersistConfig {
 
         @GwtIncompatible
         @Override
-        @Nonnull
+        @NonNull
         String loggerType() {
             return System.getProperty("arez.persist.logger", isProductionEnvironment() ? "basic" : "proxy");
         }
@@ -81,7 +81,7 @@ final class ArezPersistConfig {
             return "true" == System.getProperty("arez.persist.check_api_invariants");
         }
 
-        @Nonnull
+        @NonNull
         String loggerType() {
             /*
              * Valid values are: "none", "console" and "proxy" (for testing)

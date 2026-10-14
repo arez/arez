@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Migrate Persist contracts to JSpecify, including nullable converter results and state-map values. Preserve converter identity across nullability annotations and nullable inherited properties loaded from compiled bases.
+
 * Preserve inverse cardinality for annotated collection types and inherited reference-ID nullness after generic substitution, including compiled base classes.
 
 * Recognize annotated Observer and ComputableValue hook parameters by their declared Java type. Nullable observable initializers are diagnosed against the getter’s JSpecify contract.

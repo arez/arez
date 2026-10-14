@@ -5,6 +5,7 @@ filegroup(
     srcs = [
         "AbstractTest.java",
         "TestLogger.java",
+        "package-info.java",
         "//persist/core/src/test/java/arez/persist/runtime:all",
         "//persist/core/src/test/java/arez/persist/test:all",
     ],

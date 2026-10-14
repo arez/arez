@@ -6,11 +6,12 @@ import arez.annotations.ArezComponent;
 import arez.annotations.ComponentDependency;
 import arez.annotations.Observable;
 import arez.annotations.PostConstruct;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 @ArezComponent
 public abstract class TreeNodeService {
-    @Nonnull
+    @NonNull
     public static TreeNodeService create() {
         return new Arez_TreeNodeService();
     }
@@ -22,9 +23,9 @@ public abstract class TreeNodeService {
 
     @ComponentDependency(action = ComponentDependency.Action.SET_NULL)
     @Observable
-    public abstract TreeNode getRoot();
+    public abstract @Nullable TreeNode getRoot();
 
-    public abstract void setRoot(TreeNode root);
+    public abstract void setRoot(@Nullable TreeNode root);
 
     @Action
     public void rebuildTree() {
@@ -53,7 +54,7 @@ public abstract class TreeNodeService {
         setRoot(root);
     }
 
-    private void cascadeDisposeTree(@Nonnull final TreeNode node) {
+    private void cascadeDisposeTree(@NonNull final TreeNode node) {
         node.getChildren().forEach(this::cascadeDisposeTree);
         Disposable.dispose(node);
     }

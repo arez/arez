@@ -2,7 +2,7 @@
 
 - Spec: [SPEC.md](../SPEC.md)
 - Status: implementing
-- Current frontier: T12
+- Current frontier: T13
 - Planning reviewer: /root/planning_reviewer (2/3 rounds; passed, Findings: none)
 - Plan checkpoint: human-review (approved)
 - Checkpoint basis: the user said "Proceed" after the reviewed spec/task map and
@@ -27,7 +27,7 @@
 - Artifact reproducibility: independent-output-base hash comparisons, including
   binary, source, Javadoc and POM outputs; cached reruns alone are insufficient.
 - Final evidence: pending
-- Current milestone: T11 full Arez processor suite passed; T12–T13 migrate remaining consumers before restoring the full JVM gate.
+- Current milestone: T12 full Persist slice passed; T13 migrates remaining owned consumers and restores the full JVM gate.
 
 ## Tasks
 
@@ -44,7 +44,7 @@
 | T09 | [Cut both processors to the pinned Proton and JSpecify API](T09-processor-jspecify-cut.md) | complete | T08 |
 | T10 | [Migrate component, observable and lifecycle scenarios](T10-arez-basic-fixtures.md) | complete | T09 |
 | T11 | [Migrate relationships, generics and remaining Arez scenarios](T11-arez-relationship-fixtures.md) | complete | T09 |
-| T12 | [Restore the Persist slice after the nullability cut](T12-persist-jspecify.md) | pending | T10, T11 |
+| T12 | [Restore the Persist slice after the nullability cut](T12-persist-jspecify.md) | complete | T10, T11 |
 | T13 | [Restore extras, integrations and compiled documentation](T13-generated-consumers-jspecify.md) | pending | T12 |
 | T14 | [Enforce strict checking on runtime products and tests](T14-runtime-strict-checks.md) | pending | T13 |
 | T15 | [Enforce strict checking on processors and generated output](T15-processor-strict-checks.md) | pending | T14 |
@@ -167,7 +167,7 @@ in this plan is not a claim that they already exist.
   existing canonical owners instead of duplicating, validate links and record
   exact owner links here once written.
 - Golden grouping/update ownership: [development documentation](../../../docs/development.md); deferred issue resolved/deleted in T06, link validation passed.
-- Promotion status: remaining classification/promotion sweep pending T26–T27
+- Promotion status: remaining classification/promotion sweep pending T26–T27. T12 also records the pre-existing Object restore generator issue for classification/follow-up.
 
 ## Review and closeout routing
 

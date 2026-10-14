@@ -16,9 +16,9 @@ java_library(
         "//third_party/java:braincheck_core",
         "//third_party/java:grim_annotations",
         "//third_party/java:grim_processor",
-        "//third_party/java:javax_annotation",
         "//third_party/java:javax_json",
         "//third_party/java:jsinterop_annotations",
+        "//third_party/java:jspecify",
         "//third_party/java:org_jetbrains_annotations",
     ],
 )
@@ -53,9 +53,9 @@ java_testng(
         "//third_party/java:grim_annotations",
         "//third_party/java:grim_processor",
         "//third_party/java:guiceyloops",
-        "//third_party/java:javax_annotation",
         "//third_party/java:jdepend",
         "//third_party/java:jsinterop_annotations",
+        "//third_party/java:jspecify",
         "//third_party/java:mockito_core",
     ],
 )

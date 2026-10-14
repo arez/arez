@@ -19,53 +19,46 @@ import arez.persist.runtime.TypeConverter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import javax.annotation.Nonnull;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 @ArezComponent(disposeNotifier = Feature.DISABLE, requireId = Feature.DISABLE)
 @Generated("arez.persist.processor.ArezPersistProcessor")
+@NullMarked
 abstract class TypeStringPersistModel_PersistSidecar {
   private static int c_nextTaskId;
 
   @ComponentDependency
-  @Nonnull
   final Scope _scope;
 
   @ComponentDependency
-  @Nonnull
   final TypeStringPersistModel _peer;
 
-  @Nonnull
   private final Store _appStore;
 
   TypeStringPersistModel_PersistSidecar(
-      @Nonnull final Scope scope,
-      @Nonnull final TypeStringPersistModel peer,
-      @Nonnull final Store appStore) {
+      final Scope scope, final TypeStringPersistModel peer, final Store appStore) {
     _scope = Objects.requireNonNull(scope);
     _peer = Objects.requireNonNull(peer);
     _appStore = Objects.requireNonNull(appStore);
   }
 
-  @Nonnull
   static TypeStringPersistModel_PersistSidecar attach(
-      @Nonnull final Scope scope, @Nonnull final TypeStringPersistModel peer) {
+      final Scope scope, final TypeStringPersistModel peer) {
     assert Disposable.isNotDisposed(scope);
     assert Disposable.isNotDisposed(peer);
     final Store appStore = ArezPersist.getStore("app");
     return new Arez_TypeStringPersistModel_PersistSidecar(scope, peer, appStore);
   }
 
-  private static void maybeAttach(
-      @Nonnull final Scope scope, @Nonnull final TypeStringPersistModel peer) {
+  private static void maybeAttach(final Scope scope, final TypeStringPersistModel peer) {
     if (Disposable.isNotDisposed(scope) && Disposable.isNotDisposed(peer)) {
       attach(scope, peer);
     }
   }
 
-  @Nonnull
-  static void scheduleAttach(
-      @Nonnull final Scope scope, @Nonnull final TypeStringPersistModel peer) {
+  static void scheduleAttach(final Scope scope, final TypeStringPersistModel peer) {
     assert Disposable.isNotDisposed(scope);
     assert Disposable.isNotDisposed(peer);
     Arez.context()
@@ -76,7 +69,6 @@ abstract class TypeStringPersistModel_PersistSidecar {
             () -> maybeAttach(scope, peer));
   }
 
-  @Nonnull
   private String getComponentId() {
     return String.valueOf(Objects.<Object>requireNonNull(Identifiable.getArezId(_peer)));
   }
@@ -95,10 +87,10 @@ abstract class TypeStringPersistModel_PersistSidecar {
   void restoreState() {
     final String $ap$_id = getComponentId();
     if (!_appStore.isDisposed() && Disposable.isNotDisposed(_scope)) {
-      final Map<String, Object> state =
+      final @Nullable Map<String, @Nullable Object> state =
           _appStore.get(_scope, Keys.TYPE, $ap$_id, Converters.TYPE_CONVERTER);
       if (null != state) {
-        final String $prop$_value = (String) state.get(Keys.PROPERTY_value);
+        final @Nullable String $prop$_value = (@Nullable String) state.get(Keys.PROPERTY_value);
         if (null != $prop$_value) {
           _peer.setValue($prop$_value);
         }
@@ -109,8 +101,8 @@ abstract class TypeStringPersistModel_PersistSidecar {
   @Action(mutation = false, verifyRequired = false)
   void persistState() {
     if (!_appStore.isDisposed() && Disposable.isNotDisposed(_scope)) {
-      final Map<String, Object> state = new HashMap<>();
-      final String $prop$_value = _peer.getValue();
+      final Map<String, @Nullable Object> state = new HashMap<>();
+      final @Nullable String $prop$_value = _peer.getValue();
       if (null != $prop$_value) {
         state.put(Keys.PROPERTY_value, $prop$_value);
       }
@@ -119,24 +111,19 @@ abstract class TypeStringPersistModel_PersistSidecar {
   }
 
   private static final class Keys {
-    @Nonnull
     private static final String TYPE =
         Arez.areNamesEnabled() ? "TypeStringPersistModel" : TypeStringPersistModel.class.getName();
 
-    @Nonnull
     private static final String PROPERTY_value = Arez.areNamesEnabled() ? "value" : "a";
   }
 
   @SuppressWarnings({"unchecked", "rawtypes"})
   private static final class Converters {
-    @Nonnull
     private static final Converter CONVERTER_java__lang__String =
         ArezPersist.getConverter(String.class);
 
-    @Nonnull
     private static final TypeConverter TYPE_CONVERTER = createTypeConverter();
 
-    @Nonnull
     private static TypeConverter createTypeConverter() {
       final Map<String, Converter> converters = new HashMap<>();
       converters.put("value", CONVERTER_java__lang__String);

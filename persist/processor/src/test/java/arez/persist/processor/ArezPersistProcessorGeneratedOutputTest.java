@@ -64,6 +64,39 @@ public final class ArezPersistProcessorGeneratedOutputTest extends ArezPersistPr
         assertSuccessfulFixtureCompile(classname);
     }
 
+    @Test
+    public void inheritedNullableProperty() throws Exception {
+        assertSuccessfulFixtureCompile(
+                inputs(
+                        "com.example.persist.InheritedPropertyBase",
+                        "com.example.persist.InheritedNullablePersistModel"),
+                List.of("com/example/persist/InheritedNullablePersistModel_PersistSidecar.java"));
+    }
+
+    @Test
+    public void compiledInheritedNullableProperty() throws Exception {
+        final List<String> baseOptions = new ArrayList<>(getOptions());
+        baseOptions.add("-proc:none");
+        baseOptions.add("-parameters");
+        final Compilation base = CompileTestUtil.assertCompilesWithoutWarnings(
+                inputs("com.example.persist.InheritedPropertyBase"),
+                baseOptions,
+                Collections.emptyList(),
+                Collections.emptyList());
+        try {
+            final List<String> options = new ArrayList<>(getOptions());
+            options.add("-classpath");
+            options.add(System.getProperty("java.class.path") + File.pathSeparator + base.classOutput());
+            assertSuccessfulFixtureCompile(
+                    inputs("com.example.persist.InheritedNullablePersistModel"),
+                    List.of("com/example/persist/InheritedNullablePersistModel_PersistSidecar.java"),
+                    options);
+        } finally {
+            deleteDir(base.classOutput());
+            deleteDir(base.sourceOutput());
+        }
+    }
+
     private void assertSuccessfulFixtureCompile(final String classname) throws Exception {
         assertSuccessfulFixtureCompile(
                 inputs(classname), Collections.singletonList(toFilename(classname, "", "_PersistSidecar.java")));
@@ -71,10 +104,16 @@ public final class ArezPersistProcessorGeneratedOutputTest extends ArezPersistPr
 
     private void assertSuccessfulFixtureCompile(final List<JavaFileObject> inputs, final List<String> expectedOutputs)
             throws Exception {
-        final List<String> unformattedOptions = new ArrayList<>(getOptions());
+        assertSuccessfulFixtureCompile(inputs, expectedOutputs, getOptions());
+    }
+
+    private void assertSuccessfulFixtureCompile(
+            final List<JavaFileObject> inputs, final List<String> expectedOutputs, final List<String> options)
+            throws Exception {
+        final List<String> unformattedOptions = new ArrayList<>(options);
         unformattedOptions.add("-A" + getOptionPrefix() + ".format_generated_source=false");
         assertSuccessfulFixtureCompile(inputs, expectedOutputs, "expected", unformattedOptions);
-        assertSuccessfulFixtureCompile(inputs, expectedOutputs, "expectedFormatted", getOptions());
+        assertSuccessfulFixtureCompile(inputs, expectedOutputs, "expectedFormatted", options);
     }
 
     private void assertSuccessfulFixtureCompile(

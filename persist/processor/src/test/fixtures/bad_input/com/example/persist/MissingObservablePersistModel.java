@@ -3,7 +3,9 @@ package com.example.persist;
 import arez.annotations.ArezComponent;
 import arez.persist.Persist;
 import arez.persist.PersistType;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @PersistType
 @ArezComponent( allowEmpty = true )
 public abstract class MissingObservablePersistModel

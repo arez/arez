@@ -4,8 +4,10 @@ filegroup(
     name = "all",
     srcs = [
         "BasicIntegrationTest.java",
+        "NullableValue.java",
         "TestStorageService.java",
         "TreeNode.java",
         "TreeNodeService.java",
+        "package-info.java",
     ],
 )

@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A utility class that contains references to stores and the root scope.
@@ -21,12 +21,12 @@ final class Registry {
     /**
      * The map of registered stores.
      */
-    @Nonnull
+    @NonNull
     private static final Map<String, Store> c_stores = new HashMap<>();
     /**
      * The map of converters for application types.
      */
-    @Nonnull
+    @NonNull
     private static final Map<Class<?>, Converter<?, ?>> c_converters = new HashMap<>();
     /**
      * The root scope.
@@ -46,7 +46,7 @@ final class Registry {
      *
      * @return the root scope under which all other scopes are nested.
      */
-    @Nonnull
+    @NonNull
     static Scope getRootScope() {
         if (null == c_rootScope) {
             c_rootScope = Scope.create(null, Scope.ROOT_SCOPE_NAME);
@@ -62,7 +62,7 @@ final class Registry {
      *
      * @param scope the scope to dispose.
      */
-    static void disposeScope(@Nonnull final Scope scope) {
+    static void disposeScope(@NonNull final Scope scope) {
         if (ArezPersist.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> Disposable.isNotDisposed(scope),
@@ -78,7 +78,7 @@ final class Registry {
      *
      * @param scope the scope to release.
      */
-    static void releaseScope(@Nonnull final Scope scope) {
+    static void releaseScope(@NonNull final Scope scope) {
         if (ArezPersist.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> Disposable.isNotDisposed(scope),
@@ -87,7 +87,7 @@ final class Registry {
         c_stores.values().forEach(store -> store.releaseScope(scope));
     }
 
-    private static void _disposeScope(@Nonnull final Scope scope) {
+    private static void _disposeScope(@NonNull final Scope scope) {
         new ArrayList<>(scope.getNestedScopes()).forEach(Registry::_disposeScope);
         Disposable.dispose(scope);
     }
@@ -103,7 +103,7 @@ final class Registry {
      * @param service the associated StorageService.
      * @return the action to invoke to deregister service.
      */
-    static SafeProcedure registerStore(@Nonnull final String name, @Nonnull final StorageService service) {
+    static SafeProcedure registerStore(@NonNull final String name, @NonNull final StorageService service) {
         if (ArezPersist.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> !c_stores.containsKey(name),
@@ -125,7 +125,7 @@ final class Registry {
      *
      * @param name the name of the store.
      */
-    private static void deregisterStore(@Nonnull final String name) {
+    private static void deregisterStore(@NonNull final String name) {
         final Store store = c_stores.remove(name);
         if (null != store) {
             assert !store.isDisposed();
@@ -140,8 +140,8 @@ final class Registry {
      * @param name the name of the store.
      * @return the store.
      */
-    @Nonnull
-    static Store getStore(@Nonnull final String name) {
+    @NonNull
+    static Store getStore(@NonNull final String name) {
         if (ArezPersist.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> c_stores.containsKey(name),
@@ -158,8 +158,8 @@ final class Registry {
      * @param converter the converter.
      * @return the action to invoke to deregister converter.
      */
-    @Nonnull
-    static <A> SafeProcedure registerConverter(@Nonnull final Class<A> type, @Nonnull final Converter<A, ?> converter) {
+    @NonNull
+    static <A> SafeProcedure registerConverter(@NonNull final Class<A> type, @NonNull final Converter<A, ?> converter) {
         if (ArezPersist.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> !c_converters.containsKey(type),
@@ -177,18 +177,18 @@ final class Registry {
      * @return the converter if any.
      */
     @SuppressWarnings("unchecked")
-    @Nonnull
-    static <A> Converter<A, ?> getConverter(@Nonnull final Class<A> type) {
+    @NonNull
+    static <A> Converter<A, ?> getConverter(@NonNull final Class<A> type) {
         final Converter<A, ?> converter = (Converter<A, ?>) c_converters.get(type);
         return null == converter ? IdentityConverter.instance() : converter;
     }
 
-    @Nonnull
+    @NonNull
     static Map<String, Store> getStores() {
         return c_stores;
     }
 
-    @Nonnull
+    @NonNull
     static Map<Class<?>, Converter<?, ?>> getConverters() {
         return c_converters;
     }

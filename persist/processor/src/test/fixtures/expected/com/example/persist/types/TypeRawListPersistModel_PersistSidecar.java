@@ -20,60 +20,54 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import javax.annotation.Nonnull;
 import javax.annotation.processing.Generated;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 @ArezComponent(
     disposeNotifier = Feature.DISABLE,
     requireId = Feature.DISABLE
 )
 @Generated("arez.persist.processor.ArezPersistProcessor")
+@NullMarked
 abstract class TypeRawListPersistModel_PersistSidecar {
   private static int c_nextTaskId;
 
   @ComponentDependency
-  @Nonnull
   final Scope _scope;
 
   @ComponentDependency
-  @Nonnull
   final TypeRawListPersistModel _peer;
 
-  @Nonnull
   private final Store _appStore;
 
-  TypeRawListPersistModel_PersistSidecar(@Nonnull final Scope scope,
-      @Nonnull final TypeRawListPersistModel peer, @Nonnull final Store appStore) {
+  TypeRawListPersistModel_PersistSidecar(final Scope scope, final TypeRawListPersistModel peer,
+      final Store appStore) {
     _scope = Objects.requireNonNull( scope );
     _peer = Objects.requireNonNull( peer );
     _appStore = Objects.requireNonNull( appStore );
   }
 
-  @Nonnull
-  static TypeRawListPersistModel_PersistSidecar attach(@Nonnull final Scope scope,
-      @Nonnull final TypeRawListPersistModel peer) {
+  static TypeRawListPersistModel_PersistSidecar attach(final Scope scope,
+      final TypeRawListPersistModel peer) {
     assert Disposable.isNotDisposed( scope );
     assert Disposable.isNotDisposed( peer );
     final Store appStore = ArezPersist.getStore( "app" );
     return new Arez_TypeRawListPersistModel_PersistSidecar( scope, peer, appStore );
   }
 
-  private static void maybeAttach(@Nonnull final Scope scope,
-      @Nonnull final TypeRawListPersistModel peer) {
+  private static void maybeAttach(final Scope scope, final TypeRawListPersistModel peer) {
     if ( Disposable.isNotDisposed( scope ) && Disposable.isNotDisposed( peer ) )  {
       attach( scope, peer );
     }
   }
 
-  @Nonnull
-  static void scheduleAttach(@Nonnull final Scope scope,
-      @Nonnull final TypeRawListPersistModel peer) {
+  static void scheduleAttach(final Scope scope, final TypeRawListPersistModel peer) {
     assert Disposable.isNotDisposed( scope );
     assert Disposable.isNotDisposed( peer );
     Arez.context().task( Arez.areNamesEnabled() ? "TypeRawListPersistModel_PersistSidecar.attach." + ( ++c_nextTaskId ) : null, () -> maybeAttach( scope, peer ) );
   }
 
-  @Nonnull
   private String getComponentId() {
     return String.valueOf( Objects.<Object>requireNonNull( Identifiable.getArezId( _peer ) ) );
   }
@@ -99,9 +93,9 @@ abstract class TypeRawListPersistModel_PersistSidecar {
   void restoreState() {
     final String $ap$_id = getComponentId();
     if ( !_appStore.isDisposed() && Disposable.isNotDisposed( _scope ) ) {
-      final Map<String, Object> state = _appStore.get( _scope, Keys.TYPE, $ap$_id, Converters.TYPE_CONVERTER );
+      final @Nullable Map<String, @Nullable Object> state = _appStore.get( _scope, Keys.TYPE, $ap$_id, Converters.TYPE_CONVERTER );
       if ( null != state ) {
-        final List $prop$_value = (List) state.get( Keys.PROPERTY_value );
+        final @Nullable List $prop$_value = (@Nullable List) state.get( Keys.PROPERTY_value );
         if ( null != $prop$_value ) {
           _peer.setValue( $prop$_value );
         }
@@ -116,8 +110,8 @@ abstract class TypeRawListPersistModel_PersistSidecar {
   @SuppressWarnings("rawtypes")
   void persistState() {
     if ( !_appStore.isDisposed() && Disposable.isNotDisposed( _scope ) ) {
-      final Map<String, Object> state = new HashMap<>();
-      final List $prop$_value = _peer.getValue();
+      final Map<String, @Nullable Object> state = new HashMap<>();
+      final @Nullable List $prop$_value = _peer.getValue();
       if ( null != $prop$_value ) {
         state.put( Keys.PROPERTY_value, $prop$_value );
       }
@@ -126,10 +120,8 @@ abstract class TypeRawListPersistModel_PersistSidecar {
   }
 
   private static final class Keys {
-    @Nonnull
     private static final String TYPE = Arez.areNamesEnabled() ? "TypeRawListPersistModel" : TypeRawListPersistModel.class.getName();
 
-    @Nonnull
     private static final String PROPERTY_value = Arez.areNamesEnabled() ? "value" : "a";
   }
 
@@ -138,13 +130,10 @@ abstract class TypeRawListPersistModel_PersistSidecar {
       "rawtypes"
   })
   private static final class Converters {
-    @Nonnull
     private static final Converter CONVERTER_java__util__List = ArezPersist.getConverter( List.class );
 
-    @Nonnull
     private static final TypeConverter TYPE_CONVERTER = createTypeConverter();
 
-    @Nonnull
     private static TypeConverter createTypeConverter() {
       final Map<String, Converter> converters = new HashMap<>();
       converters.put( "value", CONVERTER_java__util__List );

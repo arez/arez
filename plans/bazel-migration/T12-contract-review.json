@@ -1,0 +1,5 @@
+{
+  "original_goldens_compared": 23,
+  "method_bodies_compared": 231,
+  "runtime_bodies_unchanged_after_nullability_annotation_normalization": true
+}

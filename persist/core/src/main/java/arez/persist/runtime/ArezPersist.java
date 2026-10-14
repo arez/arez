@@ -6,8 +6,8 @@ import arez.SafeProcedure;
 import arez.persist.StoreTypes;
 import grim.annotations.OmitClinit;
 import grim.annotations.OmitSymbol;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Provide an interface to register and access stores and access the root scope as well as global configuration settings.
@@ -41,7 +41,7 @@ public final class ArezPersist {
      *
      * @return the root scope under which all other scopes are nested.
      */
-    @Nonnull
+    @NonNull
     public static Scope getRootScope() {
         return Registry.getRootScope();
     }
@@ -57,8 +57,8 @@ public final class ArezPersist {
      * @param service the associated StorageService.
      * @return the action to invoke to deregister service.
      */
-    @Nonnull
-    public static SafeProcedure registerStore(@Nonnull final String name, @Nonnull final StorageService service) {
+    @NonNull
+    public static SafeProcedure registerStore(@NonNull final String name, @NonNull final StorageService service) {
         return Registry.registerStore(name, service);
     }
 
@@ -69,8 +69,8 @@ public final class ArezPersist {
      * @param name the name of the store.
      * @return the store.
      */
-    @Nonnull
-    public static Store getStore(@Nonnull final String name) {
+    @NonNull
+    public static Store getStore(@NonNull final String name) {
         return Registry.getStore(name);
     }
 
@@ -84,7 +84,7 @@ public final class ArezPersist {
      * @return the scope if it exists.
      */
     @Nullable
-    public static Scope findScope(@Nonnull final String qualifiedName) {
+    public static Scope findScope(@NonNull final String qualifiedName) {
         Scope scope = getRootScope();
         if (Scope.ROOT_SCOPE_NAME.equals(qualifiedName)) {
             return scope;
@@ -111,8 +111,8 @@ public final class ArezPersist {
      * @param qualifiedName the qualified scope name.
      * @return the scope.
      */
-    @Nonnull
-    public static Scope findOrCreateScope(@Nonnull final String qualifiedName) {
+    @NonNull
+    public static Scope findOrCreateScope(@NonNull final String qualifiedName) {
         Scope scope = getRootScope();
         if (Scope.ROOT_SCOPE_NAME.equals(qualifiedName)) {
             return scope;
@@ -134,7 +134,7 @@ public final class ArezPersist {
      *
      * @param scope the scope to dispose.
      */
-    public static void disposeScope(@Nonnull final Scope scope) {
+    public static void disposeScope(@NonNull final Scope scope) {
         if (ArezPersist.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> !Scope.ROOT_SCOPE_NAME.equals(scope.getName()),
@@ -149,7 +149,7 @@ public final class ArezPersist {
      *
      * @param scope the scope to release.
      */
-    public static void releaseScope(@Nonnull final Scope scope) {
+    public static void releaseScope(@NonNull final Scope scope) {
         Registry.releaseScope(scope);
     }
 
@@ -162,9 +162,9 @@ public final class ArezPersist {
      * @return the action to invoke to deregister converter.
      * @param <A> the type of the value.
      */
-    @Nonnull
+    @NonNull
     public static <A> SafeProcedure registerConverter(
-            @Nonnull final Class<A> type, @Nonnull final Converter<A, ?> converter) {
+            @NonNull final Class<A> type, @NonNull final Converter<A, ?> converter) {
         return Registry.registerConverter(type, converter);
     }
 
@@ -175,8 +175,8 @@ public final class ArezPersist {
      * @return the converter if any.
      * @param <A> the type of the value.
      */
-    @Nonnull
-    public static <A> Converter<A, ?> getConverter(@Nonnull final Class<A> type) {
+    @NonNull
+    public static <A> Converter<A, ?> getConverter(@NonNull final Class<A> type) {
         return Registry.getConverter(type);
     }
 

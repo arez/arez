@@ -4,5 +4,6 @@ filegroup(
     name = "all",
     srcs = [
         "ConvertersTest.java",
+        "package-info.java",
     ],
 )

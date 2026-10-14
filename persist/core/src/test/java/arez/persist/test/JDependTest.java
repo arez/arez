@@ -6,11 +6,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
 import jdepend.framework.DependencyConstraint;
 import jdepend.framework.JDepend;
 import jdepend.framework.JavaPackage;
 import jdepend.framework.PackageFilter;
+import org.jspecify.annotations.NonNull;
 import org.testng.annotations.Test;
 
 public final class JDependTest {
@@ -29,6 +29,11 @@ public final class JDependTest {
         final JavaPackage persist = constraint.addPackage("arez.persist");
         final JavaPackage runtime = constraint.addPackage("arez.persist.runtime");
         final JavaPackage browserRuntime = constraint.addPackage("arez.persist.runtime.browser");
+        final JavaPackage jspecify = constraint.addPackage("org.jspecify.annotations");
+        persist.dependsUpon(jspecify);
+        runtime.dependsUpon(jspecify);
+        browserRuntime.dependsUpon(jspecify);
+
         final JavaPackage jsinterop = constraint.addPackage("jsinterop.annotations");
         final JavaPackage jsinteropBase = constraint.addPackage("jsinterop.base");
 
@@ -83,7 +88,7 @@ public final class JDependTest {
         }
     }
 
-    @Nonnull
+    @NonNull
     private String compileTargetDir() {
         final String fixtureDir = System.getProperty("arez.persist.core.compile_target");
         assertNotNull(

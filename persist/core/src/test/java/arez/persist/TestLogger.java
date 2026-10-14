@@ -4,23 +4,23 @@ import arez.persist.runtime.ArezPersistTestUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 public final class TestLogger implements ArezPersistTestUtil.Logger {
     public static final class LogEntry {
-        @Nonnull
+        @NonNull
         private final String _message;
 
         @Nullable
         private final Throwable _throwable;
 
-        LogEntry(@Nonnull final String message, @Nullable final Throwable throwable) {
+        LogEntry(@NonNull final String message, @Nullable final Throwable throwable) {
             _message = Objects.requireNonNull(message);
             _throwable = throwable;
         }
 
-        @Nonnull
+        @NonNull
         public String getMessage() {
             return _message;
         }
@@ -31,15 +31,15 @@ public final class TestLogger implements ArezPersistTestUtil.Logger {
         }
     }
 
-    @Nonnull
+    @NonNull
     private final List<LogEntry> _entries = new ArrayList<>();
 
     @Override
-    public void log(@Nonnull final String message, @Nullable final Throwable throwable) {
+    public void log(@NonNull final String message, @Nullable final Throwable throwable) {
         _entries.add(new LogEntry(message, throwable));
     }
 
-    @Nonnull
+    @NonNull
     public List<LogEntry> getEntries() {
         return _entries;
     }

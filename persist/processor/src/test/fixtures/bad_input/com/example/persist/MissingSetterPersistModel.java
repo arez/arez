@@ -6,7 +6,10 @@ import arez.annotations.Observable;
 import arez.annotations.ObservableValueRef;
 import arez.persist.Persist;
 import arez.persist.PersistType;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @PersistType
 @ArezComponent
 abstract class MissingSetterPersistModel
@@ -19,5 +22,5 @@ abstract class MissingSetterPersistModel
   }
 
   @ObservableValueRef
-  abstract ObservableValue<?> getValueObservableValue();
+  abstract @Nullable ObservableValue<?> getValueObservableValue();
 }

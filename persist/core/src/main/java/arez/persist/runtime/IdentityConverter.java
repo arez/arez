@@ -1,8 +1,9 @@
 package arez.persist.runtime;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-final class IdentityConverter<A> implements Converter<A, A> {
+final class IdentityConverter<A extends @Nullable Object> implements Converter<A, A> {
     /**
      * Return the converter that performs no conversions.
      *
@@ -10,23 +11,23 @@ final class IdentityConverter<A> implements Converter<A, A> {
      * @return the converter.
      */
     @SuppressWarnings("unchecked")
-    static <T> Converter<T, T> instance() {
+    static <T extends @Nullable Object> Converter<T, T> instance() {
         return (Converter<T, T>) Holder.CONVERTER;
     }
 
     // Holder class to avoid <clinit> on instance calls
     static final class Holder {
-        @Nonnull
+        @NonNull
         static final IdentityConverter<Object> CONVERTER = new IdentityConverter<>();
     }
 
     @Override
-    public A decode(@Nonnull final A encoded) {
+    public A decode(@NonNull final A encoded) {
         return encoded;
     }
 
     @Override
-    public A encode(@Nonnull final A value) {
+    public A encode(@NonNull final A value) {
         return value;
     }
 }

@@ -3,7 +3,7 @@ package arez.persist;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Annotation applied to observable properties that direct Arez to persist the property.
@@ -23,7 +23,7 @@ public @interface Persist {
      *
      * @return the name used to persist the property.
      */
-    @Nonnull
+    @NonNull
     String name() default "<default>";
 
     /**
@@ -32,7 +32,7 @@ public @interface Persist {
      *
      * @return the key identifying the store where the observable data is stored.
      */
-    @Nonnull
+    @NonNull
     String store() default "<default>";
 
     /**
@@ -43,6 +43,6 @@ public @interface Persist {
      *
      * @return the name of the setter used to update value when restoring from a persisted store.
      */
-    @Nonnull
+    @NonNull
     String setterName() default "<default>";
 }

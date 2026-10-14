@@ -7,8 +7,8 @@ import arez.SafeProcedure;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The store that contains a cached copy of any state persisted.
@@ -20,7 +20,7 @@ public final class Store {
     /**
      * In-memory cache of configuration data.
      */
-    @Nonnull
+    @NonNull
     private final Map<Scope, Map<String, Map<String, StorageService.Entry>>> _config = new HashMap<>();
     /**
      * Has the config data been committed to the backend storage?
@@ -29,12 +29,12 @@ public final class Store {
     /**
      * The service that stores the state.
      */
-    @Nonnull
+    @NonNull
     private final StorageService _storageService;
     /**
      * Cache for action that performs commit.
      */
-    @Nonnull
+    @NonNull
     private final SafeProcedure _commitTriggerAction = this::commit;
     /**
      * Flag indicating this store has been disposed.
@@ -46,7 +46,7 @@ public final class Store {
      *
      * @param storageService the underlying storage service that manages the state.
      */
-    Store(@Nonnull final StorageService storageService) {
+    Store(@NonNull final StorageService storageService) {
         _storageService = Objects.requireNonNull(storageService);
     }
 
@@ -64,7 +64,7 @@ public final class Store {
      *
      * @param scope the scope.
      */
-    void releaseScope(@Nonnull final Scope scope) {
+    void releaseScope(@NonNull final Scope scope) {
         scope.getNestedScopes().forEach(this::releaseScope);
         if (null != _config.remove(scope)) {
             scheduleCommit();
@@ -83,11 +83,11 @@ public final class Store {
      * @param converter the converter to use to encode state for storage.
      */
     public void save(
-            @Nonnull final Scope scope,
-            @Nonnull final String type,
-            @Nonnull final String id,
-            @Nonnull final Map<String, Object> state,
-            @Nonnull final TypeConverter converter) {
+            @NonNull final Scope scope,
+            @NonNull final String type,
+            @NonNull final String id,
+            @NonNull final Map<String, @Nullable Object> state,
+            @NonNull final TypeConverter converter) {
         if (ArezPersist.shouldCheckApiInvariants()) {
             apiInvariant(() -> !isDisposed(), () -> "Store.save() invoked after the store has been disposed");
             apiInvariant(
@@ -116,7 +116,7 @@ public final class Store {
      * @param type  the string that identifies the type of component.
      * @param id    a string representation of the component id.
      */
-    public void remove(@Nonnull final Scope scope, @Nonnull final String type, @Nonnull final String id) {
+    public void remove(@NonNull final Scope scope, @NonNull final String type, @NonNull final String id) {
         if (ArezPersist.shouldCheckApiInvariants()) {
             apiInvariant(() -> !isDisposed(), () -> "Store.remove() invoked after the store has been disposed");
             apiInvariant(
@@ -141,11 +141,11 @@ public final class Store {
      * @return the component state if it exists, else null.
      */
     @Nullable
-    public Map<String, Object> get(
-            @Nonnull final Scope scope,
-            @Nonnull final String type,
-            @Nonnull final String id,
-            @Nonnull final TypeConverter converter) {
+    public Map<String, @Nullable Object> get(
+            @NonNull final Scope scope,
+            @NonNull final String type,
+            @NonNull final String id,
+            @NonNull final TypeConverter converter) {
         if (ArezPersist.shouldCheckApiInvariants()) {
             apiInvariant(() -> !isDisposed(), () -> "Store.get() invoked after the store has been disposed");
             apiInvariant(
@@ -159,9 +159,10 @@ public final class Store {
             if (null == entry) {
                 return null;
             } else {
-                final Map<String, Object> data = entry.getData();
+                final Map<String, @Nullable Object> data = entry.getData();
                 if (null == data) {
-                    final Map<String, Object> decoded = _storageService.decodeState(entry.getEncoded(), converter);
+                    final Map<String, @Nullable Object> decoded =
+                            _storageService.decodeState(entry.getEncoded(), converter);
                     entry.setData(decoded);
                     return decoded;
                 } else {
@@ -210,7 +211,7 @@ public final class Store {
         }
     }
 
-    @Nonnull
+    @NonNull
     Map<Scope, Map<String, Map<String, StorageService.Entry>>> getConfig() {
         return _config;
     }

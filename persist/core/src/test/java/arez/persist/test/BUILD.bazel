@@ -4,5 +4,6 @@ filegroup(
     name = "all",
     srcs = [
         "JDependTest.java",
+        "package-info.java",
     ],
 )

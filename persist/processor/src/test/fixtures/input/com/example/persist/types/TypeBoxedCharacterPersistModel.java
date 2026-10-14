@@ -4,14 +4,17 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.persist.Persist;
 import arez.persist.PersistType;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 @PersistType
 @ArezComponent
 abstract class TypeBoxedCharacterPersistModel
 {
   @Observable
   @Persist
-  public abstract Character getValue();
+  public abstract @Nullable Character getValue();
 
-  public abstract void setValue( Character v );
+  public abstract void setValue( @Nullable Character v );
 }
