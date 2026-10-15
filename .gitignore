@@ -12,3 +12,6 @@
 # Generated build and release output
 /dist/
 /reports/
+
+# Python compiled bytecode
+**/__pycache__/**
