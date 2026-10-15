@@ -1,28 +1,14 @@
-*.iml
-/*.ipr
-/*.iws
-/archive
-/yarn-error.log
-/Gemfile.lock
-/_buildr.rb
-/reports
-/target
-/tmp
-/generated
-/*/generated
-/extras/**/generated
-/persist/**/generated
-/node_modules
-/website/translated_docs
-/website/build/
-/website/node_modules
-/website/i18n
-/website/static/api
-/bazel-*
-/.bazelrc.local
-/dist
-/.bazelbsp
+# Ignore project files
+/.idea/
+/.bazelbsp/
 
-# Python helper caches
-__pycache__/
-*.pyc
+# Ignore bazel link trees
+/bazel-*
+
+# Ignore project local temp files
+/tmp/
+/.bazelrc.local
+
+# Generated build and release output
+/dist/
+/reports/
