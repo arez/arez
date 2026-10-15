@@ -1,7 +1,6 @@
 # Build the complete project with Bazel
 
-Arez combines annotation processing, generated Java, JVM tests, J2CL/Closure,
-documentation and publication archives. Use one Bazel graph for these builds so
-tools and inputs are declared together and cached consistently. Retaining Buildr
-and a separate Node site build would preserve competing dependency and setup
-paths; a JVM-only build would still need separate browser orchestration.
+Arez uses Bazel for annotation processing, JVM tests, J2CL applications,
+documentation and publication archives so they share declared dependencies and
+cached build results. Separate Java, browser and site builds would duplicate
+dependency configuration and require another layer to coordinate their outputs.

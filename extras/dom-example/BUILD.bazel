@@ -75,7 +75,7 @@ j2cl_library(
 
 closure_js_library(
     name = "location_entry",
-    srcs = ["src/main/js/location/entry.js"],
+    srcs = ["//extras/dom-example/src/main/java/arez/dom/example:BrowserLocationExample.entry.js"],
     deps = [":location"],
 )
 
@@ -129,7 +129,7 @@ j2cl_library(
 
 closure_js_library(
     name = "size_entry",
-    srcs = ["src/main/js/size/entry.js"],
+    srcs = ["//extras/dom-example/src/main/java/arez/dom/example:WindowSizeExample.entry.js"],
     deps = [":size"],
 )
 
@@ -183,7 +183,7 @@ j2cl_library(
 
 closure_js_library(
     name = "media_entry",
-    srcs = ["src/main/js/media/entry.js"],
+    srcs = ["//extras/dom-example/src/main/java/arez/dom/example:MediaQueryExample.entry.js"],
     deps = [":media"],
 )
 
@@ -237,7 +237,7 @@ j2cl_library(
 
 closure_js_library(
     name = "visibility_entry",
-    srcs = ["src/main/js/visibility/entry.js"],
+    srcs = ["//extras/dom-example/src/main/java/arez/dom/example:DocumentVisibilityExample.entry.js"],
     deps = [":visibility"],
 )
 
@@ -291,7 +291,7 @@ j2cl_library(
 
 closure_js_library(
     name = "geo_entry",
-    srcs = ["src/main/js/geo/entry.js"],
+    srcs = ["//extras/dom-example/src/main/java/arez/dom/example:GeoPositionExample.entry.js"],
     deps = [":geo"],
 )
 
@@ -345,7 +345,7 @@ j2cl_library(
 
 closure_js_library(
     name = "idle_entry",
-    srcs = ["src/main/js/idle/entry.js"],
+    srcs = ["//extras/dom-example/src/main/java/arez/dom/example:IdleStatusExample.entry.js"],
     deps = [":idle"],
 )
 
@@ -400,7 +400,7 @@ j2cl_library(
 
 closure_js_library(
     name = "network_entry",
-    srcs = ["src/main/js/network/entry.js"],
+    srcs = ["//extras/dom-example/src/main/java/arez/dom/example:NetworkStatusExample.entry.js"],
     deps = [":network"],
 )
 

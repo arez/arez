@@ -12,15 +12,13 @@ contracts must have specified JSpecify nullness.
 
 ## Configure Maven
 
-These instructions describe the JSpecify migration; the last legacy release is 0.256. Run Maven on
-JDK 21 or later and replace `RELEASE_VERSION` with a release containing this migration.
+Run Maven on JDK 21 or later and set `arez.version` to the Arez release you want to use.
 Add the library dependency and configure the compiler to use the Arez annotation processor. The
 [Maven compiler plugin](https://maven.apache.org/plugins-archives/maven-compiler-plugin-3.12.1/compile-mojo.html)
 supports the `release` and `annotationProcessorPaths` configuration shown below.
 
-The core elements of Arez as well as the annotations and infrastructure for the annotation driven
-[component model](components.md) are included in the `arez-core` artifact. To add this library to
-your Maven project, simply add the following to your `pom.xml`:
+Add `arez-core` for the runtime and [component annotations](components.md), and JSpecify for
+nullability annotations:
 
 ```xml
 <project>
@@ -35,20 +33,24 @@ your Maven project, simply add the following to your `pom.xml`:
       <artifactId>arez-core</artifactId>
       <version>${arez.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.jspecify</groupId>
+      <artifactId>jspecify</artifactId>
+      <version>1.0.0</version>
+    </dependency>
     ...
   </dependencies>
 </project>
 ```
 
-To enable the annotation processor used by the component framework, you need add the following
-snippet to configure the maven compiler plugin from within the `pom.xml`:
+Configure annotation processing with the Maven compiler plugin:
 
 ```xml
 <project>
   ...
   <build>
-  <plugins>
-    ...
+    <plugins>
+      ...
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -56,6 +58,9 @@ snippet to configure the maven compiler plugin from within the `pom.xml`:
         <configuration>
           <release>17</release>
           <useIncrementalCompilation>false</useIncrementalCompilation>
+          <compilerArgs>
+            <arg>-XDaddTypeAnnotationsToSymbol=true</arg>
+          </compilerArgs>
           <annotationProcessorPaths>
             <path>
               <groupId>org.realityforge.arez</groupId>
@@ -71,10 +76,8 @@ snippet to configure the maven compiler plugin from within the `pom.xml`:
 </project>
 ```
 
-When compiling with JDK 21, also pass `-XDaddTypeAnnotationsToSymbol=true` to `javac` so processors
-can read type-use annotations from compiled dependencies. In Maven this belongs in
-`<compilerArgs><arg>-XDaddTypeAnnotationsToSymbol=true</arg></compilerArgs>`. Include
-`org.jspecify:jspecify:1.0.0` on the application compile classpath when declaring JSpecify contracts.
+The `-XDaddTypeAnnotationsToSymbol=true` flag lets processors read type-use annotations from
+compiled dependencies when running on JDK 21.
 
 ### Optional Generated Source Formatting
 
@@ -103,40 +106,80 @@ exports with `-J`, for example
 `-J--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED`, so they reach the forked
 compiler JVM.
 
+## Configure Bazel
+
+The public targets use the same binary and source archives published to Maven Central:
+
+| Bazel label | Maven artifact |
+| --- | --- |
+| `@arez//:core` | `arez-core` |
+| `@arez//:processor` | `arez-processor` |
+| `@arez//:dom` | `arez-extras-dom` |
+| `@arez//:promise` | `arez-extras-promise` |
+| `@arez//:spytools` | `arez-extras-spytools` |
+| `@arez//:testng` | `arez-extras-testng` |
+| `@arez//:persist_core` | `arez-persist-core` |
+| `@arez//:persist_processor` | `arez-persist-processor` |
+
+Add `@arez//:arez_processor_plugin` and, for Persist,
+`@arez//:arez_persist_processor_plugin` to the consuming target's `plugins` list.
+These plugins contain their compiler dependencies; JSpecify belongs on the application classpath.
+
+Bazel takes dependency overrides and patch files from the application's root module.
+From the Arez checkout at the revision you intend to use, run:
+
+```sh
+python3 tools/bazel_consumer_config.py /absolute/path/to/application
+```
+
+Commit the generated `third_party/arez/` inputs in the application and regenerate them when
+updating Arez. Add this configuration to the application's `MODULE.bazel`:
+
+```starlark
+bazel_dep(name = "arez")
+git_override(
+    module_name = "arez",
+    remote = "https://github.com/arez/arez.git",
+    commit = "<full commit SHA>",
+)
+include("//third_party/arez:dependencies.MODULE.bazel")
+```
+
+Use the same immutable revision for the override and generated configuration. Merge any duplicate
+dependency declarations or overrides already in the application. For local development, replace
+the `git_override` with `local_path_override(module_name = "arez", path = "/absolute/path/to/arez")`.
+
+Apply the Java language and toolchain settings from Arez's `.bazelrc` to the application's
+`.bazelrc`, including `--nojava_header_compilation` and strict dependency checking. Bazel does not
+apply a dependency repository's `.bazelrc` to its consumers. When compiling inherited contracts,
+retain parameter names with `-parameters` and expose compiled type-use annotations with
+`-XDaddTypeAnnotationsToSymbol=true`.
+
 ## Configure your IDE
 
-It is expected that most Arez applications are developed from within an IDE. The configuration of the IDE
-can be done by importing the `pom.xml` into the IDE but further customizations will often need to be done by
-the user. In particular, there is some additional steps required when using [IntelliJ IDEA](intellij.md).
+Import your build configuration into the IDE and enable annotation processing. See
+[IntelliJ IDEA setup](intellij.md) for processor paths and generated-source settings.
 
 ## Configure a J2CL Application
 
 Public Bazel browser targets compile the same complete source archives that are published for
 Maven consumers:
 
-* `//:core-j2cl`
-* `//:dom-j2cl`
-* `//:promise-j2cl`
-* `//:spytools-j2cl`
-* `//:persist-core-j2cl`
+* `@arez//:core-j2cl`
+* `@arez//:dom-j2cl`
+* `@arez//:promise-j2cl`
+* `@arez//:spytools-j2cl`
+* `@arez//:persist-core-j2cl`
 
-Use the packaged `//:arez_processor_plugin` and `//:arez_persist_processor_plugin` targets for
-annotation processing. JVM consumers use the corresponding root binary imports such as `//:core`
-and `//:dom`. The source archives contain generated Java and required native JavaScript companions;
-use them as J2CL inputs rather than expecting Java source inside binary jars.
+Use the packaged processor plugins from [Bazel setup](#configure-bazel) for annotation processing.
+The source archives contain generated Java and native JavaScript companions; use them as J2CL
+inputs. Binary jars contain compiled classes.
 
 The examples use JsInterop bootstrap methods and Closure entry modules. For a working application
 and explicit development/production defines, see `extras/promise-example/BUILD.bazel` and
 `tools/browser/rules.bzl` in the repository. Development enables Arez and Braincheck invariant
 checks; production uses Closure ADVANCED optimization and disables those checks.
 
-```sh
-bazel build //extras/promise-example:app
-bazel test //:browser_tests
-bazel test -c opt //:browser_tests
-python3 tools/browser/preview.py //extras/promise-example:app
-```
-
-All seven DOM examples have equivalent targets under `extras/dom-example`. GWT modules and
-bootstraps are retired. `GwtIncompatible` remains only as the annotation name recognized by J2CL
-to strip JVM-only methods.
+See [development](https://github.com/arez/arez/blob/master/docs/development.md#local-browser-examples)
+for commands to build, preview and test the examples. `GwtIncompatible` marks JVM-only methods
+for J2CL to remove; it does not add a GWT dependency.

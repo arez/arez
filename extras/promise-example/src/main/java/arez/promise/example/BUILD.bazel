@@ -5,6 +5,9 @@ filegroup(
 )
 
 exports_files(
-    ["public/ObservablePromiseExample.html"],
+    [
+        "ObservablePromiseExample.entry.js",
+        "public/ObservablePromiseExample.html",
+    ],
     visibility = ["//extras/promise-example:__pkg__"],
 )

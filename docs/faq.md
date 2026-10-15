@@ -148,12 +148,10 @@ noted that if names are not enabled by the Arez compile time configuration (i.e.
 
 ### Why guard invariant checks with `Arez.shouldCheckInvariants()`?
 
-The codebase is filled with lots of calls to the `Guards.invariant(...)` and `Guards.apiInvariant(...)` methods.
-If the appropriate configuration settings are supplied, these methods will verify that invariants and expectations
-of the Arez library are true at runtime. As these checks can be expensive, they should not be run in production mode.
-Production J2CL applications disable these checks through Closure defines. Keeping an explicit
-`Arez.shouldCheckInvariants()` guard lets the optimizer remove the check and its lambda arguments
-when invariants are disabled:
+`Guards.invariant(...)` and `Guards.apiInvariant(...)` check Arez's runtime assumptions.
+Production example builds disable them through Closure defines. An explicit
+`Arez.shouldCheckInvariants()` guard allows the optimizer to remove the call and its lambda
+arguments when checks are disabled:
 
 ```java
 if (Arez.shouldCheckInvariants()) {
@@ -169,37 +167,13 @@ The browser examples exercise both development checks and optimized production s
 
 ### How does Arez compare to Mobx?
 
-Arez began life as a port of Mobx so they both share a core conceptual model of observable values, computable
-values (a.k.a derived values) and observers. The internals that implement Arez are better optimized for both
-execution speed and base code size than the Mobx equivalents through static generation and J2CL optimization.
-For many use cases Arez has a much smaller memory footprint.
+Arez and [MobX](https://mobx.js.org/the-gist-of-mobx.html) share a model of observable state,
+derived values and observers. Arez's component model generates reactive Java code through
+annotation processing and runs on the JVM or in J2CL applications. MobX tracks observable reads
+and updates at runtime in JavaScript applications.
 
-As the number of observable nodes increases, Mobx has the advantage and the code size will increase at a
-lower rate compared to a normal Arez application. The actual threshold where the size of the Arez code is higher
-than the equivalent functionality in Mobx is a moving target as both projects are continually evolving. In
-practice it is expected to be in the vicinity of ~6000 `@Observable` annotated methods but this has not been
-measured recently.
-
-The reason for the difference is primarily how the two different frameworks make an object reactive. The Arez
-component model statically generates code at compile time to make an element reactive while Mobx introduces
-reactivity dynamically at runtime. Arez has experimented with using dynamic runtime enhancement of a component
-but this approach relied upon features of J2CL and J2CL is still in development. Arez's dynamic components were
-also limited to running on a javascript virtual machine and would no longer be able to be run on a JVM without
-an alternative implementation strategy.
-
-Mobx has a much larger ecosystem with a larger developer base. As a result Mobx offers much better educational
-resources (such as documentation and video courses). Some features of Mobx (i.e. `when(...)`) are only available
-as libraries (i.e. `arez-when` project) where they are baked into Mobx. Arez includes an opinionated
-component model within the core framework where as the equivalent within in the Mobx ecosystem is provided by
-[Mobx State Tree](https://github.com/mobxjs/mobx-state-tree) or MST. MST provides similar features to the Arez
-component model as well as additional functionality such as serialization and deserialization of state.
-
-Arez includes a significantly more advanced scheduler where observers and memoized functions can be scheduled at
-different priorities. The scheduler also allows user code to explicitly schedule tasks that will be interleaved
-with observer reactions. Both of these features have opened up significant mechanisms for improving performance
-
-Overall the two libraries share many similarities. Arez is focused on performance and is written in Java. Mobx
-has a larger ecosystem and is written in javascript (or TypeScript to be more precise).
+Arez also provides [component lifecycle and relationships](components.md) and a
+[scheduler](scheduler.md) that supports observer priorities and explicitly scheduled tasks.
 
 ### How does Arez compare to Incremental?
 

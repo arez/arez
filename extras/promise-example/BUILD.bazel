@@ -45,7 +45,7 @@ j2cl_library(
 
 closure_js_library(
     name = "entry",
-    srcs = ["src/main/js/entry.js"],
+    srcs = ["//extras/promise-example/src/main/java/arez/promise/example:ObservablePromiseExample.entry.js"],
     deps = [":application"],
 )
 

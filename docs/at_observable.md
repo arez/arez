@@ -22,8 +22,8 @@ Abstract observables typically require a constructor parameter to supply the ini
 initialized from a static field or static method, removing the need for constructor parameters.
 
 The annotated field must be `static final` (or a `static` method) and the associated observable must be abstract.
-The initializer must have the same effective JSpecify nullness as the observable getter.
-Use `@NullMarked` for non-null defaults and type-use `@Nullable` for nullable values.
+If the observable getter has a non-null JSpecify contract, its initializer must also be non-null.
+A `@NullMarked` scope supplies that default; use type-use `@Nullable` for values that can be null.
 
 For example:
 

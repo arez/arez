@@ -1,69 +1,67 @@
 # Releasing Arez
 
-Release all eight artifacts together under `org.realityforge.arez`. The release
-contains binary, complete sources, Javadoc and POM files for core, processor,
-DOM, promise, spytools, TestNG, Persist core and Persist processor.
+Release all Arez artifacts together under `org.realityforge.arez`. Each artifact
+has a binary jar, sources jar, Javadoc jar and POM. Run `tools/check.sh` before
+preparing a release.
 
-Run the full `tools/check.sh` gate before preparing a release. Bazel and Python 3
-are required for local packaging. Publishing also requires Git, GPG, curl and
-the GitHub CLI. Central credentials are a Portal user token pair in
-`MAVEN_CENTRAL_USERNAME` and `MAVEN_CENTRAL_PASSWORD`. Optional `GPG_USER` chooses
-the signing key; `GPG_PASS` supplies its passphrase through standard input.
-Keep these values outside the repository.
+Local packaging requires Bazel, Bash and Python 3. Publication also requires Git, GPG,
+curl and the GitHub CLI. Configure a Central Portal user token through
+`MAVEN_CENTRAL_USERNAME` and `MAVEN_CENTRAL_PASSWORD`. GPG uses its default signing
+key unless `GPG_USER` selects another key; `GPG_PASS` supplies a passphrase through
+standard input. Keep credentials outside the repository.
 
-## Local preparation and preview
+## Prepare and inspect
 
-Use the next numeric version in place of `0.257` below:
+Choose the numeric release version, then prepare the notes and build an unsigned
+bundle:
 
-```sh
-python3 tools/release/prepare.py 0.257
-tools/release/package.sh 0.257 --unsigned
-python3 tools/release/verify_bundle.py dist/arez-0.257.zip 0.257 --unsigned
+```bash
+read -r -p 'Release version: ' RELEASE_VERSION
+python3 tools/release/prepare.py "$RELEASE_VERSION"
+tools/release/package.sh "$RELEASE_VERSION" --unsigned
+python3 tools/release/verify_bundle.py "dist/arez-$RELEASE_VERSION.zip" "$RELEASE_VERSION" --unsigned
 tools/site.sh build
 tools/site.sh check
 ```
 
-Preparation moves the current notes into a dated release section, leaves an
-empty `Unreleased` section, and updates the Arez version property in both
-`docs/project_setup.md` and `persist/README.md`. Review and commit those three
-files. Compiler plugin versions are left unchanged.
+Preparation moves the current changelog notes into a dated release section,
+leaves an empty `Unreleased` section and updates the Arez version in
+`docs/project_setup.md` and `persist/README.md`. Review and commit those changes
+on `master` before publishing.
 
-The bundle has 32 artifacts plus MD5/SHA-1 checksum files in Maven coordinate
-directories. POM identities must match the requested version. The unsigned
-bundle is for local inspection; upload rejects it. To exercise publishing
-plumbing locally, build the unsigned `0.257` preview and run
-`python3 tools/release/check_commands.py`. It uses a disposable copy, synthetic
-credentials and local Git/GPG/curl/gh/Bazel stubs.
+The bundle contains the artifacts and checksums in Maven coordinate directories.
+The verifier checks the version, coordinates, contents and checksums. An unsigned
+bundle is for inspection; the upload command requires a signed bundle.
 
-## Publication
+## Publish
 
-After reviewing and committing the prepared release on the default branch,
-create and push its tag explicitly. These commands publish remote state:
+Run each command only after the previous one succeeds. Keep `RELEASE_VERSION` set
+to the version prepared above. These commands create remote tags, publish to
+Maven Central and GitHub, and deploy the website:
 
 ```sh
-git tag v0.257
+git tag "v$RELEASE_VERSION"
 git push origin master
-git push origin v0.257
-tools/release/package.sh 0.257
-tools/release/upload_maven_central.sh 0.257
-tools/release/github_release.sh 0.257
-tools/site.sh deploy 0.257
+git push origin "v$RELEASE_VERSION"
+tools/release/package.sh "$RELEASE_VERSION"
+tools/release/upload_maven_central.sh "$RELEASE_VERSION"
+tools/release/github_release.sh "$RELEASE_VERSION"
+tools/site.sh deploy "$RELEASE_VERSION"
 ```
 
-Packaging signs all 32 artifacts and adds checksums for their signatures. The
-upload command verifies bundle completeness/checksums/coordinates, requires the
-exact release tag on the default branch containing the remote default branch,
-and uses the [Central Portal API](https://central.sonatype.org/publish/publish-portal-api/)
-with automatic publication. It polls until publication succeeds or reports the
-failed deployment. It never prints credential values.
+Packaging signs the artifacts and includes signatures and their checksums. The
+Central upload verifies the bundle and requires HEAD to have the exact release
+tag on the default branch, with the remote default branch included in its
+history. It uses the [Central Portal API](https://central.sonatype.org/publish/publish-portal-api/)
+for automatic publication and waits for success or reports the deployment error.
 
-GitHub release creation uses the existing remote tag and that release's
-changelog notes. Site deployment rebuilds and checks the site, clones
-`arez/arez.github.io`, replaces its published files, commits changes and pushes
-normally to `master`. It does not force-push. Finish subsequent development by
-adding new changes under the already empty `Unreleased` section.
+The GitHub release uses the remote tag and that version's changelog notes. Site
+deployment rebuilds and checks the site, replaces the published files in
+`arez/arez.github.io`, and commits and pushes the result.
 
-Local artifact verification uses the default `0.0.0-SNAPSHOT` version unless a
-release version is selected. After packaging, restore that build with
-`bazel build //tools/release:maven_artifacts //tools/release:site_javadoc` before
-running the default artifact checker.
+Add subsequent changes under `Unreleased`. To resume local artifact checks after
+packaging a release version, rebuild the default snapshot artifacts:
+
+```sh
+bazel build //tools/release:maven_artifacts //tools/release:site_javadoc
+```

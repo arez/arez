@@ -27,8 +27,7 @@ more static factory methods are defined such as in the following example:
 
 {@file_content: file=arez/doc/examples/access_level/MyComponent.java start_line=@ArezComponent include_start_line=true}
 
-The generated subclass starts with the following declarations, read from the compiled example's
-generated source archive:
+The generated subclass begins with these declarations:
 
 {@file_content: path=generated/processors/main/java file=arez/doc/examples/access_level/Arez_MyComponent.java start_line=@Generated "end_line=private static volatile" include_end_line=false}
 

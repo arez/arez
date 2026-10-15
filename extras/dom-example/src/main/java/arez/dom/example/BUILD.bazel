@@ -11,7 +11,10 @@ filegroup(
 )
 
 exports_files(
-    ["public/BrowserLocationExample.html"],
+    [
+        "BrowserLocationExample.entry.js",
+        "public/BrowserLocationExample.html",
+    ],
     visibility = ["//extras/dom-example:__pkg__"],
 )
 
@@ -22,7 +25,10 @@ filegroup(
 )
 
 exports_files(
-    ["public/WindowSizeExample.html"],
+    [
+        "WindowSizeExample.entry.js",
+        "public/WindowSizeExample.html",
+    ],
     visibility = ["//extras/dom-example:__pkg__"],
 )
 
@@ -33,7 +39,10 @@ filegroup(
 )
 
 exports_files(
-    ["public/MediaQueryExample.html"],
+    [
+        "MediaQueryExample.entry.js",
+        "public/MediaQueryExample.html",
+    ],
     visibility = ["//extras/dom-example:__pkg__"],
 )
 
@@ -44,7 +53,10 @@ filegroup(
 )
 
 exports_files(
-    ["public/DocumentVisibilityExample.html"],
+    [
+        "DocumentVisibilityExample.entry.js",
+        "public/DocumentVisibilityExample.html",
+    ],
     visibility = ["//extras/dom-example:__pkg__"],
 )
 
@@ -55,7 +67,10 @@ filegroup(
 )
 
 exports_files(
-    ["public/GeoPositionExample.html"],
+    [
+        "GeoPositionExample.entry.js",
+        "public/GeoPositionExample.html",
+    ],
     visibility = ["//extras/dom-example:__pkg__"],
 )
 
@@ -66,7 +81,10 @@ filegroup(
 )
 
 exports_files(
-    ["public/IdleStatusExample.html"],
+    [
+        "IdleStatusExample.entry.js",
+        "public/IdleStatusExample.html",
+    ],
     visibility = ["//extras/dom-example:__pkg__"],
 )
 
@@ -77,6 +95,9 @@ filegroup(
 )
 
 exports_files(
-    ["public/NetworkStatusExample.html"],
+    [
+        "NetworkStatusExample.entry.js",
+        "public/NetworkStatusExample.html",
+    ],
     visibility = ["//extras/dom-example:__pkg__"],
 )
