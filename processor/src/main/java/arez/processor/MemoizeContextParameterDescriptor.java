@@ -2,7 +2,6 @@ package arez.processor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Pattern;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.ExecutableElement;
@@ -56,8 +55,8 @@ final class MemoizeContextParameterDescriptor {
     private final List<MemoizeDescriptor> _matchedMemoizeDescriptors = new ArrayList<>();
 
     MemoizeContextParameterDescriptor(final ComponentDescriptor component, final String name) {
-        _component = Objects.requireNonNull(component);
-        _name = Objects.requireNonNull(name);
+        _component = component;
+        _name = name;
     }
 
     ComponentDescriptor getComponent() {
@@ -100,8 +99,8 @@ final class MemoizeContextParameterDescriptor {
     void setPattern(final String patternText, final Pattern pattern) {
         assert null == _pattern;
         assert null == _patternText;
-        _patternText = Objects.requireNonNull(patternText);
-        _pattern = Objects.requireNonNull(pattern);
+        _patternText = patternText;
+        _pattern = pattern;
     }
 
     void setAllowEmpty(final boolean allowEmpty) {
@@ -183,8 +182,8 @@ final class MemoizeContextParameterDescriptor {
         final TypeMirror returnType = method.getReturnType();
         if (null == _initial) {
             _initialMethodType = MemoizeContextParameterMethodType.Capture;
-            _initial = Objects.requireNonNull(method);
-            _initialValueType = Objects.requireNonNull(returnType);
+            _initial = method;
+            _initialValueType = returnType;
             setAllowEmpty(allowEmpty);
             setPattern(patternText, pattern);
         } else {
@@ -207,8 +206,8 @@ final class MemoizeContextParameterDescriptor {
                 Constants.COMPONENT_CLASSNAME,
                 Constants.MEMOIZE_CONTEXT_PARAMETER_CLASSNAME,
                 method);
-        _capture = Objects.requireNonNull(method);
-        _captureType = Objects.requireNonNull(methodType);
+        _capture = method;
+        _captureType = methodType;
     }
 
     boolean hasPush() {
@@ -240,8 +239,8 @@ final class MemoizeContextParameterDescriptor {
         final TypeMirror valueType = method.getParameters().get(0).asType();
         if (null == _initial) {
             _initialMethodType = MemoizeContextParameterMethodType.Push;
-            _initial = Objects.requireNonNull(method);
-            _initialValueType = Objects.requireNonNull(valueType);
+            _initial = method;
+            _initialValueType = valueType;
             setAllowEmpty(allowEmpty);
             setPattern(patternText, pattern);
         } else {
@@ -263,8 +262,8 @@ final class MemoizeContextParameterDescriptor {
             throw new ProcessorException(
                     "@MemoizeContextParameter target on push method should accept a single parameter", method);
         }
-        _push = Objects.requireNonNull(method);
-        _pushType = Objects.requireNonNull(methodType);
+        _push = method;
+        _pushType = methodType;
     }
 
     boolean hasPop() {
@@ -296,8 +295,8 @@ final class MemoizeContextParameterDescriptor {
         final TypeMirror valueType = method.getParameters().get(0).asType();
         if (null == _initial) {
             _initialMethodType = MemoizeContextParameterMethodType.Pop;
-            _initial = Objects.requireNonNull(method);
-            _initialValueType = Objects.requireNonNull(valueType);
+            _initial = method;
+            _initialValueType = valueType;
             setAllowEmpty(allowEmpty);
             setPattern(patternText, pattern);
         } else {
@@ -319,8 +318,8 @@ final class MemoizeContextParameterDescriptor {
             throw new ProcessorException(
                     "@MemoizeContextParameter target on pop method should accept a single parameter", method);
         }
-        _pop = Objects.requireNonNull(method);
-        _popType = Objects.requireNonNull(methodType);
+        _pop = method;
+        _popType = methodType;
     }
 
     void validate(final ProcessingEnvironment processingEnv) {

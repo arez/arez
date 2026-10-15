@@ -1,8 +1,9 @@
 package arez;
 
+import static org.testng.Assert.assertNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 final class TestLogger implements ArezTestUtil.Logger {
@@ -14,7 +15,8 @@ final class TestLogger implements ArezTestUtil.Logger {
         private final Throwable _throwable;
 
         LogEntry(final String message, @Nullable final Throwable throwable) {
-            _message = Objects.requireNonNull(message);
+            assertNotNull(message);
+            _message = message;
             _throwable = throwable;
         }
 

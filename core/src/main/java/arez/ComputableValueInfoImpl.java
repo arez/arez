@@ -13,7 +13,6 @@ import grim.annotations.OmitType;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import org.jspecify.annotations.Nullable;
 
@@ -25,7 +24,7 @@ final class ComputableValueInfoImpl implements ComputableValueInfo {
     private final ComputableValue<?> _computableValue;
 
     ComputableValueInfoImpl(final ComputableValue<?> computableValue) {
-        _computableValue = Objects.requireNonNull(computableValue);
+        _computableValue = computableValue;
     }
 
     private static List<ComputableValueInfo> asInfos(final Collection<ComputableValue<?>> computableValues) {

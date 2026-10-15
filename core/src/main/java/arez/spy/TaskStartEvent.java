@@ -1,7 +1,6 @@
 package arez.spy;
 
 import java.util.Map;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -12,7 +11,7 @@ public final class TaskStartEvent implements SerializableEvent {
     private final TaskInfo _task;
 
     public TaskStartEvent(final TaskInfo task) {
-        _task = Objects.requireNonNull(task);
+        _task = task;
     }
 
     public TaskInfo getTask() {

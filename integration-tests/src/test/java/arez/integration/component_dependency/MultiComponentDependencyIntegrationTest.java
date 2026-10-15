@@ -8,7 +8,6 @@ import arez.annotations.ComponentDependency;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
-import java.util.Objects;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
@@ -59,7 +58,8 @@ public final class MultiComponentDependencyIntegrationTest extends AbstractArezI
         }
 
         ModelUnderTest(final SharedModel ref1, @Nullable final SharedModel ref2) {
-            _ref1 = Objects.requireNonNull(ref1);
+            assertNotNull(ref1);
+            _ref1 = ref1;
             _ref2 = ref2;
         }
 

@@ -17,7 +17,6 @@ import arez.component.Identifiable;
 import arez.component.TypeBasedLocator;
 import arez.component.internal.AbstractRepository;
 import arez.integration.AbstractArezIntegrationTest;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -40,7 +39,9 @@ public final class DisposeOneInverseIntegrationTest extends AbstractArezIntegrat
         });
 
         final Car car = repository.create();
-        final Integer carId = Objects.requireNonNull(Identifiable.getArezId(car));
+        final Integer carId = Identifiable.getArezId(car);
+        assertNotNull(carId);
+        assert null != carId;
 
         assertEquals(locatorLookupCallCount.get(), 0);
 

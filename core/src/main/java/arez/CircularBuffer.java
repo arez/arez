@@ -1,6 +1,5 @@
 package arez;
 
-import java.util.Objects;
 import java.util.stream.Stream;
 import org.jspecify.annotations.Nullable;
 
@@ -62,7 +61,7 @@ final class CircularBuffer<T> {
 
     void add(final T object) {
         tryGrowBeforeAdd();
-        insertLast(Objects.requireNonNull(object));
+        insertLast(object);
     }
 
     private void tryGrowBeforeAdd() {

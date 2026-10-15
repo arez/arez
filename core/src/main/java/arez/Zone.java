@@ -4,7 +4,6 @@ import static org.realityforge.braincheck.Guards.*;
 
 import grim.annotations.OmitSymbol;
 import grim.annotations.OmitType;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -39,7 +38,8 @@ public final class Zone {
      * @param name the name of the zone. Should be null if {@link Arez#areNamesEnabled()} returns false.
      */
     Zone(@Nullable final String name) {
-        _name = Arez.areNamesEnabled() ? Objects.requireNonNull(name) : null;
+        assert !Arez.areNamesEnabled() || null != name;
+        _name = Arez.areNamesEnabled() ? name : null;
     }
 
     public boolean isActive() {

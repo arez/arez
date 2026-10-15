@@ -1,5 +1,7 @@
 package arez.integration.basic;
 
+import static org.testng.Assert.assertNotNull;
+
 import arez.ObservableValue;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
@@ -13,7 +15,6 @@ import arez.persist.StoreTypes;
 import arez.persist.runtime.ArezPersist;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -38,7 +39,8 @@ public abstract class TreeNode {
     }
 
     TreeNode(@NonNull final String id, final int depth) {
-        _id = Objects.requireNonNull(id);
+        assertNotNull(id);
+        _id = id;
         _depth = depth;
     }
 

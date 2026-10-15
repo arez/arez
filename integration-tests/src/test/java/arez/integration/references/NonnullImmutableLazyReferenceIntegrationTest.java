@@ -15,7 +15,6 @@ import arez.component.TypeBasedLocator;
 import arez.component.internal.AbstractRepository;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -38,7 +37,9 @@ public final class NonnullImmutableLazyReferenceIntegrationTest extends Abstract
         });
 
         final Model2 model2a = repository.create();
-        final Object model2aId = Objects.requireNonNull(Identifiable.getArezId(model2a));
+        final Object model2aId = Identifiable.getArezId(model2a);
+        assertNotNull(model2aId);
+        assert null != model2aId;
         entities.put(model2aId, model2a);
 
         assertEquals(findCallCount.get(), 0);

@@ -1,5 +1,7 @@
 package arez.integration.basic;
 
+import static org.testng.Assert.assertNotNull;
+
 import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
 import arez.annotations.Feature;
@@ -8,7 +10,6 @@ import arez.persist.Persist;
 import arez.persist.PersistType;
 import arez.persist.StoreTypes;
 import arez.persist.runtime.ArezPersist;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 @ArezComponent(observable = Feature.ENABLE, disposeNotifier = Feature.ENABLE)
@@ -23,7 +24,8 @@ public abstract class NullableValue {
     }
 
     NullableValue(final String id) {
-        _id = Objects.requireNonNull(id);
+        assertNotNull(id);
+        _id = id;
     }
 
     @ComponentId

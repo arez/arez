@@ -21,7 +21,6 @@ import grim.annotations.OmitSymbol;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -172,7 +171,7 @@ public final class ComponentKernel implements Disposable, ComponentObservable {
                             || ((Integer) id).equals(component.getId()),
                     () -> "Arez-0222: ComponentKernel named '" + name + "' passed an id "
                             + id + " and a component but the component had a different id ("
-                            + Objects.requireNonNull(component).getId()
+                            + (null == component ? "?" : component.getId())
                             + ")");
         }
 
@@ -181,7 +180,8 @@ public final class ComponentKernel implements Disposable, ComponentObservable {
         }
         _name = Arez.areNamesEnabled() ? name : null;
         _context = Arez.areZonesEnabled() ? context : null;
-        _component = Arez.areNativeComponentsEnabled() ? Objects.requireNonNull(component) : null;
+        assert !Arez.areNativeComponentsEnabled() || null != component;
+        _component = Arez.areNativeComponentsEnabled() ? component : null;
         _id = id;
         _onDisposeListeners = notifyOnDispose ? new HashMap<>() : null;
         _preDisposeCallback = Arez.areNativeComponentsEnabled() ? null : preDisposeCallback;
@@ -239,7 +239,7 @@ public final class ComponentKernel implements Disposable, ComponentObservable {
                             + "' but observing is not enabled for component.");
         }
         if (null != _disposeOnDeactivateValue) {
-            return isNotDisposed() ? _disposeOnDeactivateValue.get() : false;
+            return isNotDisposed() && _disposeOnDeactivateValue.get();
         } else {
             return observe0();
         }
@@ -521,7 +521,12 @@ public final class ComponentKernel implements Disposable, ComponentObservable {
      * @return the associated context.
      */
     public ArezContext getContext() {
-        return Arez.areZonesEnabled() ? Objects.requireNonNull(_context) : Arez.context();
+        if (Arez.areZonesEnabled()) {
+            assert null != _context;
+            return _context;
+        } else {
+            return Arez.context();
+        }
     }
 
     /**

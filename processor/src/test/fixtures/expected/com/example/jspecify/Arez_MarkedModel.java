@@ -39,7 +39,7 @@ final class Arez_MarkedModel extends MarkedModel implements Disposable, Identifi
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_jspecify_MarkedModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_jspecify_MarkedModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arezd$$_value = Objects.requireNonNull( value );
+    this.$$arezd$$_value = value;
     this.$$arez$$_value = $$arezv$$_context.<String>observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".value" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_value ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_value = Objects.requireNonNull( v ) : null );
     this.$$arez$$_count = $$arezv$$_context.<Integer>observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".count" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_count ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_count = Objects.requireNonNull( v ) : null );
     this.$$arezi$$_kernel().componentConstructed();

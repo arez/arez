@@ -11,7 +11,6 @@ import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
-import java.util.Objects;
 import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
@@ -87,8 +86,8 @@ public abstract class MediaQuery {
     }
 
     MediaQuery(final Window window, final String query) {
-        _window = Objects.requireNonNull(window);
-        _mediaQueryList = _window.matchMedia(Objects.requireNonNull(query));
+        _window = window;
+        _mediaQueryList = _window.matchMedia(query);
     }
 
     /**
@@ -121,7 +120,7 @@ public abstract class MediaQuery {
         if (_active) {
             unbindListener();
         }
-        _mediaQueryList = _window.matchMedia(Objects.requireNonNull(query));
+        _mediaQueryList = _window.matchMedia(query);
         if (_active) {
             bindListener();
         }

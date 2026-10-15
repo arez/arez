@@ -46,11 +46,11 @@ abstract class MultiStorePersistModel_PersistSidecar {
 
   MultiStorePersistModel_PersistSidecar(final Scope scope, final MultiStorePersistModel peer,
       final Store aStore, final Store appStore, final Store bStore) {
-    _scope = Objects.requireNonNull( scope );
-    _peer = Objects.requireNonNull( peer );
-    _aStore = Objects.requireNonNull( aStore );
-    _appStore = Objects.requireNonNull( appStore );
-    _bStore = Objects.requireNonNull( bStore );
+    _scope = scope;
+    _peer = peer;
+    _aStore = aStore;
+    _appStore = appStore;
+    _bStore = bStore;
   }
 
   static MultiStorePersistModel_PersistSidecar attach(final Scope scope,

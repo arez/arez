@@ -1,6 +1,5 @@
 package arez.processor;
 
-import java.util.Objects;
 import javax.lang.model.element.ExecutableElement;
 
 /**
@@ -19,8 +18,8 @@ final class ComponentStateRefDescriptor {
     private final State _state;
 
     ComponentStateRefDescriptor(final ExecutableElement method, final State state) {
-        _method = Objects.requireNonNull(method);
-        _state = Objects.requireNonNull(state);
+        _method = method;
+        _state = state;
     }
 
     ExecutableElement getMethod() {

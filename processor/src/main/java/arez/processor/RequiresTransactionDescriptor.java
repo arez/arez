@@ -1,6 +1,5 @@
 package arez.processor;
 
-import java.util.Objects;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.type.ExecutableType;
 
@@ -26,11 +25,11 @@ final class RequiresTransactionDescriptor {
             final String tracking,
             final ExecutableElement method,
             final ExecutableType methodType) {
-        _component = Objects.requireNonNull(component);
-        _mode = Objects.requireNonNull(mode);
-        _tracking = Objects.requireNonNull(tracking);
-        _method = Objects.requireNonNull(method);
-        _methodType = Objects.requireNonNull(methodType);
+        _component = component;
+        _mode = mode;
+        _tracking = tracking;
+        _method = method;
+        _methodType = methodType;
     }
 
     ComponentDescriptor getComponent() {

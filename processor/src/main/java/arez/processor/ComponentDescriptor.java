@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
@@ -121,7 +120,7 @@ final class ComponentDescriptor {
             @Nullable final String defaultReadOutsideTransaction,
             @Nullable final String defaultWriteOutsideTransaction,
             @Nullable final String defaultSkipIfDisposed) {
-        _name = Objects.requireNonNull(name);
+        _name = name;
         _defaultPriority = defaultPriority;
         _observable = observable;
         _disposeNotifier = disposeNotifier;
@@ -130,7 +129,7 @@ final class ComponentDescriptor {
         _requireEquals = requireEquals;
         _verify = verify;
         _generateToString = generateToString;
-        _element = Objects.requireNonNull(element);
+        _element = element;
         _defaultReadOutsideTransaction = defaultReadOutsideTransaction;
         _defaultWriteOutsideTransaction = defaultWriteOutsideTransaction;
         _defaultSkipIfDisposed = defaultSkipIfDisposed;

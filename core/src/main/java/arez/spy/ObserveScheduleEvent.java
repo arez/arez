@@ -1,7 +1,6 @@
 package arez.spy;
 
 import java.util.Map;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -12,7 +11,7 @@ public final class ObserveScheduleEvent implements SerializableEvent {
     private final ObserverInfo _observer;
 
     public ObserveScheduleEvent(final ObserverInfo observer) {
-        _observer = Objects.requireNonNull(observer);
+        _observer = observer;
     }
 
     public ObserverInfo getObserver() {

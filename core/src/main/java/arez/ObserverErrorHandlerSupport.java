@@ -6,7 +6,6 @@ import grim.annotations.OmitSymbol;
 import grim.annotations.OmitType;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -32,7 +31,7 @@ final class ObserverErrorHandlerSupport implements ObserverErrorHandler {
                     () -> "Arez-0096: Attempting to add handler " + handler + " that is already in "
                             + "the list of error handlers.");
         }
-        _handlers.add(Objects.requireNonNull(handler));
+        _handlers.add(handler);
     }
 
     /**
@@ -48,7 +47,7 @@ final class ObserverErrorHandlerSupport implements ObserverErrorHandler {
                     () -> "Arez-0097: Attempting to remove handler " + handler + " that is not in "
                             + "the list of error handlers.");
         }
-        _handlers.remove(Objects.requireNonNull(handler));
+        _handlers.remove(handler);
     }
 
     @Override

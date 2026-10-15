@@ -12,7 +12,6 @@ import grim.annotations.OmitType;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import org.jspecify.annotations.Nullable;
 
@@ -27,8 +26,8 @@ final class ObserverInfoImpl implements ObserverInfo {
     private final Observer _observer;
 
     ObserverInfoImpl(final Spy spy, final Observer observer) {
-        _spy = Objects.requireNonNull(spy);
-        _observer = Objects.requireNonNull(observer);
+        _spy = spy;
+        _observer = observer;
     }
 
     private static List<ObserverInfo> asInfos(final Collection<Observer> observers) {

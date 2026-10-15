@@ -6,7 +6,6 @@ import arez.spy.ComputableValueCreateEvent;
 import arez.spy.ComputableValueDisposeEvent;
 import arez.spy.ComputableValueInfo;
 import grim.annotations.OmitSymbol;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -105,8 +104,8 @@ public final class ComputableValue<T extends @Nullable Object> extends Node {
                             + "Arez.areNativeComponentsEnabled() is false.");
         }
         _component = Arez.areNativeComponentsEnabled() ? component : null;
-        _function = Objects.requireNonNull(function);
-        _equalityComparator = Objects.requireNonNull(equalityComparator);
+        _function = function;
+        _equalityComparator = equalityComparator;
         _value = null;
         _computing = false;
         _readOutsideTransaction = Flags.READ_OUTSIDE_TRANSACTION == (flags & Flags.READ_OUTSIDE_TRANSACTION);

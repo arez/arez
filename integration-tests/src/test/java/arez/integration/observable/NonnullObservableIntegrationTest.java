@@ -6,7 +6,6 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Observable;
 import arez.integration.AbstractArezIntegrationTest;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -20,18 +19,11 @@ public final class NonnullObservableIntegrationTest extends AbstractArezIntegrat
         safeAction(() -> assertThrows(AssertionError.class, () -> model.setLastName(null)));
     }
 
-    @Test
-    public void disallowNullInInitializer() {
-        assertThrows(NullPointerException.class, () -> Model.create(null));
-    }
-
     @NullMarked
     @ArezComponent
     abstract static class Model {
 
-        // The nullable factory input tests rejection by the nonnull generated constructor.
-        @SuppressWarnings("NullAway")
-        static Model create(final @Nullable String lastName) {
+        static Model create(final String lastName) {
             return new NonnullObservableIntegrationTest_Arez_Model(lastName);
         }
 

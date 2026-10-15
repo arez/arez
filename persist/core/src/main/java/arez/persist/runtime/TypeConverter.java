@@ -1,7 +1,6 @@
 package arez.persist.runtime;
 
 import java.util.Map;
-import java.util.Objects;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -17,7 +16,7 @@ public final class TypeConverter {
     private final Map<String, Converter> _converters;
 
     public TypeConverter(@NonNull final Map<String, Converter> converters) {
-        _converters = Objects.requireNonNull(converters);
+        _converters = converters;
     }
 
     /**

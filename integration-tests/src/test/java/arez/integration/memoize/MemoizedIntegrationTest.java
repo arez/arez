@@ -16,7 +16,6 @@ import arez.annotations.Observable;
 import arez.component.ComponentObservable;
 import arez.integration.AbstractArezIntegrationTest;
 import arez.integration.util.SpyEventRecorder;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -189,12 +188,18 @@ public final class MemoizedIntegrationTest extends AbstractArezIntegrationTest {
 
         @Memoize
         public boolean doesSearchMatch(final String value) {
-            return Objects.requireNonNull(getName()).contains(value);
+            final var name = getName();
+            assertNotNull(name);
+            assert null != name;
+            return name.contains(value);
         }
 
         @Memoize
         public boolean doesFullSearchMatch(final String value, final int minAge) {
-            return Objects.requireNonNull(getName()).contains(value) && getAge() >= minAge;
+            final var name = getName();
+            assertNotNull(name);
+            assert null != name;
+            return name.contains(value) && getAge() >= minAge;
         }
     }
 }

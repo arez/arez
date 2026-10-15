@@ -1,7 +1,6 @@
 package arez.spy;
 
 import java.util.Map;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -12,7 +11,7 @@ public final class ComponentCreateStartEvent implements SerializableEvent {
     private final ComponentInfo _componentInfo;
 
     public ComponentCreateStartEvent(final ComponentInfo componentInfo) {
-        _componentInfo = Objects.requireNonNull(componentInfo);
+        _componentInfo = componentInfo;
     }
 
     public ComponentInfo getComponentInfo() {

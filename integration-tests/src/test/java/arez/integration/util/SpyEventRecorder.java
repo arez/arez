@@ -1,5 +1,7 @@
 package arez.integration.util;
 
+import static org.testng.Assert.assertNotNull;
+
 import arez.Arez;
 import arez.ArezContext;
 import arez.spy.SerializableEvent;
@@ -11,7 +13,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
@@ -69,7 +70,10 @@ public final class SpyEventRecorder implements SpyEventHandler {
     public void assertMatchesFixture(final Path file, final boolean updateFixture) throws IOException, JSONException {
         final String json = eventsAsString();
         if (updateFixture) {
-            final File dir = Objects.requireNonNull(file.getParent()).toFile();
+            final var parent = file.getParent();
+            assertNotNull(parent);
+            assert null != parent;
+            final File dir = parent.toFile();
             if (!dir.exists()) {
                 if (!dir.mkdirs()) {
                     throw new AssertionError("Unable to create fixtures parent directory: " + dir);

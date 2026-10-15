@@ -10,7 +10,6 @@ import arez.persist.runtime.Scope;
 import arez.persist.runtime.StorageService;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
@@ -38,7 +37,9 @@ public final class BasicIntegrationTest extends AbstractIntegrationTest {
         Arez.context().safeAction(() -> {
             final var service = TreeNodeService.create();
 
-            final TreeNode n0 = Objects.requireNonNull(service.getRoot());
+            final TreeNode n0 = service.getRoot();
+            assertNotNull(n0);
+            assert null != n0;
             final TreeNode n00 = n0.getChildren().get(0);
             final TreeNode n01 = n0.getChildren().get(1);
             final TreeNode n02 = n0.getChildren().get(2);
@@ -68,9 +69,12 @@ public final class BasicIntegrationTest extends AbstractIntegrationTest {
         // At the end of the action the transactions resolve and thus a commit
         // should have occurred to storage service
 
-        final var persistedTypes =
-                Objects.requireNonNull(storageService.getState().get(ArezPersist.getRootScope()));
-        final var persistedEntries = Objects.requireNonNull(persistedTypes.get(type));
+        final var persistedTypes = storageService.getState().get(ArezPersist.getRootScope());
+        assertNotNull(persistedTypes);
+        assert null != persistedTypes;
+        final var persistedEntries = persistedTypes.get(type);
+        assertNotNull(persistedEntries);
+        assert null != persistedEntries;
         final StorageService.Entry entry = persistedEntries.get("0-1-2-2");
         assertNotNull(entry);
         assert null != entry;
@@ -102,16 +106,24 @@ public final class BasicIntegrationTest extends AbstractIntegrationTest {
             present.setValue(null);
             assertNull(present.getValue());
         });
-        final var persistedTypes = Objects.requireNonNull(service.getState().get(scope));
-        final var persistedValues = Objects.requireNonNull(persistedTypes.get("NullableValue"));
+        final var persistedTypes = service.getState().get(scope);
+        assertNotNull(persistedTypes);
+        assert null != persistedTypes;
+        final var persistedValues = persistedTypes.get("NullableValue");
+        assertNotNull(persistedValues);
+        assert null != persistedValues;
         assertFalse(persistedValues.containsKey("present"));
 
         Arez.context().safeAction(() -> {
             final var value = NullableValue.create("changed");
             value.setValue("saved");
         });
-        final var savedTypes = Objects.requireNonNull(service.getState().get(scope));
-        final var savedValues = Objects.requireNonNull(savedTypes.get("NullableValue"));
+        final var savedTypes = service.getState().get(scope);
+        assertNotNull(savedTypes);
+        assert null != savedTypes;
+        final var savedValues = savedTypes.get("NullableValue");
+        assertNotNull(savedValues);
+        assert null != savedValues;
         final StorageService.Entry saved = savedValues.get("changed");
         assertNotNull(saved);
         assert null != saved;

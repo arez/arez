@@ -1,7 +1,6 @@
 package arez.spy;
 
 import java.util.Map;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -17,7 +16,7 @@ public final class TransactionStartEvent implements SerializableEvent {
     private final ObserverInfo _tracker;
 
     public TransactionStartEvent(final String name, final boolean mutation, @Nullable final ObserverInfo tracker) {
-        _name = Objects.requireNonNull(name);
+        _name = name;
         _mutation = mutation;
         _tracker = tracker;
     }

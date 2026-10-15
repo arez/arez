@@ -1,7 +1,6 @@
 package arez.dom;
 
 import arez.Disposable;
-import java.util.Objects;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
@@ -63,7 +62,7 @@ public final class DocumentVisibility implements Disposable {
      * @return the new component.
      */
     public static DocumentVisibility create(final Document document) {
-        return new DocumentVisibility(Objects.requireNonNull(document));
+        return new DocumentVisibility(document);
     }
 
     private DocumentVisibility(final Document document) {

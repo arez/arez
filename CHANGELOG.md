@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Remove redundant non-null parameter checks covered by JSpecify and NullAway, and use assertions for feature-dependent and internal descriptor state. Preserve Braincheck invariants and checks that narrow nullable external data.
+
 * Remove the unused Java emulation annotations dependency and `@DoNotAutobox` annotations from DOM positions.
 
 * Preserve nested JSpecify qualifiers in generated observable setters that allow writes outside a transaction.

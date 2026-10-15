@@ -5,7 +5,6 @@ import static org.testng.Assert.*;
 
 import arez.SafeProcedure;
 import arez.persist.AbstractTest;
-import java.util.Objects;
 import org.testng.annotations.Test;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
@@ -21,7 +20,10 @@ public final class ConverterTest extends AbstractTest {
         final Integer value = 33;
         assertSame(converter.encode(value), value);
 
-        assertSame(((Converter) converter).decode(Objects.requireNonNull(converter.encode(value))), value);
+        final var encoded = converter.encode(value);
+        assertNotNull(encoded);
+        assert null != encoded;
+        assertSame(((Converter) converter).decode(encoded), value);
     }
 
     @Test

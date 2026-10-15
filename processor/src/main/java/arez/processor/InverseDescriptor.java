@@ -2,7 +2,6 @@ package arez.processor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
@@ -40,8 +39,8 @@ final class InverseDescriptor {
     private String _otherName;
 
     InverseDescriptor(final ComponentDescriptor component, final String name) {
-        _component = Objects.requireNonNull(component);
-        _name = Objects.requireNonNull(name);
+        _component = component;
+        _name = name;
     }
 
     ComponentDescriptor getComponent() {
@@ -88,12 +87,12 @@ final class InverseDescriptor {
             final TypeElement targetType,
             final String otherName) {
         assert null == _observable;
-        _observable = Objects.requireNonNull(observable);
-        _referenceName = Objects.requireNonNull(referenceName);
-        _multiplicity = Objects.requireNonNull(multiplicity);
-        _targetType = Objects.requireNonNull(targetType);
+        _observable = observable;
+        _referenceName = referenceName;
+        _multiplicity = multiplicity;
+        _targetType = targetType;
         _observable.setInverseDescriptor(this);
-        _otherName = Objects.requireNonNull(otherName);
+        _otherName = otherName;
     }
 
     void addPostInverseAddHook(final ExecutableElement method) {

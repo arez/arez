@@ -19,7 +19,6 @@ import arez.component.Linkable;
 import arez.component.TypeBasedLocator;
 import arez.component.internal.AbstractRepository;
 import arez.integration.AbstractArezIntegrationTest;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -43,8 +42,12 @@ public final class ZeroOrOneMultiplicityExplicitLoadInverseIntegrationTest exten
 
         final Person person = repository.create();
         final Person person2 = repository.create();
-        final Integer personId = Objects.requireNonNull(Identifiable.getArezId(person));
-        final Integer person2Id = Objects.requireNonNull(Identifiable.getArezId(person2));
+        final Integer personId = Identifiable.getArezId(person);
+        assertNotNull(personId);
+        assert null != personId;
+        final Integer person2Id = Identifiable.getArezId(person2);
+        assertNotNull(person2Id);
+        assert null != person2Id;
 
         assertEquals(locatorLookupCallCount.get(), 0);
 

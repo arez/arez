@@ -3,7 +3,6 @@ package arez;
 import static org.realityforge.braincheck.Guards.*;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -34,7 +33,7 @@ final class RoundBasedTaskExecutor {
 
     RoundBasedTaskExecutor(final TaskQueue taskQueue, final int maxRounds) {
         assert maxRounds > 0;
-        _taskQueue = Objects.requireNonNull(taskQueue);
+        _taskQueue = taskQueue;
         _maxRounds = maxRounds;
     }
 

@@ -1,6 +1,5 @@
 package arez.persist.processor;
 
-import java.util.Objects;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.type.TypeMirror;
 
@@ -22,11 +21,11 @@ final class PropertyDescriptor {
             final ExecutableElement getter,
             final ExecutableElement setter,
             final TypeMirror type) {
-        _name = Objects.requireNonNull(name);
-        _store = Objects.requireNonNull(store);
-        _getter = Objects.requireNonNull(getter);
-        _setter = Objects.requireNonNull(setter);
-        _type = Objects.requireNonNull(type);
+        _name = name;
+        _store = store;
+        _getter = getter;
+        _setter = setter;
+        _type = type;
     }
 
     String getName() {

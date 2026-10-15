@@ -17,7 +17,6 @@ import grim.annotations.OmitSymbol;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Stack;
 import org.intellij.lang.annotations.MagicConstant;
 import org.jspecify.annotations.Nullable;
@@ -177,13 +176,15 @@ public final class MemoizeCache<T extends @Nullable Object> implements Disposabl
                     () -> (~mask & flags) == 0,
                     () -> "Arez-0211: MemoizeCache passed unsupported flags. Unsupported bits: " + (~mask & flags));
         }
-        _context = Arez.areZonesEnabled() ? Objects.requireNonNull(context) : null;
+        assert !Arez.areZonesEnabled() || null != context;
+        _context = Arez.areZonesEnabled() ? context : null;
         _component = Arez.areNativeComponentsEnabled() ? component : null;
-        _name = Arez.areNamesEnabled() ? Objects.requireNonNull(name) : null;
-        _function = Objects.requireNonNull(function);
+        assert !Arez.areNamesEnabled() || null != name;
+        _name = Arez.areNamesEnabled() ? name : null;
+        _function = function;
         _argCount = argCount;
         _flags = flags;
-        _equalityComparator = Objects.requireNonNull(equalityComparator);
+        _equalityComparator = equalityComparator;
     }
 
     /**
@@ -222,7 +223,12 @@ public final class MemoizeCache<T extends @Nullable Object> implements Disposabl
     }
 
     private ArezContext getContext() {
-        return Arez.areZonesEnabled() ? Objects.requireNonNull(_context) : Arez.context();
+        if (Arez.areZonesEnabled()) {
+            assert null != _context;
+            return _context;
+        } else {
+            return Arez.context();
+        }
     }
 
     /**

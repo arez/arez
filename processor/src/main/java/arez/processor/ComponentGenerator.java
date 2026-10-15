@@ -1752,17 +1752,7 @@ final class ComponentGenerator {
                     Modifier.FINAL);
             GeneratorUtil.copyWhitelistedAnnotations(observable.getGetter(), param);
             builder.addParameter(param.build());
-            final boolean isPrimitive = GeneratorUtil.getTypeName(
-                            observable.getGetterType().getReturnType())
-                    .isPrimitive();
-            if (isPrimitive) {
-                builder.addStatement("this.$N = $N", observable.getDataFieldName(), name);
-            } else if (observable.isGetterNonnull()) {
-                builder.addStatement(
-                        "this.$N = $T.requireNonNull( $N )", observable.getDataFieldName(), Objects.class, name);
-            } else {
-                builder.addStatement("this.$N = $N", observable.getDataFieldName(), name);
-            }
+            builder.addStatement("this.$N = $N", observable.getDataFieldName(), name);
         }
 
         for (final ObservableDescriptor observable : component.getObservables().values()) {
@@ -4314,7 +4304,8 @@ final class ComponentGenerator {
                     builder.addStatement("$T.observe( $N )", COMPONENT_OBSERVABLE_CLASSNAME, varName);
                 }
             } else {
-                final ExecutableElement method = Objects.requireNonNull(autoObserve.getMethod());
+                final ExecutableElement method = autoObserve.getMethod();
+                assert null != method;
                 final String varName = VARIABLE_PREFIX + "autoObserve_" + index++;
                 builder.addStatement(
                         "final $T $N = this.$N()",

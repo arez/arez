@@ -18,7 +18,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import org.intellij.lang.annotations.MagicConstant;
 import org.jspecify.annotations.Nullable;
 
@@ -139,7 +138,8 @@ public final class ArezContext {
      * Arez context should not be created directly but only accessed via Arez.
      */
     ArezContext(@Nullable final Zone zone) {
-        _zone = Arez.areZonesEnabled() ? Objects.requireNonNull(zone) : null;
+        assert !Arez.areZonesEnabled() || null != zone;
+        _zone = Arez.areZonesEnabled() ? zone : null;
     }
 
     /**
@@ -559,7 +559,7 @@ public final class ArezContext {
             @Nullable final String name,
             final Procedure observe,
             @MagicConstant(flagsFromClass = Observer.Flags.class) final int flags) {
-        return observer(component, name, Objects.requireNonNull(observe), null, flags);
+        return observer(component, name, observe, null, flags);
     }
 
     /**
@@ -753,7 +753,7 @@ public final class ArezContext {
             @Nullable final String name,
             final Procedure onDepsChange,
             @MagicConstant(flagsFromClass = Observer.Flags.class) final int flags) {
-        return observer(component, name, null, Objects.requireNonNull(onDepsChange), flags);
+        return observer(component, name, null, onDepsChange, flags);
     }
 
     /**
@@ -1813,9 +1813,10 @@ public final class ArezContext {
                 final Transaction current = Transaction.current();
 
                 final FastList<ObservableValue<?>> observableValues = current.getObservableValues();
+                final var tracker = current.getTracker();
+                assert null != tracker;
                 invariant(
-                        () -> Objects.requireNonNull(current.getTracker()).isDisposing()
-                                || (null != observableValues && !observableValues.isEmpty()),
+                        () -> tracker.isDisposing() || (null != observableValues && !observableValues.isEmpty()),
                         () -> "Arez-0118: Observer named '" + name + "' completed observed function (executed by "
                                 + "application) but is not observing any properties.");
             }
@@ -1894,7 +1895,7 @@ public final class ArezContext {
                             + " false.");
         }
         assert null != _locator;
-        return _locator.registerLocator(Objects.requireNonNull(locator));
+        return _locator.registerLocator(locator);
     }
 
     /**

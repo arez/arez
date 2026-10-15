@@ -1,9 +1,10 @@
 package arez.persist;
 
+import static org.testng.Assert.assertNotNull;
+
 import arez.persist.runtime.ArezPersistTestUtil;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -16,7 +17,8 @@ public final class TestLogger implements ArezPersistTestUtil.Logger {
         private final Throwable _throwable;
 
         LogEntry(@NonNull final String message, @Nullable final Throwable throwable) {
-            _message = Objects.requireNonNull(message);
+            assertNotNull(message);
+            _message = message;
             _throwable = throwable;
         }
 

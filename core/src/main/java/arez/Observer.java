@@ -714,7 +714,7 @@ public final class Observer extends Node {
      * @param hooks the new set of hooks.
      */
     void replaceHooks(final HookMap hooks) {
-        _hooks = Objects.requireNonNull(hooks);
+        _hooks = hooks;
     }
 
     /**
@@ -736,7 +736,7 @@ public final class Observer extends Node {
         if (Arez.shouldCheckInvariants()) {
             invariantDependenciesUnique("Pre replaceDependencies");
         }
-        _dependencies = Objects.requireNonNull(dependencies);
+        _dependencies = dependencies;
         if (Arez.shouldCheckInvariants()) {
             invariantDependenciesUnique("Post replaceDependencies");
             invariantDependenciesBackLink("Post replaceDependencies");

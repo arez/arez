@@ -1,9 +1,9 @@
 package arez.processor;
 
-import java.util.Objects;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.realityforge.proton.ProcessorException;
 
@@ -26,17 +26,18 @@ final class DependencyDescriptor {
     @Nullable
     private ObservableDescriptor _observable;
 
-    DependencyDescriptor(final ComponentDescriptor component, final ExecutableElement method, final boolean cascade) {
-        _component = Objects.requireNonNull(component);
-        _method = Objects.requireNonNull(method);
+    DependencyDescriptor(
+            final ComponentDescriptor component, @NonNull final ExecutableElement method, final boolean cascade) {
+        _component = component;
+        _method = method;
         _field = null;
         _cascade = cascade;
     }
 
-    DependencyDescriptor(final ComponentDescriptor component, final VariableElement field) {
-        _component = Objects.requireNonNull(component);
+    DependencyDescriptor(final ComponentDescriptor component, @NonNull final VariableElement field) {
+        _component = component;
         _method = null;
-        _field = Objects.requireNonNull(field);
+        _field = field;
         _cascade = true;
     }
 
@@ -61,7 +62,12 @@ final class DependencyDescriptor {
     }
 
     Element getElement() {
-        return null != _method ? _method : Objects.requireNonNull(_field);
+        if (null != _method) {
+            return _method;
+        } else {
+            assert null != _field;
+            return _field;
+        }
     }
 
     ExecutableElement getMethod() {
@@ -75,7 +81,7 @@ final class DependencyDescriptor {
     }
 
     void setObservable(final ObservableDescriptor observable) {
-        _observable = Objects.requireNonNull(observable);
+        _observable = observable;
         _observable.setDependencyDescriptor(this);
     }
 

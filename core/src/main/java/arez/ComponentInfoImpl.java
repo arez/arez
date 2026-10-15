@@ -7,7 +7,6 @@ import arez.spy.ObserverInfo;
 import grim.annotations.OmitType;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -21,7 +20,7 @@ final class ComponentInfoImpl implements ComponentInfo {
     private final List<ComputableValue<?>> _computableValues;
 
     ComponentInfoImpl(final Component component) {
-        _component = Objects.requireNonNull(component);
+        _component = component;
         _observableValues = Collections.unmodifiableList(_component.getObservableValues());
         _computableValues = Collections.unmodifiableList(_component.getComputableValues());
     }

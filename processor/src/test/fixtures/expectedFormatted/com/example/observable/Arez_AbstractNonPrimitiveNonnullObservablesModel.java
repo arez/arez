@@ -57,7 +57,7 @@ final class Arez_AbstractNonPrimitiveNonnullObservablesModel
         true,
         false,
         false);
-    this.$$arezd$$_time = Objects.requireNonNull(time);
+    this.$$arezd$$_time = time;
     this.$$arez$$_time = $$arezv$$_context.<@NonNull Date>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null,

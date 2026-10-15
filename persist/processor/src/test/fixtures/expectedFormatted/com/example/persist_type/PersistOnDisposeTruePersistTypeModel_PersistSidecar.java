@@ -40,9 +40,9 @@ abstract class PersistOnDisposeTruePersistTypeModel_PersistSidecar {
 
   PersistOnDisposeTruePersistTypeModel_PersistSidecar(
       final Scope scope, final PersistOnDisposeTruePersistTypeModel peer, final Store appStore) {
-    _scope = Objects.requireNonNull(scope);
-    _peer = Objects.requireNonNull(peer);
-    _appStore = Objects.requireNonNull(appStore);
+    _scope = scope;
+    _peer = peer;
+    _appStore = appStore;
   }
 
   static PersistOnDisposeTruePersistTypeModel_PersistSidecar attach(

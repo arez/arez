@@ -58,7 +58,7 @@ final class Arez_TypeVariableModel<T extends @Nullable Object> extends TypeVaria
         true,
         false,
         false);
-    this.$$arezd$$_required = Objects.requireNonNull(required);
+    this.$$arezd$$_required = required;
     this.$$arez$$_optional = $$arezv$$_context.<@Nullable T>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".optional" : null,

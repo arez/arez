@@ -20,7 +20,6 @@ import arez.integration.AbstractArezIntegrationTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -44,8 +43,12 @@ public final class InverseHooksIntegrationTest extends AbstractArezIntegrationTe
         final List<String> trace = new ArrayList<>();
         final Car car = repository.create("P", trace);
         final Car car2 = repository.create("Q", trace);
-        final Integer carId = Objects.requireNonNull(Identifiable.getArezId(car));
-        final Integer car2Id = Objects.requireNonNull(Identifiable.getArezId(car2));
+        final Integer carId = Identifiable.getArezId(car);
+        assertNotNull(carId);
+        assert null != carId;
+        final Integer car2Id = Identifiable.getArezId(car2);
+        assertNotNull(car2Id);
+        assert null != car2Id;
 
         assertEquals(locatorLookupCallCount.get(), 0);
 

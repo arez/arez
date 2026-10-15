@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -59,7 +58,7 @@ public abstract class Scope {
     Scope(@Nullable final Scope parent, @NonNull final String name) {
         assert (null == parent && ROOT_SCOPE_NAME.equals(name)) || (null != parent && !ROOT_SCOPE_NAME.equals(name));
         _parent = parent;
-        _name = Objects.requireNonNull(name);
+        _name = name;
     }
 
     /**

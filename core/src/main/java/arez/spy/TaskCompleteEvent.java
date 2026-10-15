@@ -1,7 +1,6 @@
 package arez.spy;
 
 import java.util.Map;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -18,7 +17,7 @@ public final class TaskCompleteEvent implements SerializableEvent {
 
     public TaskCompleteEvent(final TaskInfo task, @Nullable final Throwable throwable, final int duration) {
         assert duration >= 0;
-        _task = Objects.requireNonNull(task);
+        _task = task;
         _throwable = throwable;
         _duration = duration;
     }

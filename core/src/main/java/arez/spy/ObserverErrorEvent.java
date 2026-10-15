@@ -2,7 +2,6 @@ package arez.spy;
 
 import arez.ObserverError;
 import java.util.Map;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -19,8 +18,8 @@ public final class ObserverErrorEvent implements SerializableEvent {
 
     public ObserverErrorEvent(
             final ObserverInfo observer, final ObserverError error, @Nullable final Throwable throwable) {
-        _observer = Objects.requireNonNull(observer);
-        _error = Objects.requireNonNull(error);
+        _observer = observer;
+        _error = error;
         _throwable = throwable;
     }
 

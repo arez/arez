@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.BeforeMethod;
@@ -59,13 +58,11 @@ public final class MemoizeCacheTest extends AbstractTest {
         assertEquals(callCount.get(), 1);
         assertEquals(cache.getNextIndex(), 1);
         assertEquals(cache.getCache().size(), 1);
-        assertEquals(
-                Objects.requireNonNull((Map<Object, Object>) cache.getCache().get("a"))
-                        .size(),
-                1);
-        final var computableValue1 = (ComputableValue<String>)
-                Objects.requireNonNull((Map<Object, Object>) cache.getCache().get("a"))
-                        .get("b");
+        var cachedArguments = (Map<Object, Object>) cache.getCache().get("a");
+        assertNotNull(cachedArguments);
+        assert null != cachedArguments;
+        assertEquals(cachedArguments.size(), 1);
+        final var computableValue1 = (ComputableValue<String>) cachedArguments.get("b");
         assertNotNull(computableValue1);
         assert null != computableValue1;
         assertEquals(context.safeAction(computableValue1::get), "a.b");
@@ -76,10 +73,10 @@ public final class MemoizeCacheTest extends AbstractTest {
         assertEquals(callCount.get(), 1);
         assertEquals(cache.getNextIndex(), 1);
         assertEquals(cache.getCache().size(), 1);
-        assertEquals(
-                Objects.requireNonNull((Map<Object, Object>) cache.getCache().get("a"))
-                        .size(),
-                1);
+        cachedArguments = (Map<Object, Object>) cache.getCache().get("a");
+        assertNotNull(cachedArguments);
+        assert null != cachedArguments;
+        assertEquals(cachedArguments.size(), 1);
         final Observer observer3 = context.observer(() -> {
             observeADependency();
             assertEquals(cache.get("a", "c"), "a.c");
@@ -87,13 +84,11 @@ public final class MemoizeCacheTest extends AbstractTest {
         assertEquals(callCount.get(), 2);
         assertEquals(cache.getNextIndex(), 2);
         assertEquals(cache.getCache().size(), 1);
-        assertEquals(
-                Objects.requireNonNull((Map<Object, Object>) cache.getCache().get("a"))
-                        .size(),
-                2);
-        final var computableValue2 = (ComputableValue<String>)
-                Objects.requireNonNull((Map<Object, Object>) cache.getCache().get("a"))
-                        .get("c");
+        cachedArguments = (Map<Object, Object>) cache.getCache().get("a");
+        assertNotNull(cachedArguments);
+        assert null != cachedArguments;
+        assertEquals(cachedArguments.size(), 2);
+        final var computableValue2 = (ComputableValue<String>) cachedArguments.get("c");
         assertNotNull(computableValue2);
         assert null != computableValue2;
         assertEquals(context.safeAction(computableValue2::get), "a.c");
@@ -104,10 +99,10 @@ public final class MemoizeCacheTest extends AbstractTest {
         assertEquals(cache.getCache().size(), 1);
         assertFalse(computableValue1.isDisposed());
         assertFalse(computableValue2.isDisposed());
-        assertEquals(
-                Objects.requireNonNull((Map<Object, Object>) cache.getCache().get("a"))
-                        .size(),
-                2);
+        cachedArguments = (Map<Object, Object>) cache.getCache().get("a");
+        assertNotNull(cachedArguments);
+        assert null != cachedArguments;
+        assertEquals(cachedArguments.size(), 2);
 
         observer2.dispose();
         assertEquals(callCount.get(), 2);
@@ -115,10 +110,10 @@ public final class MemoizeCacheTest extends AbstractTest {
         assertEquals(cache.getCache().size(), 1);
         assertTrue(computableValue1.isDisposed());
         assertFalse(computableValue2.isDisposed());
-        assertEquals(
-                Objects.requireNonNull((Map<Object, Object>) cache.getCache().get("a"))
-                        .size(),
-                1);
+        cachedArguments = (Map<Object, Object>) cache.getCache().get("a");
+        assertNotNull(cachedArguments);
+        assert null != cachedArguments;
+        assertEquals(cachedArguments.size(), 1);
 
         observer3.dispose();
         assertEquals(callCount.get(), 2);
@@ -141,7 +136,8 @@ public final class MemoizeCacheTest extends AbstractTest {
         private boolean _disposed;
 
         MyElement(final String value) {
-            _value = Objects.requireNonNull(value);
+            assertNotNull(value);
+            _value = value;
         }
 
         String getValue() {
@@ -354,9 +350,10 @@ public final class MemoizeCacheTest extends AbstractTest {
         assertEquals(cache.getNextIndex(), 1);
         assertEquals(cache.getCache().size(), 1);
 
-        final var computableValue1 = (ComputableValue<String>)
-                Objects.requireNonNull((Map<Object, Object>) cache.getCache().get("a"))
-                        .get("b");
+        final var cachedArguments = (Map<Object, Object>) cache.getCache().get("a");
+        assertNotNull(cachedArguments);
+        assert null != cachedArguments;
+        final var computableValue1 = (ComputableValue<String>) cachedArguments.get("b");
         assertNotNull(computableValue1);
         assert null != computableValue1;
 

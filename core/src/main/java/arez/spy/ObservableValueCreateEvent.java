@@ -1,7 +1,6 @@
 package arez.spy;
 
 import java.util.Map;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -12,7 +11,7 @@ public final class ObservableValueCreateEvent implements SerializableEvent {
     private final ObservableValueInfo _observableValue;
 
     public ObservableValueCreateEvent(final ObservableValueInfo observableValue) {
-        _observableValue = Objects.requireNonNull(observableValue);
+        _observableValue = observableValue;
     }
 
     public ObservableValueInfo getObservableValue() {

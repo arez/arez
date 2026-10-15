@@ -11,7 +11,6 @@ import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
-import java.util.Objects;
 import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
@@ -113,9 +112,9 @@ public abstract class EventDrivenValue<
 
     EventDrivenValue(
             @NonNull final SourceType source, final String event, final Accessor<SourceType, ValueType> getter) {
-        _source = Objects.requireNonNull(source);
-        _event = Objects.requireNonNull(event);
-        _getter = Objects.requireNonNull(getter);
+        _source = source;
+        _event = event;
+        _getter = getter;
     }
 
     /**

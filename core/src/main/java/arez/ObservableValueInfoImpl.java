@@ -12,7 +12,6 @@ import grim.annotations.OmitType;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import org.jspecify.annotations.Nullable;
 
@@ -25,7 +24,7 @@ final class ObservableValueInfoImpl implements ObservableValueInfo {
     private final ObservableValue<?> _observableValue;
 
     ObservableValueInfoImpl(final ObservableValue<?> observableValue) {
-        _observableValue = Objects.requireNonNull(observableValue);
+        _observableValue = observableValue;
     }
 
     private static List<ObservableValueInfo> asInfos(final Collection<ObservableValue<?>> observableValues) {

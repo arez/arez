@@ -16,7 +16,6 @@ import arez.spy.PropertyMutator;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -370,7 +369,9 @@ public final class ObservableValueTest extends AbstractTest {
                         },
                         ActionFlags.READ_ONLY));
 
-        final var message = Objects.requireNonNull(exception.getMessage());
+        final var message = exception.getMessage();
+        assertNotNull(message);
+        assert null != message;
         assertTrue(message.startsWith("Arez-0119: Attempting to create READ_WRITE transaction named '" + name
                 + "' but it is nested in transaction named '"));
         assertTrue(message.endsWith("' with mode READ_ONLY which is not equal to READ_WRITE."));

@@ -10,7 +10,6 @@ import grim.annotations.OmitSymbol;
 import grim.annotations.OmitType;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -85,10 +84,12 @@ public final class Component implements Disposable {
                     () -> Arez.areZonesEnabled() || null == context,
                     () -> "Arez-0175: Component passed a context but Arez.areZonesEnabled() is false");
         }
-        _context = Arez.areZonesEnabled() ? Objects.requireNonNull(context) : null;
-        _type = Objects.requireNonNull(type);
-        _id = Objects.requireNonNull(id);
-        _name = Arez.areNamesEnabled() ? Objects.requireNonNull(name) : null;
+        assert !Arez.areZonesEnabled() || null != context;
+        _context = Arez.areZonesEnabled() ? context : null;
+        _type = type;
+        _id = id;
+        assert !Arez.areNamesEnabled() || null != name;
+        _name = Arez.areNamesEnabled() ? name : null;
         _preDispose = preDispose;
         _postDispose = postDispose;
     }
@@ -129,7 +130,11 @@ public final class Component implements Disposable {
     }
 
     ArezContext getContext() {
-        return Arez.areZonesEnabled() ? Objects.requireNonNull(_context) : Arez.context();
+        if (Arez.areZonesEnabled()) {
+            assert null != _context;
+            return _context;
+        }
+        return Arez.context();
     }
 
     @Override

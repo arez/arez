@@ -7,7 +7,6 @@ import arez.persist.runtime.StorageService;
 import arez.persist.runtime.TypeConverter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsMethod;
@@ -96,8 +95,8 @@ final class WebStorageService implements StorageService {
     }
 
     private WebStorageService(@NonNull final Storage storage, @NonNull final String address) {
-        _storage = Objects.requireNonNull(storage);
-        _address = Objects.requireNonNull(address);
+        _storage = storage;
+        _address = address;
         // It should be noted that we don't
         addEventListener("beforeunload", _beforeUnloadListener);
     }

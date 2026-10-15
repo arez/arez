@@ -54,7 +54,7 @@ final class Arez_NonNullOperatorModel extends NonNullOperatorModel
         true,
         false,
         false);
-    this.$$arezd$$_value = Objects.requireNonNull(value);
+    this.$$arezd$$_value = value;
     this.$$arez$$_value = $$arezv$$_context.<@NonNull String>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".value" : null,

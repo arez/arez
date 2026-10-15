@@ -42,9 +42,9 @@ abstract class TypeIntPersistModel_PersistSidecar {
 
   TypeIntPersistModel_PersistSidecar(final Scope scope, final TypeIntPersistModel peer,
       final Store appStore) {
-    _scope = Objects.requireNonNull( scope );
-    _peer = Objects.requireNonNull( peer );
-    _appStore = Objects.requireNonNull( appStore );
+    _scope = scope;
+    _peer = peer;
+    _appStore = appStore;
   }
 
   static TypeIntPersistModel_PersistSidecar attach(final Scope scope,

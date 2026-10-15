@@ -1,10 +1,10 @@
 package arez.processor;
 
-import java.util.Objects;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.VariableElement;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.realityforge.proton.ProcessorException;
 
@@ -26,18 +26,18 @@ final class AutoObserveDescriptor {
     @Nullable
     private ReferenceDescriptor _reference;
 
-    AutoObserveDescriptor(final boolean validateTypeAtRuntime, final VariableElement field) {
+    AutoObserveDescriptor(final boolean validateTypeAtRuntime, @NonNull final VariableElement field) {
         _validateTypeAtRuntime = validateTypeAtRuntime;
         _method = null;
-        _field = Objects.requireNonNull(field);
+        _field = field;
     }
 
     AutoObserveDescriptor(
             final boolean validateTypeAtRuntime,
-            final ExecutableElement method,
+            @NonNull final ExecutableElement method,
             @Nullable final ObservableDescriptor observable) {
         _validateTypeAtRuntime = validateTypeAtRuntime;
-        _method = Objects.requireNonNull(method);
+        _method = method;
         _field = null;
         if (null != observable) {
             setObservable(observable);
@@ -46,16 +46,22 @@ final class AutoObserveDescriptor {
 
     Element getElement() {
         final ExecutableElement method = getMethod();
-        return null != method ? method : Objects.requireNonNull(getField());
+        if (null != method) {
+            return method;
+        } else {
+            final VariableElement field = getField();
+            assert null != field;
+            return field;
+        }
     }
 
     void setObservable(final ObservableDescriptor observable) {
-        _observable = Objects.requireNonNull(observable);
+        _observable = observable;
         observable.setAutoObserveDescriptor(this);
     }
 
     void setReference(final ReferenceDescriptor reference) {
-        _reference = Objects.requireNonNull(reference);
+        _reference = reference;
         reference.setAutoObserveDescriptor(this);
     }
 

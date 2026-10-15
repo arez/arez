@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
@@ -16,6 +15,7 @@ import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.realityforge.proton.ProcessorException;
 
@@ -78,8 +78,8 @@ final class ObservableDescriptor {
     private AutoObserveDescriptor _autoObserveDescriptor;
 
     ObservableDescriptor(final ComponentDescriptor component, final String name) {
-        _component = Objects.requireNonNull(component);
-        _name = Objects.requireNonNull(name);
+        _component = component;
+        _name = name;
         setExpectSetter(true);
         setSetterAlwaysMutates(true);
     }
@@ -102,8 +102,8 @@ final class ObservableDescriptor {
         return _initializer;
     }
 
-    void setInitializer(final Boolean initializer) {
-        _initializer = Objects.requireNonNull(initializer);
+    void setInitializer(@Nullable final Boolean initializer) {
+        _initializer = initializer;
     }
 
     boolean hasObservableInitial() {
@@ -116,7 +116,7 @@ final class ObservableDescriptor {
                     "@ObservableInitial target duplicates existing initializer for observable " + "named " + getName(),
                     observableInitial.getElement());
         }
-        _observableInitial = Objects.requireNonNull(observableInitial);
+        _observableInitial = observableInitial;
     }
 
     ObservableInitialDescriptor getObservableInitial() {
@@ -149,11 +149,11 @@ final class ObservableDescriptor {
     }
 
     void setEqualityComparator(final String equalityComparator) {
-        _equalityComparator = Objects.requireNonNull(equalityComparator);
+        _equalityComparator = equalityComparator;
     }
 
     void setGetterDeclaredEqualityComparator(final String equalityComparator) {
-        _getterDeclaredEqualityComparator = Objects.requireNonNull(equalityComparator);
+        _getterDeclaredEqualityComparator = equalityComparator;
     }
 
     String getGetterDeclaredEqualityComparator() {
@@ -161,7 +161,7 @@ final class ObservableDescriptor {
     }
 
     void setSetterDeclaredEqualityComparator(final String equalityComparator) {
-        _setterDeclaredEqualityComparator = Objects.requireNonNull(equalityComparator);
+        _setterDeclaredEqualityComparator = equalityComparator;
     }
 
     String getSetterDeclaredEqualityComparator() {
@@ -215,8 +215,8 @@ final class ObservableDescriptor {
     }
 
     void setGetter(final ExecutableElement getter, final ExecutableType methodType) {
-        _getter = Objects.requireNonNull(getter);
-        _getterType = Objects.requireNonNull(methodType);
+        _getter = getter;
+        _getterType = methodType;
     }
 
     boolean hasSetter() {
@@ -235,12 +235,17 @@ final class ObservableDescriptor {
 
     void setSetter(final ExecutableElement setter, final ExecutableType methodType) {
         assert _expectSetter;
-        _setter = Objects.requireNonNull(setter);
-        _setterType = Objects.requireNonNull(methodType);
+        _setter = setter;
+        _setterType = methodType;
     }
 
     ExecutableElement getDefiner() {
-        return null != _getter ? _getter : Objects.requireNonNull(_setter);
+        if (null != _getter) {
+            return _getter;
+        } else {
+            assert null != _setter;
+            return _setter;
+        }
     }
 
     void setDependencyDescriptor(@Nullable final DependencyDescriptor dependencyDescriptor) {
@@ -271,8 +276,8 @@ final class ObservableDescriptor {
         return _cascadeDisposeDescriptor;
     }
 
-    void setCascadeDisposeDescriptor(final CascadeDisposeDescriptor cascadeDisposeDescriptor) {
-        _cascadeDisposeDescriptor = Objects.requireNonNull(cascadeDisposeDescriptor);
+    void setCascadeDisposeDescriptor(@NonNull final CascadeDisposeDescriptor cascadeDisposeDescriptor) {
+        _cascadeDisposeDescriptor = cascadeDisposeDescriptor;
     }
 
     @Nullable
@@ -280,8 +285,8 @@ final class ObservableDescriptor {
         return _autoObserveDescriptor;
     }
 
-    void setAutoObserveDescriptor(final AutoObserveDescriptor autoObserveDescriptor) {
-        _autoObserveDescriptor = Objects.requireNonNull(autoObserveDescriptor);
+    void setAutoObserveDescriptor(@NonNull final AutoObserveDescriptor autoObserveDescriptor) {
+        _autoObserveDescriptor = autoObserveDescriptor;
     }
 
     String getDataFieldName() {

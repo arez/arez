@@ -1,6 +1,5 @@
 package arez.processor;
 
-import java.util.Objects;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
@@ -27,19 +26,19 @@ final class ObservableInitialDescriptor {
     private final ExecutableType _methodType;
 
     ObservableInitialDescriptor(final String name, final VariableElement field) {
-        _name = Objects.requireNonNull(name);
-        _element = Objects.requireNonNull(field);
+        _name = name;
+        _element = field;
         _field = field;
         _method = null;
         _methodType = null;
     }
 
     ObservableInitialDescriptor(final String name, final ExecutableElement method, final ExecutableType methodType) {
-        _name = Objects.requireNonNull(name);
-        _element = Objects.requireNonNull(method);
+        _name = name;
+        _element = method;
         _field = null;
         _method = method;
-        _methodType = Objects.requireNonNull(methodType);
+        _methodType = methodType;
     }
 
     String getName() {

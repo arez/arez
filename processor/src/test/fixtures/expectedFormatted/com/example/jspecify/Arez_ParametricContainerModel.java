@@ -59,7 +59,7 @@ final class Arez_ParametricContainerModel<T extends @Nullable Object>
         true,
         false,
         false);
-    this.$$arezd$$_values = Objects.requireNonNull(values);
+    this.$$arezd$$_values = values;
     this.$$arez$$_values = $$arezv$$_context.<List<T>>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".values" : null,

@@ -343,8 +343,10 @@ final class Transaction {
                     () -> Arez.areZonesEnabled() || null == context,
                     () -> "Arez-184: Transaction passed a context but Arez.areZonesEnabled() is false");
         }
-        _context = Arez.areZonesEnabled() ? Objects.requireNonNull(context) : null;
-        _name = Arez.areNamesEnabled() ? Objects.requireNonNull(name) : null;
+        assert !Arez.areZonesEnabled() || null != context;
+        _context = Arez.areZonesEnabled() ? context : null;
+        assert !Arez.areNamesEnabled() || null != name;
+        _name = Arez.areNamesEnabled() ? name : null;
         _id = getContext().nextTransactionId();
         _previous = previous;
         _previousInSameContext = Arez.areZonesEnabled() ? findPreviousTransactionInSameContext() : null;
@@ -394,7 +396,12 @@ final class Transaction {
     }
 
     ArezContext getContext() {
-        return Arez.areZonesEnabled() ? Objects.requireNonNull(_context) : Arez.context();
+        if (Arez.areZonesEnabled()) {
+            assert null != _context;
+            return _context;
+        } else {
+            return Arez.context();
+        }
     }
 
     long getStartedAt() {
@@ -534,7 +541,7 @@ final class Transaction {
             }
         }
         observableValue.markAsPendingDeactivation();
-        _pendingDeactivations.add(Objects.requireNonNull(observableValue));
+        _pendingDeactivations.add(observableValue);
     }
 
     void observe(final ObservableValue<?> observableValue) {

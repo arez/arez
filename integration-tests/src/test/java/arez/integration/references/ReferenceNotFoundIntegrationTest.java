@@ -1,5 +1,7 @@
 package arez.integration.references;
 
+import static org.testng.Assert.assertNotNull;
+
 import arez.Arez;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
@@ -11,7 +13,6 @@ import arez.component.Identifiable;
 import arez.component.TypeBasedLocator;
 import arez.component.internal.AbstractRepository;
 import arez.integration.AbstractArezIntegrationTest;
-import java.util.Objects;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
@@ -26,7 +27,9 @@ public final class ReferenceNotFoundIntegrationTest extends AbstractArezIntegrat
         Arez.context().registerLocator(locator);
 
         final Model2 model2 = repository.create();
-        final Object model2Id = Objects.requireNonNull(Identifiable.getArezId(model2));
+        final Object model2Id = Identifiable.getArezId(model2);
+        assertNotNull(model2Id);
+        assert null != model2Id;
 
         assertInvariant(
                 () -> safeAction(() -> Model1.create(model2Id)),

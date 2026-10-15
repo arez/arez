@@ -5,7 +5,6 @@ import static org.realityforge.braincheck.Guards.*;
 import arez.spy.SpyEventHandler;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Class supporting the propagation of events to SpyEventHandler callbacks.
@@ -23,7 +22,7 @@ final class SpyEventHandlerSupport {
                     () -> "Arez-0102: Attempting to add handler " + handler + " that is already "
                             + "in the list of spy handlers.");
         }
-        _spyEventHandlers.add(Objects.requireNonNull(handler));
+        _spyEventHandlers.add(handler);
     }
 
     void removeSpyEventHandler(final SpyEventHandler handler) {
@@ -33,7 +32,7 @@ final class SpyEventHandlerSupport {
                     () -> "Arez-0103: Attempting to remove handler " + handler + " that is not "
                             + "in the list of spy handlers.");
         }
-        _spyEventHandlers.remove(Objects.requireNonNull(handler));
+        _spyEventHandlers.remove(handler);
     }
 
     void reportSpyEvent(final Object event) {

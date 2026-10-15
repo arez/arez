@@ -39,9 +39,9 @@ abstract class CustomSetterPersistModel_PersistSidecar {
 
   CustomSetterPersistModel_PersistSidecar(
       final Scope scope, final CustomSetterPersistModel peer, final Store appStore) {
-    _scope = Objects.requireNonNull(scope);
-    _peer = Objects.requireNonNull(peer);
-    _appStore = Objects.requireNonNull(appStore);
+    _scope = scope;
+    _peer = peer;
+    _appStore = appStore;
   }
 
   static CustomSetterPersistModel_PersistSidecar attach(

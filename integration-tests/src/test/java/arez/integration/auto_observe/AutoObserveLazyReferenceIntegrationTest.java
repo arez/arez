@@ -15,7 +15,6 @@ import arez.component.Identifiable;
 import arez.component.TypeBasedLocator;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -36,7 +35,9 @@ public final class AutoObserveLazyReferenceIntegrationTest extends AbstractArezI
         });
 
         final var child = Child.create();
-        final Object childId = Objects.requireNonNull(Identifiable.getArezId(child));
+        final Object childId = Identifiable.getArezId(child);
+        assertNotNull(childId);
+        assert null != childId;
         entities.put(childId, child);
 
         assertEquals(findCallCount.get(), 0);

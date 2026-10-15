@@ -11,7 +11,6 @@ import arez.Component;
 import arez.Disposable;
 import arez.Observer;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -404,7 +403,10 @@ public final class ComponentKernelTest extends AbstractTest {
         assertEquals(kernel.getOnDisposeListeners().size(), 1);
         assertEquals(callCount.get(), 0);
 
-        Objects.requireNonNull(kernel.getOnDisposeListeners().get(key)).call();
+        final var listener = kernel.getOnDisposeListeners().get(key);
+        assertNotNull(listener);
+        assert null != listener;
+        listener.call();
 
         assertEquals(kernel.getOnDisposeListeners().size(), 1);
         assertEquals(callCount.get(), 1);

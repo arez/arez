@@ -39,9 +39,9 @@ abstract class BasicPersistModel_PersistSidecar {
 
   BasicPersistModel_PersistSidecar(
       final Scope scope, final BasicPersistModel peer, final Store appStore) {
-    _scope = Objects.requireNonNull(scope);
-    _peer = Objects.requireNonNull(peer);
-    _appStore = Objects.requireNonNull(appStore);
+    _scope = scope;
+    _peer = peer;
+    _appStore = appStore;
   }
 
   static BasicPersistModel_PersistSidecar attach(final Scope scope, final BasicPersistModel peer) {

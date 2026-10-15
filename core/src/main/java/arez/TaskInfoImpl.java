@@ -6,7 +6,6 @@ import grim.annotations.OmitType;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import org.jspecify.annotations.Nullable;
 
@@ -19,7 +18,7 @@ final class TaskInfoImpl implements TaskInfo {
     private final Task _task;
 
     TaskInfoImpl(final Task task) {
-        _task = Objects.requireNonNull(task);
+        _task = task;
     }
 
     private static List<TaskInfo> asInfos(final Collection<Task> tasks) {

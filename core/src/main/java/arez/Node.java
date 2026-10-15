@@ -4,7 +4,6 @@ import static org.realityforge.braincheck.Guards.*;
 
 import arez.spy.Spy;
 import grim.annotations.OmitSymbol;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -40,8 +39,10 @@ public abstract class Node implements Disposable {
                     () -> Arez.areNamesEnabled() || null == name,
                     () -> "Arez-0052: Node passed a name '" + name + "' but Arez.areNamesEnabled() is false");
         }
-        _context = Arez.areZonesEnabled() ? Objects.requireNonNull(context) : null;
-        _name = Arez.areNamesEnabled() ? Objects.requireNonNull(name) : null;
+        assert !Arez.areZonesEnabled() || null != context;
+        _context = Arez.areZonesEnabled() ? context : null;
+        assert !Arez.areNamesEnabled() || null != name;
+        _name = Arez.areNamesEnabled() ? name : null;
     }
 
     /**
@@ -66,7 +67,12 @@ public abstract class Node implements Disposable {
      * @return the associated ArezContext.
      */
     public final ArezContext getContext() {
-        return Arez.areZonesEnabled() ? Objects.requireNonNull(_context) : Arez.context();
+        if (Arez.areZonesEnabled()) {
+            assert null != _context;
+            return _context;
+        } else {
+            return Arez.context();
+        }
     }
 
     @Override

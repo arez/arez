@@ -9,7 +9,6 @@ import arez.persist.StoreTypes;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 import org.mockito.ArgumentCaptor;
 import org.realityforge.guiceyloops.shared.ValueUtil;
@@ -335,9 +334,13 @@ public final class StoreTest extends AbstractTest {
 
         reset(service);
 
-        final StorageService.Entry entry = Objects.requireNonNull(
-                        Objects.requireNonNull(store.getConfig().get(scope)).get(type))
-                .get(id);
+        final var types = store.getConfig().get(scope);
+        assertNotNull(types);
+        assert null != types;
+        final var entries = types.get(type);
+        assertNotNull(entries);
+        assert null != entries;
+        final StorageService.Entry entry = entries.get(id);
 
         assertNotNull(entry);
         assert null != entry;
@@ -380,9 +383,13 @@ public final class StoreTest extends AbstractTest {
         final Store store = ArezPersist.getStore(storeName);
         verify(service).restore(any());
         reset(service);
-        final StorageService.Entry entry = Objects.requireNonNull(
-                        Objects.requireNonNull(store.getConfig().get(scope)).get(type))
-                .get(id);
+        final var types = store.getConfig().get(scope);
+        assertNotNull(types);
+        assert null != types;
+        final var entries = types.get(type);
+        assertNotNull(entries);
+        assert null != entries;
+        final StorageService.Entry entry = entries.get(id);
 
         assertNotNull(entry);
         assert null != entry;

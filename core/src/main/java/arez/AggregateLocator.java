@@ -5,7 +5,6 @@ import static org.realityforge.braincheck.Guards.*;
 import grim.annotations.OmitType;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -61,7 +60,7 @@ final class AggregateLocator implements Locator {
         private boolean _disposed;
 
         LocatorEntry(final Locator locator) {
-            _locator = Objects.requireNonNull(locator);
+            _locator = locator;
         }
 
         @Override

@@ -49,8 +49,8 @@ final class Arez_ExplicitParametricContainerModel<T extends @Nullable Object> ex
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_jspecify_ExplicitParametricContainerModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_jspecify_ExplicitParametricContainerModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arezd$$_values = Objects.requireNonNull( values );
-    this.$$arezd$$_nonNullValues = Objects.requireNonNull( nonNullValues );
+    this.$$arezd$$_values = values;
+    this.$$arezd$$_nonNullValues = nonNullValues;
     this.$$arez$$_values = $$arezv$$_context.<List<@Nullable T>>observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".values" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_values ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_values = Objects.requireNonNull( v ) : null );
     this.$$arez$$_nonNullValues = $$arezv$$_context.<List<@NonNull T>>observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".nonNullValues" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_nonNullValues ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_nonNullValues = Objects.requireNonNull( v ) : null );
     this.$$arezi$$_kernel().componentConstructed();

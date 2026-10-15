@@ -6,7 +6,6 @@ import arez.Disposable;
 import arez.SafeProcedure;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -47,7 +46,7 @@ public final class Store {
      * @param storageService the underlying storage service that manages the state.
      */
     Store(@NonNull final StorageService storageService) {
-        _storageService = Objects.requireNonNull(storageService);
+        _storageService = storageService;
     }
 
     /**

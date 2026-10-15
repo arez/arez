@@ -42,9 +42,9 @@ abstract class CustomDefaultStorePersistTypeModel_PersistSidecar {
 
   CustomDefaultStorePersistTypeModel_PersistSidecar(final Scope scope,
       final CustomDefaultStorePersistTypeModel peer, final Store dsStore) {
-    _scope = Objects.requireNonNull( scope );
-    _peer = Objects.requireNonNull( peer );
-    _dsStore = Objects.requireNonNull( dsStore );
+    _scope = scope;
+    _peer = peer;
+    _dsStore = dsStore;
   }
 
   static CustomDefaultStorePersistTypeModel_PersistSidecar attach(final Scope scope,

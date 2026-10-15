@@ -1,5 +1,6 @@
 package arez.testing;
 
+import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
 import com.google.errorprone.BaseErrorProneJavaCompiler;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import javax.tools.JavaFileObject;
 import javax.tools.ToolProvider;
 import org.realityforge.proton.qa.Compilation;
@@ -51,8 +51,10 @@ public final class StrictGeneratedCode {
                         NullAway.class,
                         JSpecifyUnrecognizedAnnotationLocation.class,
                         RequireExplicitNullMarking.class)));
-        try (final var manager =
-                Objects.requireNonNull(ToolProvider.getSystemJavaCompiler()).getStandardFileManager(null, null, null)) {
+        final var systemCompiler = ToolProvider.getSystemJavaCompiler();
+        assertNotNull(systemCompiler);
+        assert null != systemCompiler;
+        try (final var manager = systemCompiler.getStandardFileManager(null, null, null)) {
             final var inputs = new ArrayList<JavaFileObject>();
             manager.getJavaFileObjectsFromStrings(sourceNames).forEach(inputs::add);
             final var checked = CompileTestUtil.compile(

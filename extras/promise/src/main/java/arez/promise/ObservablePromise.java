@@ -7,7 +7,6 @@ import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.Feature;
 import arez.annotations.Observable;
-import java.util.Objects;
 import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
@@ -106,7 +105,7 @@ public abstract class ObservablePromise<T extends @Nullable Object, E extends @N
 
     ObservablePromise(final Promise<T> promise) {
         _state = State.PENDING;
-        _promise = Objects.requireNonNull(promise);
+        _promise = promise;
         _promise.then(this::onFulfilled).catch_(this::onRejected);
     }
 
@@ -121,7 +120,7 @@ public abstract class ObservablePromise<T extends @Nullable Object, E extends @N
     }
 
     void setState(final State state) {
-        _state = Objects.requireNonNull(state);
+        _state = state;
     }
 
     /**

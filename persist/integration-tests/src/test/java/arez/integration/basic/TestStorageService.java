@@ -1,12 +1,13 @@
 package arez.integration.basic;
 
+import static org.testng.Assert.assertNotNull;
+
 import arez.SafeProcedure;
 import arez.persist.runtime.Scope;
 import arez.persist.runtime.StorageService;
 import arez.persist.runtime.TypeConverter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -18,7 +19,8 @@ public final class TestStorageService implements StorageService {
     private final Map<Scope, Map<String, Map<String, Entry>>> _state = new HashMap<>();
 
     public TestStorageService(@NonNull final Map<Scope, Map<String, Map<String, Entry>>> initialState) {
-        _initialState = Objects.requireNonNull(initialState);
+        assertNotNull(initialState);
+        _initialState = initialState;
     }
 
     @NonNull

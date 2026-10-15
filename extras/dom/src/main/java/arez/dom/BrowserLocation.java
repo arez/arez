@@ -10,7 +10,6 @@ import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
-import java.util.Objects;
 import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
@@ -166,7 +165,7 @@ public abstract class BrowserLocation {
 
     @Observable
     void setLocation(final String location) {
-        _location = Objects.requireNonNull(location);
+        _location = location;
     }
 
     @Memoize(depType = DepType.AREZ_OR_EXTERNAL)

@@ -2,7 +2,6 @@ package arez.processor;
 
 import com.palantir.javapoet.ClassName;
 import com.palantir.javapoet.TypeName;
-import java.util.Objects;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeMirror;
@@ -50,14 +49,14 @@ final class ReferenceDescriptor {
     private AutoObserveDescriptor _autoObserveDescriptor;
 
     ReferenceDescriptor(final ComponentDescriptor component, final String name) {
-        _component = Objects.requireNonNull(component);
-        _name = Objects.requireNonNull(name);
+        _component = component;
+        _name = name;
     }
 
     void setIdMethod(final ExecutableElement method, final TypeMirror type) {
         assert null == _idMethod;
-        _idMethod = Objects.requireNonNull(method);
-        _idType = Objects.requireNonNull(type);
+        _idMethod = method;
+        _idType = type;
     }
 
     void setObservable(final ObservableDescriptor observable) {
@@ -80,9 +79,9 @@ final class ReferenceDescriptor {
         assert null == _inverseMultiplicity;
         assert (null == inverseName && null == inverseMultiplicity)
                 || (null != inverseName && null != inverseMultiplicity);
-        _method = Objects.requireNonNull(method);
-        _methodType = Objects.requireNonNull(methodType);
-        _linkType = Objects.requireNonNull(linkType);
+        _method = method;
+        _methodType = methodType;
+        _linkType = linkType;
         _inverseName = inverseName;
         _inverseMultiplicity = inverseMultiplicity;
     }
@@ -98,7 +97,7 @@ final class ReferenceDescriptor {
     }
 
     void setCascadeDisposeDescriptor(final CascadeDisposeDescriptor cascadeDisposeDescriptor) {
-        _cascadeDisposeDescriptor = Objects.requireNonNull(cascadeDisposeDescriptor);
+        _cascadeDisposeDescriptor = cascadeDisposeDescriptor;
     }
 
     @Nullable
@@ -107,7 +106,7 @@ final class ReferenceDescriptor {
     }
 
     void setAutoObserveDescriptor(final AutoObserveDescriptor autoObserveDescriptor) {
-        _autoObserveDescriptor = Objects.requireNonNull(autoObserveDescriptor);
+        _autoObserveDescriptor = autoObserveDescriptor;
     }
 
     ComponentDescriptor getComponent() {

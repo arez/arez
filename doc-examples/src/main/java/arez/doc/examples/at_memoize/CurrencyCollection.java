@@ -22,7 +22,7 @@ public abstract class CurrencyCollection {
     }
 
     @Observable
-    public @Nullable List<Currency> getCurrencies() {
+    public List<Currency> getCurrencies() {
         // Return the list of all currencies here
         // DOC ELIDE START
         return _currencies;
@@ -40,19 +40,19 @@ public abstract class CurrencyCollection {
     @Memoize
     public @Nullable List<Currency> filteredCurrencies() {
         return Objects.requireNonNull(getCurrencies()).stream()
-                .filter(c -> Objects.requireNonNull(c.getSymbol()).contains(Objects.requireNonNull(getFilter())))
+                .filter(c -> c.getSymbol().contains(Objects.requireNonNull(getFilter())))
                 .collect(Collectors.toList());
     }
 
     // DOC ELIDE START
-    private @Nullable List<Currency> _currencies = new ArrayList<>();
+    private List<Currency> _currencies = new ArrayList<>();
     private @Nullable String _filter;
 
     public void setFilter(final @Nullable String filter) {
         _filter = filter;
     }
 
-    public void setCurrencies(final @Nullable List<Currency> currencies) {
+    public void setCurrencies(final List<Currency> currencies) {
         _currencies = currencies;
     }
 

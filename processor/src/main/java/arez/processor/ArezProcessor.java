@@ -39,6 +39,7 @@ import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.realityforge.proton.AbstractStandardProcessor;
 import org.realityforge.proton.AnnotationsUtil;
@@ -177,11 +178,13 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     private final StopWatch _analyzeComponentStopWatch = new StopWatch("Analyze Component");
 
     @Override
+    @NonNull
     protected String getIssueTrackerURL() {
         return "https://github.com/arez/arez/issues";
     }
 
     @Override
+    @NonNull
     protected String getOptionPrefix() {
         return "arez";
     }
@@ -673,7 +676,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
                             + component.getComponentId().getSimpleName(),
                     componentId);
         } else {
-            component.setComponentId(Objects.requireNonNull(componentId));
+            component.setComponentId(componentId);
             component.setComponentIdMethodType(componentIdMethodType);
         }
     }
@@ -3536,13 +3539,6 @@ public final class ArezProcessor extends AbstractStandardProcessor {
                             Constants.WARNING_NON_PRIVATE_SERVICE_FIELD, Constants.SUPPRESS_AREZ_WARNINGS_CLASSNAME);
             warning(message, field);
         }
-    }
-
-    @SuppressWarnings("SameParameterValue")
-    private boolean isElementAnnotatedBy(@Nullable final Element element, final String annotation) {
-        return null != element
-                && SuperficialValidation.validateElement(processingEnv, element)
-                && AnnotationsUtil.hasAnnotationOfType(element, annotation);
     }
 
     private boolean isService(final TypeElement typeElement) {

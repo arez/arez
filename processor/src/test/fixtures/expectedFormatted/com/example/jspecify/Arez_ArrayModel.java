@@ -61,7 +61,7 @@ final class Arez_ArrayModel extends ArrayModel
         true,
         false,
         false);
-    this.$$arezd$$_optionalElements = Objects.requireNonNull(optionalElements);
+    this.$$arezd$$_optionalElements = optionalElements;
     this.$$arez$$_optionalArray = $$arezv$$_context.<@Nullable Object @Nullable []>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".optionalArray" : null,

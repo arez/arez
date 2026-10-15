@@ -42,9 +42,9 @@ abstract class InheritedNullablePersistModel_PersistSidecar {
 
   InheritedNullablePersistModel_PersistSidecar(final Scope scope,
       final InheritedNullablePersistModel peer, final Store appStore) {
-    _scope = Objects.requireNonNull( scope );
-    _peer = Objects.requireNonNull( peer );
-    _appStore = Objects.requireNonNull( appStore );
+    _scope = scope;
+    _peer = peer;
+    _appStore = appStore;
   }
 
   static InheritedNullablePersistModel_PersistSidecar attach(final Scope scope,

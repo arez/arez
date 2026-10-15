@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 import org.jspecify.annotations.NullMarked;
@@ -78,11 +77,30 @@ public final class UnmodifiableMemoizeCollectionsIntegrationTest extends Abstrac
         safeAction(() -> assertUnmodifiable(m1.calcList(), ValueUtil::randomString));
         safeAction(() ->
                 assertUnsupportedOperation(() -> m1.calcMap().put(ValueUtil.randomString(), ValueUtil.randomString())));
-        safeAction(() -> assertUnmodifiable(Objects.requireNonNull(m1.calcCollection2()), ValueUtil::randomString));
-        safeAction(() -> assertUnmodifiable(Objects.requireNonNull(m1.calcSet2()), ValueUtil::randomString));
-        safeAction(() -> assertUnmodifiable(Objects.requireNonNull(m1.calcList2()), ValueUtil::randomString));
-        safeAction(() -> assertUnsupportedOperation(
-                () -> Objects.requireNonNull(m1.calcMap2()).put(ValueUtil.randomString(), ValueUtil.randomString())));
+        safeAction(() -> {
+            final var values = m1.calcCollection2();
+            assertNotNull(values);
+            assert null != values;
+            assertUnmodifiable(values, ValueUtil::randomString);
+        });
+        safeAction(() -> {
+            final var values = m1.calcSet2();
+            assertNotNull(values);
+            assert null != values;
+            assertUnmodifiable(values, ValueUtil::randomString);
+        });
+        safeAction(() -> {
+            final var values = m1.calcList2();
+            assertNotNull(values);
+            assert null != values;
+            assertUnmodifiable(values, ValueUtil::randomString);
+        });
+        safeAction(() -> {
+            final var values = m1.calcMap2();
+            assertNotNull(values);
+            assert null != values;
+            assertUnsupportedOperation(() -> values.put(ValueUtil.randomString(), ValueUtil.randomString()));
+        });
 
         // Assert Collections contain expected
         safeAction(() ->
@@ -92,14 +110,30 @@ public final class UnmodifiableMemoizeCollectionsIntegrationTest extends Abstrac
         safeAction(() ->
                 assertTrue(m1.calcMap().containsKey(map.keySet().iterator().next())));
 
-        safeAction(() -> assertTrue(Objects.requireNonNull(m1.calcCollection2())
-                .contains(collection2.iterator().next())));
-        safeAction(() -> assertTrue(
-                Objects.requireNonNull(m1.calcSet2()).contains(set2.iterator().next())));
-        safeAction(() -> assertTrue(
-                Objects.requireNonNull(m1.calcList2()).contains(list2.iterator().next())));
-        safeAction(() -> assertTrue(Objects.requireNonNull(m1.calcMap2())
-                .containsKey(map2.keySet().iterator().next())));
+        safeAction(() -> {
+            final var values = m1.calcCollection2();
+            assertNotNull(values);
+            assert null != values;
+            assertTrue(values.contains(collection2.iterator().next()));
+        });
+        safeAction(() -> {
+            final var values = m1.calcSet2();
+            assertNotNull(values);
+            assert null != values;
+            assertTrue(values.contains(set2.iterator().next()));
+        });
+        safeAction(() -> {
+            final var values = m1.calcList2();
+            assertNotNull(values);
+            assert null != values;
+            assertTrue(values.contains(list2.iterator().next()));
+        });
+        safeAction(() -> {
+            final var values = m1.calcMap2();
+            assertNotNull(values);
+            assert null != values;
+            assertTrue(values.containsKey(map2.keySet().iterator().next()));
+        });
 
         // Reference identity should be guaranteed
         safeAction(() -> assertTrue(m1.calcCollection() == m1.calcCollection()));

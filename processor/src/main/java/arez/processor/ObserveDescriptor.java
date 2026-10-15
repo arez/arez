@@ -2,7 +2,6 @@ package arez.processor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.type.ExecutableType;
@@ -46,8 +45,8 @@ final class ObserveDescriptor {
     private final List<ExecutableElement> _refMethods = new ArrayList<>();
 
     ObserveDescriptor(final ComponentDescriptor component, final String name) {
-        _component = Objects.requireNonNull(component);
-        _name = Objects.requireNonNull(name);
+        _component = component;
+        _name = name;
     }
 
     ComponentDescriptor getComponent() {
@@ -59,7 +58,7 @@ final class ObserveDescriptor {
     }
 
     void addRefMethod(final ExecutableElement method) {
-        getRefMethods().add(Objects.requireNonNull(method));
+        getRefMethods().add(method);
     }
 
     List<ExecutableElement> getRefMethods() {
@@ -127,15 +126,15 @@ final class ObserveDescriptor {
                     method);
         } else {
             _mutation = mutation;
-            _priority = Objects.requireNonNull(priority);
+            _priority = priority;
             _internalExecutor = internalExecutor;
             _reportParameters = reportParameters;
             _reportResult = reportResult;
-            _depType = Objects.requireNonNull(depType);
+            _depType = depType;
             _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
             _nestedActionsAllowed = nestedActionsAllowed;
-            _method = Objects.requireNonNull(method);
-            _methodType = Objects.requireNonNull(trackedMethodType);
+            _method = method;
+            _methodType = trackedMethodType;
         }
     }
 
@@ -171,7 +170,7 @@ final class ObserveDescriptor {
     }
 
     void setOnDepsChange(final ExecutableElement method) {
-        _onDepsChanges.add(Objects.requireNonNull(method));
+        _onDepsChanges.add(method);
     }
 
     String getFieldName() {

@@ -87,11 +87,11 @@ final class UnmarkedActionModel_Arez_Nested<T extends @NonNull Object>
         true,
         false,
         false);
-    this.$$arezd$$_item = Objects.requireNonNull(item);
-    this.$$arezd$$_any = Objects.requireNonNull(any);
-    this.$$arezd$$_inner = Objects.requireNonNull(inner);
-    this.$$arezd$$_plain = Objects.requireNonNull(plain);
-    this.$$arezd$$_values = Objects.requireNonNull(values);
+    this.$$arezd$$_item = item;
+    this.$$arezd$$_any = any;
+    this.$$arezd$$_inner = inner;
+    this.$$arezd$$_plain = plain;
+    this.$$arezd$$_values = values;
     this.$$arez$$_item = $$arezv$$_context.<T>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".item" : null,

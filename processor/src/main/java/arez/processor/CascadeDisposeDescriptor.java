@@ -1,6 +1,5 @@
 package arez.processor;
 
-import java.util.Objects;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
@@ -26,11 +25,11 @@ final class CascadeDisposeDescriptor {
 
     CascadeDisposeDescriptor(final VariableElement field) {
         _method = null;
-        _field = Objects.requireNonNull(field);
+        _field = field;
     }
 
     CascadeDisposeDescriptor(final ExecutableElement method, @Nullable final ObservableDescriptor observable) {
-        _method = Objects.requireNonNull(method);
+        _method = method;
         _field = null;
         if (null != observable) {
             setObservable(observable);
@@ -39,16 +38,22 @@ final class CascadeDisposeDescriptor {
 
     Element getElement() {
         final ExecutableElement method = getMethod();
-        return null != method ? method : Objects.requireNonNull(getField());
+        if (null != method) {
+            return method;
+        } else {
+            final VariableElement field = getField();
+            assert null != field;
+            return field;
+        }
     }
 
     void setObservable(final ObservableDescriptor observable) {
-        _observable = Objects.requireNonNull(observable);
+        _observable = observable;
         observable.setCascadeDisposeDescriptor(this);
     }
 
-    void setReference(@Nullable final ReferenceDescriptor reference) {
-        _reference = Objects.requireNonNull(reference);
+    void setReference(final ReferenceDescriptor reference) {
+        _reference = reference;
         reference.setCascadeDisposeDescriptor(this);
     }
 

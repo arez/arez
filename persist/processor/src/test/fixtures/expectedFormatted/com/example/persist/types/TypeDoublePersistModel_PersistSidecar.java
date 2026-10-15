@@ -39,9 +39,9 @@ abstract class TypeDoublePersistModel_PersistSidecar {
 
   TypeDoublePersistModel_PersistSidecar(
       final Scope scope, final TypeDoublePersistModel peer, final Store appStore) {
-    _scope = Objects.requireNonNull(scope);
-    _peer = Objects.requireNonNull(peer);
-    _appStore = Objects.requireNonNull(appStore);
+    _scope = scope;
+    _peer = peer;
+    _appStore = appStore;
   }
 
   static TypeDoublePersistModel_PersistSidecar attach(

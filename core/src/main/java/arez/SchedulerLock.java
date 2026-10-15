@@ -3,7 +3,6 @@ package arez;
 import static org.realityforge.braincheck.Guards.*;
 
 import grim.annotations.OmitSymbol;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -24,7 +23,8 @@ public final class SchedulerLock implements Disposable {
                     () -> Arez.areZonesEnabled() || null == context,
                     () -> "Arez-0174: SchedulerLock passed a context but Arez.areZonesEnabled() is false");
         }
-        _context = Arez.areZonesEnabled() ? Objects.requireNonNull(context) : null;
+        assert !Arez.areZonesEnabled() || null != context;
+        _context = Arez.areZonesEnabled() ? context : null;
     }
 
     @Override
@@ -41,6 +41,11 @@ public final class SchedulerLock implements Disposable {
     }
 
     private ArezContext getContext() {
-        return Arez.areZonesEnabled() ? Objects.requireNonNull(_context) : Arez.context();
+        if (Arez.areZonesEnabled()) {
+            assert null != _context;
+            return _context;
+        } else {
+            return Arez.context();
+        }
     }
 }

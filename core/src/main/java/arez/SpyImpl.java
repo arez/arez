@@ -15,7 +15,6 @@ import grim.annotations.OmitType;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import org.jspecify.annotations.Nullable;
 
@@ -41,7 +40,8 @@ final class SpyImpl implements Spy {
                     () -> Arez.areZonesEnabled() || null == context,
                     () -> "Arez-185: SpyImpl passed a context but Arez.areZonesEnabled() is false");
         }
-        _context = Arez.areZonesEnabled() ? Objects.requireNonNull(context) : null;
+        assert !Arez.areZonesEnabled() || null != context;
+        _context = Arez.areZonesEnabled() ? context : null;
     }
 
     @Override
@@ -65,7 +65,12 @@ final class SpyImpl implements Spy {
     }
 
     private ArezContext getContext() {
-        return Arez.areZonesEnabled() ? Objects.requireNonNull(_context) : Arez.context();
+        if (Arez.areZonesEnabled()) {
+            assert null != _context;
+            return _context;
+        } else {
+            return Arez.context();
+        }
     }
 
     @Override

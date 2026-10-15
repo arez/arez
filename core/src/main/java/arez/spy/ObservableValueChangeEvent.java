@@ -2,7 +2,6 @@ package arez.spy;
 
 import arez.Arez;
 import java.util.Map;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -16,7 +15,7 @@ public final class ObservableValueChangeEvent implements SerializableEvent {
     private final Object _value;
 
     public ObservableValueChangeEvent(final ObservableValueInfo observableValue, @Nullable final Object value) {
-        _observableValue = Objects.requireNonNull(observableValue);
+        _observableValue = observableValue;
         _value = value;
     }
 

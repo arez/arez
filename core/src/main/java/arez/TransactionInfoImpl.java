@@ -5,7 +5,6 @@ import static org.realityforge.braincheck.Guards.*;
 import arez.spy.ObserverInfo;
 import arez.spy.TransactionInfo;
 import grim.annotations.OmitType;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -17,7 +16,7 @@ final class TransactionInfoImpl implements TransactionInfo {
     private final Transaction _transaction;
 
     TransactionInfoImpl(final Transaction transaction) {
-        _transaction = Objects.requireNonNull(transaction);
+        _transaction = transaction;
     }
 
     @Override

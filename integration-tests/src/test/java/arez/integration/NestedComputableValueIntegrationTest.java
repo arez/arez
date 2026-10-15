@@ -9,7 +9,6 @@ import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.integration.util.SpyEventRecorder;
 import java.util.ArrayList;
-import java.util.Objects;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
@@ -298,10 +297,17 @@ public final class NestedComputableValueIntegrationTest extends AbstractArezInte
 
         @Memoize
         boolean isVisible() {
-            return getChildren().isEmpty()
-                    ? Objects.requireNonNull(getName())
-                            .contains(Objects.requireNonNull(getContext().getFilter()))
-                    : getChildren().stream().anyMatch(Node::isVisible);
+            if (getChildren().isEmpty()) {
+                final var name = getName();
+                assertNotNull(name);
+                assert null != name;
+                final var filter = getContext().getFilter();
+                assertNotNull(filter);
+                assert null != filter;
+                return name.contains(filter);
+            } else {
+                return getChildren().stream().anyMatch(Node::isVisible);
+            }
         }
 
         @Observable

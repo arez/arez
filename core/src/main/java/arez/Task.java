@@ -7,7 +7,6 @@ import arez.spy.TaskCompleteEvent;
 import arez.spy.TaskInfo;
 import arez.spy.TaskStartEvent;
 import grim.annotations.OmitSymbol;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -39,7 +38,7 @@ public final class Task extends Node {
                             + (~Flags.CONFIG_FLAGS_MASK & flags));
         }
 
-        _work = Objects.requireNonNull(work);
+        _work = work;
         _flags = flags | Flags.STATE_IDLE | Flags.runType(flags) | Flags.priority(flags);
         if (Arez.areRegistriesEnabled() && 0 == (_flags & Flags.NO_REGISTER_TASK)) {
             getContext().registerTask(this);

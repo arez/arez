@@ -55,7 +55,7 @@ final class Arez_NonnullAbstractObservableDependency extends NonnullAbstractObse
         true,
         false,
         false);
-    this.$$arezd$$_value = Objects.requireNonNull(value);
+    this.$$arezd$$_value = value;
     this.$$arez$$_value = $$arezv$$_context.<@NonNull DisposeNotifier>observable(
         Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null,
         Arez.areNamesEnabled() ? $$arezv$$_name + ".value" : null,

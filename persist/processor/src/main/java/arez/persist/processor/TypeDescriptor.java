@@ -1,7 +1,6 @@
 package arez.persist.processor;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
@@ -26,11 +25,11 @@ final class TypeDescriptor {
             final TypeElement element,
             @Nullable final ExecutableElement idMethod,
             final List<PropertyDescriptor> properties) {
-        _name = Objects.requireNonNull(name);
+        _name = name;
         _persistOnDispose = persistOnDispose;
-        _element = Objects.requireNonNull(element);
+        _element = element;
         _idMethod = idMethod;
-        _properties = Objects.requireNonNull(properties);
+        _properties = properties;
     }
 
     String getName() {

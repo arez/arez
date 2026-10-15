@@ -397,7 +397,7 @@ final class SidecarGenerator {
         ctor.addParameter(
                 ParameterSpec.builder(SCOPE_CLASSNAME, "scope", Modifier.FINAL).build());
 
-        ctor.addStatement("$N = $T.requireNonNull( $N )", "_scope", Objects.class, "scope");
+        ctor.addStatement("$N = $N", "_scope", "scope");
 
         final ClassName peerType = ClassName.get(element);
         builder.addField(FieldSpec.builder(peerType, "_peer", Modifier.FINAL)
@@ -406,7 +406,7 @@ final class SidecarGenerator {
         ctor.addParameter(
                 ParameterSpec.builder(peerType, "peer", Modifier.FINAL).build());
 
-        ctor.addStatement("$N = $T.requireNonNull( $N )", "_peer", Objects.class, "peer");
+        ctor.addStatement("$N = $N", "_peer", "peer");
 
         for (final String storeName : descriptor.getStoreNames()) {
             final String varName = storeVar(storeName);
@@ -415,7 +415,7 @@ final class SidecarGenerator {
                     .build());
             ctor.addParameter(ParameterSpec.builder(STORE_CLASSNAME, varName, Modifier.FINAL)
                     .build());
-            ctor.addStatement("$N = $T.requireNonNull( $N )", fieldName, Objects.class, varName);
+            ctor.addStatement("$N = $N", fieldName, varName);
         }
 
         builder.addMethod(ctor.build());

@@ -1,7 +1,6 @@
 package arez.spy;
 
 import java.util.Map;
-import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -39,9 +38,9 @@ public final class ActionCompleteEvent implements SerializableEvent {
             final int duration) {
         assert duration >= 0;
         assert null == throwable || null == result;
-        _name = Objects.requireNonNull(name);
+        _name = name;
         _tracked = tracked;
-        _parameters = Objects.requireNonNull(parameters);
+        _parameters = parameters;
         _returnsResult = returnsResult;
         _result = result;
         _throwable = throwable;

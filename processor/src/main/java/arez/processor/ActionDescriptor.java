@@ -1,6 +1,5 @@
 package arez.processor;
 
-import java.util.Objects;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.type.ExecutableType;
 
@@ -35,16 +34,16 @@ final class ActionDescriptor {
             final boolean skipIfDisposed,
             final ExecutableElement action,
             final ExecutableType actionType) {
-        _component = Objects.requireNonNull(component);
-        _name = Objects.requireNonNull(name);
+        _component = component;
+        _name = name;
         _requireNewTransaction = requireNewTransaction;
         _mutation = mutation;
         _verifyRequired = verifyRequired;
         _reportParameters = reportParameters;
         _reportResult = reportResult;
         _skipIfDisposed = skipIfDisposed;
-        _action = Objects.requireNonNull(action);
-        _actionType = Objects.requireNonNull(actionType);
+        _action = action;
+        _actionType = actionType;
     }
 
     String getName() {

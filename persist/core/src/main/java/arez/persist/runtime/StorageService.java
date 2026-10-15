@@ -3,7 +3,6 @@ package arez.persist.runtime;
 import arez.Arez;
 import arez.SafeProcedure;
 import java.util.Map;
-import java.util.Objects;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -80,7 +79,7 @@ public interface StorageService {
 
         public Entry(@Nullable final Map<String, @Nullable Object> data, @NonNull final Object encoded) {
             _data = data;
-            _encoded = Objects.requireNonNull(encoded);
+            _encoded = encoded;
         }
 
         /**

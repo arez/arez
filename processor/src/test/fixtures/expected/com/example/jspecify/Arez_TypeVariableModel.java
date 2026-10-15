@@ -40,7 +40,7 @@ final class Arez_TypeVariableModel<T extends @Nullable Object> extends TypeVaria
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_jspecify_TypeVariableModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_jspecify_TypeVariableModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arezd$$_required = Objects.requireNonNull( required );
+    this.$$arezd$$_required = required;
     this.$$arez$$_optional = $$arezv$$_context.<@Nullable T>observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".optional" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_optional ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_optional = v : null );
     this.$$arez$$_required = $$arezv$$_context.<@NonNull T>observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".required" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_required ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_required = Objects.requireNonNull( v ) : null );
     this.$$arezi$$_kernel().componentConstructed();

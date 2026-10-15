@@ -7,7 +7,6 @@ import arez.spy.SpyEventHandler;
 import arez.spy.SpyEventTestUtil;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -25,7 +24,8 @@ public final class TestSpyEventHandler implements SpyEventHandler {
     private int _currentAssertIndex;
 
     TestSpyEventHandler(final ArezContext context) {
-        _context = Objects.requireNonNull(context);
+        assertNotNull(context);
+        _context = context;
     }
 
     public static TestSpyEventHandler subscribe() {

@@ -5,7 +5,6 @@ import com.palantir.javapoet.TypeName;
 import com.palantir.javapoet.WildcardTypeName;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Stream;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.ExecutableElement;
@@ -61,8 +60,8 @@ final class MemoizeDescriptor {
     private final List<MemoizeContextParameterDescriptor> _contextParameters = new ArrayList<>();
 
     MemoizeDescriptor(final ComponentDescriptor component, final String name) {
-        _component = Objects.requireNonNull(component);
-        _name = Objects.requireNonNull(name);
+        _component = component;
+        _name = name;
     }
 
     ComponentDescriptor getComponent() {
@@ -87,11 +86,13 @@ final class MemoizeDescriptor {
     }
 
     ExecutableElement getMethod() {
-        return Objects.requireNonNull(_method);
+        assert null != _method;
+        return _method;
     }
 
     ExecutableType getMethodType() {
-        return Objects.requireNonNull(_methodType);
+        assert null != _methodType;
+        return _methodType;
     }
 
     @Nullable
@@ -122,15 +123,15 @@ final class MemoizeDescriptor {
         MemberChecks.mustReturnAValue(Constants.MEMOIZE_CLASSNAME, method);
         MemberChecks.mustNotThrowAnyExceptions(Constants.MEMOIZE_CLASSNAME, method);
 
-        _method = Objects.requireNonNull(method);
-        _methodType = Objects.requireNonNull(methodType);
+        _method = method;
+        _methodType = methodType;
         _keepAlive = keepAlive;
-        _priority = Objects.requireNonNull(priority);
+        _priority = priority;
         _reportResult = reportResult;
         _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
         _readOutsideTransaction = readOutsideTransaction;
-        _depType = Objects.requireNonNull(depType);
-        _equalityComparator = Objects.requireNonNull(equalityComparator);
+        _depType = depType;
+        _equalityComparator = equalityComparator;
 
         if (ComponentGenerator.isMethodReturnType(getMethod(), Stream.class)) {
             throw new ProcessorException(
@@ -187,7 +188,7 @@ final class MemoizeDescriptor {
             throw new ProcessorException(
                     "@OnActivate target duplicates existing method named " + _onActivate.getSimpleName(), method);
         } else {
-            _onActivate = Objects.requireNonNull(method);
+            _onActivate = method;
         }
     }
 
@@ -196,7 +197,7 @@ final class MemoizeDescriptor {
             throw new ProcessorException(
                     "@OnDeactivate target duplicates existing method named " + _onDeactivate.getSimpleName(), method);
         } else {
-            _onDeactivate = Objects.requireNonNull(method);
+            _onDeactivate = method;
         }
     }
 

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Stream;
 import org.jspecify.annotations.Nullable;
 
@@ -101,8 +100,8 @@ final class TaskQueue {
                     () -> "Arez-0215: Attempting to queue task named '" + task.getName()
                             + "' but passed an invalid priority " + priority + ".");
         }
-        Objects.requireNonNull(task).markAsQueued();
-        _buffers[priority].add(Objects.requireNonNull(task));
+        task.markAsQueued();
+        _buffers[priority].add(task);
     }
 
     /**
