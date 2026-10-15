@@ -3,43 +3,24 @@
 ### Unreleased
 
 * Remove redundant non-null parameter checks covered by JSpecify and NullAway, and use assertions for feature-dependent and internal descriptor state. Preserve Braincheck invariants and checks that narrow nullable external data.
-
 * Remove the unused Java emulation annotations dependency and `@DoNotAutobox` annotations from DOM positions.
-
 * Preserve nested JSpecify qualifiers in generated observable setters that allow writes outside a transaction.
-
 * Preserve original unmarked scopes on generated overrides and constructor inputs, including inherited declarations, without changing generated observable initializer contracts.
-
 * Preserve enclosing generic types, wildcard bounds, definite non-null type variables and explicit reference return qualifiers when generating mixed-nullness contracts.
-
 * Diagnose parametric initializer components that cannot retain their conditional nullness in an unmarked constructor. Mark the original constructor or explicitly qualify the nested type-variable usage; marked constructors and explicit nullable/non-null components remain supported.
-
 * Replace Buildr/Ruby/Yarn/Node project tooling and Docusaurus with Bazel builds, a Java site generator, explicit release commands and the shared CI check gate. Remove downstream repository builds and GWT compiler/modules/bootstraps.
-
 * Run all seven DOM examples and the promise example through J2CL with local previews and deterministic Chromium tests in development and optimized production.
-
 * Publish complete sources separately from binary jars, including generated Java and native JavaScript. Public Bazel JVM imports/processors and browser libraries consume those publication archives; aggregate API documentation covers all eight artifacts.
-
 * Bind idle and network event subscriptions through `window` for optimized J2CL builds.
-
 * Handle an empty browser hash without taking an out-of-range substring and bind location listeners through `window`, so BrowserLocation initializes and compiles in optimized J2CL builds.
-
 * Resolve inherited generic Persist property and setter types in the concrete component context, including compiled bases, so generated converters and save/restore code use the substituted type.
-
 * Enforce the reference Error Prone policy and JSpecify-mode NullAway on runtime builds. Lookup callbacks and erased spy property access preserve their nullable results and inputs; assertions establish existing internal invariants.
-
 * Migrate extras and compiled examples to JSpecify. Promise value/error and spy parameter element contracts allow null; runtime reference messages retain Java type names without nullability annotation text.
-
 * Migrate Persist contracts to JSpecify, including nullable converter results and state-map values. Preserve converter identity across nullability annotations and nullable inherited properties loaded from compiled bases.
-
 * Preserve inverse cardinality for annotated collection types and inherited reference-ID nullness after generic substitution, including compiled base classes.
-
 * Recognize annotated Observer and ComputableValue hook parameters by their declared Java type. Nullable observable initializers are diagnosed against the getter’s JSpecify contract.
-
 * Upgrade processor infrastructure to the pinned post-0.76 Proton module and require Java 21 to run processors. Generated code uses JSpecify type annotations and marked scopes. Nullness decisions honor declaration defaults and inherited generic bindings; unspecified initialization contracts are diagnosed. Legacy javax and JetBrains nullability annotations are ignored.
-
 * Replace core nullability annotations with JSpecify marked scopes. Nullable action arrays and their nullable elements are separate contracts; callback value types remain parametric and may include null.
-
 * Upgrade the development and CI Bazel version to 9.3.0 with pinned Java toolchains.
 
 ### [v0.256](https://github.com/arez/arez/tree/v0.256) (2026-08-25) · [Full Changelog](https://github.com/arez/arez/compare/v0.255...v0.256)
