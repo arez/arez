@@ -9,7 +9,7 @@ import org.jspecify.annotations.Nullable;
 @ArezComponent
 abstract class EmptyButNotAllowedModel
 {
-  @MemoizeContextParameter( name = "public" )
+  @MemoizeContextParameter
   @Nullable String captureMyContextVar()
   {
     return "";

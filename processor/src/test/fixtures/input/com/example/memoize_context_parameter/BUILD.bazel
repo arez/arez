@@ -10,6 +10,8 @@ filegroup(
         "ManyTypesModel.java",
         "NoCapturePrefixModel.java",
         "OverrideNameModel.java",
+        "PopFirstModel.java",
+        "PushFirstModel.java",
         "//processor/src/test/fixtures/input/com/example/memoize_context_parameter/inherit:all",
         "//processor/src/test/fixtures/input/com/example/memoize_context_parameter/intf:all",
     ],

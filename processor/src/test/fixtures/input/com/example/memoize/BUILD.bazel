@@ -15,6 +15,7 @@ filegroup(
         "DefaultPriorityUnspecifiedLocalPriorityMemoizeModel.java",
         "HighPriorityModel.java",
         "HighestPriorityModel.java",
+        "InterfaceHooksModel.java",
         "KeepAliveModel.java",
         "LocalTypeParamModel.java",
         "LowPriorityModel.java",

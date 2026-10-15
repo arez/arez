@@ -70,9 +70,25 @@ optimized production modes, packaged consumers, coverage, and the website.
 `//:all_tests` collects JVM, browser, and site tests; it does not replace the full
 check script.
 
-JVM coverage writes `reports/coverage/jvm.lcov` and a JSON summary. Reports must
-include the tested product modules and exercised lines; there are no percentage
-thresholds. CI retains the coverage and artifact reports under `reports/`.
+JVM coverage writes `reports/coverage/jvm.lcov` and `reports/coverage/summary.json`.
+The summary reports production Java line and branch coverage separately for
+`core`, `processor`, `extras/dom`, `extras/spytools`, `persist/core`, and
+`persist/processor`, plus their combined totals. Test support and fixtures do
+not contribute to these percentages. Every production Java source must appear
+in the report, including sources with no executable lines.
+
+`tools/check_coverage.py` enforces independent line and branch regression floors
+for each module. A strong module cannot compensate for a regression in another.
+Raise the floors in `MINIMUMS` when tests improve coverage; the target for core
+and processor is at least 98% lines and 90% branches. Compare unrounded
+percentages against the floors; displayed percentages are rounded to two places.
+The JSON summary is retained even when a percentage gate fails.
+
+These are JVM measurements. Browser tests run separately in development and
+optimized modes and do not contribute coverage. JavaScript-only implementations
+and unexercised assertion outcomes remain visible in the JVM totals; do not
+exclude them or add tests of impossible states merely to meet a percentage.
+CI retains the coverage and artifact reports under `reports/`.
 
 Ahab checks whether build actions declare their inputs and tools. Run
 `bazel run //tools/ahab:hermeticity.check` to enforce the baseline or

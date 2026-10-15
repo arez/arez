@@ -227,7 +227,7 @@ public final class Observer extends Node {
     }
 
     boolean areArezDependenciesRequired() {
-        assert Arez.shouldCheckApiInvariants();
+        assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
         return Flags.AREZ_DEPENDENCIES == (_flags & Flags.AREZ_DEPENDENCIES);
     }
 
@@ -257,7 +257,7 @@ public final class Observer extends Node {
     }
 
     boolean canObserveLowerPriorityDependencies() {
-        assert Arez.shouldCheckApiInvariants();
+        assert Arez.shouldCheckInvariants() || Arez.shouldCheckApiInvariants();
         return 0 != (_flags & Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES);
     }
 

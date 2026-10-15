@@ -17,6 +17,7 @@ filegroup(
         "NestedScopeModel.java",
         "NonNullGenericBase.java",
         "NonNullOperatorModel.java",
+        "NullabilityCases.java",
         "NullableModel.java",
         "ParametricContainerModel.java",
         "PrimitiveUnmarkedModel.java",

@@ -6,6 +6,30 @@ import org.testng.annotations.Test;
 
 public final class CircularBufferTest extends AbstractTest {
     @Test
+    public void clearWrappedBufferAndReuse() {
+        final CircularBuffer<String> buffer = new CircularBuffer<>(3);
+        buffer.add("A");
+        buffer.add("B");
+        buffer.add("C");
+        assertEquals(buffer.pop(), "A");
+        buffer.add("D");
+
+        buffer.clear();
+
+        assertEquals(buffer.size(), 0);
+        assertEquals(buffer.getCapacity(), 3);
+        assertTrue(buffer.isEmpty());
+        assertNull(buffer.pop());
+        assertNull(buffer.get(0));
+        assertFalse(buffer.contains("B"));
+
+        buffer.add("E");
+        assertEquals(buffer.size(), 1);
+        assertEquals(buffer.pop(), "E");
+        assertNull(buffer.pop());
+    }
+
+    @Test
     public void basicOperation() {
         final CircularBuffer<String> buffer = new CircularBuffer<>(3);
         assertEquals(buffer.size(), 0);

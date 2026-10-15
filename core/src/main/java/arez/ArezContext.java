@@ -1852,7 +1852,7 @@ public final class ArezContext {
     }
 
     private void verifyActionNestingAllowed(@Nullable final String name, @Nullable final Observer observer) {
-        if (Arez.shouldEnforceTransactionType()) {
+        if (Arez.shouldCheckApiInvariants() && Arez.shouldEnforceTransactionType()) {
             final Transaction parentTransaction = Transaction.isTransactionActive(this) ? Transaction.current() : null;
             if (null != parentTransaction) {
                 final Observer parent = parentTransaction.getTracker();

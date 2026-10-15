@@ -29,6 +29,38 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
     @DataProvider(name = "failedCompiles")
     public Object[][] failedCompiles() {
         return new Object[][] {
+            {"com.example.memoize_context_parameter.BadName1Model", "name must be a valid java identifier"},
+            {"com.example.memoize_context_parameter.BadName2Model", "name must not be a java keyword"},
+            {"com.example.memoize_context_parameter.EmptyButNotAllowedModel", "there are no @Memoize annotated methods"
+            },
+            {"com.example.memoize_context_parameter.MissingPushModel", "has no associated push method"},
+            {"com.example.memoize_context_parameter.MissingPopModel", "has no associated pop method"},
+            {"com.example.memoize_context_parameter.InvalidPatternModel", "not a valid regular expression"},
+            {
+                "com.example.memoize_context_parameter.ConflictingAllowEmptyModel",
+                "does not have a matching allowEmpty parameter"
+            },
+            {
+                "com.example.memoize_context_parameter.ConflictingPatternModel",
+                "does not have a matching pattern parameter"
+            },
+            {
+                "com.example.memoize_context_parameter.PushFirstCaptureTypeModel",
+                "defines a capture method with a different type"
+            },
+            {
+                "com.example.memoize_context_parameter.PopFirstCaptureTypeModel",
+                "defines a capture method with a different type"
+            },
+            {"com.example.memoize_context_parameter.MissingCaptureModel", "has no associated capture method"},
+            {
+                "com.example.memoize_context_parameter.PushWithoutParameterModel",
+                "push method should accept a single parameter"
+            },
+            {
+                "com.example.memoize_context_parameter.PopWithoutParameterModel",
+                "pop method should accept a single parameter"
+            },
             new Object[] {
                 "com.example.reserved_names.DataPrefixReservedNameModel",
                 "Method defined on a class annotated by @ArezComponent uses a name with a prefix reserved by Arez"
@@ -2277,6 +2309,9 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
     @DataProvider(name = "compileWithoutWarnings")
     public Object[][] compileWithoutWarnings() {
         return new Object[][] {
+            {"com.example.memoize.InterfaceHooksModel"},
+            {"com.example.memoize_context_parameter.PushFirstModel"},
+            {"com.example.memoize_context_parameter.PopFirstModel"},
             new Object[] {"com.example.cascade_dispose.Suppressed1DisposeOnDeactivateCascadeDisposeFieldModel"},
             new Object[] {"com.example.cascade_dispose.Suppressed2DisposeOnDeactivateCascadeDisposeMethodModel"},
             new Object[] {"com.example.cascade_dispose.DisposeOnDeactivateCascadeDisposeSuppressedAtClassModel"},

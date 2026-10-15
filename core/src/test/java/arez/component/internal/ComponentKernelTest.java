@@ -18,6 +18,52 @@ import org.testng.annotations.Test;
 
 public final class ComponentKernelTest extends AbstractTest {
     @Test
+    public void observableSettersReuseTransactionsAndPropagateFailures() throws Throwable {
+        ArezTestUtil.disableNativeComponents();
+        final ArezContext context = Arez.context();
+        final var kernel = new ComponentKernel(context, "Model", 0, null, null, null, null, false, false, false);
+        final var calls = new AtomicInteger();
+        final var observable = context.observable();
+        kernel.safeSetObservable("safe", () -> {
+            assertTrue(context.isReadWriteTransactionActive());
+            observable.reportChanged();
+            calls.incrementAndGet();
+        });
+        kernel.setObservable("throwing", () -> {
+            assertTrue(context.isReadWriteTransactionActive());
+            observable.reportChanged();
+            calls.incrementAndGet();
+        });
+        context.action(() -> {
+            observable.reportChanged();
+            kernel.safeSetObservable("nestedSafe", calls::incrementAndGet);
+            kernel.setObservable("nestedThrowing", calls::incrementAndGet);
+        });
+        assertEquals(calls.get(), 4);
+        final var failure = new Exception("setter failure");
+        assertSame(
+                expectThrows(
+                        Exception.class,
+                        () -> kernel.setObservable("failure", () -> {
+                            throw failure;
+                        })),
+                failure);
+        assertFalse(context.isTransactionActive());
+
+        ArezTestUtil.disableNames();
+        kernel.safeSetObservable(null, () -> {
+            observable.reportChanged();
+            calls.incrementAndGet();
+        });
+        kernel.setObservable(null, () -> {
+            observable.reportChanged();
+            calls.incrementAndGet();
+        });
+        assertEquals(calls.get(), 6);
+        assertFalse(context.isTransactionActive());
+    }
+
+    @Test
     public void basicOperation() {
         final ArezContext context = Arez.context();
         final String name = ValueUtil.randomString();

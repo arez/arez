@@ -11,6 +11,7 @@ java_library(
         "ArezProcessorJSpecifyDiagnosticTest.java",
         "ArezProcessorJavacTest.java",
         "ArezProcessorTestSupport.java",
+        "NullabilityTest.java",
         "package-info.java",
     ],
     deps = [
@@ -416,7 +417,17 @@ test_suite(
         ":generated_output",
         ":jspecify_diagnostics",
         ":jspecify_goldens",
+        ":nullability",
     ],
+)
+
+java_testng(
+    name = "nullability",
+    srcs = [],
+    data = ["//processor/src/test/fixtures/input/com/example/jspecify:all"],
+    jvm_flags = _JVM_FLAGS,
+    test_class = "arez.processor.NullabilityTest",
+    deps = _RUNTIME_DEPS,
 )
 
 java_testng(

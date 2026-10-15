@@ -22,7 +22,7 @@ python3 tools/check_bazel_consumer.py
 bazel test //:all_tests
 bazel test -c opt //:browser_tests
 bazel coverage -c dbg //:jvm_tests --combined_report=lcov \
-  --instrumentation_filter='^//(core|processor|extras/(dom|spytools)|persist/(core|processor))[:/]'
+  --instrumentation_filter='^//(core|processor|extras/(dom|spytools)|persist/(core|processor))[:/],-/src/test/'
 coverage_report="$(bazel info -c dbg output_path)/_coverage/_coverage_report.dat"
 mkdir -p reports/coverage
 python3 - "${coverage_report}" reports/coverage/jvm.lcov <<'PY'
