@@ -55,7 +55,7 @@ application and owned processor bytecode target Java 17. Running published annot
 - Browser matrix: `bazel test //:browser_tests` and `bazel test -c opt //:browser_tests`.
 - Docs: `tools/site.sh build`, `tools/site.sh check`, `tools/site.sh serve`; output is `reports/site`.
 - For processor fixtures, source updates or public consumer targets, read [development](docs/development.md).
-- For signing, publication or deployment, read [releasing](docs/releasing.md).
+- For signing, publication or deployment, read [releases](docs/development.md#releases).
 
 ## Coding Style & Naming Conventions
 

@@ -5,69 +5,23 @@
 [<img src="https://img.shields.io/maven-central/v/org.realityforge.arez/arez-core.svg?label=latest%20release"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.realityforge.arez%22)
 ![J2CL compatible](https://img.shields.io/badge/J2CL-compatible-brightgreen.svg)
 
-Arez is a simple, efficient and scalable state management library for client-side applications. Arez is powered
-by the reactive programming model found in spreadsheets, a dataflow programming model. Arez tracks usage of
-observable data and notifies observers when the observable data changes. The library scales from simple, flat
-domain models to complex, highly inter-connected graph-like domain models. Arez trades a higher memory usage
-for a faster execution speed and better developer experience. Arez is optimized for developer happiness by
-eliminating the need to monitor state changes. Instead, applications react to state changes on demand.
+Arez is a reactive state management library for Java and J2CL applications. It tracks
+observable data and notifies observers when that data changes.
 
-Arez is under heavy development, and sometimes the documentation does not keep up to date. However the goal of
-the toolkit is to be easy to use, and this includes clear and concise documentation. If something is unclear
-please [report it as a bug](https://github.com/arez/arez/issues) because it *is* a bug. If a new user
-has a hard time, then we need to fix the problem.
+- [Project setup](docs/project_setup.md): add Arez to your application.
+- [Documentation](https://arez.github.io/): learn the reactive model and APIs.
+- [Development guide](docs/development.md): build, test, contribute to, and release Arez.
+- [Issues](https://github.com/arez/arez/issues): report bugs or discuss changes.
 
-For more information about Arez, please see the [Website](https://arez.github.io/). For the source code
-and project support, please visit the [GitHub project](https://github.com/arez/arez).
-
-# Contributing
-
-Arez was released as open source so others could benefit from the project. We are thankful for any
-contributions from the community. A [Code of Conduct](CODE_OF_CONDUCT.md) has been put in place and
-a [Contributing](CONTRIBUTING.md) document is under development.
-
-Build with Bazel 9.3.0 (Bazelisk reads `.bazelversion`), Bash and Python 3. Bazel downloads the
-pinned Java toolchains. Runtime and generated application classes target Java 17; annotation
-processors require Java 21 or later. Component contracts use JSpecify nullability.
-
-```sh
-bazel build //core //processor //extras/dom //extras/promise //extras/spytools //extras/testng //persist/core //persist/processor //doc-examples
-bazel test //:jvm_tests
-tools/check.sh
-```
-
-`tools/check.sh` is the [CI entrypoint](.github/workflows/bazel-j2cl.yml). It checks all retained JVM
-suites, eight Chromium suites in development and optimized production, packaged artifacts,
-hermeticity, formatting, coverage and the Java-generated site.
-
-See [development](docs/development.md) for focused goldens, public packaged JVM/J2CL labels and
-local browser previews; [project setup](docs/project_setup.md) for the Java 21/JSpecify cut; and
-[releasing](docs/releasing.md) for manual publication commands. Use `tools/site.sh serve` to preview
-the documentation. Binary jars and complete source jars are separate; GWT support is retired.
-
-# License
+## License
 
 Arez is licensed under [Apache License, Version 2.0](LICENSE).
 
-# Credit
+## Credits
 
-* [Stock Software](http://www.stocksoftware.com.au/) for providing significant support in building and maintaining
-  Arez. The company was willing take a risk and base their next suite of applications on an idea and the
-  bet paid off.
-
-* The toolkit began life as an attempt to port [Mobx](https://mobx.js.org/) to java. Not all of the Mobx
-  primitives made sense in a java world. There were also places where it was felt that we could improve on
-  the Mobx model, at least for our environment. The idea of a "port" was soon discarded and Arez became a
-  reimplementation of similar concepts. However there are some places (i.e. `Transaction.completeTracking()`)
-  where the Mobx heritage is clear. Credit goes to Michel Weststrate and the Mobx team for their clean conceptual
-  model and some inspirational talks. Later in the life of Arez, parts of the Mobx documentation acted as
-  inspiration or were directly copied and modified (i.e. MobX's [(@)computed](https://mobx.js.org/refguide/computed-decorator.html))
-  docs were used to seed `docs/computable_values.md`).
-
-* Other frameworks that influenced or are influencing the development of Arez include;
-  - [Incremental](https://github.com/janestreet/incremental) is an Ocaml library that should have inspired Arez.
-  - [Meteor Tracker](https://docs.meteor.com/api/tracker.html)
-  - [VueJS watchers and Computed properties](https://vuejs.org/v2/guide/computed.html)
-  -  KnockoutJS [Observables](http://knockoutjs.com/documentation/observables.html) and [Computed Observables](http://knockoutjs.com/documentation/computedObservables.html)
-  - [GlimmerJS Tracked Properties](https://glimmerjs.com/guides/tracked-properties)
-  - [Observable](https://observablehq.com/@observablehq/observables-not-javascript) is a javascript-like language that uses a similar model and bakes it into the language. It uses `cell`s as the primitive which can either be mutable values or react to changes in other cells (i.e. Arez's `ComputableValue` instances).
+[Stock Software](http://www.stocksoftware.com.au/) supported Arez's development and maintenance.
+Arez began as an attempt to port [MobX](https://mobx.js.org/) to Java and developed into an
+independent implementation of similar concepts. Credit goes to Michel Weststrate and the
+MobX team for the reactive model. Parts of the documentation were adapted from MobX, including
+[computable values](docs/computable_values.md), which began with MobX's
+[computed documentation](https://mobx.js.org/refguide/computed-decorator.html).
