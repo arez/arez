@@ -73,11 +73,6 @@ alias(
     actual = "@jsinterop_base//:jsinterop-base-j2cl",
 )
 
-alias(
-    name = "javaemul_internal_annotations-j2cl",
-    actual = "@j2cl//jre/java:javaemul_internal_annotations-j2cl",
-)
-
 j2cl_library(
     name = "braincheck_core-j2cl",
     # Braincheck 1.35 ships Java and native JS together in its binary jar;
@@ -95,7 +90,7 @@ j2cl_library(
 # DO NOT EDIT: Content is auto-generated from //third_party/java:dependencies.yml by https://github.com/realityforge/bazel-depgen version 0.26
 
 # SHA256 of the configuration content that generated this content
-_CONFIG_SHA256 = "6D7FF02CF578207D91531FA6B8B5DC9B30E3752D95E9A87A378A68B56141E0FD"
+_CONFIG_SHA256 = "7423F1F8F87EAF4A1B4EC00CF771E94AD12C265C228D06CAE48B69A1688218FF"
 
 exports_files(["dependencies.yml"])
 
@@ -122,7 +117,6 @@ exports_files(["dependencies.yml"])
 # +- com.google.jsinterop:jsinterop-annotations:jar:2.0.0 [compile]
 # +- com.google.jsinterop:base:jar:1.0.0 [compile]
 # |  \- com.google.jsinterop:jsinterop-annotations:jar:1.0.2 [compile] (conflicts with 2.0.0)
-# +- org.realityforge.javaemul.internal.annotations:javaemul.internal.annotations:jar:0.01 [compile]
 # +- org.jspecify:jspecify:jar:1.0.0 [compile]
 # +- org.realityforge.guiceyloops:guiceyloops:jar:0.113 [compile]
 # +- org.glassfish:javax.json:jar:1.1 [compile]
@@ -435,13 +429,6 @@ _java_import(
     jars = ["@guiceyloops//file"],
     srcjar = "@guiceyloops__sources//file",
     tags = ["maven_coordinates=org.realityforge.guiceyloops:guiceyloops:0.113"],
-)
-
-_java_import(
-    name = "javaemul_internal_annotations",
-    jars = ["@javaemul_internal_annotations//file"],
-    srcjar = "@javaemul_internal_annotations__sources//file",
-    tags = ["maven_coordinates=org.realityforge.javaemul.internal.annotations:javaemul.internal.annotations:0.01"],
 )
 
 _java_import(

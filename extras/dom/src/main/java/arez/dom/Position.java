@@ -1,7 +1,6 @@
 package arez.dom;
 
 import java.util.Objects;
-import javaemul.internal.annotations.DoNotAutobox;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -34,11 +33,11 @@ public final class Position {
      */
     public Position(
             final double accuracy,
-            @DoNotAutobox @Nullable final Double altitude,
-            @DoNotAutobox @Nullable final Double heading,
+            @Nullable final Double altitude,
+            @Nullable final Double heading,
             final double latitude,
             final double longitude,
-            @DoNotAutobox @Nullable final Double speed) {
+            @Nullable final Double speed) {
         _accuracy = accuracy;
         _altitude = altitude;
         _heading = heading;

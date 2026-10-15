@@ -162,7 +162,7 @@ def check_isolated_processors(workspace: Path, root: Path) -> None:
             "Isolated processors must run on Java 21")
     dependencies = []
     for name in ["jspecify", "braincheck_core", "grim_annotations", "jsinterop_annotations",
-                 "org_jetbrains_annotations", "base", "testng", "javaemul_internal_annotations"]:
+                 "org_jetbrains_annotations", "base", "testng"]:
         paths = run(["bazel", "cquery", f"@{name}//file", "--output=files"], workspace).splitlines()
         require(len(paths) == 1, f"Expected one declared dependency jar: {name}")
         dependencies.append(execution_root / paths[0])

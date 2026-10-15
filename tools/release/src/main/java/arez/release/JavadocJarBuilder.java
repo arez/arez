@@ -127,6 +127,8 @@ public final class JavadocJarBuilder {
         args.add("UTF-8");
         args.add("-docencoding");
         args.add("UTF-8");
+        args.add("-sourcepath");
+        args.add("");
         if (!classpath.isEmpty()) {
             args.add("-classpath");
             args.add(classpath.stream().map(Path::toString).collect(Collectors.joining(File.pathSeparator)));

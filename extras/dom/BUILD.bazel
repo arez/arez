@@ -11,7 +11,6 @@ java_library(
         "//third_party/java:base",
         "//third_party/java:braincheck_core",
         "//third_party/java:grim_annotations",
-        "//third_party/java:javaemul_internal_annotations",
         "//third_party/java:jsinterop_annotations",
         "//third_party/java:jspecify",
     ],

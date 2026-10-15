@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Remove the unused Java emulation annotations dependency and `@DoNotAutobox` annotations from DOM positions.
+
 * Preserve nested JSpecify qualifiers in generated observable setters that allow writes outside a transaction.
 
 * Preserve original unmarked scopes on generated overrides and constructor inputs, including inherited declarations, without changing generated observable initializer contracts.
