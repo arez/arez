@@ -27,8 +27,7 @@ final class Arez_ObservableListInverseModel extends ObservableListInverseModel i
     DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<@Nullable List<ObservableListInverseModel.Element>> $$arez$$_elements;
 

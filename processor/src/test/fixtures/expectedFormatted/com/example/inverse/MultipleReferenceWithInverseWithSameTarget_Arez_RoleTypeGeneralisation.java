@@ -24,8 +24,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier, Linkable {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private MultipleReferenceWithInverseWithSameTarget.@Nullable RoleType $$arezr$$_parent;
 

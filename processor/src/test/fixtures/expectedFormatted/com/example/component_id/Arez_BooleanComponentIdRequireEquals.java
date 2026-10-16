@@ -17,8 +17,7 @@ import org.realityforge.braincheck.Guards;
 @NullMarked
 final class Arez_BooleanComponentIdRequireEquals extends BooleanComponentIdRequireEquals
     implements Disposable, Identifiable<Boolean>, DisposeNotifier {
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   Arez_BooleanComponentIdRequireEquals() {
     super();

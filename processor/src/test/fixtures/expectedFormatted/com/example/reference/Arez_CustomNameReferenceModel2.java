@@ -21,8 +21,7 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private CustomNameReferenceModel2.@Nullable MyEntity $$arezr$$_Blah;
 

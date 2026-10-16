@@ -24,8 +24,7 @@ final class Arez_ObservableNoSettersModel extends ObservableNoSettersModel
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<@Nullable Collection<String>> $$arez$$_collection;
 

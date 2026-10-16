@@ -21,8 +21,7 @@ import org.realityforge.braincheck.Guards;
 final class Arez_TypeVariableModel<T extends @Nullable Object> extends TypeVariableModel<T> implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<@Nullable T> $$arez$$_optional;
 

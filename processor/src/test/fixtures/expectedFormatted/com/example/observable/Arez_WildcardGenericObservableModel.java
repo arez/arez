@@ -22,8 +22,7 @@ final class Arez_WildcardGenericObservableModel<T extends @Nullable Object>
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<WildcardGenericObservableModel.@Nullable MyValue<T>>
       $$arez$$_myValue;

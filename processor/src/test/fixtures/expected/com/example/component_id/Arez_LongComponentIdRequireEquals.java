@@ -16,8 +16,7 @@ import org.realityforge.braincheck.Guards;
 @Generated("arez.processor.ArezProcessor")
 @NullMarked
 final class Arez_LongComponentIdRequireEquals extends LongComponentIdRequireEquals implements Disposable, Identifiable<Long>, DisposeNotifier {
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   Arez_LongComponentIdRequireEquals() {
     super();

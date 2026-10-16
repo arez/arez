@@ -23,8 +23,7 @@ import org.realityforge.braincheck.Guards;
 final class Arez_ObservableNonnullMapModel extends ObservableNonnullMapModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<@NonNull Map<String, String>> $$arez$$_myValue;
 

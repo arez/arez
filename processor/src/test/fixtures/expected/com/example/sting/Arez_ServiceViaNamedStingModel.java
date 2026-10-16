@@ -22,8 +22,7 @@ import sting.Typed;
 final class Arez_ServiceViaNamedStingModel extends ServiceViaNamedStingModel implements Disposable, Identifiable<Integer> {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ServiceViaNamedStingModel() {

@@ -21,8 +21,7 @@ final class Arez_DeprecatedObservableModel1 extends DeprecatedObservableModel1
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<Long> $$arez$$_time;
 

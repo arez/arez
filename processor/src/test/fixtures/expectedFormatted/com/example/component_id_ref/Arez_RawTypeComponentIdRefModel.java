@@ -18,8 +18,7 @@ import org.realityforge.braincheck.Guards;
 @NullMarked
 final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel
     implements Disposable, Identifiable<RawTypeComponentIdRefModel.MyId>, DisposeNotifier {
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   @SuppressWarnings("rawtypes")
   Arez_RawTypeComponentIdRefModel() {

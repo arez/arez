@@ -28,8 +28,7 @@ final class Arez_ObservableSetInverseModel extends ObservableSetInverseModel imp
     DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<@Nullable Set<ObservableSetInverseModel.Element>> $$arez$$_elements;
 

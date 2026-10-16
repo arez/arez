@@ -22,8 +22,7 @@ import sting.Typed;
 final class Arez_MultipleArgsStingModel extends MultipleArgsStingModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_MultipleArgsStingModel(final int i, final @Nullable String foo) {

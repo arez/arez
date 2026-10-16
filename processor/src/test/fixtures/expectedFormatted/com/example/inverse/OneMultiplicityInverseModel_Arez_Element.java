@@ -21,8 +21,7 @@ final class OneMultiplicityInverseModel_Arez_Element extends OneMultiplicityInve
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private @Nullable OneMultiplicityInverseModel $$arezr$$_oneMultiplicityInverseModel;
 

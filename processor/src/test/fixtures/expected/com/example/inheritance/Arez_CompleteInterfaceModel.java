@@ -39,8 +39,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
     DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<@Nullable OtherElement> $$arez$$_parentGeneralisation;
 

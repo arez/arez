@@ -28,8 +28,7 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<@Nullable List<Element>> $$arez$$_elements;
 

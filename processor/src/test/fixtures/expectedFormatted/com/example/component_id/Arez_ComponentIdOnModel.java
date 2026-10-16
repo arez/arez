@@ -19,8 +19,7 @@ import org.realityforge.braincheck.Guards;
 @NullMarked
 final class Arez_ComponentIdOnModel extends ComponentIdOnModel
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<Long> $$arez$$_time;
 

@@ -28,8 +28,7 @@ final class Arez_ObservableManyReferenceModel extends ObservableManyReferenceMod
     DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<@NonNull List<ObservableManyReferenceModel.Element>> $$arez$$_elements;
 

@@ -17,8 +17,7 @@ import org.realityforge.braincheck.Guards;
 @NullMarked
 final class Arez_ByteComponentId extends ByteComponentId
     implements Disposable, Identifiable<Byte>, DisposeNotifier {
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   Arez_ByteComponentId() {
     super();

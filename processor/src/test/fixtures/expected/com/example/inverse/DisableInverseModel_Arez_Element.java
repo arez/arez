@@ -23,8 +23,7 @@ final class DisableInverseModel_Arez_Element extends DisableInverseModel.Element
     DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private @Nullable DisableInverseModel $$arezr$$_other;
 

@@ -20,8 +20,7 @@ final class Arez_DeprecatedObserveModel4 extends DeprecatedObserveModel4
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final Observer $$arez$$_render;
 

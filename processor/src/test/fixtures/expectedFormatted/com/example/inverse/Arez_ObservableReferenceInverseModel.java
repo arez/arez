@@ -26,8 +26,7 @@ final class Arez_ObservableReferenceInverseModel extends ObservableReferenceInve
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<@Nullable Collection<ObservableReferenceInverseModel.Element>>
       $$arez$$_elements;

@@ -25,8 +25,7 @@ final class Arez_ObservableReferenceModel extends ObservableReferenceModel imple
     DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<Integer> $$arez$$_myEntityId;
 

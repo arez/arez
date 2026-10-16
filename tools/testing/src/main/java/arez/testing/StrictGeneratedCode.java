@@ -40,6 +40,7 @@ public final class StrictGeneratedCode {
         final String fixtureClasspath =
                 classpathIndex < 0 ? System.getProperty("java.class.path") : fixtureOptions.get(classpathIndex + 1);
         options.addAll(List.of(
+                "-Xep:AnnotationPosition:ERROR",
                 "-proc:none",
                 "-sourcepath",
                 "",

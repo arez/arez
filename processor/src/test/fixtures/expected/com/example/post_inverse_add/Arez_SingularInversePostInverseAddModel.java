@@ -25,8 +25,7 @@ final class Arez_SingularInversePostInverseAddModel extends SingularInversePostI
     DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<SingularInversePostInverseAddModel. @NonNull Element> $$arez$$_element;
 

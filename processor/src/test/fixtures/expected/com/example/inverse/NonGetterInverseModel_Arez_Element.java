@@ -23,8 +23,7 @@ final class NonGetterInverseModel_Arez_Element extends NonGetterInverseModel.Ele
     DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private @Nullable NonGetterInverseModel $$arezr$$_nonGetterInverseModel;
 

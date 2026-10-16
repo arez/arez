@@ -22,8 +22,7 @@ final class Arez_ExplicitLoadReferenceModel extends ExplicitLoadReferenceModel
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier, Linkable {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private ExplicitLoadReferenceModel.@Nullable MyEntity $$arezr$$_myEntity;
 

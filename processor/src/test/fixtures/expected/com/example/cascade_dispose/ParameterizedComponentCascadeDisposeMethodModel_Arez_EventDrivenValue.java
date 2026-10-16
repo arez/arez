@@ -15,8 +15,7 @@ import org.realityforge.braincheck.Guards;
 final class ParameterizedComponentCascadeDisposeMethodModel_Arez_EventDrivenValue<SourceType extends ParameterizedComponentCascadeDisposeMethodModel.EventTarget, ValueType extends @Nullable Object> extends ParameterizedComponentCascadeDisposeMethodModel.EventDrivenValue<SourceType, ValueType> implements Disposable {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   @SuppressWarnings("NonAtomicVolatileUpdate")
   ParameterizedComponentCascadeDisposeMethodModel_Arez_EventDrivenValue() {

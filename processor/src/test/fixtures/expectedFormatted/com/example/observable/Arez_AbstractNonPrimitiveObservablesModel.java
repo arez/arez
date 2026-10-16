@@ -22,8 +22,7 @@ final class Arez_AbstractNonPrimitiveObservablesModel extends AbstractNonPrimiti
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<@Nullable Date> $$arez$$_time;
 
