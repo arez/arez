@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Use Proton's constructor origin correction to avoid public-constructor warnings for implicit default constructors under Turbine while preserving warnings for explicitly declared constructors.
 * Honor independent internal and API invariant settings when checking observer dependencies and nested actions.
 * Remove redundant non-null parameter checks covered by JSpecify and NullAway, and use assertions for feature-dependent and internal descriptor state. Preserve Braincheck invariants and checks that narrow nullable external data.
 * Remove the unused Java emulation annotations dependency and `@DoNotAutobox` annotations from DOM positions.
