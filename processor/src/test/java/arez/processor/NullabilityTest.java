@@ -98,6 +98,17 @@ public final class NullabilityTest extends ArezProcessorTestSupport {
                         child.equals("NullableChild") ? Nullability.Nullness.NULLABLE : Nullability.Nullness.NONNULL);
             }
         }
+        final TypeElement interfaceBase = elements.getTypeElement(name + ".InterfaceBase");
+        final var interfaceValue = method(interfaceBase, "value");
+        for (final String child : List.of("InterfaceChild", "NullableInterfaceChild")) {
+            final TypeElement context = elements.getTypeElement(name + "." + child);
+            final var member = (ExecutableType)
+                    environment.getTypeUtils().asMemberOf((DeclaredType) context.asType(), interfaceValue);
+            assertEquals(
+                    Nullability.isKnownNonNull(interfaceValue, member.getReturnType(), context),
+                    child.equals("InterfaceChild"),
+                    child);
+        }
         final TypeElement unmarkedChild = elements.getTypeElement(name + ".UnmarkedChild");
         final var resolved =
                 (ExecutableType) environment.getTypeUtils().asMemberOf((DeclaredType) unmarkedChild.asType(), value);

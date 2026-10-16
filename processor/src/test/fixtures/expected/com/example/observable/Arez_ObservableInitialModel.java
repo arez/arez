@@ -47,8 +47,8 @@ final class Arez_ObservableInitialModel extends ObservableInitialModel implement
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_observable_ObservableInitialModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_observable_ObservableInitialModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arezd$$_name = Objects.requireNonNull( ObservableInitialModel.INITIAL_NAME );
-    this.$$arezd$$_firstName = Objects.requireNonNull( ObservableInitialModel.INITIAL_FIRST_NAME );
+    this.$$arezd$$_name = ObservableInitialModel.INITIAL_NAME;
+    this.$$arezd$$_firstName = ObservableInitialModel.INITIAL_FIRST_NAME;
     this.$$arezd$$_age = ObservableInitialModel.getInitialAge();
     this.$$arezd$$_nickname = ObservableInitialModel.initialNickname();
     this.$$arez$$_name = $$arezv$$_context.<@NonNull String>observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".name" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_name ) : null, Arez.arePropertyIntrospectorsEnabled() ? v -> this.$$arezd$$_name = Objects.requireNonNull( v ) : null );

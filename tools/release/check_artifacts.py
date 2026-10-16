@@ -161,10 +161,11 @@ def check_isolated_processors(workspace: Path, root: Path) -> None:
     require(re.search(r'\b21[.]', run([str(java_home / "bin/java"), "--version"], workspace)) is not None,
             "Isolated processors must run on Java 21")
     dependencies = []
-    for name in ["jspecify", "braincheck_core", "grim_annotations", "jsinterop_annotations",
-                 "org_jetbrains_annotations", "base", "testng"]:
-        paths = run(["bazel", "cquery", f"@{name}//file", "--output=files"], workspace).splitlines()
-        require(len(paths) == 1, f"Expected one declared dependency jar: {name}")
+    for label in ["@jspecify//file", "@braincheck//tools/release:braincheck_core_jar",
+                  "@grim_annotations//file", "@jsinterop_annotations//file",
+                  "@org_jetbrains_annotations//file", "@base//file", "@testng//file"]:
+        paths = run(["bazel", "cquery", label, "--output=files"], workspace).splitlines()
+        require(len(paths) == 1, f"Expected one declared dependency jar: {label}")
         dependencies.append(execution_root / paths[0])
     with tempfile.TemporaryDirectory(prefix="arez-isolated-processors-") as directory:
         work = Path(directory)
@@ -251,7 +252,7 @@ def check_isolated_processors(workspace: Path, root: Path) -> None:
             @ArezComponent(sting = Feature.DISABLE)
             @PersistType(defaultStore = "memory")
             abstract class Model extends Parent<@Nullable String> {
-              @ComponentId String getId() { return "one"; }
+              @arez.persist.PersistId @ComponentId String getId() { return "one"; }
             }
             """))
         classes, generated = work / "classes", work / "generated"

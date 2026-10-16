@@ -20,7 +20,6 @@ java_library(
         "MemoizeContextParameterMethodType.java",
         "MemoizeDescriptor.java",
         "Multiplicity.java",
-        "Nullability.java",
         "ObservableDescriptor.java",
         "ObservableInitialDescriptor.java",
         "ObserveDescriptor.java",
@@ -31,6 +30,7 @@ java_library(
     ],
     resources = ["//processor/src/main/resources/META-INF/services:javax.annotation.processing.Processor"],
     deps = [
+        ":nullability",
         "//third_party/java:javapoet",
         "//third_party/java:jspecify",
         "//third_party/java:proton_core",
@@ -42,4 +42,19 @@ java_plugin(
     generates_api = True,
     processor_class = "arez.processor.ArezProcessor",
     deps = [":processor"],
+)
+
+java_library(
+    name = "nullability",
+    srcs = ["Nullability.java"],
+    visibility = [
+        ":__pkg__",
+        "//persist/processor:__pkg__",
+        "//processor/src/test/java/arez/processor:__pkg__",
+        "//tools/release:__pkg__",
+    ],
+    deps = [
+        "//third_party/java:jspecify",
+        "//third_party/java:proton_core",
+    ],
 )

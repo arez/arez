@@ -17,6 +17,7 @@ java_library(
     deps = [
         "//core",
         "//processor",
+        "//processor/src/main/java/arez/processor:nullability",
         "//third_party/java:jspecify",
         "//third_party/java:org_jetbrains_annotations",
         "//third_party/java:proton_core",

@@ -41,6 +41,7 @@ public final class StrictGeneratedCode {
                 classpathIndex < 0 ? System.getProperty("java.class.path") : fixtureOptions.get(classpathIndex + 1);
         options.addAll(List.of(
                 "-Xep:AnnotationPosition:ERROR",
+                "-XepOpt:NullAway:CastToNonNullMethod=java.util.Objects.requireNonNull",
                 "-proc:none",
                 "-sourcepath",
                 "",

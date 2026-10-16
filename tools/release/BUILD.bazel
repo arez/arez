@@ -56,7 +56,10 @@ release_jar(
         "@javapoet//file",
         "@proton//:core",
     ],
-    java_targets = ["//processor/src/main/java/arez/processor"],
+    java_targets = [
+        "//processor/src/main/java/arez/processor",
+        "//processor/src/main/java/arez/processor:nullability",
+    ],
     relocations = [
         "com.palantir.javapoet=arez.processor.vendor.javapoet",
         "org.realityforge.proton=arez.processor.vendor.proton",
@@ -68,7 +71,10 @@ release_jar(
 release_source_jar(
     name = "processor_sources",
     out = "arez-processor-sources.jar",
-    java_targets = ["//processor/src/main/java/arez/processor"],
+    java_targets = [
+        "//processor/src/main/java/arez/processor",
+        "//processor/src/main/java/arez/processor:nullability",
+    ],
     resource_entries = [
         "META-INF/LICENSE",
         "META-INF/services/javax.annotation.processing.Processor",
@@ -187,8 +193,12 @@ release_jar(
         "@javapoet//file",
         "@proton//:core",
     ],
-    java_targets = ["//persist/processor"],
+    java_targets = [
+        "//persist/processor",
+        "//processor/src/main/java/arez/processor:nullability",
+    ],
     relocations = [
+        "arez.processor.Nullability=arez.persist.processor.vendor.Nullability",
         "com.palantir.javapoet=arez.persist.processor.vendor.javapoet",
         "org.realityforge.proton=arez.persist.processor.vendor.proton",
     ],
@@ -199,7 +209,10 @@ release_jar(
 release_source_jar(
     name = "persist_processor_sources",
     out = "arez-persist-processor-sources.jar",
-    java_targets = ["//persist/processor"],
+    java_targets = [
+        "//persist/processor",
+        "//processor/src/main/java/arez/processor:nullability",
+    ],
     resource_entries = [
         "META-INF/LICENSE",
         "META-INF/services/javax.annotation.processing.Processor",
@@ -294,7 +307,10 @@ release_javadoc_jar(
         "//third_party/java:proton_core",
         "//third_party/java:javapoet",
     ],
-    java_targets = ["//processor/src/main/java/arez/processor"],
+    java_targets = [
+        "//processor/src/main/java/arez/processor",
+        "//processor/src/main/java/arez/processor:nullability",
+    ],
 )
 
 release_pom(
@@ -491,7 +507,10 @@ release_javadoc_jar(
         "//third_party/java:proton_core",
         "//third_party/java:javapoet",
     ],
-    java_targets = ["//persist/processor"],
+    java_targets = [
+        "//persist/processor",
+        "//processor/src/main/java/arez/processor:nullability",
+    ],
 )
 
 release_javadoc_jar(
@@ -512,6 +531,7 @@ release_javadoc_jar(
     java_targets = [
         "//core/src/main/java/arez",
         "//processor/src/main/java/arez/processor",
+        "//processor/src/main/java/arez/processor:nullability",
         "//extras/dom",
         "//extras/promise",
         "//extras/spytools",

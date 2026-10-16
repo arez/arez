@@ -4,5 +4,9 @@ filegroup(
     name = "all",
     srcs = [
         "BasicPersistIdModel_PersistSidecar.java",
+        "CharArrayPersistIdModel_PersistSidecar.java",
+        "NonNullReferencePersistIdModel_PersistSidecar.java",
+        "NullableReferencePersistIdModel_PersistSidecar.java",
+        "ObjectArrayPersistIdModel_PersistSidecar.java",
     ],
 )
