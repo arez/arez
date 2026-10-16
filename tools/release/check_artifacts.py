@@ -129,7 +129,7 @@ def check_archives(workspace: Path, root: Path, version: str) -> dict:
         if artifact in PROCESSORS:
             require(not dependencies, f"Processor POM must be self-contained: {artifact}")
         else:
-            require("org.jspecify:jspecify:1.0.0" in dependencies, f"Missing JSpecify dependency: {artifact}")
+            require("org.jspecify:jspecify:1.0.1" in dependencies, f"Missing JSpecify dependency: {artifact}")
             if artifact != "arez-core":
                 require(f"org.realityforge.arez:arez-core:{version}" in dependencies,
                         f"Missing matching core dependency: {artifact}")

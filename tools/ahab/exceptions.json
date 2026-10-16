@@ -111,6 +111,20 @@
       "mnemonic": "TestRunner",
       "target": "//extras/dom-example:network_browser_test",
       "path": "/gen_html_network_browser_test.html"
+    },
+    {
+      "reason": "Chromium needs its native process launcher outside Bazel's sandbox; compilation remains sandboxed",
+      "kind": "execution_requirement",
+      "mnemonic": "TestRunner",
+      "target": "//persist/core/src/test/js:browser_test",
+      "requirement": "no-sandbox"
+    },
+    {
+      "reason": "The runner argument is a root-relative HTTP path served from declared runfiles",
+      "kind": "absolute_path",
+      "mnemonic": "TestRunner",
+      "target": "//persist/core/src/test/js:browser_test",
+      "path": "/gen_html_browser_test.html"
     }
   ]
 }

@@ -40,6 +40,7 @@ test_suite(
         "//extras/dom-example:size_browser_test",
         "//extras/dom-example:visibility_browser_test",
         "//extras/promise-example:browser_test",
+        "//persist/core/src/test/js:browser_test",
     ],
 )
 
@@ -49,6 +50,7 @@ java_format_check(
     remediation = "tools/java_format.sh write",
     targets = [
         ":jvm_tests",
+        "//persist/core/src/test/java/arez/persist/runtime/browser:browser_test_java",
         "//core",
         "//doc-examples",
         "//extras/dom",

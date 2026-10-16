@@ -111,7 +111,7 @@ _java_import(
 # DO NOT EDIT: Content is auto-generated from //third_party/java:dependencies.yml by https://github.com/realityforge/bazel-depgen version 0.26
 
 # SHA256 of the configuration content that generated this content
-_CONFIG_SHA256 = "BA16FBC55ABC5BC6214A05F02D2B596EA26A01DF555AEBFDC3EFC148046EED83"
+_CONFIG_SHA256 = "3471860589B97EDF4217D6885B1675D4B2842705CC7D294CEEC9E7583BCDD5CD"
 
 exports_files(["dependencies.yml"])
 
@@ -128,9 +128,10 @@ exports_files(["dependencies.yml"])
 # +- org.realityforge.javax.annotation:javax.annotation:jar:1.1.1 [compile]
 # +- org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:jar:1.7.0 [compile]
 # +- com.google.jsinterop:jsinterop-annotations:jar:2.0.0 [compile]
-# +- com.google.jsinterop:base:jar:1.0.0 [compile]
-# |  \- com.google.jsinterop:jsinterop-annotations:jar:1.0.2 [compile] (conflicts with 2.0.0)
-# +- org.jspecify:jspecify:jar:1.0.0 [compile]
+# +- com.google.jsinterop:base:jar:1.2.0 [compile]
+# |  +- com.google.jsinterop:jsinterop-annotations:jar:2.0.2 [compile] (conflicts with 2.0.0)
+# |  \- org.jspecify:jspecify:jar:0.3.0 [compile] (conflicts with 1.0.1)
+# +- org.jspecify:jspecify:jar:1.0.1 [compile]
 # +- org.realityforge.guiceyloops:guiceyloops:jar:0.113 [compile]
 # +- org.glassfish:javax.json:jar:1.1 [compile]
 # |  \- javax.json:javax.json-api:jar:1.1 [compile, optional]
@@ -221,8 +222,11 @@ _java_import(
     name = "base",
     jars = ["@base//file"],
     srcjar = "@base__sources//file",
-    tags = ["maven_coordinates=com.google.jsinterop:base:1.0.0"],
-    deps = [":jsinterop_annotations"],
+    tags = ["maven_coordinates=com.google.jsinterop:base:1.2.0"],
+    deps = [
+        ":jsinterop_annotations",
+        ":jspecify",
+    ],
 )
 
 _java_import(
@@ -352,7 +356,7 @@ _java_import(
     name = "jspecify",
     jars = ["@jspecify//file"],
     srcjar = "@jspecify__sources//file",
-    tags = ["maven_coordinates=org.jspecify:jspecify:1.0.0"],
+    tags = ["maven_coordinates=org.jspecify:jspecify:1.0.1"],
 )
 
 _java_import(

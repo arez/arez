@@ -7,6 +7,7 @@ import arez.persist.runtime.StorageService;
 import arez.persist.runtime.TypeConverter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsMethod;
@@ -15,7 +16,6 @@ import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 import jsinterop.base.Any;
 import jsinterop.base.Js;
-import jsinterop.base.JsArrayLike;
 import jsinterop.base.JsPropertyMap;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -58,7 +58,7 @@ final class WebStorageService implements StorageService {
     @JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
     private static final class NativeObject {
         @JsMethod
-        private static native JsArrayLike<String> keys(Object value);
+        private static native String[] keys(Object value);
     }
 
     /**
@@ -139,7 +139,7 @@ final class WebStorageService implements StorageService {
                 data.set(scopeEntry.getKey().getQualifiedName(), scope);
             }
         }
-        if (0 == NativeObject.keys(data).getLength()) {
+        if (0 == NativeObject.keys(data).length) {
             _storage.removeItem(_address);
         } else {
             _storage.setItem(_address, NativeJSON.stringify(data));
@@ -164,10 +164,7 @@ final class WebStorageService implements StorageService {
             @NonNull final Object encoded, @NonNull final TypeConverter converter) {
         final JsPropertyMap<@Nullable Object> propertyMap = Js.cast(encoded);
         final Map<String, @Nullable Object> data = new HashMap<>();
-        final JsArrayLike<String> keys = NativeObject.keys(encoded);
-        final int keyCount = keys.getLength();
-        for (int i = 0; i < keyCount; i++) {
-            final String key = keys.getAt(i);
+        for (final String key : NativeObject.keys(propertyMap)) {
             data.put(key, converter.decode(key, propertyMap.get(key)));
         }
         return data;
@@ -179,15 +176,12 @@ final class WebStorageService implements StorageService {
         if (null != item) {
             final Any value = NativeJSON.parse(item);
             assert null != value;
-            final JsPropertyMap<@Nullable Object> scopes = value.cast();
-            final JsArrayLike<String> scopeNames = NativeObject.keys(scopes);
-            final int scopeCount = scopeNames.getLength();
-            for (int s = 0; s < scopeCount; s++) {
-                final String scopeName = scopeNames.getAt(s);
+            final JsPropertyMap<@Nullable Object> scopes = value.asPropertyMap();
+            for (final String scopeName : NativeObject.keys(scopes)) {
                 restoreScope(
                         state,
                         scopeName,
-                        Js.uncheckedCast(scopes.getAsAny(scopeName).asPropertyMap()));
+                        Objects.requireNonNull(scopes.getAsAny(scopeName)).asPropertyMap());
             }
         }
     }
@@ -196,15 +190,12 @@ final class WebStorageService implements StorageService {
             @NonNull final Map<Scope, Map<String, Map<String, Entry>>> state,
             @NonNull final String scopeName,
             @NonNull final JsPropertyMap<@Nullable Object> types) {
-        final JsArrayLike<String> typeNames = NativeObject.keys(types);
-        final int typeCount = typeNames.getLength();
-        for (int i = 0; i < typeCount; i++) {
-            final String typeName = typeNames.getAt(i);
+        for (final String typeName : NativeObject.keys(types)) {
             restoreType(
                     state,
                     scopeName,
                     typeName,
-                    Js.uncheckedCast(types.getAsAny(typeName).asPropertyMap()));
+                    Objects.requireNonNull(types.getAsAny(typeName)).asPropertyMap());
         }
     }
 
@@ -215,11 +206,9 @@ final class WebStorageService implements StorageService {
             @NonNull final JsPropertyMap<@Nullable Object> idMap) {
         final Scope scope = ArezPersist.findOrCreateScope(scopeName);
         final Map<String, Entry> entryMap = new HashMap<>();
-        final JsArrayLike<String> ids = NativeObject.keys(idMap);
-        final int idCount = ids.getLength();
-        for (int j = 0; j < idCount; j++) {
-            final String id = ids.getAt(j);
-            final JsPropertyMap<@Nullable Object> encoded = Js.uncheckedCast(idMap.get(id));
+        for (final String id : NativeObject.keys(idMap)) {
+            final JsPropertyMap<@Nullable Object> encoded =
+                    Objects.requireNonNull(idMap.getAsAny(id)).asPropertyMap();
             entryMap.put(id, new StorageService.Entry(null, encoded));
         }
         state.computeIfAbsent(scope, s -> new HashMap<>()).put(typeName, entryMap);
@@ -234,21 +223,21 @@ final class WebStorageService implements StorageService {
         }
     }
 
-    @JsProperty(name = "sessionStorage", namespace = JsPackage.GLOBAL)
+    @JsProperty(name = "window.sessionStorage", namespace = JsPackage.GLOBAL)
     private static native Storage sessionStorage();
 
-    @JsProperty(name = "localStorage", namespace = JsPackage.GLOBAL)
+    @JsProperty(name = "window.localStorage", namespace = JsPackage.GLOBAL)
     private static native Storage localStorage();
 
-    @JsMethod(name = "addEventListener", namespace = JsPackage.GLOBAL)
+    @JsMethod(name = "window.addEventListener", namespace = JsPackage.GLOBAL)
     private static native void addEventListener(String type, BeforeUnloadEventListener listener);
 
-    @JsMethod(name = "removeEventListener", namespace = JsPackage.GLOBAL)
+    @JsMethod(name = "window.removeEventListener", namespace = JsPackage.GLOBAL)
     private static native void removeEventListener(String type, BeforeUnloadEventListener listener);
 
-    @JsMethod(name = "requestIdleCallback", namespace = JsPackage.GLOBAL)
+    @JsMethod(name = "window.requestIdleCallback", namespace = JsPackage.GLOBAL)
     private static native int requestIdleCallback(IdleRequestCallback callback);
 
-    @JsMethod(name = "cancelIdleCallback", namespace = JsPackage.GLOBAL)
+    @JsMethod(name = "window.cancelIdleCallback", namespace = JsPackage.GLOBAL)
     private static native void cancelIdleCallback(int callbackId);
 }

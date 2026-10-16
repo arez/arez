@@ -1,5 +1,6 @@
 package arez.spytools.browser;
 
+import java.util.Objects;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
@@ -38,7 +39,7 @@ public class StringifyReplacer {
         } else {
             final String typeof = Js.typeof(value);
             if (typeof.equals("function")) {
-                return Js.asPropertyMap(value).getAsAny("name");
+                return value.asPropertyMap().getAsAny("name");
             } else if (!typeof.equals("object")) {
                 return Js.asAny(value);
             } else {
@@ -57,12 +58,12 @@ public class StringifyReplacer {
                     }
                     _array.setAt(_array.getLength(), value);
 
-                    final JsArrayLike<String> propertyNames = NativeObject.getOwnPropertyNames(Js.asPropertyMap(value));
+                    final JsArrayLike<String> propertyNames = NativeObject.getOwnPropertyNames(value.asPropertyMap());
                     final var map = JsPropertyMap.of();
                     for (int i = 0; i < propertyNames.getLength(); i++) {
-                        final String propertyName = propertyNames.getAt(i);
+                        final String propertyName = Objects.requireNonNull(propertyNames.getAt(i));
                         if (includeProperty(value, propertyName)) {
-                            map.set(propertyName, Js.asPropertyMap(value).getAsAny(propertyName));
+                            map.set(propertyName, value.asPropertyMap().getAsAny(propertyName));
                         }
                     }
                     return Js.asAny(map);
