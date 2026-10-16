@@ -13,12 +13,14 @@ import javax.lang.model.type.IntersectionType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.type.TypeVariable;
+import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.realityforge.proton.AnnotationsUtil;
 import org.realityforge.proton.ProcessorException;
 
 /** Resolves nullness at the original declaration, before generated marked scopes are applied. */
-final class Nullability {
+@NullMarked
+public final class Nullability {
     private static final String NULLABLE = "org.jspecify.annotations.Nullable";
     private static final String NONNULL = "org.jspecify.annotations.NonNull";
     private static final String MARKED = "org.jspecify.annotations.NullMarked";
@@ -32,6 +34,12 @@ final class Nullability {
     }
 
     private Nullability() {}
+
+    /** Returns whether the declaration and its substituted type establish a non-null contract. */
+    public static boolean isKnownNonNull(
+            final Element declaration, final TypeMirror resolvedType, final TypeElement context) {
+        return resolve(declaration, resolvedType, context) == Nullness.NONNULL;
+    }
 
     static boolean isNonNull(final Element declaration) {
         return isNonNull(declaration, declaredType(declaration));

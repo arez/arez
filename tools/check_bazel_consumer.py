@@ -91,7 +91,7 @@ import org.jspecify.annotations.*;
 @ArezComponent(sting = Feature.DISABLE)
 @arez.persist.PersistType(defaultStore = "memory")
 abstract class Model {
-  @ComponentId String getId() { return "one"; }
+  @arez.persist.PersistId @ComponentId String getId() { return "one"; }
   @NullUnmarked Model(String incoming) {}
   @NullUnmarked @ContextRef abstract @NonNull ArezContext context();
   @Observable abstract java.util.List<?> getItems();

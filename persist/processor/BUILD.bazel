@@ -7,6 +7,7 @@ java_library(
     srcs = ["//persist/processor/src/main/java/arez/persist:all"],
     resources = ["//persist/processor/src/main/resources/META-INF/services:javax.annotation.processing.Processor"],
     deps = [
+        "//processor/src/main/java/arez/processor:nullability",
         "//third_party/java:javapoet",
         "//third_party/java:jspecify",
         "//third_party/java:proton_core",

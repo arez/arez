@@ -66,8 +66,8 @@ final class Arez_ObservableInitialModel extends ObservableInitialModel
         true,
         false,
         false);
-    this.$$arezd$$_name = Objects.requireNonNull(ObservableInitialModel.INITIAL_NAME);
-    this.$$arezd$$_firstName = Objects.requireNonNull(ObservableInitialModel.INITIAL_FIRST_NAME);
+    this.$$arezd$$_name = ObservableInitialModel.INITIAL_NAME;
+    this.$$arezd$$_firstName = ObservableInitialModel.INITIAL_FIRST_NAME;
     this.$$arezd$$_age = ObservableInitialModel.getInitialAge();
     this.$$arezd$$_nickname = ObservableInitialModel.initialNickname();
     this.$$arez$$_name = $$arezv$$_context.<@NonNull String>observable(

@@ -1767,20 +1767,7 @@ final class ComponentGenerator {
                                 "$T.$N()",
                                 component.getClassName(),
                                 observableInitial.getMethod().getSimpleName());
-                final boolean isPrimitive = GeneratorUtil.getTypeName(
-                                observable.getGetterType().getReturnType())
-                        .isPrimitive();
-                if (isPrimitive) {
-                    builder.addStatement("this.$N = $L", observable.getDataFieldName(), initializer);
-                } else if (observable.isGetterNonnull()) {
-                    builder.addStatement(
-                            "this.$N = $T.requireNonNull( $L )",
-                            observable.getDataFieldName(),
-                            Objects.class,
-                            initializer);
-                } else {
-                    builder.addStatement("this.$N = $L", observable.getDataFieldName(), initializer);
-                }
+                builder.addStatement("this.$N = $L", observable.getDataFieldName(), initializer);
             }
         }
 

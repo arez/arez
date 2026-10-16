@@ -35,4 +35,11 @@ abstract class NullabilityCases<T extends @Nullable Object,
 
   @NullUnmarked
   abstract static class UnmarkedChild extends Base<String> {}
+  interface InterfaceBase<V extends @Nullable Object>
+  {
+    V value();
+  }
+
+  abstract static class InterfaceChild implements Runnable, InterfaceBase<@NonNull String> {}
+  abstract static class NullableInterfaceChild implements Runnable, InterfaceBase<@Nullable String> {}
 }

@@ -251,7 +251,7 @@ def check_isolated_processors(workspace: Path, root: Path) -> None:
             @ArezComponent(sting = Feature.DISABLE)
             @PersistType(defaultStore = "memory")
             abstract class Model extends Parent<@Nullable String> {
-              @ComponentId String getId() { return "one"; }
+              @arez.persist.PersistId @ComponentId String getId() { return "one"; }
             }
             """))
         classes, generated = work / "classes", work / "generated"

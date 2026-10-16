@@ -1,5 +1,6 @@
 package arez.persist.processor;
 
+import arez.processor.Nullability;
 import com.palantir.javapoet.AnnotationSpec;
 import com.palantir.javapoet.ClassName;
 import com.palantir.javapoet.CodeBlock;
@@ -20,6 +21,8 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import org.realityforge.proton.GeneratorUtil;
@@ -101,7 +104,7 @@ final class SidecarGenerator {
         builder.addMethod(buildScheduleAttachMethod(descriptor));
 
         // build method to get component id as string from peer
-        builder.addMethod(buildGetComponentIdMethod(descriptor));
+        builder.addMethod(buildGetComponentIdMethod(processingEnv, descriptor));
 
         // Add observer that actually persists state on change
         builder.addMethod(MethodSpec.methodBuilder("savePersistentProperties")
@@ -138,7 +141,8 @@ final class SidecarGenerator {
         return builder.build();
     }
 
-    private static MethodSpec buildGetComponentIdMethod(final TypeDescriptor descriptor) {
+    private static MethodSpec buildGetComponentIdMethod(
+            final ProcessingEnvironment processingEnv, final TypeDescriptor descriptor) {
         final MethodSpec.Builder method =
                 MethodSpec.methodBuilder("getComponentId").returns(String.class).addModifiers(Modifier.PRIVATE);
 
@@ -153,12 +157,23 @@ final class SidecarGenerator {
         } else if (idMethod.getReturnType().getKind().isPrimitive()) {
             method.addStatement("return $T.valueOf( _peer.$N() )", String.class, idMethod.getSimpleName());
         } else {
-            method.addStatement(
-                    "return $T.valueOf( $T.<$T>requireNonNull( _peer.$N() ) )",
-                    String.class,
-                    Objects.class,
-                    Object.class,
-                    idMethod.getSimpleName().toString());
+            final TypeMirror returnType = ((ExecutableType) processingEnv
+                            .getTypeUtils()
+                            .asMemberOf((DeclaredType) descriptor.getElement().asType(), idMethod))
+                    .getReturnType();
+            if (!Nullability.isKnownNonNull(idMethod, returnType, descriptor.getElement())) {
+                method.addStatement(
+                        "return $T.valueOf( $T.<$T>requireNonNull( _peer.$N() ) )",
+                        String.class,
+                        Objects.class,
+                        Object.class,
+                        idMethod.getSimpleName().toString());
+            } else if (returnType.getKind() == TypeKind.ARRAY) {
+                method.addStatement(
+                        "return $T.valueOf( ($T) _peer.$N() )", String.class, Object.class, idMethod.getSimpleName());
+            } else {
+                method.addStatement("return $T.valueOf( _peer.$N() )", String.class, idMethod.getSimpleName());
+            }
         }
         return method.build();
     }
