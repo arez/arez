@@ -22,8 +22,7 @@ final class Arez_DefaultEqualityComparatorModel extends DefaultEqualityComparato
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ComputableValue<DefaultEqualityComparatorModel.@Nullable LabelView>
       $$arez$$_defaultLabel;

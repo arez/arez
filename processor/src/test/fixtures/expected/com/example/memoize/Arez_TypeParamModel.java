@@ -21,8 +21,7 @@ import org.realityforge.braincheck.Guards;
 final class Arez_TypeParamModel<T extends @Nullable Object> extends TypeParamModel<T> implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final MemoizeCache<@Nullable T> $$arez$$_count;
 

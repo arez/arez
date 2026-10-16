@@ -24,8 +24,7 @@ final class Arez_ObservableNonnullCollectionModel extends ObservableNonnullColle
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<@NonNull Collection<String>> $$arez$$_myValue;
 

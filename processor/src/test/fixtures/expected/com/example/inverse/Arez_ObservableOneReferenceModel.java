@@ -25,8 +25,7 @@ final class Arez_ObservableOneReferenceModel extends ObservableOneReferenceModel
     DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<ObservableOneReferenceModel. @NonNull Element> $$arez$$_element;
 

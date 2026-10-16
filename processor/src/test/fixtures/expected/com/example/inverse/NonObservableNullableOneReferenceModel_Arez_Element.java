@@ -23,8 +23,7 @@ final class NonObservableNullableOneReferenceModel_Arez_Element extends NonObser
     DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private @Nullable NonObservableNullableOneReferenceModel $$arezr$$_nonObservableNullableOneReferenceModel;
 

@@ -23,8 +23,7 @@ final class Arez_LazyLoadReferenceModel extends LazyLoadReferenceModel implement
     DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private LazyLoadReferenceModel. @Nullable MyEntity $$arezr$$_myEntity;
 

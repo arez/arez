@@ -17,8 +17,7 @@ import org.realityforge.braincheck.Guards;
 @NullMarked
 final class Arez_ShortComponentIdRequireEquals extends ShortComponentIdRequireEquals
     implements Disposable, Identifiable<Short>, DisposeNotifier {
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   Arez_ShortComponentIdRequireEquals() {
     super();

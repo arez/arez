@@ -19,8 +19,7 @@ final class ParameterizedComponentCascadeDisposeMethodModel_Arez_EventDrivenValu
     implements Disposable {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   @SuppressWarnings("NonAtomicVolatileUpdate")
   ParameterizedComponentCascadeDisposeMethodModel_Arez_EventDrivenValue() {

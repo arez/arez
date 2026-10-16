@@ -22,8 +22,7 @@ import org.realityforge.braincheck.Guards;
 @NullMarked
 final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
     implements Disposable, Identifiable<IOException>, DisposeNotifier {
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ComputableValue<@Nullable W> $$arez$$_compWriter;
 

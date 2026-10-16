@@ -33,8 +33,7 @@ import org.realityforge.braincheck.Guards;
 @NullMarked
 public final class Arez_CompleteModel extends CompleteModel
     implements Disposable, Identifiable<Byte>, Verifiable, DisposeNotifier {
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<@Nullable String> $$arez$$_myValue;
 

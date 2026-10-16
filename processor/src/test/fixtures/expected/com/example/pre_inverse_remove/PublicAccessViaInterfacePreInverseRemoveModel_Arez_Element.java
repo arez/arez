@@ -23,8 +23,7 @@ final class PublicAccessViaInterfacePreInverseRemoveModel_Arez_Element extends P
     DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private @Nullable PublicAccessViaInterfacePreInverseRemoveModel $$arezr$$_other;
 

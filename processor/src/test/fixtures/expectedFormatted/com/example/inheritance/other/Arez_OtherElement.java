@@ -25,8 +25,7 @@ public final class Arez_OtherElement extends OtherElement
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier, Linkable {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private @Nullable CompleteInterfaceModel $$arezr$$_completeInterfaceModel;
 

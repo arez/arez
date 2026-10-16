@@ -24,8 +24,7 @@ final class Arez_OverrideNamesInModel extends OverrideNamesInModel
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<Long> $$arez$$_myField;
 

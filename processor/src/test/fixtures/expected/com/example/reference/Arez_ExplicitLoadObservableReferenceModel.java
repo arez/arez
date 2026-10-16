@@ -27,8 +27,7 @@ final class Arez_ExplicitLoadObservableReferenceModel extends ExplicitLoadObserv
     Linkable {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<Integer> $$arez$$_myEntityId;
 

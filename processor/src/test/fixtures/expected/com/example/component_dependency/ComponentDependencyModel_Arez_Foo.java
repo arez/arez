@@ -18,8 +18,7 @@ import org.realityforge.braincheck.Guards;
 final class ComponentDependencyModel_Arez_Foo extends ComponentDependencyModel.Foo implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   @SuppressWarnings("NonAtomicVolatileUpdate")
   ComponentDependencyModel_Arez_Foo() {

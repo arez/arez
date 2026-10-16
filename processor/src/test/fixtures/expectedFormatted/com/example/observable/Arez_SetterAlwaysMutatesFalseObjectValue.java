@@ -21,8 +21,7 @@ final class Arez_SetterAlwaysMutatesFalseObjectValue extends SetterAlwaysMutates
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<@Nullable String> $$arez$$_field;
 

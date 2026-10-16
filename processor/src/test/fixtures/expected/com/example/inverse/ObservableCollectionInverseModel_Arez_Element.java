@@ -23,8 +23,7 @@ final class ObservableCollectionInverseModel_Arez_Element extends ObservableColl
     DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private @Nullable ObservableCollectionInverseModel $$arezr$$_observableCollectionInverseModel;
 

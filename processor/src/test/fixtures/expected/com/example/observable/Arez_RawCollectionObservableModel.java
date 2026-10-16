@@ -23,8 +23,7 @@ import org.realityforge.braincheck.Guards;
 final class Arez_RawCollectionObservableModel extends RawCollectionObservableModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   @SuppressWarnings("rawtypes")
   private final ObservableValue<@Nullable List> $$arez$$_myValue;

@@ -23,8 +23,7 @@ final class PackageAccessPostInverseAddModel_Arez_Element extends PackageAccessP
     DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private @Nullable PackageAccessPostInverseAddModel $$arezr$$_other;
 

@@ -23,8 +23,7 @@ final class Arez_MemoizeKeepAliveListModel extends MemoizeKeepAliveListModel
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ComputableValue<@Nullable List<String>> $$arez$$_myValue;
 

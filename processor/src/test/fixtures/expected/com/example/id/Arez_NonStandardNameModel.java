@@ -16,8 +16,7 @@ import org.realityforge.braincheck.Guards;
 @Generated("arez.processor.ArezProcessor")
 @NullMarked
 final class Arez_NonStandardNameModel extends NonStandardNameModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   Arez_NonStandardNameModel() {
     super();

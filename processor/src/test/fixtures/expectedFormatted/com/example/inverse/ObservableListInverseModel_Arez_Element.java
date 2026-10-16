@@ -21,8 +21,7 @@ final class ObservableListInverseModel_Arez_Element extends ObservableListInvers
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private @Nullable ObservableListInverseModel $$arezr$$_observableListInverseModel;
 

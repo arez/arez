@@ -20,8 +20,7 @@ import org.realityforge.braincheck.Guards;
 final class Arez_DeprecatedMemoizeModel2 extends DeprecatedMemoizeModel2 implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ComputableValue<Long> $$arez$$_time;
 

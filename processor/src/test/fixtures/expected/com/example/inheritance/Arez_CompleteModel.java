@@ -35,8 +35,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     Identifiable<Byte>,
     Verifiable,
     DisposeNotifier {
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<@Nullable String> $$arez$$_myValue;
 

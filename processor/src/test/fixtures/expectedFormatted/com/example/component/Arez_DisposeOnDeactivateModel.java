@@ -21,8 +21,7 @@ final class Arez_DisposeOnDeactivateModel extends DisposeOnDeactivateModel
     implements Disposable, Identifiable<Integer>, ComponentObservable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_DisposeOnDeactivateModel() {

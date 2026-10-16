@@ -20,8 +20,7 @@ import org.realityforge.braincheck.Guards;
 final class Arez_NonStandardMethodName2ObservableValueRefModel extends NonStandardMethodName2ObservableValueRefModel implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<Long> $$arez$$_time;
 

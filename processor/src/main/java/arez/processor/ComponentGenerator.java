@@ -1846,8 +1846,11 @@ final class ComponentGenerator {
             final TypeSpec.Builder builder) {
 
         final FieldSpec.Builder idField = FieldSpec.builder(
-                        KERNEL_CLASSNAME, KERNEL_FIELD_NAME, Modifier.FINAL, Modifier.PRIVATE)
-                .addAnnotation(GeneratorUtil.NULLABLE_CLASSNAME);
+                KERNEL_CLASSNAME.annotated(
+                        AnnotationSpec.builder(GeneratorUtil.NULLABLE_CLASSNAME).build()),
+                KERNEL_FIELD_NAME,
+                Modifier.FINAL,
+                Modifier.PRIVATE);
         builder.addField(idField.build());
 
         // If we don't have a method for object id but we need one then synthesize it

@@ -16,8 +16,7 @@ import org.realityforge.braincheck.Guards;
 @Generated("arez.processor.ArezProcessor")
 @NullMarked
 final class Arez_DoubleComponentIdRequireEquals extends DoubleComponentIdRequireEquals implements Disposable, Identifiable<Double>, DisposeNotifier {
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   Arez_DoubleComponentIdRequireEquals() {
     super();

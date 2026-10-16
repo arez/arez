@@ -24,8 +24,7 @@ final class Arez_NonObservableNullableOneReferenceModel
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<NonObservableNullableOneReferenceModel.@NonNull Element>
       $$arez$$_element;

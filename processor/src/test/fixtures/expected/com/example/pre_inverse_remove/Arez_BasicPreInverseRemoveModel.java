@@ -28,8 +28,7 @@ final class Arez_BasicPreInverseRemoveModel extends BasicPreInverseRemoveModel i
     DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<@Nullable Collection<BasicPreInverseRemoveModel.Element>> $$arez$$_elements;
 

@@ -18,8 +18,7 @@ import org.realityforge.braincheck.Guards;
 final class ObservableCascadeDisposeModel_Arez_MyComponent extends ObservableCascadeDisposeModel.MyComponent implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   @SuppressWarnings("NonAtomicVolatileUpdate")
   ObservableCascadeDisposeModel_Arez_MyComponent() {

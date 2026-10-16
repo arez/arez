@@ -25,8 +25,7 @@ final class ObservableReferenceInverseModel_Arez_Element extends ObservableRefer
     DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final ObservableValue<Integer> $$arez$$_observableReferenceInverseModelId;
 

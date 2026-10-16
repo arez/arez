@@ -23,8 +23,7 @@ final class MultiPostInverseAddModel_Arez_Element extends MultiPostInverseAddMod
     DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
-  @Nullable
-  private final ComponentKernel $$arezi$$_kernel;
+  private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private @Nullable MultiPostInverseAddModel $$arezr$$_other;
 
