@@ -1,5 +1,12 @@
 module(name = "arez")
 
+bazel_dep(name = "braincheck")
+git_override(
+    module_name = "braincheck",
+    commit = "cf4f382f75a8660425d7637a88451c3a5596d887",
+    remote = "https://github.com/realityforge/braincheck.git",
+)
+
 bazel_dep(name = "proton_project", repo_name = "proton")
 git_override(
     module_name = "proton_project",
@@ -56,6 +63,7 @@ browser_maven.install(
     duplicate_version_warning = "none",
     fail_if_repin_required = True,
     known_contributing_modules = [
+        "braincheck",
         "j2cl",
         "jsinterop_base",
         "protobuf",
@@ -443,34 +451,6 @@ _http_file(
     downloaded_file_path = "org/realityforge/bazel/depgen/bazel-depgen/0.26/bazel-depgen-0.26-all.jar",
     sha256 = "217987b5d60162bf6afe78a838b64818abef511852e39b094824e0b01a9bbd8c",
     urls = ["https://repo.maven.apache.org/maven2/org/realityforge/bazel/depgen/bazel-depgen/0.26/bazel-depgen-0.26-all.jar"],
-)
-
-_http_file(
-    name = "braincheck_core",
-    downloaded_file_path = "org/realityforge/braincheck/braincheck-core/1.35.0/braincheck-core-1.35.0.jar",
-    sha256 = "6d37351d8be23c2dd5b0c06a75cf6d1eaf70a8cad9300ce4bcf2d2d92de74b94",
-    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/braincheck/braincheck-core/1.35.0/braincheck-core-1.35.0.jar"],
-)
-
-_http_file(
-    name = "braincheck_core__sources",
-    downloaded_file_path = "org/realityforge/braincheck/braincheck-core/1.35.0/braincheck-core-1.35.0-sources.jar",
-    sha256 = "2111c57c8b83e4e0e75dfe6f00b13dedd7c8484a91f8331fbd00c657cc9ed9d2",
-    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/braincheck/braincheck-core/1.35.0/braincheck-core-1.35.0-sources.jar"],
-)
-
-_http_file(
-    name = "braincheck_testng",
-    downloaded_file_path = "org/realityforge/braincheck/braincheck-testng/1.35.0/braincheck-testng-1.35.0.jar",
-    sha256 = "927179a7588ab3c5f9411e4dd6f6cd98efba5177cd0c0e1489cb633f9145bbb2",
-    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/braincheck/braincheck-testng/1.35.0/braincheck-testng-1.35.0.jar"],
-)
-
-_http_file(
-    name = "braincheck_testng__sources",
-    downloaded_file_path = "org/realityforge/braincheck/braincheck-testng/1.35.0/braincheck-testng-1.35.0-sources.jar",
-    sha256 = "ec75ee71c935a231ac6c20a23eb28485b2e864e45cd9582facab62aa89d32172",
-    urls = ["https://repo.maven.apache.org/maven2/org/realityforge/braincheck/braincheck-testng/1.35.0/braincheck-testng-1.35.0-sources.jar"],
 )
 
 _http_file(

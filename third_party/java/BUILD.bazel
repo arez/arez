@@ -75,13 +75,34 @@ alias(
 
 j2cl_library(
     name = "braincheck_core-j2cl",
-    # Braincheck 1.35 ships Java and native JS together in its binary jar;
-    # its sources jar omits the native configuration companions.
-    srcs = ["@braincheck_core//file"],
+    # The combined binary archive includes Java sources and native configuration.
+    srcs = ["@braincheck//tools/release:braincheck_core_jar"],
     experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
     deps = [
         ":jsinterop_annotations-j2cl",
         ":jspecify-j2cl",
+    ],
+)
+
+_java_import(
+    name = "braincheck_core",
+    jars = ["@braincheck//tools/release:braincheck_core_jar"],
+    srcjar = "@braincheck//tools/release:braincheck_core_sources_jar",
+    deps = [
+        ":jsinterop_annotations",
+        ":jspecify",
+    ],
+)
+
+_java_import(
+    name = "braincheck_testng",
+    jars = ["@braincheck//tools/release:braincheck_testng_jar"],
+    srcjar = "@braincheck//tools/release:braincheck_testng_sources_jar",
+    deps = [
+        ":javax_json",
+        ":jsinterop_annotations",
+        ":jspecify",
+        ":testng",
     ],
 )
 
@@ -90,7 +111,7 @@ j2cl_library(
 # DO NOT EDIT: Content is auto-generated from //third_party/java:dependencies.yml by https://github.com/realityforge/bazel-depgen version 0.26
 
 # SHA256 of the configuration content that generated this content
-_CONFIG_SHA256 = "7423F1F8F87EAF4A1B4EC00CF771E94AD12C265C228D06CAE48B69A1688218FF"
+_CONFIG_SHA256 = "BA16FBC55ABC5BC6214A05F02D2B596EA26A01DF555AEBFDC3EFC148046EED83"
 
 exports_files(["dependencies.yml"])
 
@@ -99,14 +120,6 @@ exports_files(["dependencies.yml"])
 # +- org.commonmark:commonmark-ext-gfm-tables:jar:0.30.1 [compile]
 # |  \- org.commonmark:commonmark:jar:0.30.1 [compile]
 # +- io.github.eisop:dataflow-errorprone:jar:3.41.0-eisop1 [compile]
-# +- org.realityforge.braincheck:braincheck-core:jar:1.35.0 [compile]
-# |  +- org.jspecify:jspecify:jar:1.0.0 [compile]
-# |  \- com.google.jsinterop:jsinterop-annotations:jar:2.0.0 [compile]
-# +- org.realityforge.braincheck:braincheck-testng:jar:1.35.0 [compile]
-# |  +- org.jspecify:jspecify:jar:1.0.0 [compile]
-# |  +- com.google.jsinterop:jsinterop-annotations:jar:2.0.0 [compile]
-# |  +- org.glassfish:javax.json:jar:1.1 [compile]
-# |  \- org.testng:testng:jar:6.11 [compile] (conflicts with 7.10.2)
 # +- org.realityforge.grim:grim-annotations:jar:0.09 [compile]
 # |  \- org.realityforge.javax.annotation:javax.annotation:jar:1.0.1 [compile] (conflicts with 1.1.1)
 # +- org.realityforge.grim:grim-processor:jar:0.09 [compile]
@@ -366,30 +379,6 @@ _java_import(
     name = "bazel_depgen",
     jars = ["@bazel_depgen//file"],
     tags = ["maven_coordinates=org.realityforge.bazel.depgen:bazel-depgen:0.26"],
-)
-
-_java_import(
-    name = "braincheck_core",
-    jars = ["@braincheck_core//file"],
-    srcjar = "@braincheck_core__sources//file",
-    tags = ["maven_coordinates=org.realityforge.braincheck:braincheck-core:1.35.0"],
-    deps = [
-        ":jsinterop_annotations",
-        ":jspecify",
-    ],
-)
-
-_java_import(
-    name = "braincheck_testng",
-    jars = ["@braincheck_testng//file"],
-    srcjar = "@braincheck_testng__sources//file",
-    tags = ["maven_coordinates=org.realityforge.braincheck:braincheck-testng:1.35.0"],
-    deps = [
-        ":javax_json",
-        ":jsinterop_annotations",
-        ":jspecify",
-        ":testng",
-    ],
 )
 
 _java_import(

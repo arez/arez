@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Consume Braincheck publication archives from an immutable upstream source pin in Bazel.
+
 * Avoid redundant null checks for statically non-null observable initializers and persistent identifiers; retain checks for nullable identifiers.
 
 * Emit the generated kernel field’s JSpecify qualifier on its type so consumer builds pass Error Prone’s AnnotationPosition check.
