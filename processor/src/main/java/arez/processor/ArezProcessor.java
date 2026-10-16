@@ -244,7 +244,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     private void warnOnPublicConstructorsInArezComponentLikeType(final TypeElement typeElement) {
         if (!isArezComponentAnnotated(typeElement) && isArezComponentLikeAnnotated(typeElement)) {
             for (final var constructor : ElementsUtil.getConstructors(typeElement)) {
-                if (Elements.Origin.EXPLICIT == processingEnv.getElementUtils().getOrigin(constructor)
+                if (Elements.Origin.EXPLICIT == ElementsUtil.getOrigin(processingEnv.getElementUtils(), constructor)
                         && constructor.getModifiers().contains(Modifier.PUBLIC)
                         && isWarningNotSuppressed(constructor, Constants.WARNING_PUBLIC_CONSTRUCTOR)) {
                     final var message =
@@ -969,7 +969,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
             }
         }
         for (final ExecutableElement constructor : ElementsUtil.getConstructors(element)) {
-            if (Elements.Origin.EXPLICIT == processingEnv.getElementUtils().getOrigin(constructor)
+            if (Elements.Origin.EXPLICIT == ElementsUtil.getOrigin(processingEnv.getElementUtils(), constructor)
                     && constructor.getModifiers().contains(Modifier.PUBLIC)
                     && ElementsUtil.isWarningNotSuppressed(constructor, Constants.WARNING_PUBLIC_CONSTRUCTOR)) {
                 final String instruction = component.isStingEnabled()
