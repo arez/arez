@@ -10,7 +10,6 @@ import jdepend.framework.DependencyConstraint;
 import jdepend.framework.JDepend;
 import jdepend.framework.JavaPackage;
 import jdepend.framework.PackageFilter;
-import org.jspecify.annotations.NonNull;
 import org.testng.annotations.Test;
 
 public final class JDependTest {
@@ -88,7 +87,6 @@ public final class JDependTest {
         }
     }
 
-    @NonNull
     private String compileTargetDir() {
         final String fixtureDir = System.getProperty("arez.persist.core.compile_target");
         assertNotNull(

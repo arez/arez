@@ -15,16 +15,16 @@ public final class WebStorageServiceBrowserTest {
 
     @JsMethod
     public static boolean roundTrip() {
-        final WebStorageService service = WebStorageService.createLocalStorageService("arez-persist-browser-test");
+        final var service = WebStorageService.createLocalStorageService("arez-persist-browser-test");
         try {
-            final TypeConverter converter = new TypeConverter(Map.of());
-            final Map<String, @Nullable Object> attributes = new HashMap<>();
+            final var converter = new TypeConverter(Map.of());
+            final var attributes = new HashMap<String, @Nullable Object>();
             attributes.put("name", "Sample");
             attributes.put("optional", null);
-            final Scope scope = ArezPersist.findOrCreateScope("browser.roundtrip");
-            final Object encoded = service.encodeState(attributes, converter);
+            final var scope = ArezPersist.findOrCreateScope("browser.roundtrip");
+            final var encoded = service.encodeState(attributes, converter);
             service.commit(Map.of(scope, Map.of("Widget", Map.of("42", new StorageService.Entry(null, encoded)))));
-            final Map<Scope, Map<String, Map<String, StorageService.Entry>>> restored = new HashMap<>();
+            final var restored = new HashMap<Scope, Map<String, Map<String, StorageService.Entry>>>();
             service.restore(restored);
             final Map<String, Map<String, StorageService.Entry>> types = Objects.requireNonNull(restored.get(scope));
             final Map<String, StorageService.Entry> entries = Objects.requireNonNull(types.get("Widget"));
@@ -41,7 +41,7 @@ public final class WebStorageServiceBrowserTest {
 
     @JsMethod
     public static int decodedPropertyCount(final Object encoded) {
-        final WebStorageService service = WebStorageService.createLocalStorageService("arez-persist-browser-test");
+        final var service = WebStorageService.createLocalStorageService("arez-persist-browser-test");
         try {
             return service.decodeState(encoded, new TypeConverter(Map.of())).size();
         } finally {

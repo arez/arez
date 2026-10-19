@@ -18,6 +18,7 @@ import arez.Zone;
 import arez.spy.SpyEventHandler;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -170,7 +171,7 @@ public final class ExternalApiTest extends AbstractTest {
         final var computedCallCount = new AtomicInteger();
         final var autorunCallCount = new AtomicInteger();
         final var result = new AtomicInteger();
-        final AtomicReference<String> expected = new AtomicReference<>();
+        final AtomicReference<@Nullable String> expected = new AtomicReference<>();
 
         final SafeFunction<String> function = () -> {
             observeADependency();

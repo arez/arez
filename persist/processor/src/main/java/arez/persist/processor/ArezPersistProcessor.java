@@ -22,6 +22,7 @@ import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
+import org.jspecify.annotations.NonNull;
 import org.realityforge.proton.AbstractStandardProcessor;
 import org.realityforge.proton.AnnotationsUtil;
 import org.realityforge.proton.DeferredElementSet;
@@ -55,11 +56,13 @@ public final class ArezPersistProcessor extends AbstractStandardProcessor {
     private final StopWatch _analyzePersistIdStopWatch = new StopWatch("Analyze PersistId");
 
     @Override
+    @NonNull
     protected String getIssueTrackerURL() {
         return "https://github.com/arez/arez/issues";
     }
 
     @Override
+    @NonNull
     protected String getOptionPrefix() {
         return "arez.persist";
     }
@@ -143,7 +146,7 @@ public final class ArezPersistProcessor extends AbstractStandardProcessor {
                 // These validations have already been performed by an earlier step in this annotation processor
                 // if and only if the type declaring the @PersistId is also compiled in this compilation round.
                 // If the type that encloses @PersistId annotated method is part of a library or compiled earlier
-                // we re-run the checks just in case to avoid scenarios where weird behaviour slips through in code
+                // we re-run the checks just in case to avoid scenarios where weird behavior slips through in code
                 // generation step.
                 validatePersisIdMethod(method);
                 MemberChecks.mustNotBePackageAccessInDifferentPackage(

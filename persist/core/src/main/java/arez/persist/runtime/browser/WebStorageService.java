@@ -17,7 +17,6 @@ import jsinterop.annotations.JsType;
 import jsinterop.base.Any;
 import jsinterop.base.Js;
 import jsinterop.base.JsPropertyMap;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -64,17 +63,14 @@ final class WebStorageService implements StorageService {
     /**
      * A reference to the "beforeunload" listener so that the listener can be removed on disposed.
      */
-    @NonNull
     private final BeforeUnloadEventListener _beforeUnloadListener = e -> maybeCommit();
     /**
      * The browsers storage api targeted by the service.
      */
-    @NonNull
     private final Storage _storage;
     /**
      * The key used to store/access state in storage api.
      */
-    @NonNull
     private final String _address;
     /**
      * A cached copy of last trigger action supplied. Used to try and trigger save before app unloads.
@@ -84,17 +80,15 @@ final class WebStorageService implements StorageService {
 
     private int _idleCallbackId;
 
-    @NonNull
-    static WebStorageService createSessionStorageService(@NonNull final String persistenceKey) {
+    static WebStorageService createSessionStorageService(final String persistenceKey) {
         return new WebStorageService(sessionStorage(), persistenceKey);
     }
 
-    @NonNull
-    static WebStorageService createLocalStorageService(@NonNull final String persistenceKey) {
+    static WebStorageService createLocalStorageService(final String persistenceKey) {
         return new WebStorageService(localStorage(), persistenceKey);
     }
 
-    private WebStorageService(@NonNull final Storage storage, @NonNull final String address) {
+    private WebStorageService(final Storage storage, final String address) {
         _storage = storage;
         _address = address;
         // It should be noted that we don't
@@ -111,7 +105,7 @@ final class WebStorageService implements StorageService {
     }
 
     @Override
-    public void scheduleCommit(@NonNull final SafeProcedure commitTriggerAction) {
+    public void scheduleCommit(final SafeProcedure commitTriggerAction) {
         _commitTriggerAction = commitTriggerAction;
         // An alternative strategy is to send a message to a WebWorker containing the
         // state to save and performing the save in the other thread but we have yet
@@ -120,7 +114,7 @@ final class WebStorageService implements StorageService {
     }
 
     @Override
-    public void commit(@NonNull final Map<Scope, Map<String, Map<String, Entry>>> state) {
+    public void commit(final Map<Scope, Map<String, Map<String, Entry>>> state) {
         _idleCallbackId = 0;
         final var data = Js.<JsPropertyMap<@Nullable Object>>uncheckedCast(JsPropertyMap.of());
         for (final Map.Entry<Scope, Map<String, Map<String, Entry>>> scopeEntry : state.entrySet()) {
@@ -146,10 +140,8 @@ final class WebStorageService implements StorageService {
         }
     }
 
-    @NonNull
     @Override
-    public Object encodeState(
-            @NonNull final Map<String, @Nullable Object> state, @NonNull final TypeConverter converter) {
+    public Object encodeState(final Map<String, @Nullable Object> state, final TypeConverter converter) {
         final var encoded = Js.<JsPropertyMap<@Nullable Object>>uncheckedCast(JsPropertyMap.of());
         for (final Map.Entry<String, @Nullable Object> entry : state.entrySet()) {
             final String key = entry.getKey();
@@ -158,10 +150,8 @@ final class WebStorageService implements StorageService {
         return encoded;
     }
 
-    @NonNull
     @Override
-    public Map<String, @Nullable Object> decodeState(
-            @NonNull final Object encoded, @NonNull final TypeConverter converter) {
+    public Map<String, @Nullable Object> decodeState(final Object encoded, final TypeConverter converter) {
         final JsPropertyMap<@Nullable Object> propertyMap = Js.cast(encoded);
         final Map<String, @Nullable Object> data = new HashMap<>();
         for (final String key : NativeObject.keys(propertyMap)) {
@@ -171,7 +161,7 @@ final class WebStorageService implements StorageService {
     }
 
     @Override
-    public void restore(@NonNull final Map<Scope, Map<String, Map<String, Entry>>> state) {
+    public void restore(final Map<Scope, Map<String, Map<String, Entry>>> state) {
         final String item = _storage.getItem(_address);
         if (null != item) {
             final Any value = NativeJSON.parse(item);
@@ -187,9 +177,9 @@ final class WebStorageService implements StorageService {
     }
 
     private void restoreScope(
-            @NonNull final Map<Scope, Map<String, Map<String, Entry>>> state,
-            @NonNull final String scopeName,
-            @NonNull final JsPropertyMap<@Nullable Object> types) {
+            final Map<Scope, Map<String, Map<String, Entry>>> state,
+            final String scopeName,
+            final JsPropertyMap<@Nullable Object> types) {
         for (final String typeName : NativeObject.keys(types)) {
             restoreType(
                     state,
@@ -200,10 +190,10 @@ final class WebStorageService implements StorageService {
     }
 
     private void restoreType(
-            @NonNull final Map<Scope, Map<String, Map<String, Entry>>> state,
-            @NonNull final String scopeName,
-            @NonNull final String typeName,
-            @NonNull final JsPropertyMap<@Nullable Object> idMap) {
+            final Map<Scope, Map<String, Map<String, Entry>>> state,
+            final String scopeName,
+            final String typeName,
+            final JsPropertyMap<@Nullable Object> idMap) {
         final Scope scope = ArezPersist.findOrCreateScope(scopeName);
         final Map<String, Entry> entryMap = new HashMap<>();
         for (final String id : NativeObject.keys(idMap)) {

@@ -3,7 +3,6 @@ package arez.persist.runtime;
 import arez.Arez;
 import arez.SafeProcedure;
 import java.util.Map;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -27,7 +26,7 @@ public interface StorageService {
      *
      * @param commitTriggerAction the action to invoke when a commit should be triggered.
      */
-    void scheduleCommit(@NonNull SafeProcedure commitTriggerAction);
+    void scheduleCommit(SafeProcedure commitTriggerAction);
 
     /**
      * Invoked by the store to save the state to the storage service.
@@ -36,14 +35,14 @@ public interface StorageService {
      *
      * @param state the state to store.
      */
-    void commit(@NonNull final Map<Scope, Map<String, Map<String, Entry>>> state);
+    void commit(final Map<Scope, Map<String, Map<String, Entry>>> state);
 
     /**
      * Restore state from the service into the specified state parameter.
      *
      * @param state the map in which to store data retrieved from the service.
      */
-    void restore(@NonNull final Map<Scope, Map<String, Map<String, Entry>>> state);
+    void restore(final Map<Scope, Map<String, Map<String, Entry>>> state);
 
     /**
      * Encode state in a way that makes storage to the backend easier.
@@ -53,8 +52,7 @@ public interface StorageService {
      * @param converter the converter for the type.
      * @return the encoded form for this service.
      */
-    @NonNull
-    Object encodeState(@NonNull Map<String, @Nullable Object> state, @NonNull final TypeConverter converter);
+    Object encodeState(Map<String, @Nullable Object> state, final TypeConverter converter);
 
     /**
      * Decode state from backend storage form.
@@ -64,8 +62,7 @@ public interface StorageService {
      * @param converter the converter for the type.
      * @return the decoded form of component state.
      */
-    @NonNull
-    Map<String, @Nullable Object> decodeState(@NonNull Object encoded, @NonNull final TypeConverter converter);
+    Map<String, @Nullable Object> decodeState(Object encoded, final TypeConverter converter);
 
     /**
      * An entry containing the state for a particular component.
@@ -74,10 +71,9 @@ public interface StorageService {
         @Nullable
         private Map<String, @Nullable Object> _data;
 
-        @NonNull
         private final Object _encoded;
 
-        public Entry(@Nullable final Map<String, @Nullable Object> data, @NonNull final Object encoded) {
+        public Entry(@Nullable final Map<String, @Nullable Object> data, final Object encoded) {
             _data = data;
             _encoded = encoded;
         }
@@ -101,7 +97,6 @@ public interface StorageService {
          *
          * @return the encoded data.
          */
-        @NonNull
         public Object getEncoded() {
             return _encoded;
         }

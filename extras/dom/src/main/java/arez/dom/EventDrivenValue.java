@@ -15,7 +15,6 @@ import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -75,7 +74,7 @@ public abstract class EventDrivenValue<
          * @param source the source that drives the access.
          * @return the value
          */
-        ValueType get(@NonNull SourceType source);
+        ValueType get(SourceType source);
     }
 
     /**
@@ -83,7 +82,6 @@ public abstract class EventDrivenValue<
      */
     private final EventListener _listener = e -> onEvent();
 
-    @NonNull
     private SourceType _source;
 
     private final String _event;
@@ -104,14 +102,11 @@ public abstract class EventDrivenValue<
      */
     public static <SourceType extends EventTarget, ValueType extends @Nullable Object>
             EventDrivenValue<SourceType, ValueType> create(
-                    @NonNull final SourceType source,
-                    final String event,
-                    final Accessor<SourceType, ValueType> getter) {
+                    final SourceType source, final String event, final Accessor<SourceType, ValueType> getter) {
         return new Arez_EventDrivenValue<>(source, event, getter);
     }
 
-    EventDrivenValue(
-            @NonNull final SourceType source, final String event, final Accessor<SourceType, ValueType> getter) {
+    EventDrivenValue(final SourceType source, final String event, final Accessor<SourceType, ValueType> getter) {
         _source = source;
         _event = event;
         _getter = getter;
@@ -122,7 +117,6 @@ public abstract class EventDrivenValue<
      *
      * @return the associated element.
      */
-    @NonNull
     @Observable
     public SourceType getSource() {
         return _source;
@@ -134,7 +128,7 @@ public abstract class EventDrivenValue<
      *
      * @param source the the event source.
      */
-    public void setSource(@NonNull final SourceType source) {
+    public void setSource(final SourceType source) {
         if (_active) {
             unbindListener();
         }

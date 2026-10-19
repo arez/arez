@@ -1,7 +1,6 @@
 package arez.persist.runtime;
 
 import java.lang.reflect.Field;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -16,7 +15,7 @@ public final class ArezPersistTestUtil {
      * Interface to intercept log messages emitted by ArezPersist runtime.
      */
     public interface Logger {
-        void log(@NonNull String message, @Nullable Throwable throwable);
+        void log(String message, @Nullable Throwable throwable);
     }
 
     /**
@@ -112,7 +111,7 @@ public final class ArezPersistTestUtil {
      * Set the specified field name on ArezPersistConfig.
      */
     @SuppressWarnings("NonJREEmulationClassesInClientCode")
-    private static void setConstant(@NonNull final String fieldName, final boolean value) {
+    private static void setConstant(final String fieldName, final boolean value) {
         if (ArezPersistConfig.isProductionEnvironment()) {
             throw new IllegalStateException(
                     "Unable to change constant " + fieldName + " as ArezPersist is in production mode");
