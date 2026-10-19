@@ -11,8 +11,10 @@ import arez.Component;
 import arez.Disposable;
 import arez.Observer;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -552,12 +554,16 @@ public final class ComponentKernelTest extends AbstractTest {
     @Test
     public void dispose() {
         final ArezContext context = Arez.context();
-        final AtomicReference<ComponentKernel> ref = new AtomicReference<>();
+        final AtomicReference<@Nullable ComponentKernel> ref = new AtomicReference<>();
         final var kernel = new ComponentKernel(
                 context,
                 "MyType",
                 1,
-                context.component("MyType", 1, "MyType@1", () -> ref.get().notifyOnDisposeListeners()),
+                context.component(
+                        "MyType",
+                        1,
+                        "MyType@1",
+                        () -> Objects.requireNonNull(ref.get()).notifyOnDisposeListeners()),
                 null,
                 null,
                 null,
@@ -583,12 +589,16 @@ public final class ComponentKernelTest extends AbstractTest {
     @Test
     public void notifyOnDisposeOperation() {
         final ArezContext context = Arez.context();
-        final AtomicReference<ComponentKernel> ref = new AtomicReference<>();
+        final AtomicReference<@Nullable ComponentKernel> ref = new AtomicReference<>();
         final var kernel = new ComponentKernel(
                 context,
                 "MyType",
                 1,
-                context.component("MyType", 1, "MyType@1", () -> ref.get().notifyOnDisposeListeners()),
+                context.component(
+                        "MyType",
+                        1,
+                        "MyType@1",
+                        () -> Objects.requireNonNull(ref.get()).notifyOnDisposeListeners()),
                 null,
                 null,
                 null,
@@ -641,12 +651,16 @@ public final class ComponentKernelTest extends AbstractTest {
     @Test
     public void disposeWhenAListenerHasDisposedKey() {
         final ArezContext context = Arez.context();
-        final AtomicReference<ComponentKernel> ref = new AtomicReference<>();
+        final AtomicReference<@Nullable ComponentKernel> ref = new AtomicReference<>();
         final var kernel = new ComponentKernel(
                 context,
                 "MyType",
                 1,
-                context.component("MyType", 1, "MyType@1", () -> ref.get().notifyOnDisposeListeners()),
+                context.component(
+                        "MyType",
+                        1,
+                        "MyType@1",
+                        () -> Objects.requireNonNull(ref.get()).notifyOnDisposeListeners()),
                 null,
                 null,
                 null,

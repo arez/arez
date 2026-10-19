@@ -2,8 +2,10 @@ package arez;
 
 import static org.testng.Assert.*;
 
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -88,25 +90,25 @@ public final class TaskTest extends AbstractTest {
     public void schedule_insideTask() {
         final var callCount = new AtomicInteger();
         final ArezContext context = Arez.context();
-        final AtomicReference<Task> taskRef = new AtomicReference<>();
+        final AtomicReference<@Nullable Task> taskRef = new AtomicReference<>();
         context.task(() -> {
             taskRef.set(context.task(callCount::incrementAndGet));
 
             assertEquals(callCount.get(), 0);
 
-            assertTrue(taskRef.get().isQueued());
+            assertTrue(Objects.requireNonNull(taskRef.get()).isQueued());
 
             // Reschedule ... should be a no-op
-            taskRef.get().schedule();
+            Objects.requireNonNull(taskRef.get()).schedule();
 
             assertEquals(callCount.get(), 0);
 
-            assertTrue(taskRef.get().isQueued());
+            assertTrue(Objects.requireNonNull(taskRef.get()).isQueued());
         });
 
         assertEquals(callCount.get(), 1);
 
-        assertTrue(taskRef.get().isIdle());
+        assertTrue(Objects.requireNonNull(taskRef.get()).isIdle());
     }
 
     @Test

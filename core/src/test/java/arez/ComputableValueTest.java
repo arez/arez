@@ -15,9 +15,11 @@ import arez.spy.ReactionCycleCompleteEvent;
 import arez.spy.ReactionCycleStartEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -145,13 +147,13 @@ public final class ComputableValueTest extends AbstractTest {
     @Test
     public void computeValue() {
         final ArezContext context = Arez.context();
-        final AtomicReference<String> value = new AtomicReference<>();
-        final AtomicReference<ComputableValue<String>> ref = new AtomicReference<>();
+        final AtomicReference<@Nullable String> value = new AtomicReference<>();
+        final AtomicReference<@Nullable ComputableValue<String>> ref = new AtomicReference<>();
         value.set("");
         final SafeFunction<String> function = () -> {
             observeADependency();
-            assertTrue(ref.get().isComputing());
-            return value.get();
+            assertTrue(Objects.requireNonNull(ref.get()).isComputing());
+            return Objects.requireNonNull(value.get());
         };
         final ComputableValue<String> computableValue = context.computable(function);
         ref.set(computableValue);
@@ -168,7 +170,7 @@ public final class ComputableValueTest extends AbstractTest {
     public void compute() {
         final ArezContext context = Arez.context();
         final String name = ValueUtil.randomString();
-        final AtomicReference<String> value = new AtomicReference<>();
+        final AtomicReference<@Nullable String> value = new AtomicReference<>();
         final String value1 = ValueUtil.randomString();
         final String value2 = ValueUtil.randomString();
         final var onDeactivateHook1 = new NoopProcedure();
@@ -177,7 +179,7 @@ public final class ComputableValueTest extends AbstractTest {
             observeADependency();
             Arez.context().registerHook("1", null, onDeactivateHook1);
             Arez.context().registerHook("2", null, onDeactivateHook2);
-            return value.get();
+            return Objects.requireNonNull(value.get());
         };
         final ComputableValue<String> computableValue = context.computable(name, function);
 
@@ -220,11 +222,11 @@ public final class ComputableValueTest extends AbstractTest {
     @Test
     public void compute_whereLastStateProducedAnError() {
         final ArezContext context = Arez.context();
-        final AtomicReference<String> value = new AtomicReference<>();
+        final AtomicReference<@Nullable String> value = new AtomicReference<>();
         final String value2 = ValueUtil.randomString();
         final SafeFunction<String> function = () -> {
             observeADependency();
-            return value.get();
+            return Objects.requireNonNull(value.get());
         };
         final ComputableValue<String> computableValue = context.computable(function);
 
@@ -264,11 +266,11 @@ public final class ComputableValueTest extends AbstractTest {
     @Test
     public void compute_whereValueMatches() {
         final ArezContext context = Arez.context();
-        final AtomicReference<String> value = new AtomicReference<>();
+        final AtomicReference<@Nullable String> value = new AtomicReference<>();
         final String value1 = ValueUtil.randomString();
         final SafeFunction<String> function = () -> {
             observeADependency();
-            return value.get();
+            return Objects.requireNonNull(value.get());
         };
         final ComputableValue<String> computableValue = context.computable(function);
 
@@ -331,11 +333,11 @@ public final class ComputableValueTest extends AbstractTest {
     @Test
     public void compute_whereValueMatches_customComparator() {
         final ArezContext context = Arez.context();
-        final AtomicReference<String> value = new AtomicReference<>();
+        final AtomicReference<@Nullable String> value = new AtomicReference<>();
         final String value1 = ValueUtil.randomString();
         final SafeFunction<String> function = () -> {
             observeADependency();
-            return value.get();
+            return Objects.requireNonNull(value.get());
         };
         final ComputableValue<String> computableValue =
                 context.computable(null, null, function, 0, (oldValue, newValue) -> true);
@@ -680,7 +682,7 @@ public final class ComputableValueTest extends AbstractTest {
         final var computedCallCount = new AtomicInteger();
         final var autorunCallCount = new AtomicInteger();
         final var result = new AtomicInteger();
-        final AtomicReference<String> expected = new AtomicReference<>();
+        final AtomicReference<@Nullable String> expected = new AtomicReference<>();
 
         final ObservableValue<Object> observableValue = context.observable();
 
