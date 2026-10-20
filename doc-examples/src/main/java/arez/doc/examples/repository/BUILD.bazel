@@ -1,5 +1,3 @@
-package(default_visibility = ["//doc-examples:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -7,4 +5,5 @@ filegroup(
         "MyComponentRepository.java",
         "RepositoryExample.java",
     ],
+    visibility = ["//doc-examples/src/main/java/arez/doc/examples:__pkg__"],
 )

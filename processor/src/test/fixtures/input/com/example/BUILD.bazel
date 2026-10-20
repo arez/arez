@@ -1,5 +1,3 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -54,6 +52,7 @@ filegroup(
         "//processor/src/test/fixtures/input/com/example/type_params:all",
         "//processor/src/test/fixtures/input/com/example/verifiable:all",
     ],
+    visibility = ["//processor/src/test/fixtures/input/com:__pkg__"],
 )
 
 filegroup(
@@ -61,4 +60,5 @@ filegroup(
     srcs = [
         "SubpackageModel.java",
     ],
+    visibility = ["//processor/src/test/fixtures:__pkg__"],
 )

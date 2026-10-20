@@ -1,5 +1,3 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -12,5 +10,9 @@ filegroup(
         "ParentModel.java",
         "//processor/src/test/fixtures/input/com/example/inheritance/interface_inheritance:all",
         "//processor/src/test/fixtures/input/com/example/inheritance/other:all",
+    ],
+    visibility = [
+        "//processor/src/test/fixtures:__pkg__",
+        "//processor/src/test/fixtures/input/com/example:__pkg__",
     ],
 )

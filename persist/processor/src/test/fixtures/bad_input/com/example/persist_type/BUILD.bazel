@@ -1,5 +1,3 @@
-package(default_visibility = ["//persist/processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -8,4 +6,5 @@ filegroup(
         "NoPropertiesPersistTypeModel.java",
         "NonArezComponentPersistTypeModel.java",
     ],
+    visibility = ["//persist/processor/src/test/fixtures/bad_input/com/example:__pkg__"],
 )

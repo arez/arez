@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Restrict the public Bazel API to the existing root libraries and processor plugins, plus curated `//third_party` dependencies. Use `//:processor` and `//:persist_processor` for annotation plugins and `//:processor_runtime` for direct processor class/jar access. Hide implementation targets, generated companion targets, and internal Starlark modules; examples consume the public labels.
 * Upgrade JSpecify to version `1.0.1` and JsInterop Base to version `1.2.0`. Handle nullable JavaScript property lookups in spy serialization and persistence, and qualify persistence browser APIs for optimized J2CL builds.
 * Reuse Braincheck's native J2CL target to avoid duplicate Closure modules when combining libraries; JVM dependencies continue to use pinned publication archives.
 * Avoid redundant null checks for statically non-null observable initializers and persistent identifiers; retain checks for nullable identifiers.

@@ -1,7 +1,5 @@
 load("//third_party/java:rules.bzl", "java_library")
 
-package(default_visibility = ["//visibility:public"])
-
 java_library(
     name = "arez",
     srcs = [
@@ -61,6 +59,11 @@ java_library(
     resources = [
         "ArezConfig.native.js",
         "arez.js",
+    ],
+    visibility = [
+        "//core:__pkg__",
+        "//core/src/test/java/arez:__pkg__",
+        "//tools/release:__pkg__",
     ],
     deps = [
         "//third_party/java:braincheck_core",

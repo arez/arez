@@ -1,5 +1,3 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -14,5 +12,9 @@ filegroup(
         "PushFirstModel.java",
         "//processor/src/test/fixtures/input/com/example/memoize_context_parameter/inherit:all",
         "//processor/src/test/fixtures/input/com/example/memoize_context_parameter/intf:all",
+    ],
+    visibility = [
+        "//processor/src/test/fixtures:__pkg__",
+        "//processor/src/test/fixtures/input/com/example:__pkg__",
     ],
 )

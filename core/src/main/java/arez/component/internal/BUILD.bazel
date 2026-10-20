@@ -1,5 +1,3 @@
-package(default_visibility = ["//core:__subpackages__"])
-
 filegroup(
     name = "sources",
     srcs = [
@@ -9,4 +7,5 @@ filegroup(
         "MemoizeCache.java",
         "package-info.java",
     ],
+    visibility = ["//core/src/main/java/arez:__pkg__"],
 )

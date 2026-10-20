@@ -1,5 +1,3 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -19,5 +17,9 @@ filegroup(
         "Suppressed2ProtectedAccessPostConstructModel.java",
         "Suppressed2PublicAccessPostConstructModel.java",
         "//processor/src/test/fixtures/input/com/example/post_construct/other:all",
+    ],
+    visibility = [
+        "//processor/src/test/fixtures:__pkg__",
+        "//processor/src/test/fixtures/input/com/example:__pkg__",
     ],
 )

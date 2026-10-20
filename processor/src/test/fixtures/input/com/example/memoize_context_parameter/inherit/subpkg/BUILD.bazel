@@ -1,8 +1,7 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
         "AbstractModel.java",
     ],
+    visibility = ["//processor/src/test/fixtures/input/com/example/memoize_context_parameter/inherit:__pkg__"],
 )

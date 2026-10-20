@@ -4,12 +4,12 @@ load("//third_party/java:rules.bzl", "java_library")
 load("//tools/browser:rules.bzl", "browser_application", "browser_test")
 load("//tools/release:release.bzl", "release_source_jar")
 
-package(default_visibility = ["//visibility:public"])
+package(default_visibility = ["//visibility:private"])
 
 java_library(
     name = "common_java",
     srcs = ["//extras/dom-example/src/main/java/arez/dom/example:common_java_sources"],
-    deps = ["//third_party/java:jsinterop_annotations"],
+    deps = ["//third_party:jsinterop_annotations"],
 )
 
 release_source_jar(
@@ -23,14 +23,15 @@ j2cl_library(
     srcs = [":common_sources"],
     experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
     deps = [
-        "//third_party/java:jsinterop_annotations-j2cl",
-        "//third_party/java:jspecify-j2cl",
+        "//third_party:jsinterop_annotations-j2cl",
+        "//third_party:jspecify-j2cl",
     ],
 )
 
 java_library(
     name = "java",
     testonly = True,
+    visibility = ["//:__pkg__"],
     exports = [
         ":geo_java",
         ":idle_java",
@@ -50,7 +51,7 @@ java_library(
         ":common_java",
         "//:core",
         "//:dom",
-        "//third_party/java:jsinterop_annotations",
+        "//third_party:jsinterop_annotations",
     ],
 )
 
@@ -68,8 +69,8 @@ j2cl_library(
         ":common",
         "//:core-j2cl",
         "//:dom-j2cl",
-        "//third_party/java:jsinterop_annotations-j2cl",
-        "//third_party/java:jspecify-j2cl",
+        "//third_party:jsinterop_annotations-j2cl",
+        "//third_party:jspecify-j2cl",
     ],
 )
 
@@ -90,6 +91,7 @@ browser_test(
     name = "location_browser_test",
     srcs = ["src/test/js/location_test.js"],
     entry_point = "arez.dom.example.BrowserLocationExampleTest",
+    visibility = ["//:__pkg__"],
     deps = [
         ":location",
         "//tools/browser:fixtures",
@@ -104,7 +106,7 @@ java_library(
         ":common_java",
         "//:core",
         "//:dom",
-        "//third_party/java:jsinterop_annotations",
+        "//third_party:jsinterop_annotations",
     ],
 )
 
@@ -122,8 +124,8 @@ j2cl_library(
         ":common",
         "//:core-j2cl",
         "//:dom-j2cl",
-        "//third_party/java:jsinterop_annotations-j2cl",
-        "//third_party/java:jspecify-j2cl",
+        "//third_party:jsinterop_annotations-j2cl",
+        "//third_party:jspecify-j2cl",
     ],
 )
 
@@ -144,6 +146,7 @@ browser_test(
     name = "size_browser_test",
     srcs = ["src/test/js/size_test.js"],
     entry_point = "arez.dom.example.WindowSizeExampleTest",
+    visibility = ["//:__pkg__"],
     deps = [
         ":size",
         "//tools/browser:fixtures",
@@ -158,7 +161,7 @@ java_library(
         ":common_java",
         "//:core",
         "//:dom",
-        "//third_party/java:jsinterop_annotations",
+        "//third_party:jsinterop_annotations",
     ],
 )
 
@@ -176,8 +179,8 @@ j2cl_library(
         ":common",
         "//:core-j2cl",
         "//:dom-j2cl",
-        "//third_party/java:jsinterop_annotations-j2cl",
-        "//third_party/java:jspecify-j2cl",
+        "//third_party:jsinterop_annotations-j2cl",
+        "//third_party:jspecify-j2cl",
     ],
 )
 
@@ -198,6 +201,7 @@ browser_test(
     name = "media_browser_test",
     srcs = ["src/test/js/media_test.js"],
     entry_point = "arez.dom.example.MediaQueryExampleTest",
+    visibility = ["//:__pkg__"],
     deps = [
         ":media",
         "//tools/browser:fixtures",
@@ -212,7 +216,7 @@ java_library(
         ":common_java",
         "//:core",
         "//:dom",
-        "//third_party/java:jsinterop_annotations",
+        "//third_party:jsinterop_annotations",
     ],
 )
 
@@ -230,8 +234,8 @@ j2cl_library(
         ":common",
         "//:core-j2cl",
         "//:dom-j2cl",
-        "//third_party/java:jsinterop_annotations-j2cl",
-        "//third_party/java:jspecify-j2cl",
+        "//third_party:jsinterop_annotations-j2cl",
+        "//third_party:jspecify-j2cl",
     ],
 )
 
@@ -252,6 +256,7 @@ browser_test(
     name = "visibility_browser_test",
     srcs = ["src/test/js/visibility_test.js"],
     entry_point = "arez.dom.example.DocumentVisibilityExampleTest",
+    visibility = ["//:__pkg__"],
     deps = [
         ":visibility",
         "//tools/browser:fixtures",
@@ -266,7 +271,7 @@ java_library(
         ":common_java",
         "//:core",
         "//:dom",
-        "//third_party/java:jsinterop_annotations",
+        "//third_party:jsinterop_annotations",
     ],
 )
 
@@ -284,8 +289,8 @@ j2cl_library(
         ":common",
         "//:core-j2cl",
         "//:dom-j2cl",
-        "//third_party/java:jsinterop_annotations-j2cl",
-        "//third_party/java:jspecify-j2cl",
+        "//third_party:jsinterop_annotations-j2cl",
+        "//third_party:jspecify-j2cl",
     ],
 )
 
@@ -306,6 +311,7 @@ browser_test(
     name = "geo_browser_test",
     srcs = ["src/test/js/geo_test.js"],
     entry_point = "arez.dom.example.GeoPositionExampleTest",
+    visibility = ["//:__pkg__"],
     deps = [
         ":geo",
         "//tools/browser:fixtures",
@@ -320,7 +326,7 @@ java_library(
         ":common_java",
         "//:core",
         "//:dom",
-        "//third_party/java:jsinterop_annotations",
+        "//third_party:jsinterop_annotations",
     ],
 )
 
@@ -338,8 +344,8 @@ j2cl_library(
         ":common",
         "//:core-j2cl",
         "//:dom-j2cl",
-        "//third_party/java:jsinterop_annotations-j2cl",
-        "//third_party/java:jspecify-j2cl",
+        "//third_party:jsinterop_annotations-j2cl",
+        "//third_party:jspecify-j2cl",
     ],
 )
 
@@ -360,6 +366,7 @@ browser_test(
     name = "idle_browser_test",
     srcs = ["src/test/js/idle_test.js"],
     entry_point = "arez.dom.example.IdleStatusExampleTest",
+    visibility = ["//:__pkg__"],
     deps = [
         ":idle",
         "//tools/browser:clock",
@@ -375,7 +382,7 @@ java_library(
         ":common_java",
         "//:core",
         "//:dom",
-        "//third_party/java:jsinterop_annotations",
+        "//third_party:jsinterop_annotations",
     ],
 )
 
@@ -393,8 +400,8 @@ j2cl_library(
         ":common",
         "//:core-j2cl",
         "//:dom-j2cl",
-        "//third_party/java:jsinterop_annotations-j2cl",
-        "//third_party/java:jspecify-j2cl",
+        "//third_party:jsinterop_annotations-j2cl",
+        "//third_party:jspecify-j2cl",
     ],
 )
 
@@ -415,6 +422,7 @@ browser_test(
     name = "network_browser_test",
     srcs = ["src/test/js/network_test.js"],
     entry_point = "arez.dom.example.NetworkStatusExampleTest",
+    visibility = ["//:__pkg__"],
     deps = [
         ":network",
         "//tools/browser:fixtures",

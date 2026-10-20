@@ -1,5 +1,3 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -43,4 +41,5 @@ filegroup(
         "ThrowsInverseModel.java",
         "UnexpectedInverseForReferenceModel.java",
     ],
+    visibility = ["//processor/src/test/fixtures/bad_input/com/example:__pkg__"],
 )

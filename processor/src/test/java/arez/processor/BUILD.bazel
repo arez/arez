@@ -1,6 +1,6 @@
 load("//third_party/java:rules.bzl", "FORMATTER_JVM_FLAGS", "java_library", "java_testng")
 
-package(default_visibility = ["//visibility:public"])
+package(default_visibility = ["//visibility:private"])
 
 java_library(
     name = "test_classes",
@@ -420,6 +420,7 @@ test_suite(
         ":jspecify_goldens",
         ":nullability",
     ],
+    visibility = ["//processor:__pkg__"],
 )
 
 java_testng(
@@ -428,6 +429,7 @@ java_testng(
     data = ["//processor/src/test/fixtures/input/com/example/jspecify:all"],
     jvm_flags = _JVM_FLAGS,
     test_class = "arez.processor.NullabilityTest",
+    visibility = ["//processor:__pkg__"],
     deps = _RUNTIME_DEPS,
 )
 
@@ -457,6 +459,7 @@ java_testng(
         "arez.processor.ArezProcessorGeneratedOutputTest.jspecifyPackageScope",
         "arez.processor.ArezProcessorGeneratedOutputTest.jspecifyPackageUnmarkedOverride",
     ],
+    visibility = ["//processor:__pkg__"],
     deps = _RUNTIME_DEPS,
 )
 
@@ -469,5 +472,6 @@ java_testng(
     ],
     jvm_flags = _JVM_FLAGS,
     test_class = "arez.processor.ArezProcessorJSpecifyDiagnosticTest",
+    visibility = ["//processor:__pkg__"],
     deps = _RUNTIME_DEPS,
 )

@@ -1,8 +1,7 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
         "Arez_ConcreteModel.java",
     ],
+    visibility = ["//processor/src/test/fixtures/expected/com/example/memoize_context_parameter:__pkg__"],
 )

@@ -1,1 +1,7 @@
-exports_files(["javax.annotation.processing.Processor"])
+exports_files(
+    ["javax.annotation.processing.Processor"],
+    visibility = [
+        "//persist/processor:__pkg__",
+        "//tools/release:__pkg__",
+    ],
+)

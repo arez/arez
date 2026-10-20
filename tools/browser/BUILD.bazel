@@ -3,38 +3,55 @@ load("@rules_closure//closure:defs.bzl", "closure_js_library")
 load("//third_party/java:rules.bzl", "java_library")
 load("//tools/release:release.bzl", "release_source_jar")
 
-package(default_visibility = ["//visibility:public"])
-
-exports_files(["rules.bzl"])
+exports_files(
+    ["rules.bzl"],
+    visibility = ["//visibility:private"],
+)
 
 closure_js_library(
     name = "mode",
     testonly = True,
     srcs = ["mode.js"],
+    visibility = [
+        "//extras/dom-example:__pkg__",
+        "//extras/promise-example:__pkg__",
+        "//persist/core/src/test/js:__pkg__",
+    ],
 )
 
 closure_js_library(
     name = "fixtures",
     testonly = True,
     srcs = ["fixtures.js"],
+    visibility = ["//extras/dom-example:__pkg__"],
 )
 
 closure_js_library(
     name = "clock",
     testonly = True,
     srcs = ["clock.js"],
+    visibility = ["//extras/dom-example:__pkg__"],
     deps = [":fixtures"],
 )
 
 config_setting(
     name = "production",
     values = {"compilation_mode": "opt"},
+    visibility = [
+        "//extras/dom-example:__pkg__",
+        "//extras/promise-example:__pkg__",
+        "//persist/core/src/test/js:__pkg__",
+    ],
 )
 
 java_library(
     name = "test_support_java",
     testonly = True,
     srcs = ["//tools/browser/src/main/java/arez/browser:java_sources"],
+    visibility = [
+        "//extras/dom-example:__pkg__",
+        "//extras/promise-example:__pkg__",
+    ],
     deps = [
         "//:core",
         "//third_party/java:braincheck_core",
@@ -49,6 +66,7 @@ release_source_jar(
     java_targets = [":test_support_java"],
     resource_entries = ["arez/browser/BrowserAssertions.native.js"],
     resource_files = ["//tools/browser/src/main/java/arez/browser:BrowserAssertions.native.js"],
+    visibility = ["//visibility:private"],
 )
 
 j2cl_library(
@@ -56,6 +74,10 @@ j2cl_library(
     testonly = True,
     srcs = [":test_support_sources"],
     experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
+    visibility = [
+        "//extras/dom-example:__pkg__",
+        "//extras/promise-example:__pkg__",
+    ],
     deps = [
         "//:core-j2cl",
         "//third_party/java:braincheck_core-j2cl",

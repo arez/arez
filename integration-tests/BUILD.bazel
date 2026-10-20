@@ -1,7 +1,5 @@
 load("//third_party/java:rules.bzl", "java_testng")
 
-package(default_visibility = ["//visibility:public"])
-
 java_testng(
     name = "tests",
     size = "large",
@@ -156,6 +154,7 @@ java_testng(
         "arez.integration.verify.VerifyOneInverseIntegrationTest",
         "arez.integration.verify.VerifyZeroOrOneInverseIntegrationTest",
     ],
+    visibility = ["//:__pkg__"],
     deps = [
         "//core",
         "//third_party/java:android_json",

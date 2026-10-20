@@ -1,5 +1,3 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -24,6 +22,7 @@ filegroup(
         "NestedNestedModel_Something_Arez_BasicActionModel.java",
         "//processor/src/test/fixtures/expectedFormatted/com:all",
     ],
+    visibility = ["//processor/src/test/fixtures:__pkg__"],
 )
 
 filegroup(
@@ -49,4 +48,5 @@ filegroup(
         "NestedModel_Arez_BasicActionModel.java",
         "NestedNestedModel_Something_Arez_BasicActionModel.java",
     ],
+    visibility = ["//processor/src/test/fixtures:__pkg__"],
 )

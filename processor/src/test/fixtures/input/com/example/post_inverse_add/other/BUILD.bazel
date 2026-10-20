@@ -1,8 +1,7 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
         "BaseProtectedAccessPostInverseAddModel.java",
     ],
+    visibility = ["//processor/src/test/fixtures/input/com/example/post_inverse_add:__pkg__"],
 )

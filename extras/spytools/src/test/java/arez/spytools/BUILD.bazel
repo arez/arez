@@ -1,5 +1,3 @@
-package(default_visibility = ["//extras/spytools:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -9,4 +7,5 @@ filegroup(
         "WhyRunTest.java",
         "package-info.java",
     ],
+    visibility = ["//extras/spytools:__pkg__"],
 )

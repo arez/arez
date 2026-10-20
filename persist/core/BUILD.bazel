@@ -1,7 +1,5 @@
 load("//third_party/java:rules.bzl", "java_library", "java_testng")
 
-package(default_visibility = ["//visibility:public"])
-
 java_library(
     name = "core",
     srcs = ["//persist/core/src/main/java/arez/persist:all"],
@@ -9,6 +7,13 @@ java_library(
     resources = [
         "//persist/core/src/main/java/arez/persist/runtime:ArezPersistConfig.native.js",
         "//persist/core/src/main/java/arez/persist/runtime:arez.persist.js",
+    ],
+    visibility = [
+        "//:__pkg__",
+        "//persist/core/src/test/java/arez/persist/runtime/browser:__pkg__",
+        "//persist/integration-tests:__pkg__",
+        "//persist/processor/src/test/java/arez/persist/processor:__pkg__",
+        "//tools/release:__pkg__",
     ],
     deps = [
         "//core",
@@ -43,6 +48,7 @@ java_testng(
         "arez.persist.runtime.browser.ConvertersTest",
         "arez.persist.test.JDependTest",
     ],
+    visibility = ["//:__pkg__"],
     deps = [
         ":core",
         "//core",

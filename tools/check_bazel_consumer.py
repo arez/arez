@@ -5,13 +5,42 @@ import json
 import re
 import subprocess
 import tempfile
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 from bazel_consumer_config import write_config
 
 
+PUBLIC_TARGETS = {
+    "//:" + name for name in (
+        "core", "processor", "dom", "promise", "spytools", "testng", "persist_core",
+        "persist_processor", "processor_runtime",
+        "core-j2cl", "dom-j2cl", "promise-j2cl", "spytools-j2cl", "persist-core-j2cl",
+    )
+} | {
+    "//third_party:" + name for name in (
+        "braincheck_core", "braincheck_core-j2cl", "jsinterop_annotations",
+        "jsinterop_annotations-j2cl", "jspecify", "jspecify-j2cl", "sting_core", "sting_processor",
+    )
+}
+
+
+def check_public_targets(arez: Path) -> None:
+    packages = sorted({str(Path(path).parent) for path in subprocess.check_output(
+        ["git", "ls-files", "--cached", "--others", "--exclude-standard", "*BUILD.bazel"], cwd=arez, text=True).splitlines()})
+    packages = ["//" + ("" if package == "." else package) + ":all-targets" for package in packages]
+    query = "visible(@rules_java//java:defs.bzl, set(" + " ".join(packages) + "))"
+    result = subprocess.check_output(["bazel", "query", query, "--output=xml"], cwd=arez, text=True)
+    actual = {node.attrib.get("generating-rule", node.attrib["name"]) for node in ET.fromstring(result)}
+    assert actual == PUBLIC_TARGETS, (
+        f"Unexpected public surface: extra={sorted(actual - PUBLIC_TARGETS)}, "
+        f"missing={sorted(PUBLIC_TARGETS - actual)}")
+    print(f"Verified exactly {len(actual)} public Bazel targets")
+
+
 def main() -> None:
     arez = Path(__file__).resolve().parent.parent
+    check_public_targets(arez)
     with tempfile.TemporaryDirectory(prefix="arez-bazel-consumer-") as directory:
         root = Path(directory)
         workspace = root / "workspace"
@@ -26,21 +55,61 @@ def main() -> None:
         (workspace / ".bazelrc").write_text(rc)
         (workspace / "BUILD.bazel").write_text('''\
 load("@rules_java//java:defs.bzl", "java_binary", "java_library")
+load("@j2cl//build_defs:rules.bzl", "j2cl_library")
+load("@rules_closure//closure:defs.bzl", "closure_js_binary")
 java_binary(
     name = "consumer",
     srcs = ["Consumer.java", "Model.java", "ContainerModel.java"],
     main_class = "consumer.Consumer",
     javacopts = ["--release", "17", "-Xlint:all,-processing,-serial", "-Werror"],
-    plugins = ["@arez//:arez_processor_plugin", "@arez//:arez_persist_processor_plugin"],
+    plugins = ["@arez//:processor", "@arez//:persist_processor"],
     deps = ["@arez//:core", "@arez//:dom", "@arez//:promise", "@arez//:spytools",
-            "@arez//:testng", "@arez//:persist_core", "@arez//third_party/java:jspecify"],
+            "@arez//:testng", "@arez//:persist_core", "@arez//third_party:jspecify"],
 )
 java_library(
     name = "invalid_consumer",
     srcs = ["InvalidModel.java"],
-    plugins = ["@arez//:arez_processor_plugin"],
-    deps = ["@arez//:core", "@arez//third_party/java:jspecify"],
+    plugins = ["@arez//:processor"],
+    deps = ["@arez//:core", "@arez//third_party:jspecify"],
 )
+j2cl_library(
+    name = "browser",
+    srcs = ["BrowserConsumer.java", "Model.java"],
+    experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
+    plugins = ["@arez//:processor", "@arez//:persist_processor"],
+    deps = ["@arez//:core-j2cl", "@arez//:dom-j2cl", "@arez//:promise-j2cl",
+            "@arez//:spytools-j2cl", "@arez//:persist-core-j2cl",
+            "@arez//third_party:braincheck_core-j2cl", "@arez//third_party:jsinterop_annotations-j2cl",
+            "@arez//third_party:jspecify-j2cl"],
+)
+closure_js_binary(
+    name = "browser_bundle",
+    deps = [":browser"],
+    entry_points = ["consumer.BrowserConsumer"],
+    compilation_level = "ADVANCED",
+)
+''')
+        (workspace / "BrowserConsumer.java").write_text('''\
+package consumer;
+import jsinterop.annotations.JsMethod;
+import org.jspecify.annotations.NullMarked;
+@NullMarked
+public final class BrowserConsumer {
+  private BrowserConsumer() {}
+  @JsMethod public static void verify() {
+    var model = new Arez_Model(null, java.util.List.of("item"), "initial");
+    arez.Arez.context().safeAction(() -> model.setValue("updated"));
+    if (new arez.dom.Position(1, null, null, 2, 3, null).getLatitude() != 2)
+      throw new AssertionError("DOM API");
+    if (arez.promise.ObservablePromise.State.PENDING.ordinal() != 0)
+      throw new AssertionError("promise API");
+    if (arez.spytools.SpyUtil.getNestingDelta(arez.spy.ActionStartEvent.class)
+        != arez.spytools.SpyUtil.NestingDelta.INCREASE) throw new AssertionError("spytools API");
+    if (arez.persist.runtime.ArezPersist.getRootScope() == null)
+      throw new AssertionError("Persist API");
+    model.dispose();
+  }
+}
 ''')
         (workspace / "Consumer.java").write_text('''\
 package consumer;
@@ -139,6 +208,31 @@ abstract class InvalidModel<T extends @Nullable Object> {
             assert invalid.returncode != 0 and "Parametric JSpecify nullness cannot be preserved" in diagnostic, diagnostic
             assert "mark the original constructor @NullMarked" in diagnostic, diagnostic
             print("Verified packaged mixed-constructor diagnostic")
+            subprocess.run(command + ["build", "//:browser_bundle", "--noshow_progress"],
+                           cwd=workspace, check=True)
+            for label in ("//core", "//processor:plugin", "//tools/release:core_sources",
+                          "//tools/browser:production", "//third_party/java:jspecify",
+                          "//:_persist_processor_java", "//:jvm_tests", "//:LICENSE", "//core/src/main/java/arez:Arez.java",
+                          "//third_party/java:dependencies.yml"):
+                denied = workspace / "denied"
+                denied.mkdir(exist_ok=True)
+                (denied / "BUILD.bazel").write_text(
+                    f'filegroup(name = "access", testonly = True, srcs = ["@arez{label}"])\n')
+                result = subprocess.run(command + ["build", "//denied:access", "--noshow_progress"],
+                                        cwd=workspace, text=True, capture_output=True)
+                diagnostic = result.stdout + result.stderr
+                assert result.returncode != 0 and "not visible" in diagnostic, diagnostic
+            for label, symbol in (("//third_party/java:rules.bzl", "java_library"),
+                                  ("//tools/browser:rules.bzl", "browser_test"),
+                                  ("//tools/release:release.bzl", "release_source_jar"),
+                                  ("//tools/site:site.bzl", "arez_site")):
+                (denied / "BUILD.bazel").write_text(
+                    f'load("@arez{label}", "{symbol}")\nfilegroup(name = "access")\n')
+                result = subprocess.run(command + ["query", "//denied:access"],
+                                        cwd=workspace, text=True, capture_output=True)
+                diagnostic = result.stdout + result.stderr
+                assert result.returncode != 0 and "not visible" in diagnostic, diagnostic
+            print("Verified public J2CL consumer and rejected internal targets and Starlark loads")
         finally:
             subprocess.run(command + ["shutdown"], cwd=workspace, check=True)
 

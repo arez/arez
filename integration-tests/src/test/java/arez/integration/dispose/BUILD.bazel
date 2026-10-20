@@ -1,9 +1,8 @@
-package(default_visibility = ["//integration-tests:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
         "AllowWriteInDisposeIntegrationTest.java",
         "DisposedNotEqualIntegrationTest.java",
     ],
+    visibility = ["//integration-tests/src/test/java/arez/integration:__pkg__"],
 )

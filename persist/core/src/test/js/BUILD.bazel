@@ -1,10 +1,9 @@
 load("//tools/browser:rules.bzl", "browser_test")
 
-package(default_visibility = ["//:__pkg__"])
-
 browser_test(
     name = "browser_test",
     srcs = ["web_storage_service_test.js"],
     entry_point = "arez.persist.WebStorageServiceTest",
+    visibility = ["//:__pkg__"],
     deps = ["//persist/core/src/test/java/arez/persist/runtime/browser:browser_test_j2cl"],
 )

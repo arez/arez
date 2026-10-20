@@ -1,5 +1,3 @@
-package(default_visibility = ["//persist/processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -8,5 +6,9 @@ filegroup(
         "NonNullReferencePersistIdModel.java",
         "NullableReferencePersistIdModel.java",
         "ObjectArrayPersistIdModel.java",
+    ],
+    visibility = [
+        "//persist/processor/src/test/fixtures:__pkg__",
+        "//persist/processor/src/test/fixtures/input/com/example:__pkg__",
     ],
 )

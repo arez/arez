@@ -1,9 +1,11 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
         "Arez_DisableVerifyModel.java",
         "Arez_EnableVerifyModel.java",
+    ],
+    visibility = [
+        "//processor/src/test/fixtures:__pkg__",
+        "//processor/src/test/fixtures/expectedFormatted/com/example:__pkg__",
     ],
 )

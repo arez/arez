@@ -1,5 +1,3 @@
-package(default_visibility = ["//integration-tests:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -21,4 +19,5 @@ filegroup(
         "//integration-tests/src/test/resources/arez/integration/repository:all",
         "//integration-tests/src/test/resources/arez/integration/scheduler:all",
     ],
+    visibility = ["//integration-tests:__pkg__"],
 )

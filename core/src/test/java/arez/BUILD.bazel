@@ -1,7 +1,5 @@
 load("//third_party/java:rules.bzl", "java_testng")
 
-package(default_visibility = ["//visibility:public"])
-
 java_testng(
     name = "tests",
     srcs = [
@@ -143,6 +141,7 @@ java_testng(
         "arez.test.ObserverApiTest",
         "arez.test.TaskApiTest",
     ],
+    visibility = ["//core:__pkg__"],
     deps = [
         "//core",
         "//third_party/java:braincheck_core",

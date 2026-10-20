@@ -6,8 +6,8 @@ java_library(
     srcs = ["//tools/testing/src/main/java/arez/testing:sources"],
     data = ["//third_party/java:strict_checker_options"],
     visibility = [
-        "//persist/processor:__subpackages__",
-        "//processor:__subpackages__",
+        "//persist/processor/src/test/java/arez/persist/processor:__pkg__",
+        "//processor/src/test/java/arez/processor:__pkg__",
     ],
     deps = [
         "//third_party/java:dataflow_errorprone",

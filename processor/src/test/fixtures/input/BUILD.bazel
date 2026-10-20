@@ -1,5 +1,3 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -25,6 +23,7 @@ filegroup(
         "TypeParametersOnModel.java",
         "//processor/src/test/fixtures/input/com:all",
     ],
+    visibility = ["//processor/src/test/fixtures:__pkg__"],
 )
 
 filegroup(
@@ -51,4 +50,5 @@ filegroup(
         "OverrideNamesInModel.java",
         "TypeParametersOnModel.java",
     ],
+    visibility = ["//processor/src/test/fixtures:__pkg__"],
 )

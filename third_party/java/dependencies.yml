@@ -13,31 +13,149 @@ options:
   failOnMissingPom: false
 artifacts:
   - coord: org.commonmark:commonmark:0.30.1
+    visibility:
+      - "//tools/site/src/main/java/arez/site:__pkg__"
   - coord: org.commonmark:commonmark-ext-gfm-tables:0.30.1
+    visibility:
+      - "//tools/site/src/main/java/arez/site:__pkg__"
   - coord: io.github.eisop:dataflow-errorprone:3.41.0-eisop1
+    visibility:
+      - "//tools/testing:__pkg__"
   - coord: org.realityforge.grim:grim-annotations:0.09
+    visibility:
+      - "//:__pkg__"
+      - "//core/src/main/java/arez:__pkg__"
+      - "//extras/dom:__pkg__"
+      - "//extras/promise:__pkg__"
+      - "//extras/spytools:__pkg__"
+      - "//extras/testng:__pkg__"
+      - "//persist/core:__pkg__"
+      - "//processor/src/test/java/arez/processor:__pkg__"
+      - "//tools/release:__pkg__"
   - coord: org.realityforge.grim:grim-processor:0.09
+    visibility:
+      - "//core/src/main/java/arez:__pkg__"
+      - "//persist/core:__pkg__"
   - coord: org.realityforge.javax.annotation:javax.annotation:1.1.1
+    visibility:
+      - "//visibility:private"
   - coord: org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0
+    visibility:
+      - "//:__pkg__"
+      - "//core/src/main/java/arez:__pkg__"
+      - "//extras/spytools:__pkg__"
+      - "//persist/processor/src/test/java/arez/persist/processor:__pkg__"
+      - "//processor/src/test/java/arez/processor:__pkg__"
+      - "//tools/release:__pkg__"
   - coord: com.google.jsinterop:jsinterop-annotations:2.0.0
+    visibility:
+      - "//:__pkg__"
+      - "//core/src/main/java/arez:__pkg__"
+      - "//extras/dom:__pkg__"
+      - "//extras/promise:__pkg__"
+      - "//extras/spytools:__pkg__"
+      - "//integration-tests:__pkg__"
+      - "//persist/core/src/test/java/arez/persist/runtime/browser:__pkg__"
+      - "//persist/core:__pkg__"
+      - "//third_party:__pkg__"
+      - "//tools/browser:__pkg__"
+      - "//tools/release:__pkg__"
   - coord: com.google.jsinterop:base:1.2.0
+    visibility:
+      - "//:__pkg__"
+      - "//extras/dom:__pkg__"
+      - "//extras/promise:__pkg__"
+      - "//extras/spytools:__pkg__"
+      - "//persist/core:__pkg__"
+      - "//tools/release:__pkg__"
   - coord: org.jspecify:jspecify:1.0.1
+    visibility:
+      - "//:__pkg__"
+      - "//core/src/main/java/arez:__pkg__"
+      - "//core/src/test/java/arez:__pkg__"
+      - "//doc-examples:__pkg__"
+      - "//extras/dom-example:__pkg__"
+      - "//extras/dom:__pkg__"
+      - "//extras/promise-example:__pkg__"
+      - "//extras/promise:__pkg__"
+      - "//extras/spytools:__pkg__"
+      - "//extras/testng:__pkg__"
+      - "//integration-tests:__pkg__"
+      - "//persist/core/src/test/java/arez/persist/runtime/browser:__pkg__"
+      - "//persist/core:__pkg__"
+      - "//persist/integration-tests:__pkg__"
+      - "//persist/processor/src/test/java/arez/persist/processor:__pkg__"
+      - "//persist/processor:__pkg__"
+      - "//processor/src/main/java/arez/processor:__pkg__"
+      - "//processor/src/test/java/arez/processor:__pkg__"
+      - "//third_party:__pkg__"
+      - "//tools/browser:__pkg__"
+      - "//tools/release/src/main/java/arez/release:__pkg__"
+      - "//tools/release:__pkg__"
+      - "//tools/site/src/main/java/arez/site:__pkg__"
+      - "//tools/site/src/test/java/arez/site:__pkg__"
+      - "//tools/testing:__pkg__"
   - coord: org.realityforge.guiceyloops:guiceyloops:0.113
+    visibility:
+      - "//core/src/test/java/arez:__pkg__"
+      - "//extras/dom:__pkg__"
+      - "//extras/spytools:__pkg__"
+      - "//integration-tests:__pkg__"
+      - "//persist/core:__pkg__"
+      - "//persist/integration-tests:__pkg__"
     # Only the JDK-only shared.ValueUtil is used; omit embedded server/test stacks.
     excludes:
       - "*:*"
   - coord: org.glassfish:javax.json:1.1
+    visibility:
+      - "//core/src/test/java/arez:__pkg__"
+      - "//integration-tests:__pkg__"
+      - "//persist/core:__pkg__"
+      - "//persist/integration-tests:__pkg__"
   - coord: org.skyscreamer:jsonassert:1.5.0
+    visibility:
+      - "//integration-tests:__pkg__"
   - coord: com.vaadin.external.google:android-json:0.0.20131108.vaadin1
+    visibility:
+      - "//integration-tests:__pkg__"
   - coord: org.testng:testng:7.10.2
+    visibility:
+      - "//:__pkg__"
+      - "//core/src/test/java/arez:__pkg__"
+      - "//extras/dom:__pkg__"
+      - "//extras/spytools:__pkg__"
+      - "//extras/testng:__pkg__"
+      - "//integration-tests:__pkg__"
+      - "//persist/core:__pkg__"
+      - "//persist/integration-tests:__pkg__"
+      - "//persist/processor/src/test/java/arez/persist/processor:__pkg__"
+      - "//processor/src/test/java/arez/processor:__pkg__"
+      - "//tools/release:__pkg__"
+      - "//tools/site/src/test/java/arez/site:__pkg__"
+      - "//tools/testing:__pkg__"
   - coord: guru.nidi:jdepend:2.9.5
+    visibility:
+      - "//core/src/test/java/arez:__pkg__"
+      - "//persist/core:__pkg__"
   - coord: org.mockito:mockito-core:4.5.1
+    visibility:
+      - "//persist/core:__pkg__"
   - coord: com.palantir.javapoet:javapoet:0.14.0
+    visibility:
+      - "//persist/processor:__pkg__"
+      - "//processor/src/main/java/arez/processor:__pkg__"
+      - "//tools/release:__pkg__"
     excludes:
       - com.palantir.javapoet:javapoet-root
   - coord: javax.xml.ws:jaxws-api:2.3.0
+    visibility:
+      - "//processor/src/test/java/arez/processor:__pkg__"
   - coord: javax.annotation:javax.annotation-api:1.3.2
+    visibility:
+      - "//processor/src/test/java/arez/processor:__pkg__"
   - coord: com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
+    visibility:
+      - "//visibility:private"
     includeSource: false
 
 replacements:

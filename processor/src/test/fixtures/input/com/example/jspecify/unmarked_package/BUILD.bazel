@@ -1,9 +1,8 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
         "PackageActionModel.java",
         "package-info.java",
     ],
+    visibility = ["//processor/src/test/fixtures/input/com/example/jspecify:__pkg__"],
 )

@@ -1,5 +1,3 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -41,4 +39,5 @@ filegroup(
         "//processor/src/test/fixtures/bad_input/com/example/reserved_names:all",
         "//processor/src/test/fixtures/bad_input/com/example/sting:all",
     ],
+    visibility = ["//processor/src/test/fixtures/bad_input/com:__pkg__"],
 )

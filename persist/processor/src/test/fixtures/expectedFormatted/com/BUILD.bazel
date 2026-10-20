@@ -1,8 +1,7 @@
-package(default_visibility = ["//persist/processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
         "//persist/processor/src/test/fixtures/expectedFormatted/com/example:all",
     ],
+    visibility = ["//persist/processor/src/test/fixtures/expectedFormatted:__pkg__"],
 )

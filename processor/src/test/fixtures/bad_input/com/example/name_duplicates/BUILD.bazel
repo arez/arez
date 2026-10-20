@@ -1,5 +1,3 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -29,4 +27,5 @@ filegroup(
         "ObservableAndPostDisposeMethodModel.java",
         "ObservableAndPreDisposeMethodModel.java",
     ],
+    visibility = ["//processor/src/test/fixtures/bad_input/com/example:__pkg__"],
 )

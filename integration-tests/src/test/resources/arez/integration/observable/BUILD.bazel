@@ -1,5 +1,3 @@
-package(default_visibility = ["//integration-tests:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -7,4 +5,5 @@ filegroup(
         "ObservableInitializerIntegrationTest.scenario.json",
         "ObservableOutsideTransactionTest.scenario.json",
     ],
+    visibility = ["//integration-tests/src/test/resources/arez/integration:__pkg__"],
 )

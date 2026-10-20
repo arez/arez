@@ -183,7 +183,9 @@ python3 tools/check_bazel_consumer.py
 
 These checks inspect the archives and compile and run consumers with the packaged
 processors. The Bazel consumer runs in a separate workspace to check the public
-labels and required root configuration.
+labels and required root configuration. It also builds a J2CL consumer, checks
+the exact public target inventory, and verifies that internal targets and
+Starlark modules reject downstream access.
 
 ## Build the documentation
 

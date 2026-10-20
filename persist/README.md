@@ -56,7 +56,7 @@ The simplest way to use the library;
 </project>
 ```
 
-* Bazel JVM consumers use `//:persist_core` and `//:arez_persist_processor_plugin` alongside the
+* Bazel JVM consumers use `//:persist_core` and `//:persist_processor` alongside the
   core Arez library and processor. Browser consumers compile `//:persist-core-j2cl` from the
   published source archive. GWT descriptors and bootstraps are retired.
 

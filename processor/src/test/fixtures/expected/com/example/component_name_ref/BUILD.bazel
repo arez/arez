@@ -1,5 +1,3 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -9,5 +7,9 @@ filegroup(
         "Arez_PackageAccessComponentNameRefModel.java",
         "Arez_ProtectedAccessFromBaseComponentNameRefModel.java",
         "Arez_PublicAccessViaInterfaceComponentNameRefModel.java",
+    ],
+    visibility = [
+        "//processor/src/test/fixtures:__pkg__",
+        "//processor/src/test/fixtures/expected/com/example:__pkg__",
     ],
 )

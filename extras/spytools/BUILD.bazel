@@ -2,7 +2,7 @@ load("@rules_closure//closure:defs.bzl", "closure_js_library")
 load("//third_party/java:rules.bzl", "java_library", "java_testng")
 load("//tools/browser:rules.bzl", "browser_compile_smoke")
 
-package(default_visibility = ["//visibility:public"])
+package(default_visibility = ["//visibility:private"])
 
 closure_js_library(
     name = "compile_smoke_entry",
@@ -20,6 +20,10 @@ java_library(
     name = "spytools",
     srcs = ["//extras/spytools/src/main/java/arez/spytools:all"],
     plugins = ["//processor:plugin"],
+    visibility = [
+        "//:__pkg__",
+        "//tools/release:__pkg__",
+    ],
     deps = [
         "//core",
         "//third_party/java:base",
@@ -43,6 +47,7 @@ java_testng(
         "arez.spytools.SpyUtilTest",
         "arez.spytools.WhyRunTest",
     ],
+    visibility = ["//:__pkg__"],
     deps = [
         ":spytools",
         "//core",

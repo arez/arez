@@ -1,5 +1,3 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -36,5 +34,9 @@ filegroup(
         "Arez_TypeParamModel.java",
         "Arez_TypeParametersModel.java",
         "Arez_WithHooksModel.java",
+    ],
+    visibility = [
+        "//processor/src/test/fixtures:__pkg__",
+        "//processor/src/test/fixtures/expectedFormatted/com/example:__pkg__",
     ],
 )

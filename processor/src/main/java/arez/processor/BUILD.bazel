@@ -1,7 +1,5 @@
 load("//third_party/java:rules.bzl", "java_library", "java_plugin")
 
-package(default_visibility = ["//visibility:public"])
-
 java_library(
     name = "processor",
     srcs = [
@@ -29,6 +27,10 @@ java_library(
         "package-info.java",
     ],
     resources = ["//processor/src/main/resources/META-INF/services:javax.annotation.processing.Processor"],
+    visibility = [
+        "//processor:__pkg__",
+        "//tools/release:__pkg__",
+    ],
     deps = [
         ":nullability",
         "//third_party/java:javapoet",
@@ -41,6 +43,7 @@ java_plugin(
     name = "plugin",
     generates_api = True,
     processor_class = "arez.processor.ArezProcessor",
+    visibility = ["//processor:__pkg__"],
     deps = [":processor"],
 )
 
@@ -48,7 +51,6 @@ java_library(
     name = "nullability",
     srcs = ["Nullability.java"],
     visibility = [
-        ":__pkg__",
         "//persist/processor:__pkg__",
         "//processor/src/test/java/arez/processor:__pkg__",
         "//tools/release:__pkg__",

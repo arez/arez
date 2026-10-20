@@ -1,9 +1,8 @@
-package(default_visibility = ["//integration-tests:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
         "TrackCanNestActionTest.scenario.json",
         "TrackNestNonRequiresNewActionTest.scenario.json",
     ],
+    visibility = ["//integration-tests/src/test/resources/arez/integration:__pkg__"],
 )

@@ -1,8 +1,7 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
         "//processor/src/test/fixtures/unresolved/com:all",
     ],
+    visibility = ["//processor/src/test/fixtures:__pkg__"],
 )

@@ -1,5 +1,3 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -25,5 +23,9 @@ filegroup(
         "Suppressed2DisposeOnDeactivateCascadeDisposeMethodModel.java",
         "Suppressed2ProtectedAccessFieldCascadeDisposeModel.java",
         "//processor/src/test/fixtures/input/com/example/cascade_dispose/other:all",
+    ],
+    visibility = [
+        "//processor/src/test/fixtures:__pkg__",
+        "//processor/src/test/fixtures/input/com/example:__pkg__",
     ],
 )

@@ -1,9 +1,8 @@
-package(default_visibility = ["//persist/core:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
         "JDependTest.java",
         "package-info.java",
     ],
+    visibility = ["//persist/core/src/test/java/arez/persist:__pkg__"],
 )

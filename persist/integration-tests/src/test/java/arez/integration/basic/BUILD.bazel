@@ -1,5 +1,3 @@
-package(default_visibility = ["//persist/integration-tests:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -10,4 +8,5 @@ filegroup(
         "TreeNodeService.java",
         "package-info.java",
     ],
+    visibility = ["//persist/integration-tests/src/test/java/arez/integration:__pkg__"],
 )

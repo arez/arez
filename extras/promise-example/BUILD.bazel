@@ -4,7 +4,7 @@ load("//third_party/java:rules.bzl", "java_library")
 load("//tools/browser:rules.bzl", "browser_application", "browser_test")
 load("//tools/release:release.bzl", "release_source_jar")
 
-package(default_visibility = ["//visibility:public"])
+package(default_visibility = ["//visibility:private"])
 
 java_library(
     name = "application_java",
@@ -12,13 +12,14 @@ java_library(
     deps = [
         "//:core",
         "//:promise",
-        "//third_party/java:jsinterop_annotations",
+        "//third_party:jsinterop_annotations",
     ],
 )
 
 java_library(
     name = "java",
     testonly = True,
+    visibility = ["//:__pkg__"],
     exports = [
         ":application_java",
         "//tools/browser:test_support_java",
@@ -38,8 +39,8 @@ j2cl_library(
     deps = [
         "//:core-j2cl",
         "//:promise-j2cl",
-        "//third_party/java:jsinterop_annotations-j2cl",
-        "//third_party/java:jspecify-j2cl",
+        "//third_party:jsinterop_annotations-j2cl",
+        "//third_party:jspecify-j2cl",
     ],
 )
 
@@ -60,6 +61,7 @@ browser_test(
     name = "browser_test",
     srcs = ["src/test/js/promise_test.js"],
     entry_point = "arez.promise.example.PromiseTest",
+    visibility = ["//:__pkg__"],
     deps = [
         ":application",
         "//tools/browser:test_support",

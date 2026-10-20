@@ -1,6 +1,6 @@
 load("//third_party/java:rules.bzl", "FORMATTER_JVM_FLAGS", "java_library", "java_testng")
 
-package(default_visibility = ["//visibility:public"])
+package(default_visibility = ["//visibility:private"])
 
 java_library(
     name = "test_classes",
@@ -111,4 +111,5 @@ test_suite(
         ":forked_javac",
         ":generated_output",
     ],
+    visibility = ["//persist/processor:__pkg__"],
 )

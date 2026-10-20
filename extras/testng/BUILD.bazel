@@ -1,10 +1,14 @@
 load("//third_party/java:rules.bzl", "java_library")
 
-package(default_visibility = ["//visibility:public"])
-
 java_library(
     name = "testng",
     srcs = ["//extras/testng/src/main/java/arez/testng:all"],
+    visibility = [
+        "//:__pkg__",
+        "//persist/core:__pkg__",
+        "//persist/integration-tests:__pkg__",
+        "//tools/release:__pkg__",
+    ],
     deps = [
         "//core",
         "//third_party/java:braincheck_core",

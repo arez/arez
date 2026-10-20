@@ -1,5 +1,3 @@
-package(default_visibility = ["//persist/core:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -19,9 +17,16 @@ filegroup(
         "package-info.java",
         "//persist/core/src/main/java/arez/persist/runtime/browser:all",
     ],
+    visibility = ["//persist/core/src/main/java/arez/persist:__pkg__"],
 )
 
-exports_files([
-    "ArezPersistConfig.native.js",
-    "arez.persist.js",
-])
+exports_files(
+    [
+        "ArezPersistConfig.native.js",
+        "arez.persist.js",
+    ],
+    visibility = [
+        "//persist/core:__pkg__",
+        "//tools/release:__pkg__",
+    ],
+)

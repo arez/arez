@@ -1,5 +1,3 @@
-package(default_visibility = ["//persist/processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -7,5 +5,9 @@ filegroup(
         "CustomNamePersistTypeModel.java",
         "PersistOnDisposeFalsePersistTypeModel.java",
         "PersistOnDisposeTruePersistTypeModel.java",
+    ],
+    visibility = [
+        "//persist/processor/src/test/fixtures:__pkg__",
+        "//persist/processor/src/test/fixtures/input/com/example:__pkg__",
     ],
 )

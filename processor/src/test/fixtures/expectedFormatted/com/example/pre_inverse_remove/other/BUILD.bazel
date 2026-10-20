@@ -1,8 +1,7 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
         "BaseProtectedAccessPreInverseRemoveModel_Arez_Element.java",
     ],
+    visibility = ["//processor/src/test/fixtures/expectedFormatted/com/example/pre_inverse_remove:__pkg__"],
 )

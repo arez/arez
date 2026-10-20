@@ -1,5 +1,32 @@
 load("@rules_java//java:defs.bzl", _java_binary = "java_binary", _java_library = "java_library", _java_plugin = "java_plugin", _java_test = "java_test")
 
+visibility([
+    "//core",
+    "//core/src/main/java/arez",
+    "//core/src/test/java/arez",
+    "//doc-examples",
+    "//extras/dom",
+    "//extras/dom-example",
+    "//extras/promise",
+    "//extras/promise-example",
+    "//extras/spytools",
+    "//extras/testng",
+    "//integration-tests",
+    "//persist/core",
+    "//persist/core/src/test/java/arez/persist/runtime/browser",
+    "//persist/integration-tests",
+    "//persist/processor",
+    "//persist/processor/src/test/java/arez/persist/processor",
+    "//processor",
+    "//processor/src/main/java/arez/processor",
+    "//processor/src/test/java/arez/processor",
+    "//tools/browser",
+    "//tools/release/src/main/java/arez/release",
+    "//tools/site/src/main/java/arez/site",
+    "//tools/site/src/test/java/arez/site",
+    "//tools/testing",
+])
+
 # Java 17 products use the same strict checker policy as the pinned Sting module.
 _JAVACOPTS = [
     "--release",
@@ -163,3 +190,7 @@ def _checker_options_impl(ctx):
     return [DefaultInfo(files = depset([output]))]
 
 strict_checker_options = rule(implementation = _checker_options_impl)
+
+# Depgen emits this configuration export without an explicit visibility.
+def private_files(srcs):
+    native.exports_files(srcs, visibility = ["//visibility:private"])

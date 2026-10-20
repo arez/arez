@@ -1,20 +1,32 @@
 load("//third_party/java:rules.bzl", "java_library")
 
-package(default_visibility = ["//visibility:public"])
-
 java_library(
     name = "processor",
+    visibility = [
+        "//:__pkg__",
+        "//persist/processor/src/test/java/arez/persist/processor:__pkg__",
+        "//processor/src/test/java/arez/processor:__pkg__",
+    ],
     exports = ["//processor/src/main/java/arez/processor"],
 )
 
 alias(
     name = "plugin",
     actual = "//processor/src/main/java/arez/processor:plugin",
+    visibility = [
+        "//extras/dom:__pkg__",
+        "//extras/promise:__pkg__",
+        "//extras/spytools:__pkg__",
+        "//integration-tests:__pkg__",
+        "//persist/core:__pkg__",
+        "//persist/integration-tests:__pkg__",
+    ],
 )
 
 test_suite(
     name = "all_tests",
     tests = ["//processor/src/test/java/arez/processor:all_tests"],
+    visibility = ["//:__pkg__"],
 )
 
 test_suite(
@@ -24,4 +36,5 @@ test_suite(
         "//processor/src/test/java/arez/processor:jspecify_goldens",
         "//processor/src/test/java/arez/processor:nullability",
     ],
+    visibility = ["//visibility:private"],
 )

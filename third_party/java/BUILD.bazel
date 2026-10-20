@@ -1,87 +1,173 @@
 load("@j2cl//build_defs:rules.bzl", "j2cl_import")
 load("@rules_java//java:defs.bzl", _java_binary = "java_binary", _java_import = "java_import", _java_library = "java_library", _java_plugin = "java_plugin")
-load(":rules.bzl", "strict_checker_options", _java_test = "java_test")
+load(":rules.bzl", "strict_checker_options", _java_test = "java_test", exports_files = "private_files")
 
-package(default_visibility = ["//visibility:public"])
+package(default_visibility = ["//visibility:private"])
 
 alias(
     name = "sting_processor_runtime",
     actual = "@sting//:processor",
+    visibility = ["//processor/src/test/java/arez/processor:__pkg__"],
 )
 
 alias(
     name = "proton_core",
     actual = "@proton//:core",
+    visibility = [
+        "//persist/processor:__pkg__",
+        "//persist/processor/src/test/java/arez/persist/processor:__pkg__",
+        "//processor/src/main/java/arez/processor:__pkg__",
+        "//processor/src/test/java/arez/processor:__pkg__",
+        "//tools/release:__pkg__",
+    ],
 )
 
 alias(
     name = "proton_qa",
     actual = "@proton//:qa",
+    visibility = [
+        "//persist/processor/src/test/java/arez/persist/processor:__pkg__",
+        "//processor/src/test/java/arez/processor:__pkg__",
+        "//tools/testing:__pkg__",
+    ],
 )
 
 alias(
     name = "sting_core",
     actual = "@sting//:core",
+    visibility = [
+        "//integration-tests:__pkg__",
+        "//processor/src/test/java/arez/processor:__pkg__",
+        "//third_party:__pkg__",
+    ],
 )
 
 _java_library(
     name = "sting_processor",
     exported_plugins = ["@sting//:sting_processor_plugin"],
+    visibility = [
+        "//integration-tests:__pkg__",
+        "//third_party:__pkg__",
+    ],
     exports = ["@sting//:processor"],
 )
 
 alias(
     name = "nullaway_plugin",
     actual = "@sting//third_party/java:nullaway_plugin",
+    visibility = [
+        "//core/src/main/java/arez:__pkg__",
+        "//core/src/test/java/arez:__pkg__",
+        "//doc-examples:__pkg__",
+        "//extras/dom:__pkg__",
+        "//extras/dom-example:__pkg__",
+        "//extras/promise:__pkg__",
+        "//extras/promise-example:__pkg__",
+        "//extras/spytools:__pkg__",
+        "//extras/testng:__pkg__",
+        "//integration-tests:__pkg__",
+        "//persist/core:__pkg__",
+        "//persist/core/src/test/java/arez/persist/runtime/browser:__pkg__",
+        "//persist/integration-tests:__pkg__",
+        "//persist/processor:__pkg__",
+        "//persist/processor/src/test/java/arez/persist/processor:__pkg__",
+        "//processor/src/main/java/arez/processor:__pkg__",
+        "//processor/src/test/java/arez/processor:__pkg__",
+        "//tools/browser:__pkg__",
+        "//tools/release/src/main/java/arez/release:__pkg__",
+        "//tools/site/src/main/java/arez/site:__pkg__",
+        "//tools/site/src/test/java/arez/site:__pkg__",
+        "//tools/testing:__pkg__",
+    ],
 )
 
-strict_checker_options(name = "strict_checker_options")
+strict_checker_options(
+    name = "strict_checker_options",
+    visibility = ["//tools/testing:__pkg__"],
+)
 
 alias(
     name = "error_prone_core",
     actual = "@sting//third_party/java:error_prone_core",
+    visibility = ["//tools/testing:__pkg__"],
 )
 
 alias(
     name = "nullaway",
     actual = "@sting//third_party/java:nullaway",
+    visibility = ["//tools/testing:__pkg__"],
 )
 
 # Browser annotations are bytecode-only imports; they do not produce JavaScript modules.
 j2cl_import(
     name = "jspecify-j2cl",
     jar = ":jspecify",
+    visibility = [
+        "//:__pkg__",
+        "//persist/core/src/test/java/arez/persist/runtime/browser:__pkg__",
+        "//third_party:__pkg__",
+        "//tools/browser:__pkg__",
+    ],
 )
 
 j2cl_import(
     name = "grim_annotations-j2cl",
     jar = ":grim_annotations",
+    visibility = ["//:__pkg__"],
 )
 
 j2cl_import(
     name = "org_jetbrains_annotations-j2cl",
     jar = ":org_jetbrains_annotations",
+    visibility = ["//:__pkg__"],
 )
 
 alias(
     name = "jsinterop_annotations-j2cl",
     actual = "@j2cl//:jsinterop-annotations-j2cl",
+    visibility = [
+        "//:__pkg__",
+        "//persist/core/src/test/java/arez/persist/runtime/browser:__pkg__",
+        "//third_party:__pkg__",
+        "//tools/browser:__pkg__",
+    ],
 )
 
 alias(
     name = "jsinterop_base-j2cl",
     actual = "@jsinterop_base//:jsinterop-base-j2cl",
+    visibility = ["//:__pkg__"],
 )
 
 alias(
     name = "braincheck_core-j2cl",
     actual = "@braincheck//core/src/main/java/org/realityforge/braincheck:core-j2cl",
+    visibility = [
+        "//:__pkg__",
+        "//third_party:__pkg__",
+        "//tools/browser:__pkg__",
+    ],
 )
 
 _java_import(
     name = "braincheck_core",
     jars = ["@braincheck//tools/release:braincheck_core_jar"],
     srcjar = "@braincheck//tools/release:braincheck_core_sources_jar",
+    visibility = [
+        "//:__pkg__",
+        "//core/src/main/java/arez:__pkg__",
+        "//core/src/test/java/arez:__pkg__",
+        "//extras/dom:__pkg__",
+        "//extras/promise:__pkg__",
+        "//extras/spytools:__pkg__",
+        "//extras/testng:__pkg__",
+        "//integration-tests:__pkg__",
+        "//persist/core:__pkg__",
+        "//persist/integration-tests:__pkg__",
+        "//third_party:__pkg__",
+        "//tools/browser:__pkg__",
+        "//tools/release:__pkg__",
+    ],
     deps = [
         ":jsinterop_annotations",
         ":jspecify",
@@ -92,6 +178,7 @@ _java_import(
     name = "braincheck_testng",
     jars = ["@braincheck//tools/release:braincheck_testng_jar"],
     srcjar = "@braincheck//tools/release:braincheck_testng_sources_jar",
+    visibility = ["//core/src/test/java/arez:__pkg__"],
     deps = [
         ":javax_json",
         ":jsinterop_annotations",
@@ -105,7 +192,7 @@ _java_import(
 # DO NOT EDIT: Content is auto-generated from //third_party/java:dependencies.yml by https://github.com/realityforge/bazel-depgen version 0.26
 
 # SHA256 of the configuration content that generated this content
-_CONFIG_SHA256 = "3471860589B97EDF4217D6885B1675D4B2842705CC7D294CEEC9E7583BCDD5CD"
+_CONFIG_SHA256 = "5C1360C031FED998CE52B7A8EE5DD19129D2C2982347C4EFBFC74AD78B934BDD"
 
 exports_files(["dependencies.yml"])
 
@@ -202,6 +289,7 @@ _java_import(
     name = "listenablefuture",
     jars = ["@listenablefuture//file"],
     tags = ["maven_coordinates=com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava"],
+    visibility = ["//visibility:private"],
 )
 
 _java_import(
@@ -217,6 +305,14 @@ _java_import(
     jars = ["@base//file"],
     srcjar = "@base__sources//file",
     tags = ["maven_coordinates=com.google.jsinterop:base:1.2.0"],
+    visibility = [
+        "//:__pkg__",
+        "//extras/dom:__pkg__",
+        "//extras/promise:__pkg__",
+        "//extras/spytools:__pkg__",
+        "//persist/core:__pkg__",
+        "//tools/release:__pkg__",
+    ],
     deps = [
         ":jsinterop_annotations",
         ":jspecify",
@@ -228,6 +324,19 @@ _java_import(
     jars = ["@jsinterop_annotations//file"],
     srcjar = "@jsinterop_annotations__sources//file",
     tags = ["maven_coordinates=com.google.jsinterop:jsinterop-annotations:2.0.0"],
+    visibility = [
+        "//:__pkg__",
+        "//core/src/main/java/arez:__pkg__",
+        "//extras/dom:__pkg__",
+        "//extras/promise:__pkg__",
+        "//extras/spytools:__pkg__",
+        "//integration-tests:__pkg__",
+        "//persist/core:__pkg__",
+        "//persist/core/src/test/java/arez/persist/runtime/browser:__pkg__",
+        "//third_party:__pkg__",
+        "//tools/browser:__pkg__",
+        "//tools/release:__pkg__",
+    ],
 )
 
 _java_import(
@@ -235,6 +344,11 @@ _java_import(
     jars = ["@javapoet//file"],
     srcjar = "@javapoet__sources//file",
     tags = ["maven_coordinates=com.palantir.javapoet:javapoet:0.14.0"],
+    visibility = [
+        "//persist/processor:__pkg__",
+        "//processor/src/main/java/arez/processor:__pkg__",
+        "//tools/release:__pkg__",
+    ],
 )
 
 _java_import(
@@ -242,6 +356,7 @@ _java_import(
     jars = ["@android_json//file"],
     srcjar = "@android_json__sources//file",
     tags = ["maven_coordinates=com.vaadin.external.google:android-json:0.0.20131108.vaadin1"],
+    visibility = ["//integration-tests:__pkg__"],
 )
 
 _java_import(
@@ -249,6 +364,10 @@ _java_import(
     jars = ["@jdepend//file"],
     srcjar = "@jdepend__sources//file",
     tags = ["maven_coordinates=guru.nidi:jdepend:2.9.5"],
+    visibility = [
+        "//core/src/test/java/arez:__pkg__",
+        "//persist/core:__pkg__",
+    ],
 )
 
 _java_import(
@@ -256,6 +375,7 @@ _java_import(
     jars = ["@dataflow_errorprone//file"],
     srcjar = "@dataflow_errorprone__sources//file",
     tags = ["maven_coordinates=io.github.eisop:dataflow-errorprone:3.41.0-eisop1"],
+    visibility = ["//tools/testing:__pkg__"],
 )
 
 _java_import(
@@ -263,6 +383,7 @@ _java_import(
     jars = ["@javax_annotation_api//file"],
     srcjar = "@javax_annotation_api__sources//file",
     tags = ["maven_coordinates=javax.annotation:javax.annotation-api:1.3.2"],
+    visibility = ["//processor/src/test/java/arez/processor:__pkg__"],
 )
 
 _java_import(
@@ -294,6 +415,7 @@ _java_import(
     jars = ["@jaxws_api//file"],
     srcjar = "@jaxws_api__sources//file",
     tags = ["maven_coordinates=javax.xml.ws:jaxws-api:2.3.0"],
+    visibility = ["//processor/src/test/java/arez/processor:__pkg__"],
     deps = [
         ":javax_xml_soap_api",
         ":jaxb_api",
@@ -321,6 +443,7 @@ _java_import(
     jars = ["@commonmark//file"],
     srcjar = "@commonmark__sources//file",
     tags = ["maven_coordinates=org.commonmark:commonmark:0.30.1"],
+    visibility = ["//tools/site/src/main/java/arez/site:__pkg__"],
 )
 
 _java_import(
@@ -328,6 +451,7 @@ _java_import(
     jars = ["@commonmark_ext_gfm_tables//file"],
     srcjar = "@commonmark_ext_gfm_tables__sources//file",
     tags = ["maven_coordinates=org.commonmark:commonmark-ext-gfm-tables:0.30.1"],
+    visibility = ["//tools/site/src/main/java/arez/site:__pkg__"],
     deps = [":commonmark"],
 )
 
@@ -336,6 +460,12 @@ _java_import(
     jars = ["@javax_json//file"],
     srcjar = "@javax_json__sources//file",
     tags = ["maven_coordinates=org.glassfish:javax.json:1.1"],
+    visibility = [
+        "//core/src/test/java/arez:__pkg__",
+        "//integration-tests:__pkg__",
+        "//persist/core:__pkg__",
+        "//persist/integration-tests:__pkg__",
+    ],
 )
 
 _java_import(
@@ -351,6 +481,33 @@ _java_import(
     jars = ["@jspecify//file"],
     srcjar = "@jspecify__sources//file",
     tags = ["maven_coordinates=org.jspecify:jspecify:1.0.1"],
+    visibility = [
+        "//:__pkg__",
+        "//core/src/main/java/arez:__pkg__",
+        "//core/src/test/java/arez:__pkg__",
+        "//doc-examples:__pkg__",
+        "//extras/dom:__pkg__",
+        "//extras/dom-example:__pkg__",
+        "//extras/promise:__pkg__",
+        "//extras/promise-example:__pkg__",
+        "//extras/spytools:__pkg__",
+        "//extras/testng:__pkg__",
+        "//integration-tests:__pkg__",
+        "//persist/core:__pkg__",
+        "//persist/core/src/test/java/arez/persist/runtime/browser:__pkg__",
+        "//persist/integration-tests:__pkg__",
+        "//persist/processor:__pkg__",
+        "//persist/processor/src/test/java/arez/persist/processor:__pkg__",
+        "//processor/src/main/java/arez/processor:__pkg__",
+        "//processor/src/test/java/arez/processor:__pkg__",
+        "//third_party:__pkg__",
+        "//tools/browser:__pkg__",
+        "//tools/release:__pkg__",
+        "//tools/release/src/main/java/arez/release:__pkg__",
+        "//tools/site/src/main/java/arez/site:__pkg__",
+        "//tools/site/src/test/java/arez/site:__pkg__",
+        "//tools/testing:__pkg__",
+    ],
 )
 
 _java_import(
@@ -358,6 +515,7 @@ _java_import(
     jars = ["@mockito_core//file"],
     srcjar = "@mockito_core__sources//file",
     tags = ["maven_coordinates=org.mockito:mockito-core:4.5.1"],
+    visibility = ["//persist/core:__pkg__"],
     runtime_deps = [":objenesis"],
     deps = [
         ":byte_buddy",
@@ -384,6 +542,17 @@ _java_import(
     jars = ["@grim_annotations//file"],
     srcjar = "@grim_annotations__sources//file",
     tags = ["maven_coordinates=org.realityforge.grim:grim-annotations:0.09"],
+    visibility = [
+        "//:__pkg__",
+        "//core/src/main/java/arez:__pkg__",
+        "//extras/dom:__pkg__",
+        "//extras/promise:__pkg__",
+        "//extras/spytools:__pkg__",
+        "//extras/testng:__pkg__",
+        "//persist/core:__pkg__",
+        "//processor/src/test/java/arez/processor:__pkg__",
+        "//tools/release:__pkg__",
+    ],
     deps = [":javax_annotation"],
 )
 
@@ -392,6 +561,10 @@ _java_import(
     jars = ["@grim_processor//file"],
     srcjar = "@grim_processor__sources//file",
     tags = ["maven_coordinates=org.realityforge.grim:grim-processor:0.09"],
+    visibility = [
+        "//core/src/main/java/arez:__pkg__",
+        "//persist/core:__pkg__",
+    ],
     deps = [
         ":javax_annotation",
         ":javax_json",
@@ -409,6 +582,10 @@ _java_plugin(
 _java_library(
     name = "grim_processor",
     exported_plugins = ["grim_processor__grim_processor_grimprocessor__plugin"],
+    visibility = [
+        "//core/src/main/java/arez:__pkg__",
+        "//persist/core:__pkg__",
+    ],
 )
 
 _java_import(
@@ -416,6 +593,14 @@ _java_import(
     jars = ["@guiceyloops//file"],
     srcjar = "@guiceyloops__sources//file",
     tags = ["maven_coordinates=org.realityforge.guiceyloops:guiceyloops:0.113"],
+    visibility = [
+        "//core/src/test/java/arez:__pkg__",
+        "//extras/dom:__pkg__",
+        "//extras/spytools:__pkg__",
+        "//integration-tests:__pkg__",
+        "//persist/core:__pkg__",
+        "//persist/integration-tests:__pkg__",
+    ],
 )
 
 _java_import(
@@ -423,6 +608,7 @@ _java_import(
     jars = ["@javax_annotation//file"],
     srcjar = "@javax_annotation__sources//file",
     tags = ["maven_coordinates=org.realityforge.javax.annotation:javax.annotation:1.1.1"],
+    visibility = ["//visibility:private"],
 )
 
 _java_import(
@@ -430,6 +616,14 @@ _java_import(
     jars = ["@org_jetbrains_annotations//file"],
     srcjar = "@org_jetbrains_annotations__sources//file",
     tags = ["maven_coordinates=org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0"],
+    visibility = [
+        "//:__pkg__",
+        "//core/src/main/java/arez:__pkg__",
+        "//extras/spytools:__pkg__",
+        "//persist/processor/src/test/java/arez/persist/processor:__pkg__",
+        "//processor/src/test/java/arez/processor:__pkg__",
+        "//tools/release:__pkg__",
+    ],
 )
 
 _java_import(
@@ -437,6 +631,7 @@ _java_import(
     jars = ["@jsonassert//file"],
     srcjar = "@jsonassert__sources//file",
     tags = ["maven_coordinates=org.skyscreamer:jsonassert:1.5.0"],
+    visibility = ["//integration-tests:__pkg__"],
     deps = [":android_json"],
 )
 
@@ -453,6 +648,21 @@ _java_import(
     jars = ["@testng//file"],
     srcjar = "@testng__sources//file",
     tags = ["maven_coordinates=org.testng:testng:7.10.2"],
+    visibility = [
+        "//:__pkg__",
+        "//core/src/test/java/arez:__pkg__",
+        "//extras/dom:__pkg__",
+        "//extras/spytools:__pkg__",
+        "//extras/testng:__pkg__",
+        "//integration-tests:__pkg__",
+        "//persist/core:__pkg__",
+        "//persist/integration-tests:__pkg__",
+        "//persist/processor/src/test/java/arez/persist/processor:__pkg__",
+        "//processor/src/test/java/arez/processor:__pkg__",
+        "//tools/release:__pkg__",
+        "//tools/site/src/test/java/arez/site:__pkg__",
+        "//tools/testing:__pkg__",
+    ],
     runtime_deps = [":jquery"],
     deps = [
         ":jcommander",

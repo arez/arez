@@ -1,8 +1,7 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
         "BaseProtectedAccessComputableValueRefModel.java",
     ],
+    visibility = ["//processor/src/test/fixtures/input/com/example/computable_value_ref:__pkg__"],
 )

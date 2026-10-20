@@ -1,5 +1,3 @@
-package(default_visibility = ["//extras/dom:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -8,4 +6,5 @@ filegroup(
         "TestEventTarget.java",
         "package-info.java",
     ],
+    visibility = ["//extras/dom:__pkg__"],
 )

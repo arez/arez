@@ -1,5 +1,12 @@
 load("@rules_java//java/common:java_info.bzl", "JavaInfo")
 
+visibility([
+    "//extras/dom-example",
+    "//extras/promise-example",
+    "//persist/core/src/test/java/arez/persist/runtime/browser",
+    "//tools/browser",
+])
+
 ReleaseVersionInfo = provider("Release version selected by //tools/release:version.", fields = ["value"])
 
 def _version_impl(ctx):

@@ -2,14 +2,13 @@ load("@j2cl//build_defs:rules.bzl", "j2cl_library")
 load("//third_party/java:rules.bzl", "java_library")
 load("//tools/release:release.bzl", "release_source_jar")
 
-package(default_visibility = ["//persist/core:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
         "ConvertersTest.java",
         "package-info.java",
     ],
+    visibility = ["//persist/core/src/test/java/arez/persist/runtime:__pkg__"],
 )
 
 java_library(
@@ -32,6 +31,7 @@ release_source_jar(
     testonly = True,
     out = "browser-test-sources.jar",
     java_targets = [":browser_test_java"],
+    visibility = ["//visibility:private"],
 )
 
 j2cl_library(

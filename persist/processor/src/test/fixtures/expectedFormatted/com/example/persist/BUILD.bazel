@@ -1,5 +1,3 @@
-package(default_visibility = ["//persist/processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -14,6 +12,7 @@ filegroup(
         "ObjectTypePersistModel_PersistSidecar.java",
         "//persist/processor/src/test/fixtures/expectedFormatted/com/example/persist/types:all",
     ],
+    visibility = ["//persist/processor/src/test/fixtures/expectedFormatted/com/example:__pkg__"],
 )
 
 filegroup(
@@ -29,4 +28,5 @@ filegroup(
         "MultiStorePersistModel_PersistSidecar.java",
         "ObjectTypePersistModel_PersistSidecar.java",
     ],
+    visibility = ["//persist/processor/src/test/fixtures:__pkg__"],
 )

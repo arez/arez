@@ -1,8 +1,7 @@
-package(default_visibility = ["//persist/core:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
         "//persist/core/src/test/java/arez/persist:all",
     ],
+    visibility = ["//persist/core:__pkg__"],
 )

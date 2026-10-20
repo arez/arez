@@ -113,16 +113,28 @@ The public targets use the same binary and source archives published to Maven Ce
 | Bazel label | Maven artifact |
 | --- | --- |
 | `@arez//:core` | `arez-core` |
-| `@arez//:processor` | `arez-processor` |
+| `@arez//:processor_runtime` | `arez-processor` |
 | `@arez//:dom` | `arez-extras-dom` |
 | `@arez//:promise` | `arez-extras-promise` |
 | `@arez//:spytools` | `arez-extras-spytools` |
 | `@arez//:testng` | `arez-extras-testng` |
 | `@arez//:persist_core` | `arez-persist-core` |
-| `@arez//:persist_processor` | `arez-persist-processor` |
 
-Add `@arez//:arez_processor_plugin` and, for Persist,
-`@arez//:arez_persist_processor_plugin` to the consuming target's `plugins` list.
+Only the documented root libraries and processor plugins are public Arez products.
+Dependencies needed by existing consumers and examples are exposed through
+`@arez//third_party:...`, including `jspecify`, `braincheck_core`, their `-j2cl`
+variants, JsInterop annotations, and the existing Sting integration. The
+[dependency facade](https://github.com/arez/arez/blob/master/third_party/BUILD.bazel) owns the exact supported labels.
+Targets beneath `core/`, `processor/`, `tools/`, and `third_party/java/` are internal,
+as are generated Wasm/Kotlin companions and all Arez Starlark rules and macros.
+Configure downstream builds with native Bazel rules and the public labels. The
+Braincheck J2CL alias shares the pinned upstream compilation so applications can
+combine Arez with other libraries using that target without duplicate modules.
+
+Add `@arez//:processor` and, for Persist,
+`@arez//:persist_processor` to the consuming target's `plugins` list.
+Use `@arez//:processor_runtime` in `deps` when tests instantiate `arez.processor.ArezProcessor`
+or release tooling needs its shaded jar. The Persist processor implementation is private.
 These plugins contain their compiler dependencies; JSpecify belongs on the application classpath.
 
 Bazel takes dependency overrides and patch files from the application's root module.
@@ -177,8 +189,10 @@ inputs. Binary jars contain compiled classes.
 
 The examples use JsInterop bootstrap methods and Closure entry modules. For a working application
 and explicit development/production defines, see `extras/promise-example/BUILD.bazel` and
-`tools/browser/rules.bzl` in the repository. Development enables Arez and Braincheck invariant
-checks; production uses Closure ADVANCED optimization and disables those checks.
+`tools/browser/rules.bzl` in the repository. These example helpers are internal;
+downstream applications configure their own Closure bundles and browser tests.
+Development enables Arez and Braincheck invariant checks; production uses Closure
+ADVANCED optimization and disables those checks.
 
 See [development](https://github.com/arez/arez/blob/master/docs/development.md#local-browser-examples)
 for commands to build, preview and test the examples. `GwtIncompatible` marks JVM-only methods

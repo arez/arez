@@ -1,5 +1,3 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -12,4 +10,5 @@ filegroup(
         "ThrowsPushModel.java",
         "TypeParamPushModel.java",
     ],
+    visibility = ["//processor/src/test/fixtures/bad_input/com/example/memoize_context_parameter:__pkg__"],
 )

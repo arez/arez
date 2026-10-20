@@ -1,5 +1,3 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -13,5 +11,9 @@ filegroup(
         "MiddleModel.java",
         "MyArezReactComponent.java",
         "MyArezReactComponent_.java",
+    ],
+    visibility = [
+        "//processor/src/test/fixtures:__pkg__",
+        "//processor/src/test/fixtures/input/com/example:__pkg__",
     ],
 )

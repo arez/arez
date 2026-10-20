@@ -1,5 +1,3 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -26,4 +24,5 @@ filegroup(
         "BasePostConstructModel.java",
         "BaseRequiresTransactionModel.java",
     ],
+    visibility = ["//processor/src/test/fixtures/bad_input/com/example/package_access:__pkg__"],
 )

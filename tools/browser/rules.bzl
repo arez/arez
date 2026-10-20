@@ -2,6 +2,14 @@
 
 load("@rules_closure//closure:defs.bzl", "closure_js_binary", "closure_js_test")
 
+visibility([
+    "//extras/dom-example",
+    "//extras/promise",
+    "//extras/promise-example",
+    "//extras/spytools",
+    "//persist/core/src/test/js",
+])
+
 _PRODUCTION = "//tools/browser:production"
 _PRODUCTION_DEFINES = {
     "arez.check_api_invariants": "false",
@@ -99,9 +107,10 @@ def browser_compile_smoke(name, entry_point, deps):
             deps = deps,
         )
 
-def browser_test(name, srcs, deps, entry_point):
+def browser_test(name, srcs, deps, entry_point, visibility = None):
     closure_js_test(
         name = name,
+        visibility = visibility,
         srcs = srcs,
         deps = deps + [
             "//tools/browser:mode",

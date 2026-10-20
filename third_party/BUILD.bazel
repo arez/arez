@@ -1,0 +1,47 @@
+alias(
+    name = "braincheck_core",
+    actual = "//third_party/java:braincheck_core",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "braincheck_core-j2cl",
+    actual = "//third_party/java:braincheck_core-j2cl",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "jsinterop_annotations",
+    actual = "//third_party/java:jsinterop_annotations",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "jsinterop_annotations-j2cl",
+    actual = "//third_party/java:jsinterop_annotations-j2cl",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "jspecify",
+    actual = "//third_party/java:jspecify",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "jspecify-j2cl",
+    actual = "//third_party/java:jspecify-j2cl",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "sting_core",
+    actual = "//third_party/java:sting_core",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "sting_processor",
+    actual = "//third_party/java:sting_processor",
+    visibility = ["//visibility:public"],
+)

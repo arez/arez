@@ -1,5 +1,3 @@
-package(default_visibility = ["//doc-examples:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -41,4 +39,5 @@ filegroup(
         "//doc-examples/src/main/java/arez/doc/examples/sting:all",
         "//doc-examples/src/main/java/arez/doc/examples/tracker:all",
     ],
+    visibility = ["//doc-examples:__pkg__"],
 )

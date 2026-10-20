@@ -1,8 +1,7 @@
-package(default_visibility = ["//persist/processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
         "BasePackageAccessPersistIdModel.java",
     ],
+    visibility = ["//persist/processor/src/test/fixtures/bad_input/com/example/persist_id:__pkg__"],
 )

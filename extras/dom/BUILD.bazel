@@ -1,11 +1,13 @@
 load("//third_party/java:rules.bzl", "java_library", "java_testng")
 
-package(default_visibility = ["//visibility:public"])
-
 java_library(
     name = "dom",
     srcs = ["//extras/dom/src/main/java/arez/dom:all"],
     plugins = ["//processor:plugin"],
+    visibility = [
+        "//:__pkg__",
+        "//tools/release:__pkg__",
+    ],
     deps = [
         "//core",
         "//third_party/java:base",
@@ -26,6 +28,7 @@ java_testng(
     test_classes = [
         "arez.dom.EventDrivenValueTest",
     ],
+    visibility = ["//:__pkg__"],
     deps = [
         ":dom",
         "//core",

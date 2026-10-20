@@ -1,7 +1,6 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
     ],
+    visibility = ["//processor/src/test/fixtures/expected/com/example/pre_inverse_remove:__pkg__"],
 )

@@ -1,5 +1,3 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -15,5 +13,9 @@ filegroup(
         "PublicAccessViaInterfacePreInverseRemoveModel_Arez_Element.java",
         "SingularInversePreInverseRemoveModel_Arez_Element.java",
         "//processor/src/test/fixtures/expectedFormatted/com/example/pre_inverse_remove/other:all",
+    ],
+    visibility = [
+        "//processor/src/test/fixtures:__pkg__",
+        "//processor/src/test/fixtures/expectedFormatted/com/example:__pkg__",
     ],
 )

@@ -1,5 +1,3 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -9,6 +7,7 @@ filegroup(
         "//processor/src/test/fixtures/input:all",
         "//processor/src/test/fixtures/unresolved:all",
     ],
+    visibility = ["//processor/src/test/java/arez/processor:__pkg__"],
 )
 
 filegroup(
@@ -55,6 +54,7 @@ filegroup(
         "//processor/src/test/fixtures/input/com/example/type_params:all",
         "//processor/src/test/fixtures/input/com/example/verifiable:all",
     ],
+    visibility = ["//processor/src/test/java/arez/processor:__pkg__"],
 )
 
 filegroup(
@@ -70,6 +70,7 @@ filegroup(
         "//processor/src/test/fixtures/input/com/example/overloaded_names:all",
         "//processor/src/test/fixtures/input/com/example/requires_transaction:all",
     ],
+    visibility = ["//processor/src/test/java/arez/processor:__pkg__"],
 )
 
 filegroup(
@@ -94,6 +95,7 @@ filegroup(
         "//processor/src/test/fixtures/input/com/example/pre_inverse_remove:all",
         "//processor/src/test/fixtures/input/com/example/reference:all",
     ],
+    visibility = ["//processor/src/test/java/arez/processor:__pkg__"],
 )
 
 filegroup(
@@ -106,6 +108,7 @@ filegroup(
         "//processor/src/test/fixtures/input/com/example/collections:all",
         "//processor/src/test/fixtures/input/com/example/observable:all",
     ],
+    visibility = ["//processor/src/test/java/arez/processor:__pkg__"],
 )
 
 filegroup(
@@ -145,6 +148,7 @@ filegroup(
         "//processor/src/test/fixtures/input/com/example/observable_value_ref:all",
         "//processor/src/test/fixtures/input/com/example/observer_ref:all",
     ],
+    visibility = ["//processor/src/test/java/arez/processor:__pkg__"],
 )
 
 filegroup(
@@ -157,6 +161,7 @@ filegroup(
         "//processor/src/test/fixtures/input/com/example/memoize:all",
         "//processor/src/test/fixtures/input/com/example/memoize_context_parameter:all",
     ],
+    visibility = ["//processor/src/test/java/arez/processor:__pkg__"],
 )
 
 filegroup(
@@ -172,6 +177,7 @@ filegroup(
         "//processor/src/test/fixtures/input/com/example/observe:all",
         "//processor/src/test/fixtures/input/com/example/on_deps_change:all",
     ],
+    visibility = ["//processor/src/test/java/arez/processor:__pkg__"],
 )
 
 filegroup(
@@ -187,6 +193,7 @@ filegroup(
         "//processor/src/test/fixtures/input/com/example/deprecation:all",
         "//processor/src/test/fixtures/input/com/example/sting:all",
     ],
+    visibility = ["//processor/src/test/java/arez/processor:__pkg__"],
 )
 
 filegroup(
@@ -211,4 +218,5 @@ filegroup(
         "//processor/src/test/fixtures/input/com/example/post_dispose:all",
         "//processor/src/test/fixtures/input/com/example/pre_dispose:all",
     ],
+    visibility = ["//processor/src/test/java/arez/processor:__pkg__"],
 )

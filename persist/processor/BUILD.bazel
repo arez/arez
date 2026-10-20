@@ -1,11 +1,14 @@
 load("//third_party/java:rules.bzl", "java_library", "java_plugin")
 
-package(default_visibility = ["//visibility:public"])
-
 java_library(
     name = "processor",
     srcs = ["//persist/processor/src/main/java/arez/persist:all"],
     resources = ["//persist/processor/src/main/resources/META-INF/services:javax.annotation.processing.Processor"],
+    visibility = [
+        "//:__pkg__",
+        "//persist/processor/src/test/java/arez/persist/processor:__pkg__",
+        "//tools/release:__pkg__",
+    ],
     deps = [
         "//processor/src/main/java/arez/processor:nullability",
         "//third_party/java:javapoet",
@@ -18,10 +21,12 @@ java_plugin(
     name = "plugin",
     generates_api = True,
     processor_class = "arez.persist.processor.ArezPersistProcessor",
+    visibility = ["//persist/integration-tests:__pkg__"],
     deps = [":processor"],
 )
 
 test_suite(
     name = "all_tests",
     tests = ["//persist/processor/src/test/java/arez/persist/processor:all_tests"],
+    visibility = ["//:__pkg__"],
 )

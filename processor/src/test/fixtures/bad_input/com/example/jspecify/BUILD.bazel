@@ -1,5 +1,3 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -11,5 +9,9 @@ filegroup(
         "UnmarkedBase.java",
         "UnmarkedMethodModel.java",
         "UnmarkedModel.java",
+    ],
+    visibility = [
+        "//processor/src/test/fixtures/bad_input/com/example:__pkg__",
+        "//processor/src/test/java/arez/processor:__pkg__",
     ],
 )

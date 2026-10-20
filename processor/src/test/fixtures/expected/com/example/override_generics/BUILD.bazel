@@ -1,10 +1,12 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
         "Arez_GenericsModel.java",
         "Arez_LeafModel.java",
         "Arez_MyArezReactComponent_.java",
+    ],
+    visibility = [
+        "//processor/src/test/fixtures:__pkg__",
+        "//processor/src/test/fixtures/expected/com/example:__pkg__",
     ],
 )

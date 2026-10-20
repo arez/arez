@@ -1,7 +1,5 @@
 load("//third_party/java:rules.bzl", "java_testng")
 
-package(default_visibility = ["//visibility:public"])
-
 java_testng(
     name = "tests",
     srcs = ["//persist/integration-tests/src/test/java/arez:all"],
@@ -15,6 +13,7 @@ java_testng(
         "//persist/processor:plugin",
     ],
     test_classes = ["arez.integration.basic.BasicIntegrationTest"],
+    visibility = ["//:__pkg__"],
     deps = [
         "//core",
         "//extras/testng",

@@ -1,5 +1,3 @@
-package(default_visibility = ["//doc-examples:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -8,4 +6,5 @@ filegroup(
         "ActionExample3.java",
         "ActionExample4.java",
     ],
+    visibility = ["//doc-examples/src/main/java/arez/doc/examples:__pkg__"],
 )

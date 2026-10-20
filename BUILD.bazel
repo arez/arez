@@ -2,9 +2,12 @@ load("@j2cl//build_defs:rules.bzl", "j2cl_library")
 load("@rules_java//java:defs.bzl", "java_import", "java_plugin")
 load("@rules_palantir_java_format//:defs.bzl", "java_format_check")
 
-package(default_visibility = ["//visibility:public"])
+package(default_visibility = ["//visibility:private"])
 
-exports_files(["LICENSE"])
+exports_files(
+    ["LICENSE"],
+    visibility = ["//tools/release:__pkg__"],
+)
 
 test_suite(
     name = "jvm_tests",
@@ -73,6 +76,7 @@ java_import(
     name = "core",
     jars = ["//tools/release:core_jar"],
     srcjar = "//tools/release:core_sources",
+    visibility = ["//visibility:public"],
     exports = ["//third_party/java:braincheck_core"],
     deps = [
         "//third_party/java:braincheck_core",
@@ -84,9 +88,10 @@ java_import(
 )
 
 java_import(
-    name = "processor",
+    name = "processor_runtime",
     jars = ["//tools/release:processor_jar"],
     srcjar = "//tools/release:processor_sources",
+    visibility = ["//visibility:public"],
     deps = [],
 )
 
@@ -94,6 +99,7 @@ java_import(
     name = "dom",
     jars = ["//tools/release:dom_jar"],
     srcjar = "//tools/release:dom_sources",
+    visibility = ["//visibility:public"],
     deps = [
         ":core",
         "//third_party/java:base",
@@ -108,6 +114,7 @@ java_import(
     name = "promise",
     jars = ["//tools/release:promise_jar"],
     srcjar = "//tools/release:promise_sources",
+    visibility = ["//visibility:public"],
     deps = [
         ":core",
         "//third_party/java:base",
@@ -122,6 +129,7 @@ java_import(
     name = "spytools",
     jars = ["//tools/release:spytools_jar"],
     srcjar = "//tools/release:spytools_sources",
+    visibility = ["//visibility:public"],
     deps = [
         ":core",
         "//third_party/java:base",
@@ -137,6 +145,7 @@ java_import(
     name = "testng",
     jars = ["//tools/release:testng_jar"],
     srcjar = "//tools/release:testng_sources",
+    visibility = ["//visibility:public"],
     deps = [
         ":core",
         "//third_party/java:braincheck_core",
@@ -150,6 +159,7 @@ java_import(
     name = "persist_core",
     jars = ["//tools/release:persist_core_jar"],
     srcjar = "//tools/release:persist_core_sources",
+    visibility = ["//visibility:public"],
     deps = [
         ":core",
         "//third_party/java:base",
@@ -161,30 +171,32 @@ java_import(
 )
 
 java_import(
-    name = "persist_processor",
+    name = "_persist_processor_java",
     jars = ["//tools/release:persist_processor_jar"],
     srcjar = "//tools/release:persist_processor_sources",
     deps = [],
 )
 
 java_plugin(
-    name = "arez_processor_plugin",
+    name = "processor",
     generates_api = True,
     processor_class = "arez.processor.ArezProcessor",
-    deps = [":processor"],
+    visibility = ["//visibility:public"],
+    deps = [":processor_runtime"],
 )
 
 java_plugin(
-    name = "arez_persist_processor_plugin",
+    name = "persist_processor",
     generates_api = True,
     processor_class = "arez.persist.processor.ArezPersistProcessor",
-    deps = [":persist_processor"],
+    visibility = ["//visibility:public"],
+    deps = [":_persist_processor_java"],
 )
 
 # These source archives are produced only after the owned Java and generated
 # sources pass Error Prone and JSpecify-mode NullAway.
 j2cl_library(
-    name = "core-j2cl",
+    name = "_core_j2cl",
     srcs = ["//tools/release:core_sources"],
     experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
     deps = [
@@ -197,7 +209,7 @@ j2cl_library(
 )
 
 j2cl_library(
-    name = "promise-j2cl",
+    name = "_promise_j2cl",
     srcs = ["//tools/release:promise_sources"],
     experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
     deps = [
@@ -211,7 +223,7 @@ j2cl_library(
 )
 
 j2cl_library(
-    name = "dom-j2cl",
+    name = "_dom_j2cl",
     srcs = ["//tools/release:dom_sources"],
     experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
     deps = [
@@ -225,7 +237,7 @@ j2cl_library(
 )
 
 j2cl_library(
-    name = "spytools-j2cl",
+    name = "_spytools_j2cl",
     srcs = ["//tools/release:spytools_sources"],
     experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
     deps = [
@@ -240,7 +252,7 @@ j2cl_library(
 )
 
 j2cl_library(
-    name = "persist-core-j2cl",
+    name = "_persist_core_j2cl",
     srcs = ["//tools/release:persist_core_sources"],
     experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
     deps = [
@@ -251,4 +263,35 @@ j2cl_library(
         "//third_party/java:jsinterop_base-j2cl",
         "//third_party/java:jspecify-j2cl",
     ],
+)
+
+# Public aliases keep generated Wasm/Kotlin companion targets private.
+alias(
+    name = "core-j2cl",
+    actual = ":_core_j2cl",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "dom-j2cl",
+    actual = ":_dom_j2cl",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "promise-j2cl",
+    actual = ":_promise_j2cl",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "spytools-j2cl",
+    actual = ":_spytools_j2cl",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "persist-core-j2cl",
+    actual = ":_persist_core_j2cl",
+    visibility = ["//visibility:public"],
 )

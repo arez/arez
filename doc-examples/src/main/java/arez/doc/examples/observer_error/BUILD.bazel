@@ -1,8 +1,7 @@
-package(default_visibility = ["//doc-examples:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
         "ObserverErrorHandlerExample.java",
     ],
+    visibility = ["//doc-examples/src/main/java/arez/doc/examples:__pkg__"],
 )

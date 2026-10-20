@@ -1,8 +1,7 @@
-package(default_visibility = ["//processor:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
         "BaseProtectedAccessFieldCascadeDisposeModel.java",
     ],
+    visibility = ["//processor/src/test/fixtures/input/com/example/cascade_dispose:__pkg__"],
 )

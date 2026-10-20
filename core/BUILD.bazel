@@ -1,13 +1,25 @@
 load("//third_party/java:rules.bzl", "java_library")
 
-package(default_visibility = ["//visibility:public"])
-
 java_library(
     name = "core",
+    visibility = [
+        "//:__pkg__",
+        "//core/src/test/java/arez:__pkg__",
+        "//extras/dom:__pkg__",
+        "//extras/promise:__pkg__",
+        "//extras/spytools:__pkg__",
+        "//extras/testng:__pkg__",
+        "//integration-tests:__pkg__",
+        "//persist/core:__pkg__",
+        "//persist/integration-tests:__pkg__",
+        "//persist/processor/src/test/java/arez/persist/processor:__pkg__",
+        "//processor/src/test/java/arez/processor:__pkg__",
+    ],
     exports = ["//core/src/main/java/arez"],
 )
 
 test_suite(
     name = "tests",
     tests = ["//core/src/test/java/arez:tests"],
+    visibility = ["//:__pkg__"],
 )

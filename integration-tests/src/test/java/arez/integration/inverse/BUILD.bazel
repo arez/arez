@@ -1,5 +1,3 @@
-package(default_visibility = ["//integration-tests:__subpackages__"])
-
 filegroup(
     name = "all",
     srcs = [
@@ -17,4 +15,5 @@ filegroup(
         "ZeroOrOneMultiplicityInverseIntegrationTest.java",
         "ZeroOrOneMultiplicityLazyLoadInverseIntegrationTest.java",
     ],
+    visibility = ["//integration-tests/src/test/java/arez/integration:__pkg__"],
 )

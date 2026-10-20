@@ -1,17 +1,19 @@
 load("//third_party/java:rules.bzl", "java_library")
 
-package(default_visibility = ["//visibility:public"])
-
 java_library(
     name = "doc-examples",
     srcs = ["//doc-examples/src/main/java/arez/doc/examples:all"],
-    plugins = ["//processor:plugin"],
+    plugins = ["//:processor"],
+    visibility = [
+        "//:__pkg__",
+        "//website:__pkg__",
+    ],
     deps = [
-        "//core",
-        "//third_party/java:braincheck_core",
-        "//third_party/java:jsinterop_annotations",
-        "//third_party/java:jspecify",
-        "//third_party/java:sting_core",
-        "//third_party/java:sting_processor",
+        "//:core",
+        "//third_party:braincheck_core",
+        "//third_party:jsinterop_annotations",
+        "//third_party:jspecify",
+        "//third_party:sting_core",
+        "//third_party:sting_processor",
     ],
 )
