@@ -3,7 +3,7 @@
 ### Unreleased
 
 * Upgrade JSpecify to version `1.0.1` and JsInterop Base to version `1.2.0`. Handle nullable JavaScript property lookups in spy serialization and persistence, and qualify persistence browser APIs for optimized J2CL builds.
-* Consume Braincheck publication archives from an immutable upstream source pin in Bazel.
+* Reuse Braincheck's native J2CL target to avoid duplicate Closure modules when combining libraries; JVM dependencies continue to use pinned publication archives.
 * Avoid redundant null checks for statically non-null observable initializers and persistent identifiers; retain checks for nullable identifiers.
 * Emit the generated kernel field’s JSpecify qualifier on its type so consumer builds pass Error Prone’s AnnotationPosition check.
 * Use Proton's constructor origin correction to avoid public-constructor warnings for implicit default constructors under Turbine while preserving warnings for explicitly declared constructors.
