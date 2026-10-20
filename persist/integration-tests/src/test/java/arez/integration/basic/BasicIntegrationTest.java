@@ -10,7 +10,6 @@ import arez.persist.runtime.Scope;
 import arez.persist.runtime.StorageService;
 import java.util.HashMap;
 import java.util.Map;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
@@ -133,7 +132,7 @@ public final class BasicIntegrationTest extends AbstractIntegrationTest {
         assertEquals(data.get("value"), "saved");
     }
 
-    private void expandTreeNode(@NonNull final Map<String, StorageService.Entry> typeMap, @NonNull final String id) {
+    private void expandTreeNode(final Map<String, StorageService.Entry> typeMap, final String id) {
         final Map<String, @Nullable Object> encoded = new HashMap<>();
         encoded.put("expanded", true);
         typeMap.put(id, new StorageService.Entry(null, encoded));

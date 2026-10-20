@@ -11,6 +11,7 @@ import arez.spy.ComponentInfo;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import java.util.concurrent.atomic.AtomicReference;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -443,7 +444,7 @@ public final class ComponentTest extends AbstractTest {
         final ArezContext context = Arez.context();
         final String name = ValueUtil.randomString();
 
-        final AtomicReference<ObservableValue<?>> observable = new AtomicReference<>();
+        final AtomicReference<@Nullable ObservableValue<?>> observable = new AtomicReference<>();
 
         final SafeProcedure preDispose = () -> assertFalse(Disposable.isDisposed(observable.get()));
         final SafeProcedure postDispose = () -> assertTrue(Disposable.isDisposed(observable.get()));

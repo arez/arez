@@ -25,8 +25,10 @@ import arez.spy.ReactionCycleStartEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
 public final class ComputableValueApiTest extends AbstractTest {
@@ -161,11 +163,11 @@ public final class ComputableValueApiTest extends AbstractTest {
         final ArezContext context = Arez.context();
 
         final var calls = new AtomicInteger();
-        final AtomicReference<String> result = new AtomicReference<>();
+        final AtomicReference<@Nullable String> result = new AtomicReference<>();
         result.set("");
         final SafeFunction<String> action = () -> {
             calls.incrementAndGet();
-            return result.get();
+            return Objects.requireNonNull(result.get());
         };
         final ComputableValue<String> computableValue = context.computable(
                 "TestComputableValue",

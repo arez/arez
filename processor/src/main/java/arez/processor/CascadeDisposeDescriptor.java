@@ -4,6 +4,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.VariableElement;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.realityforge.proton.ProcessorException;
 
@@ -23,12 +24,12 @@ final class CascadeDisposeDescriptor {
     @Nullable
     private ReferenceDescriptor _reference;
 
-    CascadeDisposeDescriptor(final VariableElement field) {
+    CascadeDisposeDescriptor(@NonNull final VariableElement field) {
         _method = null;
         _field = field;
     }
 
-    CascadeDisposeDescriptor(final ExecutableElement method, @Nullable final ObservableDescriptor observable) {
+    CascadeDisposeDescriptor(@NonNull final ExecutableElement method, @Nullable final ObservableDescriptor observable) {
         _method = method;
         _field = null;
         if (null != observable) {

@@ -5,7 +5,6 @@ import static org.testng.Assert.*;
 import arez.persist.AbstractTest;
 import java.util.HashMap;
 import java.util.Map;
-import org.jspecify.annotations.NonNull;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -35,12 +34,12 @@ public final class TypeConverterTest extends AbstractTest {
 
     private static final class CharacterConverter implements Converter<Character, String> {
         @Override
-        public Character decode(@NonNull final String encoded) {
+        public Character decode(final String encoded) {
             return encoded.charAt(0);
         }
 
         @Override
-        public String encode(@NonNull final Character value) {
+        public String encode(final Character value) {
             return value.toString();
         }
     }

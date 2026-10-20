@@ -10,8 +10,10 @@ import arez.annotations.ArezComponent;
 import arez.annotations.Memoize;
 import arez.annotations.Observable;
 import arez.integration.util.SpyEventRecorder;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
 @NullMarked
@@ -30,8 +32,8 @@ public final class MultiZoneIntegrationTest extends AbstractArezIntegrationTest 
         context1.getSpy().addSpyEventHandler(recorder);
         context2.getSpy().addSpyEventHandler(recorder);
 
-        final AtomicReference<PersonModel> person = new AtomicReference<>();
-        final AtomicReference<PersonModel> person2 = new AtomicReference<>();
+        final AtomicReference<@Nullable PersonModel> person = new AtomicReference<>();
+        final AtomicReference<@Nullable PersonModel> person2 = new AtomicReference<>();
         zone1.run(() -> {
             person.set(PersonModel.create("Bill", "Smith"));
             zone2.run(() -> person2.set(PersonModel.create("Bill", "Smith")));
@@ -39,26 +41,29 @@ public final class MultiZoneIntegrationTest extends AbstractArezIntegrationTest 
 
         context1.observer("FirstNamePrinter1", () -> {
             observeADependency();
-            recorder.mark("firstName1", person.get().getFirstName());
+            recorder.mark("firstName1", Objects.requireNonNull(person.get()).getFirstName());
         });
         context2.observer("FirstNamePrinter2", () -> {
             observeADependency();
-            recorder.mark("firstName2", person2.get().getFirstName());
+            recorder.mark("firstName2", Objects.requireNonNull(person2.get()).getFirstName());
         });
 
         context1.observer("FullNamePrinter1", () -> {
             observeADependency();
-            recorder.mark("fullname1", person.get().getFullName());
+            recorder.mark("fullname1", Objects.requireNonNull(person.get()).getFullName());
         });
         context2.observer("FullNamePrinter2", () -> {
             observeADependency();
-            recorder.mark("fullname2", person2.get().getFullName());
+            recorder.mark("fullname2", Objects.requireNonNull(person2.get()).getFullName());
         });
 
-        context1.action("First Name Update1", () -> person.get().setFirstName("Fred"));
-        context1.action("Last Name Update1", () -> person.get().setLastName("Donaldo"));
+        context1.action(
+                "First Name Update1", () -> Objects.requireNonNull(person.get()).setFirstName("Fred"));
+        context1.action(
+                "Last Name Update1", () -> Objects.requireNonNull(person.get()).setLastName("Donaldo"));
 
-        context2.action("Last Name Update2", () -> person2.get().setLastName("Donaldo"));
+        context2.action(
+                "Last Name Update2", () -> Objects.requireNonNull(person2.get()).setLastName("Donaldo"));
 
         assertMatchesFixture(recorder);
     }
@@ -73,18 +78,18 @@ public final class MultiZoneIntegrationTest extends AbstractArezIntegrationTest 
         final ArezContext context1 = zone1.getContext();
         final ArezContext context2 = zone2.getContext();
 
-        final AtomicReference<PersonModel> person1 = new AtomicReference<>();
-        final AtomicReference<PersonModel> person2 = new AtomicReference<>();
+        final AtomicReference<@Nullable PersonModel> person1 = new AtomicReference<>();
+        final AtomicReference<@Nullable PersonModel> person2 = new AtomicReference<>();
 
         zone1.run(() -> {
             person1.set(PersonModel.create("Bill", "Smith"));
             zone2.run(() -> person2.set(PersonModel.create("Bill", "Smith")));
         });
 
-        context1.action(() -> assertInTransaction(person1.get()));
-        assertNotInTransaction(person2.get());
-        assertNotInTransaction(person1.get());
-        context2.action(() -> assertInTransaction(person2.get()));
+        context1.action(() -> assertInTransaction(Objects.requireNonNull(person1.get())));
+        assertNotInTransaction(Objects.requireNonNull(person2.get()));
+        assertNotInTransaction(Objects.requireNonNull(person1.get()));
+        context2.action(() -> assertInTransaction(Objects.requireNonNull(person2.get())));
     }
 
     /**

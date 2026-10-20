@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -31,7 +30,6 @@ public abstract class Scope {
     /**
      * The name of the root scope.
      */
-    @NonNull
     public static final String ROOT_SCOPE_NAME = "<>";
     /**
      * The parent scope. Every scope but the root scope must contain a parent.
@@ -42,20 +40,17 @@ public abstract class Scope {
     /**
      * The name of the scope. Scopes have alphanumeric names and may also include '-' or '_' characters.
      */
-    @NonNull
     private final String _name;
     /**
      * Nested scopes if any.
      */
-    @NonNull
     private final Map<String, Scope> _nestedScopes = new HashMap<>();
 
-    @NonNull
-    static Scope create(@Nullable final Scope parent, @NonNull final String name) {
+    static Scope create(@Nullable final Scope parent, final String name) {
         return new Arez_Scope(parent, name);
     }
 
-    Scope(@Nullable final Scope parent, @NonNull final String name) {
+    Scope(@Nullable final Scope parent, final String name) {
         assert (null == parent && ROOT_SCOPE_NAME.equals(name)) || (null != parent && !ROOT_SCOPE_NAME.equals(name));
         _parent = parent;
         _name = name;
@@ -67,7 +62,6 @@ public abstract class Scope {
      *
      * @return the simple name of the scope.
      */
-    @NonNull
     public String getName() {
         return _name;
     }
@@ -80,7 +74,6 @@ public abstract class Scope {
      * @return the qualified name of the scope.
      */
     @ComponentId
-    @NonNull
     public String getQualifiedName() {
         return null == _parent || null == _parent._parent ? _name : _parent.getQualifiedName() + "." + _name;
     }
@@ -92,8 +85,7 @@ public abstract class Scope {
      * @param name the name of the nested scope.
      * @return the scope.
      */
-    @NonNull
-    public Scope findOrCreateScope(@NonNull final String name) {
+    public Scope findOrCreateScope(final String name) {
         if (ArezPersist.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> Disposable.isNotDisposed(this),
@@ -129,11 +121,10 @@ public abstract class Scope {
     }
 
     @Nullable
-    Scope findScope(@NonNull final String name) {
+    Scope findScope(final String name) {
         return _nestedScopes.get(name);
     }
 
-    @NonNull
     public Collection<Scope> getNestedScopes() {
         final Collection<Scope> scopes = _nestedScopes.values();
         return ArezPersist.shouldCheckApiInvariants() ? Collections.unmodifiableCollection(scopes) : scopes;
@@ -153,7 +144,7 @@ public abstract class Scope {
      * @param name the name to check.
      * @return true if the name is valid.
      */
-    private boolean isValidName(@NonNull final String name) {
+    private boolean isValidName(final String name) {
         if (0 == name.length()) {
             return false;
         } else {

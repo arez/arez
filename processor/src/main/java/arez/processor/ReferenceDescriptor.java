@@ -5,6 +5,7 @@ import com.palantir.javapoet.TypeName;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeMirror;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.realityforge.proton.GeneratorUtil;
 import org.realityforge.proton.ProcessorException;
@@ -96,7 +97,7 @@ final class ReferenceDescriptor {
         return _cascadeDisposeDescriptor;
     }
 
-    void setCascadeDisposeDescriptor(final CascadeDisposeDescriptor cascadeDisposeDescriptor) {
+    void setCascadeDisposeDescriptor(@NonNull final CascadeDisposeDescriptor cascadeDisposeDescriptor) {
         _cascadeDisposeDescriptor = cascadeDisposeDescriptor;
     }
 
@@ -105,7 +106,7 @@ final class ReferenceDescriptor {
         return _autoObserveDescriptor;
     }
 
-    void setAutoObserveDescriptor(final AutoObserveDescriptor autoObserveDescriptor) {
+    void setAutoObserveDescriptor(@NonNull final AutoObserveDescriptor autoObserveDescriptor) {
         _autoObserveDescriptor = autoObserveDescriptor;
     }
 

@@ -13,8 +13,10 @@ import arez.spy.ReactionCycleCompleteEvent;
 import arez.spy.ReactionCycleStartEvent;
 import arez.spy.TaskCompleteEvent;
 import arez.spy.TaskStartEvent;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -135,14 +137,14 @@ public final class TaskApiTest extends AbstractTest {
     public void schedule_insideTask() {
         final var callCount = new AtomicInteger();
         final ArezContext context = Arez.context();
-        final AtomicReference<Task> taskRef = new AtomicReference<>();
+        final AtomicReference<@Nullable Task> taskRef = new AtomicReference<>();
         context.task(() -> {
             taskRef.set(context.task(callCount::incrementAndGet));
 
             assertEquals(callCount.get(), 0);
 
             // Reschedule ... should be a no-op
-            taskRef.get().schedule();
+            Objects.requireNonNull(taskRef.get()).schedule();
 
             assertEquals(callCount.get(), 0);
         });
@@ -154,7 +156,7 @@ public final class TaskApiTest extends AbstractTest {
     public void schedule_insideObserver() {
         final var callCount = new AtomicInteger();
         final ArezContext context = Arez.context();
-        final AtomicReference<Task> taskRef = new AtomicReference<>();
+        final AtomicReference<@Nullable Task> taskRef = new AtomicReference<>();
         context.observer(
                 () -> {
                     taskRef.set(context.task(callCount::incrementAndGet));

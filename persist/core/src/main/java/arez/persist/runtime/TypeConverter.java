@@ -1,7 +1,6 @@
 package arez.persist.runtime;
 
 import java.util.Map;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -12,10 +11,9 @@ public final class TypeConverter {
     /**
      * A map of property names to converters.
      */
-    @NonNull
     private final Map<String, Converter> _converters;
 
-    public TypeConverter(@NonNull final Map<String, Converter> converters) {
+    public TypeConverter(final Map<String, Converter> converters) {
         _converters = converters;
     }
 
@@ -29,7 +27,7 @@ public final class TypeConverter {
      * @param <E> the type of the encoded value.
      */
     public <A extends @Nullable Object, E extends @Nullable Object> @Nullable A decode(
-            @NonNull final String key, @Nullable E encoded) {
+            final String key, @Nullable E encoded) {
         if (null == encoded) {
             return null;
         } else {
@@ -48,7 +46,7 @@ public final class TypeConverter {
      * @param <E> the type of the encoded value.
      */
     public <A extends @Nullable Object, E extends @Nullable Object> @Nullable E encode(
-            @NonNull final String key, @Nullable A value) {
+            final String key, @Nullable A value) {
         if (null == value) {
             return null;
         } else {

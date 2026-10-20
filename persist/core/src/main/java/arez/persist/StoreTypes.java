@@ -2,7 +2,6 @@ package arez.persist;
 
 import arez.persist.runtime.ArezPersist;
 import arez.persist.runtime.browser.ArezPersistBrowserUtil;
-import org.jspecify.annotations.NonNull;
 
 /**
  * A class containing constants for persistence stores supplied by the library.
@@ -15,14 +14,12 @@ public final class StoreTypes {
      * This persist strategy is only available when {@link ArezPersist#isApplicationStoreEnabled()}
      * returns {@code true}.
      */
-    @NonNull
     public static final String APPLICATION = "app";
     /**
      * The property is persisted across the session. i.e. The value of the property will be
      * persisted across reloads within the same tab. This persist strategy is only available
      * when {@link ArezPersistBrowserUtil#registerSessionStore(String)} has been invoked.
      */
-    @NonNull
     public static final String SESSION = "session";
     /**
      * The property is persisted when using the same browser. i.e. The value of the property will be
@@ -31,7 +28,6 @@ public final class StoreTypes {
      * This persist strategy is only available when {@link ArezPersistBrowserUtil#registerLocalStore(String)}
      * has been invoked.
      */
-    @NonNull
     public static final String LOCAL = "local";
 
     private StoreTypes() {}

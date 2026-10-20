@@ -10,9 +10,11 @@ import arez.spy.Priority;
 import arez.spy.Spy;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -70,11 +72,11 @@ public final class ObserverInfoImplTest extends AbstractTest {
         final ArezContext context = Arez.context();
 
         final var callCount = new AtomicInteger();
-        final AtomicReference<ObserverInfo> ref = new AtomicReference<>();
+        final AtomicReference<@Nullable ObserverInfo> ref = new AtomicReference<>();
 
         final Observer observer = context.observer(
                 () -> {
-                    assertTrue(ref.get().isRunning());
+                    assertTrue(Objects.requireNonNull(ref.get()).isRunning());
                     callCount.incrementAndGet();
                     observeADependency();
                 },

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -21,12 +20,10 @@ final class Registry {
     /**
      * The map of registered stores.
      */
-    @NonNull
     private static final Map<String, Store> c_stores = new HashMap<>();
     /**
      * The map of converters for application types.
      */
-    @NonNull
     private static final Map<Class<?>, Converter<?, ?>> c_converters = new HashMap<>();
     /**
      * The root scope.
@@ -46,7 +43,6 @@ final class Registry {
      *
      * @return the root scope under which all other scopes are nested.
      */
-    @NonNull
     static Scope getRootScope() {
         if (null == c_rootScope) {
             c_rootScope = Scope.create(null, Scope.ROOT_SCOPE_NAME);
@@ -62,7 +58,7 @@ final class Registry {
      *
      * @param scope the scope to dispose.
      */
-    static void disposeScope(@NonNull final Scope scope) {
+    static void disposeScope(final Scope scope) {
         if (ArezPersist.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> Disposable.isNotDisposed(scope),
@@ -78,7 +74,7 @@ final class Registry {
      *
      * @param scope the scope to release.
      */
-    static void releaseScope(@NonNull final Scope scope) {
+    static void releaseScope(final Scope scope) {
         if (ArezPersist.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> Disposable.isNotDisposed(scope),
@@ -87,7 +83,7 @@ final class Registry {
         c_stores.values().forEach(store -> store.releaseScope(scope));
     }
 
-    private static void _disposeScope(@NonNull final Scope scope) {
+    private static void _disposeScope(final Scope scope) {
         new ArrayList<>(scope.getNestedScopes()).forEach(Registry::_disposeScope);
         Disposable.dispose(scope);
     }
@@ -103,7 +99,7 @@ final class Registry {
      * @param service the associated StorageService.
      * @return the action to invoke to deregister service.
      */
-    static SafeProcedure registerStore(@NonNull final String name, @NonNull final StorageService service) {
+    static SafeProcedure registerStore(final String name, final StorageService service) {
         if (ArezPersist.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> !c_stores.containsKey(name),
@@ -125,7 +121,7 @@ final class Registry {
      *
      * @param name the name of the store.
      */
-    private static void deregisterStore(@NonNull final String name) {
+    private static void deregisterStore(final String name) {
         final Store store = c_stores.remove(name);
         if (null != store) {
             assert !store.isDisposed();
@@ -140,8 +136,7 @@ final class Registry {
      * @param name the name of the store.
      * @return the store.
      */
-    @NonNull
-    static Store getStore(@NonNull final String name) {
+    static Store getStore(final String name) {
         if (ArezPersist.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> c_stores.containsKey(name),
@@ -158,8 +153,7 @@ final class Registry {
      * @param converter the converter.
      * @return the action to invoke to deregister converter.
      */
-    @NonNull
-    static <A> SafeProcedure registerConverter(@NonNull final Class<A> type, @NonNull final Converter<A, ?> converter) {
+    static <A> SafeProcedure registerConverter(final Class<A> type, final Converter<A, ?> converter) {
         if (ArezPersist.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> !c_converters.containsKey(type),
@@ -177,18 +171,15 @@ final class Registry {
      * @return the converter if any.
      */
     @SuppressWarnings("unchecked")
-    @NonNull
-    static <A> Converter<A, ?> getConverter(@NonNull final Class<A> type) {
+    static <A> Converter<A, ?> getConverter(final Class<A> type) {
         final var converter = (Converter<A, ?>) c_converters.get(type);
         return null == converter ? IdentityConverter.instance() : converter;
     }
 
-    @NonNull
     static Map<String, Store> getStores() {
         return c_stores;
     }
 
-    @NonNull
     static Map<Class<?>, Converter<?, ?>> getConverters() {
         return c_converters;
     }

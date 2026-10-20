@@ -11,6 +11,7 @@ import arez.spy.Spy;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -21,11 +22,11 @@ public final class ComputableValueInfoImplTest extends AbstractTest {
         final String name = ValueUtil.randomString();
         final ObservableValue<Object> observableValue = context.observable();
 
-        final AtomicReference<String> value = new AtomicReference<>();
+        final AtomicReference<@Nullable String> value = new AtomicReference<>();
         final String initialValue = ValueUtil.randomString();
         value.set(initialValue);
 
-        final ComputableValue<Object> computableValue = context.computable(name, () -> {
+        final ComputableValue<@Nullable Object> computableValue = context.computable(name, () -> {
             observableValue.reportObserved();
             return value.get();
         });

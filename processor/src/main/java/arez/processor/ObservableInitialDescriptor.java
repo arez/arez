@@ -5,6 +5,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeMirror;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -25,7 +26,7 @@ final class ObservableInitialDescriptor {
     @Nullable
     private final ExecutableType _methodType;
 
-    ObservableInitialDescriptor(final String name, final VariableElement field) {
+    ObservableInitialDescriptor(final String name, @NonNull final VariableElement field) {
         _name = name;
         _element = field;
         _field = field;
@@ -33,7 +34,8 @@ final class ObservableInitialDescriptor {
         _methodType = null;
     }
 
-    ObservableInitialDescriptor(final String name, final ExecutableElement method, final ExecutableType methodType) {
+    ObservableInitialDescriptor(
+            final String name, @NonNull final ExecutableElement method, @NonNull final ExecutableType methodType) {
         _name = name;
         _element = method;
         _field = null;
@@ -52,10 +54,6 @@ final class ObservableInitialDescriptor {
     VariableElement getField() {
         assert null != _field;
         return _field;
-    }
-
-    boolean isMethod() {
-        return null != _method;
     }
 
     ExecutableElement getMethod() {

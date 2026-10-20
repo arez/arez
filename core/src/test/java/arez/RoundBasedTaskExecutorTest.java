@@ -2,8 +2,10 @@ package arez;
 
 import static org.testng.Assert.*;
 
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
 import org.testng.annotations.Test;
 
@@ -165,12 +167,12 @@ public final class RoundBasedTaskExecutorTest extends AbstractTest {
         final var executor = new RoundBasedTaskExecutor(taskQueue, 2);
 
         final var task1CallCount = new AtomicInteger();
-        final AtomicReference<Task> taskRef = new AtomicReference<>();
+        final AtomicReference<@Nullable Task> taskRef = new AtomicReference<>();
         final Task task1 = context.task(
                 "A",
                 () -> {
                     task1CallCount.incrementAndGet();
-                    final Task task = taskRef.get();
+                    final Task task = Objects.requireNonNull(taskRef.get());
                     taskQueue.queueTask(task);
                 },
                 Task.Flags.RUN_LATER);
@@ -202,12 +204,12 @@ public final class RoundBasedTaskExecutorTest extends AbstractTest {
         final var executor = new RoundBasedTaskExecutor(taskQueue, 2);
 
         final var task1CallCount = new AtomicInteger();
-        final AtomicReference<Task> taskRef = new AtomicReference<>();
+        final AtomicReference<@Nullable Task> taskRef = new AtomicReference<>();
         final Task task1 = context.task(
                 "A",
                 () -> {
                     task1CallCount.incrementAndGet();
-                    final Task task = taskRef.get();
+                    final Task task = Objects.requireNonNull(taskRef.get());
                     taskQueue.queueTask(task);
                 },
                 Task.Flags.RUN_LATER);
