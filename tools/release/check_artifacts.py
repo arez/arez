@@ -161,7 +161,7 @@ def check_isolated_processors(workspace: Path, root: Path) -> None:
     require(re.search(r'\b21[.]', run([str(java_home / "bin/java"), "--version"], workspace)) is not None,
             "Isolated processors must run on Java 21")
     dependencies = []
-    for label in ["@jspecify//file", "@braincheck//tools/release:braincheck_core_jar",
+    for label in ["@jspecify//file", "@braincheck//:core",
                   "@grim_annotations//file", "@jsinterop_annotations//file",
                   "@org_jetbrains_annotations//file", "@base//file", "@testng//file"]:
         paths = run(["bazel", "cquery", label, "--output=files"], workspace).splitlines()

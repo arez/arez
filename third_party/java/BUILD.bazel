@@ -141,7 +141,7 @@ alias(
 
 alias(
     name = "braincheck_core-j2cl",
-    actual = "@braincheck//core/src/main/java/org/realityforge/braincheck:core-j2cl",
+    actual = "@braincheck//:core-j2cl",
     visibility = [
         "//:__pkg__",
         "//third_party:__pkg__",
@@ -149,10 +149,9 @@ alias(
     ],
 )
 
-_java_import(
+alias(
     name = "braincheck_core",
-    jars = ["@braincheck//tools/release:braincheck_core_jar"],
-    srcjar = "@braincheck//tools/release:braincheck_core_sources_jar",
+    actual = "@braincheck//:core",
     visibility = [
         "//:__pkg__",
         "//core/src/main/java/arez:__pkg__",
@@ -168,23 +167,12 @@ _java_import(
         "//tools/browser:__pkg__",
         "//tools/release:__pkg__",
     ],
-    deps = [
-        ":jsinterop_annotations",
-        ":jspecify",
-    ],
 )
 
-_java_import(
+alias(
     name = "braincheck_testng",
-    jars = ["@braincheck//tools/release:braincheck_testng_jar"],
-    srcjar = "@braincheck//tools/release:braincheck_testng_sources_jar",
+    actual = "@braincheck//:testng",
     visibility = ["//core/src/test/java/arez:__pkg__"],
-    deps = [
-        ":javax_json",
-        ":jsinterop_annotations",
-        ":jspecify",
-        ":testng",
-    ],
 )
 
 # --- depgen-generated targets start ---
