@@ -1,3 +1,4 @@
+load("@rules_java//java:defs.bzl", "java_import", _java_plugin = "java_plugin")
 load("//third_party/java:rules.bzl", "java_library", "java_plugin")
 
 java_library(
@@ -29,4 +30,19 @@ test_suite(
     name = "all_tests",
     tests = ["//persist/processor/src/test/java/arez/persist/processor:all_tests"],
     visibility = ["//:__pkg__"],
+)
+
+java_import(
+    name = "packaged",
+    jars = ["//tools/release:persist_processor_jar"],
+    srcjar = "//tools/release:persist_processor_sources",
+    deps = [],
+)
+
+_java_plugin(
+    name = "packaged_plugin",
+    generates_api = True,
+    processor_class = "arez.persist.processor.ArezPersistProcessor",
+    visibility = ["//:__pkg__"],
+    deps = [":packaged"],
 )

@@ -103,7 +103,11 @@ j2cl_import(
     name = "jspecify-j2cl",
     jar = ":jspecify",
     visibility = [
-        "//:__pkg__",
+        "//core:__pkg__",
+        "//extras/dom:__pkg__",
+        "//extras/promise:__pkg__",
+        "//extras/spytools:__pkg__",
+        "//persist/core:__pkg__",
         "//persist/core/src/test/java/arez/persist/runtime/browser:__pkg__",
         "//third_party:__pkg__",
         "//tools/browser:__pkg__",
@@ -113,20 +117,33 @@ j2cl_import(
 j2cl_import(
     name = "grim_annotations-j2cl",
     jar = ":grim_annotations",
-    visibility = ["//:__pkg__"],
+    visibility = [
+        "//core:__pkg__",
+        "//extras/dom:__pkg__",
+        "//extras/promise:__pkg__",
+        "//extras/spytools:__pkg__",
+        "//persist/core:__pkg__",
+    ],
 )
 
 j2cl_import(
     name = "org_jetbrains_annotations-j2cl",
     jar = ":org_jetbrains_annotations",
-    visibility = ["//:__pkg__"],
+    visibility = [
+        "//core:__pkg__",
+        "//extras/spytools:__pkg__",
+    ],
 )
 
 alias(
     name = "jsinterop_annotations-j2cl",
     actual = "@j2cl//:jsinterop-annotations-j2cl",
     visibility = [
-        "//:__pkg__",
+        "//core:__pkg__",
+        "//extras/dom:__pkg__",
+        "//extras/promise:__pkg__",
+        "//extras/spytools:__pkg__",
+        "//persist/core:__pkg__",
         "//persist/core/src/test/java/arez/persist/runtime/browser:__pkg__",
         "//third_party:__pkg__",
         "//tools/browser:__pkg__",
@@ -136,14 +153,23 @@ alias(
 alias(
     name = "jsinterop_base-j2cl",
     actual = "@jsinterop_base//:jsinterop-base-j2cl",
-    visibility = ["//:__pkg__"],
+    visibility = [
+        "//extras/dom:__pkg__",
+        "//extras/promise:__pkg__",
+        "//extras/spytools:__pkg__",
+        "//persist/core:__pkg__",
+    ],
 )
 
 alias(
     name = "braincheck_core-j2cl",
     actual = "@braincheck//:core-j2cl",
     visibility = [
-        "//:__pkg__",
+        "//core:__pkg__",
+        "//extras/dom:__pkg__",
+        "//extras/promise:__pkg__",
+        "//extras/spytools:__pkg__",
+        "//persist/core:__pkg__",
         "//third_party:__pkg__",
         "//tools/browser:__pkg__",
     ],
@@ -153,7 +179,7 @@ alias(
     name = "braincheck_core",
     actual = "@braincheck//:core",
     visibility = [
-        "//:__pkg__",
+        "//core:__pkg__",
         "//core/src/main/java/arez:__pkg__",
         "//core/src/test/java/arez:__pkg__",
         "//extras/dom:__pkg__",
@@ -180,7 +206,7 @@ alias(
 # DO NOT EDIT: Content is auto-generated from //third_party/java:dependencies.yml by https://github.com/realityforge/bazel-depgen version 0.26
 
 # SHA256 of the configuration content that generated this content
-_CONFIG_SHA256 = "5C1360C031FED998CE52B7A8EE5DD19129D2C2982347C4EFBFC74AD78B934BDD"
+_CONFIG_SHA256 = "054F2C33E120D083F1C98C5B364F347817F692AB6DF25BD495974BFDA66DC089"
 
 exports_files(["dependencies.yml"])
 
@@ -294,7 +320,6 @@ _java_import(
     srcjar = "@base__sources//file",
     tags = ["maven_coordinates=com.google.jsinterop:base:1.2.0"],
     visibility = [
-        "//:__pkg__",
         "//extras/dom:__pkg__",
         "//extras/promise:__pkg__",
         "//extras/spytools:__pkg__",
@@ -313,7 +338,7 @@ _java_import(
     srcjar = "@jsinterop_annotations__sources//file",
     tags = ["maven_coordinates=com.google.jsinterop:jsinterop-annotations:2.0.0"],
     visibility = [
-        "//:__pkg__",
+        "//core:__pkg__",
         "//core/src/main/java/arez:__pkg__",
         "//extras/dom:__pkg__",
         "//extras/promise:__pkg__",
@@ -470,7 +495,7 @@ _java_import(
     srcjar = "@jspecify__sources//file",
     tags = ["maven_coordinates=org.jspecify:jspecify:1.0.1"],
     visibility = [
-        "//:__pkg__",
+        "//core:__pkg__",
         "//core/src/main/java/arez:__pkg__",
         "//core/src/test/java/arez:__pkg__",
         "//doc-examples:__pkg__",
@@ -531,7 +556,7 @@ _java_import(
     srcjar = "@grim_annotations__sources//file",
     tags = ["maven_coordinates=org.realityforge.grim:grim-annotations:0.09"],
     visibility = [
-        "//:__pkg__",
+        "//core:__pkg__",
         "//core/src/main/java/arez:__pkg__",
         "//extras/dom:__pkg__",
         "//extras/promise:__pkg__",
@@ -605,7 +630,7 @@ _java_import(
     srcjar = "@org_jetbrains_annotations__sources//file",
     tags = ["maven_coordinates=org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0"],
     visibility = [
-        "//:__pkg__",
+        "//core:__pkg__",
         "//core/src/main/java/arez:__pkg__",
         "//extras/spytools:__pkg__",
         "//persist/processor/src/test/java/arez/persist/processor:__pkg__",
@@ -637,7 +662,6 @@ _java_import(
     srcjar = "@testng__sources//file",
     tags = ["maven_coordinates=org.testng:testng:7.10.2"],
     visibility = [
-        "//:__pkg__",
         "//core/src/test/java/arez:__pkg__",
         "//extras/dom:__pkg__",
         "//extras/spytools:__pkg__",

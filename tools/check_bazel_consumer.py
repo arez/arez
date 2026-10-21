@@ -210,9 +210,12 @@ abstract class InvalidModel<T extends @Nullable Object> {
             print("Verified packaged mixed-constructor diagnostic")
             subprocess.run(command + ["build", "//:browser_bundle", "--noshow_progress"],
                            cwd=workspace, check=True)
-            for label in ("//core", "//processor:plugin", "//tools/release:core_sources",
+            for label in ("//core", "//core:packaged", "//core:packaged_j2cl",
+                          "//processor:packaged_plugin",
+                          "//persist/processor:packaged_plugin", "//processor:plugin",
+                          "//tools/release:core_sources",
                           "//tools/browser:production", "//third_party/java:jspecify",
-                          "//:_persist_processor_java", "//:jvm_tests", "//:LICENSE", "//core/src/main/java/arez:Arez.java",
+                          "//persist/processor:packaged", "//:jvm_tests", "//:LICENSE", "//core/src/main/java/arez:Arez.java",
                           "//third_party/java:dependencies.yml"):
                 denied = workspace / "denied"
                 denied.mkdir(exist_ok=True)

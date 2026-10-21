@@ -23,7 +23,7 @@ artifacts:
       - "//tools/testing:__pkg__"
   - coord: org.realityforge.grim:grim-annotations:0.09
     visibility:
-      - "//:__pkg__"
+      - "//core:__pkg__"
       - "//core/src/main/java/arez:__pkg__"
       - "//extras/dom:__pkg__"
       - "//extras/promise:__pkg__"
@@ -41,7 +41,7 @@ artifacts:
       - "//visibility:private"
   - coord: org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0
     visibility:
-      - "//:__pkg__"
+      - "//core:__pkg__"
       - "//core/src/main/java/arez:__pkg__"
       - "//extras/spytools:__pkg__"
       - "//persist/processor/src/test/java/arez/persist/processor:__pkg__"
@@ -49,7 +49,7 @@ artifacts:
       - "//tools/release:__pkg__"
   - coord: com.google.jsinterop:jsinterop-annotations:2.0.0
     visibility:
-      - "//:__pkg__"
+      - "//core:__pkg__"
       - "//core/src/main/java/arez:__pkg__"
       - "//extras/dom:__pkg__"
       - "//extras/promise:__pkg__"
@@ -62,7 +62,6 @@ artifacts:
       - "//tools/release:__pkg__"
   - coord: com.google.jsinterop:base:1.2.0
     visibility:
-      - "//:__pkg__"
       - "//extras/dom:__pkg__"
       - "//extras/promise:__pkg__"
       - "//extras/spytools:__pkg__"
@@ -70,7 +69,7 @@ artifacts:
       - "//tools/release:__pkg__"
   - coord: org.jspecify:jspecify:1.0.1
     visibility:
-      - "//:__pkg__"
+      - "//core:__pkg__"
       - "//core/src/main/java/arez:__pkg__"
       - "//core/src/test/java/arez:__pkg__"
       - "//doc-examples:__pkg__"
@@ -120,7 +119,6 @@ artifacts:
       - "//integration-tests:__pkg__"
   - coord: org.testng:testng:7.10.2
     visibility:
-      - "//:__pkg__"
       - "//core/src/test/java/arez:__pkg__"
       - "//extras/dom:__pkg__"
       - "//extras/spytools:__pkg__"

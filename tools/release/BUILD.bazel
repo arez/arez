@@ -25,7 +25,7 @@ release_jar(
     java_targets = ["//core/src/main/java/arez"],
     resource_entries = ["META-INF/LICENSE"],
     resource_files = ["//:LICENSE"],
-    visibility = ["//:__pkg__"],
+    visibility = ["//core:__pkg__"],
 )
 
 release_source_jar(
@@ -42,7 +42,7 @@ release_source_jar(
         "//core/src/main/java/arez:ArezConfig.native.js",
         "//core/src/main/java/arez:arez.js",
     ],
-    visibility = ["//:__pkg__"],
+    visibility = ["//core:__pkg__"],
 )
 
 release_jar(
@@ -75,7 +75,7 @@ release_jar(
     ],
     resource_entries = ["META-INF/LICENSE"],
     resource_files = ["//:LICENSE"],
-    visibility = ["//:__pkg__"],
+    visibility = ["//processor:__pkg__"],
 )
 
 release_source_jar(
@@ -93,7 +93,7 @@ release_source_jar(
         "//:LICENSE",
         "//processor/src/main/resources/META-INF/services:javax.annotation.processing.Processor",
     ],
-    visibility = ["//:__pkg__"],
+    visibility = ["//processor:__pkg__"],
 )
 
 release_jar(
@@ -102,7 +102,7 @@ release_jar(
     java_targets = ["//extras/dom"],
     resource_entries = ["META-INF/LICENSE"],
     resource_files = ["//:LICENSE"],
-    visibility = ["//:__pkg__"],
+    visibility = ["//extras/dom:__pkg__"],
 )
 
 release_source_jar(
@@ -111,7 +111,7 @@ release_source_jar(
     java_targets = ["//extras/dom"],
     resource_entries = ["META-INF/LICENSE"],
     resource_files = ["//:LICENSE"],
-    visibility = ["//:__pkg__"],
+    visibility = ["//extras/dom:__pkg__"],
 )
 
 release_jar(
@@ -120,7 +120,7 @@ release_jar(
     java_targets = ["//extras/promise"],
     resource_entries = ["META-INF/LICENSE"],
     resource_files = ["//:LICENSE"],
-    visibility = ["//:__pkg__"],
+    visibility = ["//extras/promise:__pkg__"],
 )
 
 release_source_jar(
@@ -129,7 +129,7 @@ release_source_jar(
     java_targets = ["//extras/promise"],
     resource_entries = ["META-INF/LICENSE"],
     resource_files = ["//:LICENSE"],
-    visibility = ["//:__pkg__"],
+    visibility = ["//extras/promise:__pkg__"],
 )
 
 release_jar(
@@ -138,7 +138,7 @@ release_jar(
     java_targets = ["//extras/spytools"],
     resource_entries = ["META-INF/LICENSE"],
     resource_files = ["//:LICENSE"],
-    visibility = ["//:__pkg__"],
+    visibility = ["//extras/spytools:__pkg__"],
 )
 
 release_source_jar(
@@ -147,7 +147,7 @@ release_source_jar(
     java_targets = ["//extras/spytools"],
     resource_entries = ["META-INF/LICENSE"],
     resource_files = ["//:LICENSE"],
-    visibility = ["//:__pkg__"],
+    visibility = ["//extras/spytools:__pkg__"],
 )
 
 release_jar(
@@ -156,7 +156,7 @@ release_jar(
     java_targets = ["//extras/testng"],
     resource_entries = ["META-INF/LICENSE"],
     resource_files = ["//:LICENSE"],
-    visibility = ["//:__pkg__"],
+    visibility = ["//extras/testng:__pkg__"],
 )
 
 release_source_jar(
@@ -165,7 +165,7 @@ release_source_jar(
     java_targets = ["//extras/testng"],
     resource_entries = ["META-INF/LICENSE"],
     resource_files = ["//:LICENSE"],
-    visibility = ["//:__pkg__"],
+    visibility = ["//extras/testng:__pkg__"],
 )
 
 release_jar(
@@ -174,7 +174,7 @@ release_jar(
     java_targets = ["//persist/core"],
     resource_entries = ["META-INF/LICENSE"],
     resource_files = ["//:LICENSE"],
-    visibility = ["//:__pkg__"],
+    visibility = ["//persist/core:__pkg__"],
 )
 
 release_source_jar(
@@ -191,7 +191,7 @@ release_source_jar(
         "//persist/core/src/main/java/arez/persist/runtime:ArezPersistConfig.native.js",
         "//persist/core/src/main/java/arez/persist/runtime:arez.persist.js",
     ],
-    visibility = ["//:__pkg__"],
+    visibility = ["//persist/core:__pkg__"],
 )
 
 release_jar(
@@ -225,7 +225,7 @@ release_jar(
     ],
     resource_entries = ["META-INF/LICENSE"],
     resource_files = ["//:LICENSE"],
-    visibility = ["//:__pkg__"],
+    visibility = ["//persist/processor:__pkg__"],
 )
 
 release_source_jar(
@@ -243,7 +243,7 @@ release_source_jar(
         "//:LICENSE",
         "//persist/processor/src/main/resources/META-INF/services:javax.annotation.processing.Processor",
     ],
-    visibility = ["//:__pkg__"],
+    visibility = ["//persist/processor:__pkg__"],
 )
 
 filegroup(

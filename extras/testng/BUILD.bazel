@@ -1,3 +1,4 @@
+load("@rules_java//java:defs.bzl", "java_import")
 load("//third_party/java:rules.bzl", "java_library")
 
 java_library(
@@ -11,6 +12,20 @@ java_library(
     ],
     deps = [
         "//core",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:jspecify",
+        "//third_party/java:testng",
+    ],
+)
+
+java_import(
+    name = "packaged",
+    jars = ["//tools/release:testng_jar"],
+    srcjar = "//tools/release:testng_sources",
+    visibility = ["//:__pkg__"],
+    deps = [
+        "//:core",
         "//third_party/java:braincheck_core",
         "//third_party/java:grim_annotations",
         "//third_party/java:jspecify",

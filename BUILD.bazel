@@ -1,5 +1,3 @@
-load("@j2cl//build_defs:rules.bzl", "j2cl_library")
-load("@rules_java//java:defs.bzl", "java_import", "java_plugin")
 load("@rules_palantir_java_format//:defs.bzl", "java_format_check")
 
 package(default_visibility = ["//visibility:private"])
@@ -72,226 +70,86 @@ java_format_check(
     ],
 )
 
-java_import(
+alias(
     name = "core",
-    jars = ["//tools/release:core_jar"],
-    srcjar = "//tools/release:core_sources",
+    actual = "//core:packaged",
     visibility = ["//visibility:public"],
-    exports = ["//third_party/java:braincheck_core"],
-    deps = [
-        "//third_party/java:braincheck_core",
-        "//third_party/java:grim_annotations",
-        "//third_party/java:jsinterop_annotations",
-        "//third_party/java:jspecify",
-        "//third_party/java:org_jetbrains_annotations",
-    ],
 )
 
-java_import(
+alias(
     name = "processor_runtime",
-    jars = ["//tools/release:processor_jar"],
-    srcjar = "//tools/release:processor_sources",
+    actual = "//processor:packaged",
     visibility = ["//visibility:public"],
-    deps = [],
 )
 
-java_import(
+alias(
     name = "dom",
-    jars = ["//tools/release:dom_jar"],
-    srcjar = "//tools/release:dom_sources",
+    actual = "//extras/dom:packaged",
     visibility = ["//visibility:public"],
-    deps = [
-        ":core",
-        "//third_party/java:base",
-        "//third_party/java:braincheck_core",
-        "//third_party/java:grim_annotations",
-        "//third_party/java:jsinterop_annotations",
-        "//third_party/java:jspecify",
-    ],
 )
 
-java_import(
+alias(
     name = "promise",
-    jars = ["//tools/release:promise_jar"],
-    srcjar = "//tools/release:promise_sources",
+    actual = "//extras/promise:packaged",
     visibility = ["//visibility:public"],
-    deps = [
-        ":core",
-        "//third_party/java:base",
-        "//third_party/java:braincheck_core",
-        "//third_party/java:grim_annotations",
-        "//third_party/java:jsinterop_annotations",
-        "//third_party/java:jspecify",
-    ],
 )
 
-java_import(
+alias(
     name = "spytools",
-    jars = ["//tools/release:spytools_jar"],
-    srcjar = "//tools/release:spytools_sources",
+    actual = "//extras/spytools:packaged",
     visibility = ["//visibility:public"],
-    deps = [
-        ":core",
-        "//third_party/java:base",
-        "//third_party/java:braincheck_core",
-        "//third_party/java:grim_annotations",
-        "//third_party/java:jsinterop_annotations",
-        "//third_party/java:jspecify",
-        "//third_party/java:org_jetbrains_annotations",
-    ],
 )
 
-java_import(
+alias(
     name = "testng",
-    jars = ["//tools/release:testng_jar"],
-    srcjar = "//tools/release:testng_sources",
+    actual = "//extras/testng:packaged",
     visibility = ["//visibility:public"],
-    deps = [
-        ":core",
-        "//third_party/java:braincheck_core",
-        "//third_party/java:grim_annotations",
-        "//third_party/java:jspecify",
-        "//third_party/java:testng",
-    ],
 )
 
-java_import(
+alias(
     name = "persist_core",
-    jars = ["//tools/release:persist_core_jar"],
-    srcjar = "//tools/release:persist_core_sources",
+    actual = "//persist/core:packaged",
     visibility = ["//visibility:public"],
-    deps = [
-        ":core",
-        "//third_party/java:base",
-        "//third_party/java:braincheck_core",
-        "//third_party/java:grim_annotations",
-        "//third_party/java:jsinterop_annotations",
-        "//third_party/java:jspecify",
-    ],
 )
 
-java_import(
-    name = "_persist_processor_java",
-    jars = ["//tools/release:persist_processor_jar"],
-    srcjar = "//tools/release:persist_processor_sources",
-    deps = [],
-)
-
-java_plugin(
+alias(
     name = "processor",
-    generates_api = True,
-    processor_class = "arez.processor.ArezProcessor",
+    actual = "//processor:packaged_plugin",
     visibility = ["//visibility:public"],
-    deps = [":processor_runtime"],
 )
 
-java_plugin(
+alias(
     name = "persist_processor",
-    generates_api = True,
-    processor_class = "arez.persist.processor.ArezPersistProcessor",
+    actual = "//persist/processor:packaged_plugin",
     visibility = ["//visibility:public"],
-    deps = [":_persist_processor_java"],
 )
 
-# These source archives are produced only after the owned Java and generated
-# sources pass Error Prone and JSpecify-mode NullAway.
-j2cl_library(
-    name = "_core_j2cl",
-    srcs = ["//tools/release:core_sources"],
-    experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
-    deps = [
-        "//third_party/java:braincheck_core-j2cl",
-        "//third_party/java:grim_annotations-j2cl",
-        "//third_party/java:jsinterop_annotations-j2cl",
-        "//third_party/java:jspecify-j2cl",
-        "//third_party/java:org_jetbrains_annotations-j2cl",
-    ],
-)
-
-j2cl_library(
-    name = "_promise_j2cl",
-    srcs = ["//tools/release:promise_sources"],
-    experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
-    deps = [
-        ":core-j2cl",
-        "//third_party/java:braincheck_core-j2cl",
-        "//third_party/java:grim_annotations-j2cl",
-        "//third_party/java:jsinterop_annotations-j2cl",
-        "//third_party/java:jsinterop_base-j2cl",
-        "//third_party/java:jspecify-j2cl",
-    ],
-)
-
-j2cl_library(
-    name = "_dom_j2cl",
-    srcs = ["//tools/release:dom_sources"],
-    experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
-    deps = [
-        ":core-j2cl",
-        "//third_party/java:braincheck_core-j2cl",
-        "//third_party/java:grim_annotations-j2cl",
-        "//third_party/java:jsinterop_annotations-j2cl",
-        "//third_party/java:jsinterop_base-j2cl",
-        "//third_party/java:jspecify-j2cl",
-    ],
-)
-
-j2cl_library(
-    name = "_spytools_j2cl",
-    srcs = ["//tools/release:spytools_sources"],
-    experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
-    deps = [
-        ":core-j2cl",
-        "//third_party/java:braincheck_core-j2cl",
-        "//third_party/java:grim_annotations-j2cl",
-        "//third_party/java:jsinterop_annotations-j2cl",
-        "//third_party/java:jsinterop_base-j2cl",
-        "//third_party/java:jspecify-j2cl",
-        "//third_party/java:org_jetbrains_annotations-j2cl",
-    ],
-)
-
-j2cl_library(
-    name = "_persist_core_j2cl",
-    srcs = ["//tools/release:persist_core_sources"],
-    experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
-    deps = [
-        ":core-j2cl",
-        "//third_party/java:braincheck_core-j2cl",
-        "//third_party/java:grim_annotations-j2cl",
-        "//third_party/java:jsinterop_annotations-j2cl",
-        "//third_party/java:jsinterop_base-j2cl",
-        "//third_party/java:jspecify-j2cl",
-    ],
-)
-
-# Public aliases keep generated Wasm/Kotlin companion targets private.
 alias(
     name = "core-j2cl",
-    actual = ":_core_j2cl",
+    actual = "//core:packaged_j2cl",
     visibility = ["//visibility:public"],
 )
 
 alias(
     name = "dom-j2cl",
-    actual = ":_dom_j2cl",
+    actual = "//extras/dom:packaged_j2cl",
     visibility = ["//visibility:public"],
 )
 
 alias(
     name = "promise-j2cl",
-    actual = ":_promise_j2cl",
+    actual = "//extras/promise:packaged_j2cl",
     visibility = ["//visibility:public"],
 )
 
 alias(
     name = "spytools-j2cl",
-    actual = ":_spytools_j2cl",
+    actual = "//extras/spytools:packaged_j2cl",
     visibility = ["//visibility:public"],
 )
 
 alias(
     name = "persist-core-j2cl",
-    actual = ":_persist_core_j2cl",
+    actual = "//persist/core:packaged_j2cl",
     visibility = ["//visibility:public"],
 )

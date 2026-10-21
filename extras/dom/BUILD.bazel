@@ -1,3 +1,5 @@
+load("@j2cl//build_defs:rules.bzl", "j2cl_library")
+load("@rules_java//java:defs.bzl", "java_import")
 load("//third_party/java:rules.bzl", "java_library", "java_testng")
 
 java_library(
@@ -35,5 +37,35 @@ java_testng(
         "//third_party/java:braincheck_core",
         "//third_party/java:guiceyloops",
         "//third_party/java:jspecify",
+    ],
+)
+
+java_import(
+    name = "packaged",
+    jars = ["//tools/release:dom_jar"],
+    srcjar = "//tools/release:dom_sources",
+    visibility = ["//:__pkg__"],
+    deps = [
+        "//:core",
+        "//third_party/java:base",
+        "//third_party/java:braincheck_core",
+        "//third_party/java:grim_annotations",
+        "//third_party/java:jsinterop_annotations",
+        "//third_party/java:jspecify",
+    ],
+)
+
+j2cl_library(
+    name = "packaged_j2cl",
+    srcs = ["//tools/release:dom_sources"],
+    experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
+    visibility = ["//:__pkg__"],
+    deps = [
+        "//:core-j2cl",
+        "//third_party/java:braincheck_core-j2cl",
+        "//third_party/java:grim_annotations-j2cl",
+        "//third_party/java:jsinterop_annotations-j2cl",
+        "//third_party/java:jsinterop_base-j2cl",
+        "//third_party/java:jspecify-j2cl",
     ],
 )

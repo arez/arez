@@ -1,3 +1,4 @@
+load("@rules_java//java:defs.bzl", "java_import", _java_plugin = "java_plugin")
 load("//third_party/java:rules.bzl", "java_library")
 
 java_library(
@@ -37,4 +38,20 @@ test_suite(
         "//processor/src/test/java/arez/processor:nullability",
     ],
     visibility = ["//visibility:private"],
+)
+
+java_import(
+    name = "packaged",
+    jars = ["//tools/release:processor_jar"],
+    srcjar = "//tools/release:processor_sources",
+    visibility = ["//:__pkg__"],
+    deps = [],
+)
+
+_java_plugin(
+    name = "packaged_plugin",
+    generates_api = True,
+    processor_class = "arez.processor.ArezProcessor",
+    visibility = ["//:__pkg__"],
+    deps = [":packaged"],
 )
