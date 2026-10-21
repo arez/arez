@@ -6,7 +6,7 @@ package(default_visibility = ["//visibility:private"])
 
 alias(
     name = "sting_processor_runtime",
-    actual = "@sting//:processor",
+    actual = "@sting//:processor_runtime",
     visibility = ["//processor/src/test/java/arez/processor:__pkg__"],
 )
 
@@ -44,17 +44,17 @@ alias(
 
 _java_library(
     name = "sting_processor",
-    exported_plugins = ["@sting//:sting_processor_plugin"],
+    exported_plugins = ["@sting//:processor"],
     visibility = [
         "//integration-tests:__pkg__",
         "//third_party:__pkg__",
     ],
-    exports = ["@sting//:processor"],
+    exports = ["@sting//:processor_runtime"],
 )
 
 alias(
     name = "nullaway_plugin",
-    actual = "@sting//third_party/java:nullaway_plugin",
+    actual = "@sting//third_party:nullaway_plugin",
     visibility = [
         "//core/src/main/java/arez:__pkg__",
         "//core/src/test/java/arez:__pkg__",
@@ -88,13 +88,13 @@ strict_checker_options(
 
 alias(
     name = "error_prone_core",
-    actual = "@sting//third_party/java:error_prone_core",
+    actual = "@sting//third_party:error_prone_core",
     visibility = ["//tools/testing:__pkg__"],
 )
 
 alias(
     name = "nullaway",
-    actual = "@sting//third_party/java:nullaway",
+    actual = "@sting//third_party:nullaway",
     visibility = ["//tools/testing:__pkg__"],
 )
 
