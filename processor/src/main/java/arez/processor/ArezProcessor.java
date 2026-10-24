@@ -56,7 +56,7 @@ import org.realityforge.proton.TypesUtil;
  * Annotation processor that analyzes Arez annotated source and generates models from the annotations.
  */
 @SupportedAnnotationTypes("arez.annotations.*")
-@SupportedSourceVersion(SourceVersion.RELEASE_17)
+@SupportedSourceVersion(SourceVersion.RELEASE_21)
 public final class ArezProcessor extends AbstractStandardProcessor {
 
     static final Pattern GETTER_PATTERN = Pattern.compile("^get([A-Z].*)$");

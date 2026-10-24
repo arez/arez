@@ -81,7 +81,7 @@ def check_archives(workspace: Path, root: Path, version: str) -> dict:
                 require(major <= 65, f"Shaded dependency requires newer than Java 21: {artifact}: {name}: {major}")
                 shaded += 1
             else:
-                require(major == 61, f"Owned class requires Java 17 bytecode: {artifact}: {name}: {major}")
+                require(major == 65, f"Owned class requires Java 21 bytecode: {artifact}: {name}: {major}")
                 require(name.startswith("arez/"), f"Unexpected unrelocated dependency: {artifact}: {name}")
                 source = name.split("$", 1)[0].removesuffix(".class") + ".java"
                 require(source in sources, f"Missing generated/authored source for owned class: {artifact}: {name}")
@@ -281,11 +281,11 @@ def check_isolated_processors(workspace: Path, root: Path) -> None:
               }
             }
             """))
-        run([str(java_home / "bin/javac"), "--release", "17", "-parameters", "-Werror",
+        run([str(java_home / "bin/javac"), "--release", "21", "-parameters", "-Werror",
              "-Xlint:all,-processing,-serial", "-sourcepath", "", "-implicit:none",
              "-XDaddTypeAnnotationsToSymbol=true", "-proc:none", "-classpath", classpath,
              "-d", str(classes), str(parent)], workspace)
-        run([str(java_home / "bin/javac"), "--release", "17", "-Werror", "-Xlint:all,-processing,-serial",
+        run([str(java_home / "bin/javac"), "--release", "21", "-Werror", "-Xlint:all,-processing,-serial",
              "-XDaddTypeAnnotationsToSymbol=true", "-sourcepath", "", "-implicit:none", *exports, "-classpath", classpath,
              "-processorpath", processorpath, "-processor", ",".join(PROCESSORS.values()),
              "-Aarez.format_generated_source=true", "-Aarez.persist.format_generated_source=true",
@@ -304,8 +304,8 @@ def check_isolated_processors(workspace: Path, root: Path) -> None:
              "-Dbraincheck.environment=development", "-Darez.persist.environment=development",
              "-classpath", classpath, "isolated.Consumer"], workspace)
         for path in classes.rglob("*.class"):
-            require(int.from_bytes(path.read_bytes()[6:8], "big") == 61,
-                    f"Isolated generated class must target Java 17: {path.name}")
+            require(int.from_bytes(path.read_bytes()[6:8], "big") == 65,
+                    f"Isolated generated class must target Java 21: {path.name}")
     print("Compiled inherited JSpecify contracts with both isolated Java 21 processors and ran all packaged JVM APIs")
 
 

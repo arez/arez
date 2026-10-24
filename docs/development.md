@@ -13,7 +13,7 @@
 
 Install Bash, Python 3, and Bazelisk (or the Bazel version in
 [`.bazelversion`](../.bazelversion)). Bazel downloads the pinned Java toolchains.
-Runtime and generated application classes target Java 17; running the published
+Runtime and generated application classes target Java 21; running the published
 annotation processors requires JDK 21 or later.
 
 Run commands from the repository root. To build the core library and processor

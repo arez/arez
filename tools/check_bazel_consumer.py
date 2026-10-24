@@ -61,7 +61,7 @@ java_binary(
     name = "consumer",
     srcs = ["Consumer.java", "Model.java", "ContainerModel.java"],
     main_class = "consumer.Consumer",
-    javacopts = ["--release", "17", "-Xlint:all,-processing,-serial", "-Werror"],
+    javacopts = ["--release", "21", "-Xlint:all,-processing,-serial", "-Werror"],
     plugins = ["@arez//:processor", "@arez//:persist_processor"],
     deps = ["@arez//:core", "@arez//:dom", "@arez//:promise", "@arez//:spytools",
             "@arez//:testng", "@arez//:persist_core", "@arez//third_party:jspecify"],

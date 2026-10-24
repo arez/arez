@@ -38,7 +38,7 @@ import org.realityforge.proton.StopWatch;
  */
 @SupportedAnnotationTypes({Constants.PERSIST_TYPE_CLASSNAME, Constants.PERSIST_ID_CLASSNAME, Constants.PERSIST_CLASSNAME
 })
-@SupportedSourceVersion(SourceVersion.RELEASE_17)
+@SupportedSourceVersion(SourceVersion.RELEASE_21)
 public final class ArezPersistProcessor extends AbstractStandardProcessor {
 
     private static final Pattern GETTER_PATTERN = Pattern.compile("^get([A-Z].*)$");
