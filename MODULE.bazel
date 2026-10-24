@@ -17,7 +17,7 @@ git_override(
 bazel_dep(name = "sting")
 git_override(
     module_name = "sting",
-    commit = "1d7bcfe67d52175d9e0d935fe4e181c2f4ad8ce8",
+    commit = "a399fee417e0a7650a61652167061f1d08c07b5f",
     remote = "https://github.com/sting-ioc/sting.git",
 )
 

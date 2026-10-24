@@ -27,10 +27,10 @@ visibility([
     "//tools/testing",
 ])
 
-# Java 17 products use the same strict checker policy as the pinned Sting module.
+# Owned Java products use the strict checker policy shared with Sting.
 _JAVACOPTS = [
     "--release",
-    "17",
+    "21",
     "-Werror",
     "-Xlint:all,-processing,-serial,-this-escape",
     "-Xmaxerrs",

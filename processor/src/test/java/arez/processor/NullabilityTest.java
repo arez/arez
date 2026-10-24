@@ -31,7 +31,7 @@ public final class NullabilityTest extends ArezProcessorTestSupport {
 
             @Override
             public SourceVersion getSupportedSourceVersion() {
-                return SourceVersion.RELEASE_17;
+                return SourceVersion.RELEASE_21;
             }
 
             @Override

@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Breaking: require Java 21 for runtime libraries and generated application sources. Align both annotation processors, consumer compilation checks and publication bytecode with the new baseline.
 * Pin the consolidated J2CL compiler and matching Braincheck/Sting revisions; remove the local J2CL patches.
 * Preserve final-round visitor generation so types created by other annotation processors remain visible, accepting the compiler warnings.
 * Use the upstream rules_closure protobuf-rule migration and remove the redundant local patch.

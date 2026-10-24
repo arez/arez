@@ -10,7 +10,7 @@ abstract class ArezProcessorTestSupport extends AbstractProcessorTest {
     protected List<String> getOptions() {
         final List<String> options = new ArrayList<>(super.getOptions());
         options.add("--release");
-        options.add("17");
+        options.add("21");
         options.add("-XDaddTypeAnnotationsToSymbol=true");
         return options;
     }

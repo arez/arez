@@ -10,7 +10,7 @@ is however the only IDE that the authors have experience with when tuning the co
 Use Bazel for repository compilation and generation. Build the relevant targets before importing their
 generated sources into the IDE; `bazel test //:jvm_tests` and `tools/check.sh` remain the verification commands.
 
-If the IDE compiles application sources directly, run its compiler on JDK 21 or later with Java 17 output.
+If the IDE compiles application sources directly, run its compiler on JDK 21 or later with Java 21 output.
 Configure both packaged processors as needed, JSpecify on the application classpath, the
 `-XDaddTypeAnnotationsToSymbol=true` compiler flag and the formatter JVM exports described in
 [project setup](project_setup.md). The processor path contains the assembled `arez-processor.jar` and,

@@ -2,9 +2,9 @@
 title: Project Setup
 ---
 
-Arez supports Java 17 runtime applications and J2CL browser applications. Annotation processing
-requires JDK 21 or later. This repository builds with Bazel; published binary and source archives
-also support other build systems with annotation processor configuration.
+Arez requires Java 21 for runtime applications, generated sources and J2CL browser applications.
+Annotation processing requires JDK 21 or later. This repository builds with Bazel; published binary
+and source archives also support other build systems with annotation processor configuration.
 
 Use JSpecify `@NullMarked` scopes and type-use `@Nullable` annotations. Legacy `javax.annotation`
 and JetBrains nullability annotations are ignored by the processors. Nullness-sensitive component
@@ -56,7 +56,7 @@ Configure annotation processing with the Maven compiler plugin:
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.12.1</version>
         <configuration>
-          <release>17</release>
+          <release>21</release>
           <useIncrementalCompilation>false</useIncrementalCompilation>
           <compilerArgs>
             <arg>-XDaddTypeAnnotationsToSymbol=true</arg>
