@@ -33,7 +33,7 @@
 * Recognize annotated Observer and ComputableValue hook parameters by their declared Java type. Nullable observable initializers are diagnosed against the getter’s JSpecify contract.
 * Upgrade processor infrastructure to the pinned post-0.76 Proton module and require Java 21 to run processors. Generated code uses JSpecify type annotations and marked scopes. Nullness decisions honor declaration defaults and inherited generic bindings; unspecified initialization contracts are diagnosed. Legacy javax and JetBrains nullability annotations are ignored.
 * Replace core nullability annotations with JSpecify marked scopes. Nullable action arrays and their nullable elements are separate contracts; callback value types remain parametric and may include null.
-* Upgrade the development and CI Bazel version to 9.3.0 with pinned Java toolchains.
+* Upgrade the development and CI Bazel version to 9.3.1 with pinned Java toolchains.
 
 ### [v0.256](https://github.com/arez/arez/tree/v0.256) (2026-08-25) · [Full Changelog](https://github.com/arez/arez/compare/v0.255...v0.256)
 
