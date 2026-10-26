@@ -88,6 +88,7 @@ java_testng(
         "arez.integration.memoize.MemoizeNonArezDependenciesComponentTest",
         "arez.integration.memoize.MemoizeNonArezDependenciesOnActivateComputableValueIntegrationTest",
         "arez.integration.memoize.MemoizeReadOutsideTransactionTest",
+        "arez.integration.memoize.MemoizeWriteOutsideTransactionIntegrationTest",
         "arez.integration.memoize.MemoizedIntegrationTest",
         "arez.integration.memoize.MemoizedObservesLowerPriorityIntegrationTest",
         "arez.integration.memoize.MemoizedPriorityIntegrationTest",

@@ -7,6 +7,7 @@ import arez.ArezContext;
 import arez.ComputableValue;
 import arez.annotations.ArezComponent;
 import arez.annotations.DepType;
+import arez.annotations.Feature;
 import arez.annotations.Memoize;
 import arez.annotations.OnActivate;
 import arez.integration.AbstractArezIntegrationTest;
@@ -41,7 +42,7 @@ public final class MemoizeNonArezDependenciesOnActivateComputableValueIntegratio
         assertEquals(element._callCount, 1);
         assertEquals(element._activateCount, 1);
 
-        context.action(element::reportExternalChange);
+        element.reportExternalChange();
 
         context.action(() -> assertEquals(element.getMemoized(), ""));
 
@@ -51,7 +52,7 @@ public final class MemoizeNonArezDependenciesOnActivateComputableValueIntegratio
 
         element._result = "NewValue";
 
-        context.action(element::reportExternalChange);
+        element.reportExternalChange();
 
         context.action(() -> assertEquals(element.getMemoized(), "NewValue"));
 
@@ -79,7 +80,7 @@ public final class MemoizeNonArezDependenciesOnActivateComputableValueIntegratio
             _result = result;
         }
 
-        @Memoize(depType = DepType.AREZ_OR_EXTERNAL)
+        @Memoize(depType = DepType.AREZ_OR_EXTERNAL, writeOutsideTransaction = Feature.ENABLE)
         String getMemoized() {
             _callCount++;
             return _result;

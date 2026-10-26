@@ -170,7 +170,8 @@ public final class MemoizeCache<T extends @Nullable Object> implements Disposabl
                     | ComputableValue.Flags.AREZ_OR_NO_DEPENDENCIES
                     | ComputableValue.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES
                     | ComputableValue.Flags.OBSERVE_LOWER_PRIORITY_DEPENDENCIES
-                    | ComputableValue.Flags.READ_OUTSIDE_TRANSACTION;
+                    | ComputableValue.Flags.READ_OUTSIDE_TRANSACTION
+                    | ComputableValue.Flags.WRITE_OUTSIDE_TRANSACTION;
 
             apiInvariant(
                     () -> (~mask & flags) == 0,

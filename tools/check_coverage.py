@@ -8,9 +8,9 @@ from pathlib import Path
 # Raise these floors as behavior tests improve coverage. Core and processor aim
 # for 98% lines and 90% branches; do not exclude untested code to reach the goal.
 MINIMUMS = {
-    'core': (97.43, 82.21),
-    'processor': (97.99, 90.38),
-    'extras/dom': (10.29, 4.05),
+    'core': (97.43, 82.23),
+    'processor': (97.99, 90.43),
+    'extras/dom': (20.00, 9.45),
     'extras/spytools': (13.88, 24.47),
     'persist/core': (74.31, 63.73),
     'persist/processor': (98.41, 91.81),

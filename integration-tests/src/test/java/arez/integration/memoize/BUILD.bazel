@@ -12,6 +12,7 @@ filegroup(
         "MemoizeNonArezDependenciesComponentTest.java",
         "MemoizeNonArezDependenciesOnActivateComputableValueIntegrationTest.java",
         "MemoizeReadOutsideTransactionTest.java",
+        "MemoizeWriteOutsideTransactionIntegrationTest.java",
         "MemoizedIntegrationTest.java",
         "MemoizedObservesLowerPriorityIntegrationTest.java",
         "MemoizedPriorityIntegrationTest.java",

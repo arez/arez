@@ -29,6 +29,7 @@ java_testng(
     ],
     test_classes = [
         "arez.dom.EventDrivenValueTest",
+        "arez.dom.MediaQueryTest",
     ],
     visibility = ["//:__pkg__"],
     deps = [

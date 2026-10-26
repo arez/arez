@@ -81,3 +81,9 @@ integrate with event based systems or event-driven reactive frameworks such as [
 It should be noted that the {@link: arez.ComputableValue#reportPossiblyChanged()}
 can only be invoked if the {@link: arez.ComputableValue} was created with the flag
 {@link: arez.ComputableValue.Flags#AREZ_OR_EXTERNAL_DEPENDENCIES}.
+
+The notification requires a read-write transaction. Add
+{@link: arez.ComputableValue.Flags#WRITE_OUTSIDE_TRANSACTION} to create an action automatically when no
+transaction is active. Existing read-only transactions still reject the notification. Pending reactions may
+run before the call returns; use an explicit action to batch related updates. Inactive computable values
+remain lazy until observed again.

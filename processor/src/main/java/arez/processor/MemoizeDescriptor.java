@@ -45,6 +45,9 @@ final class MemoizeDescriptor {
     private String _readOutsideTransaction;
 
     @Nullable
+    private String _writeOutsideTransaction;
+
+    @Nullable
     private String _depType;
 
     private String _equalityComparator = Constants.OBJECTS_EQUALS_COMPARATOR_CLASSNAME;
@@ -113,6 +116,7 @@ final class MemoizeDescriptor {
             final boolean reportResult,
             final boolean observeLowerPriorityDependencies,
             final String readOutsideTransaction,
+            final String writeOutsideTransaction,
             final String depType,
             final String equalityComparator)
             throws ProcessorException {
@@ -130,8 +134,15 @@ final class MemoizeDescriptor {
         _reportResult = reportResult;
         _observeLowerPriorityDependencies = observeLowerPriorityDependencies;
         _readOutsideTransaction = readOutsideTransaction;
+        _writeOutsideTransaction = writeOutsideTransaction;
         _depType = depType;
         _equalityComparator = equalityComparator;
+
+        if ("ENABLE".equals(writeOutsideTransaction) && !"AREZ_OR_EXTERNAL".equals(depType)) {
+            throw new ProcessorException(
+                    "@Memoize target specified writeOutsideTransaction = ENABLE but depType is not AREZ_OR_EXTERNAL.",
+                    method);
+        }
 
         if (ComponentGenerator.isMethodReturnType(getMethod(), Stream.class)) {
             throw new ProcessorException(
@@ -372,6 +383,13 @@ final class MemoizeDescriptor {
     String getDepType() {
         assert null != _depType;
         return _depType;
+    }
+
+    boolean canWriteOutsideTransaction() {
+        return "AREZ_OR_EXTERNAL".equals(getDepType())
+                && ("ENABLE".equals(_writeOutsideTransaction)
+                        || ("AUTODETECT".equals(_writeOutsideTransaction)
+                                && getComponent().defaultWriteOutsideTransaction()));
     }
 
     String getEqualityComparator() {

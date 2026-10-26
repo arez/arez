@@ -1,10 +1,10 @@
 package arez.doc.examples.at_memoize2;
 
 import arez.ComputableValue;
-import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComputableValueRef;
 import arez.annotations.DepType;
+import arez.annotations.Feature;
 import arez.annotations.Memoize;
 import arez.annotations.OnActivate;
 import arez.annotations.OnDeactivate;
@@ -34,11 +34,12 @@ public abstract class NetworkStatus {
     }
     // DOC ELIDE END
 
-    private final @Nullable EventListener _listener = e -> updateOnlineStatus();
+    private final @Nullable EventListener _listener =
+            e -> getOnLineComputableValue().reportPossiblyChanged();
 
     // Specify depType so can explicitly trigger a recalculation
     // of method using reportPossiblyChanged()
-    @Memoize(depType = DepType.AREZ_OR_EXTERNAL)
+    @Memoize(depType = DepType.AREZ_OR_EXTERNAL, writeOutsideTransaction = Feature.ENABLE)
     public boolean isOnLine() {
         return navigator().onLine();
     }
@@ -56,12 +57,6 @@ public abstract class NetworkStatus {
     void onOnLineDeactivate() {
         removeEventListener("online", _listener);
         removeEventListener("offline", _listener);
-    }
-
-    @Action
-    void updateOnlineStatus() {
-        // Explicitly trigger a recalculation of the OnLine value
-        getOnLineComputableValue().reportPossiblyChanged();
     }
 
     // DOC ELIDE START

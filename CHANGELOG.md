@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Add `@Memoize.writeOutsideTransaction` and `ComputableValue.Flags.WRITE_OUTSIDE_TRANSACTION` to create an action for external invalidation when needed. Memoized values with external dependencies inherit the component write default; explicitly enabling the option for other dependency types is a compile-time error. Simplify notification-only DOM adapters while retaining actions that batch related changes.
 * Breaking: keep generated component implementations and constructors package-private for cross-package reference/inverse relationships. Generate public internal relationship sidecars for the required cross-package calls.
 * Breaking: require Java 21 for runtime libraries and generated application sources. Align both annotation processors, consumer compilation checks and publication bytecode with the new baseline.
 * Pin the consolidated J2CL compiler and matching Braincheck/Sting revisions; remove the local J2CL patches.

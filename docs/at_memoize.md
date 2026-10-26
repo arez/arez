@@ -77,6 +77,16 @@ recalculation of the memoized value. To do this the `depType` parameter of the `
 to `AREZ_OR_EXTERNAL` and the application needs to explicitly invoke `reportPossiblyChanged()` on the associated
 {@link: arez.ComputableValue}.
 
+Set `writeOutsideTransaction = Feature.ENABLE` to allow this notification directly from an external callback.
+Arez creates an action if no transaction is active. `AUTODETECT`, the default, inherits
+{@link: arez.annotations.ArezComponent#defaultWriteOutsideTransaction()}; if that is also `AUTODETECT`, the
+option is disabled. Explicit `ENABLE` requires `depType = AREZ_OR_EXTERNAL`. Inherited defaults have no effect
+on other dependency types.
+
+Existing transactions must still permit writes. An automatic action can run reactions before
+`reportPossiblyChanged()` returns, so keep an explicit action around callbacks that update several related
+values or invalidate several memoized values together.
+
 For example, the above example could be rewritten more efficiently as:
 
 {@file_content: file=arez/doc/examples/at_memoize2/NetworkStatus.java start_line=@ArezComponent "end_line=^}"}

@@ -117,6 +117,20 @@ public @interface Memoize {
     Feature readOutsideTransaction() default Feature.AUTODETECT;
 
     /**
+     * Indicate whether {@link ComputableValue#reportPossiblyChanged()} creates an action when
+     * no transaction is active. Existing transactions must still permit writes. Pending reactions
+     * may run before the call returns; use an explicit action to batch related changes.
+     *
+     * <p>{@link Feature#AUTODETECT} inherits {@link ArezComponent#defaultWriteOutsideTransaction()}.
+     * This option only applies when {@link #depType()} is {@link DepType#AREZ_OR_EXTERNAL}.
+     * Explicitly enabling it for another dependency type is an error; inherited defaults have
+     * no effect on other dependency types.</p>
+     *
+     * @return flag controlling whether external invalidation creates an action when needed.
+     */
+    Feature writeOutsideTransaction() default Feature.AUTODETECT;
+
+    /**
      * Return the strategy used to compare computed values when deciding whether to
      * propagate a change. If this parameter is left as {@link EqualityComparator} then the
      * annotation processor will derive the comparator from the exact declared return type when

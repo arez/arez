@@ -3,6 +3,7 @@ filegroup(
     srcs = [
         "AbstractTest.java",
         "EventDrivenValueTest.java",
+        "MediaQueryTest.java",
         "TestEventTarget.java",
         "package-info.java",
     ],
