@@ -378,10 +378,6 @@ final class ComponentDescriptor {
         return _sting;
     }
 
-    boolean shouldGeneratedClassBePublic(final ProcessingEnvironment processingEnv) {
-        return hasReferenceWithInverseOutsidePackage(processingEnv) || hasInverseReferencedOutsidePackage();
-    }
-
     ClassName getEnhancedClassName() {
         return GeneratorUtil.getGeneratedClassName(getElement(), "Arez_", "");
     }

@@ -995,7 +995,12 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
         final String output2 =
                 toFilename("com.example.post_inverse_add.other.BaseProtectedAccessPostInverseAddModel_Arez_Element");
         assertSuccessfulFixtureCompile(
-                Arrays.asList(fixture(input1), fixture(input2)), Arrays.asList(output1, output2));
+                Arrays.asList(fixture(input1), fixture(input2)),
+                Arrays.asList(
+                        output1,
+                        output2,
+                        output1.replace(".java", "_References.java"),
+                        output2.replace(".java", "_References.java")));
     }
 
     @Test
@@ -1060,7 +1065,12 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
         final String output2 = toFilename(
                 "com.example.pre_inverse_remove.other.BaseProtectedAccessPreInverseRemoveModel_Arez_Element");
         assertSuccessfulFixtureCompile(
-                Arrays.asList(fixture(input1), fixture(input2)), Arrays.asList(output1, output2));
+                Arrays.asList(fixture(input1), fixture(input2)),
+                Arrays.asList(
+                        output1,
+                        output2,
+                        output1.replace(".java", "_References.java"),
+                        output2.replace(".java", "_References.java")));
     }
 
     @Test
@@ -1149,7 +1159,13 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
         final JavaFileObject source3 = fixture("input/com/example/inheritance/other/OtherElement.java");
         final String output1 = "com/example/inheritance/Arez_CompleteInterfaceModel.java";
         final String output2 = "com/example/inheritance/other/Arez_OtherElement.java";
-        assertSuccessfulFixtureCompile(Arrays.asList(source1, source2, source3), Arrays.asList(output1, output2));
+        assertSuccessfulFixtureCompile(
+                Arrays.asList(source1, source2, source3),
+                Arrays.asList(
+                        output1,
+                        output2,
+                        output1.replace(".java", "_References.java"),
+                        output2.replace(".java", "_References.java")));
     }
 
     @Test
@@ -1159,7 +1175,13 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
         final JavaFileObject source3 = fixture("input/com/example/inheritance/other/Element.java");
         final String output1 = "com/example/inheritance/Arez_CompleteModel.java";
         final String output2 = "com/example/inheritance/other/Arez_Element.java";
-        assertSuccessfulFixtureCompile(Arrays.asList(source1, source2, source3), Arrays.asList(output1, output2));
+        assertSuccessfulFixtureCompile(
+                Arrays.asList(source1, source2, source3),
+                Arrays.asList(
+                        output1,
+                        output2,
+                        output1.replace(".java", "_References.java"),
+                        output2.replace(".java", "_References.java")));
     }
 
     @Test
@@ -1189,7 +1211,62 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
         final JavaFileObject source2 = fixture("input/com/example/inverse/other/Element.java");
         final String output1 = "com/example/inverse/Arez_PackageAccessWithDifferentPackageInverseModel.java";
         final String output2 = "com/example/inverse/other/Arez_Element.java";
-        assertSuccessfulFixtureCompile(Arrays.asList(source1, source2), Arrays.asList(output1, output2));
+        assertSuccessfulFixtureCompile(
+                Arrays.asList(source1, source2),
+                Arrays.asList(
+                        output1,
+                        output2,
+                        output1.replace(".java", "_References.java"),
+                        output2.replace(".java", "_References.java")));
+    }
+
+    @DataProvider
+    public Object[][] crossPackageRelationships() {
+        return new Object[][] {
+            {
+                List.of(
+                        "com.example.inverse.PackageAccessWithDifferentPackageInverseModel",
+                        "com.example.inverse.other.Element"),
+                List.of(
+                        "com.example.inverse.PackageAccessWithDifferentPackageInverseModel",
+                        "com.example.inverse.other.Element")
+            },
+            {
+                List.of(
+                        "com.example.inheritance.CompleteModel",
+                        "com.example.inheritance.other.BaseCompleteModel",
+                        "com.example.inheritance.other.Element"),
+                List.of("com.example.inheritance.CompleteModel", "com.example.inheritance.other.Element")
+            },
+            {
+                List.of(
+                        "com.example.post_inverse_add.ProtectedAccessFromBasePostInverseAddModel",
+                        "com.example.post_inverse_add.other.BaseProtectedAccessPostInverseAddModel"),
+                List.of("com.example.post_inverse_add.ProtectedAccessFromBasePostInverseAddModel")
+            }
+        };
+    }
+
+    @Test(dataProvider = "crossPackageRelationships")
+    public void crossPackageRelationshipsCompileIncrementally(final List<String> sources, final List<String> components)
+            throws Exception {
+        final List<String> initialOptions = new ArrayList<>(getOptions());
+        initialOptions.add("-parameters");
+        final Compilation initial = CompileTestUtil.assertCompilesWithoutWarnings(
+                inputs(sources.toArray(new String[0])), initialOptions, processors(), Collections.emptyList());
+        try {
+            final List<String> options = new ArrayList<>(getOptions());
+            options.add("-classpath");
+            options.add(System.getProperty("java.class.path") + File.pathSeparator + initial.classOutput());
+            for (final String component : components) {
+                final String output = toFilename(component, "Arez_", ".java");
+                assertSuccessfulFixtureCompile(
+                        inputs(component), List.of(output, output.replace(".java", "_References.java")), options);
+            }
+        } finally {
+            deleteDir(initial.classOutput());
+            deleteDir(initial.sourceOutput());
+        }
     }
 
     @Test

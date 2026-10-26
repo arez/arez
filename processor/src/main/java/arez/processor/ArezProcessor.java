@@ -217,7 +217,14 @@ public final class ArezProcessor extends AbstractStandardProcessor {
 
     private void process(final TypeElement element) throws IOException, ProcessorException {
         final ComponentDescriptor descriptor = parse(element);
-        emitTypeSpec(descriptor.getPackageName(), ComponentGenerator.buildType(processingEnv, descriptor));
+        final var implementation = ComponentGenerator.buildType(processingEnv, descriptor);
+        emitTypeSpec(descriptor.getPackageName(), implementation);
+        if (descriptor.hasReferenceWithInverseOutsidePackage(processingEnv)
+                || descriptor.hasInverseReferencedOutsidePackage()) {
+            emitTypeSpec(
+                    descriptor.getPackageName(),
+                    ComponentGenerator.buildReferencesType(processingEnv, descriptor, implementation));
+        }
     }
 
     private void warnOnPublicConstructorsInArezComponentLikeTypes(final RoundEnvironment env) {

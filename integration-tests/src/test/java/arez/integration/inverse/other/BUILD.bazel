@@ -1,0 +1,5 @@
+filegroup(
+    name = "all",
+    srcs = ["CrossPackageReferences.java"],
+    visibility = ["//integration-tests/src/test/java/arez/integration/inverse:__pkg__"],
+)

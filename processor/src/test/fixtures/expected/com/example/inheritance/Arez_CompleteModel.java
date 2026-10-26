@@ -16,7 +16,7 @@ import arez.component.Verifiable;
 import arez.component.internal.CollectionsUtil;
 import arez.component.internal.ComponentKernel;
 import arez.component.internal.MemoizeCache;
-import com.example.inheritance.other.Arez_Element;
+import com.example.inheritance.other.Arez_Element_References;
 import com.example.inheritance.other.BaseCompleteModel;
 import com.example.inheritance.other.Element;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import org.realityforge.braincheck.Guards;
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
 @NullMarked
-public final class Arez_CompleteModel extends CompleteModel implements Disposable,
+final class Arez_CompleteModel extends CompleteModel implements Disposable,
     Identifiable<Byte>,
     Verifiable,
     DisposeNotifier {
@@ -73,7 +73,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
 
   private BaseCompleteModel. @Nullable MyEntity $$arezr$$_myEntity;
 
-  public Arez_CompleteModel() {
+  Arez_CompleteModel() {
     super();
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( Arez::areReferencesEnabled, () -> "Attempted to create instance of component of type 'com_example_inheritance_CompleteModel' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component" );
@@ -167,10 +167,10 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     super.preDispose();
     Disposable.dispose( _myDisposableField );
     for ( final Element other : new ArrayList<>( $$arezd$$_elements ) ) {
-      ( (Arez_Element) other ).$$arezi$$_delink_completeModel();
+      Arez_Element_References.$$arezi$$_delink_completeModel( other );
     }
     if ( null != $$arezd$$_parentGeneralisation ) {
-      ( (Arez_Element) $$arezd$$_parentGeneralisation ).$$arezi$$_delink_child();
+      Arez_Element_References.$$arezi$$_delink_child( $$arezd$$_parentGeneralisation );
     }
   }
 
@@ -494,7 +494,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     }
   }
 
-  public void $$arezir$$_elements_add(final Element element) {
+  void $$arezir$$_elements_add(final Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_elements_add' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
@@ -509,7 +509,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     this.$$arez$$_elements.reportChanged();
   }
 
-  public void $$arezir$$_elements_remove(final Element element) {
+  void $$arezir$$_elements_remove(final Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_elements_remove' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
@@ -524,7 +524,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     this.$$arez$$_elements.reportChanged();
   }
 
-  public void $$arezir$$_parentGeneralisation_zset(final @Nullable Element element) {
+  void $$arezir$$_parentGeneralisation_zset(final @Nullable Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_parentGeneralisation_zset' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
@@ -533,7 +533,7 @@ public final class Arez_CompleteModel extends CompleteModel implements Disposabl
     this.$$arez$$_parentGeneralisation.reportChanged();
   }
 
-  public void $$arezir$$_parentGeneralisation_zunset(final Element element) {
+  void $$arezir$$_parentGeneralisation_zunset(final Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_parentGeneralisation_zunset' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }

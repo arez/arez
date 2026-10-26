@@ -13,7 +13,7 @@ import arez.component.Verifiable;
 import arez.component.internal.CollectionsUtil;
 import arez.component.internal.ComponentKernel;
 import com.example.pre_inverse_remove.other.BaseProtectedAccessPreInverseRemoveModel;
-import com.example.pre_inverse_remove.other.BaseProtectedAccessPreInverseRemoveModel_Arez_Element;
+import com.example.pre_inverse_remove.other.BaseProtectedAccessPreInverseRemoveModel_Arez_Element_References;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -24,7 +24,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @NullMarked
-public final class Arez_ProtectedAccessFromBasePreInverseRemoveModel extends ProtectedAccessFromBasePreInverseRemoveModel implements Disposable,
+final class Arez_ProtectedAccessFromBasePreInverseRemoveModel extends ProtectedAccessFromBasePreInverseRemoveModel implements Disposable,
     Identifiable<Integer>,
     Verifiable,
     DisposeNotifier {
@@ -39,7 +39,7 @@ public final class Arez_ProtectedAccessFromBasePreInverseRemoveModel extends Pro
   private @Nullable Collection<BaseProtectedAccessPreInverseRemoveModel.Element> $$arezd$$_$$cache$$_elements;
 
   @SuppressWarnings("NonAtomicVolatileUpdate")
-  public Arez_ProtectedAccessFromBasePreInverseRemoveModel() {
+  Arez_ProtectedAccessFromBasePreInverseRemoveModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ++$$arezi$$_nextId;
@@ -83,7 +83,7 @@ public final class Arez_ProtectedAccessFromBasePreInverseRemoveModel extends Pro
 
   private void $$arezi$$_preDispose() {
     for ( final BaseProtectedAccessPreInverseRemoveModel.Element other : new ArrayList<>( $$arezd$$_elements ) ) {
-      ( (BaseProtectedAccessPreInverseRemoveModel_Arez_Element) other ).$$arezi$$_delink_other();
+      BaseProtectedAccessPreInverseRemoveModel_Arez_Element_References.$$arezi$$_delink_other( other );
     }
   }
 
@@ -176,8 +176,7 @@ public final class Arez_ProtectedAccessFromBasePreInverseRemoveModel extends Pro
     }
   }
 
-  public void $$arezir$$_elements_add(
-      final BaseProtectedAccessPreInverseRemoveModel.Element element) {
+  void $$arezir$$_elements_add(final BaseProtectedAccessPreInverseRemoveModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_elements_add' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
@@ -192,8 +191,7 @@ public final class Arez_ProtectedAccessFromBasePreInverseRemoveModel extends Pro
     this.$$arez$$_elements.reportChanged();
   }
 
-  public void $$arezir$$_elements_remove(
-      final BaseProtectedAccessPreInverseRemoveModel.Element element) {
+  void $$arezir$$_elements_remove(final BaseProtectedAccessPreInverseRemoveModel.Element element) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_elements_remove' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }

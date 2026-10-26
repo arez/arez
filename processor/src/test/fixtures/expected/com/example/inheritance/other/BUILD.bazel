@@ -2,7 +2,9 @@ filegroup(
     name = "all",
     srcs = [
         "Arez_Element.java",
+        "Arez_Element_References.java",
         "Arez_OtherElement.java",
+        "Arez_OtherElement_References.java",
     ],
     visibility = ["//processor/src/test/fixtures/expected/com/example/inheritance:__pkg__"],
 )

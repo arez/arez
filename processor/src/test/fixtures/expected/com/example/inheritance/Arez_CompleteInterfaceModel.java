@@ -16,7 +16,7 @@ import arez.component.Verifiable;
 import arez.component.internal.CollectionsUtil;
 import arez.component.internal.ComponentKernel;
 import arez.component.internal.MemoizeCache;
-import com.example.inheritance.other.Arez_OtherElement;
+import com.example.inheritance.other.Arez_OtherElement_References;
 import com.example.inheritance.other.BaseCompleteInterfaceModel;
 import com.example.inheritance.other.OtherElement;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ import org.realityforge.braincheck.Guards;
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
 @NullMarked
-public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel,
+final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel,
     Disposable,
     Identifiable<Integer>,
     Verifiable,
@@ -92,7 +92,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
   private BaseCompleteInterfaceModel. @Nullable MyEntity $$arezr$$_myEntity;
 
   @SuppressWarnings("NonAtomicVolatileUpdate")
-  public Arez_CompleteInterfaceModel() {
+  Arez_CompleteInterfaceModel() {
     super();
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( Arez::areReferencesEnabled, () -> "Attempted to create instance of component of type 'com_example_inheritance_CompleteInterfaceModel' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component" );
@@ -196,10 +196,10 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
     CompleteInterfaceModel.super.preDispose();
     Disposable.dispose( myDisposableField() );
     if ( null != $$arezd$$_parentGeneralisation ) {
-      ( (Arez_OtherElement) $$arezd$$_parentGeneralisation ).$$arezi$$_delink_child();
+      Arez_OtherElement_References.$$arezi$$_delink_child( $$arezd$$_parentGeneralisation );
     }
     for ( final OtherElement other : new ArrayList<>( $$arezd$$_otherElements ) ) {
-      ( (Arez_OtherElement) other ).$$arezi$$_delink_completeInterfaceModel();
+      Arez_OtherElement_References.$$arezi$$_delink_completeInterfaceModel( other );
     }
   }
 
@@ -632,7 +632,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
     }
   }
 
-  public void $$arezir$$_parentGeneralisation_zset(final @Nullable OtherElement otherElement) {
+  void $$arezir$$_parentGeneralisation_zset(final @Nullable OtherElement otherElement) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_parentGeneralisation_zset' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
@@ -641,7 +641,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
     this.$$arez$$_parentGeneralisation.reportChanged();
   }
 
-  public void $$arezir$$_parentGeneralisation_zunset(final OtherElement otherElement) {
+  void $$arezir$$_parentGeneralisation_zunset(final OtherElement otherElement) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_parentGeneralisation_zunset' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
@@ -652,7 +652,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
     }
   }
 
-  public void $$arezir$$_otherElements_add(final OtherElement otherElement) {
+  void $$arezir$$_otherElements_add(final OtherElement otherElement) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_otherElements_add' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
@@ -667,7 +667,7 @@ public final class Arez_CompleteInterfaceModel implements CompleteInterfaceModel
     this.$$arez$$_otherElements.reportChanged();
   }
 
-  public void $$arezir$$_otherElements_remove(final OtherElement otherElement) {
+  void $$arezir$$_otherElements_remove(final OtherElement otherElement) {
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_otherElements_remove' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }

@@ -5,6 +5,7 @@ filegroup(
         "Arez_MultiPostInverseAddModel.java",
         "Arez_PackageAccessPostInverseAddModel.java",
         "Arez_ProtectedAccessFromBasePostInverseAddModel.java",
+        "Arez_ProtectedAccessFromBasePostInverseAddModel_References.java",
         "Arez_PublicAccessViaInterfacePostInverseAddModel.java",
         "Arez_SingularInversePostInverseAddModel.java",
         "BasicPostInverseAddModel_Arez_Element.java",

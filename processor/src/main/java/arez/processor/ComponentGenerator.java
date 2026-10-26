@@ -195,10 +195,6 @@ final class ComponentGenerator {
         types.add(component.asDeclaredType());
         SuppressWarningsUtil.addSuppressWarningsIfRequired(processingEnv, builder, additionalSuppressions, types);
 
-        if (component.shouldGeneratedClassBePublic(processingEnv)) {
-            builder.addModifiers(Modifier.PUBLIC);
-        }
-
         builder.addSuperinterface(DISPOSABLE_CLASSNAME);
         if (component.isIdRequired()) {
             builder.addSuperinterface(ParameterizedTypeName.get(
@@ -324,6 +320,85 @@ final class ComponentGenerator {
         }
 
         return builder.build();
+    }
+
+    static TypeSpec buildReferencesType(
+            final ProcessingEnvironment processingEnv,
+            final ComponentDescriptor component,
+            final TypeSpec implementation) {
+        final TypeSpec.Builder builder = TypeSpec.classBuilder(
+                        component.getEnhancedClassName().simpleName() + "_References")
+                .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+                .addAnnotation(ClassName.get("org.jspecify.annotations", "NullMarked"))
+                .addJavadoc("Internal bridge for generated relationship code. Not an application API.\n")
+                .addMethod(MethodSpec.constructorBuilder()
+                        .addModifiers(Modifier.PRIVATE)
+                        .build());
+        GeneratorUtil.addOriginatingTypes(component.getElement(), builder);
+        GeneratorUtil.addGeneratedAnnotation(processingEnv, builder, ArezProcessor.class.getName());
+        final Set<String> bridgeMethods = new HashSet<>();
+        final List<TypeMirror> types = new ArrayList<>();
+        types.add(component.asDeclaredType());
+        for (final InverseDescriptor inverse : component.getInverses().values()) {
+            if (ElementsUtil.areTypesInDifferentPackage(inverse.getTargetType(), component.getElement())) {
+                bridgeMethods.add(getInverseLinkMethodName(inverse.getMultiplicity(), inverse.getName()));
+                bridgeMethods.add(getInverseDelinkMethodName(inverse.getMultiplicity(), inverse.getName()));
+                types.add(inverse.getTargetType().asType());
+            }
+        }
+        for (final ReferenceDescriptor reference : component.getReferences().values()) {
+            if (reference.hasInverse() && isCrossPackageReference(reference)) {
+                bridgeMethods.add(reference.getDelinkMethodName());
+            }
+        }
+        SuppressWarningsUtil.addSuppressWarningsIfRequired(processingEnv, builder, Collections.emptyList(), types);
+        final List<TypeVariableName> typeVariables = implementation.typeVariables();
+        final TypeName enhancedType = typeVariables.isEmpty()
+                ? component.getEnhancedClassName()
+                : ParameterizedTypeName.get(component.getEnhancedClassName(), typeVariables.toArray(new TypeName[0]));
+        for (final MethodSpec method : implementation.methodSpecs()) {
+            if (bridgeMethods.contains(method.name())) {
+                // Reuse implementation signatures to preserve the parameters' nullness contracts.
+                builder.addMethod(MethodSpec.methodBuilder(method.name())
+                        .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                        .addJavadoc("Forwards an internal relationship operation.\n")
+                        .addTypeVariables(typeVariables)
+                        .addParameter(
+                                GeneratorUtil.getTypeName(component.asDeclaredType()),
+                                COMPONENT_VAR_NAME,
+                                Modifier.FINAL)
+                        .addParameters(method.parameters())
+                        .addStatement(
+                                "( ($T) $N ).$N( $L )",
+                                enhancedType,
+                                COMPONENT_VAR_NAME,
+                                method.name(),
+                                method.parameters().stream()
+                                        .map(ParameterSpec::name)
+                                        .collect(Collectors.joining(", ")))
+                        .build());
+            }
+        }
+        return builder.build();
+    }
+
+    private static boolean isCrossPackageReference(final ReferenceDescriptor reference) {
+        return !reference
+                .getArezClassName()
+                .packageName()
+                .equals(reference.getComponent().getPackageName());
+    }
+
+    private static String getInverseLinkMethodName(final Multiplicity multiplicity, final String name) {
+        return Multiplicity.MANY == multiplicity
+                ? getInverseAddMethodName(name)
+                : Multiplicity.ONE == multiplicity ? getInverseSetMethodName(name) : getInverseZSetMethodName(name);
+    }
+
+    private static String getInverseDelinkMethodName(final Multiplicity multiplicity, final String name) {
+        return Multiplicity.MANY == multiplicity
+                ? getInverseRemoveMethodName(name)
+                : Multiplicity.ONE == multiplicity ? getInverseUnsetMethodName(name) : getInverseZUnsetMethodName(name);
     }
 
     private static String getInverseAddMethodName(final String name) {
@@ -478,7 +553,10 @@ final class ComponentGenerator {
     private static void buildInverseDisposer(final InverseDescriptor inverse, final MethodSpec.Builder builder) {
         final ObservableDescriptor observable = inverse.getObservable();
         final String delinkMethodName = getDelinkMethodName(inverse.getReferenceName());
-        final ClassName arezClassName = getArezClassName(inverse);
+        final boolean crossPackage = ElementsUtil.areTypesInDifferentPackage(
+                inverse.getTargetType(), inverse.getComponent().getElement());
+        final ClassName targetClassName = GeneratorUtil.getGeneratedClassName(
+                inverse.getTargetType(), "Arez_", crossPackage ? "_References" : "");
         final CodeBlock.Builder block = CodeBlock.builder();
         if (Multiplicity.MANY == inverse.getMultiplicity()) {
             block.beginControlFlow(
@@ -486,37 +564,22 @@ final class ComponentGenerator {
                     inverse.getTargetType(),
                     TypeName.get(ArrayList.class),
                     observable.getDataFieldName());
-            block.addStatement("( ($T) other ).$N()", arezClassName, delinkMethodName);
+            if (crossPackage) {
+                block.addStatement("$T.$N( other )", targetClassName, delinkMethodName);
+            } else {
+                block.addStatement("( ($T) other ).$N()", targetClassName, delinkMethodName);
+            }
         } else {
             block.beginControlFlow("if ( null != $N )", observable.getDataFieldName());
-            block.addStatement("( ($T) $N ).$N()", arezClassName, observable.getDataFieldName(), delinkMethodName);
+            if (crossPackage) {
+                block.addStatement("$T.$N( $N )", targetClassName, delinkMethodName, observable.getDataFieldName());
+            } else {
+                block.addStatement(
+                        "( ($T) $N ).$N()", targetClassName, observable.getDataFieldName(), delinkMethodName);
+            }
         }
         block.endControlFlow();
         builder.addCode(block.build());
-    }
-
-    private static ClassName getArezClassName(final InverseDescriptor inverseDescriptor) {
-        final TypeName typeName = GeneratorUtil.getTypeName(
-                inverseDescriptor.getObservable().getGetter().getReturnType());
-        final ClassName other = typeName instanceof ClassName
-                ? (ClassName) typeName
-                : (ClassName) ((ParameterizedTypeName) typeName).typeArguments().get(0);
-        final var sb = new StringBuilder();
-        final String packageName = other.packageName();
-        if (null != packageName) {
-            sb.append(packageName);
-            sb.append(".");
-        }
-
-        final List<String> simpleNames = other.simpleNames();
-        final int end = simpleNames.size() - 1;
-        for (int i = 0; i < end; i++) {
-            sb.append(simpleNames.get(i));
-            sb.append("_");
-        }
-        sb.append("Arez_");
-        sb.append(simpleNames.get(end));
-        return ClassName.bestGuess(sb.toString());
     }
 
     private static MethodSpec buildAction(final ProcessingEnvironment processingEnv, final ActionDescriptor action)
@@ -1638,9 +1701,6 @@ final class ComponentGenerator {
         final boolean unmarkedConstructor = constructor != null && !Nullability.isMarked(constructor);
         if (unmarkedConstructor) {
             builder.addAnnotation(ClassName.get("org.jspecify.annotations", "NullUnmarked"));
-        }
-        if (component.shouldGeneratedClassBePublic(processingEnv)) {
-            builder.addModifiers(Modifier.PUBLIC);
         }
         if (null != constructorType) {
             GeneratorUtil.copyExceptions(constructorType, builder);
@@ -3682,19 +3742,27 @@ final class ComponentGenerator {
                 .build());
     }
 
+    private static void buildInverseParameter(
+            final InverseDescriptor inverse, final MethodSpec.Builder builder, final boolean allowNull) {
+        final TypeName peerType =
+                GeneratorUtil.getTypeName(inverse.getTargetType().asType());
+        final String otherName = inverse.getOtherName();
+        if (ElementsUtil.isTypeAccessibleFrom(inverse.getComponent().getElement(), inverse.getTargetType())) {
+            builder.addParameter(allowNull ? nullable(peerType) : peerType, otherName, Modifier.FINAL);
+        } else {
+            // The sidecar cannot name a protected peer inherited from another package.
+            final String parameterName = VARIABLE_PREFIX + "other";
+            builder.addParameter(allowNull ? nullable(OBJECT) : OBJECT, parameterName, Modifier.FINAL);
+            builder.addStatement("final var $N = ($T) $N", otherName, peerType, parameterName);
+        }
+    }
+
     private static MethodSpec buildInverseAddMethod(final InverseDescriptor inverse) throws ProcessorException {
         final ObservableDescriptor observable = inverse.getObservable();
         final String methodName = getInverseAddMethodName(observable.getName());
         final MethodSpec.Builder builder = MethodSpec.methodBuilder(methodName);
-        if (ElementsUtil.areTypesInDifferentPackage(
-                inverse.getTargetType(), inverse.getComponent().getElement())) {
-            builder.addModifiers(Modifier.PUBLIC);
-        }
         final String otherName = inverse.getOtherName();
-        final var parameter = ParameterSpec.builder(
-                        GeneratorUtil.getTypeName(inverse.getTargetType().asType()), otherName, Modifier.FINAL)
-                .build();
-        builder.addParameter(parameter);
+        buildInverseParameter(inverse, builder, false);
         generateNotDisposedInvariant(builder, methodName);
 
         builder.addStatement("this.$N.preReportChanged()", observable.getFieldName());
@@ -3733,15 +3801,8 @@ final class ComponentGenerator {
         final ObservableDescriptor observable = inverse.getObservable();
         final String methodName = getInverseRemoveMethodName(observable.getName());
         final MethodSpec.Builder builder = MethodSpec.methodBuilder(methodName);
-        if (ElementsUtil.areTypesInDifferentPackage(
-                inverse.getTargetType(), inverse.getComponent().getElement())) {
-            builder.addModifiers(Modifier.PUBLIC);
-        }
         final String otherName = inverse.getOtherName();
-        final var parameter = ParameterSpec.builder(
-                        GeneratorUtil.getTypeName(inverse.getTargetType().asType()), otherName, Modifier.FINAL)
-                .build();
-        builder.addParameter(parameter);
+        buildInverseParameter(inverse, builder, false);
         generateNotDisposedInvariant(builder, methodName);
 
         builder.addStatement("this.$N.preReportChanged()", observable.getFieldName());
@@ -3782,18 +3843,8 @@ final class ComponentGenerator {
                 ? getInverseSetMethodName(observable.getName())
                 : getInverseZSetMethodName(observable.getName());
         final MethodSpec.Builder builder = MethodSpec.methodBuilder(methodName);
-        if (ElementsUtil.areTypesInDifferentPackage(
-                inverse.getTargetType(), inverse.getComponent().getElement())) {
-            builder.addModifiers(Modifier.PUBLIC);
-        }
         final String otherName = inverse.getOtherName();
-        final TypeName parameterType =
-                GeneratorUtil.getTypeName(inverse.getTargetType().asType());
-        builder.addParameter(ParameterSpec.builder(
-                        Multiplicity.ONE == multiplicity ? parameterType : nullable(parameterType),
-                        otherName,
-                        Modifier.FINAL)
-                .build());
+        buildInverseParameter(inverse, builder, Multiplicity.ZERO_OR_ONE == multiplicity);
         generateNotDisposedInvariant(builder, methodName);
 
         builder.addStatement("this.$N.preReportChanged()", observable.getFieldName());
@@ -3813,15 +3864,8 @@ final class ComponentGenerator {
                 ? getInverseUnsetMethodName(observable.getName())
                 : getInverseZUnsetMethodName(observable.getName());
         final MethodSpec.Builder builder = MethodSpec.methodBuilder(methodName);
-        if (ElementsUtil.areTypesInDifferentPackage(
-                inverse.getTargetType(), inverse.getComponent().getElement())) {
-            builder.addModifiers(Modifier.PUBLIC);
-        }
         final String otherName = inverse.getOtherName();
-        final var parameter = ParameterSpec.builder(
-                        GeneratorUtil.getTypeName(inverse.getTargetType().asType()), otherName, Modifier.FINAL)
-                .build();
-        builder.addParameter(parameter);
+        buildInverseParameter(inverse, builder, false);
         generateNotDisposedInvariant(builder, methodName);
 
         builder.addStatement("this.$N.preReportChanged()", observable.getFieldName());
@@ -3954,7 +3998,7 @@ final class ComponentGenerator {
         builder.addMethod(buildReferenceMethod(processingEnv, reference));
         builder.addMethod(buildReferenceLinkMethod(reference));
         if (reference.hasInverse()) {
-            builder.addMethod(buildReferenceDelinkMethod(processingEnv, reference));
+            builder.addMethod(buildReferenceDelinkMethod(reference));
         }
     }
 
@@ -4108,19 +4152,10 @@ final class ComponentGenerator {
         block.endControlFlow();
         builder.addCode(block.build());
         if (reference.hasInverse()) {
-            final Multiplicity inverseMultiplicity = reference.getInverseMultiplicity();
-            final String inverseName = reference.getInverseName();
-            final String linkMethodName = Multiplicity.MANY == inverseMultiplicity
-                    ? getInverseAddMethodName(inverseName)
-                    : Multiplicity.ONE == inverseMultiplicity
-                            ? getInverseSetMethodName(inverseName)
-                            : getInverseZSetMethodName(inverseName);
+            final String linkMethodName =
+                    getInverseLinkMethodName(reference.getInverseMultiplicity(), reference.getInverseName());
             builder.addStatement("assert null != this.$N", reference.getFieldName());
-            builder.addStatement(
-                    "( ($T) this.$N ).$N( this )",
-                    reference.getArezClassName(),
-                    reference.getFieldName(),
-                    linkMethodName);
+            builder.addStatement("$L", buildInverseInvocation(reference, linkMethodName));
         }
     }
 
@@ -4145,20 +4180,22 @@ final class ComponentGenerator {
         block.endControlFlow();
         builder.add(block.build());
         if (reference.hasInverse()) {
-            final Multiplicity inverseMultiplicity = reference.getInverseMultiplicity();
-            final String inverseName = reference.getInverseName();
-            final String linkMethodName = Multiplicity.MANY == inverseMultiplicity
-                    ? getInverseAddMethodName(inverseName)
-                    : Multiplicity.ONE == inverseMultiplicity
-                            ? getInverseSetMethodName(inverseName)
-                            : getInverseZSetMethodName(inverseName);
+            final String linkMethodName =
+                    getInverseLinkMethodName(reference.getInverseMultiplicity(), reference.getInverseName());
             builder.addStatement("assert null != this.$N", reference.getFieldName());
-            builder.addStatement(
-                    "( ($T) this.$N ).$N( this )",
-                    reference.getArezClassName(),
-                    reference.getFieldName(),
-                    linkMethodName);
+            builder.addStatement("$L", buildInverseInvocation(reference, linkMethodName));
         }
+    }
+
+    private static CodeBlock buildInverseInvocation(final ReferenceDescriptor reference, final String methodName) {
+        final ClassName enhancedClassName = reference.getArezClassName();
+        return isCrossPackageReference(reference)
+                ? CodeBlock.of(
+                        "$T.$N( this.$N, this )",
+                        enhancedClassName.peerClass(enhancedClassName.simpleName() + "_References"),
+                        methodName,
+                        reference.getFieldName())
+                : CodeBlock.of("( ($T) this.$N ).$N( this )", enhancedClassName, reference.getFieldName(), methodName);
     }
 
     private static void buildReferenceDisposer(final ReferenceDescriptor reference, final MethodSpec.Builder builder) {
@@ -4167,42 +4204,19 @@ final class ComponentGenerator {
         }
     }
 
-    private static MethodSpec buildReferenceDelinkMethod(
-            final ProcessingEnvironment processingEnv, final ReferenceDescriptor reference) throws ProcessorException {
+    private static MethodSpec buildReferenceDelinkMethod(final ReferenceDescriptor reference) {
         final String methodName = reference.getDelinkMethodName();
         final MethodSpec.Builder builder = MethodSpec.methodBuilder(methodName);
 
-        final var typeElement = (TypeElement)
-                processingEnv.getTypeUtils().asElement(reference.getMethod().getReturnType());
-        if (ElementsUtil.areTypesInDifferentPackage(
-                typeElement, reference.getComponent().getElement())) {
-            builder.addModifiers(Modifier.PUBLIC);
-        } else if (!reference.hasInverse()) {
-            builder.addModifiers(Modifier.PRIVATE);
-        }
-
-        if (reference.hasInverse()) {
-            final String inverseName = reference.getInverseName();
-            final CodeBlock.Builder nestedBlock = CodeBlock.builder();
-            nestedBlock.beginControlFlow(
-                    "if ( null != $N && $T.isNotDisposed( $N ) )",
-                    reference.getFieldName(),
-                    DISPOSABLE_CLASSNAME,
-                    reference.getFieldName());
-            final Multiplicity inverseMultiplicity = reference.getInverseMultiplicity();
-            final String delinkMethodName = Multiplicity.MANY == inverseMultiplicity
-                    ? getInverseRemoveMethodName(inverseName)
-                    : Multiplicity.ONE == inverseMultiplicity
-                            ? getInverseUnsetMethodName(inverseName)
-                            : getInverseZUnsetMethodName(inverseName);
-            nestedBlock.addStatement(
-                    "( ($T) this.$N ).$N( this )",
-                    reference.getArezClassName(),
-                    reference.getFieldName(),
-                    delinkMethodName);
-            nestedBlock.endControlFlow();
-            builder.addCode(nestedBlock.build());
-        }
+        builder.beginControlFlow(
+                "if ( null != $N && $T.isNotDisposed( $N ) )",
+                reference.getFieldName(),
+                DISPOSABLE_CLASSNAME,
+                reference.getFieldName());
+        final String delinkMethodName =
+                getInverseDelinkMethodName(reference.getInverseMultiplicity(), reference.getInverseName());
+        builder.addStatement("$L", buildInverseInvocation(reference, delinkMethodName));
+        builder.endControlFlow();
         builder.addStatement("this.$N = null", reference.getFieldName());
 
         return builder.build();

@@ -2,6 +2,7 @@ filegroup(
     name = "all",
     srcs = [
         "Arez_Element.java",
+        "Arez_Element_References.java",
     ],
     visibility = ["//processor/src/test/fixtures/expectedFormatted/com/example/inverse:__pkg__"],
 )

@@ -2,7 +2,9 @@ filegroup(
     name = "all",
     srcs = [
         "Arez_CompleteInterfaceModel.java",
+        "Arez_CompleteInterfaceModel_References.java",
         "Arez_CompleteModel.java",
+        "Arez_CompleteModel_References.java",
         "Arez_MyModel.java",
         "//processor/src/test/fixtures/expectedFormatted/com/example/inheritance/interface_inheritance:all",
         "//processor/src/test/fixtures/expectedFormatted/com/example/inheritance/other:all",

@@ -13,7 +13,7 @@ import arez.component.Verifiable;
 import arez.component.internal.CollectionsUtil;
 import arez.component.internal.ComponentKernel;
 import com.example.post_inverse_add.other.BaseProtectedAccessPostInverseAddModel;
-import com.example.post_inverse_add.other.BaseProtectedAccessPostInverseAddModel_Arez_Element;
+import com.example.post_inverse_add.other.BaseProtectedAccessPostInverseAddModel_Arez_Element_References;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -24,7 +24,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @NullMarked
-public final class Arez_ProtectedAccessFromBasePostInverseAddModel extends ProtectedAccessFromBasePostInverseAddModel implements Disposable,
+final class Arez_ProtectedAccessFromBasePostInverseAddModel extends ProtectedAccessFromBasePostInverseAddModel implements Disposable,
     Identifiable<Integer>,
     Verifiable,
     DisposeNotifier {
@@ -38,8 +38,16 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel extends Prote
 
   private @Nullable Collection<BaseProtectedAccessPostInverseAddModel.Element> $$arezd$$_$$cache$$_elements;
 
+  private final ObservableValue<BaseProtectedAccessPostInverseAddModel.Element> $$arez$$_required;
+
+  private BaseProtectedAccessPostInverseAddModel. @Nullable Element $$arezd$$_required;
+
+  private final ObservableValue<BaseProtectedAccessPostInverseAddModel. @Nullable Element> $$arez$$_optional;
+
+  private BaseProtectedAccessPostInverseAddModel. @Nullable Element $$arezd$$_optional;
+
   @SuppressWarnings("NonAtomicVolatileUpdate")
-  public Arez_ProtectedAccessFromBasePostInverseAddModel() {
+  Arez_ProtectedAccessFromBasePostInverseAddModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ++$$arezi$$_nextId;
@@ -49,6 +57,8 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel extends Prote
     this.$$arezd$$_elements = new HashSet<>();
     this.$$arezd$$_$$cache$$_elements = null;
     this.$$arez$$_elements = $$arezv$$_context.<@Nullable Collection<BaseProtectedAccessPostInverseAddModel.Element>>observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".elements" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_elements ) : null, null );
+    this.$$arez$$_required = $$arezv$$_context.<BaseProtectedAccessPostInverseAddModel.Element>observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".required" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_required ) : null, null );
+    this.$$arez$$_optional = $$arezv$$_context.<BaseProtectedAccessPostInverseAddModel. @Nullable Element>observable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".optional" : null, Arez.arePropertyIntrospectorsEnabled() ? () -> ( this.$$arezi$$_kernel().isNotReady() ? null : this.$$arezd$$_optional ) : null, null );
     this.$$arezi$$_kernel().componentConstructed();
     this.$$arezi$$_kernel().componentReady();
   }
@@ -83,7 +93,13 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel extends Prote
 
   private void $$arezi$$_preDispose() {
     for ( final BaseProtectedAccessPostInverseAddModel.Element other : new ArrayList<>( $$arezd$$_elements ) ) {
-      ( (BaseProtectedAccessPostInverseAddModel_Arez_Element) other ).$$arezi$$_delink_other();
+      BaseProtectedAccessPostInverseAddModel_Arez_Element_References.$$arezi$$_delink_other( other );
+    }
+    if ( null != $$arezd$$_required ) {
+      BaseProtectedAccessPostInverseAddModel_Arez_Element_References.$$arezi$$_delink_requiredOwner( $$arezd$$_required );
+    }
+    if ( null != $$arezd$$_optional ) {
+      BaseProtectedAccessPostInverseAddModel_Arez_Element_References.$$arezi$$_delink_optionalOwner( $$arezd$$_optional );
     }
   }
 
@@ -136,6 +152,8 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel extends Prote
 
   private void $$arezi$$_dispose() {
     this.$$arez$$_elements.dispose();
+    this.$$arez$$_required.dispose();
+    this.$$arez$$_optional.dispose();
   }
 
   @Override
@@ -155,6 +173,12 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel extends Prote
         if ( Arez.shouldCheckApiInvariants() ) {
           Guards.apiInvariant( () -> Disposable.isNotDisposed( element ), () -> "Inverse relationship named 'elements' on component named '" + this.$$arezi$$_kernel().getName() + "' contains disposed element '" + element + "'" );
         }
+      }
+      if ( Arez.shouldCheckApiInvariants() ) {
+        Guards.apiInvariant( () -> Disposable.isNotDisposed( this.$$arezd$$_required ), () -> "Inverse relationship named 'required' on component named '" + this.$$arezi$$_kernel().getName() + "' contains disposed element '" + this.$$arezd$$_required + "'" );
+      }
+      if ( Arez.shouldCheckApiInvariants() ) {
+        Guards.apiInvariant( () -> Disposable.isNotDisposed( this.$$arezd$$_optional ), () -> "Inverse relationship named 'optional' on component named '" + this.$$arezi$$_kernel().getName() + "' contains disposed element '" + this.$$arezd$$_optional + "'" );
       }
     }
   }
@@ -176,8 +200,28 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel extends Prote
     }
   }
 
-  public void $$arezir$$_elements_add(
-      final BaseProtectedAccessPostInverseAddModel.Element element) {
+  @Override
+  @SuppressWarnings("NullAway")
+  protected BaseProtectedAccessPostInverseAddModel.Element getRequired() {
+    // A ONE inverse can be observed before its reference is linked.
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getRequired' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
+    }
+    this.$$arez$$_required.reportObserved();
+    return this.$$arezd$$_required;
+  }
+
+  @Override
+  protected BaseProtectedAccessPostInverseAddModel. @Nullable Element getOptional() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getOptional' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
+    }
+    this.$$arez$$_optional.reportObserved();
+    return this.$$arezd$$_optional;
+  }
+
+  void $$arezir$$_elements_add(final Object $$arezv$$_other) {
+    final var element = (BaseProtectedAccessPostInverseAddModel.Element) $$arezv$$_other;
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_elements_add' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
@@ -193,8 +237,8 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel extends Prote
     postElementsAdd( element );
   }
 
-  public void $$arezir$$_elements_remove(
-      final BaseProtectedAccessPostInverseAddModel.Element element) {
+  void $$arezir$$_elements_remove(final Object $$arezv$$_other) {
+    final var element = (BaseProtectedAccessPostInverseAddModel.Element) $$arezv$$_other;
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_elements_remove' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
@@ -207,6 +251,50 @@ public final class Arez_ProtectedAccessFromBasePostInverseAddModel extends Prote
       this.$$arezd$$_$$cache$$_elements = null;
     }
     this.$$arez$$_elements.reportChanged();
+  }
+
+  void $$arezir$$_required_set(final Object $$arezv$$_other) {
+    final var element = (BaseProtectedAccessPostInverseAddModel.Element) $$arezv$$_other;
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_required_set' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
+    }
+    this.$$arez$$_required.preReportChanged();
+    this.$$arezd$$_required = element;
+    this.$$arez$$_required.reportChanged();
+  }
+
+  void $$arezir$$_required_unset(final Object $$arezv$$_other) {
+    final var element = (BaseProtectedAccessPostInverseAddModel.Element) $$arezv$$_other;
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_required_unset' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
+    }
+    this.$$arez$$_required.preReportChanged();
+    if ( this.$$arezd$$_required == element ) {
+      this.$$arezd$$_required = null;
+      this.$$arez$$_required.reportChanged();
+    }
+  }
+
+  void $$arezir$$_optional_zset(final @Nullable Object $$arezv$$_other) {
+    final var element = (BaseProtectedAccessPostInverseAddModel.Element) $$arezv$$_other;
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_optional_zset' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
+    }
+    this.$$arez$$_optional.preReportChanged();
+    this.$$arezd$$_optional = element;
+    this.$$arez$$_optional.reportChanged();
+  }
+
+  void $$arezir$$_optional_zunset(final Object $$arezv$$_other) {
+    final var element = (BaseProtectedAccessPostInverseAddModel.Element) $$arezv$$_other;
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezir$$_optional_zunset' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
+    }
+    this.$$arez$$_optional.preReportChanged();
+    if ( this.$$arezd$$_optional == element ) {
+      this.$$arezd$$_optional = null;
+      this.$$arez$$_optional.reportChanged();
+    }
   }
 
   @Override

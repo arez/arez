@@ -12,7 +12,7 @@ import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.CollectionsUtil;
 import arez.component.internal.ComponentKernel;
-import com.example.inverse.other.Arez_Element;
+import com.example.inverse.other.Arez_Element_References;
 import com.example.inverse.other.Element;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @NullMarked
-public final class Arez_PackageAccessWithDifferentPackageInverseModel
+final class Arez_PackageAccessWithDifferentPackageInverseModel
     extends PackageAccessWithDifferentPackageInverseModel
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -37,7 +37,7 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel
   private @Nullable List<Element> $$arezd$$_$$cache$$_elements;
 
   @SuppressWarnings("NonAtomicVolatileUpdate")
-  public Arez_PackageAccessWithDifferentPackageInverseModel() {
+  Arez_PackageAccessWithDifferentPackageInverseModel() {
     super();
     final ArezContext $$arezv$$_context = Arez.context();
     final int $$arezv$$_id = ++$$arezi$$_nextId;
@@ -114,7 +114,7 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel
 
   private void $$arezi$$_preDispose() {
     for (final Element other : new ArrayList<>($$arezd$$_elements)) {
-      ((Arez_Element) other).$$arezi$$_delink_packageAccessWithDifferentPackageInverseModel();
+      Arez_Element_References.$$arezi$$_delink_packageAccessWithDifferentPackageInverseModel(other);
     }
   }
 
@@ -255,7 +255,7 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel
     }
   }
 
-  public void $$arezir$$_elements_add(final Element element) {
+  void $$arezir$$_elements_add(final Element element) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -278,7 +278,7 @@ public final class Arez_PackageAccessWithDifferentPackageInverseModel
     this.$$arez$$_elements.reportChanged();
   }
 
-  public void $$arezir$$_elements_remove(final Element element) {
+  void $$arezir$$_elements_remove(final Element element) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),

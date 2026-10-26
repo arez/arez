@@ -277,6 +277,7 @@ java_testng(
         "arez.processor.ArezProcessorGeneratedOutputTest.processSuccessfulReactArezGenericsScenario",
         "arez.processor.ArezProcessorGeneratedOutputTest.processSuccessfulWhereAbstractMethodWithGenericParameterIsRefinedInMiddleComponent",
         "arez.processor.ArezProcessorGeneratedOutputTest.processSuccessfulInverseInDifferentPackage",
+        "arez.processor.ArezProcessorGeneratedOutputTest.crossPackageRelationshipsCompileIncrementally",
         "arez.processor.ArezProcessorGeneratedOutputTest.processSuccessfulToStringInPresent",
         "arez.processor.ArezProcessorGeneratedOutputTest.processSuccessfulWhereAnnotationsSourcedFromInterface",
         "arez.processor.ArezProcessorGeneratedOutputTest.processSuccessfulWhereTypeResolvedInInheritanceHierarchy",

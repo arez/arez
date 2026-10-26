@@ -61,6 +61,7 @@ java_testng(
         "arez.integration.dispose_on_deactivate.DisposeOnDeactivateWithMemoizeIntegrationTest",
         "arez.integration.dispose_on_deactivate.MultipleDeactivationsDisposeOnDeactivateIntegrationTest",
         "arez.integration.interface_component.InterfaceComponentTest",
+        "arez.integration.inverse.CrossPackageInverseIntegrationTest",
         "arez.integration.inverse.DisposeManyInverseIntegrationTest",
         "arez.integration.inverse.DisposeOneInverseIntegrationTest",
         "arez.integration.inverse.DisposeZeroOrOneInverseIntegrationTest",

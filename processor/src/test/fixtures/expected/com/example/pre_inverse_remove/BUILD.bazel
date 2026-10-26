@@ -5,6 +5,7 @@ filegroup(
         "Arez_MultiPreInverseRemoveModel.java",
         "Arez_PackageAccessPreInverseRemoveModel.java",
         "Arez_ProtectedAccessFromBasePreInverseRemoveModel.java",
+        "Arez_ProtectedAccessFromBasePreInverseRemoveModel_References.java",
         "Arez_PublicAccessViaInterfacePreInverseRemoveModel.java",
         "Arez_SingularInversePreInverseRemoveModel.java",
         "BasicPreInverseRemoveModel_Arez_Element.java",

@@ -11,7 +11,7 @@ import arez.component.Identifiable;
 import arez.component.Linkable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import com.example.inheritance.Arez_CompleteInterfaceModel;
+import com.example.inheritance.Arez_CompleteInterfaceModel_References;
 import com.example.inheritance.CompleteInterfaceModel;
 import javax.annotation.processing.Generated;
 import org.jspecify.annotations.NonNull;
@@ -21,7 +21,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @NullMarked
-public final class Arez_OtherElement extends OtherElement
+final class Arez_OtherElement extends OtherElement
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier, Linkable {
   private static volatile int $$arezi$$_nextId;
 
@@ -32,7 +32,7 @@ public final class Arez_OtherElement extends OtherElement
   private @Nullable CompleteInterfaceModel $$arezr$$_child;
 
   @SuppressWarnings("NonAtomicVolatileUpdate")
-  public Arez_OtherElement() {
+  Arez_OtherElement() {
     super();
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -291,15 +291,15 @@ public final class Arez_OtherElement extends OtherElement
               + getCompleteInterfaceModelId());
     }
     assert null != this.$$arezr$$_completeInterfaceModel;
-    ((Arez_CompleteInterfaceModel) this.$$arezr$$_completeInterfaceModel)
-        .$$arezir$$_otherElements_add(this);
+    Arez_CompleteInterfaceModel_References.$$arezir$$_otherElements_add(
+        this.$$arezr$$_completeInterfaceModel, this);
   }
 
-  public void $$arezi$$_delink_completeInterfaceModel() {
+  void $$arezi$$_delink_completeInterfaceModel() {
     if (null != $$arezr$$_completeInterfaceModel
         && Disposable.isNotDisposed($$arezr$$_completeInterfaceModel)) {
-      ((Arez_CompleteInterfaceModel) this.$$arezr$$_completeInterfaceModel)
-          .$$arezir$$_otherElements_remove(this);
+      Arez_CompleteInterfaceModel_References.$$arezir$$_otherElements_remove(
+          this.$$arezr$$_completeInterfaceModel, this);
     }
     this.$$arezr$$_completeInterfaceModel = null;
   }
@@ -344,15 +344,15 @@ public final class Arez_OtherElement extends OtherElement
                 + getChildId());
       }
       assert null != this.$$arezr$$_child;
-      ((Arez_CompleteInterfaceModel) this.$$arezr$$_child)
-          .$$arezir$$_parentGeneralisation_zset(this);
+      Arez_CompleteInterfaceModel_References.$$arezir$$_parentGeneralisation_zset(
+          this.$$arezr$$_child, this);
     }
   }
 
-  public void $$arezi$$_delink_child() {
+  void $$arezi$$_delink_child() {
     if (null != $$arezr$$_child && Disposable.isNotDisposed($$arezr$$_child)) {
-      ((Arez_CompleteInterfaceModel) this.$$arezr$$_child)
-          .$$arezir$$_parentGeneralisation_zunset(this);
+      Arez_CompleteInterfaceModel_References.$$arezir$$_parentGeneralisation_zunset(
+          this.$$arezr$$_child, this);
     }
     this.$$arezr$$_child = null;
   }
