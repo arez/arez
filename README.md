@@ -2,9 +2,6 @@
 
 # Arez
 
-[<img src="https://img.shields.io/maven-central/v/org.realityforge.arez/arez-core.svg?label=latest%20release"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.realityforge.arez%22)
-![J2CL compatible](https://img.shields.io/badge/J2CL-compatible-brightgreen.svg)
-
 Arez is a reactive state management library for Java and J2CL applications. It tracks
 observable data and notifies observers when that data changes.
 
