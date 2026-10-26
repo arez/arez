@@ -1,6 +1,7 @@
 filegroup(
     name = "all",
     srcs = [
+        "CrossPackageInverseIntegrationTest.java",
         "DisposeManyInverseIntegrationTest.java",
         "DisposeOneInverseIntegrationTest.java",
         "DisposeZeroOrOneInverseIntegrationTest.java",
@@ -14,6 +15,7 @@ filegroup(
         "ZeroOrOneMultiplicityExplicitLoadInverseIntegrationTest.java",
         "ZeroOrOneMultiplicityInverseIntegrationTest.java",
         "ZeroOrOneMultiplicityLazyLoadInverseIntegrationTest.java",
+        "//integration-tests/src/test/java/arez/integration/inverse/other:all",
     ],
     visibility = ["//integration-tests/src/test/java/arez/integration:__pkg__"],
 )

@@ -2,6 +2,7 @@ filegroup(
     name = "all",
     srcs = [
         "BaseProtectedAccessPostInverseAddModel_Arez_Element.java",
+        "BaseProtectedAccessPostInverseAddModel_Arez_Element_References.java",
     ],
     visibility = ["//processor/src/test/fixtures/expected/com/example/post_inverse_add:__pkg__"],
 )

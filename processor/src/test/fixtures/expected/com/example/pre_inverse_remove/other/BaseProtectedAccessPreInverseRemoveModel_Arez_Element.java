@@ -10,7 +10,7 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import com.example.pre_inverse_remove.Arez_ProtectedAccessFromBasePreInverseRemoveModel;
+import com.example.pre_inverse_remove.Arez_ProtectedAccessFromBasePreInverseRemoveModel_References;
 import com.example.pre_inverse_remove.ProtectedAccessFromBasePreInverseRemoveModel;
 import javax.annotation.processing.Generated;
 import org.jspecify.annotations.NullMarked;
@@ -19,7 +19,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @NullMarked
-public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element extends BaseProtectedAccessPreInverseRemoveModel.Element implements Disposable,
+final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element extends BaseProtectedAccessPreInverseRemoveModel.Element implements Disposable,
     Identifiable<Integer>,
     Verifiable,
     DisposeNotifier {
@@ -30,7 +30,7 @@ public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element extends
   private @Nullable ProtectedAccessFromBasePreInverseRemoveModel $$arezr$$_other;
 
   @SuppressWarnings("NonAtomicVolatileUpdate")
-  public BaseProtectedAccessPreInverseRemoveModel_Arez_Element() {
+  BaseProtectedAccessPreInverseRemoveModel_Arez_Element() {
     super();
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( Arez::areReferencesEnabled, () -> "Attempted to create instance of component of type 'com_example_pre_inverse_remove_other_BaseProtectedAccessPreInverseRemoveModel_Element' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component" );
@@ -165,12 +165,12 @@ public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element extends
       Guards.apiInvariant( () -> null != $$arezr$$_other, () -> "Reference named 'other' on component named '" + this.$$arezi$$_kernel().getName() + "' is unable to resolve entity of type com.example.pre_inverse_remove.ProtectedAccessFromBasePreInverseRemoveModel and id = " + getOtherId() );
     }
     assert null != this.$$arezr$$_other;
-    ( (Arez_ProtectedAccessFromBasePreInverseRemoveModel) this.$$arezr$$_other ).$$arezir$$_elements_add( this );
+    Arez_ProtectedAccessFromBasePreInverseRemoveModel_References.$$arezir$$_elements_add( this.$$arezr$$_other, this );
   }
 
-  public void $$arezi$$_delink_other() {
+  void $$arezi$$_delink_other() {
     if ( null != $$arezr$$_other && Disposable.isNotDisposed( $$arezr$$_other ) ) {
-      ( (Arez_ProtectedAccessFromBasePreInverseRemoveModel) this.$$arezr$$_other ).$$arezir$$_elements_remove( this );
+      Arez_ProtectedAccessFromBasePreInverseRemoveModel_References.$$arezir$$_elements_remove( this.$$arezr$$_other, this );
     }
     this.$$arezr$$_other = null;
   }

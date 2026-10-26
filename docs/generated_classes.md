@@ -5,6 +5,7 @@ title: Generated Classes
 Arez generates one or more classes for every Arez component. The classes generated are:
 
 * [The Generated Component Subclass](#the-generated-component-subclass)
+* [The Relationship Sidecar](#the-relationship-sidecar), for reference/inverse relationships across packages
 
 ## The Generated Component Subclass
 
@@ -44,3 +45,20 @@ component's features, it also implements identity, observation and disposal-noti
   {@link: arez.annotations.ArezComponent#disposeOnDeactivate() @ArezComponent.disposeOnDeactivate} parameter to ensure a component is kept
   alive while it is in use. Components managed this way should not also be explicitly cascade-disposed by an
   owning component; the annotation processor warns about that mixed lifecycle configuration.
+
+## The Relationship Sidecar
+
+For [reference/inverse relationships](at_reference.md#inverse) that cross package boundaries, Arez generates a
+public final sidecar beside each affected component implementation. Its name appends `_References` to the generated
+subclass name, for example `Arez_MyComponent_References` or `MyContainer_Arez_MyComponent_References`.
+
+The sidecar exposes only the static operations needed by generated code in other packages to maintain and detach
+relationships. It forwards to package-private implementation methods, keeping access to inherited protected peer
+types inside the generated subclass.
+Same-package relationships call the implementation directly.
+
+Sidecars are internal generated infrastructure, without an application compatibility guarantee. Application code
+should use the authored component API and its factories. Generated implementation classes and constructors retain
+package access even when a relationship crosses packages.
+Regenerate both sides of cross-package relationships when upgrading the processor so compiled dependencies include
+the matching sidecars.

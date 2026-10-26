@@ -10,7 +10,7 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import com.example.pre_inverse_remove.Arez_ProtectedAccessFromBasePreInverseRemoveModel;
+import com.example.pre_inverse_remove.Arez_ProtectedAccessFromBasePreInverseRemoveModel_References;
 import com.example.pre_inverse_remove.ProtectedAccessFromBasePreInverseRemoveModel;
 import javax.annotation.processing.Generated;
 import org.jspecify.annotations.NullMarked;
@@ -19,7 +19,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @NullMarked
-public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element
+final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element
     extends BaseProtectedAccessPreInverseRemoveModel.Element
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
@@ -29,7 +29,7 @@ public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element
   private @Nullable ProtectedAccessFromBasePreInverseRemoveModel $$arezr$$_other;
 
   @SuppressWarnings("NonAtomicVolatileUpdate")
-  public BaseProtectedAccessPreInverseRemoveModel_Arez_Element() {
+  BaseProtectedAccessPreInverseRemoveModel_Arez_Element() {
     super();
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -258,14 +258,14 @@ public final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element
               + getOtherId());
     }
     assert null != this.$$arezr$$_other;
-    ((Arez_ProtectedAccessFromBasePreInverseRemoveModel) this.$$arezr$$_other)
-        .$$arezir$$_elements_add(this);
+    Arez_ProtectedAccessFromBasePreInverseRemoveModel_References.$$arezir$$_elements_add(
+        this.$$arezr$$_other, this);
   }
 
-  public void $$arezi$$_delink_other() {
+  void $$arezi$$_delink_other() {
     if (null != $$arezr$$_other && Disposable.isNotDisposed($$arezr$$_other)) {
-      ((Arez_ProtectedAccessFromBasePreInverseRemoveModel) this.$$arezr$$_other)
-          .$$arezir$$_elements_remove(this);
+      Arez_ProtectedAccessFromBasePreInverseRemoveModel_References.$$arezir$$_elements_remove(
+          this.$$arezr$$_other, this);
     }
     this.$$arezr$$_other = null;
   }

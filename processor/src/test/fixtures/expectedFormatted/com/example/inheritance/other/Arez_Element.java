@@ -11,7 +11,7 @@ import arez.component.Identifiable;
 import arez.component.Linkable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import com.example.inheritance.Arez_CompleteModel;
+import com.example.inheritance.Arez_CompleteModel_References;
 import com.example.inheritance.CompleteModel;
 import javax.annotation.processing.Generated;
 import org.jspecify.annotations.NonNull;
@@ -21,7 +21,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @NullMarked
-public final class Arez_Element extends Element
+final class Arez_Element extends Element
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier, Linkable {
   private static volatile int $$arezi$$_nextId;
 
@@ -32,7 +32,7 @@ public final class Arez_Element extends Element
   private @Nullable CompleteModel $$arezr$$_child;
 
   @SuppressWarnings("NonAtomicVolatileUpdate")
-  public Arez_Element() {
+  Arez_Element() {
     super();
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -288,12 +288,12 @@ public final class Arez_Element extends Element
               + getCompleteModelId());
     }
     assert null != this.$$arezr$$_completeModel;
-    ((Arez_CompleteModel) this.$$arezr$$_completeModel).$$arezir$$_elements_add(this);
+    Arez_CompleteModel_References.$$arezir$$_elements_add(this.$$arezr$$_completeModel, this);
   }
 
-  public void $$arezi$$_delink_completeModel() {
+  void $$arezi$$_delink_completeModel() {
     if (null != $$arezr$$_completeModel && Disposable.isNotDisposed($$arezr$$_completeModel)) {
-      ((Arez_CompleteModel) this.$$arezr$$_completeModel).$$arezir$$_elements_remove(this);
+      Arez_CompleteModel_References.$$arezir$$_elements_remove(this.$$arezr$$_completeModel, this);
     }
     this.$$arezr$$_completeModel = null;
   }
@@ -338,13 +338,15 @@ public final class Arez_Element extends Element
                 + getChildId());
       }
       assert null != this.$$arezr$$_child;
-      ((Arez_CompleteModel) this.$$arezr$$_child).$$arezir$$_parentGeneralisation_zset(this);
+      Arez_CompleteModel_References.$$arezir$$_parentGeneralisation_zset(
+          this.$$arezr$$_child, this);
     }
   }
 
-  public void $$arezi$$_delink_child() {
+  void $$arezi$$_delink_child() {
     if (null != $$arezr$$_child && Disposable.isNotDisposed($$arezr$$_child)) {
-      ((Arez_CompleteModel) this.$$arezr$$_child).$$arezir$$_parentGeneralisation_zunset(this);
+      Arez_CompleteModel_References.$$arezir$$_parentGeneralisation_zunset(
+          this.$$arezr$$_child, this);
     }
     this.$$arezr$$_child = null;
   }

@@ -19,6 +19,7 @@ filegroup(
         "Arez_ObservableZeroOrOneReferenceModel.java",
         "Arez_OneMultiplicityInverseModel.java",
         "Arez_PackageAccessWithDifferentPackageInverseModel.java",
+        "Arez_PackageAccessWithDifferentPackageInverseModel_References.java",
         "Arez_ZeroOrOneMultiplicityInverseModel.java",
         "CustomNamesInverseModel_Arez_Element.java",
         "DefaultMultiplicityInverseModel_Arez_Element.java",

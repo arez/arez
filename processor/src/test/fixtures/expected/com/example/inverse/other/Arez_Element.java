@@ -10,7 +10,7 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import com.example.inverse.Arez_PackageAccessWithDifferentPackageInverseModel;
+import com.example.inverse.Arez_PackageAccessWithDifferentPackageInverseModel_References;
 import com.example.inverse.PackageAccessWithDifferentPackageInverseModel;
 import javax.annotation.processing.Generated;
 import org.jspecify.annotations.NullMarked;
@@ -19,7 +19,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @NullMarked
-public final class Arez_Element extends Element implements Disposable,
+final class Arez_Element extends Element implements Disposable,
     Identifiable<Integer>,
     Verifiable,
     DisposeNotifier {
@@ -30,7 +30,7 @@ public final class Arez_Element extends Element implements Disposable,
   private @Nullable PackageAccessWithDifferentPackageInverseModel $$arezr$$_packageAccessWithDifferentPackageInverseModel;
 
   @SuppressWarnings("NonAtomicVolatileUpdate")
-  public Arez_Element() {
+  Arez_Element() {
     super();
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( Arez::areReferencesEnabled, () -> "Attempted to create instance of component of type 'com_example_inverse_other_Element' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component" );
@@ -166,12 +166,12 @@ public final class Arez_Element extends Element implements Disposable,
       Guards.apiInvariant( () -> null != $$arezr$$_packageAccessWithDifferentPackageInverseModel, () -> "Reference named 'packageAccessWithDifferentPackageInverseModel' on component named '" + this.$$arezi$$_kernel().getName() + "' is unable to resolve entity of type com.example.inverse.PackageAccessWithDifferentPackageInverseModel and id = " + getPackageAccessWithDifferentPackageInverseModelId() );
     }
     assert null != this.$$arezr$$_packageAccessWithDifferentPackageInverseModel;
-    ( (Arez_PackageAccessWithDifferentPackageInverseModel) this.$$arezr$$_packageAccessWithDifferentPackageInverseModel ).$$arezir$$_elements_add( this );
+    Arez_PackageAccessWithDifferentPackageInverseModel_References.$$arezir$$_elements_add( this.$$arezr$$_packageAccessWithDifferentPackageInverseModel, this );
   }
 
-  public void $$arezi$$_delink_packageAccessWithDifferentPackageInverseModel() {
+  void $$arezi$$_delink_packageAccessWithDifferentPackageInverseModel() {
     if ( null != $$arezr$$_packageAccessWithDifferentPackageInverseModel && Disposable.isNotDisposed( $$arezr$$_packageAccessWithDifferentPackageInverseModel ) ) {
-      ( (Arez_PackageAccessWithDifferentPackageInverseModel) this.$$arezr$$_packageAccessWithDifferentPackageInverseModel ).$$arezir$$_elements_remove( this );
+      Arez_PackageAccessWithDifferentPackageInverseModel_References.$$arezir$$_elements_remove( this.$$arezr$$_packageAccessWithDifferentPackageInverseModel, this );
     }
     this.$$arezr$$_packageAccessWithDifferentPackageInverseModel = null;
   }

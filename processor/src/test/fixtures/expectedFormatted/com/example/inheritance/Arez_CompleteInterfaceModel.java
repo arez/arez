@@ -16,7 +16,7 @@ import arez.component.Verifiable;
 import arez.component.internal.CollectionsUtil;
 import arez.component.internal.ComponentKernel;
 import arez.component.internal.MemoizeCache;
-import com.example.inheritance.other.Arez_OtherElement;
+import com.example.inheritance.other.Arez_OtherElement_References;
 import com.example.inheritance.other.BaseCompleteInterfaceModel;
 import com.example.inheritance.other.OtherElement;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ import org.realityforge.braincheck.Guards;
 @Generated("arez.processor.ArezProcessor")
 @SuppressWarnings("unchecked")
 @NullMarked
-public final class Arez_CompleteInterfaceModel
+final class Arez_CompleteInterfaceModel
     implements CompleteInterfaceModel,
         Disposable,
         Identifiable<Integer>,
@@ -93,7 +93,7 @@ public final class Arez_CompleteInterfaceModel
   private BaseCompleteInterfaceModel.@Nullable MyEntity $$arezr$$_myEntity;
 
   @SuppressWarnings("NonAtomicVolatileUpdate")
-  public Arez_CompleteInterfaceModel() {
+  Arez_CompleteInterfaceModel() {
     super();
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -367,10 +367,10 @@ public final class Arez_CompleteInterfaceModel
     CompleteInterfaceModel.super.preDispose();
     Disposable.dispose(myDisposableField());
     if (null != $$arezd$$_parentGeneralisation) {
-      ((Arez_OtherElement) $$arezd$$_parentGeneralisation).$$arezi$$_delink_child();
+      Arez_OtherElement_References.$$arezi$$_delink_child($$arezd$$_parentGeneralisation);
     }
     for (final OtherElement other : new ArrayList<>($$arezd$$_otherElements)) {
-      ((Arez_OtherElement) other).$$arezi$$_delink_completeInterfaceModel();
+      Arez_OtherElement_References.$$arezi$$_delink_completeInterfaceModel(other);
     }
   }
 
@@ -999,7 +999,7 @@ public final class Arez_CompleteInterfaceModel
     }
   }
 
-  public void $$arezir$$_parentGeneralisation_zset(final @Nullable OtherElement otherElement) {
+  void $$arezir$$_parentGeneralisation_zset(final @Nullable OtherElement otherElement) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -1012,7 +1012,7 @@ public final class Arez_CompleteInterfaceModel
     this.$$arez$$_parentGeneralisation.reportChanged();
   }
 
-  public void $$arezir$$_parentGeneralisation_zunset(final OtherElement otherElement) {
+  void $$arezir$$_parentGeneralisation_zunset(final OtherElement otherElement) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -1027,7 +1027,7 @@ public final class Arez_CompleteInterfaceModel
     }
   }
 
-  public void $$arezir$$_otherElements_add(final OtherElement otherElement) {
+  void $$arezir$$_otherElements_add(final OtherElement otherElement) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),
@@ -1050,7 +1050,7 @@ public final class Arez_CompleteInterfaceModel
     this.$$arez$$_otherElements.reportChanged();
   }
 
-  public void $$arezir$$_otherElements_remove(final OtherElement otherElement) {
+  void $$arezir$$_otherElements_remove(final OtherElement otherElement) {
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
           () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(),

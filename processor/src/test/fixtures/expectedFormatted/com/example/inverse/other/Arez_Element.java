@@ -10,7 +10,7 @@ import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.Verifiable;
 import arez.component.internal.ComponentKernel;
-import com.example.inverse.Arez_PackageAccessWithDifferentPackageInverseModel;
+import com.example.inverse.Arez_PackageAccessWithDifferentPackageInverseModel_References;
 import com.example.inverse.PackageAccessWithDifferentPackageInverseModel;
 import javax.annotation.processing.Generated;
 import org.jspecify.annotations.NullMarked;
@@ -19,7 +19,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @NullMarked
-public final class Arez_Element extends Element
+final class Arez_Element extends Element
     implements Disposable, Identifiable<Integer>, Verifiable, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;
 
@@ -29,7 +29,7 @@ public final class Arez_Element extends Element
       $$arezr$$_packageAccessWithDifferentPackageInverseModel;
 
   @SuppressWarnings("NonAtomicVolatileUpdate")
-  public Arez_Element() {
+  Arez_Element() {
     super();
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -261,17 +261,15 @@ public final class Arez_Element extends Element
                   + getPackageAccessWithDifferentPackageInverseModelId());
     }
     assert null != this.$$arezr$$_packageAccessWithDifferentPackageInverseModel;
-    ((Arez_PackageAccessWithDifferentPackageInverseModel)
-            this.$$arezr$$_packageAccessWithDifferentPackageInverseModel)
-        .$$arezir$$_elements_add(this);
+    Arez_PackageAccessWithDifferentPackageInverseModel_References.$$arezir$$_elements_add(
+        this.$$arezr$$_packageAccessWithDifferentPackageInverseModel, this);
   }
 
-  public void $$arezi$$_delink_packageAccessWithDifferentPackageInverseModel() {
+  void $$arezi$$_delink_packageAccessWithDifferentPackageInverseModel() {
     if (null != $$arezr$$_packageAccessWithDifferentPackageInverseModel
         && Disposable.isNotDisposed($$arezr$$_packageAccessWithDifferentPackageInverseModel)) {
-      ((Arez_PackageAccessWithDifferentPackageInverseModel)
-              this.$$arezr$$_packageAccessWithDifferentPackageInverseModel)
-          .$$arezir$$_elements_remove(this);
+      Arez_PackageAccessWithDifferentPackageInverseModel_References.$$arezir$$_elements_remove(
+          this.$$arezr$$_packageAccessWithDifferentPackageInverseModel, this);
     }
     this.$$arezr$$_packageAccessWithDifferentPackageInverseModel = null;
   }
