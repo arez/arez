@@ -157,7 +157,7 @@ public abstract class MediaQuery {
         // Safari doesn't clear up listener with removeListener when the listener is already waiting in the event queue.
         // This code makes sure Having an active flag to make sure the change is not reported after computable is
         // deactivated and component is disposed.
-        if (!Disposable.isDisposed(this)) {
+        if (Disposable.isNotDisposed(this)) {
             getMatchesComputableValue().reportPossiblyChanged();
         }
     }
