@@ -1006,10 +1006,13 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
         if (null != component.getDeclaredDefaultWriteOutsideTransaction()
                 && component.getObservables().isEmpty()
+                && component.getMemoizes().values().stream()
+                        .noneMatch(memoize -> "AREZ_OR_EXTERNAL".equals(memoize.getDepType()))
                 && isWarningNotSuppressed(element, Constants.WARNING_UNNECESSARY_DEFAULT)) {
             final String message =
                     "@ArezComponent target has specified a value for the defaultWriteOutsideTransaction parameter but"
-                            + " does not contain any methods annotated with @Observable. "
+                            + " does not contain any methods annotated with @Observable or @Memoize with depType ="
+                            + " AREZ_OR_EXTERNAL. "
                             + suppressedBy(Constants.WARNING_UNNECESSARY_DEFAULT);
             warning(message, element);
         }
@@ -1507,6 +1510,8 @@ public final class ArezProcessor extends AbstractStandardProcessor {
                 AnnotationsUtil.getAnnotationValueValue(annotation, "observeLowerPriorityDependencies");
         final VariableElement readOutsideTransaction =
                 AnnotationsUtil.getAnnotationValueValue(annotation, "readOutsideTransaction");
+        final VariableElement writeOutsideTransaction =
+                AnnotationsUtil.getAnnotationValueValue(annotation, "writeOutsideTransaction");
         final VariableElement priority = AnnotationsUtil.getAnnotationValueValue(annotation, "priority");
         final VariableElement depType = AnnotationsUtil.getAnnotationValueValue(annotation, "depType");
         final TypeMirror equalityComparator = AnnotationsUtil.getAnnotationValueValue(annotation, "equalityComparator");
@@ -1522,6 +1527,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
                         reportResult,
                         observeLowerPriorityDependencies,
                         readOutsideTransaction.getSimpleName().toString(),
+                        writeOutsideTransaction.getSimpleName().toString(),
                         depTypeAsString,
                         resolveEffectiveEqualityComparator(
                                 component.getElement(),

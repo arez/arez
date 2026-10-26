@@ -2976,6 +2976,9 @@ final class ComponentGenerator {
         if (memoize.canReadOutsideTransaction()) {
             flags.add("READ_OUTSIDE_TRANSACTION");
         }
+        if (memoize.canWriteOutsideTransaction()) {
+            flags.add("WRITE_OUTSIDE_TRANSACTION");
+        }
         switch (memoize.getDepType()) {
             case "AREZ":
                 flags.add("AREZ_DEPENDENCIES");

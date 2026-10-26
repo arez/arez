@@ -2,7 +2,6 @@ package arez.dom;
 
 import arez.ComputableValue;
 import arez.Disposable;
-import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComputableValueRef;
 import arez.annotations.DepType;
@@ -143,7 +142,7 @@ public abstract class EventDrivenValue<
      *
      * @return the value.
      */
-    @Memoize(depType = DepType.AREZ_OR_EXTERNAL)
+    @Memoize(depType = DepType.AREZ_OR_EXTERNAL, writeOutsideTransaction = Feature.ENABLE)
     public ValueType getValue() {
         // Deliberately observing source via getSource() so that this method re-runs
         // when source changes
@@ -183,16 +182,8 @@ public abstract class EventDrivenValue<
         // To avoid a potential crash when invariants are enabled or indeterminate behaviour when invariants
         // are not enabled, a guard has been added.
         if (Disposable.isNotDisposed(this)) {
-            notifyOnChange();
+            getValueComputableValue().reportPossiblyChanged();
         }
-    }
-
-    /**
-     * Hook invoked from listener to indicate  memoized value should be recomputed.
-     */
-    @Action
-    void notifyOnChange() {
-        getValueComputableValue().reportPossiblyChanged();
     }
 
     /**

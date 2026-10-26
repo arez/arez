@@ -184,9 +184,11 @@ public @interface ArezComponent {
     Feature defaultReadOutsideTransaction() default Feature.AUTODETECT;
 
     /**
-     * The default value for the writeOutsideTransaction parameter of {@link Observable} annotated methods.
+     * The default value for the writeOutsideTransaction parameter of {@link Observable} and
+     * {@link Memoize} annotated methods. Memoized values only use this default when their
+     * dependency type is {@link DepType#AREZ_OR_EXTERNAL}.
      *
-     * @return The flag indicating whether the default is to allow writes outside a transaction or to require a transaction to write observables values.
+     * @return The flag indicating whether observable writes and external memoized invalidations create an action when needed.
      */
     Feature defaultWriteOutsideTransaction() default Feature.AUTODETECT;
 

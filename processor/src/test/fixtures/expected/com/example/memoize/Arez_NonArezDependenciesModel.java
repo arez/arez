@@ -24,6 +24,10 @@ final class Arez_NonArezDependenciesModel extends NonArezDependenciesModel imple
 
   private final ComputableValue<Long> $$arez$$_time;
 
+  private final ComputableValue<Long> $$arez$$_enabledTime;
+
+  private final ComputableValue<Long> $$arez$$_disabledTime;
+
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_NonArezDependenciesModel() {
     super();
@@ -32,7 +36,9 @@ final class Arez_NonArezDependenciesModel extends NonArezDependenciesModel imple
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_memoize_NonArezDependenciesModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_memoize_NonArezDependenciesModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
-    this.$$arez$$_time = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, () -> super.getTime(), ComputableValue.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
+    this.$$arez$$_time = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".time" : null, () -> super.getTime(), ComputableValue.Flags.WRITE_OUTSIDE_TRANSACTION | ComputableValue.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
+    this.$$arez$$_enabledTime = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".enabledTime" : null, () -> super.getEnabledTime(), ComputableValue.Flags.WRITE_OUTSIDE_TRANSACTION | ComputableValue.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
+    this.$$arez$$_disabledTime = $$arezv$$_context.computable( Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNamesEnabled() ? $$arezv$$_name + ".disabledTime" : null, () -> super.getDisabledTime(), ComputableValue.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES | ComputableValue.Flags.RUN_LATER );
     this.$$arezi$$_kernel().componentConstructed();
     this.$$arezi$$_kernel().componentReady();
   }
@@ -106,6 +112,8 @@ final class Arez_NonArezDependenciesModel extends NonArezDependenciesModel imple
 
   private void $$arezi$$_dispose() {
     this.$$arez$$_time.dispose();
+    this.$$arez$$_enabledTime.dispose();
+    this.$$arez$$_disabledTime.dispose();
   }
 
   @Override
@@ -122,6 +130,38 @@ final class Arez_NonArezDependenciesModel extends NonArezDependenciesModel imple
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getTimeComputableValue' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     return $$arez$$_time;
+  }
+
+  @Override
+  public long getEnabledTime() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getEnabledTime' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
+    }
+    return this.$$arez$$_enabledTime.get();
+  }
+
+  @Override
+  ComputableValue<Long> getEnabledTimeComputableValue() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getEnabledTimeComputableValue' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
+    }
+    return $$arez$$_enabledTime;
+  }
+
+  @Override
+  public long getDisabledTime() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getDisabledTime' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
+    }
+    return this.$$arez$$_disabledTime.get();
+  }
+
+  @Override
+  ComputableValue<Long> getDisabledTimeComputableValue() {
+    if ( Arez.shouldCheckApiInvariants() ) {
+      Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getDisabledTimeComputableValue' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
+    }
+    return $$arez$$_disabledTime;
   }
 
   @Override

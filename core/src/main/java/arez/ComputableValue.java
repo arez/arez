@@ -46,6 +46,8 @@ public final class ComputableValue<T extends @Nullable Object> extends Node {
      * Flag set to true if computable value can be read outside a transaction.
      */
     private final boolean _readOutsideTransaction;
+
+    private final boolean _writeOutsideTransaction;
     /**
      * The cached value of the computation.
      */
@@ -109,7 +111,8 @@ public final class ComputableValue<T extends @Nullable Object> extends Node {
         _value = null;
         _computing = false;
         _readOutsideTransaction = Flags.READ_OUTSIDE_TRANSACTION == (flags & Flags.READ_OUTSIDE_TRANSACTION);
-        _observer = new Observer(this, flags & ~Flags.READ_OUTSIDE_TRANSACTION);
+        _writeOutsideTransaction = Flags.WRITE_OUTSIDE_TRANSACTION == (flags & Flags.WRITE_OUTSIDE_TRANSACTION);
+        _observer = new Observer(this, flags & ~(Flags.READ_OUTSIDE_TRANSACTION | Flags.WRITE_OUTSIDE_TRANSACTION));
         _observableValue = new ObservableValue<>(
                 context, null, name, _observer, Arez.arePropertyIntrospectorsEnabled() ? this::getValue : null, null);
         if (null != _component) {
@@ -184,7 +187,11 @@ public final class ComputableValue<T extends @Nullable Object> extends Node {
      * the ComputableValue during the normal reaction cycle or when next accessed and will propagate
      * the change at that time if required. This method must be explicitly invoked by the
      * developer if the ComputableValue is derived from non-arez data and that data changes.
-     * Before invoking this method, a read-write transaction <b>MUST</b> be active.
+     * Before invoking this method, a read-write transaction <b>MUST</b> be active unless
+     * {@link Flags#WRITE_OUTSIDE_TRANSACTION} is enabled. With that flag, an action is created
+     * if no transaction is active. Pending reactions may run before this method returns.
+     * An existing transaction must still permit writes. Use an explicit action to batch
+     * invalidations with other changes.
      */
     public void reportPossiblyChanged() {
         if (Arez.shouldCheckApiInvariants()) {
@@ -199,6 +206,17 @@ public final class ComputableValue<T extends @Nullable Object> extends Node {
                             + "' but the computable value has not specified the "
                             + "AREZ_OR_EXTERNAL_DEPENDENCIES flag.");
         }
+        if (_writeOutsideTransaction && !getContext().isTransactionActive()) {
+            getContext()
+                    .safeAction(
+                            Arez.areNamesEnabled() ? getName() + ".reportPossiblyChanged" : null,
+                            this::reportPossiblyChangedInTransaction);
+        } else {
+            reportPossiblyChangedInTransaction();
+        }
+    }
+
+    private void reportPossiblyChangedInTransaction() {
         if (Arez.shouldEnforceTransactionType()) {
             Transaction.current().verifyWriteAllowed(getObservableValue());
         }
@@ -622,9 +640,16 @@ public final class ComputableValue<T extends @Nullable Object> extends Node {
          */
         public static final int READ_OUTSIDE_TRANSACTION = 1 << 14;
         /**
+         * Create an action when {@link ComputableValue#reportPossiblyChanged()} is invoked
+         * outside a transaction. Requires {@link #AREZ_OR_EXTERNAL_DEPENDENCIES} to report changes.
+         * Existing transactions must still permit writes.
+         */
+        public static final int WRITE_OUTSIDE_TRANSACTION = 1 << 13;
+        /**
          * Mask that identifies the bits associated with configuration of ComputableValue instances.
          */
         static final int CONFIG_FLAGS_MASK = READ_OUTSIDE_TRANSACTION
+                | WRITE_OUTSIDE_TRANSACTION
                 | PRIORITY_MASK
                 | (RUN_NOW | RUN_LATER)
                 | OBSERVE_LOWER_PRIORITY_DEPENDENCIES

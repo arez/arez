@@ -2,7 +2,6 @@ package arez.dom;
 
 import arez.ComputableValue;
 import arez.Disposable;
-import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ComputableValueRef;
 import arez.annotations.DepType;
@@ -37,12 +36,12 @@ public abstract class MediaQuery {
     }
 
     @JsFunction
-    private interface EventListener {
+    interface EventListener {
         void handleEvent(Object event);
     }
 
     @JsType(isNative = true, name = "MediaQueryList", namespace = JsPackage.GLOBAL)
-    private static class MediaQueryList {
+    static class MediaQueryList {
         @JsProperty(name = "media")
         native String media();
 
@@ -131,7 +130,7 @@ public abstract class MediaQuery {
      *
      * @return true if the media query matches, false otherwise.
      */
-    @Memoize(depType = DepType.AREZ_OR_EXTERNAL)
+    @Memoize(depType = DepType.AREZ_OR_EXTERNAL, writeOutsideTransaction = Feature.ENABLE)
     public boolean matches() {
         // Observe query so that this is re-calculated if query changes
         getQuery();
@@ -153,7 +152,6 @@ public abstract class MediaQuery {
         unbindListener();
     }
 
-    @Action
     void notifyOnMatchChange() {
         // According to notes in https://github.com/ReactTraining/react-media/blob/master/modules/MediaQueryList.js
         // Safari doesn't clear up listener with removeListener when the listener is already waiting in the event queue.

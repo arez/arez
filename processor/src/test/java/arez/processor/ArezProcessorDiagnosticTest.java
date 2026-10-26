@@ -1087,6 +1087,14 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
             new Object[] {"com.example.memoize.StaticModel", "@Memoize target must not be static"},
             new Object[] {"com.example.memoize.ReturnVoidModel", "@Memoize target must return a value"},
             new Object[] {
+                "com.example.memoize.WriteOutsideTransactionArezModel",
+                "@Memoize target specified writeOutsideTransaction = ENABLE but depType is not AREZ_OR_EXTERNAL."
+            },
+            new Object[] {
+                "com.example.memoize.WriteOutsideTransactionArezOrNoneModel",
+                "@Memoize target specified writeOutsideTransaction = ENABLE but depType is not AREZ_OR_EXTERNAL."
+            },
+            new Object[] {
                 "com.example.observable_value_ref.BadNameModel",
                 "@ObservableValueRef target specified an invalid name '-ace'. The name must be a valid java identifier."
             },
@@ -2145,9 +2153,10 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
             new Object[] {
                 "com.example.component.UnnecessaryDefaultWriteOutsideTransactionComponentModel",
                 "@ArezComponent target has specified a value for the defaultWriteOutsideTransaction parameter but does"
-                        + " not contain any methods annotated with @Observable. This warning can be suppressed by"
-                        + " annotating the element with @SuppressWarnings( \"Arez:UnnecessaryDefault\" ) or"
-                        + " @SuppressArezWarnings( \"Arez:UnnecessaryDefault\" )"
+                        + " not contain any methods annotated with @Observable or @Memoize with depType ="
+                        + " AREZ_OR_EXTERNAL. This warning can be suppressed by annotating the element with"
+                        + " @SuppressWarnings( \"Arez:UnnecessaryDefault\" ) or @SuppressArezWarnings("
+                        + " \"Arez:UnnecessaryDefault\" )"
             },
             new Object[] {
                 "com.example.component.UnnecessaryDefaultSkipIfDisposedComponentModel",

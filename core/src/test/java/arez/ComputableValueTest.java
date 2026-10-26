@@ -15,12 +15,15 @@ import arez.spy.ReactionCycleCompleteEvent;
 import arez.spy.ReactionCycleStartEvent;
 import arez.spy.TransactionCompleteEvent;
 import arez.spy.TransactionStartEvent;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import org.jspecify.annotations.Nullable;
 import org.realityforge.guiceyloops.shared.ValueUtil;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public final class ComputableValueTest extends AbstractTest {
@@ -729,7 +732,102 @@ public final class ComputableValueTest extends AbstractTest {
     }
 
     @Test
-    public void reportPossiblyChanged_readOnlyTransaction() {
+    public void writeOutsideTransaction() {
+        final ArezContext context = Arez.context();
+        final var source = new AtomicInteger();
+        final var computations = new AtomicInteger();
+        final var observed = new ArrayList<Integer>();
+        final ComputableValue<Integer> value = context.computable(
+                () -> {
+                    computations.incrementAndGet();
+                    return source.get();
+                },
+                ComputableValue.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES
+                        | ComputableValue.Flags.WRITE_OUTSIDE_TRANSACTION
+                        | ComputableValue.Flags.READ_OUTSIDE_TRANSACTION);
+        context.observer(() -> observed.add(value.get()));
+
+        value.reportPossiblyChanged();
+        assertEquals(computations.get(), 2);
+        assertEquals(observed, List.of(0));
+
+        source.set(1);
+        value.reportPossiblyChanged();
+        assertEquals(value.get().intValue(), 1);
+        assertEquals(observed, List.of(0, 1));
+
+        context.safeAction(() -> {
+            source.set(2);
+            value.reportPossiblyChanged();
+            source.set(3);
+            value.reportPossiblyChanged();
+            assertEquals(observed, List.of(0, 1));
+            assertEquals(computations.get(), 3);
+        });
+        assertEquals(observed, List.of(0, 1, 3));
+        assertEquals(computations.get(), 4);
+    }
+
+    @Test
+    public void writeOutsideTransaction_inactive() {
+        final ArezContext context = Arez.context();
+        final var computations = new AtomicInteger();
+        final ComputableValue<Integer> value = context.computable(
+                computations::incrementAndGet,
+                ComputableValue.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES | ComputableValue.Flags.WRITE_OUTSIDE_TRANSACTION);
+        value.reportPossiblyChanged();
+        assertEquals(computations.get(), 0);
+        final Observer observer = context.observer(value::get);
+        assertEquals(computations.get(), 1);
+        observer.dispose();
+        value.reportPossiblyChanged();
+        assertEquals(computations.get(), 1);
+    }
+
+    @Test
+    public void writeOutsideTransaction_keepAlive() {
+        final var computations = new AtomicInteger();
+        final ComputableValue<Integer> value = Arez.context()
+                .computable(
+                        computations::incrementAndGet,
+                        ComputableValue.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES
+                                | ComputableValue.Flags.WRITE_OUTSIDE_TRANSACTION
+                                | ComputableValue.Flags.KEEPALIVE);
+        assertEquals(computations.get(), 1);
+        value.reportPossiblyChanged();
+        assertEquals(computations.get(), 2);
+    }
+
+    @Test
+    public void writeOutsideTransaction_disposed() {
+        final ComputableValue<Integer> value = Arez.context()
+                .computable(
+                        () -> 1,
+                        ComputableValue.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES
+                                | ComputableValue.Flags.WRITE_OUTSIDE_TRANSACTION);
+        value.dispose();
+        assertInvariantFailure(
+                value::reportPossiblyChanged,
+                "Arez-0121: The method reportPossiblyChanged() was invoked on disposed ComputableValue named '"
+                        + value.getName() + "'.");
+    }
+
+    @Test
+    public void reportPossiblyChanged_requiresTransactionByDefault() {
+        final ComputableValue<Integer> value =
+                Arez.context().computable(() -> 1, ComputableValue.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES);
+        assertInvariantFailure(
+                value::reportPossiblyChanged,
+                "Arez-0117: Attempting to get current transaction but no transaction is active.");
+    }
+
+    @DataProvider
+    public Object[][] outsideTransactionFlags() {
+        return new Object[][] {{0}, {ComputableValue.Flags.WRITE_OUTSIDE_TRANSACTION}};
+    }
+
+    @Test(dataProvider = "outsideTransactionFlags")
+    public void reportPossiblyChanged_readOnlyTransaction(final int flags) {
         final ArezContext context = Arez.context();
 
         final var computedCallCount = new AtomicInteger();
@@ -743,7 +841,7 @@ public final class ComputableValueTest extends AbstractTest {
             return "";
         };
         final ComputableValue<String> computableValue =
-                context.computable(function, ComputableValue.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES);
+                context.computable(function, ComputableValue.Flags.AREZ_OR_EXTERNAL_DEPENDENCIES | flags);
 
         assertEquals(autorunCallCount.get(), 0);
         assertEquals(computedCallCount.get(), 0);
@@ -765,8 +863,8 @@ public final class ComputableValueTest extends AbstractTest {
         assertEquals(computedCallCount.get(), 1);
     }
 
-    @Test
-    public void reportPossiblyChanged_arezOnlyDependencies() {
+    @Test(dataProvider = "outsideTransactionFlags")
+    public void reportPossiblyChanged_arezOnlyDependencies(final int flags) {
         final ArezContext context = Arez.context();
 
         final ObservableValue<Object> observableValue = context.observable();
@@ -775,7 +873,7 @@ public final class ComputableValueTest extends AbstractTest {
             observableValue.reportObserved();
             return "";
         };
-        final ComputableValue<String> computableValue = context.computable(function);
+        final ComputableValue<String> computableValue = context.computable(function, flags);
 
         assertInvariantFailure(
                 () -> context.safeAction(computableValue::reportPossiblyChanged),

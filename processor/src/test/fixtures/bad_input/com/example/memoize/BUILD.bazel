@@ -17,6 +17,8 @@ filegroup(
         "ReturnVoidModel.java",
         "StaticModel.java",
         "ThrowsExceptionModel.java",
+        "WriteOutsideTransactionArezModel.java",
+        "WriteOutsideTransactionArezOrNoneModel.java",
     ],
     visibility = ["//processor/src/test/fixtures/bad_input/com/example:__pkg__"],
 )
