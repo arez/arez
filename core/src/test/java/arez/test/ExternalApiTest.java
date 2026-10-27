@@ -8,12 +8,12 @@ import arez.Arez;
 import arez.ArezContext;
 import arez.ArezTestUtil;
 import arez.ComputableValue;
+import arez.Disposable;
 import arez.ObservableValue;
 import arez.Observer;
 import arez.ObserverErrorHandler;
 import arez.Procedure;
 import arez.SafeFunction;
-import arez.SchedulerLock;
 import arez.Zone;
 import arez.spy.SpyEventHandler;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -579,7 +579,7 @@ public final class ExternalApiTest extends AbstractTest {
     public void pauseScheduler() {
         final ArezContext context = Arez.context();
 
-        final SchedulerLock lock1 = context.pauseScheduler();
+        final Disposable lock1 = context.pauseScheduler();
         assertTrue(context.isSchedulerPaused());
 
         final var callCount = new AtomicInteger();
@@ -595,7 +595,7 @@ public final class ExternalApiTest extends AbstractTest {
 
         assertEquals(callCount.get(), 0);
 
-        final SchedulerLock lock2 = context.pauseScheduler();
+        final Disposable lock2 = context.pauseScheduler();
 
         lock2.dispose();
 

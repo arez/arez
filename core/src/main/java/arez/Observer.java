@@ -77,6 +77,8 @@ public final class Observer extends Node {
      */
     private int _flags;
 
+    private int _suspensionCount;
+
     private final Task _task;
 
     Observer(final ComputableValue<?> computableValue, final int flags) {
@@ -271,6 +273,112 @@ public final class Observer extends Node {
     }
 
     /**
+     * Suspend automatic reactions and release the observer's dependencies and hooks.
+     * Each invocation returns an independent suspension; dispose all returned handles to resume.
+     * Disposing a handle more than once has no additional effect. This method is not supported
+     * by observers owned by a {@link ComputableValue}, or by disposed observers.
+     *
+     * <p>An observation already in progress finishes before releasing its dependencies and hooks.
+     * Explicitly executed observations remain permitted while suspended, including their return
+     * values and exceptions, but release their dependencies and hooks when tracking completes.
+     * Resources acquired by those observations are temporary; their results do not keep resources alive.</p>
+     *
+     * <p>Releasing the last suspension schedules one fresh observation, or one dependency-change
+     * notification when an external executor owns execution. Normal transaction, scheduler-lock
+     * and priority rules apply. Intermediate changes are not replayed. Disposing the observer
+     * remains terminal, and releasing its suspension handles afterward is harmless.</p>
+     *
+     * @return the handle to dispose to release this suspension.
+     */
+    public Disposable suspend() {
+        if (Arez.shouldCheckApiInvariants()) {
+            apiInvariant(
+                    () -> !isComputableValue(),
+                    () -> "Arez-0208: Observer.suspend() invoked on observer named '" + getName()
+                            + "' owned by a ComputableValue.");
+            apiInvariant(
+                    this::isNotDisposedOrDisposing,
+                    () -> "Arez-0217: Observer.suspend() invoked on disposed or disposing observer named '" + getName()
+                            + "'.");
+        }
+        if (getContext().isTransactionActive()) {
+            suspendInTransaction();
+        } else {
+            getContext()
+                    .safeAction(
+                            Arez.areNamesEnabled() ? getName() + ".suspend" : null,
+                            this::suspendInTransaction,
+                            ActionFlags.NO_VERIFY_ACTION_REQUIRED);
+        }
+        return new Disposable() {
+            private boolean _disposed;
+
+            @Override
+            public void dispose() {
+                if (!_disposed) {
+                    _disposed = true;
+                    releaseSuspension();
+                }
+            }
+
+            @Override
+            public boolean isDisposed() {
+                return _disposed;
+            }
+        };
+    }
+
+    boolean isSuspended() {
+        return 0 != _suspensionCount;
+    }
+
+    private void suspendInTransaction() {
+        final Transaction transaction = getContext().getTransaction();
+        if (Arez.shouldCheckInvariants()) {
+            transaction.markTransactionAsUsed();
+        }
+        _suspensionCount++;
+        if (1 == _suspensionCount) {
+            transaction.suspendObserver(this);
+        }
+    }
+
+    void completeSuspension() {
+        if (isNotDisposedOrDisposing()) {
+            markDependenciesLeastStaleObserverAsUpToDate();
+            setState(Flags.STATE_INACTIVE);
+        } else {
+            // Disposal during tracking can leave hooks registered by the unfinished observation.
+            releaseTrackingResources();
+        }
+    }
+
+    private void releaseSuspension() {
+        _suspensionCount--;
+        final ArezContext context = getContext();
+        if (context.isTransactionActive()) {
+            if (Arez.shouldCheckInvariants()) {
+                context.getTransaction().markTransactionAsUsed();
+            }
+            if (!isSuspended() && isNotDisposedOrDisposing()) {
+                context.getTransaction().queueObserverResume(this);
+            }
+        } else if (!isSuspended() && isNotDisposedOrDisposing()) {
+            scheduleResume();
+            context.triggerScheduler();
+        }
+    }
+
+    void scheduleResume() {
+        if (!isSuspended() && isNotDisposedOrDisposing()) {
+            executeObserveNextIfPresent();
+            if (!_task.isQueued()) {
+                getContext().scheduleReaction(this);
+            }
+        }
+    }
+
+    /**
      * Make the Observer INACTIVE and release any resources associated with observer.
      * The applications should NOT interact with the Observer after it has been disposed.
      */
@@ -356,9 +464,7 @@ public final class Observer extends Node {
      * Being "active" means that the state of the observer is not {@link Flags#STATE_INACTIVE},
      * {@link Flags#STATE_DISPOSING} or {@link Flags#STATE_DISPOSED}.
      *
-     * <p>An inactive observer has no dependencies and depending on the type of observer may
-     * have other consequences. i.e. An inactive observer will never be scheduled even if it has a
-     * reaction.</p>
+     * <p>An inactive observer has no dependencies. A fresh observation may be scheduled to activate it.</p>
      *
      * @return true if the Observer is active.
      */
@@ -401,7 +507,9 @@ public final class Observer extends Node {
         if (Arez.shouldEnforceTransactionType() && Arez.shouldCheckInvariants()) {
             getContext().getTransaction().markTransactionAsUsed();
         }
-        setState(Flags.STATE_STALE);
+        if (!isSuspended()) {
+            setState(Flags.STATE_STALE);
+        }
     }
 
     /**
@@ -448,20 +556,24 @@ public final class Observer extends Node {
                 }
             } else if (Flags.STATE_INACTIVE == state
                     || (Flags.STATE_INACTIVE != originalState && Flags.STATE_DISPOSING == state)) {
-                if (isComputableValue()) {
-                    getComputableValue().completeDeactivate();
-                }
-                final HookMap hooks = getHooks();
-                for (int i = 0, size = hooks.size(); i < size; i++) {
-                    runHook(hooks.valueAt(i).getOnDeactivate(), ObserverError.ON_DEACTIVATE_ERROR);
-                }
-                hooks.clear();
-                clearDependencies();
+                releaseTrackingResources();
             }
             if (Arez.shouldCheckInvariants()) {
                 invariantState();
             }
         }
+    }
+
+    private void releaseTrackingResources() {
+        if (isComputableValue()) {
+            getComputableValue().completeDeactivate();
+        }
+        final HookMap hooks = getHooks();
+        for (int i = 0, size = hooks.size(); i < size; i++) {
+            runHook(hooks.valueAt(i).getOnDeactivate(), ObserverError.ON_DEACTIVATE_ERROR);
+        }
+        hooks.clear();
+        clearDependencies();
     }
 
     /**
@@ -516,16 +628,18 @@ public final class Observer extends Node {
         if (Arez.shouldEnforceTransactionType() && getContext().isTransactionActive() && Arez.shouldCheckInvariants()) {
             getContext().getTransaction().markTransactionAsUsed();
         }
-        executeObserveNextIfPresent();
-        scheduleReaction();
-        getContext().triggerScheduler();
+        if (!isSuspended()) {
+            executeObserveNextIfPresent();
+            scheduleReaction();
+            getContext().triggerScheduler();
+        }
     }
 
     /**
      * Schedule this observer if it does not already have a reaction pending.
      */
     void scheduleReaction() {
-        if (isNotDisposed()) {
+        if (isNotDisposed() && !isSuspended()) {
             if (Arez.shouldCheckInvariants()) {
                 invariant(
                         this::isActive,
@@ -544,7 +658,7 @@ public final class Observer extends Node {
      * to the context global ObserverErrorHandlers
      */
     void invokeReaction() {
-        if (isNotDisposed()) {
+        if (isNotDisposed() && !isSuspended()) {
             final long startedAt;
             if (willPropagateSpyEvents()) {
                 startedAt = System.currentTimeMillis();

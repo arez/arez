@@ -1600,7 +1600,7 @@ public final class ObserverTest extends AbstractTest {
         assertEquals(observed.getCallCount(), 0);
         assertEquals(onDepsChange.getCallCount(), 0);
 
-        final SchedulerLock schedulerLock = context.pauseScheduler();
+        final Disposable schedulerLock = context.pauseScheduler();
 
         observer.schedule();
 
@@ -1641,7 +1641,7 @@ public final class ObserverTest extends AbstractTest {
         assertEquals(observed.getCallCount(), 1);
         assertEquals(onDepsChange.getCallCount(), 1);
 
-        final SchedulerLock schedulerLock = context.pauseScheduler();
+        final Disposable schedulerLock = context.pauseScheduler();
 
         // This does not cause exception - thus transaction must be marked as used
         context.safeAction(observer::schedule);
@@ -1673,7 +1673,7 @@ public final class ObserverTest extends AbstractTest {
         assertEquals(observer.getState(), Observer.Flags.STATE_UP_TO_DATE);
         assertFalse(observer.getTask().isQueued());
 
-        final SchedulerLock schedulerLock = context.pauseScheduler();
+        final Disposable schedulerLock = context.pauseScheduler();
 
         observer.schedule();
 
@@ -1707,7 +1707,7 @@ public final class ObserverTest extends AbstractTest {
 
         assertFalse(observer.getTask().isQueued());
 
-        final SchedulerLock schedulerLock = context.pauseScheduler();
+        final Disposable schedulerLock = context.pauseScheduler();
 
         assertInvariantFailure(
                 observer::schedule,

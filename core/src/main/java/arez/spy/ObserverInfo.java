@@ -11,9 +11,10 @@ import org.jspecify.annotations.Nullable;
 public interface ObserverInfo extends ElementInfo {
     /**
      * Return true if the Observer is active.
-     * A normal observer is considered active if it is not disposed. An observer where {@link #isComputableValue()}
-     * returns true if the observer is not disposed and either the {@link ComputableValue} is being observed
-     * or has been configured as a <code>keepAlive</code> {@link ComputableValue}.
+     * An observer is inactive before its first observation, after suspension has released its
+     * tracking resources, and after disposal. Explicit observations while suspended are temporarily
+     * active until tracking completes. For a {@link ComputableValue}, activity follows observation
+     * and keep-alive requirements.
      *
      * @return true if the Observer is active.
      */

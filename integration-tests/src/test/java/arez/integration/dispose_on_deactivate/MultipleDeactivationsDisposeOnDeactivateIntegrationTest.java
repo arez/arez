@@ -6,7 +6,6 @@ import arez.Arez;
 import arez.ComputableValue;
 import arez.Disposable;
 import arez.Observer;
-import arez.SchedulerLock;
 import arez.annotations.ArezComponent;
 import arez.component.ComponentObservable;
 import arez.integration.AbstractArezIntegrationTest;
@@ -30,7 +29,7 @@ public final class MultipleDeactivationsDisposeOnDeactivateIntegrationTest exten
 
         assertFalse(Disposable.isDisposed(observer));
 
-        final SchedulerLock schedulerLock = Arez.context().pauseScheduler();
+        final Disposable schedulerLock = Arez.context().pauseScheduler();
 
         // This will trigger scheduleDispose
         Disposable.dispose(observer);

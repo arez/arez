@@ -1341,7 +1341,7 @@ public final class ComputableValueTest extends AbstractTest {
         assertDependencies(first, source1);
         assertDependencies(second, source2);
 
-        final SchedulerLock schedulerLock = context.pauseScheduler();
+        final Disposable schedulerLock = context.pauseScheduler();
         try {
             source1Value.set(2);
             source2Value.set(2);

@@ -3,7 +3,7 @@ package arez.integration;
 import static org.testng.Assert.*;
 
 import arez.Arez;
-import arez.SchedulerLock;
+import arez.Disposable;
 import arez.annotations.ArezComponent;
 import arez.annotations.Executor;
 import arez.annotations.Observable;
@@ -18,7 +18,7 @@ public final class ObserversMutationParameterIntegrationTest extends AbstractAre
     public void readOnlyAutorunAttemptsMutationScenario() {
         captureObserverErrors();
 
-        final SchedulerLock lock = Arez.context().pauseScheduler();
+        final Disposable lock = Arez.context().pauseScheduler();
         final var model = Model1.create();
 
         assertEquals(getObserverErrors().size(), 0);
@@ -34,7 +34,7 @@ public final class ObserversMutationParameterIntegrationTest extends AbstractAre
     public void readOnlyAutorunAttemptsQueryScenario() {
         captureObserverErrors();
 
-        final SchedulerLock lock = Arez.context().pauseScheduler();
+        final Disposable lock = Arez.context().pauseScheduler();
         final var model = Model2.create();
 
         assertEquals(getObserverErrors().size(), 0);
@@ -50,7 +50,7 @@ public final class ObserversMutationParameterIntegrationTest extends AbstractAre
     public void readWriteAutorunAttemptsMutationScenario() {
         captureObserverErrors();
 
-        final SchedulerLock lock = Arez.context().pauseScheduler();
+        final Disposable lock = Arez.context().pauseScheduler();
         final var model = Model3.create();
 
         assertEquals(getObserverErrors().size(), 0);

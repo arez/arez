@@ -1035,6 +1035,11 @@
     "messagePattern": "Observer named '%s' specified illegal flags: %s"
   },
   {
+    "code": 208,
+    "type": "API_INVARIANT",
+    "messagePattern": "Observer.suspend() invoked on observer named '%s' owned by a ComputableValue."
+  },
+  {
     "code": 209,
     "type": "INVARIANT",
     "messagePattern": "Observer named '%s' incorrectly specified both the NESTED_ACTIONS_ALLOWED flag and the NESTED_ACTIONS_DISALLOWED flag."
@@ -1073,6 +1078,11 @@
     "code": 216,
     "type": "API_INVARIANT",
     "messagePattern": "ComponentKernel.getComponent() invoked when Arez.areNativeComponentsEnabled() returns false on component named '%s'."
+  },
+  {
+    "code": 217,
+    "type": "API_INVARIANT",
+    "messagePattern": "Observer.suspend() invoked on disposed or disposing observer named '%s'."
   },
   {
     "code": 218,

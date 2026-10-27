@@ -53,6 +53,49 @@ A very simple example of a tracker observer:
 
 {@file_content: file=arez/doc/examples/tracker/TrackerExample.java "start_line=public static void main" "end_line=^    }" include_start_line=false include_end_line=false strip_block=true}
 
+## Suspending an observer
+
+Use {@link: arez.Observer#suspend() Observer.suspend()} to temporarily stop an observer's automatic reactions
+and release its dependencies and registered hooks. The method returns a {@link: arez.Disposable} handle.
+Each call creates an independent suspension; the observer resumes only after every handle has been disposed.
+Disposing a handle repeatedly is harmless.
+
+For an annotated component, obtain the observer through an
+{@link: arez.annotations.ObserverRef @ObserverRef} method:
+
+```java
+@ObserverRef
+abstract Observer getRenderObserver();
+
+// Suspend rendering until this handle is disposed.
+final Disposable suspension = getRenderObserver().suspend();
+// Later:
+suspension.dispose();
+```
+
+Suspension suppresses pending reactions and notifications, including explicit
+{@link: arez.Observer#schedule()} and {@link: arez.Observer#reportStale()} requests. An observation already
+in progress finishes before its dependencies and hooks are released. Upstream computable values can then
+deactivate when no other observer or keep-alive handle needs them.
+
+Explicit observations through an external executor still execute while suspended and preserve their return
+values and exceptions. They use temporary tracking: dependencies and hooks are released when the observation
+completes, including when it throws. They can temporarily acquire resources needed by the observation, but
+their results do not keep those resources alive. In particular, components configured with
+{@link: arez.annotations.ArezComponent#disposeOnDeactivate() disposeOnDeactivate = true} can be disposed
+after a temporary observation; an external caller must not rely on them remaining alive in its returned result.
+Suspension also cannot cancel work already handed to an external scheduler.
+
+Releasing the last suspension schedules one fresh observation for an internal executor. For an external
+executor, it schedules one `onDepsChange` notification so the host can arrange a fresh observation and restore
+persistent tracking. This refresh is required even if no dependency is known to have changed, since the
+observer was detached. Intermediate changes are not replayed. Resumption follows normal transaction,
+scheduler-lock and priority rules and can run before the handle's `dispose()` call returns.
+
+Suspension applies to ordinary observers, not observers owned by computable values. Disposing an observer
+remains terminal: releasing outstanding suspension handles afterward does not reactivate it. Calling
+`suspend()` on a disposed observer is invalid.
+
 ## Error Handling
 
 If an observer's `observed` function is executed by the Arez runtime and throws an exception, then that exception

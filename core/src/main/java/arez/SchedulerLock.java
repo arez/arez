@@ -8,7 +8,7 @@ import org.jspecify.annotations.Nullable;
 /**
  * A lock that stops the scheduler from running tasks until the lock is released.
  */
-public final class SchedulerLock implements Disposable {
+final class SchedulerLock implements Disposable {
     @OmitSymbol(unless = "arez.enable_zones")
     @Nullable
     private final ArezContext _context;

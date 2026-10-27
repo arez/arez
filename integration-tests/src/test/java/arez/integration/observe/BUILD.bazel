@@ -11,6 +11,7 @@ filegroup(
         "ObserveNestedActionDisallowedTest.java",
         "ObserveNoInvokeTest.java",
         "ObserveNonArezDependenciesTest.java",
+        "ObserveSuspensionIntegrationTest.java",
         "TrackButNoSchedulableTest.java",
         "TrackCanNestActionTest.java",
         "TrackCanNotBeNestedInActionTest.java",

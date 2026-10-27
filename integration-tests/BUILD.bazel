@@ -117,6 +117,7 @@ java_testng(
         "arez.integration.observe.ObserveNestedActionDisallowedTest",
         "arez.integration.observe.ObserveNoInvokeTest",
         "arez.integration.observe.ObserveNonArezDependenciesTest",
+        "arez.integration.observe.ObserveSuspensionIntegrationTest",
         "arez.integration.observe.TrackButNoSchedulableTest",
         "arez.integration.observe.TrackCanNestActionTest",
         "arez.integration.observe.TrackCanNotBeNestedInActionTest",

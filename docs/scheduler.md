@@ -37,6 +37,9 @@ will start the scheduler if there are pending tasks and the scheduler is not cur
 
 ## Pausing and Resuming
 
+Each {@link: arez.ArezContext#pauseScheduler()} call returns a {@link: arez.Disposable} handle. The scheduler
+resumes only after all handles have been disposed; disposing a handle repeatedly is harmless.
+
 It is also possible to pause and resume the scheduler when needed. This is rarely needed and somewhat dangerous to
 use as it is the only mechanism where it is possible to create an inconsistent state in Arez. (i.e. Observables have
 updated but not all the observers and computable values have reacted and are consistent with the new state.)

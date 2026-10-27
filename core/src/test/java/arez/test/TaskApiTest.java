@@ -5,8 +5,8 @@ import static org.testng.Assert.*;
 import arez.AbstractTest;
 import arez.Arez;
 import arez.ArezContext;
+import arez.Disposable;
 import arez.Observer;
-import arez.SchedulerLock;
 import arez.Task;
 import arez.TestSpyEventHandler;
 import arez.spy.ReactionCycleCompleteEvent;
@@ -117,7 +117,7 @@ public final class TaskApiTest extends AbstractTest {
     public void schedule_whileSchedulerPaused() {
         final var callCount = new AtomicInteger();
         final ArezContext context = Arez.context();
-        final SchedulerLock schedulerLock = context.pauseScheduler();
+        final Disposable schedulerLock = context.pauseScheduler();
 
         final Task task = context.task(callCount::incrementAndGet);
 
