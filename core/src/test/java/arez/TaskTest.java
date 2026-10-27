@@ -64,7 +64,7 @@ public final class TaskTest extends AbstractTest {
     public void schedule_whileSchedulerPaused() {
         final var callCount = new AtomicInteger();
         final ArezContext context = Arez.context();
-        final SchedulerLock schedulerLock = context.pauseScheduler();
+        final Disposable schedulerLock = context.pauseScheduler();
 
         final Task task = context.task(callCount::incrementAndGet);
 

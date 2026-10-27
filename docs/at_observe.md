@@ -50,3 +50,8 @@ This approach is used in libraries such as [React4j](https://react4j.github.io) 
 external schedulers. An example that demonstrates something similar is:
 
 {@file_content: file=arez/doc/examples/at_observe3/CurrencyView.java start_line=@ArezComponent "end_line=^}"}
+
+Use an {@link: arez.annotations.ObserverRef @ObserverRef} method to access the underlying observer when
+[temporarily suspending its reactions](observers.md#suspending-an-observer). Explicit external calls still
+execute while suspended, but retain no dependencies or hooks afterward. Releasing the last suspension
+requests a fresh execution through the associated `onDepsChange` hook.

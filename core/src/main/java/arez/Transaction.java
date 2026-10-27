@@ -118,6 +118,11 @@ final class Transaction {
     @Nullable
     private List<ObservableValue<?>> _pendingDeactivations;
     /**
+     * Resumptions wait until the root transaction has released temporary tracking resources.
+     */
+    @Nullable
+    private List<Observer> _pendingObserverResumes;
+    /**
      * Reference to the transaction that was active when this transaction began. When this
      * transaction commits, the previous transaction will be restored.
      */
@@ -153,6 +158,8 @@ final class Transaction {
      * Depth counter used to suppress observation tracking during recursive lazy validation.
      */
     private int _observationSuppressionDepth;
+
+    private boolean _suspendTracker;
     /**
      * The map of hooks that have been registered during tracking.
      */
@@ -325,6 +332,11 @@ final class Transaction {
                 assert currentZone == Arez.currentZone();
                 Arez.deactivateZone(currentZone);
             }
+            if (null != transaction._pendingObserverResumes) {
+                for (final Observer observer : transaction._pendingObserverResumes) {
+                    observer.scheduleResume();
+                }
+            }
         }
     }
 
@@ -432,6 +444,7 @@ final class Transaction {
 
     void beginTracking() {
         if (null != _tracker) {
+            _suspendTracker = _tracker.isSuspended();
             if (Arez.shouldCheckInvariants()) {
                 _tracker.invariantDependenciesBackLink("Pre beginTracking");
             }
@@ -474,6 +487,28 @@ final class Transaction {
         if (isRootTransaction()) {
             // Only the root transaction performs deactivations.
             processPendingDeactivations();
+        }
+    }
+
+    void suspendObserver(final Observer observer) {
+        Transaction transaction = this;
+        while (null != transaction) {
+            if (transaction._tracker == observer) {
+                transaction._suspendTracker = true;
+                return;
+            }
+            transaction = transaction._previous;
+        }
+        observer.completeSuspension();
+    }
+
+    void queueObserverResume(final Observer observer) {
+        final Transaction root = getRootTransaction();
+        if (null == root._pendingObserverResumes) {
+            root._pendingObserverResumes = new ArrayList<>();
+        }
+        if (!root._pendingObserverResumes.contains(observer)) {
+            root._pendingObserverResumes.add(observer);
         }
     }
 
@@ -1023,6 +1058,9 @@ final class Transaction {
             _tracker.invariantDependenciesUnique("Post completeTracking");
             _tracker.invariantDependenciesBackLink("Post completeTracking");
             _tracker.invariantDependenciesNotDisposed();
+        }
+        if (_suspendTracker) {
+            _tracker.completeSuspension();
         }
     }
 

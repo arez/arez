@@ -1,7 +1,7 @@
 package arez.doc.examples.scheduler;
 
 import arez.Arez;
-import arez.SchedulerLock;
+import arez.Disposable;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
@@ -13,7 +13,7 @@ public class SchedulerExample {
     public static void main(String @Nullable [] args) {
         assert !Arez.context().isSchedulerPaused();
         // Pause the scheduler here
-        final SchedulerLock pausedControl = Arez.context().pauseScheduler();
+        final Disposable pausedControl = Arez.context().pauseScheduler();
         assert Arez.context().isSchedulerPaused();
         // Perform work here that requires that the scheduler be disabled
         // DOC ELIDE START

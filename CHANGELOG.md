@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Add `Disposable Observer.suspend()` for reference-counted suspension of reactions, dependencies and hooks. Explicit external observations retain no tracking resources while suspended; releasing the final handle requests a fresh observation or external dependency-change notification. Access component observers through existing `@ObserverRef` methods.
+* Breaking: return `Disposable` from `ArezContext.pauseScheduler()` and make `SchedulerLock` an internal implementation type. Callers declaring `SchedulerLock` variables must use `Disposable` instead and recompile.
 * Add `@Memoize.writeOutsideTransaction` and `ComputableValue.Flags.WRITE_OUTSIDE_TRANSACTION` to create an action for external invalidation when needed. Memoized values with external dependencies inherit the component write default; explicitly enabling the option for other dependency types is a compile-time error. Simplify notification-only DOM adapters while retaining actions that batch related changes.
 * Breaking: keep generated component implementations and constructors package-private for cross-package reference/inverse relationships. Generate public internal relationship sidecars for the required cross-package calls.
 * Breaking: require Java 21 for runtime libraries and generated application sources. Align both annotation processors, consumer compilation checks and publication bytecode with the new baseline.

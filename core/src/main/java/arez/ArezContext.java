@@ -1066,7 +1066,8 @@ public final class ArezContext {
 
     /**
      * Pause scheduler so that it will not run any reactions next time {@link #triggerScheduler()} is invoked.
-     * The scheduler will not resume scheduling reactions until the lock returned from this method is disposed.
+     * The scheduler resumes after all handles returned from this method have been disposed.
+     * Disposing a handle more than once has no additional effect.
      *
      * <p>The intention of this method is to allow the user to manually batch multiple actions, before
      * disposing the lock and allowing reactions to flow through the system. A typical use-case is when
@@ -1082,9 +1083,9 @@ public final class ArezContext {
      * event-handler calls back from UI when the reactions have not run. Thus the event handler could be
      * based on stale data. If this can occur the developer should </p>
      *
-     * @return a lock on scheduler.
+     * @return the handle to dispose to release this scheduler pause.
      */
-    public SchedulerLock pauseScheduler() {
+    public Disposable pauseScheduler() {
         _schedulerLockCount++;
         return new SchedulerLock(Arez.areZonesEnabled() ? this : null);
     }

@@ -2651,7 +2651,7 @@ public final class ArezContextTest extends AbstractTest {
         final Observer observer2 =
                 context.observer("O2", observableValue::reportObserved, Observer.Flags.PRIORITY_HIGH);
 
-        final SchedulerLock schedulerLock = context.pauseScheduler();
+        final Disposable schedulerLock = context.pauseScheduler();
 
         // Trigger change that should schedule above observers
         context.safeAction(observableValue::reportChanged);
@@ -2946,7 +2946,7 @@ public final class ArezContextTest extends AbstractTest {
         assertFalse(context.isSchedulerPaused());
 
         assertEquals(context.getSchedulerLockCount(), 0);
-        final SchedulerLock lock1 = context.pauseScheduler();
+        final Disposable lock1 = context.pauseScheduler();
         assertEquals(context.getSchedulerLockCount(), 1);
         assertTrue(context.isSchedulerPaused());
 
@@ -2963,7 +2963,7 @@ public final class ArezContextTest extends AbstractTest {
 
         assertEquals(callCount.get(), 0);
 
-        final SchedulerLock lock2 = context.pauseScheduler();
+        final Disposable lock2 = context.pauseScheduler();
         assertEquals(context.getSchedulerLockCount(), 2);
         assertTrue(context.isSchedulerPaused());
 
