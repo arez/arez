@@ -14,33 +14,6 @@ complete as there is too much un-said.
 
 * reportParameters = false should use Feature flag and class level defaults
 
-* Update arez/react4j so that we auto-create factory objects. Constructor parameters are either "injected" (if they are services) or passed in (in which case they are part of generated factory class). We could potentially override injected/passed in decision with a new annotation. This would allow us to write a lot less boilerplate ala:
-
-```java
-class MyComponent
-{
-  @AutoFactory
-  MyComponent(SomeService someService, int someParameter) {...}
-}
-```
-
-which would create a factory class that would look like:
-```java
-@Injectable
-class MyComponentFactory
-{
-  MyComponentFactory(SomeService someService)
-  {
-    _someService = someService;
-  }
-
-  @NonNull MyComponent create(int someParameter)
-  {
-    return new MyComponent(_someService, someParameter);
-  }
-}
-```
-
 * Can inverse references be maps. The key would be the component id.
 
 * Add `ObservableMap`, `ObservableList` and `ObservableSet` implementations that implement reactivity as a
