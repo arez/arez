@@ -41,8 +41,6 @@ class MyComponentFactory
 }
 ```
 
-* Generate configuration constants, `ArezConfig`, `ArezTestUtil` and native `arez.js` defines from a single descriptor.
-
 * Can inverse references be maps. The key would be the component id.
 
 * Add `ObservableMap`, `ObservableList` and `ObservableSet` implementations that implement reactivity as a
