@@ -19,6 +19,14 @@ import java.lang.annotation.Target;
  * for Arez annotations. This allows another framework to define its own component model and process those Arez
  * annotations itself or generate an Arez-compatible subtype.</p>
  *
+ * <p>A type must declare only one component annotation: {@link ArezComponent}, {@link ArezComponentLike},
+ * or one framework annotation marked with {@code @ActAsArezComponent}. Base types and subtypes may use
+ * different component annotations.</p>
+ *
+ * <p>Register the Arez processor before any processor that claims the framework annotation. Otherwise,
+ * a framework processor that claims every annotation in the compilation can prevent Arez validation
+ * from running.</p>
+ *
  * <p>The preferred integration pattern is for the framework annotation to depend directly on this annotation, but
  * the Arez processor also recognizes any meta-annotation named {@code ActAsArezComponent}. This fallback exists so
  * downstream frameworks can declare a package-access compatibility annotation without taking a direct code

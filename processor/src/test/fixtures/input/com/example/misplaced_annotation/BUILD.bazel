@@ -3,6 +3,9 @@ filegroup(
     srcs = [
         "ActAsArezComponentUsageModel.java",
         "ArezComponentLikeUsageModel.java",
+        "CompiledFrameworkAnnotationModel.java",
+        "CompiledFrameworkAnnotations.java",
+        "InheritedComponentAnnotationsModel.java",
         "NestedPublicCtorSimpleNameActAsArezComponentModel.java",
         "PublicCtorActAsArezComponentModel.java",
         "PublicCtorArezComponentLikeModel.java",

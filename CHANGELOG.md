@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Reject multiple component annotations on the same declaration, including combinations of `@ArezComponent`, `@ArezComponentLike`, and framework annotations marked with `@ActAsArezComponent`. Report the conflicting annotations and require callers to choose one. Base types and subtypes may continue to use different component annotations.
 * Add `Disposable Observer.suspend()` for reference-counted suspension of reactions, dependencies and hooks. Explicit external observations retain no tracking resources while suspended; releasing the final handle requests a fresh observation or external dependency-change notification. Access component observers through existing `@ObserverRef` methods.
 * Breaking: return `Disposable` from `ArezContext.pauseScheduler()` and make `SchedulerLock` an internal implementation type. Callers declaring `SchedulerLock` variables must use `Disposable` instead and recompile.
 * Add `@Memoize.writeOutsideTransaction` and `ComputableValue.Flags.WRITE_OUTSIDE_TRANSACTION` to create an action for external invalidation when needed. Memoized values with external dependencies inherit the component write default; explicitly enabling the option for other dependency types is a compile-time error. Simplify notification-only DOM adapters while retaining actions that batch related changes.

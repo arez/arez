@@ -54,8 +54,10 @@ import org.realityforge.proton.TypesUtil;
 
 /**
  * Annotation processor that analyzes Arez annotated source and generates models from the annotations.
+ * Framework annotations loaded from dependencies require universal processing without claiming annotations
+ * from their owning processors.
  */
-@SupportedAnnotationTypes("arez.annotations.*")
+@SupportedAnnotationTypes("*")
 @SupportedSourceVersion(SourceVersion.RELEASE_21)
 public final class ArezProcessor extends AbstractStandardProcessor {
 
@@ -200,7 +202,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         collectRootTypeNames(env);
         if (!env.processingOver()) {
             detectMisplacedArezAnnotations(env);
-            warnOnPublicConstructorsInArezComponentLikeTypes(env);
+            validateComponentAnnotations(env);
         }
         processTypeElements(
                 annotations,
@@ -212,7 +214,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
                 _analyzeComponentStopWatch);
         errorIfProcessingOverAndInvalidTypesDetected(env);
         clearRootTypeNamesIfProcessingOver(env);
-        return true;
+        return false;
     }
 
     private void process(final TypeElement element) throws IOException, ProcessorException {
@@ -227,24 +229,43 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    private void warnOnPublicConstructorsInArezComponentLikeTypes(final RoundEnvironment env) {
+    private void validateComponentAnnotations(final RoundEnvironment env) {
         final var visited = new HashSet<TypeElement>();
         for (final var rootElement : env.getRootElements()) {
-            warnOnPublicConstructorsInArezComponentLikeTypes(rootElement, visited);
+            validateComponentAnnotations(rootElement, visited);
         }
     }
 
-    private void warnOnPublicConstructorsInArezComponentLikeTypes(
-            final Element element, final Set<TypeElement> visited) {
+    private void validateComponentAnnotations(final Element element, final Set<TypeElement> visited) {
         if (element instanceof final TypeElement typeElement) {
             if (visited.add(typeElement)) {
+                detectConflictingComponentAnnotations(typeElement);
                 warnOnPublicConstructorsInArezComponentLikeType(typeElement);
                 for (final var enclosedElement : typeElement.getEnclosedElements()) {
                     if (enclosedElement instanceof TypeElement) {
-                        warnOnPublicConstructorsInArezComponentLikeTypes(enclosedElement, visited);
+                        validateComponentAnnotations(enclosedElement, visited);
                     }
                 }
             }
+        }
+    }
+
+    private void detectConflictingComponentAnnotations(final TypeElement typeElement) {
+        final var componentAnnotations = new ArrayList<String>();
+        for (final var annotation : typeElement.getAnnotationMirrors()) {
+            final var annotationType =
+                    (TypeElement) annotation.getAnnotationType().asElement();
+            final var name = annotationType.getQualifiedName().toString();
+            if (Constants.COMPONENT_CLASSNAME.equals(name)
+                    || Constants.AREZ_COMPONENT_LIKE_CLASSNAME.equals(name)
+                    || isActAsArezComponentAnnotated(annotationType)) {
+                componentAnnotations.add("@" + name);
+            }
+        }
+        if (componentAnnotations.size() > 1) {
+            final var message = "Type declares conflicting component annotations: "
+                    + String.join(", ", componentAnnotations) + ". Choose exactly one component annotation.";
+            processingEnv.getMessager().printMessage(ERROR, message, typeElement);
         }
     }
 
