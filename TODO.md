@@ -27,21 +27,10 @@ complete as there is too much un-said.
 * Maybe when the spy events are over a channel the puller can decide when parameters/results are sent across
   channel and when not.
 
-* Could also record fan out and fan in for each node and rates of change for each node to see what problems could
-  arise and where the potential bottlenecks are located.
-
-* Implement something similar to `getDependencyTree` from mobx
-
 * Add per Observer `onError` parameter that can be used to replace the global reaction error handler.
 
 * Consider adding per-task error handler and a global task error handler. Observer error handlers should
   be merged into this code to reduce code size and conceptual overhead.
-
-* Complete the `arez-devtools` project.
-  - Embers DevTools is truly magical -  https://egghead.io/lessons/javascript-debug-ember-applications-using-ember-inspector
-  - https://reactlucid.io/ is a DevTool that combines GraphQL/Apollo and React. Can see the list of requests etc
-    and where they are bound.
-  - https://github.com/bvaughn/react-devtools-experimental is a simpler place to start learning how to build a DevTool
 
 * Update `Observable.shouldGenerateUnmodifiableCollectionVariant()` and instead use `OnChanged` hook so that
   collections without a setter can potentially have an unmodified variant where the cache field is kept up to
