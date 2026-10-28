@@ -29,6 +29,49 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
     @DataProvider(name = "failedCompiles")
     public Object[][] failedCompiles() {
         return new Object[][] {
+            {
+                "com.example.misplaced_annotation.ComponentAndComponentLikeModel",
+                "Type declares conflicting component annotations: @arez.annotations.ArezComponent,"
+                        + " @arez.annotations.ArezComponentLike. Choose exactly one component annotation."
+            },
+            {
+                "com.example.misplaced_annotation.ComponentAndFrameworkModel",
+                "Type declares conflicting component annotations: @arez.annotations.ArezComponent,"
+                        + " @com.example.misplaced_annotation.ComponentAndFrameworkModel.FrameworkView."
+                        + " Choose exactly one component annotation."
+            },
+            {
+                "com.example.misplaced_annotation.ComponentLikeAndFrameworkModel",
+                "Type declares conflicting component annotations: @arez.annotations.ArezComponentLike,"
+                        + " @com.example.misplaced_annotation.ComponentLikeAndFrameworkModel.FrameworkView."
+                        + " Choose exactly one component annotation."
+            },
+            {
+                "com.example.misplaced_annotation.AllComponentAnnotationsModel",
+                "Type declares conflicting component annotations: @arez.annotations.ArezComponent,"
+                        + " @arez.annotations.ArezComponentLike,"
+                        + " @com.example.misplaced_annotation.AllComponentAnnotationsModel.FrameworkView."
+                        + " Choose exactly one component annotation."
+            },
+            {
+                "com.example.misplaced_annotation.ComponentAndSimpleNameFrameworkModel",
+                "Type declares conflicting component annotations:"
+                        + " @com.example.misplaced_annotation.ComponentAndSimpleNameFrameworkModel.FrameworkView,"
+                        + " @arez.annotations.ArezComponent. Choose exactly one component annotation."
+            },
+            {
+                "com.example.misplaced_annotation.NestedComponentLikeAndSimpleNameFrameworkModel",
+                "Type declares conflicting component annotations:"
+                    + " @com.example.misplaced_annotation.NestedComponentLikeAndSimpleNameFrameworkModel.FrameworkView,"
+                    + " @arez.annotations.ArezComponentLike. Choose exactly one component annotation."
+            },
+            {
+                "com.example.misplaced_annotation.MultipleFrameworkAnnotationsModel",
+                "Type declares conflicting component annotations:"
+                        + " @com.example.misplaced_annotation.MultipleFrameworkAnnotationsModel.FrameworkView,"
+                        + " @com.example.misplaced_annotation.MultipleFrameworkAnnotationsModel.OtherFrameworkView."
+                        + " Choose exactly one component annotation."
+            },
             {"com.example.memoize_context_parameter.BadName1Model", "name must be a valid java identifier"},
             {"com.example.memoize_context_parameter.BadName2Model", "name must not be a java keyword"},
             {"com.example.memoize_context_parameter.EmptyButNotAllowedModel", "there are no @Memoize annotated methods"
@@ -2318,6 +2361,7 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
     @DataProvider(name = "compileWithoutWarnings")
     public Object[][] compileWithoutWarnings() {
         return new Object[][] {
+            new Object[] {"com.example.misplaced_annotation.InheritedComponentAnnotationsModel"},
             {"com.example.memoize.InterfaceHooksModel"},
             {"com.example.memoize_context_parameter.PushFirstModel"},
             {"com.example.memoize_context_parameter.PopFirstModel"},

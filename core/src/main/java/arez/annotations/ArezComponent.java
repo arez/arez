@@ -28,6 +28,7 @@ import java.lang.annotation.Target;
  * <li>Must be abstract</li>
  * <li>Must not be final</li>
  * <li>Must not be a non-static nested class</li>
+ * <li>Must not also declare {@link ArezComponentLike} or an annotation marked with {@link ActAsArezComponent}</li>
  * <li>Must have at least one method annotated with {@link Action}, {@link Observe}, {@link Memoize} or {@link Observable}</li>
  * </ul>
  *
