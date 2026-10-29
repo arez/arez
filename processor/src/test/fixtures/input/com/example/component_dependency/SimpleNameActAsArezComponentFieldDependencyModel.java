@@ -28,7 +28,7 @@ abstract class SimpleNameActAsArezComponentFieldDependencyModel
   {
   }
 
-  @ComponentDependency
+  @ComponentDependency( validateTypeAtRuntime = true )
   final @Nullable MyType time = null;
 
   @NullMarked

@@ -1,8 +1,8 @@
 # Task map
 
 - Spec: [SPEC.md](../SPEC.md)
-- Status: planned
-- Current frontier: T01
+- Status: implementing
+- Current frontier: T02
 - Planning reviewer: /root/planning_review (1/3 rounds; final confirmation unused); Findings: none
 - Plan checkpoint: automatic; accepted user scope and implementation/PR authority, planning review passed
 - Implementation reviewer: pending (0/5 rounds; final confirmation unused)
@@ -16,7 +16,7 @@
 
 | ID | Task | Status | Blocked by |
 | --- | --- | --- | --- |
-| T01 | [Align existing annotations](T01-existing-annotations.md) | pending | None |
+| T01 | [Align existing annotations](T01-existing-annotations.md) | complete | None |
 | T02 | [Add mapped relationship opt-in](T02-mapped-relationships.md) | pending | T01 |
 
 ## Sequencing

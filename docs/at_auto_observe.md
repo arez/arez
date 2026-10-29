@@ -31,3 +31,11 @@ or nulling of the owner reference.
 An example:
 
 {@file_content: file=arez/doc/examples/at_auto_observe/Dashboard.java start_line=@ArezComponent "end_line=^}"}
+
+Declared target types must provide `ComponentObservable` at compile time. When a shared
+`@ArezComponentLike` class or interface hides that capability, explicitly set
+`validateTypeAtRuntime = true`; framework annotations marked with
+`@ActAsArezComponent` also qualify. The actual value must implement `ComponentObservable`.
+Arbitrary `Object` and unrelated DTO declarations are rejected even with opt-in.
+If the processor can already prove the capability, runtime opt-in is unnecessary
+and produces the suppressible warning `Arez:UnnecessaryRuntimeTypeValidation`.

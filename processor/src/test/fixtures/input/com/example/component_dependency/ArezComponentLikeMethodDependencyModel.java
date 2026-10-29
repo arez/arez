@@ -10,7 +10,7 @@ import org.jspecify.annotations.Nullable;
 @ArezComponent
 abstract class ArezComponentLikeMethodDependencyModel
 {
-  @ComponentDependency
+  @ComponentDependency( validateTypeAtRuntime = true )
   public @Nullable MyType getTime()
   {
     return null;

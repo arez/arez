@@ -11,6 +11,7 @@ java_library(
         "ArezProcessorJSpecifyDiagnosticTest.java",
         "ArezProcessorJavacTest.java",
         "ArezProcessorTestSupport.java",
+        "ComponentTargetValidationTest.java",
         "MappedRelationshipDiagnosticTest.java",
         "NullabilityTest.java",
         "package-info.java",
@@ -416,6 +417,7 @@ java_testng(
 test_suite(
     name = "all_tests",
     tests = [
+        ":component_target_validation",
         ":diagnostics",
         ":forked_javac",
         ":generated_output",
@@ -502,5 +504,14 @@ java_testng(
     jvm_flags = _JVM_FLAGS,
     test_class = "arez.processor.ArezProcessorJSpecifyDiagnosticTest",
     visibility = ["//processor:__pkg__"],
+    deps = _RUNTIME_DEPS,
+)
+
+java_testng(
+    name = "component_target_validation",
+    size = "large",
+    srcs = [],
+    jvm_flags = _JVM_FLAGS,
+    test_class = "arez.processor.ComponentTargetValidationTest",
     deps = _RUNTIME_DEPS,
 )

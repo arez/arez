@@ -1,6 +1,6 @@
 # T01 — Align existing annotations
 
-- Status: pending
+- Status: complete
 - Blocked by: None
 - Spec coverage: R1, R2, R4, R6 (existing annotations)
 
@@ -23,4 +23,10 @@ current runtime mechanisms and migrate affected fixtures to eligible types.
 
 ## Evidence
 
-Pending.
+- Processor matrix and integration checks passed.
+- `tools/update_goldens.sh arez relationships` and `tools/update_goldens.sh arez scenarios` passed; reviewed both formatting modes.
+- `bazel test //processor:all_tests //integration-tests:tests --test_output=errors`: 26 targets passed.
+- `tools/java_format.sh write` applied; document links and diff whitespace checked.
+- Compiled generic-base tests exposed unresolved type variables in validation and generated locals; concrete member resolution fixed and verified.
+- Unnecessary generated AutoObserve checks removed for proven types; strict generated-code checks pass.
+- Duplicate dependency parsing suppressed so each redundant setting emits one warning.

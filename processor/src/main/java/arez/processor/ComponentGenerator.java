@@ -275,7 +275,7 @@ final class ComponentGenerator {
             builder.addMethod(buildObserve(component));
         }
         if (hasInternalPreDispose(component)) {
-            builder.addMethod(buildInternalPreDispose(component));
+            builder.addMethod(buildInternalPreDispose(processingEnv, component));
         }
         if (hasInternalPreDispose(component) || component.isDisposeNotifier()) {
             builder.addMethod(buildNativeComponentPreDispose(component));
@@ -306,7 +306,7 @@ final class ComponentGenerator {
         component.getObservables().values().forEach(e -> buildObservableMethods(processingEnv, e, builder));
         component.getObserves().values().forEach(e -> buildObserveMethods(processingEnv, e, builder));
         if (!component.getAutoObserves().isEmpty()) {
-            builder.addMethod(buildAutoObserveMethod(component));
+            builder.addMethod(buildAutoObserveMethod(processingEnv, component));
         }
         component.getActions().values().forEach(e -> builder.addMethod(buildAction(processingEnv, e)));
         component.getRequiresTransactions().forEach(e -> builder.addMethod(buildRequiresTransaction(processingEnv, e)));
@@ -912,7 +912,9 @@ final class ComponentGenerator {
     }
 
     private static void buildDependencyInitializer(
-            final DependencyDescriptor dependency, final MethodSpec.Builder builder) {
+            final ProcessingEnvironment processingEnv,
+            final DependencyDescriptor dependency,
+            final MethodSpec.Builder builder) {
         if (!dependency.isMethodDependency()) {
             assert dependency.shouldCascadeDispose();
             final String fieldName = dependency.getField().getSimpleName().toString();
@@ -935,6 +937,10 @@ final class ComponentGenerator {
             }
         } else {
             final ExecutableElement method = dependency.getMethod();
+            final TypeMirror returnType = ((ExecutableType) processingEnv
+                            .getTypeUtils()
+                            .asMemberOf(dependency.getComponent().asDeclaredType(), method))
+                    .getReturnType();
             final String methodName = method.getSimpleName().toString();
             final boolean abstractObservables = method.getModifiers().contains(Modifier.ABSTRACT);
             if (abstractObservables) {
@@ -953,7 +959,7 @@ final class ComponentGenerator {
                     final String varName = VARIABLE_PREFIX + methodName + "_dependency";
                     builder.addStatement(
                             "final $T $N = this.$N",
-                            TypeName.get(dependency.getMethod().getReturnType()).withoutAnnotations(),
+                            TypeName.get(returnType).withoutAnnotations(),
                             varName,
                             observable.getDataFieldName());
                     final CodeBlock.Builder listenerBlock = CodeBlock.builder();
@@ -997,15 +1003,13 @@ final class ComponentGenerator {
                     if (dependency.getComponent().isClassType()) {
                         builder.addStatement(
                                 "final $T $N = super.$N()",
-                                TypeName.get(dependency.getMethod().getReturnType())
-                                        .withoutAnnotations(),
+                                TypeName.get(returnType).withoutAnnotations(),
                                 varName,
                                 method.getSimpleName().toString());
                     } else {
                         builder.addStatement(
                                 "final $T $N = $T.super.$N()",
-                                TypeName.get(dependency.getMethod().getReturnType())
-                                        .withoutAnnotations(),
+                                TypeName.get(returnType).withoutAnnotations(),
                                 varName,
                                 dependency.getComponent().getClassName(),
                                 method.getSimpleName().toString());
@@ -1343,7 +1347,8 @@ final class ComponentGenerator {
     /**
      * Generate the preDispose method.
      */
-    private static MethodSpec buildInternalPreDispose(final ComponentDescriptor component) throws ProcessorException {
+    private static MethodSpec buildInternalPreDispose(
+            final ProcessingEnvironment processingEnv, final ComponentDescriptor component) throws ProcessorException {
         assert hasInternalPreDispose(component);
         final MethodSpec.Builder builder =
                 MethodSpec.methodBuilder(INTERNAL_PRE_DISPOSE_METHOD_NAME).addModifiers(Modifier.PRIVATE);
@@ -1367,6 +1372,9 @@ final class ComponentGenerator {
 
                 if (dependency.isMethodDependency()) {
                     final ExecutableElement method = dependency.getMethod();
+                    final TypeMirror returnType = ((ExecutableType)
+                                    processingEnv.getTypeUtils().asMemberOf(component.asDeclaredType(), method))
+                            .getReturnType();
                     final String methodName = method.getSimpleName().toString();
                     if (Nullability.isNonNull(element)) {
                         final boolean abstractObservables =
@@ -1391,17 +1399,16 @@ final class ComponentGenerator {
                         if (abstractObservables) {
                             builder.addStatement(
                                     "final $T $N = this.$N",
-                                    method.getReturnType(),
+                                    returnType,
                                     varName,
                                     dependency.getObservable().getDataFieldName());
                         } else {
                             if (component.isClassType()) {
-                                builder.addStatement(
-                                        "final $T $N = super.$N()", method.getReturnType(), varName, methodName);
+                                builder.addStatement("final $T $N = super.$N()", returnType, varName, methodName);
                             } else {
                                 builder.addStatement(
                                         "final $T $N = $T.super.$N()",
-                                        method.getReturnType(),
+                                        returnType,
                                         varName,
                                         component.getClassName(),
                                         methodName);
@@ -1845,7 +1852,7 @@ final class ComponentGenerator {
             buildAutoObserveInitializer(component, builder);
         }
         component.getDependencies().values().forEach(e -> buildDependencyKeyInitializer(e, builder));
-        component.getDependencies().values().forEach(e -> buildDependencyInitializer(e, builder));
+        component.getDependencies().values().forEach(e -> buildDependencyInitializer(processingEnv, e, builder));
 
         builder.addStatement("this.$N.componentConstructed()", KERNEL_ACCESS_EXPRESSION);
 
@@ -4336,7 +4343,8 @@ final class ComponentGenerator {
                 reference.getIdMethod().getSimpleName());
     }
 
-    private static MethodSpec buildAutoObserveMethod(final ComponentDescriptor component) {
+    private static MethodSpec buildAutoObserveMethod(
+            final ProcessingEnvironment processingEnv, final ComponentDescriptor component) {
         final MethodSpec.Builder builder =
                 MethodSpec.methodBuilder(AUTO_OBSERVE_METHOD_NAME).addModifiers(Modifier.PRIVATE);
 
@@ -4351,7 +4359,9 @@ final class ComponentGenerator {
                 final String varName = VARIABLE_PREFIX + "autoObserve_" + index++;
                 builder.addStatement(
                         "final $T $N = this.$N",
-                        GeneratorUtil.getTypeName(field.asType()).withoutAnnotations(),
+                        GeneratorUtil.getTypeName(
+                                        processingEnv.getTypeUtils().asMemberOf(component.asDeclaredType(), field))
+                                .withoutAnnotations(),
                         varName,
                         field.getSimpleName().toString());
                 if (Nullability.isNonNull(field)) {
@@ -4381,7 +4391,11 @@ final class ComponentGenerator {
                 final String varName = VARIABLE_PREFIX + "autoObserve_" + index++;
                 builder.addStatement(
                         "final $T $N = this.$N()",
-                        GeneratorUtil.getTypeName(method.getReturnType()).withoutAnnotations(),
+                        GeneratorUtil.getTypeName(((ExecutableType) processingEnv
+                                                .getTypeUtils()
+                                                .asMemberOf(component.asDeclaredType(), method))
+                                        .getReturnType())
+                                .withoutAnnotations(),
                         varName,
                         method.getSimpleName().toString());
                 if (isNullable(method, method.getReturnType())) {

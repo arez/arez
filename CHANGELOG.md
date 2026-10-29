@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Align `@AutoObserve` and `@ComponentDependency` target validation: accept statically proven capabilities and warn with suppressible `Arez:UnnecessaryRuntimeTypeValidation` for redundant runtime opt-in. Breaking: uncertain component-like dependency types now require explicit `validateTypeAtRuntime = true`; arbitrary `Object` and unrelated declared types no longer qualify. Mark shared types with `@ArezComponentLike` or expose the required component interface.
+
 * Add `@MappedRelationship` with convention-based or explicitly named source, factory, presentation filter, comparator and retention callbacks. Preserve target instances by source identity, support nullable/repeated sources and retained absent targets, and release caches on deactivation. Guard result equality against instance, order and count changes; validate callback signatures and memoization settings at compilation. Include a guide and compiled examples.
 * Reject multiple component annotations on the same declaration, including combinations of `@ArezComponent`, `@ArezComponentLike`, and framework annotations marked with `@ActAsArezComponent`. Report the conflicting annotations and require callers to choose one. Base types and subtypes may continue to use different component annotations.
 * Add `Disposable Observer.suspend()` for reference-counted suspension of reactions, dependencies and hooks. Explicit external observations retain no tracking resources while suspended; releasing the final handle requests a fresh observation or external dependency-change notification. Access component observers through existing `@ObserverRef` methods.

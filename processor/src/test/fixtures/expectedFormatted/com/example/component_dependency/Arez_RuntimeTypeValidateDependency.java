@@ -47,7 +47,7 @@ final class Arez_RuntimeTypeValidateDependency extends RuntimeTypeValidateDepend
         true,
         false,
         false);
-    final Object $$arezv$$_getValue_dependency = super.getValue();
+    final RuntimeTypeValidateDependency.MyType $$arezv$$_getValue_dependency = super.getValue();
     if (null != $$arezv$$_getValue_dependency) {
       DisposeNotifier.asDisposeNotifier($$arezv$$_getValue_dependency)
           .addOnDisposeListener(this, this::dispose);
@@ -84,7 +84,7 @@ final class Arez_RuntimeTypeValidateDependency extends RuntimeTypeValidateDepend
   }
 
   private void $$arezi$$_preDispose() {
-    final Object $$arezv$$_getValue_dependency = super.getValue();
+    final RuntimeTypeValidateDependency.MyType $$arezv$$_getValue_dependency = super.getValue();
     if (null != $$arezv$$_getValue_dependency) {
       DisposeNotifier.asDisposeNotifier($$arezv$$_getValue_dependency)
           .removeOnDisposeListener(this);

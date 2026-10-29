@@ -22,7 +22,7 @@ import org.jspecify.annotations.Nullable;
 @ArezComponent
 abstract class ActAsArezComponentFieldDependencyModel
 {
-  @ComponentDependency
+  @ComponentDependency( validateTypeAtRuntime = true )
   final @Nullable MyType time = null;
 
   @NullMarked

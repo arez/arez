@@ -15,7 +15,7 @@ import org.realityforge.braincheck.Guards;
 
 @Generated("arez.processor.ArezProcessor")
 @NullMarked
-final class Arez_ParameterizedFieldDependencyModel<T extends @Nullable Object>
+final class Arez_ParameterizedFieldDependencyModel<T extends @Nullable DisposeNotifier>
     extends ParameterizedFieldDependencyModel<T>
     implements Disposable, Identifiable<Integer>, DisposeNotifier {
   private static volatile int $$arezi$$_nextId;

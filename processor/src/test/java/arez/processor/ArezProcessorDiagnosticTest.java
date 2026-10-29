@@ -367,15 +367,11 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
             },
             new Object[] {
                 "com.example.component_dependency.BadTypeDependency",
-                "@ComponentDependency target must return an instance compatible with arez.component.DisposeNotifier or"
-                        + " a type annotated with @ArezComponent(disposeNotifier=ENABLE) or @ArezComponentLike or an"
-                        + " annotation annotated by @ActAsArezComponent"
+                "@ComponentDependency target must return an instance compatible with arez.component.DisposeNotifier"
             },
             new Object[] {
                 "com.example.component_dependency.BadTypeFieldDependency",
-                "@ComponentDependency target must be an instance compatible with arez.component.DisposeNotifier or a"
-                        + " type annotated with @ArezComponent(disposeNotifier=ENABLE) or @ArezComponentLike or an"
-                        + " annotation annotated by @ActAsArezComponent"
+                "@ComponentDependency target must be an instance compatible with arez.component.DisposeNotifier"
             },
             new Object[] {
                 "com.example.component_dependency.CascadeDisposeAndFieldDependency",
