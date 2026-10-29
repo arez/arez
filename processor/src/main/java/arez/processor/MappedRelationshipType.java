@@ -86,7 +86,10 @@ final class MappedRelationshipType {
     boolean canPassTo(final MappedRelationshipType expected) {
         final Nullability.Nullness actualNullness = nullness();
         final Nullability.Nullness expectedNullness = expected.nullness();
-        if (actualNullness != expectedNullness && expectedNullness != Nullability.Nullness.NULLABLE) {
+        if (actualNullness != expectedNullness
+                && expectedNullness != Nullability.Nullness.NULLABLE
+                && !(actualNullness == Nullability.Nullness.NONNULL
+                        && expectedNullness == Nullability.Nullness.PARAMETRIC)) {
             return false;
         }
         final MappedRelationshipType actual = expand();

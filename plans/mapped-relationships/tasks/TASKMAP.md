@@ -5,7 +5,7 @@
 - Current frontier: independent implementation review
 - Planning reviewer: `/root/planning_review` (`1/3` rounds; final confirmation `unused`; Findings: none)
 - Plan checkpoint: `automatic` — confirmed scope and execution authority, no requested plan pause, passing independent planning review.
-- Implementation reviewer: `/root/mapped_implementation_review` (`1/5` rounds; final confirmation `unused`; two P2 fixes awaiting confirmation)
+- Implementation reviewer: `/root/mapped_implementation_review` (`2/5` rounds; final confirmation `unused`; original findings confirmed fixed, parametric-input fix awaiting confirmation)
 - Authority: confirmed interview contract and user request to implement with structured-delivery-workflow and create a PR. No additional human plan checkpoint.
 - Active tree: `plans/mapped-relationships/`; new invocation, not a resumed tree.
 
@@ -36,6 +36,9 @@
 - Implementation round 1: two verified P2 findings. Nested JSpecify compatibility is omitted from callback selection, and original generic container returns are cast unsafely/classified before substitution. Fix both under existing R4/AC2, add conventional/explicit and source/compiled regressions, and revalidate affected generation/runtime plus the full gate. Remaining budget 4/5, final confirmation unused. Complete delivered scope reviewed; reviewer left the repository unchanged.
 
 - Round 1 dispositions: both findings fixed under R4/AC2. T03 records nested-contract/variance/explicit binding regressions, source/compiled generic container extraction and persistent-target cleanup tests in both wrapping modes. Latest complete gate passed; no new scope or significant decision. Ready for round 2; 1/5 consumed, final confirmation unused.
+- Implementation round 2: original findings confirmed fixed. One verified P2 introduced by the new compatibility check: it rejects safe NONNULL-to-PARAMETRIC callback input flow after nominal assignability. Permit that subtype relation while retaining invariant bidirectional checks; add direct and wildcard regressions plus nullable-to-parametric rejection. Remaining regular budget 3/5; final confirmation unused.
+
+- Round 2 disposition: safe NONNULL-to-PARAMETRIC flow fixed; direct/wildcard positive and nullable/invariant negative regressions pass. Latest complete gate passed with unchanged floors. Ready for round 3; 2/5 consumed, final confirmation unused.
 
 ## Promoted knowledge
 

@@ -11,6 +11,7 @@ filegroup(
         "Arez_NestedContractsModel.java",
         "Arez_NestedInheritedModel.java",
         "Arez_OverloadedModel.java",
+        "Arez_ParametricInputModel.java",
         "Arez_PresentationModel.java",
         "Arez_Target.java",
     ],

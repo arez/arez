@@ -50,6 +50,8 @@ filegroup(
         "NullableList.java",
         "NullableStream.java",
         "NullableTarget.java",
+        "ParametricInvariantFactory.java",
+        "ParametricNullableFactory.java",
         "ParametricSource.java",
         "PrivateSource.java",
         "RawComparator.java",

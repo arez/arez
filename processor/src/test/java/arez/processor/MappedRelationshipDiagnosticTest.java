@@ -9,6 +9,8 @@ public final class MappedRelationshipDiagnosticTest extends ArezProcessorTestSup
     @DataProvider
     public Object[][] invalidMappings() {
         return new Object[][] {
+            {"ParametricInvariantFactory", "incompatible JSpecify"},
+            {"ParametricNullableFactory", "must accept nullable source elements"},
             {"NestedUnmarkedVariable", "Unspecified JSpecify nullness"},
             {"NestedRawFactoryInput", "incompatible JSpecify"},
             {"NestedRawFactoryResult", "incompatible JSpecify"},

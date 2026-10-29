@@ -25,6 +25,7 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
     public Object[][] mappedRelationshipModels() {
         return new Object[][] {
             {"ConventionalModel"},
+            {"ParametricInputModel"},
             {"ContainerModel"},
             {"NestedInheritedModel"},
             {"NestedContractsModel"},

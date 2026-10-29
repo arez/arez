@@ -15,6 +15,7 @@ filegroup(
         "NestedContractsModel.java",
         "NestedInheritedModel.java",
         "OverloadedModel.java",
+        "ParametricInputModel.java",
         "PresentationModel.java",
         "Target.java",
         "VarianceModel.java",
