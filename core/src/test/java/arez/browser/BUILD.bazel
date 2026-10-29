@@ -1,0 +1,37 @@
+load("@j2cl//build_defs:rules.bzl", "j2cl_library")
+load("//third_party/java:rules.bzl", "java_library")
+load("//tools/release:release.bzl", "release_source_jar")
+
+java_library(
+    name = "browser_test_java",
+    testonly = True,
+    srcs = ["MappedRelationshipBrowserTest.java"],
+    plugins = ["//:processor"],
+    visibility = ["//:__pkg__"],
+    deps = [
+        "//:core",
+        "//third_party:jsinterop_annotations",
+        "//third_party:jspecify",
+    ],
+)
+
+release_source_jar(
+    name = "browser_test_sources",
+    testonly = True,
+    out = "browser-test-sources.jar",
+    java_targets = [":browser_test_java"],
+    visibility = ["//visibility:private"],
+)
+
+j2cl_library(
+    name = "browser_test_j2cl",
+    testonly = True,
+    srcs = [":browser_test_sources"],
+    experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
+    visibility = ["//core/src/test/js:__pkg__"],
+    deps = [
+        "//:core-j2cl",
+        "//third_party:jsinterop_annotations-j2cl",
+        "//third_party:jspecify-j2cl",
+    ],
+)

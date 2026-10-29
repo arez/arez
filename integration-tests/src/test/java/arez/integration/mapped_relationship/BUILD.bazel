@@ -1,0 +1,8 @@
+filegroup(
+    name = "all",
+    srcs = [
+        "MappedRelationshipIntegrationTest.java",
+        "MappedRelationshipPresentationIntegrationTest.java",
+    ],
+    visibility = ["//integration-tests/src/test/java/arez/integration:__pkg__"],
+)

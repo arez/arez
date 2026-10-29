@@ -57,13 +57,28 @@ public final class Nullability {
         return requireSpecified(declaration, resolve(declaration, declaredType(declaration))) == Nullness.NULLABLE;
     }
 
+    static boolean isNullable(final Element declaration, final TypeMirror resolvedType, final TypeElement context) {
+        return requireSpecified(declaration, resolve(declaration, resolvedType, context)) == Nullness.NULLABLE;
+    }
+
     static Nullness resolve(final Element declaration, final TypeMirror resolvedType) {
         return resolve(declaration, resolvedType, null);
     }
 
     private static Nullness resolve(
             final Element declaration, final TypeMirror resolvedType, final @Nullable TypeElement context) {
-        final TypeMirror original = declaredType(declaration);
+        return resolve(declaration, declaredType(declaration), resolvedType, context);
+    }
+
+    static Nullness resolveTypeUse(final Element declaration, final TypeMirror type) {
+        return requireSpecified(declaration, resolve(declaration, type, type, null));
+    }
+
+    private static Nullness resolve(
+            final Element declaration,
+            final TypeMirror original,
+            final TypeMirror resolvedType,
+            final @Nullable TypeElement context) {
         if (original.getKind().isPrimitive() || original.getKind() == TypeKind.VOID) {
             return Nullness.NONNULL;
         }

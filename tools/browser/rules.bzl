@@ -3,6 +3,7 @@
 load("@rules_closure//closure:defs.bzl", "closure_js_binary", "closure_js_test")
 
 visibility([
+    "//core/src/test/js",
     "//extras/dom-example",
     "//extras/promise",
     "//extras/promise-example",

@@ -23,6 +23,7 @@ at_component_id
 lifecycle_callbacks
 at_observable
 at_memoize
+at_mapped_relationship
 at_action
 at_requires_transaction
 at_observe

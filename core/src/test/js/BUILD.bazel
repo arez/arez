@@ -1,0 +1,9 @@
+load("//tools/browser:rules.bzl", "browser_test")
+
+browser_test(
+    name = "browser_test",
+    srcs = ["mapped_relationship_test.js"],
+    entry_point = "arez.MappedRelationshipTest",
+    visibility = ["//:__pkg__"],
+    deps = ["//core/src/test/java/arez/browser:browser_test_j2cl"],
+)

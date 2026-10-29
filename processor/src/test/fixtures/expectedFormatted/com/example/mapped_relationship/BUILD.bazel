@@ -1,0 +1,19 @@
+filegroup(
+    name = "all",
+    srcs = [
+        "Arez_ContainerModel.java",
+        "Arez_ConventionalModel.java",
+        "Arez_ExplicitModel.java",
+        "Arez_GenericTarget.java",
+        "Arez_HooksModel.java",
+        "Arez_InheritedModel.java",
+        "Arez_InheritedTargetModel.java",
+        "Arez_NestedContractsModel.java",
+        "Arez_NestedInheritedModel.java",
+        "Arez_OverloadedModel.java",
+        "Arez_ParametricInputModel.java",
+        "Arez_PresentationModel.java",
+        "Arez_Target.java",
+    ],
+    visibility = ["//processor/src/test/fixtures:__pkg__"],
+)

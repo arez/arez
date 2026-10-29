@@ -7,6 +7,9 @@ computer programs by storing the results of expensive function calls and returni
 inputs occur again. Arez takes this a step further by making the memoized method observable. The memoized method will
 be re-calculated any time a dependency is updated as long as there is at least one observer.
 
+For collections of view models that must preserve individual target instances,
+use [@MappedRelationship](at_mapped_relationship.md).
+
 To memoize a method within the Arez component model you annotate a method that returns a value with the
 {@link: arez.annotations.Memoize @Memoize} annotation in an {@link: arez.annotations.ArezComponent @ArezComponent} annotated class. The
 {@link: arez.annotations.Memoize @Memoize} annotated method is expected to derive the return value from any parameters

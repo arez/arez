@@ -33,6 +33,7 @@ test_suite(
 test_suite(
     name = "browser_tests",
     tests = [
+        "//core/src/test/js:browser_test",
         "//extras/dom-example:geo_browser_test",
         "//extras/dom-example:idle_browser_test",
         "//extras/dom-example:location_browser_test",
@@ -51,6 +52,7 @@ java_format_check(
     remediation = "tools/java_format.sh write",
     targets = [
         ":jvm_tests",
+        "//core/src/test/java/arez/browser:browser_test_java",
         "//persist/core/src/test/java/arez/persist/runtime/browser:browser_test_java",
         "//core",
         "//doc-examples",

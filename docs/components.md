@@ -8,6 +8,7 @@ On top of the [core conceptual model](concepts.md), Arez defines a component mod
 * Annotate a class with [@ArezComponent](at_arez_component.md) to define a component.
 * Mark observable properties with the [@Observable](at_observable.md) annotation.
 * Mark computed properties with the [@Memoize](at_memoize.md) annotation.
+* Map source collections to stable view models with [@MappedRelationship](at_mapped_relationship.md).
 * Mark observers the [@Observe](at_observe.md) annotation.
 * Annotate code that makes changes to observable data with the [@Action](at_action.md) annotation.
 

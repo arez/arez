@@ -21,6 +21,105 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSupport {
+    @DataProvider
+    public Object[][] mappedRelationshipModels() {
+        return new Object[][] {
+            {"ConventionalModel"},
+            {"ParametricInputModel"},
+            {"ContainerModel"},
+            {"NestedInheritedModel"},
+            {"NestedContractsModel"},
+            {"ExplicitModel"},
+            {"InheritedModel"},
+            {"InheritedTargetModel"},
+            {"HooksModel"},
+            {"OverloadedModel"},
+            {"PresentationModel"}
+        };
+    }
+
+    @Test(dataProvider = "mappedRelationshipModels")
+    public void processMappedRelationshipCompile(final String model) throws Exception {
+        final String prefix = "com.example.mapped_relationship.";
+        final List<JavaFileObject> sources = new ArrayList<>(inputs(prefix + "Target", prefix + model));
+        if (model.equals("InheritedModel")) {
+            sources.addAll(inputs(prefix + "GenericBase"));
+        } else if (model.equals("InheritedTargetModel")) {
+            sources.addAll(inputs(prefix + "GenericTargetBase"));
+        }
+        if (model.equals("NestedInheritedModel")) {
+            sources.addAll(inputs(prefix + "NestedBase"));
+        } else if (model.equals("ContainerModel")) {
+            sources.addAll(inputs(prefix + "ContainerBase"));
+        } else if (model.equals("NestedContractsModel")) {
+            sources.addAll(inputs(prefix + "GenericTarget"));
+        }
+        final List<String> outputs = new ArrayList<>(List.of(
+                "com/example/mapped_relationship/Arez_" + model + ".java",
+                "com/example/mapped_relationship/Arez_Target.java"));
+        if (model.equals("NestedContractsModel")) {
+            outputs.add("com/example/mapped_relationship/Arez_GenericTarget.java");
+        }
+        assertSuccessfulFixtureCompile(sources, outputs);
+    }
+
+    @Test
+    public void mappedRelationshipVariance() throws Exception {
+        for (final boolean formatted : List.of(false, true)) {
+            final var options = new ArrayList<>(getOptions());
+            options.add("-Aarez.format_generated_source=" + formatted);
+            final Compilation compilation = CompileTestUtil.assertCompilesWithoutWarnings(
+                    inputs("com.example.mapped_relationship.Target", "com.example.mapped_relationship.VarianceModel"),
+                    options,
+                    processors(),
+                    List.of());
+            try {
+                StrictGeneratedCode.check(compilation, options);
+                assertEquals(
+                        new TreeSet<>(compilation.sourceOutputFilenames()),
+                        new TreeSet<>(List.of(
+                                "com/example/mapped_relationship/Arez_Target.java",
+                                "com/example/mapped_relationship/Arez_VarianceModel.java")));
+            } finally {
+                deleteDir(compilation.classOutput());
+                deleteDir(compilation.sourceOutput());
+            }
+        }
+    }
+
+    @DataProvider
+    public Object[][] mappedRelationshipBases() {
+        return new Object[][] {
+            {"GenericBase", "InheritedModel"},
+            {"GenericTargetBase", "InheritedTargetModel"},
+            {"ContainerBase", "ContainerModel"},
+            {"NestedBase", "NestedInheritedModel"}
+        };
+    }
+
+    @Test(dataProvider = "mappedRelationshipBases")
+    public void mappedRelationshipCompiledBase(final String baseModel, final String model) throws Exception {
+        final List<String> baseOptions = new ArrayList<>(getOptions());
+        baseOptions.add("-parameters");
+        final Compilation base = CompileTestUtil.assertCompilesWithoutWarnings(
+                inputs("com.example.mapped_relationship.Target", "com.example.mapped_relationship." + baseModel),
+                baseOptions,
+                processors(),
+                Collections.emptyList());
+        try {
+            final List<String> options = new ArrayList<>(getOptions());
+            options.add("-classpath");
+            options.add(System.getProperty("java.class.path") + File.pathSeparator + base.classOutput());
+            assertSuccessfulFixtureCompile(
+                    inputs("com.example.mapped_relationship." + model),
+                    List.of("com/example/mapped_relationship/Arez_" + model + ".java"),
+                    options);
+        } finally {
+            deleteDir(base.classOutput());
+            deleteDir(base.sourceOutput());
+        }
+    }
+
     @DataProvider(name = "componentCompiles")
     public Object[][] componentCompiles() {
         return new Object[][] {
