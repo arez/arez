@@ -1,11 +1,11 @@
 # Task Map
 
 - Spec: [SPEC.md](../SPEC.md)
-- Status: `implementation-review`
-- Current frontier: independent implementation review
+- Status: `closeout`
+- Current frontier: remove the exact active tree and publish the review PR
 - Planning reviewer: `/root/planning_review` (`1/3` rounds; final confirmation `unused`; Findings: none)
 - Plan checkpoint: `automatic` — confirmed scope and execution authority, no requested plan pause, passing independent planning review.
-- Implementation reviewer: `/root/mapped_implementation_review` (`2/5` rounds; final confirmation `unused`; original findings confirmed fixed, parametric-input fix awaiting confirmation)
+- Implementation reviewer: `/root/mapped_implementation_review` (`3/5` rounds; final confirmation `unused`; Findings: none)
 - Authority: confirmed interview contract and user request to implement with structured-delivery-workflow and create a PR. No additional human plan checkpoint.
 - Active tree: `plans/mapped-relationships/`; new invocation, not a resumed tree.
 
@@ -40,6 +40,8 @@
 
 - Round 2 disposition: safe NONNULL-to-PARAMETRIC flow fixed; direct/wildcard positive and nullable/invariant negative regressions pass. Latest complete gate passed with unchanged floors. Ready for round 3; 2/5 consumed, final confirmation unused.
 
+- Implementation round 3: Findings: none. Original probe, direct/wildcard generic strict compilation, invariant/nullable rejections, both golden modes, wiring and exact-state full-gate evidence checked. All three P2 findings resolved. 3/5 rounds consumed, final confirmation unused; no remaining implementation findings.
+
 ## Promoted knowledge
 
 - [Mapped relationship contract](../../../docs/specs/mapped-relationships.md), [identity rationale](../../../docs/adr/0003-mapped-relationship-identity.md), [user guide](../../../docs/at_mapped_relationship.md) and public annotation Javadoc. Classification, replacement test and specification-only audit completed; links validated.
@@ -48,3 +50,9 @@
 
 - Baseline core JVM tests passed before implementation.
 - System Bazel is 9.3.0; repository requires 9.3.1. Task-local `/tmp/arez-mapped-tools.7g1LrY/bazel` is upstream 9.3.1, verified against its published SHA-256. Prefix its directory on PATH for validation; do not change the shared installation or project pin.
+
+## Closeout gate
+
+- All tasks complete; focused checks and final full gate passed. Plan and implementation snapshots are committed. Independent implementation review passed after three rounds.
+- Final knowledge sweep reuses the prior classifications. Review fixes implement the existing callback/nullability and lifecycle requirements; no new durable decision, term or deferred question. Canonical artifact links validate and no external inbound reference requires this temporary tree.
+- Remove only `plans/mapped-relationships/` after committing this review record. Publish a ready-for-review PR and leave merge to the user.
