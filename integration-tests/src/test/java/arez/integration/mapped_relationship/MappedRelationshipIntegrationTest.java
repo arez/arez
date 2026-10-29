@@ -9,6 +9,7 @@ import arez.Disposable;
 import arez.EqualityComparator;
 import arez.Observer;
 import arez.annotations.ArezComponent;
+import arez.annotations.ArezComponentLike;
 import arez.annotations.ComputableValueRef;
 import arez.annotations.DepType;
 import arez.annotations.Feature;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Stream;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -281,6 +283,79 @@ public final class MappedRelationshipIntegrationTest extends AbstractArezIntegra
         observer.dispose();
         assertTrue(model._created.stream().allMatch(Disposable::isDisposed));
         Disposable.dispose(model);
+    }
+
+    @DataProvider
+    public Object[][] wrappingModes() {
+        return new Object[][] {{false}, {true}};
+    }
+
+    @Test(dataProvider = "wrappingModes")
+    public void inheritedContainerTypesWrapAndReleaseTargets(final boolean wrapped) {
+        if (wrapped) {
+            ArezTestUtil.makeCollectionPropertiesUnmodifiable();
+        } else {
+            ArezTestUtil.makeCollectionPropertiesModifiable();
+        }
+        final var model = new MappedRelationshipIntegrationTest_Arez_ContainerModel(List.of(new Source(1)));
+        final List<List<PersistentTarget>> results = new ArrayList<>();
+        final Observer first = observer(() -> results.add(model.getItems()));
+        final List<PersistentTarget> initial = results.getLast();
+        final PersistentTarget target = initial.get(0);
+        if (wrapped) {
+            assertThrows(UnsupportedOperationException.class, initial::clear);
+        }
+        first.dispose();
+        assertFalse(Disposable.isDisposed(target));
+        final Observer second = observer(() -> results.add(model.getItems()));
+        final PersistentTarget replacement = results.getLast().get(0);
+        assertNotSame(replacement, target);
+        second.dispose();
+        Disposable.dispose(model);
+        assertFalse(Disposable.isDisposed(replacement));
+        Disposable.dispose(target);
+        Disposable.dispose(replacement);
+    }
+
+    @ArezComponentLike
+    abstract static class ContainerBase<L, S> {
+        private final Function<List<Source>, S> _stream;
+
+        ContainerBase(final Function<List<Source>, S> stream) {
+            _stream = stream;
+        }
+
+        @Observable
+        abstract List<Source> getSources();
+
+        abstract void setSources(List<Source> sources);
+
+        @MappedRelationship
+        abstract L getItems();
+
+        S itemsStream() {
+            return _stream.apply(getSources());
+        }
+
+        PersistentTarget createPersistentTarget(final Source source) {
+            return new MappedRelationshipIntegrationTest_Arez_PersistentTarget(source);
+        }
+    }
+
+    @ArezComponent
+    abstract static class ContainerModel extends ContainerBase<List<PersistentTarget>, Stream<Source>> {
+        ContainerModel() {
+            super(List::stream);
+        }
+    }
+
+    @ArezComponent(allowEmpty = true, observable = Feature.ENABLE)
+    abstract static class PersistentTarget {
+        final Source _source;
+
+        PersistentTarget(final Source source) {
+            _source = source;
+        }
     }
 
     record Source(int id) {}

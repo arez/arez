@@ -70,12 +70,8 @@ public final class Nullability {
         return resolve(declaration, declaredType(declaration), resolvedType, context);
     }
 
-    static Nullness resolveTypeArgument(
-            final Element declaration,
-            final TypeMirror original,
-            final TypeMirror resolvedType,
-            final TypeElement context) {
-        return requireSpecified(declaration, resolve(declaration, original, resolvedType, context));
+    static Nullness resolveTypeUse(final Element declaration, final TypeMirror type) {
+        return requireSpecified(declaration, resolve(declaration, type, type, null));
     }
 
     private static Nullness resolve(

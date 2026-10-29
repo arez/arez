@@ -25,6 +25,9 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
     public Object[][] mappedRelationshipModels() {
         return new Object[][] {
             {"ConventionalModel"},
+            {"ContainerModel"},
+            {"NestedInheritedModel"},
+            {"NestedContractsModel"},
             {"ExplicitModel"},
             {"InheritedModel"},
             {"InheritedTargetModel"},
@@ -43,16 +46,54 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
         } else if (model.equals("InheritedTargetModel")) {
             sources.addAll(inputs(prefix + "GenericTargetBase"));
         }
-        assertSuccessfulFixtureCompile(
-                sources,
-                List.of(
-                        "com/example/mapped_relationship/Arez_" + model + ".java",
-                        "com/example/mapped_relationship/Arez_Target.java"));
+        if (model.equals("NestedInheritedModel")) {
+            sources.addAll(inputs(prefix + "NestedBase"));
+        } else if (model.equals("ContainerModel")) {
+            sources.addAll(inputs(prefix + "ContainerBase"));
+        } else if (model.equals("NestedContractsModel")) {
+            sources.addAll(inputs(prefix + "GenericTarget"));
+        }
+        final List<String> outputs = new ArrayList<>(List.of(
+                "com/example/mapped_relationship/Arez_" + model + ".java",
+                "com/example/mapped_relationship/Arez_Target.java"));
+        if (model.equals("NestedContractsModel")) {
+            outputs.add("com/example/mapped_relationship/Arez_GenericTarget.java");
+        }
+        assertSuccessfulFixtureCompile(sources, outputs);
+    }
+
+    @Test
+    public void mappedRelationshipVariance() throws Exception {
+        for (final boolean formatted : List.of(false, true)) {
+            final var options = new ArrayList<>(getOptions());
+            options.add("-Aarez.format_generated_source=" + formatted);
+            final Compilation compilation = CompileTestUtil.assertCompilesWithoutWarnings(
+                    inputs("com.example.mapped_relationship.Target", "com.example.mapped_relationship.VarianceModel"),
+                    options,
+                    processors(),
+                    List.of());
+            try {
+                StrictGeneratedCode.check(compilation, options);
+                assertEquals(
+                        new TreeSet<>(compilation.sourceOutputFilenames()),
+                        new TreeSet<>(List.of(
+                                "com/example/mapped_relationship/Arez_Target.java",
+                                "com/example/mapped_relationship/Arez_VarianceModel.java")));
+            } finally {
+                deleteDir(compilation.classOutput());
+                deleteDir(compilation.sourceOutput());
+            }
+        }
     }
 
     @DataProvider
     public Object[][] mappedRelationshipBases() {
-        return new Object[][] {{"GenericBase", "InheritedModel"}, {"GenericTargetBase", "InheritedTargetModel"}};
+        return new Object[][] {
+            {"GenericBase", "InheritedModel"},
+            {"GenericTargetBase", "InheritedTargetModel"},
+            {"ContainerBase", "ContainerModel"},
+            {"NestedBase", "NestedInheritedModel"}
+        };
     }
 
     @Test(dataProvider = "mappedRelationshipBases")

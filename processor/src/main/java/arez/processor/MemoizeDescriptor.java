@@ -196,7 +196,7 @@ final class MemoizeDescriptor {
     }
 
     boolean isCollectionType() {
-        return ComponentGenerator.isCollectionType(getMethod());
+        return null != _mappedRelationship || ComponentGenerator.isCollectionType(getMethod());
     }
 
     /**

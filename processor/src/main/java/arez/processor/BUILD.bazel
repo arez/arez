@@ -15,6 +15,7 @@ java_library(
         "DependencyDescriptor.java",
         "InverseDescriptor.java",
         "MappedRelationshipDescriptor.java",
+        "MappedRelationshipType.java",
         "MemoizeContextParameterDescriptor.java",
         "MemoizeContextParameterMethodType.java",
         "MemoizeDescriptor.java",

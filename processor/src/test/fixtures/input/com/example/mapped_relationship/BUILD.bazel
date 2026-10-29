@@ -1,16 +1,23 @@
 filegroup(
     name = "all",
     srcs = [
+        "ContainerBase.java",
+        "ContainerModel.java",
         "ConventionalModel.java",
         "ExplicitModel.java",
         "GenericBase.java",
+        "GenericTarget.java",
         "GenericTargetBase.java",
         "HooksModel.java",
         "InheritedModel.java",
         "InheritedTargetModel.java",
+        "NestedBase.java",
+        "NestedContractsModel.java",
+        "NestedInheritedModel.java",
         "OverloadedModel.java",
         "PresentationModel.java",
         "Target.java",
+        "VarianceModel.java",
     ],
     visibility = ["//processor/src/test/fixtures:__pkg__"],
 )

@@ -42,12 +42,14 @@ final class MappedRelationshipDescriptor {
     private final String _name;
     private final ExecutableElement _method;
     private final DeclaredType _targetType;
+    private final MappedRelationshipType _targetContract;
     private @Nullable CandidateMethod _source;
     private @Nullable CandidateMethod _factory;
     private @Nullable CandidateMethod _filter;
     private @Nullable CandidateMethod _comparator;
     private @Nullable CandidateMethod _retention;
     private @Nullable TypeMirror _sourceType;
+    private @Nullable MappedRelationshipType _sourceContract;
     private Nullability.Nullness _sourceNullness = Nullability.Nullness.UNSPECIFIED;
 
     MappedRelationshipDescriptor(
@@ -78,9 +80,9 @@ final class MappedRelationshipDescriptor {
         if (!Nullability.isNonNull(method, list, component.getElement())) {
             throw new ProcessorException("@MappedRelationship target must return a non-null list", method);
         }
-        final var original = (DeclaredType) method.getReturnType();
-        if (Nullability.resolveTypeArgument(method, original.getTypeArguments().get(0), target, component.getElement())
-                != Nullability.Nullness.NONNULL) {
+        _targetContract = MappedRelationshipType.of(method, method.getReturnType(), component.getElement())
+                .argument(0);
+        if (_targetContract.nullness() != Nullability.Nullness.NONNULL) {
             throw new ProcessorException("@MappedRelationship target elements must be non-null", method);
         }
     }
@@ -129,9 +131,10 @@ final class MappedRelationshipDescriptor {
         _sourceType = ((DeclaredType) source.getMethodType().getReturnType())
                 .getTypeArguments()
                 .get(0);
-        final var original = (DeclaredType) source.getMethod().getReturnType();
-        _sourceNullness = Nullability.resolveTypeArgument(
-                source.getMethod(), original.getTypeArguments().get(0), _sourceType, _component.getElement());
+        _sourceContract = MappedRelationshipType.of(
+                        source.getMethod(), source.getMethod().getReturnType(), _component.getElement())
+                .argument(0);
+        _sourceNullness = _sourceContract.nullness();
         if (_sourceNullness == Nullability.Nullness.PARAMETRIC) {
             throw new ProcessorException(
                     "Mapped source elements need a definite JSpecify nullness contract", source.getMethod());
@@ -259,6 +262,24 @@ final class MappedRelationshipDescriptor {
                             type.getParameterTypes().get(0),
                             _component.getElement())) {
                 return "must accept nullable source elements";
+            }
+            final var result = MappedRelationshipType.of(method, method.getReturnType(), _component.getElement());
+            if (role == Role.FACTORY || role == Role.FILTER || role == Role.RETENTION) {
+                final var parameter = method.getParameters().get(0);
+                final var input = MappedRelationshipType.of(parameter, parameter.asType(), _component.getElement());
+                assert null != _sourceContract;
+                if (!(role == Role.FACTORY ? _sourceContract : _targetContract).canPassTo(input)
+                        || (role == Role.FACTORY && !result.canPassTo(_targetContract))) {
+                    return "has incompatible JSpecify parameter or result contracts";
+                }
+            } else if (role == Role.COMPARATOR) {
+                final MappedRelationshipType comparator =
+                        result.asSuper(environment.getElementUtils().getTypeElement("java.util.Comparator"));
+                assert null != comparator;
+                if (comparator.argumentCount() != 1
+                        || !_targetContract.canPassTo(comparator.argument(0).comparatorInput())) {
+                    return "has incompatible JSpecify comparator input contract";
+                }
             }
         } catch (final ProcessorException exception) {
             return exception.getMessage();

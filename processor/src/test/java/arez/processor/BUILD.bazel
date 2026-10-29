@@ -437,6 +437,7 @@ java_testng(
     test_methods = [
         "arez.processor.ArezProcessorGeneratedOutputTest.processMappedRelationshipCompile",
         "arez.processor.ArezProcessorGeneratedOutputTest.mappedRelationshipCompiledBase",
+        "arez.processor.ArezProcessorGeneratedOutputTest.mappedRelationshipVariance",
     ],
     deps = _RUNTIME_DEPS,
 )

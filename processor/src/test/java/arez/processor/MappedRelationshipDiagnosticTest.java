@@ -1,5 +1,6 @@
 package arez.processor;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -8,6 +9,21 @@ public final class MappedRelationshipDiagnosticTest extends ArezProcessorTestSup
     @DataProvider
     public Object[][] invalidMappings() {
         return new Object[][] {
+            {"NestedUnmarkedVariable", "Unspecified JSpecify nullness"},
+            {"NestedRawFactoryInput", "incompatible JSpecify"},
+            {"NestedRawFactoryResult", "incompatible JSpecify"},
+            {"NestedEnclosing", "incompatible JSpecify"},
+            {"NestedUnmarked", "Unspecified JSpecify nullness"},
+            {"NestedRawComparator", "incompatible JSpecify"},
+            {"NestedFactoryInput", "incompatible JSpecify"},
+            {"NestedConventionalFactory", "incompatible JSpecify"},
+            {"NestedFactoryResult", "incompatible JSpecify"},
+            {"NestedFilter", "incompatible JSpecify"},
+            {"NestedRetention", "incompatible JSpecify"},
+            {"NestedComparator", "incompatible JSpecify"},
+            {"NestedArray", "incompatible JSpecify"},
+            {"NestedInvariant", "incompatible JSpecify"},
+            {"NestedWildcard", "incompatible JSpecify"},
             {"UnspecifiedSourceElements", "Unspecified JSpecify nullness"},
             {"RawList", "must return List<Target>"},
             {"NullableStream", "must return a non-null value"},
@@ -64,10 +80,12 @@ public final class MappedRelationshipDiagnosticTest extends ArezProcessorTestSup
 
     @Test(dataProvider = "invalidMappings")
     public void invalidMapping(final String model, final String message) {
-        assertFailedCompileResource(
-                List.of(
-                        fixture("input/com/example/mapped_relationship/Target.java"),
-                        fixture("bad_input/com/example/mapped_relationship/" + model + ".java")),
-                message);
+        final var sources = new ArrayList<>(List.of(
+                fixture("input/com/example/mapped_relationship/Target.java"),
+                fixture("bad_input/com/example/mapped_relationship/" + model + ".java")));
+        if (model.startsWith("Nested")) {
+            sources.add(fixture("input/com/example/mapped_relationship/GenericTarget.java"));
+        }
+        assertFailedCompileResource(sources, message);
     }
 }
