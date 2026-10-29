@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeMirror;
@@ -299,15 +298,18 @@ final class MemoizeDescriptor {
         }
 
         if (null != _onActivate && null != _method) {
-            final List<? extends VariableElement> parameters = _onActivate.getParameters();
+            final var hookType = (ExecutableType) processingEnv
+                    .getTypeUtils()
+                    .asMemberOf((DeclaredType) _component.getElement().asType(), _onActivate);
+            final List<? extends TypeMirror> parameters = hookType.getParameterTypes();
             if (1 == parameters.size()) {
-                final TypeName typeName =
-                        GeneratorUtil.getTypeName(parameters.get(0).asType());
+                final TypeName typeName = GeneratorUtil.getTypeName(parameters.get(0));
                 if (typeName instanceof final ParameterizedTypeName parameterizedTypeName) {
                     final TypeName paramType =
                             parameterizedTypeName.typeArguments().get(0);
                     if (!(paramType instanceof WildcardTypeName)) {
-                        final TypeName actual = GeneratorUtil.getTypeName(_method.getReturnType());
+                        final TypeName actual =
+                                GeneratorUtil.getTypeName(getMethodType().getReturnType());
                         if (!actual.box().toString().equals(paramType.toString())) {
                             throw new ProcessorException(
                                     "@OnActivate target has a parameter of type ComputableValue with a "
@@ -323,12 +325,13 @@ final class MemoizeDescriptor {
 
         for (final CandidateMethod refMethod : _refMethods) {
             final TypeName typeName =
-                    GeneratorUtil.getTypeName(refMethod.getMethod().getReturnType());
+                    GeneratorUtil.getTypeName(refMethod.getMethodType().getReturnType());
             if (typeName instanceof final ParameterizedTypeName parameterizedTypeName) {
                 final TypeName expectedType =
                         parameterizedTypeName.typeArguments().get(0);
                 if (!(expectedType instanceof WildcardTypeName)) {
-                    final TypeName actual = GeneratorUtil.getTypeName(_method.getReturnType());
+                    final TypeName actual =
+                            GeneratorUtil.getTypeName(getMethodType().getReturnType());
                     if (!actual.box().toString().equals(expectedType.toString())) {
                         throw new ProcessorException(
                                 "@ComputableValueRef target has a type parameter of " + expectedType + " but "

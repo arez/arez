@@ -1,6 +1,7 @@
 load("@rules_java//java/common:java_info.bzl", "JavaInfo")
 
 visibility([
+    "//core/src/test/java/arez/browser",
     "//extras/dom-example",
     "//extras/promise-example",
     "//persist/core/src/test/java/arez/persist/runtime/browser",

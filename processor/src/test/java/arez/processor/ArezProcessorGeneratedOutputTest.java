@@ -27,6 +27,7 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
             {"ConventionalModel"},
             {"ExplicitModel"},
             {"InheritedModel"},
+            {"InheritedTargetModel"},
             {"HooksModel"},
             {"OverloadedModel"},
             {"PresentationModel"}
@@ -39,6 +40,8 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
         final List<JavaFileObject> sources = new ArrayList<>(inputs(prefix + "Target", prefix + model));
         if (model.equals("InheritedModel")) {
             sources.addAll(inputs(prefix + "GenericBase"));
+        } else if (model.equals("InheritedTargetModel")) {
+            sources.addAll(inputs(prefix + "GenericTargetBase"));
         }
         assertSuccessfulFixtureCompile(
                 sources,
@@ -47,12 +50,17 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
                         "com/example/mapped_relationship/Arez_Target.java"));
     }
 
-    @Test
-    public void mappedRelationshipCompiledBase() throws Exception {
+    @DataProvider
+    public Object[][] mappedRelationshipBases() {
+        return new Object[][] {{"GenericBase", "InheritedModel"}, {"GenericTargetBase", "InheritedTargetModel"}};
+    }
+
+    @Test(dataProvider = "mappedRelationshipBases")
+    public void mappedRelationshipCompiledBase(final String baseModel, final String model) throws Exception {
         final List<String> baseOptions = new ArrayList<>(getOptions());
         baseOptions.add("-parameters");
         final Compilation base = CompileTestUtil.assertCompilesWithoutWarnings(
-                inputs("com.example.mapped_relationship.Target", "com.example.mapped_relationship.GenericBase"),
+                inputs("com.example.mapped_relationship.Target", "com.example.mapped_relationship." + baseModel),
                 baseOptions,
                 processors(),
                 Collections.emptyList());
@@ -61,8 +69,8 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
             options.add("-classpath");
             options.add(System.getProperty("java.class.path") + File.pathSeparator + base.classOutput());
             assertSuccessfulFixtureCompile(
-                    inputs("com.example.mapped_relationship.InheritedModel"),
-                    List.of("com/example/mapped_relationship/Arez_InheritedModel.java"),
+                    inputs("com.example.mapped_relationship." + model),
+                    List.of("com/example/mapped_relationship/Arez_" + model + ".java"),
                     options);
         } finally {
             deleteDir(base.classOutput());

@@ -1,8 +1,8 @@
 # Task Map
 
 - Spec: [SPEC.md](../SPEC.md)
-- Status: `implementing`
-- Current frontier: `T03`
+- Status: `implementation-review`
+- Current frontier: independent implementation review
 - Planning reviewer: `/root/planning_review` (`1/3` rounds; final confirmation `unused`; Findings: none)
 - Plan checkpoint: `automatic` — confirmed scope and execution authority, no requested plan pause, passing independent planning review.
 - Implementation reviewer: `pending` (`0/5` rounds; final confirmation `unused`)
@@ -12,7 +12,7 @@
 ## Full-scope validation
 
 - Gate: `tools/check.sh`, plus domain-artifact link validation.
-- Evidence: pending.
+- Evidence: T03 records the passing complete gate, browser matrix, packaged consumers, unchanged coverage floors and link validation; all task-local checks passed.
 
 ## Tasks
 
@@ -20,7 +20,7 @@
 | --- | --- | --- | --- |
 | T01 | [Generate identity-preserving mapped relationships](T01-basic-mapping.md) | complete | None |
 | T02 | [Add reactive presentation and absent-target retention](T02-presentation-retention.md) | complete | T01 |
-| T03 | [Document, exercise browsers and validate delivery](T03-documentation-validation.md) | in_progress | T02 |
+| T03 | [Document, exercise browsers and validate delivery](T03-documentation-validation.md) | complete | T02 |
 
 ## Sequencing notes
 
@@ -28,6 +28,7 @@
 - Keep ordinary memoization behavior/goldens unchanged unless a necessary shared-path correction is demonstrated and reviewed.
 - Callback generation must preserve the selected parameter signature: a plain method reference can select a more-specific overload with an incompatible return type. T02 adds regression coverage and fixes factory and predicate calls together under R4.
 - Run an independent full implementation review after all slices and full-scope validation. Closeout promotes durable knowledge, removes this exact tree, verifies the final diff and creates the review PR; never merge it.
+- Clarified T03's review acceptance item to supply the committed inputs; the independent implementation review remains the mandatory post-task gate rather than a circular prerequisite for completing T03.
 
 ## Review history
 
@@ -36,7 +37,7 @@
 
 ## Promoted knowledge
 
-- Pending: mapped relationship contract, API Javadoc and user guide owned by T03.
+- [Mapped relationship contract](../../../docs/specs/mapped-relationships.md), [identity rationale](../../../docs/adr/0003-mapped-relationship-identity.md), [user guide](../../../docs/at_mapped_relationship.md) and public annotation Javadoc. Classification, replacement test and specification-only audit completed; links validated.
 
 ## Environment evidence
 

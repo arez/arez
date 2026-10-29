@@ -13,6 +13,7 @@ closure_js_library(
     testonly = True,
     srcs = ["mode.js"],
     visibility = [
+        "//core/src/test/js:__pkg__",
         "//extras/dom-example:__pkg__",
         "//extras/promise-example:__pkg__",
         "//persist/core/src/test/js:__pkg__",
@@ -38,6 +39,7 @@ config_setting(
     name = "production",
     values = {"compilation_mode": "opt"},
     visibility = [
+        "//core/src/test/js:__pkg__",
         "//extras/dom-example:__pkg__",
         "//extras/promise-example:__pkg__",
         "//persist/core/src/test/js:__pkg__",

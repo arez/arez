@@ -30,7 +30,7 @@ public final class MappedRelationshipCache<F extends @Nullable Object, T> {
      * @param filter the optional presentation predicate.
      * @param comparator the optional comparator provider.
      * @param retention the optional absent-target retention predicate.
-     * @return targets in source encounter order, preserving duplicate occurrences.
+     * @return presented targets, including retained entries and repeated source occurrences.
      */
     public List<T> getRelated(
             final Stream<F> sources,

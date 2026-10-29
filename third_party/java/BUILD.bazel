@@ -58,6 +58,7 @@ alias(
     visibility = [
         "//core/src/main/java/arez:__pkg__",
         "//core/src/test/java/arez:__pkg__",
+        "//core/src/test/java/arez/browser:__pkg__",
         "//doc-examples:__pkg__",
         "//extras/dom:__pkg__",
         "//extras/dom-example:__pkg__",
@@ -498,6 +499,7 @@ _java_import(
         "//core:__pkg__",
         "//core/src/main/java/arez:__pkg__",
         "//core/src/test/java/arez:__pkg__",
+        "//core/src/test/java/arez/browser:__pkg__",
         "//doc-examples:__pkg__",
         "//extras/dom:__pkg__",
         "//extras/dom-example:__pkg__",

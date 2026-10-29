@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Add `@MappedRelationship` with convention-based or explicitly named source, factory, presentation filter, comparator and retention callbacks. Preserve target instances by source identity, support nullable/repeated sources and retained absent targets, and release caches on deactivation. Guard result equality against instance, order and count changes; validate callback signatures and memoization settings at compilation. Include a guide and compiled examples.
 * Reject multiple component annotations on the same declaration, including combinations of `@ArezComponent`, `@ArezComponentLike`, and framework annotations marked with `@ActAsArezComponent`. Report the conflicting annotations and require callers to choose one. Base types and subtypes may continue to use different component annotations.
 * Add `Disposable Observer.suspend()` for reference-counted suspension of reactions, dependencies and hooks. Explicit external observations retain no tracking resources while suspended; releasing the final handle requests a fresh observation or external dependency-change notification. Access component observers through existing `@ObserverRef` methods.
 * Breaking: return `Disposable` from `ArezContext.pauseScheduler()` and make `SchedulerLock` an internal implementation type. Callers declaring `SchedulerLock` variables must use `Disposable` instead and recompile.

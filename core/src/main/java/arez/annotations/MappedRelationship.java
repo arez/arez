@@ -8,7 +8,8 @@ import java.lang.annotation.Target;
 /**
  * Declares a memoized mapping from source objects to observable component instances.
  * The annotated method must be abstract, have no parameters and return a non-null
- * {@code List<Target>}. It must not also declare {@link Memoize}.
+ * {@code List<Target>}, without method type parameters or declared exceptions.
+ * It must not also declare {@link Memoize}.
  *
  * <p>For a property named {@code attributes} with target type {@code AttributeModel},
  * the processor discovers {@code attributesStream()} and
@@ -16,6 +17,12 @@ import java.lang.annotation.Target;
  * its elements may be nullable when the factory accepts null. The factory returns
  * a non-null observable component. Companion annotations associate methods whose
  * names do not follow these conventions.</p>
+ *
+ * <p>Callbacks must be concrete instance methods accessible to the generated
+ * subclass, without method type parameters or declared exceptions. Parameter and
+ * return types, including their JSpecify contracts, must be compatible. Unrelated
+ * conventional overloads are ignored; multiple compatible candidates are an error.
+ * An explicitly annotated callback binds only its named property.</p>
  *
  * <p>Optional {@code filterAttributeModel(Target)}, {@code attributesComparator()}
  * and {@code retainAttributeModel(Target)} methods provide presentation filtering,
@@ -27,6 +34,16 @@ import java.lang.annotation.Target;
  * their sources belong to the relationship. The mapping cache is cleared when the
  * computation deactivates. Target disposal follows the target's own lifecycle,
  * typically {@link ArezComponent#disposeOnDeactivate()}.</p>
+ *
+ * <p>Failures follow normal computed error handling. Evaluation can retry and
+ * deactivation still releases cached references, but prior target identities and
+ * rollback are not guaranteed.</p>
+ *
+ * @see MappedRelationshipSource
+ * @see MappedRelationshipFactory
+ * @see MappedRelationshipFilter
+ * @see MappedRelationshipComparator
+ * @see MappedRelationshipRetention
  */
 @Documented
 @Target(ElementType.METHOD)

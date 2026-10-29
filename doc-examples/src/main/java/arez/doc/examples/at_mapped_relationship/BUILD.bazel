@@ -1,0 +1,10 @@
+filegroup(
+    name = "all",
+    srcs = [
+        "DirectoryModel.java",
+        "DualDirectory.java",
+        "Person.java",
+        "PersonRow.java",
+    ],
+    visibility = ["//doc-examples/src/main/java/arez/doc/examples:__pkg__"],
+)

@@ -9,6 +9,7 @@ filegroup(
         "at_cascade_dispose.md",
         "at_component_dependency.md",
         "at_component_id.md",
+        "at_mapped_relationship.md",
         "at_memoize.md",
         "at_observable.md",
         "at_observe.md",

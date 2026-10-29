@@ -4,6 +4,7 @@ visibility([
     "//core",
     "//core/src/main/java/arez",
     "//core/src/test/java/arez",
+    "//core/src/test/java/arez/browser",
     "//doc-examples",
     "//extras/dom",
     "//extras/dom-example",

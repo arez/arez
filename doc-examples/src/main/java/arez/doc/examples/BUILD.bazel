@@ -7,6 +7,7 @@ filegroup(
         "//doc-examples/src/main/java/arez/doc/examples/at_auto_observe:all",
         "//doc-examples/src/main/java/arez/doc/examples/at_component_dependency:all",
         "//doc-examples/src/main/java/arez/doc/examples/at_default_equality_comparator:all",
+        "//doc-examples/src/main/java/arez/doc/examples/at_mapped_relationship:all",
         "//doc-examples/src/main/java/arez/doc/examples/at_memoize:all",
         "//doc-examples/src/main/java/arez/doc/examples/at_memoize2:all",
         "//doc-examples/src/main/java/arez/doc/examples/at_observable:all",

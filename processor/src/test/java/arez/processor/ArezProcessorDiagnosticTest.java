@@ -1759,6 +1759,23 @@ public final class ArezProcessorDiagnosticTest extends ArezProcessorTestSupport 
     @DataProvider(name = "misplacedAnnotationFailures")
     public Object[][] misplacedAnnotationFailures() {
         return new Object[][] {
+            {"com.example.misplaced_annotation.MappedRelationshipOutsideArezTypeModel", "MappedRelationship"},
+            {"com.example.misplaced_annotation.MappedRelationshipSourceOutsideArezTypeModel", "MappedRelationshipSource"
+            },
+            {
+                "com.example.misplaced_annotation.MappedRelationshipFactoryOutsideArezTypeModel",
+                "MappedRelationshipFactory"
+            },
+            {"com.example.misplaced_annotation.MappedRelationshipFilterOutsideArezTypeModel", "MappedRelationshipFilter"
+            },
+            {
+                "com.example.misplaced_annotation.MappedRelationshipComparatorOutsideArezTypeModel",
+                "MappedRelationshipComparator"
+            },
+            {
+                "com.example.misplaced_annotation.MappedRelationshipRetentionOutsideArezTypeModel",
+                "MappedRelationshipRetention"
+            },
             new Object[] {"com.example.misplaced_annotation.ActionOutsideArezTypeModel", "Action"},
             new Object[] {"com.example.misplaced_annotation.ObserveOutsideArezTypeModel", "Observe"},
             new Object[] {"com.example.misplaced_annotation.ObservableOutsideArezTypeModel", "Observable"},

@@ -34,6 +34,8 @@ An Arez component can declare a generated mapped relationship with predictable s
 - R9: Callback failures propagate through normal Arez computed error handling. No rollback or preservation of all prior target identities is promised. The cache must remain coherent and releasable after supplier, factory, predicate or comparator failure; the factory owns cleanup before a failed construction returns.
 - R10: Ship meaningful extensive tests, public Javadoc, a user guide with compiled examples, discoverability links and an Unreleased changelog entry. Preserve publication and nullability contracts and pass the repository's full gate before opening the PR.
 
+The durable requirements are promoted to the [mapped relationship specification](../../docs/specs/mapped-relationships.md).
+
 ## Acceptance criteria
 
 - AC1 (R1,R7,R9): Real Arez lifecycle tests demonstrate stable identity, equal-but-distinct sources, duplicates, null, additions/removals/reorder, disposed-target replacement, independent relationships, final observer release/reactivation, owner disposal and failed evaluation recovery/cleanup.
@@ -48,7 +50,7 @@ An Arez component can declare a generated mapped relationship with predictable s
 | --- | --- | --- | --- | --- |
 | D1 | Generate a standalone mapped property with all memoization options | User selected convention-driven annotation and rejected @Memoize composition | Public annotation duplicates option declarations, while internal generation reuses existing memoization | Review annotation usability and diagnostics |
 | D2 | Type-based factory/filter/retention conventions; property-based stream/comparator | User's naming correction | Same-type relationships can share conventional callbacks, or use explicit per-property callbacks | Review names and explicit-association examples |
-| D3 | Identity keys and guarded result equality | A target captures the source instance; ordinary List.equals can retain stale/disposed targets | Custom comparator authority is narrower than Memoize | Review replacement and notification tests |
+| D3 | Identity keys and guarded result equality ([ADR](../../docs/adr/0003-mapped-relationship-identity.md)) | A target captures the source instance; ordinary List.equals can retain stale/disposed targets | Custom comparator authority is narrower than Memoize | Review replacement and notification tests |
 | D4 | Observe hidden targets; retain absent ones by predicate | Preserves Rose's view-model state and visible-row use cases | Source filtering avoids creation; target filtering cannot always do so | Review lifecycle example and resource behavior |
 | D5 | Explicit companions bind one property, without arrays/repeatability | User's final interview choice C | Shared irregular behavior uses delegating callbacks | Review public companion API |
 

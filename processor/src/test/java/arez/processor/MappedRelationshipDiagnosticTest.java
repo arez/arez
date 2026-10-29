@@ -8,6 +8,19 @@ public final class MappedRelationshipDiagnosticTest extends ArezProcessorTestSup
     @DataProvider
     public Object[][] invalidMappings() {
         return new Object[][] {
+            {"UnspecifiedSourceElements", "Unspecified JSpecify nullness"},
+            {"RawList", "must return List<Target>"},
+            {"NullableStream", "must return a non-null value"},
+            {"RawStream", "return Stream<Source>"},
+            {"WildcardStream", "return Stream<Source>"},
+            {"GenericFactory", "without type parameters"},
+            {"AbstractFactory", "concrete instance method"},
+            {"ParametricSource", "definite JSpecify nullness contract"},
+            {"KeepAliveDeactivationHook", "@OnDeactivate exists for @MappedRelationship"},
+            {"ContextParameter", "does not support context parameters"},
+            {"InvalidAssociation", "unknown relationship 'not-valid'"},
+            {"KeywordAssociation", "unknown relationship 'class'"},
+            {"InvalidPropertyName", "invalid name 'not-valid'"},
             {"ExplicitWrongFilter", "Invalid @MappedRelationshipFilter"},
             {"ExplicitBoxedFilter", "return boolean"},
             {"ExplicitWrongRetention", "Invalid @MappedRelationshipRetention"},
