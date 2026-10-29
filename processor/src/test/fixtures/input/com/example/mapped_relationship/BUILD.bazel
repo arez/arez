@@ -6,6 +6,8 @@ filegroup(
         "GenericBase.java",
         "HooksModel.java",
         "InheritedModel.java",
+        "OverloadedModel.java",
+        "PresentationModel.java",
         "Target.java",
     ],
     visibility = ["//processor/src/test/fixtures:__pkg__"],

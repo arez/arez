@@ -2383,11 +2383,25 @@ final class ComponentGenerator {
         }
         final MappedRelationshipDescriptor mapping = memoize.getMappedRelationship();
         if (null != mapping) {
+            final CandidateMethod filter = mapping.getFilter();
+            final CandidateMethod comparator = mapping.getComparator();
+            final CandidateMethod retention = mapping.getRetention();
             method.addStatement(
-                    "return this.$N.getRelated( $N(), this::$N )",
+                    "return this.$N.getRelated( $N(), $L, $L, $L, $L )",
                     getMappedRelationshipCacheFieldName(memoize),
                     mapping.getSource().getMethod().getSimpleName().toString(),
-                    mapping.getFactory().getMethod().getSimpleName().toString());
+                    mappedCallback(processingEnv, mapping.getFactory(), mapping.getSourceType()),
+                    null == filter
+                            ? CodeBlock.of("null")
+                            : mappedCallback(processingEnv, filter, mapping.getTargetType()),
+                    null == comparator
+                            ? CodeBlock.of("null")
+                            : CodeBlock.of(
+                                    "this::$N",
+                                    comparator.getMethod().getSimpleName().toString()),
+                    null == retention
+                            ? CodeBlock.of("null")
+                            : mappedCallback(processingEnv, retention, mapping.getTargetType()));
             return method.build();
         }
         final var sb = new StringBuilder();
@@ -2433,6 +2447,18 @@ final class ComponentGenerator {
         }
 
         return method.build();
+    }
+
+    private static CodeBlock mappedCallback(
+            final ProcessingEnvironment processingEnv, final CandidateMethod callback, final TypeMirror valueType) {
+        final String methodName = callback.getMethod().getSimpleName().toString();
+        final TypeMirror parameterType =
+                callback.getMethodType().getParameterTypes().get(0);
+        if (processingEnv.getTypeUtils().isSameType(valueType, parameterType)) {
+            return CodeBlock.of("this::$N", methodName);
+        }
+        final TypeName castType = GeneratorUtil.getTypeName(parameterType).withoutAnnotations();
+        return CodeBlock.of("value -> $N( ($T) value )", methodName, castType);
     }
 
     private static MethodSpec.Builder refMethod(

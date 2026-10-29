@@ -2,7 +2,7 @@
 
 - Spec: [SPEC.md](../SPEC.md)
 - Status: `implementing`
-- Current frontier: `T02`
+- Current frontier: `T03`
 - Planning reviewer: `/root/planning_review` (`1/3` rounds; final confirmation `unused`; Findings: none)
 - Plan checkpoint: `automatic` — confirmed scope and execution authority, no requested plan pause, passing independent planning review.
 - Implementation reviewer: `pending` (`0/5` rounds; final confirmation `unused`)
@@ -19,13 +19,14 @@
 | ID | Task | Status | Blocked by |
 | --- | --- | --- | --- |
 | T01 | [Generate identity-preserving mapped relationships](T01-basic-mapping.md) | complete | None |
-| T02 | [Add reactive presentation and absent-target retention](T02-presentation-retention.md) | pending | T01 |
-| T03 | [Document, exercise browsers and validate delivery](T03-documentation-validation.md) | pending | T02 |
+| T02 | [Add reactive presentation and absent-target retention](T02-presentation-retention.md) | complete | T01 |
+| T03 | [Document, exercise browsers and validate delivery](T03-documentation-validation.md) | in_progress | T02 |
 
 ## Sequencing notes
 
 - Each implementation task includes the tests and public Javadoc for its delivered behavior; broader validation does not postpone focused verification.
 - Keep ordinary memoization behavior/goldens unchanged unless a necessary shared-path correction is demonstrated and reviewed.
+- Callback generation must preserve the selected parameter signature: a plain method reference can select a more-specific overload with an incompatible return type. T02 adds regression coverage and fixes factory and predicate calls together under R4.
 - Run an independent full implementation review after all slices and full-scope validation. Closeout promotes durable knowledge, removes this exact tree, verifies the final diff and creates the review PR; never merge it.
 
 ## Review history

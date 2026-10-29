@@ -17,6 +17,12 @@ import java.lang.annotation.Target;
  * a non-null observable component. Companion annotations associate methods whose
  * names do not follow these conventions.</p>
  *
+ * <p>Optional {@code filterAttributeModel(Target)}, {@code attributesComparator()}
+ * and {@code retainAttributeModel(Target)} methods provide presentation filtering,
+ * sorting and retention of absent-source targets. Filtered targets remain cached
+ * and observed. Retained targets are appended after present-source targets before
+ * filtering and sorting.</p>
+ *
  * <p>Source objects are matched by reference identity. Targets remain observed while
  * their sources belong to the relationship. The mapping cache is cleared when the
  * computation deactivates. Target disposal follows the target's own lifecycle,

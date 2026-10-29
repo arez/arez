@@ -78,6 +78,7 @@ java_testng(
         "arez.integration.lifecycle.LifecycleMethodOrderingIntegrationTest",
         "arez.integration.lifecycle.LifecycleSequencingIntegrationTest",
         "arez.integration.mapped_relationship.MappedRelationshipIntegrationTest",
+        "arez.integration.mapped_relationship.MappedRelationshipPresentationIntegrationTest",
         "arez.integration.memoize.DefaultEqualityComparatorMemoizeIntegrationTest",
         "arez.integration.memoize.MemoizeArezOrNoneDependenciesTest",
         "arez.integration.memoize.MemoizeCustomEqualityComparatorIntegrationTest",

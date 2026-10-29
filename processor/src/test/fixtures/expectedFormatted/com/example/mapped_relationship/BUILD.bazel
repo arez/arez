@@ -5,6 +5,8 @@ filegroup(
         "Arez_ExplicitModel.java",
         "Arez_HooksModel.java",
         "Arez_InheritedModel.java",
+        "Arez_OverloadedModel.java",
+        "Arez_PresentationModel.java",
         "Arez_Target.java",
     ],
     visibility = ["//processor/src/test/fixtures:__pkg__"],

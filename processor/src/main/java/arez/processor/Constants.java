@@ -57,6 +57,12 @@ final class Constants {
 
     static final String MAPPED_RELATIONSHIP_FACTORY_CLASSNAME = "arez.annotations.MappedRelationshipFactory";
 
+    static final String MAPPED_RELATIONSHIP_FILTER_CLASSNAME = "arez.annotations.MappedRelationshipFilter";
+
+    static final String MAPPED_RELATIONSHIP_COMPARATOR_CLASSNAME = "arez.annotations.MappedRelationshipComparator";
+
+    static final String MAPPED_RELATIONSHIP_RETENTION_CLASSNAME = "arez.annotations.MappedRelationshipRetention";
+
     static final String MEMOIZE_CONTEXT_PARAMETER_CLASSNAME = "arez.annotations.MemoizeContextParameter";
 
     static final String DEFAULT_EQUALITY_COMPARATOR_CLASSNAME = "arez.annotations.DefaultEqualityComparator";

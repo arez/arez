@@ -1,6 +1,6 @@
 # T03 — Document, exercise browsers and validate delivery
 
-- Status: pending
+- Status: in_progress
 - Blocked by: T02
 - Spec coverage: R10 and remaining cross-cutting portions of R1–R9; AC5 and full-scope AC1–AC4 verification
 

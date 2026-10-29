@@ -8,6 +8,22 @@ public final class MappedRelationshipDiagnosticTest extends ArezProcessorTestSup
     @DataProvider
     public Object[][] invalidMappings() {
         return new Object[][] {
+            {"ExplicitWrongFilter", "Invalid @MappedRelationshipFilter"},
+            {"ExplicitBoxedFilter", "return boolean"},
+            {"ExplicitWrongRetention", "Invalid @MappedRelationshipRetention"},
+            {"ExplicitWrongComparator", "Invalid @MappedRelationshipComparator"},
+            {"NullableComparator", "must return a non-null value"},
+            {"RawComparator", "must have no parameters and return Comparator"},
+            {"AmbiguousFilter", "multiple compatible filter callbacks"},
+            {"AmbiguousRetention", "multiple compatible retention callbacks"},
+            {"DuplicateComparator", "multiple compatible comparator callbacks"},
+            {"UnknownFilter", "unknown relationship 'missing'"},
+            {"UnknownComparator", "unknown relationship 'missing'"},
+            {"UnknownRetention", "unknown relationship 'missing'"},
+            {"ExplicitIsNotShared", "'others' requires a compatible factory callback"},
+            {"WriteOutsideWrongDependencies", "@MappedRelationship target specified writeOutsideTransaction = ENABLE"},
+            {"MissingExternalReference", "@MappedRelationship target specified depType = AREZ_OR_EXTERNAL"},
+            {"KeepAliveActivationHook", "@OnActivate exists for @MappedRelationship"},
             {"MissingSource", "requires a compatible source callback"},
             {"MissingFactory", "requires a compatible factory callback"},
             {"WrongSourceSignature", "Nonmatching methods:"},

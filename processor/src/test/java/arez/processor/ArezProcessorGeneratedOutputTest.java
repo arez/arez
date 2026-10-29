@@ -23,7 +23,14 @@ import org.testng.annotations.Test;
 public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSupport {
     @DataProvider
     public Object[][] mappedRelationshipModels() {
-        return new Object[][] {{"ConventionalModel"}, {"ExplicitModel"}, {"InheritedModel"}, {"HooksModel"}};
+        return new Object[][] {
+            {"ConventionalModel"},
+            {"ExplicitModel"},
+            {"InheritedModel"},
+            {"HooksModel"},
+            {"OverloadedModel"},
+            {"PresentationModel"}
+        };
     }
 
     @Test(dataProvider = "mappedRelationshipModels")

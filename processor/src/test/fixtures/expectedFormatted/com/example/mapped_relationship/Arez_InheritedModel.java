@@ -175,7 +175,8 @@ final class Arez_InheritedModel extends InheritedModel
     this.$$arezi$$_kernel()
         .getContext()
         .registerHook("$H", this::$$arezi$$_onActivate_items, this::$$arezi$$_onDeactivate_items);
-    return this.$$arezi$$_mapped_items.getRelated(itemsStream(), this::createTarget);
+    return this.$$arezi$$_mapped_items.getRelated(
+        itemsStream(), this::createTarget, null, null, null);
   }
 
   private void $$arezi$$_onDeactivate_items() {

@@ -121,7 +121,7 @@ final class Arez_ConventionalModel extends ConventionalModel implements Disposab
 
   private List<Target> $$arezi$$_memoize_items() {
     this.$$arezi$$_kernel().getContext().registerHook( "$H", this::$$arezi$$_onActivate_items, this::$$arezi$$_onDeactivate_items );
-    return this.$$arezi$$_mapped_items.getRelated( itemsStream(), this::createTarget );
+    return this.$$arezi$$_mapped_items.getRelated( itemsStream(), this::createTarget, null, null, null );
   }
 
   private void $$arezi$$_onDeactivate_items() {

@@ -120,7 +120,7 @@ final class Arez_ExplicitModel extends ExplicitModel implements Disposable, Iden
 
   private List<Target> $$arezi$$_memoize_mapped() {
     this.$$arezi$$_kernel().getContext().registerHook( "$H", this::$$arezi$$_onActivate_mapped, this::$$arezi$$_onDeactivate_mapped );
-    return this.$$arezi$$_mapped_mapped.getRelated( sources(), this::create );
+    return this.$$arezi$$_mapped_mapped.getRelated( sources(), this::create, value -> visible( (Object) value ), this::sorting, this::retain );
   }
 
   private void $$arezi$$_onDeactivate_mapped() {

@@ -2,6 +2,7 @@ package arez.processor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.AnnotationMirror;
@@ -21,7 +22,10 @@ import org.realityforge.proton.ProcessorException;
 final class MappedRelationshipDescriptor {
     enum Role {
         SOURCE(Constants.MAPPED_RELATIONSHIP_SOURCE_CLASSNAME),
-        FACTORY(Constants.MAPPED_RELATIONSHIP_FACTORY_CLASSNAME);
+        FACTORY(Constants.MAPPED_RELATIONSHIP_FACTORY_CLASSNAME),
+        FILTER(Constants.MAPPED_RELATIONSHIP_FILTER_CLASSNAME),
+        COMPARATOR(Constants.MAPPED_RELATIONSHIP_COMPARATOR_CLASSNAME),
+        RETENTION(Constants.MAPPED_RELATIONSHIP_RETENTION_CLASSNAME);
 
         private final String _annotation;
 
@@ -40,6 +44,9 @@ final class MappedRelationshipDescriptor {
     private final DeclaredType _targetType;
     private @Nullable CandidateMethod _source;
     private @Nullable CandidateMethod _factory;
+    private @Nullable CandidateMethod _filter;
+    private @Nullable CandidateMethod _comparator;
+    private @Nullable CandidateMethod _retention;
     private @Nullable TypeMirror _sourceType;
     private Nullability.Nullness _sourceNullness = Nullability.Nullness.UNSPECIFIED;
 
@@ -101,26 +108,52 @@ final class MappedRelationshipDescriptor {
         return _factory;
     }
 
-    void resolve(final ProcessingEnvironment environment, final List<CandidateMethod> methods) {
-        _source = find(environment, methods, Role.SOURCE);
-        _sourceType = ((DeclaredType) _source.getMethodType().getReturnType())
-                .getTypeArguments()
-                .get(0);
-        final var original = (DeclaredType) _source.getMethod().getReturnType();
-        _sourceNullness = Nullability.resolveTypeArgument(
-                _source.getMethod(), original.getTypeArguments().get(0), _sourceType, _component.getElement());
-        if (_sourceNullness == Nullability.Nullness.PARAMETRIC) {
-            throw new ProcessorException(
-                    "Mapped source elements need a definite JSpecify nullness contract", _source.getMethod());
-        }
-        _factory = find(environment, methods, Role.FACTORY);
+    @Nullable
+    CandidateMethod getFilter() {
+        return _filter;
     }
 
-    private CandidateMethod find(
+    @Nullable
+    CandidateMethod getComparator() {
+        return _comparator;
+    }
+
+    @Nullable
+    CandidateMethod getRetention() {
+        return _retention;
+    }
+
+    void resolve(final ProcessingEnvironment environment, final List<CandidateMethod> methods) {
+        _source = find(environment, methods, Role.SOURCE);
+        final CandidateMethod source = getSource();
+        _sourceType = ((DeclaredType) source.getMethodType().getReturnType())
+                .getTypeArguments()
+                .get(0);
+        final var original = (DeclaredType) source.getMethod().getReturnType();
+        _sourceNullness = Nullability.resolveTypeArgument(
+                source.getMethod(), original.getTypeArguments().get(0), _sourceType, _component.getElement());
+        if (_sourceNullness == Nullability.Nullness.PARAMETRIC) {
+            throw new ProcessorException(
+                    "Mapped source elements need a definite JSpecify nullness contract", source.getMethod());
+        }
+        _factory = find(environment, methods, Role.FACTORY);
+        _filter = find(environment, methods, Role.FILTER);
+        _comparator = find(environment, methods, Role.COMPARATOR);
+        _retention = find(environment, methods, Role.RETENTION);
+    }
+
+    private @Nullable CandidateMethod find(
             final ProcessingEnvironment environment, final List<CandidateMethod> methods, final Role role) {
-        final String conventionalName = role == Role.SOURCE
-                ? _name + "Stream"
-                : "create" + ((TypeElement) _targetType.asElement()).getSimpleName();
+        final String targetName =
+                ((TypeElement) _targetType.asElement()).getSimpleName().toString();
+        final String conventionalName =
+                switch (role) {
+                    case SOURCE -> _name + "Stream";
+                    case FACTORY -> "create" + targetName;
+                    case FILTER -> "filter" + targetName;
+                    case COMPARATOR -> _name + "Comparator";
+                    case RETENTION -> "retain" + targetName;
+                };
         final List<CandidateMethod> matches = new ArrayList<>();
         final List<String> rejected = new ArrayList<>();
         for (final CandidateMethod candidate : methods) {
@@ -147,12 +180,15 @@ final class MappedRelationshipDescriptor {
         if (matches.size() > 1) {
             throw new ProcessorException(
                     "@MappedRelationship '" + _name + "' has multiple compatible "
-                            + role.name().toLowerCase() + " callbacks: "
+                            + role.name().toLowerCase(Locale.ROOT) + " callbacks: "
                             + matches.stream()
                                     .map(c -> c.getMethod().toString())
                                     .toList(),
                     _method);
         } else if (matches.isEmpty()) {
+            if (role != Role.SOURCE && role != Role.FACTORY) {
+                return null;
+            }
             throw new ProcessorException(
                     "@MappedRelationship '" + _name + "' requires " + expected(role, conventionalName)
                             + (rejected.isEmpty() ? "" : ". Nonmatching methods: " + String.join("; ", rejected)),
@@ -179,12 +215,36 @@ final class MappedRelationshipDescriptor {
                     || stream.getTypeArguments().get(0).getKind() == TypeKind.WILDCARD) {
                 return "must have no parameters and return Stream<Source>";
             }
-        } else if (type.getParameterTypes().size() != 1
-                || !environment
-                        .getTypeUtils()
-                        .isAssignable(getSourceType(), type.getParameterTypes().get(0))
-                || !environment.getTypeUtils().isAssignable(type.getReturnType(), _targetType)) {
+        } else if (role == Role.FACTORY
+                && (type.getParameterTypes().size() != 1
+                        || !environment
+                                .getTypeUtils()
+                                .isAssignable(
+                                        getSourceType(),
+                                        type.getParameterTypes().get(0))
+                        || !environment.getTypeUtils().isAssignable(type.getReturnType(), _targetType))) {
             return "must accept " + getSourceType() + " and return " + _targetType;
+        } else if ((role == Role.FILTER || role == Role.RETENTION)
+                && (type.getParameterTypes().size() != 1
+                        || !environment
+                                .getTypeUtils()
+                                .isAssignable(
+                                        _targetType, type.getParameterTypes().get(0))
+                        || type.getReturnType().getKind() != TypeKind.BOOLEAN)) {
+            return "must accept " + _targetType + " and return boolean";
+        } else if (role == Role.COMPARATOR) {
+            final DeclaredType comparatorType = environment
+                    .getTypeUtils()
+                    .getDeclaredType(
+                            environment.getElementUtils().getTypeElement("java.util.Comparator"),
+                            environment.getTypeUtils().getWildcardType(null, _targetType));
+            if (!type.getParameterTypes().isEmpty()
+                    || !(type.getReturnType() instanceof DeclaredType declared)
+                    || (rawName(declared).equals("java.util.Comparator")
+                            && declared.getTypeArguments().isEmpty())
+                    || !environment.getTypeUtils().isAssignable(declared, comparatorType)) {
+                return "must have no parameters and return Comparator<? super " + _targetType + ">";
+            }
         }
         try {
             MemberChecks.mustBeSubclassCallable(
@@ -213,8 +273,12 @@ final class MappedRelationshipDescriptor {
     }
 
     static boolean hasCompanion(final ExecutableElement method) {
-        return AnnotationsUtil.hasAnnotationOfType(method, Constants.MAPPED_RELATIONSHIP_SOURCE_CLASSNAME)
-                || AnnotationsUtil.hasAnnotationOfType(method, Constants.MAPPED_RELATIONSHIP_FACTORY_CLASSNAME);
+        for (final Role role : Role.values()) {
+            if (AnnotationsUtil.hasAnnotationOfType(method, role.annotation())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     static void validateExplicitAssociations(final ComponentDescriptor component, final List<CandidateMethod> methods) {

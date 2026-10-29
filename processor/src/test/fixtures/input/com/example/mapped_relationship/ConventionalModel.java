@@ -15,4 +15,7 @@ abstract class ConventionalModel {
   Target createTarget(final @Nullable String source) { return Target.create(source); }
   String itemsStream(final int unrelated) { return ""; }
   Target createTarget(final int unrelated) { return Target.create(unrelated); }
+  String filterTarget(final String unrelated) { return unrelated; }
+  String itemsComparator() { return "not a comparator"; }
+  Boolean retainTarget(final Target unrelated) { return Boolean.TRUE; }
 }

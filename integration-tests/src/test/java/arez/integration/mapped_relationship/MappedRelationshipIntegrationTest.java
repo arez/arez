@@ -240,11 +240,55 @@ public final class MappedRelationshipIntegrationTest extends AbstractArezIntegra
         assertTrue(Disposable.isDisposed(replacement));
     }
 
+    @Test
+    public void nullSourceEntryCanBeRetainedAndReappearWithDuplicates() {
+        final var model = new MappedRelationshipIntegrationTest_Arez_Model(Arrays.asList((Source) null));
+        final List<List<Target>> results = new ArrayList<>();
+        final Observer observer = observer(() -> results.add(model.getItems()));
+        final Target target = results.getLast().get(0);
+        safeAction(() -> {
+            target.setRetained(true);
+            model.setSources(List.of());
+        });
+        assertSame(results.getLast().get(0), target);
+        safeAction(() -> model.setSources(Arrays.asList(null, null)));
+        assertEquals(results.getLast().size(), 2);
+        assertSame(results.getLast().get(0), target);
+        assertSame(results.getLast().get(1), target);
+        safeAction(() -> model.setSources(List.of()));
+        assertEquals(results.getLast().size(), 1);
+        safeAction(() -> target.setRetained(false));
+        assertTrue(results.getLast().isEmpty());
+        assertTrue(Disposable.isDisposed(target));
+        observer.dispose();
+        Disposable.dispose(model);
+    }
+
+    @Test
+    public void deactivationReleasesTargetsCreatedBeforeALaterFactoryFailure() {
+        captureObserverErrors();
+        final var model = new MappedRelationshipIntegrationTest_Arez_Model(List.of(new Source(0)));
+        final List<List<Target>> results = new ArrayList<>();
+        final Observer observer = observer(() -> results.add(model.getItems()));
+        final var unpublishedSource = new Source(1);
+        model._failFactoryId = 2;
+        safeAction(() -> model.setSources(List.of(unpublishedSource, new Source(2))));
+        assertEquals(results.size(), 1);
+        assertEquals(model._created.size(), 2);
+        assertSame(model._created.getLast()._source, unpublishedSource);
+        assertFalse(getObserverErrors().isEmpty());
+        assertTrue(getObserverErrors().stream().allMatch(message -> message.contains("factory failed")));
+        observer.dispose();
+        assertTrue(model._created.stream().allMatch(Disposable::isDisposed));
+        Disposable.dispose(model);
+    }
+
     record Source(int id) {}
 
     @ArezComponent
     abstract static class Model {
         int _creations;
+        final List<Target> _created = new ArrayList<>();
         int _closes;
         boolean _failSource;
         int _failFactoryId = -1;
@@ -285,7 +329,13 @@ public final class MappedRelationshipIntegrationTest extends AbstractArezIntegra
                 throw new IllegalStateException("factory failed");
             }
             _creations++;
-            return new MappedRelationshipIntegrationTest_Arez_Target(source);
+            final var target = new MappedRelationshipIntegrationTest_Arez_Target(source);
+            _created.add(target);
+            return target;
+        }
+
+        boolean retainTarget(final Target target) {
+            return target.isRetained();
         }
 
         String createTarget(final int unrelated) {
@@ -347,6 +397,11 @@ public final class MappedRelationshipIntegrationTest extends AbstractArezIntegra
         abstract int getState();
 
         abstract void setState(int state);
+
+        @Observable
+        abstract boolean isRetained();
+
+        abstract void setRetained(boolean retained);
 
         @Override
         public boolean equals(final @Nullable Object other) {
