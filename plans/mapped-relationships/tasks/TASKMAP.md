@@ -1,8 +1,8 @@
 # Task Map
 
 - Spec: [SPEC.md](../SPEC.md)
-- Status: `planned`
-- Current frontier: `T01`
+- Status: `implementing`
+- Current frontier: `T02`
 - Planning reviewer: `/root/planning_review` (`1/3` rounds; final confirmation `unused`; Findings: none)
 - Plan checkpoint: `automatic` — confirmed scope and execution authority, no requested plan pause, passing independent planning review.
 - Implementation reviewer: `pending` (`0/5` rounds; final confirmation `unused`)
@@ -18,7 +18,7 @@
 
 | ID | Task | Status | Blocked by |
 | --- | --- | --- | --- |
-| T01 | [Generate identity-preserving mapped relationships](T01-basic-mapping.md) | pending | None |
+| T01 | [Generate identity-preserving mapped relationships](T01-basic-mapping.md) | complete | None |
 | T02 | [Add reactive presentation and absent-target retention](T02-presentation-retention.md) | pending | T01 |
 | T03 | [Document, exercise browsers and validate delivery](T03-documentation-validation.md) | pending | T02 |
 

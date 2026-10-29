@@ -32,6 +32,7 @@ filegroup(
         "//integration-tests/src/test/java/arez/integration/interface_component:all",
         "//integration-tests/src/test/java/arez/integration/inverse:all",
         "//integration-tests/src/test/java/arez/integration/lifecycle:all",
+        "//integration-tests/src/test/java/arez/integration/mapped_relationship:all",
         "//integration-tests/src/test/java/arez/integration/memoize:all",
         "//integration-tests/src/test/java/arez/integration/memoize_context_parameter:all",
         "//integration-tests/src/test/java/arez/integration/observable:all",

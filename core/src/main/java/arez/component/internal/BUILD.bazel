@@ -4,6 +4,8 @@ filegroup(
         "AbstractRepository.java",
         "CollectionsUtil.java",
         "ComponentKernel.java",
+        "MappedRelationshipCache.java",
+        "MappedRelationshipEqualityComparator.java",
         "MemoizeCache.java",
         "package-info.java",
     ],

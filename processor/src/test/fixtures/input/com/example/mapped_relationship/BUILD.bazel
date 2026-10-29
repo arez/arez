@@ -1,0 +1,12 @@
+filegroup(
+    name = "all",
+    srcs = [
+        "ConventionalModel.java",
+        "ExplicitModel.java",
+        "GenericBase.java",
+        "HooksModel.java",
+        "InheritedModel.java",
+        "Target.java",
+    ],
+    visibility = ["//processor/src/test/fixtures:__pkg__"],
+)

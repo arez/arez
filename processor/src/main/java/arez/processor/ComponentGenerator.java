@@ -69,6 +69,10 @@ final class ComponentGenerator {
     private static final ClassName SAFE_PROCEDURE_CLASSNAME = ClassName.get("arez", "SafeProcedure");
     private static final ClassName KERNEL_CLASSNAME = ClassName.get("arez.component.internal", "ComponentKernel");
     private static final ClassName MEMOIZE_CACHE_CLASSNAME = ClassName.get("arez.component.internal", "MemoizeCache");
+    private static final ClassName MAPPED_RELATIONSHIP_CACHE_CLASSNAME =
+            ClassName.get("arez.component.internal", "MappedRelationshipCache");
+    private static final ClassName MAPPED_RELATIONSHIP_COMPARATOR_CLASSNAME =
+            ClassName.get("arez.component.internal", "MappedRelationshipEqualityComparator");
     private static final ClassName IDENTIFIABLE_CLASSNAME = ClassName.get("arez.component", "Identifiable");
     private static final ClassName COMPONENT_OBSERVABLE_CLASSNAME =
             ClassName.get("arez.component", "ComponentObservable");
@@ -2227,6 +2231,10 @@ final class ComponentGenerator {
         final MethodSpec.Builder builder = MethodSpec.methodBuilder(getOnDeactivateHookMethodName(memoize));
         builder.addModifiers(Modifier.PRIVATE);
 
+        if (null != memoize.getMappedRelationship()) {
+            builder.addStatement("this.$N.clear()", getMappedRelationshipCacheFieldName(memoize));
+        }
+
         if (memoize.isCollectionType() && memoize.hasNoParameters()) {
             final CodeBlock.Builder block = CodeBlock.builder();
             block.beginControlFlow("if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME);
@@ -2372,6 +2380,15 @@ final class ComponentGenerator {
                     "$N( $N )",
                     contextParameter.getPush().getSimpleName().toString(),
                     FRAMEWORK_PREFIX + contextParameter.getName());
+        }
+        final MappedRelationshipDescriptor mapping = memoize.getMappedRelationship();
+        if (null != mapping) {
+            method.addStatement(
+                    "return this.$N.getRelated( $N(), this::$N )",
+                    getMappedRelationshipCacheFieldName(memoize),
+                    mapping.getSource().getMethod().getSimpleName().toString(),
+                    mapping.getFactory().getMethod().getSimpleName().toString());
+            return method.build();
         }
         final var sb = new StringBuilder();
         final List<Object> parameters = new ArrayList<>();
@@ -2684,6 +2701,20 @@ final class ComponentGenerator {
             final ProcessingEnvironment processingEnv,
             final MemoizeDescriptor memoize,
             final TypeSpec.Builder builder) {
+        final MappedRelationshipDescriptor mapping = memoize.getMappedRelationship();
+        if (null != mapping) {
+            final TypeName sourceType = GeneratorUtil.getTypeName(mapping.getSourceType());
+            builder.addField(FieldSpec.builder(
+                            ParameterizedTypeName.get(
+                                    MAPPED_RELATIONSHIP_CACHE_CLASSNAME,
+                                    mapping.isSourceNullable() ? nullable(sourceType) : sourceType,
+                                    GeneratorUtil.getTypeName(mapping.getTargetType())),
+                            getMappedRelationshipCacheFieldName(memoize),
+                            Modifier.PRIVATE,
+                            Modifier.FINAL)
+                    .initializer("new $T<>()", MAPPED_RELATIONSHIP_CACHE_CLASSNAME)
+                    .build());
+        }
         if (memoize.hasNoParameters()) {
             buildMemoizeWithNoParametersFields(processingEnv, memoize, builder);
         } else {
@@ -2750,6 +2781,10 @@ final class ComponentGenerator {
 
     private static String getMemoizeFieldName(final MemoizeDescriptor memoize) {
         return FIELD_PREFIX + memoize.getName();
+    }
+
+    private static String getMappedRelationshipCacheFieldName(final MemoizeDescriptor memoize) {
+        return FRAMEWORK_PREFIX + "mapped_" + memoize.getName();
     }
 
     private static void buildMemoizeInitializer(final MemoizeDescriptor memoize, final MethodSpec.Builder builder) {
@@ -2947,7 +2982,11 @@ final class ComponentGenerator {
 
     private static void appendMemoizeEqualityComparatorArg(
             final MemoizeDescriptor memoize, final List<Object> parameters, final StringBuilder sb) {
-        if (!memoize.hasObjectsEqualsComparator()) {
+        if (null != memoize.getMappedRelationship()) {
+            sb.append(", new $T( new $T() )");
+            parameters.add(MAPPED_RELATIONSHIP_COMPARATOR_CLASSNAME);
+            parameters.add(ClassName.bestGuess(memoize.getEqualityComparator()));
+        } else if (!memoize.hasObjectsEqualsComparator()) {
             sb.append(", ");
             if (memoize.hasObjectsDeepEqualsComparator()) {
                 sb.append("new $T()");

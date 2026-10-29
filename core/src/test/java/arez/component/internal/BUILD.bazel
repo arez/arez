@@ -3,6 +3,7 @@ filegroup(
     srcs = [
         "CollectionsUtilTest.java",
         "ComponentKernelTest.java",
+        "MappedRelationshipEqualityComparatorTest.java",
         "MemoizeCacheTest.java",
         "RepositoryTest.java",
         "package-info.java",

@@ -92,6 +92,9 @@ public final class ArezProcessor extends AbstractStandardProcessor {
             Constants.OBSERVE_CLASSNAME,
             Constants.OBSERVABLE_CLASSNAME,
             Constants.MEMOIZE_CLASSNAME,
+            Constants.MAPPED_RELATIONSHIP_CLASSNAME,
+            Constants.MAPPED_RELATIONSHIP_SOURCE_CLASSNAME,
+            Constants.MAPPED_RELATIONSHIP_FACTORY_CLASSNAME,
             Constants.MEMOIZE_CONTEXT_PARAMETER_CLASSNAME,
             Constants.COMPONENT_ID_CLASSNAME,
             Constants.COMPONENT_ID_REF_CLASSNAME,
@@ -131,6 +134,9 @@ public final class ArezProcessor extends AbstractStandardProcessor {
             Constants.OBSERVABLE_INITIAL_CLASSNAME,
             Constants.OBSERVABLE_VALUE_REF_CLASSNAME,
             Constants.MEMOIZE_CLASSNAME,
+            Constants.MAPPED_RELATIONSHIP_CLASSNAME,
+            Constants.MAPPED_RELATIONSHIP_SOURCE_CLASSNAME,
+            Constants.MAPPED_RELATIONSHIP_FACTORY_CLASSNAME,
             Constants.MEMOIZE_CONTEXT_PARAMETER_CLASSNAME,
             Constants.COMPUTABLE_VALUE_REF_CLASSNAME,
             Constants.COMPONENT_REF_CLASSNAME,
@@ -576,17 +582,19 @@ public final class ArezProcessor extends AbstractStandardProcessor {
     private String deriveMemoizeName(final ExecutableElement method, final AnnotationMirror annotation)
             throws ProcessorException {
         final String name = AnnotationsUtil.getAnnotationValueValue(annotation, "name");
+        final String annotationName =
+                MemberChecks.toSimpleName(annotation.getAnnotationType().toString());
         if (Constants.SENTINEL.equals(name)) {
             return NamesUtil.getPropertyAccessorName(method, GETTER_PATTERN, ISSER_PATTERN, name, Constants.SENTINEL);
         } else {
             if (!SourceVersion.isIdentifier(name)) {
                 throw new ProcessorException(
-                        "@Memoize target specified an invalid name '" + name + "'. The "
+                        annotationName + " target specified an invalid name '" + name + "'. The "
                                 + "name must be a valid java identifier.",
                         method);
             } else if (SourceVersion.isKeyword(name)) {
                 throw new ProcessorException(
-                        "@Memoize target specified an invalid name '" + name + "'. The "
+                        annotationName + " target specified an invalid name '" + name + "'. The "
                                 + "name must not be a java keyword.",
                         method);
             }
@@ -1524,7 +1532,19 @@ public final class ArezProcessor extends AbstractStandardProcessor {
             final ExecutableType methodType)
             throws ProcessorException {
         final String name = deriveMemoizeName(method, annotation);
-        checkNameUnique(component, name, method, Constants.MEMOIZE_CLASSNAME);
+        final boolean mapped =
+                annotation.getAnnotationType().toString().equals(Constants.MAPPED_RELATIONSHIP_CLASSNAME);
+        final String annotationName = mapped ? Constants.MAPPED_RELATIONSHIP_CLASSNAME : Constants.MEMOIZE_CLASSNAME;
+        checkNameUnique(component, name, method, annotationName);
+        final MemoizeDescriptor descriptor = component.findOrCreateMemoize(name);
+        if (mapped) {
+            final var mapping = new MappedRelationshipDescriptor(component, name, method, methodType);
+            if (!isAutoObserveCompileTimeCompatible(mapping.getTargetType())) {
+                throw new ProcessorException(
+                        "@MappedRelationship target elements must be observable Arez components", method);
+            }
+            descriptor.setMappedRelationship(mapping);
+        }
         final boolean keepAlive = AnnotationsUtil.getAnnotationValueValue(annotation, "keepAlive");
         final boolean reportResult = AnnotationsUtil.getAnnotationValueValue(annotation, "reportResult");
         final boolean observeLowerPriorityDependencies =
@@ -1538,24 +1558,22 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         final TypeMirror equalityComparator = AnnotationsUtil.getAnnotationValueValue(annotation, "equalityComparator");
 
         final String depTypeAsString = depType.getSimpleName().toString();
-        component
-                .findOrCreateMemoize(name)
-                .setMemoize(
+        descriptor.setMemoize(
+                method,
+                methodType,
+                keepAlive,
+                toPriority(component.getDefaultPriority(), priority),
+                reportResult,
+                observeLowerPriorityDependencies,
+                readOutsideTransaction.getSimpleName().toString(),
+                writeOutsideTransaction.getSimpleName().toString(),
+                depTypeAsString,
+                resolveEffectiveEqualityComparator(
+                        component.getElement(),
+                        annotationName,
                         method,
-                        methodType,
-                        keepAlive,
-                        toPriority(component.getDefaultPriority(), priority),
-                        reportResult,
-                        observeLowerPriorityDependencies,
-                        readOutsideTransaction.getSimpleName().toString(),
-                        writeOutsideTransaction.getSimpleName().toString(),
-                        depTypeAsString,
-                        resolveEffectiveEqualityComparator(
-                                component.getElement(),
-                                Constants.MEMOIZE_CLASSNAME,
-                                method,
-                                methodType.getReturnType(),
-                                equalityComparator.toString()));
+                        methodType.getReturnType(),
+                        equalityComparator.toString()));
     }
 
     private Priority toPriority(@Nullable final Priority defaultPriority, final VariableElement priorityElement) {
@@ -2869,6 +2887,18 @@ public final class ArezProcessor extends AbstractStandardProcessor {
 
         linkMemoizeContextParametersToMemoizes(componentDescriptor);
 
+        final List<CandidateMethod> mappedCandidates = methods.stream()
+                .map(method -> new CandidateMethod(
+                        method, (ExecutableType) typeUtils.asMemberOf(componentDescriptor.asDeclaredType(), method)))
+                .toList();
+        MappedRelationshipDescriptor.validateExplicitAssociations(componentDescriptor, mappedCandidates);
+        for (final MemoizeDescriptor memoize : componentDescriptor.getMemoizes().values()) {
+            final MappedRelationshipDescriptor mapping = memoize.getMappedRelationship();
+            if (null != mapping) {
+                mapping.resolve(processingEnv, mappedCandidates);
+            }
+        }
+
         linkDependencies(componentDescriptor, getters.values());
 
         autodetectObservableInitializers(componentDescriptor);
@@ -2960,6 +2990,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         final var observableValueRef =
                 AnnotationsUtil.findAnnotationByType(method, Constants.OBSERVABLE_VALUE_REF_CLASSNAME);
         final var memoize = AnnotationsUtil.findAnnotationByType(method, Constants.MEMOIZE_CLASSNAME);
+        final var mapped = AnnotationsUtil.findAnnotationByType(method, Constants.MAPPED_RELATIONSHIP_CLASSNAME);
         final var memoizeContextParameter =
                 AnnotationsUtil.findAnnotationByType(method, Constants.MEMOIZE_CONTEXT_PARAMETER_CLASSNAME);
         final var computableValueRef =
@@ -3039,6 +3070,11 @@ public final class ArezProcessor extends AbstractStandardProcessor {
             return true;
         } else if (null != memoizeContextParameter) {
             addMemoizeContextParameter(descriptor, memoizeContextParameter, method, methodType);
+            return true;
+        } else if (null != mapped) {
+            addMemoize(descriptor, mapped, method, methodType);
+            return true;
+        } else if (MappedRelationshipDescriptor.hasCompanion(method)) {
             return true;
         } else if (null != memoize) {
             addMemoize(descriptor, memoize, method, methodType);

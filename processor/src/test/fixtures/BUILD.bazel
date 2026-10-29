@@ -2,10 +2,24 @@ filegroup(
     name = "all",
     srcs = [
         "//processor/src/test/fixtures/bad_input:all",
+        "//processor/src/test/fixtures/bad_input/com/example/mapped_relationship:all",
         "//processor/src/test/fixtures/expected:all",
+        "//processor/src/test/fixtures/expected/com/example/mapped_relationship:all",
         "//processor/src/test/fixtures/expectedFormatted:all",
+        "//processor/src/test/fixtures/expectedFormatted/com/example/mapped_relationship:all",
         "//processor/src/test/fixtures/input:all",
+        "//processor/src/test/fixtures/input/com/example/mapped_relationship:all",
         "//processor/src/test/fixtures/unresolved:all",
+    ],
+    visibility = ["//processor/src/test/java/arez/processor:__pkg__"],
+)
+
+filegroup(
+    name = "mapped_relationship_goldens",
+    srcs = [
+        "//processor/src/test/fixtures/expected/com/example/mapped_relationship:all",
+        "//processor/src/test/fixtures/expectedFormatted/com/example/mapped_relationship:all",
+        "//processor/src/test/fixtures/input/com/example/mapped_relationship:all",
     ],
     visibility = ["//processor/src/test/java/arez/processor:__pkg__"],
 )

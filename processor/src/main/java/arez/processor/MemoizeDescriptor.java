@@ -53,6 +53,9 @@ final class MemoizeDescriptor {
     private String _equalityComparator = Constants.OBJECTS_EQUALS_COMPARATOR_CLASSNAME;
 
     @Nullable
+    private MappedRelationshipDescriptor _mappedRelationship;
+
+    @Nullable
     private ExecutableElement _onActivate;
 
     @Nullable
@@ -99,6 +102,19 @@ final class MemoizeDescriptor {
     }
 
     @Nullable
+    MappedRelationshipDescriptor getMappedRelationship() {
+        return _mappedRelationship;
+    }
+
+    void setMappedRelationship(final MappedRelationshipDescriptor mappedRelationship) {
+        _mappedRelationship = mappedRelationship;
+    }
+
+    private String annotationName() {
+        return null == _mappedRelationship ? "@Memoize" : "@MappedRelationship";
+    }
+
+    @Nullable
     ExecutableElement getOnActivate() {
         return _onActivate;
     }
@@ -122,8 +138,10 @@ final class MemoizeDescriptor {
             throws ProcessorException {
         // The caller already verified that no duplicate computable have been defined
         assert null == _method;
-        MemberChecks.mustBeWrappable(
-                _component.getElement(), Constants.COMPONENT_CLASSNAME, Constants.MEMOIZE_CLASSNAME, method);
+        if (null == _mappedRelationship) {
+            MemberChecks.mustBeWrappable(
+                    _component.getElement(), Constants.COMPONENT_CLASSNAME, Constants.MEMOIZE_CLASSNAME, method);
+        }
         MemberChecks.mustReturnAValue(Constants.MEMOIZE_CLASSNAME, method);
         MemberChecks.mustNotThrowAnyExceptions(Constants.MEMOIZE_CLASSNAME, method);
 
@@ -140,7 +158,8 @@ final class MemoizeDescriptor {
 
         if ("ENABLE".equals(writeOutsideTransaction) && !"AREZ_OR_EXTERNAL".equals(depType)) {
             throw new ProcessorException(
-                    "@Memoize target specified writeOutsideTransaction = ENABLE but depType is not AREZ_OR_EXTERNAL.",
+                    annotationName()
+                            + " target specified writeOutsideTransaction = ENABLE but depType is not AREZ_OR_EXTERNAL.",
                     method);
         }
 
@@ -213,6 +232,9 @@ final class MemoizeDescriptor {
     }
 
     void validate(final ProcessingEnvironment processingEnv) throws ProcessorException {
+        if (null != _mappedRelationship && !getContextParameters().isEmpty()) {
+            throw new ProcessorException("@MappedRelationship does not support context parameters", getMethod());
+        }
         if (null == _method) {
             if (null != _onActivate) {
                 throw new ProcessorException("@OnActivate exists but there is no corresponding @Memoize", _onActivate);
@@ -236,11 +258,13 @@ final class MemoizeDescriptor {
                         _method);
             } else if (null != _onActivate) {
                 throw new ProcessorException(
-                        "@OnActivate exists for @Memoize property that specified parameter " + "keepAlive as true.",
+                        "@OnActivate exists for " + annotationName()
+                                + " property that specified parameter keepAlive as true.",
                         _onActivate);
             } else if (null != _onDeactivate) {
                 throw new ProcessorException(
-                        "@OnDeactivate exists for @Memoize property that specified parameter " + "keepAlive as true.",
+                        "@OnDeactivate exists for " + annotationName()
+                                + " property that specified parameter keepAlive as true.",
                         _onDeactivate);
             }
         }
@@ -288,7 +312,7 @@ final class MemoizeDescriptor {
                             throw new ProcessorException(
                                     "@OnActivate target has a parameter of type ComputableValue with a "
                                             + "type parameter of "
-                                            + paramType + " but the @Memoize method " + "returns a type of "
+                                            + paramType + " but the " + annotationName() + " method returns a type of "
                                             + actual,
                                     _onActivate);
                         }
@@ -307,8 +331,8 @@ final class MemoizeDescriptor {
                     final TypeName actual = GeneratorUtil.getTypeName(_method.getReturnType());
                     if (!actual.box().toString().equals(expectedType.toString())) {
                         throw new ProcessorException(
-                                "@ComputableValueRef target has a type parameter of " + expectedType
-                                        + " but @Memoize method returns type of " + actual,
+                                "@ComputableValueRef target has a type parameter of " + expectedType + " but "
+                                        + annotationName() + " method returns type of " + actual,
                                 refMethod.getMethod());
                     }
                 }
@@ -343,7 +367,7 @@ final class MemoizeDescriptor {
                 && getDepType().equals("AREZ_OR_EXTERNAL")) {
             assert null != _method;
             throw new ProcessorException(
-                    "@Memoize target specified depType = AREZ_OR_EXTERNAL but "
+                    annotationName() + " target specified depType = AREZ_OR_EXTERNAL but "
                             + "there is no associated @ComputableValueRef method.",
                     _method);
         }
@@ -363,7 +387,7 @@ final class MemoizeDescriptor {
     }
 
     boolean hasHooks() {
-        return null != _onActivate || null != _onDeactivate;
+        return null != _mappedRelationship || null != _onActivate || null != _onDeactivate;
     }
 
     boolean isReportResult() {

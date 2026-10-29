@@ -1,0 +1,244 @@
+package arez.processor;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.SourceVersion;
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.ExecutableType;
+import javax.lang.model.type.TypeKind;
+import javax.lang.model.type.TypeMirror;
+import org.jspecify.annotations.Nullable;
+import org.realityforge.proton.AnnotationsUtil;
+import org.realityforge.proton.MemberChecks;
+import org.realityforge.proton.ProcessorException;
+
+/** Resolves typed callbacks for a generated mapped property. */
+final class MappedRelationshipDescriptor {
+    enum Role {
+        SOURCE(Constants.MAPPED_RELATIONSHIP_SOURCE_CLASSNAME),
+        FACTORY(Constants.MAPPED_RELATIONSHIP_FACTORY_CLASSNAME);
+
+        private final String _annotation;
+
+        Role(final String annotation) {
+            _annotation = annotation;
+        }
+
+        String annotation() {
+            return _annotation;
+        }
+    }
+
+    private final ComponentDescriptor _component;
+    private final String _name;
+    private final ExecutableElement _method;
+    private final DeclaredType _targetType;
+    private @Nullable CandidateMethod _source;
+    private @Nullable CandidateMethod _factory;
+    private @Nullable TypeMirror _sourceType;
+    private Nullability.Nullness _sourceNullness = Nullability.Nullness.UNSPECIFIED;
+
+    MappedRelationshipDescriptor(
+            final ComponentDescriptor component,
+            final String name,
+            final ExecutableElement method,
+            final ExecutableType methodType) {
+        _component = component;
+        _name = name;
+        _method = method;
+        MemberChecks.mustBeSubclassCallable(
+                component.getElement(), Constants.COMPONENT_CLASSNAME, Constants.MAPPED_RELATIONSHIP_CLASSNAME, method);
+        MemberChecks.mustNotHaveAnyParameters(Constants.MAPPED_RELATIONSHIP_CLASSNAME, method);
+        MemberChecks.mustNotThrowAnyExceptions(Constants.MAPPED_RELATIONSHIP_CLASSNAME, method);
+        if (!method.getModifiers().contains(Modifier.ABSTRACT)
+                || !method.getTypeParameters().isEmpty()) {
+            throw new ProcessorException(
+                    "@MappedRelationship target must be abstract and have no type parameters", method);
+        }
+        if (!(methodType.getReturnType() instanceof DeclaredType list)
+                || !rawName(list).equals("java.util.List")
+                || list.getTypeArguments().size() != 1
+                || !(list.getTypeArguments().get(0) instanceof DeclaredType target)) {
+            throw new ProcessorException(
+                    "@MappedRelationship target must return List<Target> with a declared target type", method);
+        }
+        _targetType = target;
+        if (!Nullability.isNonNull(method, list, component.getElement())) {
+            throw new ProcessorException("@MappedRelationship target must return a non-null list", method);
+        }
+        final var original = (DeclaredType) method.getReturnType();
+        if (Nullability.resolveTypeArgument(method, original.getTypeArguments().get(0), target, component.getElement())
+                != Nullability.Nullness.NONNULL) {
+            throw new ProcessorException("@MappedRelationship target elements must be non-null", method);
+        }
+    }
+
+    DeclaredType getTargetType() {
+        return _targetType;
+    }
+
+    TypeMirror getSourceType() {
+        assert null != _sourceType;
+        return _sourceType;
+    }
+
+    boolean isSourceNullable() {
+        return _sourceNullness == Nullability.Nullness.NULLABLE;
+    }
+
+    CandidateMethod getSource() {
+        assert null != _source;
+        return _source;
+    }
+
+    CandidateMethod getFactory() {
+        assert null != _factory;
+        return _factory;
+    }
+
+    void resolve(final ProcessingEnvironment environment, final List<CandidateMethod> methods) {
+        _source = find(environment, methods, Role.SOURCE);
+        _sourceType = ((DeclaredType) _source.getMethodType().getReturnType())
+                .getTypeArguments()
+                .get(0);
+        final var original = (DeclaredType) _source.getMethod().getReturnType();
+        _sourceNullness = Nullability.resolveTypeArgument(
+                _source.getMethod(), original.getTypeArguments().get(0), _sourceType, _component.getElement());
+        if (_sourceNullness == Nullability.Nullness.PARAMETRIC) {
+            throw new ProcessorException(
+                    "Mapped source elements need a definite JSpecify nullness contract", _source.getMethod());
+        }
+        _factory = find(environment, methods, Role.FACTORY);
+    }
+
+    private CandidateMethod find(
+            final ProcessingEnvironment environment, final List<CandidateMethod> methods, final Role role) {
+        final String conventionalName = role == Role.SOURCE
+                ? _name + "Stream"
+                : "create" + ((TypeElement) _targetType.asElement()).getSimpleName();
+        final List<CandidateMethod> matches = new ArrayList<>();
+        final List<String> rejected = new ArrayList<>();
+        for (final CandidateMethod candidate : methods) {
+            final ExecutableElement method = candidate.getMethod();
+            final AnnotationMirror annotation = AnnotationsUtil.findAnnotationByType(method, role.annotation());
+            final boolean explicit = null != annotation
+                    && _name.equals(AnnotationsUtil.<String>getAnnotationValueValue(annotation, "name"));
+            if (!explicit && (hasCompanion(method) || !method.getSimpleName().contentEquals(conventionalName))) {
+                continue;
+            }
+            final String problem = problem(environment, role, candidate);
+            if (null == problem) {
+                matches.add(candidate);
+            } else if (explicit) {
+                throw new ProcessorException(
+                        "Invalid @"
+                                + role.annotation().substring(role.annotation().lastIndexOf('.') + 1)
+                                + " callback for '" + _name + "': " + problem,
+                        method);
+            } else {
+                rejected.add(method.getSimpleName() + candidate.getMethodType().toString() + ": " + problem);
+            }
+        }
+        if (matches.size() > 1) {
+            throw new ProcessorException(
+                    "@MappedRelationship '" + _name + "' has multiple compatible "
+                            + role.name().toLowerCase() + " callbacks: "
+                            + matches.stream()
+                                    .map(c -> c.getMethod().toString())
+                                    .toList(),
+                    _method);
+        } else if (matches.isEmpty()) {
+            throw new ProcessorException(
+                    "@MappedRelationship '" + _name + "' requires " + expected(role, conventionalName)
+                            + (rejected.isEmpty() ? "" : ". Nonmatching methods: " + String.join("; ", rejected)),
+                    _method);
+        }
+        return matches.get(0);
+    }
+
+    private @Nullable String problem(
+            final ProcessingEnvironment environment, final Role role, final CandidateMethod candidate) {
+        final ExecutableElement method = candidate.getMethod();
+        final ExecutableType type = candidate.getMethodType();
+        if (method.getModifiers().contains(Modifier.ABSTRACT)
+                || method.getModifiers().contains(Modifier.STATIC)
+                || !method.getTypeParameters().isEmpty()
+                || !type.getThrownTypes().isEmpty()) {
+            return "must be a concrete instance method without type parameters or declared exceptions";
+        }
+        if (role == Role.SOURCE) {
+            if (!type.getParameterTypes().isEmpty()
+                    || !(type.getReturnType() instanceof DeclaredType stream)
+                    || !rawName(stream).equals("java.util.stream.Stream")
+                    || stream.getTypeArguments().size() != 1
+                    || stream.getTypeArguments().get(0).getKind() == TypeKind.WILDCARD) {
+                return "must have no parameters and return Stream<Source>";
+            }
+        } else if (type.getParameterTypes().size() != 1
+                || !environment
+                        .getTypeUtils()
+                        .isAssignable(getSourceType(), type.getParameterTypes().get(0))
+                || !environment.getTypeUtils().isAssignable(type.getReturnType(), _targetType)) {
+            return "must accept " + getSourceType() + " and return " + _targetType;
+        }
+        try {
+            MemberChecks.mustBeSubclassCallable(
+                    _component.getElement(), Constants.COMPONENT_CLASSNAME, role.annotation(), method);
+            if (!Nullability.isNonNull(method, type.getReturnType(), _component.getElement())) {
+                return "must return a non-null value";
+            }
+            if (role == Role.FACTORY
+                    && _sourceNullness == Nullability.Nullness.NULLABLE
+                    && !Nullability.isNullable(
+                            method.getParameters().get(0),
+                            type.getParameterTypes().get(0),
+                            _component.getElement())) {
+                return "must accept nullable source elements";
+            }
+        } catch (final ProcessorException exception) {
+            return exception.getMessage();
+        }
+        return null;
+    }
+
+    private String expected(final Role role, final String methodName) {
+        return role == Role.SOURCE
+                ? "a compatible source callback " + methodName + "(): Stream<Source>"
+                : "a compatible factory callback " + methodName + "(" + getSourceType() + "): " + _targetType;
+    }
+
+    static boolean hasCompanion(final ExecutableElement method) {
+        return AnnotationsUtil.hasAnnotationOfType(method, Constants.MAPPED_RELATIONSHIP_SOURCE_CLASSNAME)
+                || AnnotationsUtil.hasAnnotationOfType(method, Constants.MAPPED_RELATIONSHIP_FACTORY_CLASSNAME);
+    }
+
+    static void validateExplicitAssociations(final ComponentDescriptor component, final List<CandidateMethod> methods) {
+        for (final CandidateMethod method : methods) {
+            for (final Role role : Role.values()) {
+                final AnnotationMirror annotation =
+                        AnnotationsUtil.findAnnotationByType(method.getMethod(), role.annotation());
+                if (null != annotation) {
+                    final String name = AnnotationsUtil.getAnnotationValueValue(annotation, "name");
+                    final MemoizeDescriptor memoize = component.getMemoizes().get(name);
+                    if (!SourceVersion.isIdentifier(name)
+                            || SourceVersion.isKeyword(name)
+                            || null == memoize
+                            || null == memoize.getMappedRelationship()) {
+                        throw new ProcessorException(
+                                "Mapped relationship callback refers to unknown relationship '" + name + "'",
+                                method.getMethod());
+                    }
+                }
+            }
+        }
+    }
+
+    private static String rawName(final DeclaredType type) {
+        return ((TypeElement) type.asElement()).getQualifiedName().toString();
+    }
+}

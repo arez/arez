@@ -21,6 +21,48 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSupport {
+    @DataProvider
+    public Object[][] mappedRelationshipModels() {
+        return new Object[][] {{"ConventionalModel"}, {"ExplicitModel"}, {"InheritedModel"}, {"HooksModel"}};
+    }
+
+    @Test(dataProvider = "mappedRelationshipModels")
+    public void processMappedRelationshipCompile(final String model) throws Exception {
+        final String prefix = "com.example.mapped_relationship.";
+        final List<JavaFileObject> sources = new ArrayList<>(inputs(prefix + "Target", prefix + model));
+        if (model.equals("InheritedModel")) {
+            sources.addAll(inputs(prefix + "GenericBase"));
+        }
+        assertSuccessfulFixtureCompile(
+                sources,
+                List.of(
+                        "com/example/mapped_relationship/Arez_" + model + ".java",
+                        "com/example/mapped_relationship/Arez_Target.java"));
+    }
+
+    @Test
+    public void mappedRelationshipCompiledBase() throws Exception {
+        final List<String> baseOptions = new ArrayList<>(getOptions());
+        baseOptions.add("-parameters");
+        final Compilation base = CompileTestUtil.assertCompilesWithoutWarnings(
+                inputs("com.example.mapped_relationship.Target", "com.example.mapped_relationship.GenericBase"),
+                baseOptions,
+                processors(),
+                Collections.emptyList());
+        try {
+            final List<String> options = new ArrayList<>(getOptions());
+            options.add("-classpath");
+            options.add(System.getProperty("java.class.path") + File.pathSeparator + base.classOutput());
+            assertSuccessfulFixtureCompile(
+                    inputs("com.example.mapped_relationship.InheritedModel"),
+                    List.of("com/example/mapped_relationship/Arez_InheritedModel.java"),
+                    options);
+        } finally {
+            deleteDir(base.classOutput());
+            deleteDir(base.sourceOutput());
+        }
+    }
+
     @DataProvider(name = "componentCompiles")
     public Object[][] componentCompiles() {
         return new Object[][] {

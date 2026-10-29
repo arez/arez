@@ -77,6 +77,7 @@ java_testng(
         "arez.integration.inverse.ZeroOrOneMultiplicityLazyLoadInverseIntegrationTest",
         "arez.integration.lifecycle.LifecycleMethodOrderingIntegrationTest",
         "arez.integration.lifecycle.LifecycleSequencingIntegrationTest",
+        "arez.integration.mapped_relationship.MappedRelationshipIntegrationTest",
         "arez.integration.memoize.DefaultEqualityComparatorMemoizeIntegrationTest",
         "arez.integration.memoize.MemoizeArezOrNoneDependenciesTest",
         "arez.integration.memoize.MemoizeCustomEqualityComparatorIntegrationTest",

@@ -11,6 +11,7 @@ java_library(
         "ArezProcessorJSpecifyDiagnosticTest.java",
         "ArezProcessorJavacTest.java",
         "ArezProcessorTestSupport.java",
+        "MappedRelationshipDiagnosticTest.java",
         "NullabilityTest.java",
         "package-info.java",
     ],
@@ -341,6 +342,7 @@ test_suite(
         ":component_goldens",
         ":interop_goldens",
         ":lifecycle_goldens",
+        ":mapped_relationship_goldens",
         ":memoize_goldens",
         ":metadata_goldens",
         ":observable_goldens",
@@ -419,9 +421,34 @@ test_suite(
         ":generated_output",
         ":jspecify_diagnostics",
         ":jspecify_goldens",
+        ":mapped_relationship_diagnostics",
         ":nullability",
     ],
     visibility = ["//processor:__pkg__"],
+)
+
+java_testng(
+    name = "mapped_relationship_goldens",
+    size = "large",
+    srcs = [],
+    data = ["//processor/src/test/fixtures:mapped_relationship_goldens"],
+    jvm_flags = _JVM_FLAGS,
+    test_class = "arez.processor.ArezProcessorGeneratedOutputTest",
+    test_methods = [
+        "arez.processor.ArezProcessorGeneratedOutputTest.processMappedRelationshipCompile",
+        "arez.processor.ArezProcessorGeneratedOutputTest.mappedRelationshipCompiledBase",
+    ],
+    deps = _RUNTIME_DEPS,
+)
+
+java_testng(
+    name = "mapped_relationship_diagnostics",
+    size = "large",
+    srcs = [],
+    data = ["//processor/src/test/fixtures:all"],
+    jvm_flags = _JVM_FLAGS,
+    test_class = "arez.processor.MappedRelationshipDiagnosticTest",
+    deps = _RUNTIME_DEPS,
 )
 
 java_testng(
