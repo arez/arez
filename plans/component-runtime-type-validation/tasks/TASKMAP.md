@@ -1,11 +1,11 @@
 # Task map
 
 - Spec: [SPEC.md](../SPEC.md)
-- Status: implementation-review
-- Current frontier: implementation review
+- Status: implementation-review-passed
+- Current frontier: closeout
 - Planning reviewer: /root/planning_review (1/3 rounds; final confirmation unused); Findings: none
 - Plan checkpoint: automatic; accepted user scope and implementation/PR authority, planning review passed
-- Implementation reviewer: pending (0/5 rounds; final confirmation unused)
+- Implementation reviewer: /root/implementation_review (1/5 rounds; final confirmation unused); Findings: none
 
 ## Full-scope validation
 
@@ -43,3 +43,18 @@ in the mapped specification. API usage/migration belongs to annotation Javadocs,
 guides and changelog; delivery evidence and tool-version retry remain here.
 No new architecture, domain vocabulary or deferred requirement was introduced.
 Specification-only diff and local document links checked.
+
+## Implementation review
+
+Round 1 passed with no findings. Independent read-only review checked the shared
+policy across all three annotations, inherited type resolution and generated
+locals, mapping/cache invariants, migration docs, fixture changes, and real
+JVM/J2CL failure/lifecycle behavior. Reviewer verified the 142-case matrix, full
+gate results, local document links and clean worktree. No fixes or dispositions
+were required. Published PR CI remains pending publication.
+
+## Final knowledge sweep
+
+All qualifying requirements are in the linked canonical specifications and usage
+documentation. No new conclusions or deferred decisions arose during review.
+No unrelated changes are present. Closeout may remove this exact plan tree.
