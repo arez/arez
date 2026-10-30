@@ -4,6 +4,7 @@ import static org.testng.Assert.*;
 
 import arez.Disposable;
 import arez.annotations.ArezComponent;
+import arez.annotations.ArezComponentLike;
 import arez.annotations.ComponentDependency;
 import arez.integration.AbstractArezIntegrationTest;
 import org.jspecify.annotations.NullMarked;
@@ -37,6 +38,7 @@ public final class ComponentDependencyRuntimeValidationIntegrationTest extends A
     }
 
     @NullMarked
+    @ArezComponentLike
     interface MyInterface {}
 
     @NullMarked

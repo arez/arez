@@ -21,7 +21,7 @@ uses these conventions:
 | Retention | `retainAttributeModel(AttributeModel)` | `boolean`; true retains a live absent-source target |
 
 The property name comes from the getter or the annotation's `name` parameter.
-The target stem is the simple class name, without singularization. Callbacks must
+The target stem is the simple type name, without singularization. Callbacks must
 be concrete instance methods accessible to the generated subclass, without method
 type parameters or declared exceptions. Compatible parameter and return types,
 including inherited generic and JSpecify contracts, determine which methods bind.
@@ -35,6 +35,23 @@ retains pinned rows when people leave the directory:
 Read `getRows()` from an observer or another computed property. Change observable
 state within an [action](actions.md). Remove the three optional callbacks for a
 basic mapping that follows source order and releases absent targets.
+
+When the declared target is a shared `@ArezComponentLike` abstract class or
+interface that hides its generated observability, set
+`@MappedRelationship(validateTypeAtRuntime = true)`. Framework annotations marked
+with `@ActAsArezComponent` also qualify. Keep callback signatures expressed in
+the declared target type; the actual factory result must implement
+`ComponentObservable`. Every target is observed before presentation filtering,
+and retained targets remain observed. A filter cannot hide an invalid factory
+result from validation.
+
+Without opt-in, the processor must establish observability at compile time.
+Arbitrary `Object` and unrelated DTO declarations are rejected with either flag
+value. Opt-in on a type whose observability is already established produces the
+suppressible warning `Arez:UnnecessaryRuntimeTypeValidation`; remove the flag or
+suppress that warning when keeping it is intentional. Runtime failures use the
+existing observation checks. Disabling API invariants preserves the cast and
+observation attempt, while diagnostics depend on the runtime and build mode.
 
 ## Creation and presentation
 

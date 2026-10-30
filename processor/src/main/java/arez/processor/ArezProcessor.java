@@ -1096,7 +1096,11 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         final boolean validateTypeAtRuntime = isAutoObserveValidateTypeAtRuntime(field);
         mustBeAutoObserveTypeCompatible(component, validateTypeAtRuntime, field);
         Nullability.requireDefinite(field, field.asType());
-        component.addAutoObserve(new AutoObserveDescriptor(validateTypeAtRuntime, field));
+        component.addAutoObserve(new AutoObserveDescriptor(
+                validateTypeAtRuntime
+                        && !isAutoObserveCompileTimeCompatible(
+                                processingEnv.getTypeUtils().asMemberOf(component.asDeclaredType(), field)),
+                field));
     }
 
     private String suppressedBy(final String warning) {
@@ -1137,15 +1141,12 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         if (TypeKind.TYPEVAR != type.getKind() && TypeKind.DECLARED != type.getKind()) {
             throw new ProcessorException("@AutoObserve target must be a non-primitive value", field);
         }
-        if (validateTypeAtRuntime) {
-            final Element element = processingEnv.getTypeUtils().asElement(type);
-            if (!(element instanceof TypeElement) || !isArezComponentLikeAnnotated((TypeElement) element)) {
-                throw new ProcessorException(
-                        "@AutoObserve target specified validateTypeAtRuntime = true but the "
-                                + "declared type is not annotated with " + AREZ_COMPONENT_LIKE_DESCRIPTION,
-                        field);
-            }
-        } else if (!isAutoObserveCompileTimeCompatible(type)) {
+        if (!isComponentTargetTypeCompatible(
+                Constants.AUTO_OBSERVE_CLASSNAME,
+                type,
+                validateTypeAtRuntime,
+                isAutoObserveCompileTimeCompatible(type),
+                field)) {
             throw new ProcessorException(
                     "@AutoObserve target must be an instance compatible with "
                             + Constants.COMPONENT_OBSERVABLE_CLASSNAME,
@@ -1176,8 +1177,14 @@ public final class ArezProcessor extends AbstractStandardProcessor {
                 component.getElement(), Constants.COMPONENT_CLASSNAME, Constants.AUTO_OBSERVE_CLASSNAME, method);
         MemberChecks.mustReturnAValue(Constants.AUTO_OBSERVE_CLASSNAME, method);
         final boolean validateTypeAtRuntime = isAutoObserveValidateTypeAtRuntime(method);
-        mustBeAutoObserveTypeCompatible(validateTypeAtRuntime, method);
-        component.addAutoObserve(new AutoObserveDescriptor(validateTypeAtRuntime, method, observable));
+        mustBeAutoObserveTypeCompatible(component, validateTypeAtRuntime, method);
+        component.addAutoObserve(new AutoObserveDescriptor(
+                validateTypeAtRuntime
+                        && !isAutoObserveCompileTimeCompatible(((ExecutableType)
+                                        processingEnv.getTypeUtils().asMemberOf(component.asDeclaredType(), method))
+                                .getReturnType()),
+                method,
+                observable));
     }
 
     private static boolean isAutoObserveValidateTypeAtRuntime(final AnnotatedConstruct annotatedConstruct) {
@@ -1235,25 +1242,60 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         }
     }
 
-    private void mustBeAutoObserveTypeCompatible(final boolean validateTypeAtRuntime, final ExecutableElement method) {
-        final TypeMirror type = method.getReturnType();
+    private void mustBeAutoObserveTypeCompatible(
+            final ComponentDescriptor component, final boolean validateTypeAtRuntime, final ExecutableElement method) {
+        final TypeMirror type = ((ExecutableType)
+                        processingEnv.getTypeUtils().asMemberOf(component.asDeclaredType(), method))
+                .getReturnType();
         if (TypeKind.TYPEVAR != type.getKind() && TypeKind.DECLARED != type.getKind()) {
             throw new ProcessorException("@AutoObserve target must return a non-primitive value", method);
         }
-        if (validateTypeAtRuntime) {
-            final Element element = processingEnv.getTypeUtils().asElement(type);
-            if (!(element instanceof TypeElement) || !isArezComponentLikeAnnotated((TypeElement) element)) {
-                throw new ProcessorException(
-                        "@AutoObserve target specified validateTypeAtRuntime = true but the "
-                                + "declared return type is not annotated with " + AREZ_COMPONENT_LIKE_DESCRIPTION,
-                        method);
-            }
-        } else if (!isAutoObserveCompileTimeCompatible(type)) {
+        if (!isComponentTargetTypeCompatible(
+                Constants.AUTO_OBSERVE_CLASSNAME,
+                type,
+                validateTypeAtRuntime,
+                isAutoObserveCompileTimeCompatible(type),
+                method)) {
             throw new ProcessorException(
                     "@AutoObserve target must return an instance compatible with "
                             + Constants.COMPONENT_OBSERVABLE_CLASSNAME,
                     method);
         }
+    }
+
+    private boolean isComponentTargetTypeCompatible(
+            final String annotationClassname,
+            final TypeMirror type,
+            final boolean validateTypeAtRuntime,
+            final boolean compileTimeCompatible,
+            final Element target) {
+        final String annotation = MemberChecks.toSimpleName(annotationClassname);
+        if (compileTimeCompatible) {
+            if (validateTypeAtRuntime
+                    && isWarningNotSuppressed(target, Constants.WARNING_UNNECESSARY_RUNTIME_TYPE_VALIDATION)) {
+                warning(
+                        annotation + " target specifies validateTypeAtRuntime = true but its required component "
+                                + "capability is already known at compile time. "
+                                + suppressedBy(Constants.WARNING_UNNECESSARY_RUNTIME_TYPE_VALIDATION),
+                        target);
+            }
+            return true;
+        }
+        if (validateTypeAtRuntime && !isArezComponentLikeType(type)) {
+            throw new ProcessorException(
+                    annotation + " target specified validateTypeAtRuntime = true but the "
+                            + "declared type is not annotated with " + AREZ_COMPONENT_LIKE_DESCRIPTION,
+                    target);
+        }
+        return validateTypeAtRuntime;
+    }
+
+    private boolean isDisposeNotifierCompileTimeCompatible(final TypeMirror type) {
+        if (ElementsUtil.isAssignableTo(processingEnv, type, getTypeElement(Constants.DISPOSE_NOTIFIER_CLASSNAME))) {
+            return true;
+        }
+        final Element element = processingEnv.getTypeUtils().asElement(type);
+        return element instanceof TypeElement typeElement && isDisposeTrackableComponent(typeElement);
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
@@ -1545,7 +1587,12 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         final MemoizeDescriptor descriptor = component.findOrCreateMemoize(name);
         if (mapped) {
             final var mapping = new MappedRelationshipDescriptor(component, name, method, methodType);
-            if (!isAutoObserveCompileTimeCompatible(mapping.getTargetType())) {
+            if (!isComponentTargetTypeCompatible(
+                    Constants.MAPPED_RELATIONSHIP_CLASSNAME,
+                    mapping.getTargetType(),
+                    AnnotationsUtil.getAnnotationValueValue(annotation, "validateTypeAtRuntime"),
+                    isAutoObserveCompileTimeCompatible(mapping.getTargetType()),
+                    method)) {
                 throw new ProcessorException(
                         "@MappedRelationship target elements must be observable Arez components", method);
             }
@@ -1694,11 +1741,13 @@ public final class ArezProcessor extends AbstractStandardProcessor {
                 .filter(MemoizeDescriptor::hasMemoize)
                 .map(MemoizeDescriptor::getMethod)
                 .filter(this::hasDependencyAnnotation)
+                .filter(method -> !component.getDependencies().containsKey(method))
                 .forEach(method1 -> component.addDependency(createMethodDependencyDescriptor(component, method1)));
 
         candidates.stream()
                 .map(CandidateMethod::getMethod)
                 .filter(this::hasDependencyAnnotation)
+                .filter(method -> !component.getDependencies().containsKey(method))
                 .forEach(method -> component.addDependency(createMethodDependencyDescriptor(component, method)));
     }
 
@@ -2312,24 +2361,24 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         MemberChecks.mustReturnAValue(Constants.COMPONENT_DEPENDENCY_CLASSNAME, method);
 
         final boolean validateTypeAtRuntime = isComponentDependencyValidateTypeAtRuntime(method);
-        final TypeMirror type = method.getReturnType();
+        final TypeMirror type = ((ExecutableType)
+                        processingEnv.getTypeUtils().asMemberOf(descriptor.asDeclaredType(), method))
+                .getReturnType();
         if (TypeKind.DECLARED != type.getKind()) {
             throw new ProcessorException("@ComponentDependency target must return a non-primitive value", method);
         }
-        if (!validateTypeAtRuntime) {
-            final TypeElement disposeNotifier = getTypeElement(Constants.DISPOSE_NOTIFIER_CLASSNAME);
-            if (!ElementsUtil.isAssignableTo(processingEnv, type, disposeNotifier)) {
-                final var typeElement =
-                        (TypeElement) processingEnv.getTypeUtils().asElement(type);
-                if (!isArezComponentLikeAnnotated(typeElement) && !isDisposeTrackableComponent(typeElement)) {
-                    throw new ProcessorException(
-                            "@ComponentDependency target must return an instance compatible with "
-                                    + Constants.DISPOSE_NOTIFIER_CLASSNAME
-                                    + " or a type annotated " + "with @ArezComponent(disposeNotifier=ENABLE) or "
-                                    + AREZ_COMPONENT_LIKE_DESCRIPTION,
-                            method);
-                }
-            }
+        if (!isComponentTargetTypeCompatible(
+                Constants.COMPONENT_DEPENDENCY_CLASSNAME,
+                type,
+                validateTypeAtRuntime,
+                isDisposeNotifierCompileTimeCompatible(type),
+                method)) {
+            throw new ProcessorException(
+                    "@ComponentDependency target must return an instance compatible with "
+                            + Constants.DISPOSE_NOTIFIER_CLASSNAME
+                            + " or a disposal-notifying @ArezComponent. Component-like declared types "
+                            + "require validateTypeAtRuntime = true.",
+                    method);
         }
 
         final boolean cascade = isActionCascade(method);
@@ -2357,21 +2406,18 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         if (TypeKind.TYPEVAR != type.getKind() && TypeKind.DECLARED != type.getKind()) {
             throw new ProcessorException("@ComponentDependency target must be a non-primitive value", field);
         }
-        if (!validateTypeAtRuntime) {
-            final TypeElement disposeNotifier = getTypeElement(Constants.DISPOSE_NOTIFIER_CLASSNAME);
-            if (!ElementsUtil.isAssignableTo(processingEnv, type, disposeNotifier)) {
-                final Element element = processingEnv.getTypeUtils().asElement(type);
-                if (!(element instanceof TypeElement)
-                        || !isArezComponentLikeAnnotated((TypeElement) element)
-                                && !isDisposeTrackableComponent((TypeElement) element)) {
-                    throw new ProcessorException(
-                            "@ComponentDependency target must be an instance compatible with "
-                                    + Constants.DISPOSE_NOTIFIER_CLASSNAME
-                                    + " or a type annotated " + "with @ArezComponent(disposeNotifier=ENABLE) or "
-                                    + AREZ_COMPONENT_LIKE_DESCRIPTION,
-                            field);
-                }
-            }
+        if (!isComponentTargetTypeCompatible(
+                Constants.COMPONENT_DEPENDENCY_CLASSNAME,
+                type,
+                validateTypeAtRuntime,
+                isDisposeNotifierCompileTimeCompatible(type),
+                field)) {
+            throw new ProcessorException(
+                    "@ComponentDependency target must be an instance compatible with "
+                            + Constants.DISPOSE_NOTIFIER_CLASSNAME
+                            + " or a disposal-notifying @ArezComponent. Component-like declared types "
+                            + "require validateTypeAtRuntime = true.",
+                    field);
         }
 
         if (!isActionCascade(field)) {

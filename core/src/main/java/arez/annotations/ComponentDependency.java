@@ -22,8 +22,9 @@ import java.lang.annotation.Target;
  * <li>If not annotated with {@link Observable} then must be final</li>
  * <li>Must have 0 parameters</li>
  * <li>
- *   Must return a value that implements {@link DisposeNotifier} or is annotated with {@link ArezComponent}.
- *   This will be checked at compile-time unless {@link #validateTypeAtRuntime()} set to <code>true</code>.
+ *   Must return a value that supports disposal notification.
+ *   A component-like declared type whose disposal capability is not known at compile time requires
+ *   {@link #validateTypeAtRuntime()} set to <code>true</code>.
  * </li>
  * <li>Must not be private</li>
  * <li>Must not be static</li>
@@ -35,7 +36,7 @@ import java.lang.annotation.Target;
  * <p>If the element annotated is a field then the field must comply with the additional constraints:</p>
  * <ul>
  * <li>Must be final</li>
- * <li>Must be a type that implements {@link DisposeNotifier} or is annotated with {@link ArezComponent}</li>
+ * <li>Must be a type that supports disposal notification, with explicit runtime opt-in for uncertain component-like types</li>
  * <li>Must not be private</li>
  * <li>Must not be static</li>
  * <li>Must be accessible to the class annotated by the {@link ArezComponent} annotation.</li>
@@ -46,6 +47,13 @@ import java.lang.annotation.Target;
  *   {@link SuppressWarnings} or {@link SuppressArezWarnings} annotations with a key "Arez:ProtectedField".
  * </li>
  * </ul>
+ *
+ * <p>Declared types must be compatible with {@link DisposeNotifier} at compile time, or have
+ * component-like eligibility through {@link ArezComponentLike} or an annotation marked with
+ * {@link ActAsArezComponent} and explicitly enable {@link #validateTypeAtRuntime()}.
+ * Unrelated declared types are rejected. Redundant runtime opt-in produces the suppressible
+ * warning {@code Arez:UnnecessaryRuntimeTypeValidation}. Actual values must implement
+ * {@link DisposeNotifier}.</p>
  *
  * <p>This annotation is only supported on elements contained within a type annotated by
  * {@link ArezComponent} or {@link ArezComponentLike}. Other usages will fail compilation.</p>
@@ -79,8 +87,8 @@ public @interface ComponentDependency {
     Action action() default Action.CASCADE;
 
     /**
-     * Return true and the value of the annotated field will be validated at runtime rather than at compile time.
-     * This is useful when the field is defined by an interface but the underlying field is guaranteed to implement
+     * Permits runtime validation when the declared type is component-like but disposal notification cannot be proven at compile time.
+     * This is useful when a component-like interface hides the implementation that supplies
      * {@link DisposeNotifier} at runtime.
      *
      * @return true to defer validation of types until runtime.

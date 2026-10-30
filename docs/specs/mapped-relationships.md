@@ -8,7 +8,8 @@ components while preserving each live target's identity and local state.
 ## Requirements
 
 1. `@MappedRelationship` declares an abstract, zero-argument method returning a
-   non-null `List<Target>` with a declared, non-null observable Arez target type.
+   non-null `List<Target>` with a declared, non-null target type. Observability
+   follows the [component target validation contract](component-target-validation.md).
 2. The annotation is incompatible with `@Memoize` and exposes all its parameters
    with the same declared defaults. Compatible computation references, hooks,
    component defaults and scheduling rules have the same behavior.
@@ -18,7 +19,7 @@ components while preserving each live target's identity and local state.
 4. Discover optional `filterAttributeModel(AttributeModel): boolean`,
    `attributesComparator(): Comparator<? super AttributeModel>` and
    `retainAttributeModel(AttributeModel): boolean` callbacks. The target naming
-   stem is its simple declared class name.
+   stem is its simple declared type name.
 5. Each companion annotation associates its callback with exactly one property
    using a required single `String name`. Explicitly associated callbacks do not
    implicitly bind to other properties. Unannotated conventional callbacks may

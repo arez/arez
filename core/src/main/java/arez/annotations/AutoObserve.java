@@ -49,8 +49,10 @@ import java.lang.annotation.Target;
  * </ul>
  *
  * <p>If {@link #validateTypeAtRuntime()} is set to <code>true</code> then the declared type of the field or method
- * must be annotated with {@link ArezComponentLike}. In this mode, type compatibility is validated at runtime
- * rather than compile time while still treating the declared type as component-like for validation only.</p>
+ * must be compatible at compile time or be annotated with {@link ArezComponentLike} (including annotations
+ * marked with {@link ActAsArezComponent}). An uncertain component-like type requires this explicit opt-in.
+ * Unrelated declared types are rejected. Redundant opt-in produces the suppressible warning
+ * {@code Arez:UnnecessaryRuntimeTypeValidation}. Runtime values must implement {@link ComponentObservable}.</p>
  *
  * <p>This annotation is only supported on elements contained within a type annotated by
  * {@link ArezComponent} or {@link ArezComponentLike}. Other usages will fail compilation.</p>
@@ -59,7 +61,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.FIELD})
 public @interface AutoObserve {
     /**
-     * Return true and the value of the annotated field or method will be validated at runtime rather than compile time.
+     * Permits runtime validation when the declared type is component-like but observability cannot be proven at compile time.
      * This is useful when the declared type is annotated with {@link ArezComponentLike} but the runtime value is
      * known to implement {@link ComponentObservable}.
      *

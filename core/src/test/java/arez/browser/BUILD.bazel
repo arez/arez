@@ -7,7 +7,10 @@ java_library(
     testonly = True,
     srcs = ["MappedRelationshipBrowserTest.java"],
     plugins = ["//:processor"],
-    visibility = ["//:__pkg__"],
+    visibility = [
+        "//:__pkg__",
+        "//integration-tests:__pkg__",
+    ],
     deps = [
         "//:core",
         "//third_party:jsinterop_annotations",

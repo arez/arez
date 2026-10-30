@@ -30,3 +30,16 @@ a dependency has been set to null.
 An example:
 
 {@file_content: file=arez/doc/examples/at_component_dependency/PersonViewModel.java start_line=@ArezComponent "end_line=^}"}
+
+Declared target types must provide `DisposeNotifier` at compile time. When a shared
+`@ArezComponentLike` class or interface hides that capability, explicitly set
+`validateTypeAtRuntime = true`; framework annotations marked with
+`@ActAsArezComponent` also qualify. The actual value must implement `DisposeNotifier`.
+Arbitrary `Object` and unrelated DTO declarations are rejected even with opt-in.
+If the processor can already prove the capability, runtime opt-in is unnecessary
+and produces the suppressible warning `Arez:UnnecessaryRuntimeTypeValidation`.
+
+Migration: component-like targets now need explicit runtime opt-in unless their
+disposal notification is known at compile time. Existing runtime-validated
+`Object` or unrelated interface declarations must use an eligible component-like
+type, or expose `DisposeNotifier` directly and remove the runtime flag.

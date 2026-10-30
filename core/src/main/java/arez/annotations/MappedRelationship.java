@@ -1,6 +1,7 @@
 package arez.annotations;
 
 import arez.EqualityComparator;
+import arez.component.ComponentObservable;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
@@ -48,6 +49,18 @@ import java.lang.annotation.Target;
 @Documented
 @Target(ElementType.METHOD)
 public @interface MappedRelationship {
+    /**
+     * Permits runtime validation when the declared target type is component-like but
+     * observability cannot be proven at compile time. Eligible types are annotated with
+     * {@link ArezComponentLike} or an annotation marked with {@link ActAsArezComponent}.
+     * Actual targets must implement {@link ComponentObservable}, including hidden and
+     * retained targets. Unrelated declared types are rejected. Redundant opt-in produces
+     * the suppressible warning {@code Arez:UnnecessaryRuntimeTypeValidation}.
+     *
+     * @return true to permit runtime validation of component-like targets.
+     */
+    boolean validateTypeAtRuntime() default false;
+
     /**
      * Returns the property name, or derives it from the getter when unspecified.
      *

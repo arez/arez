@@ -16,6 +16,7 @@ import arez.annotations.Feature;
 import arez.annotations.MappedRelationship;
 import arez.annotations.Observable;
 import arez.annotations.Priority;
+import arez.browser.MappedRelationshipBrowserTest;
 import arez.integration.AbstractArezIntegrationTest;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +31,20 @@ import org.testng.annotations.Test;
 
 @NullMarked
 public final class MappedRelationshipIntegrationTest extends AbstractArezIntegrationTest {
+    @DataProvider
+    public Object[][] apiInvariantModes() {
+        return new Object[][] {{true}, {false}};
+    }
+
+    @Test(dataProvider = "apiInvariantModes")
+    public void validatesRuntimeTypesThroughPackagedComponents(final boolean checkApiInvariants) {
+        captureObserverErrors();
+        if (!checkApiInvariants) {
+            ArezTestUtil.noCheckApiInvariants();
+        }
+        MappedRelationshipBrowserTest.exerciseRuntimeTypes();
+    }
+
     @Test
     public void preservesSourceIdentityOrderDuplicatesAndNull() {
         final var first = new Source(1);

@@ -162,6 +162,7 @@ java_testng(
     visibility = ["//:__pkg__"],
     deps = [
         "//core",
+        "//core/src/test/java/arez/browser:browser_test_java",
         "//third_party/java:android_json",
         "//third_party/java:braincheck_core",
         "//third_party/java:guiceyloops",
