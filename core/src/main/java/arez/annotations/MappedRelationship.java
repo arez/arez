@@ -56,7 +56,8 @@ public @interface MappedRelationship {
      * construction, with stable equality and hash codes while cached or retained.
      * Reuse preserves the original target and its source; it does not rebind the target
      * to an equal replacement source. Repeated equal sources produce repeated references
-     * to one target.
+     * to one target. When construction is required, the first matching source encountered
+     * supplies the factory argument.
      *
      * @return true to match sources by value; false to match by reference identity.
      */

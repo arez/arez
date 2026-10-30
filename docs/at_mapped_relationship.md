@@ -55,10 +55,23 @@ observation attempt, while diagnostics depend on the runtime and build mode.
 
 ## Creation and presentation
 
-Sources are matched by reference identity. Two equal but distinct source objects
-get distinct targets. Repeating the same source produces repeated references to
+Sources are matched by reference identity by default. Two equal but distinct
+source objects get distinct targets. Repeating the same source produces repeated references to
 one target. A null source is also a valid key when the stream element and factory
 parameter explicitly allow null; it still maps to a non-null target.
+
+For interchangeable value keys such as immutable dates or boxed integers, set
+`@MappedRelationship(useEqualsForKeys = true)`. Matching then uses standard
+`equals()` and `hashCode()` consistently for reconciliation, duplicate occurrences
+and retention. Recreated equal keys reuse existing live targets and their local
+state. Repeated equal keys produce repeated references to one target.
+
+Equal keys must be interchangeable for target construction, and their equality
+and hash codes must remain stable while cached or retained. Reuse keeps the
+original target and its original source object; it does not rerun the factory or
+rebind the target to a newer equal source. When a target needs to be created, the
+first matching source encountered supplies the factory argument. Keep identity
+matching when equal source objects carry different instance-specific state.
 
 Filter sources in the stream when excluded sources should have no target. A
 presentation filter runs after creation: hidden targets remain cached and observed,
@@ -69,14 +82,15 @@ sequentially and closed after traversal.
 The comparator provider runs on every calculation. Reactive reads in stream
 operations, predicates, the provider and its comparisons are tracked. Without a
 comparator, current source occurrences come first, followed by absent retained
-targets in previous encounter order, once per source. Retained targets use the
+targets in previous encounter order, once per matching key. Retained targets use the
 same presentation filter and sorting as current targets.
 
 ## Retention and source disposal
 
 Retention preserves a live target after its source leaves the stream. A retained
-target is reused if that same source returns. It is released when retention becomes
-false. Disposed targets are never passed to the retention predicate; a disposed
+target is reused if a matching source returns, using reference identity by default
+or value equality when `useEqualsForKeys` is enabled. It is released when retention
+becomes false. Disposed targets are never passed to the retention predicate; a disposed
 target for a present source is recreated.
 
 Target dependencies still control what happens when a source is disposed. A
