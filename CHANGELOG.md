@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Support implicit memoization contexts on mapped relationships, with independent target state and cleanup for each context key, including inherited and compiled generic declarations.
+* Honor class overrides of interface-default context annotations, capture context when resolving computation references, and restore multiple contexts in reverse push order for both memoization and mapped relationships.
 * Add `@MappedRelationship.useEqualsForKeys` to reuse targets for equal value keys, including duplicate occurrences and retained reappearance. Keep reference identity as the default; value matching preserves the original target and source and requires stable equality and hash codes.
 * Add `@MappedRelationship.validateTypeAtRuntime` for shared component-like target types. Align target validation across `@AutoObserve`, `@ComponentDependency` and `@MappedRelationship`: accept statically proven capabilities and warn with suppressible `Arez:UnnecessaryRuntimeTypeValidation` for redundant runtime opt-in. Breaking: uncertain component-like dependency types now require explicit `validateTypeAtRuntime = true`; arbitrary `Object` and unrelated declared types no longer qualify. Mark shared types with `@ArezComponentLike` or expose the required component interface.
 * Add `@MappedRelationship` with convention-based or explicitly named source, factory, presentation filter, comparator and retention callbacks. Preserve target instances by source identity, support nullable/repeated sources and retained absent targets, and release caches on deactivation. Guard result equality against instance, order and count changes; validate callback signatures and memoization settings at compilation. Include a guide and compiled examples.

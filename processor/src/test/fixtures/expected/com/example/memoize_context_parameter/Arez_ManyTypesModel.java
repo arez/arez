@@ -126,10 +126,10 @@ final class Arez_ManyTypesModel extends ManyTypesModel implements Disposable, Id
         pushMyContextVar2( $$arezi$$_myContextVar2 );
         return super.getTime();
       } finally {
-        popMyContextVar( $$arezi$$_myContextVar );
+        popMyContextVar2( $$arezi$$_myContextVar2 );
       }
     } finally {
-      popMyContextVar2( $$arezi$$_myContextVar2 );
+      popMyContextVar( $$arezi$$_myContextVar );
     }
   }
 
@@ -149,10 +149,10 @@ final class Arez_ManyTypesModel extends ManyTypesModel implements Disposable, Id
         pushMyContextVar2( $$arezi$$_myContextVar2 );
         return super.getText();
       } finally {
-        popMyContextVar( $$arezi$$_myContextVar );
+        popMyContextVar2( $$arezi$$_myContextVar2 );
       }
     } finally {
-      popMyContextVar2( $$arezi$$_myContextVar2 );
+      popMyContextVar( $$arezi$$_myContextVar );
     }
   }
 
@@ -172,10 +172,10 @@ final class Arez_ManyTypesModel extends ManyTypesModel implements Disposable, Id
         pushMyContextVar2( $$arezi$$_myContextVar2 );
         return super.count( time, someOtherParameter );
       } finally {
-        popMyContextVar( $$arezi$$_myContextVar );
+        popMyContextVar2( $$arezi$$_myContextVar2 );
       }
     } finally {
-      popMyContextVar2( $$arezi$$_myContextVar2 );
+      popMyContextVar( $$arezi$$_myContextVar );
     }
   }
 

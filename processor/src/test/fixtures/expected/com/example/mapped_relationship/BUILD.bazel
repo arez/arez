@@ -2,7 +2,9 @@ filegroup(
     name = "all",
     srcs = [
         "Arez_ContainerModel.java",
+        "Arez_ContextModel.java",
         "Arez_ConventionalModel.java",
+        "Arez_ExcludedContextModel.java",
         "Arez_ExplicitModel.java",
         "Arez_GenericTarget.java",
         "Arez_HooksModel.java",

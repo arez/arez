@@ -1,6 +1,7 @@
 filegroup(
     name = "all",
     srcs = [
+        "MappedRelationshipContextIntegrationTest.java",
         "MappedRelationshipIntegrationTest.java",
         "MappedRelationshipPresentationIntegrationTest.java",
     ],

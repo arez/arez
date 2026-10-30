@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
+import java.util.function.Supplier;
 import org.intellij.lang.annotations.MagicConstant;
 import org.jspecify.annotations.Nullable;
 
@@ -62,9 +63,9 @@ public final class MemoizeCache<T extends @Nullable Object> implements Disposabl
     @Nullable
     private final Component _component;
     /**
-     * The function memoized.
+     * Supplies each computation's memoized function and any computation-owned state.
      */
-    private final Function<T> _function;
+    private final Supplier<Function<T>> _functionFactory;
     /**
      * The cache of all the ComputableValue created for each unique combination of parameters.
      */
@@ -149,6 +150,28 @@ public final class MemoizeCache<T extends @Nullable Object> implements Disposabl
             final int argCount,
             @MagicConstant(flagsFromClass = ComputableValue.Flags.class) final int flags,
             final EqualityComparator equalityComparator) {
+        this(context, component, name, () -> function, argCount, flags, equalityComparator);
+    }
+
+    /**
+     * Creates a cache whose computations each own a separately supplied function and its state.
+     *
+     * @param context the context in which to create computations.
+     * @param component the associated native component, if enabled.
+     * @param name the computation name prefix, if names are enabled.
+     * @param functionFactory supplies a function once for each new computation.
+     * @param argCount the number of captured and explicit arguments.
+     * @param flags the computation flags, excluding keep-alive and scheduling flags.
+     * @param equalityComparator compares computation results.
+     */
+    public MemoizeCache(
+            final @Nullable ArezContext context,
+            final @Nullable Component component,
+            final @Nullable String name,
+            final Supplier<Function<T>> functionFactory,
+            final int argCount,
+            @MagicConstant(flagsFromClass = ComputableValue.Flags.class) final int flags,
+            final EqualityComparator equalityComparator) {
         if (Arez.shouldCheckApiInvariants()) {
             apiInvariant(
                     () -> Arez.areZonesEnabled() || null == context,
@@ -182,7 +205,7 @@ public final class MemoizeCache<T extends @Nullable Object> implements Disposabl
         _component = Arez.areNativeComponentsEnabled() ? component : null;
         assert !Arez.areNamesEnabled() || null != name;
         _name = Arez.areNamesEnabled() ? name : null;
-        _function = function;
+        _functionFactory = functionFactory;
         _argCount = argCount;
         _flags = flags;
         _equalityComparator = equalityComparator;
@@ -286,9 +309,10 @@ public final class MemoizeCache<T extends @Nullable Object> implements Disposabl
         final Component component = Arez.areNativeComponentsEnabled() ? _component : null;
         final int id = _nextIndex++;
         final String name = Arez.areNamesEnabled() ? _name + "." + id : null;
+        final Function<T> calculation = _functionFactory.get();
         final SafeFunction<T> function = () -> {
             Arez.context().registerHook("$MC$", null, () -> disposeComputableValue(args));
-            return _function.call(args);
+            return calculation.call(args);
         };
         final ComputableValue<T> computable =
                 getContext().computable(component, name, function, _flags, _equalityComparator);

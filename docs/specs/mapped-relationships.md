@@ -57,9 +57,12 @@ components while preserving each live target's identity and local state.
 16. Retention does not override target component dependencies. Surviving source
     disposal requires a target contract that permits it, such as a nullable
     `SET_NULL` dependency with snapshots of required source data.
-17. Each property owns an independent cache, shared by callers through its getter.
-    Deactivation and owner disposal release cached references, regardless of
-    collection wrapping. `keepAlive` retains normal memoized lifecycle behavior.
+17. Each computation owns independent relationship state, shared by readers of
+    the same property and context key. Different context keys do not reuse each
+    other's targets or retained entries. Deactivation releases only that
+    computation's cached references; owner disposal releases all relationship
+    state, regardless of collection wrapping. Unobserved reads do not promise
+    target identity across transactions.
 18. Cache cleanup does not explicitly dispose targets. Target observation and the
     target's own lifecycle policy govern target disposal.
 19. Results are equal only when their target references, order and occurrence
@@ -76,8 +79,28 @@ components while preserving each live target's identity and local state.
     invoking the factory again.
 23. When construction is required, the first matching source encountered supplies
     the factory argument.
+24. Matching `@MemoizeContextParameter` declarations capture implicit getter
+    inputs, including inherited declarations and effective generic types from
+    source and compiled dependencies. The getter still accepts no explicit
+    arguments.
+25. The complete captured context tuple identifies the computation using ordinary
+    memoization's `equals`/`hashCode` semantics, including nullable values.
+26. Restore captured values around source creation and traversal, factories,
+    presentation filtering, comparator creation and comparisons, retention and
+    stream closure. Pop contexts in reverse push order, including when evaluation
+    fails, restoring the caller's ambient context.
+27. `@ComputableValueRef` captures the same implicit context values as its getter
+    and selects that context's computation.
+28. Disposal of a captured context that implements `DisposeNotifier` releases the
+    computations using it, without releasing unrelated contexts.
+29. Contextual relationships reject `keepAlive = true` and user activation or
+    deactivation hooks, matching contextual `@Memoize` restrictions. Context-free
+    `keepAlive` retains normal memoized lifecycle behavior.
+30. Context annotations on class overrides take precedence over declarations on
+    inherited interface defaults, including patterns that exclude properties.
 
 ## Architectural basis
 
 [Reference identity and guarded equality](../adr/0003-mapped-relationship-identity.md).
+[Independent contextual ownership](../adr/0004-contextual-relationship-ownership.md).
 The [processor nullability contract](processor-nullability.md) also applies.

@@ -33,6 +33,32 @@ model is memoized as follows.
 
 {@file_content: file=arez/doc/examples/memoize/PersonModel.java start_line=@Observable "end_line=^}" strip_block=true include_end_line=false}
 
+## Context parameters
+
+Use {@link: arez.annotations.MemoizeContextParameter @MemoizeContextParameter}
+when a memoized result depends on an implicit value such as a current date range
+or locale. A capture method supplies the value when the getter is called;
+conventional `pushName(value)` and `popName(value)` callbacks restore it while
+Arez recalculates the result. Multiple contexts are pushed in capture order and
+popped in reverse order, including when evaluation throws.
+
+Each captured context tuple selects a computation using `equals`/`hashCode`,
+together with any explicit method arguments. Nullable context values are
+supported. A `@ComputableValueRef` method captures the same context values as the
+getter, so it refers to the corresponding computation. Context objects that
+implement `DisposeNotifier` dispose computations using them when they are
+disposed.
+
+Context declarations may be inherited. An annotated class override takes
+precedence over an interface default, allowing its `pattern` to narrow the
+matched properties. The default pattern matches every memoized property;
+`allowEmpty = true` only permits zero matches. Contextual methods do not support
+`keepAlive = true` or user activation/deactivation hooks.
+
+[@MappedRelationship](at_mapped_relationship.md#contextual-relationships) also
+supports these implicit context parameters, with separate target state for each
+context key.
+
 ## Equality Comparison
 
 Memoized values only propagate changes when the newly computed value is considered different

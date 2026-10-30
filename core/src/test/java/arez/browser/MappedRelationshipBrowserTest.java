@@ -1,6 +1,7 @@
 package arez.browser;
 
 import arez.Arez;
+import arez.ComputableValue;
 import arez.Disposable;
 import arez.EqualityComparator;
 import arez.Observer;
@@ -8,14 +9,18 @@ import arez.ObserverErrorHandler;
 import arez.annotations.Action;
 import arez.annotations.ArezComponent;
 import arez.annotations.ArezComponentLike;
+import arez.annotations.ComputableValueRef;
 import arez.annotations.Feature;
 import arez.annotations.MappedRelationship;
+import arez.annotations.Memoize;
+import arez.annotations.MemoizeContextParameter;
 import arez.annotations.Observable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 import jsinterop.annotations.JsMethod;
 import org.jspecify.annotations.NullMarked;
@@ -23,7 +28,78 @@ import org.jspecify.annotations.Nullable;
 
 @NullMarked
 public final class MappedRelationshipBrowserTest {
+    private static final List<String> CONTEXT = new ArrayList<>();
+
     private MappedRelationshipBrowserTest() {}
+
+    @JsMethod
+    public static void exerciseContextualRelationship() {
+        final List<String> errors = new ArrayList<>();
+        final ObserverErrorHandler errorHandler = (observer, error, throwable) -> errors.add(error.toString());
+        Arez.context().addObserverErrorHandler(errorHandler);
+        final var model = new MappedRelationshipBrowserTest_Arez_ContextModel();
+        final List<List<ContextRow>> firstResults = new ArrayList<>();
+        final List<List<ContextRow>> secondResults = new ArrayList<>();
+        final Observer first = observeContext(model, "first", firstResults);
+        final Observer second = observeContext(model, "second", secondResults);
+        final ContextRow firstRow = firstResults.get(0).get(0);
+        final ContextRow secondRow = secondResults.get(0).get(0);
+        check(firstRow != secondRow && firstRow._source == secondRow._source, "independent context targets");
+        final ComputableValue<List<ContextRow>> firstRef = inContext("first", model::getRowsComputableValue);
+        final ComputableValue<List<ContextRow>> secondRef = inContext("second", model::getRowsComputableValue);
+        check(firstRef != secondRef, "contextual computation references");
+        check(
+                inContext("first", model::getDescriptionComputableValue)
+                        != inContext("second", model::getDescriptionComputableValue),
+                "ordinary contextual computation references");
+        Arez.context().safeAction(() -> firstRow.setRank(10));
+        check(firstResults.get(firstResults.size() - 1).get(1) == firstRow, "context restoration and identity");
+        check(secondResults.get(secondResults.size() - 1).get(0) == secondRow, "independent context state");
+        Arez.context().safeAction(() -> {
+            firstRow.setPinned(true);
+            model.setRevision(1);
+        });
+        check(firstResults.get(firstResults.size() - 1).contains(firstRow), "contextual absent retention");
+        check(Disposable.isDisposed(secondRow), "independent retention decisions");
+        first.dispose();
+        check(firstRef.isDisposed() && Disposable.isDisposed(firstRow), "context deactivation cleanup");
+        check(!secondRef.isDisposed(), "other context remains active");
+        Disposable.dispose(model);
+        check(secondRef.isDisposed(), "owner releases remaining context");
+        second.dispose();
+        check(CONTEXT.isEmpty(), "balanced context scopes");
+        Arez.context().removeObserverErrorHandler(errorHandler);
+        check(errors.isEmpty(), "unexpected observer errors: " + errors);
+    }
+
+    private static Observer observeContext(
+            final ContextModel model, final String context, final List<List<ContextRow>> results) {
+        return Arez.context()
+                .observer(
+                        () -> {
+                            if (Disposable.isNotDisposed(model)) {
+                                inContext(context, () -> {
+                                    results.add(model.getRows());
+                                    check(model.getDescription().startsWith(context), "ordinary memoization context");
+                                    return true;
+                                });
+                            }
+                        },
+                        Observer.Flags.AREZ_OR_NO_DEPENDENCIES);
+    }
+
+    private static <T> T inContext(final String context, final Supplier<T> action) {
+        CONTEXT.add(context);
+        try {
+            return action.get();
+        } finally {
+            check(CONTEXT.remove(CONTEXT.size() - 1).equals(context), "restore caller context");
+        }
+    }
+
+    private static String currentContext() {
+        return CONTEXT.get(CONTEXT.size() - 1);
+    }
 
     @JsMethod
     public static void exerciseValueKeys() {
@@ -449,6 +525,96 @@ public final class MappedRelationshipBrowserTest {
     }
 
     record Source(int id) {}
+
+    @ArezComponentLike
+    interface ContextAccess {
+        @MemoizeContextParameter
+        default String captureContext() {
+            return currentContext();
+        }
+
+        default void pushContext(final String context) {
+            CONTEXT.add(context);
+        }
+
+        default void popContext(final String context) {
+            check(CONTEXT.remove(CONTEXT.size() - 1).equals(context), "restore computation context");
+        }
+    }
+
+    @ArezComponent(sting = Feature.DISABLE)
+    abstract static class ContextModel implements ContextAccess {
+        private final List<Source> _sources = List.of(new Source(1), new Source(2));
+
+        @Observable
+        abstract int getRevision();
+
+        abstract void setRevision(int revision);
+
+        @MappedRelationship
+        abstract List<ContextRow> getRows();
+
+        @ComputableValueRef
+        abstract ComputableValue<List<ContextRow>> getRowsComputableValue();
+
+        @Memoize
+        String getDescription() {
+            return currentContext() + getRevision();
+        }
+
+        @ComputableValueRef
+        abstract ComputableValue<String> getDescriptionComputableValue();
+
+        Stream<Source> rowsStream() {
+            final String context = currentContext();
+            return _sources.stream()
+                    .filter(source -> getRevision() == 0 || source.id() == 2)
+                    .onClose(() -> check(currentContext().equals(context), "stream context"));
+        }
+
+        ContextRow createContextRow(final Source source) {
+            return new MappedRelationshipBrowserTest_Arez_ContextRow(source, currentContext(), source.id());
+        }
+
+        boolean filterContextRow(final ContextRow row) {
+            check(row._context.equals(currentContext()), "filter context");
+            return true;
+        }
+
+        Comparator<ContextRow> rowsComparator() {
+            final String context = currentContext();
+            return (first, second) -> {
+                check(first._context.equals(context) && second._context.equals(currentContext()), "comparison context");
+                return Integer.compare(first.getRank(), second.getRank());
+            };
+        }
+
+        boolean retainContextRow(final ContextRow row) {
+            check(row._context.equals(currentContext()), "retention context");
+            return row.isPinned();
+        }
+    }
+
+    @ArezComponent(sting = Feature.DISABLE, disposeOnDeactivate = true)
+    abstract static class ContextRow {
+        final Source _source;
+        final String _context;
+
+        ContextRow(final Source source, final String context) {
+            _source = source;
+            _context = context;
+        }
+
+        @Observable(initializer = Feature.ENABLE)
+        abstract int getRank();
+
+        abstract void setRank(int rank);
+
+        @Observable
+        abstract boolean isPinned();
+
+        abstract void setPinned(boolean pinned);
+    }
 
     public static final class AlwaysEqual implements EqualityComparator {
         @Override
