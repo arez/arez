@@ -41,9 +41,7 @@ archive_override(
 
 bazel_dep(name = "j2cl", version = "20260918")
 bazel_dep(name = "rules_closure", version = "0.17.0")
-
-bazel_dep(name = "rules_webtesting", version = "0.4.1", dev_dependency = True)
-
+bazel_dep(name = "rules_browsers", version = "0.4.0")
 bazel_dep(name = "jsinterop_base", version = "1.2.0")
 bazel_dep(name = "rules_jvm_external", version = "7.1")
 bazel_dep(name = "rules_cc", version = "0.2.25")
@@ -71,36 +69,16 @@ use_repo(browser_maven, "maven")
 
 archive_override(
     module_name = "j2cl",
-    integrity = "sha256-jtx4qV2UC+xvgoDeV+6/TBNCs/GRPzeW07TTrIqm+pg=",
-    strip_prefix = "j2cl-260ec1abd929947c032714672d4124e47ff2aec2",
-    urls = ["https://github.com/realityforge/j2cl/archive/260ec1abd929947c032714672d4124e47ff2aec2.tar.gz"],
+    integrity = "sha256-rk2Ngo3KEmKVfkcLMyP3NVIcLqeL18+BeFeagtComak=",
+    strip_prefix = "j2cl-32c0f19bfbe3631a46b608c18dd514ba128fa02e",
+    urls = ["https://github.com/realityforge/j2cl/archive/32c0f19bfbe3631a46b608c18dd514ba128fa02e.tar.gz"],
 )
 
 archive_override(
     module_name = "rules_closure",
-    integrity = "sha256-a+8E2hTyPhwYAPs2SM7Gc2T/iVtDXFiowXrU9JpS+Ew=",
-    patch_strip = 1,
-    patches = [
-        "//third_party/bazel/patches:rules_closure_bazel_9_missing_loads.patch",
-        "//third_party/bazel/patches:rules_closure_bound_link_memory.patch",
-        "//third_party/bazel/patches:rules_closure_custom_env_test_typings.patch",
-        "//third_party/bazel/patches:rules_closure_web_test_runtime_defines.patch",
-        "//third_party/bazel/patches:rules_closure_test_execution_requirements.patch",
-    ],
-    strip_prefix = "rules_closure-5324b6eb9b37dc08bbe5996d67e042a9e4fd57eb",
-    urls = ["https://github.com/bazelbuild/rules_closure/archive/5324b6eb9b37dc08bbe5996d67e042a9e4fd57eb.tar.gz"],
-)
-
-single_version_override(
-    module_name = "rules_webtesting",
-    patch_strip = 1,
-    patches = [
-        "//third_party/bazel/patches:rules_webtesting_collect_runfiles_library.patch",
-        "//third_party/bazel/patches:rules_webtesting_suppress_environment_dump.patch",
-        "//third_party/bazel/patches:rules_webtesting_test_execution_requirements.patch",
-        "//third_party/bazel/patches:rules_webtesting_use_pure_go_binaries.patch",
-    ],
-    version = "0.4.1",
+    integrity = "sha256-XP2sXbeMW9SkWR1dSL2Itx9Iazgr7C6ZjhBQE7mEoCI=",
+    strip_prefix = "rules_closure-629a48ef792bf21d4bd4b73133af55b52d169e8f",
+    urls = ["https://github.com/realityforge/rules_closure/archive/629a48ef792bf21d4bd4b73133af55b52d169e8f.tar.gz"],
 )
 
 single_version_override(

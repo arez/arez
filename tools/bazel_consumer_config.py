@@ -20,11 +20,6 @@ def write_config(destination: Path) -> Path:
             if any(keyword.arg == "dev_dependency" and isinstance(keyword.value, ast.Constant)
                    and keyword.value.value is True for keyword in call.keywords):
                 continue
-            if isinstance(call.func, ast.Name) and call.func.id == "single_version_override" and any(
-                keyword.arg == "module_name" and isinstance(keyword.value, ast.Constant)
-                and keyword.value.value == "rules_webtesting" for keyword in call.keywords
-            ):
-                continue
         statements.append(ast.get_source_segment(source, statement))
     text = "\n\n".join(statements)
     text = text.replace('"//third_party/bazel/patches:', '"//third_party/arez/patches:')
