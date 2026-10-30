@@ -4,6 +4,7 @@ import arez.Disposable;
 import arez.component.ComponentObservable;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,11 +17,23 @@ import org.jspecify.annotations.Nullable;
 
 /** Internal reconciliation support for generated mapped relationships. */
 public final class MappedRelationshipCache<F extends @Nullable Object, T> {
-    private Map<F, Entry<F, T>> _cache = new IdentityHashMap<>();
+    private final boolean _useEqualsForKeys;
+    private Map<F, Entry<F, T>> _cache;
     private List<Entry<F, T>> _order = new ArrayList<>();
 
-    /** Creates an empty relationship cache. */
-    public MappedRelationshipCache() {}
+    /**
+     * Creates an empty relationship cache.
+     *
+     * @param useEqualsForKeys true to match sources by equality; false to match by identity.
+     */
+    public MappedRelationshipCache(final boolean useEqualsForKeys) {
+        _useEqualsForKeys = useEqualsForKeys;
+        _cache = newCache();
+    }
+
+    private Map<F, Entry<F, T>> newCache() {
+        return _useEqualsForKeys ? new HashMap<>() : new IdentityHashMap<>();
+    }
 
     /**
      * Reconciles and observes the targets for a newly supplied source stream.
@@ -40,7 +53,7 @@ public final class MappedRelationshipCache<F extends @Nullable Object, T> {
             final @Nullable Predicate<? super T> retention) {
         final Map<F, Entry<F, T>> existing = _cache;
         final List<Entry<F, T>> previousOrder = _order;
-        _cache = new IdentityHashMap<>();
+        _cache = newCache();
         _order = new ArrayList<>();
         final List<T> result = new ArrayList<>();
         try (sources) {

@@ -10,7 +10,9 @@ public final class MappedRelationshipTest {
     @Test
     public void exposesEveryMemoizeOptionWithTheSameDeclaredDefault() throws Exception {
         final var options = Memoize.class.getDeclaredMethods();
-        assertEquals(MappedRelationship.class.getDeclaredMethods().length, options.length + 1);
+        assertEquals(MappedRelationship.class.getDeclaredMethods().length, options.length + 2);
+        assertEquals(
+                MappedRelationship.class.getDeclaredMethod("useEqualsForKeys").getDefaultValue(), false);
         assertEquals(
                 MappedRelationship.class
                         .getDeclaredMethod("validateTypeAtRuntime")

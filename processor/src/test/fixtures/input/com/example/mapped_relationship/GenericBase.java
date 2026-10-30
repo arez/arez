@@ -8,7 +8,7 @@ import org.jspecify.annotations.*;
 @NullMarked
 @ArezComponentLike
 abstract class GenericBase<S extends @Nullable Object> {
-  @MappedRelationship(depType = DepType.AREZ_OR_NONE)
+  @MappedRelationship(depType = DepType.AREZ_OR_NONE, useEqualsForKeys = true)
   abstract List<Target> getItems();
   protected Stream<S> itemsStream() { return Stream.empty(); }
   protected Target createTarget(final S source) { return Target.create(source); }

@@ -26,6 +26,181 @@ public final class MappedRelationshipBrowserTest {
     private MappedRelationshipBrowserTest() {}
 
     @JsMethod
+    public static void exerciseValueKeys() {
+        exerciseValueKeysFor(new ValueKey(1), new ValueKey(1), new ValueKey(2));
+        exerciseValueKeysFor(Integer.valueOf(1000), Integer.valueOf(1000), Integer.valueOf(2000));
+    }
+
+    private static void exerciseValueKeysFor(final Object first, final Object equal, final Object other) {
+        check(first != equal && first.equals(equal), "distinct equal source keys");
+        final ValueModel model =
+                new MappedRelationshipBrowserTest_Arez_ValueModel(Arrays.asList(first, equal, other, null, null));
+        final List<List<ValueRow>> results = new ArrayList<>();
+        final List<String> errors = new ArrayList<>();
+        final ObserverErrorHandler handler = (observer, error, throwable) -> errors.add(error + " " + throwable);
+        Arez.context().addObserverErrorHandler(handler);
+        try {
+            final Observer observer = Arez.context().observer(() -> results.add(model.getRows()));
+            final List<ValueRow> initial = results.get(results.size() - 1);
+            final ValueRow row = initial.get(0);
+            final ValueRow otherRow = initial.get(2);
+            final ValueRow blank = initial.get(3);
+            check(initial.size() == 5 && model._created.size() == 3, "one factory call per equal key");
+            check(row == initial.get(1) && blank == initial.get(4), "equal and null occurrences");
+            check(row != otherRow && otherRow._source == other, "unequal keys remain distinct");
+            check(row._source == first && blank._source == null, "first encountered construction source");
+            Arez.context().safeAction(() -> row.setState(42));
+            final int publications = results.size();
+            model.replaceSources(Arrays.asList(equal, equal, other, null, null));
+            check(results.size() == publications && model._created.size() == 3, "equal keys reuse targets silently");
+            check(row._source == first, "reuse does not rebind the original source");
+            Arez.context().safeAction(() -> check(row.getState() == 42, "local state survives equal replacement"));
+
+            model.replaceSources(Arrays.asList(equal, other, null));
+            check(results.size() == publications + 1, "occurrence changes propagate through custom comparison");
+            Arez.context().safeAction(() -> {
+                row.setPinned(true);
+                blank.setPinned(true);
+            });
+            model.replaceSources(List.of(other));
+            final List<ValueRow> retained = results.get(results.size() - 1);
+            check(
+                    retained.size() == 3
+                            && retained.get(0) == otherRow
+                            && retained.get(1) == row
+                            && retained.get(2) == blank,
+                    "retained keys follow previous encounter order once each");
+            Arez.context().safeAction(() -> row.setHidden(true));
+            check(results.get(results.size() - 1).size() == 2 && Disposable.isNotDisposed(row), "hidden retained key");
+            Arez.context().safeAction(() -> row.setHidden(false));
+            model.replaceSources(Arrays.asList(equal, equal, null, other));
+            final List<ValueRow> returned = results.get(results.size() - 1);
+            check(
+                    returned.size() == 4
+                            && returned.get(0) == row
+                            && returned.get(1) == row
+                            && returned.get(2) == blank
+                            && returned.get(3) == otherRow,
+                    "equal retained keys reappear with their occurrences");
+            check(model._created.size() == 3, "reappearance does not construct targets");
+
+            Disposable.dispose(row);
+            final List<ValueRow> replaced = results.get(results.size() - 1);
+            final ValueRow replacement = replaced.get(0);
+            check(replacement != row && replacement.equals(row), "equal disposed target replacement is published");
+            check(
+                    replacement == replaced.get(1)
+                            && replacement._source == equal
+                            && Disposable.isNotDisposed(replacement)
+                            && model._created.size() == 4,
+                    "disposed replacement uses the first current key once");
+            model.replaceSources(List.of(other));
+            check(Disposable.isDisposed(replacement), "unretained absent target released");
+            Arez.context().safeAction(() -> blank.setPinned(false));
+            check(
+                    Disposable.isDisposed(blank)
+                            && results.get(results.size() - 1).size() == 1,
+                    "retention release");
+            observer.dispose();
+            check(model._created.stream().allMatch(Disposable::isDisposed), "value cache deactivation cleanup");
+            final Observer reactivated = Arez.context().observer(() -> results.add(model.getRows()));
+            check(results.get(results.size() - 1).get(0) != otherRow, "deactivation clears value-key cache");
+            Arez.context().safeAction(() -> {
+                Disposable.dispose(model);
+                reactivated.dispose();
+            });
+            check(model._created.stream().allMatch(Disposable::isDisposed), "value cache owner disposal");
+            check(errors.isEmpty(), "unexpected value-key errors: " + errors);
+        } finally {
+            Arez.context().removeObserverErrorHandler(handler);
+        }
+    }
+
+    record ValueKey(int id) {
+        @Override
+        public int hashCode() {
+            return 0;
+        }
+    }
+
+    @ArezComponent
+    abstract static class ValueModel {
+        private List<@Nullable Object> _sources;
+        private final List<ValueRow> _created = new ArrayList<>();
+
+        ValueModel(final List<@Nullable Object> sources) {
+            _sources = sources;
+        }
+
+        @Observable
+        abstract int getRevision();
+
+        abstract void setRevision(int revision);
+
+        @Action
+        void replaceSources(final List<@Nullable Object> sources) {
+            _sources = sources;
+            setRevision(getRevision() + 1);
+        }
+
+        @MappedRelationship(useEqualsForKeys = true, equalityComparator = AlwaysEqual.class)
+        abstract List<ValueRow> getRows();
+
+        Stream<@Nullable Object> rowsStream() {
+            getRevision();
+            return _sources.stream();
+        }
+
+        ValueRow createValueRow(final @Nullable Object source) {
+            final var row = new MappedRelationshipBrowserTest_Arez_ValueRow(source);
+            _created.add(row);
+            return row;
+        }
+
+        boolean filterValueRow(final ValueRow row) {
+            return !row.isHidden();
+        }
+
+        boolean retainValueRow(final ValueRow row) {
+            return row.isPinned();
+        }
+    }
+
+    @ArezComponent(disposeOnDeactivate = true)
+    abstract static class ValueRow {
+        private final @Nullable Object _source;
+
+        ValueRow(final @Nullable Object source) {
+            _source = source;
+        }
+
+        @Observable
+        abstract int getState();
+
+        abstract void setState(int state);
+
+        @Observable
+        abstract boolean isHidden();
+
+        abstract void setHidden(boolean hidden);
+
+        @Observable
+        abstract boolean isPinned();
+
+        abstract void setPinned(boolean pinned);
+
+        @Override
+        public boolean equals(final @Nullable Object object) {
+            return object instanceof ValueRow row && Objects.equals(_source, row._source);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hashCode(_source);
+        }
+    }
+
+    @JsMethod
     public static void exerciseRelationship() {
         final var first = new Source(1);
         final var equalSource = new Source(1);

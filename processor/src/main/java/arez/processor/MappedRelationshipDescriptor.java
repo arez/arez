@@ -43,6 +43,7 @@ final class MappedRelationshipDescriptor {
     private final ExecutableElement _method;
     private final DeclaredType _targetType;
     private final MappedRelationshipType _targetContract;
+    private final boolean _useEqualsForKeys;
     private @Nullable CandidateMethod _source;
     private @Nullable CandidateMethod _factory;
     private @Nullable CandidateMethod _filter;
@@ -56,10 +57,12 @@ final class MappedRelationshipDescriptor {
             final ComponentDescriptor component,
             final String name,
             final ExecutableElement method,
-            final ExecutableType methodType) {
+            final ExecutableType methodType,
+            final boolean useEqualsForKeys) {
         _component = component;
         _name = name;
         _method = method;
+        _useEqualsForKeys = useEqualsForKeys;
         MemberChecks.mustBeSubclassCallable(
                 component.getElement(), Constants.COMPONENT_CLASSNAME, Constants.MAPPED_RELATIONSHIP_CLASSNAME, method);
         MemberChecks.mustNotHaveAnyParameters(Constants.MAPPED_RELATIONSHIP_CLASSNAME, method);
@@ -89,6 +92,10 @@ final class MappedRelationshipDescriptor {
 
     DeclaredType getTargetType() {
         return _targetType;
+    }
+
+    boolean useEqualsForKeys() {
+        return _useEqualsForKeys;
     }
 
     TypeMirror getSourceType() {

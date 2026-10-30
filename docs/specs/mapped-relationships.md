@@ -34,10 +34,12 @@ components while preserving each live target's identity and local state.
 8. Consume and close the finite non-null source stream sequentially in encounter
    order. Nullable source elements are permitted when the factory accepts null;
    factory results must be non-null.
-9. Match sources by reference identity, including null. Reuse live targets for
-   sources that remain present; recreate disposed targets for present sources.
-10. Preserve repeated source occurrences as repeated references to the same target
-    within one calculation.
+9. Match sources by reference identity by default, including null.
+   `useEqualsForKeys` defaults to false; enabling it uses standard `equals` and
+   `hashCode` semantics consistently for reconciliation, duplicates and retention.
+   Reuse live targets for matching present sources; recreate disposed targets.
+10. Preserve repeated matching source occurrences as repeated references to the
+    same target within one calculation.
 11. Source-stream filtering may prevent target creation. Presentation filtering
     runs after mapping; hidden targets remain cached and observed while their
     source is present.
@@ -47,10 +49,11 @@ components while preserving each live target's identity and local state.
 13. Retain a live absent-source target when the optional retention predicate
     returns true. Check target disposal before invoking the predicate.
 14. Without sorting, return present targets in source encounter order, then absent
-    retained targets once per source in their previous encounter order. Retained
+    retained targets once per matching key in their previous encounter order. Retained
     targets pass through the same presentation filter and sorting.
-15. Reuse a retained target if its source reappears. Release its cached reference
-    when its source remains absent and retention becomes false.
+15. Reuse a retained target if a matching source reappears under the selected key
+    policy. Release its cached reference when its source remains absent and
+    retention becomes false.
 16. Retention does not override target component dependencies. Surviving source
     disposal requires a target contract that permits it, such as a nullable
     `SET_NULL` dependency with snapshots of required source data.
@@ -67,6 +70,12 @@ components while preserving each live target's identity and local state.
     and cleanup must remain possible; rollback and preservation of prior target
     identities are not guaranteed. A factory is responsible for cleanup of
     construction that fails before returning a target.
+21. Equality matching requires equal keys to be interchangeable for target
+    construction, with stable equality and hash codes while cached or retained.
+22. Reusing a target preserves its original source object without rebinding or
+    invoking the factory again.
+23. When construction is required, the first matching source encountered supplies
+    the factory argument.
 
 ## Architectural basis
 

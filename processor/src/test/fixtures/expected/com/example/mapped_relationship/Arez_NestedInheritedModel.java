@@ -27,7 +27,7 @@ final class Arez_NestedInheritedModel extends NestedInheritedModel implements Di
 
   private final @Nullable ComponentKernel $$arezi$$_kernel;
 
-  private final MappedRelationshipCache<List<@Nullable String>, Target> $$arezi$$_mapped_items = new MappedRelationshipCache<>();
+  private final MappedRelationshipCache<List<@Nullable String>, Target> $$arezi$$_mapped_items = new MappedRelationshipCache<>( false );
 
   private final ComputableValue<List<Target>> $$arez$$_items;
 

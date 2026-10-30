@@ -1586,7 +1586,12 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         checkNameUnique(component, name, method, annotationName);
         final MemoizeDescriptor descriptor = component.findOrCreateMemoize(name);
         if (mapped) {
-            final var mapping = new MappedRelationshipDescriptor(component, name, method, methodType);
+            final var mapping = new MappedRelationshipDescriptor(
+                    component,
+                    name,
+                    method,
+                    methodType,
+                    AnnotationsUtil.getAnnotationValueValue(annotation, "useEqualsForKeys"));
             if (!isComponentTargetTypeCompatible(
                     Constants.MAPPED_RELATIONSHIP_CLASSNAME,
                     mapping.getTargetType(),
