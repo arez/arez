@@ -1,8 +1,8 @@
 # Task Map
 
 - Spec: [SPEC.md](../SPEC.md)
-- Status: `planned`
-- Current frontier: `T01`
+- Status: `implementing`
+- Current frontier: `T02`
 - Planning reviewer: `/root/value_keys_plan_review` — passed (`1/3` attempts)
 - Plan checkpoint: `automatic` — completed; user authorized implementation without a human plan checkpoint.
 - Implementation reviewer: `pending` (`0/5` attempts, including confirmation)
@@ -16,7 +16,7 @@
 
 | ID | Task | Status | Blocked by |
 | --- | --- | --- | --- |
-| T01 | [Value matching and regressions](T01-value-matching.md) | pending | None |
+| T01 | [Value matching and regressions](T01-value-matching.md) | complete | None |
 | T02 | [Contract and complete validation](T02-contract-validation.md) | pending | T01 |
 
 ## Review history

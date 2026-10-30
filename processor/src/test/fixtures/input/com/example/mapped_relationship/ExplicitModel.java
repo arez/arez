@@ -10,7 +10,7 @@ import org.jspecify.annotations.*;
 @NullMarked
 @ArezComponent(sting = Feature.DISABLE)
 abstract class ExplicitModel {
-  @MappedRelationship(name = "mapped", keepAlive = true, priority = Priority.LOW,
+  @MappedRelationship(name = "mapped", useEqualsForKeys = true, keepAlive = true, priority = Priority.LOW,
       observeLowerPriorityDependencies = true, depType = DepType.AREZ_OR_EXTERNAL,
       reportResult = false, readOutsideTransaction = Feature.ENABLE,
       writeOutsideTransaction = Feature.ENABLE, equalityComparator = AlwaysEqual.class)

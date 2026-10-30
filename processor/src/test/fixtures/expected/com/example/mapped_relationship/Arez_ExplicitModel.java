@@ -26,7 +26,7 @@ final class Arez_ExplicitModel extends ExplicitModel implements Disposable, Iden
 
   private final @Nullable ComponentKernel $$arezi$$_kernel;
 
-  private final MappedRelationshipCache<@Nullable String, Target> $$arezi$$_mapped_mapped = new MappedRelationshipCache<>();
+  private final MappedRelationshipCache<@Nullable String, Target> $$arezi$$_mapped_mapped = new MappedRelationshipCache<>( true );
 
   private final ComputableValue<List<Target>> $$arez$$_mapped;
 

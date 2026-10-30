@@ -29,7 +29,7 @@ final class Arez_InheritedModel extends InheritedModel
   private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final MappedRelationshipCache<@Nullable String, Target> $$arezi$$_mapped_items =
-      new MappedRelationshipCache<>();
+      new MappedRelationshipCache<>(true);
 
   private final ComputableValue<List<Target>> $$arez$$_items;
 

@@ -31,7 +31,8 @@ import java.lang.annotation.Target;
  * and observed. Retained targets are appended after present-source targets before
  * filtering and sorting.</p>
  *
- * <p>Source objects are matched by reference identity. Targets remain observed while
+ * <p>Source objects are matched by reference identity unless {@link #useEqualsForKeys()}
+ * is enabled. Targets remain observed while
  * their sources belong to the relationship. The mapping cache is cleared when the
  * computation deactivates. Target disposal follows the target's own lifecycle,
  * typically {@link ArezComponent#disposeOnDeactivate()}.</p>
@@ -49,6 +50,18 @@ import java.lang.annotation.Target;
 @Documented
 @Target(ElementType.METHOD)
 public @interface MappedRelationship {
+    /**
+     * Matches source keys using {@link Object#equals(Object)} and {@link Object#hashCode()}
+     * rather than reference identity. Equal keys must be interchangeable for target
+     * construction, with stable equality and hash codes while cached or retained.
+     * Reuse preserves the original target and its source; it does not rebind the target
+     * to an equal replacement source. Repeated equal sources produce repeated references
+     * to one target.
+     *
+     * @return true to match sources by value; false to match by reference identity.
+     */
+    boolean useEqualsForKeys() default false;
+
     /**
      * Permits runtime validation when the declared target type is component-like but
      * observability cannot be proven at compile time. Eligible types are annotated with

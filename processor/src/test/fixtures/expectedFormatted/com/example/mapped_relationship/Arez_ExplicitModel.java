@@ -28,7 +28,7 @@ final class Arez_ExplicitModel extends ExplicitModel
   private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final MappedRelationshipCache<@Nullable String, Target> $$arezi$$_mapped_mapped =
-      new MappedRelationshipCache<>();
+      new MappedRelationshipCache<>(true);
 
   private final ComputableValue<List<Target>> $$arez$$_mapped;
 

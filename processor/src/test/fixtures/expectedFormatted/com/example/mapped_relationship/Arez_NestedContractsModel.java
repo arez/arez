@@ -30,7 +30,7 @@ final class Arez_NestedContractsModel extends NestedContractsModel
 
   private final MappedRelationshipCache<
           List<@Nullable String>, GenericTarget<List<@Nullable String>>>
-      $$arezi$$_mapped_items = new MappedRelationshipCache<>();
+      $$arezi$$_mapped_items = new MappedRelationshipCache<>(false);
 
   private final ComputableValue<List<GenericTarget<List<@Nullable String>>>> $$arez$$_items;
 

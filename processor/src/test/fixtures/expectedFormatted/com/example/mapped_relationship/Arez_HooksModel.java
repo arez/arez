@@ -29,7 +29,7 @@ final class Arez_HooksModel extends HooksModel
   private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final MappedRelationshipCache<@Nullable String, Target> $$arezi$$_mapped_items =
-      new MappedRelationshipCache<>();
+      new MappedRelationshipCache<>(false);
 
   private final ComputableValue<List<Target>> $$arez$$_items;
 

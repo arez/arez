@@ -31,6 +31,11 @@ import org.testng.annotations.Test;
 
 @NullMarked
 public final class MappedRelationshipIntegrationTest extends AbstractArezIntegrationTest {
+    @Test
+    public void preservesValueKeyTargetsThroughPackagedComponents() {
+        MappedRelationshipBrowserTest.exerciseValueKeys();
+    }
+
     @DataProvider
     public Object[][] apiInvariantModes() {
         return new Object[][] {{true}, {false}};

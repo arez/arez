@@ -2745,7 +2745,7 @@ final class ComponentGenerator {
                             getMappedRelationshipCacheFieldName(memoize),
                             Modifier.PRIVATE,
                             Modifier.FINAL)
-                    .initializer("new $T<>()", MAPPED_RELATIONSHIP_CACHE_CLASSNAME)
+                    .initializer("new $T<>( $L )", MAPPED_RELATIONSHIP_CACHE_CLASSNAME, mapping.useEqualsForKeys())
                     .build());
         }
         if (memoize.hasNoParameters()) {

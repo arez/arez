@@ -29,7 +29,7 @@ final class Arez_OverloadedModel extends OverloadedModel
   private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final MappedRelationshipCache<String, Target> $$arezi$$_mapped_items =
-      new MappedRelationshipCache<>();
+      new MappedRelationshipCache<>(false);
 
   private final ComputableValue<List<Target>> $$arez$$_items;
 
@@ -38,7 +38,7 @@ final class Arez_OverloadedModel extends OverloadedModel
   private @Nullable List<Target> $$arezd$$_$$unmodifiable_cache$$_items;
 
   private final MappedRelationshipCache<@Nullable String, Target> $$arezi$$_mapped_nullItems =
-      new MappedRelationshipCache<>();
+      new MappedRelationshipCache<>(false);
 
   private final ComputableValue<List<Target>> $$arez$$_nullItems;
 

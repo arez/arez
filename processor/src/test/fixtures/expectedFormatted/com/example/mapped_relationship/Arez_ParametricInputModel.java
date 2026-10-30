@@ -29,7 +29,7 @@ final class Arez_ParametricInputModel<S extends @Nullable Object> extends Parame
   private final @Nullable ComponentKernel $$arezi$$_kernel;
 
   private final MappedRelationshipCache<S, Target> $$arezi$$_mapped_items =
-      new MappedRelationshipCache<>();
+      new MappedRelationshipCache<>(false);
 
   private final ComputableValue<List<Target>> $$arez$$_items;
 
@@ -38,7 +38,7 @@ final class Arez_ParametricInputModel<S extends @Nullable Object> extends Parame
   private @Nullable List<Target> $$arezd$$_$$unmodifiable_cache$$_items;
 
   private final MappedRelationshipCache<List<S>, Target> $$arezi$$_mapped_producers =
-      new MappedRelationshipCache<>();
+      new MappedRelationshipCache<>(false);
 
   private final ComputableValue<List<Target>> $$arez$$_producers;
 
@@ -47,7 +47,7 @@ final class Arez_ParametricInputModel<S extends @Nullable Object> extends Parame
   private @Nullable List<Target> $$arezd$$_$$unmodifiable_cache$$_producers;
 
   private final MappedRelationshipCache<List<S>, Target> $$arezi$$_mapped_consumers =
-      new MappedRelationshipCache<>();
+      new MappedRelationshipCache<>(false);
 
   private final ComputableValue<List<Target>> $$arez$$_consumers;
 
