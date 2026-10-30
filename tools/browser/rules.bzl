@@ -122,5 +122,5 @@ def browser_test(name, srcs, deps, entry_point, visibility = None):
         compilation_level = select({_PRODUCTION: "ADVANCED", "//conditions:default": "BUNDLE"}),
         defs = _compiler_defines(test = True),
         runtime_defines = _defines(test = True),
-        browsers = ["@rules_webtesting//browsers:chromium-local"],
+        browsers = ["@rules_browsers//browsers/chromium:chromium"],
     )
