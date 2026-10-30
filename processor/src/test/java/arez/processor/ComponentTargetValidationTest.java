@@ -24,10 +24,23 @@ public final class ComponentTargetValidationTest extends ArezProcessorTestSuppor
     @DataProvider
     public Object[][] targets() {
         final List<Object[]> cases = new ArrayList<>();
-        for (final String annotation : List.of("AutoObserve", "ComponentDependency")) {
+        for (final String annotation : List.of("AutoObserve", "ComponentDependency", "MappedRelationship")) {
             for (final boolean field : List.of(false, true)) {
+                if (annotation.equals("MappedRelationship") && field) {
+                    continue;
+                }
                 for (final String target : List.of(
-                        "direct", "markedDirect", "generated", "abstract", "interface", "framework", "object", "dto")) {
+                        "direct",
+                        "markedDirect",
+                        "generated",
+                        "abstract",
+                        "interface",
+                        "framework",
+                        "simpleFramework",
+                        "object",
+                        "dto",
+                        "interfaceDto",
+                        "generatedDisabled")) {
                     for (final boolean runtime : List.of(false, true)) {
                         cases.add(new Object[] {annotation, field, target, runtime});
                     }
@@ -41,7 +54,8 @@ public final class ComponentTargetValidationTest extends ArezProcessorTestSuppor
     public void validatesDeclaredTargets(
             final String annotation, final boolean field, final String target, final boolean runtime) throws Exception {
         final boolean known = List.of("direct", "markedDirect", "generated").contains(target);
-        final boolean eligible = List.of("abstract", "interface", "framework").contains(target);
+        final boolean eligible =
+                List.of("abstract", "interface", "framework", "simpleFramework").contains(target);
         final var source = model(annotation, field, target, runtime, "", "");
         final var options = getOptions();
         final var compilation = CompileTestUtil.compile(source, options, processors(), List.of());
@@ -76,8 +90,11 @@ public final class ComponentTargetValidationTest extends ArezProcessorTestSuppor
     @DataProvider
     public Object[][] suppressions() {
         final List<Object[]> cases = new ArrayList<>();
-        for (final String annotation : List.of("AutoObserve", "ComponentDependency")) {
+        for (final String annotation : List.of("AutoObserve", "ComponentDependency", "MappedRelationship")) {
             for (final boolean field : List.of(false, true)) {
+                if (annotation.equals("MappedRelationship") && field) {
+                    continue;
+                }
                 for (final String suppression : List.of("SuppressWarnings", "SuppressArezWarnings")) {
                     for (final boolean onClass : List.of(false, true)) {
                         cases.add(new Object[] {annotation, field, suppression, onClass});
@@ -123,23 +140,62 @@ public final class ComponentTargetValidationTest extends ArezProcessorTestSuppor
         }
     }
 
+    @Test
+    public void rejectsUnresolvedGenericDependencyGetters() throws Exception {
+        final var compilation =
+                CompileTestUtil.compile(List.of(source("Model", """
+                    package example;
+                    import arez.annotations.*;
+                    import arez.component.DisposeNotifier;
+                    import org.jspecify.annotations.*;
+                    @NullMarked @ArezComponent abstract class Model {
+                      @ComponentDependency
+                      <T extends DisposeNotifier> @Nullable T getValue() { return null; }
+                    }
+                    """)), getOptions(), processors(), List.of());
+        try {
+            assertCompilationUnsuccessful(compilation);
+            assertErrorDiagnostic(compilation, "@ComponentDependency target must return a non-primitive value");
+            assertTrue(compilation.sourceOutputFilenames().isEmpty());
+        } finally {
+            deleteDir(compilation.classOutput());
+            deleteDir(compilation.sourceOutput());
+        }
+    }
+
     @DataProvider
     public Object[][] inheritedTargets() {
-        return new Object[][] {
-            {"AutoObserve", false}, {"AutoObserve", true}, {"ComponentDependency", false}, {"ComponentDependency", true}
-        };
+        final List<Object[]> cases = new ArrayList<>();
+        for (final String annotation : List.of("AutoObserve", "ComponentDependency", "MappedRelationship")) {
+            for (final boolean field : List.of(false, true)) {
+                if (annotation.equals("MappedRelationship") && field) {
+                    continue;
+                }
+                for (final boolean formatted : List.of(false, true)) {
+                    cases.add(new Object[] {annotation, field, formatted});
+                }
+            }
+        }
+        return cases.toArray(Object[][]::new);
     }
 
     @Test(dataProvider = "inheritedTargets")
-    public void validatesCompiledInheritedTargets(final String annotation, final boolean field) throws Exception {
-        final String member = field ? "final @Nullable T value = null;" : "@Nullable T getValue() { return null; }";
+    public void validatesCompiledInheritedTargets(final String annotation, final boolean field, final boolean formatted)
+            throws Exception {
+        final String member = annotation.equals("MappedRelationship")
+                ? "abstract java.util.List<T> getValues(); "
+                        + "java.util.stream.Stream<String> valuesStream() { return java.util.stream.Stream.empty(); } "
+                        + "T createTarget(String source) { throw new UnsupportedOperationException(); }"
+                : field ? "final @Nullable T value = null;" : "@Nullable T getValue() { return null; }";
+        final var baseOptions = new ArrayList<>(getOptions());
+        baseOptions.addAll(List.of("-parameters", "-Aarez.format_generated_source=" + formatted));
         final var base = CompileTestUtil.assertCompilesWithoutWarnings(
                 List.of(
                         source("Base", """
                             package example;
                             import arez.annotations.*;
                             import org.jspecify.annotations.*;
-                                                @NullMarked @ArezComponentLike abstract class Base<T extends Target> {
+                            @NullMarked @ArezComponentLike abstract class Base<T extends Target> {
                               @%s(validateTypeAtRuntime = true) %s
                             }
                             """.formatted(annotation, member)),
@@ -147,11 +203,11 @@ public final class ComponentTargetValidationTest extends ArezProcessorTestSuppor
                                 "Target",
                                 "package example; @org.jspecify.annotations.NullMarked"
                                         + " @arez.annotations.ArezComponentLike interface Target {}")),
-                getOptions(),
+                baseOptions,
                 processors(),
                 List.of());
         try {
-            final var options = new ArrayList<>(getOptions());
+            final var options = new ArrayList<>(baseOptions);
             options.addAll(List.of(
                     "-classpath", System.getProperty("java.class.path") + File.pathSeparator + base.classOutput()));
             final var compilation = CompileTestUtil.assertCompilesWithoutWarnings(
@@ -181,7 +237,7 @@ public final class ComponentTargetValidationTest extends ArezProcessorTestSuppor
             final boolean runtime,
             final String classSuppression,
             final String memberSuppression) {
-        final String capability = annotation.equals("AutoObserve") ? "ComponentObservable" : "DisposeNotifier";
+        final String capability = annotation.equals("ComponentDependency") ? "DisposeNotifier" : "ComponentObservable";
         final String declaration =
                 switch (target) {
                     case "direct" -> "interface Target extends " + capability + " {}";
@@ -192,6 +248,13 @@ public final class ComponentTargetValidationTest extends ArezProcessorTestSuppor
                     case "interface" -> "@ArezComponentLike interface Target {}";
                     case "framework" ->
                         "@ActAsArezComponent @interface FrameworkView {} @FrameworkView interface Target {}";
+                    case "simpleFramework" ->
+                        "@interface ActAsArezComponent {} @ActAsArezComponent @interface FrameworkView {}"
+                                + " @FrameworkView interface Target {}";
+                    case "generatedDisabled" ->
+                        "@ArezComponent(allowEmpty = true, observable = Feature.DISABLE, disposeNotifier ="
+                                + " Feature.DISABLE) abstract class Target {}";
+                    case "interfaceDto" -> "interface Target {}";
                     case "object" -> "";
                     case "dto" -> "class Target {}";
                     default -> throw new IllegalArgumentException(target);
@@ -211,9 +274,15 @@ public final class ComponentTargetValidationTest extends ArezProcessorTestSuppor
                         memberSuppression,
                         annotation,
                         runtime,
-                        field
-                                ? "final @Nullable " + type + " value = null;"
-                                : "@Nullable " + type + " getValue() { return null; }")));
+                        annotation.equals("MappedRelationship")
+                                ? "abstract java.util.List<" + type + "> getValues(); java.util.stream.Stream<String>"
+                                        + " valuesStream() { return"
+                                        + " java.util.stream.Stream.empty(); } "
+                                        + type + " create" + type
+                                        + "(String source) { throw new UnsupportedOperationException(); }"
+                                : field
+                                        ? "final @Nullable " + type + " value = null;"
+                                        : "@Nullable " + type + " getValue() { return null; }")));
         if (!declaration.isEmpty()) {
             sources.add(source(
                     "Target",

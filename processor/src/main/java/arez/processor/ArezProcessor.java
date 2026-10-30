@@ -1587,7 +1587,12 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         final MemoizeDescriptor descriptor = component.findOrCreateMemoize(name);
         if (mapped) {
             final var mapping = new MappedRelationshipDescriptor(component, name, method, methodType);
-            if (!isAutoObserveCompileTimeCompatible(mapping.getTargetType())) {
+            if (!isComponentTargetTypeCompatible(
+                    Constants.MAPPED_RELATIONSHIP_CLASSNAME,
+                    mapping.getTargetType(),
+                    AnnotationsUtil.getAnnotationValueValue(annotation, "validateTypeAtRuntime"),
+                    isAutoObserveCompileTimeCompatible(mapping.getTargetType()),
+                    method)) {
                 throw new ProcessorException(
                         "@MappedRelationship target elements must be observable Arez components", method);
             }
@@ -2359,7 +2364,7 @@ public final class ArezProcessor extends AbstractStandardProcessor {
         final TypeMirror type = ((ExecutableType)
                         processingEnv.getTypeUtils().asMemberOf(descriptor.asDeclaredType(), method))
                 .getReturnType();
-        if (TypeKind.TYPEVAR != type.getKind() && TypeKind.DECLARED != type.getKind()) {
+        if (TypeKind.DECLARED != type.getKind()) {
             throw new ProcessorException("@ComponentDependency target must return a non-primitive value", method);
         }
         if (!isComponentTargetTypeCompatible(

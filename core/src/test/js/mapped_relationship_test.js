@@ -4,6 +4,9 @@ const RelationshipTest = goog.require('arez.browser.MappedRelationshipBrowserTes
 const testSuite = goog.require('goog.testing.testSuite');
 
 testSuite({
+  testRuntimeTypedTargetsAndInvalidFactoryResults() {
+    RelationshipTest.exerciseRuntimeTypes();
+  },
   testMappedTargetIdentityPresentationAndLifecycle() {
     RelationshipTest.exerciseRelationship();
   },
