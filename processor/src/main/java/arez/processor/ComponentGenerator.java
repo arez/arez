@@ -2301,6 +2301,17 @@ final class ComponentGenerator {
 
         method.varargs(executableElement.isVarArgs());
 
+        final MappedRelationshipDescriptor mapping = memoize.getMappedRelationship();
+        if (null != mapping && !memoize.hasNoParameters()) {
+            method.addParameter(
+                    mappedRelationshipCacheType(mapping), getMappedRelationshipCacheFieldName(memoize), Modifier.FINAL);
+            method.addStatement(
+                    "this.$N.getContext().registerHook( $S, null, $N::clear )",
+                    KERNEL_ACCESS_EXPRESSION,
+                    "$H",
+                    getMappedRelationshipCacheFieldName(memoize));
+        }
+
         // Add context parameters
         for (final MemoizeContextParameterDescriptor contextParameter : memoize.getContextParameters()) {
             final String contextParameterName = FRAMEWORK_PREFIX + contextParameter.getName();
@@ -2319,7 +2330,7 @@ final class ComponentGenerator {
         method.returns(GeneratorUtil.getTypeName(executableType.getReturnType()));
 
         // Register Hook
-        if (memoize.hasHooks() || onActivateRequiresWrapper || onDeactivateRequiresWrapper) {
+        if (null != onActivate || null != onDeactivate || onActivateRequiresWrapper || onDeactivateRequiresWrapper) {
             final var sb = new StringBuilder();
             final List<Object> parameters = new ArrayList<>();
             sb.append("this.$N.getContext().registerHook( $S, ");
@@ -2388,14 +2399,14 @@ final class ComponentGenerator {
                     contextParameter.getPush().getSimpleName().toString(),
                     FRAMEWORK_PREFIX + contextParameter.getName());
         }
-        final MappedRelationshipDescriptor mapping = memoize.getMappedRelationship();
         if (null != mapping) {
             final CandidateMethod filter = mapping.getFilter();
             final CandidateMethod comparator = mapping.getComparator();
             final CandidateMethod retention = mapping.getRetention();
             method.addStatement(
-                    "return this.$N.getRelated( $N(), $L, $L, $L, $L )",
-                    getMappedRelationshipCacheFieldName(memoize),
+                    "return $L.getRelated( $N(), $L, $L, $L, $L )",
+                    CodeBlock.of(
+                            memoize.hasNoParameters() ? "this.$N" : "$N", getMappedRelationshipCacheFieldName(memoize)),
                     mapping.getSource().getMethod().getSimpleName().toString(),
                     mappedCallback(processingEnv, mapping.getFactory(), mapping.getSourceType()),
                     null == filter
@@ -2409,42 +2420,43 @@ final class ComponentGenerator {
                     null == retention
                             ? CodeBlock.of("null")
                             : mappedCallback(processingEnv, retention, mapping.getTargetType()));
-            return method.build();
-        }
-        final var sb = new StringBuilder();
-        final List<Object> parameters = new ArrayList<>();
-        sb.append("return ");
-        if (!executableElement.getTypeParameters().isEmpty()) {
-            sb.append("($T) ");
-            parameters.add(GeneratorUtil.getTypeName(memoize.getMethodType().getReturnType())
-                    .box()
-                    .withoutAnnotations());
-        } else if (component.isClassType()) {
-            sb.append("super.$N(");
-            parameters.add(memoize.getMethod().getSimpleName().toString());
         } else {
-            sb.append("$T.super.$N(");
-            parameters.add(component.getClassName());
-            parameters.add(memoize.getMethod().getSimpleName().toString());
-        }
-
-        boolean first = true;
-        for (final VariableElement element : executableElement.getParameters()) {
-            if (!first) {
-                sb.append(",");
+            final var sb = new StringBuilder();
+            final List<Object> parameters = new ArrayList<>();
+            sb.append("return ");
+            if (!executableElement.getTypeParameters().isEmpty()) {
+                sb.append("($T) ");
+                parameters.add(GeneratorUtil.getTypeName(memoize.getMethodType().getReturnType())
+                        .box()
+                        .withoutAnnotations());
+            } else if (component.isClassType()) {
+                sb.append("super.$N(");
+                parameters.add(memoize.getMethod().getSimpleName().toString());
+            } else {
+                sb.append("$T.super.$N(");
+                parameters.add(component.getClassName());
+                parameters.add(memoize.getMethod().getSimpleName().toString());
             }
-            first = false;
-            sb.append(" $N");
-            parameters.add(element.getSimpleName().toString());
-        }
-        if (!first) {
-            sb.append(" ");
-        }
-        sb.append(")");
 
-        method.addStatement(sb.toString(), parameters.toArray());
+            boolean first = true;
+            for (final VariableElement element : executableElement.getParameters()) {
+                if (!first) {
+                    sb.append(",");
+                }
+                first = false;
+                sb.append(" $N");
+                parameters.add(element.getSimpleName().toString());
+            }
+            if (!first) {
+                sb.append(" ");
+            }
+            sb.append(")");
 
-        for (final MemoizeContextParameterDescriptor contextParameter : memoize.getContextParameters()) {
+            method.addStatement(sb.toString(), parameters.toArray());
+        }
+
+        for (final MemoizeContextParameterDescriptor contextParameter :
+                memoize.getContextParameters().reversed()) {
             method.nextControlFlow("finally");
             method.addStatement(
                     "$N( $N )",
@@ -2660,6 +2672,14 @@ final class ComponentGenerator {
         params.add(getMemoizeFieldName(memoize));
 
         boolean first = true;
+        for (final MemoizeContextParameterDescriptor contextParameter : memoize.getContextParameters()) {
+            if (!first) {
+                sb.append(", ");
+            }
+            first = false;
+            sb.append("$N()");
+            params.add(contextParameter.getCapture().getSimpleName().toString());
+        }
         for (final VariableElement element : refMethod.getMethod().getParameters()) {
             if (!first) {
                 sb.append(", ");
@@ -2735,13 +2755,9 @@ final class ComponentGenerator {
             final MemoizeDescriptor memoize,
             final TypeSpec.Builder builder) {
         final MappedRelationshipDescriptor mapping = memoize.getMappedRelationship();
-        if (null != mapping) {
-            final TypeName sourceType = GeneratorUtil.getTypeName(mapping.getSourceType());
+        if (null != mapping && memoize.hasNoParameters()) {
             builder.addField(FieldSpec.builder(
-                            ParameterizedTypeName.get(
-                                    MAPPED_RELATIONSHIP_CACHE_CLASSNAME,
-                                    mapping.isSourceNullable() ? nullable(sourceType) : sourceType,
-                                    GeneratorUtil.getTypeName(mapping.getTargetType())),
+                            mappedRelationshipCacheType(mapping),
                             getMappedRelationshipCacheFieldName(memoize),
                             Modifier.PRIVATE,
                             Modifier.FINAL)
@@ -2753,6 +2769,14 @@ final class ComponentGenerator {
         } else {
             buildMemoizeWithParametersFields(processingEnv, memoize, builder);
         }
+    }
+
+    private static TypeName mappedRelationshipCacheType(final MappedRelationshipDescriptor mapping) {
+        final TypeName sourceType = GeneratorUtil.getTypeName(mapping.getSourceType());
+        return ParameterizedTypeName.get(
+                MAPPED_RELATIONSHIP_CACHE_CLASSNAME,
+                mapping.isSourceNullable() ? nullable(sourceType) : sourceType,
+                GeneratorUtil.getTypeName(mapping.getTargetType()));
     }
 
     private static void buildMemoizeWithNoParametersFields(
@@ -2936,6 +2960,14 @@ final class ComponentGenerator {
 
         final ComponentDescriptor component = memoize.getComponent();
         final ExecutableElement method = memoize.getMethod();
+        final MappedRelationshipDescriptor mapping = memoize.getMappedRelationship();
+        if (null != mapping) {
+            sb.append("() -> { final $T $N = new $T<>( $L ); return ");
+            parameters.add(mappedRelationshipCacheType(mapping));
+            parameters.add(getMappedRelationshipCacheFieldName(memoize));
+            parameters.add(MAPPED_RELATIONSHIP_CACHE_CLASSNAME);
+            parameters.add(mapping.useEqualsForKeys());
+        }
         if (memoize.shouldGenerateMemoizeWrapper()) {
             sb.append("args -> $N(");
             parameters.add(getMemoizeWrapperMethodName(memoize));
@@ -2949,6 +2981,11 @@ final class ComponentGenerator {
         }
 
         boolean first = true;
+        if (null != mapping) {
+            sb.append("$N");
+            parameters.add(getMappedRelationshipCacheFieldName(memoize));
+            first = false;
+        }
         int index = 0;
         for (final var contextParameter : memoize.getContextParameters()) {
             if (!first) {
@@ -2978,7 +3015,11 @@ final class ComponentGenerator {
             index++;
         }
 
-        sb.append("), ");
+        sb.append(")");
+        if (null != mapping) {
+            sb.append("; }");
+        }
+        sb.append(", ");
         sb.append(index);
         sb.append(", ");
 

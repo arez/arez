@@ -37,6 +37,7 @@ import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ExecutableType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
+import javax.lang.model.util.ElementFilter;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import org.jspecify.annotations.NonNull;
@@ -2598,8 +2599,16 @@ public final class ArezProcessor extends AbstractStandardProcessor {
             }
         }
 
-        final var methods = ElementsUtil.getMethods(
-                typeElement, processingEnv.getElementUtils(), processingEnv.getTypeUtils(), true);
+        final var elementUtils = processingEnv.getElementUtils();
+        final var members = ElementFilter.methodsIn(elementUtils.getAllMembers(typeElement));
+        // Preserve enumeration order while taking annotation metadata from the effective override.
+        final var methods =
+                ElementsUtil.getMethods(typeElement, elementUtils, processingEnv.getTypeUtils(), true).stream()
+                        .map(method -> members.stream()
+                                .filter(member -> elementUtils.overrides(member, method, typeElement))
+                                .findFirst()
+                                .orElse(method))
+                        .toList();
         final var generateToString = methods.stream()
                 .noneMatch(m -> m.getSimpleName().toString().equals("toString")
                         && m.getParameters().isEmpty()

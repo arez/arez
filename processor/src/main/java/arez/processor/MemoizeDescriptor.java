@@ -231,9 +231,6 @@ final class MemoizeDescriptor {
     }
 
     void validate(final ProcessingEnvironment processingEnv) throws ProcessorException {
-        if (null != _mappedRelationship && !getContextParameters().isEmpty()) {
-            throw new ProcessorException("@MappedRelationship does not support context parameters", getMethod());
-        }
         if (null == _method) {
             if (null != _onActivate) {
                 throw new ProcessorException("@OnActivate exists but there is no corresponding @Memoize", _onActivate);

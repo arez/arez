@@ -7,7 +7,7 @@ import org.intellij.lang.annotations.Language;
 
 /**
  * Annotation applied to methods that define a single "contextual" parameter to one or more {@link Memoize}
- * annotated methods. A "contextual" parameter is one that is used within the {@link Memoize} annotated methods,
+ * annotated methods, including {@link MappedRelationship} declarations. A "contextual" parameter is one that is used within the {@link Memoize} annotated methods,
  * but is not passed in but derived from the calling context. These are the conceptual equivalent of thread-local
  * values accessed from within the function.
  *
@@ -16,6 +16,13 @@ import org.intellij.lang.annotations.Language;
  * to push the value to the calling context (prefixed with "push" with a single parameter that has the
  * type of the context parameter), and one to pop the value from the calling context (prefixed with "pop"
  * with a single parameter that has the type of the context parameter).</p>
+ *
+ * <p>Multiple context values form a memoization key using ordinary equality,
+ * including nullable values. Values are pushed in capture order and popped in
+ * reverse order, including when computation fails. {@link ComputableValueRef}
+ * methods capture the same context values as their associated getter. Context
+ * declarations on class overrides take precedence over inherited interface
+ * defaults.</p>
  *
  * <h2>Capture Method</h2>
  *

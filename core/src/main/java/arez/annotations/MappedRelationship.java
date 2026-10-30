@@ -37,6 +37,14 @@ import java.lang.annotation.Target;
  * computation deactivates. Target disposal follows the target's own lifecycle,
  * typically {@link ArezComponent#disposeOnDeactivate()}.</p>
  *
+ * <p>Matching {@link MemoizeContextParameter} declarations capture implicit inputs.
+ * Each context tuple selects its own computation and relationship state using
+ * ordinary memoization equality. Different context keys do not reuse targets.
+ * Captured contexts surround all callbacks and stream operations, and are popped
+ * in reverse push order. A {@link ComputableValueRef} selects the computation for
+ * the current context. Contextual relationships do not support {@code keepAlive}
+ * or user activation/deactivation hooks.</p>
+ *
  * <p>Failures follow normal computed error handling. Evaluation can retry and
  * deactivation still releases cached references, but prior target identities and
  * rollback are not guaranteed.</p>

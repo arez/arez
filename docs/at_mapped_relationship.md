@@ -104,12 +104,42 @@ Remove the person from the source collection and dispose it in the same action.
 The row's dependency becomes null, its snapshot supplies the display name, and
 `isPinned()` determines whether it remains in the relationship.
 
-Each getter owns an independent cache shared by its readers. When the computation
+Each computation owns an independent cache shared by its readers. When it
 deactivates or its owner is disposed, cached references are released, including
 hidden and retained entries. Cache cleanup does not explicitly dispose targets;
 `disposeOnDeactivate = true` on the target commonly supplies that lifecycle.
 Disabling collection wrapping does not disable cleanup. `keepAlive = true` keeps
 the computation active until owner disposal.
+
+## Contextual relationships
+
+Matching {@link: arez.annotations.MemoizeContextParameter @MemoizeContextParameter}
+declarations apply to mapped relationships just as they do to
+[@Memoize](at_memoize.md#context-parameters). Inherited context declarations and
+callbacks are supported, including declarations from compiled dependencies.
+The mapped getter still takes no explicit arguments.
+
+The complete captured context tuple selects a computation using ordinary
+`equals`/`hashCode` equality; nullable context values are supported. Each
+computation owns its own source-to-target mapping. Two date contexts mapping the
+same source create separate targets, while readers using the same context key
+share targets and local state. Filtering, sorting and retention are independent
+between contexts. Target state such as editing or selection therefore does not
+carry across context keys.
+
+Arez restores the captured context during source, factory, filtering, sorting
+and retention callbacks, including lazy stream traversal, sort comparisons and
+stream closure. Contexts are popped in reverse push order even when evaluation
+fails, so recalculation does not need an ambient caller context.
+Releasing the last observer clears only that context's relationship state. Owner
+disposal clears all contexts; disposal of a captured `DisposeNotifier` context
+releases computations using it. Targets follow their own disposal policy.
+Unobserved reads do not preserve target identity across transactions.
+
+A `@ComputableValueRef` method selects the computation for the current captured
+context, allowing external invalidation of that computation. As with contextual
+memoization, `keepAlive = true` and user activation/deactivation hooks are not
+supported.
 
 ## Explicit callback names
 

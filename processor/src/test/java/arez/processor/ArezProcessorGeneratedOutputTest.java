@@ -24,6 +24,8 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
     @DataProvider
     public Object[][] mappedRelationshipModels() {
         return new Object[][] {
+            {"ContextModel"},
+            {"ExcludedContextModel"},
             {"ConventionalModel"},
             {"ParametricInputModel"},
             {"ContainerModel"},
@@ -42,6 +44,9 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
     public void processMappedRelationshipCompile(final String model) throws Exception {
         final String prefix = "com.example.mapped_relationship.";
         final List<JavaFileObject> sources = new ArrayList<>(inputs(prefix + "Target", prefix + model));
+        if (model.equals("ContextModel") || model.equals("ExcludedContextModel")) {
+            sources.addAll(inputs(prefix + "GenericContextBase", prefix + "ContextBase"));
+        }
         if (model.equals("InheritedModel")) {
             sources.addAll(inputs(prefix + "GenericBase"));
         } else if (model.equals("InheritedTargetModel")) {
@@ -90,6 +95,8 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
     @DataProvider
     public Object[][] mappedRelationshipBases() {
         return new Object[][] {
+            {"ContextBase", "ContextModel"},
+            {"ContextBase", "ExcludedContextModel"},
             {"GenericBase", "InheritedModel"},
             {"GenericTargetBase", "InheritedTargetModel"},
             {"ContainerBase", "ContainerModel"},
@@ -101,11 +108,13 @@ public final class ArezProcessorGeneratedOutputTest extends ArezProcessorTestSup
     public void mappedRelationshipCompiledBase(final String baseModel, final String model) throws Exception {
         final List<String> baseOptions = new ArrayList<>(getOptions());
         baseOptions.add("-parameters");
+        final List<JavaFileObject> baseSources = new ArrayList<>(
+                inputs("com.example.mapped_relationship.Target", "com.example.mapped_relationship." + baseModel));
+        if (baseModel.equals("ContextBase")) {
+            baseSources.addAll(inputs("com.example.mapped_relationship.GenericContextBase"));
+        }
         final Compilation base = CompileTestUtil.assertCompilesWithoutWarnings(
-                inputs("com.example.mapped_relationship.Target", "com.example.mapped_relationship." + baseModel),
-                baseOptions,
-                processors(),
-                Collections.emptyList());
+                baseSources, baseOptions, processors(), Collections.emptyList());
         try {
             final List<String> options = new ArrayList<>(getOptions());
             options.add("-classpath");

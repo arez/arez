@@ -3,9 +3,13 @@ filegroup(
     srcs = [
         "ContainerBase.java",
         "ContainerModel.java",
+        "ContextBase.java",
+        "ContextModel.java",
         "ConventionalModel.java",
+        "ExcludedContextModel.java",
         "ExplicitModel.java",
         "GenericBase.java",
+        "GenericContextBase.java",
         "GenericTarget.java",
         "GenericTargetBase.java",
         "HooksModel.java",

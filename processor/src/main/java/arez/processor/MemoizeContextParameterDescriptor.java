@@ -179,7 +179,7 @@ final class MemoizeContextParameterDescriptor {
             final Pattern pattern) {
         doSetCapture(method, methodType);
 
-        final TypeMirror returnType = method.getReturnType();
+        final TypeMirror returnType = methodType.getReturnType();
         if (null == _initial) {
             _initialMethodType = MemoizeContextParameterMethodType.Capture;
             _initial = method;
@@ -236,7 +236,7 @@ final class MemoizeContextParameterDescriptor {
             final Pattern pattern) {
         doSetPush(method, methodType);
 
-        final TypeMirror valueType = method.getParameters().get(0).asType();
+        final TypeMirror valueType = methodType.getParameterTypes().get(0);
         if (null == _initial) {
             _initialMethodType = MemoizeContextParameterMethodType.Push;
             _initial = method;
@@ -292,7 +292,7 @@ final class MemoizeContextParameterDescriptor {
             final Pattern pattern) {
         doSetPop(method, methodType);
 
-        final TypeMirror valueType = method.getParameters().get(0).asType();
+        final TypeMirror valueType = methodType.getParameterTypes().get(0);
         if (null == _initial) {
             _initialMethodType = MemoizeContextParameterMethodType.Pop;
             _initial = method;
@@ -346,19 +346,19 @@ final class MemoizeContextParameterDescriptor {
 
         if (!processingEnv
                         .getTypeUtils()
-                        .isSameType(initialValueType(), getCapture().getReturnType())
+                        .isSameType(initialValueType(), getCaptureType().getReturnType())
                 && !initialValueType()
                         .toString()
-                        .equals(getCapture().getReturnType().toString())) {
+                        .equals(getCaptureType().getReturnType().toString())) {
             throw new ProcessorException(
                     "@MemoizeContextParameter target defines a capture method with a different " + "type ("
-                            + getCapture().getReturnType() + ") from the matching " + "@MemoizeContextParameter "
+                            + getCaptureType().getReturnType() + ") from the matching " + "@MemoizeContextParameter "
                             + initialMethodType() + " method named " + initial().getSimpleName()
                             + "that defines the type " + initialValueType() + ".",
                     getCapture());
         }
 
-        final TypeMirror pushValueType = getPush().getParameters().get(0).asType();
+        final TypeMirror pushValueType = getPushType().getParameterTypes().get(0);
         if (!processingEnv.getTypeUtils().isSameType(initialValueType(), pushValueType)
                 && !initialValueType().toString().equals(pushValueType.toString())) {
             throw new ProcessorException(
@@ -369,7 +369,7 @@ final class MemoizeContextParameterDescriptor {
                     getPush());
         }
 
-        final TypeMirror popValueType = getPop().getParameters().get(0).asType();
+        final TypeMirror popValueType = getPopType().getParameterTypes().get(0);
         if (!processingEnv.getTypeUtils().isSameType(initialValueType(), popValueType)
                 && !initialValueType().toString().equals(popValueType.toString())) {
             throw new ProcessorException(
