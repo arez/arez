@@ -1,11 +1,11 @@
 # Task Map
 
 - Spec: [SPEC.md](../SPEC.md)
-- Status: `implementation-review`
-- Current frontier: `implementation review`
+- Status: `closing`
+- Current frontier: `closeout`
 - Planning reviewer: `/root/value_keys_plan_review` — passed (`1/3` attempts)
 - Plan checkpoint: `automatic` — completed; user authorized implementation without a human plan checkpoint.
-- Implementation reviewer: `pending` (`0/5` attempts, including confirmation)
+- Implementation reviewer: `/root/value_keys_implementation_review` — passed (`1/5` attempts)
 
 ## Full-scope validation
 
@@ -22,6 +22,8 @@
 ## Review history
 
 - Planning attempt 1/3: clean read-only reviewer `/root/value_keys_plan_review` inspected the complete tree and implementation seams. Findings: none. Coverage includes scope, authority, task ownership, cache/generator, tests, documentation and full gate. Implementation evidence remains pending.
+
+- Implementation attempt 1/5: clean read-only reviewer `/root/value_keys_implementation_review` passed `d41a13fe8..cafc2debd`. Findings: none. Reviewed the complete 41-file delivered diff against R1-R4 and AC1-AC4, including annotation defaults, processor propagation/inherited goldens, cache/retention, original-source preservation, null/collisions/duplicates, disposal/cleanup, result guarding, shared JVM/J2CL tests and documentation. Personally inspected full-gate success, coverage, JVM results, 16 goldens and both browser modes; confirmed clean checkout and `git diff --check`. Caller key stability/interchangeability remain documented obligations. Review recording, plan deletion and PR publication are the remaining authorized closeout actions.
 
 ## Promoted knowledge
 
