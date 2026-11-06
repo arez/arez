@@ -1,11 +1,11 @@
 # Task Map
 
 - Spec [SPEC.md](../SPEC.md)
-- Status `implementation-review`
+- Status `reviewed`
 - Current frontier empty
 - Planning reviewer `/root/planning_reviewer`, passed (3/3 attempts, including replanning)
 - Plan checkpoint automatic, complete after the replanning review passed
-- Implementation reviewer pending (0/5 attempts, including confirmation)
+- Implementation reviewer `/root/implementation_reviewer`, passed (1/5 attempts)
 
 ## Full-scope validation
 
@@ -30,3 +30,11 @@
 - Attempt 2 passed with no findings. The reviewer confirmed probe coverage and the publication checkpoint.
 - The user authorized a targeted browser test fix and requested verified size attribution before any question. The updated plan keeps T02 focused on compiler evidence and assigns the default full gate to T03.
 - Attempt 3 passed with no findings. The reviewer confirmed the affected browser runner scope, default full gate and compiler attribution checkpoint.
+
+## Implementation review history
+
+- Attempt 1 passed with no findings. The reviewer inspected the packaged Java API,
+  exercised the compiled and edited JavaScript outputs, checked raw and gzip sizes
+  and hashes, inspected the action graph, and verified the default full-gate log.
+- The compiler evidence is from the matched packaged Arez probe. Publication
+  waits for the user to assess its +66 raw and +34 gzip byte delta.
