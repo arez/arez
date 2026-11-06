@@ -1,10 +1,10 @@
 # Task Map
 
 - Spec [SPEC.md](../SPEC.md)
-- Status `implementing`
+- Status `planned`
 - Current frontier `T02`
-- Planning reviewer `/root/planning_reviewer`, passed (2/3 attempts, including confirmation)
-- Plan checkpoint automatic, complete after independent review passed on attempt 2
+- Planning reviewer `/root/planning_reviewer`, passed (3/3 attempts, including replanning)
+- Plan checkpoint automatic, complete after the replanning review passed
 - Implementation reviewer pending (0/5 attempts, including confirmation)
 
 ## Full-scope validation
@@ -17,7 +17,8 @@
 | ID | Task | Status | Blocked by |
 | --- | --- | --- | --- |
 | T01 | [Implement the opt-in API and migration](T01-opt-in-api.md) | complete | |
-| T02 | [Verify compiler output and close delivery](T02-verify-delivery.md) | pending | T01 |
+| T02 | [Measure and explain compiler output](T02-verify-delivery.md) | pending | T01 |
+| T03 | [Enable networking for the browser test runner](T03-browser-test-network.md) | pending | T02 |
 
 ## Promoted knowledge
 
@@ -27,3 +28,5 @@
 
 - Attempt 1 requested live multi-repository predicate coverage and exact output comparison. The spec and T02 now require all seven operations, shared predicate dispatch, and a byte comparison in addition to size measurements.
 - Attempt 2 passed with no findings. The reviewer confirmed probe coverage and the publication checkpoint.
+- The user authorized a targeted browser test fix and requested verified size attribution before any question. The updated plan keeps T02 focused on compiler evidence and assigns the default full gate to T03.
+- Attempt 3 passed with no findings. The reviewer confirmed the affected browser runner scope, default full gate and compiler attribution checkpoint.
