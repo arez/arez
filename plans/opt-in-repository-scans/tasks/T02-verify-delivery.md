@@ -55,4 +55,25 @@ user's assessment of the measured +66 raw and +34 gzip bytes.
 
 ### Attribution
 
-- Pending controlled variants.
+An Acorn top-level statement comparison normalized identifier spelling and accounted
+for all 66 raw bytes. The two typed functions and their separator occupy 132 bytes,
+replacing an 85-byte upstream required-match function. Moving two concrete result
+casts out of the caller saves 14 bytes, yielding a net 33 bytes for the typed
+single-result wrappers. The second repository's live filtered-list forwarder and
+its separator add another 33 bytes. Its call replaces a same-length call to the
+single shared pipeline. Among 912 structurally matching statements, minifier
+renames and a relocated newline had zero net raw cost.
+
+Controlled edits to the optimized candidate confirmed the attribution. Each
+variant returned the same two results in Node. These were JavaScript ablations
+of the matched compiler output.
+
+| Candidate ablation | Raw bytes | Gzip bytes |
+| --- | ---: | ---: |
+| Call the filtered-list helper directly from the second repository's call site | 51,062 | 16,338 |
+| Move the concrete casts back to the call sites and restore the generic required lookup | 51,062 | 16,336 |
+| Apply both | 51,029 | 16,326 |
+
+The edits recover the entire raw delta. The combined ablation retains 12 gzip
+bytes over upstream because the emitted names, function placement and line breaks
+still differ, which affects compression.
