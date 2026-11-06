@@ -1,8 +1,8 @@
 # Task Map
 
 - Spec [SPEC.md](../SPEC.md)
-- Status `implementing`
-- Current frontier `T03`
+- Status `implementation-review`
+- Current frontier empty
 - Planning reviewer `/root/planning_reviewer`, passed (3/3 attempts, including replanning)
 - Plan checkpoint automatic, complete after the replanning review passed
 - Implementation reviewer pending (0/5 attempts, including confirmation)
@@ -10,7 +10,7 @@
 ## Full-scope validation
 
 - Gate `tools/check.sh`
-- Evidence pending
+- Passed with default Bazel settings. See [T03 evidence](T03-browser-test-network.md#evidence).
 
 ## Tasks
 
@@ -18,7 +18,7 @@
 | --- | --- | --- | --- |
 | T01 | [Implement the opt-in API and migration](T01-opt-in-api.md) | complete | |
 | T02 | [Measure and explain compiler output](T02-verify-delivery.md) | complete | T01 |
-| T03 | [Enable networking for the browser test runner](T03-browser-test-network.md) | pending | T02 |
+| T03 | [Enable networking for the browser test runner](T03-browser-test-network.md) | complete | T02 |
 
 ## Promoted knowledge
 
