@@ -1,6 +1,7 @@
 exports_files(
     [
         "jsinterop_base_suppress_unusable_by_js_warnings.patch",
+        "rules_closure_webdriver_network.patch",
     ],
     visibility = ["//visibility:private"],
 )

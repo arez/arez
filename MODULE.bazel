@@ -77,6 +77,8 @@ archive_override(
 archive_override(
     module_name = "rules_closure",
     integrity = "sha256-XP2sXbeMW9SkWR1dSL2Itx9Iazgr7C6ZjhBQE7mEoCI=",
+    patch_strip = 1,
+    patches = ["//third_party/bazel/patches:rules_closure_webdriver_network.patch"],
     strip_prefix = "rules_closure-629a48ef792bf21d4bd4b73133af55b52d169e8f",
     urls = ["https://github.com/realityforge/rules_closure/archive/629a48ef792bf21d4bd4b73133af55b52d169e8f.tar.gz"],
 )

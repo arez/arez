@@ -123,4 +123,5 @@ def browser_test(name, srcs, deps, entry_point, visibility = None):
         defs = _compiler_defines(test = True),
         runtime_defines = _defines(test = True),
         browsers = ["@rules_browsers//browsers/chromium:chromium"],
+        test_tags = ["requires-network"],
     )

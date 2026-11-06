@@ -1,14 +1,15 @@
 package arez.doc.examples.repository;
 
-import arez.annotations.ArezComponentLike;
+import arez.annotations.ArezComponent;
 import arez.annotations.ComponentId;
+import arez.annotations.Feature;
 import arez.annotations.Observable;
 import java.util.Objects;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
-@ArezComponentLike
-public class MyComponent {
+@ArezComponent(observable = Feature.ENABLE)
+public abstract class MyComponent {
     private final int _id;
 
     private String _name;
@@ -21,7 +22,7 @@ public class MyComponent {
     }
 
     @ComponentId
-    public final int getId() {
+    public int getId() {
         return _id;
     }
 

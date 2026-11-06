@@ -1,94 +1,60 @@
 package arez.doc.examples.repository;
 
 import arez.annotations.Action;
-import arez.annotations.ArezComponentLike;
-import arez.component.NoResultException;
-import java.util.Comparator;
+import arez.annotations.ArezComponent;
+import arez.component.internal.AbstractRepository;
 import java.util.List;
-import java.util.function.Predicate;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
 @NullMarked
-@ArezComponentLike
-public class MyComponentRepository {
-
+@ArezComponent
+public abstract class MyComponentRepository extends AbstractRepository<Integer, MyComponent, MyComponentRepository> {
     public static MyComponentRepository newRepository() {
-        // DOC ELIDE START
-        throw new UnsupportedOperationException("Documentation API declaration");
-        // DOC ELIDE END
-    }
-
-    public MyComponent create(final int id, final String name) {
-        // DOC ELIDE START
-        throw new UnsupportedOperationException("Documentation API declaration");
-        // DOC ELIDE END
-    }
-
-    public boolean contains(final MyComponent entity) {
-        // DOC ELIDE START
-        return true;
-        // DOC ELIDE END
+        return new Arez_MyComponentRepository();
     }
 
     @Action
+    public MyComponent create(final int id, final String name) {
+        final MyComponent component = new Arez_MyComponent(id, name);
+        attach(component);
+        return component;
+    }
+
+    @Override
+    @Action
     public void destroy(final MyComponent entity) {
-        // DOC ELIDE START
-        // DOC ELIDE END
-    }
-
-    public final List<MyComponent> findAll() {
-        // DOC ELIDE START
-        throw new UnsupportedOperationException("Documentation API declaration");
-        // DOC ELIDE END
-    }
-
-    public final List<MyComponent> findAll(final Comparator<MyComponent> sorter) {
-        // DOC ELIDE START
-        throw new UnsupportedOperationException("Documentation API declaration");
-        // DOC ELIDE END
-    }
-
-    public final List<MyComponent> findAllByQuery(final Predicate<MyComponent> query) {
-        // DOC ELIDE START
-        throw new UnsupportedOperationException("Documentation API declaration");
-        // DOC ELIDE END
-    }
-
-    public final List<MyComponent> findAllByQuery(
-            final Predicate<MyComponent> query, final Comparator<MyComponent> sorter) {
-        // DOC ELIDE START
-        throw new UnsupportedOperationException("Documentation API declaration");
-        // DOC ELIDE END
-    }
-
-    @Nullable
-    public final MyComponent findByQuery(final Predicate<MyComponent> query) {
-        // DOC ELIDE START
-        return null;
-        // DOC ELIDE END
-    }
-
-    public final MyComponent getByQuery(final Predicate<MyComponent> query) throws NoResultException {
-        // DOC ELIDE START
-        throw new UnsupportedOperationException("Documentation API declaration");
-        // DOC ELIDE END
+        super.destroy(entity);
     }
 
     @Nullable
     public MyComponent findById(final int id) {
-        // DOC ELIDE START
-        return null;
-        // DOC ELIDE END
+        return findByArezId(id);
     }
 
-    public final MyComponent getById(final int id) {
-        // DOC ELIDE START
-        throw new UnsupportedOperationException("Documentation API declaration");
-        // DOC ELIDE END
+    public MyComponent getById(final int id) {
+        return getByArezId(id);
     }
 
-    public final MyComponentRepository self() {
-        return this;
+    /**
+     * Return a list of the loaded components.
+     *
+     * @return the loaded components.
+     */
+    @SuppressWarnings("Arez:FinalMethod")
+    public final List<MyComponent> findAll() {
+        return scanAll();
+    }
+
+    /**
+     * Return the first loaded component with the given name.
+     *
+     * @param name the name to match.
+     * @return a matching component or null.
+     */
+    @SuppressWarnings("Arez:FinalMethod")
+    @Nullable
+    public final MyComponent findByName(final String name) {
+        return scanByQuery(component -> component.getName().equals(name));
     }
 }

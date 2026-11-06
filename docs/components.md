@@ -15,3 +15,14 @@ On top of the [core conceptual model](concepts.md), Arez defines a component mod
 The annotated classes are processed at compilation time to produce a ready to use reactive component. The
 [generated classes](generated_classes.md) are enhanced with required infrastructure required to integrate
 with the Arez core framework.
+
+## Repository scans
+
+Repositories based on `AbstractRepository` provide identity lookup through `findByArezId()` and
+`getByArezId()`. To expose a scan, declare a method on the repository that calls a protected helper.
+A scan observes the set of loaded entities when the repository tracks reads. Returning a list visits
+the loaded entities and allocates a result.
+
+{@file_content: file=arez/doc/examples/repository/MyComponentRepository.java "start_line=@SuppressWarnings" "end_line=^}" include_end_line=false strip_block=true}
+
+The example marks the wrappers final and suppresses the Arez warning for these two methods.

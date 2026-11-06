@@ -1,0 +1,29 @@
+diff --git a/closure/testing/webdriver_test.bzl b/closure/testing/webdriver_test.bzl
+--- a/closure/testing/webdriver_test.bzl
++++ b/closure/testing/webdriver_test.bzl
+@@ -133,6 +133,7 @@
+         tags = None,
+         runtime_defines = {},
+         visibility = None,
++        test_tags = [],
+         **kwargs):
+     """ Macro for running Closure JavaScript binary on browsers.
+ 
+@@ -200,7 +201,7 @@
+             browser = browsers[0],
+             test = ":%s_test_runner" % name,
+             html_webpath = html_webpath,
+-            tags = tags + ["native"],
++            tags = tags + ["native"] + test_tags,
+             visibility = visibility,
+             **kwargs
+         )
+@@ -215,7 +216,7 @@
+                 browser = browser,
+                 test = ":%s_test_runner" % name,
+                 html_webpath = html_webpath,
+-                tags = tags + ["native"],
++                tags = tags + ["native"] + test_tags,
+                 visibility = visibility,
+                 **kwargs
+             )

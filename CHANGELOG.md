@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Make repository scans opt-in. This breaks source and binary compatibility for callers of the former public scans on `AbstractRepository`. Move those calls to concrete repository methods backed by protected scan helpers and recompile. [Repository scans](docs/components.md#repository-scans)
 * Support implicit memoization contexts on mapped relationships, with independent target state and cleanup for each context key, including inherited and compiled generic declarations.
 * Honor class overrides of interface-default context annotations, capture context when resolving computation references, and restore multiple contexts in reverse push order for both memoization and mapped relationships.
 * Add `@MappedRelationship.useEqualsForKeys` to reuse targets for equal value keys, including duplicate occurrences and retained reappearance. Keep reference identity as the default; value matching preserves the original target and source and requires stable equality and hash codes.
