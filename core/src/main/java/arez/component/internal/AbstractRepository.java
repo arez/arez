@@ -55,8 +55,8 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      *
      * @return all the entities.
      */
-    protected final List<T> scanAll() {
-        return CollectionsUtil.asList(scanEntities());
+    protected List<T> scanAll() {
+        return CollectionsUtil.asList(observedEntityStream());
     }
 
     /**
@@ -65,8 +65,8 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      * @param sorter the comparator used to sort entities.
      * @return the entity list result.
      */
-    protected final List<T> scanAll(final Comparator<T> sorter) {
-        return CollectionsUtil.asList(scanEntities().sorted(sorter));
+    protected List<T> scanAll(final Comparator<T> sorter) {
+        return CollectionsUtil.asList(observedEntityStream().sorted(sorter));
     }
 
     /**
@@ -75,8 +75,8 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      * @param query the predicate used to select entities.
      * @return the entity list result.
      */
-    protected final List<T> scanAllByQuery(final Predicate<T> query) {
-        return CollectionsUtil.asList(scanEntities().filter(query));
+    protected List<T> scanAllByQuery(final Predicate<T> query) {
+        return CollectionsUtil.asList(observedEntityStream().filter(query));
     }
 
     /**
@@ -86,8 +86,8 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      * @param sorter the comparator used to sort entities.
      * @return the entity list result.
      */
-    protected final List<T> scanAllByQuery(final Predicate<T> query, final Comparator<T> sorter) {
-        return CollectionsUtil.asList(scanEntities().filter(query).sorted(sorter));
+    protected List<T> scanAllByQuery(final Predicate<T> query, final Comparator<T> sorter) {
+        return CollectionsUtil.asList(observedEntityStream().filter(query).sorted(sorter));
     }
 
     /**
@@ -97,8 +97,8 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      * @return the entity or null if unable to locate matching entity.
      */
     @Nullable
-    protected final T scanByQuery(final Predicate<T> query) {
-        return scanEntities().filter(query).findFirst().orElse(null);
+    protected T scanByQuery(final Predicate<T> query) {
+        return findMatchingEntity(query);
     }
 
     /**
@@ -108,12 +108,17 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      * @return the entity.
      * @throws NoResultException if unable to locate matching entity.
      */
-    protected final T requireByQuery(final Predicate<T> query) throws NoResultException {
-        final T entity = scanByQuery(query);
+    protected T requireByQuery(final Predicate<T> query) throws NoResultException {
+        final T entity = findMatchingEntity(query);
         if (null == entity) {
             throw new NoResultException();
         }
         return entity;
+    }
+
+    @Nullable
+    private T findMatchingEntity(final Predicate<T> query) {
+        return observedEntityStream().filter(query).findFirst().orElse(null);
     }
 
     @Nullable
@@ -239,11 +244,8 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      *
      * @return a stream of the loaded entities.
      */
-    protected final Stream<T> scanEntities() {
-        if (reportRead()) {
-            getEntitiesObservableValue().reportObserved();
-        }
-        return entityStream();
+    protected Stream<T> scanEntities() {
+        return observedEntityStream();
     }
 
     /**
@@ -253,6 +255,13 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      */
     @Observable(name = "entities", expectSetter = false)
     protected Stream<T> entitiesValue() {
+        return entityStream();
+    }
+
+    private Stream<T> observedEntityStream() {
+        if (reportRead()) {
+            getEntitiesObservableValue().reportObserved();
+        }
         return entityStream();
     }
 

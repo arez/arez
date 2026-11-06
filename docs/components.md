@@ -23,6 +23,4 @@ Repositories based on `AbstractRepository` provide identity lookup through `find
 A scan observes the set of loaded entities when the repository tracks reads. Returning a list visits
 the loaded entities and allocates a result.
 
-{@file_content: file=arez/doc/examples/repository/MyComponentRepository.java "start_line=@SuppressWarnings" "end_line=^}" include_end_line=false strip_block=true}
-
-The example marks the wrappers final and suppresses the Arez warning for these two methods.
+{@file_content: file=arez/doc/examples/repository/MyComponentRepository.java "start_line=public List<MyComponent> findAll" "end_line=^}" include_end_line=false strip_block=true}
