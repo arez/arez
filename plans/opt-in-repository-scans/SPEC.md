@@ -47,4 +47,4 @@ The stream helper owns the `reportRead()` check and reads the same backing value
 ## Domain ownership
 
 - API visibility and result semantics belong to the API and its Javadocs. Existing docs contain no independent repository scan specification. The compiled migration example and changelog own adoption guidance.
-- Capture the architectural boundary and the reason for distinct helper names in a short ADR. This boundary is a downstream contract and the rationale depends on Closure dispatch behavior. The plan owns exact compiler versions, measurements, and delivery.
+- The [opt-in scans ADR](../../docs/adr/0005-opt-in-repository-scans.md) owns the architectural boundary and the reason for distinct helper names. This boundary is a downstream contract and the rationale depends on Closure dispatch behavior. The plan owns exact compiler versions, measurements, and delivery.

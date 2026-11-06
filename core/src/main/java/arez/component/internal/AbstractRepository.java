@@ -24,7 +24,8 @@ import org.jspecify.annotations.Nullable;
 /**
  * Abstract base class for repositories that contain Arez components.
  * This class is used by the annotation processor as a base class from which to derive the actual
- * repositories for each type.
+ * repositories for each type. Subclasses can expose selected scans through methods that call
+ * the protected scan helpers.
  *
  * <p>When multiple results are returned as a list, they are passed through {@link CollectionsUtil#asList(Stream)} or
  * {@link CollectionsUtil#wrap(List)} and this will convert the result set to an unmodifiable variant if
@@ -54,8 +55,8 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      *
      * @return all the entities.
      */
-    public final List<T> findAll() {
-        return CollectionsUtil.asList(entities());
+    protected final List<T> scanAll() {
+        return CollectionsUtil.asList(scanEntities());
     }
 
     /**
@@ -64,8 +65,8 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      * @param sorter the comparator used to sort entities.
      * @return the entity list result.
      */
-    public final List<T> findAll(final Comparator<T> sorter) {
-        return CollectionsUtil.asList(entities().sorted(sorter));
+    protected final List<T> scanAll(final Comparator<T> sorter) {
+        return CollectionsUtil.asList(scanEntities().sorted(sorter));
     }
 
     /**
@@ -74,8 +75,8 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      * @param query the predicate used to select entities.
      * @return the entity list result.
      */
-    public final List<T> findAllByQuery(final Predicate<T> query) {
-        return CollectionsUtil.asList(entities().filter(query));
+    protected final List<T> scanAllByQuery(final Predicate<T> query) {
+        return CollectionsUtil.asList(scanEntities().filter(query));
     }
 
     /**
@@ -85,30 +86,30 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
      * @param sorter the comparator used to sort entities.
      * @return the entity list result.
      */
-    public final List<T> findAllByQuery(final Predicate<T> query, final Comparator<T> sorter) {
-        return CollectionsUtil.asList(entities().filter(query).sorted(sorter));
+    protected final List<T> scanAllByQuery(final Predicate<T> query, final Comparator<T> sorter) {
+        return CollectionsUtil.asList(scanEntities().filter(query).sorted(sorter));
     }
 
     /**
-     * Return the entity that matches query or null if unable to locate matching entity.
+     * Return the first entity that matches the query, or null if no entity matches.
      *
      * @param query the predicate used to select entity.
      * @return the entity or null if unable to locate matching entity.
      */
     @Nullable
-    public final T findByQuery(final Predicate<T> query) {
-        return entities().filter(query).findFirst().orElse(null);
+    protected final T scanByQuery(final Predicate<T> query) {
+        return scanEntities().filter(query).findFirst().orElse(null);
     }
 
     /**
-     * Return the entity that matches query else throw an exception.
+     * Return the first entity that matches the query, or throw if no entity matches.
      *
      * @param query the predicate used to select entity.
      * @return the entity.
      * @throws NoResultException if unable to locate matching entity.
      */
-    public final T getByQuery(final Predicate<T> query) throws NoResultException {
-        final T entity = findByQuery(query);
+    protected final T requireByQuery(final Predicate<T> query) throws NoResultException {
+        final T entity = scanByQuery(query);
         if (null == entity) {
             throw new NoResultException();
         }
@@ -233,11 +234,12 @@ public abstract class AbstractRepository<K, T, R extends AbstractRepository<K, T
     protected abstract ObservableValue<?> getEntitiesObservableValue();
 
     /**
-     * Return a stream of all entities in the container.
+     * Return a lazy stream of all entities in the container. Report a read of repository
+     * membership when the stream is requested and {@link #reportRead()} returns true.
      *
-     * @return the underlying entities.
+     * @return a stream of the loaded entities.
      */
-    public Stream<T> entities() {
+    protected final Stream<T> scanEntities() {
         if (reportRead()) {
             getEntitiesObservableValue().reportObserved();
         }

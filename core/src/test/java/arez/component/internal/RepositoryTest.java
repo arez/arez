@@ -5,21 +5,102 @@ import static org.testng.Assert.*;
 import arez.AbstractTest;
 import arez.Arez;
 import arez.ArezContext;
+import arez.ArezTestUtil;
 import arez.Disposable;
 import arez.ObservableValue;
+import arez.Observer;
 import arez.SafeProcedure;
 import arez.component.ComponentObservable;
 import arez.component.DisposeNotifier;
 import arez.component.Identifiable;
 import arez.component.NoResultException;
 import arez.component.NoSuchEntityException;
+import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.testng.annotations.Test;
 
 public final class RepositoryTest extends AbstractTest {
+    @Test
+    public void scansRequireRepositoryOptIn() throws NoSuchMethodException {
+        final var formerNames = Set.of("entities", "findAll", "findAllByQuery", "findByQuery", "getByQuery");
+        assertFalse(Arrays.stream(MyRepository.class.getMethods())
+                .anyMatch(method -> formerNames.contains(method.getName())));
+
+        assertProtectedFinalScan("scanEntities");
+        assertProtectedFinalScan("scanAll");
+        assertProtectedFinalScan("scanAll", Comparator.class);
+        assertProtectedFinalScan("scanAllByQuery", Predicate.class);
+        assertProtectedFinalScan("scanAllByQuery", Predicate.class, Comparator.class);
+        assertProtectedFinalScan("scanByQuery", Predicate.class);
+        assertProtectedFinalScan("requireByQuery", Predicate.class);
+    }
+
+    private static void assertProtectedFinalScan(final String name, final Class<?>... parameters)
+            throws NoSuchMethodException {
+        final int modifiers =
+                AbstractRepository.class.getDeclaredMethod(name, parameters).getModifiers();
+        assertTrue(Modifier.isProtected(modifiers), name);
+        assertTrue(Modifier.isFinal(modifiers), name);
+    }
+
+    @Test
+    public void scanListFollowsCollectionMutabilitySetting() {
+        final ArezContext context = Arez.context();
+        final var repository = MyRepository.create();
+        final var entity = new MyEntity(302);
+        context.safeAction(() -> repository.attach(entity));
+
+        final var unmodifiable = context.safeAction(() -> repository.scanAll());
+        assertThrows(UnsupportedOperationException.class, unmodifiable::clear);
+
+        ArezTestUtil.makeCollectionPropertiesModifiable();
+        final var modifiable = context.safeAction(() -> repository.scanAll());
+        modifiable.clear();
+        assertTrue(modifiable.isEmpty());
+        assertSame(context.safeAction(() -> repository.getByArezId(302)), entity);
+    }
+
+    @Test
+    public void scanEntitiesObservesMembershipWhenAcquiringStream() {
+        final ArezContext context = Arez.context();
+        final var repository = MyRepository.create();
+        final var unobservedRepository = new MyRepository(false);
+        final var observedRuns = new AtomicInteger();
+        final var unobservedRuns = new AtomicInteger();
+        final Observer observer = context.observer(() -> {
+            repository.scanEntities();
+            observedRuns.incrementAndGet();
+        });
+        final Observer unobserved = context.observer(
+                () -> {
+                    unobservedRepository.scanEntities();
+                    unobservedRuns.incrementAndGet();
+                },
+                Observer.Flags.AREZ_OR_NO_DEPENDENCIES);
+
+        assertEquals(observedRuns.get(), 1);
+        assertEquals(unobservedRuns.get(), 1);
+
+        final var entity = new MyEntity(302);
+        context.safeAction(() -> {
+            repository.attach(entity);
+            unobservedRepository.attach(new MyEntity(303));
+        });
+        assertEquals(observedRuns.get(), 2);
+        assertEquals(unobservedRuns.get(), 1);
+
+        Disposable.dispose(entity);
+        assertEquals(observedRuns.get(), 3);
+        observer.dispose();
+        unobserved.dispose();
+    }
+
     @Test
     public void entityLifecycles() {
         final ArezContext context = Arez.context();
@@ -115,7 +196,7 @@ public final class RepositoryTest extends AbstractTest {
     }
 
     @Test
-    public void findAll() {
+    public void scanAll() {
         final ArezContext context = Arez.context();
 
         final var repository = MyRepository.create();
@@ -127,7 +208,7 @@ public final class RepositoryTest extends AbstractTest {
         entity.dispose();
 
         final Set<Integer> ids = context.safeAction(
-                () -> repository.findAll().stream().map(MyEntity::getArezId).collect(Collectors.toSet()));
+                () -> repository.scanAll().stream().map(MyEntity::getArezId).collect(Collectors.toSet()));
         assertEquals(ids.size(), 3);
         assertTrue(ids.contains(302));
         assertTrue(ids.contains(303));
@@ -135,7 +216,7 @@ public final class RepositoryTest extends AbstractTest {
     }
 
     @Test
-    public void findAllSorted() {
+    public void scanAllSorted() {
         final ArezContext context = Arez.context();
 
         final var repository = MyRepository.create();
@@ -147,7 +228,7 @@ public final class RepositoryTest extends AbstractTest {
         entity.dispose();
 
         final int[] ids =
-                context.safeAction(() -> repository.findAll(Comparator.comparing(e -> -e.getArezId())).stream()
+                context.safeAction(() -> repository.scanAll(Comparator.comparing(e -> -e.getArezId())).stream()
                         .mapToInt(MyEntity::getArezId)
                         .toArray());
         assertEquals(ids.length, 3);
@@ -157,7 +238,7 @@ public final class RepositoryTest extends AbstractTest {
     }
 
     @Test
-    public void findAllByQuery() {
+    public void scanAllByQuery() {
         final ArezContext context = Arez.context();
 
         final var repository = MyRepository.create();
@@ -168,7 +249,7 @@ public final class RepositoryTest extends AbstractTest {
         context.safeAction(() -> repository.attach(entity));
         entity.dispose();
 
-        final Set<Integer> ids = context.safeAction(() -> repository.findAllByQuery(e -> e.getArezId() <= 303).stream()
+        final Set<Integer> ids = context.safeAction(() -> repository.scanAllByQuery(e -> e.getArezId() <= 303).stream()
                 .map(MyEntity::getArezId)
                 .collect(Collectors.toSet()));
         assertEquals(ids.size(), 2);
@@ -177,7 +258,7 @@ public final class RepositoryTest extends AbstractTest {
     }
 
     @Test
-    public void findAllByQuerySorted() {
+    public void scanAllByQuerySorted() {
         final ArezContext context = Arez.context();
 
         final var repository = MyRepository.create();
@@ -191,7 +272,7 @@ public final class RepositoryTest extends AbstractTest {
         entity.dispose();
 
         final int[] ids = context.safeAction(() ->
-                repository.findAllByQuery(e -> e.getArezId() <= 303, Comparator.comparing(e -> -e.getArezId())).stream()
+                repository.scanAllByQuery(e -> e.getArezId() <= 303, Comparator.comparing(e -> -e.getArezId())).stream()
                         .mapToInt(MyEntity::getArezId)
                         .toArray());
         assertEquals(ids.length, 4);
@@ -202,14 +283,14 @@ public final class RepositoryTest extends AbstractTest {
     }
 
     @Test
-    public void findByQuery() {
+    public void scanByQuery() {
         final ArezContext context = Arez.context();
 
         final var repository = MyRepository.create();
         context.safeAction(() -> repository.attach(new MyEntity(302)));
         context.safeAction(() -> repository.attach(new MyEntity(303)));
 
-        final MyEntity entity = context.safeAction(() -> repository.findByQuery(e -> e.getArezId() == 302));
+        final MyEntity entity = context.safeAction(() -> repository.scanByQuery(e -> e.getArezId() == 302));
         assertNotNull(entity);
         assert null != entity;
         assertEquals(entity.getArezId(), (Integer) 302);
@@ -217,19 +298,19 @@ public final class RepositoryTest extends AbstractTest {
         // Dispose entity so that it is no longer found
         entity.dispose();
 
-        final MyEntity entity2 = context.safeAction(() -> repository.findByQuery(e -> e.getArezId() == 302));
+        final MyEntity entity2 = context.safeAction(() -> repository.scanByQuery(e -> e.getArezId() == 302));
         assertNull(entity2);
     }
 
     @Test
-    public void getByQuery() {
+    public void requireByQuery() {
         final ArezContext context = Arez.context();
 
         final var repository = MyRepository.create();
         context.safeAction(() -> repository.attach(new MyEntity(302)));
         context.safeAction(() -> repository.attach(new MyEntity(303)));
 
-        final MyEntity entity = context.safeAction(() -> repository.getByQuery(e -> e.getArezId() == 302));
+        final MyEntity entity = context.safeAction(() -> repository.requireByQuery(e -> e.getArezId() == 302));
         assertNotNull(entity);
         assert null != entity;
         assertEquals(entity.getArezId(), (Integer) 302);
@@ -239,7 +320,7 @@ public final class RepositoryTest extends AbstractTest {
 
         assertThrows(
                 NoResultException.class,
-                () -> context.safeAction(() -> repository.getByQuery(e -> e.getArezId() == 302)));
+                () -> context.safeAction(() -> repository.requireByQuery(e -> e.getArezId() == 302)));
     }
 
     @Test
@@ -291,7 +372,7 @@ public final class RepositoryTest extends AbstractTest {
     }
 
     @Test
-    public void entities() {
+    public void scanEntities() {
         final ArezContext context = Arez.context();
 
         final var repository = MyRepository.create();
@@ -299,14 +380,14 @@ public final class RepositoryTest extends AbstractTest {
         context.safeAction(() -> repository.attach(new MyEntity(303)));
 
         final int[] ids = context.safeAction(
-                () -> repository.entities().mapToInt(MyEntity::getArezId).toArray());
+                () -> repository.scanEntities().mapToInt(MyEntity::getArezId).toArray());
         assertEquals(ids.length, 2);
         assertEquals(ids[0], 302);
         assertEquals(ids[1], 303);
     }
 
     @Test
-    public void entities_removesDisposed() {
+    public void scanEntities_removesDisposed() {
         final ArezContext context = Arez.context();
 
         final var repository = MyRepository.create();
@@ -318,7 +399,7 @@ public final class RepositoryTest extends AbstractTest {
         Disposable.dispose(entity);
 
         final int[] ids = context.safeAction(
-                () -> repository.entities().mapToInt(MyEntity::getArezId).toArray());
+                () -> repository.scanEntities().mapToInt(MyEntity::getArezId).toArray());
         assertEquals(ids.length, 1);
         assertEquals(ids[0], 303);
     }
@@ -380,12 +461,17 @@ public final class RepositoryTest extends AbstractTest {
         }
     }
 
-    static class MyRepository extends AbstractRepository<Integer, MyEntity, MyRepository> {
+    static final class MyRepository extends AbstractRepository<Integer, MyEntity, MyRepository> {
         private final ObservableValue<Stream<MyEntity>> _observableValue =
                 Arez.context().observable();
+        private final boolean _reportRead;
+
+        private MyRepository(final boolean reportRead) {
+            _reportRead = reportRead;
+        }
 
         static MyRepository create() {
-            return new MyRepository();
+            return new MyRepository(true);
         }
 
         @Override
@@ -394,9 +480,8 @@ public final class RepositoryTest extends AbstractTest {
         }
 
         @Override
-        public Stream<MyEntity> entities() {
-            _observableValue.reportObserved();
-            return super.entities();
+        protected boolean reportRead() {
+            return _reportRead;
         }
     }
 }

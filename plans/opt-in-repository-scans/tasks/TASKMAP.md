@@ -1,8 +1,8 @@
 # Task Map
 
 - Spec [SPEC.md](../SPEC.md)
-- Status `planned`
-- Current frontier `T01`
+- Status `implementing`
+- Current frontier `T02`
 - Planning reviewer `/root/planning_reviewer`, passed (2/3 attempts, including confirmation)
 - Plan checkpoint automatic, complete after independent review passed on attempt 2
 - Implementation reviewer pending (0/5 attempts, including confirmation)
@@ -16,12 +16,12 @@
 
 | ID | Task | Status | Blocked by |
 | --- | --- | --- | --- |
-| T01 | [Implement the opt-in API and migration](T01-opt-in-api.md) | pending | |
+| T01 | [Implement the opt-in API and migration](T01-opt-in-api.md) | complete | |
 | T02 | [Verify compiler output and close delivery](T02-verify-delivery.md) | pending | T01 |
 
 ## Promoted knowledge
 
-- The API owns the scan contract. Migration belongs to the compiled guide and changelog. An ADR will capture the dispatch choice and the boundary.
+- The API owns the scan contract. Migration belongs to the compiled guide and changelog. The [opt-in scans ADR](../../../docs/adr/0005-opt-in-repository-scans.md) captures the dispatch choice and the boundary. The domain link validator passed.
 
 ## Planning review history
 

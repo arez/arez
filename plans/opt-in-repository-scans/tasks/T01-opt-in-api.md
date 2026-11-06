@@ -12,4 +12,7 @@ Replace the base scans using the mapping in the spec. Migrate the repository tes
 
 ## Evidence
 
-- Pending.
+- `bazel test //:jvm_tests --test_output=errors` passed all 35 Bazel test targets. The core suite ran 901 TestNG tests, including all 16 repository tests.
+- `bazel build //doc-examples` compiled the generated opt-in repository without new diagnostics. Ran `RepositoryExample` using the Bazel runtime classpath with Java 21 and assertions enabled.
+- `tools/java_format.sh check`, the domain link validator and `git diff --check` passed.
+- Inspected Java scan call sites. The lone public scan call in tracked production/example Java uses the compiled concrete repository. The T02 probe exercises all seven public wrappers from another package.

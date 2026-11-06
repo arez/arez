@@ -1,5 +1,6 @@
 package arez.doc.examples.repository;
 
+import arez.Arez;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
@@ -14,12 +15,14 @@ public class RepositoryExample {
         final int myComponentId = 22;
         final MyComponent component = repository.create(myComponentId, "MyName");
 
-        assert repository.findById(-1) == null;
-        assert repository.findById(component.getId()) == component;
-        assert repository.getById(component.getId()) == component;
-        assert repository.findAll().size() == 1;
-        assert repository.findByQuery(c -> c.getName().equals("MyName")) == component;
-        assert repository.findByQuery(c -> c.getName().equals("NotMyName")) == null;
+        Arez.context().safeAction(() -> {
+            assert repository.findById(-1) == null;
+            assert repository.findById(component.getId()) == component;
+            assert repository.getById(component.getId()) == component;
+            assert repository.findAll().size() == 1;
+            assert repository.findByName("MyName") == component;
+            assert repository.findByName("NotMyName") == null;
+        });
         // EXAMPLE END
     }
 }
