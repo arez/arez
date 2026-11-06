@@ -41,8 +41,7 @@ public abstract class MyComponentRepository extends AbstractRepository<Integer, 
      *
      * @return the loaded components.
      */
-    @SuppressWarnings("Arez:FinalMethod")
-    public final List<MyComponent> findAll() {
+    public List<MyComponent> findAll() {
         return scanAll();
     }
 
@@ -52,9 +51,8 @@ public abstract class MyComponentRepository extends AbstractRepository<Integer, 
      * @param name the name to match.
      * @return a matching component or null.
      */
-    @SuppressWarnings("Arez:FinalMethod")
     @Nullable
-    public final MyComponent findByName(final String name) {
+    public MyComponent findByName(final String name) {
         return scanByQuery(component -> component.getName().equals(name));
     }
 }

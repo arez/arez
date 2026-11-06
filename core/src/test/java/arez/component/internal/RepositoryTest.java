@@ -16,13 +16,16 @@ import arez.component.Identifiable;
 import arez.component.NoResultException;
 import arez.component.NoSuchEntityException;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.jspecify.annotations.Nullable;
 import org.testng.annotations.Test;
 
 public final class RepositoryTest extends AbstractTest {
@@ -32,21 +35,47 @@ public final class RepositoryTest extends AbstractTest {
         assertFalse(Arrays.stream(MyRepository.class.getMethods())
                 .anyMatch(method -> formerNames.contains(method.getName())));
 
-        assertProtectedFinalScan("scanEntities");
-        assertProtectedFinalScan("scanAll");
-        assertProtectedFinalScan("scanAll", Comparator.class);
-        assertProtectedFinalScan("scanAllByQuery", Predicate.class);
-        assertProtectedFinalScan("scanAllByQuery", Predicate.class, Comparator.class);
-        assertProtectedFinalScan("scanByQuery", Predicate.class);
-        assertProtectedFinalScan("requireByQuery", Predicate.class);
+        assertProtectedScan("scanEntities");
+        assertProtectedScan("scanAll");
+        assertProtectedScan("scanAll", Comparator.class);
+        assertProtectedScan("scanAllByQuery", Predicate.class);
+        assertProtectedScan("scanAllByQuery", Predicate.class, Comparator.class);
+        assertProtectedScan("scanByQuery", Predicate.class);
+        assertProtectedScan("requireByQuery", Predicate.class);
     }
 
-    private static void assertProtectedFinalScan(final String name, final Class<?>... parameters)
+    private static void assertProtectedScan(final String name, final Class<?>... parameters)
             throws NoSuchMethodException {
         final int modifiers =
                 AbstractRepository.class.getDeclaredMethod(name, parameters).getModifiers();
         assertTrue(Modifier.isProtected(modifiers), name);
-        assertTrue(Modifier.isFinal(modifiers), name);
+        assertFalse(Modifier.isFinal(modifiers), name);
+    }
+
+    @Test
+    public void scanOverridesAreIndependent() {
+        final ArezContext context = Arez.context();
+        final var repository = new MyRepository(true) {
+            @Override
+            protected Stream<MyEntity> scanEntities() {
+                return Stream.empty();
+            }
+
+            @Override
+            @Nullable
+            protected MyEntity scanByQuery(final Predicate<MyEntity> query) {
+                return null;
+            }
+        };
+        final var sizes = new ArrayList<Integer>();
+        final Observer observer =
+                context.observer(() -> sizes.add(repository.scanAll().size()));
+
+        final var entity = new MyEntity(302);
+        context.safeAction(() -> repository.attach(entity));
+        assertEquals(sizes, List.of(0, 1));
+        assertSame(context.safeAction(() -> repository.requireByQuery(e -> e.getArezId() == 302)), entity);
+        observer.dispose();
     }
 
     @Test
@@ -461,7 +490,7 @@ public final class RepositoryTest extends AbstractTest {
         }
     }
 
-    static final class MyRepository extends AbstractRepository<Integer, MyEntity, MyRepository> {
+    static class MyRepository extends AbstractRepository<Integer, MyEntity, MyRepository> {
         private final ObservableValue<Stream<MyEntity>> _observableValue =
                 Arez.context().observable();
         private final boolean _reportRead;
