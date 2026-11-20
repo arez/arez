@@ -1,7 +1,6 @@
 package com.example.mapped_relationship;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
@@ -40,8 +39,8 @@ final class Arez_NestedInheritedModel extends NestedInheritedModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_NestedInheritedModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_mapped_relationship_NestedInheritedModel." + $$arezv$$_id
         : null;
@@ -196,7 +195,7 @@ final class Arez_NestedInheritedModel extends NestedInheritedModel
               + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final List<Target> $$ar$$_result = this.$$arez$$_items.get();
+      final var $$ar$$_result = this.$$arez$$_items.get();
       if (this.$$arezd$$_$$cache$$_items != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_items = $$ar$$_result;
         this.$$arezd$$_$$unmodifiable_cache$$_items = CollectionsUtil.wrap($$ar$$_result);

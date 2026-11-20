@@ -1,7 +1,6 @@
 package com.example.mapped_relationship;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
@@ -39,8 +38,8 @@ final class Arez_ExplicitModel extends ExplicitModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ExplicitModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_mapped_relationship_ExplicitModel." + $$arezv$$_id
         : null;
@@ -202,7 +201,7 @@ final class Arez_ExplicitModel extends ExplicitModel
               + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final List<Target> $$ar$$_result = this.$$arez$$_mapped.get();
+      final var $$ar$$_result = this.$$arez$$_mapped.get();
       if (this.$$arezd$$_$$cache$$_mapped != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_mapped = $$ar$$_result;
         this.$$arezd$$_$$unmodifiable_cache$$_mapped = CollectionsUtil.wrap($$ar$$_result);

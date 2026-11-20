@@ -2,7 +2,6 @@ package com.example;
 
 import arez.ActionFlags;
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
@@ -33,8 +32,8 @@ final class Arez_SubpackageModel extends SubpackageModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_SubpackageModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name =
         Arez.areNamesEnabled() ? "com_example_SubpackageModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled()
@@ -193,7 +192,7 @@ final class Arez_SubpackageModel extends SubpackageModel
               + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_time.preReportChanged();
-    final long $$arezv$$_currentValue = super.getTime();
+    final var $$arezv$$_currentValue = super.getTime();
     if (time != $$arezv$$_currentValue) {
       super.setTime(time);
       this.$$arez$$_time.reportChanged();

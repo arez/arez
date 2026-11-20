@@ -24,8 +24,8 @@ final class Arez_BasicContextRefModel extends BasicContextRefModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_BasicContextRefModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_context_ref_BasicContextRefModel." + $$arezv$$_id
         : null;

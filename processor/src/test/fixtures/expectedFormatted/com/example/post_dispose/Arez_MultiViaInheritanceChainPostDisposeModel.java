@@ -1,7 +1,6 @@
 package com.example.post_dispose;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.SafeProcedure;
@@ -25,8 +24,8 @@ final class Arez_MultiViaInheritanceChainPostDisposeModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_MultiViaInheritanceChainPostDisposeModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_post_dispose_MultiViaInheritanceChainPostDisposeModel." + $$arezv$$_id
         : null;

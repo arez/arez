@@ -1,7 +1,6 @@
 package com.example.component_id_ref;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.SafeProcedure;
@@ -22,8 +21,8 @@ final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel i
   @SuppressWarnings("rawtypes")
   Arez_RawTypeComponentIdRefModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final RawTypeComponentIdRefModel.MyId $$arezv$$_id = id();
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = id();
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_component_id_ref_RawTypeComponentIdRefModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_component_id_ref_RawTypeComponentIdRefModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, 0, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );

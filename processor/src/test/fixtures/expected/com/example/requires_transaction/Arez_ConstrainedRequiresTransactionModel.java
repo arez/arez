@@ -1,7 +1,6 @@
 package com.example.requires_transaction;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.SafeProcedure;
@@ -23,8 +22,8 @@ final class Arez_ConstrainedRequiresTransactionModel extends ConstrainedRequires
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ConstrainedRequiresTransactionModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_requires_transaction_ConstrainedRequiresTransactionModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_requires_transaction_ConstrainedRequiresTransactionModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );
@@ -105,7 +104,7 @@ final class Arez_ConstrainedRequiresTransactionModel extends ConstrainedRequires
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'perform' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     if ( Arez.shouldCheckInvariants() ) {
-      final ArezContext $$arezv$$_context = this.$$arezi$$_kernel().getContext();
+      final var $$arezv$$_context = this.$$arezi$$_kernel().getContext();
       Guards.invariant( $$arezv$$_context::isTransactionActive, () -> "Arez-0229: Method named 'perform' invoked outside of a transaction on component type 'com_example_requires_transaction_ConstrainedRequiresTransactionModel'." );
       Guards.invariant( $$arezv$$_context::isReadOnlyTransactionActive, () -> "Arez-0230: Method named 'perform' invoked with transaction mode " + ( $$arezv$$_context.isReadWriteTransactionActive() ? "READ_WRITE" : $$arezv$$_context.isReadOnlyTransactionActive() ? "READ_ONLY" : "UNKNOWN" ) + " but expected READ_ONLY on component type 'com_example_requires_transaction_ConstrainedRequiresTransactionModel'." );
       Guards.invariant( () -> !$$arezv$$_context.isTrackingTransactionActive(), () -> "Arez-0231: Method named 'perform' invoked with transaction tracking state " + ( $$arezv$$_context.isTrackingTransactionActive() ? "TRACKING" : "NON_TRACKING" ) + " but expected NON_TRACKING on component type 'com_example_requires_transaction_ConstrainedRequiresTransactionModel'." );

@@ -1,7 +1,6 @@
 package com.example.inverse;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -37,8 +36,8 @@ final class Arez_NonGetterInverseModel extends NonGetterInverseModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_NonGetterInverseModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name =
         Arez.areNamesEnabled() ? "com_example_inverse_NonGetterInverseModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled()
@@ -111,7 +110,7 @@ final class Arez_NonGetterInverseModel extends NonGetterInverseModel
   }
 
   private void $$arezi$$_preDispose() {
-    for (final NonGetterInverseModel.Element other : new ArrayList<>($$arezd$$_elements)) {
+    for (final var other : new ArrayList<>($$arezd$$_elements)) {
       ((NonGetterInverseModel_Arez_Element) other).$$arezi$$_delink_nonGetterInverseModel();
     }
   }
@@ -214,7 +213,7 @@ final class Arez_NonGetterInverseModel extends NonGetterInverseModel
           () -> "Attempted to lookup self in Locator with type NonGetterInverseModel and id '"
               + $$arezi$$_id() + "' but unable to locate self. Actual value: "
               + $$arezi$$_locator().findById(NonGetterInverseModel.class, $$arezi$$_id()));
-      for (final NonGetterInverseModel.Element element : this.$$arezd$$_elements) {
+      for (final var element : this.$$arezd$$_elements) {
         if (Arez.shouldCheckApiInvariants()) {
           Guards.apiInvariant(
               () -> Disposable.isNotDisposed(element),
@@ -237,7 +236,7 @@ final class Arez_NonGetterInverseModel extends NonGetterInverseModel
     }
     this.$$arez$$_elements.reportObserved();
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final Set<NonGetterInverseModel.Element> $$ar$$_result = this.$$arezd$$_elements;
+      final var $$ar$$_result = this.$$arezd$$_elements;
       if (null == this.$$arezd$$_$$cache$$_elements && null != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_elements = CollectionsUtil.wrap($$ar$$_result);
       }

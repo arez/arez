@@ -1,7 +1,6 @@
 package com.example.inheritance.other;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -40,8 +39,8 @@ final class Arez_OtherElement extends OtherElement
           () ->
               "Attempted to create instance of component of type 'com_example_inheritance_other_OtherElement' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component");
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_inheritance_other_OtherElement." + $$arezv$$_id
         : null;
@@ -204,7 +203,7 @@ final class Arez_OtherElement extends OtherElement
           () -> "Attempted to lookup self in Locator with type OtherElement and id '"
               + $$arezi$$_id() + "' but unable to locate self. Actual value: "
               + $$arezi$$_locator().findById(OtherElement.class, $$arezi$$_id()));
-      final int $$arezv$$_completeInterfaceModelId = this.getCompleteInterfaceModelId();
+      final var $$arezv$$_completeInterfaceModelId = this.getCompleteInterfaceModelId();
       final CompleteInterfaceModel $$arezv$$_completeInterfaceModel = this.$$arezi$$_locator()
           .findById(CompleteInterfaceModel.class, $$arezv$$_completeInterfaceModelId);
       Guards.apiInvariant(
@@ -213,7 +212,7 @@ final class Arez_OtherElement extends OtherElement
               + this.$$arezi$$_kernel().getName()
               + "' is unable to resolve entity of type com.example.inheritance.CompleteInterfaceModel and id = "
               + getCompleteInterfaceModelId());
-      final int $$arezv$$_childId = this.getChildId();
+      final var $$arezv$$_childId = this.getChildId();
       final CompleteInterfaceModel $$arezv$$_child =
           this.$$arezi$$_locator().findById(CompleteInterfaceModel.class, $$arezv$$_childId);
       Guards.apiInvariant(
@@ -279,7 +278,7 @@ final class Arez_OtherElement extends OtherElement
               + this.$$arezi$$_kernel().describeState() + " component named '"
               + this.$$arezi$$_kernel().getName() + "'");
     }
-    final int id = this.getCompleteInterfaceModelId();
+    final var id = this.getCompleteInterfaceModelId();
     this.$$arezr$$_completeInterfaceModel =
         this.$$arezi$$_locator().findById(CompleteInterfaceModel.class, id);
     if (Arez.shouldCheckApiInvariants()) {
@@ -333,7 +332,7 @@ final class Arez_OtherElement extends OtherElement
               + this.$$arezi$$_kernel().getName() + "'");
     }
     if (null == this.$$arezr$$_child) {
-      final int id = this.getChildId();
+      final var id = this.getChildId();
       this.$$arezr$$_child = this.$$arezi$$_locator().findById(CompleteInterfaceModel.class, id);
       if (Arez.shouldCheckApiInvariants()) {
         Guards.apiInvariant(

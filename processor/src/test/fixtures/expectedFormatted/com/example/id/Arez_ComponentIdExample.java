@@ -1,7 +1,6 @@
 package com.example.id;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.SafeProcedure;
@@ -21,8 +20,8 @@ final class Arez_ComponentIdExample extends ComponentIdExample
 
   Arez_ComponentIdExample() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = getId();
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = getId();
     final String $$arezv$$_name =
         Arez.areNamesEnabled() ? "com_example_id_ComponentIdExample." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled()

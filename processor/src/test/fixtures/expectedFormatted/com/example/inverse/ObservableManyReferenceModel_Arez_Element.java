@@ -1,7 +1,6 @@
 package com.example.inverse;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -40,8 +39,8 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
           () ->
               "Attempted to create instance of component of type 'com_example_inverse_ObservableManyReferenceModel_Element' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component");
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_inverse_ObservableManyReferenceModel_Element." + $$arezv$$_id
         : null;
@@ -222,7 +221,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
                   + $$arezi$$_id() + "' but unable to locate self. Actual value: "
                   + $$arezi$$_locator()
                       .findById(ObservableManyReferenceModel.Element.class, $$arezi$$_id()));
-      final int $$arezv$$_observableManyReferenceModelId = this.getObservableManyReferenceModelId();
+      final var $$arezv$$_observableManyReferenceModelId = this.getObservableManyReferenceModelId();
       final ObservableManyReferenceModel $$arezv$$_observableManyReferenceModel =
           this.$$arezi$$_locator()
               .findById(
@@ -259,7 +258,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
               + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_observableManyReferenceModelId.preReportChanged();
-    final int $$arezv$$_currentValue = this.$$arezd$$_observableManyReferenceModelId;
+    final var $$arezv$$_currentValue = this.$$arezd$$_observableManyReferenceModelId;
     if (id != $$arezv$$_currentValue) {
       this.$$arezd$$_observableManyReferenceModelId = id;
       this.$$arez$$_observableManyReferenceModelId.reportChanged();
@@ -300,7 +299,7 @@ final class ObservableManyReferenceModel_Arez_Element extends ObservableManyRefe
               + this.$$arezi$$_kernel().describeState() + " component named '"
               + this.$$arezi$$_kernel().getName() + "'");
     }
-    final int id = this.getObservableManyReferenceModelId();
+    final var id = this.getObservableManyReferenceModelId();
     this.$$arezr$$_observableManyReferenceModel =
         this.$$arezi$$_locator().findById(ObservableManyReferenceModel.class, id);
     if (Arez.shouldCheckApiInvariants()) {

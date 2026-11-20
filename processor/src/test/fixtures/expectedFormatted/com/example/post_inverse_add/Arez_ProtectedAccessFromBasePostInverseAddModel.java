@@ -1,7 +1,6 @@
 package com.example.post_inverse_add;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -52,8 +51,8 @@ final class Arez_ProtectedAccessFromBasePostInverseAddModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ProtectedAccessFromBasePostInverseAddModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_post_inverse_add_ProtectedAccessFromBasePostInverseAddModel." + $$arezv$$_id
         : null;
@@ -144,8 +143,7 @@ final class Arez_ProtectedAccessFromBasePostInverseAddModel
   }
 
   private void $$arezi$$_preDispose() {
-    for (final BaseProtectedAccessPostInverseAddModel.Element other :
-        new ArrayList<>($$arezd$$_elements)) {
+    for (final var other : new ArrayList<>($$arezd$$_elements)) {
       BaseProtectedAccessPostInverseAddModel_Arez_Element_References.$$arezi$$_delink_other(other);
     }
     if (null != $$arezd$$_required) {
@@ -262,7 +260,7 @@ final class Arez_ProtectedAccessFromBasePostInverseAddModel
                   + $$arezi$$_id() + "' but unable to locate self. Actual value: "
                   + $$arezi$$_locator()
                       .findById(ProtectedAccessFromBasePostInverseAddModel.class, $$arezi$$_id()));
-      for (final BaseProtectedAccessPostInverseAddModel.Element element : this.$$arezd$$_elements) {
+      for (final var element : this.$$arezd$$_elements) {
         if (Arez.shouldCheckApiInvariants()) {
           Guards.apiInvariant(
               () -> Disposable.isNotDisposed(element),
@@ -299,8 +297,7 @@ final class Arez_ProtectedAccessFromBasePostInverseAddModel
     }
     this.$$arez$$_elements.reportObserved();
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final Collection<BaseProtectedAccessPostInverseAddModel.Element> $$ar$$_result =
-          this.$$arezd$$_elements;
+      final var $$ar$$_result = this.$$arezd$$_elements;
       if (null == this.$$arezd$$_$$cache$$_elements && null != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_elements = CollectionsUtil.wrap($$ar$$_result);
       }

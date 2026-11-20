@@ -1,7 +1,6 @@
 package com.example.observe;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observer;
@@ -27,8 +26,8 @@ final class Arez_ArezOrNoneDependenciesModel extends ArezOrNoneDependenciesModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ArezOrNoneDependenciesModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_observe_ArezOrNoneDependenciesModel." + $$arezv$$_id
         : null;

@@ -1,7 +1,6 @@
 package com.example.jspecify;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.ObservableValue;
@@ -35,8 +34,8 @@ final class Arez_ParametricContainerModel<T extends @Nullable Object>
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ParametricContainerModel(final @Nullable String incoming, final List<T> values) {
     super(incoming);
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_jspecify_ParametricContainerModel." + $$arezv$$_id
         : null;
@@ -199,7 +198,7 @@ final class Arez_ParametricContainerModel<T extends @Nullable Object>
               + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_values.preReportChanged();
-    final List<T> $$arezv$$_currentValue = this.$$arezd$$_values;
+    final var $$arezv$$_currentValue = this.$$arezd$$_values;
     assert null != values;
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
       this.$$arezd$$_$$cache$$_values = null;

@@ -1,7 +1,6 @@
 package com.example.reference;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -33,8 +32,8 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2 imp
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( Arez::areReferencesEnabled, () -> "Attempted to create instance of component of type 'com_example_reference_CustomNameReferenceModel2' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component" );
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_reference_CustomNameReferenceModel2." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_reference_CustomNameReferenceModel2", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );
@@ -130,7 +129,7 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2 imp
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( CustomNameReferenceModel2.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type CustomNameReferenceModel2 and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( CustomNameReferenceModel2.class, $$arezi$$_id() ) );
-      final int $$arezv$$_BlahId = this.getMyEntit$$$yId();
+      final var $$arezv$$_BlahId = this.getMyEntit$$$yId();
       final CustomNameReferenceModel2.MyEntity $$arezv$$_Blah = this.$$arezi$$_locator().findById( CustomNameReferenceModel2.MyEntity.class, $$arezv$$_BlahId );
       Guards.apiInvariant( () -> null != $$arezv$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel().getName() + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel2.MyEntity and id = " + getMyEntit$$$yId() );
     }
@@ -152,7 +151,7 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2 imp
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_link_Blah' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
-    final int id = this.getMyEntit$$$yId();
+    final var id = this.getMyEntit$$$yId();
     this.$$arezr$$_Blah = this.$$arezi$$_locator().findById( CustomNameReferenceModel2.MyEntity.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != $$arezr$$_Blah, () -> "Reference named 'Blah' on component named '" + this.$$arezi$$_kernel().getName() + "' is unable to resolve entity of type com.example.reference.CustomNameReferenceModel2.MyEntity and id = " + getMyEntit$$$yId() );

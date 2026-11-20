@@ -1,7 +1,6 @@
 package com.example.reference;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -34,8 +33,8 @@ final class Arez_LazyLoadReferenceModel extends LazyLoadReferenceModel
           () ->
               "Attempted to create instance of component of type 'com_example_reference_LazyLoadReferenceModel' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component");
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_reference_LazyLoadReferenceModel." + $$arezv$$_id
         : null;
@@ -191,7 +190,7 @@ final class Arez_LazyLoadReferenceModel extends LazyLoadReferenceModel
           () -> "Attempted to lookup self in Locator with type LazyLoadReferenceModel and id '"
               + $$arezi$$_id() + "' but unable to locate self. Actual value: "
               + $$arezi$$_locator().findById(LazyLoadReferenceModel.class, $$arezi$$_id()));
-      final int $$arezv$$_myEntityId = this.getMyEntityId();
+      final var $$arezv$$_myEntityId = this.getMyEntityId();
       final LazyLoadReferenceModel.MyEntity $$arezv$$_myEntity = this.$$arezi$$_locator()
           .findById(LazyLoadReferenceModel.MyEntity.class, $$arezv$$_myEntityId);
       Guards.apiInvariant(
@@ -226,7 +225,7 @@ final class Arez_LazyLoadReferenceModel extends LazyLoadReferenceModel
               + this.$$arezi$$_kernel().getName() + "'");
     }
     if (null == this.$$arezr$$_myEntity) {
-      final int id = this.getMyEntityId();
+      final var id = this.getMyEntityId();
       this.$$arezr$$_myEntity =
           this.$$arezi$$_locator().findById(LazyLoadReferenceModel.MyEntity.class, id);
       if (Arez.shouldCheckApiInvariants()) {

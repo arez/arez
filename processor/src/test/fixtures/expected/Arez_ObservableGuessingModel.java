@@ -1,5 +1,4 @@
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.ObservableValue;
@@ -29,8 +28,8 @@ final class Arez_ObservableGuessingModel extends ObservableGuessingModel impleme
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ObservableGuessingModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "ObservableGuessingModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "ObservableGuessingModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
@@ -129,7 +128,7 @@ final class Arez_ObservableGuessingModel extends ObservableGuessingModel impleme
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setTime' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_time.preReportChanged();
-    final long $$arezv$$_currentValue = super.getTime();
+    final var $$arezv$$_currentValue = super.getTime();
     if ( time != $$arezv$$_currentValue ) {
       super.setTime( time );
       this.$$arez$$_time.reportChanged();
@@ -151,7 +150,7 @@ final class Arez_ObservableGuessingModel extends ObservableGuessingModel impleme
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setFoo' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_foo.preReportChanged();
-    final boolean $$arezv$$_currentValue = super.isFoo();
+    final var $$arezv$$_currentValue = super.isFoo();
     if ( x != $$arezv$$_currentValue ) {
       super.setFoo( x );
       this.$$arez$$_foo.reportChanged();

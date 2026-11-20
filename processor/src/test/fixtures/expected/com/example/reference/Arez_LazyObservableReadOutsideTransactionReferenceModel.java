@@ -1,7 +1,6 @@
 package com.example.reference;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -39,8 +38,8 @@ final class Arez_LazyObservableReadOutsideTransactionReferenceModel extends Lazy
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( Arez::areReferencesEnabled, () -> "Attempted to create instance of component of type 'com_example_reference_LazyObservableReadOutsideTransactionReferenceModel' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component" );
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_reference_LazyObservableReadOutsideTransactionReferenceModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_reference_LazyObservableReadOutsideTransactionReferenceModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
@@ -140,7 +139,7 @@ final class Arez_LazyObservableReadOutsideTransactionReferenceModel extends Lazy
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( LazyObservableReadOutsideTransactionReferenceModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type LazyObservableReadOutsideTransactionReferenceModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( LazyObservableReadOutsideTransactionReferenceModel.class, $$arezi$$_id() ) );
-      final int $$arezv$$_myEntityId = this.getMyEntityId();
+      final var $$arezv$$_myEntityId = this.getMyEntityId();
       final LazyObservableReadOutsideTransactionReferenceModel.MyEntity $$arezv$$_myEntity = this.$$arezi$$_locator().findById( LazyObservableReadOutsideTransactionReferenceModel.MyEntity.class, $$arezv$$_myEntityId );
       Guards.apiInvariant( () -> null != $$arezv$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel().getName() + "' is unable to resolve entity of type com.example.reference.LazyObservableReadOutsideTransactionReferenceModel.MyEntity and id = " + getMyEntityId() );
     }
@@ -161,7 +160,7 @@ final class Arez_LazyObservableReadOutsideTransactionReferenceModel extends Lazy
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setMyEntityId' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_myEntityId.preReportChanged();
-    final int $$arezv$$_currentValue = this.$$arezd$$_myEntityId;
+    final var $$arezv$$_currentValue = this.$$arezd$$_myEntityId;
     if ( id != $$arezv$$_currentValue ) {
       this.$$arezd$$_myEntityId = id;
       this.$$arez$$_myEntityId.reportChanged();
@@ -188,7 +187,7 @@ final class Arez_LazyObservableReadOutsideTransactionReferenceModel extends Lazy
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_link_myEntity' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     if ( null == this.$$arezr$$_myEntity ) {
-      final int id = this.getMyEntityId();
+      final var id = this.getMyEntityId();
       this.$$arezr$$_myEntity = this.$$arezi$$_locator().findById( LazyObservableReadOutsideTransactionReferenceModel.MyEntity.class, id );
       if ( Arez.shouldCheckApiInvariants() ) {
         Guards.apiInvariant( () -> null != $$arezr$$_myEntity, () -> "Reference named 'myEntity' on component named '" + this.$$arezi$$_kernel().getName() + "' is unable to resolve entity of type com.example.reference.LazyObservableReadOutsideTransactionReferenceModel.MyEntity and id = " + getMyEntityId() );

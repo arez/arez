@@ -1,7 +1,6 @@
 package com.example.reference;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -41,8 +40,8 @@ final class Arez_LazyObservableReadOutsideTransactionReferenceModel
           () ->
               "Attempted to create instance of component of type 'com_example_reference_LazyObservableReadOutsideTransactionReferenceModel' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component");
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_reference_LazyObservableReadOutsideTransactionReferenceModel." + $$arezv$$_id
         : null;
@@ -218,7 +217,7 @@ final class Arez_LazyObservableReadOutsideTransactionReferenceModel
                       .findById(
                           LazyObservableReadOutsideTransactionReferenceModel.class,
                           $$arezi$$_id()));
-      final int $$arezv$$_myEntityId = this.getMyEntityId();
+      final var $$arezv$$_myEntityId = this.getMyEntityId();
       final LazyObservableReadOutsideTransactionReferenceModel.MyEntity $$arezv$$_myEntity =
           this.$$arezi$$_locator()
               .findById(
@@ -256,7 +255,7 @@ final class Arez_LazyObservableReadOutsideTransactionReferenceModel
               + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_myEntityId.preReportChanged();
-    final int $$arezv$$_currentValue = this.$$arezd$$_myEntityId;
+    final var $$arezv$$_currentValue = this.$$arezd$$_myEntityId;
     if (id != $$arezv$$_currentValue) {
       this.$$arezd$$_myEntityId = id;
       this.$$arez$$_myEntityId.reportChanged();
@@ -291,7 +290,7 @@ final class Arez_LazyObservableReadOutsideTransactionReferenceModel
               + this.$$arezi$$_kernel().getName() + "'");
     }
     if (null == this.$$arezr$$_myEntity) {
-      final int id = this.getMyEntityId();
+      final var id = this.getMyEntityId();
       this.$$arezr$$_myEntity = this.$$arezi$$_locator()
           .findById(LazyObservableReadOutsideTransactionReferenceModel.MyEntity.class, id);
       if (Arez.shouldCheckApiInvariants()) {

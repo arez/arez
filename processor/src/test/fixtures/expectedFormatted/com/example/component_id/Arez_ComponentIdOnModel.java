@@ -1,7 +1,6 @@
 package com.example.component_id;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.ObservableValue;
@@ -25,8 +24,8 @@ final class Arez_ComponentIdOnModel extends ComponentIdOnModel
 
   Arez_ComponentIdOnModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = getId();
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = getId();
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_component_id_ComponentIdOnModel." + $$arezv$$_id
         : null;
@@ -175,7 +174,7 @@ final class Arez_ComponentIdOnModel extends ComponentIdOnModel
               + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_time.preReportChanged();
-    final long $$arezv$$_currentValue = super.getTime();
+    final var $$arezv$$_currentValue = super.getTime();
     if (time != $$arezv$$_currentValue) {
       super.setTime(time);
       this.$$arez$$_time.reportChanged();

@@ -1,7 +1,6 @@
 package com.example.post_inverse_add;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -35,8 +34,8 @@ final class SingularInversePostInverseAddModel_Arez_Element
           () ->
               "Attempted to create instance of component of type 'com_example_post_inverse_add_SingularInversePostInverseAddModel_Element' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component");
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_post_inverse_add_SingularInversePostInverseAddModel_Element." + $$arezv$$_id
         : null;
@@ -202,7 +201,7 @@ final class SingularInversePostInverseAddModel_Arez_Element
                   + $$arezi$$_id() + "' but unable to locate self. Actual value: "
                   + $$arezi$$_locator()
                       .findById(SingularInversePostInverseAddModel.Element.class, $$arezi$$_id()));
-      final int $$arezv$$_otherId = this.getOtherId();
+      final var $$arezv$$_otherId = this.getOtherId();
       final SingularInversePostInverseAddModel $$arezv$$_other = this.$$arezi$$_locator()
           .findById(SingularInversePostInverseAddModel.class, $$arezv$$_otherId);
       Guards.apiInvariant(
@@ -242,7 +241,7 @@ final class SingularInversePostInverseAddModel_Arez_Element
               + this.$$arezi$$_kernel().describeState() + " component named '"
               + this.$$arezi$$_kernel().getName() + "'");
     }
-    final int id = this.getOtherId();
+    final var id = this.getOtherId();
     this.$$arezr$$_other =
         this.$$arezi$$_locator().findById(SingularInversePostInverseAddModel.class, id);
     if (Arez.shouldCheckApiInvariants()) {

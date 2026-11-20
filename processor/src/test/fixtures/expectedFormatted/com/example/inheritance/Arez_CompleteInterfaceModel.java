@@ -101,8 +101,8 @@ final class Arez_CompleteInterfaceModel
           () ->
               "Attempted to create instance of component of type 'com_example_inheritance_CompleteInterfaceModel' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component");
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_inheritance_CompleteInterfaceModel." + $$arezv$$_id
         : null;
@@ -369,7 +369,7 @@ final class Arez_CompleteInterfaceModel
     if (null != $$arezd$$_parentGeneralisation) {
       Arez_OtherElement_References.$$arezi$$_delink_child($$arezd$$_parentGeneralisation);
     }
-    for (final OtherElement other : new ArrayList<>($$arezd$$_otherElements)) {
+    for (final var other : new ArrayList<>($$arezd$$_otherElements)) {
       Arez_OtherElement_References.$$arezi$$_delink_completeInterfaceModel(other);
     }
   }
@@ -487,7 +487,7 @@ final class Arez_CompleteInterfaceModel
           () -> "Attempted to lookup self in Locator with type CompleteInterfaceModel and id '"
               + $$arezi$$_id() + "' but unable to locate self. Actual value: "
               + $$arezi$$_locator().findById(CompleteInterfaceModel.class, $$arezi$$_id()));
-      final int $$arezv$$_myEntityId = this.getMyEntityId();
+      final var $$arezv$$_myEntityId = this.getMyEntityId();
       final BaseCompleteInterfaceModel.MyEntity $$arezv$$_myEntity = this.$$arezi$$_locator()
           .findById(BaseCompleteInterfaceModel.MyEntity.class, $$arezv$$_myEntityId);
       Guards.apiInvariant(
@@ -503,7 +503,7 @@ final class Arez_CompleteInterfaceModel
                 + this.$$arezi$$_kernel().getName() + "' contains disposed element '"
                 + this.$$arezd$$_parentGeneralisation + "'");
       }
-      for (final OtherElement element : this.$$arezd$$_otherElements) {
+      for (final var element : this.$$arezd$$_otherElements) {
         if (Arez.shouldCheckApiInvariants()) {
           Guards.apiInvariant(
               () -> Disposable.isNotDisposed(element),
@@ -677,7 +677,7 @@ final class Arez_CompleteInterfaceModel
               + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_myPrimitiveValue.preReportChanged();
-    final int $$arezv$$_currentValue = CompleteInterfaceModel.super.getMyPrimitiveValue();
+    final var $$arezv$$_currentValue = CompleteInterfaceModel.super.getMyPrimitiveValue();
     if (value != $$arezv$$_currentValue) {
       CompleteInterfaceModel.super.setMyPrimitiveValue(value);
       if ($$arezv$$_currentValue != CompleteInterfaceModel.super.getMyPrimitiveValue()) {
@@ -730,7 +730,7 @@ final class Arez_CompleteInterfaceModel
     }
     this.$$arez$$_otherElements.reportObserved();
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final List<OtherElement> $$ar$$_result = this.$$arezd$$_otherElements;
+      final var $$ar$$_result = this.$$arezd$$_otherElements;
       if (null == this.$$arezd$$_$$cache$$_otherElements && null != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_otherElements = CollectionsUtil.wrap($$ar$$_result);
       }
@@ -986,7 +986,7 @@ final class Arez_CompleteInterfaceModel
               + this.$$arezi$$_kernel().describeState() + " component named '"
               + this.$$arezi$$_kernel().getName() + "'");
     }
-    final int id = this.getMyEntityId();
+    final var id = this.getMyEntityId();
     this.$$arezr$$_myEntity =
         this.$$arezi$$_locator().findById(BaseCompleteInterfaceModel.MyEntity.class, id);
     if (Arez.shouldCheckApiInvariants()) {

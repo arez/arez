@@ -1,5 +1,4 @@
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.ObservableValue;
@@ -27,8 +26,8 @@ final class Arez_ObservableWithSpecificExceptionModel extends ObservableWithSpec
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ObservableWithSpecificExceptionModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name =
         Arez.areNamesEnabled() ? "ObservableWithSpecificExceptionModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled()
@@ -181,7 +180,7 @@ final class Arez_ObservableWithSpecificExceptionModel extends ObservableWithSpec
               + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_time.preReportChanged();
-    final long $$arezv$$_currentValue = super.getTime();
+    final var $$arezv$$_currentValue = super.getTime();
     if (time != $$arezv$$_currentValue) {
       super.setTime(time);
       this.$$arez$$_time.reportChanged();

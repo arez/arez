@@ -1,7 +1,6 @@
 package com.example.jspecify;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.ObservableValue;
@@ -31,8 +30,8 @@ final class Arez_PrimitiveUnmarkedModel extends PrimitiveUnmarkedModel implement
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_PrimitiveUnmarkedModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_jspecify_PrimitiveUnmarkedModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_jspecify_PrimitiveUnmarkedModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
@@ -129,7 +128,7 @@ final class Arez_PrimitiveUnmarkedModel extends PrimitiveUnmarkedModel implement
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setCount' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_count.preReportChanged();
-    final int $$arezv$$_currentValue = this.$$arezd$$_count;
+    final var $$arezv$$_currentValue = this.$$arezd$$_count;
     if ( count != $$arezv$$_currentValue ) {
       this.$$arezd$$_count = count;
       this.$$arez$$_count.reportChanged();

@@ -1,7 +1,6 @@
 package com.example.reference;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -34,8 +33,8 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2
           () ->
               "Attempted to create instance of component of type 'com_example_reference_CustomNameReferenceModel2' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component");
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_reference_CustomNameReferenceModel2." + $$arezv$$_id
         : null;
@@ -193,7 +192,7 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2
           () -> "Attempted to lookup self in Locator with type CustomNameReferenceModel2 and id '"
               + $$arezi$$_id() + "' but unable to locate self. Actual value: "
               + $$arezi$$_locator().findById(CustomNameReferenceModel2.class, $$arezi$$_id()));
-      final int $$arezv$$_BlahId = this.getMyEntit$$$yId();
+      final var $$arezv$$_BlahId = this.getMyEntit$$$yId();
       final CustomNameReferenceModel2.MyEntity $$arezv$$_Blah = this.$$arezi$$_locator()
           .findById(CustomNameReferenceModel2.MyEntity.class, $$arezv$$_BlahId);
       Guards.apiInvariant(
@@ -234,7 +233,7 @@ final class Arez_CustomNameReferenceModel2 extends CustomNameReferenceModel2
               + this.$$arezi$$_kernel().describeState() + " component named '"
               + this.$$arezi$$_kernel().getName() + "'");
     }
-    final int id = this.getMyEntit$$$yId();
+    final var id = this.getMyEntit$$$yId();
     this.$$arezr$$_Blah =
         this.$$arezi$$_locator().findById(CustomNameReferenceModel2.MyEntity.class, id);
     if (Arez.shouldCheckApiInvariants()) {

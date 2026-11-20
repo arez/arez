@@ -1,7 +1,6 @@
 package com.example.inverse;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -40,8 +39,8 @@ final class Arez_NonObservableNullableManyReferenceModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_NonObservableNullableManyReferenceModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_inverse_NonObservableNullableManyReferenceModel." + $$arezv$$_id
         : null;
@@ -116,8 +115,7 @@ final class Arez_NonObservableNullableManyReferenceModel
   }
 
   private void $$arezi$$_preDispose() {
-    for (final NonObservableNullableManyReferenceModel.Element other :
-        new ArrayList<>($$arezd$$_elements)) {
+    for (final var other : new ArrayList<>($$arezd$$_elements)) {
       ((NonObservableNullableManyReferenceModel_Arez_Element) other)
           .$$arezi$$_delink_nonObservableNullableManyReferenceModel();
     }
@@ -225,8 +223,7 @@ final class Arez_NonObservableNullableManyReferenceModel
                   + $$arezi$$_id() + "' but unable to locate self. Actual value: "
                   + $$arezi$$_locator()
                       .findById(NonObservableNullableManyReferenceModel.class, $$arezi$$_id()));
-      for (final NonObservableNullableManyReferenceModel.Element element :
-          this.$$arezd$$_elements) {
+      for (final var element : this.$$arezd$$_elements) {
         if (Arez.shouldCheckApiInvariants()) {
           Guards.apiInvariant(
               () -> Disposable.isNotDisposed(element),

@@ -48,7 +48,7 @@ abstract class CustomStorePersistModel_PersistSidecar {
       final Scope scope, final CustomStorePersistModel peer) {
     assert Disposable.isNotDisposed(scope);
     assert Disposable.isNotDisposed(peer);
-    final Store sStore = ArezPersist.getStore("s");
+    final var sStore = ArezPersist.getStore("s");
     return new Arez_CustomStorePersistModel_PersistSidecar(scope, peer, sStore);
   }
 
@@ -85,7 +85,7 @@ abstract class CustomStorePersistModel_PersistSidecar {
 
   @Action(verifyRequired = false)
   void restoreState() {
-    final String $ap$_id = getComponentId();
+    final var $ap$_id = getComponentId();
     if (!_sStore.isDisposed() && Disposable.isNotDisposed(_scope)) {
       final Map<String, @Nullable Object> state =
           _sStore.get(_scope, Keys.TYPE, $ap$_id, Converters.TYPE_CONVERTER);
@@ -102,7 +102,7 @@ abstract class CustomStorePersistModel_PersistSidecar {
   void persistState() {
     if (!_sStore.isDisposed() && Disposable.isNotDisposed(_scope)) {
       final Map<String, @Nullable Object> state = new HashMap<>();
-      final int $prop$_value = _peer.getValue();
+      final var $prop$_value = _peer.getValue();
       if (0 != $prop$_value) {
         state.put(Keys.PROPERTY_value, $prop$_value);
       }

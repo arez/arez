@@ -1,7 +1,6 @@
 package com.example.inverse;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -34,8 +33,8 @@ final class ObservableSetInverseModel_Arez_Element extends ObservableSetInverseM
           () ->
               "Attempted to create instance of component of type 'com_example_inverse_ObservableSetInverseModel_Element' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component");
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_inverse_ObservableSetInverseModel_Element." + $$arezv$$_id
         : null;
@@ -201,7 +200,7 @@ final class ObservableSetInverseModel_Arez_Element extends ObservableSetInverseM
                   + $$arezi$$_id() + "' but unable to locate self. Actual value: "
                   + $$arezi$$_locator()
                       .findById(ObservableSetInverseModel.Element.class, $$arezi$$_id()));
-      final int $$arezv$$_observableSetInverseModelId = this.getObservableSetInverseModelId();
+      final var $$arezv$$_observableSetInverseModelId = this.getObservableSetInverseModelId();
       final ObservableSetInverseModel $$arezv$$_observableSetInverseModel = this.$$arezi$$_locator()
           .findById(ObservableSetInverseModel.class, $$arezv$$_observableSetInverseModelId);
       Guards.apiInvariant(
@@ -244,7 +243,7 @@ final class ObservableSetInverseModel_Arez_Element extends ObservableSetInverseM
               + this.$$arezi$$_kernel().describeState() + " component named '"
               + this.$$arezi$$_kernel().getName() + "'");
     }
-    final int id = this.getObservableSetInverseModelId();
+    final var id = this.getObservableSetInverseModelId();
     this.$$arezr$$_observableSetInverseModel =
         this.$$arezi$$_locator().findById(ObservableSetInverseModel.class, id);
     if (Arez.shouldCheckApiInvariants()) {

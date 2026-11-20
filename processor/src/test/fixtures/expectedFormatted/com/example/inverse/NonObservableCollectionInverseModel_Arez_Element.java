@@ -1,7 +1,6 @@
 package com.example.inverse;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -36,8 +35,8 @@ final class NonObservableCollectionInverseModel_Arez_Element
           () ->
               "Attempted to create instance of component of type 'com_example_inverse_NonObservableCollectionInverseModel_Element' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component");
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_inverse_NonObservableCollectionInverseModel_Element." + $$arezv$$_id
         : null;
@@ -203,7 +202,7 @@ final class NonObservableCollectionInverseModel_Arez_Element
                   + $$arezi$$_id() + "' but unable to locate self. Actual value: "
                   + $$arezi$$_locator()
                       .findById(NonObservableCollectionInverseModel.Element.class, $$arezi$$_id()));
-      final int $$arezv$$_nonObservableCollectionInverseModelId =
+      final var $$arezv$$_nonObservableCollectionInverseModelId =
           this.getNonObservableCollectionInverseModelId();
       final NonObservableCollectionInverseModel $$arezv$$_nonObservableCollectionInverseModel =
           this.$$arezi$$_locator()
@@ -250,7 +249,7 @@ final class NonObservableCollectionInverseModel_Arez_Element
               + this.$$arezi$$_kernel().describeState() + " component named '"
               + this.$$arezi$$_kernel().getName() + "'");
     }
-    final int id = this.getNonObservableCollectionInverseModelId();
+    final var id = this.getNonObservableCollectionInverseModelId();
     this.$$arezr$$_nonObservableCollectionInverseModel =
         this.$$arezi$$_locator().findById(NonObservableCollectionInverseModel.class, id);
     if (Arez.shouldCheckApiInvariants()) {

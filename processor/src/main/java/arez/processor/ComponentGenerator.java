@@ -60,7 +60,6 @@ final class ComponentGenerator {
     private static final ClassName COMPUTABLE_VALUE_FLAGS_CLASSNAME = ClassName.get("arez", "ComputableValue", "Flags");
     private static final ClassName OBJECTS_DEEP_EQUALS_COMPARATOR_CLASSNAME =
             ClassName.get("arez", "ObjectsDeepEqualsComparator");
-    private static final ClassName AREZ_CONTEXT_CLASSNAME = ClassName.get("arez", "ArezContext");
     private static final ClassName OBSERVABLE_CLASSNAME = ClassName.get("arez", "ObservableValue");
     private static final ClassName OBSERVER_CLASSNAME = ClassName.get("arez", "Observer");
     private static final ClassName COMPUTABLE_VALUE_CLASSNAME = ClassName.get("arez", "ComputableValue");
@@ -564,8 +563,8 @@ final class ComponentGenerator {
         final CodeBlock.Builder block = CodeBlock.builder();
         if (Multiplicity.MANY == inverse.getMultiplicity()) {
             block.beginControlFlow(
-                    "for ( final $T other : new $T<>( $N ) )",
-                    inverse.getTargetType(),
+                    "for ( final $L other : new $T<>( $N ) )",
+                    inverseElementType(inverse),
                     TypeName.get(ArrayList.class),
                     observable.getDataFieldName());
             if (crossPackage) {
@@ -808,8 +807,7 @@ final class ComponentGenerator {
         final String contextName = VARIABLE_PREFIX + "context";
         final String methodName = descriptor.getMethod().getSimpleName().toString();
         builder.beginControlFlow("if ( $T.shouldCheckInvariants() )", AREZ_CLASSNAME);
-        builder.addStatement(
-                "final $T $N = this.$N.getContext()", AREZ_CONTEXT_CLASSNAME, contextName, KERNEL_ACCESS_EXPRESSION);
+        builder.addStatement("final var $N = this.$N.getContext()", contextName, KERNEL_ACCESS_EXPRESSION);
         builder.addStatement(
                 "$T.invariant( $N::isTransactionActive, () -> \"Arez-0229: Method named '$N' invoked outside of a"
                         + " transaction on component type '$N'.\" )",
@@ -958,8 +956,10 @@ final class ComponentGenerator {
                 else if (observable.requireInitializer()) {
                     final String varName = VARIABLE_PREFIX + methodName + "_dependency";
                     builder.addStatement(
-                            "final $T $N = this.$N",
-                            TypeName.get(returnType).withoutAnnotations(),
+                            "final $L $N = this.$N",
+                            localType(
+                                    TypeName.get(returnType).withoutAnnotations(),
+                                    observableDataType(processingEnv, observable)),
                             varName,
                             observable.getDataFieldName());
                     final CodeBlock.Builder listenerBlock = CodeBlock.builder();
@@ -1000,19 +1000,17 @@ final class ComponentGenerator {
                     }
                 } else {
                     final String varName = VARIABLE_PREFIX + methodName + "_dependency";
+                    final var type = TypeName.get(returnType);
+                    final var localType = localReturnType(type.withoutAnnotations(), method, type);
                     if (dependency.getComponent().isClassType()) {
-                        builder.addStatement(
-                                "final $T $N = super.$N()",
-                                TypeName.get(returnType).withoutAnnotations(),
-                                varName,
-                                method.getSimpleName().toString());
+                        builder.addStatement("final $L $N = super.$N()", localType, varName, method.getSimpleName());
                     } else {
                         builder.addStatement(
-                                "final $T $N = $T.super.$N()",
-                                TypeName.get(returnType).withoutAnnotations(),
+                                "final $L $N = $T.super.$N()",
+                                localType,
                                 varName,
                                 dependency.getComponent().getClassName(),
-                                method.getSimpleName().toString());
+                                method.getSimpleName());
                     }
                     final CodeBlock.Builder listenerBlock = CodeBlock.builder();
                     listenerBlock.beginControlFlow("if ( null != $N )", varName);
@@ -1397,18 +1395,21 @@ final class ComponentGenerator {
                         final boolean abstractObservables =
                                 method.getModifiers().contains(Modifier.ABSTRACT);
                         if (abstractObservables) {
+                            final var observable = dependency.getObservable();
                             builder.addStatement(
-                                    "final $T $N = this.$N",
-                                    returnType,
+                                    "final $L $N = this.$N",
+                                    localType(TypeName.get(returnType), observableDataType(processingEnv, observable)),
                                     varName,
-                                    dependency.getObservable().getDataFieldName());
+                                    observable.getDataFieldName());
                         } else {
+                            final var type = TypeName.get(returnType);
+                            final var localType = localReturnType(type, method, type);
                             if (component.isClassType()) {
-                                builder.addStatement("final $T $N = super.$N()", returnType, varName, methodName);
+                                builder.addStatement("final $L $N = super.$N()", localType, varName, methodName);
                             } else {
                                 builder.addStatement(
-                                        "final $T $N = $T.super.$N()",
-                                        returnType,
+                                        "final $L $N = $T.super.$N()",
+                                        localType,
                                         varName,
                                         component.getClassName(),
                                         methodName);
@@ -1591,7 +1592,7 @@ final class ComponentGenerator {
     }
 
     private static void buildContextVar(final MethodSpec.Builder builder) {
-        builder.addStatement("final $T $N = $T.context()", AREZ_CONTEXT_CLASSNAME, CONTEXT_VAR_NAME, AREZ_CLASSNAME);
+        builder.addStatement("final var $N = $T.context()", CONTEXT_VAR_NAME, AREZ_CLASSNAME);
     }
 
     private static void buildNameVar(final ComponentDescriptor component, final MethodSpec.Builder builder) {
@@ -1609,10 +1610,10 @@ final class ComponentGenerator {
             final MethodSpec.Builder builder) {
         if (null == component.getComponentId()) {
             if (component.isIdRequired()) {
-                builder.addStatement("final int $N = ++$N", ID_VAR_NAME, NEXT_ID_FIELD_NAME);
+                builder.addStatement("final var $N = ++$N", ID_VAR_NAME, NEXT_ID_FIELD_NAME);
             } else {
                 builder.addStatement(
-                        "final int $N = ( $T.areNamesEnabled() || $T.areRegistriesEnabled() || "
+                        "final var $N = ( $T.areNamesEnabled() || $T.areRegistriesEnabled() || "
                                 + "$T.areNativeComponentsEnabled() ) ? ++$N : 0",
                         ID_VAR_NAME,
                         AREZ_CLASSNAME,
@@ -1621,14 +1622,12 @@ final class ComponentGenerator {
                         NEXT_ID_FIELD_NAME);
             }
         } else {
-            final var methodType = (ExecutableType) processingEnv
-                    .getTypeUtils()
-                    .asMemberOf((DeclaredType) component.getElement().asType(), component.getComponentId());
+            final var idMethod = component.getComponentId();
+            final var methodType =
+                    (ExecutableType) processingEnv.getTypeUtils().asMemberOf(component.asDeclaredType(), idMethod);
+            final var type = TypeName.get(methodType.getReturnType());
             builder.addStatement(
-                    "final $T $N = $N()",
-                    methodType.getReturnType(),
-                    ID_VAR_NAME,
-                    component.getComponentId().getSimpleName());
+                    "final $L $N = $N()", localReturnType(type, idMethod, type), ID_VAR_NAME, idMethod.getSimpleName());
         }
     }
 
@@ -2617,7 +2616,14 @@ final class ComponentGenerator {
             block.beginControlFlow("if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME);
 
             final String result = "$$ar$$_result";
-            block.addStatement("final $T $N = this.$N.get()", returnType, result, getMemoizeFieldName(memoize));
+            block.addStatement(
+                    "final $L $N = this.$N.get()",
+                    localReturnType(
+                            returnType,
+                            executableElement,
+                            memoizeTypeName(processingEnv, memoize).box()),
+                    result,
+                    getMemoizeFieldName(memoize));
             final CodeBlock.Builder guard = CodeBlock.builder();
             guard.beginControlFlow("if ( this.$N != $N )", getMemoizeCollectionCacheDataFieldName(memoize), result);
             guard.addStatement("this.$N = $N", getMemoizeCollectionCacheDataFieldName(memoize), result);
@@ -3164,17 +3170,8 @@ final class ComponentGenerator {
                     .build());
         }
         if (observable.isAbstract()) {
-            final TypeName dataType = observable.isManyInverse()
-                    ? valueType.withoutAnnotations()
-                    : !valueType.isPrimitive()
-                                    && (!observable.hasSetter()
-                                            || observable.getCascadeDisposeDescriptor() != null
-                                            || !observable.requireInitializer()
-                                            || !observable.isSetterNonnull())
-                            ? nullable(valueType)
-                            : valueType;
-            final FieldSpec.Builder dataField =
-                    FieldSpec.builder(dataType, observable.getDataFieldName(), Modifier.PRIVATE);
+            final FieldSpec.Builder dataField = FieldSpec.builder(
+                    observableDataType(processingEnv, observable), observable.getDataFieldName(), Modifier.PRIVATE);
             if (observable.isManyInverse()) {
                 dataField.addModifiers(Modifier.FINAL);
             }
@@ -3195,6 +3192,21 @@ final class ComponentGenerator {
                         processingEnv, observable.getComponent().getElement(), observable.getGetter())
                 .build()
                 .returnType();
+    }
+
+    private static TypeName observableDataType(
+            final ProcessingEnvironment processingEnv, final ObservableDescriptor observable) {
+        final var valueType = observableTypeName(processingEnv, observable);
+        if (observable.isManyInverse()) {
+            return valueType.withoutAnnotations();
+        }
+        return !valueType.isPrimitive()
+                        && (!observable.hasSetter()
+                                || observable.getCascadeDisposeDescriptor() != null
+                                || !observable.requireInitializer()
+                                || !observable.isSetterNonnull())
+                ? nullable(valueType)
+                : valueType;
     }
 
     private static TypeName nullable(final TypeName type) {
@@ -3420,13 +3432,25 @@ final class ComponentGenerator {
         final CodeBlock.Builder codeBlock = CodeBlock.builder();
         final boolean abstractObservables = observable.isAbstract();
         if (abstractObservables) {
-            builder.addStatement("final $T $N = this.$N", type, varName, observable.getDataFieldName());
+            builder.addStatement(
+                    "final $L $N = this.$N",
+                    localType(type, observableDataType(processingEnv, observable)),
+                    varName,
+                    observable.getDataFieldName());
         } else {
+            final var localType = localReturnType(
+                    type,
+                    getter,
+                    GeneratorUtil.getTypeName(observable.getGetterType().getReturnType()));
             if (component.isClassType()) {
-                builder.addStatement("final $T $N = super.$N()", type, varName, getter.getSimpleName());
+                builder.addStatement("final $L $N = super.$N()", localType, varName, getter.getSimpleName());
             } else {
                 builder.addStatement(
-                        "final $T $N = $T.super.$N()", type, varName, component.getClassName(), getter.getSimpleName());
+                        "final $L $N = $T.super.$N()",
+                        localType,
+                        varName,
+                        component.getClassName(),
+                        getter.getSimpleName());
             }
         }
         if (type.isPrimitive()) {
@@ -3717,9 +3741,12 @@ final class ComponentGenerator {
 
                     final String result = "$$ar$$_result";
                     block.addStatement(
-                            "final $T $N = this.$N",
-                            GeneratorUtil.getTypeName(observable.getGetterType().getReturnType())
-                                    .withoutAnnotations(),
+                            "final $L $N = this.$N",
+                            localType(
+                                    GeneratorUtil.getTypeName(
+                                                    observable.getGetterType().getReturnType())
+                                            .withoutAnnotations(),
+                                    observableDataType(processingEnv, observable)),
                             result,
                             observable.getDataFieldName());
                     final CodeBlock.Builder guard = CodeBlock.builder();
@@ -3786,20 +3813,15 @@ final class ComponentGenerator {
                     block.beginControlFlow("if ( $T.areCollectionsPropertiesUnmodifiable() )", AREZ_CLASSNAME);
 
                     final String result = "$$ar$$_result";
+                    final var returnType =
+                            GeneratorUtil.getTypeName(observable.getGetterType().getReturnType());
+                    final var localType = localReturnType(returnType.withoutAnnotations(), getter, returnType);
                     if (component.isClassType()) {
-                        block.addStatement(
-                                "final $T $N = super.$N()",
-                                GeneratorUtil.getTypeName(
-                                                observable.getGetterType().getReturnType())
-                                        .withoutAnnotations(),
-                                result,
-                                getter.getSimpleName());
+                        block.addStatement("final $L $N = super.$N()", localType, result, getter.getSimpleName());
                     } else {
                         block.addStatement(
-                                "final $T $N = $T.super.$N()",
-                                GeneratorUtil.getTypeName(
-                                                observable.getGetterType().getReturnType())
-                                        .withoutAnnotations(),
+                                "final $L $N = $T.super.$N()",
+                                localType,
                                 result,
                                 component.getClassName(),
                                 getter.getSimpleName());
@@ -4031,7 +4053,7 @@ final class ComponentGenerator {
         final CodeBlock.Builder builder = CodeBlock.builder();
         final ObservableDescriptor observable = inverse.getObservable();
         builder.beginControlFlow(
-                "for( final $T element : this.$N )", inverse.getTargetType(), observable.getDataFieldName());
+                "for( final $L element : this.$N )", inverseElementType(inverse), observable.getDataFieldName());
 
         final CodeBlock.Builder block = CodeBlock.builder();
         block.beginControlFlow("if ( $T.shouldCheckApiInvariants() )", AREZ_CLASSNAME);
@@ -4048,6 +4070,14 @@ final class ComponentGenerator {
 
         builder.endControlFlow();
         code.add(builder.build());
+    }
+
+    private static CodeBlock inverseElementType(final InverseDescriptor inverse) {
+        final var collectionType =
+                (DeclaredType) inverse.getObservable().getGetterType().getReturnType();
+        return localType(
+                ClassName.get(inverse.getTargetType()),
+                GeneratorUtil.getTypeName(collectionType.getTypeArguments().get(0)));
     }
 
     private static void buildInverseInitializer(final InverseDescriptor inverse, final MethodSpec.Builder builder) {
@@ -4204,16 +4234,16 @@ final class ComponentGenerator {
         final MethodSpec.Builder builder = MethodSpec.methodBuilder(methodName);
         builder.addModifiers(Modifier.PRIVATE);
         generateNotDisposedInvariant(builder, methodName);
+        final var idMethod = reference.getIdMethod();
+        final var idType = GeneratorUtil.getTypeName(reference.getIdType());
+        final var localType = localReturnType(idType.withoutAnnotations(), idMethod, idType);
 
         if ("EAGER".equals(reference.getLinkType())) {
             /*
              * Linking under eager should always proceed and does not need a null check
              * as the link method only called when a link is required.
              */
-            builder.addStatement(
-                    "final $T id = this.$N()",
-                    GeneratorUtil.getTypeName(reference.getIdType()).withoutAnnotations(),
-                    reference.getIdMethod().getSimpleName());
+            builder.addStatement("final $L id = this.$N()", localType, idMethod.getSimpleName());
             if (reference.isNullable()) {
                 final CodeBlock.Builder nestedBlock = CodeBlock.builder();
                 nestedBlock.beginControlFlow("if ( null != id )");
@@ -4228,10 +4258,7 @@ final class ComponentGenerator {
         } else {
             final CodeBlock.Builder block = CodeBlock.builder();
             block.beginControlFlow("if ( null == this.$N )", reference.getFieldName());
-            block.addStatement(
-                    "final $T id = this.$N()",
-                    GeneratorUtil.getTypeName(reference.getIdType()).withoutAnnotations(),
-                    reference.getIdMethod().getSimpleName());
+            block.addStatement("final $L id = this.$N()", localType, idMethod.getSimpleName());
             if (reference.isNullable()) {
                 final CodeBlock.Builder nestedBlock = CodeBlock.builder();
                 nestedBlock.beginControlFlow("if ( null != id )");
@@ -4344,9 +4371,10 @@ final class ComponentGenerator {
         final String refName = VARIABLE_PREFIX + name;
 
         final ExecutableElement idMethod = reference.getIdMethod();
+        final var idType = GeneratorUtil.getTypeName(reference.getIdType());
         builder.addStatement(
-                "final $T $N = this.$N()",
-                GeneratorUtil.getTypeName(reference.getIdType()).withoutAnnotations(),
+                "final $L $N = this.$N()",
+                localReturnType(idType.withoutAnnotations(), idMethod, idType),
                 idName,
                 idMethod.getSimpleName());
         if (reference.isNullable()) {
@@ -4398,11 +4426,15 @@ final class ComponentGenerator {
             final ReferenceDescriptor reference = autoObserve.getReference();
             if (null != field) {
                 final String varName = VARIABLE_PREFIX + "autoObserve_" + index++;
+                final var fieldType = GeneratorUtil.getTypeName(
+                        processingEnv.getTypeUtils().asMemberOf(component.asDeclaredType(), field));
+                final var declaredType = fieldType.withoutAnnotations();
+                final var localType = field.asType().toString().contains("@")
+                        ? CodeBlock.of("$T", declaredType)
+                        : localType(declaredType, fieldType);
                 builder.addStatement(
-                        "final $T $N = this.$N",
-                        GeneratorUtil.getTypeName(
-                                        processingEnv.getTypeUtils().asMemberOf(component.asDeclaredType(), field))
-                                .withoutAnnotations(),
+                        "final $L $N = this.$N",
+                        localType,
                         varName,
                         field.getSimpleName().toString());
                 if (Nullability.isNonNull(field)) {
@@ -4415,12 +4447,13 @@ final class ComponentGenerator {
             } else if (null != reference) {
                 final String varName = VARIABLE_PREFIX + "autoObserve_" + index++;
                 builder.addStatement("this.$N()", reference.getLinkMethodName());
+                final var method = reference.getMethod();
+                final var returnType = GeneratorUtil.getTypeName(method.getReturnType());
                 builder.addStatement(
-                        "final $T $N = this.$N()",
-                        GeneratorUtil.getTypeName(reference.getMethod().getReturnType())
-                                .withoutAnnotations(),
+                        "final $L $N = this.$N()",
+                        localReturnType(returnType.withoutAnnotations(), method, returnType),
                         varName,
-                        reference.getMethod().getSimpleName().toString());
+                        method.getSimpleName());
                 if (reference.isNullable()) {
                     builder.addStatement("$T.maybeObserve( $N )", COMPONENT_OBSERVABLE_CLASSNAME, varName);
                 } else {
@@ -4430,13 +4463,12 @@ final class ComponentGenerator {
                 final ExecutableElement method = autoObserve.getMethod();
                 assert null != method;
                 final String varName = VARIABLE_PREFIX + "autoObserve_" + index++;
+                final var returnType = GeneratorUtil.getTypeName(
+                        ((ExecutableType) processingEnv.getTypeUtils().asMemberOf(component.asDeclaredType(), method))
+                                .getReturnType());
                 builder.addStatement(
-                        "final $T $N = this.$N()",
-                        GeneratorUtil.getTypeName(((ExecutableType) processingEnv
-                                                .getTypeUtils()
-                                                .asMemberOf(component.asDeclaredType(), method))
-                                        .getReturnType())
-                                .withoutAnnotations(),
+                        "final $L $N = this.$N()",
+                        localReturnType(returnType.withoutAnnotations(), method, returnType),
                         varName,
                         method.getSimpleName().toString());
                 if (isNullable(method, method.getReturnType())) {
@@ -4448,6 +4480,22 @@ final class ComponentGenerator {
         }
 
         return builder.build();
+    }
+
+    private static CodeBlock localType(final TypeName declaredType, final TypeName initializerType) {
+        // The rendered type includes qualifiers on nested arguments, bounds and array dimensions.
+        final var declaration = declaredType.toString();
+        return !declaration.contains("@") && declaration.equals(initializerType.toString())
+                ? CodeBlock.of("var")
+                : CodeBlock.of("$T", declaredType);
+    }
+
+    private static CodeBlock localReturnType(
+            final TypeName declaredType, final ExecutableElement method, final TypeName returnType) {
+        return method.getTypeParameters().isEmpty()
+                        && !method.getReturnType().toString().contains("@")
+                ? localType(declaredType, returnType)
+                : CodeBlock.of("$T", declaredType);
     }
 
     private static void emitAutoObserve(

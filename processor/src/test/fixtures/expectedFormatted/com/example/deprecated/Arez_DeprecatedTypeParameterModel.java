@@ -1,7 +1,6 @@
 package com.example.deprecated;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.SafeProcedure;
@@ -26,8 +25,8 @@ final class Arez_DeprecatedTypeParameterModel<T extends MyDeprecatedEntity>
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_DeprecatedTypeParameterModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_deprecated_DeprecatedTypeParameterModel." + $$arezv$$_id
         : null;

@@ -1,7 +1,6 @@
 package com.example.pre_inverse_remove.other;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -37,8 +36,8 @@ final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element
           () ->
               "Attempted to create instance of component of type 'com_example_pre_inverse_remove_other_BaseProtectedAccessPreInverseRemoveModel_Element' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component");
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_pre_inverse_remove_other_BaseProtectedAccessPreInverseRemoveModel_Element."
             + $$arezv$$_id
@@ -206,7 +205,7 @@ final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element
                   + $$arezi$$_locator()
                       .findById(
                           BaseProtectedAccessPreInverseRemoveModel.Element.class, $$arezi$$_id()));
-      final int $$arezv$$_otherId = this.getOtherId();
+      final var $$arezv$$_otherId = this.getOtherId();
       final ProtectedAccessFromBasePreInverseRemoveModel $$arezv$$_other = this.$$arezi$$_locator()
           .findById(ProtectedAccessFromBasePreInverseRemoveModel.class, $$arezv$$_otherId);
       Guards.apiInvariant(
@@ -246,7 +245,7 @@ final class BaseProtectedAccessPreInverseRemoveModel_Arez_Element
               + this.$$arezi$$_kernel().describeState() + " component named '"
               + this.$$arezi$$_kernel().getName() + "'");
     }
-    final int id = this.getOtherId();
+    final var id = this.getOtherId();
     this.$$arezr$$_other =
         this.$$arezi$$_locator().findById(ProtectedAccessFromBasePreInverseRemoveModel.class, id);
     if (Arez.shouldCheckApiInvariants()) {

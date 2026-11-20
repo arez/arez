@@ -1,7 +1,6 @@
 package com.example.sting;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.component.Identifiable;
@@ -28,8 +27,8 @@ final class Arez_ServiceViaNamedStingModel extends ServiceViaNamedStingModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ServiceViaNamedStingModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_sting_ServiceViaNamedStingModel." + $$arezv$$_id
         : null;

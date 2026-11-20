@@ -1,7 +1,6 @@
 package com.example.observable;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.ObservableValue;
@@ -29,8 +28,8 @@ final class Arez_SetterAlwaysMutatesFalsePrimitiveValue
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_SetterAlwaysMutatesFalsePrimitiveValue() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_observable_SetterAlwaysMutatesFalsePrimitiveValue." + $$arezv$$_id
         : null;
@@ -184,7 +183,7 @@ final class Arez_SetterAlwaysMutatesFalsePrimitiveValue
               + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_field.preReportChanged();
-    final int $$arezv$$_currentValue = super.getField();
+    final var $$arezv$$_currentValue = super.getField();
     if (field != $$arezv$$_currentValue) {
       super.setField(field);
       if ($$arezv$$_currentValue != super.getField()) {

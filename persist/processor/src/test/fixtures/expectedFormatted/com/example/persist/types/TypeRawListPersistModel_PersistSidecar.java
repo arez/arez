@@ -49,7 +49,7 @@ abstract class TypeRawListPersistModel_PersistSidecar {
       final Scope scope, final TypeRawListPersistModel peer) {
     assert Disposable.isNotDisposed(scope);
     assert Disposable.isNotDisposed(peer);
-    final Store appStore = ArezPersist.getStore("app");
+    final var appStore = ArezPersist.getStore("app");
     return new Arez_TypeRawListPersistModel_PersistSidecar(scope, peer, appStore);
   }
 
@@ -87,7 +87,7 @@ abstract class TypeRawListPersistModel_PersistSidecar {
   @Action(verifyRequired = false)
   @SuppressWarnings("rawtypes")
   void restoreState() {
-    final String $ap$_id = getComponentId();
+    final var $ap$_id = getComponentId();
     if (!_appStore.isDisposed() && Disposable.isNotDisposed(_scope)) {
       final Map<String, @Nullable Object> state =
           _appStore.get(_scope, Keys.TYPE, $ap$_id, Converters.TYPE_CONVERTER);

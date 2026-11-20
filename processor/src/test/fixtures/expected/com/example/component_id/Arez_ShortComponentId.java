@@ -1,7 +1,6 @@
 package com.example.component_id;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.SafeProcedure;
@@ -20,8 +19,8 @@ final class Arez_ShortComponentId extends ShortComponentId implements Disposable
 
   Arez_ShortComponentId() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final short $$arezv$$_id = getId();
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = getId();
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_component_id_ShortComponentId." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_component_id_ShortComponentId", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, 0, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, true, false, false );

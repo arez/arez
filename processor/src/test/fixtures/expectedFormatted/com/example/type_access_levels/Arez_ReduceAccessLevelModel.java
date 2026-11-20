@@ -1,7 +1,6 @@
 package com.example.type_access_levels;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.ObservableValue;
@@ -28,8 +27,8 @@ final class Arez_ReduceAccessLevelModel extends ReduceAccessLevelModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ReduceAccessLevelModel(final int foo) {
     super(foo);
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_type_access_levels_ReduceAccessLevelModel." + $$arezv$$_id
         : null;
@@ -183,7 +182,7 @@ final class Arez_ReduceAccessLevelModel extends ReduceAccessLevelModel
               + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_time.preReportChanged();
-    final long $$arezv$$_currentValue = super.getTime();
+    final var $$arezv$$_currentValue = super.getTime();
     if (time != $$arezv$$_currentValue) {
       super.setTime(time);
       this.$$arez$$_time.reportChanged();

@@ -2,7 +2,6 @@ package com.example.deprecation;
 
 import arez.ActionFlags;
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
@@ -55,8 +54,8 @@ final class Arez_DeprecationModel extends DeprecationModel
           () ->
               "Attempted to create instance of component of type 'com_example_deprecation_DeprecationModel' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component");
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name =
         Arez.areNamesEnabled() ? "com_example_deprecation_DeprecationModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled()
@@ -272,7 +271,7 @@ final class Arez_DeprecationModel extends DeprecationModel
           () -> "Attempted to lookup self in Locator with type DeprecationModel and id '"
               + $$arezi$$_id() + "' but unable to locate self. Actual value: "
               + $$arezi$$_locator().findById(DeprecationModel.class, $$arezi$$_id()));
-      final int $$arezv$$_BlahId = this.getMyEntityId();
+      final var $$arezv$$_BlahId = this.getMyEntityId();
       final DeprecationModel.MyEntity $$arezv$$_Blah =
           this.$$arezi$$_locator().findById(DeprecationModel.MyEntity.class, $$arezv$$_BlahId);
       Guards.apiInvariant(
@@ -307,7 +306,7 @@ final class Arez_DeprecationModel extends DeprecationModel
               + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_value.preReportChanged();
-    final long $$arezv$$_currentValue = super.getValue();
+    final var $$arezv$$_currentValue = super.getValue();
     if (time != $$arezv$$_currentValue) {
       super.setValue(time);
       this.$$arez$$_value.reportChanged();
@@ -462,7 +461,7 @@ final class Arez_DeprecationModel extends DeprecationModel
               + this.$$arezi$$_kernel().describeState() + " component named '"
               + this.$$arezi$$_kernel().getName() + "'");
     }
-    final int id = this.getMyEntityId();
+    final var id = this.getMyEntityId();
     this.$$arezr$$_Blah = this.$$arezi$$_locator().findById(DeprecationModel.MyEntity.class, id);
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(

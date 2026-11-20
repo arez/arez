@@ -1,7 +1,6 @@
 package com.example.collections;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.ObservableValue;
@@ -35,8 +34,8 @@ final class Arez_AbstractNonnullSetObservableModel extends AbstractNonnullSetObs
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_AbstractNonnullSetObservableModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_collections_AbstractNonnullSetObservableModel." + $$arezv$$_id
         : null;

@@ -1,7 +1,6 @@
 package com.example.requires_transaction;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.SafeProcedure;
@@ -24,8 +23,8 @@ final class Arez_InheritedRequiresTransactionModel extends InheritedRequiresTran
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_InheritedRequiresTransactionModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_requires_transaction_InheritedRequiresTransactionModel." + $$arezv$$_id
         : null;
@@ -155,7 +154,7 @@ final class Arez_InheritedRequiresTransactionModel extends InheritedRequiresTran
                   + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     if (Arez.shouldCheckInvariants()) {
-      final ArezContext $$arezv$$_context = this.$$arezi$$_kernel().getContext();
+      final var $$arezv$$_context = this.$$arezi$$_kernel().getContext();
       Guards.invariant(
           $$arezv$$_context::isTransactionActive,
           () ->

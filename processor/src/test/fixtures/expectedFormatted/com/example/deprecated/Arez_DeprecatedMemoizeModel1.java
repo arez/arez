@@ -1,7 +1,6 @@
 package com.example.deprecated;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
@@ -28,8 +27,8 @@ final class Arez_DeprecatedMemoizeModel1 extends DeprecatedMemoizeModel1
   @SuppressWarnings({"NonAtomicVolatileUpdate", "deprecation"})
   Arez_DeprecatedMemoizeModel1() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_deprecated_DeprecatedMemoizeModel1." + $$arezv$$_id
         : null;

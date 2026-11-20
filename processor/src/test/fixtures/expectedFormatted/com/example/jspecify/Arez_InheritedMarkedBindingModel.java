@@ -1,7 +1,6 @@
 package com.example.jspecify;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.ObservableValue;
@@ -33,8 +32,8 @@ final class Arez_InheritedMarkedBindingModel extends InheritedMarkedBindingModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_InheritedMarkedBindingModel(final @NonNull String value) {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_jspecify_InheritedMarkedBindingModel." + $$arezv$$_id
         : null;
@@ -190,7 +189,7 @@ final class Arez_InheritedMarkedBindingModel extends InheritedMarkedBindingModel
               + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_value.preReportChanged();
-    final String $$arezv$$_currentValue = this.$$arezd$$_value;
+    final var $$arezv$$_currentValue = this.$$arezd$$_value;
     assert null != value;
     if (!Objects.equals(value, $$arezv$$_currentValue)) {
       this.$$arezd$$_value = value;

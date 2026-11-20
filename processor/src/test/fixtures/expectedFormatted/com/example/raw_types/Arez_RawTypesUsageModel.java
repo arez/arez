@@ -2,7 +2,6 @@ package com.example.raw_types;
 
 import arez.ActionFlags;
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
@@ -64,8 +63,8 @@ final class Arez_RawTypesUsageModel extends RawTypesUsageModel
   Arez_RawTypesUsageModel(
       final @Nullable Callable myCallable, final @Nullable List<Callable> myCallableList) {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name =
         Arez.areNamesEnabled() ? "com_example_raw_types_RawTypesUsageModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled()

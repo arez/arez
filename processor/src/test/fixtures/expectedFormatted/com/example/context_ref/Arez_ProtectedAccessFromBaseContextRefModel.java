@@ -25,8 +25,8 @@ final class Arez_ProtectedAccessFromBaseContextRefModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ProtectedAccessFromBaseContextRefModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_context_ref_ProtectedAccessFromBaseContextRefModel." + $$arezv$$_id
         : null;

@@ -1,7 +1,6 @@
 package com.example.inverse;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -37,8 +36,8 @@ final class Arez_NonStandardNameModel extends NonStandardNameModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_NonStandardNameModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name =
         Arez.areNamesEnabled() ? "com_example_inverse_NonStandardNameModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled()
@@ -111,7 +110,7 @@ final class Arez_NonStandardNameModel extends NonStandardNameModel
   }
 
   private void $$arezi$$_preDispose() {
-    for (final NonStandardNameModel.Element other : new ArrayList<>($$arezd$$_zap)) {
+    for (final var other : new ArrayList<>($$arezd$$_zap)) {
       ((NonStandardNameModel_Arez_Element) other).$$arezi$$_delink_zoom();
     }
   }
@@ -214,7 +213,7 @@ final class Arez_NonStandardNameModel extends NonStandardNameModel
           () -> "Attempted to lookup self in Locator with type NonStandardNameModel and id '"
               + $$arezi$$_id() + "' but unable to locate self. Actual value: "
               + $$arezi$$_locator().findById(NonStandardNameModel.class, $$arezi$$_id()));
-      for (final NonStandardNameModel.Element element : this.$$arezd$$_zap) {
+      for (final var element : this.$$arezd$$_zap) {
         if (Arez.shouldCheckApiInvariants()) {
           Guards.apiInvariant(
               () -> Disposable.isNotDisposed(element),
@@ -237,7 +236,7 @@ final class Arez_NonStandardNameModel extends NonStandardNameModel
     }
     this.$$arez$$_zap.reportObserved();
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final Collection<NonStandardNameModel.Element> $$ar$$_result = this.$$arezd$$_zap;
+      final var $$ar$$_result = this.$$arezd$$_zap;
       if (null == this.$$arezd$$_$$cache$$_zap && null != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_zap = CollectionsUtil.wrap($$ar$$_result);
       }

@@ -1,7 +1,6 @@
 package com.example.reserved_names;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.SafeProcedure;
@@ -24,8 +23,8 @@ final class Arez_NonReservedNameModel extends NonReservedNameModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_NonReservedNameModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_reserved_names_NonReservedNameModel." + $$arezv$$_id
         : null;

@@ -1,7 +1,6 @@
 package com.example.computable_value_ref;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
@@ -28,8 +27,8 @@ final class Arez_PackageAccessComputableValueRefModel extends PackageAccessCompu
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_PackageAccessComputableValueRefModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_computable_value_ref_PackageAccessComputableValueRefModel." + $$arezv$$_id
         : null;

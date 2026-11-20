@@ -1,7 +1,6 @@
 package com.example.inverse.other;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -37,8 +36,8 @@ final class Arez_Element extends Element
           () ->
               "Attempted to create instance of component of type 'com_example_inverse_other_Element' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component");
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name =
         Arez.areNamesEnabled() ? "com_example_inverse_other_Element." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled()
@@ -199,7 +198,7 @@ final class Arez_Element extends Element
           () -> "Attempted to lookup self in Locator with type Element and id '" + $$arezi$$_id()
               + "' but unable to locate self. Actual value: "
               + $$arezi$$_locator().findById(Element.class, $$arezi$$_id()));
-      final int $$arezv$$_packageAccessWithDifferentPackageInverseModelId =
+      final var $$arezv$$_packageAccessWithDifferentPackageInverseModelId =
           this.getPackageAccessWithDifferentPackageInverseModelId();
       final PackageAccessWithDifferentPackageInverseModel
           $$arezv$$_packageAccessWithDifferentPackageInverseModel = this.$$arezi$$_locator()
@@ -248,7 +247,7 @@ final class Arez_Element extends Element
                   + this.$$arezi$$_kernel().describeState() + " component named '"
                   + this.$$arezi$$_kernel().getName() + "'");
     }
-    final int id = this.getPackageAccessWithDifferentPackageInverseModelId();
+    final var id = this.getPackageAccessWithDifferentPackageInverseModelId();
     this.$$arezr$$_packageAccessWithDifferentPackageInverseModel =
         this.$$arezi$$_locator().findById(PackageAccessWithDifferentPackageInverseModel.class, id);
     if (Arez.shouldCheckApiInvariants()) {
