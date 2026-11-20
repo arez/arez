@@ -1,7 +1,6 @@
 package com.example.sting;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.SafeProcedure;
@@ -28,8 +27,8 @@ final class Arez_MultipleArgsStingModel extends MultipleArgsStingModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_MultipleArgsStingModel(final int i, final @Nullable String foo) {
     super(i, foo);
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name =
         Arez.areNamesEnabled() ? "com_example_sting_MultipleArgsStingModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled()

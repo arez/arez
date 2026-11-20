@@ -1,7 +1,6 @@
 package com.example.inverse;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -49,8 +48,8 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType
   @SuppressWarnings("NonAtomicVolatileUpdate")
   MultipleReferenceWithInverseWithSameTarget_Arez_RoleType() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_inverse_MultipleReferenceWithInverseWithSameTarget_RoleType." + $$arezv$$_id
         : null;
@@ -140,8 +139,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType
   }
 
   private void $$arezi$$_preDispose() {
-    for (final MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation other :
-        new ArrayList<>($$arezd$$_childGeneralisations)) {
+    for (final var other : new ArrayList<>($$arezd$$_childGeneralisations)) {
       ((MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation) other)
           .$$arezi$$_delink_parent();
     }
@@ -258,8 +256,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType
                       .findById(
                           MultipleReferenceWithInverseWithSameTarget.RoleType.class,
                           $$arezi$$_id()));
-      for (final MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation element :
-          this.$$arezd$$_childGeneralisations) {
+      for (final var element : this.$$arezd$$_childGeneralisations) {
         if (Arez.shouldCheckApiInvariants()) {
           Guards.apiInvariant(
               () -> Disposable.isNotDisposed(element),

@@ -1,7 +1,6 @@
 package com.example.deprecated;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observer;
@@ -29,8 +28,8 @@ final class Arez_DeprecatedObserveModel extends DeprecatedObserveModel implement
   })
   Arez_DeprecatedObserveModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_deprecated_DeprecatedObserveModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_deprecated_DeprecatedObserveModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );

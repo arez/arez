@@ -1,7 +1,6 @@
 package com.example.post_inverse_add;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -49,8 +48,8 @@ final class Arez_ProtectedAccessFromBasePostInverseAddModel extends ProtectedAcc
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ProtectedAccessFromBasePostInverseAddModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_post_inverse_add_ProtectedAccessFromBasePostInverseAddModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_post_inverse_add_ProtectedAccessFromBasePostInverseAddModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
@@ -92,7 +91,7 @@ final class Arez_ProtectedAccessFromBasePostInverseAddModel extends ProtectedAcc
   }
 
   private void $$arezi$$_preDispose() {
-    for ( final BaseProtectedAccessPostInverseAddModel.Element other : new ArrayList<>( $$arezd$$_elements ) ) {
+    for ( final var other : new ArrayList<>( $$arezd$$_elements ) ) {
       BaseProtectedAccessPostInverseAddModel_Arez_Element_References.$$arezi$$_delink_other( other );
     }
     if ( null != $$arezd$$_required ) {
@@ -169,7 +168,7 @@ final class Arez_ProtectedAccessFromBasePostInverseAddModel extends ProtectedAcc
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( ProtectedAccessFromBasePostInverseAddModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type ProtectedAccessFromBasePostInverseAddModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( ProtectedAccessFromBasePostInverseAddModel.class, $$arezi$$_id() ) );
-      for( final BaseProtectedAccessPostInverseAddModel.Element element : this.$$arezd$$_elements ) {
+      for( final var element : this.$$arezd$$_elements ) {
         if ( Arez.shouldCheckApiInvariants() ) {
           Guards.apiInvariant( () -> Disposable.isNotDisposed( element ), () -> "Inverse relationship named 'elements' on component named '" + this.$$arezi$$_kernel().getName() + "' contains disposed element '" + element + "'" );
         }
@@ -190,7 +189,7 @@ final class Arez_ProtectedAccessFromBasePostInverseAddModel extends ProtectedAcc
     }
     this.$$arez$$_elements.reportObserved();
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      final Collection<BaseProtectedAccessPostInverseAddModel.Element> $$ar$$_result = this.$$arezd$$_elements;
+      final var $$ar$$_result = this.$$arezd$$_elements;
       if ( null == this.$$arezd$$_$$cache$$_elements && null != $$ar$$_result ) {
         this.$$arezd$$_$$cache$$_elements = CollectionsUtil.wrap( $$ar$$_result );
       }

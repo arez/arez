@@ -2,7 +2,6 @@ package com.example.type_params;
 
 import arez.ActionFlags;
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
@@ -30,8 +29,8 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
 
   Arez_ConcreteModel(final @Nullable W writer) {
     super(writer);
-    final ArezContext $$arezv$$_context = Arez.context();
-    final IOException $$arezv$$_id = getComponentId();
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = getComponentId();
     final String $$arezv$$_name =
         Arez.areNamesEnabled() ? "com_example_type_params_ConcreteModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled()
@@ -68,8 +67,8 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
 
   Arez_ConcreteModel(final @Nullable IOException error) {
     super(error);
-    final ArezContext $$arezv$$_context = Arez.context();
-    final IOException $$arezv$$_id = getComponentId();
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = getComponentId();
     final String $$arezv$$_name =
         Arez.areNamesEnabled() ? "com_example_type_params_ConcreteModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled()
@@ -106,8 +105,8 @@ final class Arez_ConcreteModel<W extends Writer> extends ConcreteModel<W>
 
   Arez_ConcreteModel(final @Nullable IOException error, final @Nullable W writer, final int i) {
     super(error, writer, i);
-    final ArezContext $$arezv$$_context = Arez.context();
-    final IOException $$arezv$$_id = getComponentId();
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = getComponentId();
     final String $$arezv$$_name =
         Arez.areNamesEnabled() ? "com_example_type_params_ConcreteModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled()

@@ -1,7 +1,6 @@
 package com.example.inheritance.other;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -40,8 +39,8 @@ final class Arez_Element extends Element
           () ->
               "Attempted to create instance of component of type 'com_example_inheritance_other_Element' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component");
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name =
         Arez.areNamesEnabled() ? "com_example_inheritance_other_Element." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled()
@@ -203,7 +202,7 @@ final class Arez_Element extends Element
           () -> "Attempted to lookup self in Locator with type Element and id '" + $$arezi$$_id()
               + "' but unable to locate self. Actual value: "
               + $$arezi$$_locator().findById(Element.class, $$arezi$$_id()));
-      final int $$arezv$$_completeModelId = this.getCompleteModelId();
+      final var $$arezv$$_completeModelId = this.getCompleteModelId();
       final CompleteModel $$arezv$$_completeModel =
           this.$$arezi$$_locator().findById(CompleteModel.class, $$arezv$$_completeModelId);
       Guards.apiInvariant(
@@ -212,7 +211,7 @@ final class Arez_Element extends Element
               + this.$$arezi$$_kernel().getName()
               + "' is unable to resolve entity of type com.example.inheritance.CompleteModel and id = "
               + getCompleteModelId());
-      final int $$arezv$$_childId = this.getChildId();
+      final var $$arezv$$_childId = this.getChildId();
       final CompleteModel $$arezv$$_child =
           this.$$arezi$$_locator().findById(CompleteModel.class, $$arezv$$_childId);
       Guards.apiInvariant(
@@ -277,7 +276,7 @@ final class Arez_Element extends Element
               + this.$$arezi$$_kernel().describeState() + " component named '"
               + this.$$arezi$$_kernel().getName() + "'");
     }
-    final int id = this.getCompleteModelId();
+    final var id = this.getCompleteModelId();
     this.$$arezr$$_completeModel = this.$$arezi$$_locator().findById(CompleteModel.class, id);
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(
@@ -327,7 +326,7 @@ final class Arez_Element extends Element
               + this.$$arezi$$_kernel().getName() + "'");
     }
     if (null == this.$$arezr$$_child) {
-      final int id = this.getChildId();
+      final var id = this.getChildId();
       this.$$arezr$$_child = this.$$arezi$$_locator().findById(CompleteModel.class, id);
       if (Arez.shouldCheckApiInvariants()) {
         Guards.apiInvariant(

@@ -1,7 +1,6 @@
 package com.example.inverse;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -43,8 +42,8 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType extends Mul
   @SuppressWarnings("NonAtomicVolatileUpdate")
   MultipleReferenceWithInverseWithSameTarget_Arez_RoleType() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_inverse_MultipleReferenceWithInverseWithSameTarget_RoleType." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_inverse_MultipleReferenceWithInverseWithSameTarget_RoleType", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
@@ -85,7 +84,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType extends Mul
   }
 
   private void $$arezi$$_preDispose() {
-    for ( final MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation other : new ArrayList<>( $$arezd$$_childGeneralisations ) ) {
+    for ( final var other : new ArrayList<>( $$arezd$$_childGeneralisations ) ) {
       ( (MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisation) other ).$$arezi$$_delink_parent();
     }
     if ( null != $$arezd$$_parentGeneralisation ) {
@@ -158,7 +157,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleType extends Mul
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( MultipleReferenceWithInverseWithSameTarget.RoleType.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type MultipleReferenceWithInverseWithSameTarget.RoleType and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( MultipleReferenceWithInverseWithSameTarget.RoleType.class, $$arezi$$_id() ) );
-      for( final MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation element : this.$$arezd$$_childGeneralisations ) {
+      for( final var element : this.$$arezd$$_childGeneralisations ) {
         if ( Arez.shouldCheckApiInvariants() ) {
           Guards.apiInvariant( () -> Disposable.isNotDisposed( element ), () -> "Inverse relationship named 'childGeneralisations' on component named '" + this.$$arezi$$_kernel().getName() + "' contains disposed element '" + element + "'" );
         }

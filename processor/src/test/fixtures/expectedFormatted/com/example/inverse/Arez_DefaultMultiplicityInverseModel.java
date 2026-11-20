@@ -1,7 +1,6 @@
 package com.example.inverse;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -39,8 +38,8 @@ final class Arez_DefaultMultiplicityInverseModel extends DefaultMultiplicityInve
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_DefaultMultiplicityInverseModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_inverse_DefaultMultiplicityInverseModel." + $$arezv$$_id
         : null;
@@ -114,8 +113,7 @@ final class Arez_DefaultMultiplicityInverseModel extends DefaultMultiplicityInve
   }
 
   private void $$arezi$$_preDispose() {
-    for (final DefaultMultiplicityInverseModel.Element other :
-        new ArrayList<>($$arezd$$_elements)) {
+    for (final var other : new ArrayList<>($$arezd$$_elements)) {
       ((DefaultMultiplicityInverseModel_Arez_Element) other)
           .$$arezi$$_delink_defaultMultiplicityInverseModel();
     }
@@ -223,7 +221,7 @@ final class Arez_DefaultMultiplicityInverseModel extends DefaultMultiplicityInve
                   + $$arezi$$_id() + "' but unable to locate self. Actual value: "
                   + $$arezi$$_locator()
                       .findById(DefaultMultiplicityInverseModel.class, $$arezi$$_id()));
-      for (final DefaultMultiplicityInverseModel.Element element : this.$$arezd$$_elements) {
+      for (final var element : this.$$arezd$$_elements) {
         if (Arez.shouldCheckApiInvariants()) {
           Guards.apiInvariant(
               () -> Disposable.isNotDisposed(element),
@@ -247,8 +245,7 @@ final class Arez_DefaultMultiplicityInverseModel extends DefaultMultiplicityInve
     }
     this.$$arez$$_elements.reportObserved();
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final Collection<DefaultMultiplicityInverseModel.Element> $$ar$$_result =
-          this.$$arezd$$_elements;
+      final var $$ar$$_result = this.$$arezd$$_elements;
       if (null == this.$$arezd$$_$$cache$$_elements && null != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_elements = CollectionsUtil.wrap($$ar$$_result);
       }

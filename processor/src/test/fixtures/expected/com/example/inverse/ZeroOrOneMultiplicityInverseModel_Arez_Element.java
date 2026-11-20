@@ -1,7 +1,6 @@
 package com.example.inverse;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -33,8 +32,8 @@ final class ZeroOrOneMultiplicityInverseModel_Arez_Element extends ZeroOrOneMult
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( Arez::areReferencesEnabled, () -> "Attempted to create instance of component of type 'com_example_inverse_ZeroOrOneMultiplicityInverseModel_Element' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component" );
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_inverse_ZeroOrOneMultiplicityInverseModel_Element." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_inverse_ZeroOrOneMultiplicityInverseModel_Element", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, null, null, true, false, false );
@@ -135,7 +134,7 @@ final class ZeroOrOneMultiplicityInverseModel_Arez_Element extends ZeroOrOneMult
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( ZeroOrOneMultiplicityInverseModel.Element.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type ZeroOrOneMultiplicityInverseModel.Element and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( ZeroOrOneMultiplicityInverseModel.Element.class, $$arezi$$_id() ) );
-      final int $$arezv$$_zeroOrOneMultiplicityInverseModelId = this.getZeroOrOneMultiplicityInverseModelId();
+      final var $$arezv$$_zeroOrOneMultiplicityInverseModelId = this.getZeroOrOneMultiplicityInverseModelId();
       final ZeroOrOneMultiplicityInverseModel $$arezv$$_zeroOrOneMultiplicityInverseModel = this.$$arezi$$_locator().findById( ZeroOrOneMultiplicityInverseModel.class, $$arezv$$_zeroOrOneMultiplicityInverseModelId );
       Guards.apiInvariant( () -> null != $$arezv$$_zeroOrOneMultiplicityInverseModel, () -> "Reference named 'zeroOrOneMultiplicityInverseModel' on component named '" + this.$$arezi$$_kernel().getName() + "' is unable to resolve entity of type com.example.inverse.ZeroOrOneMultiplicityInverseModel and id = " + getZeroOrOneMultiplicityInverseModelId() );
     }
@@ -157,7 +156,7 @@ final class ZeroOrOneMultiplicityInverseModel_Arez_Element extends ZeroOrOneMult
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named '$$arezi$$_link_zeroOrOneMultiplicityInverseModel' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
-    final int id = this.getZeroOrOneMultiplicityInverseModelId();
+    final var id = this.getZeroOrOneMultiplicityInverseModelId();
     this.$$arezr$$_zeroOrOneMultiplicityInverseModel = this.$$arezi$$_locator().findById( ZeroOrOneMultiplicityInverseModel.class, id );
     if ( Arez.shouldCheckApiInvariants() ) {
       Guards.apiInvariant( () -> null != $$arezr$$_zeroOrOneMultiplicityInverseModel, () -> "Reference named 'zeroOrOneMultiplicityInverseModel' on component named '" + this.$$arezi$$_kernel().getName() + "' is unable to resolve entity of type com.example.inverse.ZeroOrOneMultiplicityInverseModel and id = " + getZeroOrOneMultiplicityInverseModelId() );

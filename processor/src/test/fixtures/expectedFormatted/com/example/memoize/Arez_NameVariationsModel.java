@@ -1,7 +1,6 @@
 package com.example.memoize;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
@@ -34,8 +33,8 @@ final class Arez_NameVariationsModel extends NameVariationsModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_NameVariationsModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name =
         Arez.areNamesEnabled() ? "com_example_memoize_NameVariationsModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled()

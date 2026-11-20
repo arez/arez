@@ -1,7 +1,6 @@
 package com.example.mapped_relationship;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
@@ -46,8 +45,8 @@ final class Arez_OverloadedModel extends OverloadedModel implements Disposable, 
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_OverloadedModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_mapped_relationship_OverloadedModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_mapped_relationship_OverloadedModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
@@ -148,7 +147,7 @@ final class Arez_OverloadedModel extends OverloadedModel implements Disposable, 
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getItems' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      final List<Target> $$ar$$_result = this.$$arez$$_items.get();
+      final var $$ar$$_result = this.$$arez$$_items.get();
       if ( this.$$arezd$$_$$cache$$_items != $$ar$$_result ) {
         this.$$arezd$$_$$cache$$_items = $$ar$$_result;
         this.$$arezd$$_$$unmodifiable_cache$$_items = CollectionsUtil.wrap( $$ar$$_result );
@@ -186,7 +185,7 @@ final class Arez_OverloadedModel extends OverloadedModel implements Disposable, 
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'getNullItems' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      final List<Target> $$ar$$_result = this.$$arez$$_nullItems.get();
+      final var $$ar$$_result = this.$$arez$$_nullItems.get();
       if ( this.$$arezd$$_$$cache$$_nullItems != $$ar$$_result ) {
         this.$$arezd$$_$$cache$$_nullItems = $$ar$$_result;
         this.$$arezd$$_$$unmodifiable_cache$$_nullItems = CollectionsUtil.wrap( $$ar$$_result );

@@ -1,7 +1,6 @@
 package com.example.inverse;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -34,8 +33,8 @@ final class Arez_NonObservableNullableOneReferenceModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_NonObservableNullableOneReferenceModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_inverse_NonObservableNullableOneReferenceModel." + $$arezv$$_id
         : null;

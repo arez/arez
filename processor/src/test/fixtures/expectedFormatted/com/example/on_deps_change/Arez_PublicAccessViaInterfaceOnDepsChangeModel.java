@@ -1,7 +1,6 @@
 package com.example.on_deps_change;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observer;
@@ -28,8 +27,8 @@ final class Arez_PublicAccessViaInterfaceOnDepsChangeModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_PublicAccessViaInterfaceOnDepsChangeModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_on_deps_change_PublicAccessViaInterfaceOnDepsChangeModel." + $$arezv$$_id
         : null;

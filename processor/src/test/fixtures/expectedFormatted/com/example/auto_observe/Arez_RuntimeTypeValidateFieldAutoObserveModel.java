@@ -1,7 +1,6 @@
 package com.example.auto_observe;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observer;
@@ -36,8 +35,8 @@ final class Arez_RuntimeTypeValidateFieldAutoObserveModel
               "Field annotated with @AutoObserve( validateTypeAtRuntime = true ) references a non-null value that does not implement ComponentObservable. Value: "
                   + this._field);
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_auto_observe_RuntimeTypeValidateFieldAutoObserveModel." + $$arezv$$_id
         : null;

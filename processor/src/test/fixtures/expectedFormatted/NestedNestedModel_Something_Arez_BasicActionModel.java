@@ -1,6 +1,5 @@
 import arez.ActionFlags;
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.SafeProcedure;
@@ -24,8 +23,8 @@ final class NestedNestedModel_Something_Arez_BasicActionModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   NestedNestedModel_Something_Arez_BasicActionModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "NestedNestedModel_Something_BasicActionModel." + $$arezv$$_id
         : null;

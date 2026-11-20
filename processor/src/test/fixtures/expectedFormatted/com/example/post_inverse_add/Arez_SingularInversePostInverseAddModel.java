@@ -1,7 +1,6 @@
 package com.example.post_inverse_add;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -33,8 +32,8 @@ final class Arez_SingularInversePostInverseAddModel extends SingularInversePostI
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_SingularInversePostInverseAddModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_post_inverse_add_SingularInversePostInverseAddModel." + $$arezv$$_id
         : null;

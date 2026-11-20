@@ -1,7 +1,6 @@
 package com.example.reference;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -34,8 +33,8 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel
           () ->
               "Attempted to create instance of component of type 'com_example_reference_CustomNameReferenceModel' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component");
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_reference_CustomNameReferenceModel." + $$arezv$$_id
         : null;
@@ -193,7 +192,7 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel
           () -> "Attempted to lookup self in Locator with type CustomNameReferenceModel and id '"
               + $$arezi$$_id() + "' but unable to locate self. Actual value: "
               + $$arezi$$_locator().findById(CustomNameReferenceModel.class, $$arezi$$_id()));
-      final int $$arezv$$_BlahId = this.getMyEntityId();
+      final var $$arezv$$_BlahId = this.getMyEntityId();
       final CustomNameReferenceModel.MyEntity $$arezv$$_Blah = this.$$arezi$$_locator()
           .findById(CustomNameReferenceModel.MyEntity.class, $$arezv$$_BlahId);
       Guards.apiInvariant(
@@ -233,7 +232,7 @@ final class Arez_CustomNameReferenceModel extends CustomNameReferenceModel
               + this.$$arezi$$_kernel().describeState() + " component named '"
               + this.$$arezi$$_kernel().getName() + "'");
     }
-    final int id = this.getMyEntityId();
+    final var id = this.getMyEntityId();
     this.$$arezr$$_Blah =
         this.$$arezi$$_locator().findById(CustomNameReferenceModel.MyEntity.class, id);
     if (Arez.shouldCheckApiInvariants()) {

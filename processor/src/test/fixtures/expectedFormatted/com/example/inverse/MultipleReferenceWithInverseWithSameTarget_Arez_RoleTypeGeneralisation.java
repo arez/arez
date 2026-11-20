@@ -1,7 +1,6 @@
 package com.example.inverse;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -40,8 +39,8 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
           () ->
               "Attempted to create instance of component of type 'com_example_inverse_MultipleReferenceWithInverseWithSameTarget_RoleTypeGeneralisation' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component");
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_inverse_MultipleReferenceWithInverseWithSameTarget_RoleTypeGeneralisation."
             + $$arezv$$_id
@@ -212,7 +211,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
                       .findById(
                           MultipleReferenceWithInverseWithSameTarget.RoleTypeGeneralisation.class,
                           $$arezi$$_id()));
-      final int $$arezv$$_parentId = this.getParentId();
+      final var $$arezv$$_parentId = this.getParentId();
       final MultipleReferenceWithInverseWithSameTarget.RoleType $$arezv$$_parent =
           this.$$arezi$$_locator()
               .findById(
@@ -223,7 +222,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
               + this.$$arezi$$_kernel().getName()
               + "' is unable to resolve entity of type com.example.inverse.MultipleReferenceWithInverseWithSameTarget.RoleType and id = "
               + getParentId());
-      final int $$arezv$$_childId = this.getChildId();
+      final var $$arezv$$_childId = this.getChildId();
       final MultipleReferenceWithInverseWithSameTarget.RoleType $$arezv$$_child =
           this.$$arezi$$_locator()
               .findById(
@@ -289,7 +288,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
               + this.$$arezi$$_kernel().getName() + "'");
     }
     if (null == this.$$arezr$$_parent) {
-      final int id = this.getParentId();
+      final var id = this.getParentId();
       this.$$arezr$$_parent = this.$$arezi$$_locator()
           .findById(MultipleReferenceWithInverseWithSameTarget.RoleType.class, id);
       if (Arez.shouldCheckApiInvariants()) {
@@ -342,7 +341,7 @@ final class MultipleReferenceWithInverseWithSameTarget_Arez_RoleTypeGeneralisati
               + this.$$arezi$$_kernel().getName() + "'");
     }
     if (null == this.$$arezr$$_child) {
-      final int id = this.getChildId();
+      final var id = this.getChildId();
       this.$$arezr$$_child = this.$$arezi$$_locator()
           .findById(MultipleReferenceWithInverseWithSameTarget.RoleType.class, id);
       if (Arez.shouldCheckApiInvariants()) {

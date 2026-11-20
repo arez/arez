@@ -1,7 +1,6 @@
 package com.example.observable_value_ref;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.ObservableValue;
@@ -30,8 +29,8 @@ final class Arez_PackageAccessObservableValueRefModel extends PackageAccessObser
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_PackageAccessObservableValueRefModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_observable_value_ref_PackageAccessObservableValueRefModel." + $$arezv$$_id
         : null;
@@ -185,7 +184,7 @@ final class Arez_PackageAccessObservableValueRefModel extends PackageAccessObser
               + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_time.preReportChanged();
-    final long $$arezv$$_currentValue = this.$$arezd$$_time;
+    final var $$arezv$$_currentValue = this.$$arezd$$_time;
     if (time != $$arezv$$_currentValue) {
       this.$$arezd$$_time = time;
       this.$$arez$$_time.reportChanged();

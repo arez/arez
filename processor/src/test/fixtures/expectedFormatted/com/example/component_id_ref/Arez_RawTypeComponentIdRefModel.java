@@ -1,7 +1,6 @@
 package com.example.component_id_ref;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.SafeProcedure;
@@ -23,8 +22,8 @@ final class Arez_RawTypeComponentIdRefModel extends RawTypeComponentIdRefModel
   @SuppressWarnings("rawtypes")
   Arez_RawTypeComponentIdRefModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final RawTypeComponentIdRefModel.MyId $$arezv$$_id = id();
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = id();
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_component_id_ref_RawTypeComponentIdRefModel." + $$arezv$$_id
         : null;

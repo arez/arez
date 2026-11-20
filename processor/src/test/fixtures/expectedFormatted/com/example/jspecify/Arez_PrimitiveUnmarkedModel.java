@@ -1,7 +1,6 @@
 package com.example.jspecify;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.ObservableValue;
@@ -32,8 +31,8 @@ final class Arez_PrimitiveUnmarkedModel extends PrimitiveUnmarkedModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_PrimitiveUnmarkedModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_jspecify_PrimitiveUnmarkedModel." + $$arezv$$_id
         : null;
@@ -189,7 +188,7 @@ final class Arez_PrimitiveUnmarkedModel extends PrimitiveUnmarkedModel
               + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_count.preReportChanged();
-    final int $$arezv$$_currentValue = this.$$arezd$$_count;
+    final var $$arezv$$_currentValue = this.$$arezd$$_count;
     if (count != $$arezv$$_currentValue) {
       this.$$arezd$$_count = count;
       this.$$arez$$_count.reportChanged();

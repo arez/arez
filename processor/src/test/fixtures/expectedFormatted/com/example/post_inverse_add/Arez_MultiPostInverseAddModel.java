@@ -1,7 +1,6 @@
 package com.example.post_inverse_add;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -38,8 +37,8 @@ final class Arez_MultiPostInverseAddModel extends MultiPostInverseAddModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_MultiPostInverseAddModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_post_inverse_add_MultiPostInverseAddModel." + $$arezv$$_id
         : null;
@@ -113,7 +112,7 @@ final class Arez_MultiPostInverseAddModel extends MultiPostInverseAddModel
   }
 
   private void $$arezi$$_preDispose() {
-    for (final MultiPostInverseAddModel.Element other : new ArrayList<>($$arezd$$_elements)) {
+    for (final var other : new ArrayList<>($$arezd$$_elements)) {
       ((MultiPostInverseAddModel_Arez_Element) other).$$arezi$$_delink_other();
     }
   }
@@ -217,7 +216,7 @@ final class Arez_MultiPostInverseAddModel extends MultiPostInverseAddModel
           () -> "Attempted to lookup self in Locator with type MultiPostInverseAddModel and id '"
               + $$arezi$$_id() + "' but unable to locate self. Actual value: "
               + $$arezi$$_locator().findById(MultiPostInverseAddModel.class, $$arezi$$_id()));
-      for (final MultiPostInverseAddModel.Element element : this.$$arezd$$_elements) {
+      for (final var element : this.$$arezd$$_elements) {
         if (Arez.shouldCheckApiInvariants()) {
           Guards.apiInvariant(
               () -> Disposable.isNotDisposed(element),
@@ -241,7 +240,7 @@ final class Arez_MultiPostInverseAddModel extends MultiPostInverseAddModel
     }
     this.$$arez$$_elements.reportObserved();
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final Collection<MultiPostInverseAddModel.Element> $$ar$$_result = this.$$arezd$$_elements;
+      final var $$ar$$_result = this.$$arezd$$_elements;
       if (null == this.$$arezd$$_$$cache$$_elements && null != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_elements = CollectionsUtil.wrap($$ar$$_result);
       }

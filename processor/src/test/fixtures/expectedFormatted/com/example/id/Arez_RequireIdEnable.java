@@ -1,7 +1,6 @@
 package com.example.id;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.SafeProcedure;
@@ -24,8 +23,8 @@ final class Arez_RequireIdEnable extends RequireIdEnable
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_RequireIdEnable() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name =
         Arez.areNamesEnabled() ? "com_example_id_RequireIdEnable." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled()

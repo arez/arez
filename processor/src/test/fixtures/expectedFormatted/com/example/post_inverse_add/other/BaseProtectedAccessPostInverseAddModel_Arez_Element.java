@@ -1,7 +1,6 @@
 package com.example.post_inverse_add.other;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -41,8 +40,8 @@ final class BaseProtectedAccessPostInverseAddModel_Arez_Element
           () ->
               "Attempted to create instance of component of type 'com_example_post_inverse_add_other_BaseProtectedAccessPostInverseAddModel_Element' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component");
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_post_inverse_add_other_BaseProtectedAccessPostInverseAddModel_Element."
             + $$arezv$$_id
@@ -214,7 +213,7 @@ final class BaseProtectedAccessPostInverseAddModel_Arez_Element
                   + $$arezi$$_locator()
                       .findById(
                           BaseProtectedAccessPostInverseAddModel.Element.class, $$arezi$$_id()));
-      final int $$arezv$$_otherId = this.OtherId();
+      final var $$arezv$$_otherId = this.OtherId();
       final ProtectedAccessFromBasePostInverseAddModel $$arezv$$_other = this.$$arezi$$_locator()
           .findById(ProtectedAccessFromBasePostInverseAddModel.class, $$arezv$$_otherId);
       Guards.apiInvariant(
@@ -223,7 +222,7 @@ final class BaseProtectedAccessPostInverseAddModel_Arez_Element
               + this.$$arezi$$_kernel().getName()
               + "' is unable to resolve entity of type com.example.post_inverse_add.ProtectedAccessFromBasePostInverseAddModel and id = "
               + OtherId());
-      final int $$arezv$$_requiredOwnerId = this.getRequiredOwnerId();
+      final var $$arezv$$_requiredOwnerId = this.getRequiredOwnerId();
       final ProtectedAccessFromBasePostInverseAddModel $$arezv$$_requiredOwner =
           this.$$arezi$$_locator()
               .findById(
@@ -234,7 +233,7 @@ final class BaseProtectedAccessPostInverseAddModel_Arez_Element
               + this.$$arezi$$_kernel().getName()
               + "' is unable to resolve entity of type com.example.post_inverse_add.ProtectedAccessFromBasePostInverseAddModel and id = "
               + getRequiredOwnerId());
-      final int $$arezv$$_optionalOwnerId = this.getOptionalOwnerId();
+      final var $$arezv$$_optionalOwnerId = this.getOptionalOwnerId();
       final ProtectedAccessFromBasePostInverseAddModel $$arezv$$_optionalOwner =
           this.$$arezi$$_locator()
               .findById(
@@ -276,7 +275,7 @@ final class BaseProtectedAccessPostInverseAddModel_Arez_Element
               + this.$$arezi$$_kernel().describeState() + " component named '"
               + this.$$arezi$$_kernel().getName() + "'");
     }
-    final int id = this.OtherId();
+    final var id = this.OtherId();
     this.$$arezr$$_other =
         this.$$arezi$$_locator().findById(ProtectedAccessFromBasePostInverseAddModel.class, id);
     if (Arez.shouldCheckApiInvariants()) {
@@ -330,7 +329,7 @@ final class BaseProtectedAccessPostInverseAddModel_Arez_Element
               + this.$$arezi$$_kernel().describeState() + " component named '"
               + this.$$arezi$$_kernel().getName() + "'");
     }
-    final int id = this.getRequiredOwnerId();
+    final var id = this.getRequiredOwnerId();
     this.$$arezr$$_requiredOwner =
         this.$$arezi$$_locator().findById(ProtectedAccessFromBasePostInverseAddModel.class, id);
     if (Arez.shouldCheckApiInvariants()) {
@@ -384,7 +383,7 @@ final class BaseProtectedAccessPostInverseAddModel_Arez_Element
               + this.$$arezi$$_kernel().describeState() + " component named '"
               + this.$$arezi$$_kernel().getName() + "'");
     }
-    final int id = this.getOptionalOwnerId();
+    final var id = this.getOptionalOwnerId();
     this.$$arezr$$_optionalOwner =
         this.$$arezi$$_locator().findById(ProtectedAccessFromBasePostInverseAddModel.class, id);
     if (Arez.shouldCheckApiInvariants()) {

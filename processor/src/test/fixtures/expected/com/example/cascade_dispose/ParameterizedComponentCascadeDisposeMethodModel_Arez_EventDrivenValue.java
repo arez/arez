@@ -1,7 +1,6 @@
 package com.example.cascade_dispose;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.component.internal.ComponentKernel;
@@ -20,8 +19,8 @@ final class ParameterizedComponentCascadeDisposeMethodModel_Arez_EventDrivenValu
   @SuppressWarnings("NonAtomicVolatileUpdate")
   ParameterizedComponentCascadeDisposeMethodModel_Arez_EventDrivenValue() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ( Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled() ) ? ++$$arezi$$_nextId : 0;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_cascade_dispose_ParameterizedComponentCascadeDisposeMethodModel_EventDrivenValue." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_cascade_dispose_ParameterizedComponentCascadeDisposeMethodModel_EventDrivenValue", $$arezv$$_id, $$arezv$$_name ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, null, null, false, false, false );

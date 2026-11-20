@@ -1,7 +1,6 @@
 package com.example.inverse;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -34,8 +33,8 @@ final class NonStandardNameModel_Arez_Element extends NonStandardNameModel.Eleme
           () ->
               "Attempted to create instance of component of type 'com_example_inverse_NonStandardNameModel_Element' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component");
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_inverse_NonStandardNameModel_Element." + $$arezv$$_id
         : null;
@@ -200,7 +199,7 @@ final class NonStandardNameModel_Arez_Element extends NonStandardNameModel.Eleme
                   + $$arezi$$_id() + "' but unable to locate self. Actual value: "
                   + $$arezi$$_locator()
                       .findById(NonStandardNameModel.Element.class, $$arezi$$_id()));
-      final int $$arezv$$_zoomId = this.$$$getXId();
+      final var $$arezv$$_zoomId = this.$$$getXId();
       final NonStandardNameModel $$arezv$$_zoom =
           this.$$arezi$$_locator().findById(NonStandardNameModel.class, $$arezv$$_zoomId);
       Guards.apiInvariant(
@@ -240,7 +239,7 @@ final class NonStandardNameModel_Arez_Element extends NonStandardNameModel.Eleme
               + this.$$arezi$$_kernel().describeState() + " component named '"
               + this.$$arezi$$_kernel().getName() + "'");
     }
-    final int id = this.$$$getXId();
+    final var id = this.$$$getXId();
     this.$$arezr$$_zoom = this.$$arezi$$_locator().findById(NonStandardNameModel.class, id);
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(

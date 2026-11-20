@@ -1,7 +1,6 @@
 package com.example.inverse;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -39,8 +38,8 @@ final class Arez_ObservableSetInverseModel extends ObservableSetInverseModel imp
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ObservableSetInverseModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_inverse_ObservableSetInverseModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_inverse_ObservableSetInverseModel", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_preDispose, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
@@ -80,7 +79,7 @@ final class Arez_ObservableSetInverseModel extends ObservableSetInverseModel imp
   }
 
   private void $$arezi$$_preDispose() {
-    for ( final ObservableSetInverseModel.Element other : new ArrayList<>( $$arezd$$_elements ) ) {
+    for ( final var other : new ArrayList<>( $$arezd$$_elements ) ) {
       ( (ObservableSetInverseModel_Arez_Element) other ).$$arezi$$_delink_observableSetInverseModel();
     }
   }
@@ -149,7 +148,7 @@ final class Arez_ObservableSetInverseModel extends ObservableSetInverseModel imp
     }
     if ( Arez.shouldCheckApiInvariants() && Arez.isVerifyEnabled() ) {
       Guards.apiInvariant( () -> this == $$arezi$$_locator().findById( ObservableSetInverseModel.class, $$arezi$$_id() ), () -> "Attempted to lookup self in Locator with type ObservableSetInverseModel and id '" + $$arezi$$_id() + "' but unable to locate self. Actual value: " + $$arezi$$_locator().findById( ObservableSetInverseModel.class, $$arezi$$_id() ) );
-      for( final ObservableSetInverseModel.Element element : this.$$arezd$$_elements ) {
+      for( final var element : this.$$arezd$$_elements ) {
         if ( Arez.shouldCheckApiInvariants() ) {
           Guards.apiInvariant( () -> Disposable.isNotDisposed( element ), () -> "Inverse relationship named 'elements' on component named '" + this.$$arezi$$_kernel().getName() + "' contains disposed element '" + element + "'" );
         }
@@ -164,7 +163,7 @@ final class Arez_ObservableSetInverseModel extends ObservableSetInverseModel imp
     }
     this.$$arez$$_elements.reportObserved();
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
-      final Set<ObservableSetInverseModel.Element> $$ar$$_result = this.$$arezd$$_elements;
+      final var $$ar$$_result = this.$$arezd$$_elements;
       if ( null == this.$$arezd$$_$$cache$$_elements && null != $$ar$$_result ) {
         this.$$arezd$$_$$cache$$_elements = CollectionsUtil.wrap( $$ar$$_result );
       }

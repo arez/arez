@@ -1,7 +1,6 @@
 package com.example.observable;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.ObservableValue;
@@ -43,8 +42,8 @@ final class Arez_ObservableInitialModel extends ObservableInitialModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ObservableInitialModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_observable_ObservableInitialModel." + $$arezv$$_id
         : null;
@@ -294,7 +293,7 @@ final class Arez_ObservableInitialModel extends ObservableInitialModel
               + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_age.preReportChanged();
-    final int $$arezv$$_currentValue = this.$$arezd$$_age;
+    final var $$arezv$$_currentValue = this.$$arezd$$_age;
     if (age != $$arezv$$_currentValue) {
       this.$$arezd$$_age = age;
       this.$$arez$$_age.reportChanged();

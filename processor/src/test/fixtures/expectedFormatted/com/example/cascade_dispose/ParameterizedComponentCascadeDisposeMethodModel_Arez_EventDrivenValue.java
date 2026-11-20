@@ -1,7 +1,6 @@
 package com.example.cascade_dispose;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.component.internal.ComponentKernel;
@@ -24,8 +23,8 @@ final class ParameterizedComponentCascadeDisposeMethodModel_Arez_EventDrivenValu
   @SuppressWarnings("NonAtomicVolatileUpdate")
   ParameterizedComponentCascadeDisposeMethodModel_Arez_EventDrivenValue() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id =
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id =
         (Arez.areNamesEnabled() || Arez.areRegistriesEnabled() || Arez.areNativeComponentsEnabled())
             ? ++$$arezi$$_nextId
             : 0;

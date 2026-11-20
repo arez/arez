@@ -1,7 +1,6 @@
 package com.example.jspecify;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -34,8 +33,8 @@ final class Arez_InheritedNonNullReferenceModel extends InheritedNonNullReferenc
           () ->
               "Attempted to create instance of component of type 'com_example_jspecify_InheritedNonNullReferenceModel' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component");
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_jspecify_InheritedNonNullReferenceModel." + $$arezv$$_id
         : null;
@@ -195,7 +194,7 @@ final class Arez_InheritedNonNullReferenceModel extends InheritedNonNullReferenc
                   + $$arezi$$_id() + "' but unable to locate self. Actual value: "
                   + $$arezi$$_locator()
                       .findById(InheritedNonNullReferenceModel.class, $$arezi$$_id()));
-      final Integer $$arezv$$_entityId = this.getEntityId();
+      final var $$arezv$$_entityId = this.getEntityId();
       final ReferenceBase.Entity $$arezv$$_entity =
           this.$$arezi$$_locator().findById(ReferenceBase.Entity.class, $$arezv$$_entityId);
       Guards.apiInvariant(
@@ -234,7 +233,7 @@ final class Arez_InheritedNonNullReferenceModel extends InheritedNonNullReferenc
               + this.$$arezi$$_kernel().describeState() + " component named '"
               + this.$$arezi$$_kernel().getName() + "'");
     }
-    final Integer id = this.getEntityId();
+    final var id = this.getEntityId();
     this.$$arezr$$_entity = this.$$arezi$$_locator().findById(ReferenceBase.Entity.class, id);
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(

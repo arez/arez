@@ -1,7 +1,6 @@
 package com.example.pre_inverse_remove;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -34,8 +33,8 @@ final class BasicPreInverseRemoveModel_Arez_Element extends BasicPreInverseRemov
           () ->
               "Attempted to create instance of component of type 'com_example_pre_inverse_remove_BasicPreInverseRemoveModel_Element' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component");
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_pre_inverse_remove_BasicPreInverseRemoveModel_Element." + $$arezv$$_id
         : null;
@@ -201,7 +200,7 @@ final class BasicPreInverseRemoveModel_Arez_Element extends BasicPreInverseRemov
                   + $$arezi$$_id() + "' but unable to locate self. Actual value: "
                   + $$arezi$$_locator()
                       .findById(BasicPreInverseRemoveModel.Element.class, $$arezi$$_id()));
-      final int $$arezv$$_otherId = this.getOtherId();
+      final var $$arezv$$_otherId = this.getOtherId();
       final BasicPreInverseRemoveModel $$arezv$$_other =
           this.$$arezi$$_locator().findById(BasicPreInverseRemoveModel.class, $$arezv$$_otherId);
       Guards.apiInvariant(
@@ -241,7 +240,7 @@ final class BasicPreInverseRemoveModel_Arez_Element extends BasicPreInverseRemov
               + this.$$arezi$$_kernel().describeState() + " component named '"
               + this.$$arezi$$_kernel().getName() + "'");
     }
-    final int id = this.getOtherId();
+    final var id = this.getOtherId();
     this.$$arezr$$_other = this.$$arezi$$_locator().findById(BasicPreInverseRemoveModel.class, id);
     if (Arez.shouldCheckApiInvariants()) {
       Guards.apiInvariant(

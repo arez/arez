@@ -1,7 +1,6 @@
 package com.example.observer_ref;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observer;
@@ -27,8 +26,8 @@ final class Arez_MultiObserverRefModel extends MultiObserverRefModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_MultiObserverRefModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_observer_ref_MultiObserverRefModel." + $$arezv$$_id
         : null;

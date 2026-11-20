@@ -58,9 +58,9 @@ abstract class MultiStorePersistModel_PersistSidecar {
       final Scope scope, final MultiStorePersistModel peer) {
     assert Disposable.isNotDisposed(scope);
     assert Disposable.isNotDisposed(peer);
-    final Store aStore = ArezPersist.getStore("a");
-    final Store appStore = ArezPersist.getStore("app");
-    final Store bStore = ArezPersist.getStore("b");
+    final var aStore = ArezPersist.getStore("a");
+    final var appStore = ArezPersist.getStore("app");
+    final var bStore = ArezPersist.getStore("b");
     return new Arez_MultiStorePersistModel_PersistSidecar(scope, peer, aStore, appStore, bStore);
   }
 
@@ -97,7 +97,7 @@ abstract class MultiStorePersistModel_PersistSidecar {
 
   @Action(verifyRequired = false)
   void restoreState() {
-    final String $ap$_id = getComponentId();
+    final var $ap$_id = getComponentId();
     if (!_aStore.isDisposed() && Disposable.isNotDisposed(_scope)) {
       final Map<String, @Nullable Object> state =
           _aStore.get(_scope, Keys.TYPE, $ap$_id, Converters.TYPE_CONVERTER);
@@ -142,7 +142,7 @@ abstract class MultiStorePersistModel_PersistSidecar {
       if (null != $prop$_value2) {
         state.put(Keys.PROPERTY_value2, $prop$_value2);
       }
-      final int $prop$_value = _peer.getValue();
+      final var $prop$_value = _peer.getValue();
       if (0 != $prop$_value) {
         state.put(Keys.PROPERTY_value, $prop$_value);
       }

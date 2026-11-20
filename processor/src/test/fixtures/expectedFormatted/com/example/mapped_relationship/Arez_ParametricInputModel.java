@@ -1,7 +1,6 @@
 package com.example.mapped_relationship;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
@@ -58,8 +57,8 @@ final class Arez_ParametricInputModel<S extends @Nullable Object> extends Parame
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ParametricInputModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_mapped_relationship_ParametricInputModel." + $$arezv$$_id
         : null;
@@ -228,7 +227,7 @@ final class Arez_ParametricInputModel<S extends @Nullable Object> extends Parame
               + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final List<Target> $$ar$$_result = this.$$arez$$_items.get();
+      final var $$ar$$_result = this.$$arez$$_items.get();
       if (this.$$arezd$$_$$cache$$_items != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_items = $$ar$$_result;
         this.$$arezd$$_$$unmodifiable_cache$$_items = CollectionsUtil.wrap($$ar$$_result);
@@ -274,7 +273,7 @@ final class Arez_ParametricInputModel<S extends @Nullable Object> extends Parame
               + this.$$arezi$$_kernel().getName() + "'");
     }
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final List<Target> $$ar$$_result = this.$$arez$$_producers.get();
+      final var $$ar$$_result = this.$$arez$$_producers.get();
       if (this.$$arezd$$_$$cache$$_producers != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_producers = $$ar$$_result;
         this.$$arezd$$_$$unmodifiable_cache$$_producers = CollectionsUtil.wrap($$ar$$_result);
@@ -320,7 +319,7 @@ final class Arez_ParametricInputModel<S extends @Nullable Object> extends Parame
               + this.$$arezi$$_kernel().getName() + "'");
     }
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final List<Target> $$ar$$_result = this.$$arez$$_consumers.get();
+      final var $$ar$$_result = this.$$arez$$_consumers.get();
       if (this.$$arezd$$_$$cache$$_consumers != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_consumers = $$ar$$_result;
         this.$$arezd$$_$$unmodifiable_cache$$_consumers = CollectionsUtil.wrap($$ar$$_result);

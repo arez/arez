@@ -1,7 +1,6 @@
 package com.example.pre_inverse_remove;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -43,8 +42,8 @@ final class Arez_ProtectedAccessFromBasePreInverseRemoveModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ProtectedAccessFromBasePreInverseRemoveModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_pre_inverse_remove_ProtectedAccessFromBasePreInverseRemoveModel."
             + $$arezv$$_id
@@ -120,8 +119,7 @@ final class Arez_ProtectedAccessFromBasePreInverseRemoveModel
   }
 
   private void $$arezi$$_preDispose() {
-    for (final BaseProtectedAccessPreInverseRemoveModel.Element other :
-        new ArrayList<>($$arezd$$_elements)) {
+    for (final var other : new ArrayList<>($$arezd$$_elements)) {
       BaseProtectedAccessPreInverseRemoveModel_Arez_Element_References.$$arezi$$_delink_other(
           other);
     }
@@ -230,8 +228,7 @@ final class Arez_ProtectedAccessFromBasePreInverseRemoveModel
                   + $$arezi$$_locator()
                       .findById(
                           ProtectedAccessFromBasePreInverseRemoveModel.class, $$arezi$$_id()));
-      for (final BaseProtectedAccessPreInverseRemoveModel.Element element :
-          this.$$arezd$$_elements) {
+      for (final var element : this.$$arezd$$_elements) {
         if (Arez.shouldCheckApiInvariants()) {
           Guards.apiInvariant(
               () -> Disposable.isNotDisposed(element),
@@ -254,8 +251,7 @@ final class Arez_ProtectedAccessFromBasePreInverseRemoveModel
     }
     this.$$arez$$_elements.reportObserved();
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final Collection<BaseProtectedAccessPreInverseRemoveModel.Element> $$ar$$_result =
-          this.$$arezd$$_elements;
+      final var $$ar$$_result = this.$$arezd$$_elements;
       if (null == this.$$arezd$$_$$cache$$_elements && null != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_elements = CollectionsUtil.wrap($$ar$$_result);
       }

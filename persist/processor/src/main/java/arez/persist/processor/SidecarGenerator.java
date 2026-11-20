@@ -198,8 +198,7 @@ final class SidecarGenerator {
             final String storeVar = storeVar(storeName);
             storeParams.append(", ");
             storeParams.append(storeVar);
-            method.addStatement(
-                    "final $T $N = $T.getStore( $S )", STORE_CLASSNAME, storeVar, AREZ_PERSIST_CLASSNAME, storeName);
+            method.addStatement("final var $N = $T.getStore( $S )", storeVar, AREZ_PERSIST_CLASSNAME, storeName);
         }
 
         method.addStatement("return new $T( scope, peer" + storeParams + " )", getArezSidecarName(element));
@@ -276,7 +275,7 @@ final class SidecarGenerator {
                         .map(p -> p.getGetter().getReturnType())
                         .collect(Collectors.toList()));
         final String idVar = "$ap$_id";
-        method.addStatement("final $T $N = getComponentId()", String.class, idVar);
+        method.addStatement("final var $N = getComponentId()", idVar);
         for (final String storeName : descriptor.getStoreNames()) {
             final String fieldName = "_" + storeVar(storeName);
             final CodeBlock.Builder block = CodeBlock.builder();
@@ -359,14 +358,20 @@ final class SidecarGenerator {
                 final ExecutableElement getter = property.getGetter();
                 final String propName = "$prop$_" + property.getName();
                 final TypeMirror returnType = property.getType();
-                block.addStatement(
-                        "final $T $N = _peer.$N()",
-                        GeneratorUtil.overrideMethod(processingEnv, descriptor.getElement(), getter)
-                                .build()
-                                .returnType()
-                                .withoutAnnotations(),
-                        propName,
-                        getter.getSimpleName());
+                final var typeName = GeneratorUtil.overrideMethod(processingEnv, descriptor.getElement(), getter)
+                        .build()
+                        .returnType();
+                if (getter.getTypeParameters().isEmpty()
+                        && !getter.getReturnType().toString().contains("@")
+                        && !typeName.toString().contains("@")) {
+                    block.addStatement("final var $N = _peer.$N()", propName, getter.getSimpleName());
+                } else {
+                    block.addStatement(
+                            "final $T $N = _peer.$N()",
+                            typeName.withoutAnnotations(),
+                            propName,
+                            getter.getSimpleName());
+                }
                 final CodeBlock.Builder subBlock = CodeBlock.builder();
                 final TypeKind kind = returnType.getKind();
                 if (TypeKind.DECLARED == kind) {

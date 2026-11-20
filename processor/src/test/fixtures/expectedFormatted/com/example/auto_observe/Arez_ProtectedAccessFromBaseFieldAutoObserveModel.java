@@ -1,7 +1,6 @@
 package com.example.auto_observe;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Observer;
@@ -30,8 +29,8 @@ final class Arez_ProtectedAccessFromBaseFieldAutoObserveModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ProtectedAccessFromBaseFieldAutoObserveModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_auto_observe_ProtectedAccessFromBaseFieldAutoObserveModel." + $$arezv$$_id
         : null;

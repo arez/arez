@@ -1,5 +1,4 @@
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.ObservableValue;
@@ -30,8 +29,8 @@ final class Arez_ObservableGuessingModel extends ObservableGuessingModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ObservableGuessingModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name =
         Arez.areNamesEnabled() ? "ObservableGuessingModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled()
@@ -202,7 +201,7 @@ final class Arez_ObservableGuessingModel extends ObservableGuessingModel
               + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_time.preReportChanged();
-    final long $$arezv$$_currentValue = super.getTime();
+    final var $$arezv$$_currentValue = super.getTime();
     if (time != $$arezv$$_currentValue) {
       super.setTime(time);
       this.$$arez$$_time.reportChanged();
@@ -230,7 +229,7 @@ final class Arez_ObservableGuessingModel extends ObservableGuessingModel
               + " component named '" + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_foo.preReportChanged();
-    final boolean $$arezv$$_currentValue = super.isFoo();
+    final var $$arezv$$_currentValue = super.isFoo();
     if (x != $$arezv$$_currentValue) {
       super.setFoo(x);
       this.$$arez$$_foo.reportChanged();

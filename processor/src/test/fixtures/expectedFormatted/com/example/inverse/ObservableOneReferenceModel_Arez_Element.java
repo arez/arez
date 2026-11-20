@@ -1,7 +1,6 @@
 package com.example.inverse;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -40,8 +39,8 @@ final class ObservableOneReferenceModel_Arez_Element extends ObservableOneRefere
           () ->
               "Attempted to create instance of component of type 'com_example_inverse_ObservableOneReferenceModel_Element' that contains references but Arez.areReferencesEnabled() returns false. References need to be enabled to use this component");
     }
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_inverse_ObservableOneReferenceModel_Element." + $$arezv$$_id
         : null;
@@ -222,7 +221,7 @@ final class ObservableOneReferenceModel_Arez_Element extends ObservableOneRefere
                   + $$arezi$$_id() + "' but unable to locate self. Actual value: "
                   + $$arezi$$_locator()
                       .findById(ObservableOneReferenceModel.Element.class, $$arezi$$_id()));
-      final int $$arezv$$_observableOneReferenceModelId = this.getObservableOneReferenceModelId();
+      final var $$arezv$$_observableOneReferenceModelId = this.getObservableOneReferenceModelId();
       final ObservableOneReferenceModel $$arezv$$_observableOneReferenceModel =
           this.$$arezi$$_locator()
               .findById(ObservableOneReferenceModel.class, $$arezv$$_observableOneReferenceModelId);
@@ -258,7 +257,7 @@ final class ObservableOneReferenceModel_Arez_Element extends ObservableOneRefere
               + this.$$arezi$$_kernel().getName() + "'");
     }
     this.$$arez$$_observableOneReferenceModelId.preReportChanged();
-    final int $$arezv$$_currentValue = this.$$arezd$$_observableOneReferenceModelId;
+    final var $$arezv$$_currentValue = this.$$arezd$$_observableOneReferenceModelId;
     if (id != $$arezv$$_currentValue) {
       this.$$arezd$$_observableOneReferenceModelId = id;
       this.$$arez$$_observableOneReferenceModelId.reportChanged();
@@ -299,7 +298,7 @@ final class ObservableOneReferenceModel_Arez_Element extends ObservableOneRefere
               + this.$$arezi$$_kernel().describeState() + " component named '"
               + this.$$arezi$$_kernel().getName() + "'");
     }
-    final int id = this.getObservableOneReferenceModelId();
+    final var id = this.getObservableOneReferenceModelId();
     this.$$arezr$$_observableOneReferenceModel =
         this.$$arezi$$_locator().findById(ObservableOneReferenceModel.class, id);
     if (Arez.shouldCheckApiInvariants()) {

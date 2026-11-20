@@ -1,7 +1,6 @@
 package com.example.pre_inverse_remove;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.Locator;
@@ -39,8 +38,8 @@ final class Arez_PackageAccessPreInverseRemoveModel extends PackageAccessPreInve
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_PackageAccessPreInverseRemoveModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_pre_inverse_remove_PackageAccessPreInverseRemoveModel." + $$arezv$$_id
         : null;
@@ -115,8 +114,7 @@ final class Arez_PackageAccessPreInverseRemoveModel extends PackageAccessPreInve
   }
 
   private void $$arezi$$_preDispose() {
-    for (final PackageAccessPreInverseRemoveModel.Element other :
-        new ArrayList<>($$arezd$$_elements)) {
+    for (final var other : new ArrayList<>($$arezd$$_elements)) {
       ((PackageAccessPreInverseRemoveModel_Arez_Element) other).$$arezi$$_delink_other();
     }
   }
@@ -223,7 +221,7 @@ final class Arez_PackageAccessPreInverseRemoveModel extends PackageAccessPreInve
                   + $$arezi$$_id() + "' but unable to locate self. Actual value: "
                   + $$arezi$$_locator()
                       .findById(PackageAccessPreInverseRemoveModel.class, $$arezi$$_id()));
-      for (final PackageAccessPreInverseRemoveModel.Element element : this.$$arezd$$_elements) {
+      for (final var element : this.$$arezd$$_elements) {
         if (Arez.shouldCheckApiInvariants()) {
           Guards.apiInvariant(
               () -> Disposable.isNotDisposed(element),
@@ -247,8 +245,7 @@ final class Arez_PackageAccessPreInverseRemoveModel extends PackageAccessPreInve
     }
     this.$$arez$$_elements.reportObserved();
     if (Arez.areCollectionsPropertiesUnmodifiable()) {
-      final Collection<PackageAccessPreInverseRemoveModel.Element> $$ar$$_result =
-          this.$$arezd$$_elements;
+      final var $$ar$$_result = this.$$arezd$$_elements;
       if (null == this.$$arezd$$_$$cache$$_elements && null != $$ar$$_result) {
         this.$$arezd$$_$$cache$$_elements = CollectionsUtil.wrap($$ar$$_result);
       }

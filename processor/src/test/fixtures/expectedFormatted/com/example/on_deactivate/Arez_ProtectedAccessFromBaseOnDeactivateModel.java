@@ -1,7 +1,6 @@
 package com.example.on_deactivate;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
@@ -29,8 +28,8 @@ final class Arez_ProtectedAccessFromBaseOnDeactivateModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_ProtectedAccessFromBaseOnDeactivateModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_on_deactivate_ProtectedAccessFromBaseOnDeactivateModel." + $$arezv$$_id
         : null;

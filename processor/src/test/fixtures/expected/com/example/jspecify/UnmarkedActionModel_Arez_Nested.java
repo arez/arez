@@ -59,8 +59,8 @@ final class UnmarkedActionModel_Arez_Nested<T extends @NonNull Object> extends U
       final UnmarkedActionModel.Owner<@NonNull String>. @NonNull Plain plain,
       final @NonNull List<@NonNull String @Nullable []> values) {
     super(incoming);
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled() ? "com_example_jspecify_UnmarkedActionModel_Nested." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled() ? $$arezv$$_context.component( "com_example_jspecify_UnmarkedActionModel_Nested", $$arezv$$_id, $$arezv$$_name, this::$$arezi$$_nativeComponentPreDispose ) : null;
     this.$$arezi$$_kernel = new ComponentKernel( Arez.areZonesEnabled() ? $$arezv$$_context : null, Arez.areNamesEnabled() ? $$arezv$$_name : null, $$arezv$$_id, Arez.areNativeComponentsEnabled() ? $$arezv$$_component : null, null, Arez.areNativeComponentsEnabled() ? null : this::$$arezi$$_dispose, null, true, false, false );
@@ -178,7 +178,7 @@ final class UnmarkedActionModel_Arez_Nested<T extends @NonNull Object> extends U
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setItem' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_item.preReportChanged();
-    final T $$arezv$$_currentValue = this.$$arezd$$_item;
+    final var $$arezv$$_currentValue = this.$$arezd$$_item;
     assert null != item;
     if ( !Objects.equals( item, $$arezv$$_currentValue ) ) {
       this.$$arezd$$_item = item;
@@ -209,7 +209,7 @@ final class UnmarkedActionModel_Arez_Nested<T extends @NonNull Object> extends U
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setAny' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_any.preReportChanged();
-    final List<?> $$arezv$$_currentValue = this.$$arezd$$_any;
+    final var $$arezv$$_currentValue = this.$$arezd$$_any;
     assert null != any;
     if ( Arez.areCollectionsPropertiesUnmodifiable() ) {
       this.$$arezd$$_$$cache$$_any = null;
@@ -236,7 +236,7 @@ final class UnmarkedActionModel_Arez_Nested<T extends @NonNull Object> extends U
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setInner' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_inner.preReportChanged();
-    final UnmarkedActionModel.Owner<String>.Inner<String> $$arezv$$_currentValue = this.$$arezd$$_inner;
+    final var $$arezv$$_currentValue = this.$$arezd$$_inner;
     assert null != inner;
     if ( !Objects.equals( inner, $$arezv$$_currentValue ) ) {
       this.$$arezd$$_inner = inner;
@@ -260,7 +260,7 @@ final class UnmarkedActionModel_Arez_Nested<T extends @NonNull Object> extends U
       Guards.apiInvariant( () -> null != this.$$arezi$$_kernel && this.$$arezi$$_kernel.isActive(), () -> "Method named 'setPlain' invoked on " + this.$$arezi$$_kernel().describeState() + " component named '" + this.$$arezi$$_kernel().getName() + "'" );
     }
     this.$$arez$$_plain.preReportChanged();
-    final UnmarkedActionModel.Owner<String>.Plain $$arezv$$_currentValue = this.$$arezd$$_plain;
+    final var $$arezv$$_currentValue = this.$$arezd$$_plain;
     assert null != plain;
     if ( !Objects.equals( plain, $$arezv$$_currentValue ) ) {
       this.$$arezd$$_plain = plain;

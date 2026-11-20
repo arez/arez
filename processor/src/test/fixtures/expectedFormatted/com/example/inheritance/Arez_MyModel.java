@@ -2,7 +2,6 @@ package com.example.inheritance;
 
 import arez.ActionFlags;
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.ComputableValue;
 import arez.Disposable;
@@ -29,8 +28,8 @@ final class Arez_MyModel extends MyModel
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_MyModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name =
         Arez.areNamesEnabled() ? "com_example_inheritance_MyModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled()

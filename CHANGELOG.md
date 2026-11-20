@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Use type-preserving `var` declarations for eligible locals in generated Arez and Arez Persist sources.
 * Make repository scans opt-in. This breaks source and binary compatibility for callers of the former public scans on `AbstractRepository`. Move those calls to concrete repository methods backed by protected, overridable scan helpers and recompile. [Repository scans](docs/components.md#repository-scans)
 * Support implicit memoization contexts on mapped relationships, with independent target state and cleanup for each context key, including inherited and compiled generic declarations.
 * Honor class overrides of interface-default context annotations, capture context when resolving computation references, and restore multiple contexts in reverse push order for both memoization and mapped relationships.

@@ -2,7 +2,6 @@ package com.example.overloaded_names;
 
 import arez.ActionFlags;
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.SafeProcedure;
@@ -25,8 +24,8 @@ final class Arez_OverloadedActions extends OverloadedActions
   @SuppressWarnings("NonAtomicVolatileUpdate")
   Arez_OverloadedActions() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = ++$$arezi$$_nextId;
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = ++$$arezi$$_nextId;
     final String $$arezv$$_name = Arez.areNamesEnabled()
         ? "com_example_overloaded_names_OverloadedActions." + $$arezv$$_id
         : null;

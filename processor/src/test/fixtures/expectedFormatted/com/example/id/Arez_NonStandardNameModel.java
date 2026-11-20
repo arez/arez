@@ -1,7 +1,6 @@
 package com.example.id;
 
 import arez.Arez;
-import arez.ArezContext;
 import arez.Component;
 import arez.Disposable;
 import arez.SafeProcedure;
@@ -21,8 +20,8 @@ final class Arez_NonStandardNameModel extends NonStandardNameModel
 
   Arez_NonStandardNameModel() {
     super();
-    final ArezContext $$arezv$$_context = Arez.context();
-    final int $$arezv$$_id = $Id$$();
+    final var $$arezv$$_context = Arez.context();
+    final var $$arezv$$_id = $Id$$();
     final String $$arezv$$_name =
         Arez.areNamesEnabled() ? "com_example_id_NonStandardNameModel." + $$arezv$$_id : null;
     final Component $$arezv$$_component = Arez.areNativeComponentsEnabled()
